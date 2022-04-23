@@ -21,58 +21,57 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+#region Using
+
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The permissions extensions.
+/// </summary>
+public static class IPermissionsExtensions
 {
-    #region Using
-
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The permissions extensions.
+    /// Check Viewing Permissions
     /// </summary>
-    public static class IPermissionsExtensions
+    /// <param name="permissions">
+    /// The permissions.
+    /// </param>
+    /// <param name="permission">
+    /// The permission.
+    /// </param>
+    /// <returns>
+    /// The check.
+    /// </returns>
+    public static bool Check([NotNull] this IPermissions permissions, int permission)
     {
-        #region Public Methods
+        CodeContracts.VerifyNotNull(permissions);
 
-        /// <summary>
-        /// Check Viewing Permissions
-        /// </summary>
-        /// <param name="permissions">
-        /// The permissions.
-        /// </param>
-        /// <param name="permission">
-        /// The permission.
-        /// </param>
-        /// <returns>
-        /// The check.
-        /// </returns>
-        public static bool Check([NotNull] this IPermissions permissions, int permission)
-        {
-            CodeContracts.VerifyNotNull(permissions);
-
-            return permissions.Check((ViewPermissions)permission);
-        }
-
-        /// <summary>
-        /// The handle request.
-        /// </summary>
-        /// <param name="permissions">
-        /// The permissions.
-        /// </param>
-        /// <param name="permission">
-        /// The permission.
-        /// </param>
-        public static void HandleRequest([NotNull] this IPermissions permissions, int permission)
-        {
-            CodeContracts.VerifyNotNull(permissions);
-
-            permissions.HandleRequest((ViewPermissions)permission);
-        }
-
-        #endregion
+        return permissions.Check((ViewPermissions)permission);
     }
+
+    /// <summary>
+    /// The handle request.
+    /// </summary>
+    /// <param name="permissions">
+    /// The permissions.
+    /// </param>
+    /// <param name="permission">
+    /// The permission.
+    /// </param>
+    public static void HandleRequest([NotNull] this IPermissions permissions, int permission)
+    {
+        CodeContracts.VerifyNotNull(permissions);
+
+        permissions.HandleRequest((ViewPermissions)permission);
+    }
+
+    #endregion
 }

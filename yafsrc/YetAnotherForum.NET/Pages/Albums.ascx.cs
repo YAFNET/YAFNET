@@ -22,81 +22,80 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// the Albums Page.
+/// </summary>
+public partial class Albums : ForumPage
 {
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// the Albums Page.
+    ///   Initializes a new instance of the Albums class.
     /// </summary>
-    public partial class Albums : ForumPage
+    public Albums()
+        : base("ALBUMS", ForumPages.Albums)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the Albums class.
-        /// </summary>
-        public Albums()
-            : base("ALBUMS", ForumPages.Albums)
-        {
-        }
-
-        #endregion
-
-        /// <summary>
-        ///   Gets user ID of edited user.
-        /// </summary>
-        protected int CurrentUserID =>
-            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.PageBoardContext.BoardSettings.EnableAlbum)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("u"))
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            var user = this.GetRepository<User>().GetById(this.CurrentUserID);
-
-            if (user == null)
-            {
-                // No such user exists
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            if (!user.UserFlags.IsApproved)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            this.PageLinks.Clear();
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddUser(this.CurrentUserID, user.DisplayOrUserName());
-            this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
-
-            // Initialize the Album List control.
-            this.AlbumList1.User = user;
-        }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    /// <summary>
+    ///   Gets user ID of edited user.
+    /// </summary>
+    protected int CurrentUserID =>
+        this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+
+    #region Methods
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.PageBoardContext.BoardSettings.EnableAlbum)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        if (!this.Get<HttpRequestBase>().QueryString.Exists("u"))
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        var user = this.GetRepository<User>().GetById(this.CurrentUserID);
+
+        if (user == null)
+        {
+            // No such user exists
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        if (!user.UserFlags.IsApproved)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        this.PageLinks.Clear();
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddUser(this.CurrentUserID, user.DisplayOrUserName());
+        this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
+
+        // Initialize the Album List control.
+        this.AlbumList1.User = user;
+    }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+    }
+
+    #endregion
 }

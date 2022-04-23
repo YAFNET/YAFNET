@@ -22,80 +22,79 @@
  * under the License.
  */
 
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The attachment.
+/// </summary>
+[Serializable]
+public class Attachment : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-    using ServiceStack.OrmLite;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// The attachment.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class Attachment : IEntity, IHaveID
-    {
-        #region Properties
+    [AutoIncrement]
+    [Alias("AttachmentID")]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("AttachmentID")]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the message id.
+    /// </summary>
+    public int MessageID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the message id.
-        /// </summary>
-        public int MessageID { get; set; }
+    /// <summary>
+    /// Gets or sets the file name.
+    /// </summary>
+    [Required]
+    [StringLength(255)]
+    public string FileName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the file name.
-        /// </summary>
-        [Required]
-        [StringLength(255)]
-        public string FileName { get; set; }
+    /// <summary>
+    /// Gets or sets the bytes.
+    /// </summary>
+    [Required]
+    public int Bytes { get; set; }
 
-        /// <summary>
-        /// Gets or sets the bytes.
-        /// </summary>
-        [Required]
-        public int Bytes { get; set; }
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [References(typeof(User))]
+    [Required]
+    [Default(0)]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        [Default(0)]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the content type.
+    /// </summary>
+    [CustomField(OrmLiteVariables.MaxText)]
+    public string ContentType { get; set; }
 
-        /// <summary>
-        /// Gets or sets the content type.
-        /// </summary>
-        [CustomField(OrmLiteVariables.MaxText)]
-        public string ContentType { get; set; }
+    /// <summary>
+    /// Gets or sets the downloads.
+    /// </summary>
+    [Required]
+    public int Downloads { get; set; }
 
-        /// <summary>
-        /// Gets or sets the downloads.
-        /// </summary>
-        [Required]
-        public int Downloads { get; set; }
+    /// <summary>
+    /// Gets or sets the file data.
+    /// </summary>
+    public byte[] FileData { get; set; }
 
-        /// <summary>
-        /// Gets or sets the file data.
-        /// </summary>
-        public byte[] FileData { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether
+    /// selected for editing.
+    /// </summary>
+    [Ignore]
+    public bool Selected { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether
-        /// selected for editing.
-        /// </summary>
-        [Ignore]
-        public bool Selected { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

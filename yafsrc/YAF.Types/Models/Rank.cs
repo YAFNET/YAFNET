@@ -21,126 +21,125 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+#region Using
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+#endregion
+
+/// <summary>
+///     A class which represents the YAF_Rank table in the YAF Database.
+/// </summary>
+[Serializable]
+
+[UniqueConstraint(nameof(BoardID), nameof(Name))]
+public class Rank : IEntity, IHaveID, IHaveBoardID
 {
-    #region Using
-
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-
-    #endregion
+    #region Public Properties
 
     /// <summary>
-    ///     A class which represents the YAF_Rank table in the YAF Database.
+    ///     Gets or sets the Rank ID.
     /// </summary>
-    [Serializable]
+    [AutoIncrement]
+    [Alias("RankID")]
+    public int ID { get; set; }
 
-    [UniqueConstraint(nameof(BoardID), nameof(Name))]
-    public class Rank : IEntity, IHaveID, IHaveBoardID
+    /// <summary>
+    /// Gets or sets the board id.
+    /// </summary>
+    [References(typeof(Board))]
+    [Required]
+    public int BoardID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    [Required]
+    [StringLength(50)]
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the min posts.
+    /// </summary>
+    public int? MinPosts { get; set; }
+
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    [Required]
+    [Default(0)]
+    public int Flags { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Rank flags.
+    /// </summary>
+    [Ignore]
+    public RankFlags RankFlags
     {
-        #region Public Properties
+        get => new(this.Flags);
 
-        /// <summary>
-        ///     Gets or sets the Rank ID.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("RankID")]
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
-        [References(typeof(Board))]
-        [Required]
-        public int BoardID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        [Required]
-        [StringLength(50)]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the min posts.
-        /// </summary>
-        public int? MinPosts { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flags.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public int Flags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Rank flags.
-        /// </summary>
-        [Ignore]
-        public RankFlags RankFlags
-        {
-            get => new(this.Flags);
-
-            set => this.Flags = value.BitValue;
-        }
-
-        /// <summary>
-        /// Gets or sets the pm limit.
-        /// </summary>
-        [Default(0)]
-        public int? PMLimit { get; set; }
-
-        /// <summary>
-        /// Gets or sets the style.
-        /// </summary>
-        [StringLength(255)]
-        public string Style { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sort order.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public short SortOrder { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        [StringLength(128)]
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user sig chars.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public int UsrSigChars { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user sig bb codes.
-        /// </summary>
-        [StringLength(255)]
-        public string UsrSigBBCodes { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user albums.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public int UsrAlbums { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user album images.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public int UsrAlbumImages { get; set; }
-
-        #endregion
+        set => this.Flags = value.BitValue;
     }
+
+    /// <summary>
+    /// Gets or sets the pm limit.
+    /// </summary>
+    [Default(0)]
+    public int? PMLimit { get; set; }
+
+    /// <summary>
+    /// Gets or sets the style.
+    /// </summary>
+    [StringLength(255)]
+    public string Style { get; set; }
+
+    /// <summary>
+    /// Gets or sets the sort order.
+    /// </summary>
+    [Required]
+    [Default(0)]
+    public short SortOrder { get; set; }
+
+    /// <summary>
+    /// Gets or sets the description.
+    /// </summary>
+    [StringLength(128)]
+    public string Description { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user sig chars.
+    /// </summary>
+    [Required]
+    [Default(0)]
+    public int UsrSigChars { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user sig bb codes.
+    /// </summary>
+    [StringLength(255)]
+    public string UsrSigBBCodes { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user albums.
+    /// </summary>
+    [Required]
+    [Default(0)]
+    public int UsrAlbums { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user album images.
+    /// </summary>
+    [Required]
+    [Default(0)]
+    public int UsrAlbumImages { get; set; }
+
+    #endregion
 }

@@ -21,97 +21,96 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Tasks
-{
-    using System.Security.Principal;
-    using System.Threading;
+namespace YAF.Core.Tasks;
 
-    using YAF.Types.Extensions;
+using System.Security.Principal;
+using System.Threading;
+
+using YAF.Types.Extensions;
+
+/// <summary>
+/// The intermittent background task.
+/// </summary>
+public class IntermittentBackgroundTask : BaseBackgroundTask
+{
+    /// <summary>
+    /// The primary thread identity
+    /// </summary>
+    private WindowsIdentity primaryThreadIdentity;
 
     /// <summary>
-    /// The intermittent background task.
+    /// Gets or sets the intermittent timer.
     /// </summary>
-    public class IntermittentBackgroundTask : BaseBackgroundTask
+    public Timer intermittentTimer { get; set; }
+
+    /// <summary>
+    /// Gets or sets Start Delay.
+    /// </summary>
+    public long StartDelayMs { get; set; }
+
+    /// <summary>
+    /// Gets or sets Run Period.
+    /// </summary>
+    public long RunPeriodMs { get; set; }
+
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public override void RunOnce()
     {
-        /// <summary>
-        /// The primary thread identity
-        /// </summary>
-        private WindowsIdentity primaryThreadIdentity;
+    }
 
-        /// <summary>
-        /// Gets or sets the intermittent timer.
-        /// </summary>
-        public Timer intermittentTimer { get; set; }
-
-        /// <summary>
-        /// Gets or sets Start Delay.
-        /// </summary>
-        public long StartDelayMs { get; set; }
-
-        /// <summary>
-        /// Gets or sets Run Period.
-        /// </summary>
-        public long RunPeriodMs { get; set; }
-
-        /// <summary>
-        /// The run once.
-        /// </summary>
-        public override void RunOnce()
+    /// <summary>
+    /// The run.
+    /// </summary>
+    public override void Run()
+    {
+        if (this.IsRunning)
         {
+            return;
         }
 
-        /// <summary>
-        /// The run.
-        /// </summary>
-        public override void Run()
+        // keep the context...
+        this.primaryThreadIdentity = WindowsIdentity.GetCurrent();
+
+        // we're running this thread now...
+        this.IsRunning = true;
+
+        this.Logger.Debug($"Starting Background Task {this.GetType().Name} Now");
+
+        // create the timer...);
+        this.intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
+    }
+
+    /// <summary>
+    /// The timer callback.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    protected virtual void TimerCallback(object sender)
+    {
+        if (!Monitor.TryEnter(this))
         {
-            if (this.IsRunning)
-            {
-                return;
-            }
-
-            // keep the context...
-            this.primaryThreadIdentity = WindowsIdentity.GetCurrent();
-
-            // we're running this thread now...
-            this.IsRunning = true;
-
-            this.Logger.Debug($"Starting Background Task {this.GetType().Name} Now");
-
-            // create the timer...);
-            this.intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
+            return;
         }
 
-        /// <summary>
-        /// The timer callback.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        protected virtual void TimerCallback(object sender)
+        WindowsImpersonationContext impersonationContext = null;
+
+        if (this.primaryThreadIdentity != null)
         {
-            if (!Monitor.TryEnter(this))
-            {
-                return;
-            }
+            impersonationContext = this.primaryThreadIdentity.Impersonate();
+        }
 
-            WindowsImpersonationContext impersonationContext = null;
+        try
+        {
+            this.RunOnce();
+        }
+        finally
+        {
+            Monitor.Exit(this);
 
-            if (this.primaryThreadIdentity != null)
-            {
-                impersonationContext = this.primaryThreadIdentity.Impersonate();
-            }
-
-            try
-            {
-                this.RunOnce();
-            }
-            finally
-            {
-                Monitor.Exit(this);
-
-                impersonationContext?.Undo();
-            }
+            impersonationContext?.Undo();
         }
     }
 }

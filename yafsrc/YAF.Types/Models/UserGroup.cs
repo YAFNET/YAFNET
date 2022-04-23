@@ -21,38 +21,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the UserGroup table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(UserID), nameof(GroupID))]
+public class UserGroup : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the UserGroup table.
+    /// Gets or sets the user id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(UserID), nameof(GroupID))]
-    public class UserGroup : IEntity
-    {
-        #region Properties
+    [References(typeof(User))]
+    [Required]
+    [Index]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        [Index]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the group id.
+    /// </summary>
+    [References(typeof(Group))]
+    [Required]
+    public int GroupID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the group id.
-        /// </summary>
-        [References(typeof(Group))]
-        [Required]
-        public int GroupID { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

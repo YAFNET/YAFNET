@@ -22,45 +22,44 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System.Collections.Generic;
+
+/// <summary>
+/// The Grid Data Set
+/// </summary>
+public class GridDataSet
 {
-    using System.Collections.Generic;
+    /// <summary>
+    /// Gets or sets the page number.
+    /// </summary>
+    /// <value>
+    /// The page number.
+    /// </value>
+    public int PageNumber { get; set; }
 
     /// <summary>
-    /// The Grid Data Set
+    /// Gets or sets the total records.
     /// </summary>
-    public class GridDataSet
-    {
-        /// <summary>
-        /// Gets or sets the page number.
-        /// </summary>
-        /// <value>
-        /// The page number.
-        /// </value>
-        public int PageNumber { get; set; }
+    /// <value>
+    /// The total records.
+    /// </value>
+    public int TotalRecords { get; set; }
 
-        /// <summary>
-        /// Gets or sets the total records.
-        /// </summary>
-        /// <value>
-        /// The total records.
-        /// </value>
-        public int TotalRecords { get; set; }
+    /// <summary>
+    /// Gets or sets the size of the page.
+    /// </summary>
+    /// <value>
+    /// The size of the page.
+    /// </value>
+    public int PageSize { get; set; }
 
-        /// <summary>
-        /// Gets or sets the size of the page.
-        /// </summary>
-        /// <value>
-        /// The size of the page.
-        /// </value>
-        public int PageSize { get; set; }
-
-        /// <summary>
-        /// Gets or sets the attachment list.
-        /// </summary>
-        /// <value>
-        /// The attachment list.
-        /// </value>
-        public List<AttachmentItem> AttachmentList { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the attachment list.
+    /// </summary>
+    /// <value>
+    /// The attachment list.
+    /// </value>
+    public List<AttachmentItem> AttachmentList { get; set; }
 }

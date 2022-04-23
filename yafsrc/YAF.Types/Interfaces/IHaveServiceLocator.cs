@@ -21,20 +21,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The i have service locator -- objects that have a reference to the service locator.
+/// </summary>
+public interface IHaveServiceLocator
 {
+    #region Properties
+
     /// <summary>
-    /// The i have service locator -- objects that have a reference to the service locator.
+    /// Gets ServiceLocator.
     /// </summary>
-    public interface IHaveServiceLocator
-    {
-        #region Properties
+    IServiceLocator ServiceLocator { get; }
 
-        /// <summary>
-        /// Gets ServiceLocator.
-        /// </summary>
-        IServiceLocator ServiceLocator { get; }
-
-        #endregion
-    }
+    #endregion
 }

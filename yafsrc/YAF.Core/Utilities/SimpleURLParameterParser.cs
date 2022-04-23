@@ -21,156 +21,156 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Utilities
+namespace YAF.Core.Utilities;
+
+#region Using
+
+using System.Collections.Specialized;
+using System.Linq;
+using System.Text;
+
+using YAF.Types;
+using YAF.Types.Extensions;
+
+#endregion
+
+/// <summary>
+/// Helps parse URLs
+/// </summary>
+public class SimpleURLParameterParser
 {
-    #region Using
+    #region Constants and Fields
 
-    using System.Collections.Specialized;
-    using System.Linq;
-    using System.Text;
-
-    using YAF.Types;
-    using YAF.Types.Extensions;
+    /// <summary>
+    ///   The _url parameters.
+    /// </summary>
+    private readonly string urlParameters;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Helps parse URLs
+    /// Initializes a new instance of the <see cref="SimpleURLParameterParser"/> class.
     /// </summary>
-    public class SimpleURLParameterParser
+    /// <param name="urlParameters">
+    /// The url parameters.
+    /// </param>
+    public SimpleURLParameterParser(string urlParameters)
     {
-        #region Constants and Fields
+        this.urlParameters = urlParameters;
+        this.ParseURLParameters();
+    }
 
-        /// <summary>
-        ///   The _url parameters.
-        /// </summary>
-        private readonly string urlParameters;
+    #endregion
 
-        #endregion
+    #region Properties
 
-        #region Constructors and Destructors
+    /// <summary>
+    ///   Gets Anchor.
+    /// </summary>
+    public string Anchor { get; private set; } = string.Empty;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SimpleURLParameterParser"/> class.
-        /// </summary>
-        /// <param name="urlParameters">
-        /// The url parameters.
-        /// </param>
-        public SimpleURLParameterParser(string urlParameters)
-        {
-            this.urlParameters = urlParameters;
-            this.ParseURLParameters();
-        }
+    /// <summary>
+    ///   Gets Count.
+    /// </summary>
+    public int Count => this.Parameters.Count;
 
-        #endregion
+    /// <summary>
+    ///   Gets a value indicating whether HasAnchor.
+    /// </summary>
+    public bool HasAnchor => this.Anchor != string.Empty;
 
-        #region Properties
+    /// <summary>
+    ///   Gets Parameters.
+    /// </summary>
+    public NameValueCollection Parameters { get; } = new();
 
-        /// <summary>
-        ///   Gets Anchor.
-        /// </summary>
-        public string Anchor { get; private set; } = string.Empty;
+    #endregion
 
-        /// <summary>
-        ///   Gets Count.
-        /// </summary>
-        public int Count => this.Parameters.Count;
+    #region Indexers
 
-        /// <summary>
-        ///   Gets a value indicating whether HasAnchor.
-        /// </summary>
-        public bool HasAnchor => this.Anchor != string.Empty;
+    /// <summary>
+    /// The this.
+    /// </summary>
+    /// <value>
+    /// The <see cref="System.string"/>.
+    /// </value>
+    /// <param name="name">The name.</param>
+    public string this[string name] => this.Parameters[name];
 
-        /// <summary>
-        ///   Gets Parameters.
-        /// </summary>
-        public NameValueCollection Parameters { get; } = new();
+    /// <summary>
+    /// The this.
+    /// </summary>
+    /// <value>
+    /// The <see cref="System.String"/>.
+    /// </value>
+    /// <param name="index">The index.</param>
+    public string this[int index] => this.Parameters[index];
 
-        #endregion
+    #endregion
 
-        #region Indexers
+    #region Public Methods
 
-        /// <summary>
-        /// The this.
-        /// </summary>
-        /// <value>
-        /// The <see cref="System.string"/>.
-        /// </value>
-        /// <param name="name">The name.</param>
-        public string this[string name] => this.Parameters[name];
+    /// <summary>
+    /// Creates the query string.
+    /// </summary>
+    /// <param name="excludeValues">The exclude values.</param>
+    /// <returns>
+    /// Returns the created query string.
+    /// </returns>
+    [NotNull]
+    public string CreateQueryString([NotNull] string[] excludeValues)
+    {
+        CodeContracts.VerifyNotNull(excludeValues);
 
-        /// <summary>
-        /// The this.
-        /// </summary>
-        /// <value>
-        /// The <see cref="System.String"/>.
-        /// </value>
-        /// <param name="index">The index.</param>
-        public string this[int index] => this.Parameters[index];
+        var queryBuilder = new StringBuilder();
 
-        #endregion
+        this.Parameters.Cast<string>().Where(k => !excludeValues.Contains(k)).ForEach(
+            key =>
+                {
+                    var value = this.Parameters[key];
 
-        #region Public Methods
-
-        /// <summary>
-        /// Creates the query string.
-        /// </summary>
-        /// <param name="excludeValues">The exclude values.</param>
-        /// <returns>
-        /// Returns the created query string.
-        /// </returns>
-        [NotNull]
-        public string CreateQueryString([NotNull] string[] excludeValues)
-        {
-            CodeContracts.VerifyNotNull(excludeValues);
-
-            var queryBuilder = new StringBuilder();
-
-            this.Parameters.Cast<string>().Where(k => !excludeValues.Contains(k)).ForEach(
-                key =>
+                    if (queryBuilder.Length > 0)
                     {
-                        var value = this.Parameters[key];
+                        queryBuilder.Append("&");
+                    }
 
-                        if (queryBuilder.Length > 0)
-                        {
-                            queryBuilder.Append("&");
-                        }
+                    queryBuilder.AppendFormat("{0}={1}", key, value);
+                });
 
-                        queryBuilder.AppendFormat("{0}={1}", key, value);
-                    });
+        return queryBuilder.ToString();
+    }
 
-            return queryBuilder.ToString();
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Parses the URL parameters.
+    /// </summary>
+    private void ParseURLParameters()
+    {
+        var urlTemp = this.urlParameters;
+
+        // get the URL end anchor (#blah) if there is one...
+        this.Anchor = string.Empty;
+        var index = urlTemp.LastIndexOf('#');
+
+        if (index > 0)
+        {
+            // there's an anchor
+            this.Anchor = urlTemp.Substring(index + 1);
+
+            // remove the anchor from the URL...
+            urlTemp = urlTemp.Remove(index);
         }
 
-        #endregion
+        this.Parameters.Clear();
 
-        #region Methods
+        var arrayPairs = urlTemp.Split('&');
 
-        /// <summary>
-        /// Parses the URL parameters.
-        /// </summary>
-        private void ParseURLParameters()
-        {
-            var urlTemp = this.urlParameters;
-
-            // get the URL end anchor (#blah) if there is one...
-            this.Anchor = string.Empty;
-            var index = urlTemp.LastIndexOf('#');
-
-            if (index > 0)
-            {
-                // there's an anchor
-                this.Anchor = urlTemp.Substring(index + 1);
-
-                // remove the anchor from the URL...
-                urlTemp = urlTemp.Remove(index);
-            }
-
-            this.Parameters.Clear();
-
-            var arrayPairs = urlTemp.Split('&');
-
-            (from pair in arrayPairs where pair.IsSet() select pair.Trim().Split('=')).ForEach(nvalue =>
+        (from pair in arrayPairs where pair.IsSet() select pair.Trim().Split('=')).ForEach(nvalue =>
             {
                 if (nvalue.Length == 1)
                 {
@@ -183,8 +183,7 @@ namespace YAF.Core.Utilities
                     this.Parameters.Add(nvalue[0], chunks.FirstOrDefault() ?? string.Empty);
                 }
             });
-        }
-
-        #endregion
     }
+
+    #endregion
 }

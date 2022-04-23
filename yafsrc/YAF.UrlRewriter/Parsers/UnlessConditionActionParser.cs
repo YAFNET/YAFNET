@@ -5,18 +5,17 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Parsers
-{
-    using YAF.UrlRewriter.Utilities;
+namespace YAF.UrlRewriter.Parsers;
 
+using YAF.UrlRewriter.Utilities;
+
+/// <summary>
+/// Parses the IFNOT node.
+/// </summary>
+public class UnlessConditionActionParser : IfConditionActionParser
+{
     /// <summary>
-    /// Parses the IFNOT node.
+    /// The name of the action.
     /// </summary>
-    public class UnlessConditionActionParser : IfConditionActionParser
-    {
-        /// <summary>
-        /// The name of the action.
-        /// </summary>
-        public override string Name => Constants.ElementUnless;
-    }
+    public override string Name => Constants.ElementUnless;
 }

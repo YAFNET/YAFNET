@@ -11,26 +11,25 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace YAF.UrlRewriter
+namespace YAF.UrlRewriter;
+
+/// <summary>
+/// Processing flag. Tells the rewriter how to continue processing (or not).
+/// </summary>
+public enum RewriteProcessing
 {
     /// <summary>
-    /// Processing flag. Tells the rewriter how to continue processing (or not).
+    /// Continue processing at the next rule.
     /// </summary>
-    public enum RewriteProcessing
-    {
-        /// <summary>
-        /// Continue processing at the next rule.
-        /// </summary>
-        ContinueProcessing,
+    ContinueProcessing,
 
-        /// <summary>
-        /// Halt processing.
-        /// </summary>
-        StopProcessing,
+    /// <summary>
+    /// Halt processing.
+    /// </summary>
+    StopProcessing,
 
-        /// <summary>
-        /// Restart processing at the first rule.
-        /// </summary>
-        RestartProcessing
-    }
+    /// <summary>
+    /// Restart processing at the first rule.
+    /// </summary>
+    RestartProcessing
 }

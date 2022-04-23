@@ -22,48 +22,47 @@
  * under the License.
  */
 
-namespace YAF.Types.Models.Identity
+namespace YAF.Types.Models.Identity;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The asp net user logins.
+/// </summary>
+public class AspNetUserLogins : AspNetUserLogins<string>
 {
-    using ServiceStack.DataAnnotations;
+}
 
-    using YAF.Types.Interfaces.Data;
+/// <summary>
+/// The asp net user logins.
+/// </summary>
+/// <typeparam name="TKey">
+/// </typeparam>
+[CompositePrimaryKey(nameof(UserId), nameof(LoginProvider), nameof(ProviderKey))]
+public class AspNetUserLogins<TKey> : IEntity
+{
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [StringLength(56)]
+    [Index(NonClustered = true)]
+    [ForeignKey(typeof(AspNetUsers), OnDelete = "CASCADE")]
+    [Required]
+    public TKey UserId { get; set; }
 
     /// <summary>
-    /// The asp net user logins.
+    /// Gets or sets the login provider.
     /// </summary>
-    public class AspNetUserLogins : AspNetUserLogins<string>
-    {
-    }
+    [StringLength(128)]
+    [Required]
+    public string LoginProvider { get; set; }
 
     /// <summary>
-    /// The asp net user logins.
+    /// Gets or sets the provider key.
     /// </summary>
-    /// <typeparam name="TKey">
-    /// </typeparam>
-    [CompositePrimaryKey(nameof(UserId), nameof(LoginProvider), nameof(ProviderKey))]
-    public class AspNetUserLogins<TKey> : IEntity
-    {
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [StringLength(56)]
-        [Index(NonClustered = true)]
-        [ForeignKey(typeof(AspNetUsers), OnDelete = "CASCADE")]
-        [Required]
-        public TKey UserId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the login provider.
-        /// </summary>
-        [StringLength(128)]
-        [Required]
-        public string LoginProvider { get; set; }
-
-        /// <summary>
-        /// Gets or sets the provider key.
-        /// </summary>
-        [StringLength(128)]
-        [Required]
-        public string ProviderKey { get; set; }
-    }
+    [StringLength(128)]
+    [Required]
+    public string ProviderKey { get; set; }
 }

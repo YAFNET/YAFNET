@@ -21,76 +21,75 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Pages.Profile
-{
-    #region Using
+namespace YAF.Pages.Profile;
 
-    using YAF.Types.Models.Identity;
-    using YAF.Types.Models;
+#region Using
+
+using YAF.Types.Models.Identity;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The edit profile page
+/// </summary>
+public partial class EditProfile : ProfilePage
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EditProfile"/> class.
+    /// </summary>
+    public EditProfile()
+        : base("EDIT_PROFILE", ForumPages.Profile_EditProfile)
+    {
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The edit profile page
+    /// Gets or sets the current edit user.
     /// </summary>
-    public partial class EditProfile : ProfilePage
+    /// <value>The user.</value>
+    public Tuple<User, AspNetUsers, Rank, vaccess> EditBoardUser
     {
-        #region Constructors and Destructors
+        get => this.ViewState["EditBoardUser"].ToType<Tuple<User, AspNetUsers, Rank, vaccess>>();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EditProfile"/> class.
-        /// </summary>
-        public EditProfile()
-            : base("EDIT_PROFILE", ForumPages.Profile_EditProfile)
-        {
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the current edit user.
-        /// </summary>
-        /// <value>The user.</value>
-        public Tuple<User, AspNetUsers, Rank, vaccess> EditBoardUser
-        {
-            get => this.ViewState["EditBoardUser"].ToType<Tuple<User, AspNetUsers, Rank, vaccess>>();
-
-            set => this.ViewState["EditBoardUser"] = value;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.EditBoardUser = this.Get<IAspNetUsersHelper>().GetBoardUser(this.PageBoardContext.PageUserID);
-
-            if (this.EditBoardUser == null)
-            {
-                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-            }
-
-            this.ProfileEditor.User = this.EditBoardUser;
-        }
-
-        #endregion
+        set => this.ViewState["EditBoardUser"] = value;
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.EditBoardUser = this.Get<IAspNetUsersHelper>().GetBoardUser(this.PageBoardContext.PageUserID);
+
+        if (this.EditBoardUser == null)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
+        this.ProfileEditor.User = this.EditBoardUser;
+    }
+
+    #endregion
 }

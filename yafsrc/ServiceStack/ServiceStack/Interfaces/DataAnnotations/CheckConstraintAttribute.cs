@@ -6,29 +6,28 @@
 // ***********************************************************************
 using System;
 
-namespace ServiceStack.DataAnnotations
+namespace ServiceStack.DataAnnotations;
+
+/// <summary>
+/// Class CheckConstraintAttribute.
+/// Implements the <see cref="ServiceStack.AttributeBase" />
+/// </summary>
+/// <seealso cref="ServiceStack.AttributeBase" />
+[AttributeUsage(AttributeTargets.Property)]
+public class CheckConstraintAttribute : AttributeBase
 {
     /// <summary>
-    /// Class CheckConstraintAttribute.
-    /// Implements the <see cref="ServiceStack.AttributeBase" />
+    /// Gets the constraint.
     /// </summary>
-    /// <seealso cref="ServiceStack.AttributeBase" />
-    [AttributeUsage(AttributeTargets.Property)]
-    public class CheckConstraintAttribute : AttributeBase
-    {
-        /// <summary>
-        /// Gets the constraint.
-        /// </summary>
-        /// <value>The constraint.</value>
-        public string Constraint { get; }
+    /// <value>The constraint.</value>
+    public string Constraint { get; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CheckConstraintAttribute"/> class.
-        /// </summary>
-        /// <param name="constraint">The constraint.</param>
-        public CheckConstraintAttribute(string constraint)
-        {
-            this.Constraint = constraint;
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CheckConstraintAttribute"/> class.
+    /// </summary>
+    /// <param name="constraint">The constraint.</param>
+    public CheckConstraintAttribute(string constraint)
+    {
+        this.Constraint = constraint;
     }
 }

@@ -22,116 +22,115 @@
  * under the License.
  */
 
-namespace YAF.Core.Modules
-{
-    #region Using
+namespace YAF.Core.Modules;
 
-    using System;
-    using System.Collections.Generic;
+#region Using
+
+using System;
+using System.Collections.Generic;
 #if DEBUG
-    using System.Diagnostics;
+using System.Diagnostics;
 #endif
-    using System.Linq;
-    using System.Reflection;
+using System.Linq;
+using System.Reflection;
 
-    using Autofac;
-    using Autofac.Core;
+using Autofac;
+using Autofac.Core;
 
-    using YAF.Core.BaseModules;
-    using YAF.Core.Extensions;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
+using YAF.Core.BaseModules;
+using YAF.Core.Extensions;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
 
-    using Module = Autofac.Module;
+using Module = Autofac.Module;
+
+#endregion
+
+/// <summary>
+/// The base module.
+/// </summary>
+public abstract class BaseModule : Module, IHaveSortOrder
+{
+    #region Static Fields
+
+    /// <summary>
+    ///     Gets or sets ExtensionAssemblies.
+    /// </summary>
+    protected static readonly Assembly[] ExtensionAssemblies;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// The base module.
+    /// Initializes static members of the <see cref="BaseModule"/> class.
     /// </summary>
-    public abstract class BaseModule : Module, IHaveSortOrder
+    static BaseModule()
     {
-        #region Static Fields
-
-        /// <summary>
-        ///     Gets or sets ExtensionAssemblies.
-        /// </summary>
-        protected static readonly Assembly[] ExtensionAssemblies;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes static members of the <see cref="BaseModule"/> class.
-        /// </summary>
-        static BaseModule()
-        {
-            ExtensionAssemblies = new ModuleScanner().GetModules("YAF*.dll")
-                .Concat(
-                    AppDomain.CurrentDomain.GetAssemblies().Where(
-                        a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")
-                                                              && a.FullName.StartsWith("YAF.Lucene.NET")
-                                                              && a.FullName.StartsWith("ServiceStack.")))
-                .Except(new[] { Assembly.GetExecutingAssembly() }).Where(a => !a.IsDynamic).Distinct()
-                .OrderByDescending(x => x.GetAssemblySortOrder()).ToArray();
+        ExtensionAssemblies = new ModuleScanner().GetModules("YAF*.dll")
+            .Concat(
+                AppDomain.CurrentDomain.GetAssemblies().Where(
+                    a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")
+                                                          && a.FullName.StartsWith("YAF.Lucene.NET")
+                                                          && a.FullName.StartsWith("ServiceStack.")))
+            .Except(new[] { Assembly.GetExecutingAssembly() }).Where(a => !a.IsDynamic).Distinct()
+            .OrderByDescending(x => x.GetAssemblySortOrder()).ToArray();
 #if DEBUG
 
-            ExtensionAssemblies.ForEach(s => Debug.WriteLine("Extension Assembly: {0}", s));
+        ExtensionAssemblies.ForEach(s => Debug.WriteLine("Extension Assembly: {0}", s));
 
 #endif
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// Gets the sort order.
-        /// </summary>
-        /// <value>
-        /// The sort order.
-        /// </value>
-        public virtual int SortOrder => 1000;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Registers the base modules.
-        /// </summary>
-        /// <typeparam name="TModule">
-        /// The type of the module.
-        /// </typeparam>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        /// <param name="assemblies">
-        /// The assemblies.
-        /// </param>
-        /// <param name="exclude">
-        /// The exclude.
-        /// </param>
-        protected virtual void RegisterBaseModules<TModule>(
-            ContainerBuilder builder,
-            Assembly[] assemblies,
-            IEnumerable<Type> exclude = null)
-            where TModule : IModule
-        {
-            var moduleFinder = new ContainerBuilder();
-
-            var excludeList = exclude.IfNullEmpty().ToList();
-
-            moduleFinder.RegisterAssemblyTypes(assemblies)
-                .Where(t => typeof(TModule).IsAssignableFrom(t) && !excludeList.Contains(t)).As<IModule>();
-
-            using var moduleContainer = moduleFinder.Build();
-            var modules = moduleContainer.Resolve<IEnumerable<IModule>>().ByOptionalSortOrder().ToList();
-
-            modules.ForEach(module => builder.RegisterModule(module));
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    /// Gets the sort order.
+    /// </summary>
+    /// <value>
+    /// The sort order.
+    /// </value>
+    public virtual int SortOrder => 1000;
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Registers the base modules.
+    /// </summary>
+    /// <typeparam name="TModule">
+    /// The type of the module.
+    /// </typeparam>
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    /// <param name="assemblies">
+    /// The assemblies.
+    /// </param>
+    /// <param name="exclude">
+    /// The exclude.
+    /// </param>
+    protected virtual void RegisterBaseModules<TModule>(
+        ContainerBuilder builder,
+        Assembly[] assemblies,
+        IEnumerable<Type> exclude = null)
+        where TModule : IModule
+    {
+        var moduleFinder = new ContainerBuilder();
+
+        var excludeList = exclude.IfNullEmpty().ToList();
+
+        moduleFinder.RegisterAssemblyTypes(assemblies)
+            .Where(t => typeof(TModule).IsAssignableFrom(t) && !excludeList.Contains(t)).As<IModule>();
+
+        using var moduleContainer = moduleFinder.Build();
+        var modules = moduleContainer.Resolve<IEnumerable<IModule>>().ByOptionalSortOrder().ToList();
+
+        modules.ForEach(module => builder.RegisterModule(module));
+    }
+
+    #endregion
 }

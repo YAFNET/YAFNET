@@ -21,133 +21,132 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Events
+namespace YAF.Core.Events;
+
+#region Using
+
+using System;
+using System.Globalization;
+using System.Web;
+
+using YAF.Core.Context;
+using YAF.Core.Helpers;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The last visit handler.
+/// </summary>
+[ExportService(ServiceLifetimeScope.InstancePerScope)]
+public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandleEvent<ForumPageUnloadEvent>
 {
-    #region Using
+    /// <summary>
+    /// The request base
+    /// </summary>
+    private readonly HttpRequestBase request;
 
-    using System;
-    using System.Globalization;
-    using System.Web;
+    /// <summary>
+    /// The response base
+    /// </summary>
+    private readonly HttpResponseBase response;
 
-    using YAF.Core.Context;
-    using YAF.Core.Helpers;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Interfaces.Services;
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LastVisitEventHandler"/> class.
+    /// </summary>
+    /// <param name="yafSession">The YAF session.</param>
+    /// <param name="requestBase">The request base.</param>
+    /// <param name="responseBase">The response base.</param>
+    public LastVisitEventHandler(
+        [NotNull] ISession yafSession, HttpRequestBase requestBase, HttpResponseBase responseBase)
+    {
+        this.request = requestBase;
+        this.response = responseBase;
+        this.YafSession = yafSession;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The last visit handler.
+    ///   Gets Order.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.InstancePerScope)]
-    public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandleEvent<ForumPageUnloadEvent>
+    public int Order => 1000;
+
+    /// <summary>
+    /// Gets or sets YAF Session.
+    /// </summary>
+    public ISession YafSession { get; set; }
+
+    /// <summary>
+    /// Handles the specified @event.
+    /// </summary>
+    /// <param name="event">The @event.</param>
+    public void Handle(ForumPageUnloadEvent @event)
     {
-        /// <summary>
-        /// The request base
-        /// </summary>
-        private readonly HttpRequestBase request;
+    }
 
-        /// <summary>
-        /// The response base
-        /// </summary>
-        private readonly HttpResponseBase response;
+    #endregion
 
-        #region Constructors and Destructors
+    #region Implemented Interfaces
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LastVisitEventHandler"/> class.
-        /// </summary>
-        /// <param name="yafSession">The YAF session.</param>
-        /// <param name="requestBase">The request base.</param>
-        /// <param name="responseBase">The response base.</param>
-        public LastVisitEventHandler(
-            [NotNull] ISession yafSession, HttpRequestBase requestBase, HttpResponseBase responseBase)
+    #region IHandleEvent<ForumPagePreLoadEvent>
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
+    /// </param>
+    public void Handle([NotNull] ForumPagePreLoadEvent @event)
+    {
+        var previousVisitKey = "PreviousVisit";
+
+        if (!BoardContext.Current.IsGuest && BoardContext.Current.PageData.Item2.Item1.PreviousVisit.HasValue
+                                          && !this.YafSession.LastVisit.HasValue)
         {
-            this.request = requestBase;
-            this.response = responseBase;
-            this.YafSession = yafSession;
+            this.YafSession.LastVisit = BoardContext.Current.PageData.Item2.Item1.PreviousVisit.Value;
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets Order.
-        /// </summary>
-        public int Order => 1000;
-
-        /// <summary>
-        /// Gets or sets YAF Session.
-        /// </summary>
-        public ISession YafSession { get; set; }
-
-        /// <summary>
-        /// Handles the specified @event.
-        /// </summary>
-        /// <param name="event">The @event.</param>
-        public void Handle(ForumPageUnloadEvent @event)
+        else if (BoardContext.Current.IsGuest && !this.YafSession.LastVisit.HasValue)
         {
-        }
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IHandleEvent<ForumPagePreLoadEvent>
-
-        /// <summary>
-        /// The handle.
-        /// </summary>
-        /// <param name="event">
-        /// The event.
-        /// </param>
-        public void Handle([NotNull] ForumPagePreLoadEvent @event)
-        {
-            var previousVisitKey = "PreviousVisit";
-
-            if (!BoardContext.Current.IsGuest && BoardContext.Current.PageData.Item2.Item1.PreviousVisit.HasValue
-                && !this.YafSession.LastVisit.HasValue)
+            if (this.request.Cookies.Get(previousVisitKey) != null)
             {
-                this.YafSession.LastVisit = BoardContext.Current.PageData.Item2.Item1.PreviousVisit.Value;
-            }
-            else if (BoardContext.Current.IsGuest && !this.YafSession.LastVisit.HasValue)
-            {
-                if (this.request.Cookies.Get(previousVisitKey) != null)
+                // have previous visit cookie...
+                var previousVisitInsecure = this.request.Cookies.Get(previousVisitKey).Value;
+
+                try
                 {
-                    // have previous visit cookie...
-                    var previousVisitInsecure = this.request.Cookies.Get(previousVisitKey).Value;
-
-                    try
-                    {
-                        this.YafSession.LastVisit = DateTime.Parse(previousVisitInsecure, CultureInfo.InvariantCulture);
-                    }
-                    catch
-                    {
-                        this.YafSession.LastVisit = DateTimeHelper.SqlDbMinTime();
-                    }
+                    this.YafSession.LastVisit = DateTime.Parse(previousVisitInsecure, CultureInfo.InvariantCulture);
                 }
-                else
+                catch
                 {
                     this.YafSession.LastVisit = DateTimeHelper.SqlDbMinTime();
                 }
-
-                // set the last visit cookie...
-                var httpCookie = new HttpCookie(previousVisitKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
-                    {
-                       Expires = DateTime.Now.AddMonths(6),
-                       HttpOnly = true,
-                       Secure = this.request.IsSecureConnection
-                    };
-                this.response.Cookies.Add(httpCookie);
             }
+            else
+            {
+                this.YafSession.LastVisit = DateTimeHelper.SqlDbMinTime();
+            }
+
+            // set the last visit cookie...
+            var httpCookie = new HttpCookie(previousVisitKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
+                                 {
+                                     Expires = DateTime.Now.AddMonths(6),
+                                     HttpOnly = true,
+                                     Secure = this.request.IsSecureConnection
+                                 };
+            this.response.Cookies.Add(httpCookie);
         }
-
-        #endregion
-
-        #endregion
     }
+
+    #endregion
+
+    #endregion
 }

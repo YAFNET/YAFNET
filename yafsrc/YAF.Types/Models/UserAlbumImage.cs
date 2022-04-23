@@ -21,73 +21,72 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the UserAlbumImage table.
+/// </summary>
+[Serializable]
+public class UserAlbumImage : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the UserAlbumImage table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class UserAlbumImage : IEntity, IHaveID
-    {
-        #region Properties
+    [Alias("ImageID")]
+    [AutoIncrement]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [Alias("ImageID")]
-        [AutoIncrement]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the album id.
+    /// </summary>
+    [References(typeof(UserAlbum))]
+    [Required]
+    public int AlbumID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the album id.
-        /// </summary>
-        [References(typeof(UserAlbum))]
-        [Required]
-        public int AlbumID { get; set; }
+    /// <summary>
+    /// Gets or sets the caption.
+    /// </summary>
+    [StringLength(255)]
+    public string Caption { get; set; }
 
-        /// <summary>
-        /// Gets or sets the caption.
-        /// </summary>
-        [StringLength(255)]
-        public string Caption { get; set; }
+    /// <summary>
+    /// Gets or sets the file name.
+    /// </summary>
+    [Required]
+    [StringLength(255)]
+    public string FileName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the file name.
-        /// </summary>
-        [Required]
-        [StringLength(255)]
-        public string FileName { get; set; }
+    /// <summary>
+    /// Gets or sets the bytes.
+    /// </summary>
+    [Required]
+    public int Bytes { get; set; }
 
-        /// <summary>
-        /// Gets or sets the bytes.
-        /// </summary>
-        [Required]
-        public int Bytes { get; set; }
+    /// <summary>
+    /// Gets or sets the content type.
+    /// </summary>
+    [StringLength(50)]
+    public string ContentType { get; set; }
 
-        /// <summary>
-        /// Gets or sets the content type.
-        /// </summary>
-        [StringLength(50)]
-        public string ContentType { get; set; }
+    /// <summary>
+    /// Gets or sets the uploaded.
+    /// </summary>
+    [Required]
+    public DateTime Uploaded { get; set; }
 
-        /// <summary>
-        /// Gets or sets the uploaded.
-        /// </summary>
-        [Required]
-        public DateTime Uploaded { get; set; }
+    /// <summary>
+    /// Gets or sets the downloads.
+    /// </summary>
+    [Required]
+    public int Downloads { get; set; }
 
-        /// <summary>
-        /// Gets or sets the downloads.
-        /// </summary>
-        [Required]
-        public int Downloads { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

@@ -21,74 +21,73 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+#region Using
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+#endregion
+
+/// <summary>
+///     A class which represents the AccessMask table
+/// </summary>
+[Serializable]
+public class AccessMask : IEntity, IHaveBoardID, IHaveID
 {
-    #region Using
-
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-
-    #endregion
+    #region Public Properties
 
     /// <summary>
-    ///     A class which represents the AccessMask table
+    ///     Gets or sets the access mask id.
     /// </summary>
-    [Serializable]
-    public class AccessMask : IEntity, IHaveBoardID, IHaveID
+    [AutoIncrement]
+    [Alias("AccessMaskID")]
+    public int ID { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the board id.
+    /// </summary>
+    [References(typeof(Board))]
+    [Required]
+    public int BoardID { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the flags.
+    /// </summary>
+    [Required]
+    [Default(0)]
+    public int Flags { get; set; }
+
+    /// <summary>
+    /// Gets or sets the access flags.
+    /// </summary>
+    [Ignore]
+    public AccessFlags AccessFlags
     {
-        #region Public Properties
+        get => new(this.Flags);
 
-        /// <summary>
-        ///     Gets or sets the access mask id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("AccessMaskID")]
-        public int ID { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the board id.
-        /// </summary>
-        [References(typeof(Board))]
-        [Required]
-        public int BoardID { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the flags.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public int Flags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the access flags.
-        /// </summary>
-        [Ignore]
-        public AccessFlags AccessFlags
-        {
-            get => new(this.Flags);
-
-            set => this.Flags = value.BitValue;
-        }
-
-        /// <summary>
-        ///     Gets or sets the name.
-        /// </summary>
-        [Required]
-        [StringLength(50)]
-        public string Name { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the sort order.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public short SortOrder { get; set; }
-
-        #endregion
+        set => this.Flags = value.BitValue;
     }
+
+    /// <summary>
+    ///     Gets or sets the name.
+    /// </summary>
+    [Required]
+    [StringLength(50)]
+    public string Name { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the sort order.
+    /// </summary>
+    [Required]
+    [Default(0)]
+    public short SortOrder { get; set; }
+
+    #endregion
 }

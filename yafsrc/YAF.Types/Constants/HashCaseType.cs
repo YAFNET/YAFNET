@@ -22,26 +22,25 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The hash case type.
+/// </summary>
+public enum HashCaseType
 {
     /// <summary>
-    /// The hash case type.
+    /// The upper.
     /// </summary>
-    public enum HashCaseType
-    {
-        /// <summary>
-        /// The upper.
-        /// </summary>
-        Upper,
+    Upper,
 
-        /// <summary>
-        /// The lower.
-        /// </summary>
-        Lower,
+    /// <summary>
+    /// The lower.
+    /// </summary>
+    Lower,
 
-        /// <summary>
-        /// The none.
-        /// </summary>
-        None
-    }
+    /// <summary>
+    /// The none.
+    /// </summary>
+    None
 }

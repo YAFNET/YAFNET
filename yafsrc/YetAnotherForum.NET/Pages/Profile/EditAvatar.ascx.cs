@@ -22,55 +22,54 @@
  * under the License.
  */
 
-namespace YAF.Pages.Profile
+namespace YAF.Pages.Profile;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// The User Modify Avatar page
+/// </summary>
+public partial class EditAvatar : ProfilePage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EditAvatar"/> class.
+    /// </summary>
+    public EditAvatar()
+        : base("EDIT_AVATAR", ForumPages.Profile_EditAvatar)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The User Modify Avatar page
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class EditAvatar : ProfilePage
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EditAvatar"/> class.
-        /// </summary>
-        public EditAvatar()
-            : base("EDIT_AVATAR", ForumPages.Profile_EditAvatar)
+        // Disable Avatar edit in dnn because it is already handled in the dnn profile page.
+        if (Config.IsDotNetNuke)
         {
+            this.RedirectNoAccess();
         }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // Disable Avatar edit in dnn because it is already handled in the dnn profile page.
-            if (Config.IsDotNetNuke)
-            {
-                this.RedirectNoAccess();
-            }
-        }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+    }
+
+    #endregion
 }

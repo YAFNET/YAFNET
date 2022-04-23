@@ -22,30 +22,29 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+/// <summary>
+/// Class that Can store the Help Content
+/// </summary>
+public class HelpContent
 {
+    #region Properties
+
     /// <summary>
-    /// Class that Can store the Help Content
+    ///   Gets or sets The Content of the Help page
     /// </summary>
-    public class HelpContent
-    {
-        #region Properties
+    public string Content { get; set; }
 
-        /// <summary>
-        ///   Gets or sets The Content of the Help page
-        /// </summary>
-        public string Content { get; set; }
+    /// <summary>
+    ///   Gets or sets The Help page Name
+    /// </summary>
+    public string HelpPage { get; set; }
 
-        /// <summary>
-        ///   Gets or sets The Help page Name
-        /// </summary>
-        public string HelpPage { get; set; }
+    /// <summary>
+    ///   Gets or sets The Title of the Help page
+    /// </summary>
+    public string Title { get; set; }
 
-        /// <summary>
-        ///   Gets or sets The Title of the Help page
-        /// </summary>
-        public string Title { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

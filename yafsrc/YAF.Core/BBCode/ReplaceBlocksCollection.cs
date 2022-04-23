@@ -21,20 +21,20 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BBCode
+namespace YAF.Core.BBCode;
+
+using System.Collections.Generic;
+using System.Text;
+
+using YAF.Core.Utilities;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// Handles the collection of replacement tags and can also pull the HTML out of the text making a new replacement tag
+/// </summary>
+public class ReplaceBlocksCollection : IReplaceBlocks
 {
-    using System.Collections.Generic;
-    using System.Text;
-
-    using YAF.Core.Utilities;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-
-    /// <summary>
-  /// Handles the collection of replacement tags and can also pull the HTML out of the text making a new replacement tag
-  /// </summary>
-  public class ReplaceBlocksCollection : IReplaceBlocks
-  {
     #region Constants and Fields
 
     /// <summary>
@@ -61,8 +61,8 @@ namespace YAF.Core.BBCode
     /// </summary>
     public ReplaceBlocksCollection()
     {
-      this.ReplacementDictionary = new Dictionary<int, string>();
-      this.RandomizeInstance();
+        this.ReplacementDictionary = new Dictionary<int, string>();
+        this.RandomizeInstance();
     }
 
     #endregion
@@ -89,8 +89,8 @@ namespace YAF.Core.BBCode
     /// </returns>
     public int Add(string newItem)
     {
-      this.ReplacementDictionary.Add(this.currentIndex, newItem);
-      return this.currentIndex++;
+        this.ReplacementDictionary.Add(this.currentIndex, newItem);
+        return this.currentIndex++;
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ namespace YAF.Core.BBCode
     /// </returns>
     public string Get(int index)
     {
-      return string.Format(replaceFormat, index, this.randomInstance);
+        return string.Format(replaceFormat, index, this.randomInstance);
     }
 
     /// <summary>
@@ -135,5 +135,4 @@ namespace YAF.Core.BBCode
     }
 
     #endregion
-  }
 }

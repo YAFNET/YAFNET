@@ -21,55 +21,54 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Data.MySql
+namespace YAF.Data.MySql;
+
+using System;
+
+using ServiceStack.OrmLite;
+
+using YAF.Configuration;
+using YAF.Core.Events;
+using YAF.Types.Attributes;
+using YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// Sets the MySQL dialect event.
+/// </summary>
+[ExportService(ServiceLifetimeScope.InstancePerDependency, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
+public class SetMySqlDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
 {
-    using System;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Configuration;
-    using YAF.Core.Events;
-    using YAF.Types.Attributes;
-    using YAF.Types.Interfaces.Events;
+    #region Public Properties
 
     /// <summary>
-    /// Sets the MySQL dialect event.
+    ///     Gets the order.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.InstancePerDependency, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
-    public class SetMySqlDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
+    public int Order => 1000;
+
+    #endregion
+
+    #region Public Methods and Operators
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
+    /// </param>
+    public void Handle(InitDatabaseProviderEvent @event)
     {
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets the order.
-        /// </summary>
-        public int Order => 1000;
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The handle.
-        /// </summary>
-        /// <param name="event">
-        /// The event.
-        /// </param>
-        public void Handle(InitDatabaseProviderEvent @event)
+        if (@event.ProviderName != MySqlDbAccess.ProviderTypeName)
         {
-            if (@event.ProviderName != MySqlDbAccess.ProviderTypeName)
-            {
-                return;
-            }
-
-            // set the OrmLite dialect provider...
-            OrmLiteConfig.DialectProvider = YafMySqlDialectProvider.Instance;
-
-            OrmLiteConfig.DialectProvider.GetDateTimeConverter().DateStyle = DateTimeKind.Utc;
-            OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
-            OrmLiteConfig.CommandTimeout = Config.SqlCommandTimeout;
+            return;
         }
 
-        #endregion
+        // set the OrmLite dialect provider...
+        OrmLiteConfig.DialectProvider = YafMySqlDialectProvider.Instance;
+
+        OrmLiteConfig.DialectProvider.GetDateTimeConverter().DateStyle = DateTimeKind.Utc;
+        OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
+        OrmLiteConfig.CommandTimeout = Config.SqlCommandTimeout;
     }
+
+    #endregion
 }

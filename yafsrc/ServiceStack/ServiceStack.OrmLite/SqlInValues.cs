@@ -5,70 +5,69 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-namespace ServiceStack.OrmLite
+namespace ServiceStack.OrmLite;
+
+using System.Collections;
+
+/// <summary>
+/// Class SqlInValues.
+/// </summary>
+public class SqlInValues
 {
-    using System.Collections;
+    /// <summary>
+    /// The empty in
+    /// </summary>
+    public const string EmptyIn = "NULL";
 
     /// <summary>
-    /// Class SqlInValues.
+    /// The values
     /// </summary>
-    public class SqlInValues
+    private readonly IEnumerable values;
+    /// <summary>
+    /// The dialect provider
+    /// </summary>
+    private readonly IOrmLiteDialectProvider dialectProvider;
+
+    /// <summary>
+    /// Gets the count.
+    /// </summary>
+    /// <value>The count.</value>
+    public int Count { get; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SqlInValues"/> class.
+    /// </summary>
+    /// <param name="values">The values.</param>
+    /// <param name="dialectProvider">The dialect provider.</param>
+    public SqlInValues(IEnumerable values, IOrmLiteDialectProvider dialectProvider = null)
     {
-        /// <summary>
-        /// The empty in
-        /// </summary>
-        public const string EmptyIn = "NULL";
+        this.values = values;
+        this.dialectProvider = dialectProvider ?? OrmLiteConfig.DialectProvider;
 
-        /// <summary>
-        /// The values
-        /// </summary>
-        private readonly IEnumerable values;
-        /// <summary>
-        /// The dialect provider
-        /// </summary>
-        private readonly IOrmLiteDialectProvider dialectProvider;
-
-        /// <summary>
-        /// Gets the count.
-        /// </summary>
-        /// <value>The count.</value>
-        public int Count { get; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SqlInValues"/> class.
-        /// </summary>
-        /// <param name="values">The values.</param>
-        /// <param name="dialectProvider">The dialect provider.</param>
-        public SqlInValues(IEnumerable values, IOrmLiteDialectProvider dialectProvider = null)
+        if (values == null) return;
+        foreach (var value in values)
         {
-            this.values = values;
-            this.dialectProvider = dialectProvider ?? OrmLiteConfig.DialectProvider;
-
-            if (values == null) return;
-            foreach (var value in values)
-            {
-                ++Count;
-            }
+            ++Count;
         }
+    }
 
-        /// <summary>
-        /// Converts to sqlinstring.
-        /// </summary>
-        /// <returns>System.String.</returns>
-        public string ToSqlInString()
-        {
-            return Count == 0
-                ? EmptyIn
-                : OrmLiteUtils.SqlJoin(values, dialectProvider);
-        }
+    /// <summary>
+    /// Converts to sqlinstring.
+    /// </summary>
+    /// <returns>System.String.</returns>
+    public string ToSqlInString()
+    {
+        return Count == 0
+                   ? EmptyIn
+                   : OrmLiteUtils.SqlJoin(values, dialectProvider);
+    }
 
-        /// <summary>
-        /// Gets the values.
-        /// </summary>
-        /// <returns>IEnumerable.</returns>
-        public IEnumerable GetValues()
-        {
-            return values;
-        }
+    /// <summary>
+    /// Gets the values.
+    /// </summary>
+    /// <returns>IEnumerable.</returns>
+    public IEnumerable GetValues()
+    {
+        return values;
     }
 }

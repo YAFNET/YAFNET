@@ -21,67 +21,66 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
-{
-    using System;
+namespace YAF.Types.EventProxies;
 
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Models;
-    using YAF.Types.Objects;
-    using YAF.Types.Objects.Model;
+using System;
+
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+using YAF.Types.Objects.Model;
+
+/// <summary>
+/// The page load event.
+/// </summary>
+public class InitPageLoadEvent : IAmEvent
+{
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The page load event.
+    /// Initializes a new instance of the <see cref="InitPageLoadEvent"/> class.
     /// </summary>
-    public class InitPageLoadEvent : IAmEvent
+    public InitPageLoadEvent()
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InitPageLoadEvent"/> class.
-        /// </summary>
-        public InitPageLoadEvent()
-        {
-            this.UserRequestData = new UserRequestData();
-            //this.PageLoadData = new Tuple<PageLoad, User, Category, Forum, Topic, Message>();
-            this.UserLazyData = new UserLazyData();
-            this.PageQueryData = new PageQueryData();
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the user request data.
-        /// </summary>
-        /// <value>The user request data.</value>
-        public UserRequestData UserRequestData { get; set; }
-
-        /// <summary>
-        /// Gets or sets the page load data.
-        /// </summary>
-        /// <value>The page load data.</value>
-        public Tuple<PageLoad, User, Category, Forum, Topic, Message> PageLoadData { get; set; }
-
-        public PageQueryData PageQueryData { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user lazy data.
-        /// </summary>
-        /// <value>The user lazy data.</value>
-        public UserLazyData UserLazyData { get; set; }
-
-        /// <summary>
-        /// The page data.
-        /// </summary>
-        public Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic, Message>, UserLazyData, PageQueryData> PageData =>
-            new(
-                this.UserRequestData,
-                this.PageLoadData,
-                this.UserLazyData,
-                this.PageQueryData);
-
-        #endregion
+        this.UserRequestData = new UserRequestData();
+        //this.PageLoadData = new Tuple<PageLoad, User, Category, Forum, Topic, Message>();
+        this.UserLazyData = new UserLazyData();
+        this.PageQueryData = new PageQueryData();
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets the user request data.
+    /// </summary>
+    /// <value>The user request data.</value>
+    public UserRequestData UserRequestData { get; set; }
+
+    /// <summary>
+    /// Gets or sets the page load data.
+    /// </summary>
+    /// <value>The page load data.</value>
+    public Tuple<PageLoad, User, Category, Forum, Topic, Message> PageLoadData { get; set; }
+
+    public PageQueryData PageQueryData { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user lazy data.
+    /// </summary>
+    /// <value>The user lazy data.</value>
+    public UserLazyData UserLazyData { get; set; }
+
+    /// <summary>
+    /// The page data.
+    /// </summary>
+    public Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic, Message>, UserLazyData, PageQueryData> PageData =>
+        new(
+            this.UserRequestData,
+            this.PageLoadData,
+            this.UserLazyData,
+            this.PageQueryData);
+
+    #endregion
 }

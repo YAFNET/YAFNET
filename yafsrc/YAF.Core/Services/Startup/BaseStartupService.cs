@@ -21,22 +21,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services.Startup
+namespace YAF.Core.Services.Startup;
+
+#region Using
+
+using System;
+
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The root service.
+/// </summary>
+public abstract class BaseStartupService : IStartupService
 {
-  #region Using
-
-    using System;
-
-    using YAF.Core.Context;
-    using YAF.Types.Interfaces;
-
-    #endregion
-
-  /// <summary>
-  /// The root service.
-  /// </summary>
-  public abstract class BaseStartupService : IStartupService
-  {
     #region Properties
 
     /// <summary>
@@ -44,11 +44,11 @@ namespace YAF.Core.Services.Startup
     /// </summary>
     public virtual bool Initialized
     {
-      get =>
-          BoardContext.Current[this.ServiceName] != null &&
-          Convert.ToBoolean(BoardContext.Current[this.ServiceName]);
+        get =>
+            BoardContext.Current[this.ServiceName] != null &&
+            Convert.ToBoolean(BoardContext.Current[this.ServiceName]);
 
-      private set => BoardContext.Current[this.ServiceName] = value;
+        private set => BoardContext.Current[this.ServiceName] = value;
     }
 
     /// <summary>
@@ -72,10 +72,10 @@ namespace YAF.Core.Services.Startup
     /// </summary>
     public void Run()
     {
-      if (!this.Initialized)
-      {
-        this.Initialized = this.RunService();
-      }
+        if (!this.Initialized)
+        {
+            this.Initialized = this.RunService();
+        }
     }
 
     #endregion
@@ -93,5 +93,4 @@ namespace YAF.Core.Services.Startup
     protected abstract bool RunService();
 
     #endregion
-  }
 }

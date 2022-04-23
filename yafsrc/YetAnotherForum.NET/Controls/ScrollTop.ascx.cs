@@ -21,24 +21,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+namespace YAF.Controls;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// The Scroll Top Button
+/// </summary>
+public partial class ScrollTop : BaseUserControl
 {
-    #region Using
-
-    #endregion
-
     /// <summary>
-    /// The Scroll Top Button
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class ScrollTop : BaseUserControl
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-        }
     }
 }

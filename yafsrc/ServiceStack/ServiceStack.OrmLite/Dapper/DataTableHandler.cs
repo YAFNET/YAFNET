@@ -6,35 +6,34 @@
 // ***********************************************************************
 using System;
 using System.Data;
-namespace ServiceStack.OrmLite.Dapper
+namespace ServiceStack.OrmLite.Dapper;
+
+/// <summary>
+/// Class DataTableHandler. This class cannot be inherited.
+/// Implements the <see cref="ServiceStack.OrmLite.Dapper.SqlMapper.ITypeHandler" />
+/// </summary>
+/// <seealso cref="ServiceStack.OrmLite.Dapper.SqlMapper.ITypeHandler" />
+internal sealed class DataTableHandler : SqlMapper.ITypeHandler
 {
     /// <summary>
-    /// Class DataTableHandler. This class cannot be inherited.
-    /// Implements the <see cref="ServiceStack.OrmLite.Dapper.SqlMapper.ITypeHandler" />
+    /// Parse a database value back to a typed value
     /// </summary>
-    /// <seealso cref="ServiceStack.OrmLite.Dapper.SqlMapper.ITypeHandler" />
-    internal sealed class DataTableHandler : SqlMapper.ITypeHandler
+    /// <param name="destinationType">The type to parse to</param>
+    /// <param name="value">The value from the database</param>
+    /// <returns>The typed value</returns>
+    /// <exception cref="System.NotImplementedException"></exception>
+    public object Parse(Type destinationType, object value)
     {
-        /// <summary>
-        /// Parse a database value back to a typed value
-        /// </summary>
-        /// <param name="destinationType">The type to parse to</param>
-        /// <param name="value">The value from the database</param>
-        /// <returns>The typed value</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public object Parse(Type destinationType, object value)
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
+    }
 
-        /// <summary>
-        /// Sets the value.
-        /// </summary>
-        /// <param name="parameter">The parameter.</param>
-        /// <param name="value">The value.</param>
-        public void SetValue(IDbDataParameter parameter, object value)
-        {
-            TableValuedParameter.Set(parameter, value as DataTable, null);
-        }
+    /// <summary>
+    /// Sets the value.
+    /// </summary>
+    /// <param name="parameter">The parameter.</param>
+    /// <param name="value">The value.</param>
+    public void SetValue(IDbDataParameter parameter, object value)
+    {
+        TableValuedParameter.Set(parameter, value as DataTable, null);
     }
 }

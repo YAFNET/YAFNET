@@ -22,131 +22,130 @@
  * under the License.
  */
 
-namespace YAF.Configuration
-{
-    using System;
-    using System.Text;
+namespace YAF.Configuration;
 
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Objects;
+using System;
+using System.Text;
+
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Objects;
+
+/// <summary>
+/// Class provides helper functions related to the forum path and URLs as well as forum version information.
+/// </summary>
+public static class BoardInfo
+{
+    /// <summary>
+    /// Gets the forum path (client-side).
+    /// May not be the actual URL of the forum.
+    /// </summary>
+    public static string ForumClientFileRoot => BaseUrlBuilder.ClientFileRoot;
 
     /// <summary>
-    /// Class provides helper functions related to the forum path and URLs as well as forum version information.
+    /// Gets the forum path (server-side).
+    /// May not be the actual URL of the forum.
     /// </summary>
-    public static class BoardInfo
+    public static string ForumServerFileRoot => BaseUrlBuilder.ServerFileRoot;
+
+    /// <summary>
+    /// Gets complete application external (client-side) URL of the forum. (e.g. http://domain.com/forum
+    /// </summary>
+    public static string ForumBaseUrl => $"{BaseUrlBuilder.BaseUrl}{BaseUrlBuilder.AppPath}";
+
+    #region Version Information
+
+    /// <summary>
+    /// Gets the Current YAF Application Version string
+    /// </summary>
+    public static string AppVersionName => AppVersionNameFromCode();
+
+    /// <summary>
+    /// Gets the Current YAF Database Version
+    /// </summary>
+    public static int AppVersion => 85;
+
+    /// <summary>
+    /// Gets the Current YAF Build Date
+    /// </summary>
+    public static DateTime AppVersionDate => new(2022, 04, 23, 18, 24, 00);
+
+    /// <summary>
+    /// Creates a string that is the YAF Application Version from a long value
+    /// </summary>
+    /// <returns>
+    /// Application Version String
+    /// </returns>
+    public static string AppVersionNameFromCode()
     {
-        /// <summary>
-        /// Gets the forum path (client-side).
-        /// May not be the actual URL of the forum.
-        /// </summary>
-        public static string ForumClientFileRoot => BaseUrlBuilder.ClientFileRoot;
+        var version = new YafVersion
+                          {
+                              Major = 3,
+                              Minor = 1,
+                              Build = 4,
+                              ReleaseType = ReleaseType.BETA,
+                              ReleaseNumber = 0
+                          };
 
-        /// <summary>
-        /// Gets the forum path (server-side).
-        /// May not be the actual URL of the forum.
-        /// </summary>
-        public static string ForumServerFileRoot => BaseUrlBuilder.ServerFileRoot;
+        var versionString = new StringBuilder();
 
-        /// <summary>
-        /// Gets complete application external (client-side) URL of the forum. (e.g. http://domain.com/forum
-        /// </summary>
-        public static string ForumBaseUrl => $"{BaseUrlBuilder.BaseUrl}{BaseUrlBuilder.AppPath}";
+        versionString.AppendFormat("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
 
-        #region Version Information
-
-        /// <summary>
-        /// Gets the Current YAF Application Version string
-        /// </summary>
-        public static string AppVersionName => AppVersionNameFromCode();
-
-        /// <summary>
-        /// Gets the Current YAF Database Version
-        /// </summary>
-        public static int AppVersion => 85;
-
-        /// <summary>
-        /// Gets the Current YAF Build Date
-        /// </summary>
-        public static DateTime AppVersionDate => new(2022, 04, 15, 08, 33, 00);
-
-        /// <summary>
-        /// Creates a string that is the YAF Application Version from a long value
-        /// </summary>
-        /// <returns>
-        /// Application Version String
-        /// </returns>
-        public static string AppVersionNameFromCode()
+        if (version.ReleaseType == ReleaseType.Regular)
         {
-            var version = new YafVersion
-            {
-                Major = 3,
-                Minor = 1,
-                Build = 4,
-                ReleaseType = ReleaseType.BETA,
-                ReleaseNumber = 0
-            };
-
-            var versionString = new StringBuilder();
-
-            versionString.AppendFormat("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
-
-            if (version.ReleaseType == ReleaseType.Regular)
-            {
-                return versionString.ToString();
-            }
-
-            var number = version.ReleaseNumber >= 1
-                             ? version.ReleaseNumber.ToString()
-                             : AppVersionDate.ToString("yyyyMMddHHmm");
-
-            versionString.AppendFormat(" {0} {1}", version.ReleaseType.ToString().ToUpper(), number);
-
             return versionString.ToString();
         }
 
-        #endregion
+        var number = version.ReleaseNumber >= 1
+                         ? version.ReleaseNumber.ToString()
+                         : AppVersionDate.ToString("yyyyMMddHHmm");
 
-        /// <summary>
-        /// Helper function that creates the URL to the Content folder.
-        /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <returns>
-        /// Returns the URL including the Content path
-        /// </returns>
-        public static string GetURLToContent([NotNull] string resourceName)
-        {
-            CodeContracts.VerifyNotNull(resourceName);
+        versionString.AppendFormat(" {0} {1}", version.ReleaseType.ToString().ToUpper(), number);
 
-            return $"{ForumClientFileRoot}Content/{resourceName}";
-        }
+        return versionString.ToString();
+    }
 
-        /// <summary>
-        /// Helper function that creates the URL to the Content  themes folder.
-        /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <returns>
-        /// Returns the URL including the Content Themes path
-        /// </returns>
-        public static string GetURLToContentThemes([NotNull] string resourceName)
-        {
-            CodeContracts.VerifyNotNull(resourceName);
+    #endregion
 
-            return $"{ForumClientFileRoot}Content/Themes/{resourceName}";
-        }
+    /// <summary>
+    /// Helper function that creates the URL to the Content folder.
+    /// </summary>
+    /// <param name="resourceName">Name of the resource.</param>
+    /// <returns>
+    /// Returns the URL including the Content path
+    /// </returns>
+    public static string GetURLToContent([NotNull] string resourceName)
+    {
+        CodeContracts.VerifyNotNull(resourceName);
 
-        /// <summary>
-        /// Helper function that creates the URL to the Scripts folder.
-        /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <returns>
-        /// Returns the URL including the Scripts path
-        /// </returns>
-        public static string GetURLToScripts([NotNull] string resourceName)
-        {
-            CodeContracts.VerifyNotNull(resourceName);
+        return $"{ForumClientFileRoot}Content/{resourceName}";
+    }
 
-            return $"{ForumClientFileRoot}Scripts/{resourceName}";
-        }
+    /// <summary>
+    /// Helper function that creates the URL to the Content  themes folder.
+    /// </summary>
+    /// <param name="resourceName">Name of the resource.</param>
+    /// <returns>
+    /// Returns the URL including the Content Themes path
+    /// </returns>
+    public static string GetURLToContentThemes([NotNull] string resourceName)
+    {
+        CodeContracts.VerifyNotNull(resourceName);
+
+        return $"{ForumClientFileRoot}Content/Themes/{resourceName}";
+    }
+
+    /// <summary>
+    /// Helper function that creates the URL to the Scripts folder.
+    /// </summary>
+    /// <param name="resourceName">Name of the resource.</param>
+    /// <returns>
+    /// Returns the URL including the Scripts path
+    /// </returns>
+    public static string GetURLToScripts([NotNull] string resourceName)
+    {
+        CodeContracts.VerifyNotNull(resourceName);
+
+        return $"{ForumClientFileRoot}Scripts/{resourceName}";
     }
 }

@@ -21,169 +21,168 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+///     The medal repository extensions.
+/// </summary>
+public static class MedalRepositoryExtensions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The medal repository extensions.
+    /// Lists users assigned to the medal
     /// </summary>
-    public static class MedalRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static
+        List<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int Flags, DateTime DateAwarded)>
+        ListUserMedals(this IRepository<Medal> repository, [NotNull] int userId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Lists users assigned to the medal
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static
-            List<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int Flags, DateTime DateAwarded)>
-            ListUserMedals(this IRepository<Medal> repository, [NotNull] int userId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        var expressionUser = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
-            var expressionUser = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
+        expressionUser.Join<UserMedal>((a, b) => b.MedalID == a.ID).Where<UserMedal>(b => b.UserID == userId)
+            .Select<Medal, UserMedal>(
+                (a, b) => new
+                              {
+                                  MedalID = a.ID,
+                                  a.Name,
+                                  Message = b.Message != null ? b.Message : a.Message,
+                                  a.MedalURL,
+                                  b.SortOrder,
+                                  Hide = (a.Flags & 4) == 0 ? false : b.Hide,
+                                  a.Flags,
+                                  b.DateAwarded
+                              });
 
-            expressionUser.Join<UserMedal>((a, b) => b.MedalID == a.ID).Where<UserMedal>(b => b.UserID == userId)
-                .Select<Medal, UserMedal>(
-                    (a, b) => new
-                    {
-                        MedalID = a.ID,
-                        a.Name,
-                        Message = b.Message != null ? b.Message : a.Message,
-                        a.MedalURL,
-                        b.SortOrder,
-                        Hide = (a.Flags & 4) == 0 ? false : b.Hide,
-                        a.Flags,
-                        b.DateAwarded
-                    });
+        var userMedals = repository.DbAccess.Execute(
+            db => db.Connection
+                .Select<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int
+                    Flags, DateTime DateAwarded)>(expressionUser));
 
-            var userMedals = repository.DbAccess.Execute(
-                db => db.Connection
-                    .Select<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int
-                        Flags, DateTime DateAwarded)>(expressionUser));
+        var expressionUserGroup = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
-            var expressionUserGroup = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
+        expressionUserGroup.Join<GroupMedal>((a, b) => b.MedalID == a.ID)
+            .Join<GroupMedal, UserGroup>((b, c) => c.GroupID == b.GroupID).Where<UserGroup>(c => c.UserID == userId)
+            .Select<Medal, GroupMedal>(
+                (a, b) => new
+                              {
+                                  MedalID = a.ID,
+                                  a.Name,
+                                  Message = b.Message != null ? b.Message : a.Message,
+                                  a.MedalURL,
+                                  b.SortOrder,
+                                  Hide = (a.Flags & 4) == 0 ? false : b.Hide,
+                                  a.Flags,
+                                  DateAwarded = default(DateTime)
+                              });
 
-            expressionUserGroup.Join<GroupMedal>((a, b) => b.MedalID == a.ID)
-                .Join<GroupMedal, UserGroup>((b, c) => c.GroupID == b.GroupID).Where<UserGroup>(c => c.UserID == userId)
-                .Select<Medal, GroupMedal>(
-                    (a, b) => new
-                    {
-                        MedalID = a.ID,
-                        a.Name,
-                        Message = b.Message != null ? b.Message : a.Message,
-                        a.MedalURL,
-                        b.SortOrder,
-                        Hide = (a.Flags & 4) == 0 ? false : b.Hide,
-                        a.Flags,
-                        DateAwarded = default(DateTime)
-                    });
+        var userGroupMedals = repository.DbAccess.Execute(
+            db => db.Connection
+                .Select<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int
+                    Flags, DateTime DateAwarded)>(expressionUserGroup));
 
-            var userGroupMedals = repository.DbAccess.Execute(
-                db => db.Connection
-                    .Select<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int
-                        Flags, DateTime DateAwarded)>(expressionUserGroup));
-
-            return userMedals.Union(userGroupMedals).Distinct().ToList();
-        }
-
-        /// <summary>
-        /// The save.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="medalId">
-        /// The medal Id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="category">
-        /// The category.
-        /// </param>
-        /// <param name="medalURL">
-        /// The medal url.
-        /// </param>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        public static void Save(
-            this IRepository<Medal> repository,
-            [NotNull] int? medalId,
-            [NotNull] string name,
-            [CanBeNull] string description,
-            [CanBeNull] string message,
-            [CanBeNull] string category,
-            [CanBeNull] string medalURL,
-            [NotNull] int flags,
-            [CanBeNull] int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            if (medalId.HasValue)
-            {
-                repository.UpdateOnly(
-                    () => new Medal
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        Name = name,
-                        Description = description,
-                        Message = message,
-                        Category = category,
-                        MedalURL = medalURL,
-                        Flags = flags
-                    },
-                    medal => medal.ID == medalId.Value);
-
-                repository.FireUpdated(medalId);
-            }
-            else
-            {
-                var newId = repository.Insert(
-                    new Medal
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        Name = name,
-                        Description = description,
-                        Message = message,
-                        Category = category,
-                        MedalURL = medalURL,
-                        Flags = flags
-                    });
-
-                repository.FireNew(newId);
-            }
-        }
-
-        #endregion
+        return userMedals.Union(userGroupMedals).Distinct().ToList();
     }
+
+    /// <summary>
+    /// The save.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="medalId">
+    /// The medal Id.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="description">
+    /// The description.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="category">
+    /// The category.
+    /// </param>
+    /// <param name="medalURL">
+    /// The medal url.
+    /// </param>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    /// <param name="boardId">
+    /// The board Id.
+    /// </param>
+    public static void Save(
+        this IRepository<Medal> repository,
+        [NotNull] int? medalId,
+        [NotNull] string name,
+        [CanBeNull] string description,
+        [CanBeNull] string message,
+        [CanBeNull] string category,
+        [CanBeNull] string medalURL,
+        [NotNull] int flags,
+        [CanBeNull] int? boardId = null)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        if (medalId.HasValue)
+        {
+            repository.UpdateOnly(
+                () => new Medal
+                          {
+                              BoardID = boardId ?? repository.BoardID,
+                              Name = name,
+                              Description = description,
+                              Message = message,
+                              Category = category,
+                              MedalURL = medalURL,
+                              Flags = flags
+                          },
+                medal => medal.ID == medalId.Value);
+
+            repository.FireUpdated(medalId);
+        }
+        else
+        {
+            var newId = repository.Insert(
+                new Medal
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        Name = name,
+                        Description = description,
+                        Message = message,
+                        Category = category,
+                        MedalURL = medalURL,
+                        Flags = flags
+                    });
+
+            repository.FireNew(newId);
+        }
+    }
+
+    #endregion
 }

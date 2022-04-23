@@ -25,61 +25,60 @@
 using System.Configuration;
 using System.Data;
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+/// <summary>
+/// The settings property column.
+/// </summary>
+public class SettingsPropertyColumn
 {
+    #region Constants and Fields
+
     /// <summary>
-    /// The settings property column.
+    /// The data type.
     /// </summary>
-    public class SettingsPropertyColumn
+    public SqlDbType DataType;
+
+    /// <summary>
+    /// The settings.
+    /// </summary>
+    public SettingsProperty Settings;
+
+    /// <summary>
+    /// The size.
+    /// </summary>
+    public int Size;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SettingsPropertyColumn"/> class.
+    /// </summary>
+    public SettingsPropertyColumn()
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The data type.
-        /// </summary>
-        public SqlDbType DataType;
-
-        /// <summary>
-        /// The settings.
-        /// </summary>
-        public SettingsProperty Settings;
-
-        /// <summary>
-        /// The size.
-        /// </summary>
-        public int Size;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SettingsPropertyColumn"/> class.
-        /// </summary>
-        public SettingsPropertyColumn()
-        {
-            // empty for default constructor...
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SettingsPropertyColumn"/> class.
-        /// </summary>
-        /// <param name="settings">
-        /// The settings.
-        /// </param>
-        /// <param name="dataType">
-        /// The data type.
-        /// </param>
-        /// <param name="size">
-        /// The size.
-        /// </param>
-        public SettingsPropertyColumn(SettingsProperty settings, SqlDbType dataType, int size)
-        {
-            this.DataType = dataType;
-            this.Settings = settings;
-            this.Size = size;
-        }
-
-        #endregion
+        // empty for default constructor...
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SettingsPropertyColumn"/> class.
+    /// </summary>
+    /// <param name="settings">
+    /// The settings.
+    /// </param>
+    /// <param name="dataType">
+    /// The data type.
+    /// </param>
+    /// <param name="size">
+    /// The size.
+    /// </param>
+    public SettingsPropertyColumn(SettingsProperty settings, SqlDbType dataType, int size)
+    {
+        this.DataType = dataType;
+        this.Settings = settings;
+        this.Size = size;
+    }
+
+    #endregion
 }

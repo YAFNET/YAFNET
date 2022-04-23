@@ -21,28 +21,27 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Extensions
-{
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Tasks;
+namespace YAF.Core.Extensions;
 
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Tasks;
+
+/// <summary>
+/// Extensions for the <see cref="IBackgroundTask"/> interface
+/// </summary>
+public static class BackgroundTaskExtensions
+{
     /// <summary>
-    /// Extensions for the <see cref="IBackgroundTask"/> interface
+    /// Returns <see langword="true"/> if the background task can be stopped (is non-critical)
     /// </summary>
-    public static class BackgroundTaskExtensions
+    /// <param name="backgroundTask">
+    /// The background Task.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public static bool IsStoppable(this IBackgroundTask backgroundTask)
     {
-        /// <summary>
-        /// Returns <see langword="true"/> if the background task can be stopped (is non-critical)
-        /// </summary>
-        /// <param name="backgroundTask">
-        /// The background Task.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool IsStoppable(this IBackgroundTask backgroundTask)
-        {
-            return backgroundTask is not ICriticalBackgroundTask;
-        }
+        return backgroundTask is not ICriticalBackgroundTask;
     }
 }

@@ -21,30 +21,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The i raise control life cycles.
+/// </summary>
+public interface IRaiseControlLifeCycles
 {
+    #region Public Methods
+
     /// <summary>
-    /// The i raise control life cycles.
+    /// The raise init.
     /// </summary>
-    public interface IRaiseControlLifeCycles
-    {
-        #region Public Methods
+    void RaiseInit();
 
-        /// <summary>
-        /// The raise init.
-        /// </summary>
-        void RaiseInit();
+    /// <summary>
+    /// The raise load.
+    /// </summary>
+    void RaiseLoad();
 
-        /// <summary>
-        /// The raise load.
-        /// </summary>
-        void RaiseLoad();
+    /// <summary>
+    /// The raise pre render.
+    /// </summary>
+    void RaisePreRender();
 
-        /// <summary>
-        /// The raise pre render.
-        /// </summary>
-        void RaisePreRender();
-
-        #endregion
-    }
+    #endregion
 }

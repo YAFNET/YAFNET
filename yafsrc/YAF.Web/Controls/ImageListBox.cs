@@ -22,61 +22,60 @@
  * under the License.
  */
 
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System.ComponentModel;
+using System.Linq;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+using YAF.Types.Extensions;
+
+#endregion
+
+/// <summary>
+/// Custom DropDown List Controls with Images
+/// </summary>
+public class ImageListBox : DropDownList
 {
-    #region Using
-
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-
-    using YAF.Types.Extensions;
-
-    #endregion
+    /// <summary>
+    /// Gets or sets the place holder.
+    /// </summary>
+    [DefaultValue("")]
+    public string PlaceHolder { get; set; }
 
     /// <summary>
-    /// Custom DropDown List Controls with Images
+    /// Gets or sets a value indicating whether allow clear.
     /// </summary>
-    public class ImageListBox : DropDownList
+    [DefaultValue(false)]
+    public bool AllowClear { get; set; }
+
+    #region Methods
+
+    /// <summary>
+    /// Add Flag Images to Items
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
     {
-        /// <summary>
-        /// Gets or sets the place holder.
-        /// </summary>
-        [DefaultValue("")]
-        public string PlaceHolder { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether allow clear.
-        /// </summary>
-        [DefaultValue(false)]
-        public bool AllowClear { get; set; }
-
-        #region Methods
-
-        /// <summary>
-        /// Add Flag Images to Items
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render(HtmlTextWriter writer)
+        if (this.PlaceHolder.IsSet())
         {
-            if (this.PlaceHolder.IsSet())
-            {
-                this.Attributes.Add("placeholder", this.PlaceHolder);
-            }
-
-            this.Attributes.Add("data-allow-clear", this.AllowClear.ToString());
-
-            this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
-                item => item.Attributes.Add(
-                    "data-content",
-                    $"<span class=\"select2-image-select-icon\"><img src=\"{item.Value.ToLower()} me-1\" />{item.Text}</span>"));
-
-            base.Render(writer);
+            this.Attributes.Add("placeholder", this.PlaceHolder);
         }
 
-        #endregion
+        this.Attributes.Add("data-allow-clear", this.AllowClear.ToString());
+
+        this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
+            item => item.Attributes.Add(
+                "data-content",
+                $"<span class=\"select2-image-select-icon\"><img src=\"{item.Value.ToLower()} me-1\" />{item.Text}</span>"));
+
+        base.Render(writer);
     }
+
+    #endregion
 }

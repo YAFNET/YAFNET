@@ -21,26 +21,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The Database version type.
+/// </summary>
+public enum DbVersionType
 {
     /// <summary>
-    /// The Database version type.
+    /// Db Current Version
     /// </summary>
-    public enum DbVersionType
-    {
-        /// <summary>
-        /// Db Current Version
-        /// </summary>
-        Current,
+    Current,
 
-        /// <summary>
-        /// Db New Installation.
-        /// </summary>
-        NewInstall,
+    /// <summary>
+    /// Db New Installation.
+    /// </summary>
+    NewInstall,
 
-        /// <summary>
-        /// Db Upgrade
-        /// </summary>
-        Upgrade
-    }
+    /// <summary>
+    /// Db Upgrade
+    /// </summary>
+    Upgrade
 }

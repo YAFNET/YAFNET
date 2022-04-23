@@ -21,70 +21,69 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Flags;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the UserPMessage table.
+/// </summary>
+[Serializable]
+public class UserPMessage : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the UserPMessage table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class UserPMessage : IEntity, IHaveID
+    [Alias("UserPMessageID")]
+    [AutoIncrement]
+    public int ID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [References(typeof(User))]
+    [Required]
+    [Index]
+    public int UserID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the p message id.
+    /// </summary>
+    [References(typeof(PMessage))]
+    [Required]
+    public int PMessageID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    [Required]
+    [Default(0)]
+    public int Flags { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user flags.
+    /// </summary>
+    [Ignore]
+    public PMessageFlags PMessageFlags
     {
-        #region Properties
+        get => new(this.Flags);
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [Alias("UserPMessageID")]
-        [AutoIncrement]
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        [Index]
-        public int UserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the p message id.
-        /// </summary>
-        [References(typeof(PMessage))]
-        [Required]
-        public int PMessageID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flags.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public int Flags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user flags.
-        /// </summary>
-        [Ignore]
-        public PMessageFlags PMessageFlags
-        {
-            get => new(this.Flags);
-
-            set => this.Flags = value.BitValue;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether is reply.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public bool IsReply { get; set; }
-
-        #endregion
+        set => this.Flags = value.BitValue;
     }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether is reply.
+    /// </summary>
+    [Required]
+    [Default(0)]
+    public bool IsReply { get; set; }
+
+    #endregion
 }

@@ -22,38 +22,37 @@
  * under the License.
  */
 
-namespace YAF.Types.EventProxies
+namespace YAF.Types.EventProxies;
+
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// The import static data event.
+/// </summary>
+public class ImportStaticDataEvent : IAmEvent, IHaveBoardID
 {
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The import static data event.
+    /// Initializes a new instance of the <see cref="ImportStaticDataEvent"/> class.
     /// </summary>
-    public class ImportStaticDataEvent : IAmEvent, IHaveBoardID
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    public ImportStaticDataEvent(int boardId)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ImportStaticDataEvent"/> class.
-        /// </summary>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        public ImportStaticDataEvent(int boardId)
-        {
-            this.BoardID = boardId;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// Gets the board id.
-        /// </summary>
-        public int BoardID { get; }
-
-        #endregion
+        this.BoardID = boardId;
     }
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    /// Gets the board id.
+    /// </summary>
+    public int BoardID { get; }
+
+    #endregion
 }

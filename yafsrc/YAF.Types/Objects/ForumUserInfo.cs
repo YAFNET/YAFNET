@@ -22,118 +22,117 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System;
+
+/// <summary>
+/// The Forum User Info
+/// </summary>
+[Serializable]
+public class ForumUserInfo
 {
-    using System;
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    /// <value>
+    /// The name.
+    /// </value>
+    public string Name { get; set; }
 
     /// <summary>
-    /// The Forum User Info
+    /// Gets or sets the real name.
     /// </summary>
-    [Serializable]
-    public class ForumUserInfo
-    {
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name { get; set; }
+    /// <value>
+    /// The real name.
+    /// </value>
+    public string RealName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the real name.
-        /// </summary>
-        /// <value>
-        /// The real name.
-        /// </value>
-        public string RealName { get; set; }
+    /// <summary>
+    /// Gets or sets the avatar.
+    /// </summary>
+    /// <value>
+    /// The avatar.
+    /// </value>
+    public string Avatar { get; set; }
 
-        /// <summary>
-        /// Gets or sets the avatar.
-        /// </summary>
-        /// <value>
-        /// The avatar.
-        /// </value>
-        public string Avatar { get; set; }
+    /// <summary>
+    /// Gets or sets the interests.
+    /// </summary>
+    /// <value>
+    /// The interests.
+    /// </value>
+    public string Interests { get; set; }
 
-        /// <summary>
-        /// Gets or sets the interests.
-        /// </summary>
-        /// <value>
-        /// The interests.
-        /// </value>
-        public string Interests { get; set; }
+    /// <summary>
+    /// Gets or sets the home page.
+    /// </summary>
+    /// <value>
+    /// The home page.
+    /// </value>
+    public string HomePage { get; set; }
 
-        /// <summary>
-        /// Gets or sets the home page.
-        /// </summary>
-        /// <value>
-        /// The home page.
-        /// </value>
-        public string HomePage { get; set; }
+    /// <summary>
+    /// Gets or sets the profile link.
+    /// </summary>
+    /// <value>
+    /// The profile link.
+    /// </value>
+    public string ProfileLink { get; set; }
 
-        /// <summary>
-        /// Gets or sets the profile link.
-        /// </summary>
-        /// <value>
-        /// The profile link.
-        /// </value>
-        public string ProfileLink { get; set; }
+    /// <summary>
+    /// Gets or sets the posts.
+    /// </summary>
+    /// <value>
+    /// The posts.
+    /// </value>
+    public string Posts { get; set; }
 
-        /// <summary>
-        /// Gets or sets the posts.
-        /// </summary>
-        /// <value>
-        /// The posts.
-        /// </value>
-        public string Posts { get; set; }
+    /// <summary>
+    /// Gets or sets the points.
+    /// </summary>
+    /// <value>
+    /// The points.
+    /// </value>
+    public string Points { get; set; }
 
-        /// <summary>
-        /// Gets or sets the points.
-        /// </summary>
-        /// <value>
-        /// The points.
-        /// </value>
-        public string Points { get; set; }
+    /// <summary>
+    /// Gets or sets the tank.
+    /// </summary>
+    /// <value>
+    /// The tank.
+    /// </value>
+    public string Rank { get; set; }
 
-        /// <summary>
-        /// Gets or sets the tank.
-        /// </summary>
-        /// <value>
-        /// The tank.
-        /// </value>
-        public string Rank { get; set; }
+    /// <summary>
+    /// Gets or sets the location.
+    /// </summary>
+    /// <value>
+    /// The location.
+    /// </value>
+    public string Location { get; set; }
 
-        /// <summary>
-        /// Gets or sets the location.
-        /// </summary>
-        /// <value>
-        /// The location.
-        /// </value>
-        public string Location { get; set; }
+    /// <summary>
+    /// Gets or sets the joined.
+    /// </summary>
+    /// <value>
+    /// The joined.
+    /// </value>
+    public string Joined { get; set; }
 
-        /// <summary>
-        /// Gets or sets the joined.
-        /// </summary>
-        /// <value>
-        /// The joined.
-        /// </value>
-        public string Joined { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="ForumUserInfo" /> is online.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if online; otherwise, <c>false</c>.
+    /// </value>
+    public bool Online { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="ForumUserInfo" /> is online.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if online; otherwise, <c>false</c>.
-        /// </value>
-        public bool Online { get; set; }
-
-        /// <summary>
-        /// Gets or sets the action buttons.
-        /// </summary>
-        /// <value>
-        /// The action buttons.
-        /// </value>
-        public string ActionButtons { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the action buttons.
+    /// </summary>
+    /// <value>
+    /// The action buttons.
+    /// </value>
+    public string ActionButtons { get; set; }
 }

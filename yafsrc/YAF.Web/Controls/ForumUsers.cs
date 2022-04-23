@@ -22,103 +22,102 @@
  * under the License.
  */
 
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System;
+using System.Web.UI;
+
+using YAF.Core.BaseControls;
+using YAF.Core.Extensions;
+using YAF.Core.Model;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// Displays the forum users.
+/// </summary>
+public class ForumUsers : BaseControl
 {
-    #region Using
+    #region Constants and Fields
 
-    using System;
-    using System.Web.UI;
-
-    using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
-    using YAF.Core.Model;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
+    /// <summary>
+    ///   The _active users.
+    /// </summary>
+    private readonly ActiveUsers activeUsers = new();
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Displays the forum users.
+    ///   Initializes a new instance of the <see cref = "ForumUsers" /> class.
     /// </summary>
-    public class ForumUsers : BaseControl
+    public ForumUsers()
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _active users.
-        /// </summary>
-        private readonly ActiveUsers activeUsers = new();
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "ForumUsers" /> class.
-        /// </summary>
-        public ForumUsers()
-        {
-            this.activeUsers.ID = this.GetUniqueID("ActiveUsers");
-            this.Load += this.ForumUsersLoad;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The render.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render([NotNull] HtmlTextWriter writer)
-        {
-            // Ederon : 07/14/2007
-            if (!this.PageBoardContext.BoardSettings.ShowBrowsingUsers)
-            {
-                return;
-            }
-
-            var topicId = this.PageBoardContext.PageTopicID > 0;
-
-            writer.WriteLine(@"<div class=""card"">");
-
-            writer.WriteLine(@"<div class=""card-header"">");
-
-            writer.WriteLine(this.GetText(topicId ? "TOPICBROWSERS" : "FORUMUSERS"));
-
-            writer.WriteLine("</div>");
-
-            writer.WriteLine(@"<div class=""card-body"">");
-
-            base.Render(writer);
-
-            writer.WriteLine("</div></div>");
-        }
-
-        /// <summary>
-        /// The forum users_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void ForumUsersLoad([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var inTopic = this.PageBoardContext.PageTopicID > 0;
-
-            this.activeUsers.ActiveUsersList ??= inTopic
-                ? this.GetRepository<Active>().ListTopic(this.PageBoardContext.PageTopicID)
-                : this.GetRepository<Active>().ListForum(this.PageBoardContext.PageForumID);
-
-            // add it...
-            this.Controls.Add(this.activeUsers);
-        }
-
-        #endregion
+        this.activeUsers.ID = this.GetUniqueID("ActiveUsers");
+        this.Load += this.ForumUsersLoad;
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render([NotNull] HtmlTextWriter writer)
+    {
+        // Ederon : 07/14/2007
+        if (!this.PageBoardContext.BoardSettings.ShowBrowsingUsers)
+        {
+            return;
+        }
+
+        var topicId = this.PageBoardContext.PageTopicID > 0;
+
+        writer.WriteLine(@"<div class=""card"">");
+
+        writer.WriteLine(@"<div class=""card-header"">");
+
+        writer.WriteLine(this.GetText(topicId ? "TOPICBROWSERS" : "FORUMUSERS"));
+
+        writer.WriteLine("</div>");
+
+        writer.WriteLine(@"<div class=""card-body"">");
+
+        base.Render(writer);
+
+        writer.WriteLine("</div></div>");
+    }
+
+    /// <summary>
+    /// The forum users_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumUsersLoad([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        var inTopic = this.PageBoardContext.PageTopicID > 0;
+
+        this.activeUsers.ActiveUsersList ??= inTopic
+                                                 ? this.GetRepository<Active>().ListTopic(this.PageBoardContext.PageTopicID)
+                                                 : this.GetRepository<Active>().ListForum(this.PageBoardContext.PageForumID);
+
+        // add it...
+        this.Controls.Add(this.activeUsers);
+    }
+
+    #endregion
 }

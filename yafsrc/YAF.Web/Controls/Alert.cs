@@ -22,81 +22,80 @@
  * under the License.
  */
 
-namespace YAF.Web.Controls
-{
-    using System.ComponentModel;
-    using System.Web.UI;
+namespace YAF.Web.Controls;
 
-    using YAF.Core.BaseControls;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
+using System.ComponentModel;
+using System.Web.UI;
+
+using YAF.Core.BaseControls;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+
+/// <summary>
+/// Alert Message Control
+/// </summary>
+[DefaultProperty("Message")]
+[ToolboxData("<{0}:Alert runat=server></{0}:Alert>")]
+public class Alert : BaseControl
+{
+    /// <summary>
+    /// Gets or sets the CSS class.
+    /// </summary>
+    [Category("Appearance")]
+    [DefaultValue("")]
+    public string CssClass { get; set; }
 
     /// <summary>
-    /// Alert Message Control
+    /// Gets or sets a value indicating whether Alert can be closed.
     /// </summary>
-    [DefaultProperty("Message")]
-    [ToolboxData("<{0}:Alert runat=server></{0}:Alert>")]
-    public class Alert : BaseControl
+    [Category("Appearance")]
+    [DefaultValue(false)]
+    public bool Dismissing { get; set; }
+
+    /// <summary>
+    /// Gets or sets the type.
+    /// </summary>
+    /// <value>
+    /// The type.
+    /// </value>
+    [Category("Appearance")]
+    [DefaultValue(MessageTypes.info)]
+    public MessageTypes Type { get; set; }
+
+    /// <summary>
+    /// Outputs server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object and stores tracing information about the control if tracing is enabled.
+    /// </summary>
+    /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
+    public override void RenderControl([NotNull] HtmlTextWriter writer)
     {
-        /// <summary>
-        /// Gets or sets the CSS class.
-        /// </summary>
-        [Category("Appearance")]
-        [DefaultValue("")]
-        public string CssClass { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether Alert can be closed.
-        /// </summary>
-        [Category("Appearance")]
-        [DefaultValue(false)]
-        public bool Dismissing { get; set; }
-
-        /// <summary>
-        /// Gets or sets the type.
-        /// </summary>
-        /// <value>
-        /// The type.
-        /// </value>
-        [Category("Appearance")]
-        [DefaultValue(MessageTypes.info)]
-        public MessageTypes Type { get; set; }
-
-        /// <summary>
-        /// Outputs server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object and stores tracing information about the control if tracing is enabled.
-        /// </summary>
-        /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
-        public override void RenderControl([NotNull] HtmlTextWriter writer)
+        if (!this.Visible)
         {
-            if (!this.Visible)
-            {
-                return;
-            }
-
-            writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
-
-            var cssClass = this.CssClass.IsSet() ? $" {this.CssClass}" : string.Empty;
-
-            writer.WriteAttribute(
-                HtmlTextWriterAttribute.Class.ToString(),
-                this.Dismissing
-                    ? $"text-break alert alert-{this.Type} alert-dismissible fade show{cssClass}"
-                    : $"text-break alert alert-{this.Type}{cssClass}");
-
-            writer.WriteAttribute("role", "alert");
-
-            writer.Write(HtmlTextWriter.TagRightChar);
-
-            base.RenderControl(writer);
-
-            if (this.Dismissing)
-            {
-                writer.Write("<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\">");
-                writer.Write("</button>");
-            }
-
-            writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
+            return;
         }
+
+        writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
+
+        var cssClass = this.CssClass.IsSet() ? $" {this.CssClass}" : string.Empty;
+
+        writer.WriteAttribute(
+            HtmlTextWriterAttribute.Class.ToString(),
+            this.Dismissing
+                ? $"text-break alert alert-{this.Type} alert-dismissible fade show{cssClass}"
+                : $"text-break alert alert-{this.Type}{cssClass}");
+
+        writer.WriteAttribute("role", "alert");
+
+        writer.Write(HtmlTextWriter.TagRightChar);
+
+        base.RenderControl(writer);
+
+        if (this.Dismissing)
+        {
+            writer.Write("<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\">");
+            writer.Write("</button>");
+        }
+
+        writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
     }
 }

@@ -21,65 +21,64 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core;
+
+#region Using
+
+using Autofac;
+using Autofac.Core.Lifetime;
+
+using YAF.Core.Modules;
+using YAF.Types;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// Instance of the Global Container... yes, a God class. It's the best way to do it, though.
+/// </summary>
+public static class GlobalContainer
 {
-    #region Using
+    /// <summary>
+    /// Initializes static members of the <see cref="GlobalContainer"/> class.
+    /// </summary>
+    static GlobalContainer()
+    {
+        var container = CreateContainer();
 
-    using Autofac;
-    using Autofac.Core.Lifetime;
+        using (var scope = container.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag))
+        {
+            ServiceLocatorAccess.CurrentServiceProvider = scope.Resolve<IServiceLocator>();
+        }
 
-    using YAF.Core.Modules;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
+        Container = container;
+    }
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets Container.
+    /// </summary>
+    public static IContainer Container { get; }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Instance of the Global Container... yes, a God class. It's the best way to do it, though.
+    /// Create Container
     /// </summary>
-    public static class GlobalContainer
+    /// <returns>
+    /// The <see cref="IContainer"/>.
+    /// </returns>
+    private static IContainer CreateContainer()
     {
-        /// <summary>
-        /// Initializes static members of the <see cref="GlobalContainer"/> class.
-        /// </summary>
-        static GlobalContainer()
-        {
-            var container = CreateContainer();
+        var builder = new ContainerBuilder();
 
-            using (var scope = container.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag))
-            {
-                ServiceLocatorAccess.CurrentServiceProvider = scope.Resolve<IServiceLocator>();
-            }
+        builder.RegisterModule<BootstrapModule>();
 
-            Container = container;
-        }
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets Container.
-        /// </summary>
-        public static IContainer Container { get; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Create Container
-        /// </summary>
-        /// <returns>
-        /// The <see cref="IContainer"/>.
-        /// </returns>
-        private static IContainer CreateContainer()
-        {
-            var builder = new ContainerBuilder();
-
-            builder.RegisterModule<BootstrapModule>();
-
-            return builder.Build();
-        }
-
-        #endregion
+        return builder.Build();
     }
+
+    #endregion
 }

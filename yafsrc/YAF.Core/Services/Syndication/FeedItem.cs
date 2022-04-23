@@ -21,90 +21,89 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services.Syndication
+namespace YAF.Core.Services.Syndication;
+
+#region Using
+
+using System;
+using System.ServiceModel.Syndication;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Services;
+using YAF.Core.Utilities.StringUtils;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// Class that generates all feeds
+/// </summary>
+public class FeedItem : SyndicationFeed
 {
-    #region Using
+    #region Constants and Fields
 
-    using System;
-    using System.ServiceModel.Syndication;
-
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Services;
-    using YAF.Core.Utilities.StringUtils;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    /// The feed categories.
+    /// </summary>
+    private const string FeedCategories = "YAF";
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Class that generates all feeds
+    /// Initializes a new instance of the <see cref="FeedItem"/> class.
     /// </summary>
-    public class FeedItem : SyndicationFeed
+    /// <param name="subTitle">
+    /// The sub title.
+    /// </param>
+    /// <param name="feedType">
+    /// The feed source.
+    /// </param>
+    /// <param name="urlAlphaNum">
+    /// The alphanumerically encoded base site Url.
+    /// </param>
+    public FeedItem([NotNull] string subTitle, RssFeeds feedType, string urlAlphaNum)
     {
-        #region Constants and Fields
+        this.Copyright = new TextSyndicationContent(
+            $"Copyright {DateTime.Now.Year} {BoardContext.Current.BoardSettings.Name}");
+        this.Description = new TextSyndicationContent(
+            $"{BoardContext.Current.BoardSettings.Name} - {BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED")}");
+        this.Title = new TextSyndicationContent(
+            $"{BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED")} - {BoardContext.Current.BoardSettings.Name} - {subTitle}");
 
-        /// <summary>
-        /// The feed categories.
-        /// </summary>
-        private const string FeedCategories = "YAF";
+        // Alternate link
+        this.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(BaseUrlBuilder.BaseUrl)));
 
-        #endregion
+        // Self Link
+        var slink = new Uri(
+            BoardContext.Current.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Feed, new { feed = feedType.ToInt() }));
+        this.Links.Add(SyndicationLink.CreateSelfLink(slink));
 
-        #region Constructors and Destructors
+        this.Generator = "YetAnotherForum.NET";
+        this.LastUpdatedTime = DateTime.UtcNow;
+        this.Language = BoardContext.Current.Get<ILocalization>().LanguageCode;
+        this.ImageUrl = new Uri(
+            $"{BaseUrlBuilder.BaseUrl}{BoardInfo.ForumClientFileRoot}{BoardContext.Current.Get<BoardFolders>().Logos}/{BoardContext.Current.BoardSettings.ForumLogo}");
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FeedItem"/> class.
-        /// </summary>
-        /// <param name="subTitle">
-        /// The sub title.
-        /// </param>
-        /// <param name="feedType">
-        /// The feed source.
-        /// </param>
-        /// <param name="urlAlphaNum">
-        /// The alphanumerically encoded base site Url.
-        /// </param>
-        public FeedItem([NotNull] string subTitle, RssFeeds feedType, string urlAlphaNum)
-        {
-            this.Copyright = new TextSyndicationContent(
-                $"Copyright {DateTime.Now.Year} {BoardContext.Current.BoardSettings.Name}");
-            this.Description = new TextSyndicationContent(
-                $"{BoardContext.Current.BoardSettings.Name} - {BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED")}");
-            this.Title = new TextSyndicationContent(
-                $"{BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED")} - {BoardContext.Current.BoardSettings.Name} - {subTitle}");
+        this.Id =
+            $"urn:{urlAlphaNum}:{BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED")}:{BoardContext.Current.BoardSettings.Name}:{subTitle}:{BoardContext.Current.PageBoardID}"
+                .Unidecode();
 
-            // Alternate link
-            this.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(BaseUrlBuilder.BaseUrl)));
+        this.Id = this.Id.Replace(" ", string.Empty);
 
-            // Self Link
-            var slink = new Uri(
-                BoardContext.Current.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Feed, new { feed = feedType.ToInt() }));
-            this.Links.Add(SyndicationLink.CreateSelfLink(slink));
-
-            this.Generator = "YetAnotherForum.NET";
-            this.LastUpdatedTime = DateTime.UtcNow;
-            this.Language = BoardContext.Current.Get<ILocalization>().LanguageCode;
-            this.ImageUrl = new Uri(
-                $"{BaseUrlBuilder.BaseUrl}{BoardInfo.ForumClientFileRoot}{BoardContext.Current.Get<BoardFolders>().Logos}/{BoardContext.Current.BoardSettings.ForumLogo}");
-
-            this.Id =
-                $"urn:{urlAlphaNum}:{BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED")}:{BoardContext.Current.BoardSettings.Name}:{subTitle}:{BoardContext.Current.PageBoardID}"
-                    .Unidecode();
-
-            this.Id = this.Id.Replace(" ", string.Empty);
-
-            this.BaseUri = slink;
-            this.Authors.Add(
-                new SyndicationPerson(
-                    BoardContext.Current.BoardSettings.ForumEmail,
-                    "Forum Admin",
-                    BaseUrlBuilder.BaseUrl));
-            this.Categories.Add(new SyndicationCategory(FeedCategories));
-        }
-
-        #endregion
+        this.BaseUri = slink;
+        this.Authors.Add(
+            new SyndicationPerson(
+                BoardContext.Current.BoardSettings.ForumEmail,
+                "Forum Admin",
+                BaseUrlBuilder.BaseUrl));
+        this.Categories.Add(new SyndicationCategory(FeedCategories));
     }
+
+    #endregion
 }

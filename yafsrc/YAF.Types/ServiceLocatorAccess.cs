@@ -21,31 +21,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types
+namespace YAF.Types;
+
+#region Using
+
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The service locator access -- kind of a hack. Will not be needed in the future.
+/// </summary>
+public class ServiceLocatorAccess : IHaveServiceLocator
 {
-    #region Using
-
-    using YAF.Types.Interfaces;
-
-    #endregion
+    #region Properties
 
     /// <summary>
-    /// The service locator access -- kind of a hack. Will not be needed in the future.
+    /// Gets or sets CurrentServiceProvider.
     /// </summary>
-    public class ServiceLocatorAccess : IHaveServiceLocator
-    {
-        #region Properties
+    public static IServiceLocator CurrentServiceProvider { get; set; }
 
-        /// <summary>
-        /// Gets or sets CurrentServiceProvider.
-        /// </summary>
-        public static IServiceLocator CurrentServiceProvider { get; set; }
+    /// <summary>
+    ///   Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator => CurrentServiceProvider;
 
-        /// <summary>
-        ///   Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => CurrentServiceProvider;
-
-        #endregion
-    }
+    #endregion
 }

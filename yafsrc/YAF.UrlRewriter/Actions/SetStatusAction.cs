@@ -5,46 +5,45 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Actions
+namespace YAF.UrlRewriter.Actions;
+
+using System;
+using System.Net;
+
+/// <summary>
+/// Sets the StatusCode.
+/// </summary>
+public class SetStatusAction : IRewriteAction
 {
-    using System;
-    using System.Net;
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    /// <param name="statusCode">The status code to set.</param>
+    public SetStatusAction(HttpStatusCode statusCode)
+    {
+        this.StatusCode = statusCode;
+    }
 
     /// <summary>
-    /// Sets the StatusCode.
+    /// The status code.
     /// </summary>
-    public class SetStatusAction : IRewriteAction
+    public HttpStatusCode StatusCode { get; }
+
+    /// <summary>
+    /// Executes the action.
+    /// </summary>
+    /// <param name="context">The rewriting context.</param>
+    public virtual RewriteProcessing Execute(IRewriteContext context)
     {
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        /// <param name="statusCode">The status code to set.</param>
-        public SetStatusAction(HttpStatusCode statusCode)
+        if (context == null)
         {
-            this.StatusCode = statusCode;
+            throw new ArgumentNullException(nameof(context));
         }
 
-        /// <summary>
-        /// The status code.
-        /// </summary>
-        public HttpStatusCode StatusCode { get; }
+        context.StatusCode = this.StatusCode;
 
-        /// <summary>
-        /// Executes the action.
-        /// </summary>
-        /// <param name="context">The rewriting context.</param>
-        public virtual RewriteProcessing Execute(IRewriteContext context)
-        {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            context.StatusCode = this.StatusCode;
-
-            return (int)this.StatusCode >= 300
-                    ? RewriteProcessing.StopProcessing
-                    : RewriteProcessing.ContinueProcessing;
-        }
+        return (int)this.StatusCode >= 300
+                   ? RewriteProcessing.StopProcessing
+                   : RewriteProcessing.ContinueProcessing;
     }
 }

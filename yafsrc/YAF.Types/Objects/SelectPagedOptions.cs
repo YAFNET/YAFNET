@@ -22,29 +22,28 @@
 * under the License.
 */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System.Collections.Generic;
+
+/// <summary>
+/// The Select Paged Options Class
+/// </summary>
+public class SelectPagedOptions
 {
-    using System.Collections.Generic;
+    /// <summary>
+    /// Gets or sets the total.
+    /// </summary>
+    /// <value>
+    /// The total.
+    /// </value>
+    public int Total { get; set; }
 
     /// <summary>
-    /// The Select Paged Options Class
+    /// Gets or sets the results.
     /// </summary>
-    public class SelectPagedOptions
-    {
-        /// <summary>
-        /// Gets or sets the total.
-        /// </summary>
-        /// <value>
-        /// The total.
-        /// </value>
-        public int Total { get; set; }
-
-        /// <summary>
-        /// Gets or sets the results.
-        /// </summary>
-        /// <value>
-        /// The results.
-        /// </value>
-        public List<SelectOptions> Results { get; set; }
-    }
+    /// <value>
+    /// The results.
+    /// </value>
+    public List<SelectOptions> Results { get; set; }
 }

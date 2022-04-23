@@ -21,22 +21,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The read and wite provider.
+/// </summary>
+/// <typeparam name="T">
+/// </typeparam>
+public interface IReadWriteProvider<T>
 {
+    #region Properties
+
     /// <summary>
-    /// The read and wite provider.
+    /// Gets or sets the Instance.
     /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public interface IReadWriteProvider<T>
-    {
-        #region Properties
+    T Instance { get; set; }
 
-        /// <summary>
-        /// Gets or sets the Instance.
-        /// </summary>
-        T Instance { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

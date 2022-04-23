@@ -21,170 +21,169 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Data
+namespace YAF.Core.Data;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Linq;
+
+using YAF.Configuration;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Extensions.Data;
+using YAF.Types.Interfaces.Data;
+
+#endregion
+
+/// <summary>
+///     The DB access base.
+/// </summary>
+public abstract class DbAccessBase : IDbAccess
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Data.Common;
-    using System.Linq;
-
-    using YAF.Configuration;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Extensions.Data;
-    using YAF.Types.Interfaces.Data;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DbAccessBase"/> class.
+    /// </summary>
+    /// <param name="dbProviderFactory">
+    /// The db provider factory.
+    /// </param>
+    /// <param name="information">
+    /// The information.
+    /// </param>
+    protected DbAccessBase(
+        [NotNull] Func<string, DbProviderFactory> dbProviderFactory, IDbInformation information)
+    {
+        this.Information = information;
+        this.DbProviderFactory = dbProviderFactory(information.ProviderName);
+    }
 
     #endregion
 
+    #region Public Properties
+
     /// <summary>
-    ///     The DB access base.
+    ///     Gets or sets ConnectionString.
     /// </summary>
-    public abstract class DbAccessBase : IDbAccess
+    public virtual IDbInformation Information { get; protected set; }
+
+    /// <summary>
+    ///     Gets or sets DbProviderFactory.
+    /// </summary>
+    public virtual DbProviderFactory DbProviderFactory { get; protected set; }
+
+    #endregion
+
+    #region Public Methods and Operators
+
+    /// <summary>
+    /// The execute.
+    /// </summary>
+    /// <param name="execFunc">
+    /// The exec func.
+    /// </param>
+    /// <param name="cmd">
+    /// The cmd.
+    /// </param>
+    /// <param name="dbTransaction">
+    /// The db transaction.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="T"/>.
+    /// </returns>
+    public virtual T Execute<T>(Func<IDbCommand, T> execFunc, IDbCommand cmd = null, IDbTransaction dbTransaction = null)
     {
-        #region Constructors and Destructors
+        var command = cmd ?? this.GetCommand(string.Empty, CommandType.Text);
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbAccessBase"/> class.
-        /// </summary>
-        /// <param name="dbProviderFactory">
-        /// The db provider factory.
-        /// </param>
-        /// <param name="information">
-        /// The information.
-        /// </param>
-        protected DbAccessBase(
-            [NotNull] Func<string, DbProviderFactory> dbProviderFactory, IDbInformation information)
+        T result;
+
+        if (dbTransaction is null)
         {
-            this.Information = information;
-            this.DbProviderFactory = dbProviderFactory(information.ProviderName);
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets or sets ConnectionString.
-        /// </summary>
-        public virtual IDbInformation Information { get; protected set; }
-
-        /// <summary>
-        ///     Gets or sets DbProviderFactory.
-        /// </summary>
-        public virtual DbProviderFactory DbProviderFactory { get; protected set; }
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The execute.
-        /// </summary>
-        /// <param name="execFunc">
-        /// The exec func.
-        /// </param>
-        /// <param name="cmd">
-        /// The cmd.
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The db transaction.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        public virtual T Execute<T>(Func<IDbCommand, T> execFunc, IDbCommand cmd = null, IDbTransaction dbTransaction = null)
-        {
-            var command = cmd ?? this.GetCommand(string.Empty, CommandType.Text);
-
-            T result;
-
-            if (dbTransaction is null)
+            if (command.Connection is { State: ConnectionState.Open })
             {
-                if (command.Connection is { State: ConnectionState.Open })
-                {
-                    result = execFunc(command);
-                }
-                else
-                {
-                    using var connection = this.CreateConnectionOpen();
-                    // get an open connection
-                    command.Connection = connection;
-
-                    result = execFunc(command);
-
-                    connection.Close();
-                }
+                result = execFunc(command);
             }
             else
             {
-                command.Populate(dbTransaction);
+                using var connection = this.CreateConnectionOpen();
+                // get an open connection
+                command.Connection = connection;
 
                 result = execFunc(command);
+
+                connection.Close();
             }
-
-            return result;
         }
-
-        /// <summary>
-        /// The get command.
-        /// </summary>
-        /// <param name="sql">
-        /// The sql.
-        /// </param>
-        /// <param name="commandType"></param>
-        /// <param name="parameters">
-        /// The parameters.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DbCommand"/> .
-        /// </returns>
-        public virtual IDbCommand GetCommand(
-            [NotNull] string sql, CommandType commandType, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
+        else
         {
-            var cmd = this.DbProviderFactory.CreateCommand();
-            parameters = parameters.IfNullEmpty();
+            command.Populate(dbTransaction);
 
-            cmd.CommandTimeout = Config.SqlCommandTimeout;
-            cmd.CommandType = commandType;
-
-            cmd.CommandText = sql;
-
-            // map parameters for this command...
-            this.MapParameters(cmd, parameters);
-
-            return cmd.ReplaceCommandText();
+            result = execFunc(command);
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The map parameters.
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd.
-        /// </param>
-        /// <param name="parameters">
-        /// The parameters.
-        /// </param>
-        protected virtual void MapParameters([NotNull] IDbCommand cmd, [NotNull] IEnumerable<KeyValuePair<string, object>> parameters)
-        {
-            var keyValuePairs = parameters.ToList();
-
-            CodeContracts.VerifyNotNull(cmd);
-            CodeContracts.VerifyNotNull(keyValuePairs);
-
-            // add all/any parameters...
-            keyValuePairs.ForEach(cmd.AddParam);
-        }
-
-        #endregion
+        return result;
     }
+
+    /// <summary>
+    /// The get command.
+    /// </summary>
+    /// <param name="sql">
+    /// The sql.
+    /// </param>
+    /// <param name="commandType"></param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <returns>
+    /// The <see cref="DbCommand"/> .
+    /// </returns>
+    public virtual IDbCommand GetCommand(
+        [NotNull] string sql, CommandType commandType, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
+    {
+        var cmd = this.DbProviderFactory.CreateCommand();
+        parameters = parameters.IfNullEmpty();
+
+        cmd.CommandTimeout = Config.SqlCommandTimeout;
+        cmd.CommandType = commandType;
+
+        cmd.CommandText = sql;
+
+        // map parameters for this command...
+        this.MapParameters(cmd, parameters);
+
+        return cmd.ReplaceCommandText();
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The map parameters.
+    /// </summary>
+    /// <param name="cmd">
+    /// The cmd.
+    /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    protected virtual void MapParameters([NotNull] IDbCommand cmd, [NotNull] IEnumerable<KeyValuePair<string, object>> parameters)
+    {
+        var keyValuePairs = parameters.ToList();
+
+        CodeContracts.VerifyNotNull(cmd);
+        CodeContracts.VerifyNotNull(keyValuePairs);
+
+        // add all/any parameters...
+        keyValuePairs.ForEach(cmd.AddParam);
+    }
+
+    #endregion
 }

@@ -22,77 +22,77 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+#region Using
+
+using System.Globalization;
+using YAF.Core.BoardSettings;
+
+#endregion
+
+/// <summary>
+/// The Admin Board Announcement Page.
+/// </summary>
+public partial class BoardAnnouncement : AdminPage
 {
-    #region Using
-
-    using System.Globalization;
-    using YAF.Core.BoardSettings;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// The Admin Board Announcement Page.
+    ///   Initializes a new instance of the <see cref = "Profile.Attachments" /> class.
     /// </summary>
-    public partial class BoardAnnouncement : AdminPage
+    public BoardAnnouncement()
+        : base("ADMIN_BOARDSETTINGS", ForumPages.Admin_BoardAnnouncement)
     {
-        #region Methods
+    }
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "Profile.Attachments" /> class.
-        /// </summary>
-        public BoardAnnouncement()
-            : base("ADMIN_BOARDSETTINGS", ForumPages.Admin_BoardAnnouncement)
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.FormValidatorJs),
+            JavaScriptBlocks.FormValidatorJs(this.SaveAnnouncement.ClientID));
+
+        if (this.IsPostBack)
         {
+            return;
         }
 
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                nameof(JavaScriptBlocks.FormValidatorJs),
-                JavaScriptBlocks.FormValidatorJs(this.SaveAnnouncement.ClientID));
+        this.BindData();
+    }
 
-            if (this.IsPostBack)
-            {
-                return;
-            }
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddLink(this.PageBoardContext.BoardSettings.Name, this.Get<LinkBuilder>().GetLink(ForumPages.Board));
+        this.PageLinks.AddAdminIndex();
+        this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_TITLE"), string.Empty);
+    }
 
-            this.BindData();
-        }
+    /// <summary>
+    /// Saves the Board Announcement
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void SaveAnnouncementClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        var boardAnnouncementUntil = DateTime.Now;
 
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddLink(this.PageBoardContext.BoardSettings.Name, this.Get<LinkBuilder>().GetLink(ForumPages.Board));
-            this.PageLinks.AddAdminIndex();
-            this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_TITLE"), string.Empty);
-        }
+        // number inserted by suspending user
+        var count = int.Parse(this.BoardAnnouncementUntil.Text);
 
-        /// <summary>
-        /// Saves the Board Announcement
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void SaveAnnouncementClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var boardAnnouncementUntil = DateTime.Now;
-
-            // number inserted by suspending user
-            var count = int.Parse(this.BoardAnnouncementUntil.Text);
-
-            // what time units are used for suspending
-            boardAnnouncementUntil = this.BoardAnnouncementUntilUnit.SelectedValue switch
+        // what time units are used for suspending
+        boardAnnouncementUntil = this.BoardAnnouncementUntilUnit.SelectedValue switch
             {
                 // days
                 "1" => boardAnnouncementUntil.AddDays(count),
@@ -103,71 +103,70 @@ namespace YAF.Pages.Admin
                 _ => boardAnnouncementUntil
             };
 
-            var boardSettings = this.PageBoardContext.BoardSettings;
+        var boardSettings = this.PageBoardContext.BoardSettings;
 
-            boardSettings.BoardAnnouncementUntil = boardAnnouncementUntil.ToString(CultureInfo.InvariantCulture);
-            boardSettings.BoardAnnouncement = this.Message.Text;
-            boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
+        boardSettings.BoardAnnouncementUntil = boardAnnouncementUntil.ToString(CultureInfo.InvariantCulture);
+        boardSettings.BoardAnnouncement = this.Message.Text;
+        boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
 
-            // save the settings to the database
-            ((LoadBoardSettings)boardSettings).SaveRegistry();
+        // save the settings to the database
+        ((LoadBoardSettings)boardSettings).SaveRegistry();
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
-        }
-
-        /// <summary>
-        /// Deletes the Announcement
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void DeleteClick(object sender, EventArgs e)
-        {
-            var boardSettings = this.PageBoardContext.BoardSettings;
-
-            boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
-            boardSettings.BoardAnnouncement = this.Message.Text;
-            boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
-
-            // save the settings to the database
-            ((LoadBoardSettings)boardSettings).SaveRegistry();
-
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
-        }
-
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        private void BindData()
-        {
-            var boardSettings = this.PageBoardContext.BoardSettings;
-
-            // add items to the dropdown
-            this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "MONTH"), "3"));
-            this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "DAYS"), "1"));
-            this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "HOURS"), "2"));
-
-            // select hours
-            this.BoardAnnouncementUntilUnit.SelectedIndex = 0;
-
-            // default number of hours to suspend user for
-            this.BoardAnnouncementUntil.Text = "1";
-
-            if (boardSettings.BoardAnnouncement.IsNotSet())
-            {
-                return;
-            }
-
-            this.CurrentAnnouncement.Visible = true;
-            this.CurrentMessage.Text =
-                $"<strong>{this.GetText("ANNOUNCEMENT_CURRENT")}:</strong>&nbsp;{boardSettings.BoardAnnouncementUntil}";
-            this.BoardAnnouncementType.SelectedValue = boardSettings.BoardAnnouncementType;
-            this.Message.Text = boardSettings.BoardAnnouncement;
-        }
-
-        #endregion
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
     }
+
+    /// <summary>
+    /// Deletes the Announcement
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void DeleteClick(object sender, EventArgs e)
+    {
+        var boardSettings = this.PageBoardContext.BoardSettings;
+
+        boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
+        boardSettings.BoardAnnouncement = this.Message.Text;
+        boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
+
+        // save the settings to the database
+        ((LoadBoardSettings)boardSettings).SaveRegistry();
+
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private void BindData()
+    {
+        var boardSettings = this.PageBoardContext.BoardSettings;
+
+        // add items to the dropdown
+        this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "MONTH"), "3"));
+        this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "DAYS"), "1"));
+        this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "HOURS"), "2"));
+
+        // select hours
+        this.BoardAnnouncementUntilUnit.SelectedIndex = 0;
+
+        // default number of hours to suspend user for
+        this.BoardAnnouncementUntil.Text = "1";
+
+        if (boardSettings.BoardAnnouncement.IsNotSet())
+        {
+            return;
+        }
+
+        this.CurrentAnnouncement.Visible = true;
+        this.CurrentMessage.Text =
+            $"<strong>{this.GetText("ANNOUNCEMENT_CURRENT")}:</strong>&nbsp;{boardSettings.BoardAnnouncementUntil}";
+        this.BoardAnnouncementType.SelectedValue = boardSettings.BoardAnnouncementType;
+        this.Message.Text = boardSettings.BoardAnnouncement;
+    }
+
+    #endregion
 }

@@ -22,332 +22,331 @@
  * under the License.
  */
 
-namespace YAF.Core.Context
+namespace YAF.Core.Context;
+
+#region
+
+using System;
+using System.Threading;
+
+using YAF.Configuration;
+using YAF.Core.Helpers;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+using YAF.Types.Objects.Model;
+
+#endregion
+
+/// <summary>
+/// User Page Class.
+/// </summary>
+public abstract class UserPageBase
 {
-    #region
+    #region Constants and Fields
 
-    using System;
-    using System.Threading;
-
-    using YAF.Configuration;
-    using YAF.Core.Helpers;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Types.Objects;
-    using YAF.Types.Objects.Model;
+    /// <summary>
+    /// The page
+    /// </summary>
+    private Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic, Message>, UserLazyData, PageQueryData> page;
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// User Page Class.
+    /// Gets or sets a value indicating whether the page data is loaded.
     /// </summary>
-    public abstract class UserPageBase
+    public bool UserPageDataLoaded { get; set; }
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user can delete own messages in the current forum (True).
+    /// </summary>
+    public bool ForumDeleteAccess => this.PageData.Item2.Item1.DeleteAccess;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user can download attachments (True).
+    /// </summary>
+    public bool DownloadAccess => this.PageData.Item2.Item1.DownloadAccess;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user can edit own messages in the current forum (True).
+    /// </summary>
+    public bool ForumEditAccess => this.PageData.Item2.Item1.EditAccess;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user is a moderator of the current forum (True).
+    /// </summary>
+    public bool ForumModeratorAccess => this.PageData.Item2.Item1.ModeratorAccess;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user has access to create polls in the current forum (True).
+    /// </summary>
+    public bool ForumPollAccess => this.PageData.Item2.Item1.PollAccess;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user has post access in the current forum (True).
+    /// </summary>
+    public bool ForumPostAccess => this.PageData.Item2.Item1.PostAccess;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user has access to create priority topics in the current forum (True).
+    /// </summary>
+    public bool ForumPriorityAccess => this.PageData.Item2.Item1.PriorityAccess;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user has read access in the current forum (True)
+    /// </summary>
+    public bool ForumReadAccess => this.PageData.Item2.Item1.ReadAccess;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user has reply access in the current forum (True)
+    /// </summary>
+    public bool ForumReplyAccess => this.PageData.Item2.Item1.ReplyAccess;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user can upload attachments (True).
+    /// </summary>
+    public bool UploadAccess => this.PageData.Item2.Item1.UploadAccess;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user has access to vote on polls in the current forum (True).
+    /// </summary>
+    public bool ForumVoteAccess => this.PageData.Item2.Item1.VoteAccess;
+
+    /// <summary>
+    ///   Gets a value indicating whether the  current user is an administrator (True).
+    /// </summary>
+    public bool IsForumAdmin => this.PageData.Item2.Item1.IsAdmin;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user IsCrawler (True).
+    /// </summary>
+    public bool IsCrawler => this.PageData.Item2.Item1.IsCrawler;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user is a forum moderator (mini-admin) (True).
+    /// </summary>
+    public bool IsForumModerator => this.PageData.Item2.Item1.IsForumModerator;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user is a guest (True).
+    /// </summary>
+    public bool IsGuest => this.PageData.Item3.IsGuest;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user is a moderator for at least one forum (True);
+    /// </summary>
+    public bool IsModeratorInAnyForum =>
+        this.PageData.Item2.Item1.IsModerator || this.PageData.Item2.Item1.IsModeratorAny;
+
+    /// <summary>
+    ///   Gets a value indicating whether the current user is suspended (True).
+    /// </summary>
+    public bool IsSuspended => this.PageData.Item3.Suspended.HasValue;
+
+    /// <summary>
+    ///   Gets the number of pending buddy requests.
+    /// </summary>
+    public DateTime LastPendingBuddies => this.PageData.Item3.LastPendingBuddies;
+
+    /// <summary>
+    ///   Gets LastUnreadPm.
+    /// </summary>
+    public DateTime LastUnreadPm => this.PageData.Item3.LastUnreadPm ?? DateTimeHelper.SqlDbMinTime();
+
+    /// <summary>
+    ///   Gets the number of albums which a user already has
+    /// </summary>
+    public int NumAlbums => this.PageData.Item3.NumAlbums;
+
+    /// <summary>
+    ///   Gets or sets Page.
+    /// </summary>
+    public virtual Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic, Message>, UserLazyData, PageQueryData> PageData
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The page
-        /// </summary>
-        private Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic, Message>, UserLazyData, PageQueryData> page;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the page data is loaded.
-        /// </summary>
-        public bool UserPageDataLoaded { get; set; }
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user can delete own messages in the current forum (True).
-        /// </summary>
-        public bool ForumDeleteAccess => this.PageData.Item2.Item1.DeleteAccess;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user can download attachments (True).
-        /// </summary>
-        public bool DownloadAccess => this.PageData.Item2.Item1.DownloadAccess;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user can edit own messages in the current forum (True).
-        /// </summary>
-        public bool ForumEditAccess => this.PageData.Item2.Item1.EditAccess;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user is a moderator of the current forum (True).
-        /// </summary>
-        public bool ForumModeratorAccess => this.PageData.Item2.Item1.ModeratorAccess;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user has access to create polls in the current forum (True).
-        /// </summary>
-        public bool ForumPollAccess => this.PageData.Item2.Item1.PollAccess;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user has post access in the current forum (True).
-        /// </summary>
-        public bool ForumPostAccess => this.PageData.Item2.Item1.PostAccess;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user has access to create priority topics in the current forum (True).
-        /// </summary>
-        public bool ForumPriorityAccess => this.PageData.Item2.Item1.PriorityAccess;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user has read access in the current forum (True)
-        /// </summary>
-        public bool ForumReadAccess => this.PageData.Item2.Item1.ReadAccess;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user has reply access in the current forum (True)
-        /// </summary>
-        public bool ForumReplyAccess => this.PageData.Item2.Item1.ReplyAccess;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user can upload attachments (True).
-        /// </summary>
-        public bool UploadAccess => this.PageData.Item2.Item1.UploadAccess;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user has access to vote on polls in the current forum (True).
-        /// </summary>
-        public bool ForumVoteAccess => this.PageData.Item2.Item1.VoteAccess;
-
-        /// <summary>
-        ///   Gets a value indicating whether the  current user is an administrator (True).
-        /// </summary>
-        public bool IsForumAdmin => this.PageData.Item2.Item1.IsAdmin;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user IsCrawler (True).
-        /// </summary>
-        public bool IsCrawler => this.PageData.Item2.Item1.IsCrawler;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user is a forum moderator (mini-admin) (True).
-        /// </summary>
-        public bool IsForumModerator => this.PageData.Item2.Item1.IsForumModerator;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user is a guest (True).
-        /// </summary>
-        public bool IsGuest => this.PageData.Item3.IsGuest;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user is a moderator for at least one forum (True);
-        /// </summary>
-        public bool IsModeratorInAnyForum =>
-            this.PageData.Item2.Item1.IsModerator || this.PageData.Item2.Item1.IsModeratorAny;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user is suspended (True).
-        /// </summary>
-        public bool IsSuspended => this.PageData.Item3.Suspended.HasValue;
-
-        /// <summary>
-        ///   Gets the number of pending buddy requests.
-        /// </summary>
-        public DateTime LastPendingBuddies => this.PageData.Item3.LastPendingBuddies;
-
-        /// <summary>
-        ///   Gets LastUnreadPm.
-        /// </summary>
-        public DateTime LastUnreadPm => this.PageData.Item3.LastUnreadPm ?? DateTimeHelper.SqlDbMinTime();
-
-        /// <summary>
-        ///   Gets the number of albums which a user already has
-        /// </summary>
-        public int NumAlbums => this.PageData.Item3.NumAlbums;
-
-        /// <summary>
-        ///   Gets or sets Page.
-        /// </summary>
-        public virtual Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic, Message>, UserLazyData, PageQueryData> PageData
+        get
         {
-            get
+            if (this.UserPageDataLoaded)
             {
-                if (this.UserPageDataLoaded)
-                {
-                    return this.page;
-                }
-
-                if (!Monitor.TryEnter(this))
-                {
-                    return this.page;
-                }
-
-                try
-                {
-                    if (!this.UserPageDataLoaded)
-                    {
-                        this.InitUserAndPage();
-                    }
-                }
-                finally
-                {
-                    Monitor.Exit(this);
-                }
-
                 return this.page;
             }
 
-            set
+            if (!Monitor.TryEnter(this))
             {
-                this.page = value;
-                this.UserPageDataLoaded = value != null;
+                return this.page;
             }
+
+            try
+            {
+                if (!this.UserPageDataLoaded)
+                {
+                    this.InitUserAndPage();
+                }
+            }
+            finally
+            {
+                Monitor.Exit(this);
+            }
+
+            return this.page;
         }
 
-        /// <summary>
-        ///   Gets PageBoardID.
-        /// </summary>
-        public int PageBoardID => BoardContext.Current.Get<ControlSettings>().BoardID;
-
-        /// <summary>
-        ///   Gets the CategoryID for the current page, or 0 if not in any category
-        /// </summary>
-        public int PageCategoryID => BoardContext.Current.Settings.CategoryID != 0
-                                         ? BoardContext.Current.Settings.CategoryID
-                                         : this.PageData.Item4.CategoryID;
-
-        /// <summary>
-        /// The page category.
-        /// </summary>
-        public Category PageCategory => this.PageData.Item2.Item3;
-
-        /// <summary>
-        ///   Gets the ForumID for the current page, or 0 if not in any forum
-        /// </summary>
-        public int PageForumID => this.PageData.Item4.ForumID;
-
-        /// <summary>
-        ///   Gets the Name of forum for the current page, or an empty string if not in any forum
-        /// </summary>
-        public Forum PageForum => this.PageData.Item2.Item4;
-
-        /// <summary>
-        ///   Gets the  TopicID of the current page, or 0 if not in any topic
-        /// </summary>
-        public int PageTopicID => this.PageData.Item4.TopicID;
-
-        /// <summary>
-        ///   Gets the Name of topic for the current page, or an empty string if not in any topic
-        /// </summary>
-        public Topic PageTopic => this.PageData.Item2.Item5;
-
-        /// <summary>
-        /// The page message if exist and in the page query
-        /// </summary>
-        public Message PageMessage => this.PageData.Item2.Item6;
-
-        /// <summary>
-        ///   Gets the UserID of the current user.
-        /// </summary>
-        public int PageUserID => this.PageData.Item2.Item2.ID;
-
-        /// <summary>
-        /// The guest user id.
-        /// </summary>
-        public int GuestUserID => this.PageData.Item2.Item1.GuestUserID;
-
-        /// <summary>
-        ///   Gets the number of pending buddy requests
-        /// </summary>
-        public int PendingBuddies => this.PageData.Item3.PendingBuddies;
-
-        /// <summary>
-        ///   Gets the DateTime the user is suspended until
-        /// </summary>
-        public DateTime SuspendedUntil => this.IsSuspended ? this.PageData.Item3.Suspended ?? DateTime.UtcNow : DateTime.UtcNow;
-
-        /// <summary>
-        ///   Gets the DateTime the user is suspended until
-        /// </summary>
-        public string SuspendedReason => this.IsSuspended ? this.PageData.Item3.SuspendedReason : string.Empty;
-
-        /// <summary>
-        ///   Gets the time zone offset for the user
-        /// </summary>
-        public string TimeZoneUser => this.PageData.Item3.TimeZoneUser;
-
-        /// <summary>
-        /// Gets the time zone information user.
-        /// </summary>
-        /// <value>
-        /// The time zone information user.
-        /// </value>
-        public TimeZoneInfo TimeZoneInfoUser => DateTimeHelper.GetTimeZoneInfo(this.TimeZoneUser);
-
-        /// <summary>
-        /// Gets the time zone user off set.
-        /// </summary>
-        /// <value>
-        /// The time zone user off set.
-        /// </value>
-        public int TimeZoneUserOffSet => DateTimeHelper.GetTimeZoneOffset(this.PageData.Item3.TimeZoneUser);
-
-        /// <summary>
-        /// Number of Unread New Topics in a Watch Forum and/or Replies in a Watch Topic
-        /// </summary>
-        public int WatchTopic => this.PageData.Item3.WatchTopic;
-
-        /// <summary>
-        /// The received thanks.
-        /// </summary>
-        public int ReceivedThanks => this.PageData.Item3.ReceivedThanks;
-
-        /// <summary>
-        /// The mention.
-        /// </summary>
-        public int Mention => this.PageData.Item3.Mention;
-
-        /// <summary>
-        /// The quoted.
-        /// </summary>
-        public int Quoted => this.PageData.Item3.Quoted;
-
-        /// <summary>
-        ///   Gets the number of private messages that are unread
-        /// </summary>
-        public int UnreadPrivate => this.PageData.Item3.UnreadPrivate;
-
-        /// <summary>
-        ///   Gets the number of posts that needs moderating
-        /// </summary>
-        public int ModeratePosts => this.PageData.Item3.ModeratePosts;
-
-        /// <summary>
-        ///   Gets a value indicating whether a user has buddies
-        /// </summary>
-        public bool UserHasBuddies => this.PageData.Item3.UserHasBuddies;
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Helper function to see if the Page variable is populated
-        /// </summary>
-        /// <returns>
-        /// The page is null.
-        /// </returns>
-        public bool PageIsNull()
+        set
         {
-            return this.PageData is null;
+            this.page = value;
+            this.UserPageDataLoaded = value != null;
         }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Initialize the user data and page data...
-        /// </summary>
-        protected virtual void InitUserAndPage()
-        {
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    ///   Gets PageBoardID.
+    /// </summary>
+    public int PageBoardID => BoardContext.Current.Get<ControlSettings>().BoardID;
+
+    /// <summary>
+    ///   Gets the CategoryID for the current page, or 0 if not in any category
+    /// </summary>
+    public int PageCategoryID => BoardContext.Current.Settings.CategoryID != 0
+                                     ? BoardContext.Current.Settings.CategoryID
+                                     : this.PageData.Item4.CategoryID;
+
+    /// <summary>
+    /// The page category.
+    /// </summary>
+    public Category PageCategory => this.PageData.Item2.Item3;
+
+    /// <summary>
+    ///   Gets the ForumID for the current page, or 0 if not in any forum
+    /// </summary>
+    public int PageForumID => this.PageData.Item4.ForumID;
+
+    /// <summary>
+    ///   Gets the Name of forum for the current page, or an empty string if not in any forum
+    /// </summary>
+    public Forum PageForum => this.PageData.Item2.Item4;
+
+    /// <summary>
+    ///   Gets the  TopicID of the current page, or 0 if not in any topic
+    /// </summary>
+    public int PageTopicID => this.PageData.Item4.TopicID;
+
+    /// <summary>
+    ///   Gets the Name of topic for the current page, or an empty string if not in any topic
+    /// </summary>
+    public Topic PageTopic => this.PageData.Item2.Item5;
+
+    /// <summary>
+    /// The page message if exist and in the page query
+    /// </summary>
+    public Message PageMessage => this.PageData.Item2.Item6;
+
+    /// <summary>
+    ///   Gets the UserID of the current user.
+    /// </summary>
+    public int PageUserID => this.PageData.Item2.Item2.ID;
+
+    /// <summary>
+    /// The guest user id.
+    /// </summary>
+    public int GuestUserID => this.PageData.Item2.Item1.GuestUserID;
+
+    /// <summary>
+    ///   Gets the number of pending buddy requests
+    /// </summary>
+    public int PendingBuddies => this.PageData.Item3.PendingBuddies;
+
+    /// <summary>
+    ///   Gets the DateTime the user is suspended until
+    /// </summary>
+    public DateTime SuspendedUntil => this.IsSuspended ? this.PageData.Item3.Suspended ?? DateTime.UtcNow : DateTime.UtcNow;
+
+    /// <summary>
+    ///   Gets the DateTime the user is suspended until
+    /// </summary>
+    public string SuspendedReason => this.IsSuspended ? this.PageData.Item3.SuspendedReason : string.Empty;
+
+    /// <summary>
+    ///   Gets the time zone offset for the user
+    /// </summary>
+    public string TimeZoneUser => this.PageData.Item3.TimeZoneUser;
+
+    /// <summary>
+    /// Gets the time zone information user.
+    /// </summary>
+    /// <value>
+    /// The time zone information user.
+    /// </value>
+    public TimeZoneInfo TimeZoneInfoUser => DateTimeHelper.GetTimeZoneInfo(this.TimeZoneUser);
+
+    /// <summary>
+    /// Gets the time zone user off set.
+    /// </summary>
+    /// <value>
+    /// The time zone user off set.
+    /// </value>
+    public int TimeZoneUserOffSet => DateTimeHelper.GetTimeZoneOffset(this.PageData.Item3.TimeZoneUser);
+
+    /// <summary>
+    /// Number of Unread New Topics in a Watch Forum and/or Replies in a Watch Topic
+    /// </summary>
+    public int WatchTopic => this.PageData.Item3.WatchTopic;
+
+    /// <summary>
+    /// The received thanks.
+    /// </summary>
+    public int ReceivedThanks => this.PageData.Item3.ReceivedThanks;
+
+    /// <summary>
+    /// The mention.
+    /// </summary>
+    public int Mention => this.PageData.Item3.Mention;
+
+    /// <summary>
+    /// The quoted.
+    /// </summary>
+    public int Quoted => this.PageData.Item3.Quoted;
+
+    /// <summary>
+    ///   Gets the number of private messages that are unread
+    /// </summary>
+    public int UnreadPrivate => this.PageData.Item3.UnreadPrivate;
+
+    /// <summary>
+    ///   Gets the number of posts that needs moderating
+    /// </summary>
+    public int ModeratePosts => this.PageData.Item3.ModeratePosts;
+
+    /// <summary>
+    ///   Gets a value indicating whether a user has buddies
+    /// </summary>
+    public bool UserHasBuddies => this.PageData.Item3.UserHasBuddies;
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Helper function to see if the Page variable is populated
+    /// </summary>
+    /// <returns>
+    /// The page is null.
+    /// </returns>
+    public bool PageIsNull()
+    {
+        return this.PageData is null;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Initialize the user data and page data...
+    /// </summary>
+    protected virtual void InitUserAndPage()
+    {
+    }
+
+    #endregion
 }

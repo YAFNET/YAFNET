@@ -21,28 +21,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services.Cache
+namespace YAF.Core.Services.Cache;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Runtime.Caching;
+using System.Web.Caching;
+
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+/// The http runtime cache -- uses HttpRuntime cache to store cache information.
+/// </summary>
+public class HttpRuntimeCache : IDataCache
 {
-  #region Using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Runtime.Caching;
-    using System.Web.Caching;
-
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
-
-    #endregion
-
-  /// <summary>
-  /// The http runtime cache -- uses HttpRuntime cache to store cache information.
-  /// </summary>
-  public class HttpRuntimeCache : IDataCache
-  {
     #region Constants and Fields
 
     /// <summary>
@@ -78,16 +78,16 @@ namespace YAF.Core.Services.Cache
     /// The treat Cache Key.
     /// </param>
     public HttpRuntimeCache(
-      [NotNull] IRaiseEvent eventRaiser, 
-      [NotNull] IHaveLockObject haveLockObject, 
-      [NotNull] ITreatCacheKey treatCacheKey)
+        [NotNull] IRaiseEvent eventRaiser, 
+        [NotNull] IHaveLockObject haveLockObject, 
+        [NotNull] ITreatCacheKey treatCacheKey)
     {
-      CodeContracts.VerifyNotNull(eventRaiser);
-      CodeContracts.VerifyNotNull(haveLockObject);
+        CodeContracts.VerifyNotNull(eventRaiser);
+        CodeContracts.VerifyNotNull(haveLockObject);
 
-      this._eventRaiser = eventRaiser;
-      this._haveLockObject = haveLockObject;
-      this._treatCacheKey = treatCacheKey;
+        this._eventRaiser = eventRaiser;
+        this._haveLockObject = haveLockObject;
+        this._treatCacheKey = treatCacheKey;
     }
 
     #endregion
@@ -102,9 +102,9 @@ namespace YAF.Core.Services.Cache
     /// </param>
     public object this[[NotNull] string key]
     {
-      get => this.Get(key);
+        get => this.Get(key);
 
-      set => this.Set(key, value);
+        set => this.Set(key, value);
     }
 
     #endregion
@@ -121,25 +121,25 @@ namespace YAF.Core.Services.Cache
     [NotNull]
     public IEnumerable<KeyValuePair<string, T>> GetAll<T>()
     {
-      var isObject = typeof(T) == typeof(object);
+        var isObject = typeof(T) == typeof(object);
 
-      foreach (var item in MemoryCache.Default)
-      {
-          if (!item.Key.StartsWith($"{Constants.Cache.YafCacheKey}$"))
-          {
-              continue;
-          }
+        foreach (var item in MemoryCache.Default)
+        {
+            if (!item.Key.StartsWith($"{Constants.Cache.YafCacheKey}$"))
+            {
+                continue;
+            }
 
-          if (!isObject && !(item.Value is T))
-          {
-              continue;
-          }
+            if (!isObject && !(item.Value is T))
+            {
+                continue;
+            }
 
-          // key parts are YAFCACHE$[Provided Name]$[Possibily More]"
-          var key = item.Key.Split('$')[1];
+            // key parts are YAFCACHE$[Provided Name]$[Possibily More]"
+            var key = item.Key.Split('$')[1];
 
-          yield return new KeyValuePair<string, T>(key, (T)item.Value);
-      }
+            yield return new KeyValuePair<string, T>(key, (T)item.Value);
+        }
     }
 
     /// <summary>
@@ -158,25 +158,25 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     public T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue, TimeSpan timeout)
     {
-      CodeContracts.VerifyNotNull(key);
-      CodeContracts.VerifyNotNull(getValue);
+        CodeContracts.VerifyNotNull(key);
+        CodeContracts.VerifyNotNull(getValue);
 
-      return this.GetOrSetInternal(
-        key, 
-        getValue, 
-        c =>
-        {
-            var cacheItemPolicy = new CacheItemPolicy
-            {
-                AbsoluteExpiration = DateTime.UtcNow + timeout,
-                SlidingExpiration = Cache.NoSlidingExpiration,
-                Priority = System.Runtime.Caching.CacheItemPriority.Default,
-                RemovedCallback = (k) => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
-            };
-            MemoryCache.Default.Add(
-                new CacheItem(this.CreateKey(key)) { Value = c },
-                cacheItemPolicy);
-        });
+        return this.GetOrSetInternal(
+            key, 
+            getValue, 
+            c =>
+                {
+                    var cacheItemPolicy = new CacheItemPolicy
+                                              {
+                                                  AbsoluteExpiration = DateTime.UtcNow + timeout,
+                                                  SlidingExpiration = Cache.NoSlidingExpiration,
+                                                  Priority = System.Runtime.Caching.CacheItemPriority.Default,
+                                                  RemovedCallback = (k) => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
+                                              };
+                    MemoryCache.Default.Add(
+                        new CacheItem(this.CreateKey(key)) { Value = c },
+                        cacheItemPolicy);
+                });
     }
 
     /// <summary>
@@ -192,25 +192,25 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     public T GetOrSet<T>(string key, Func<T> getValue)
     {
-      CodeContracts.VerifyNotNull(key);
-      CodeContracts.VerifyNotNull(getValue);
+        CodeContracts.VerifyNotNull(key);
+        CodeContracts.VerifyNotNull(getValue);
 
-      return this.GetOrSetInternal(
-          key,
-          getValue,
-          c =>
-          {
-              var cacheItemPolicy = new CacheItemPolicy
-              {
-                  AbsoluteExpiration = DateTimeOffset.MaxValue,
-                  SlidingExpiration = Cache.NoSlidingExpiration,
-                  Priority = System.Runtime.Caching.CacheItemPriority.Default,
-                  RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
-              };
-              MemoryCache.Default.Add(
-                  new CacheItem(this.CreateKey(key)) { Value = c },
-                  cacheItemPolicy);
-          });
+        return this.GetOrSetInternal(
+            key,
+            getValue,
+            c =>
+                {
+                    var cacheItemPolicy = new CacheItemPolicy
+                                              {
+                                                  AbsoluteExpiration = DateTimeOffset.MaxValue,
+                                                  SlidingExpiration = Cache.NoSlidingExpiration,
+                                                  Priority = System.Runtime.Caching.CacheItemPriority.Default,
+                                                  RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
+                                              };
+                    MemoryCache.Default.Add(
+                        new CacheItem(this.CreateKey(key)) { Value = c },
+                        cacheItemPolicy);
+                });
     }
 
     /// <summary>
@@ -227,27 +227,27 @@ namespace YAF.Core.Services.Cache
     /// </param>
     public void Set([NotNull] string key, object value, TimeSpan timeout)
     {
-      CodeContracts.VerifyNotNull(key);
+        CodeContracts.VerifyNotNull(key);
 
-      var actualKey = this.CreateKey(key);
+        var actualKey = this.CreateKey(key);
 
-      lock (this._haveLockObject.Get(actualKey))
-      {
-          if (MemoryCache.Default[actualKey] != null)
-          {
-              MemoryCache.Default.Remove(actualKey);
-          }
+        lock (this._haveLockObject.Get(actualKey))
+        {
+            if (MemoryCache.Default[actualKey] != null)
+            {
+                MemoryCache.Default.Remove(actualKey);
+            }
 
-          var cacheItemPolicy = new CacheItemPolicy
-          {
-              AbsoluteExpiration = DateTime.UtcNow + timeout,
-              SlidingExpiration = Cache.NoSlidingExpiration,
-              Priority = System.Runtime.Caching.CacheItemPriority.Default,
-              RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
-          };
+            var cacheItemPolicy = new CacheItemPolicy
+                                      {
+                                          AbsoluteExpiration = DateTime.UtcNow + timeout,
+                                          SlidingExpiration = Cache.NoSlidingExpiration,
+                                          Priority = System.Runtime.Caching.CacheItemPriority.Default,
+                                          RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
+                                      };
 
-          MemoryCache.Default.Add(new CacheItem(actualKey) { Value = value }, cacheItemPolicy);
-      }
+            MemoryCache.Default.Add(new CacheItem(actualKey) { Value = value }, cacheItemPolicy);
+        }
     }
 
     #endregion
@@ -265,9 +265,9 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     public object Get([NotNull] string originalKey)
     {
-      CodeContracts.VerifyNotNull(originalKey);
+        CodeContracts.VerifyNotNull(originalKey);
 
-      return MemoryCache.Default[this.CreateKey(originalKey)];
+        return MemoryCache.Default[this.CreateKey(originalKey)];
     }
 
     #endregion
@@ -300,9 +300,9 @@ namespace YAF.Core.Services.Cache
     /// </param>
     public void Set([NotNull] string key, [CanBeNull] object value)
     {
-      CodeContracts.VerifyNotNull(key);
+        CodeContracts.VerifyNotNull(key);
 
-      MemoryCache.Default[this.CreateKey(key)] = value;
+        MemoryCache.Default[this.CreateKey(key)] = value;
     }
 
     #endregion
@@ -345,39 +345,38 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     private T GetOrSetInternal<T>([NotNull] string key, [NotNull] Func<T> getValue, [NotNull] Action<T> addToCacheFunction)
     {
-      CodeContracts.VerifyNotNull(key);
-      CodeContracts.VerifyNotNull(getValue);
-      CodeContracts.VerifyNotNull(addToCacheFunction);
+        CodeContracts.VerifyNotNull(key);
+        CodeContracts.VerifyNotNull(getValue);
+        CodeContracts.VerifyNotNull(addToCacheFunction);
 
-      var cachedItem = this.Get<T>(key);
+        var cachedItem = this.Get<T>(key);
 
-      if (!Equals(cachedItem, default(T)))
-      {
-          return cachedItem;
-      }
+        if (!Equals(cachedItem, default(T)))
+        {
+            return cachedItem;
+        }
 
-      lock (this._haveLockObject.Get(this.CreateKey(key)))
-      {
-          // now that we're on lockdown, try one more time...
-          cachedItem = this.Get<T>(key);
+        lock (this._haveLockObject.Get(this.CreateKey(key)))
+        {
+            // now that we're on lockdown, try one more time...
+            cachedItem = this.Get<T>(key);
 
-          if (!Equals(cachedItem, default(T)))
-          {
-              return cachedItem;
-          }
+            if (!Equals(cachedItem, default(T)))
+            {
+                return cachedItem;
+            }
 
-          // materialize the query
-          cachedItem = getValue();
+            // materialize the query
+            cachedItem = getValue();
 
-          if (!Equals(cachedItem, default(T)))
-          {
-              addToCacheFunction(cachedItem);
-          }
-      }
+            if (!Equals(cachedItem, default(T)))
+            {
+                addToCacheFunction(cachedItem);
+            }
+        }
 
-      return cachedItem;
+        return cachedItem;
     }
 
     #endregion
-  }
 }

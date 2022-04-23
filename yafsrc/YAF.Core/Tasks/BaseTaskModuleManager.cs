@@ -22,178 +22,177 @@
  * under the License.
  */
 
-namespace YAF.Core.Tasks
+namespace YAF.Core.Tasks;
+
+#region Using
+
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Tasks;
+
+#endregion
+
+/// <summary>
+///     The base task module manager.
+/// </summary>
+public abstract class BaseTaskModuleManager : ITaskModuleManager
 {
-    #region Using
+    #region Static Fields
 
-    using System;
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
-
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Tasks;
+    /// <summary>
+    /// The task manager.
+    /// </summary>
+    protected static ConcurrentDictionary<string, IBackgroundTask> taskManager = new();
 
     #endregion
 
+    #region Public Properties
+
     /// <summary>
-    ///     The base task module manager.
+    ///     Gets TaskCount.
     /// </summary>
-    public abstract class BaseTaskModuleManager : ITaskModuleManager
+    public virtual int TaskCount => taskManager.Count;
+
+    /// <summary>
+    ///     All the names of tasks running.
+    /// </summary>
+    [NotNull]
+    public virtual IList<string> TaskManagerInstances => taskManager.Keys.ToList();
+
+    /// <summary>
+    ///     Gets TaskManagerSnapshot.
+    /// </summary>
+    [NotNull]
+    public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot => taskManager.ToDictionary(k => k.Key, v => v.Value);
+
+    #endregion
+
+    #region Public Methods and Operators
+
+    /// <summary>
+    /// Check if Tasks are Running.
+    /// </summary>
+    /// <param name="instanceName">
+    /// The instance Names.
+    /// </param>
+    /// <returns>
+    /// The tasks are running.
+    /// </returns>
+    public virtual bool AreTasksRunning([NotNull] string[] instanceName)
     {
-        #region Static Fields
+        var isRunning = false;
 
-        /// <summary>
-        /// The task manager.
-        /// </summary>
-        protected static ConcurrentDictionary<string, IBackgroundTask> taskManager = new();
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets TaskCount.
-        /// </summary>
-        public virtual int TaskCount => taskManager.Count;
-
-        /// <summary>
-        ///     All the names of tasks running.
-        /// </summary>
-        [NotNull]
-        public virtual IList<string> TaskManagerInstances => taskManager.Keys.ToList();
-
-        /// <summary>
-        ///     Gets TaskManagerSnapshot.
-        /// </summary>
-        [NotNull]
-        public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot => taskManager.ToDictionary(k => k.Key, v => v.Value);
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// Check if Tasks are Running.
-        /// </summary>
-        /// <param name="instanceName">
-        /// The instance Names.
-        /// </param>
-        /// <returns>
-        /// The tasks are running.
-        /// </returns>
-        public virtual bool AreTasksRunning([NotNull] string[] instanceName)
+        foreach (var s in instanceName)
         {
-            var isRunning = false;
-
-            foreach (var s in instanceName)
+            isRunning = this.TryGetTask(s, out var task) && task.IsRunning;
+            if (isRunning)
             {
-                isRunning = this.TryGetTask(s, out var task) && task.IsRunning;
-                if (isRunning)
-                {
-                    break;
-                }
-            }
-
-            return isRunning;
-        }
-
-        /// <summary>
-        ///     Check if a Task is Running.
-        /// </summary>
-        /// <param name="instanceName">
-        /// The instance Name.
-        /// </param>
-        /// <returns>
-        ///     The is task running.
-        /// </returns>
-        public virtual bool IsTaskRunning([NotNull] string instanceName)
-        {
-            return this.TryGetTask(instanceName, out var task) && task.IsRunning;
-        }
-
-        /// <summary>
-        /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
-        /// </summary>
-        /// <param name="instanceName">
-        /// Unique name of this task
-        /// </param>
-        /// <param name="startTask">
-        /// Task to run
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public abstract bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> startTask);
-
-        /// <summary>
-        /// Stops a task from running if it's not critical
-        /// </summary>
-        /// <param name="instanceName">
-        /// The instance Name.
-        /// </param>
-        public virtual void StopTask([NotNull] string instanceName)
-        {
-            if (!this.TryGetTask(instanceName, out var task))
-            {
-                return;
-            }
-
-            if (task == null || !task.IsRunning || task is ICriticalBackgroundTask)
-            {
-                return;
-            }
-
-            if (this.TryRemoveTask(instanceName))
-            {
-                task.Dispose();
+                break;
             }
         }
 
-        /// <summary>
-        /// Check if a task exists in the task manager. May not be running.
-        /// </summary>
-        /// <param name="instanceName">
-        /// The instance Name.
-        /// </param>
-        /// <returns>
-        /// The task exists.
-        /// </returns>
-        public virtual bool TaskExists([NotNull] string instanceName)
-        {
-            return taskManager.ContainsKey(instanceName);
-        }
-
-        /// <summary>
-        /// Attempt to get the instance of the task.
-        /// </summary>
-        /// <param name="instanceName">
-        /// The instance Name.
-        /// </param>
-        /// <param name="task">
-        /// The task.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public virtual bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task) => taskManager.TryGetValue(instanceName, out task);
-
-        /// <summary>
-        /// The try remove task.
-        /// </summary>
-        /// <param name="instanceName">
-        /// The instance name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public virtual bool TryRemoveTask([NotNull] string instanceName)
-        {
-            return taskManager.TryRemove(instanceName, out _);
-        }
-
-        #endregion
+        return isRunning;
     }
+
+    /// <summary>
+    ///     Check if a Task is Running.
+    /// </summary>
+    /// <param name="instanceName">
+    /// The instance Name.
+    /// </param>
+    /// <returns>
+    ///     The is task running.
+    /// </returns>
+    public virtual bool IsTaskRunning([NotNull] string instanceName)
+    {
+        return this.TryGetTask(instanceName, out var task) && task.IsRunning;
+    }
+
+    /// <summary>
+    /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
+    /// </summary>
+    /// <param name="instanceName">
+    /// Unique name of this task
+    /// </param>
+    /// <param name="startTask">
+    /// Task to run
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public abstract bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> startTask);
+
+    /// <summary>
+    /// Stops a task from running if it's not critical
+    /// </summary>
+    /// <param name="instanceName">
+    /// The instance Name.
+    /// </param>
+    public virtual void StopTask([NotNull] string instanceName)
+    {
+        if (!this.TryGetTask(instanceName, out var task))
+        {
+            return;
+        }
+
+        if (task == null || !task.IsRunning || task is ICriticalBackgroundTask)
+        {
+            return;
+        }
+
+        if (this.TryRemoveTask(instanceName))
+        {
+            task.Dispose();
+        }
+    }
+
+    /// <summary>
+    /// Check if a task exists in the task manager. May not be running.
+    /// </summary>
+    /// <param name="instanceName">
+    /// The instance Name.
+    /// </param>
+    /// <returns>
+    /// The task exists.
+    /// </returns>
+    public virtual bool TaskExists([NotNull] string instanceName)
+    {
+        return taskManager.ContainsKey(instanceName);
+    }
+
+    /// <summary>
+    /// Attempt to get the instance of the task.
+    /// </summary>
+    /// <param name="instanceName">
+    /// The instance Name.
+    /// </param>
+    /// <param name="task">
+    /// The task.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public virtual bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task) => taskManager.TryGetValue(instanceName, out task);
+
+    /// <summary>
+    /// The try remove task.
+    /// </summary>
+    /// <param name="instanceName">
+    /// The instance name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public virtual bool TryRemoveTask([NotNull] string instanceName)
+    {
+        return taskManager.TryRemove(instanceName, out _);
+    }
+
+    #endregion
 }

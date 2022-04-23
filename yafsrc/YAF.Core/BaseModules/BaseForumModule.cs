@@ -21,23 +21,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BaseModules
+namespace YAF.Core.BaseModules;
+
+#region Using
+
+using YAF.Core.Context;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The base forum module.
+/// </summary>
+public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, IHaveLocalization
 {
-  #region Using
-
-  using YAF.Core.Context;
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The base forum module.
-  /// </summary>
-  public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, IHaveLocalization
-  {
     #region Properties
 
     /// <summary>
@@ -87,7 +87,7 @@ namespace YAF.Core.BaseModules
     /// </summary>
     public virtual void Init()
     {
-      // do nothing... 
+        // do nothing... 
     }
 
     #endregion
@@ -100,11 +100,10 @@ namespace YAF.Core.BaseModules
     /// <filterpriority>2</filterpriority>
     public virtual void Dispose()
     {
-      // no default implementation
+        // no default implementation
     }
 
     #endregion
 
     #endregion
-  }
 }

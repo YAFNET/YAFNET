@@ -21,26 +21,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BaseControls
+namespace YAF.Core.BaseControls;
+
+#region Using
+
+using System;
+using System.Web.UI.WebControls;
+
+using YAF.Core.Context;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// Control derived from Panel that includes a reference to the <see cref="BoardContext"/>.
+/// </summary>
+public class BasePanel : Panel, IHaveServiceLocator, IHaveLocalization
 {
-  #region Using
-
-  using System;
-  using System.Web.UI.WebControls;
-
-  using YAF.Core.Context;
-  using YAF.Types;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Types.Interfaces.Services;
-
-  #endregion
-
-  /// <summary>
-  /// Control derived from Panel that includes a reference to the <see cref="BoardContext"/>.
-  /// </summary>
-  public class BasePanel : Panel, IHaveServiceLocator, IHaveLocalization
-  {
     #region Constants and Fields
 
     /// <summary>
@@ -62,7 +62,7 @@ namespace YAF.Core.BaseControls
     /// </summary>
     public BasePanel()
     {
-      this.Get<IInjectServices>().Inject(this);
+        this.Get<IInjectServices>().Inject(this);
     }
 
     #endregion
@@ -90,5 +90,4 @@ namespace YAF.Core.BaseControls
     public IServiceLocator ServiceLocator => this.PageBoardContext.ServiceLocator;
 
     #endregion
-  }
 }

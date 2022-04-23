@@ -22,102 +22,101 @@
  * under the License.
  */
 
-namespace YAF.Configuration.Pattern
+namespace YAF.Configuration.Pattern;
+
+using System;
+using System.Collections.Generic;
+
+/// <summary>
+/// Allows basic type conversion of Dictionary objects.
+/// </summary>
+public class TypeDictionary : Dictionary<string, object>
 {
-    using System;
-    using System.Collections.Generic;
+    /// <summary>
+    /// The as type.
+    /// </summary>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="defaultValue">
+    /// The default value.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public T AsType<T>(string key, T defaultValue)
+    {
+        if (!this.ContainsKey(key))
+        {
+            return defaultValue;
+        }
+
+        return (T)Convert.ChangeType(this[key], typeof(T));
+    }
 
     /// <summary>
-    /// Allows basic type conversion of Dictionary objects.
+    /// The as type.
     /// </summary>
-    public class TypeDictionary : Dictionary<string, object>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public T AsType<T>(string key)
     {
-        /// <summary>
-        /// The as type.
-        /// </summary>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <param name="defaultValue">
-        /// The default value.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// </returns>
-        public T AsType<T>(string key, T defaultValue)
-        {
-            if (!this.ContainsKey(key))
-            {
-                return defaultValue;
-            }
+        return (T)Convert.ChangeType(this[key], typeof(T));
+    }
 
-            return (T)Convert.ChangeType(this[key], typeof(T));
+    /// <summary>
+    /// The as boolean.
+    /// </summary>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public bool? AsBoolean(string key)
+    {
+        if (!this.ContainsKey(key))
+        {
+            return null;
         }
 
-        /// <summary>
-        /// The as type.
-        /// </summary>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// </returns>
-        public T AsType<T>(string key)
+        return this.AsType<bool>(key);
+    }
+
+    /// <summary>
+    /// The as int.
+    /// </summary>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public int? AsInt(string key)
+    {
+        if (!this.ContainsKey(key))
         {
-            return (T)Convert.ChangeType(this[key], typeof(T));
+            return null;
         }
 
-        /// <summary>
-        /// The as boolean.
-        /// </summary>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public bool? AsBoolean(string key)
-        {
-            if (!this.ContainsKey(key))
-            {
-                return null;
-            }
+        return this.AsType<int>(key);
+    }
 
-            return this.AsType<bool>(key);
-        }
-
-        /// <summary>
-        /// The as int.
-        /// </summary>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public int? AsInt(string key)
-        {
-            if (!this.ContainsKey(key))
-            {
-                return null;
-            }
-
-            return this.AsType<int>(key);
-        }
-
-        /// <summary>
-        /// The as string.
-        /// </summary>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <returns>
-        /// The as string.
-        /// </returns>
-        public string AsString(string key)
-        {
-            return !this.ContainsKey(key) ? null : this.AsType<string>(key);
-        }
+    /// <summary>
+    /// The as string.
+    /// </summary>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <returns>
+    /// The as string.
+    /// </returns>
+    public string AsString(string key)
+    {
+        return !this.ContainsKey(key) ? null : this.AsType<string>(key);
     }
 }

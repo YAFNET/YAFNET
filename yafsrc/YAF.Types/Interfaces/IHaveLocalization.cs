@@ -21,20 +21,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The i have localization.
+/// </summary>
+public interface IHaveLocalization
 {
+    #region Properties
+
     /// <summary>
-    /// The i have localization.
+    /// Gets Localization.
     /// </summary>
-    public interface IHaveLocalization
-    {
-        #region Properties
+    ILocalization Localization { get; }
 
-        /// <summary>
-        /// Gets Localization.
-        /// </summary>
-        ILocalization Localization { get; }
-
-        #endregion
-    }
+    #endregion
 }

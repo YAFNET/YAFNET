@@ -21,96 +21,95 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System.Web.UI;
+
+using YAF.Core.BaseControls;
+using YAF.Core.Extensions;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// Makes a very simple localized label
+/// </summary>
+public class LocalizedLabel : BaseControl, ILocalizationSupport
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System.Web.UI;
-
-    using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LocalizedLabel"/> class.
+    /// </summary>
+    public LocalizedLabel()
+    {
+        this.LocalizedPage = string.Empty;
+        this.EnableBBCode = false;
+        this.LocalizedTag = string.Empty;
+        this.Param2 = string.Empty;
+        this.Param1 = string.Empty;
+        this.Param0 = string.Empty;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// Makes a very simple localized label
+    /// Gets or sets a value indicating whether EnableBBCode.
     /// </summary>
-    public class LocalizedLabel : BaseControl, ILocalizationSupport
+    public bool EnableBBCode { get; set; }
+
+    /// <summary>
+    /// Gets or sets LocalizedPage.
+    /// </summary>
+    public string LocalizedPage { get; set; }
+
+    /// <summary>
+    /// Gets or sets LocalizedTag.
+    /// </summary>
+    public string LocalizedTag { get; set; }
+
+    /// <summary>
+    /// Gets or sets Parameter 0.
+    /// </summary>
+    public string Param0 { get; set; }
+
+    /// <summary>
+    /// Gets or sets Parameter 1.
+    /// </summary>
+    public string Param1 { get; set; }
+
+    /// <summary>
+    /// Gets or sets Parameter 2.
+    /// </summary>
+    public string Param2 { get; set; }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Shows the localized text string (if available)
+    /// </summary>
+    /// <param name="writer">The output.</param>
+    protected override void Render(HtmlTextWriter writer)
     {
-        #region Constructors and Destructors
+        writer.BeginRender();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LocalizedLabel"/> class.
-        /// </summary>
-        public LocalizedLabel()
+        if (!this.DesignMode)
         {
-            this.LocalizedPage = string.Empty;
-            this.EnableBBCode = false;
-            this.LocalizedTag = string.Empty;
-            this.Param2 = string.Empty;
-            this.Param1 = string.Empty;
-            this.Param0 = string.Empty;
+            writer.Write(this.LocalizeAndRender(this));
+        }
+        else
+        {
+            writer.Write("[{0}][{1}]", this.LocalizedPage, this.LocalizedTag);
         }
 
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets a value indicating whether EnableBBCode.
-        /// </summary>
-        public bool EnableBBCode { get; set; }
-
-        /// <summary>
-        /// Gets or sets LocalizedPage.
-        /// </summary>
-        public string LocalizedPage { get; set; }
-
-        /// <summary>
-        /// Gets or sets LocalizedTag.
-        /// </summary>
-        public string LocalizedTag { get; set; }
-
-        /// <summary>
-        /// Gets or sets Parameter 0.
-        /// </summary>
-        public string Param0 { get; set; }
-
-        /// <summary>
-        /// Gets or sets Parameter 1.
-        /// </summary>
-        public string Param1 { get; set; }
-
-        /// <summary>
-        /// Gets or sets Parameter 2.
-        /// </summary>
-        public string Param2 { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Shows the localized text string (if available)
-        /// </summary>
-        /// <param name="writer">The output.</param>
-        protected override void Render(HtmlTextWriter writer)
-        {
-            writer.BeginRender();
-
-            if (!this.DesignMode)
-            {
-                writer.Write(this.LocalizeAndRender(this));
-            }
-            else
-            {
-                writer.Write("[{0}][{1}]", this.LocalizedPage, this.LocalizedTag);
-            }
-
-            writer.EndRender();
-        }
-
-        #endregion
+        writer.EndRender();
     }
+
+    #endregion
 }

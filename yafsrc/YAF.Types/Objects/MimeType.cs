@@ -22,23 +22,22 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+/// <summary>
+/// Class MimeType.
+/// </summary>
+public class MimeType
 {
     /// <summary>
-    /// Class MimeType.
+    /// Gets or sets the extension.
     /// </summary>
-    public class MimeType
-    {
-        /// <summary>
-        /// Gets or sets the extension.
-        /// </summary>
-        /// <value>The extension.</value>
-        public string Extension { get; set; }
+    /// <value>The extension.</value>
+    public string Extension { get; set; }
 
-        /// <summary>
-        /// Gets or sets the type.
-        /// </summary>
-        /// <value>The type.</value>
-        public string Type { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the type.
+    /// </summary>
+    /// <value>The type.</value>
+    public string Type { get; set; }
 }

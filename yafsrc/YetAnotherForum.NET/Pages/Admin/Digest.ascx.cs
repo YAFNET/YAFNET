@@ -21,135 +21,134 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+#region Using
+
+using System.Globalization;
+using System.Net.Mail;
+using YAF.Core.BoardSettings;
+
+#endregion
+
+/// <summary>
+/// Manage Forum Digest Sending
+/// </summary>
+public partial class Digest : AdminPage
 {
-    #region Using
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Digest"/> class.
+    /// </summary>
+    public Digest()
+        : base("ADMIN_DIGEST", ForumPages.Admin_Digest)
+    {
+    }
 
-    using System.Globalization;
-    using System.Net.Mail;
-    using YAF.Core.BoardSettings;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// Manage Forum Digest Sending
+    /// Force Sending the Current Digest
     /// </summary>
-    public partial class Digest : AdminPage
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void ForceSendClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Digest"/> class.
-        /// </summary>
-        public Digest()
-            : base("ADMIN_DIGEST", ForumPages.Admin_Digest)
-        {
-        }
+        this.PageBoardContext.BoardSettings.ForceDigestSend = true;
+        ((LoadBoardSettings)this.PageBoardContext.BoardSettings).SaveRegistry();
 
-        #region Methods
-
-        /// <summary>
-        /// Force Sending the Current Digest
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ForceSendClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.PageBoardContext.BoardSettings.ForceDigestSend = true;
-            ((LoadBoardSettings)this.PageBoardContext.BoardSettings).SaveRegistry();
-
-            this.PageBoardContext.Notify(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
-        }
-
-        /// <summary>
-        /// Generate a test Digest
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void GenerateDigestClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.DigestHtmlPlaceHolder.Visible = true;
-            this.DigestFrame.Attributes["src"] = this.Get<IDigest>()
-                .GetDigestUrl(this.PageBoardContext.PageUserID, this.PageBoardContext.BoardSettings, true);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.LastDigestSendLabel.Text = this.PageBoardContext.BoardSettings.LastDigestSend.IsNotSet()
-                                                ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
-                                                : Convert.ToDateTime(
-                                                    this.PageBoardContext.BoardSettings.LastDigestSend,
-                                                    CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
-
-            this.DigestEnabled.Text = this.PageBoardContext.BoardSettings.AllowDigestEmail
-                                          ? this.GetText("COMMON", "YES")
-                                          : this.GetText("COMMON", "NO");
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            // forum index
-            this.PageLinks.AddRoot();
-
-            this.PageLinks.AddAdminIndex();
-            this.PageLinks.AddLink(this.GetText("ADMIN_DIGEST", "TITLE"), string.Empty);
-        }
-
-        /// <summary>
-        /// Send Test Digest
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void TestSendClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.TextSendEmail.Text.IsSet())
-            {
-                try
-                {
-                    // create and send a test digest to the email provided...
-                    var digestHtml = this.Get<IDigest>().GetDigestHtml(
-                        this.PageBoardContext.PageUser,
-                        this.PageBoardContext.BoardSettings,
-                        true);
-
-                    // send....
-                    var message = this.Get<IDigest>().CreateDigestMessage(
-                        string.Format(this.GetText("DIGEST", "SUBJECT"), this.PageBoardContext.BoardSettings.Name),
-                        digestHtml,
-                        new MailAddress(this.PageBoardContext.BoardSettings.ForumEmail, this.PageBoardContext.BoardSettings.Name),
-                        this.TextSendEmail.Text.Trim(),
-                        "Digest Send Test");
-
-                    this.Get<IMailService>().SendAll(new List<MailMessage> { message });
-
-                    this.PageBoardContext.Notify(
-                        this.GetTextFormatted("MSG_SEND_SUC", "Direct"),
-                        MessageTypes.success);
-                }
-                catch (Exception ex)
-                {
-                    this.PageBoardContext.Notify(
-                        string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), ex),
-                        MessageTypes.danger);
-                }
-            }
-            else
-            {
-                this.PageBoardContext.Notify(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.danger);
-            }
-        }
-
-        #endregion
+        this.PageBoardContext.Notify(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
     }
+
+    /// <summary>
+    /// Generate a test Digest
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void GenerateDigestClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.DigestHtmlPlaceHolder.Visible = true;
+        this.DigestFrame.Attributes["src"] = this.Get<IDigest>()
+            .GetDigestUrl(this.PageBoardContext.PageUserID, this.PageBoardContext.BoardSettings, true);
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.LastDigestSendLabel.Text = this.PageBoardContext.BoardSettings.LastDigestSend.IsNotSet()
+                                            ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
+                                            : Convert.ToDateTime(
+                                                this.PageBoardContext.BoardSettings.LastDigestSend,
+                                                CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
+
+        this.DigestEnabled.Text = this.PageBoardContext.BoardSettings.AllowDigestEmail
+                                      ? this.GetText("COMMON", "YES")
+                                      : this.GetText("COMMON", "NO");
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        // forum index
+        this.PageLinks.AddRoot();
+
+        this.PageLinks.AddAdminIndex();
+        this.PageLinks.AddLink(this.GetText("ADMIN_DIGEST", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// Send Test Digest
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void TestSendClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.TextSendEmail.Text.IsSet())
+        {
+            try
+            {
+                // create and send a test digest to the email provided...
+                var digestHtml = this.Get<IDigest>().GetDigestHtml(
+                    this.PageBoardContext.PageUser,
+                    this.PageBoardContext.BoardSettings,
+                    true);
+
+                // send....
+                var message = this.Get<IDigest>().CreateDigestMessage(
+                    string.Format(this.GetText("DIGEST", "SUBJECT"), this.PageBoardContext.BoardSettings.Name),
+                    digestHtml,
+                    new MailAddress(this.PageBoardContext.BoardSettings.ForumEmail, this.PageBoardContext.BoardSettings.Name),
+                    this.TextSendEmail.Text.Trim(),
+                    "Digest Send Test");
+
+                this.Get<IMailService>().SendAll(new List<MailMessage> { message });
+
+                this.PageBoardContext.Notify(
+                    this.GetTextFormatted("MSG_SEND_SUC", "Direct"),
+                    MessageTypes.success);
+            }
+            catch (Exception ex)
+            {
+                this.PageBoardContext.Notify(
+                    string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), ex),
+                    MessageTypes.danger);
+            }
+        }
+        else
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.danger);
+        }
+    }
+
+    #endregion
 }

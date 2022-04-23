@@ -8,137 +8,136 @@
 using System.IO;
 using System.Text;
 
-namespace ServiceStack.Text
+namespace ServiceStack.Text;
+
+/// <summary>
+/// Class DirectStreamWriter.
+/// Implements the <see cref="System.IO.TextWriter" />
+/// </summary>
+/// <seealso cref="System.IO.TextWriter" />
+public class DirectStreamWriter : TextWriter
 {
     /// <summary>
-    /// Class DirectStreamWriter.
-    /// Implements the <see cref="System.IO.TextWriter" />
+    /// The optimized buffer length
     /// </summary>
-    /// <seealso cref="System.IO.TextWriter" />
-    public class DirectStreamWriter : TextWriter
+    private const int optimizedBufferLength = 256;
+
+    /// <summary>
+    /// The maximum buffer length
+    /// </summary>
+    private const int maxBufferLength = 1024;
+
+    /// <summary>
+    /// The stream
+    /// </summary>
+    private readonly Stream stream;
+
+    /// <summary>
+    /// The writer
+    /// </summary>
+    private StreamWriter writer;
+
+    /// <summary>
+    /// The current character
+    /// </summary>
+    private readonly byte[] curChar = new byte[1];
+
+    /// <summary>
+    /// The need flush
+    /// </summary>
+    private bool needFlush;
+
+    /// <summary>
+    /// The encoding
+    /// </summary>
+    private readonly Encoding encoding;
+
+    /// <summary>
+    /// When overridden in a derived class, returns the character encoding in which the output is written.
+    /// </summary>
+    /// <value>The encoding.</value>
+    public override Encoding Encoding => encoding;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DirectStreamWriter"/> class.
+    /// </summary>
+    /// <param name="stream">The stream.</param>
+    /// <param name="encoding">The encoding.</param>
+    public DirectStreamWriter(Stream stream, Encoding encoding)
     {
-        /// <summary>
-        /// The optimized buffer length
-        /// </summary>
-        private const int optimizedBufferLength = 256;
+        this.stream = stream;
+        this.encoding = encoding;
+    }
 
-        /// <summary>
-        /// The maximum buffer length
-        /// </summary>
-        private const int maxBufferLength = 1024;
+    /// <summary>
+    /// Writes the specified s.
+    /// </summary>
+    /// <param name="s">The s.</param>
+    public override void Write(string s)
+    {
+        if (s.IsNullOrEmpty())
+            return;
 
-        /// <summary>
-        /// The stream
-        /// </summary>
-        private readonly Stream stream;
-
-        /// <summary>
-        /// The writer
-        /// </summary>
-        private StreamWriter writer;
-
-        /// <summary>
-        /// The current character
-        /// </summary>
-        private readonly byte[] curChar = new byte[1];
-
-        /// <summary>
-        /// The need flush
-        /// </summary>
-        private bool needFlush;
-
-        /// <summary>
-        /// The encoding
-        /// </summary>
-        private readonly Encoding encoding;
-
-        /// <summary>
-        /// When overridden in a derived class, returns the character encoding in which the output is written.
-        /// </summary>
-        /// <value>The encoding.</value>
-        public override Encoding Encoding => encoding;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DirectStreamWriter"/> class.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <param name="encoding">The encoding.</param>
-        public DirectStreamWriter(Stream stream, Encoding encoding)
+        if (s.Length <= optimizedBufferLength)
         {
-            this.stream = stream;
-            this.encoding = encoding;
-        }
-
-        /// <summary>
-        /// Writes the specified s.
-        /// </summary>
-        /// <param name="s">The s.</param>
-        public override void Write(string s)
-        {
-            if (s.IsNullOrEmpty())
-                return;
-
-            if (s.Length <= optimizedBufferLength)
-            {
-                if (needFlush)
-                {
-                    writer.Flush();
-                    needFlush = false;
-                }
-
-                byte[] buffer = Encoding.GetBytes(s);
-                stream.Write(buffer, 0, buffer.Length);
-            }
-            else
-            {
-                if (writer == null)
-                    writer = new StreamWriter(stream, Encoding, s.Length < maxBufferLength ? s.Length : maxBufferLength);
-
-                writer.Write(s);
-                needFlush = true;
-            }
-        }
-
-        /// <summary>
-        /// Writes the specified c.
-        /// </summary>
-        /// <param name="c">The c.</param>
-        public override void Write(char c)
-        {
-            if ((int)c < 128)
-            {
-                if (needFlush)
-                {
-                    writer.Flush();
-                    needFlush = false;
-                }
-
-                curChar[0] = (byte)c;
-                stream.Write(curChar, 0, 1);
-            }
-            else
-            {
-                if (writer == null)
-                    writer = new StreamWriter(stream, Encoding, optimizedBufferLength);
-
-                writer.Write(c);
-                needFlush = true;
-            }
-        }
-
-        /// <summary>
-        /// Flushes this instance.
-        /// </summary>
-        public override void Flush()
-        {
-            if (writer != null)
+            if (needFlush)
             {
                 writer.Flush();
+                needFlush = false;
             }
-            else
+
+            byte[] buffer = Encoding.GetBytes(s);
+            stream.Write(buffer, 0, buffer.Length);
+        }
+        else
+        {
+            if (writer == null)
+                writer = new StreamWriter(stream, Encoding, s.Length < maxBufferLength ? s.Length : maxBufferLength);
+
+            writer.Write(s);
+            needFlush = true;
+        }
+    }
+
+    /// <summary>
+    /// Writes the specified c.
+    /// </summary>
+    /// <param name="c">The c.</param>
+    public override void Write(char c)
+    {
+        if ((int)c < 128)
+        {
+            if (needFlush)
             {
-                stream.Flush();
+                writer.Flush();
+                needFlush = false;
             }
+
+            curChar[0] = (byte)c;
+            stream.Write(curChar, 0, 1);
+        }
+        else
+        {
+            if (writer == null)
+                writer = new StreamWriter(stream, Encoding, optimizedBufferLength);
+
+            writer.Write(c);
+            needFlush = true;
+        }
+    }
+
+    /// <summary>
+    /// Flushes this instance.
+    /// </summary>
+    public override void Flush()
+    {
+        if (writer != null)
+        {
+            writer.Flush();
+        }
+        else
+        {
+            stream.Flush();
         }
     }
 }

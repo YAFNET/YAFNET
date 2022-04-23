@@ -6,15 +6,14 @@
 // ***********************************************************************
 using System;
 
-namespace ServiceStack.OrmLite.MySql.DataAnnotations
+namespace ServiceStack.OrmLite.MySql.DataAnnotations;
+
+/// <summary>
+/// Class TextAttribute.
+/// Implements the <see cref="System.Attribute" />
+/// </summary>
+/// <seealso cref="System.Attribute" />
+[AttributeUsage(AttributeTargets.Property)]
+public class TextAttribute : Attribute
 {
-    /// <summary>
-    /// Class TextAttribute.
-    /// Implements the <see cref="System.Attribute" />
-    /// </summary>
-    /// <seealso cref="System.Attribute" />
-    [AttributeUsage(AttributeTargets.Property)]
-    public class TextAttribute : Attribute
-    {
-    }
 }

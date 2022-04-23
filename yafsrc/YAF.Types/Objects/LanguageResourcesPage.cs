@@ -22,68 +22,67 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+
+/// <summary>
+/// The resources page.
+/// </summary>
+[GeneratedCode("xsd", "2.0.50727.3038")]
+[Serializable]
+[DebuggerStepThrough]
+[DesignerCategory("code")]
+[XmlType(AnonymousType = true)]
+public class LanguageResourcesPage
 {
-    using System;
-    using System.CodeDom.Compiler;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using System.Xml.Schema;
-    using System.Xml.Serialization;
+    #region Constants and Fields
 
     /// <summary>
-    /// The resources page.
+    /// The name field.
     /// </summary>
-    [GeneratedCode("xsd", "2.0.50727.3038")]
-    [Serializable]
-    [DebuggerStepThrough]
-    [DesignerCategory("code")]
-    [XmlType(AnonymousType = true)]
-    public class LanguageResourcesPage
+    private string nameField;
+
+    /// <summary>
+    /// The resource field.
+    /// </summary>
+    private List<LanguageResourcesPageResource> resourceField;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// The resource.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    [XmlElement("Resource", Form = XmlSchemaForm.Unqualified, IsNullable = true)]
+    public List<LanguageResourcesPageResource> Resource
     {
-        #region Constants and Fields
+        get => this.resourceField;
 
-        /// <summary>
-        /// The name field.
-        /// </summary>
-        private string nameField;
-
-        /// <summary>
-        /// The resource field.
-        /// </summary>
-        private List<LanguageResourcesPageResource> resourceField;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// The resource.
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        [XmlElement("Resource", Form = XmlSchemaForm.Unqualified, IsNullable = true)]
-        public List<LanguageResourcesPageResource> Resource
-        {
-            get => this.resourceField;
-
-            set => this.resourceField = value;
-        }
-
-        /// <summary>
-        /// The name.
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        [XmlAttribute]
-        public string name
-        {
-            get => this.nameField;
-
-            set => this.nameField = value;
-        }
-
-        #endregion
+        set => this.resourceField = value;
     }
+
+    /// <summary>
+    /// The name.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    [XmlAttribute]
+    public string name
+    {
+        get => this.nameField;
+
+        set => this.nameField = value;
+    }
+
+    #endregion
 }

@@ -21,59 +21,58 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+/// <summary>
+/// Spam Check Interface
+/// </summary>
+public interface ISpamCheck
 {
     /// <summary>
-    /// Spam Check Interface
+    /// Check a Post for SPAM against the internal Spam Words
     /// </summary>
-    public interface ISpamCheck
-    {
-        /// <summary>
-        /// Check a Post for SPAM against the internal Spam Words
-        /// </summary>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="ipAddress">The IP address.</param>
-        /// <param name="postMessage">The post message.</param>
-        /// <param name="emailAddress">The email address.</param>
-        /// <param name="result">The result.</param>
-        /// <returns>
-        /// Returns if Post is SPAM or not
-        /// </returns>
-        bool CheckPostForSpam(
-            [NotNull] string userName,
-            [NotNull] string ipAddress,
-            [NotNull] string postMessage,
-            [CanBeNull] string emailAddress,
-            out string result);
+    /// <param name="userName">Name of the user.</param>
+    /// <param name="ipAddress">The IP address.</param>
+    /// <param name="postMessage">The post message.</param>
+    /// <param name="emailAddress">The email address.</param>
+    /// <param name="result">The result.</param>
+    /// <returns>
+    /// Returns if Post is SPAM or not
+    /// </returns>
+    bool CheckPostForSpam(
+        [NotNull] string userName,
+        [NotNull] string ipAddress,
+        [NotNull] string postMessage,
+        [CanBeNull] string emailAddress,
+        out string result);
 
-        /// <summary>
-        /// Check a User (Bot) against the StopForumSpam, BotScout Service or both
-        /// </summary>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="emailAddress">The email address.</param>
-        /// <param name="ipAddress">The IP address.</param>
-        /// <param name="result">The result.</param>
-        /// <returns>
-        /// Returns if Post is SPAM or not
-        /// </returns>
-        bool CheckUserForSpamBot(
-            [NotNull] string userName,
-            [CanBeNull] string emailAddress,
-            [NotNull] string ipAddress,
-            out string result);
+    /// <summary>
+    /// Check a User (Bot) against the StopForumSpam, BotScout Service or both
+    /// </summary>
+    /// <param name="userName">Name of the user.</param>
+    /// <param name="emailAddress">The email address.</param>
+    /// <param name="ipAddress">The IP address.</param>
+    /// <param name="result">The result.</param>
+    /// <returns>
+    /// Returns if Post is SPAM or not
+    /// </returns>
+    bool CheckUserForSpamBot(
+        [NotNull] string userName,
+        [CanBeNull] string emailAddress,
+        [NotNull] string ipAddress,
+        out string result);
 
-        /// <summary>
-        /// Check Content for Spam URLs (Count URLs inside Messages)
-        /// </summary>
-        /// <param name="message">
-        /// The message to check for URLs.
-        /// </param>
-        /// <param name="result">
-        /// The result.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        bool ContainsSpamUrls(string message, out string result);
-    }
+    /// <summary>
+    /// Check Content for Spam URLs (Count URLs inside Messages)
+    /// </summary>
+    /// <param name="message">
+    /// The message to check for URLs.
+    /// </param>
+    /// <param name="result">
+    /// The result.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    bool ContainsSpamUrls(string message, out string result);
 }

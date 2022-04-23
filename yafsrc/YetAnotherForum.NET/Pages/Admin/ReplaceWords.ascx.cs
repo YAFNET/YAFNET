@@ -22,147 +22,146 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
-{
-    #region Using
+namespace YAF.Pages.Admin;
 
-    using System.Xml.Linq;
-    using YAF.Types.Models;
+#region Using
+
+using System.Xml.Linq;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The Replace Words Admin Page.
+/// </summary>
+public partial class ReplaceWords : AdminPage
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReplaceWords"/> class. 
+    /// </summary>
+    public ReplaceWords()
+        : base("ADMIN_REPLACEWORDS", ForumPages.Admin_ReplaceWords)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The Replace Words Admin Page.
+    /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
-    public partial class ReplaceWords : AdminPage
+    /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+    protected override void OnInit([NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
+        this.list.ItemCommand += this.ListItemCommand;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReplaceWords"/> class. 
-        /// </summary>
-        public ReplaceWords()
-            : base("ADMIN_REPLACEWORDS", ForumPages.Admin_ReplaceWords)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            this.list.ItemCommand += this.ListItemCommand;
-
-            base.OnInit(e);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot()
-                .AddAdminIndex()
-                .AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"));
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            this.list.DataSource = this.GetRepository<Replace_Words>().GetByBoardId();
-            this.DataBind();
-        }
-
-        /// <summary>
-        /// Handles the ItemCommand event of the List control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        private void ListItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "add":
-                    this.EditDialog.BindData(null);
-
-                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                        "openModalJs",
-                        JavaScriptBlocks.OpenModalJs("ReplaceWordsEditDialog"));
-
-                    break;
-                case "edit":
-                    this.EditDialog.BindData(e.CommandArgument.ToType<int>());
-
-                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                        "openModalJs",
-                        JavaScriptBlocks.OpenModalJs("ReplaceWordsEditDialog"));
-                    break;
-                case "delete":
-                    this.GetRepository<Replace_Words>().DeleteById(e.CommandArgument.ToType<int>());
-                    this.Get<IObjectStore>().Remove(Constants.Cache.ReplaceWords);
-                    this.BindData();
-                    break;
-                case "export":
-                    {
-                        this.ExportWords();
-                    }
-
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Exports the spam words.
-        /// </summary>
-        private void ExportWords()
-        {
-            this.Get<HttpResponseBase>().Clear();
-            this.Get<HttpResponseBase>().ClearContent();
-            this.Get<HttpResponseBase>().ClearHeaders();
-
-            this.Get<HttpResponseBase>().ContentType = "text/xml";
-            this.Get<HttpResponseBase>().AppendHeader(
-                "content-disposition",
-                "attachment; filename=ReplaceWordsExport.xml");
-
-            var spamWordList = this.GetRepository<Replace_Words>().GetByBoardId();
-
-            var element = new XElement(
-                "YafReplaceWordsList",
-                from spamWord in spamWordList
-                select new XElement(
-                    "YafReplaceWords",
-                    new XElement("BadWord", spamWord.BadWord),
-                    new XElement("GoodWord", spamWord.GoodWord)));
-
-            element.Save(this.Get<HttpResponseBase>().OutputStream);
-
-            this.Get<HttpResponseBase>().Flush();
-            this.Get<HttpResponseBase>().End();
-        }
-
-        #endregion
+        base.OnInit(e);
     }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot()
+            .AddAdminIndex()
+            .AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"));
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        this.list.DataSource = this.GetRepository<Replace_Words>().GetByBoardId();
+        this.DataBind();
+    }
+
+    /// <summary>
+    /// Handles the ItemCommand event of the List control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
+    private void ListItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+    {
+        switch (e.CommandName)
+        {
+            case "add":
+                this.EditDialog.BindData(null);
+
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("ReplaceWordsEditDialog"));
+
+                break;
+            case "edit":
+                this.EditDialog.BindData(e.CommandArgument.ToType<int>());
+
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("ReplaceWordsEditDialog"));
+                break;
+            case "delete":
+                this.GetRepository<Replace_Words>().DeleteById(e.CommandArgument.ToType<int>());
+                this.Get<IObjectStore>().Remove(Constants.Cache.ReplaceWords);
+                this.BindData();
+                break;
+            case "export":
+                {
+                    this.ExportWords();
+                }
+
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Exports the spam words.
+    /// </summary>
+    private void ExportWords()
+    {
+        this.Get<HttpResponseBase>().Clear();
+        this.Get<HttpResponseBase>().ClearContent();
+        this.Get<HttpResponseBase>().ClearHeaders();
+
+        this.Get<HttpResponseBase>().ContentType = "text/xml";
+        this.Get<HttpResponseBase>().AppendHeader(
+            "content-disposition",
+            "attachment; filename=ReplaceWordsExport.xml");
+
+        var spamWordList = this.GetRepository<Replace_Words>().GetByBoardId();
+
+        var element = new XElement(
+            "YafReplaceWordsList",
+            from spamWord in spamWordList
+            select new XElement(
+                "YafReplaceWords",
+                new XElement("BadWord", spamWord.BadWord),
+                new XElement("GoodWord", spamWord.GoodWord)));
+
+        element.Save(this.Get<HttpResponseBase>().OutputStream);
+
+        this.Get<HttpResponseBase>().Flush();
+        this.Get<HttpResponseBase>().End();
+    }
+
+    #endregion
 }

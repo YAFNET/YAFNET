@@ -21,90 +21,89 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System;
+using System.Web.UI.WebControls;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The localized required field validator.
+/// </summary>
+public class LocalizedRequiredFieldValidator : RequiredFieldValidator, ILocalizationSupport
 {
-    #region Using
+    #region Properties
 
-    using System;
-    using System.Web.UI.WebControls;
+    /// <summary>
+    /// Gets or sets a value indicating whether EnableBBCode.
+    /// </summary>
+    public bool EnableBBCode { get; set; }
 
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    /// Gets or sets LocalizedPage.
+    /// </summary>
+    public string LocalizedPage { get; set; }
+
+    /// <summary>
+    /// Gets or sets LocalizedTag.
+    /// </summary>
+    public string LocalizedTag { get; set; }
+
+    /// <summary>
+    /// Gets PageBoardContext.
+    /// </summary>
+    public BoardContext PageContext
+    {
+        get
+        {
+            if (this.Site is { DesignMode: true })
+            {
+                // design-time, return null...
+                return null;
+            }
+
+            return BoardContext.Current;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets Parameter 0.
+    /// </summary>
+    public string Param0 { get; set; }
+
+    /// <summary>
+    /// Gets or sets Parameter 1.
+    /// </summary>
+    public string Param1 { get; set; }
+
+    /// <summary>
+    /// Gets or sets Parameter 2.
+    /// </summary>
+    public string Param2 { get; set; }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The localized required field validator.
+    /// Raises the <see cref="E:System.Web.UI.Control.Load" /> event.
     /// </summary>
-    public class LocalizedRequiredFieldValidator : RequiredFieldValidator, ILocalizationSupport
+    /// <param name="e">The <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+    protected override void OnLoad(EventArgs e)
     {
-        #region Properties
+        base.OnLoad(e);
 
-        /// <summary>
-        /// Gets or sets a value indicating whether EnableBBCode.
-        /// </summary>
-        public bool EnableBBCode { get; set; }
-
-        /// <summary>
-        /// Gets or sets LocalizedPage.
-        /// </summary>
-        public string LocalizedPage { get; set; }
-
-        /// <summary>
-        /// Gets or sets LocalizedTag.
-        /// </summary>
-        public string LocalizedTag { get; set; }
-
-        /// <summary>
-        /// Gets PageBoardContext.
-        /// </summary>
-        public BoardContext PageContext
-        {
-            get
-            {
-                if (this.Site is { DesignMode: true })
-                {
-                    // design-time, return null...
-                    return null;
-                }
-
-                return BoardContext.Current;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets Parameter 0.
-        /// </summary>
-        public string Param0 { get; set; }
-
-        /// <summary>
-        /// Gets or sets Parameter 1.
-        /// </summary>
-        public string Param1 { get; set; }
-
-        /// <summary>
-        /// Gets or sets Parameter 2.
-        /// </summary>
-        public string Param2 { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Load" /> event.
-        /// </summary>
-        /// <param name="e">The <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-
-            // localize ErrorMessage, ToolTip
-            this.ErrorMessage = this.Localize(this);
-            this.ToolTip = this.Localize(this);
-        }
-
-        #endregion
+        // localize ErrorMessage, ToolTip
+        this.ErrorMessage = this.Localize(this);
+        this.ToolTip = this.Localize(this);
     }
+
+    #endregion
 }

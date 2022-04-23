@@ -21,92 +21,91 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+namespace YAF.Controls;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// The post options.
+/// </summary>
+public partial class PostOptions : BaseUserControl
 {
-    #region Using
+    #region Properties
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether Persistent Checked.
+    /// </summary>
+    public bool PersistentChecked
+    {
+        get => this.Persistency.Checked;
+
+        set => this.Persistency.Checked = value;
+    }
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether Persistent Option Visible.
+    /// </summary>
+    public bool PersistentOptionVisible
+    {
+        get => this.liPersistency.Visible;
+
+        set => this.liPersistency.Visible = value;
+    }
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether Poll Option is Visible.
+    /// </summary>
+    public bool PollChecked
+    {
+        get => this.AddPollCheckBox.Checked;
+
+        set => this.AddPollCheckBox.Checked = value;
+    }
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether Poll Option is Visible.
+    /// </summary>
+    public bool PollOptionVisible
+    {
+        get => this.liAddPoll.Visible;
+
+        set => this.liAddPoll.Visible = value;
+    }
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether WatchChecked.
+    /// </summary>
+    public bool WatchChecked
+    {
+        get => this.TopicWatch.Checked;
+
+        set => this.TopicWatch.Checked = value;
+    }
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether WatchOptionVisible.
+    /// </summary>
+    public bool WatchOptionVisible
+    {
+        get => this.liTopicWatch.Visible;
+
+        set => this.liTopicWatch.Visible = value;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The post options.
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class PostOptions : BaseUserControl
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether Persistent Checked.
-        /// </summary>
-        public bool PersistentChecked
-        {
-            get => this.Persistency.Checked;
-
-            set => this.Persistency.Checked = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether Persistent Option Visible.
-        /// </summary>
-        public bool PersistentOptionVisible
-        {
-            get => this.liPersistency.Visible;
-
-            set => this.liPersistency.Visible = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether Poll Option is Visible.
-        /// </summary>
-        public bool PollChecked
-        {
-            get => this.AddPollCheckBox.Checked;
-
-            set => this.AddPollCheckBox.Checked = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether Poll Option is Visible.
-        /// </summary>
-        public bool PollOptionVisible
-        {
-            get => this.liAddPoll.Visible;
-
-            set => this.liAddPoll.Visible = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether WatchChecked.
-        /// </summary>
-        public bool WatchChecked
-        {
-            get => this.TopicWatch.Checked;
-
-            set => this.TopicWatch.Checked = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether WatchOptionVisible.
-        /// </summary>
-        public bool WatchOptionVisible
-        {
-            get => this.liTopicWatch.Visible;
-
-            set => this.liTopicWatch.Visible = value;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-        }
-
-        #endregion
     }
+
+    #endregion
 }

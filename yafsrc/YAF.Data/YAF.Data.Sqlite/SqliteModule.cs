@@ -22,33 +22,32 @@
  * under the License.
  */
 
-namespace YAF.Data.Sqlite
+namespace YAF.Data.Sqlite;
+
+using System.Data.Common;
+using System.Data.SQLite;
+
+using Autofac;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The Sqlite module.
+/// </summary>
+public class SqliteModule : Module
 {
-    using System.Data.Common;
-    using System.Data.SQLite;
-
-    using Autofac;
-
-    using YAF.Types.Interfaces.Data;
-
     /// <summary>
-    /// The Sqlite module.
+    /// The load.
     /// </summary>
-    public class SqliteModule : Module
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    protected override void Load(ContainerBuilder builder)
     {
-        /// <summary>
-        /// The load.
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterInstance<DbProviderFactory>(SQLiteFactory.Instance);
+        builder.RegisterInstance<DbProviderFactory>(SQLiteFactory.Instance);
 
-            builder.RegisterType<SqliteDbAccess>()
-                .Named<IDbAccess>(SqliteDbAccess.ProviderTypeName)
-                .InstancePerLifetimeScope();
-        }
+        builder.RegisterType<SqliteDbAccess>()
+            .Named<IDbAccess>(SqliteDbAccess.ProviderTypeName)
+            .InstancePerLifetimeScope();
     }
 }

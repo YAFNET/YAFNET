@@ -21,63 +21,62 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the UserMedal table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(MedalID), nameof(UserID))]
+public class UserMedal : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the UserMedal table.
+    /// Gets or sets the user id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(MedalID), nameof(UserID))]
-    public class UserMedal : IEntity
-    {
-        #region Properties
+    [References(typeof(User))]
+    [Required]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the medal id.
+    /// </summary>
+    [References(typeof(Medal))]
+    [Required]
+    public int MedalID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the medal id.
-        /// </summary>
-        [References(typeof(Medal))]
-        [Required]
-        public int MedalID { get; set; }
+    /// <summary>
+    /// Gets or sets the message.
+    /// </summary>
+    [StringLength(100)]
+    public string Message { get; set; }
 
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        [StringLength(100)]
-        public string Message { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether hide.
+    /// </summary>
+    [Required]
+    [Default(typeof(bool), "0")]
+    public bool Hide { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether hide.
-        /// </summary>
-        [Required]
-        [Default(typeof(bool), "0")]
-        public bool Hide { get; set; }
+    /// <summary>
+    /// Gets or sets the sort order.
+    /// </summary>
+    [Required]
+    [Default(255)]
+    public byte SortOrder { get; set; }
 
-        /// <summary>
-        /// Gets or sets the sort order.
-        /// </summary>
-        [Required]
-        [Default(255)]
-        public byte SortOrder { get; set; }
+    /// <summary>
+    /// Gets or sets the date awarded.
+    /// </summary>
+    [Required]
+    public DateTime DateAwarded { get; set; }
 
-        /// <summary>
-        /// Gets or sets the date awarded.
-        /// </summary>
-        [Required]
-        public DateTime DateAwarded { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

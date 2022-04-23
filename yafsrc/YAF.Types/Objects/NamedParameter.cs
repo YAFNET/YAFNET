@@ -21,46 +21,45 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// The named parameter.
+/// </summary>
+public class NamedParameter : IServiceLocationParameter
 {
-    using YAF.Types.Interfaces;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The named parameter.
+    /// Initializes a new instance of the <see cref="NamedParameter"/> class.
     /// </summary>
-    public class NamedParameter : IServiceLocationParameter
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    public NamedParameter([NotNull] string name, [NotNull] object value)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NamedParameter"/> class.
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        public NamedParameter([NotNull] string name, [NotNull] object value)
-        {
-            this.Name = name;
-            this.Value = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets Name.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets Value.
-        /// </summary>
-        public object Value { get; set; }
-
-        #endregion
+        this.Name = name;
+        this.Value = value;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets Name.
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets Value.
+    /// </summary>
+    public object Value { get; set; }
+
+    #endregion
 }

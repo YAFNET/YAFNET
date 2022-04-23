@@ -21,75 +21,74 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
-{
-    using System.Net.Mail;
+namespace YAF.Types.Interfaces.Services;
 
-    using YAF.Types.Models;
+using System.Net.Mail;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// The digest interface
+/// </summary>
+public interface IDigest
+{
+    #region Public Methods
 
     /// <summary>
-    /// The digest interface
+    /// Gets the digest HTML.
     /// </summary>
-    public interface IDigest
-    {
-        #region Public Methods
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <param name="boardSettings">
+    /// The board Settings.
+    /// </param>
+    /// <param name="showErrors">
+    /// The show Errors.
+    /// </param>
+    /// <returns>
+    /// The get digest html.
+    /// </returns>
+    string GetDigestHtml(User user, object boardSettings, bool showErrors = false);
 
-        /// <summary>
-        /// Gets the digest HTML.
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <param name="boardSettings">
-        /// The board Settings.
-        /// </param>
-        /// <param name="showErrors">
-        /// The show Errors.
-        /// </param>
-        /// <returns>
-        /// The get digest html.
-        /// </returns>
-        string GetDigestHtml(User user, object boardSettings, bool showErrors = false);
+    /// <summary>
+    /// Gets the digest URL.
+    /// </summary>
+    /// <param name="userId">The user id.</param>
+    /// <param name="boardSettings">The board settings.</param>
+    /// <param name="showErrors">Show errors creating the digest.</param>
+    /// <returns>
+    /// The get digest url.
+    /// </returns>
+    public string GetDigestUrl(int userId, object boardSettings, bool showErrors);
 
-        /// <summary>
-        /// Gets the digest URL.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <param name="showErrors">Show errors creating the digest.</param>
-        /// <returns>
-        /// The get digest url.
-        /// </returns>
-        public string GetDigestUrl(int userId, object boardSettings, bool showErrors);
+    /// <summary>
+    /// Creates the Digest Mail Message.
+    /// </summary>
+    /// <param name="subject">
+    /// The subject.
+    /// </param>
+    /// <param name="digestHtml">
+    /// The digest html.
+    /// </param>
+    /// <param name="boardAddress">
+    /// The board Address.
+    /// </param>
+    /// <param name="toEmail">
+    /// The to email.
+    /// </param>
+    /// <param name="toName">
+    /// The to name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="MailMessage"/>.
+    /// </returns>
+    MailMessage CreateDigestMessage(
+        [NotNull] string subject,
+        [NotNull] string digestHtml,
+        [NotNull] MailAddress boardAddress,
+        [NotNull] string toEmail,
+        [CanBeNull] string toName);
 
-        /// <summary>
-        /// Creates the Digest Mail Message.
-        /// </summary>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <param name="digestHtml">
-        /// The digest html.
-        /// </param>
-        /// <param name="boardAddress">
-        /// The board Address.
-        /// </param>
-        /// <param name="toEmail">
-        /// The to email.
-        /// </param>
-        /// <param name="toName">
-        /// The to name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="MailMessage"/>.
-        /// </returns>
-        MailMessage CreateDigestMessage(
-            [NotNull] string subject,
-            [NotNull] string digestHtml,
-            [NotNull] MailAddress boardAddress,
-            [NotNull] string toEmail,
-            [CanBeNull] string toName);
-
-        #endregion
-    }
+    #endregion
 }

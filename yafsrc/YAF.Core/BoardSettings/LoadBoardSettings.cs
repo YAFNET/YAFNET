@@ -22,132 +22,131 @@
  * under the License.
  */
 
-namespace YAF.Core.BoardSettings
-{
-    #region Using
+namespace YAF.Core.BoardSettings;
 
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
-    using YAF.Core.Model;
-    using YAF.Types;
-    using YAF.Types.Exceptions;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
+#region Using
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Core.Helpers;
+using YAF.Core.Model;
+using YAF.Types;
+using YAF.Types.Exceptions;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+///     The Load board settings.
+/// </summary>
+public sealed class LoadBoardSettings : BoardSettings
+{
+    #region Fields
+
+    /// <summary>
+    /// The current board.
+    /// </summary>
+    private Board currentBoard;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    ///     The Load board settings.
+    /// Initializes a new instance of the <see cref="LoadBoardSettings"/> class.
     /// </summary>
-    public sealed class LoadBoardSettings : BoardSettings
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    public LoadBoardSettings([NotNull] int boardId)
     {
-        #region Fields
+        this.BoardId = boardId;
 
-        /// <summary>
-        /// The current board.
-        /// </summary>
-        private Board currentBoard;
+        this.BoardName = this.CurrentBoard.Name;
 
-        #endregion
+        // get all the registry values for the forum
+        this.LoadBoardSettingsFromDb();
+    }
 
-        #region Constructors and Destructors
+    #endregion
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LoadBoardSettings"/> class.
-        /// </summary>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        public LoadBoardSettings([NotNull] int boardId)
+    #region Properties
+
+    /// <summary>
+    /// Gets the current board.
+    /// </summary>
+    private Board CurrentBoard
+    {
+        get
         {
-            this.BoardId = boardId;
-
-            this.BoardName = this.CurrentBoard.Name;
-
-            // get all the registry values for the forum
-            this.LoadBoardSettingsFromDb();
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the current board.
-        /// </summary>
-        private Board CurrentBoard
-        {
-            get
+            if (this.currentBoard != null)
             {
-                if (this.currentBoard != null)
-                {
-                    return this.currentBoard;
-                }
-
-                var board = BoardContext.Current.GetRepository<Board>().GetById(this.BoardId);
-
-                this.currentBoard = board ?? throw new EmptyBoardSettingException($"No data for board ID: {this.BoardId}");
-
                 return this.currentBoard;
             }
+
+            var board = BoardContext.Current.GetRepository<Board>().GetById(this.BoardId);
+
+            this.currentBoard = board ?? throw new EmptyBoardSettingException($"No data for board ID: {this.BoardId}");
+
+            return this.currentBoard;
         }
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        ///     Saves the whole setting registry to the database.
-        /// </summary>
-        public void SaveRegistry()
-        {
-            // loop through all values and commit them to the DB
-            this.Registry.Keys.ForEach(key => BoardContext.Current.GetRepository<Registry>().Save(key, this.Registry[key]));
-
-            this.RegistryBoard.Keys.ForEach(
-                key => BoardContext.Current.GetRepository<Registry>().Save(key, this.RegistryBoard[key], this.BoardId));
-
-            // Reset Board Settings
-            BoardContext.Current.Get<CurrentBoardSettings>().Reset();
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Loads the board settings from database.
-        /// </summary>
-        private void LoadBoardSettingsFromDb()
-        {
-            var registryList = BoardContext.Current.GetRepository<Registry>().List();
-
-            // get all the registry settings into our hash table
-            registryList.ForEach(
-                row =>
-                    {
-                        if (!this.Registry.ContainsKey(row.Name.ToLower()))
-                        {
-                            this.Registry.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
-                        }
-                    });
-
-            var registryBoardList = BoardContext.Current.GetRepository<Registry>().List(this.BoardId);
-
-            // get all the registry settings into our hash table
-            registryBoardList.ForEach(
-                row =>
-                    {
-                        if (!this.RegistryBoard.ContainsKey(row.Name.ToLower()))
-                        {
-                            this.RegistryBoard.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
-                        }
-                    });
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Public Methods and Operators
+
+    /// <summary>
+    ///     Saves the whole setting registry to the database.
+    /// </summary>
+    public void SaveRegistry()
+    {
+        // loop through all values and commit them to the DB
+        this.Registry.Keys.ForEach(key => BoardContext.Current.GetRepository<Registry>().Save(key, this.Registry[key]));
+
+        this.RegistryBoard.Keys.ForEach(
+            key => BoardContext.Current.GetRepository<Registry>().Save(key, this.RegistryBoard[key], this.BoardId));
+
+        // Reset Board Settings
+        BoardContext.Current.Get<CurrentBoardSettings>().Reset();
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Loads the board settings from database.
+    /// </summary>
+    private void LoadBoardSettingsFromDb()
+    {
+        var registryList = BoardContext.Current.GetRepository<Registry>().List();
+
+        // get all the registry settings into our hash table
+        registryList.ForEach(
+            row =>
+                {
+                    if (!this.Registry.ContainsKey(row.Name.ToLower()))
+                    {
+                        this.Registry.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
+                    }
+                });
+
+        var registryBoardList = BoardContext.Current.GetRepository<Registry>().List(this.BoardId);
+
+        // get all the registry settings into our hash table
+        registryBoardList.ForEach(
+            row =>
+                {
+                    if (!this.RegistryBoard.ContainsKey(row.Name.ToLower()))
+                    {
+                        this.RegistryBoard.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
+                    }
+                });
+    }
+
+    #endregion
 }

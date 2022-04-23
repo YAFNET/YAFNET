@@ -21,331 +21,330 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+#region Using
+
+using System.Collections.Generic;
+
+using YAF.Types.Interfaces.Data;
+
+#endregion
+
+/// <summary>
+///     The i service locator extensions.
+/// </summary>
+public static class IServiceLocatorExtensions
 {
-    #region Using
-
-    using System.Collections.Generic;
-
-    using YAF.Types.Interfaces.Data;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The i service locator extensions.
+    /// The get.
     /// </summary>
-    public static class IServiceLocatorExtensions
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="TService"/>.
+    /// </returns>
+    public static TService Get<TService>([NotNull] this IServiceLocator serviceLocator)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(serviceLocator);
 
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <typeparam name="TService">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="TService"/>.
-        /// </returns>
-        public static TService Get<TService>([NotNull] this IServiceLocator serviceLocator)
-        {
-            CodeContracts.VerifyNotNull(serviceLocator);
-
-            return (TService)serviceLocator.Get(typeof(TService));
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <param name="named">
-        /// The named.
-        /// </param>
-        /// <typeparam name="TService">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="TService"/>.
-        /// </returns>
-        public static TService Get<TService>([NotNull] this IServiceLocator serviceLocator, [NotNull] string named)
-        {
-            CodeContracts.VerifyNotNull(serviceLocator);
-            CodeContracts.VerifyNotNull(named);
-
-            return (TService)serviceLocator.Get(typeof(TService), named);
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <param name="parameters">
-        /// </param>
-        /// <typeparam name="TService">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="TService"/>.
-        /// </returns>
-        public static TService Get<TService>(
-            [NotNull] this IServiceLocator serviceLocator, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
-        {
-            CodeContracts.VerifyNotNull(serviceLocator);
-            CodeContracts.VerifyNotNull(parameters);
-
-            return (TService)serviceLocator.Get(typeof(TService), parameters);
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <param name="named">
-        /// The named.
-        /// </param>
-        /// <param name="parameters">
-        /// </param>
-        /// <typeparam name="TService">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="TService"/>.
-        /// </returns>
-        public static TService Get<TService>(
-            [NotNull] this IServiceLocator serviceLocator, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
-        {
-            CodeContracts.VerifyNotNull(serviceLocator);
-            CodeContracts.VerifyNotNull(named);
-            CodeContracts.VerifyNotNull(parameters);
-
-            return (TService)serviceLocator.Get(typeof(TService), named, parameters);
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="haveLocator">
-        /// The have locator.
-        /// </param>
-        /// <typeparam name="TService">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="TService"/>.
-        /// </returns>
-        public static TService Get<TService>([NotNull] this IHaveServiceLocator haveLocator)
-        {
-            CodeContracts.VerifyNotNull(haveLocator);
-
-            return haveLocator.ServiceLocator.Get<TService>();
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="haveLocator">
-        /// The have locator.
-        /// </param>
-        /// <param name="named">
-        /// The named.
-        /// </param>
-        /// <typeparam name="TService">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="TService"/>.
-        /// </returns>
-        public static TService Get<TService>([NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named)
-        {
-            CodeContracts.VerifyNotNull(haveLocator);
-            CodeContracts.VerifyNotNull(named);
-
-            return haveLocator.ServiceLocator.Get<TService>(named);
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="haveLocator">
-        /// The have locator.
-        /// </param>
-        /// <param name="parameters">
-        /// The parameters.
-        /// </param>
-        /// <typeparam name="TService">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="TService"/>.
-        /// </returns>
-        public static TService Get<TService>(
-            [NotNull] this IHaveServiceLocator haveLocator, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
-        {
-            CodeContracts.VerifyNotNull(haveLocator);
-            CodeContracts.VerifyNotNull(parameters);
-
-            return haveLocator.ServiceLocator.Get<TService>(parameters);
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="haveLocator">
-        /// The have locator.
-        /// </param>
-        /// <param name="named">
-        /// The named.
-        /// </param>
-        /// <param name="parameters">
-        /// The parameters.
-        /// </param>
-        /// <typeparam name="TService">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="TService"/>.
-        /// </returns>
-        public static TService Get<TService>(
-            [NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
-        {
-            CodeContracts.VerifyNotNull(haveLocator);
-            CodeContracts.VerifyNotNull(named);
-            CodeContracts.VerifyNotNull(parameters);
-
-            return haveLocator.ServiceLocator.Get<TService>(named, parameters);
-        }
-
-        /// <summary>
-        /// The get repository.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IRepository{T}"/>.
-        /// </returns>
-        public static IRepository<T> GetRepository<T>([NotNull] this IHaveServiceLocator serviceLocator)
-            where T : IEntity
-        {
-            CodeContracts.VerifyNotNull(serviceLocator);
-
-            return serviceLocator.Get<IRepository<T>>();
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <param name="instance">
-        /// The instance.
-        /// </param>
-        /// <typeparam name="TService">
-        /// </typeparam>
-        /// <returns>
-        /// The try get.
-        /// </returns>
-        public static bool TryGet<TService>([NotNull] this IServiceLocator serviceLocator, out TService instance)
-        {
-            CodeContracts.VerifyNotNull(serviceLocator);
-
-            instance = default;
-
-            if (!serviceLocator.TryGet(typeof(TService), out var tempInstance))
-            {
-                return false;
-            }
-
-            instance = (TService)tempInstance;
-
-            return true;
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <param name="named">
-        /// The named.
-        /// </param>
-        /// <param name="instance">
-        /// </param>
-        /// <typeparam name="TService">
-        /// </typeparam>
-        /// <returns>
-        /// The try get.
-        /// </returns>
-        public static bool TryGet<TService>(
-            [NotNull] this IServiceLocator serviceLocator, [NotNull] string named, out TService instance)
-        {
-            CodeContracts.VerifyNotNull(serviceLocator);
-            CodeContracts.VerifyNotNull(named);
-
-            instance = default;
-
-            if (!serviceLocator.TryGet(typeof(TService), named, out var tempInstance))
-            {
-                return false;
-            }
-
-            instance = (TService)tempInstance;
-
-            return true;
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="haveLocator">
-        /// The have locator.
-        /// </param>
-        /// <param name="instance">
-        /// The instance.
-        /// </param>
-        /// <typeparam name="TService">
-        /// </typeparam>
-        /// <returns>
-        /// The try get.
-        /// </returns>
-        public static bool TryGet<TService>([NotNull] this IHaveServiceLocator haveLocator, out TService instance)
-        {
-            CodeContracts.VerifyNotNull(haveLocator);
-
-            return haveLocator.ServiceLocator.TryGet(out instance);
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="haveLocator">
-        /// The have locator.
-        /// </param>
-        /// <param name="named">
-        /// The named.
-        /// </param>
-        /// <param name="instance">
-        /// The instance.
-        /// </param>
-        /// <typeparam name="TService">
-        /// </typeparam>
-        /// <returns>
-        /// The try get.
-        /// </returns>
-        public static bool TryGet<TService>(
-            [NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named, out TService instance)
-        {
-            CodeContracts.VerifyNotNull(haveLocator);
-            CodeContracts.VerifyNotNull(named);
-
-            return haveLocator.ServiceLocator.TryGet(named, out instance);
-        }
-
-        #endregion
+        return (TService)serviceLocator.Get(typeof(TService));
     }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="TService"/>.
+    /// </returns>
+    public static TService Get<TService>([NotNull] this IServiceLocator serviceLocator, [NotNull] string named)
+    {
+        CodeContracts.VerifyNotNull(serviceLocator);
+        CodeContracts.VerifyNotNull(named);
+
+        return (TService)serviceLocator.Get(typeof(TService), named);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <param name="parameters">
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="TService"/>.
+    /// </returns>
+    public static TService Get<TService>(
+        [NotNull] this IServiceLocator serviceLocator, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+    {
+        CodeContracts.VerifyNotNull(serviceLocator);
+        CodeContracts.VerifyNotNull(parameters);
+
+        return (TService)serviceLocator.Get(typeof(TService), parameters);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <param name="parameters">
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="TService"/>.
+    /// </returns>
+    public static TService Get<TService>(
+        [NotNull] this IServiceLocator serviceLocator, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+    {
+        CodeContracts.VerifyNotNull(serviceLocator);
+        CodeContracts.VerifyNotNull(named);
+        CodeContracts.VerifyNotNull(parameters);
+
+        return (TService)serviceLocator.Get(typeof(TService), named, parameters);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="haveLocator">
+    /// The have locator.
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="TService"/>.
+    /// </returns>
+    public static TService Get<TService>([NotNull] this IHaveServiceLocator haveLocator)
+    {
+        CodeContracts.VerifyNotNull(haveLocator);
+
+        return haveLocator.ServiceLocator.Get<TService>();
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="haveLocator">
+    /// The have locator.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="TService"/>.
+    /// </returns>
+    public static TService Get<TService>([NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named)
+    {
+        CodeContracts.VerifyNotNull(haveLocator);
+        CodeContracts.VerifyNotNull(named);
+
+        return haveLocator.ServiceLocator.Get<TService>(named);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="haveLocator">
+    /// The have locator.
+    /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="TService"/>.
+    /// </returns>
+    public static TService Get<TService>(
+        [NotNull] this IHaveServiceLocator haveLocator, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+    {
+        CodeContracts.VerifyNotNull(haveLocator);
+        CodeContracts.VerifyNotNull(parameters);
+
+        return haveLocator.ServiceLocator.Get<TService>(parameters);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="haveLocator">
+    /// The have locator.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="TService"/>.
+    /// </returns>
+    public static TService Get<TService>(
+        [NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+    {
+        CodeContracts.VerifyNotNull(haveLocator);
+        CodeContracts.VerifyNotNull(named);
+        CodeContracts.VerifyNotNull(parameters);
+
+        return haveLocator.ServiceLocator.Get<TService>(named, parameters);
+    }
+
+    /// <summary>
+    /// The get repository.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="IRepository{T}"/>.
+    /// </returns>
+    public static IRepository<T> GetRepository<T>([NotNull] this IHaveServiceLocator serviceLocator)
+        where T : IEntity
+    {
+        CodeContracts.VerifyNotNull(serviceLocator);
+
+        return serviceLocator.Get<IRepository<T>>();
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// The try get.
+    /// </returns>
+    public static bool TryGet<TService>([NotNull] this IServiceLocator serviceLocator, out TService instance)
+    {
+        CodeContracts.VerifyNotNull(serviceLocator);
+
+        instance = default;
+
+        if (!serviceLocator.TryGet(typeof(TService), out var tempInstance))
+        {
+            return false;
+        }
+
+        instance = (TService)tempInstance;
+
+        return true;
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <param name="instance">
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// The try get.
+    /// </returns>
+    public static bool TryGet<TService>(
+        [NotNull] this IServiceLocator serviceLocator, [NotNull] string named, out TService instance)
+    {
+        CodeContracts.VerifyNotNull(serviceLocator);
+        CodeContracts.VerifyNotNull(named);
+
+        instance = default;
+
+        if (!serviceLocator.TryGet(typeof(TService), named, out var tempInstance))
+        {
+            return false;
+        }
+
+        instance = (TService)tempInstance;
+
+        return true;
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="haveLocator">
+    /// The have locator.
+    /// </param>
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// The try get.
+    /// </returns>
+    public static bool TryGet<TService>([NotNull] this IHaveServiceLocator haveLocator, out TService instance)
+    {
+        CodeContracts.VerifyNotNull(haveLocator);
+
+        return haveLocator.ServiceLocator.TryGet(out instance);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="haveLocator">
+    /// The have locator.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// The try get.
+    /// </returns>
+    public static bool TryGet<TService>(
+        [NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named, out TService instance)
+    {
+        CodeContracts.VerifyNotNull(haveLocator);
+        CodeContracts.VerifyNotNull(named);
+
+        return haveLocator.ServiceLocator.TryGet(named, out instance);
+    }
+
+    #endregion
 }

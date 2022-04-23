@@ -21,50 +21,49 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
-{
-    #region Using
+namespace YAF.Controls;
 
-    #endregion
+#region Using
+
+#endregion
+
+/// <summary>
+/// The forum control for showing the cookie warning!
+/// </summary>
+public partial class CookieConsent : BaseUserControl
+{
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.Label1.Param0 = this.PageBoardContext.BoardSettings.Name;
+
+        this.MoreDetails.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Cookies);
+    }
 
     /// <summary>
-    /// The forum control for showing the cookie warning!
+    /// Accept Cookie Consent
     /// </summary>
-    public partial class CookieConsent : BaseUserControl
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void AcceptClick(object sender, EventArgs e)
     {
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Label1.Param0 = this.PageBoardContext.BoardSettings.Name;
-
-            this.MoreDetails.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Cookies);
-        }
-
-        /// <summary>
-        /// Accept Cookie Consent
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void AcceptClick(object sender, EventArgs e)
-        {
-            this.PageBoardContext.Get<HttpResponseBase>().SetCookie(
-                new HttpCookie("YAF-AcceptCookies", "true")
+        this.PageBoardContext.Get<HttpResponseBase>().SetCookie(
+            new HttpCookie("YAF-AcceptCookies", "true")
                 {
                     Expires = DateTime.UtcNow.AddYears(1), HttpOnly = true,
                     Secure = this.Request.IsSecureConnection
                 });
 
-            this.Response.Redirect(this.HtmlEncode(this.Request.RawUrl));
+        this.Response.Redirect(this.HtmlEncode(this.Request.RawUrl));
 
-            this.DataBind();
-        }
+        this.DataBind();
     }
 }

@@ -22,42 +22,41 @@
  * under the License.
  */
 
-namespace YAF.Core.Context.Start
+namespace YAF.Core.Context.Start;
+
+using System;
+using System.Linq;
+
+using Autofac.Util;
+
+using Owin;
+
+using YAF.Types.Extensions;
+
+/// <summary>
+/// The startup.
+/// </summary>
+public partial class Startup
 {
-    using System;
-    using System.Linq;
-
-    using Autofac.Util;
-
-    using Owin;
-
-    using YAF.Types.Extensions;
-
     /// <summary>
-    /// The startup.
+    /// The configuration.
     /// </summary>
-    public partial class Startup
+    /// <param name="app">
+    /// The app.
+    /// </param>
+    public void Configuration(IAppBuilder app)
     {
-        /// <summary>
-        /// The configuration.
-        /// </summary>
-        /// <param name="app">
-        /// The app.
-        /// </param>
-        public void Configuration(IAppBuilder app)
-        {
-            // Inject SignalR Registration
-            AppDomain.CurrentDomain.GetAssemblies().ForEach(
-                assembly => assembly.GetLoadableTypes().Where(type => type.IsClass && type.Name == "StartupSignalR")
-                    .ForEach(
-                        type =>
+        // Inject SignalR Registration
+        AppDomain.CurrentDomain.GetAssemblies().ForEach(
+            assembly => assembly.GetLoadableTypes().Where(type => type.IsClass && type.Name == "StartupSignalR")
+                .ForEach(
+                    type =>
                         {
                             var startupClass = Activator.CreateInstance(type);
 
                             type.GetMethod("ConfigureSignalR").Invoke(startupClass, new object[] { app });
                         }));
 
-            this.ConfigureAuth(app);
-        }
+        this.ConfigureAuth(app);
     }
 }

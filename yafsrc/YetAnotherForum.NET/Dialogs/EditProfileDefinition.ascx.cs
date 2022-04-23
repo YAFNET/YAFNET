@@ -22,114 +22,114 @@
  * under the License.
  */
 
-namespace YAF.Dialogs
+namespace YAF.Dialogs;
+
+#region Using
+
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The Profile Definition Add/Edit Dialog.
+/// </summary>
+public partial class EditProfileDefinition : BaseUserControl
 {
-    #region Using
-
-    using YAF.Types.Models;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// The Profile Definition Add/Edit Dialog.
+    /// Gets or sets the banned identifier.
     /// </summary>
-    public partial class EditProfileDefinition : BaseUserControl
+    /// <value>
+    /// The Definition identifier.
+    /// </value>
+    public int? DefinitionId
     {
-        #region Methods
+        get => this.ViewState["DefinitionId"].ToType<int?>();
 
-        /// <summary>
-        /// Gets or sets the banned identifier.
-        /// </summary>
-        /// <value>
-        /// The Definition identifier.
-        /// </value>
-        public int? DefinitionId
+        set => this.ViewState["DefinitionId"] = value;
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    /// <param name="definitionId">
+    /// The definition Id.
+    /// </param>
+    public void BindData(int? definitionId)
+    {
+        this.DefinitionId = definitionId;
+
+        this.Title.LocalizedPage = "ADMIN_EDIT_PROFILEDEFINITION";
+        this.Save.TextLocalizedPage = "ADMIN_EDIT_PROFILEDEFINITION";
+
+        this.DataTypes.DataSource = Enum.GetNames(typeof(DataType));
+        this.DataTypes.DataBind();
+
+        if (this.DefinitionId.HasValue)
         {
-            get => this.ViewState["DefinitionId"].ToType<int?>();
+            // Edit
+            var item = this.GetRepository<ProfileDefinition>().GetById(this.DefinitionId.Value);
 
-            set => this.ViewState["DefinitionId"] = value;
+            if (item != null)
+            {
+                this.Name.Text = item.Name;
+                this.DataTypes.Items.FindByText(item.DataType).Selected = true;
+                this.Length.Text = item.Length.ToString();
+                this.Required.Checked = item.Required;
+                this.ShowInUserInfo.Checked = item.ShowInUserInfo;
+                this.ShowOnRegisterPage.Checked = item.ShowOnRegisterPage;
+                this.DefaultValue.Text = item.DefaultValue;
+            }
+
+            this.Title.LocalizedTag = "TITLE_EDIT";
+            this.Save.TextLocalizedTag = "SAVE";
+        }
+        else
+        {
+            // Add
+            this.Name.Text = string.Empty;
+
+            this.Title.LocalizedTag = "TITLE";
+            this.Save.TextLocalizedTag = "SAVE_NEW";
+        }
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender. 
+    /// </param>
+    /// <param name="e">
+    /// The e. 
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.IsPostBack)
+        {
+            return;
         }
 
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        /// <param name="definitionId">
-        /// The definition Id.
-        /// </param>
-        public void BindData(int? definitionId)
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "loadValidatorFormJs",
+            JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+    }
+
+    /// <summary>
+    /// Handles the Click event of the Add control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.Page.IsValid)
         {
-            this.DefinitionId = definitionId;
-
-            this.Title.LocalizedPage = "ADMIN_EDIT_PROFILEDEFINITION";
-            this.Save.TextLocalizedPage = "ADMIN_EDIT_PROFILEDEFINITION";
-
-            this.DataTypes.DataSource = Enum.GetNames(typeof(DataType));
-            this.DataTypes.DataBind();
-
-            if (this.DefinitionId.HasValue)
-            {
-                // Edit
-                var item = this.GetRepository<ProfileDefinition>().GetById(this.DefinitionId.Value);
-
-                if (item != null)
-                {
-                    this.Name.Text = item.Name;
-                    this.DataTypes.Items.FindByText(item.DataType).Selected = true;
-                    this.Length.Text = item.Length.ToString();
-                    this.Required.Checked = item.Required;
-                    this.ShowInUserInfo.Checked = item.ShowInUserInfo;
-                    this.ShowOnRegisterPage.Checked = item.ShowOnRegisterPage;
-                    this.DefaultValue.Text = item.DefaultValue;
-                }
-
-                this.Title.LocalizedTag = "TITLE_EDIT";
-                this.Save.TextLocalizedTag = "SAVE";
-            }
-            else
-            {
-                // Add
-                this.Name.Text = string.Empty;
-
-                this.Title.LocalizedTag = "TITLE";
-                this.Save.TextLocalizedTag = "SAVE_NEW";
-            }
+            return;
         }
 
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.IsPostBack)
-            {
-                return;
-            }
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "loadValidatorFormJs",
-                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
-        }
-
-        /// <summary>
-        /// Handles the Click event of the Add control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.Page.IsValid)
-            {
-                return;
-            }
-
-            this.GetRepository<ProfileDefinition>().Upsert(
-                new ProfileDefinition
+        this.GetRepository<ProfileDefinition>().Upsert(
+            new ProfileDefinition
                 {
                     BoardID = this.PageBoardContext.PageBoardID,
                     ID = this.DefinitionId ?? 0,
@@ -142,9 +142,8 @@ namespace YAF.Dialogs
                     ShowOnRegisterPage = this.ShowOnRegisterPage.Checked
                 });
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_ProfileDefinitions);
-        }
-
-        #endregion
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_ProfileDefinitions);
     }
+
+    #endregion
 }

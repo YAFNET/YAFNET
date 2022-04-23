@@ -21,196 +21,195 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Extensions
+namespace YAF.Types.Extensions;
+
+#region Using
+
+using System;
+using System.ComponentModel;
+using System.Linq;
+
+#endregion
+
+/// <summary>
+///     The object extensions.
+/// </summary>
+public static class ObjectExtensions
 {
-    #region Using
-
-    using System;
-    using System.ComponentModel;
-    using System.Linq;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The object extensions.
+    /// Tests if an object or empty.
     /// </summary>
-    public static class ObjectExtensions
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <returns>
+    /// The is <see langword="null"/> or empty database field.
+    /// </returns>
+    public static bool IsNullOrEmptyField([NotNull] this object value)
     {
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// Tests if an object or empty.
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <returns>
-        /// The is <see langword="null"/> or empty database field.
-        /// </returns>
-        public static bool IsNullOrEmptyField([NotNull] this object value)
-        {
-            return value == null || value == DBNull.Value || value.ToString().IsNotSet();
-        }
-
-        /// <summary>
-        /// The get attribute.
-        /// </summary>
-        /// <typeparam name="TAttribute">The type of the attribute.</typeparam>
-        /// <param name="objectType">The object type.</param>
-        /// <returns>
-        /// The <see cref="TAttribute" />.
-        /// </returns>
-        public static TAttribute GetAttribute<TAttribute>([NotNull] this Type objectType) where TAttribute : Attribute
-        {
-            CodeContracts.VerifyNotNull(objectType);
-
-            return objectType.GetCustomAttributes(typeof(TAttribute), false).OfType<TAttribute>().FirstOrDefault();
-        }
-
-        /// <summary>
-        /// Does this instance have this interface?
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <param name="instance">
-        /// </param>
-        /// <returns>
-        /// The has interface.
-        /// </returns>
-        public static bool HasInterface<T>([NotNull] this object instance)
-        {
-            return instance is T;
-        }
-
-        /// <summary>
-        /// Checks if source is in the list provided.
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <param name="source">
-        /// </param>
-        /// <param name="list">
-        /// </param>
-        /// <returns>
-        /// The is in.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="source"/>
-        ///     is
-        ///     <c>null</c>
-        ///     .
-        /// </exception>
-        public static bool IsIn<T>(this T source, [NotNull] params T[] list)
-        {
-            CodeContracts.VerifyNotNull(list);
-
-            return list.Contains(source);
-        }
-
-        /// <summary>
-        /// Converts the object to the class (T) or returns null if it's not an instance of that class or instance is null.
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <param name="instance">
-        /// </param>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        [CanBeNull]
-        public static T ToClass<T>([CanBeNull] this object instance) where T : class
-        {
-            return instance as T;
-        }
-
-        /// <summary>
-        /// Converts an object to Type using the Convert.ChangeType() call.
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <param name="instance">
-        /// </param>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        public static T ToType<T>([CanBeNull] this object instance)
-        {
-            if (instance == null)
-            {
-                return default;
-            }
-
-            if (Equals(instance, default(T)))
-            {
-                return default;
-            }
-
-            if (Equals(instance, DBNull.Value))
-            {
-                return default;
-            }
-
-            var instanceType = instance.GetType();
-
-            if (instanceType == typeof(string))
-            {
-                if ((instance as string).IsNotSet())
-                {
-                    return default;
-                }
-            }
-            else if (instanceType.IsClass && instance is not IConvertible)
-            {
-                // just cast since it's a class....
-                return (T)instance;
-            }
-
-            var conversionType = typeof(T);
-
-            if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
-            {
-                conversionType = new NullableConverter(conversionType).UnderlyingType;
-            }
-
-            return (T)Convert.ChangeType(instance, conversionType);
-        }
-
-        /// <summary>
-        /// The to type or default.
-        /// </summary>
-        /// <param name="instance">
-        /// The instance.
-        /// </param>
-        /// <param name="defaultValue">
-        /// The default value.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        public static T ToTypeOrDefault<T>([CanBeNull] this object instance, T defaultValue)
-        {
-            try
-            {
-                return ToType<T>(instance);
-            }
-            catch (ArgumentNullException)
-            {
-            }
-            catch (FormatException)
-            {
-            }
-            catch (InvalidCastException)
-            {
-            }
-            catch (OverflowException)
-            {
-            }
-
-            return defaultValue;
-        }
-
-        #endregion
+        return value == null || value == DBNull.Value || value.ToString().IsNotSet();
     }
+
+    /// <summary>
+    /// The get attribute.
+    /// </summary>
+    /// <typeparam name="TAttribute">The type of the attribute.</typeparam>
+    /// <param name="objectType">The object type.</param>
+    /// <returns>
+    /// The <see cref="TAttribute" />.
+    /// </returns>
+    public static TAttribute GetAttribute<TAttribute>([NotNull] this Type objectType) where TAttribute : Attribute
+    {
+        CodeContracts.VerifyNotNull(objectType);
+
+        return objectType.GetCustomAttributes(typeof(TAttribute), false).OfType<TAttribute>().FirstOrDefault();
+    }
+
+    /// <summary>
+    /// Does this instance have this interface?
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="instance">
+    /// </param>
+    /// <returns>
+    /// The has interface.
+    /// </returns>
+    public static bool HasInterface<T>([NotNull] this object instance)
+    {
+        return instance is T;
+    }
+
+    /// <summary>
+    /// Checks if source is in the list provided.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="source">
+    /// </param>
+    /// <param name="list">
+    /// </param>
+    /// <returns>
+    /// The is in.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="source"/>
+    ///     is
+    ///     <c>null</c>
+    ///     .
+    /// </exception>
+    public static bool IsIn<T>(this T source, [NotNull] params T[] list)
+    {
+        CodeContracts.VerifyNotNull(list);
+
+        return list.Contains(source);
+    }
+
+    /// <summary>
+    /// Converts the object to the class (T) or returns null if it's not an instance of that class or instance is null.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="instance">
+    /// </param>
+    /// <returns>
+    /// The <see cref="T"/>.
+    /// </returns>
+    [CanBeNull]
+    public static T ToClass<T>([CanBeNull] this object instance) where T : class
+    {
+        return instance as T;
+    }
+
+    /// <summary>
+    /// Converts an object to Type using the Convert.ChangeType() call.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="instance">
+    /// </param>
+    /// <returns>
+    /// The <see cref="T"/>.
+    /// </returns>
+    public static T ToType<T>([CanBeNull] this object instance)
+    {
+        if (instance == null)
+        {
+            return default;
+        }
+
+        if (Equals(instance, default(T)))
+        {
+            return default;
+        }
+
+        if (Equals(instance, DBNull.Value))
+        {
+            return default;
+        }
+
+        var instanceType = instance.GetType();
+
+        if (instanceType == typeof(string))
+        {
+            if ((instance as string).IsNotSet())
+            {
+                return default;
+            }
+        }
+        else if (instanceType.IsClass && instance is not IConvertible)
+        {
+            // just cast since it's a class....
+            return (T)instance;
+        }
+
+        var conversionType = typeof(T);
+
+        if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
+        {
+            conversionType = new NullableConverter(conversionType).UnderlyingType;
+        }
+
+        return (T)Convert.ChangeType(instance, conversionType);
+    }
+
+    /// <summary>
+    /// The to type or default.
+    /// </summary>
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
+    /// <param name="defaultValue">
+    /// The default value.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="T"/>.
+    /// </returns>
+    public static T ToTypeOrDefault<T>([CanBeNull] this object instance, T defaultValue)
+    {
+        try
+        {
+            return ToType<T>(instance);
+        }
+        catch (ArgumentNullException)
+        {
+        }
+        catch (FormatException)
+        {
+        }
+        catch (InvalidCastException)
+        {
+        }
+        catch (OverflowException)
+        {
+        }
+
+        return defaultValue;
+    }
+
+    #endregion
 }

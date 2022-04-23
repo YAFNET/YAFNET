@@ -5,26 +5,25 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Configuration
+namespace YAF.UrlRewriter.Configuration;
+
+using System.Collections.Specialized;
+
+/// <summary>
+/// Interface for a facade to the ASP.NET ConfigurationManager.
+/// Useful for plugging out the ConfigurationManager in unit tests.
+/// </summary>
+public interface IConfigurationManager
 {
-    using System.Collections.Specialized;
+    /// <summary>
+    /// Retrieves a configuration section from the web application's config file.
+    /// </summary>
+    /// <param name="sectionName">The configuration section name</param>
+    /// <returns>The configuration section class instance</returns>
+    object GetSection(string sectionName);
 
     /// <summary>
-    /// Interface for a facade to the ASP.NET ConfigurationManager.
-    /// Useful for plugging out the ConfigurationManager in unit tests.
+    /// Gets the AppSettings from the web application's config file.
     /// </summary>
-    public interface IConfigurationManager
-    {
-        /// <summary>
-        /// Retrieves a configuration section from the web application's config file.
-        /// </summary>
-        /// <param name="sectionName">The configuration section name</param>
-        /// <returns>The configuration section class instance</returns>
-        object GetSection(string sectionName);
-
-        /// <summary>
-        /// Gets the AppSettings from the web application's config file.
-        /// </summary>
-        NameValueCollection AppSettings { get; }
-    }
+    NameValueCollection AppSettings { get; }
 }

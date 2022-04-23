@@ -21,75 +21,74 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Objects.Nntp
+namespace YAF.Types.Objects.Nntp;
+
+using System.IO;
+
+/// <summary>
+/// The attachment.
+/// </summary>
+public class NntpAttachment
 {
-    using System.IO;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NntpAttachment"/> class.
+    /// </summary>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <param name="filename">
+    /// The filename.
+    /// </param>
+    /// <param name="binaryData">
+    /// The binary data.
+    /// </param>
+    public NntpAttachment(string id, string filename, byte[] binaryData)
+    {
+        this.Id = id;
+        this.Filename = filename;
+        this.BinaryData = binaryData;
+    }
 
     /// <summary>
-    /// The attachment.
+    /// Gets Id.
     /// </summary>
-    public class NntpAttachment
+    public string Id { get; }
+
+    /// <summary>
+    /// Gets Filename.
+    /// </summary>
+    public string Filename { get; }
+
+    /// <summary>
+    /// Gets BinaryData.
+    /// </summary>
+    public byte[] BinaryData { get; }
+
+    /// <summary>
+    /// The save as.
+    /// </summary>
+    /// <param name="path">
+    /// The path.
+    /// </param>
+    public void SaveAs(string path)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NntpAttachment"/> class.
-        /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <param name="filename">
-        /// The filename.
-        /// </param>
-        /// <param name="binaryData">
-        /// The binary data.
-        /// </param>
-        public NntpAttachment(string id, string filename, byte[] binaryData)
-        {
-            this.Id = id;
-            this.Filename = filename;
-            this.BinaryData = binaryData;
-        }
+        this.SaveAs(path, false);
+    }
 
-        /// <summary>
-        /// Gets Id.
-        /// </summary>
-        public string Id { get; }
+    /// <summary>
+    /// The save as.
+    /// </summary>
+    /// <param name="path">
+    /// The path.
+    /// </param>
+    /// <param name="isOverwrite">
+    /// The is overwrite.
+    /// </param>
+    public void SaveAs(string path, bool isOverwrite)
+    {
+        var fs = isOverwrite ? new FileStream(path, FileMode.Create) : new FileStream(path, FileMode.CreateNew);
 
-        /// <summary>
-        /// Gets Filename.
-        /// </summary>
-        public string Filename { get; }
-
-        /// <summary>
-        /// Gets BinaryData.
-        /// </summary>
-        public byte[] BinaryData { get; }
-
-        /// <summary>
-        /// The save as.
-        /// </summary>
-        /// <param name="path">
-        /// The path.
-        /// </param>
-        public void SaveAs(string path)
-        {
-            this.SaveAs(path, false);
-        }
-
-        /// <summary>
-        /// The save as.
-        /// </summary>
-        /// <param name="path">
-        /// The path.
-        /// </param>
-        /// <param name="isOverwrite">
-        /// The is overwrite.
-        /// </param>
-        public void SaveAs(string path, bool isOverwrite)
-        {
-            var fs = isOverwrite ? new FileStream(path, FileMode.Create) : new FileStream(path, FileMode.CreateNew);
-
-            fs.Write(this.BinaryData, 0, this.BinaryData.Length);
-            fs.Close();
-        }
+        fs.Write(this.BinaryData, 0, this.BinaryData.Length);
+        fs.Close();
     }
 }

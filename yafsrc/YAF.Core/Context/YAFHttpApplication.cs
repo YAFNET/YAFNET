@@ -22,166 +22,165 @@
  * under the License.
  */
 
-namespace YAF.Core.Context
+namespace YAF.Core.Context;
+
+using System;
+using System.Web;
+using System.Web.Http;
+using System.Web.UI;
+
+using Autofac;
+
+using YAF.Configuration;
+using YAF.Core.Context.Start;
+using YAF.Core.Extensions;
+using YAF.Core.Helpers;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Interfaces.Services;
+
+/// <summary>
+/// The YAF HttpApplication.
+/// </summary>
+public abstract class YafHttpApplication : HttpApplication, IHaveServiceLocator
 {
-    using System;
-    using System.Web;
-    using System.Web.Http;
-    using System.Web.UI;
-
-    using Autofac;
-
-    using YAF.Configuration;
-    using YAF.Core.Context.Start;
-    using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Interfaces.Services;
+    /// <summary>
+    ///   Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
-    /// The YAF HttpApplication.
+    /// Log Application Errors
     /// </summary>
-    public abstract class YafHttpApplication : HttpApplication, IHaveServiceLocator
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Application_Error([NotNull] object sender, [NotNull] EventArgs e)
     {
-        /// <summary>
-        ///   Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+        var exception = this.Server.GetLastError();
 
-        /// <summary>
-        /// Log Application Errors
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Application_Error([NotNull] object sender, [NotNull] EventArgs e)
+        int? userId;
+
+        try
         {
-            var exception = this.Server.GetLastError();
+            userId = BoardContext.Current?.PageUserID;
+        }
+        catch (Exception)
+        {
+            userId = null;
+        }
 
-            int? userId;
+        this.Application["Exception"] = exception.ToString();
+        this.Application["ExceptionMessage"] = exception.Message;
+
+        if ((exception.GetType() == typeof(HttpException) && exception.InnerException is ViewStateException)
+            || exception.Source.Contains("ViewStateException") ||
+            exception.TargetSite.Name == "LoadViewStateRecursive")
+        {
+            bool logViewStateError;
 
             try
             {
-                userId = BoardContext.Current?.PageUserID;
+                logViewStateError = this.Get<BoardSettings>().LogViewStateError;
             }
             catch (Exception)
             {
-                userId = null;
+                logViewStateError = true;
             }
 
-            this.Application["Exception"] = exception.ToString();
-            this.Application["ExceptionMessage"] = exception.Message;
-
-            if ((exception.GetType() == typeof(HttpException) && exception.InnerException is ViewStateException)
-                || exception.Source.Contains("ViewStateException") ||
-                exception.TargetSite.Name == "LoadViewStateRecursive")
+            if (logViewStateError)
             {
-                bool logViewStateError;
-
-                try
-                {
-                    logViewStateError = this.Get<BoardSettings>().LogViewStateError;
-                }
-                catch (Exception)
-                {
-                    logViewStateError = true;
-                }
-
-                if (logViewStateError)
-                {
-                    this.Get<ILoggerService>().Log(
-                        exception.Message,
-                        EventLogTypes.Error,
-                        exception: exception,
-                        userId: userId);
-                }
+                this.Get<ILoggerService>().Log(
+                    exception.Message,
+                    EventLogTypes.Error,
+                    exception: exception,
+                    userId: userId);
             }
-            else
+        }
+        else
+        {
+            // ignore illegal path errors or 
+            if (exception.TargetSite.Name != "CheckSuspiciousPhysicalPath"
+                && exception.TargetSite.Name != "CheckVirtualFileExists"
+                && exception.TargetSite.Name != "ValidateInputIfRequiredByConfig"
+                && exception.TargetSite.Name != "ValidateString"
+                && exception.Message != "This is an invalid webresource request"
+                && exception.Message != "This is an invalid script resource request")
             {
-                // ignore illegal path errors or 
-                if (exception.TargetSite.Name != "CheckSuspiciousPhysicalPath"
-                    && exception.TargetSite.Name != "CheckVirtualFileExists"
-                    && exception.TargetSite.Name != "ValidateInputIfRequiredByConfig"
-                    && exception.TargetSite.Name != "ValidateString"
-                    && exception.Message != "This is an invalid webresource request"
-                    && exception.Message != "This is an invalid script resource request")
-                {
-                    this.Get<ILoggerService>().Log(
-                        $"{exception.Message}",
-                        EventLogTypes.Error,
-                        exception: exception,
-                        userId: userId);
-                }
+                this.Get<ILoggerService>().Log(
+                    $"{exception.Message}",
+                    EventLogTypes.Error,
+                    exception: exception,
+                    userId: userId);
             }
         }
+    }
 
-        /// <summary>
-        /// The application_ end.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected virtual void Application_End([NotNull] object sender, [NotNull] EventArgs e)
+    /// <summary>
+    /// The application_ end.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected virtual void Application_End([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (BoardContext.Current.BoardSettings.AbandonSessionsForDontTrack
+            && (BoardContext.Current.Vars.AsBoolean("DontTrack") ?? false)
+            && this.Get<HttpSessionStateBase>().IsNewSession)
         {
-            if (BoardContext.Current.BoardSettings.AbandonSessionsForDontTrack
-                && (BoardContext.Current.Vars.AsBoolean("DontTrack") ?? false)
-                && this.Get<HttpSessionStateBase>().IsNewSession)
-            {
-                // remove session
-                this.Get<HttpSessionStateBase>().Abandon();
-            }
-
-            // make sure the BoardContext is disposed of...
-            BoardContext.Current.Dispose();
+            // remove session
+            this.Get<HttpSessionStateBase>().Abandon();
         }
 
-        /// <summary>
-        /// The application_ start.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected virtual void Application_Start([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // Pass a delegate to the Configure method.
-            GlobalConfiguration.Configure(WebApiConfig.Register);
+        // make sure the BoardContext is disposed of...
+        BoardContext.Current.Dispose();
+    }
 
-            ScriptManagerHelper.RegisterJQuery();
-        }
+    /// <summary>
+    /// The application_ start.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected virtual void Application_Start([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // Pass a delegate to the Configure method.
+        GlobalConfiguration.Configure(WebApiConfig.Register);
 
-        /// <summary>
-        /// The session_ start.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Session_Start([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // run startup services...
-            this.RunStartupServices();
+        ScriptManagerHelper.RegisterJQuery();
+    }
 
-            // set the httpApplication as early as possible...
-            GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
-                new HttpApplicationStateWrapper(this.Application);
+    /// <summary>
+    /// The session_ start.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Session_Start([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // run startup services...
+        this.RunStartupServices();
 
-            // app init notification...
-            this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(this), null);
-        }
+        // set the httpApplication as early as possible...
+        GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
+            new HttpApplicationStateWrapper(this.Application);
+
+        // app init notification...
+        this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(this), null);
     }
 }

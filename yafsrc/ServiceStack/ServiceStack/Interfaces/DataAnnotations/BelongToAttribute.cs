@@ -7,29 +7,27 @@
 
 using System;
 
-namespace ServiceStack.DataAnnotations
+namespace ServiceStack.DataAnnotations;
+
+/// <summary>
+/// BelongToAttribute
+/// Use to indicate that a join column belongs to another table.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property)]
+public class BelongToAttribute : AttributeBase
 {
+    /// <summary>
+    /// Gets or sets the type of the belong to table.
+    /// </summary>
+    /// <value>The type of the belong to table.</value>
+    public Type BelongToTableType { get; set; }
 
     /// <summary>
-    /// BelongToAttribute
-    /// Use to indicate that a join column belongs to another table.
+    /// Initializes a new instance of the <see cref="BelongToAttribute"/> class.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
-    public class BelongToAttribute : AttributeBase
+    /// <param name="belongToTableType">Type of the belong to table.</param>
+    public BelongToAttribute(Type belongToTableType)
     {
-        /// <summary>
-        /// Gets or sets the type of the belong to table.
-        /// </summary>
-        /// <value>The type of the belong to table.</value>
-        public Type BelongToTableType { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BelongToAttribute"/> class.
-        /// </summary>
-        /// <param name="belongToTableType">Type of the belong to table.</param>
-        public BelongToAttribute(Type belongToTableType)
-        {
-            BelongToTableType = belongToTableType;
-        }
+        BelongToTableType = belongToTableType;
     }
 }

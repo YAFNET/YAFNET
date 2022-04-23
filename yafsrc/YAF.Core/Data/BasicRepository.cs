@@ -21,67 +21,66 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Data
-{
-    #region Using
+namespace YAF.Core.Data;
 
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Events;
+#region Using
+
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+/// The basic repository.
+/// </summary>
+/// <typeparam name="T">
+/// </typeparam>
+public class BasicRepository<T> : IRepository<T>
+    where T : IEntity
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BasicRepository{T}"/> class.
+    /// </summary>
+    /// <param name="dbAccess">
+    /// The database Access.
+    /// </param>
+    /// <param name="raiseEvent">
+    /// The raise Event.
+    /// </param>
+    /// <param name="haveBoardId">
+    /// The have Board Id.
+    /// </param>
+    public BasicRepository(
+        IDbAccess dbAccess,
+        IRaiseEvent raiseEvent,
+        IHaveBoardID haveBoardId)
+    {
+        this.DbAccess = dbAccess;
+        this.DbEvent = raiseEvent;
+        this.BoardID = haveBoardId.BoardID;
+    }
 
     #endregion
 
+    #region Public Properties
+
     /// <summary>
-    /// The basic repository.
+    ///     Gets or sets the board id.
     /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public class BasicRepository<T> : IRepository<T>
-        where T : IEntity
-    {
-        #region Constructors and Destructors
+    public int BoardID { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BasicRepository{T}"/> class.
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The database Access.
-        /// </param>
-        /// <param name="raiseEvent">
-        /// The raise Event.
-        /// </param>
-        /// <param name="haveBoardId">
-        /// The have Board Id.
-        /// </param>
-        public BasicRepository(
-            IDbAccess dbAccess,
-            IRaiseEvent raiseEvent,
-            IHaveBoardID haveBoardId)
-        {
-            this.DbAccess = dbAccess;
-            this.DbEvent = raiseEvent;
-            this.BoardID = haveBoardId.BoardID;
-        }
+    /// <summary>
+    /// Gets the database access.
+    /// </summary>
+    public IDbAccess DbAccess { get; }
 
-        #endregion
+    /// <summary>
+    ///     Gets the database event.
+    /// </summary>
+    public IRaiseEvent DbEvent { get; }
 
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets or sets the board id.
-        /// </summary>
-        public int BoardID { get; set; }
-
-        /// <summary>
-        /// Gets the database access.
-        /// </summary>
-        public IDbAccess DbAccess { get; }
-
-        /// <summary>
-        ///     Gets the database event.
-        /// </summary>
-        public IRaiseEvent DbEvent { get; }
-
-        #endregion
-    }
+    #endregion
 }

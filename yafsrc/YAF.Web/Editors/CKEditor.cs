@@ -21,98 +21,97 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Editors
+namespace YAF.Web.Editors;
+
+#region Using
+
+using System;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Utilities;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The CKEditor.
+/// </summary>
+public abstract class CKEditor : TextEditor
 {
-    #region Using
+    #region Properties
 
-    using System;
+    /// <summary>
+    ///   Gets or sets Text.
+    /// </summary>
+    public override string Text
+    {
+        get => this.TextAreaControl.InnerText;
 
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Utilities;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+        set => this.TextAreaControl.InnerText = value;
+    }
+
+    /// <summary>
+    ///   Gets SafeID.
+    /// </summary>
+    [NotNull]
+    protected string SafeID => this.TextAreaControl.ClientID.Replace("$", "_");
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The CKEditor.
+    /// Handles the PreRender event of the Editor control.
     /// </summary>
-    public abstract class CKEditor : TextEditor
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Properties
+        BoardContext.Current.PageElements.AddScriptReference("ckeditor", "ckeditor/ckeditor.js");
 
-        /// <summary>
-        ///   Gets or sets Text.
-        /// </summary>
-        public override string Text
+        BoardContext.Current.PageElements.AddScriptReference(
+            "ckeditor-jQuery-Adapter",
+            "ckeditor/adapters/jquery.js");
+
+        if (this.UserCanUpload && this.AllowsUploads)
         {
-            get => this.TextAreaControl.InnerText;
-
-            set => this.TextAreaControl.InnerText = value;
+            BoardContext.Current.PageElements.RegisterJsBlock(
+                "autoUpload",
+                JavaScriptBlocks.FileAutoUploadLoadJs(
+                    this.PageBoardContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
+                    this.PageBoardContext.BoardSettings.MaxFileSize,
+                    $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
+                    this.PageBoardContext.PageForumID,
+                    this.PageBoardContext.PageBoardID,
+                    this.PageBoardContext.BoardSettings.ImageAttachmentResizeWidth,
+                    this.PageBoardContext.BoardSettings.ImageAttachmentResizeHeight,
+                    this.TextAreaControl.ClientID));
         }
 
-        /// <summary>
-        ///   Gets SafeID.
-        /// </summary>
-        [NotNull]
-        protected string SafeID => this.TextAreaControl.ClientID.Replace("$", "_");
+        this.RegisterCKEditorCustomJS();
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the PreRender event of the Editor control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            BoardContext.Current.PageElements.AddScriptReference("ckeditor", "ckeditor/ckeditor.js");
-
-            BoardContext.Current.PageElements.AddScriptReference(
-                "ckeditor-jQuery-Adapter",
-                "ckeditor/adapters/jquery.js");
-
-            if (this.UserCanUpload && this.AllowsUploads)
-            {
-                BoardContext.Current.PageElements.RegisterJsBlock(
-                    "autoUpload",
-                    JavaScriptBlocks.FileAutoUploadLoadJs(
-                        this.PageBoardContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
-                        this.PageBoardContext.BoardSettings.MaxFileSize,
-                        $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
-                        this.PageBoardContext.PageForumID,
-                        this.PageBoardContext.PageBoardID,
-                        this.PageBoardContext.BoardSettings.ImageAttachmentResizeWidth,
-                        this.PageBoardContext.BoardSettings.ImageAttachmentResizeHeight,
-                        this.TextAreaControl.ClientID));
-            }
-
-            this.RegisterCKEditorCustomJS();
-
-            // register custom BBCode javascript (if there is any)
-            // this call is supposed to be after editor load since it may use
-            // JS variables created in editor_load...
-            this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType(), this.SafeID);
-        }
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            base.OnInit(e);
-        }
-
-        /// <summary>
-        /// Register the custom CKEditor java script.
-        /// </summary>
-        protected abstract void RegisterCKEditorCustomJS();
-
-        #endregion
+        // register custom BBCode javascript (if there is any)
+        // this call is supposed to be after editor load since it may use
+        // JS variables created in editor_load...
+        this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType(), this.SafeID);
     }
+
+    /// <summary>
+    /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+    /// </summary>
+    /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+        base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Register the custom CKEditor java script.
+    /// </summary>
+    protected abstract void RegisterCKEditorCustomJS();
+
+    #endregion
 }

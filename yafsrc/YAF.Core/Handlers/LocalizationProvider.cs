@@ -22,124 +22,123 @@
  * under the License.
  */
 
-namespace YAF.Core.Handlers
+namespace YAF.Core.Handlers;
+
+#region Using
+
+using System;
+
+using YAF.Core.Services.Localization;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The localization handler.
+/// </summary>
+public class LocalizationProvider
 {
-    #region Using
+    #region Constants and Fields
 
-    using System;
+    /// <summary>
+    ///   The localization is Initialized flag.
+    /// </summary>
+    private bool initLocalization;
 
-    using YAF.Core.Services.Localization;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    ///   The localization.
+    /// </summary>
+    private ILocalization localization;
+
+    /// <summary>
+    ///   The trans page.
+    /// </summary>
+    private string transPage = string.Empty;
 
     #endregion
 
+    #region Events
+
     /// <summary>
-    /// The localization handler.
+    ///   The after initializing Event.
     /// </summary>
-    public class LocalizationProvider
+    public event EventHandler<EventArgs> AfterInit;
+
+    /// <summary>
+    ///   The before initializing Event.
+    /// </summary>
+    public event EventHandler<EventArgs> BeforeInit;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets or sets Localization.
+    /// </summary>
+    public ILocalization Localization
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The localization is Initialized flag.
-        /// </summary>
-        private bool initLocalization;
-
-        /// <summary>
-        ///   The localization.
-        /// </summary>
-        private ILocalization localization;
-
-        /// <summary>
-        ///   The trans page.
-        /// </summary>
-        private string transPage = string.Empty;
-
-        #endregion
-
-        #region Events
-
-        /// <summary>
-        ///   The after initializing Event.
-        /// </summary>
-        public event EventHandler<EventArgs> AfterInit;
-
-        /// <summary>
-        ///   The before initializing Event.
-        /// </summary>
-        public event EventHandler<EventArgs> BeforeInit;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets Localization.
-        /// </summary>
-        public ILocalization Localization
+        get
         {
-            get
+            if (!this.initLocalization)
             {
-                if (!this.initLocalization)
-                {
-                    this.InitLocalization();
-                }
-
-                return this.localization;
+                this.InitLocalization();
             }
 
-            set
-            {
-                this.localization = value;
-                this.initLocalization = value != null;
-            }
+            return this.localization;
         }
 
-        /// <summary>
-        ///   Gets or sets the Current TransPage for Localization
-        /// </summary>
-        public string TranslationPage
+        set
         {
-            get => this.transPage;
-
-            set
-            {
-                if (value == this.transPage)
-                {
-                    return;
-                }
-
-                this.transPage = value;
-
-                if (this.initLocalization)
-                {
-                    // re-init localization
-                    this.Localization = null;
-                }
-            }
+            this.localization = value;
+            this.initLocalization = value != null;
         }
+    }
 
-        #endregion
+    /// <summary>
+    ///   Gets or sets the Current TransPage for Localization
+    /// </summary>
+    public string TranslationPage
+    {
+        get => this.transPage;
 
-        #region Methods
-
-        /// <summary>
-        /// Set up the localization
-        /// </summary>
-        protected void InitLocalization()
+        set
         {
-            if (this.initLocalization)
+            if (value == this.transPage)
             {
                 return;
             }
 
-            this.BeforeInit?.Invoke(this, EventArgs.Empty);
+            this.transPage = value;
 
-            this.Localization = new Localization(this.TranslationPage);
+            if (this.initLocalization)
+            {
+                // re-init localization
+                this.Localization = null;
+            }
+        }
+    }
 
-            this.AfterInit?.Invoke(this, EventArgs.Empty);
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Set up the localization
+    /// </summary>
+    protected void InitLocalization()
+    {
+        if (this.initLocalization)
+        {
+            return;
         }
 
-        #endregion
+        this.BeforeInit?.Invoke(this, EventArgs.Empty);
+
+        this.Localization = new Localization(this.TranslationPage);
+
+        this.AfterInit?.Invoke(this, EventArgs.Empty);
     }
+
+    #endregion
 }

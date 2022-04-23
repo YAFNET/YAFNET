@@ -22,179 +22,178 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// Admin Ranks Page
+/// </summary>
+public partial class Ranks : AdminPage
 {
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Admin Ranks Page
+    /// Initializes a new instance of the <see cref="Ranks"/> class. 
     /// </summary>
-    public partial class Ranks : AdminPage
+    public Ranks()
+        : base("ADMIN_RANKS", ForumPages.Admin_Ranks)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Ranks"/> class. 
-        /// </summary>
-        public Ranks()
-            : base("ADMIN_RANKS", ForumPages.Admin_Ranks)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Format string color.
-        /// </summary>
-        /// <param name="item">
-        /// The item.
-        /// </param>
-        /// <returns>
-        /// Set values  are rendered green if true, and if not red
-        /// </returns>
-        protected string GetItemColorString(string item)
-        {
-            // show enabled flag red
-            return item.IsSet() ? "badge bg-success" : "badge bg-danger";
-        }
-
-        /// <summary>
-        /// Format access mask setting color formatting.
-        /// </summary>
-        /// <param name="enabled">
-        /// The enabled.
-        /// </param>
-        /// <returns>
-        /// Set access mask flags  are rendered green if true, and if not red
-        /// </returns>
-        protected string GetItemColor(bool enabled)
-        {
-            // show enabled flag red
-            return enabled ? "badge bg-success" : "badge bg-danger";
-        }
-
-        /// <summary>
-        /// Get a user friendly item name.
-        /// </summary>
-        /// <param name="enabled">
-        /// The enabled.
-        /// </param>
-        /// <returns>
-        /// Item Name.
-        /// </returns>
-        protected string GetItemName(bool enabled)
-        {
-            return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
-        }
-
-        /// <summary>
-        /// The bit set.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <param name="bitmask">
-        /// The bitmask.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        protected bool BitSet([NotNull] object flags, int bitmask)
-        {
-            var i = (int)flags;
-            return (i & bitmask) != 0;
-        }
-
-        /// <summary>
-        /// Is Rank Ladder?
-        /// </summary>
-        /// <param name="rank">
-        /// The rank.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        protected string LadderInfo([NotNull] object rank)
-        {
-            var dr = (Rank)rank;
-
-            var isLadder = dr.RankFlags.IsLadder;
-
-            return isLadder
-                       ? $"{this.GetItemName(true)} ({dr.MinPosts} {this.GetText("ADMIN_RANKS", "POSTS")})"
-                       : this.GetItemName(false);
-        }
-
-        /// <summary>
-        /// News the rank click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void NewRankClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditRank);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddAdminIndex();
-
-            this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"));
-        }
-
-        /// <summary>
-        /// The rank list_ item command.
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void RankListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "edit":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditRank, new { r = e.CommandArgument });
-                    break;
-                case "delete":
-                    this.GetRepository<Rank>().DeleteById(e.CommandArgument.ToType<int>());
-                    this.BindData();
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            this.RankList.DataSource = this.GetRepository<Rank>().GetByBoardId();
-            this.DataBind();
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Format string color.
+    /// </summary>
+    /// <param name="item">
+    /// The item.
+    /// </param>
+    /// <returns>
+    /// Set values  are rendered green if true, and if not red
+    /// </returns>
+    protected string GetItemColorString(string item)
+    {
+        // show enabled flag red
+        return item.IsSet() ? "badge bg-success" : "badge bg-danger";
+    }
+
+    /// <summary>
+    /// Format access mask setting color formatting.
+    /// </summary>
+    /// <param name="enabled">
+    /// The enabled.
+    /// </param>
+    /// <returns>
+    /// Set access mask flags  are rendered green if true, and if not red
+    /// </returns>
+    protected string GetItemColor(bool enabled)
+    {
+        // show enabled flag red
+        return enabled ? "badge bg-success" : "badge bg-danger";
+    }
+
+    /// <summary>
+    /// Get a user friendly item name.
+    /// </summary>
+    /// <param name="enabled">
+    /// The enabled.
+    /// </param>
+    /// <returns>
+    /// Item Name.
+    /// </returns>
+    protected string GetItemName(bool enabled)
+    {
+        return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
+    }
+
+    /// <summary>
+    /// The bit set.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    /// <param name="bitmask">
+    /// The bitmask.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    protected bool BitSet([NotNull] object flags, int bitmask)
+    {
+        var i = (int)flags;
+        return (i & bitmask) != 0;
+    }
+
+    /// <summary>
+    /// Is Rank Ladder?
+    /// </summary>
+    /// <param name="rank">
+    /// The rank.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    protected string LadderInfo([NotNull] object rank)
+    {
+        var dr = (Rank)rank;
+
+        var isLadder = dr.RankFlags.IsLadder;
+
+        return isLadder
+                   ? $"{this.GetItemName(true)} ({dr.MinPosts} {this.GetText("ADMIN_RANKS", "POSTS")})"
+                   : this.GetItemName(false);
+    }
+
+    /// <summary>
+    /// News the rank click.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void NewRankClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditRank);
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddAdminIndex();
+
+        this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"));
+    }
+
+    /// <summary>
+    /// The rank list_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void RankListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+        switch (e.CommandName)
+        {
+            case "edit":
+                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditRank, new { r = e.CommandArgument });
+                break;
+            case "delete":
+                this.GetRepository<Rank>().DeleteById(e.CommandArgument.ToType<int>());
+                this.BindData();
+                break;
+        }
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        this.RankList.DataSource = this.GetRepository<Rank>().GetByBoardId();
+        this.DataBind();
+    }
+
+    #endregion
 }

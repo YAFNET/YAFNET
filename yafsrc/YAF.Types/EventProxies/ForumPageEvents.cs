@@ -21,46 +21,45 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
+namespace YAF.Types.EventProxies;
+
+#region Using
+
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+/// The forum page init event.
+/// </summary>
+public class ForumPageInitEvent : IAmEvent
 {
-    #region Using
+}
 
-    using YAF.Types.Interfaces.Events;
+/// <summary>
+/// The forum page pre load event.
+/// </summary>
+public class ForumPagePreLoadEvent : IAmEvent
+{
+}
 
-    #endregion
+/// <summary>
+/// The forum page post load event.
+/// </summary>
+public class ForumPagePostLoadEvent : IAmEvent
+{
+}
 
-    /// <summary>
-    /// The forum page init event.
-    /// </summary>
-    public class ForumPageInitEvent : IAmEvent
-    {
-    }
+/// <summary>
+/// The forum page prerender event.
+/// </summary>
+public class ForumPagePreRenderEvent : IAmEvent
+{
+}
 
-    /// <summary>
-    /// The forum page pre load event.
-    /// </summary>
-    public class ForumPagePreLoadEvent : IAmEvent
-    {
-    }
-
-    /// <summary>
-    /// The forum page post load event.
-    /// </summary>
-    public class ForumPagePostLoadEvent : IAmEvent
-    {
-    }
-
-    /// <summary>
-    /// The forum page prerender event.
-    /// </summary>
-    public class ForumPagePreRenderEvent : IAmEvent
-    {
-    }
-
-    /// <summary>
-    /// The forum page unload load event.
-    /// </summary>
-    public class ForumPageUnloadEvent : IAmEvent
-    {
-    }
+/// <summary>
+/// The forum page unload load event.
+/// </summary>
+public class ForumPageUnloadEvent : IAmEvent
+{
 }

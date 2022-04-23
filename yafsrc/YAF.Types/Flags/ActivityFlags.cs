@@ -21,218 +21,217 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Flags
+namespace YAF.Types.Flags;
+
+using System;
+
+/// <summary>
+/// The Activity flags.
+/// </summary>
+[Serializable]
+public class ActivityFlags : FlagsBase
 {
-    using System;
+    #region Constructors
 
     /// <summary>
-    /// The Activity flags.
+    /// Initializes a new instance of the <see cref="ActivityFlags"/> class.
     /// </summary>
-    [Serializable]
-    public class ActivityFlags : FlagsBase
+    public ActivityFlags()
+        : this(0)
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ActivityFlags"/> class.
-        /// </summary>
-        public ActivityFlags()
-            : this(0)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ActivityFlags"/> class.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        public ActivityFlags(Flags flags)
-            : this((int)flags)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ActivityFlags"/> class.
-        /// </summary>
-        /// <param name="bitValue">
-        /// The bit value.
-        /// </param>
-        public ActivityFlags(object bitValue)
-            : base((int)bitValue)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ActivityFlags"/> class.
-        /// </summary>
-        /// <param name="bitValue">
-        /// The bit value.
-        /// </param>
-        public ActivityFlags(int bitValue)
-            : base(bitValue)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ActivityFlags"/> class.
-        /// </summary>
-        /// <param name="bits">
-        /// The bits.
-        /// </param>
-        public ActivityFlags(params bool[] bits)
-            : base(bits)
-        {
-        }
-
-        #endregion
-
-        #region Flags Enumeration
-
-        /// <summary>
-        /// Use for bit comparisons
-        /// </summary>
-        [Flags]
-        public enum Flags
-        {
-            /// <summary>
-            /// The none.
-            /// </summary>
-            None = 0,
-
-            /// <summary>
-            /// The created topic.
-            /// </summary>
-            CreatedTopic = 1,
-
-            /// <summary>
-            /// The created reply.
-            /// </summary>
-            CreatedReply = 8,
-
-            /// <summary>
-            /// The was mentioned.
-            /// </summary>
-            WasMentioned = 512,
-
-            /// <summary>
-            /// The received thanks.
-            /// </summary>
-            ReceivedThanks = 1024,
-
-            /// <summary>
-            /// The given thanks.
-            /// </summary>
-            GivenThanks = 2048,
-
-            /// <summary>
-            /// The was quoted.
-            /// </summary>
-            WasQuoted = 4096,
-
-            /// <summary>
-            /// The watch forum reply.
-            /// </summary>
-            WatchForumReply = 8192,
-
-            /// <summary>
-            /// The watch topic reply.
-            /// </summary>
-            WatchTopicReply = 16384
-        }
-
-        #endregion
-
-        #region Single Flags (can be 32 of them)
-
-        /// <summary>
-        /// Gets or sets a value indicating whether created topic.
-        /// </summary>
-        public virtual bool CreatedTopic
-        {
-            // int value 1
-            get => this[0];
-
-            set => this[0] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether created reply.
-        /// </summary>
-        public virtual bool CreatedReply
-        {
-            // int value 8
-            get => this[3];
-
-            set => this[3] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether was mentioned.
-        /// </summary>
-        public virtual bool WasMentioned
-        {
-            // int value 512
-            get => this[9];
-
-            set => this[9] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether received thanks.
-        /// </summary>
-        public virtual bool ReceivedThanks
-        {
-            // int value 1024
-            get => this[10];
-
-            set => this[10] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether given thanks.
-        /// </summary>
-        public virtual bool GivenThanks
-        {
-            // 2048
-            get => this[11];
-
-            set => this[11] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether received thanks.
-        /// </summary>
-        public virtual bool WasQuoted
-        {
-            // int value 4096
-            get => this[12];
-
-            set => this[12] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether watch forum reply.
-        /// </summary>
-        public virtual bool WatchForumReply
-        {
-            // int value 8192
-            get => this[13];
-
-            set => this[13] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether watch topic reply.
-        /// </summary>
-        public virtual bool WatchTopicReply
-        {
-            // int value 16384
-            get => this[14];
-
-            set => this[14] = value;
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActivityFlags"/> class.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    public ActivityFlags(Flags flags)
+        : this((int)flags)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActivityFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public ActivityFlags(object bitValue)
+        : base((int)bitValue)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActivityFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public ActivityFlags(int bitValue)
+        : base(bitValue)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActivityFlags"/> class.
+    /// </summary>
+    /// <param name="bits">
+    /// The bits.
+    /// </param>
+    public ActivityFlags(params bool[] bits)
+        : base(bits)
+    {
+    }
+
+    #endregion
+
+    #region Flags Enumeration
+
+    /// <summary>
+    /// Use for bit comparisons
+    /// </summary>
+    [Flags]
+    public enum Flags
+    {
+        /// <summary>
+        /// The none.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        /// The created topic.
+        /// </summary>
+        CreatedTopic = 1,
+
+        /// <summary>
+        /// The created reply.
+        /// </summary>
+        CreatedReply = 8,
+
+        /// <summary>
+        /// The was mentioned.
+        /// </summary>
+        WasMentioned = 512,
+
+        /// <summary>
+        /// The received thanks.
+        /// </summary>
+        ReceivedThanks = 1024,
+
+        /// <summary>
+        /// The given thanks.
+        /// </summary>
+        GivenThanks = 2048,
+
+        /// <summary>
+        /// The was quoted.
+        /// </summary>
+        WasQuoted = 4096,
+
+        /// <summary>
+        /// The watch forum reply.
+        /// </summary>
+        WatchForumReply = 8192,
+
+        /// <summary>
+        /// The watch topic reply.
+        /// </summary>
+        WatchTopicReply = 16384
+    }
+
+    #endregion
+
+    #region Single Flags (can be 32 of them)
+
+    /// <summary>
+    /// Gets or sets a value indicating whether created topic.
+    /// </summary>
+    public virtual bool CreatedTopic
+    {
+        // int value 1
+        get => this[0];
+
+        set => this[0] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether created reply.
+    /// </summary>
+    public virtual bool CreatedReply
+    {
+        // int value 8
+        get => this[3];
+
+        set => this[3] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether was mentioned.
+    /// </summary>
+    public virtual bool WasMentioned
+    {
+        // int value 512
+        get => this[9];
+
+        set => this[9] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether received thanks.
+    /// </summary>
+    public virtual bool ReceivedThanks
+    {
+        // int value 1024
+        get => this[10];
+
+        set => this[10] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether given thanks.
+    /// </summary>
+    public virtual bool GivenThanks
+    {
+        // 2048
+        get => this[11];
+
+        set => this[11] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether received thanks.
+    /// </summary>
+    public virtual bool WasQuoted
+    {
+        // int value 4096
+        get => this[12];
+
+        set => this[12] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether watch forum reply.
+    /// </summary>
+    public virtual bool WatchForumReply
+    {
+        // int value 8192
+        get => this[13];
+
+        set => this[13] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether watch topic reply.
+    /// </summary>
+    public virtual bool WatchTopicReply
+    {
+        // int value 16384
+        get => this[14];
+
+        set => this[14] = value;
+    }
+
+    #endregion
 }

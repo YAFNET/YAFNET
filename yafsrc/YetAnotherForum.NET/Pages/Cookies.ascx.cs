@@ -22,36 +22,35 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// Forum Cookies Policy Page.
+/// </summary>
+public partial class Cookies : ForumPage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "Cookies" /> class.
+    /// </summary>
+    public Cookies()
+        : base("COOKIES", ForumPages.Cookies)
+    {
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// Forum Cookies Policy Page.
+    ///   Gets a value indicating whether IsProtected.
     /// </summary>
-    public partial class Cookies : ForumPage
-    {
-        #region Constructors and Destructors
+    public override bool IsProtected => false;
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "Cookies" /> class.
-        /// </summary>
-        public Cookies()
-            : base("COOKIES", ForumPages.Cookies)
-        {
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets a value indicating whether IsProtected.
-        /// </summary>
-        public override bool IsProtected => false;
-
-        #endregion
-    }
+    #endregion
 }

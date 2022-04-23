@@ -21,55 +21,54 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
-{
-    #region Using
+namespace YAF.Modules;
 
-    using YAF.Types.Attributes;
+#region Using
+
+using YAF.Types.Attributes;
+
+#endregion
+
+/// <summary>
+/// The page requires secure connection module.
+/// </summary>
+[Module("Page Requires Secure Connection Module", "Tiny Gecko", 1)]
+public class PageRequiresSecureConnectionForumModule : SimpleBaseForumModule
+{
+    #region Public Methods
+
+    /// <summary>
+    /// The init forum.
+    /// </summary>
+    public override void InitForum()
+    {
+        this.ForumControl.Load += this.ForumControl_Load;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The page requires secure connection module.
+    /// The forum control_ load.
     /// </summary>
-    [Module("Page Requires Secure Connection Module", "Tiny Gecko", 1)]
-    public class PageRequiresSecureConnectionForumModule : SimpleBaseForumModule
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumControl_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Public Methods
-
-        /// <summary>
-        /// The init forum.
-        /// </summary>
-        public override void InitForum()
+        if (HttpContext.Current.Request.IsLocal || HttpContext.Current.Request.IsSecureConnection ||
+            !this.PageBoardContext.BoardSettings.RequireSSL)
         {
-            this.ForumControl.Load += this.ForumControl_Load;
+            return;
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The forum control_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void ForumControl_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (HttpContext.Current.Request.IsLocal || HttpContext.Current.Request.IsSecureConnection ||
-                !this.PageBoardContext.BoardSettings.RequireSSL)
-            {
-                return;
-            }
-
-            var redirectUrl = HttpContext.Current.Request.Url.ToString().Replace("http:", "https:");
-            HttpContext.Current.Response.Redirect(redirectUrl, false);
-        }
-
-        #endregion
+        var redirectUrl = HttpContext.Current.Request.Url.ToString().Replace("http:", "https:");
+        HttpContext.Current.Response.Redirect(redirectUrl, false);
     }
+
+    #endregion
 }

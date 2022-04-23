@@ -21,49 +21,48 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Objects.Nntp
+namespace YAF.Types.Objects.Nntp;
+
+using System;
+using System.Collections;
+
+/// <summary>
+/// The article.
+/// </summary>
+public class Article
 {
-    using System;
-    using System.Collections;
+    /// <summary>
+    /// Gets or sets MessageId.
+    /// </summary>
+    public string MessageId { get; set; }
 
     /// <summary>
-    /// The article.
+    /// Gets or sets ArticleId.
     /// </summary>
-    public class Article
-    {
-        /// <summary>
-        /// Gets or sets MessageId.
-        /// </summary>
-        public string MessageId { get; set; }
+    public int ArticleId { get; set; }
 
-        /// <summary>
-        /// Gets or sets ArticleId.
-        /// </summary>
-        public int ArticleId { get; set; }
+    /// <summary>
+    /// Gets or sets Header.
+    /// </summary>
+    public ArticleHeader Header { get; set; }
 
-        /// <summary>
-        /// Gets or sets Header.
-        /// </summary>
-        public ArticleHeader Header { get; set; }
+    /// <summary>
+    /// Gets or sets Body.
+    /// </summary>
+    public ArticleBody Body { get; set; }
 
-        /// <summary>
-        /// Gets or sets Body.
-        /// </summary>
-        public ArticleBody Body { get; set; }
+    /// <summary>
+    /// Gets or sets LastReply.
+    /// </summary>
+    public DateTime LastReply { get; set; }
 
-        /// <summary>
-        /// Gets or sets LastReply.
-        /// </summary>
-        public DateTime LastReply { get; set; }
+    /// <summary>
+    /// Gets or sets Children.
+    /// </summary>
+    public ArrayList Children { get; set; }
 
-        /// <summary>
-        /// Gets or sets Children.
-        /// </summary>
-        public ArrayList Children { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mime part.
-        /// </summary>
-        public MIMEPart MimePart { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the mime part.
+    /// </summary>
+    public MIMEPart MimePart { get; set; }
 }

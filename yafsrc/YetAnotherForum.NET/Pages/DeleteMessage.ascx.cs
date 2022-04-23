@@ -21,352 +21,351 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Pages
+namespace YAF.Pages;
+
+#region Using
+using YAF.Types.Models;
+#endregion
+
+/// <summary>
+/// The Delete Message Page.
+/// </summary>
+public partial class DeleteMessage : ForumPage
 {
-    #region Using
-    using YAF.Types.Models;
-    #endregion
+    #region Constants and Fields
 
     /// <summary>
-    /// The Delete Message Page.
+    ///   The is moderator changed.
     /// </summary>
-    public partial class DeleteMessage : ForumPage
+    private bool isModeratorChanged;
+
+    /// <summary>
+    ///   The message row.
+    /// </summary>
+    private Tuple<Topic, Message, User, Forum> message;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "DeleteMessage" /> class.
+    /// </summary>
+    public DeleteMessage()
+        : base("DELETEMESSAGE", ForumPages.DeleteMessage)
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The is moderator changed.
-        /// </summary>
-        private bool isModeratorChanged;
-
-        /// <summary>
-        ///   The message row.
-        /// </summary>
-        private Tuple<Topic, Message, User, Forum> message;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "DeleteMessage" /> class.
-        /// </summary>
-        public DeleteMessage()
-            : base("DELETEMESSAGE", ForumPages.DeleteMessage)
-        {
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets a value indicating whether CanDeletePost.
-        /// </summary>
-        public bool CanDeletePost =>
-            (!this.PostLocked && !this.message.Item4.ForumFlags.IsLocked && !this.message.Item1.TopicFlags.IsLocked
-             && this.message.Item1.UserID == this.PageBoardContext.PageUserID
-             || this.PageBoardContext.ForumModeratorAccess) && this.PageBoardContext.ForumDeleteAccess;
-
-        /// <summary>
-        ///   Gets a value indicating whether CanUnDeletePost.
-        /// </summary>
-        public bool CanUnDeletePost => this.message.Item2.MessageFlags.IsDeleted && this.CanDeletePost;
-
-        /// <summary>
-        /// The message id.
-        /// </summary>
-        protected int MessageId => this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
-
-        /// <summary>
-        ///   Gets a value indicating whether PostLocked.
-        /// </summary>
-        private bool PostLocked
-        {
-            get
-            {
-                if (this.PageBoardContext.IsAdmin || this.PageBoardContext.BoardSettings.LockPosts <= 0)
-                {
-                    return false;
-                }
-
-                var edited = this.message.Item2.Edited.Value;
-
-                return edited.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow;
-            }
-        }
-
-        /// <summary>
-        /// Indicates if this Is Message Delete or Message Un-Delete Action
-        /// </summary>
-        private bool IsUnDelete =>
-            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "undelete";
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Cancel Deleting and return to topic or forum
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // new topic -- cancel back to forum
-            this.Get<LinkBuilder>().Redirect(
-                ForumPages.Topics,
-                new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
-        }
-
-        /// <summary>
-        /// Gets the action text.
-        /// </summary>
-        /// <returns>
-        /// Returns the Action Text
-        /// </returns>
-        protected string GetActionText()
-        {
-            return !this.IsUnDelete
-                       ? this.GetText("DELETE")
-                       : this.GetText("UNDELETE");
-        }
-
-        /// <summary>
-        /// Gets the reason text.
-        /// </summary>
-        /// <returns>
-        /// Returns the reason text.
-        /// </returns>
-        protected string GetReasonText()
-        {
-            return
-                this.GetText(
-                    !this.IsUnDelete
-                        ? "DELETE_REASON"
-                        : "UNDELETE_REASON");
-        }
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            this.LinkedPosts.ItemDataBound += this.LinkedPosts_ItemDataBound;
-
-            base.OnInit(e);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                nameof(JavaScriptBlocks.FormValidatorJs),
-                JavaScriptBlocks.FormValidatorJs(this.Delete.ClientID));
-
-            this.message = this.GetRepository<Message>().GetMessageAsTuple(this.MessageId);
-
-            this.isModeratorChanged = this.PageBoardContext.PageUserID != this.message.Item1.UserID;
-
-            if (!this.PageBoardContext.ForumModeratorAccess
-                && this.isModeratorChanged)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            if (this.PageBoardContext.PageForumID == 0)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.EraseMessage.Checked = false;
-            this.EraseMessage.Text = this.GetText("erasemessage");
-            this.EraseRow.Visible = false;
-            this.DeleteReasonRow.Visible = false;
-            this.LinkedPosts.Visible = false;
-
-            // delete message...
-            this.PreviewRow.Visible = true;
-
-            var replies = this.GetRepository<Message>().Replies(
-                this.MessageId);
-
-            if (replies.Any() && (this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin))
-            {
-                this.LinkedPosts.Visible = true;
-                this.LinkedPosts.DataSource = replies;
-                this.LinkedPosts.DataBind();
-            }
-
-            if (!this.IsUnDelete)
-            {
-                this.Title.Text = this.GetText("EDIT");
-                this.Delete.TextLocalizedTag = "DELETE";
-                this.Delete.TitleLocalizedTag = "DELETE_TT";
-
-                if (this.PageBoardContext.IsAdmin)
-                {
-                    this.EraseRow.Visible = true;
-                }
-
-                this.DeleteUndelete.Visible = false;
-            }
-            else
-            {
-                this.Title.Text = this.GetText("EDIT");
-                this.Delete.TextLocalizedTag = "UNDELETE";
-                this.Delete.TitleLocalizedTag = "UNDELETE_TT";
-                this.Delete.Icon = "trash-restore";
-                this.Delete.Type = ButtonStyle.Warning;
-
-                this.DeleteUndelete.TextLocalizedTag = "BUTTON_DELETE_UNDELETE";
-                this.DeleteUndelete.TitleLocalizedTag = "BUTTON_DELETE_UNDELETE_TT";
-
-                if (this.PageBoardContext.IsAdmin)
-                {
-                    this.DeleteUndelete.Visible = true;
-                }
-            }
-
-            this.Subject.Text = this.message.Item1.TopicName;
-            this.DeleteReasonRow.Visible = true;
-            this.ReasonEditor.Text = this.message.Item2.DeleteReason;
-
-            // populate the message preview with the message data-row...
-            this.MessagePreview.Message = this.message.Item2.MessageText;
-            this.MessagePreview.MessageID = this.message.Item2.ID;
-
-            var messageFlags = this.message.Item2.MessageFlags;
-
-            if (this.IsUnDelete)
-            {
-                // Override Delete Flag to show Message if Un-Delete action
-                messageFlags.IsDeleted = false;
-            }
-
-            this.MessagePreview.MessageFlags = messageFlags;
-        }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            // setup page links
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
-            this.PageLinks.AddForum(this.PageBoardContext.PageForum);
-        }
-
-        /// <summary>
-        /// The delete Un-delete click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void ToggleDelete_Click(object sender, EventArgs e)
-        {
-            this.ToggleDelete(false, true);
-        }
-
-        /// <summary>
-        /// Delete Message(s)
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void ToggleDeleteStatus_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.ToggleDelete(!this.message.Item2.MessageFlags.IsDeleted, this.EraseMessage.Checked);
-        }
-
-        /// <summary>
-        /// The toggle delete.
-        /// </summary>
-        /// <param name="deleteAction">
-        /// The delete action.
-        /// </param>
-        /// <param name="eraseMessage">
-        /// The erase message.
-        /// </param>
-        private void ToggleDelete(bool deleteAction, bool eraseMessage)
-        {
-            if (!this.CanDeletePost)
-            {
-                return;
-            }
-
-            var deleteAllLinked = false;
-
-            if (this.LinkedPosts.Visible)
-            {
-                try
-                {
-                    var deleteAllPosts = this.LinkedPosts.Controls[0].Controls[1].ToType<CheckBox>();
-                    deleteAllLinked = deleteAllPosts.Checked;
-                }
-                catch (Exception)
-                {
-                    deleteAllLinked = false;
-                }
-            }
-
-            // Toggle delete message -- if the message is currently deleted it will be un-deleted.
-            // If it's not deleted it will be marked deleted.
-            // If it is the last message of the topic, the topic is also deleted
-            this.GetRepository<Message>().Delete(
-                this.message.Item1.ForumID,
-                this.message.Item1.ID,
-                this.message.Item2.ID,
-                this.isModeratorChanged,
-                HttpUtility.HtmlEncode(this.ReasonEditor.Text),
-                deleteAction,
-                deleteAllLinked,
-                eraseMessage);
-
-            // retrieve topic information.
-            var topic = this.GetRepository<Topic>().GetById(this.message.Item2.TopicID);
-
-            // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
-            if (topic == null)
-            {
-                this.Get<LinkBuilder>().Redirect(ForumPages.Topics, new { f = this.message.Item4.ID, name = this.message.Item4.Name });
-            }
-            else
-            {
-                this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { t = topic.ID, name = topic.TopicName });
-            }
-        }
-
-        /// <summary>
-        /// Check if current user has the rights to delete all linked posts
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
-        private void LinkedPosts_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType != ListItemType.Header)
-            {
-                return;
-            }
-
-            var deleteAllPosts = e.Item.FindControlAs<CheckBox>("DeleteAllPosts");
-            deleteAllPosts.Checked =
-                deleteAllPosts.Enabled = this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin;
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets a value indicating whether CanDeletePost.
+    /// </summary>
+    public bool CanDeletePost =>
+        (!this.PostLocked && !this.message.Item4.ForumFlags.IsLocked && !this.message.Item1.TopicFlags.IsLocked
+         && this.message.Item1.UserID == this.PageBoardContext.PageUserID
+         || this.PageBoardContext.ForumModeratorAccess) && this.PageBoardContext.ForumDeleteAccess;
+
+    /// <summary>
+    ///   Gets a value indicating whether CanUnDeletePost.
+    /// </summary>
+    public bool CanUnDeletePost => this.message.Item2.MessageFlags.IsDeleted && this.CanDeletePost;
+
+    /// <summary>
+    /// The message id.
+    /// </summary>
+    protected int MessageId => this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+
+    /// <summary>
+    ///   Gets a value indicating whether PostLocked.
+    /// </summary>
+    private bool PostLocked
+    {
+        get
+        {
+            if (this.PageBoardContext.IsAdmin || this.PageBoardContext.BoardSettings.LockPosts <= 0)
+            {
+                return false;
+            }
+
+            var edited = this.message.Item2.Edited.Value;
+
+            return edited.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow;
+        }
+    }
+
+    /// <summary>
+    /// Indicates if this Is Message Delete or Message Un-Delete Action
+    /// </summary>
+    private bool IsUnDelete =>
+        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "undelete";
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Cancel Deleting and return to topic or forum
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // new topic -- cancel back to forum
+        this.Get<LinkBuilder>().Redirect(
+            ForumPages.Topics,
+            new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
+    }
+
+    /// <summary>
+    /// Gets the action text.
+    /// </summary>
+    /// <returns>
+    /// Returns the Action Text
+    /// </returns>
+    protected string GetActionText()
+    {
+        return !this.IsUnDelete
+                   ? this.GetText("DELETE")
+                   : this.GetText("UNDELETE");
+    }
+
+    /// <summary>
+    /// Gets the reason text.
+    /// </summary>
+    /// <returns>
+    /// Returns the reason text.
+    /// </returns>
+    protected string GetReasonText()
+    {
+        return
+            this.GetText(
+                !this.IsUnDelete
+                    ? "DELETE_REASON"
+                    : "UNDELETE_REASON");
+    }
+
+    /// <summary>
+    /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+    /// </summary>
+    /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+        this.LinkedPosts.ItemDataBound += this.LinkedPosts_ItemDataBound;
+
+        base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.FormValidatorJs),
+            JavaScriptBlocks.FormValidatorJs(this.Delete.ClientID));
+
+        this.message = this.GetRepository<Message>().GetMessageAsTuple(this.MessageId);
+
+        this.isModeratorChanged = this.PageBoardContext.PageUserID != this.message.Item1.UserID;
+
+        if (!this.PageBoardContext.ForumModeratorAccess
+            && this.isModeratorChanged)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        if (this.PageBoardContext.PageForumID == 0)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.EraseMessage.Checked = false;
+        this.EraseMessage.Text = this.GetText("erasemessage");
+        this.EraseRow.Visible = false;
+        this.DeleteReasonRow.Visible = false;
+        this.LinkedPosts.Visible = false;
+
+        // delete message...
+        this.PreviewRow.Visible = true;
+
+        var replies = this.GetRepository<Message>().Replies(
+            this.MessageId);
+
+        if (replies.Any() && (this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin))
+        {
+            this.LinkedPosts.Visible = true;
+            this.LinkedPosts.DataSource = replies;
+            this.LinkedPosts.DataBind();
+        }
+
+        if (!this.IsUnDelete)
+        {
+            this.Title.Text = this.GetText("EDIT");
+            this.Delete.TextLocalizedTag = "DELETE";
+            this.Delete.TitleLocalizedTag = "DELETE_TT";
+
+            if (this.PageBoardContext.IsAdmin)
+            {
+                this.EraseRow.Visible = true;
+            }
+
+            this.DeleteUndelete.Visible = false;
+        }
+        else
+        {
+            this.Title.Text = this.GetText("EDIT");
+            this.Delete.TextLocalizedTag = "UNDELETE";
+            this.Delete.TitleLocalizedTag = "UNDELETE_TT";
+            this.Delete.Icon = "trash-restore";
+            this.Delete.Type = ButtonStyle.Warning;
+
+            this.DeleteUndelete.TextLocalizedTag = "BUTTON_DELETE_UNDELETE";
+            this.DeleteUndelete.TitleLocalizedTag = "BUTTON_DELETE_UNDELETE_TT";
+
+            if (this.PageBoardContext.IsAdmin)
+            {
+                this.DeleteUndelete.Visible = true;
+            }
+        }
+
+        this.Subject.Text = this.message.Item1.TopicName;
+        this.DeleteReasonRow.Visible = true;
+        this.ReasonEditor.Text = this.message.Item2.DeleteReason;
+
+        // populate the message preview with the message data-row...
+        this.MessagePreview.Message = this.message.Item2.MessageText;
+        this.MessagePreview.MessageID = this.message.Item2.ID;
+
+        var messageFlags = this.message.Item2.MessageFlags;
+
+        if (this.IsUnDelete)
+        {
+            // Override Delete Flag to show Message if Un-Delete action
+            messageFlags.IsDeleted = false;
+        }
+
+        this.MessagePreview.MessageFlags = messageFlags;
+    }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        // setup page links
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+        this.PageLinks.AddForum(this.PageBoardContext.PageForum);
+    }
+
+    /// <summary>
+    /// The delete Un-delete click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ToggleDelete_Click(object sender, EventArgs e)
+    {
+        this.ToggleDelete(false, true);
+    }
+
+    /// <summary>
+    /// Delete Message(s)
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void ToggleDeleteStatus_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.ToggleDelete(!this.message.Item2.MessageFlags.IsDeleted, this.EraseMessage.Checked);
+    }
+
+    /// <summary>
+    /// The toggle delete.
+    /// </summary>
+    /// <param name="deleteAction">
+    /// The delete action.
+    /// </param>
+    /// <param name="eraseMessage">
+    /// The erase message.
+    /// </param>
+    private void ToggleDelete(bool deleteAction, bool eraseMessage)
+    {
+        if (!this.CanDeletePost)
+        {
+            return;
+        }
+
+        var deleteAllLinked = false;
+
+        if (this.LinkedPosts.Visible)
+        {
+            try
+            {
+                var deleteAllPosts = this.LinkedPosts.Controls[0].Controls[1].ToType<CheckBox>();
+                deleteAllLinked = deleteAllPosts.Checked;
+            }
+            catch (Exception)
+            {
+                deleteAllLinked = false;
+            }
+        }
+
+        // Toggle delete message -- if the message is currently deleted it will be un-deleted.
+        // If it's not deleted it will be marked deleted.
+        // If it is the last message of the topic, the topic is also deleted
+        this.GetRepository<Message>().Delete(
+            this.message.Item1.ForumID,
+            this.message.Item1.ID,
+            this.message.Item2.ID,
+            this.isModeratorChanged,
+            HttpUtility.HtmlEncode(this.ReasonEditor.Text),
+            deleteAction,
+            deleteAllLinked,
+            eraseMessage);
+
+        // retrieve topic information.
+        var topic = this.GetRepository<Topic>().GetById(this.message.Item2.TopicID);
+
+        // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
+        if (topic == null)
+        {
+            this.Get<LinkBuilder>().Redirect(ForumPages.Topics, new { f = this.message.Item4.ID, name = this.message.Item4.Name });
+        }
+        else
+        {
+            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { t = topic.ID, name = topic.TopicName });
+        }
+    }
+
+    /// <summary>
+    /// Check if current user has the rights to delete all linked posts
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
+    private void LinkedPosts_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+    {
+        if (e.Item.ItemType != ListItemType.Header)
+        {
+            return;
+        }
+
+        var deleteAllPosts = e.Item.FindControlAs<CheckBox>("DeleteAllPosts");
+        deleteAllPosts.Checked =
+            deleteAllPosts.Enabled = this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin;
+    }
+
+    #endregion
 }

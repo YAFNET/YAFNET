@@ -21,22 +21,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BaseModules
+namespace YAF.Core.BaseModules;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+
+using YAF.Types;
+using YAF.Types.Extensions;
+
+/// <summary>
+/// The module scanner
+/// </summary>
+public class ModuleScanner
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-
-    using YAF.Types;
-    using YAF.Types.Extensions;
-
-    /// <summary>
-  /// The module scanner
-  /// </summary>
-  public class ModuleScanner
-  {
     #region Public Methods
 
     /// <summary>
@@ -50,9 +50,9 @@ namespace YAF.Core.BaseModules
     [NotNull]
     public IEnumerable<Assembly> GetModules([NotNull] string pattern)
     {
-      var files = GetMatchingFiles(pattern).ToList();
+        var files = GetMatchingFiles(pattern).ToList();
 
-      return GetValidateAssemblies(files).ToList();
+        return GetValidateAssemblies(files).ToList();
     }
 
     #endregion
@@ -71,12 +71,12 @@ namespace YAF.Core.BaseModules
     [NotNull]
     private static string CleanPath([NotNull] string path)
     {
-      if (!Path.IsPathRooted(path))
-      {
-        path = Path.Combine(GetAppBaseDirectory(), path);
-      }
+        if (!Path.IsPathRooted(path))
+        {
+            path = Path.Combine(GetAppBaseDirectory(), path);
+        }
 
-      return Path.GetFullPath(path);
+        return Path.GetFullPath(path);
     }
 
     /// <summary>
@@ -88,10 +88,10 @@ namespace YAF.Core.BaseModules
     [NotNull]
     private static string GetAppBaseDirectory()
     {
-      var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-      var searchPath = AppDomain.CurrentDomain.RelativeSearchPath;
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var searchPath = AppDomain.CurrentDomain.RelativeSearchPath;
 
-      return searchPath.IsNotSet() ? baseDirectory : Path.Combine(baseDirectory, searchPath);
+        return searchPath.IsNotSet() ? baseDirectory : Path.Combine(baseDirectory, searchPath);
     }
 
     /// <summary>
@@ -105,10 +105,10 @@ namespace YAF.Core.BaseModules
     [NotNull]
     private static IEnumerable<string> GetMatchingFiles([NotNull] string pattern)
     {
-      var path = CleanPath(Path.GetDirectoryName(pattern));
-      var glob = Path.GetFileName(pattern);
+        var path = CleanPath(Path.GetDirectoryName(pattern));
+        var glob = Path.GetFileName(pattern);
 
-      return Directory.GetFiles(path, glob);
+        return Directory.GetFiles(path, glob);
     }
 
     /// <summary>
@@ -121,26 +121,25 @@ namespace YAF.Core.BaseModules
     /// </returns>
     private static IEnumerable<Assembly> GetValidateAssemblies([NotNull] IEnumerable<string> fileNames)
     {
-      CodeContracts.VerifyNotNull(fileNames);
+        CodeContracts.VerifyNotNull(fileNames);
 
-      foreach (var assemblyFile in fileNames.Where(File.Exists))
-      {
-        Assembly assembly;
-
-        try
+        foreach (var assemblyFile in fileNames.Where(File.Exists))
         {
-          assembly = Assembly.LoadFrom(assemblyFile);
-        }
-        catch (BadImageFormatException)
-        {
-          // fail on native images...
-          continue;
-        }
+            Assembly assembly;
 
-        yield return assembly;
-      }
+            try
+            {
+                assembly = Assembly.LoadFrom(assemblyFile);
+            }
+            catch (BadImageFormatException)
+            {
+                // fail on native images...
+                continue;
+            }
+
+            yield return assembly;
+        }
     }
 
     #endregion
-  }
 }

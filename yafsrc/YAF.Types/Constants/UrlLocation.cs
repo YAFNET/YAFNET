@@ -22,100 +22,99 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
-{
-    using System.Xml.Serialization;
+namespace YAF.Types.Constants;
 
+using System.Xml.Serialization;
+
+/// <summary>
+/// The URL location.
+/// </summary>
+public class UrlLocation
+{
     /// <summary>
-    /// The URL location.
+    /// The change frequencies.
     /// </summary>
-    public class UrlLocation
+    public enum ChangeFrequencies
     {
         /// <summary>
-        /// The change frequencies.
+        /// The always.
         /// </summary>
-        public enum ChangeFrequencies
-        {
-            /// <summary>
-            /// The always.
-            /// </summary>
-            always,
-
-            /// <summary>
-            /// The hourly.
-            /// </summary>
-            hourly,
-
-            /// <summary>
-            /// The daily.
-            /// </summary>
-            daily,
-
-            /// <summary>
-            /// The weekly.
-            /// </summary>
-            weekly,
-
-            /// <summary>
-            /// The monthly.
-            /// </summary>
-            monthly,
-
-            /// <summary>
-            /// The yearly.
-            /// </summary>
-            yearly,
-
-            /// <summary>
-            /// The never.
-            /// </summary>
-            never
-        }
+        always,
 
         /// <summary>
-        /// Gets or sets the url.
+        /// The hourly.
         /// </summary>
-        [XmlElement("loc")]
-        public string Url { get; set; }
+        hourly,
 
         /// <summary>
-        /// Gets or sets the change frequency.
+        /// The daily.
         /// </summary>
-        [XmlElement("changefreq")]
-        public ChangeFrequencies? ChangeFrequency { get; set; }
+        daily,
 
         /// <summary>
-        /// Gets or sets the last modified.
+        /// The weekly.
         /// </summary>
-        [XmlElement("lastmod")]
-        public string LastModified { get; set; }
+        weekly,
 
         /// <summary>
-        /// Gets or sets the priority.
+        /// The monthly.
         /// </summary>
-        [XmlElement("priority")]
-        public double? Priority { get; set; }
+        monthly,
 
         /// <summary>
-        /// The should serialize priority.
+        /// The yearly.
         /// </summary>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public bool ShouldSerializePriority()
-        {
-            return this.Priority.HasValue;
-        }
+        yearly,
 
         /// <summary>
-        /// The should serialize change frequency.
+        /// The never.
         /// </summary>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public bool ShouldSerializeChangeFrequency()
-        {
-            return this.ChangeFrequency.HasValue;
-        }
+        never
+    }
+
+    /// <summary>
+    /// Gets or sets the url.
+    /// </summary>
+    [XmlElement("loc")]
+    public string Url { get; set; }
+
+    /// <summary>
+    /// Gets or sets the change frequency.
+    /// </summary>
+    [XmlElement("changefreq")]
+    public ChangeFrequencies? ChangeFrequency { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last modified.
+    /// </summary>
+    [XmlElement("lastmod")]
+    public string LastModified { get; set; }
+
+    /// <summary>
+    /// Gets or sets the priority.
+    /// </summary>
+    [XmlElement("priority")]
+    public double? Priority { get; set; }
+
+    /// <summary>
+    /// The should serialize priority.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public bool ShouldSerializePriority()
+    {
+        return this.Priority.HasValue;
+    }
+
+    /// <summary>
+    /// The should serialize change frequency.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public bool ShouldSerializeChangeFrequency()
+    {
+        return this.ChangeFrequency.HasValue;
     }
 }

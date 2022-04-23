@@ -22,142 +22,141 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// The Private Message Page
+/// </summary>
+public partial class MyMessages : ForumPageRegistered
 {
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The Private Message Page
+    ///   Initializes a new instance of the <see cref = "MyMessages" /> class.
     /// </summary>
-    public partial class MyMessages : ForumPageRegistered
+    public MyMessages()
+        : base("PM", ForumPages.MyMessages)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "MyMessages" /> class.
-        /// </summary>
-        public MyMessages()
-            : base("PM", ForumPages.MyMessages)
-        {
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets View.
-        /// </summary>
-        protected PmView View { get; private set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            // setup jQuery and Jquery Ui Tabs.
-            this.PageBoardContext.PageElements.RegisterJsBlock(
-                "yafPmTabsJs",
-                JavaScriptBlocks.BootstrapTabsLoadJs(this.PmTabs.ClientID, this.hidLastTab.ClientID));
-
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // check if this feature is disabled
-            if (!this.PageBoardContext.BoardSettings.AllowPrivateMessages)
-            {
-                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Disabled);
-            }
-
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v").IsSet())
-            {
-                this.View = PmViewConverter.FromQueryString(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v"));
-
-                this.hidLastTab.Value = $"View{(int)this.View}";
-            }
-
-            this.NewPM.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage);
-            this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
-
-            // Renew PM Statistics
-            var count = this.GetRepository<PMessage>().UserMessageCount(this.PageBoardContext.PageUserID);
-
-            if (count != null)
-            {
-                this.InfoInbox.Text = this.InfoArchive.Text = this.InfoOutbox.Text = this.GetPMessageText(
-                    "PMLIMIT_ALL",
-                    count.NumberTotal,
-                    count.InboxCount,
-                    count.OutBoxCount,
-                    count.ArchivedCount,
-                    count.Allowed);
-            }
-        }
-
-        /// <summary>
-        /// Gets the message text.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="total">The total.</param>
-        /// <param name="inbox">The inbox.</param>
-        /// <param name="outbox">The outbox.</param>
-        /// <param name="archive">The archive.</param>
-        /// <param name="limit">The limit.</param>
-        /// <returns>Returns the Message Text</returns>
-        protected string GetPMessageText(
-            [NotNull] string text,
-            [NotNull] int total,
-            [NotNull] int inbox,
-            [NotNull] int outbox,
-            [NotNull] int archive,
-            [NotNull] int limit)
-        {
-            decimal percentage = 0;
-
-            if (limit != 0)
-            {
-                percentage = decimal.Round(total / limit * 100, 2);
-            }
-
-            if (!this.PageBoardContext.IsAdmin)
-            {
-                return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, limit, percentage));
-            }
-
-            percentage = 0;
-
-            return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, "\u221E", percentage));
-        }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
-            this.PageLinks.AddLink(this.GetText("TITLE"));
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets View.
+    /// </summary>
+    protected PmView View { get; private set; }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
+    {
+        // setup jQuery and Jquery Ui Tabs.
+        this.PageBoardContext.PageElements.RegisterJsBlock(
+            "yafPmTabsJs",
+            JavaScriptBlocks.BootstrapTabsLoadJs(this.PmTabs.ClientID, this.hidLastTab.ClientID));
+
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // check if this feature is disabled
+        if (!this.PageBoardContext.BoardSettings.AllowPrivateMessages)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Disabled);
+        }
+
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v").IsSet())
+        {
+            this.View = PmViewConverter.FromQueryString(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v"));
+
+            this.hidLastTab.Value = $"View{(int)this.View}";
+        }
+
+        this.NewPM.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage);
+        this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
+
+        // Renew PM Statistics
+        var count = this.GetRepository<PMessage>().UserMessageCount(this.PageBoardContext.PageUserID);
+
+        if (count != null)
+        {
+            this.InfoInbox.Text = this.InfoArchive.Text = this.InfoOutbox.Text = this.GetPMessageText(
+                                                              "PMLIMIT_ALL",
+                                                              count.NumberTotal,
+                                                              count.InboxCount,
+                                                              count.OutBoxCount,
+                                                              count.ArchivedCount,
+                                                              count.Allowed);
+        }
+    }
+
+    /// <summary>
+    /// Gets the message text.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="total">The total.</param>
+    /// <param name="inbox">The inbox.</param>
+    /// <param name="outbox">The outbox.</param>
+    /// <param name="archive">The archive.</param>
+    /// <param name="limit">The limit.</param>
+    /// <returns>Returns the Message Text</returns>
+    protected string GetPMessageText(
+        [NotNull] string text,
+        [NotNull] int total,
+        [NotNull] int inbox,
+        [NotNull] int outbox,
+        [NotNull] int archive,
+        [NotNull] int limit)
+    {
+        decimal percentage = 0;
+
+        if (limit != 0)
+        {
+            percentage = decimal.Round(total / limit * 100, 2);
+        }
+
+        if (!this.PageBoardContext.IsAdmin)
+        {
+            return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, limit, percentage));
+        }
+
+        percentage = 0;
+
+        return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, "\u221E", percentage));
+    }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageLinks.AddLink(this.GetText("TITLE"));
+    }
+
+    #endregion
 }

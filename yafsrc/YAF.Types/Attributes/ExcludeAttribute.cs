@@ -21,19 +21,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Attributes
+namespace YAF.Types.Attributes;
+
+#region Using
+
+using System;
+
+#endregion
+
+/// <summary>
+/// Exclude a field from the dynamic object conversion.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+public class ExcludeAttribute : Attribute
 {
-    #region Using
-
-    using System;
-
-    #endregion
-
-    /// <summary>
-    /// Exclude a field from the dynamic object conversion.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class ExcludeAttribute : Attribute
-    {
-    }
 }

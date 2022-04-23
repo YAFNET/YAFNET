@@ -21,42 +21,41 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Events
+namespace YAF.Types.Interfaces.Events;
+
+#region Using
+
+using System;
+
+#endregion
+
+/// <summary>
+/// The event raiser interface
+/// </summary>
+public interface IRaiseEvent
 {
-    #region Using
-
-    using System;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The event raiser interface
+    /// The raise event.
     /// </summary>
-    public interface IRaiseEvent
-    {
-        #region Public Methods
+    /// <param name="eventObject">
+    /// The event object.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    void Raise<T>(T eventObject) where T : IAmEvent;
 
-        /// <summary>
-        /// The raise event.
-        /// </summary>
-        /// <param name="eventObject">
-        /// The event object.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        void Raise<T>(T eventObject) where T : IAmEvent;
+    /// <summary>
+    /// Raise all events using try/catch block.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="eventObject">
+    /// </param>
+    /// <param name="logExceptionAction">
+    /// </param>
+    void RaiseIssolated<T>(T eventObject, [CanBeNull] Action<string, Exception> logExceptionAction) where T : IAmEvent;
 
-        /// <summary>
-        /// Raise all events using try/catch block.
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <param name="eventObject">
-        /// </param>
-        /// <param name="logExceptionAction">
-        /// </param>
-        void RaiseIssolated<T>(T eventObject, [CanBeNull] Action<string, Exception> logExceptionAction) where T : IAmEvent;
-
-        #endregion
-    }
+    #endregion
 }

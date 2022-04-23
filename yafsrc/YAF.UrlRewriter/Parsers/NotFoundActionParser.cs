@@ -5,43 +5,42 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Parsers
-{
-    using System.Xml;
+namespace YAF.UrlRewriter.Parsers;
 
-    using YAF.UrlRewriter.Actions;
-    using YAF.UrlRewriter.Configuration;
-    using YAF.UrlRewriter.Utilities;
+using System.Xml;
+
+using YAF.UrlRewriter.Actions;
+using YAF.UrlRewriter.Configuration;
+using YAF.UrlRewriter.Utilities;
+
+/// <summary>
+/// Parser for not found actions.
+/// </summary>
+public sealed class NotFoundActionParser : RewriteActionParserBase
+{
+    /// <summary>
+    /// The name of the action.
+    /// </summary>
+    public override string Name => Constants.ElementNotFound;
 
     /// <summary>
-    /// Parser for not found actions.
+    /// Whether the action allows nested actions.
     /// </summary>
-    public sealed class NotFoundActionParser : RewriteActionParserBase
+    public override bool AllowsNestedActions => false;
+
+    /// <summary>
+    /// Whether the action allows attributes.
+    /// </summary>
+    public override bool AllowsAttributes => false;
+
+    /// <summary>
+    /// Parses the node.
+    /// </summary>
+    /// <param name="node">The node to parse.</param>
+    /// <param name="config">The rewriter configuration.</param>
+    /// <returns>The parsed action, or null if no action parsed.</returns>
+    public override IRewriteAction Parse(XmlNode node, IRewriterConfiguration config)
     {
-        /// <summary>
-        /// The name of the action.
-        /// </summary>
-        public override string Name => Constants.ElementNotFound;
-
-        /// <summary>
-        /// Whether the action allows nested actions.
-        /// </summary>
-        public override bool AllowsNestedActions => false;
-
-        /// <summary>
-        /// Whether the action allows attributes.
-        /// </summary>
-        public override bool AllowsAttributes => false;
-
-        /// <summary>
-        /// Parses the node.
-        /// </summary>
-        /// <param name="node">The node to parse.</param>
-        /// <param name="config">The rewriter configuration.</param>
-        /// <returns>The parsed action, or null if no action parsed.</returns>
-        public override IRewriteAction Parse(XmlNode node, IRewriterConfiguration config)
-        {
-            return new NotFoundAction();
-        }
+        return new NotFoundAction();
     }
 }

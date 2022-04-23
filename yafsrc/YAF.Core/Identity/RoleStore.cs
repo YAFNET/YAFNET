@@ -22,129 +22,128 @@
  * under the License.
  */
 
-namespace YAF.Core.Identity
+namespace YAF.Core.Identity;
+
+using System.Linq;
+using System.Threading.Tasks;
+
+using Microsoft.AspNet.Identity;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Models.Identity;
+
+/// <summary>
+/// The role store.
+/// </summary>
+public class RoleStore : IQueryableRoleStore<AspNetRoles, string>,
+                         IHaveServiceLocator
 {
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    using Microsoft.AspNet.Identity;
-
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models.Identity;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RoleStore"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public RoleStore([NotNull] IServiceLocator serviceLocator)
+    {
+        this.ServiceLocator = serviceLocator;
+    }
 
     /// <summary>
-    /// The role store.
+    /// Gets the service locator.
     /// </summary>
-    public class RoleStore : IQueryableRoleStore<AspNetRoles, string>,
-        IHaveServiceLocator
+    public IServiceLocator ServiceLocator { get; }
+
+    /// <summary>
+    /// The roles.
+    /// </summary>
+    public virtual IQueryable<AspNetRoles> Roles => this.GetRepository<AspNetRoles>().GetAll().AsQueryable();
+
+    /// <summary>
+    /// The create async.
+    /// </summary>
+    /// <param name="role">
+    /// The role.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public virtual Task CreateAsync([NotNull]AspNetRoles role)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RoleStore"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        public RoleStore([NotNull] IServiceLocator serviceLocator)
-        {
-            this.ServiceLocator = serviceLocator;
-        }
+        CodeContracts.VerifyNotNull(role);
 
-        /// <summary>
-        /// Gets the service locator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; }
+        return Task.FromResult(this.GetRepository<AspNetRoles>().Insert(role, false));
+    }
 
-        /// <summary>
-        /// The roles.
-        /// </summary>
-        public virtual IQueryable<AspNetRoles> Roles => this.GetRepository<AspNetRoles>().GetAll().AsQueryable();
+    /// <summary>
+    /// The delete async.
+    /// </summary>
+    /// <param name="role">
+    /// The role.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public virtual Task DeleteAsync([NotNull]AspNetRoles role)
+    {
+        CodeContracts.VerifyNotNull(role);
 
-        /// <summary>
-        /// The create async.
-        /// </summary>
-        /// <param name="role">
-        /// The role.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        public virtual Task CreateAsync([NotNull]AspNetRoles role)
-        {
-            CodeContracts.VerifyNotNull(role);
+        return Task.FromResult(this.GetRepository<AspNetRoles>().Delete(r => r.Id == role.Id));
+    }
 
-            return Task.FromResult(this.GetRepository<AspNetRoles>().Insert(role, false));
-        }
+    /// <summary>
+    /// The find by id async.
+    /// </summary>
+    /// <param name="roleId">
+    /// The role id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public virtual Task<AspNetRoles> FindByIdAsync([NotNull]string roleId)
+    {
+        return Task.FromResult(this.GetRepository<AspNetRoles>().GetSingle(r => r.Id == roleId));
+    }
 
-        /// <summary>
-        /// The delete async.
-        /// </summary>
-        /// <param name="role">
-        /// The role.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        public virtual Task DeleteAsync([NotNull]AspNetRoles role)
-        {
-            CodeContracts.VerifyNotNull(role);
+    /// <summary>
+    /// The find by name async.
+    /// </summary>
+    /// <param name="roleName">
+    /// The role name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public virtual Task<AspNetRoles> FindByNameAsync([NotNull]string roleName)
+    {
+        return Task.FromResult(this.GetRepository<AspNetRoles>().GetSingle(r => r.Name == roleName));
+    }
 
-            return Task.FromResult(this.GetRepository<AspNetRoles>().Delete(r => r.Id == role.Id));
-        }
+    /// <summary>
+    /// The update async.
+    /// </summary>
+    /// <param name="role">
+    /// The role.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public virtual Task UpdateAsync([NotNull]AspNetRoles role)
+    {
+        CodeContracts.VerifyNotNull(role);
 
-        /// <summary>
-        /// The find by id async.
-        /// </summary>
-        /// <param name="roleId">
-        /// The role id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        public virtual Task<AspNetRoles> FindByIdAsync([NotNull]string roleId)
-        {
-            return Task.FromResult(this.GetRepository<AspNetRoles>().GetSingle(r => r.Id == roleId));
-        }
+        this.GetRepository<AspNetRoles>().Update(role);
 
-        /// <summary>
-        /// The find by name async.
-        /// </summary>
-        /// <param name="roleName">
-        /// The role name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        public virtual Task<AspNetRoles> FindByNameAsync([NotNull]string roleName)
-        {
-            return Task.FromResult(this.GetRepository<AspNetRoles>().GetSingle(r => r.Name == roleName));
-        }
+        return Task.FromResult(0);
+    }
 
-        /// <summary>
-        /// The update async.
-        /// </summary>
-        /// <param name="role">
-        /// The role.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        public virtual Task UpdateAsync([NotNull]AspNetRoles role)
-        {
-            CodeContracts.VerifyNotNull(role);
-
-            this.GetRepository<AspNetRoles>().Update(role);
-
-            return Task.FromResult(0);
-        }
-
-        /// <summary>
-        /// The dispose.
-        /// </summary>
-        public virtual void Dispose()
-        {
-            // No resource to dispose for now!
-        }
+    /// <summary>
+    /// The dispose.
+    /// </summary>
+    public virtual void Dispose()
+    {
+        // No resource to dispose for now!
     }
 }

@@ -21,94 +21,93 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BBCode.ReplaceRules
-{
-    using System.Text.RegularExpressions;
+namespace YAF.Core.BBCode.ReplaceRules;
+
+using System.Text.RegularExpressions;
     
-    using YAF.Types.Interfaces;
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// Syntax Highlighted code block regular express replace
+/// </summary>
+public class SyntaxHighlighterRegexReplaceRule : SimpleRegexReplaceRule
+{
+    #region Constants and Fields
 
     /// <summary>
-    /// Syntax Highlighted code block regular express replace
+    ///   The syntax highlighter.
     /// </summary>
-    public class SyntaxHighlighterRegexReplaceRule : SimpleRegexReplaceRule
+    private readonly HighLighter syntaxHighlighter = new ();
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SyntaxHighlighterRegexReplaceRule"/> class.
+    /// </summary>
+    /// <param name="regExSearch">
+    /// The Search Regex.
+    /// </param>
+    /// <param name="regExReplace">
+    /// The Replace Regex.
+    /// </param>
+    public SyntaxHighlighterRegexReplaceRule(Regex regExSearch, string regExReplace)
+        : base(regExSearch, regExReplace)
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The syntax highlighter.
-        /// </summary>
-        private readonly HighLighter syntaxHighlighter = new ();
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SyntaxHighlighterRegexReplaceRule"/> class.
-        /// </summary>
-        /// <param name="regExSearch">
-        /// The Search Regex.
-        /// </param>
-        /// <param name="regExReplace">
-        /// The Replace Regex.
-        /// </param>
-        public SyntaxHighlighterRegexReplaceRule(Regex regExSearch, string regExReplace)
-            : base(regExSearch, regExReplace)
-        {
-            this.syntaxHighlighter.ReplaceEnter = true;
-            this.RuleRank = 1;
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The replace.
-        /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <param name="replacement">
-        /// The replacement.
-        /// </param>
-        public override void Replace(ref string text, IReplaceBlocks replacement)
-        {
-            var m = this.RegExSearch.Match(text);
-
-            while (m.Success)
-            {
-                var inner = this.syntaxHighlighter.ColorText(
-                    this.GetInnerValue(m.Groups["inner"].Value), m.Groups["language"].Value);
-
-                var replaceItem = this.RegExReplace.Replace("${inner}", inner);
-
-                // pulls the html's into the replacement collection before it's inserted back into the main text
-                var replaceIndex = replacement.Add(replaceItem);
-
-                text =
-                    $"{text.Substring(0, m.Groups[0].Index)}{replacement.Get(replaceIndex)}{text.Substring(m.Groups[0].Index + m.Groups[0].Length)}";
-
-                m = this.RegExSearch.Match(text);
-            }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// This just overrides how the inner value is handled
-        /// </summary>
-        /// <param name="innerValue">The inner value.</param>
-        /// <returns>
-        /// The get inner value.
-        /// </returns>
-        protected override string GetInnerValue(string innerValue)
-        {
-            return innerValue;
-        }
-
-        #endregion
+        this.syntaxHighlighter.ReplaceEnter = true;
+        this.RuleRank = 1;
     }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// The replace.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="replacement">
+    /// The replacement.
+    /// </param>
+    public override void Replace(ref string text, IReplaceBlocks replacement)
+    {
+        var m = this.RegExSearch.Match(text);
+
+        while (m.Success)
+        {
+            var inner = this.syntaxHighlighter.ColorText(
+                this.GetInnerValue(m.Groups["inner"].Value), m.Groups["language"].Value);
+
+            var replaceItem = this.RegExReplace.Replace("${inner}", inner);
+
+            // pulls the html's into the replacement collection before it's inserted back into the main text
+            var replaceIndex = replacement.Add(replaceItem);
+
+            text =
+                $"{text.Substring(0, m.Groups[0].Index)}{replacement.Get(replaceIndex)}{text.Substring(m.Groups[0].Index + m.Groups[0].Length)}";
+
+            m = this.RegExSearch.Match(text);
+        }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// This just overrides how the inner value is handled
+    /// </summary>
+    /// <param name="innerValue">The inner value.</param>
+    /// <returns>
+    /// The get inner value.
+    /// </returns>
+    protected override string GetInnerValue(string innerValue)
+    {
+        return innerValue;
+    }
+
+    #endregion
 }

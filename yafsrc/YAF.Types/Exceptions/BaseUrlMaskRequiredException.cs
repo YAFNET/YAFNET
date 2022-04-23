@@ -22,23 +22,22 @@
  * under the License.
  */
 
-namespace YAF.Types.Exceptions
-{
-    using System;
+namespace YAF.Types.Exceptions;
 
+using System;
+
+/// <summary>
+/// Base Url MaskRequired Exception Class
+/// </summary>
+[Serializable]
+public class BaseUrlMaskRequiredException : Exception
+{
     /// <summary>
-    /// Base Url MaskRequired Exception Class
+    /// Initializes a new instance of the <see cref="BaseUrlMaskRequiredException"/> class.
     /// </summary>
-    [Serializable]
-    public class BaseUrlMaskRequiredException : Exception
+    /// <param name="message">The message that describes the error.</param>
+    public BaseUrlMaskRequiredException(string message)
+        : base(message)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseUrlMaskRequiredException"/> class.
-        /// </summary>
-        /// <param name="message">The message that describes the error.</param>
-        public BaseUrlMaskRequiredException(string message)
-            : base(message)
-        {
-        }
     }
 }

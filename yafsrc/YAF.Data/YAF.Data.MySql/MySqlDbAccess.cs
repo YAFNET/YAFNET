@@ -21,41 +21,40 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Data.MySql
+namespace YAF.Data.MySql;
+
+#region Using
+
+using System;
+using System.Data.Common;
+
+using YAF.Core.Data;
+using YAF.Types;
+
+#endregion
+
+/// <summary>
+/// The MySQL Database access.
+/// </summary>
+public class MySqlDbAccess : DbAccessBase
 {
-    #region Using
+    /// <summary>
+    /// The provider type name.
+    /// </summary>
+    public const string ProviderTypeName = "MySql.Data.MySqlClient";
 
-    using System;
-    using System.Data.Common;
-
-    using YAF.Core.Data;
-    using YAF.Types;
-
-    #endregion
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The MySQL Database access.
+    /// Initializes a new instance of the <see cref="MySqlDbAccess"/> class.
     /// </summary>
-    public class MySqlDbAccess : DbAccessBase
+    /// <param name="dbProviderFactory">
+    /// The database provider factory.
+    /// </param>
+    public MySqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
+        : base(dbProviderFactory, new MySqlDbInformation())
     {
-        /// <summary>
-        /// The provider type name.
-        /// </summary>
-        public const string ProviderTypeName = "MySql.Data.MySqlClient";
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MySqlDbAccess"/> class.
-        /// </summary>
-        /// <param name="dbProviderFactory">
-        /// The database provider factory.
-        /// </param>
-        public MySqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
-            : base(dbProviderFactory, new MySqlDbInformation())
-        {
-        }
-
-        #endregion
     }
+
+    #endregion
 }

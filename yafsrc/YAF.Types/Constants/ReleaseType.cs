@@ -22,31 +22,30 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The release type.
+/// </summary>
+public enum ReleaseType
 {
     /// <summary>
-    /// The release type.
+    /// regular release
     /// </summary>
-    public enum ReleaseType
-    {
-        /// <summary>
-        /// regular release
-        /// </summary>
-        Regular = 0,
+    Regular = 0,
 
-        /// <summary>
-        /// alpha release
-        /// </summary>
-        Alpha = 1,
+    /// <summary>
+    /// alpha release
+    /// </summary>
+    Alpha = 1,
 
-        /// <summary>
-        /// beta release
-        /// </summary>
-        BETA = 2,
+    /// <summary>
+    /// beta release
+    /// </summary>
+    BETA = 2,
 
-        /// <summary>
-        /// release candidate release
-        /// </summary>
-        RC = 3
-    }
+    /// <summary>
+    /// release candidate release
+    /// </summary>
+    RC = 3
 }

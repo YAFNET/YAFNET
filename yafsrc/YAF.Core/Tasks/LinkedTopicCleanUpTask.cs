@@ -21,54 +21,53 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Tasks
-{
-    using System;
+namespace YAF.Core.Tasks;
+
+using System;
     
-    using YAF.Core.Extensions;
-    using YAF.Core.Model;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
+using YAF.Core.Extensions;
+using YAF.Core.Model;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+
+/// <summary>
+/// Does some Linked topic cleaning...
+/// </summary>
+public class LinkedTopicCleanUpTask : IntermittentBackgroundTask
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LinkedTopicCleanUpTask"/> class.
+    /// </summary>
+    public LinkedTopicCleanUpTask()
+    {
+        // set interval values...
+        this.RunPeriodMs = 3600000;
+        this.StartDelayMs = 30000;
+    }
 
     /// <summary>
-    /// Does some Linked topic cleaning...
+    /// Gets TaskName.
     /// </summary>
-    public class LinkedTopicCleanUpTask : IntermittentBackgroundTask
+    public static string TaskName => "LinkedTopicCleanUpTask";
+
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public override void RunOnce()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LinkedTopicCleanUpTask"/> class.
-        /// </summary>
-        public LinkedTopicCleanUpTask()
+        try
         {
-            // set interval values...
-            this.RunPeriodMs = 3600000;
-            this.StartDelayMs = 30000;
+            var linkDate = DateTime.UtcNow;
+
+            var topics = this.GetRepository<Topic>().Get(
+                x => x.TopicMovedID != null && x.LinkDate != null && x.LinkDate < linkDate);
+
+            topics.ForEach(t => this.GetRepository<Topic>().Delete(t.ForumID, t.ID, true));
         }
-
-        /// <summary>
-        /// Gets TaskName.
-        /// </summary>
-        public static string TaskName => "LinkedTopicCleanUpTask";
-
-        /// <summary>
-        /// The run once.
-        /// </summary>
-        public override void RunOnce()
+        catch (Exception x)
         {
-            try
-            {
-                var linkDate = DateTime.UtcNow;
-
-                var topics = this.GetRepository<Topic>().Get(
-                    x => x.TopicMovedID != null && x.LinkDate != null && x.LinkDate < linkDate);
-
-                topics.ForEach(t => this.GetRepository<Topic>().Delete(t.ForumID, t.ID, true));
-            }
-            catch (Exception x)
-            {
-                this.Logger.Error(x, $"Error In {TaskName} Task");
-            }
+            this.Logger.Error(x, $"Error In {TaskName} Task");
         }
     }
 }

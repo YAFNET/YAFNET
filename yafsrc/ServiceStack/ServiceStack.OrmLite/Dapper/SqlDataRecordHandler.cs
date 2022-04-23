@@ -8,37 +8,36 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 
-namespace ServiceStack.OrmLite.Dapper
+namespace ServiceStack.OrmLite.Dapper;
+
+/// <summary>
+/// Class SqlDataRecordHandler. This class cannot be inherited.
+/// Implements the <see cref="ServiceStack.OrmLite.Dapper.SqlMapper.ITypeHandler" />
+/// </summary>
+/// <typeparam name="T"></typeparam>
+/// <seealso cref="ServiceStack.OrmLite.Dapper.SqlMapper.ITypeHandler" />
+internal sealed class SqlDataRecordHandler<T> : SqlMapper.ITypeHandler
+    where T : IDataRecord
 {
     /// <summary>
-    /// Class SqlDataRecordHandler. This class cannot be inherited.
-    /// Implements the <see cref="ServiceStack.OrmLite.Dapper.SqlMapper.ITypeHandler" />
+    /// Parse a database value back to a typed value
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <seealso cref="ServiceStack.OrmLite.Dapper.SqlMapper.ITypeHandler" />
-    internal sealed class SqlDataRecordHandler<T> : SqlMapper.ITypeHandler
-        where T : IDataRecord
+    /// <param name="destinationType">The type to parse to</param>
+    /// <param name="value">The value from the database</param>
+    /// <returns>The typed value</returns>
+    /// <exception cref="System.NotSupportedException"></exception>
+    public object Parse(Type destinationType, object value)
     {
-        /// <summary>
-        /// Parse a database value back to a typed value
-        /// </summary>
-        /// <param name="destinationType">The type to parse to</param>
-        /// <param name="value">The value from the database</param>
-        /// <returns>The typed value</returns>
-        /// <exception cref="System.NotSupportedException"></exception>
-        public object Parse(Type destinationType, object value)
-        {
-            throw new NotSupportedException();
-        }
+        throw new NotSupportedException();
+    }
 
-        /// <summary>
-        /// Sets the value.
-        /// </summary>
-        /// <param name="parameter">The parameter.</param>
-        /// <param name="value">The value.</param>
-        public void SetValue(IDbDataParameter parameter, object value)
-        {
-            SqlDataRecordListTVPParameter<T>.Set(parameter, value as IEnumerable<T>, null);
-        }
+    /// <summary>
+    /// Sets the value.
+    /// </summary>
+    /// <param name="parameter">The parameter.</param>
+    /// <param name="value">The value.</param>
+    public void SetValue(IDbDataParameter parameter, object value)
+    {
+        SqlDataRecordListTVPParameter<T>.Set(parameter, value as IEnumerable<T>, null);
     }
 }

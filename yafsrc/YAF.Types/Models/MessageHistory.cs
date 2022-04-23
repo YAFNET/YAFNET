@@ -21,75 +21,74 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the MessageHistory table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(MessageID), nameof(Edited))]
+public class MessageHistory : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-    using ServiceStack.OrmLite;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the MessageHistory table.
+    /// Gets or sets the message id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(MessageID), nameof(Edited))]
-    public class MessageHistory : IEntity
-    {
-        #region Properties
+    [References(typeof(Message))]
+    [Required]
+    public int MessageID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the message id.
-        /// </summary>
-        [References(typeof(Message))]
-        [Required]
-        public int MessageID { get; set; }
+    /// <summary>
+    /// Gets or sets the message.
+    /// </summary>
+    [CustomField(OrmLiteVariables.MaxText)]
+    public string Message { get; set; }
 
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        [CustomField(OrmLiteVariables.MaxText)]
-        public string Message { get; set; }
+    /// <summary>
+    /// Gets or sets the IP Address.
+    /// </summary>
+    [Required]
+    [StringLength(39)]
+    public string IP { get; set; }
 
-        /// <summary>
-        /// Gets or sets the IP Address.
-        /// </summary>
-        [Required]
-        [StringLength(39)]
-        public string IP { get; set; }
+    /// <summary>
+    /// Gets or sets the edited.
+    /// </summary>
+    [Required]
+    public DateTime Edited { get; set; }
 
-        /// <summary>
-        /// Gets or sets the edited.
-        /// </summary>
-        [Required]
-        public DateTime Edited { get; set; }
+    /// <summary>
+    /// Gets or sets the edited by.
+    /// </summary>
+    public int? EditedBy { get; set; }
 
-        /// <summary>
-        /// Gets or sets the edited by.
-        /// </summary>
-        public int? EditedBy { get; set; }
+    /// <summary>
+    /// Gets or sets the edit reason.
+    /// </summary>
+    [StringLength(100)]
+    public string EditReason { get; set; }
 
-        /// <summary>
-        /// Gets or sets the edit reason.
-        /// </summary>
-        [StringLength(100)]
-        public string EditReason { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is moderator changed.
+    /// </summary>
+    [Required]
+    [Default(typeof(bool), "0")]
+    public bool IsModeratorChanged { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is moderator changed.
-        /// </summary>
-        [Required]
-        [Default(typeof(bool), "0")]
-        public bool IsModeratorChanged { get; set; }
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    [Required]
+    [Default(23)]
+    public int Flags { get; set; }
 
-        /// <summary>
-        /// Gets or sets the flags.
-        /// </summary>
-        [Required]
-        [Default(23)]
-        public int Flags { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

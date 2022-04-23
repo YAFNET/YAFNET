@@ -22,83 +22,83 @@
  * under the License.
  */
 
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System.Collections.Generic;
+using System.Linq;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.EventProxies;
+using YAF.Types.Extensions;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+
+/// <summary>
+/// The group repository extensions.
+/// </summary>
+public static class GroupRepositoryExtensions
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Models;
-    using YAF.Types.Objects;
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The group repository extensions.
+    /// The list.
     /// </summary>
-    public static class GroupRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="groupId">
+    /// The group id.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IList"/>.
+    /// </returns>
+    public static IList<Group> List(
+        this IRepository<Group> repository,
+        [CanBeNull] int? groupId = null,
+        [CanBeNull] int? boardId = null)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// The list.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="groupId">
-        /// The group id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IList"/>.
-        /// </returns>
-        public static IList<Group> List(
-            this IRepository<Group> repository,
-            [CanBeNull] int? groupId = null,
-            [CanBeNull] int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        return groupId.HasValue
+                   ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
+                   : repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder).ToList();
+    }
 
-            return groupId.HasValue
-                ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
-                : repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder).ToList();
-        }
+    /// <summary>
+    /// Gets All Roles by User indicating if User is Member or not
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board Id.
+    /// </param>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<GroupMember> Member(
+        this IRepository<Group> repository,
+        [NotNull] int boardId,
+        [NotNull] int userId)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Gets All Roles by User indicating if User is Member or not
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<GroupMember> Member(
-            this IRepository<Group> repository,
-            [NotNull] int boardId,
-            [NotNull] int userId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.DbAccess.Execute(
-                db =>
+        return repository.DbAccess.Execute(
+            db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Group>();
 
@@ -108,98 +108,98 @@ namespace YAF.Core.Model
 
                     return db.Connection.Select<GroupMember>(expression);
                 });
-        }
+    }
 
-        /// <summary>
-        /// Save or Add new Group
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="groupId">
-        /// The group Id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <param name="accessMaskId">
-        /// The access mask id.
-        /// </param>
-        /// <param name="messagesLimit">
-        /// The messages Limit.
-        /// </param>
-        /// <param name="style">
-        /// The style.
-        /// </param>
-        /// <param name="sortOrder">
-        /// The sort order.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="signatureChars">
-        /// Defines number of allowed characters in user signature.
-        /// </param>
-        /// <param name="signatureBBCodes">
-        /// The signature BBCodes.
-        /// </param>
-        /// <param name="userAlbums">
-        /// Defines allowed number of albums.
-        /// </param>
-        /// <param name="userAlbumImages">
-        /// Defines number of images allowed for an album.
-        /// </param>
-        /// <returns>
-        /// Returns the group Id
-        /// </returns>
-        public static int Save(
-            this IRepository<Group> repository,
-            [CanBeNull] int? groupId,
-            [NotNull] int boardId,
-            [NotNull] string name,
-            [NotNull] GroupFlags flags,
-            [NotNull] int accessMaskId,
-            [NotNull] int messagesLimit,
-            [CanBeNull] string style,
-            [NotNull] short sortOrder,
-            [CanBeNull] string description,
-            [NotNull] int signatureChars,
-            [CanBeNull] string signatureBBCodes,
-            [CanBeNull] int userAlbums,
-            [CanBeNull] int userAlbumImages)
+    /// <summary>
+    /// Save or Add new Group
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="groupId">
+    /// The group Id.
+    /// </param>
+    /// <param name="boardId">
+    /// The board Id.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    /// <param name="accessMaskId">
+    /// The access mask id.
+    /// </param>
+    /// <param name="messagesLimit">
+    /// The messages Limit.
+    /// </param>
+    /// <param name="style">
+    /// The style.
+    /// </param>
+    /// <param name="sortOrder">
+    /// The sort order.
+    /// </param>
+    /// <param name="description">
+    /// The description.
+    /// </param>
+    /// <param name="signatureChars">
+    /// Defines number of allowed characters in user signature.
+    /// </param>
+    /// <param name="signatureBBCodes">
+    /// The signature BBCodes.
+    /// </param>
+    /// <param name="userAlbums">
+    /// Defines allowed number of albums.
+    /// </param>
+    /// <param name="userAlbumImages">
+    /// Defines number of images allowed for an album.
+    /// </param>
+    /// <returns>
+    /// Returns the group Id
+    /// </returns>
+    public static int Save(
+        this IRepository<Group> repository,
+        [CanBeNull] int? groupId,
+        [NotNull] int boardId,
+        [NotNull] string name,
+        [NotNull] GroupFlags flags,
+        [NotNull] int accessMaskId,
+        [NotNull] int messagesLimit,
+        [CanBeNull] string style,
+        [NotNull] short sortOrder,
+        [CanBeNull] string description,
+        [NotNull] int signatureChars,
+        [CanBeNull] string signatureBBCodes,
+        [CanBeNull] int userAlbums,
+        [CanBeNull] int userAlbumImages)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        if (groupId.HasValue)
         {
-            CodeContracts.VerifyNotNull(repository);
+            repository.UpdateOnly(
+                () => new Group
+                          {
+                              Name = name,
+                              Flags = flags.BitValue,
+                              PMLimit = messagesLimit,
+                              Style = style,
+                              SortOrder = sortOrder,
+                              Description = description,
+                              UsrSigChars = signatureChars,
+                              UsrSigBBCodes = signatureBBCodes,
+                              UsrAlbums = userAlbums,
+                              UsrAlbumImages = userAlbumImages
+                          },
+                g => g.ID == groupId.Value);
 
-            if (groupId.HasValue)
-            {
-                repository.UpdateOnly(
-                    () => new Group
-                    {
-                        Name = name,
-                        Flags = flags.BitValue,
-                        PMLimit = messagesLimit,
-                        Style = style,
-                        SortOrder = sortOrder,
-                        Description = description,
-                        UsrSigChars = signatureChars,
-                        UsrSigBBCodes = signatureBBCodes,
-                        UsrAlbums = userAlbums,
-                        UsrAlbumImages = userAlbumImages
-                    },
-                    g => g.ID == groupId.Value);
-
-                repository.FireUpdated(groupId);
-            }
-            else
-            {
-                groupId = repository.Insert(
-                    new Group
+            repository.FireUpdated(groupId);
+        }
+        else
+        {
+            groupId = repository.Insert(
+                new Group
                     {
                         Name = name,
                         BoardID = boardId,
@@ -214,20 +214,19 @@ namespace YAF.Core.Model
                         UsrAlbumImages = userAlbumImages
                     });
 
-                repository.FireNew(groupId);
+            repository.FireNew(groupId);
 
-                BoardContext.Current.GetRepository<ForumAccess>().InitialAssignGroup(groupId.Value, accessMaskId);
-            }
-
-            if (style.IsSet())
-            {
-                // -- group styles override rank styles
-                BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(boardId));
-            }
-
-            return groupId.Value;
+            BoardContext.Current.GetRepository<ForumAccess>().InitialAssignGroup(groupId.Value, accessMaskId);
         }
 
-        #endregion
+        if (style.IsSet())
+        {
+            // -- group styles override rank styles
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(boardId));
+        }
+
+        return groupId.Value;
     }
+
+    #endregion
 }

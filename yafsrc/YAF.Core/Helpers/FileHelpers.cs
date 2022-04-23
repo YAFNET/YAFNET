@@ -21,64 +21,63 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Helpers
-{
-    using System.IO;
-    using System.Web.Hosting;
+namespace YAF.Core.Helpers;
 
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
+using System.IO;
+using System.Web.Hosting;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Services;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+
+/// <summary>
+///     The file helpers.
+/// </summary>
+public static class FileHelpers
+{
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The file helpers.
+    /// Deletes an attachment from the file system. No exceptions are handled in this function.
     /// </summary>
-    public static class FileHelpers
+    /// <param name="attachment">
+    /// The attachment. 
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public static bool DeleteFile([NotNull] this Attachment attachment)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(attachment);
 
-        /// <summary>
-        /// Deletes an attachment from the file system. No exceptions are handled in this function.
-        /// </summary>
-        /// <param name="attachment">
-        /// The attachment. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool DeleteFile([NotNull] this Attachment attachment)
+        var uploadFolder = HostingEnvironment.MapPath(
+            string.Concat(BaseUrlBuilder.ServerFileRoot, BoardContext.Current.Get<BoardFolders>().Uploads));
+
+        var fileNameOld =
+            $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload";
+
+        if (File.Exists(fileNameOld))
         {
-            CodeContracts.VerifyNotNull(attachment);
-
-            var uploadFolder = HostingEnvironment.MapPath(
-                string.Concat(BaseUrlBuilder.ServerFileRoot, BoardContext.Current.Get<BoardFolders>().Uploads));
-
-            var fileNameOld =
-                $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload";
-
-            if (File.Exists(fileNameOld))
-            {
-                File.Delete(fileNameOld);
-                return true;
-            }
-
-            var fileName =
-                $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload";
-
-            if (!File.Exists(fileName))
-            {
-                return false;
-                
-            }
-
-            File.Delete(fileName);
-
+            File.Delete(fileNameOld);
             return true;
         }
 
-        #endregion
+        var fileName =
+            $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload";
+
+        if (!File.Exists(fileName))
+        {
+            return false;
+                
+        }
+
+        File.Delete(fileName);
+
+        return true;
     }
+
+    #endregion
 }

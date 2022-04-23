@@ -22,32 +22,31 @@
  * under the License.
  */
 
-namespace YAF.Core.Data
+namespace YAF.Core.Data;
+
+using YAF.Configuration;
+using YAF.Types;
+
+/// <summary>
+/// Command Text Helpers
+/// </summary>
+public static class CommandTextHelpers
 {
-    using YAF.Configuration;
-    using YAF.Types;
-
     /// <summary>
-    /// Command Text Helpers
+    /// Gets command text replaced with {databaseOwner} and {objectQualifier}.
     /// </summary>
-    public static class CommandTextHelpers
+    /// <param name="commandText">
+    /// Test to transform.
+    /// </param>
+    /// <returns>
+    /// The get command text replaced.
+    /// </returns>
+    [NotNull]
+    public static string GetCommandTextReplaced([NotNull] string commandText)
     {
-        /// <summary>
-        /// Gets command text replaced with {databaseOwner} and {objectQualifier}.
-        /// </summary>
-        /// <param name="commandText">
-        /// Test to transform.
-        /// </param>
-        /// <returns>
-        /// The get command text replaced.
-        /// </returns>
-        [NotNull]
-        public static string GetCommandTextReplaced([NotNull] string commandText)
-        {
-            commandText = commandText.Replace("{databaseOwner}", Config.DatabaseOwner);
-            commandText = commandText.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
+        commandText = commandText.Replace("{databaseOwner}", Config.DatabaseOwner);
+        commandText = commandText.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
 
-            return commandText;
-        }
+        return commandText;
     }
 }

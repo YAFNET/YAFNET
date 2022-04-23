@@ -22,74 +22,73 @@
  * under the License.
  */
 
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.Extensions;
+
+#endregion
+
+/// <summary>
+///     The assembly extensions.
+/// </summary>
+public static class AssemblyExtensions
 {
-    #region Using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.Extensions;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The assembly extensions.
+    /// The find classes with attribute.
     /// </summary>
-    public static class AssemblyExtensions
+    /// <param name="assemblies">
+    /// The assemblies.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="IEnumerable"/>.
+    /// </returns>
+    [NotNull]
+    public static IEnumerable<Type> FindClassesWithAttribute<T>([NotNull] this IEnumerable<Assembly> assemblies)
+        where T : Attribute
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(assemblies);
 
-        /// <summary>
-        /// The find classes with attribute.
-        /// </summary>
-        /// <param name="assemblies">
-        /// The assemblies.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IEnumerable"/>.
-        /// </returns>
-        [NotNull]
-        public static IEnumerable<Type> FindClassesWithAttribute<T>([NotNull] this IEnumerable<Assembly> assemblies)
-            where T : Attribute
-        {
-            CodeContracts.VerifyNotNull(assemblies);
+        var moduleClassTypes = new List<Type>();
+        var attributeType = typeof(T);
 
-            var moduleClassTypes = new List<Type>();
-            var attributeType = typeof(T);
-
-            // get classes...
-            assemblies.Select(
-                a => a.GetExportedTypes().Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Any())
-                    .ToList()).ForEach(types => moduleClassTypes.AddRange(types));
+        // get classes...
+        assemblies.Select(
+            a => a.GetExportedTypes().Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Any())
+                .ToList()).ForEach(types => moduleClassTypes.AddRange(types));
             
-            return moduleClassTypes.Distinct();
-        }
-
-        /// <summary>
-        ///     The get assembly sort order.
-        /// </summary>
-        /// <param name="assembly">
-        ///     The assembly.
-        /// </param>
-        /// <returns>
-        ///     The get assembly sort order.
-        /// </returns>
-        public static int GetAssemblySortOrder([NotNull] this Assembly assembly)
-        {
-            CodeContracts.VerifyNotNull(assembly);
-
-            var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>();
-
-            return attribute.Any() ? attribute.First().SortOrder : 9999;
-        }
-
-        #endregion
+        return moduleClassTypes.Distinct();
     }
+
+    /// <summary>
+    ///     The get assembly sort order.
+    /// </summary>
+    /// <param name="assembly">
+    ///     The assembly.
+    /// </param>
+    /// <returns>
+    ///     The get assembly sort order.
+    /// </returns>
+    public static int GetAssemblySortOrder([NotNull] this Assembly assembly)
+    {
+        CodeContracts.VerifyNotNull(assembly);
+
+        var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>();
+
+        return attribute.Any() ? attribute.First().SortOrder : 9999;
+    }
+
+    #endregion
 }

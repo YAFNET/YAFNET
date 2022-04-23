@@ -22,134 +22,133 @@
  * under the License.
  */
 
-namespace YAF.Core.Modules
+namespace YAF.Core.Modules;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
+using Autofac;
+using Autofac.Core.Lifetime;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// The dynamic services module.
+/// </summary>
+public class DynamicServicesModule : BaseModule
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-
-    using Autofac;
-    using Autofac.Core.Lifetime;
-
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
+    #region Public Properties
 
     /// <summary>
-    /// The dynamic services module.
+    /// The sort order.
     /// </summary>
-    public class DynamicServicesModule : BaseModule
+    public override int SortOrder => 500;
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The load.
+    /// </summary>
+    /// <param name="builder">
+    /// The container builder.
+    /// </param>
+    protected override void Load(ContainerBuilder builder)
     {
-        #region Public Properties
+        // external first...
+        RegisterDynamicServices(builder, ExtensionAssemblies);
 
-        /// <summary>
-        /// The sort order.
-        /// </summary>
-        public override int SortOrder => 500;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The load.
-        /// </summary>
-        /// <param name="builder">
-        /// The container builder.
-        /// </param>
-        protected override void Load(ContainerBuilder builder)
-        {
-            // external first...
-            RegisterDynamicServices(builder, ExtensionAssemblies);
-
-            // internal bindings next...
-            RegisterDynamicServices(builder, new[] { Assembly.GetExecutingAssembly() });
-        }
-
-        /// <summary>
-        /// The register dynamic services.
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        /// <param name="assemblies">
-        /// The assemblies.
-        /// </param>
-        private static void RegisterDynamicServices(ContainerBuilder builder, [NotNull] Assembly[] assemblies)
-        {
-            CodeContracts.VerifyNotNull(assemblies);
-
-            var classes = assemblies.FindClassesWithAttribute<ExportServiceAttribute>();
-
-            var exclude = new List<Type>
-                              {
-                                  typeof(IDisposable), typeof(IHaveServiceLocator), typeof(IHaveLocalization)
-                              };
-
-            classes.ForEach(
-                c =>
-                    {
-                        var exportAttribute = c.GetAttribute<ExportServiceAttribute>();
-
-                        if (exportAttribute == null)
-                        {
-                            return;
-                        }
-
-                        var built = builder.RegisterType(c).As(c);
-
-                        Type[] typesToRegister;
-
-                        if (exportAttribute.RegisterSpecifiedTypes != null
-                            && exportAttribute.RegisterSpecifiedTypes.Any())
-                        {
-                            // only register types provided...
-                            typesToRegister = exportAttribute.RegisterSpecifiedTypes;
-                        }
-                        else
-                        {
-                            // register all associated interfaces including inherited interfaces
-                            typesToRegister = c.GetInterfaces().Where(i => !exclude.Contains(i)).ToArray();
-                        }
-
-                        built = exportAttribute.Named.IsSet()
-                                    ? typesToRegister.Aggregate(
-                                        built,
-                                        (current, regType) => current.Named(exportAttribute.Named, regType))
-                                    : typesToRegister.Aggregate(built, (current, regType) => current.As(regType));
-
-                        switch (exportAttribute.ServiceLifetimeScope)
-                        {
-                            case ServiceLifetimeScope.Singleton:
-                                built.SingleInstance();
-                                break;
-
-                            case ServiceLifetimeScope.Transient:
-                                built.ExternallyOwned();
-                                break;
-
-                            case ServiceLifetimeScope.OwnedByContainer:
-                                built.OwnedByLifetimeScope();
-                                break;
-
-                            case ServiceLifetimeScope.InstancePerScope:
-                                built.InstancePerLifetimeScope();
-                                break;
-
-                            case ServiceLifetimeScope.InstancePerDependency:
-                                built.InstancePerDependency();
-                                break;
-
-                            case ServiceLifetimeScope.InstancePerContext:
-                                built.InstancePerMatchingLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
-                                break;
-                        }
-                    });
-        }
-
-        #endregion
+        // internal bindings next...
+        RegisterDynamicServices(builder, new[] { Assembly.GetExecutingAssembly() });
     }
+
+    /// <summary>
+    /// The register dynamic services.
+    /// </summary>
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    /// <param name="assemblies">
+    /// The assemblies.
+    /// </param>
+    private static void RegisterDynamicServices(ContainerBuilder builder, [NotNull] Assembly[] assemblies)
+    {
+        CodeContracts.VerifyNotNull(assemblies);
+
+        var classes = assemblies.FindClassesWithAttribute<ExportServiceAttribute>();
+
+        var exclude = new List<Type>
+                          {
+                              typeof(IDisposable), typeof(IHaveServiceLocator), typeof(IHaveLocalization)
+                          };
+
+        classes.ForEach(
+            c =>
+                {
+                    var exportAttribute = c.GetAttribute<ExportServiceAttribute>();
+
+                    if (exportAttribute == null)
+                    {
+                        return;
+                    }
+
+                    var built = builder.RegisterType(c).As(c);
+
+                    Type[] typesToRegister;
+
+                    if (exportAttribute.RegisterSpecifiedTypes != null
+                        && exportAttribute.RegisterSpecifiedTypes.Any())
+                    {
+                        // only register types provided...
+                        typesToRegister = exportAttribute.RegisterSpecifiedTypes;
+                    }
+                    else
+                    {
+                        // register all associated interfaces including inherited interfaces
+                        typesToRegister = c.GetInterfaces().Where(i => !exclude.Contains(i)).ToArray();
+                    }
+
+                    built = exportAttribute.Named.IsSet()
+                                ? typesToRegister.Aggregate(
+                                    built,
+                                    (current, regType) => current.Named(exportAttribute.Named, regType))
+                                : typesToRegister.Aggregate(built, (current, regType) => current.As(regType));
+
+                    switch (exportAttribute.ServiceLifetimeScope)
+                    {
+                        case ServiceLifetimeScope.Singleton:
+                            built.SingleInstance();
+                            break;
+
+                        case ServiceLifetimeScope.Transient:
+                            built.ExternallyOwned();
+                            break;
+
+                        case ServiceLifetimeScope.OwnedByContainer:
+                            built.OwnedByLifetimeScope();
+                            break;
+
+                        case ServiceLifetimeScope.InstancePerScope:
+                            built.InstancePerLifetimeScope();
+                            break;
+
+                        case ServiceLifetimeScope.InstancePerDependency:
+                            built.InstancePerDependency();
+                            break;
+
+                        case ServiceLifetimeScope.InstancePerContext:
+                            built.InstancePerMatchingLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
+                            break;
+                    }
+                });
+    }
+
+    #endregion
 }

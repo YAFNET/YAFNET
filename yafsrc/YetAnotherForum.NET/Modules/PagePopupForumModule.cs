@@ -21,131 +21,130 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
-{
-    #region Using
+namespace YAF.Modules;
 
-    using YAF.Types.Attributes;
+#region Using
+
+using YAF.Types.Attributes;
+
+#endregion
+
+/// <summary>
+/// The Page Popup Module
+/// </summary>
+[Module("Page Popup Module", "Tiny Gecko", 1)]
+public class PagePopupForumModule : SimpleBaseForumModule
+{
+    #region Constants and Fields
+
+    /// <summary>
+    ///   The _error popup.
+    /// </summary>
+    private PopupDialogNotification errorPopup;
 
     #endregion
 
+    #region Public Methods
+
     /// <summary>
-    /// The Page Popup Module
+    /// The init after page.
     /// </summary>
-    [Module("Page Popup Module", "Tiny Gecko", 1)]
-    public class PagePopupForumModule : SimpleBaseForumModule
+    public override void InitAfterPage()
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _error popup.
-        /// </summary>
-        private PopupDialogNotification errorPopup;
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The init after page.
-        /// </summary>
-        public override void InitAfterPage()
+        if (this.errorPopup == null)
         {
-            if (this.errorPopup == null)
-            {
-                this.AddErrorPopup();
-            }
-
-            this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
-        }
-
-        /// <summary>
-        /// The init forum.
-        /// </summary>
-        public override void InitForum()
-        {
-            this.ForumControl.Init += this.ForumControl_Init;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The register load string.
-        /// </summary>
-        protected void RegisterLoadString()
-        {
-            var message = this.PageBoardContext.LoadMessage.GetMessage();
-
-            if (message == null)
-            {
-                return;
-            }
-
-            // Get the clean JS string.
-            message.Message = message.Message.ToJsString();
-
-            if (message.Message.IsNotSet())
-            {
-                return;
-            }
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                this.ForumControl.Page,
-                "modalNotification",
-                string
-                    .Format(
-                        "var fpModal = function() {{ {2}(\"{0}\", \"{1}\",\"{3}\"); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);",
-                        message.Message,
-                            message.MessageType.ToString().ToLower(),
-                            this.errorPopup.ShowModalFunction,
-                            message.Script.IsSet() ? message.Script : string.Empty));
-        }
-
-        /// <summary>
-        /// Sets up the Modal Error Popup Dialog
-        /// </summary>
-        private void AddErrorPopup()
-        {
-            if (this.ForumControl.FindControl("YafForumPageErrorPopup1") == null)
-            {
-                // add error control...
-                this.errorPopup = new PopupDialogNotification
-                {
-                    ID = "YafForumPageErrorPopup1"
-                };
-
-                this.ForumControl.Controls.Add(this.errorPopup);
-            }
-            else
-            {
-                // reference existing control...
-                this.errorPopup = (PopupDialogNotification)this.ForumControl.FindControl("YafForumPageErrorPopup1");
-            }
-        }
-
-        /// <summary>
-        /// Handles the PreRender event of the CurrentForumPage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.RegisterLoadString();
-        }
-
-        /// <summary>
-        /// Handles the Init event of the ForumControl control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ForumControl_Init([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // at this point, init has already been called...
             this.AddErrorPopup();
         }
 
-        #endregion
+        this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
     }
+
+    /// <summary>
+    /// The init forum.
+    /// </summary>
+    public override void InitForum()
+    {
+        this.ForumControl.Init += this.ForumControl_Init;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The register load string.
+    /// </summary>
+    protected void RegisterLoadString()
+    {
+        var message = this.PageBoardContext.LoadMessage.GetMessage();
+
+        if (message == null)
+        {
+            return;
+        }
+
+        // Get the clean JS string.
+        message.Message = message.Message.ToJsString();
+
+        if (message.Message.IsNotSet())
+        {
+            return;
+        }
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            this.ForumControl.Page,
+            "modalNotification",
+            string
+                .Format(
+                    "var fpModal = function() {{ {2}(\"{0}\", \"{1}\",\"{3}\"); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);",
+                    message.Message,
+                    message.MessageType.ToString().ToLower(),
+                    this.errorPopup.ShowModalFunction,
+                    message.Script.IsSet() ? message.Script : string.Empty));
+    }
+
+    /// <summary>
+    /// Sets up the Modal Error Popup Dialog
+    /// </summary>
+    private void AddErrorPopup()
+    {
+        if (this.ForumControl.FindControl("YafForumPageErrorPopup1") == null)
+        {
+            // add error control...
+            this.errorPopup = new PopupDialogNotification
+                                  {
+                                      ID = "YafForumPageErrorPopup1"
+                                  };
+
+            this.ForumControl.Controls.Add(this.errorPopup);
+        }
+        else
+        {
+            // reference existing control...
+            this.errorPopup = (PopupDialogNotification)this.ForumControl.FindControl("YafForumPageErrorPopup1");
+        }
+    }
+
+    /// <summary>
+    /// Handles the PreRender event of the CurrentForumPage control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.RegisterLoadString();
+    }
+
+    /// <summary>
+    /// Handles the Init event of the ForumControl control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    private void ForumControl_Init([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // at this point, init has already been called...
+        this.AddErrorPopup();
+    }
+
+    #endregion
 }

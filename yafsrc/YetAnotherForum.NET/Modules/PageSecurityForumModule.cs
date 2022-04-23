@@ -21,86 +21,85 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
-{
-    #region Using
+namespace YAF.Modules;
 
-    using YAF.Types.Attributes;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces.Events;
+#region Using
+
+using YAF.Types.Attributes;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+/// Module that handles individual page security features -- needs to be expanded.
+/// </summary>
+[Module("Page Security Module", "Tiny Gecko", 1)]
+public class PageSecurityForumModule : SimpleBaseForumModule
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PageSecurityForumModule"/> class.
+    /// </summary>
+    /// <param name="pagePreLoad">
+    /// The page pre load.
+    /// </param>
+    public PageSecurityForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> pagePreLoad)
+    {
+        pagePreLoad.HandleEvent += this.PagePreLoad_HandleEvent;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Module that handles individual page security features -- needs to be expanded.
+    /// The page pre load_ handle event.
     /// </summary>
-    [Module("Page Security Module", "Tiny Gecko", 1)]
-    public class PageSecurityForumModule : SimpleBaseForumModule
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void PagePreLoad_HandleEvent(
+        [NotNull] object sender,
+        [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PageSecurityForumModule"/> class.
-        /// </summary>
-        /// <param name="pagePreLoad">
-        /// The page pre load.
-        /// </param>
-        public PageSecurityForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> pagePreLoad)
+        // no security features for login/logout pages
+        if (this.CurrentForumPage.IsAccountPage)
         {
-            pagePreLoad.HandleEvent += this.PagePreLoad_HandleEvent;
+            return;
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The page pre load_ handle event.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void PagePreLoad_HandleEvent(
-            [NotNull] object sender,
-            [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
+        // check if login is required
+        if (this.PageBoardContext.BoardSettings.RequireLogin && this.PageBoardContext.IsGuest
+                                                             && this.CurrentForumPage.IsProtected)
         {
-            // no security features for login/logout pages
-            if (this.CurrentForumPage.IsAccountPage)
-            {
-                return;
-            }
-
-            // check if login is required
-            if (this.PageBoardContext.BoardSettings.RequireLogin && this.PageBoardContext.IsGuest
-                                                            && this.CurrentForumPage.IsProtected)
-            {
-                // redirect to login page if login is required
-                this.CurrentForumPage.RedirectNoAccess();
-            }
-
-            // check if it's a "registered user only page" and check permissions.
-            if (this.CurrentForumPage.IsRegisteredPage && this.CurrentForumPage.User == null)
-            {
-                this.CurrentForumPage.RedirectNoAccess();
-            }
-
-            // not totally necessary... but provides another layer of protection...
-            if (this.CurrentForumPage.IsAdminPage && !this.PageBoardContext.IsAdmin)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-                return;
-            }
-
-            // handle security features...
-            if (this.CurrentForumPage.PageType == ForumPages.Account_Register && this.PageBoardContext.BoardSettings.DisableRegistrations)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
+            // redirect to login page if login is required
+            this.CurrentForumPage.RedirectNoAccess();
         }
 
-        #endregion
+        // check if it's a "registered user only page" and check permissions.
+        if (this.CurrentForumPage.IsRegisteredPage && this.CurrentForumPage.User == null)
+        {
+            this.CurrentForumPage.RedirectNoAccess();
+        }
+
+        // not totally necessary... but provides another layer of protection...
+        if (this.CurrentForumPage.IsAdminPage && !this.PageBoardContext.IsAdmin)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+            return;
+        }
+
+        // handle security features...
+        if (this.CurrentForumPage.PageType == ForumPages.Account_Register && this.PageBoardContext.BoardSettings.DisableRegistrations)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
     }
+
+    #endregion
 }

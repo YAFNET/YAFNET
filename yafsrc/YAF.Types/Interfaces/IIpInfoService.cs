@@ -21,32 +21,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+using YAF.Types.Objects;
+
+/// <summary>
+/// The IP Info Service interface.
+/// </summary>
+public interface IIpInfoService
 {
-    using YAF.Types.Objects;
+    /// <summary>
+    /// Get the User IP Locator
+    /// </summary>
+    /// <returns>
+    /// The <see cref="IpLocator"/>.
+    /// </returns>
+    IpLocator GetUserIpLocator();
 
     /// <summary>
-    /// The IP Info Service interface.
+    /// Get the User IP Locator
     /// </summary>
-    public interface IIpInfoService
-    {
-        /// <summary>
-        /// Get the User IP Locator
-        /// </summary>
-        /// <returns>
-        /// The <see cref="IpLocator"/>.
-        /// </returns>
-        IpLocator GetUserIpLocator();
-
-        /// <summary>
-        /// Get the User IP Locator
-        /// </summary>
-        /// <param name="ipAddress">
-        /// The IP Address.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IpLocator"/>.
-        /// </returns>
-        IpLocator GetUserIpLocator(string ipAddress);
-    }
+    /// <param name="ipAddress">
+    /// The IP Address.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IpLocator"/>.
+    /// </returns>
+    IpLocator GetUserIpLocator(string ipAddress);
 }

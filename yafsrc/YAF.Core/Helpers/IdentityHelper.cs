@@ -22,59 +22,58 @@
  * under the License.
  */
 
-namespace YAF.Core.Helpers
+namespace YAF.Core.Helpers;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web;
+
+using Microsoft.Owin.Security;
+
+using YAF.Core.Context;
+using YAF.Types;
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// The identity helper class.
+/// </summary>
+public static class IdentityHelper
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net;
-    using System.Web;
-
-    using Microsoft.Owin.Security;
-
-    using YAF.Core.Context;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    /// Gets the provider names.
+    /// </summary>
+    /// <returns>
+    /// Returns the Provider Names
+    /// </returns>
+    public static IEnumerable<string> GetProviderNames()
+    {
+        return BoardContext.Current.Get<IAuthenticationManager>()
+            .GetExternalAuthenticationTypes().Select(t => t.AuthenticationType);
+    }
 
     /// <summary>
-    /// The identity helper class.
+    /// The register external login.
     /// </summary>
-    public static class IdentityHelper
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    /// <param name="provider">
+    /// The provider.
+    /// </param>
+    /// <param name="redirectUrl">
+    /// The redirect url.
+    /// </param>
+    public static void RegisterExternalLogin(
+        HttpContext context,
+        [NotNull] string provider,
+        [NotNull] string redirectUrl)
     {
-        /// <summary>
-        /// Gets the provider names.
-        /// </summary>
-        /// <returns>
-        /// Returns the Provider Names
-        /// </returns>
-        public static IEnumerable<string> GetProviderNames()
-        {
-            return BoardContext.Current.Get<IAuthenticationManager>()
-                .GetExternalAuthenticationTypes().Select(t => t.AuthenticationType);
-        }
+        var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
 
-        /// <summary>
-        /// The register external login.
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        /// <param name="provider">
-        /// The provider.
-        /// </param>
-        /// <param name="redirectUrl">
-        /// The redirect url.
-        /// </param>
-        public static void RegisterExternalLogin(
-            HttpContext context,
-            [NotNull] string provider,
-            [NotNull] string redirectUrl)
-        {
-            var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
+                                               SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
-                                                   SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
-
-            BoardContext.Current.Get<IAuthenticationManager>().Challenge(properties, provider);
-        }
+        BoardContext.Current.Get<IAuthenticationManager>().Challenge(properties, provider);
     }
 }

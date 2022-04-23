@@ -22,205 +22,204 @@
  * under the License.
  */
 
-namespace YAF.Core.Handlers
+namespace YAF.Core.Handlers;
+
+#region Using
+
+using System;
+using System.Net;
+using System.Web;
+using System.Web.SessionState;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// YAF Resource Handler for all kind of Stuff (Avatars, Attachments, Albums, etc.)
+/// </summary>
+public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceLocator
 {
-    #region Using
+    #region Properties
 
-    using System;
-    using System.Net;
-    using System.Web;
-    using System.Web.SessionState;
+    /// <summary>
+    ///   Gets a value indicating whether IsReusable.
+    /// </summary>
+    public bool IsReusable => false;
 
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+    /// <summary>
+    /// Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     #endregion
 
+    #region Implemented Interfaces
+
+    #region IHttpHandler
+
     /// <summary>
-    /// YAF Resource Handler for all kind of Stuff (Avatars, Attachments, Albums, etc.)
+    /// The process request.
     /// </summary>
-    public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceLocator
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    public void ProcessRequest([NotNull] HttpContext context)
     {
-        #region Properties
-
-        /// <summary>
-        ///   Gets a value indicating whether IsReusable.
-        /// </summary>
-        public bool IsReusable => false;
-
-        /// <summary>
-        /// Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IHttpHandler
-
-        /// <summary>
-        /// The process request.
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        public void ProcessRequest([NotNull] HttpContext context)
+        if (this.Get<ISession>().LastVisit.HasValue)
         {
-            if (this.Get<ISession>().LastVisit.HasValue)
+            // defaults
+            var previewCropped = false;
+            var localizationFile = "english.xml";
+
+            if (context.Session["imagePreviewCropped"] is bool)
             {
-                // defaults
-                var previewCropped = false;
-                var localizationFile = "english.xml";
+                previewCropped = context.Session["imagePreviewCropped"].ToType<bool>();
+            }
 
-                if (context.Session["imagePreviewCropped"] is bool)
-                {
-                    previewCropped = context.Session["imagePreviewCropped"].ToType<bool>();
-                }
+            if (context.Session["localizationFile"] is string)
+            {
+                localizationFile = context.Session["localizationFile"].ToString();
+            }
 
-                if (context.Session["localizationFile"] is string)
-                {
-                    localizationFile = context.Session["localizationFile"].ToString();
-                }
+            if (context.Session["localizationFile"] is string)
+            {
+                localizationFile = context.Session["localizationFile"].ToString();
+            }
 
-                if (context.Session["localizationFile"] is string)
-                {
-                    localizationFile = context.Session["localizationFile"].ToString();
-                }
+            /////////////
+            if (context.Request.QueryString.Exists("userinfo"))
+            {
+                this.Get<IResources>().GetUserInfo(context);
+            }
+            else if (context.Request.QueryString.Exists("bbcodelist"))
+            {
+                this.Get<IResources>().GetCustomBBCodes(context);
+            }
+            else if (context.Request.QueryString.Exists("users"))
+            {
+                this.Get<IResources>().GetMentionUsers(context);
+            }
+            else if (context.Request.QueryString.Exists("u"))
+            {
+                this.Get<IResources>().GetResponseLocalAvatar(context);
+            }
+            else if (context.Request.QueryString.Exists("avatar"))
+            {
+                this.Get<IResources>().GetTextAvatar(context);
+            }
+            else if (context.Request.QueryString.Exists("a"))
+            {
+                this.Get<IAttachment>().GetResponseAttachment(context);
+            }
+            else if (context.Request.QueryString.Exists("i"))
+            {
+                var etagCodeCode = $@"""{context.Request.QueryString.GetFirstOrDefault("i")}""";
 
-                /////////////
-                if (context.Request.QueryString.Exists("userinfo"))
+                if (!CheckETagCode(context, etagCodeCode))
                 {
-                    this.Get<IResources>().GetUserInfo(context);
-                }
-                else if (context.Request.QueryString.Exists("bbcodelist"))
-                {
-                    this.Get<IResources>().GetCustomBBCodes(context);
-                }
-                else if (context.Request.QueryString.Exists("users"))
-                {
-                    this.Get<IResources>().GetMentionUsers(context);
-                }
-                else if (context.Request.QueryString.Exists("u"))
-                {
-                    this.Get<IResources>().GetResponseLocalAvatar(context);
-                }
-                else if (context.Request.QueryString.Exists("avatar"))
-                {
-                    this.Get<IResources>().GetTextAvatar(context);
-                }
-                else if (context.Request.QueryString.Exists("a"))
-                {
-                    this.Get<IAttachment>().GetResponseAttachment(context);
-                }
-                else if (context.Request.QueryString.Exists("i"))
-                {
-                    var etagCodeCode = $@"""{context.Request.QueryString.GetFirstOrDefault("i")}""";
-
-                    if (!CheckETagCode(context, etagCodeCode))
-                    {
-                        this.Get<IAttachment>().GetResponseImage(context);
-                    }
-                }
-                else if (context.Request.QueryString.Exists("p"))
-                {
-                    var etagCodeCode =
-                        $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
-
-                    if (!CheckETagCode(context, etagCodeCode))
-                    {
-                        this.Get<IAlbum>().GetResponseImagePreview(context, localizationFile, previewCropped);
-                    }
-                }
-                else if (context.Request.QueryString.Exists("cover") && context.Request.QueryString.Exists("album"))
-                {
-                    var etagCode =
-                        $@"""{context.Request.QueryString.GetFirstOrDefault("cover")}{localizationFile.GetHashCode()}""";
-
-                    if (!CheckETagCode(context, etagCode))
-                    {
-                        // album cover
-                        this.Get<IAlbum>().GetAlbumCover(context, localizationFile, previewCropped);
-                    }
-                }
-                else if (context.Request.QueryString.Exists("imgprv"))
-                {
-                    // album image preview
-                    var etagCode =
-                        $@"""{context.Request.QueryString.GetFirstOrDefault("imgprv")}{localizationFile.GetHashCode()}""";
-
-                    if (!CheckETagCode(context, etagCode))
-                    {
-                        this.Get<IAlbum>().GetAlbumImagePreview(context, localizationFile, previewCropped);
-                    }
-                }
-                else if (context.Request.QueryString.Exists("image"))
-                {
-                    var etagCode = $@"""{context.Request.QueryString.GetFirstOrDefault("image")}""";
-
-                    if (!CheckETagCode(context, etagCode))
-                    {
-                        // album image
-                        this.Get<IAlbum>().GetAlbumImage(context);
-                    }
+                    this.Get<IAttachment>().GetResponseImage(context);
                 }
             }
-            else
+            else if (context.Request.QueryString.Exists("p"))
             {
-                // they don't have a session...
-                context.Response.Write(
-                    "Please do not link directly to this resource. You must have a session in the forum.");
+                var etagCodeCode =
+                    $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
+
+                if (!CheckETagCode(context, etagCodeCode))
+                {
+                    this.Get<IAlbum>().GetResponseImagePreview(context, localizationFile, previewCropped);
+                }
+            }
+            else if (context.Request.QueryString.Exists("cover") && context.Request.QueryString.Exists("album"))
+            {
+                var etagCode =
+                    $@"""{context.Request.QueryString.GetFirstOrDefault("cover")}{localizationFile.GetHashCode()}""";
+
+                if (!CheckETagCode(context, etagCode))
+                {
+                    // album cover
+                    this.Get<IAlbum>().GetAlbumCover(context, localizationFile, previewCropped);
+                }
+            }
+            else if (context.Request.QueryString.Exists("imgprv"))
+            {
+                // album image preview
+                var etagCode =
+                    $@"""{context.Request.QueryString.GetFirstOrDefault("imgprv")}{localizationFile.GetHashCode()}""";
+
+                if (!CheckETagCode(context, etagCode))
+                {
+                    this.Get<IAlbum>().GetAlbumImagePreview(context, localizationFile, previewCropped);
+                }
+            }
+            else if (context.Request.QueryString.Exists("image"))
+            {
+                var etagCode = $@"""{context.Request.QueryString.GetFirstOrDefault("image")}""";
+
+                if (!CheckETagCode(context, etagCode))
+                {
+                    // album image
+                    this.Get<IAlbum>().GetAlbumImage(context);
+                }
             }
         }
-
-        #endregion
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Check if the eTag Code that sent from the client is match to the current eTag Code.
-        ///   If so, set the status code to 'Not Modified' and stop the response.
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        /// <param name="etagCode">
-        /// The eTag Code.
-        /// </param>
-        /// <returns>
-        /// The check eTag code.
-        /// </returns>
-        private static bool CheckETagCode([NotNull] HttpContext context, [NotNull] string etagCode)
+        else
         {
-            var ifNoneMatch = context.Request.Headers["If-None-Match"];
-
-            if (!etagCode.Equals(ifNoneMatch, StringComparison.Ordinal))
-            {
-                return false;
-            }
-
-            if (context.Request.QueryString.Exists("v"))
-            {
-                return false;
-            }
-
-            context.Response.AppendHeader("Content-Length", "0");
-            context.Response.StatusCode = HttpStatusCode.NotModified.ToType<int>();
-            context.Response.StatusDescription = "Not modified";
-            context.Response.SuppressContent = true;
-            context.Response.Cache.SetCacheability(HttpCacheability.Public);
-            context.Response.Cache.SetETag(etagCode);
-            context.Response.Flush();
-
-            return true;
+            // they don't have a session...
+            context.Response.Write(
+                "Please do not link directly to this resource. You must have a session in the forum.");
         }
-
-        #endregion
     }
+
+    #endregion
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Check if the eTag Code that sent from the client is match to the current eTag Code.
+    ///   If so, set the status code to 'Not Modified' and stop the response.
+    /// </summary>
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    /// <param name="etagCode">
+    /// The eTag Code.
+    /// </param>
+    /// <returns>
+    /// The check eTag code.
+    /// </returns>
+    private static bool CheckETagCode([NotNull] HttpContext context, [NotNull] string etagCode)
+    {
+        var ifNoneMatch = context.Request.Headers["If-None-Match"];
+
+        if (!etagCode.Equals(ifNoneMatch, StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        if (context.Request.QueryString.Exists("v"))
+        {
+            return false;
+        }
+
+        context.Response.AppendHeader("Content-Length", "0");
+        context.Response.StatusCode = HttpStatusCode.NotModified.ToType<int>();
+        context.Response.StatusDescription = "Not modified";
+        context.Response.SuppressContent = true;
+        context.Response.Cache.SetCacheability(HttpCacheability.Public);
+        context.Response.Cache.SetETag(etagCode);
+        context.Response.Flush();
+
+        return true;
+    }
+
+    #endregion
 }

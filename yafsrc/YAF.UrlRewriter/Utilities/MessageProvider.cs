@@ -10,51 +10,50 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace YAF.UrlRewriter.Utilities
+namespace YAF.UrlRewriter.Utilities;
+
+using System.Collections.Generic;
+using System.Reflection;
+using System.Resources;
+
+/// <summary>
+/// Message provider.
+/// </summary>
+internal static class MessageProvider
 {
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Resources;
+    /// <summary>
+    /// The message cache.
+    /// </summary>
+    private static readonly IDictionary<Message, string> MessageCache = new Dictionary<Message, string>();
 
     /// <summary>
-    /// Message provider.
+    /// The resources.
     /// </summary>
-    internal static class MessageProvider
+    private static readonly ResourceManager Resources = new(Constants.Messages, Assembly.GetExecutingAssembly());
+
+    /// <summary>
+    /// Formats a string.
+    /// </summary>
+    /// <param name="message">The message ID</param>
+    /// <param name="args">The arguments</param>
+    /// <returns>The formatted string</returns>
+    public static string FormatString(Message message, params object[] args)
     {
-        /// <summary>
-        /// The message cache.
-        /// </summary>
-        private static readonly IDictionary<Message, string> MessageCache = new Dictionary<Message, string>();
+        string format;
 
-        /// <summary>
-        /// The resources.
-        /// </summary>
-        private static readonly ResourceManager Resources = new(Constants.Messages, Assembly.GetExecutingAssembly());
-
-        /// <summary>
-        /// Formats a string.
-        /// </summary>
-        /// <param name="message">The message ID</param>
-        /// <param name="args">The arguments</param>
-        /// <returns>The formatted string</returns>
-        public static string FormatString(Message message, params object[] args)
+        lock (MessageCache)
         {
-            string format;
-
-            lock (MessageCache)
+            if (MessageCache.ContainsKey(message))
             {
-                if (MessageCache.ContainsKey(message))
-                {
-                    format = MessageCache[message];
-                }
-                else
-                {
-                    format = Resources.GetString(message.ToString());
-                    MessageCache.Add(message, format);
-                }
+                format = MessageCache[message];
             }
-
-            return string.Format(format ?? string.Empty, args);
+            else
+            {
+                format = Resources.GetString(message.ToString());
+                MessageCache.Add(message, format);
+            }
         }
+
+        return string.Format(format ?? string.Empty, args);
     }
 }

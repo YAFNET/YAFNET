@@ -21,84 +21,83 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Context
+namespace YAF.Core.Context;
+
+using YAF.Core.Services;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// The load page lazy user data.
+/// </summary>
+[ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
+public class LoadPageLazyUserData : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
 {
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
+    #region Constants and Fields
 
     /// <summary>
-    /// The load page lazy user data.
+    ///   The data broker.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
-    public class LoadPageLazyUserData : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
+    private readonly DataBroker dataBroker;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LoadPageLazyUserData"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <param name="dataBroker">
+    /// The data Broker.
+    /// </param>
+    public LoadPageLazyUserData([NotNull] IServiceLocator serviceLocator, [NotNull] DataBroker dataBroker)
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The data broker.
-        /// </summary>
-        private readonly DataBroker dataBroker;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LoadPageLazyUserData"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <param name="dataBroker">
-        /// The data Broker.
-        /// </param>
-        public LoadPageLazyUserData([NotNull] IServiceLocator serviceLocator, [NotNull] DataBroker dataBroker)
-        {
-            this.dataBroker = dataBroker;
-            this.ServiceLocator = serviceLocator;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets Order.
-        /// </summary>
-        public int Order => 3000;
-
-        /// <summary>
-        ///   Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IHandleEvent<InitPageLoadEvent>
-
-        /// <summary>
-        /// Handles the specified @event.
-        /// </summary>
-        /// <param name="event">The @event.</param>
-        public void Handle([NotNull] InitPageLoadEvent @event)
-        { 
-            var activeUserLazyData = this.dataBroker.ActiveUserLazyData(@event.PageLoadData.Item1.UserID);
-
-            if (activeUserLazyData != null)
-            {
-                // add the lazy user data to this page data...
-                @event.UserLazyData = activeUserLazyData;
-            }
-        }
-
-        #endregion
-
-        #endregion
+        this.dataBroker = dataBroker;
+        this.ServiceLocator = serviceLocator;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets Order.
+    /// </summary>
+    public int Order => 3000;
+
+    /// <summary>
+    ///   Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IHandleEvent<InitPageLoadEvent>
+
+    /// <summary>
+    /// Handles the specified @event.
+    /// </summary>
+    /// <param name="event">The @event.</param>
+    public void Handle([NotNull] InitPageLoadEvent @event)
+    { 
+        var activeUserLazyData = this.dataBroker.ActiveUserLazyData(@event.PageLoadData.Item1.UserID);
+
+        if (activeUserLazyData != null)
+        {
+            // add the lazy user data to this page data...
+            @event.UserLazyData = activeUserLazyData;
+        }
+    }
+
+    #endregion
+
+    #endregion
 }

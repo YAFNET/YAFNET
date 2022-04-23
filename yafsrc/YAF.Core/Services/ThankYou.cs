@@ -22,210 +22,209 @@
  * under the License.
  */
 
-namespace YAF.Core.Services
-{
-    using System.Text;
-    using System.Web;
+namespace YAF.Core.Services;
 
-    using YAF.Configuration;
-    using YAF.Core.Extensions;
-    using YAF.Core.Model;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
-    using YAF.Types.Objects;
+using System.Text;
+using System.Web;
+
+using YAF.Configuration;
+using YAF.Core.Extensions;
+using YAF.Core.Model;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+
+/// <summary>
+///  ThankYou Class to handle Thanks
+/// </summary>
+public class ThankYou : IThankYou, IHaveServiceLocator
+{
+    #region Constructors and Destructors
 
     /// <summary>
-    ///  ThankYou Class to handle Thanks
+    /// Initializes a new instance of the <see cref="ThankYou"/> class.
     /// </summary>
-    public class ThankYou : IThankYou, IHaveServiceLocator
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public ThankYou(IServiceLocator serviceLocator)
     {
-        #region Constructors and Destructors
+        this.ServiceLocator = serviceLocator;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ThankYou"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        public ThankYou(IServiceLocator serviceLocator)
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Creates an instance of the thank you object from the current information.
+    /// </summary>
+    /// <param name="username">
+    /// The Current Username
+    /// </param>
+    /// <param name="textTag">
+    /// Button Text
+    /// </param>
+    /// <param name="titleTag">
+    /// Button  Title
+    /// </param>
+    /// <param name="messageId">
+    /// The message Id.
+    /// </param>
+    /// <returns>
+    /// Returns ThankYou Info
+    /// </returns>
+    [NotNull]
+    public ThankYouInfo CreateThankYou(
+        [NotNull] string username,
+        [NotNull] string textTag,
+        [NotNull] string titleTag,
+        int messageId)
+    {
+        return new()
+                   {
+                       MessageID = messageId,
+                       ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId, false),
+                       Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
+                       Title = this.Get<ILocalization>().GetText("BUTTON", titleTag)
+                   };
+    }
+
+    /// <summary>
+    /// Creates an instance of the thank you object from the current information.
+    /// </summary>
+    /// <param name="username">
+    /// The Current Username
+    /// </param>
+    /// <param name="textTag">
+    /// Button Text
+    /// </param>
+    /// <param name="titleTag">
+    /// Button  Title
+    /// </param>
+    /// <param name="messageId">
+    /// The message Id.
+    /// </param>
+    /// <returns>
+    /// Returns ThankYou Info
+    /// </returns>
+    [NotNull]
+    public ThankYouInfo GetThankYou(
+        [NotNull] string username,
+        [NotNull] string textTag,
+        [NotNull] string titleTag,
+        int messageId)
+    {
+        return new()
+                   {
+                       MessageID = messageId,
+                       ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId, true),
+                       Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
+                       Title = this.Get<ILocalization>().GetText("BUTTON", titleTag)
+                   };
+    }
+
+    /// <summary>
+    /// This method returns a string which shows how many times users have
+    ///   thanked the message with the provided messageID. Returns an empty string.
+    /// </summary>
+    /// <param name="username">
+    /// The username.
+    /// </param>
+    /// <param name="messageId">
+    /// The Message ID.
+    /// </param>
+    /// <param name="thanksInfoOnly">
+    /// The thank Info Only.
+    /// </param>
+    /// <returns>
+    /// The thanks number.
+    /// </returns>
+    public string ThanksInfo([NotNull] string username, int messageId, bool thanksInfoOnly)
+    {
+        var thanksNumber = this.GetRepository<Thanks>().Count(t => t.MessageID == messageId);
+
+        if (thanksNumber == 0)
         {
-            this.ServiceLocator = serviceLocator;
+            return "&nbsp;";
         }
 
-        #endregion
+        var thanksText = this.Get<ILocalization>()
+            .GetTextFormatted("THANKSINFO", thanksNumber, username);
 
-        #region Properties
+        var thanks = this.GetThanks(messageId);
 
-        /// <summary>
-        /// Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Creates an instance of the thank you object from the current information.
-        /// </summary>
-        /// <param name="username">
-        /// The Current Username
-        /// </param>
-        /// <param name="textTag">
-        /// Button Text
-        /// </param>
-        /// <param name="titleTag">
-        /// Button  Title
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <returns>
-        /// Returns ThankYou Info
-        /// </returns>
-        [NotNull]
-        public ThankYouInfo CreateThankYou(
-            [NotNull] string username,
-            [NotNull] string textTag,
-            [NotNull] string titleTag,
-            int messageId)
-        {
-            return new()
-            {
-                           MessageID = messageId,
-                           ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId, false),
-                           Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
-                           Title = this.Get<ILocalization>().GetText("BUTTON", titleTag)
-                       };
-        }
-
-        /// <summary>
-        /// Creates an instance of the thank you object from the current information.
-        /// </summary>
-        /// <param name="username">
-        /// The Current Username
-        /// </param>
-        /// <param name="textTag">
-        /// Button Text
-        /// </param>
-        /// <param name="titleTag">
-        /// Button  Title
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <returns>
-        /// Returns ThankYou Info
-        /// </returns>
-        [NotNull]
-        public ThankYouInfo GetThankYou(
-            [NotNull] string username,
-            [NotNull] string textTag,
-            [NotNull] string titleTag,
-            int messageId)
-        {
-            return new()
-            {
-                MessageID = messageId,
-                ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId, true),
-                Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
-                Title = this.Get<ILocalization>().GetText("BUTTON", titleTag)
-            };
-        }
-
-        /// <summary>
-        /// This method returns a string which shows how many times users have
-        ///   thanked the message with the provided messageID. Returns an empty string.
-        /// </summary>
-        /// <param name="username">
-        /// The username.
-        /// </param>
-        /// <param name="messageId">
-        /// The Message ID.
-        /// </param>
-        /// <param name="thanksInfoOnly">
-        /// The thank Info Only.
-        /// </param>
-        /// <returns>
-        /// The thanks number.
-        /// </returns>
-        public string ThanksInfo([NotNull] string username, int messageId, bool thanksInfoOnly)
-        {
-            var thanksNumber = this.GetRepository<Thanks>().Count(t => t.MessageID == messageId);
-
-            if (thanksNumber == 0)
-            {
-                return "&nbsp;";
-            }
-
-            var thanksText = this.Get<ILocalization>()
-                .GetTextFormatted("THANKSINFO", thanksNumber, username);
-
-            var thanks = this.GetThanks(messageId);
-
-            return thanksInfoOnly
-                ? thanks.Replace("\"", "'").Replace("<ol>", string.Empty).Replace("</ol>", string.Empty)
-                : $@"<a class=""btn btn-link thanks-popover"" 
+        return thanksInfoOnly
+                   ? thanks.Replace("\"", "'").Replace("<ol>", string.Empty).Replace("</ol>", string.Empty)
+                   : $@"<a class=""btn btn-link thanks-popover"" 
                            data-bs-toggle=""popover"" 
                            data-bs-trigger=""click hover""
                            data-bs-html=""true""
                            title=""{thanksText}"" 
                            data-bs-content=""{thanks.Replace("\"", "'")}"">
                                <i class=""fa fa-heart"" style= ""color:#e74c3c""></i>&nbsp;+{thanksNumber}</a>";
-        }
-
-        /// <summary>
-        /// This method returns a string containing the HTML code for
-        ///   showing the the post footer. the HTML content is the name of users
-        ///   who thanked the post and the date they thanked.
-        /// </summary>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <returns>
-        /// The get thanks.
-        /// </returns>
-        [NotNull]
-        private string GetThanks([NotNull] int messageId)
-        {
-            var filler = new StringBuilder();
-
-            var thanks = this.GetRepository<Thanks>().MessageGetThanksList(messageId);
-
-            filler.Append("<ol>");
-
-            thanks.ForEach(
-                dr =>
-                    {
-                        var name = this.Get<HttpServerUtilityBase>()
-                                           .HtmlEncode(dr.Item2.DisplayOrUserName());
-
-                        // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
-                        filler.AppendFormat(
-                            @"<li class=""list-inline-item""><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
-                            dr.Item2.ID,
-                            this.Get<LinkBuilder>().GetUserProfileLink(dr.Item2.ID, name),
-                            name);
-
-                        if (this.Get<BoardSettings>().ShowThanksDate)
-                        {
-                            filler.AppendFormat(
-                                " {0}",
-                                this.Get<ILocalization>().GetTextFormatted(
-                                    "ONDATE",
-                                    this.Get<IDateTimeService>().FormatDateShort(dr.Item1.ThanksDate)));
-                        }
-
-                        filler.Append("</li>");
-                    });
-
-            filler.Append("</ol>");
-
-            return filler.ToString();
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// This method returns a string containing the HTML code for
+    ///   showing the the post footer. the HTML content is the name of users
+    ///   who thanked the post and the date they thanked.
+    /// </summary>
+    /// <param name="messageId">
+    /// The message Id.
+    /// </param>
+    /// <returns>
+    /// The get thanks.
+    /// </returns>
+    [NotNull]
+    private string GetThanks([NotNull] int messageId)
+    {
+        var filler = new StringBuilder();
+
+        var thanks = this.GetRepository<Thanks>().MessageGetThanksList(messageId);
+
+        filler.Append("<ol>");
+
+        thanks.ForEach(
+            dr =>
+                {
+                    var name = this.Get<HttpServerUtilityBase>()
+                        .HtmlEncode(dr.Item2.DisplayOrUserName());
+
+                    // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
+                    filler.AppendFormat(
+                        @"<li class=""list-inline-item""><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
+                        dr.Item2.ID,
+                        this.Get<LinkBuilder>().GetUserProfileLink(dr.Item2.ID, name),
+                        name);
+
+                    if (this.Get<BoardSettings>().ShowThanksDate)
+                    {
+                        filler.AppendFormat(
+                            " {0}",
+                            this.Get<ILocalization>().GetTextFormatted(
+                                "ONDATE",
+                                this.Get<IDateTimeService>().FormatDateShort(dr.Item1.ThanksDate)));
+                    }
+
+                    filler.Append("</li>");
+                });
+
+        filler.Append("</ol>");
+
+        return filler.ToString();
+    }
+
+    #endregion
 }

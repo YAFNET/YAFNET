@@ -21,50 +21,50 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Tasks
-{
-    using System;
-    using System.Linq;
+namespace YAF.Core.Tasks;
+
+using System;
+using System.Linq;
     
-    using YAF.Core.Extensions;
-    using YAF.Core.Model;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
+using YAF.Core.Extensions;
+using YAF.Core.Model;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+
+/// <summary>
+/// Does some user clean up tasks such as un-suspending users...
+/// </summary>
+public class UserCleanUpTask : IntermittentBackgroundTask
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserCleanUpTask"/> class.
+    /// </summary>
+    public UserCleanUpTask()
+    {
+        // set interval values...
+        this.RunPeriodMs = 3600000;
+        this.StartDelayMs = 30000;
+    }
 
     /// <summary>
-    /// Does some user clean up tasks such as un-suspending users...
+    /// Gets TaskName.
     /// </summary>
-    public class UserCleanUpTask : IntermittentBackgroundTask
+    public static string TaskName => "UserCleanUpTask";
+
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public override void RunOnce()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserCleanUpTask"/> class.
-        /// </summary>
-        public UserCleanUpTask()
+        try
         {
-            // set interval values...
-            this.RunPeriodMs = 3600000;
-            this.StartDelayMs = 30000;
-        }
+            // get all boards...
+            var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
 
-        /// <summary>
-        /// Gets TaskName.
-        /// </summary>
-        public static string TaskName => "UserCleanUpTask";
-
-        /// <summary>
-        /// The run once.
-        /// </summary>
-        public override void RunOnce()
-        {
-            try
-            {
-                // get all boards...
-                var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
-
-                // go through each board...
-                boardIds.ForEach(
-                    id =>
+            // go through each board...
+            boardIds.ForEach(
+                id =>
                     {
                         // Check for users ...
                         var users = this.GetRepository<User>().Get(
@@ -73,11 +73,10 @@ namespace YAF.Core.Tasks
                         // un-suspend these users...
                         users.ForEach(user => this.GetRepository<User>().Suspend(user.ID));
                     });
-            }
-            catch (Exception x)
-            {
-                this.Logger.Error(x, $"Error In {TaskName} Task");
-            }
+        }
+        catch (Exception x)
+        {
+            this.Logger.Error(x, $"Error In {TaskName} Task");
         }
     }
 }

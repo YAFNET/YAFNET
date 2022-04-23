@@ -21,31 +21,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The spam Message Handling
+/// </summary>
+public enum SpamPostHandling
 {
     /// <summary>
-    /// The spam Message Handling
+    /// Do nothing.
     /// </summary>
-    public enum SpamPostHandling
-    {
-        /// <summary>
-        /// Do nothing.
-        /// </summary>
-        DoNothing = 0,
+    DoNothing = 0,
 
-        /// <summary>
-        /// Flag Message as Unapproved
-        /// </summary>
-        FlagMessageUnapproved = 1,
+    /// <summary>
+    /// Flag Message as Unapproved
+    /// </summary>
+    FlagMessageUnapproved = 1,
 
-        /// <summary>
-        /// Don't allow posting
-        /// </summary>
-        RejectMessage = 2,
+    /// <summary>
+    /// Don't allow posting
+    /// </summary>
+    RejectMessage = 2,
 
-        /// <summary>
-        /// Delete and Ban User
-        /// </summary>
-        DeleteBanUser = 3
-    }
+    /// <summary>
+    /// Delete and Ban User
+    /// </summary>
+    DeleteBanUser = 3
 }

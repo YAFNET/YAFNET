@@ -22,70 +22,69 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Interfaces.Data;
+
+using System;
+using System.Collections.Generic;
+using System.Data;
+
+/// <summary>
+/// The Database Information Interface
+/// </summary>
+public interface IDbInformation
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
+    /// <summary>
+    /// Gets or sets the DB Connection String
+    /// </summary>
+    Func<string> ConnectionString { get; set; }
 
     /// <summary>
-    /// The Database Information Interface
+    /// Gets the DB Provider Name
     /// </summary>
-    public interface IDbInformation
-    {
-        /// <summary>
-        /// Gets or sets the DB Connection String
-        /// </summary>
-        Func<string> ConnectionString { get; set; }
+    string ProviderName { get; }
 
-        /// <summary>
-        /// Gets the DB Provider Name
-        /// </summary>
-        string ProviderName { get; }
+    /// <summary>
+    ///     Gets the YAF Provider Upgrade script list
+    /// </summary>
+    IEnumerable<string> IdentityUpgradeScripts { get; }
 
-        /// <summary>
-        ///     Gets the YAF Provider Upgrade script list
-        /// </summary>
-        IEnumerable<string> IdentityUpgradeScripts { get; }
+    /// <summary>
+    /// Gets the DB Connection Parameters.
+    /// </summary>
+    IDbConnectionParam[] DbConnectionParameters { get; }
 
-        /// <summary>
-        /// Gets the DB Connection Parameters.
-        /// </summary>
-        IDbConnectionParam[] DbConnectionParameters { get; }
+    /// <summary>
+    /// Builds a connection string.
+    /// </summary>
+    /// <param name="parameters">The Connection Parameters</param>
+    /// <returns>Returns the Connection String</returns>
+    string BuildConnectionString(IEnumerable<IDbConnectionParam> parameters);
 
-        /// <summary>
-        /// Builds a connection string.
-        /// </summary>
-        /// <param name="parameters">The Connection Parameters</param>
-        /// <returns>Returns the Connection String</returns>
-        string BuildConnectionString(IEnumerable<IDbConnectionParam> parameters);
+    /// <summary>
+    /// Create Table Views
+    /// </summary>
+    /// <param name="dbAccess">
+    /// The database access.
+    /// </param>
+    /// <param name="dbCommand">
+    /// The database command.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    bool CreateViews(IDbAccess dbAccess, IDbCommand dbCommand);
 
-        /// <summary>
-        /// Create Table Views
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The database access.
-        /// </param>
-        /// <param name="dbCommand">
-        /// The database command.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        bool CreateViews(IDbAccess dbAccess, IDbCommand dbCommand);
-
-        /// <summary>
-        /// Create Indexes on Table Views
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The database access.
-        /// </param>
-        /// <param name="dbCommand">
-        /// The database command.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        bool CreateIndexViews(IDbAccess dbAccess, IDbCommand dbCommand);
-    }
+    /// <summary>
+    /// Create Indexes on Table Views
+    /// </summary>
+    /// <param name="dbAccess">
+    /// The database access.
+    /// </param>
+    /// <param name="dbCommand">
+    /// The database command.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    bool CreateIndexViews(IDbAccess dbAccess, IDbCommand dbCommand);
 }

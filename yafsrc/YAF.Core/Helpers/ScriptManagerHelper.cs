@@ -21,43 +21,43 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Helpers
-{
-    using System.Web.UI;
+namespace YAF.Core.Helpers;
 
-    using YAF.Configuration;
-    using YAF.Types.Extensions;
+using System.Web.UI;
+
+using YAF.Configuration;
+using YAF.Types.Extensions;
+
+/// <summary>
+/// The ScriptManager helper Class.
+/// </summary>
+public static class ScriptManagerHelper
+{
+    #region Public Methods
 
     /// <summary>
-    /// The ScriptManager helper Class.
+    /// Registers the jQuery script library.
     /// </summary>
-    public static class ScriptManagerHelper
+    public static void RegisterJQuery()
     {
-        #region Public Methods
+        string jqueryUrl;
 
-        /// <summary>
-        /// Registers the jQuery script library.
-        /// </summary>
-        public static void RegisterJQuery()
+        // Check if override file is set ?
+        if (Config.JQueryOverrideFile.IsSet())
         {
-            string jqueryUrl;
+            jqueryUrl = !Config.JQueryOverrideFile.StartsWith("http") && !Config.JQueryOverrideFile.StartsWith("//")
+                            ? BoardInfo.GetURLToScripts(Config.JQueryOverrideFile)
+                            : Config.JQueryOverrideFile;
+        }
+        else
+        {
+            jqueryUrl = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.min.js");
+        }
 
-            // Check if override file is set ?
-            if (Config.JQueryOverrideFile.IsSet())
-            {
-                jqueryUrl = !Config.JQueryOverrideFile.StartsWith("http") && !Config.JQueryOverrideFile.StartsWith("//")
-                    ? BoardInfo.GetURLToScripts(Config.JQueryOverrideFile)
-                    : Config.JQueryOverrideFile;
-            }
-            else
-            {
-                jqueryUrl = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.min.js");
-            }
-
-            // load jQuery
-            ScriptManager.ScriptResourceMapping.AddDefinition(
-                "jquery",
-                new ScriptResourceDefinition
+        // load jQuery
+        ScriptManager.ScriptResourceMapping.AddDefinition(
+            "jquery",
+            new ScriptResourceDefinition
                 {
                     Path = jqueryUrl,
                     DebugPath = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
@@ -66,8 +66,7 @@ namespace YAF.Core.Helpers
                     CdnSupportsSecureConnection = true,
                     LoadSuccessExpression = "window.jQuery"
                 });
-        }
-
-        #endregion
     }
+
+    #endregion
 }

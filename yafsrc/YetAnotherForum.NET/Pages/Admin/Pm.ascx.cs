@@ -22,87 +22,86 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+#region Using
+using YAF.Types.Models;
+#endregion
+
+/// <summary>
+/// The Admin Private messages page
+/// </summary>
+public partial class Pm : AdminPage
 {
-    #region Using
-    using YAF.Types.Models;
-    #endregion
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The Admin Private messages page
+    /// Initializes a new instance of the <see cref="Pm"/> class. 
     /// </summary>
-    public partial class Pm : AdminPage
+    public Pm()
+        : base("ADMIN_PM", ForumPages.Admin_Pm)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Pm"/> class. 
-        /// </summary>
-        public Pm()
-            : base("ADMIN_PM", ForumPages.Admin_Pm)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>Raises the <see cref="E:System.Web.UI.Control.Init"/> event.</summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            this.commit.Click += this.CommitClick;
-            base.OnInit(e);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddAdminIndex();
-            this.PageLinks.AddLink(this.GetText("ADMIN_PM", "TITLE"), string.Empty);
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            this.Days1.Text = "60";
-            this.Days2.Text = "180";
-
-            this.Count.Text = this.GetRepository<UserPMessage>().Count(m => (m.Flags & 8) != 8).ToString();
-        }
-
-        /// <summary>
-        /// Commits the click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CommitClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.GetRepository<PMessage>().PruneAll(this.Days1.Text.ToType<int>(), this.Days2.Text.ToType<int>());
-
-            this.BindData();
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>Raises the <see cref="E:System.Web.UI.Control.Init"/> event.</summary>
+    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+        this.commit.Click += this.CommitClick;
+        base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddAdminIndex();
+        this.PageLinks.AddLink(this.GetText("ADMIN_PM", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        this.Days1.Text = "60";
+        this.Days2.Text = "180";
+
+        this.Count.Text = this.GetRepository<UserPMessage>().Count(m => (m.Flags & 8) != 8).ToString();
+    }
+
+    /// <summary>
+    /// Commits the click.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    private void CommitClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.GetRepository<PMessage>().PruneAll(this.Days1.Text.ToType<int>(), this.Days2.Text.ToType<int>());
+
+        this.BindData();
+    }
+
+    #endregion
 }

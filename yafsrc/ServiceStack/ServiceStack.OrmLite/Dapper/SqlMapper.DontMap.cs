@@ -4,16 +4,15 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-namespace ServiceStack.OrmLite.Dapper
+namespace ServiceStack.OrmLite.Dapper;
+
+/// <summary>
+/// Class SqlMapper.
+/// </summary>
+public static partial class SqlMapper
 {
     /// <summary>
-    /// Class SqlMapper.
+    /// Dummy type for excluding from multi-map
     /// </summary>
-    public static partial class SqlMapper
-    {
-        /// <summary>
-        /// Dummy type for excluding from multi-map
-        /// </summary>
-        private class DontMap { /* hiding constructor */ }
-    }
+    private class DontMap { /* hiding constructor */ }
 }

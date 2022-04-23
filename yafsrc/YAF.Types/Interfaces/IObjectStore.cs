@@ -21,58 +21,57 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
-{
-    #region Using
+namespace YAF.Types.Interfaces;
 
-    using System;
-    using System.Collections.Generic;
+#region Using
+
+using System;
+using System.Collections.Generic;
+
+#endregion
+
+/// <summary>
+/// The i object store.
+/// </summary>
+public interface IObjectStore : IReadValue<object>, IWriteValue<object>, IRemoveValue
+{
+    #region Indexers
+
+    /// <summary>
+    ///   The this.
+    /// </summary>
+    /// <param name = "key">
+    ///   The key.
+    /// </param>
+    object this[[NotNull] string key] { get; set; }
 
     #endregion
 
+    #region Public Methods
+
     /// <summary>
-    /// The i object store.
+    /// Gets all the cache elements of type T as a KeyValuePair Enumerable. If T is object, all object types should be returned.
     /// </summary>
-    public interface IObjectStore : IReadValue<object>, IWriteValue<object>, IRemoveValue
-    {
-        #region Indexers
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    IEnumerable<KeyValuePair<string, T>> GetAll<T>();
 
-        /// <summary>
-        ///   The this.
-        /// </summary>
-        /// <param name = "key">
-        ///   The key.
-        /// </param>
-        object this[[NotNull] string key] { get; set; }
+    /// <summary>
+    /// Gets the cache value if it's in the cache or sets it if it doesn't exist or is expired.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="getValue">
+    /// The get value.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue);
 
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Gets all the cache elements of type T as a KeyValuePair Enumerable. If T is object, all object types should be returned.
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// </returns>
-        IEnumerable<KeyValuePair<string, T>> GetAll<T>();
-
-        /// <summary>
-        /// Gets the cache value if it's in the cache or sets it if it doesn't exist or is expired.
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <param name="getValue">
-        /// The get value.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue);
-
-        #endregion
-    }
+    #endregion
 }

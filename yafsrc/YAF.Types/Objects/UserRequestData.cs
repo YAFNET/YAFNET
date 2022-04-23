@@ -22,20 +22,19 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System;
+
+public class UserRequestData
 {
-    using System;
+    public bool DontTrack { get; set; }
 
-    public class UserRequestData
-    {
-        public bool DontTrack { get; set; }
+    public string UserAgent { get; set; }
 
-        public string UserAgent { get; set; }
+    public bool IsSearchEngine { get; set; }
 
-        public bool IsSearchEngine { get; set; }
+    public string Browser { get; set; }
 
-        public string Browser { get; set; }
-
-        public string Platform { get; set; }
-    }
+    public string Platform { get; set; }
 }

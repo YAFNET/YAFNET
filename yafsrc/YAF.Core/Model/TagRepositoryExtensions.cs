@@ -21,55 +21,54 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// The Tag repository extensions.
+/// </summary>
+public static class TagRepositoryExtensions
 {
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The Tag repository extensions.
+    /// Adds New Tag
     /// </summary>
-    public static class TagRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="tagName">
+    /// The tag name.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <returns>
+    /// Returns the new Tag Id.
+    /// </returns>
+    public static int Add(
+        this IRepository<Tag> repository,
+        [NotNull] string tagName,
+        [CanBeNull] int? boardId = null)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Adds New Tag
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="tagName">
-        /// The tag name.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// Returns the new Tag Id.
-        /// </returns>
-        public static int Add(
-            this IRepository<Tag> repository,
-            [NotNull] string tagName,
-            [CanBeNull] int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        var newId = repository.Insert(
+            new Tag
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    TagName = tagName
+                });
 
-            var newId = repository.Insert(
-                new Tag
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        TagName = tagName
-                    });
+        repository.FireNew(newId);
 
-            repository.FireNew(newId);
-
-            return newId;
-        }
-
-        #endregion
+        return newId;
     }
+
+    #endregion
 }

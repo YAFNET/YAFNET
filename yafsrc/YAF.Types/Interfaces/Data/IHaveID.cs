@@ -21,20 +21,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The HaveID interface.
+/// </summary>
+public interface IHaveID
 {
+    #region Public Properties
+
     /// <summary>
-    /// The HaveID interface.
+    /// Gets or sets the id.
     /// </summary>
-    public interface IHaveID
-    {
-        #region Public Properties
+    int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        int ID { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

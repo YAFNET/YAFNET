@@ -21,48 +21,47 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
-{
-    using System.Collections.Generic;
+namespace YAF.Types.Interfaces.Services;
 
-    using YAF.Types.Models;
+using System.Collections.Generic;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// User Display Name interface.
+/// </summary>
+public interface IUserDisplayName
+{
+    /// <summary>
+    /// Get the Display Name from a <paramref name="userId"/>
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    string GetNameById(int userId);
 
     /// <summary>
-    /// User Display Name interface.
+    /// Find user
     /// </summary>
-    public interface IUserDisplayName
-    {
-        /// <summary>
-        /// Get the Display Name from a <paramref name="userId"/>
-        /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        string GetNameById(int userId);
+    /// <param name="contains">The contains.</param>
+    /// <returns>
+    /// Returns the Found User
+    /// </returns>
+    [NotNull]
+    IList<User> FindUserContainsName(string contains);
 
-        /// <summary>
-        /// Find user
-        /// </summary>
-        /// <param name="contains">The contains.</param>
-        /// <returns>
-        /// Returns the Found User
-        /// </returns>
-        [NotNull]
-        IList<User> FindUserContainsName(string contains);
-
-        /// <summary>
-        /// Find User By (Display) Name
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="User"/>.
-        /// </returns>
-        [NotNull]
-        User FindUserByName([NotNull] string name);
-    }
+    /// <summary>
+    /// Find User By (Display) Name
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="User"/>.
+    /// </returns>
+    [NotNull]
+    User FindUserByName([NotNull] string name);
 }

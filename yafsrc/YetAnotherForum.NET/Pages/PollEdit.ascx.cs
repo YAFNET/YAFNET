@@ -22,185 +22,185 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// The Poll Edit Page.
+/// </summary>
+public partial class PollEdit : ForumPage
 {
-    using YAF.Types.Models;
+    #region Constants and Fields
 
     /// <summary>
-    /// The Poll Edit Page.
+    /// The topic unapproved.
     /// </summary>
-    public partial class PollEdit : ForumPage
+    private bool topicUnapproved;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PollEdit"/> class.
+    ///   Initializes a new instance of the ReportPost class.
+    /// </summary>
+    public PollEdit()
+        : base("POLLEDIT", ForumPages.PollEdit)
     {
-        #region Constants and Fields
+    }
 
-        /// <summary>
-        /// The topic unapproved.
-        /// </summary>
-        private bool topicUnapproved;
+    #endregion
 
-        #endregion
+    #region Properties
 
-        #region Constructors and Destructors
+    /// <summary>
+    /// Gets or sets PollID.
+    /// </summary>
+    protected int? PollId { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PollEdit"/> class.
-        ///   Initializes a new instance of the ReportPost class.
-        /// </summary>
-        public PollEdit()
-            : base("POLLEDIT", ForumPages.PollEdit)
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="eventArgs">
+    /// The event args.
+    /// </param>
+    protected void Cancel_Click(object sender, EventArgs eventArgs)
+    {
+        this.ReturnToPage();
+    }
+
+    /// <summary>
+    /// The is input verified.
+    /// </summary>
+    /// <returns>
+    /// Return if input is verified.
+    /// </returns>
+    protected bool IsInputVerified()
+    {
+        if (this.Question.Text.Trim().Length == 0)
         {
+            this.PageBoardContext.Notify(this.GetText("POLLEDIT", "NEED_QUESTION"), MessageTypes.warning);
+            return false;
         }
 
-        #endregion
+        this.Question.Text = HtmlHelper.StripHtml(this.Question.Text);
 
-        #region Properties
+        var count =
+            (from RepeaterItem ri in this.ChoiceRepeater.Items
+             select ri.FindControlAs<TextBox>("PollChoice").Text.Trim()).Count(value => value.IsSet());
 
-        /// <summary>
-        /// Gets or sets PollID.
-        /// </summary>
-        protected int? PollId { get; set; }
+        if (count < 2)
+        {
+            this.PageBoardContext.Notify(this.GetText("POLLEDIT", "NEED_CHOICES"), MessageTypes.warning);
+            return false;
+        }
 
-        #endregion
+        // Set default value
+        if (this.PollExpire.Text.IsNotSet() && this.IsClosedBoundCheckBox.Checked)
+        {
+            this.PollExpire.Text = "1";
+        }
 
-        #region Methods
+        return true;
+    }
 
-        /// <summary>
-        /// The cancel_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="eventArgs">
-        /// The event args.
-        /// </param>
-        protected void Cancel_Click(object sender, EventArgs eventArgs)
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.InitializeVariables();
+
+        this.PollObjectRow1.Visible =
+            (this.PageBoardContext.IsAdmin || this.PageBoardContext.BoardSettings.AllowUsersImagedPoll) &&
+            this.PageBoardContext.ForumPollAccess;
+    }
+
+    /// <summary>
+    /// The save poll_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="eventArgs">
+    /// The event args.
+    /// </param>
+    protected void SavePoll_Click(object sender, EventArgs eventArgs)
+    {
+        if (!this.PageBoardContext.ForumPollAccess || !this.IsInputVerified())
+        {
+            return;
+        }
+
+        if (this.CreateOrUpdatePoll())
         {
             this.ReturnToPage();
         }
+    }
 
-        /// <summary>
-        /// The is input verified.
-        /// </summary>
-        /// <returns>
-        /// Return if input is verified.
-        /// </returns>
-        protected bool IsInputVerified()
+    /// <summary>
+    /// Adds page links to the page
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+    }
+
+    /// <summary>
+    /// Checks access rights for the page
+    /// </summary>
+    private void CheckAccess()
+    {
+        if (this.PageBoardContext.PageForumID > 0 && !this.PageBoardContext.ForumPollAccess)
         {
-            if (this.Question.Text.Trim().Length == 0)
-            {
-                this.PageBoardContext.Notify(this.GetText("POLLEDIT", "NEED_QUESTION"), MessageTypes.warning);
-                return false;
-            }
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+        }
+    }
 
-            this.Question.Text = HtmlHelper.StripHtml(this.Question.Text);
+    /// <summary>
+    /// The save poll.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    private bool CreateOrUpdatePoll()
+    {
+        DateTime? datePollExpire = null;
 
-            var count =
-                (from RepeaterItem ri in this.ChoiceRepeater.Items
-                 select ri.FindControlAs<TextBox>("PollChoice").Text.Trim()).Count(value => value.IsSet());
-
-            if (count < 2)
-            {
-                this.PageBoardContext.Notify(this.GetText("POLLEDIT", "NEED_CHOICES"), MessageTypes.warning);
-                return false;
-            }
-
-            // Set default value
-            if (this.PollExpire.Text.IsNotSet() && this.IsClosedBoundCheckBox.Checked)
-            {
-                this.PollExpire.Text = "1";
-            }
-
-            return true;
+        if (this.PollExpire.Text.IsSet())
+        {
+            datePollExpire = DateTime.UtcNow.AddDays(this.PollExpire.Text.ToType<int>());
         }
 
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load(object sender, EventArgs e)
+        // we are just using existing poll
+        if (this.PollId != null)
         {
-            this.InitializeVariables();
+            this.GetRepository<Poll>().Update(
+                this.PollId.Value,
+                this.Question.Text,
+                datePollExpire,
+                this.IsClosedBoundCheckBox.Checked,
+                this.AllowMultipleChoicesCheckBox.Checked,
+                this.ShowVotersCheckBox.Checked,
+                this.QuestionObjectPath.Text);
 
-            this.PollObjectRow1.Visible =
-                (this.PageBoardContext.IsAdmin || this.PageBoardContext.BoardSettings.AllowUsersImagedPoll) &&
-                this.PageBoardContext.ForumPollAccess;
-        }
-
-        /// <summary>
-        /// The save poll_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="eventArgs">
-        /// The event args.
-        /// </param>
-        protected void SavePoll_Click(object sender, EventArgs eventArgs)
-        {
-            if (!this.PageBoardContext.ForumPollAccess || !this.IsInputVerified())
-            {
-                return;
-            }
-
-            if (this.CreateOrUpdatePoll())
-            {
-                this.ReturnToPage();
-            }
-        }
-
-        /// <summary>
-        /// Adds page links to the page
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-        }
-
-        /// <summary>
-        /// Checks access rights for the page
-        /// </summary>
-        private void CheckAccess()
-        {
-            if (this.PageBoardContext.PageForumID > 0 && !this.PageBoardContext.ForumPollAccess)
-            {
-                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
-            }
-        }
-
-        /// <summary>
-        /// The save poll.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        private bool CreateOrUpdatePoll()
-        {
-            DateTime? datePollExpire = null;
-
-            if (this.PollExpire.Text.IsSet())
-            {
-                datePollExpire = DateTime.UtcNow.AddDays(this.PollExpire.Text.ToType<int>());
-            }
-
-            // we are just using existing poll
-            if (this.PollId != null)
-            {
-                this.GetRepository<Poll>().Update(
-                    this.PollId.Value,
-                    this.Question.Text,
-                    datePollExpire,
-                    this.IsClosedBoundCheckBox.Checked,
-                    this.AllowMultipleChoicesCheckBox.Checked,
-                    this.ShowVotersCheckBox.Checked,
-                    this.QuestionObjectPath.Text);
-
-                this.ChoiceRepeater.Items.Cast<RepeaterItem>().ForEach(
-                    item =>
+            this.ChoiceRepeater.Items.Cast<RepeaterItem>().ForEach(
+                item =>
                     {
                         var choiceId = item.FindControlAs<HiddenField>("PollChoiceID").Value;
 
@@ -224,21 +224,21 @@ namespace YAF.Pages
                         }
                     });
 
-                return true;
-            }
+            return true;
+        }
 
-            // Create New Poll
-            var newPollId = this.GetRepository<Poll>().Create(
-                this.PageBoardContext.PageUserID,
-                this.Question.Text,
-                datePollExpire,
-                this.IsClosedBoundCheckBox.Checked,
-                this.AllowMultipleChoicesCheckBox.Checked,
-                this.ShowVotersCheckBox.Checked,
-                this.QuestionObjectPath.Text);
+        // Create New Poll
+        var newPollId = this.GetRepository<Poll>().Create(
+            this.PageBoardContext.PageUserID,
+            this.Question.Text,
+            datePollExpire,
+            this.IsClosedBoundCheckBox.Checked,
+            this.AllowMultipleChoicesCheckBox.Checked,
+            this.ShowVotersCheckBox.Checked,
+            this.QuestionObjectPath.Text);
 
-            this.ChoiceRepeater.Items.Cast<RepeaterItem>().ForEach(
-                item =>
+        this.ChoiceRepeater.Items.Cast<RepeaterItem>().ForEach(
+            item =>
                 {
                     var choiceName = item.FindControlAs<TextBox>("PollChoice").Text.Trim();
                     var choiceObjectPath = item.FindControlAs<TextBox>("ObjectPath").Text.Trim();
@@ -250,199 +250,198 @@ namespace YAF.Pages
                     }
                 });
 
-            // Attach Poll to topic
-            this.GetRepository<Topic>().AttachPoll(this.PageBoardContext.PageTopicID, newPollId);
+        // Attach Poll to topic
+        this.GetRepository<Topic>().AttachPoll(this.PageBoardContext.PageTopicID, newPollId);
 
-            return true;
-        }
+        return true;
+    }
 
-        /// <summary>
-        /// Initializes Poll UI
-        /// </summary>
-        /// <param name="pollId">
-        /// The poll Id.
-        /// </param>
-        private void InitPollUI(int? pollId)
+    /// <summary>
+    /// Initializes Poll UI
+    /// </summary>
+    /// <param name="pollId">
+    /// The poll Id.
+    /// </param>
+    private void InitPollUI(int? pollId)
+    {
+        this.AllowMultipleChoicesCheckBox.Text = this.GetText("POLL_MULTIPLECHOICES");
+        this.ShowVotersCheckBox.Text = this.GetText("POLL_SHOWVOTERS");
+        this.IsClosedBoundCheckBox.Text = this.GetText("pollgroup_closedbound");
+
+        List<Choice> choices;
+
+        if (pollId.HasValue)
         {
-            this.AllowMultipleChoicesCheckBox.Text = this.GetText("POLL_MULTIPLECHOICES");
-            this.ShowVotersCheckBox.Text = this.GetText("POLL_SHOWVOTERS");
-            this.IsClosedBoundCheckBox.Text = this.GetText("pollgroup_closedbound");
+            // we edit existing poll
+            var pollAndChoices = this.GetRepository<Poll>().GetPollAndChoices(this.PollId.Value);
 
-            List<Choice> choices;
+            var poll = pollAndChoices.FirstOrDefault().Item1;
 
-            if (pollId.HasValue)
+            if (poll.UserID != this.PageBoardContext.PageUserID &&
+                !this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
             {
-                // we edit existing poll
-                var pollAndChoices = this.GetRepository<Poll>().GetPollAndChoices(this.PollId.Value);
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            }
 
-                var poll = pollAndChoices.FirstOrDefault().Item1;
+            this.IsClosedBoundCheckBox.Checked = poll.PollFlags.IsClosedBound;
+            this.AllowMultipleChoicesCheckBox.Checked = poll.PollFlags.AllowMultipleChoice;
+            this.ShowVotersCheckBox.Checked = poll.PollFlags.ShowVoters;
+            this.Question.Text = poll.Question;
+            this.QuestionObjectPath.Text = poll.ObjectPath;
 
-                if (poll.UserID != this.PageBoardContext.PageUserID &&
-                    !this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
-                {
-                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-                }
+            if (poll.Closes.HasValue)
+            {
+                var closing = poll.Closes.Value - DateTime.UtcNow;
 
-                this.IsClosedBoundCheckBox.Checked = poll.PollFlags.IsClosedBound;
-                this.AllowMultipleChoicesCheckBox.Checked = poll.PollFlags.AllowMultipleChoice;
-                this.ShowVotersCheckBox.Checked = poll.PollFlags.ShowVoters;
-                this.Question.Text = poll.Question;
-                this.QuestionObjectPath.Text = poll.ObjectPath;
-
-                if (poll.Closes.HasValue)
-                {
-                    var closing = poll.Closes.Value - DateTime.UtcNow;
-
-                    this.PollExpire.Text = (closing.TotalDays + 1).ToType<int>().ToString();
-                }
-                else
-                {
-                    this.PollExpire.Text = string.Empty;
-                }
-
-                choices = pollAndChoices.Select(c => c.Item2).ToList();
-
-                var count = this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber - 1 - choices.Count;
-
-                if (count > 0)
-                {
-                    for (var i = 0; i <= count; i++)
-                    {
-                        var choice = new Choice { ID = i };
-
-                        choices.Add(choice);
-                    }
-                }
+                this.PollExpire.Text = (closing.TotalDays + 1).ToType<int>().ToString();
             }
             else
             {
-                // A new poll is created
-                if (!this.CanCreatePoll())
-                {
-                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
-                }
-
-                // clear the fields...
                 this.PollExpire.Text = string.Empty;
-                this.Question.Text = string.Empty;
+            }
 
-                choices = new List<Choice>();
+            choices = pollAndChoices.Select(c => c.Item2).ToList();
 
-                // we add dummy rows to data table to fill in repeater empty fields
-                var dummyRowsCount = this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber - 1;
-                for (var i = 0; i <= dummyRowsCount; i++)
+            var count = this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber - 1 - choices.Count;
+
+            if (count > 0)
+            {
+                for (var i = 0; i <= count; i++)
                 {
                     var choice = new Choice { ID = i };
 
                     choices.Add(choice);
                 }
             }
-
-            // Bind choices repeater
-            this.ChoiceRepeater.DataSource = choices;
-            this.ChoiceRepeater.DataBind();
-
-            // Show controls
-            this.SavePoll.Visible = true;
-            this.Cancel.Visible = true;
-            this.PollRowExpire.Visible = true;
-            this.IsClosedBound.Visible =
-                this.PageBoardContext.BoardSettings.AllowUsersHidePollResults || this.PageBoardContext.IsAdmin ||
-                this.PageBoardContext.IsForumModerator;
-            this.tr_AllowMultipleChoices.Visible = this.PageBoardContext.BoardSettings.AllowMultipleChoices ||
-                                                   this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess;
         }
-
-        /// <summary>
-        /// Initializes page context query variables.
-        /// </summary>
-        private void InitializeVariables()
+        else
         {
-            // we return to a forum (used when a topic should be approved)
-            if (this.Get<HttpRequestBase>().QueryString.Exists("f"))
+            // A new poll is created
+            if (!this.CanCreatePoll())
             {
-                this.topicUnapproved = true;
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.Exists("t"))
+            // clear the fields...
+            this.PollExpire.Text = string.Empty;
+            this.Question.Text = string.Empty;
+
+            choices = new List<Choice>();
+
+            // we add dummy rows to data table to fill in repeater empty fields
+            var dummyRowsCount = this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber - 1;
+            for (var i = 0; i <= dummyRowsCount; i++)
             {
-                this.PageLinks.AddForum(this.PageBoardContext.PageForum);
+                var choice = new Choice { ID = i };
 
-                this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopic.ID);
-            }
-
-            // Check if the user has the page access and variables are correct.
-            this.CheckAccess();
-
-            // handle poll
-            if (this.Get<HttpRequestBase>().QueryString.Exists("p"))
-            {
-                // edit existing poll
-                this.PollId =
-                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p"));
-                this.InitPollUI(this.PollId);
-
-                this.PageLinks.AddLink(this.GetText("POLLEDIT", "EDITPOLL"), string.Empty);
-
-                this.Header.LocalizedTag = "EDITPOLL";
-            }
-            else
-            {
-                // new poll
-                this.InitPollUI(null);
-
-                this.PageLinks.AddLink(this.GetText("POLLEDIT", "CREATEPOLL"), string.Empty);
-
-                this.Header.LocalizedTag = "CREATEPOLL";
+                choices.Add(choice);
             }
         }
 
-        /// <summary>
-        /// The return to page.
-        /// </summary>
-        private void ReturnToPage()
-        {
-            if (this.topicUnapproved)
-            {
-                // Tell user that his message will have to be approved by a moderator
-                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
-            }
+        // Bind choices repeater
+        this.ChoiceRepeater.DataSource = choices;
+        this.ChoiceRepeater.DataBind();
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { t = this.PageBoardContext.PageTopic.ID, name = this.PageBoardContext.PageTopic.TopicName });
-        }
-
-        /// <summary>
-        /// Checks if a user can create poll.
-        /// </summary>
-        /// <returns>
-        /// The can create poll.
-        /// </returns>
-        private bool CanCreatePoll()
-        {
-            if (this.PageBoardContext.PageTopic != null)
-            {
-                return true;
-            }
-
-            // admins can add any number of polls
-            if (this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess)
-            {
-                return true;
-            }
-
-            if (!this.PageBoardContext.ForumPollAccess)
-            {
-                return false;
-            }
-
-            if (this.PageBoardContext.ForumPollAccess)
-            {
-                return true;
-            }
-
-            return this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber > 0;
-        }
-
-        #endregion
+        // Show controls
+        this.SavePoll.Visible = true;
+        this.Cancel.Visible = true;
+        this.PollRowExpire.Visible = true;
+        this.IsClosedBound.Visible =
+            this.PageBoardContext.BoardSettings.AllowUsersHidePollResults || this.PageBoardContext.IsAdmin ||
+            this.PageBoardContext.IsForumModerator;
+        this.tr_AllowMultipleChoices.Visible = this.PageBoardContext.BoardSettings.AllowMultipleChoices ||
+                                               this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess;
     }
+
+    /// <summary>
+    /// Initializes page context query variables.
+    /// </summary>
+    private void InitializeVariables()
+    {
+        // we return to a forum (used when a topic should be approved)
+        if (this.Get<HttpRequestBase>().QueryString.Exists("f"))
+        {
+            this.topicUnapproved = true;
+        }
+
+        if (this.Get<HttpRequestBase>().QueryString.Exists("t"))
+        {
+            this.PageLinks.AddForum(this.PageBoardContext.PageForum);
+
+            this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopic.ID);
+        }
+
+        // Check if the user has the page access and variables are correct.
+        this.CheckAccess();
+
+        // handle poll
+        if (this.Get<HttpRequestBase>().QueryString.Exists("p"))
+        {
+            // edit existing poll
+            this.PollId =
+                this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p"));
+            this.InitPollUI(this.PollId);
+
+            this.PageLinks.AddLink(this.GetText("POLLEDIT", "EDITPOLL"), string.Empty);
+
+            this.Header.LocalizedTag = "EDITPOLL";
+        }
+        else
+        {
+            // new poll
+            this.InitPollUI(null);
+
+            this.PageLinks.AddLink(this.GetText("POLLEDIT", "CREATEPOLL"), string.Empty);
+
+            this.Header.LocalizedTag = "CREATEPOLL";
+        }
+    }
+
+    /// <summary>
+    /// The return to page.
+    /// </summary>
+    private void ReturnToPage()
+    {
+        if (this.topicUnapproved)
+        {
+            // Tell user that his message will have to be approved by a moderator
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
+        }
+
+        this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { t = this.PageBoardContext.PageTopic.ID, name = this.PageBoardContext.PageTopic.TopicName });
+    }
+
+    /// <summary>
+    /// Checks if a user can create poll.
+    /// </summary>
+    /// <returns>
+    /// The can create poll.
+    /// </returns>
+    private bool CanCreatePoll()
+    {
+        if (this.PageBoardContext.PageTopic != null)
+        {
+            return true;
+        }
+
+        // admins can add any number of polls
+        if (this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess)
+        {
+            return true;
+        }
+
+        if (!this.PageBoardContext.ForumPollAccess)
+        {
+            return false;
+        }
+
+        if (this.PageBoardContext.ForumPollAccess)
+        {
+            return true;
+        }
+
+        return this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber > 0;
+    }
+
+    #endregion
 }

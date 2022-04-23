@@ -22,33 +22,32 @@
  * under the License.
  */
 
-namespace YAF.Configuration
+namespace YAF.Configuration;
+
+/// <summary>
+/// Class provides glue/settings transfer between YAF forum control and base classes
+/// </summary>
+public class ControlSettings
 {
+    /* Ederon : 6/16/2007 - conventions */
+
     /// <summary>
-    /// Class provides glue/settings transfer between YAF forum control and base classes
+    /// Initializes a new instance of the <see cref="ControlSettings"/> class.
     /// </summary>
-    public class ControlSettings
+    public ControlSettings()
     {
-        /* Ederon : 6/16/2007 - conventions */
+        this.CategoryID = Config.CategoryID;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ControlSettings"/> class.
-        /// </summary>
-        public ControlSettings()
-        {
-            this.CategoryID = Config.CategoryID;
-
-            this.BoardID = Config.BoardID;
-        }
-
-        /// <summary>
-        /// Gets or sets BoardID.
-        /// </summary>
-        public int BoardID { get; set; }
-
-        /// <summary>
-        /// Gets or sets CategoryID.
-        /// </summary>
-        public int CategoryID { get; set; }
+        this.BoardID = Config.BoardID;
     }
+
+    /// <summary>
+    /// Gets or sets BoardID.
+    /// </summary>
+    public int BoardID { get; set; }
+
+    /// <summary>
+    /// Gets or sets CategoryID.
+    /// </summary>
+    public int CategoryID { get; set; }
 }

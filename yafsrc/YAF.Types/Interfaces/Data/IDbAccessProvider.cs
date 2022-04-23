@@ -21,20 +21,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The Database access provider.
+/// </summary>
+public interface IDbAccessProvider : IReadWriteProvider<IDbAccess>
 {
+    #region Properties
+
     /// <summary>
-    /// The Database access provider.
+    /// Gets or sets ProviderName.
     /// </summary>
-    public interface IDbAccessProvider : IReadWriteProvider<IDbAccess>
-    {
-        #region Properties
+    string ProviderName { get; set; }
 
-        /// <summary>
-        /// Gets or sets ProviderName.
-        /// </summary>
-        string ProviderName { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

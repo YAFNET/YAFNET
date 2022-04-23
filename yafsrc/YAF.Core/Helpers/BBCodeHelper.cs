@@ -22,107 +22,106 @@
  * under the License.
  */
 
-namespace YAF.Core.Helpers
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text.RegularExpressions;
-    using System.Web;
+namespace YAF.Core.Helpers;
 
-    using YAF.Core.Context;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Web;
+
+using YAF.Core.Context;
+
+/// <summary>
+/// The bb code helper.
+/// </summary>
+public static class BBCodeHelper
+{
+    /// <summary>
+    /// The find user quoting.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<string> FindUserQuoting(string text)
+    {
+        var mentions = Regex.Matches(
+            text,
+            @"\[quote\=(?<user>.+?);(?<messageId>.+?)\](?<inner>.+?)\[\/quote\]",
+            RegexOptions.Singleline);
+
+        return (from Match match in mentions select match.Groups["user"].Value).ToList();
+    }
 
     /// <summary>
-    /// The bb code helper.
+    /// Find all User mentions in the text
     /// </summary>
-    public static class BBCodeHelper
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<string> FindMentions(string text)
     {
-        /// <summary>
-        /// The find user quoting.
-        /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<string> FindUserQuoting(string text)
-        {
-            var mentions = Regex.Matches(
-                text,
-                @"\[quote\=(?<user>.+?);(?<messageId>.+?)\](?<inner>.+?)\[\/quote\]",
-                RegexOptions.Singleline);
+        var mentions = Regex.Matches(text, @"@\[userlink\](?<inner>.+?)\[\/userlink\]", RegexOptions.IgnoreCase);
 
-            return (from Match match in mentions select match.Groups["user"].Value).ToList();
-        }
+        return (from Match match in mentions select match.Groups["inner"].Value).ToList();
+    }
 
-        /// <summary>
-        /// Find all User mentions in the text
-        /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<string> FindMentions(string text)
-        {
-            var mentions = Regex.Matches(text, @"@\[userlink\](?<inner>.+?)\[\/userlink\]", RegexOptions.IgnoreCase);
+    /// <summary>
+    /// Strips BB Code Tags
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// The strip bb code.
+    /// </returns>
+    public static string StripBBCode(string text)
+    {
+        return Regex.Replace(text, @"\[(.|\n)*?\]", string.Empty);
+    }
 
-            return (from Match match in mentions select match.Groups["inner"].Value).ToList();
-        }
+    /// <summary>
+    /// Encode Content inside Code Blocks
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public static string EncodeCodeBlocks(string text)
+    {
+        var regex = new Regex(
+            @"\](?<inner>(.*?))\[/code\]",
+            RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
-        /// <summary>
-        /// Strips BB Code Tags
-        /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <returns>
-        /// The strip bb code.
-        /// </returns>
-        public static string StripBBCode(string text)
-        {
-            return Regex.Replace(text, @"\[(.|\n)*?\]", string.Empty);
-        }
+        return regex.Replace(
+            text,
+            match => $"]{BoardContext.Current.CurrentForumPage.HtmlEncode(match.Groups["inner"].Value)}[/code]");
+    }
 
-        /// <summary>
-        /// Encode Content inside Code Blocks
-        /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string EncodeCodeBlocks(string text)
-        {
-            var regex = new Regex(
-                @"\](?<inner>(.*?))\[/code\]",
-                RegexOptions.IgnoreCase | RegexOptions.Singleline);
+    /// <summary>
+    /// Encode Content inside Code Blocks
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public static string DecodeCodeBlocks(string text)
+    {
+        var regex = new Regex(
+            @"\](?<inner>(.*?))\[/code\]",
+            RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
-            return regex.Replace(
-                text,
-                match => $"]{BoardContext.Current.CurrentForumPage.HtmlEncode(match.Groups["inner"].Value)}[/code]");
-        }
-
-        /// <summary>
-        /// Encode Content inside Code Blocks
-        /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string DecodeCodeBlocks(string text)
-        {
-            var regex = new Regex(
-                @"\](?<inner>(.*?))\[/code\]",
-                RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-            return regex.Replace(
-                text,
-                match => $"]{HttpUtility.HtmlDecode(match.Groups["inner"].Value)}[/code]");
-        }
+        return regex.Replace(
+            text,
+            match => $"]{HttpUtility.HtmlDecode(match.Groups["inner"].Value)}[/code]");
     }
 }

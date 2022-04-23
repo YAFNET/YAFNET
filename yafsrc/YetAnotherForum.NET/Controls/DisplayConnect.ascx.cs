@@ -21,102 +21,101 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+namespace YAF.Controls;
+
+#region Using
+
+using YAF.Web.Controls;
+
+#endregion
+
+/// <summary>
+/// Display Connect Control
+/// </summary>
+public partial class DisplayConnect : BaseUserControl
 {
-    #region Using
-
-    using YAF.Web.Controls;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// Display Connect Control
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class DisplayConnect : BaseUserControl
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Methods
+        var endPoint = new Literal { Text = "." };
 
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        var isLoginAllowed = false;
+        var isRegisterAllowed = false;
+
+        if (Config.IsAnyPortal)
         {
-            var endPoint = new Literal { Text = "." };
-
-            var isLoginAllowed = false;
-            var isRegisterAllowed = false;
-
-            if (Config.IsAnyPortal)
-            {
-                this.Visible = false;
-                return;
-            }
-
-            if (Config.AllowLoginAndLogoff)
-            {
-                this.ConnectHolder.Controls.Add(
-                    new Literal { Text = $"<strong>{this.GetText("TOOLBAR", "WELCOME_GUEST_CONNECT")}</strong>" });
-
-                // show login
-                var loginLink = new ThemeButton
-                {
-                    TextLocalizedTag = "LOGIN_CONNECT",
-                    TextLocalizedPage = "TOOLBAR",
-                    ParamText0 = this.PageBoardContext.BoardSettings.Name,
-                    TitleLocalizedTag = "LOGIN",
-                    TitleLocalizedPage = "TOOLBAR",
-                    Type = ButtonStyle.Link,
-                    Icon = "sign-in-alt",
-                    NavigateUrl = "javascript:void(0);",
-                    CssClass = "LoginLink"
-                };
-
-                this.ConnectHolder.Controls.Add(loginLink);
-
-                isLoginAllowed = true;
-            }
-
-            if (!this.PageBoardContext.BoardSettings.DisableRegistrations)
-            {
-                // show register link
-                var registerLink = new ThemeButton
-                {
-                    TextLocalizedTag = "REGISTER_CONNECT",
-                    TextLocalizedPage = "TOOLBAR",
-                    TitleLocalizedTag = "REGISTER",
-                    TitleLocalizedPage = "TOOLBAR",
-                    Type = ButtonStyle.Link,
-                    Icon = "user-plus",
-                    NavigateUrl = this.PageBoardContext.BoardSettings.ShowRulesForRegistration
-                        ?
-                        this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
-                        : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register)
-                };
-
-                this.ConnectHolder.Controls.Add(registerLink);
-
-                isRegisterAllowed = true;
-            }
-            else
-            {
-                this.ConnectHolder.Controls.Add(endPoint);
-
-                this.ConnectHolder.Controls.Add(new Literal { Text = this.GetText("TOOLBAR", "DISABLED_REGISTER") });
-            }
-
-            // If both disallowed
-            if (isLoginAllowed || isRegisterAllowed)
-            {
-                return;
-            }
-
-            this.ConnectHolder.Controls.Clear();
-
-            this.ConnectHolder.Visible = false;
+            this.Visible = false;
+            return;
         }
 
-        #endregion
+        if (Config.AllowLoginAndLogoff)
+        {
+            this.ConnectHolder.Controls.Add(
+                new Literal { Text = $"<strong>{this.GetText("TOOLBAR", "WELCOME_GUEST_CONNECT")}</strong>" });
+
+            // show login
+            var loginLink = new ThemeButton
+                                {
+                                    TextLocalizedTag = "LOGIN_CONNECT",
+                                    TextLocalizedPage = "TOOLBAR",
+                                    ParamText0 = this.PageBoardContext.BoardSettings.Name,
+                                    TitleLocalizedTag = "LOGIN",
+                                    TitleLocalizedPage = "TOOLBAR",
+                                    Type = ButtonStyle.Link,
+                                    Icon = "sign-in-alt",
+                                    NavigateUrl = "javascript:void(0);",
+                                    CssClass = "LoginLink"
+                                };
+
+            this.ConnectHolder.Controls.Add(loginLink);
+
+            isLoginAllowed = true;
+        }
+
+        if (!this.PageBoardContext.BoardSettings.DisableRegistrations)
+        {
+            // show register link
+            var registerLink = new ThemeButton
+                                   {
+                                       TextLocalizedTag = "REGISTER_CONNECT",
+                                       TextLocalizedPage = "TOOLBAR",
+                                       TitleLocalizedTag = "REGISTER",
+                                       TitleLocalizedPage = "TOOLBAR",
+                                       Type = ButtonStyle.Link,
+                                       Icon = "user-plus",
+                                       NavigateUrl = this.PageBoardContext.BoardSettings.ShowRulesForRegistration
+                                                         ?
+                                                         this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
+                                                         : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register)
+                                   };
+
+            this.ConnectHolder.Controls.Add(registerLink);
+
+            isRegisterAllowed = true;
+        }
+        else
+        {
+            this.ConnectHolder.Controls.Add(endPoint);
+
+            this.ConnectHolder.Controls.Add(new Literal { Text = this.GetText("TOOLBAR", "DISABLED_REGISTER") });
+        }
+
+        // If both disallowed
+        if (isLoginAllowed || isRegisterAllowed)
+        {
+            return;
+        }
+
+        this.ConnectHolder.Controls.Clear();
+
+        this.ConnectHolder.Visible = false;
     }
+
+    #endregion
 }

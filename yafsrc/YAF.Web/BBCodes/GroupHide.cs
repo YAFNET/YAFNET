@@ -22,115 +22,114 @@
  * under the License.
  */
 
-namespace YAF.Web.BBCodes
+namespace YAF.Web.BBCodes;
+
+using System.Linq;
+using System.Web.UI;
+
+using YAF.Core.BBCode;
+using YAF.Core.Context;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Identity;
+
+/// <summary>
+/// Hide Group BBCode Module
+/// </summary>
+public class GroupHide : BBCodeControl
 {
-    using System.Linq;
-    using System.Web.UI;
-
-    using YAF.Core.BBCode;
-    using YAF.Core.Context;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
-
     /// <summary>
-    /// Hide Group BBCode Module
+    /// The render.
     /// </summary>
-    public class GroupHide : BBCodeControl
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
     {
-        /// <summary>
-        /// The render.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render(HtmlTextWriter writer)
+        var hiddenContent = this.Parameters["inner"];
+
+        var groupString = this.Parameters["group"];
+
+        if (hiddenContent.IsNotSet())
         {
-            var hiddenContent = this.Parameters["inner"];
+            return;
+        }
 
-            var groupString = this.Parameters["group"];
+        var descriptionGuest = this.LocalizedString(
+            "HIDDENMOD_GUEST",
+            "This board requires you to be registered and logged-in before you can view hidden messages.");
 
-            if (hiddenContent.IsNotSet())
+        var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
+
+        if (groupString.IsNotSet())
+        {
+            // Hide from Guests only
+            if (BoardContext.Current.IsGuest)
             {
+                writer.Write(shownContentGuest);
+                return;
+            }
+        }
+        else
+        {
+            if (BoardContext.Current.IsGuest)
+            {
+                writer.Write(shownContentGuest);
                 return;
             }
 
-            var descriptionGuest = this.LocalizedString(
-                "HIDDENMOD_GUEST",
-                "This board requires you to be registered and logged-in before you can view hidden messages.");
-
-            var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
-
-            if (groupString.IsNotSet())
-            {
-                // Hide from Guests only
-                if (BoardContext.Current.IsGuest)
-                {
-                    writer.Write(shownContentGuest);
-                    return;
-                }
-            }
-            else
-            {
-                if (BoardContext.Current.IsGuest)
-                {
-                    writer.Write(shownContentGuest);
-                    return;
-                }
-
-                descriptionGuest = this.LocalizedString(
+            descriptionGuest = this.LocalizedString(
                 "HIDDENMOD_GROUP",
                 "You dont´t have the right to see the Hidden Content.");
 
-                shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
+            shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
-                var groups = groupString.Split(';');
+            var groups = groupString.Split(';');
 
-                /*List<string> groups = new List<string>();
-                List<string> ranks = new List<string>();
+            /*List<string> groups = new List<string>();
+            List<string> ranks = new List<string>();
 
-                foreach (string group in groupsAndRanks)
+            foreach (string group in groupsAndRanks)
+            {
+                if (group.StartsWith("group."))
                 {
-                    if (group.StartsWith("group."))
-                    {
-                        groups.Add(group.Substring(group.IndexOf(".") + 1));
-                    }
-                    else if (group.StartsWith("rank."))
-                    {
-                        ranks.Add(group.Substring(group.IndexOf(".") + 1));
-                    }
-                    else
-                    {
-                        groups.Add(group);
-                    }
-                }*/
-
-                // Check For Role Hiding
-                if (this.Get<IAspNetRolesHelper>().GetRolesForUser(
-                            BoardContext.Current.MembershipUser).Any(role => !groups.Any(role.Equals)))
-                {
-                    shownContentGuest = hiddenContent;
+                    groups.Add(group.Substring(group.IndexOf(".") + 1));
                 }
-
-                // TODO : Check for Rank Hiding 
-                /*if (ranks.Any())
+                else if (group.StartsWith("rank."))
                 {
-                    var yafUserData = new CombinedUserDataHelper(BoardContext.Current.UserData.PageUserID);
+                    ranks.Add(group.Substring(group.IndexOf(".") + 1));
+                }
+                else
+                {
+                    groups.Add(group);
+                }
+            }*/
 
-                    if (!ranks.Where(rank => yafUserData.RankName.Equals(rank)).Any())
-                    {
-                        shownContentGuest = hiddenContent;
-                    }
-                }*/
-            }
-
-            // Override Admin, or User is Post Author
-            if (BoardContext.Current.IsAdmin || this.DisplayUserID == BoardContext.Current.PageUserID)
+            // Check For Role Hiding
+            if (this.Get<IAspNetRolesHelper>().GetRolesForUser(
+                    BoardContext.Current.MembershipUser).Any(role => !groups.Any(role.Equals)))
             {
                 shownContentGuest = hiddenContent;
             }
 
-            writer.Write(shownContentGuest);
+            // TODO : Check for Rank Hiding 
+            /*if (ranks.Any())
+            {
+                var yafUserData = new CombinedUserDataHelper(BoardContext.Current.UserData.PageUserID);
+
+                if (!ranks.Where(rank => yafUserData.RankName.Equals(rank)).Any())
+                {
+                    shownContentGuest = hiddenContent;
+                }
+            }*/
         }
+
+        // Override Admin, or User is Post Author
+        if (BoardContext.Current.IsAdmin || this.DisplayUserID == BoardContext.Current.PageUserID)
+        {
+            shownContentGuest = hiddenContent;
+        }
+
+        writer.Write(shownContentGuest);
     }
 }

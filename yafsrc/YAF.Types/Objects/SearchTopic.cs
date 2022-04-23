@@ -22,36 +22,35 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+/// <summary>
+/// The search topic.
+/// </summary>
+public class SearchTopic
 {
     /// <summary>
-    /// The search topic.
+    /// Gets or sets the forum id.
     /// </summary>
-    public class SearchTopic
-    {
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        public int ForumId { get; set; }
+    public int ForumId { get; set; }
 
-        /// <summary>
-        /// Gets or sets the page size.
-        /// </summary>
-        public int PageSize { get; set; }
+    /// <summary>
+    /// Gets or sets the page size.
+    /// </summary>
+    public int PageSize { get; set; }
 
-        /// <summary>
-        /// Gets or sets the page.
-        /// </summary>
-        public int Page { get; set; }
+    /// <summary>
+    /// Gets or sets the page.
+    /// </summary>
+    public int Page { get; set; }
 
-        /// <summary>
-        /// Gets or sets the search term.
-        /// </summary>
-        public string SearchTerm { get; set; }
+    /// <summary>
+    /// Gets or sets the search term.
+    /// </summary>
+    public string SearchTerm { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether all forums option.
-        /// </summary>
-        public bool AllForumsOption { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets a value indicating whether all forums option.
+    /// </summary>
+    public bool AllForumsOption { get; set; }
 }

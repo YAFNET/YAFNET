@@ -22,26 +22,25 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The Button sizes
+/// </summary>
+public enum ButtonSize
 {
     /// <summary>
-    /// The Button sizes
+    /// The normal.
     /// </summary>
-    public enum ButtonSize
-    {
-        /// <summary>
-        /// The normal.
-        /// </summary>
-        Normal,
+    Normal,
 
-        /// <summary>
-        /// The large.
-        /// </summary>
-        Large,
+    /// <summary>
+    /// The large.
+    /// </summary>
+    Large,
 
-        /// <summary>
-        /// The small.
-        /// </summary>
-        Small
-    }
+    /// <summary>
+    /// The small.
+    /// </summary>
+    Small
 }

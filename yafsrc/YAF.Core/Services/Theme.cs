@@ -20,100 +20,99 @@
  * under the License.
  */
 
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+#region Using
+
+using System.IO;
+using System.Web.Hosting;
+
+using ServiceStack.Text;
+
+using YAF.Configuration;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The YAF theme.
+/// </summary>
+public class Theme : ITheme
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System.IO;
-    using System.Web.Hosting;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Theme"/> class.
+    /// </summary>
+    /// <param name="themeFile">
+    /// The theme.
+    /// </param>
+    public Theme(string themeFile)
+    {
+        this.ThemeFile = themeFile;
+    }
 
-    using ServiceStack.Text;
+    #endregion
 
-    using YAF.Configuration;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+    #region Public Properties
+
+    /// <summary>
+    ///   Gets or sets the current Theme File
+    /// </summary>
+    public string ThemeFile { get; set; }
+
+    #endregion
+
+    #region Public Methods and Operators
+
+    /// <summary>
+    /// Determines whether [is valid theme] [the specified theme].
+    /// </summary>
+    /// <param name="theme">The theme.</param>
+    /// <returns>
+    ///   <c>true</c> if [is valid theme] [the specified theme]; otherwise, <c>false</c>.
+    /// </returns>
+    public static bool IsValidTheme([NotNull] string theme)
+    {
+        CodeContracts.VerifyNotNull(theme);
+
+        return theme.IsSet() && Directory.Exists(GetMappedThemeFile(theme))
+                             && File.Exists(Path.Combine(GetMappedThemeFile(theme), "bootstrap-forum.min.css"));
+    }
+
+    /// <summary>
+    /// Gets full path to the given theme file.
+    /// </summary>
+    /// <param name="filename">
+    /// Short name of theme file.
+    /// </param>
+    /// <returns>
+    /// The build theme path.
+    /// </returns>
+    public string BuildThemePath([NotNull] string filename)
+    {
+        CodeContracts.VerifyNotNull(filename);
+
+        return BoardInfo.GetURLToContentThemes(this.ThemeFile.CombineWith(filename));
+    }
 
     #endregion
 
     /// <summary>
-    /// The YAF theme.
+    /// Gets the mapped theme file.
     /// </summary>
-    public class Theme : ITheme
+    /// <param name="theme">The theme.</param>
+    /// <returns>
+    /// The get mapped theme file.
+    /// </returns>
+    private static string GetMappedThemeFile([NotNull] string theme)
     {
-        #region Constructors and Destructors
+        CodeContracts.VerifyNotNull(theme);
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Theme"/> class.
-        /// </summary>
-        /// <param name="themeFile">
-        /// The theme.
-        /// </param>
-        public Theme(string themeFile)
-        {
-            this.ThemeFile = themeFile;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///   Gets or sets the current Theme File
-        /// </summary>
-        public string ThemeFile { get; set; }
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// Determines whether [is valid theme] [the specified theme].
-        /// </summary>
-        /// <param name="theme">The theme.</param>
-        /// <returns>
-        ///   <c>true</c> if [is valid theme] [the specified theme]; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsValidTheme([NotNull] string theme)
-        {
-            CodeContracts.VerifyNotNull(theme);
-
-            return theme.IsSet() && Directory.Exists(GetMappedThemeFile(theme))
-                                 && File.Exists(Path.Combine(GetMappedThemeFile(theme), "bootstrap-forum.min.css"));
-        }
-
-        /// <summary>
-        /// Gets full path to the given theme file.
-        /// </summary>
-        /// <param name="filename">
-        /// Short name of theme file.
-        /// </param>
-        /// <returns>
-        /// The build theme path.
-        /// </returns>
-        public string BuildThemePath([NotNull] string filename)
-        {
-            CodeContracts.VerifyNotNull(filename);
-
-            return BoardInfo.GetURLToContentThemes(this.ThemeFile.CombineWith(filename));
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Gets the mapped theme file.
-        /// </summary>
-        /// <param name="theme">The theme.</param>
-        /// <returns>
-        /// The get mapped theme file.
-        /// </returns>
-        private static string GetMappedThemeFile([NotNull] string theme)
-        {
-            CodeContracts.VerifyNotNull(theme);
-
-            return
-                HostingEnvironment.MapPath($"{BoardInfo.ForumServerFileRoot}Content/Themes/{theme.Trim()}");
-        }
+        return
+            HostingEnvironment.MapPath($"{BoardInfo.ForumServerFileRoot}Content/Themes/{theme.Trim()}");
     }
 }

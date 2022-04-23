@@ -21,46 +21,45 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
+namespace YAF.Modules;
+
+#region Using
+
+using System.Web.UI.HtmlControls;
+using YAF.Types.Attributes;
+
+#endregion
+
+/// <summary>
+/// LanguageDirection Module
+/// </summary>
+[Module("Language Direction Module", "Ingo Herbote", 1)]
+public class LanguageDirectionModule : SimpleBaseForumModule
 {
-    #region Using
+    /// <summary>
+    /// The init after page.
+    /// </summary>
+    public override void InitAfterPage()
+    {
+        this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
+    }
 
-    using System.Web.UI.HtmlControls;
-    using YAF.Types.Attributes;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// LanguageDirection Module
+    /// Handles the PreRender event of the ForumPage control.
     /// </summary>
-    [Module("Language Direction Module", "Ingo Herbote", 1)]
-    public class LanguageDirectionModule : SimpleBaseForumModule
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-        /// <summary>
-        /// The init after page.
-        /// </summary>
-        public override void InitAfterPage()
+        var body = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlGenericControl>("YafBody");
+
+        if (body != null && this.Get<ILocalization>().Culture.TextInfo.IsRightToLeft)
         {
-            this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
+            body.Attributes.Add("dir", "rtl");
         }
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the PreRender event of the ForumPage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var body = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlGenericControl>("YafBody");
-
-            if (body != null && this.Get<ILocalization>().Culture.TextInfo.IsRightToLeft)
-            {
-                body.Attributes.Add("dir", "rtl");
-            }
-        }
-
-        #endregion
     }
+
+    #endregion
 }

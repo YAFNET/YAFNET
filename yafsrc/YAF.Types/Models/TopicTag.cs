@@ -21,38 +21,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the TopicTag table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(TagID), nameof(TopicID))]
+public class TopicTag : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the TopicTag table.
+    /// Gets or sets the tag id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(TagID), nameof(TopicID))]
-    public class TopicTag : IEntity
-    {
-        #region Properties
+    [References(typeof(Tag))]
+    [Required]
+    public int TagID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the tag id.
-        /// </summary>
-        [References(typeof(Tag))]
-        [Required]
-        public int TagID { get; set; }
+    /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    [References(typeof(Topic))]
+    [Index]
+    [Required]
+    public int TopicID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the topic id.
-        /// </summary>
-        [References(typeof(Topic))]
-        [Index]
-        [Required]
-        public int TopicID { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

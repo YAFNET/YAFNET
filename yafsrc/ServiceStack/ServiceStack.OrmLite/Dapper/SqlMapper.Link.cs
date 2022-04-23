@@ -6,97 +6,96 @@
 // ***********************************************************************
 using System.Threading;
 
-namespace ServiceStack.OrmLite.Dapper
+namespace ServiceStack.OrmLite.Dapper;
+
+/// <summary>
+/// Class SqlMapper.
+/// </summary>
+public static partial class SqlMapper
 {
     /// <summary>
-    /// Class SqlMapper.
+    /// This is a micro-cache; suitable when the number of terms is controllable (a few hundred, for example),
+    /// and strictly append-only; you cannot change existing values. All key matches are on **REFERENCE**
+    /// equality. The type is fully thread-safe.
     /// </summary>
-    public static partial class SqlMapper
+    /// <typeparam name="TKey">The type to cache.</typeparam>
+    /// <typeparam name="TValue">The value type of the cache.</typeparam>
+    internal class Link<TKey, TValue> where TKey : class
     {
         /// <summary>
-        /// This is a micro-cache; suitable when the number of terms is controllable (a few hundred, for example),
-        /// and strictly append-only; you cannot change existing values. All key matches are on **REFERENCE**
-        /// equality. The type is fully thread-safe.
+        /// Tries the get.
         /// </summary>
-        /// <typeparam name="TKey">The type to cache.</typeparam>
-        /// <typeparam name="TValue">The value type of the cache.</typeparam>
-        internal class Link<TKey, TValue> where TKey : class
+        /// <param name="link">The link.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public static bool TryGet(Link<TKey, TValue> link, TKey key, out TValue value)
         {
-            /// <summary>
-            /// Tries the get.
-            /// </summary>
-            /// <param name="link">The link.</param>
-            /// <param name="key">The key.</param>
-            /// <param name="value">The value.</param>
-            /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-            public static bool TryGet(Link<TKey, TValue> link, TKey key, out TValue value)
+            while (link != null)
             {
-                while (link != null)
+                if ((object)key == (object)link.Key)
                 {
-                    if ((object)key == (object)link.Key)
-                    {
-                        value = link.Value;
-                        return true;
-                    }
-                    link = link.Tail;
+                    value = link.Value;
+                    return true;
                 }
-                value = default(TValue);
-                return false;
+                link = link.Tail;
             }
-
-            /// <summary>
-            /// Tries the add.
-            /// </summary>
-            /// <param name="head">The head.</param>
-            /// <param name="key">The key.</param>
-            /// <param name="value">The value.</param>
-            /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-            public static bool TryAdd(ref Link<TKey, TValue> head, TKey key, ref TValue value)
-            {
-                bool tryAgain;
-                do
-                {
-                    var snapshot = Interlocked.CompareExchange(ref head, null, null);
-                    if (TryGet(snapshot, key, out TValue found))
-                    { // existing match; report the existing value instead
-                        value = found;
-                        return false;
-                    }
-                    var newNode = new Link<TKey, TValue>(key, value, snapshot);
-                    // did somebody move our cheese?
-                    tryAgain = Interlocked.CompareExchange(ref head, newNode, snapshot) != snapshot;
-                } while (tryAgain);
-                return true;
-            }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Link{TKey, TValue}"/> class.
-            /// </summary>
-            /// <param name="key">The key.</param>
-            /// <param name="value">The value.</param>
-            /// <param name="tail">The tail.</param>
-            private Link(TKey key, TValue value, Link<TKey, TValue> tail)
-            {
-                Key = key;
-                Value = value;
-                Tail = tail;
-            }
-
-            /// <summary>
-            /// Gets the key.
-            /// </summary>
-            /// <value>The key.</value>
-            public TKey Key { get; }
-            /// <summary>
-            /// Gets the value.
-            /// </summary>
-            /// <value>The value.</value>
-            public TValue Value { get; }
-            /// <summary>
-            /// Gets the tail.
-            /// </summary>
-            /// <value>The tail.</value>
-            public Link<TKey, TValue> Tail { get; }
+            value = default(TValue);
+            return false;
         }
+
+        /// <summary>
+        /// Tries the add.
+        /// </summary>
+        /// <param name="head">The head.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public static bool TryAdd(ref Link<TKey, TValue> head, TKey key, ref TValue value)
+        {
+            bool tryAgain;
+            do
+            {
+                var snapshot = Interlocked.CompareExchange(ref head, null, null);
+                if (TryGet(snapshot, key, out TValue found))
+                { // existing match; report the existing value instead
+                    value = found;
+                    return false;
+                }
+                var newNode = new Link<TKey, TValue>(key, value, snapshot);
+                // did somebody move our cheese?
+                tryAgain = Interlocked.CompareExchange(ref head, newNode, snapshot) != snapshot;
+            } while (tryAgain);
+            return true;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Link{TKey, TValue}"/> class.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="tail">The tail.</param>
+        private Link(TKey key, TValue value, Link<TKey, TValue> tail)
+        {
+            Key = key;
+            Value = value;
+            Tail = tail;
+        }
+
+        /// <summary>
+        /// Gets the key.
+        /// </summary>
+        /// <value>The key.</value>
+        public TKey Key { get; }
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <value>The value.</value>
+        public TValue Value { get; }
+        /// <summary>
+        /// Gets the tail.
+        /// </summary>
+        /// <value>The tail.</value>
+        public Link<TKey, TValue> Tail { get; }
     }
 }

@@ -21,48 +21,47 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+#region Using
+
+using Autofac.Builder;
+using Autofac.Core.Lifetime;
+
+using YAF.Types;
+
+#endregion
+
+/// <summary>
+///     The i registration builder extension.
+/// </summary>
+public static class IRegistrationBuilderExtension
 {
-    #region Using
-
-    using Autofac.Builder;
-    using Autofac.Core.Lifetime;
-
-    using YAF.Types;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The i registration builder extension.
+    /// The owned by yaf context.
     /// </summary>
-    public static class IRegistrationBuilderExtension
+    /// <typeparam name="TLimit">
+    /// </typeparam>
+    /// <typeparam name="TActivatorData">
+    /// </typeparam>
+    /// <typeparam name="TRegistrationStyle">
+    /// </typeparam>
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    /// <returns>
+    /// The instance per yaf context.
+    /// </returns>
+    public static IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>
+        InstancePerBoardContext<TLimit, TActivatorData, TRegistrationStyle>(
+            [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(builder);
 
-        /// <summary>
-        /// The owned by yaf context.
-        /// </summary>
-        /// <typeparam name="TLimit">
-        /// </typeparam>
-        /// <typeparam name="TActivatorData">
-        /// </typeparam>
-        /// <typeparam name="TRegistrationStyle">
-        /// </typeparam>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        /// <returns>
-        /// The instance per yaf context.
-        /// </returns>
-        public static IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>
-            InstancePerBoardContext<TLimit, TActivatorData, TRegistrationStyle>(
-                [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder)
-        {
-            CodeContracts.VerifyNotNull(builder);
-
-            return builder.InstancePerMatchingLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
-        }
-
-        #endregion
+        return builder.InstancePerMatchingLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
     }
+
+    #endregion
 }

@@ -7,21 +7,20 @@
 using System;
 using System.Reflection;
 
-namespace ServiceStack.OrmLite.Dapper
+namespace ServiceStack.OrmLite.Dapper;
+
+/// <summary>
+/// Class TypeExtensions.
+/// </summary>
+internal static class TypeExtensions
 {
     /// <summary>
-    /// Class TypeExtensions.
+    /// Gets the public instance method.
     /// </summary>
-    internal static class TypeExtensions
-    {
-        /// <summary>
-        /// Gets the public instance method.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="types">The types.</param>
-        /// <returns>MethodInfo.</returns>
-        public static MethodInfo GetPublicInstanceMethod(this Type type, string name, Type[] types)
-            => type.GetMethod(name, BindingFlags.Instance | BindingFlags.Public, null, types, null);
-    }
+    /// <param name="type">The type.</param>
+    /// <param name="name">The name.</param>
+    /// <param name="types">The types.</param>
+    /// <returns>MethodInfo.</returns>
+    public static MethodInfo GetPublicInstanceMethod(this Type type, string name, Type[] types)
+        => type.GetMethod(name, BindingFlags.Instance | BindingFlags.Public, null, types, null);
 }

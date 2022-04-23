@@ -22,22 +22,21 @@
  * under the License.
  */
 
-namespace YAF.Dialogs
+namespace YAF.Dialogs;
+
+/// <summary>
+/// The Image Gallery
+/// </summary>
+public partial class ImageGallery : BaseUserControl
 {
     /// <summary>
-    /// The Image Gallery
+    /// The On PreRender event.
     /// </summary>
-    public partial class ImageGallery : BaseUserControl
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            base.OnPreRender(e);
-        }
+        base.OnPreRender(e);
     }
 }

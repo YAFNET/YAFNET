@@ -22,40 +22,39 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces.CheckForSpam
+namespace YAF.Types.Interfaces.CheckForSpam;
+
+using YAF.Types;
+
+/// <summary>
+/// Bot Check Interface
+/// </summary>
+public interface ICheckForBot
 {
-    using YAF.Types;
+    /// <summary>
+    /// Checks if user is a Bot.
+    /// </summary>
+    /// <param name="ipAddress">The IP Address.</param>
+    /// <param name="emailAddress">The email Address.</param>
+    /// <param name="userName">Name of the user.</param>
+    /// <returns>
+    /// Returns if user is a possible Bot or not
+    /// </returns>
+    bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName);
 
     /// <summary>
-    /// Bot Check Interface
+    /// Checks if user is a Bot.
     /// </summary>
-    public interface ICheckForBot
-    {
-        /// <summary>
-        /// Checks if user is a Bot.
-        /// </summary>
-        /// <param name="ipAddress">The IP Address.</param>
-        /// <param name="emailAddress">The email Address.</param>
-        /// <param name="userName">Name of the user.</param>
-        /// <returns>
-        /// Returns if user is a possible Bot or not
-        /// </returns>
-        bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName);
-
-        /// <summary>
-        /// Checks if user is a Bot.
-        /// </summary>
-        /// <param name="ipAddress">The IP Address.</param>
-        /// <param name="emailAddress">The email Address.</param>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="responseText">The response text.</param>
-        /// <returns>
-        /// Returns if user is a possible Bot or not
-        /// </returns>
-        bool IsBot(
-            [CanBeNull] string ipAddress,
-            [CanBeNull] string emailAddress,
-            [CanBeNull] string userName,
-            out string responseText);
-    }
+    /// <param name="ipAddress">The IP Address.</param>
+    /// <param name="emailAddress">The email Address.</param>
+    /// <param name="userName">Name of the user.</param>
+    /// <param name="responseText">The response text.</param>
+    /// <returns>
+    /// Returns if user is a possible Bot or not
+    /// </returns>
+    bool IsBot(
+        [CanBeNull] string ipAddress,
+        [CanBeNull] string emailAddress,
+        [CanBeNull] string userName,
+        out string responseText);
 }

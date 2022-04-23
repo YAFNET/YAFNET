@@ -21,59 +21,59 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// The active access repository extensions.
+/// </summary>
+public static class ActiveAccessRepositoryExtensions
 {
-    using System;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The active access repository extensions.
+    /// Sets the Page Access for the specified user
     /// </summary>
-    public static class ActiveAccessRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board identifier.
+    /// </param>
+    /// <param name="userId">
+    /// The user identifier.
+    /// </param>
+    /// <param name="isGuest">
+    /// The is guest.
+    /// </param>
+    public static void InsertPageAccess(
+        this IRepository<ActiveAccess> repository,
+        [CanBeNull] int? boardId,
+        [NotNull] int userId,
+        [NotNull] bool isGuest)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Sets the Page Access for the specified user
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board identifier.
-        /// </param>
-        /// <param name="userId">
-        /// The user identifier.
-        /// </param>
-        /// <param name="isGuest">
-        /// The is guest.
-        /// </param>
-        public static void InsertPageAccess(
-            this IRepository<ActiveAccess> repository,
-            [CanBeNull] int? boardId,
-            [NotNull] int userId,
-            [NotNull] bool isGuest)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        repository.DbAccess.Execute(db =>
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
 
-            repository.DbAccess.Execute(db =>
-                {
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
+                var dateTimeUtc = expression.DialectProvider.Variables["{SYSTEM_UTC}"];
 
-                    var dateTimeUtc = expression.DialectProvider.Variables["{SYSTEM_UTC}"];
-
-                    // -- update active access
-                    // -- ensure that access right are in place
-                    return db.Connection.ExecuteSql(
-                        $@" if not exists (select top 1 UserID from {expression.Table<ActiveAccess>()} where UserID = {userId} )
+                // -- update active access
+                // -- ensure that access right are in place
+                return db.Connection.ExecuteSql(
+                    $@" if not exists (select top 1 UserID from {expression.Table<ActiveAccess>()} where UserID = {userId} )
                                   begin
                                     insert into {expression.Table<ActiveAccess>()} (
                                            UserID,BoardID,ForumID,IsAdmin,IsForumModerator,IsModerator,IsGuestX,LastActive,
@@ -84,39 +84,38 @@ namespace YAF.Core.Model
                                            ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess
                                     from {expression.Table<vaccess>()} where UserID = {userId}
                                   end");
-                });
-        }
+            });
+    }
 
-        /// <summary>
-        /// Delete all old
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="activeTime">
-        /// The active Time.
-        /// </param>
-        public static void Delete(this IRepository<ActiveAccess> repository, [NotNull] int activeTime)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// Delete all old
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="activeTime">
+    /// The active Time.
+    /// </param>
+    public static void Delete(this IRepository<ActiveAccess> repository, [NotNull] int activeTime)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            repository.DbAccess.Execute(
-                db =>
+        repository.DbAccess.Execute(
+            db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
 
                     expression.Where(
                         $@"{OrmLiteConfig.DialectProvider.DateDiffFunction(
-                                             "minute",
-                                             expression.Column<ActiveAccess>(x => x.LastActive, true),
-                                             OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {activeTime} ");
+                            "minute",
+                            expression.Column<ActiveAccess>(x => x.LastActive, true),
+                            OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {activeTime} ");
 
                     expression.And(x => x.IsGuestX == false);
 
                     return db.Connection.Delete(expression);
                 });
-        }
-
-        #endregion
     }
+
+    #endregion
 }

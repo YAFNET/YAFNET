@@ -21,20 +21,20 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services.Cache
+namespace YAF.Core.Services.Cache;
+
+#region Using
+
+using YAF.Types;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The static lock object.
+/// </summary>
+public class StaticLockObject : IHaveLockObject
 {
-  #region Using
-
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-
-    #endregion
-
-  /// <summary>
-  /// The static lock object.
-  /// </summary>
-  public class StaticLockObject : IHaveLockObject
-  {
     #region Constants and Fields
 
     /// <summary>
@@ -56,7 +56,7 @@ namespace YAF.Core.Services.Cache
     /// </summary>
     public StaticLockObject()
     {
-      this.LockCacheItems = new object[LockObjectCount + 1];
+        this.LockCacheItems = new object[LockObjectCount + 1];
     }
 
     #endregion
@@ -77,25 +77,24 @@ namespace YAF.Core.Services.Cache
     [NotNull]
     public object Get([NotNull] string originalKey)
     {
-      CodeContracts.VerifyNotNull(originalKey);
+        CodeContracts.VerifyNotNull(originalKey);
 
-      var keyHash = originalKey.GetHashCode();
+        var keyHash = originalKey.GetHashCode();
 
-      // make positive if negative...
-      if (keyHash < 0)
-      {
-        keyHash = -keyHash;
-      }
+        // make positive if negative...
+        if (keyHash < 0)
+        {
+            keyHash = -keyHash;
+        }
 
-      // get the lock item id (value between 0 and objectCount)
-      var lockItemId = keyHash % LockObjectCount;
+        // get the lock item id (value between 0 and objectCount)
+        var lockItemId = keyHash % LockObjectCount;
 
-      // init the lock object if it hasn't been created yet...
-      return this.LockCacheItems[lockItemId] ?? (this.LockCacheItems[lockItemId] = new object());
+        // init the lock object if it hasn't been created yet...
+        return this.LockCacheItems[lockItemId] ?? (this.LockCacheItems[lockItemId] = new object());
     }
 
     #endregion
 
     #endregion
-  }
 }

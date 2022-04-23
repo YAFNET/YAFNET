@@ -21,108 +21,107 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+#region Using
+
+using System.Collections.Generic;
+
+using YAF.Configuration;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The default user display name.
+/// </summary>
+public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System.Collections.Generic;
-
-    using YAF.Configuration;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefaultUserDisplayName"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">The service locator.</param>
+    public DefaultUserDisplayName(IServiceLocator serviceLocator)
+    {
+        this.ServiceLocator = serviceLocator;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The default user display name.
+    /// Gets or sets the ServiceLocator.
     /// </summary>
-    public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
+    public IServiceLocator ServiceLocator { get; set; }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IUserDisplayName
+
+    /// <summary>
+    /// Find user
+    /// </summary>
+    /// <param name="contains">The contains.</param>
+    /// <returns>
+    /// Returns the Found PageUser
+    /// </returns>
+    [NotNull]
+    public IList<User> FindUserContainsName([NotNull] string contains)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultUserDisplayName"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">The service locator.</param>
-        public DefaultUserDisplayName(IServiceLocator serviceLocator)
-        {
-            this.ServiceLocator = serviceLocator;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IUserDisplayName
-
-        /// <summary>
-        /// Find user
-        /// </summary>
-        /// <param name="contains">The contains.</param>
-        /// <returns>
-        /// Returns the Found PageUser
-        /// </returns>
-        [NotNull]
-        public IList<User> FindUserContainsName([NotNull] string contains)
-        {
-            return this.Get<BoardSettings>().EnableDisplayName
-                ? this.GetRepository<User>().Get(
-                    u => u.DisplayName.Contains(contains) &&
-                         u.BoardID == this.Get<BoardSettings>().BoardID)
-                : this.GetRepository<User>().Get(
-                    u => u.Name.Contains(contains) && u.BoardID == this.Get<BoardSettings>().BoardID);
-        }
-
-        /// <summary>
-        /// Find User By (Display) Name
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="User"/>.
-        /// </returns>
-        [NotNull]
-        public User FindUserByName([NotNull] string name)
-        {
-            return this.Get<BoardSettings>().EnableDisplayName
-                ? this.GetRepository<User>().GetSingle(
-                    u => u.DisplayName == name &&
-                         u.BoardID == this.Get<BoardSettings>().BoardID)
-                : this.GetRepository<User>().GetSingle(
-                    u => u.Name == name && u.BoardID == this.Get<BoardSettings>().BoardID);
-        }
-
-        /// <summary>
-        /// Get the Display Name from a <paramref name="userId"/>
-        /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string GetNameById(int userId)
-        {
-            var user = this.GetRepository<User>().GetById(userId);
-
-            return user?.DisplayOrUserName();
-        }
-
-        #endregion
-
-        #endregion
+        return this.Get<BoardSettings>().EnableDisplayName
+                   ? this.GetRepository<User>().Get(
+                       u => u.DisplayName.Contains(contains) &&
+                            u.BoardID == this.Get<BoardSettings>().BoardID)
+                   : this.GetRepository<User>().Get(
+                       u => u.Name.Contains(contains) && u.BoardID == this.Get<BoardSettings>().BoardID);
     }
+
+    /// <summary>
+    /// Find User By (Display) Name
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="User"/>.
+    /// </returns>
+    [NotNull]
+    public User FindUserByName([NotNull] string name)
+    {
+        return this.Get<BoardSettings>().EnableDisplayName
+                   ? this.GetRepository<User>().GetSingle(
+                       u => u.DisplayName == name &&
+                            u.BoardID == this.Get<BoardSettings>().BoardID)
+                   : this.GetRepository<User>().GetSingle(
+                       u => u.Name == name && u.BoardID == this.Get<BoardSettings>().BoardID);
+    }
+
+    /// <summary>
+    /// Get the Display Name from a <paramref name="userId"/>
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public string GetNameById(int userId)
+    {
+        var user = this.GetRepository<User>().GetById(userId);
+
+        return user?.DisplayOrUserName();
+    }
+
+    #endregion
+
+    #endregion
 }

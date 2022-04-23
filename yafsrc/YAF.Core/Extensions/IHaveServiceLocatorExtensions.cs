@@ -21,48 +21,47 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+#region Using
+
+using System.Collections.Generic;
+using System.Linq;
+
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Tasks;
+
+#endregion
+
+/// <summary>
+/// The i have service locator extensions.
+/// </summary>
+public static class IHaveServiceLocatorExtensions
 {
-    #region Using
-
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Tasks;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The i have service locator extensions.
+    /// The run startup services.
     /// </summary>
-    public static class IHaveServiceLocatorExtensions
+    /// <param name="serviceLocator">
+    /// The instance that has a service locator.
+    /// </param>
+    public static void RunStartupServices([NotNull] this IHaveServiceLocator serviceLocator)
     {
-        #region Public Methods
+        CodeContracts.VerifyNotNull(serviceLocator);
 
-        /// <summary>
-        /// The run startup services.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The instance that has a service locator.
-        /// </param>
-        public static void RunStartupServices([NotNull] this IHaveServiceLocator serviceLocator)
-        {
-            CodeContracts.VerifyNotNull(serviceLocator);
+        var startupServices = serviceLocator.Get<IEnumerable<IStartupService>>().ToList();
 
-            var startupServices = serviceLocator.Get<IEnumerable<IStartupService>>().ToList();
+        // run critical first...
+        startupServices.Where(s => s.HasInterface<ICriticalStartupService>()).OrderByDescending(i => i.Priority)
+            .ForEach(service => service.Run());
 
-            // run critical first...
-            startupServices.Where(s => s.HasInterface<ICriticalStartupService>()).OrderByDescending(i => i.Priority)
-                .ForEach(service => service.Run());
-
-            // run secondary...
-            startupServices.Where(s => !s.HasInterface<ICriticalStartupService>()).OrderByDescending(i => i.Priority)
-                .ForEach(service => service.Run());
-        }
-
-        #endregion
+        // run secondary...
+        startupServices.Where(s => !s.HasInterface<ICriticalStartupService>()).OrderByDescending(i => i.Priority)
+            .ForEach(service => service.Run());
     }
+
+    #endregion
 }

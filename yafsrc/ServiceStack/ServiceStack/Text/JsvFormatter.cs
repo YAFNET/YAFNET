@@ -8,37 +8,37 @@
 using System.Text;
 using ServiceStack.Text.Common;
 
-namespace ServiceStack.Text
+namespace ServiceStack.Text;
+
+/// <summary>
+/// Class JsvFormatter.
+/// </summary>
+public static class JsvFormatter
 {
     /// <summary>
-    /// Class JsvFormatter.
+    /// Formats the specified serialized text.
     /// </summary>
-    public static class JsvFormatter
+    /// <param name="serializedText">The serialized text.</param>
+    /// <returns>System.String.</returns>
+    public static string Format(string serializedText)
     {
-        /// <summary>
-        /// Formats the specified serialized text.
-        /// </summary>
-        /// <param name="serializedText">The serialized text.</param>
-        /// <returns>System.String.</returns>
-        public static string Format(string serializedText)
+        if (string.IsNullOrEmpty(serializedText)) return null;
+
+        var tabCount = 0;
+        var sb = StringBuilderThreadStatic.Allocate();
+        var firstKeySeparator = true;
+        var inString = false;
+
+        for (var i = 0; i < serializedText.Length; i++)
         {
-            if (string.IsNullOrEmpty(serializedText)) return null;
+            var current = serializedText[i];
+            var previous = i - 1 >= 0 ? serializedText[i - 1] : 0;
+            var next = i < serializedText.Length - 1 ? serializedText[i + 1] : 0;
 
-            var tabCount = 0;
-            var sb = StringBuilderThreadStatic.Allocate();
-            var firstKeySeparator = true;
-            var inString = false;
-
-            for (var i = 0; i < serializedText.Length; i++)
+            switch (current)
             {
-                var current = serializedText[i];
-                var previous = i - 1 >= 0 ? serializedText[i - 1] : 0;
-                var next = i < serializedText.Length - 1 ? serializedText[i + 1] : 0;
-
-                switch (current)
-                {
-                    case JsWriter.MapStartChar:
-                    case JsWriter.ListStartChar:
+                case JsWriter.MapStartChar:
+                case JsWriter.ListStartChar:
                     {
                         if (previous == JsWriter.MapKeySeperator)
                         {
@@ -57,48 +57,47 @@ namespace ServiceStack.Text
                         firstKeySeparator = true;
                         continue;
                     }
-                    case JsWriter.MapEndChar:
-                    case JsWriter.ListEndChar:
-                        AppendTabLine(sb, --tabCount);
-                        sb.Append(current);
-                        firstKeySeparator = true;
-                        continue;
-                    case JsWriter.QuoteChar:
-                        sb.Append(current);
-                        inString = !inString;
-                        continue;
-                    case JsWriter.ItemSeperator when !inString:
-                        sb.Append(current);
-                        AppendTabLine(sb, tabCount);
-                        firstKeySeparator = true;
-                        continue;
-                }
-
-                sb.Append(current);
-
-                if (current == JsWriter.MapKeySeperator && firstKeySeparator)
-                {
-                    sb.Append(" ");
-                    firstKeySeparator = false;
-                }
+                case JsWriter.MapEndChar:
+                case JsWriter.ListEndChar:
+                    AppendTabLine(sb, --tabCount);
+                    sb.Append(current);
+                    firstKeySeparator = true;
+                    continue;
+                case JsWriter.QuoteChar:
+                    sb.Append(current);
+                    inString = !inString;
+                    continue;
+                case JsWriter.ItemSeperator when !inString:
+                    sb.Append(current);
+                    AppendTabLine(sb, tabCount);
+                    firstKeySeparator = true;
+                    continue;
             }
 
-            return StringBuilderThreadStatic.ReturnAndFree(sb);
+            sb.Append(current);
+
+            if (current == JsWriter.MapKeySeperator && firstKeySeparator)
+            {
+                sb.Append(" ");
+                firstKeySeparator = false;
+            }
         }
 
-        /// <summary>
-        /// Appends the tab line.
-        /// </summary>
-        /// <param name="sb">The sb.</param>
-        /// <param name="tabCount">The tab count.</param>
-        private static void AppendTabLine(StringBuilder sb, int tabCount)
-        {
-            sb.AppendLine();
+        return StringBuilderThreadStatic.ReturnAndFree(sb);
+    }
 
-            if (tabCount > 0)
-            {
-                sb.Append(new string('\t', tabCount));
-            }
+    /// <summary>
+    /// Appends the tab line.
+    /// </summary>
+    /// <param name="sb">The sb.</param>
+    /// <param name="tabCount">The tab count.</param>
+    private static void AppendTabLine(StringBuilder sb, int tabCount)
+    {
+        sb.AppendLine();
+
+        if (tabCount > 0)
+        {
+            sb.Append(new string('\t', tabCount));
         }
     }
 }

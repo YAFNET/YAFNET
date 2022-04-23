@@ -22,44 +22,43 @@
  * under the License.
  */
 
-namespace YAF.Types.Models.Identity
+namespace YAF.Types.Models.Identity;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The asp net user roles.
+/// </summary>
+public class AspNetUserRoles : AspNetUserRoles<string, string>
 {
-    using ServiceStack.DataAnnotations;
+}
 
-    using YAF.Types.Interfaces.Data;
+/// <summary>
+/// The asp net user roles.
+/// </summary>
+/// <typeparam name="TKey">
+/// </typeparam>
+/// <typeparam name="TRoleKey">
+/// </typeparam>
+[CompositePrimaryKey(nameof(UserId), nameof(RoleId))]
+public class AspNetUserRoles<TKey, TRoleKey> : IEntity
+{
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [StringLength(56)]
+    [ForeignKey(typeof(AspNetUsers), OnDelete = "CASCADE")]
+    [Required]
+    public TKey UserId { get; set; }
 
     /// <summary>
-    /// The asp net user roles.
+    /// Gets or sets the role id.
     /// </summary>
-    public class AspNetUserRoles : AspNetUserRoles<string, string>
-    {
-    }
-
-    /// <summary>
-    /// The asp net user roles.
-    /// </summary>
-    /// <typeparam name="TKey">
-    /// </typeparam>
-    /// <typeparam name="TRoleKey">
-    /// </typeparam>
-    [CompositePrimaryKey(nameof(UserId), nameof(RoleId))]
-    public class AspNetUserRoles<TKey, TRoleKey> : IEntity
-    {
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [StringLength(56)]
-        [ForeignKey(typeof(AspNetUsers), OnDelete = "CASCADE")]
-        [Required]
-        public TKey UserId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the role id.
-        /// </summary>
-        [StringLength(56)]
-        [PrimaryKey]
-        [ForeignKey(typeof(AspNetRoles), OnDelete = "CASCADE")]
-        [Required]
-        public TRoleKey RoleId { get; set; }
-    }
+    [StringLength(56)]
+    [PrimaryKey]
+    [ForeignKey(typeof(AspNetRoles), OnDelete = "CASCADE")]
+    [Required]
+    public TRoleKey RoleId { get; set; }
 }

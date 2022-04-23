@@ -22,45 +22,44 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System.Collections.Generic;
+
+/// <summary>
+/// The SearchGrid Data Set
+/// </summary>
+public class SearchGridDataSet
 {
-    using System.Collections.Generic;
+    /// <summary>
+    /// Gets or sets the page number.
+    /// </summary>
+    /// <value>
+    /// The page number.
+    /// </value>
+    public int PageNumber { get; set; }
 
     /// <summary>
-    /// The SearchGrid Data Set
+    /// Gets or sets the total records.
     /// </summary>
-    public class SearchGridDataSet
-    {
-        /// <summary>
-        /// Gets or sets the page number.
-        /// </summary>
-        /// <value>
-        /// The page number.
-        /// </value>
-        public int PageNumber { get; set; }
+    /// <value>
+    /// The total records.
+    /// </value>
+    public int TotalRecords { get; set; }
 
-        /// <summary>
-        /// Gets or sets the total records.
-        /// </summary>
-        /// <value>
-        /// The total records.
-        /// </value>
-        public int TotalRecords { get; set; }
+    /// <summary>
+    /// Gets or sets the size of the page.
+    /// </summary>
+    /// <value>
+    /// The size of the page.
+    /// </value>
+    public int PageSize { get; set; }
 
-        /// <summary>
-        /// Gets or sets the size of the page.
-        /// </summary>
-        /// <value>
-        /// The size of the page.
-        /// </value>
-        public int PageSize { get; set; }
-
-        /// <summary>
-        /// Gets or sets the search results.
-        /// </summary>
-        /// <value>
-        /// The search results.
-        /// </value>
-        public List<SearchMessage> SearchResults { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the search results.
+    /// </summary>
+    /// <value>
+    /// The search results.
+    /// </value>
+    public List<SearchMessage> SearchResults { get; set; }
 }

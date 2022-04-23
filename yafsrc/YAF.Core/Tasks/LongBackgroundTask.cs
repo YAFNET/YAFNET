@@ -21,48 +21,47 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Tasks
+namespace YAF.Core.Tasks;
+
+using System.Threading;
+
+/// <summary>
+/// The long background task.
+/// </summary>
+public class LongBackgroundTask : IntermittentBackgroundTask
 {
-    using System.Threading;
+    /// <summary>
+    /// The lock object.
+    /// </summary>
+    private readonly object lockObj = new ();
 
     /// <summary>
-    /// The long background task.
+    /// Initializes a new instance of the <see cref="LongBackgroundTask"/> class.
     /// </summary>
-    public class LongBackgroundTask : IntermittentBackgroundTask
+    public LongBackgroundTask()
     {
-        /// <summary>
-        /// The lock object.
-        /// </summary>
-        private readonly object lockObj = new ();
+        this.StartDelayMs = 50;
+        this.RunPeriodMs = Timeout.Infinite;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LongBackgroundTask"/> class.
-        /// </summary>
-        public LongBackgroundTask()
+    /// <summary>
+    /// The timer callback.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    protected override void TimerCallback(object sender)
+    {
+        lock (this.lockObj)
         {
-            this.StartDelayMs = 50;
-            this.RunPeriodMs = Timeout.Infinite;
-        }
+            // we're done with this timer...
+            this.intermittentTimer.Dispose();
 
-        /// <summary>
-        /// The timer callback.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        protected override void TimerCallback(object sender)
-        {
-            lock (this.lockObj)
-            {
-                // we're done with this timer...
-                this.intermittentTimer.Dispose();
+            // run this item once...
+            this.RunOnce();
 
-                // run this item once...
-                this.RunOnce();
-
-                // no longer running when we get here...
-                this.IsRunning = false;
-            }
+            // no longer running when we get here...
+            this.IsRunning = false;
         }
     }
 }

@@ -22,73 +22,72 @@
  * under the License.
  */
 
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+#region Using
+
+using System.Net.Mail;
+using System.Net.Mime;
+using System.Text;
+
+using YAF.Types;
+using YAF.Types.Extensions;
+
+#endregion
+
+/// <summary>
+/// The mail message extensions.
+/// </summary>
+public static class MailMessageExtensions
 {
-    #region Using
-
-    using System.Net.Mail;
-    using System.Net.Mime;
-    using System.Text;
-
-    using YAF.Types;
-    using YAF.Types.Extensions;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The mail message extensions.
+    /// Populates the specified mail message.
     /// </summary>
-    public static class MailMessageExtensions
+    /// <param name="mailMessage">The mail message.</param>
+    /// <param name="fromAddress">The from address.</param>
+    /// <param name="toAddress">The to address.</param>
+    /// <param name="senderAddress">The sender address.</param>
+    /// <param name="subject">The subject.</param>
+    /// <param name="bodyText">The body text.</param>
+    /// <param name="bodyHtml">The body html.</param>
+    [NotNull]
+    public static void Populate(
+        [NotNull] this MailMessage mailMessage,
+        [NotNull] MailAddress fromAddress,
+        [NotNull] MailAddress toAddress,
+        [NotNull] MailAddress senderAddress,
+        [CanBeNull] string subject,
+        [CanBeNull] string bodyText,
+        [CanBeNull] string bodyHtml)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(mailMessage);
+        CodeContracts.VerifyNotNull(fromAddress);
+        CodeContracts.VerifyNotNull(toAddress);
 
-        /// <summary>
-        /// Populates the specified mail message.
-        /// </summary>
-        /// <param name="mailMessage">The mail message.</param>
-        /// <param name="fromAddress">The from address.</param>
-        /// <param name="toAddress">The to address.</param>
-        /// <param name="senderAddress">The sender address.</param>
-        /// <param name="subject">The subject.</param>
-        /// <param name="bodyText">The body text.</param>
-        /// <param name="bodyHtml">The body html.</param>
-        [NotNull]
-        public static void Populate(
-            [NotNull] this MailMessage mailMessage,
-            [NotNull] MailAddress fromAddress,
-            [NotNull] MailAddress toAddress,
-            [NotNull] MailAddress senderAddress,
-            [CanBeNull] string subject,
-            [CanBeNull] string bodyText,
-            [CanBeNull] string bodyHtml)
+        mailMessage.To.Add(toAddress);
+        mailMessage.From = fromAddress;
+
+        mailMessage.Sender = senderAddress;
+
+        mailMessage.Subject = subject;
+
+        mailMessage.HeadersEncoding = Encoding.UTF8;
+        mailMessage.BodyEncoding = Encoding.UTF8;
+        mailMessage.SubjectEncoding = Encoding.UTF8;
+
+        // add default text view
+        mailMessage.AlternateViews.Add(
+            AlternateView.CreateAlternateViewFromString(bodyText, Encoding.UTF8, MediaTypeNames.Text.Plain));
+
+        // see if html alternative is also desired...
+        if (bodyHtml.IsSet())
         {
-            CodeContracts.VerifyNotNull(mailMessage);
-            CodeContracts.VerifyNotNull(fromAddress);
-            CodeContracts.VerifyNotNull(toAddress);
-
-            mailMessage.To.Add(toAddress);
-            mailMessage.From = fromAddress;
-
-            mailMessage.Sender = senderAddress;
-
-            mailMessage.Subject = subject;
-
-            mailMessage.HeadersEncoding = Encoding.UTF8;
-            mailMessage.BodyEncoding = Encoding.UTF8;
-            mailMessage.SubjectEncoding = Encoding.UTF8;
-
-            // add default text view
             mailMessage.AlternateViews.Add(
-                AlternateView.CreateAlternateViewFromString(bodyText, Encoding.UTF8, MediaTypeNames.Text.Plain));
-
-            // see if html alternative is also desired...
-            if (bodyHtml.IsSet())
-            {
-                mailMessage.AlternateViews.Add(
-                    AlternateView.CreateAlternateViewFromString(bodyHtml, Encoding.UTF8, MediaTypeNames.Text.Html));
-            }
+                AlternateView.CreateAlternateViewFromString(bodyHtml, Encoding.UTF8, MediaTypeNames.Text.Html));
         }
-
-        #endregion
     }
+
+    #endregion
 }

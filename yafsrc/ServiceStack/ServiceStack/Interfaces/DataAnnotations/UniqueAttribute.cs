@@ -6,13 +6,12 @@
 // ***********************************************************************
 using System;
 
-namespace ServiceStack.DataAnnotations
-{
-    /// <summary>
-    /// Class UniqueAttribute.
-    /// Implements the <see cref="ServiceStack.AttributeBase" />
-    /// </summary>
-    /// <seealso cref="ServiceStack.AttributeBase" />
-    [AttributeUsage(AttributeTargets.Property)]
-    public class UniqueAttribute : AttributeBase { }
-}
+namespace ServiceStack.DataAnnotations;
+
+/// <summary>
+/// Class UniqueAttribute.
+/// Implements the <see cref="ServiceStack.AttributeBase" />
+/// </summary>
+/// <seealso cref="ServiceStack.AttributeBase" />
+[AttributeUsage(AttributeTargets.Property)]
+public class UniqueAttribute : AttributeBase { }

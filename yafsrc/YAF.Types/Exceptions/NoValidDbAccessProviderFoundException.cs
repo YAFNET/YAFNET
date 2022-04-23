@@ -22,29 +22,28 @@
  * under the License.
  */
 
-namespace YAF.Types.Exceptions
+namespace YAF.Types.Exceptions;
+
+using System;
+
+/// <summary>
+///     The no valid DB access provider found exception.
+/// </summary>
+[Serializable]
+public class NoValidDbAccessProviderFoundException : Exception
 {
-    using System;
+    #region Constructors and Destructors
 
     /// <summary>
-    ///     The no valid DB access provider found exception.
+    ///     Initializes a new instance of the <see cref="NoValidDbAccessProviderFoundException" /> class.
     /// </summary>
-    [Serializable]
-    public class NoValidDbAccessProviderFoundException : Exception
+    /// <param name="message">
+    ///     The message.
+    /// </param>
+    public NoValidDbAccessProviderFoundException(string message)
+        : base(message)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="NoValidDbAccessProviderFoundException" /> class.
-        /// </summary>
-        /// <param name="message">
-        ///     The message.
-        /// </param>
-        public NoValidDbAccessProviderFoundException(string message)
-            : base(message)
-        {
-        }
-
-        #endregion
     }
+
+    #endregion
 }

@@ -10,23 +10,22 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace YAF.UrlRewriter.Transforms
+namespace YAF.UrlRewriter.Transforms;
+
+/// <summary>
+/// Interface for transforming replacements.
+/// </summary>
+public interface IRewriteTransform
 {
     /// <summary>
-    /// Interface for transforming replacements.
+    /// Gets the name of the transform.
     /// </summary>
-    public interface IRewriteTransform
-    {
-        /// <summary>
-        /// Gets the name of the transform.
-        /// </summary>
-        string Name { get; }
+    string Name { get; }
 
-        /// <summary>
-        /// Applies a transformation to the input string.
-        /// </summary>
-        /// <param name="input">The input string.</param>
-        /// <returns>The transformed string.</returns>
-        string ApplyTransform(string input);
-    }
+    /// <summary>
+    /// Applies a transformation to the input string.
+    /// </summary>
+    /// <param name="input">The input string.</param>
+    /// <returns>The transformed string.</returns>
+    string ApplyTransform(string input);
 }

@@ -21,114 +21,113 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
-{
-    #region Using
+namespace YAF.Controls;
 
-    using YAF.Web.Controls;
-    using YAF.Types.Models;
+#region Using
+
+using YAF.Web.Controls;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The forum statistics.
+/// </summary>
+public partial class Statistics : BaseUserControl
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "Statistics" /> class.
+    /// </summary>
+    public Statistics()
+    {
+        this.Load += this.ForumStatistics_Load;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The forum statistics.
+    /// The forum statistics_ load.
     /// </summary>
-    public partial class Statistics : BaseUserControl
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumStatistics_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
+        // Forum Statistics
+        var postsStatistics = this.Get<IDataCache>().GetOrSet(
+            Constants.Cache.BoardStats,
+            () => this.GetRepository<Board>().PostStats(this.PageBoardContext.PageBoardID, true),
+            TimeSpan.FromMinutes(this.PageBoardContext.BoardSettings.ForumStatisticsCacheTimeout));
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "Statistics" /> class.
-        /// </summary>
-        public Statistics()
+        var latestUser = this.Get<IDataCache>().GetOrSet(
+            Constants.Cache.BoardUserStats,
+            () => this.GetRepository<User>().Latest(this.PageBoardContext.PageBoardID),
+            TimeSpan.FromMinutes(this.PageBoardContext.BoardSettings.BoardUserStatsCacheTimeout));
+
+        // Posts and Topic Count...
+        this.StatsPostsTopicCount.Text = this.GetTextFormatted(
+            "stats_posts",
+            postsStatistics.Posts,
+            postsStatistics.Topics,
+            postsStatistics.Forums);
+
+        // Last post
+        if (postsStatistics.LastPost.HasValue)
         {
-            this.Load += this.ForumStatistics_Load;
+            this.StatsLastPostHolder.Visible = true;
+
+            this.LastPostUserLink.UserID = postsStatistics.LastUserID.Value;
+            this.LastPostUserLink.ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
+                                                    ? postsStatistics.LastUserDisplayName
+                                                    : postsStatistics.LastUser;
+            this.LastPostUserLink.Suspended = postsStatistics.LastUserSuspended;
+            this.LastPostUserLink.Style = postsStatistics.LastUserStyle;
+            this.StatsLastPost.Text = this.GetTextFormatted(
+                "stats_lastpost",
+                new DisplayDateTime {
+                                            DateTime = postsStatistics.LastPost, Format = DateTimeFormat.BothTopic
+                                        }.RenderToString());
+        }
+        else
+        {
+            this.StatsLastPostHolder.Visible = false;
         }
 
-        #endregion
+        var membersCount = this.Get<IDataCache>().GetOrSet(
+            Constants.Cache.BoardMembers,
+            () => this.GetRepository<User>().BoardMembers(this.PageBoardContext.PageBoardID),
+            TimeSpan.FromMinutes(this.PageBoardContext.BoardSettings.BoardUserStatsCacheTimeout));
 
-        #region Methods
+        // Member Count
+        this.StatsMembersCount.Text = this.GetTextFormatted("stats_members", membersCount);
 
-        /// <summary>
-        /// The forum statistics_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void ForumStatistics_Load([NotNull] object sender, [NotNull] EventArgs e)
+        // Newest Member
+        this.StatsNewestMember.Text = this.GetText("stats_lastmember");
+        this.NewestMemberUserLink.UserID = latestUser.ID;
+        this.NewestMemberUserLink.ReplaceName = latestUser.DisplayOrUserName();
+        this.NewestMemberUserLink.Style = latestUser.UserStyle;
+        this.NewestMemberUserLink.Suspended = latestUser.Suspended;
+
+        if (this.PageBoardContext.BoardSettings.DeniedRegistrations > 0 ||
+            this.PageBoardContext.BoardSettings.BannedUsers > 0 || this.PageBoardContext.BoardSettings.ReportedSpammers > 0)
         {
-            // Forum Statistics
-            var postsStatistics = this.Get<IDataCache>().GetOrSet(
-                Constants.Cache.BoardStats,
-                () => this.GetRepository<Board>().PostStats(this.PageBoardContext.PageBoardID, true),
-                TimeSpan.FromMinutes(this.PageBoardContext.BoardSettings.ForumStatisticsCacheTimeout));
-
-            var latestUser = this.Get<IDataCache>().GetOrSet(
-                Constants.Cache.BoardUserStats,
-                () => this.GetRepository<User>().Latest(this.PageBoardContext.PageBoardID),
-                TimeSpan.FromMinutes(this.PageBoardContext.BoardSettings.BoardUserStatsCacheTimeout));
-
-            // Posts and Topic Count...
-            this.StatsPostsTopicCount.Text = this.GetTextFormatted(
-                "stats_posts",
-                postsStatistics.Posts,
-                postsStatistics.Topics,
-                postsStatistics.Forums);
-
-            // Last post
-            if (postsStatistics.LastPost.HasValue)
-            {
-                this.StatsLastPostHolder.Visible = true;
-
-                this.LastPostUserLink.UserID = postsStatistics.LastUserID.Value;
-                this.LastPostUserLink.ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
-                    ? postsStatistics.LastUserDisplayName
-                    : postsStatistics.LastUser;
-                this.LastPostUserLink.Suspended = postsStatistics.LastUserSuspended;
-                this.LastPostUserLink.Style = postsStatistics.LastUserStyle;
-                this.StatsLastPost.Text = this.GetTextFormatted(
-                    "stats_lastpost",
-                    new DisplayDateTime {
-                        DateTime = postsStatistics.LastPost, Format = DateTimeFormat.BothTopic
-                    }.RenderToString());
-            }
-            else
-            {
-                this.StatsLastPostHolder.Visible = false;
-            }
-
-            var membersCount = this.Get<IDataCache>().GetOrSet(
-                Constants.Cache.BoardMembers,
-                () => this.GetRepository<User>().BoardMembers(this.PageBoardContext.PageBoardID),
-                TimeSpan.FromMinutes(this.PageBoardContext.BoardSettings.BoardUserStatsCacheTimeout));
-
-            // Member Count
-            this.StatsMembersCount.Text = this.GetTextFormatted("stats_members", membersCount);
-
-            // Newest Member
-            this.StatsNewestMember.Text = this.GetText("stats_lastmember");
-            this.NewestMemberUserLink.UserID = latestUser.ID;
-            this.NewestMemberUserLink.ReplaceName = latestUser.DisplayOrUserName();
-            this.NewestMemberUserLink.Style = latestUser.UserStyle;
-            this.NewestMemberUserLink.Suspended = latestUser.Suspended;
-
-            if (this.PageBoardContext.BoardSettings.DeniedRegistrations > 0 ||
-                this.PageBoardContext.BoardSettings.BannedUsers > 0 || this.PageBoardContext.BoardSettings.ReportedSpammers > 0)
-            {
-                this.AntiSpamStatsHolder.Visible = true;
-                this.StatsSpamDenied.Param0 = this.PageBoardContext.BoardSettings.DeniedRegistrations.ToString();
-                this.StatsSpamBanned.Param0 = this.PageBoardContext.BoardSettings.BannedUsers.ToString();
-                this.StatsSpamReported.Param0 = this.PageBoardContext.BoardSettings.ReportedSpammers.ToString();
-            }
-            else
-            {
-                this.AntiSpamStatsHolder.Visible = false;
-            }
+            this.AntiSpamStatsHolder.Visible = true;
+            this.StatsSpamDenied.Param0 = this.PageBoardContext.BoardSettings.DeniedRegistrations.ToString();
+            this.StatsSpamBanned.Param0 = this.PageBoardContext.BoardSettings.BannedUsers.ToString();
+            this.StatsSpamReported.Param0 = this.PageBoardContext.BoardSettings.ReportedSpammers.ToString();
         }
-
-        #endregion
+        else
+        {
+            this.AntiSpamStatsHolder.Visible = false;
+        }
     }
+
+    #endregion
 }

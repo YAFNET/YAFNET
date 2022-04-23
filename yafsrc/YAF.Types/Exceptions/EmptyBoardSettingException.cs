@@ -22,29 +22,28 @@
  * under the License.
  */
 
-namespace YAF.Types.Exceptions
+namespace YAF.Types.Exceptions;
+
+using System;
+
+/// <summary>
+///     The empty board setting exception.
+/// </summary>
+[Serializable]
+public class EmptyBoardSettingException : Exception
 {
-    using System;
+    #region Constructors and Destructors
 
     /// <summary>
-    ///     The empty board setting exception.
+    /// Initializes a new instance of the <see cref="EmptyBoardSettingException"/> class.
     /// </summary>
-    [Serializable]
-    public class EmptyBoardSettingException : Exception
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    public EmptyBoardSettingException(string message)
+        : base(message)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyBoardSettingException"/> class.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        public EmptyBoardSettingException(string message)
-            : base(message)
-        {
-        }
-
-        #endregion
     }
+
+    #endregion
 }

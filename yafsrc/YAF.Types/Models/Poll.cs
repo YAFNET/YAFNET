@@ -21,72 +21,71 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Flags;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the Poll table.
+/// </summary>
+[Serializable]
+public class Poll : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the Poll table.
+    /// Gets or sets the Poll id.
     /// </summary>
-    [Serializable]
-    public class Poll : IEntity, IHaveID
+    [Alias("PollID")]
+    [AutoIncrement]
+    public int ID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the question.
+    /// </summary>
+    [Required]
+    [StringLength(256)]
+    public string Question { get; set; }
+
+    /// <summary>
+    /// Gets or sets the closes.
+    /// </summary>
+    public DateTime? Closes { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [Required]
+    [Default(1)]
+    public int UserID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the object path.
+    /// </summary>
+    [StringLength(255)]
+    public string ObjectPath { get; set; }
+
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    [Default(0)]
+    public int Flags { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Poll flags.
+    /// </summary>
+    [Ignore]
+    public PollFlags PollFlags
     {
-        #region Properties
+        get => new(this.Flags);
 
-        /// <summary>
-        /// Gets or sets the Poll id.
-        /// </summary>
-        [Alias("PollID")]
-        [AutoIncrement]
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the question.
-        /// </summary>
-        [Required]
-        [StringLength(256)]
-        public string Question { get; set; }
-
-        /// <summary>
-        /// Gets or sets the closes.
-        /// </summary>
-        public DateTime? Closes { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [Required]
-        [Default(1)]
-        public int UserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the object path.
-        /// </summary>
-        [StringLength(255)]
-        public string ObjectPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flags.
-        /// </summary>
-        [Default(0)]
-        public int Flags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Poll flags.
-        /// </summary>
-        [Ignore]
-        public PollFlags PollFlags
-        {
-            get => new(this.Flags);
-
-            set => this.Flags = value.BitValue;
-        }
-
-        #endregion
+        set => this.Flags = value.BitValue;
     }
+
+    #endregion
 }

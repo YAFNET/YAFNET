@@ -21,92 +21,91 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Helpers
-{
-    using System;
-    using System.Globalization;
-    using System.Linq;
+namespace YAF.Core.Helpers;
 
-    using YAF.Core.Context;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
+using System;
+using System.Globalization;
+using System.Linq;
+
+using YAF.Core.Context;
+using YAF.Core.Services;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+
+/// <summary>
+/// The user helper.
+/// </summary>
+public static class UserHelper
+{
+    #region Public Methods
 
     /// <summary>
-    /// The user helper.
+    /// Gets the user language file.
     /// </summary>
-    public static class UserHelper
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <returns>
+    /// language file name. If null -- use default language
+    /// </returns>
+    public static string GetUserLanguageFile([CanBeNull] User user)
     {
-        #region Public Methods
-
-        /// <summary>
-        /// Gets the user language file.
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <returns>
-        /// language file name. If null -- use default language
-        /// </returns>
-        public static string GetUserLanguageFile([CanBeNull] User user)
+        if (user != null && user.LanguageFile.IsSet() && BoardContext.Current.BoardSettings.AllowUserLanguage)
         {
-            if (user != null && user.LanguageFile.IsSet() && BoardContext.Current.BoardSettings.AllowUserLanguage)
-            {
-                return user.LanguageFile;
-            }
-
-            return null;
+            return user.LanguageFile;
         }
 
-        /// <summary>
-        /// Gets the Guest User Language File based on the current Browser Language
-        /// </summary>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string GetGuestUserLanguageFile()
-        {
-            var languages = BoardContext.Current.Get<IDataCache>().GetOrSet(
-                "Languages",
-                StaticDataHelper.NeutralCultures,
-                TimeSpan.FromDays(30));
-
-            var languageRow = languages.FirstOrDefault(
-                row => row.CultureTag.Equals(CultureInfo.CurrentCulture.TwoLetterISOLanguageName));
-
-            return languageRow != null ? languageRow.CultureFile : BoardContext.Current.BoardSettings.Language;
-        }
-
-        /// <summary>
-        /// Gets the user theme file.
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <param name="allowUserTheme">
-        /// if set to <c>true</c> [allow user theme].
-        /// </param>
-        /// <param name="theme">
-        /// The theme.
-        /// </param>
-        /// <returns>
-        /// Returns User theme
-        /// </returns>
-        public static string GetUserThemeFile([CanBeNull] User user, [NotNull] bool allowUserTheme, [NotNull] string theme)
-        {
-            // get the user information...
-            var themeFile = user != null && user.ThemeFile.IsSet() && allowUserTheme ? user.ThemeFile : theme;
-
-            if (!Theme.IsValidTheme(themeFile))
-            {
-                themeFile = "yaf";
-            }
-
-            return themeFile;
-        }
-
-        #endregion
+        return null;
     }
+
+    /// <summary>
+    /// Gets the Guest User Language File based on the current Browser Language
+    /// </summary>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public static string GetGuestUserLanguageFile()
+    {
+        var languages = BoardContext.Current.Get<IDataCache>().GetOrSet(
+            "Languages",
+            StaticDataHelper.NeutralCultures,
+            TimeSpan.FromDays(30));
+
+        var languageRow = languages.FirstOrDefault(
+            row => row.CultureTag.Equals(CultureInfo.CurrentCulture.TwoLetterISOLanguageName));
+
+        return languageRow != null ? languageRow.CultureFile : BoardContext.Current.BoardSettings.Language;
+    }
+
+    /// <summary>
+    /// Gets the user theme file.
+    /// </summary>
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <param name="allowUserTheme">
+    /// if set to <c>true</c> [allow user theme].
+    /// </param>
+    /// <param name="theme">
+    /// The theme.
+    /// </param>
+    /// <returns>
+    /// Returns User theme
+    /// </returns>
+    public static string GetUserThemeFile([CanBeNull] User user, [NotNull] bool allowUserTheme, [NotNull] string theme)
+    {
+        // get the user information...
+        var themeFile = user != null && user.ThemeFile.IsSet() && allowUserTheme ? user.ThemeFile : theme;
+
+        if (!Theme.IsValidTheme(themeFile))
+        {
+            themeFile = "yaf";
+        }
+
+        return themeFile;
+    }
+
+    #endregion
 }

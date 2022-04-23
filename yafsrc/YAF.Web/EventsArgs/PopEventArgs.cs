@@ -22,39 +22,38 @@
  * under the License.
  */
 
-namespace YAF.Web.EventsArgs
-{
-    using System;
+namespace YAF.Web.EventsArgs;
 
-    using YAF.Types;
+using System;
+
+using YAF.Types;
+
+/// <summary>
+/// The pop event args.
+/// </summary>
+public class PopEventArgs : EventArgs
+{
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The pop event args.
+    /// Initializes a new instance of the <see cref="PopEventArgs"/> class.
     /// </summary>
-    public class PopEventArgs : EventArgs
+    /// <param name="eventArgument">
+    /// The event argument.
+    /// </param>
+    public PopEventArgs([NotNull] string eventArgument)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PopEventArgs"/> class.
-        /// </summary>
-        /// <param name="eventArgument">
-        /// The event argument.
-        /// </param>
-        public PopEventArgs([NotNull] string eventArgument)
-        {
-            this.Item = eventArgument;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets Item.
-        /// </summary>
-        public string Item { get; }
-
-        #endregion
+        this.Item = eventArgument;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets Item.
+    /// </summary>
+    public string Item { get; }
+
+    #endregion
 }

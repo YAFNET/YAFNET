@@ -22,50 +22,49 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// Generates the RSS Feeds.
+/// </summary>
+public partial class Feed : ForumPage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "Feed" /> class.
+    /// </summary>
+    public Feed()
+        : base("RSSTOPIC", ForumPages.Feed)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Generates the RSS Feeds.
+    /// The page_ load.
     /// </summary>
-    public partial class Feed : ForumPage
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "Feed" /> class.
-        /// </summary>
-        public Feed()
-            : base("RSSTOPIC", ForumPages.Feed)
+        if (!this.PageBoardContext.BoardSettings.ShowAtomLink)
         {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.PageBoardContext.BoardSettings.ShowAtomLink)
-            {
-                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
-            }
-
-            this.Get<SyndicationFeeds>().GetFeed();
-        }
-
-        #endregion
+        this.Get<SyndicationFeeds>().GetFeed();
     }
+
+    #endregion
 }

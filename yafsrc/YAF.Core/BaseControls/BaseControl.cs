@@ -22,104 +22,103 @@
  * under the License.
  */
 
-namespace YAF.Core.BaseControls
+namespace YAF.Core.BaseControls;
+
+#region Using
+
+using System;
+using System.Web.UI;
+
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The base control.
+/// </summary>
+public class BaseControl : Control, IRaiseControlLifeCycles, IHaveServiceLocator, IHaveLocalization
 {
-    #region Using
+    #region Constants and Fields
 
-    using System;
-    using System.Web.UI;
+    /// <summary>
+    ///   The _localization.
+    /// </summary>
+    private ILocalization _localization;
 
-    using YAF.Core.Context;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+    /// <summary>
+    /// The _logger.
+    /// </summary>
+    private ILoggerService _logger;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// The base control.
+    ///   Initializes a new instance of the <see cref = "BaseControl" /> class.
     /// </summary>
-    public class BaseControl : Control, IRaiseControlLifeCycles, IHaveServiceLocator, IHaveLocalization
+    public BaseControl()
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _localization.
-        /// </summary>
-        private ILocalization _localization;
-
-        /// <summary>
-        /// The _logger.
-        /// </summary>
-        private ILoggerService _logger;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "BaseControl" /> class.
-        /// </summary>
-        public BaseControl()
-        {
-            this.Get<IInjectServices>().Inject(this);
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets Localization.
-        /// </summary>
-        public ILocalization Localization => this._localization ??= this.Get<ILocalization>();
-
-        /// <summary>
-        ///   Gets or sets Logger.
-        /// </summary>
-        public ILoggerService Logger => this._logger ??= this.Get<ILoggerProvider>().Create(this.GetType());
-
-        /// <summary>
-        ///   Gets PageBoardContext.
-        /// </summary>
-        public BoardContext PageBoardContext => BoardContext.Current;
-
-        /// <summary>
-        ///   Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => this.PageBoardContext.ServiceLocator;
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IRaiseControlLifeCycles
-
-        /// <summary>
-        /// The raise init.
-        /// </summary>
-        void IRaiseControlLifeCycles.RaiseInit()
-        {
-            this.OnInit(EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// The raise load.
-        /// </summary>
-        void IRaiseControlLifeCycles.RaiseLoad()
-        {
-            this.OnLoad(EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// The raise pre render.
-        /// </summary>
-        void IRaiseControlLifeCycles.RaisePreRender()
-        {
-            this.OnPreRender(EventArgs.Empty);
-        }
-
-        #endregion
-
-        #endregion
+        this.Get<IInjectServices>().Inject(this);
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets Localization.
+    /// </summary>
+    public ILocalization Localization => this._localization ??= this.Get<ILocalization>();
+
+    /// <summary>
+    ///   Gets or sets Logger.
+    /// </summary>
+    public ILoggerService Logger => this._logger ??= this.Get<ILoggerProvider>().Create(this.GetType());
+
+    /// <summary>
+    ///   Gets PageBoardContext.
+    /// </summary>
+    public BoardContext PageBoardContext => BoardContext.Current;
+
+    /// <summary>
+    ///   Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator => this.PageBoardContext.ServiceLocator;
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IRaiseControlLifeCycles
+
+    /// <summary>
+    /// The raise init.
+    /// </summary>
+    void IRaiseControlLifeCycles.RaiseInit()
+    {
+        this.OnInit(EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// The raise load.
+    /// </summary>
+    void IRaiseControlLifeCycles.RaiseLoad()
+    {
+        this.OnLoad(EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// The raise pre render.
+    /// </summary>
+    void IRaiseControlLifeCycles.RaisePreRender()
+    {
+        this.OnPreRender(EventArgs.Empty);
+    }
+
+    #endregion
+
+    #endregion
 }

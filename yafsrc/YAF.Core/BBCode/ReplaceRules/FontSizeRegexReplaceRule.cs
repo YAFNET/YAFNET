@@ -21,84 +21,83 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BBCode.ReplaceRules
+namespace YAF.Core.BBCode.ReplaceRules;
+
+using System.Text.RegularExpressions;
+
+/// <summary>
+/// For the font size with replace
+/// </summary>
+public class FontSizeRegexReplaceRule : VariableRegexReplaceRule
 {
-    using System.Text.RegularExpressions;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// For the font size with replace
+    /// Initializes a new instance of the <see cref="FontSizeRegexReplaceRule"/> class.
     /// </summary>
-    public class FontSizeRegexReplaceRule : VariableRegexReplaceRule
+    /// <param name="regExSearch">
+    /// The Search Regex
+    /// </param>
+    /// <param name="regExReplace">
+    /// The Replace Regex.
+    /// </param>
+    /// <param name="regExOptions">
+    /// The Regex options.
+    /// </param>
+    public FontSizeRegexReplaceRule(string regExSearch, string regExReplace, RegexOptions regExOptions)
+        : base(regExSearch, regExReplace, regExOptions, new[] { "size" }, new[] { "5" })
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FontSizeRegexReplaceRule"/> class.
-        /// </summary>
-        /// <param name="regExSearch">
-        /// The Search Regex
-        /// </param>
-        /// <param name="regExReplace">
-        /// The Replace Regex.
-        /// </param>
-        /// <param name="regExOptions">
-        /// The Regex options.
-        /// </param>
-        public FontSizeRegexReplaceRule(string regExSearch, string regExReplace, RegexOptions regExOptions)
-            : base(regExSearch, regExReplace, regExOptions, new[] { "size" }, new[] { "5" })
-        {
-            this.RuleRank = 25;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Override to change default variable handling...
-        /// </summary>
-        /// <param name="variableName">The variable name.</param>
-        /// <param name="variableValue">The variable value.</param>
-        /// <param name="handlingValue">The handling value.</param>
-        /// <returns>
-        /// The manage variable value.
-        /// </returns>
-        protected override string ManageVariableValue(string variableName, string variableValue, string handlingValue)
-        {
-            return variableName == "size" ? GetFontSize(variableValue) : variableValue;
-        }
-
-        /// <summary>
-        /// Gets the size of the font.
-        /// </summary>
-        /// <param name="inputStr">The input string.</param>
-        /// <returns>Returns the Font size</returns>
-        private static string GetFontSize(string inputStr)
-        {
-            int[] sizes = { 50, 70, 80, 90, 100, 120, 140, 160, 180 };
-
-            // try to parse the input string...
-            int.TryParse(inputStr, out var size);
-
-            switch (size)
-            {
-                case > 9:
-                    return $"{size}%";
-                case 9:
-                    return $"{size}px";
-                case < 1:
-                    size = 1;
-                    break;
-            }
-
-            if (size > sizes.Length)
-            {
-                size = 5;
-            }
-
-            return $"{sizes[size - 1]}%";
-        }
-
-        #endregion
+        this.RuleRank = 25;
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Override to change default variable handling...
+    /// </summary>
+    /// <param name="variableName">The variable name.</param>
+    /// <param name="variableValue">The variable value.</param>
+    /// <param name="handlingValue">The handling value.</param>
+    /// <returns>
+    /// The manage variable value.
+    /// </returns>
+    protected override string ManageVariableValue(string variableName, string variableValue, string handlingValue)
+    {
+        return variableName == "size" ? GetFontSize(variableValue) : variableValue;
+    }
+
+    /// <summary>
+    /// Gets the size of the font.
+    /// </summary>
+    /// <param name="inputStr">The input string.</param>
+    /// <returns>Returns the Font size</returns>
+    private static string GetFontSize(string inputStr)
+    {
+        int[] sizes = { 50, 70, 80, 90, 100, 120, 140, 160, 180 };
+
+        // try to parse the input string...
+        int.TryParse(inputStr, out var size);
+
+        switch (size)
+        {
+            case > 9:
+                return $"{size}%";
+            case 9:
+                return $"{size}px";
+            case < 1:
+                size = 1;
+                break;
+        }
+
+        if (size > sizes.Length)
+        {
+            size = 5;
+        }
+
+        return $"{sizes[size - 1]}%";
+    }
+
+    #endregion
 }

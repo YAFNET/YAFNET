@@ -21,63 +21,62 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the WatchTopic table.
+/// </summary>
+[Serializable]
+
+[UniqueConstraint(nameof(TopicID), nameof(UserID))]
+public class WatchTopic : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the WatchTopic table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
+    [AutoIncrement]
+    [Alias("WatchTopicID")]
+    public int ID { get; set; }
 
-    [UniqueConstraint(nameof(TopicID), nameof(UserID))]
-    public class WatchTopic : IEntity, IHaveID
-    {
-        #region Properties
+    /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    [References(typeof(Topic))]
+    [Required]
+    public int TopicID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("WatchTopicID")]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [References(typeof(User))]
+    [Required]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the topic id.
-        /// </summary>
-        [References(typeof(Topic))]
-        [Required]
-        public int TopicID { get; set; }
+    /// <summary>
+    /// Gets or sets the created.
+    /// </summary>
+    [Required]
+    public DateTime Created { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the last mail.
+    /// </summary>
+    public DateTime? LastMail { get; set; }
 
-        /// <summary>
-        /// Gets or sets the created.
-        /// </summary>
-        [Required]
-        public DateTime Created { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether
+    /// selected for editing.
+    /// </summary>
+    [Ignore]
+    public bool Selected { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last mail.
-        /// </summary>
-        public DateTime? LastMail { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether
-        /// selected for editing.
-        /// </summary>
-        [Ignore]
-        public bool Selected { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

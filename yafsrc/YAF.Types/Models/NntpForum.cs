@@ -21,74 +21,73 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the NntpForum table.
+/// </summary>
+[Serializable]
+public class NntpForum : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the NntpForum table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class NntpForum : IEntity, IHaveID
-    {
-        #region Properties
+    [Alias("NntpForumID")]
+    [AutoIncrement]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [Alias("NntpForumID")]
-        [AutoIncrement]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the nntp server id.
+    /// </summary>
+    [References(typeof(NntpServer))]
+    [Required]
+    public int NntpServerID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the nntp server id.
-        /// </summary>
-        [References(typeof(NntpServer))]
-        [Required]
-        public int NntpServerID { get; set; }
+    /// <summary>
+    /// Gets or sets the group name.
+    /// </summary>
+    [Required]
+    [StringLength(100)]
+    public string GroupName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the group name.
-        /// </summary>
-        [Required]
-        [StringLength(100)]
-        public string GroupName { get; set; }
+    /// <summary>
+    /// Gets or sets the forum id.
+    /// </summary>
+    [References(typeof(Forum))]
+    [Required]
+    public int ForumID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        [References(typeof(Forum))]
-        [Required]
-        public int ForumID { get; set; }
+    /// <summary>
+    /// Gets or sets the last message no.
+    /// </summary>
+    [Required]
+    public int LastMessageNo { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last message no.
-        /// </summary>
-        [Required]
-        public int LastMessageNo { get; set; }
+    /// <summary>
+    /// Gets or sets the last update.
+    /// </summary>
+    [Required]
+    public DateTime LastUpdate { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last update.
-        /// </summary>
-        [Required]
-        public DateTime LastUpdate { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether active.
+    /// </summary>
+    [Required]
+    [Default(typeof(bool), "1")]
+    public bool Active { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether active.
-        /// </summary>
-        [Required]
-        [Default(typeof(bool), "1")]
-        public bool Active { get; set; }
+    /// <summary>
+    /// Gets or sets the date cut off.
+    /// </summary>
+    public DateTime? DateCutOff { get; set; }
 
-        /// <summary>
-        /// Gets or sets the date cut off.
-        /// </summary>
-        public DateTime? DateCutOff { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

@@ -22,52 +22,51 @@
  * under the License.
  */
 
-namespace YAF.Core.Model
-{
-    using System;
-    using System.Collections.Generic;
-    
-    using ServiceStack.OrmLite;
+namespace YAF.Core.Model;
 
-    using YAF.Types;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+using System;
+using System.Collections.Generic;
+    
+using ServiceStack.OrmLite;
+
+using YAF.Types;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// The Forum Repository Extensions
+/// </summary>
+public static class ProfileCustomRepositoryExtensions
+{
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The Forum Repository Extensions
+    /// Gets all Custom Profiles by User
     /// </summary>
-    public static class ProfileCustomRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<Tuple<ProfileCustom, ProfileDefinition>> ListByUser(
+        [NotNull] this IRepository<ProfileCustom> repository,
+        [NotNull] int userId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Gets all Custom Profiles by User
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<Tuple<ProfileCustom, ProfileDefinition>> ListByUser(
-            [NotNull] this IRepository<ProfileCustom> repository,
-            [NotNull] int userId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<ProfileCustom>();
 
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<ProfileCustom>();
+        expression.Join<ProfileDefinition>((c, d) => d.ID == c.ProfileDefinitionID)
+            .Where<ProfileCustom>(
+                c => c.UserID == userId);
 
-            expression.Join<ProfileDefinition>((c, d) => d.ID == c.ProfileDefinitionID)
-                .Where<ProfileCustom>(
-                    c => c.UserID == userId);
-
-            return repository.DbAccess.Execute(
-                db => db.Connection.SelectMulti<ProfileCustom, ProfileDefinition>(expression));
-        }
-
-        #endregion
+        return repository.DbAccess.Execute(
+            db => db.Connection.SelectMulti<ProfileCustom, ProfileDefinition>(expression));
     }
+
+    #endregion
 }

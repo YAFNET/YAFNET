@@ -5,21 +5,20 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Actions
-{
-    using System.Net;
+namespace YAF.UrlRewriter.Actions;
 
+using System.Net;
+
+/// <summary>
+/// Returns a 403 Forbidden HTTP status code.
+/// </summary>
+public sealed class ForbiddenAction : SetStatusAction
+{
     /// <summary>
-    /// Returns a 403 Forbidden HTTP status code.
+    /// Default constructor.
     /// </summary>
-    public sealed class ForbiddenAction : SetStatusAction
+    public ForbiddenAction()
+        : base(HttpStatusCode.Forbidden)
     {
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public ForbiddenAction()
-            : base(HttpStatusCode.Forbidden)
-        {
-        }
     }
 }

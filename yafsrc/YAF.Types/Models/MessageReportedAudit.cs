@@ -21,58 +21,57 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the MessageReportedAudit table.
+/// </summary>
+[Serializable]
+public class MessageReportedAudit : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the MessageReportedAudit table.
+    /// Gets or sets the log id.
     /// </summary>
-    [Serializable]
-    public class MessageReportedAudit : IEntity
-    {
-        #region Properties
+    [AutoIncrement]
+    public int LogID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the log id.
-        /// </summary>
-        [AutoIncrement]
-        public int LogID { get; set; }
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    public int? UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        public int? UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the message id.
+    /// </summary>
+    [References(typeof(MessageReported))]
+    [Required]
+    public int MessageID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the message id.
-        /// </summary>
-        [References(typeof(MessageReported))]
-        [Required]
-        public int MessageID { get; set; }
+    /// <summary>
+    /// Gets or sets the reported.
+    /// </summary>
+    public DateTime? Reported { get; set; }
 
-        /// <summary>
-        /// Gets or sets the reported.
-        /// </summary>
-        public DateTime? Reported { get; set; }
+    /// <summary>
+    /// Gets or sets the reported number.
+    /// </summary>
+    [Required]
+    [Default(1)]
+    public int ReportedNumber { get; set; }
 
-        /// <summary>
-        /// Gets or sets the reported number.
-        /// </summary>
-        [Required]
-        [Default(1)]
-        public int ReportedNumber { get; set; }
+    /// <summary>
+    /// Gets or sets the report text.
+    /// </summary>
+    [StringLength(4000)]
+    public string ReportText { get; set; }
 
-        /// <summary>
-        /// Gets or sets the report text.
-        /// </summary>
-        [StringLength(4000)]
-        public string ReportText { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

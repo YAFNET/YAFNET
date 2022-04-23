@@ -22,53 +22,53 @@
  * under the License.
  */
 
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+#region Using
+
+using System;
+
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The DateTime extensions.
+/// </summary>
+public static class IDateTimeServiceExtensions
 {
-    #region Using
-
-    using System;
-
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces.Services;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The DateTime extensions.
+    /// Format objectDateTime according to the format enum. "[error]" if the value is invalid.
     /// </summary>
-    public static class IDateTimeServiceExtensions
+    /// <param name="dateTimeInstance">
+    /// The datetime.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="objectDateTime">
+    /// The object date time.
+    /// </param>
+    /// <returns>
+    /// Formatted datetime or "[error]" if invalid.
+    /// </returns>
+    public static string Format(
+        [NotNull] this IDateTimeService dateTimeInstance,
+        DateTimeFormat format,
+        [NotNull] object objectDateTime)
     {
-        #region Public Methods
+        CodeContracts.VerifyNotNull(dateTimeInstance);
+        CodeContracts.VerifyNotNull(objectDateTime);
 
-        /// <summary>
-        /// Format objectDateTime according to the format enum. "[error]" if the value is invalid.
-        /// </summary>
-        /// <param name="dateTimeInstance">
-        /// The datetime.
-        /// </param>
-        /// <param name="format">
-        /// The format.
-        /// </param>
-        /// <param name="objectDateTime">
-        /// The object date time.
-        /// </param>
-        /// <returns>
-        /// Formatted datetime or "[error]" if invalid.
-        /// </returns>
-        public static string Format(
-            [NotNull] this IDateTimeService dateTimeInstance,
-            DateTimeFormat format,
-            [NotNull] object objectDateTime)
+        try
         {
-            CodeContracts.VerifyNotNull(dateTimeInstance);
-            CodeContracts.VerifyNotNull(objectDateTime);
+            var dateTime = Convert.ToDateTime(objectDateTime);
 
-            try
-            {
-                var dateTime = Convert.ToDateTime(objectDateTime);
-
-                return format switch
+            return format switch
                 {
                     DateTimeFormat.BothDateShort => dateTimeInstance.FormatDateTimeShort(dateTime),
                     DateTimeFormat.BothTopic => dateTimeInstance.FormatDateTimeTopic(dateTime),
@@ -78,45 +78,44 @@ namespace YAF.Core.Extensions
                     DateTimeFormat.Both => dateTimeInstance.FormatDateTime(dateTime),
                     _ => dateTimeInstance.FormatDateTime(dateTime)
                 };
-            }
-            catch
-            {
-                // failed convert...
-                return "[error]";
-            }
         }
-
-        /// <summary>
-        /// The format date time topic.
-        /// </summary>
-        /// <param name="dateTimeInstance">
-        /// The yaf date time.
-        /// </param>
-        /// <param name="objectDateTime">
-        /// The object date time.
-        /// </param>
-        /// <returns>
-        /// The format date time topic.
-        /// </returns>
-        public static string FormatDateTimeTopic(
-            [NotNull] this IDateTimeService dateTimeInstance,
-            [NotNull] object objectDateTime)
+        catch
         {
-            CodeContracts.VerifyNotNull(dateTimeInstance);
-            CodeContracts.VerifyNotNull(objectDateTime);
-
-            try
-            {
-                var dateTime = Convert.ToDateTime(objectDateTime);
-                return dateTimeInstance.FormatDateTimeTopic(dateTime);
-            }
-            catch
-            {
-                // failed convert...
-                return "[error]";
-            }
+            // failed convert...
+            return "[error]";
         }
-
-        #endregion
     }
+
+    /// <summary>
+    /// The format date time topic.
+    /// </summary>
+    /// <param name="dateTimeInstance">
+    /// The yaf date time.
+    /// </param>
+    /// <param name="objectDateTime">
+    /// The object date time.
+    /// </param>
+    /// <returns>
+    /// The format date time topic.
+    /// </returns>
+    public static string FormatDateTimeTopic(
+        [NotNull] this IDateTimeService dateTimeInstance,
+        [NotNull] object objectDateTime)
+    {
+        CodeContracts.VerifyNotNull(dateTimeInstance);
+        CodeContracts.VerifyNotNull(objectDateTime);
+
+        try
+        {
+            var dateTime = Convert.ToDateTime(objectDateTime);
+            return dateTimeInstance.FormatDateTimeTopic(dateTime);
+        }
+        catch
+        {
+            // failed convert...
+            return "[error]";
+        }
+    }
+
+    #endregion
 }

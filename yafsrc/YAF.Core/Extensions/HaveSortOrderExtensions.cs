@@ -22,38 +22,37 @@
  * under the License.
  */
 
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+using System.Collections.Generic;
+using System.Linq;
+
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// The have sort order extensions.
+/// </summary>
+public static class HaveSortOrderExtensions
 {
-    using System.Collections.Generic;
-    using System.Linq;
+    #region Public Methods and Operators
 
-    using YAF.Types.Interfaces;
-
-    /// <summary>
-    /// The have sort order extensions.
-    /// </summary>
-    public static class HaveSortOrderExtensions
+    public static IEnumerable<T> ByOptionalSortOrder<T>(
+        this IEnumerable<T> sortEnumerable,
+        int defaultSortOrder = 1000)
     {
-        #region Public Methods and Operators
+        return sortEnumerable.Select(
+            m =>
+                {
+                    var sortOrder = defaultSortOrder;
 
-        public static IEnumerable<T> ByOptionalSortOrder<T>(
-            this IEnumerable<T> sortEnumerable,
-            int defaultSortOrder = 1000)
-        {
-            return sortEnumerable.Select(
-                m =>
+                    if (m is IHaveSortOrder haveSortOrder)
                     {
-                        var sortOrder = defaultSortOrder;
+                        sortOrder = haveSortOrder.SortOrder;
+                    }
 
-                        if (m is IHaveSortOrder haveSortOrder)
-                        {
-                            sortOrder = haveSortOrder.SortOrder;
-                        }
-
-                        return new KeyValuePair<int, T>(sortOrder, m);
-                    }).OrderByDescending(m => m.Key).Select(m => m.Value);
-        }
-
-        #endregion
+                    return new KeyValuePair<int, T>(sortOrder, m);
+                }).OrderByDescending(m => m.Key).Select(m => m.Value);
     }
+
+    #endregion
 }

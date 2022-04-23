@@ -22,57 +22,56 @@
  * under the License.
  */
 
-namespace YAF.Core.BasePages
-{
-    #region Using
+namespace YAF.Core.BasePages;
 
-    using YAF.Types;
-    using YAF.Types.Constants;
+#region Using
+
+using YAF.Types;
+using YAF.Types.Constants;
+
+#endregion
+
+/// <summary>
+/// The account page.
+/// </summary>
+public class AccountPage : ForumPage
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AccountPage"/> class.
+    /// </summary>
+    public AccountPage()
+        : this(null, ForumPages.Board)
+    {
+        this.IsAccountPage = true;
+        this.IsProtected = false;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AccountPage"/> class.
+    /// </summary>
+    /// <param name="transPage">
+    /// The trans page.
+    /// </param>
+    /// <param name="pageType">
+    /// The page Type.
+    /// </param>
+    public AccountPage([CanBeNull] string transPage, ForumPages pageType)
+        : base(transPage, pageType)
+    {
+        this.IsAccountPage = true;
+        this.IsProtected = false;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The account page.
+    /// Gets the Page Name.
     /// </summary>
-    public class AccountPage : ForumPage
-    {
-        #region Constructors and Destructors
+    public override string PageName => $"Account_{base.PageName}";
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AccountPage"/> class.
-        /// </summary>
-        public AccountPage()
-            : this(null, ForumPages.Board)
-        {
-            this.IsAccountPage = true;
-            this.IsProtected = false;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AccountPage"/> class.
-        /// </summary>
-        /// <param name="transPage">
-        /// The trans page.
-        /// </param>
-        /// <param name="pageType">
-        /// The page Type.
-        /// </param>
-        public AccountPage([CanBeNull] string transPage, ForumPages pageType)
-            : base(transPage, pageType)
-        {
-            this.IsAccountPage = true;
-            this.IsProtected = false;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the Page Name.
-        /// </summary>
-        public override string PageName => $"Account_{base.PageName}";
-
-        #endregion
-    }
+    #endregion
 }

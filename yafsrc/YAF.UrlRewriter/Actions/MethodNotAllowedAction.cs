@@ -5,21 +5,20 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Actions
-{
-    using System.Net;
+namespace YAF.UrlRewriter.Actions;
 
+using System.Net;
+
+/// <summary>
+/// Returns a 405 Method Not Allowed HTTP status code.
+/// </summary>
+public sealed class MethodNotAllowedAction : SetStatusAction
+{
     /// <summary>
-    /// Returns a 405 Method Not Allowed HTTP status code.
+    /// Default constructor.
     /// </summary>
-    public sealed class MethodNotAllowedAction : SetStatusAction
+    public MethodNotAllowedAction()
+        : base(HttpStatusCode.MethodNotAllowed)
     {
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public MethodNotAllowedAction()
-            : base(HttpStatusCode.MethodNotAllowed)
-        {
-        }
     }
 }

@@ -22,27 +22,26 @@
  * under the License.
  */
 
-namespace YAF.Core.Helpers
-{
-    using System.Text.RegularExpressions;
+namespace YAF.Core.Helpers;
 
+using System.Text.RegularExpressions;
+
+/// <summary>
+/// The URL helper.
+/// </summary>
+public static class UrlHelper
+{
     /// <summary>
-    /// The URL helper.
+    /// Counts the URLs.
     /// </summary>
-    public static class UrlHelper
+    /// <param name="message">The message.</param>
+    /// <returns>Returns how many URLs the message contains</returns>
+    public static int CountUrls(string message)
     {
-        /// <summary>
-        /// Counts the URLs.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <returns>Returns how many URLs the message contains</returns>
-        public static int CountUrls(string message)
-        {
-            return
-                Regex.Matches(
+        return
+            Regex.Matches(
                     message,
                     @"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)")
-                    .Count;
-        }
+                .Count;
     }
 }

@@ -21,91 +21,91 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.EventProxies;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+
+/// <summary>
+///     The board repository extensions.
+/// </summary>
+public static class BoardRepositoryExtensions
 {
-    using System;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Models;
-    using YAF.Types.Objects;
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The board repository extensions.
+    /// The create.
     /// </summary>
-    public static class BoardRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardName">
+    /// The board name.
+    /// </param>
+    /// <param name="boardEmail">
+    /// The board Email.
+    /// </param>
+    /// <param name="culture">
+    /// The culture.
+    /// </param>
+    /// <param name="languageFile">
+    /// The language file.
+    /// </param>
+    /// <param name="userName">
+    /// The user name.
+    /// </param>
+    /// <param name="userEmail">
+    /// The user email.
+    /// </param>
+    /// <param name="userKey">
+    /// The user key.
+    /// </param>
+    /// <param name="isHostAdmin">
+    /// The is host admin.
+    /// </param>
+    /// <param name="rolePrefix">
+    /// The role prefix.
+    /// </param>
+    /// <returns>
+    /// The <see cref="int"/>.
+    /// </returns>
+    public static int Create(
+        this IRepository<Board> repository,
+        [NotNull] string boardName,
+        [NotNull] string boardEmail,
+        [NotNull] string culture,
+        [NotNull] string languageFile,
+        [NotNull] string userName,
+        [NotNull] string userEmail,
+        [NotNull] string userKey,
+        [NotNull] bool isHostAdmin,
+        [CanBeNull] string rolePrefix)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// The create.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardName">
-        /// The board name.
-        /// </param>
-        /// <param name="boardEmail">
-        /// The board Email.
-        /// </param>
-        /// <param name="culture">
-        /// The culture.
-        /// </param>
-        /// <param name="languageFile">
-        /// The language file.
-        /// </param>
-        /// <param name="userName">
-        /// The user name.
-        /// </param>
-        /// <param name="userEmail">
-        /// The user email.
-        /// </param>
-        /// <param name="userKey">
-        /// The user key.
-        /// </param>
-        /// <param name="isHostAdmin">
-        /// The is host admin.
-        /// </param>
-        /// <param name="rolePrefix">
-        /// The role prefix.
-        /// </param>
-        /// <returns>
-        /// The <see cref="int"/>.
-        /// </returns>
-        public static int Create(
-            this IRepository<Board> repository,
-            [NotNull] string boardName,
-            [NotNull] string boardEmail,
-            [NotNull] string culture,
-            [NotNull] string languageFile,
-            [NotNull] string userName,
-            [NotNull] string userEmail,
-            [NotNull] string userKey,
-            [NotNull] bool isHostAdmin,
-            [CanBeNull] string rolePrefix)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        // -- Board
+        var newBoardId = repository.Insert(new Board { Name = boardName });
 
-            // -- Board
-            var newBoardId = repository.Insert(new Board { Name = boardName });
+        BoardContext.Current.GetRepository<Registry>().Save("culture", culture);
+        BoardContext.Current.GetRepository<Registry>().Save("language", languageFile);
 
-            BoardContext.Current.GetRepository<Registry>().Save("culture", culture);
-            BoardContext.Current.GetRepository<Registry>().Save("language", languageFile);
+        BoardContext.Current.GetRepository<Registry>().Save("webservicetoken", Guid.NewGuid().ToString());
 
-            BoardContext.Current.GetRepository<Registry>().Save("webservicetoken", Guid.NewGuid().ToString());
-
-            // -- Rank
-            var rankIdAdmin = BoardContext.Current.GetRepository<Rank>().Insert(
-                new Rank
+        // -- Rank
+        var rankIdAdmin = BoardContext.Current.GetRepository<Rank>().Insert(
+            new Rank
                 {
                     BoardID = newBoardId,
                     Name = "Administration",
@@ -116,8 +116,8 @@ namespace YAF.Core.Model
                     SortOrder = 0
                 });
 
-            var rankIdGuest = BoardContext.Current.GetRepository<Rank>().Insert(
-                new Rank
+        var rankIdGuest = BoardContext.Current.GetRepository<Rank>().Insert(
+            new Rank
                 {
                     BoardID = newBoardId,
                     Name = "Guest",
@@ -127,8 +127,8 @@ namespace YAF.Core.Model
                     SortOrder = 100
                 });
 
-            BoardContext.Current.GetRepository<Rank>().Insert(
-                new Rank
+        BoardContext.Current.GetRepository<Rank>().Insert(
+            new Rank
                 {
                     BoardID = newBoardId,
                     Name = "Newbie",
@@ -138,8 +138,8 @@ namespace YAF.Core.Model
                     SortOrder = 3
                 });
 
-            BoardContext.Current.GetRepository<Rank>().Insert(
-                new Rank
+        BoardContext.Current.GetRepository<Rank>().Insert(
+            new Rank
                 {
                     BoardID = newBoardId,
                     Name = "Member",
@@ -149,8 +149,8 @@ namespace YAF.Core.Model
                     SortOrder = 2
                 });
 
-            BoardContext.Current.GetRepository<Rank>().Insert(
-                new Rank
+        BoardContext.Current.GetRepository<Rank>().Insert(
+            new Rank
                 {
                     BoardID = newBoardId,
                     Name = "Advanced Member",
@@ -160,45 +160,45 @@ namespace YAF.Core.Model
                     SortOrder = 1
                 });
 
-            // -- AccessMask
-            var adminAccessFlag = new AccessFlags
-                                      {
-                                          DeleteAccess = true,
-                                          EditAccess = true,
-                                          ModeratorAccess = true,
-                                          PollAccess = true,
-                                          PostAccess = true,
-                                          PriorityAccess = true,
-                                          ReadAccess = true,
-                                          ReplyAccess = true,
-                                          VoteAccess = true
-                                      };
+        // -- AccessMask
+        var adminAccessFlag = new AccessFlags
+                                  {
+                                      DeleteAccess = true,
+                                      EditAccess = true,
+                                      ModeratorAccess = true,
+                                      PollAccess = true,
+                                      PostAccess = true,
+                                      PriorityAccess = true,
+                                      ReadAccess = true,
+                                      ReplyAccess = true,
+                                      VoteAccess = true
+                                  };
 
-            var accessMaskIdAdmin = BoardContext.Current.GetRepository<AccessMask>().Insert(
-                new AccessMask { BoardID = newBoardId, Name = "Admin Access", Flags = adminAccessFlag.BitValue, SortOrder = 4 });
+        var accessMaskIdAdmin = BoardContext.Current.GetRepository<AccessMask>().Insert(
+            new AccessMask { BoardID = newBoardId, Name = "Admin Access", Flags = adminAccessFlag.BitValue, SortOrder = 4 });
 
-            BoardContext.Current.GetRepository<AccessMask>().Insert(
-                new AccessMask { BoardID = newBoardId, Name = "Moderator Access", Flags = adminAccessFlag.BitValue, SortOrder = 3 });
+        BoardContext.Current.GetRepository<AccessMask>().Insert(
+            new AccessMask { BoardID = newBoardId, Name = "Moderator Access", Flags = adminAccessFlag.BitValue, SortOrder = 3 });
 
-            var accessMaskIdMember = BoardContext.Current.GetRepository<AccessMask>().Insert(
-                new AccessMask { BoardID = newBoardId, Name = "Member Access", Flags = 423, SortOrder = 2 });
+        var accessMaskIdMember = BoardContext.Current.GetRepository<AccessMask>().Insert(
+            new AccessMask { BoardID = newBoardId, Name = "Member Access", Flags = 423, SortOrder = 2 });
 
-            var accessMaskIdReadOnly = BoardContext.Current.GetRepository<AccessMask>().Insert(
-                new AccessMask { BoardID = newBoardId, Name = "Read Only Access", Flags = 1, SortOrder = 1 });
+        var accessMaskIdReadOnly = BoardContext.Current.GetRepository<AccessMask>().Insert(
+            new AccessMask { BoardID = newBoardId, Name = "Read Only Access", Flags = 1, SortOrder = 1 });
 
-            BoardContext.Current.GetRepository<AccessMask>().Insert(
-                new AccessMask { BoardID = newBoardId, Name = "No Access", Flags = 0, SortOrder = 0 });
+        BoardContext.Current.GetRepository<AccessMask>().Insert(
+            new AccessMask { BoardID = newBoardId, Name = "No Access", Flags = 0, SortOrder = 0 });
 
-            // -- Group
-            var adminGroupFlag = new GroupFlags
-                                      {
-                                          IsAdmin = true,
-                                          AllowUpload = true,
-                                          AllowDownload = true
-                                      };
+        // -- Group
+        var adminGroupFlag = new GroupFlags
+                                 {
+                                     IsAdmin = true,
+                                     AllowUpload = true,
+                                     AllowDownload = true
+                                 };
 
-            var groupIdAdmin = BoardContext.Current.GetRepository<Group>().Insert(
-                new Group
+        var groupIdAdmin = BoardContext.Current.GetRepository<Group>().Insert(
+            new Group
                 {
                     BoardID = newBoardId,
                     Name = $"{rolePrefix}Administrators",
@@ -212,13 +212,13 @@ namespace YAF.Core.Model
                     UsrAlbumImages = 120
                 });
 
-            var guestGroupFlag = new GroupFlags
-                                     {
-                                         IsGuest = true
-                                     };
+        var guestGroupFlag = new GroupFlags
+                                 {
+                                     IsGuest = true
+                                 };
 
-            var groupIdGuest = BoardContext.Current.GetRepository<Group>().Insert(
-                new Group
+        var groupIdGuest = BoardContext.Current.GetRepository<Group>().Insert(
+            new Group
                 {
                     BoardID = newBoardId,
                     Name = "Guests",
@@ -232,14 +232,14 @@ namespace YAF.Core.Model
                     UsrAlbumImages = 0
                 });
 
-            var memberGroupFlag = new GroupFlags
-                                     {
-                                         AllowDownload = true,
-                                         IsStart = true
-                                     };
+        var memberGroupFlag = new GroupFlags
+                                  {
+                                      AllowDownload = true,
+                                      IsStart = true
+                                  };
 
-            var groupIdMember = BoardContext.Current.GetRepository<Group>().Insert(
-                new Group
+        var groupIdMember = BoardContext.Current.GetRepository<Group>().Insert(
+            new Group
                 {
                     BoardID = newBoardId,
                     Name = $"{rolePrefix}Registered Users",
@@ -252,9 +252,9 @@ namespace YAF.Core.Model
                     UsrAlbumImages = 30
                 });
 
-            // -- User (GUEST)
-            var userIdGuest = BoardContext.Current.GetRepository<User>().Insert(
-                new User
+        // -- User (GUEST)
+        var userIdGuest = BoardContext.Current.GetRepository<User>().Insert(
+            new User
                 {
                     BoardID = newBoardId,
                     RankID = rankIdGuest,
@@ -269,118 +269,118 @@ namespace YAF.Core.Model
                     PageSize = 5
                 });
 
-            var userFlags = 2;
+        var userFlags = 2;
 
-            if (isHostAdmin)
-            {
-                userFlags = 3;
-            }
-
-            // -- User (ADMIN)
-            var adminUser = new User
-                                {
-                                    BoardID = newBoardId,
-                                    RankID = rankIdAdmin,
-                                    Name = userName,
-                                    DisplayName = userName,
-                                    ProviderUserKey = userKey,
-                                    Joined = DateTime.Now,
-                                    LastVisit = DateTime.Now,
-                                    NumPosts = 0,
-                                    TimeZone = TimeZoneInfo.Local.Id,
-                                    Email = userEmail,
-                                    Flags = userFlags,
-                                    PageSize = 5
-                                };
-
-            adminUser.ID = BoardContext.Current.GetRepository<User>().Insert(adminUser);
-
-            // -- UserGroup
-            BoardContext.Current.GetRepository<UserGroup>().Insert(
-                new UserGroup { UserID = adminUser.ID, GroupID = groupIdAdmin });
-
-            BoardContext.Current.GetRepository<UserGroup>().Insert(
-                new UserGroup { UserID = userIdGuest, GroupID = groupIdGuest });
-
-            // -- Category
-            var categoryId = BoardContext.Current.GetRepository<Category>().Insert(
-                new Category { BoardID = newBoardId, Name = "Test Category", SortOrder = 1 });
-
-            // -- Forum
-            var forum = new Forum
-                            {
-                                CategoryID = categoryId,
-                                Name = "Test Forum",
-                                Description = "A test forum",
-                                SortOrder = 1,
-                                NumTopics = 0,
-                                NumPosts = 0,
-                                Flags = 4
-                            };
-
-            forum.ID = BoardContext.Current.GetRepository<Forum>().Insert(
-                forum);
-
-            // -- ForumAccess
-            BoardContext.Current.GetRepository<ForumAccess>().Insert(
-                new ForumAccess { GroupID = groupIdAdmin, ForumID = forum.ID, AccessMaskID = accessMaskIdAdmin });
-
-            BoardContext.Current.GetRepository<ForumAccess>().Insert(
-                new ForumAccess { GroupID = groupIdGuest, ForumID = forum.ID, AccessMaskID = accessMaskIdReadOnly });
-
-            BoardContext.Current.GetRepository<ForumAccess>().Insert(
-                new ForumAccess { GroupID = groupIdMember, ForumID = forum.ID, AccessMaskID = accessMaskIdMember });
-
-            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(newBoardId));
-
-            repository.FireNew(newBoardId);
-
-            // -- Create Welcome Topic
-            var messageFlags = new MessageFlags
-                                   {
-                                       IsHtml = false, IsBBCode = true, IsPersistent = true, IsApproved = true
-                                   };
-
-            /*var topic = BoardContext.Current.GetRepository<Topic>().SaveNew(
-                forum,
-                "Welcome to YetAnotherForum.NET",
-                string.Empty,
-                string.Empty,
-                "Welcome to the New YAF.NET Installation",
-                "Welcome Message here",
-                adminUser,
-                0,
-                userName,
-                userName,
-                BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                DateTime.UtcNow,
-                messageFlags,
-                out _);*/
-
-            return newBoardId;
+        if (isHostAdmin)
+        {
+            userFlags = 3;
         }
 
-        /// <summary>
-        /// Gets the post stats.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="showNoCountPosts">
-        /// The show no count posts.
-        /// </param>
-        /// <returns>
-        /// The <see cref="BoardStat"/>.
-        /// </returns>
-        public static BoardStat PostStats(this IRepository<Board> repository, [NotNull] int boardId, [NotNull] bool showNoCountPosts)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        // -- User (ADMIN)
+        var adminUser = new User
+                            {
+                                BoardID = newBoardId,
+                                RankID = rankIdAdmin,
+                                Name = userName,
+                                DisplayName = userName,
+                                ProviderUserKey = userKey,
+                                Joined = DateTime.Now,
+                                LastVisit = DateTime.Now,
+                                NumPosts = 0,
+                                TimeZone = TimeZoneInfo.Local.Id,
+                                Email = userEmail,
+                                Flags = userFlags,
+                                PageSize = 5
+                            };
 
-            var data = repository.DbAccess.Execute(
-                db =>
+        adminUser.ID = BoardContext.Current.GetRepository<User>().Insert(adminUser);
+
+        // -- UserGroup
+        BoardContext.Current.GetRepository<UserGroup>().Insert(
+            new UserGroup { UserID = adminUser.ID, GroupID = groupIdAdmin });
+
+        BoardContext.Current.GetRepository<UserGroup>().Insert(
+            new UserGroup { UserID = userIdGuest, GroupID = groupIdGuest });
+
+        // -- Category
+        var categoryId = BoardContext.Current.GetRepository<Category>().Insert(
+            new Category { BoardID = newBoardId, Name = "Test Category", SortOrder = 1 });
+
+        // -- Forum
+        var forum = new Forum
+                        {
+                            CategoryID = categoryId,
+                            Name = "Test Forum",
+                            Description = "A test forum",
+                            SortOrder = 1,
+                            NumTopics = 0,
+                            NumPosts = 0,
+                            Flags = 4
+                        };
+
+        forum.ID = BoardContext.Current.GetRepository<Forum>().Insert(
+            forum);
+
+        // -- ForumAccess
+        BoardContext.Current.GetRepository<ForumAccess>().Insert(
+            new ForumAccess { GroupID = groupIdAdmin, ForumID = forum.ID, AccessMaskID = accessMaskIdAdmin });
+
+        BoardContext.Current.GetRepository<ForumAccess>().Insert(
+            new ForumAccess { GroupID = groupIdGuest, ForumID = forum.ID, AccessMaskID = accessMaskIdReadOnly });
+
+        BoardContext.Current.GetRepository<ForumAccess>().Insert(
+            new ForumAccess { GroupID = groupIdMember, ForumID = forum.ID, AccessMaskID = accessMaskIdMember });
+
+        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(newBoardId));
+
+        repository.FireNew(newBoardId);
+
+        // -- Create Welcome Topic
+        var messageFlags = new MessageFlags
+                               {
+                                   IsHtml = false, IsBBCode = true, IsPersistent = true, IsApproved = true
+                               };
+
+        /*var topic = BoardContext.Current.GetRepository<Topic>().SaveNew(
+            forum,
+            "Welcome to YetAnotherForum.NET",
+            string.Empty,
+            string.Empty,
+            "Welcome to the New YAF.NET Installation",
+            "Welcome Message here",
+            adminUser,
+            0,
+            userName,
+            userName,
+            BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
+            DateTime.UtcNow,
+            messageFlags,
+            out _);*/
+
+        return newBoardId;
+    }
+
+    /// <summary>
+    /// Gets the post stats.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="showNoCountPosts">
+    /// The show no count posts.
+    /// </param>
+    /// <returns>
+    /// The <see cref="BoardStat"/>.
+    /// </returns>
+    public static BoardStat PostStats(this IRepository<Board> repository, [NotNull] int boardId, [NotNull] bool showNoCountPosts)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var data = repository.DbAccess.Execute(
+            db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
@@ -429,67 +429,67 @@ namespace YAF.Core.Model
 
                     expression.Select<Message, User>(
                         (a, e) => new 
-                        {
-                            Posts = Sql.Custom<int>($"({countPostsSql})"),
-                            Topics = Sql.Custom<int>($"({countTopicsSql})"),
-                            Forums = Sql.Custom<int>($"({countForumsSql})"),
-                            LastPost = a.Posted,
-                            LastUserID = a.UserID,
-                            LastUser = e.Name,
-                            LastUserDisplayName = e.DisplayName,
-                            LastUserStyle = e.UserStyle,
-                            LastUserSuspended = e.Suspended
-                        });
+                                      {
+                                          Posts = Sql.Custom<int>($"({countPostsSql})"),
+                                          Topics = Sql.Custom<int>($"({countTopicsSql})"),
+                                          Forums = Sql.Custom<int>($"({countForumsSql})"),
+                                          LastPost = a.Posted,
+                                          LastUserID = a.UserID,
+                                          LastUser = e.Name,
+                                          LastUserDisplayName = e.DisplayName,
+                                          LastUserStyle = e.UserStyle,
+                                          LastUserSuspended = e.Suspended
+                                      });
 
                     return db.Connection.Single<BoardStat>(expression);
                 });
 
-            return data ?? repository.Stats(boardId);
-        }
+        return data ?? repository.Stats(boardId);
+    }
 
-        /// <summary>
-        /// Save Board Settings (Name, Culture and Language File)
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="boardId">The board id.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="languageFile">The language file.</param>
-        /// <param name="culture">The culture.</param>
-        public static void Save(
-            this IRepository<Board> repository,
-            [NotNull] int boardId,
-            [NotNull] string name,
-            [NotNull] string languageFile,
-            [NotNull] string culture)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// Save Board Settings (Name, Culture and Language File)
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="name">The name.</param>
+    /// <param name="languageFile">The language file.</param>
+    /// <param name="culture">The culture.</param>
+    public static void Save(
+        this IRepository<Board> repository,
+        [NotNull] int boardId,
+        [NotNull] string name,
+        [NotNull] string languageFile,
+        [NotNull] string culture)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            BoardContext.Current.GetRepository<Registry>().Save("culture", culture, boardId);
-            BoardContext.Current.GetRepository<Registry>().Save("language", languageFile, boardId);
+        BoardContext.Current.GetRepository<Registry>().Save("culture", culture, boardId);
+        BoardContext.Current.GetRepository<Registry>().Save("language", languageFile, boardId);
 
-            repository.UpdateOnly(() => new Board { Name = name }, board => board.ID == boardId);
+        repository.UpdateOnly(() => new Board { Name = name }, board => board.ID == boardId);
 
-            repository.FireUpdated(boardId);
-        }
+        repository.FireUpdated(boardId);
+    }
 
-        /// <summary>
-        /// The stats.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="BoardStat"/>.
-        /// </returns>
-        public static BoardStat Stats(this IRepository<Board> repository, [NotNull] int boardId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// The stats.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board Id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="BoardStat"/>.
+    /// </returns>
+    public static BoardStat Stats(this IRepository<Board> repository, [NotNull] int boardId)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbAccess.Execute(
-                db =>
+        return repository.DbAccess.Execute(
+            db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
@@ -541,47 +541,47 @@ namespace YAF.Core.Model
 
                     expression.Select<User>(
                         x => new
-                        {
-                            Categories = Sql.Custom<int>($"({countCategoriesSql})"),
-                            Posts = Sql.Custom<int>($"({countPostsSql})"),
-                            Forums = Sql.Custom<int>($"({countForumsSql})"),
-                            Topics = Sql.Custom<int>($"({countTopicsSql})"),
-                            Users = Sql.Custom<int>($"({countUsersSql})"),
-                            BoardStart = Sql.Min(x.Joined)
-                        });
+                                 {
+                                     Categories = Sql.Custom<int>($"({countCategoriesSql})"),
+                                     Posts = Sql.Custom<int>($"({countPostsSql})"),
+                                     Forums = Sql.Custom<int>($"({countForumsSql})"),
+                                     Topics = Sql.Custom<int>($"({countTopicsSql})"),
+                                     Users = Sql.Custom<int>($"({countUsersSql})"),
+                                     BoardStart = Sql.Min(x.Joined)
+                                 });
 
                     return db.Connection.Single<BoardStat>(expression);
                 });
-        }
+    }
 
-        /// <summary>
-        /// The delete board.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        public static void DeleteBoard(this IRepository<Board> repository, [NotNull] int boardId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// The delete board.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    public static void DeleteBoard(this IRepository<Board> repository, [NotNull] int boardId)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            // --- Delete all forums of the board
-            var forums = BoardContext.Current.GetRepository<Forum>().ListAll(boardId);
+        // --- Delete all forums of the board
+        var forums = BoardContext.Current.GetRepository<Forum>().ListAll(boardId);
 
-            forums.ForEach(f => BoardContext.Current.GetRepository<Forum>().Delete(f.Item1.ID));
+        forums.ForEach(f => BoardContext.Current.GetRepository<Forum>().Delete(f.Item1.ID));
 
-            // --- Delete user(s)
-            var users = BoardContext.Current.GetRepository<User>().Get(u => u.BoardID == boardId);
+        // --- Delete user(s)
+        var users = BoardContext.Current.GetRepository<User>().Get(u => u.BoardID == boardId);
 
-            users.ForEach(u => BoardContext.Current.GetRepository<User>().Delete(u.ID));
+        users.ForEach(u => BoardContext.Current.GetRepository<User>().Delete(u.ID));
 
-            // --- Delete Group
-            var groups = BoardContext.Current.GetRepository<Group>().Get(g => g.BoardID == boardId);
+        // --- Delete Group
+        var groups = BoardContext.Current.GetRepository<Group>().Get(g => g.BoardID == boardId);
 
-            groups.ForEach(
-                g =>
+        groups.ForEach(
+            g =>
                 {
                     BoardContext.Current.GetRepository<GroupMedal>().Delete(x => x.GroupID == g.ID);
                     BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.GroupID == g.ID);
@@ -589,23 +589,22 @@ namespace YAF.Core.Model
                     BoardContext.Current.GetRepository<Group>().Delete(x => x.ID == g.ID);
                 });
 
-            BoardContext.Current.GetRepository<Category>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<ActiveAccess>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<Active>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<Rank>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<AccessMask>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<BBCode>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<Medal>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<Replace_Words>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<Spam_Words>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<NntpServer>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<BannedIP>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<BannedName>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<BannedEmail>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<Registry>().Delete(x => x.BoardID == boardId);
-            BoardContext.Current.GetRepository<Board>().Delete(x => x.ID == boardId);
-        }
-
-        #endregion
+        BoardContext.Current.GetRepository<Category>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<ActiveAccess>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<Active>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<Rank>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<AccessMask>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<BBCode>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<Medal>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<Replace_Words>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<Spam_Words>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<NntpServer>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<BannedIP>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<BannedName>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<BannedEmail>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<Registry>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<Board>().Delete(x => x.ID == boardId);
     }
+
+    #endregion
 }

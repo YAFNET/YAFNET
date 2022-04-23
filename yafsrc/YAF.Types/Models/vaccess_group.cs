@@ -21,50 +21,49 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+///     A class which represents the yaf_vaccess_group views.
+/// </summary>
+[Serializable]
+public class vaccess_group : IEntity, IHaveBoardID
 {
-    using System;
+    #region Public Properties
 
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///     A class which represents the yaf_vaccess_group views.
+    /// Gets or sets the board id.
     /// </summary>
-    [Serializable]
-    public class vaccess_group : IEntity, IHaveBoardID
-    {
-        #region Public Properties
+    [References(typeof(Board))]
+    [Required]
+    public int BoardID { get; set; }
 
+    [Required]
+    public int UserID { get; set; }
+    [Required]
+    public int ForumID { get; set; }
+    [Required]
+    public int AccessMaskID { get; set; }
+    [Required]
+    public int GroupID { get; set; }
+    public int? ReadAccess { get; set; }
+    public int? PostAccess { get; set; }
+    public int? ReplyAccess { get; set; }
+    public int? PriorityAccess { get; set; }
+    public int? PollAccess { get; set; }
+    public int? VoteAccess { get; set; }
+    public int? ModeratorAccess { get; set; }
+    public int? EditAccess { get; set; }
+    public int? DeleteAccess { get; set; }
+    public int? AdminGroup { get; set; }
 
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
-        [References(typeof(Board))]
-        [Required]
-        public int BoardID { get; set; }
-
-        [Required]
-        public int UserID { get; set; }
-        [Required]
-        public int ForumID { get; set; }
-        [Required]
-        public int AccessMaskID { get; set; }
-        [Required]
-        public int GroupID { get; set; }
-        public int? ReadAccess { get; set; }
-        public int? PostAccess { get; set; }
-        public int? ReplyAccess { get; set; }
-        public int? PriorityAccess { get; set; }
-        public int? PollAccess { get; set; }
-        public int? VoteAccess { get; set; }
-        public int? ModeratorAccess { get; set; }
-        public int? EditAccess { get; set; }
-        public int? DeleteAccess { get; set; }
-        public int? AdminGroup { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

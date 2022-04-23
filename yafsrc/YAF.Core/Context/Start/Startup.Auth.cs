@@ -22,254 +22,253 @@
  * under the License.
  */
 
-namespace YAF.Core.Context.Start
+namespace YAF.Core.Context.Start;
+
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.DataProtection;
+using Microsoft.Owin.Security.Facebook;
+using Microsoft.Owin.Security.Google;
+using Microsoft.Owin.Security.Twitter;
+
+using Owin;
+
+using YAF.Configuration;
+using YAF.Core.Identity;
+using YAF.Types.Extensions;
+using YAF.Types.Models.Identity;
+
+/// <summary>
+/// The startup.
+/// </summary>
+public partial class Startup
 {
-    using System;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
-
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.Owin;
-    using Microsoft.Owin;
-    using Microsoft.Owin.Security.Cookies;
-    using Microsoft.Owin.Security.DataProtection;
-    using Microsoft.Owin.Security.Facebook;
-    using Microsoft.Owin.Security.Google;
-    using Microsoft.Owin.Security.Twitter;
-
-    using Owin;
-
-    using YAF.Configuration;
-    using YAF.Core.Identity;
-    using YAF.Types.Extensions;
-    using YAF.Types.Models.Identity;
+    /// <summary>
+    /// Gets or sets the data protection provider.
+    /// </summary>
+    public static IDataProtectionProvider DataProtectionProvider { get; set; }
 
     /// <summary>
-    /// The startup.
+    /// Configure the Authentication.
     /// </summary>
-    public partial class Startup
+    /// <param name="app">
+    /// The app.
+    /// </param>
+    public void ConfigureAuth(IAppBuilder app)
     {
-        /// <summary>
-        /// Gets or sets the data protection provider.
-        /// </summary>
-        public static IDataProtectionProvider DataProtectionProvider { get; set; }
-
-        /// <summary>
-        /// Configure the Authentication.
-        /// </summary>
-        /// <param name="app">
-        /// The app.
-        /// </param>
-        public void ConfigureAuth(IAppBuilder app)
+        if (Config.IsDotNetNuke)
         {
-            if (Config.IsDotNetNuke)
-            {
-                return;
-            }
+            return;
+        }
 
-            app.UseCookieAuthentication(
-                new CookieAuthenticationOptions
+        app.UseCookieAuthentication(
+            new CookieAuthenticationOptions
                 {
                     AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                     LoginPath = new PathString("/Account/Login"),
                     Provider = new CookieAuthenticationProvider
-                    {
-                        OnValidateIdentity =
-                            SecurityStampValidator.OnValidateIdentity<AspNetUsersManager, AspNetUsers>(
-                                TimeSpan.FromMinutes(30),
-                                (manager, user) => Task.FromResult(
-                                    manager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie)))
-                    }
+                                   {
+                                       OnValidateIdentity =
+                                           SecurityStampValidator.OnValidateIdentity<AspNetUsersManager, AspNetUsers>(
+                                               TimeSpan.FromMinutes(30),
+                                               (manager, user) => Task.FromResult(
+                                                   manager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie)))
+                                   }
                 });
 
-            DataProtectionProvider = app.GetDataProtectionProvider();
+        DataProtectionProvider = app.GetDataProtectionProvider();
 
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+        app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
-            if (Config.FacebookSecretKey.IsSet() && Config.FacebookAPIKey.IsSet())
-            {
-                RegisterFacebookMiddleWare(app);
-            }
-
-            if (Config.TwitterConsumerSecret.IsSet() && Config.TwitterConsumerKey.IsSet())
-            {
-                RegisterTwitterMiddleWare(app);
-            }
-
-            if (Config.GoogleClientSecret.IsSet() && Config.GoogleClientID.IsSet())
-            {
-                RegisterGoogleMiddleWare(app);
-            }
-
-            /*if (Config.GitHubClientSecret.IsSet() && Config.GitHubClientID.IsSet())
-            {
-                RegisterGitHubMiddleWare(app);
-            }
-
-            if (Config.MicrosoftAccountClientSecret.IsSet() && Config.MicrosoftAccountClientID.IsSet())
-            {
-                RegisterMicrosoftAccountMiddleWare(app);
-            }*/
+        if (Config.FacebookSecretKey.IsSet() && Config.FacebookAPIKey.IsSet())
+        {
+            RegisterFacebookMiddleWare(app);
         }
 
-        /// <summary>
-        /// Register facebook Authentication.
-        /// </summary>
-        /// <param name="app">
-        /// The app builder.
-        /// </param>
-        private static void RegisterFacebookMiddleWare(IAppBuilder app)
+        if (Config.TwitterConsumerSecret.IsSet() && Config.TwitterConsumerKey.IsSet())
         {
-            var options = new FacebookAuthenticationOptions
-            {
-                AppId = Config.FacebookAPIKey,
-                AppSecret = Config.FacebookSecretKey,
-                Provider = new FacebookAuthenticationProvider
-                {
-                    OnAuthenticated = context =>
-                    {
-                        context.Identity.AddClaim(
-                            new Claim("urn:facebook:email", context.Email, "XmlSchemaString", "Facebook"));
-                        context.Identity.AddClaim(
-                            new Claim("urn:facebook:id", context.Id, "XmlSchemaString", "Facebook"));
-                        context.Identity.AddClaim(
-                            new Claim("urn:facebook:name", context.Name, "XmlSchemaString", "Facebook"));
-
-                        return Task.FromResult(0);
-                    }
-                }
-            };
-
-            app.UseFacebookAuthentication(options);
+            RegisterTwitterMiddleWare(app);
         }
 
-        /// <summary>
-        /// Register Twitter Authentication.
-        /// </summary>
-        /// <param name="app">
-        /// The app builder.
-        /// </param>
-        private static void RegisterTwitterMiddleWare(IAppBuilder app)
+        if (Config.GoogleClientSecret.IsSet() && Config.GoogleClientID.IsSet())
         {
-            var options = new TwitterAuthenticationOptions
-            {
-                ConsumerKey = Config.TwitterConsumerKey,
-                ConsumerSecret = Config.TwitterConsumerSecret,
-                Provider = new TwitterAuthenticationProvider
-                {
-                    OnAuthenticated = context =>
-                    {
-                        context.Identity.AddClaim(
-                            new Claim("urn:twitter:id", context.UserId, "XmlSchemaString", "Twitter"));
-                        context.Identity.AddClaim(
-                            new Claim("urn:twitter:name", context.ScreenName, "XmlSchemaString", "Twitter"));
-
-                        return Task.FromResult(0);
-                    }
-                }
-            };
-
-            app.UseTwitterAuthentication(options);
+            RegisterGoogleMiddleWare(app);
         }
 
-        /// <summary>
-        /// Register Google Authentication.
-        /// </summary>
-        /// <param name="app">
-        /// The app builder.
-        /// </param>
-        private static void RegisterGoogleMiddleWare(IAppBuilder app)
+        /*if (Config.GitHubClientSecret.IsSet() && Config.GitHubClientID.IsSet())
         {
-            var options = new GoogleOAuth2AuthenticationOptions
-            {
-                ClientId = Config.GoogleClientID,
-                ClientSecret = Config.GoogleClientSecret,
-                Provider = new GoogleOAuth2AuthenticationProvider
-                {
-                    OnAuthenticated = context =>
-                    {
-                        context.Identity.AddClaim(
-                            new Claim("urn:google:email", context.Email, "XmlSchemaString", "Google"));
-                        context.Identity.AddClaim(
-                            new Claim("urn:google:id", context.Id, "XmlSchemaString", "Google"));
-                        context.Identity.AddClaim(
-                            new Claim("urn:google:name", context.Name, "XmlSchemaString", "Google"));
-
-                        return Task.FromResult(0);
-                    }
-                }
-            };
-
-            app.UseGoogleAuthentication(options);
+            RegisterGitHubMiddleWare(app);
         }
 
-        /*
-
-        /// <summary>
-        /// Register GitHub Authentication.
-        /// </summary>
-        /// <param name="app">
-        /// The app builder.
-        /// </param>
-        private static void RegisterGitHubMiddleWare(IAppBuilder app)
+        if (Config.MicrosoftAccountClientSecret.IsSet() && Config.MicrosoftAccountClientID.IsSet())
         {
-            var options = new GitHubAuthenticationOptions
-            {
-                ClientId = Config.GitHubClientID,
-                ClientSecret = Config.GitHubClientSecret,
-                Provider = new GitHubAuthenticationProvider
-                {
-                    OnAuthenticated = context =>
-                    {
-                        BoardContext.Current.Get<ILogger>().Info(context.Email);
-                        context.Identity.AddClaim(
-                            new Claim("urn:github:email", context.Email, "XmlSchemaString", "GitHub"));
-                        context.Identity.AddClaim(
-                            new Claim("urn:github:id", context.Id, "XmlSchemaString", "GitHub"));
-                        context.Identity.AddClaim(
-                            new Claim("urn:github:name", context.Name, "XmlSchemaString", "GitHub"));
-                        context.Identity.AddClaim(
-                            new Claim("urn:github:username", context.UserName, "XmlSchemaString", "GitHub"));
-                        context.Identity.AddClaim(
-                            new Claim("urn:github:link", context.Link, "XmlSchemaString", "GitHub"));
-
-                        return Task.FromResult(0);
-                    }
-                }
-            };
-
-            app.UseGitHubAuthentication(options);
-        }
-
-        /// <summary>
-        /// Register MicrosoftAccount Authentication.
-        /// </summary>
-        /// <param name="app">
-        /// The app builder.
-        /// </param>
-        private static void RegisterMicrosoftAccountMiddleWare(IAppBuilder app)
-        {
-            var options = new MicrosoftAccountAuthenticationOptions
-            {
-                ClientId = Config.MicrosoftAccountClientID,
-                ClientSecret = Config.MicrosoftAccountClientSecret,
-                Provider = new MicrosoftAccountAuthenticationProvider
-                {
-                    OnAuthenticated = context =>
-                    {
-                        context.Identity.AddClaim(
-                            new Claim("urn:microsoft:email", context.Email, "XmlSchemaString", "Microsoft"));
-                        context.Identity.AddClaim(
-                            new Claim("urn:microsoft:id", context.Id, "XmlSchemaString", "Microsoft"));
-                        context.Identity.AddClaim(
-                            new Claim("urn:microsoft:name", context.Name, "XmlSchemaString", "Microsoft"));
-
-                        return Task.FromResult(0);
-                    }
-                }
-            };
-
-            app.UseMicrosoftAccountAuthentication(options);
+            RegisterMicrosoftAccountMiddleWare(app);
         }*/
     }
+
+    /// <summary>
+    /// Register facebook Authentication.
+    /// </summary>
+    /// <param name="app">
+    /// The app builder.
+    /// </param>
+    private static void RegisterFacebookMiddleWare(IAppBuilder app)
+    {
+        var options = new FacebookAuthenticationOptions
+                          {
+                              AppId = Config.FacebookAPIKey,
+                              AppSecret = Config.FacebookSecretKey,
+                              Provider = new FacebookAuthenticationProvider
+                                             {
+                                                 OnAuthenticated = context =>
+                                                     {
+                                                         context.Identity.AddClaim(
+                                                             new Claim("urn:facebook:email", context.Email, "XmlSchemaString", "Facebook"));
+                                                         context.Identity.AddClaim(
+                                                             new Claim("urn:facebook:id", context.Id, "XmlSchemaString", "Facebook"));
+                                                         context.Identity.AddClaim(
+                                                             new Claim("urn:facebook:name", context.Name, "XmlSchemaString", "Facebook"));
+
+                                                         return Task.FromResult(0);
+                                                     }
+                                             }
+                          };
+
+        app.UseFacebookAuthentication(options);
+    }
+
+    /// <summary>
+    /// Register Twitter Authentication.
+    /// </summary>
+    /// <param name="app">
+    /// The app builder.
+    /// </param>
+    private static void RegisterTwitterMiddleWare(IAppBuilder app)
+    {
+        var options = new TwitterAuthenticationOptions
+                          {
+                              ConsumerKey = Config.TwitterConsumerKey,
+                              ConsumerSecret = Config.TwitterConsumerSecret,
+                              Provider = new TwitterAuthenticationProvider
+                                             {
+                                                 OnAuthenticated = context =>
+                                                     {
+                                                         context.Identity.AddClaim(
+                                                             new Claim("urn:twitter:id", context.UserId, "XmlSchemaString", "Twitter"));
+                                                         context.Identity.AddClaim(
+                                                             new Claim("urn:twitter:name", context.ScreenName, "XmlSchemaString", "Twitter"));
+
+                                                         return Task.FromResult(0);
+                                                     }
+                                             }
+                          };
+
+        app.UseTwitterAuthentication(options);
+    }
+
+    /// <summary>
+    /// Register Google Authentication.
+    /// </summary>
+    /// <param name="app">
+    /// The app builder.
+    /// </param>
+    private static void RegisterGoogleMiddleWare(IAppBuilder app)
+    {
+        var options = new GoogleOAuth2AuthenticationOptions
+                          {
+                              ClientId = Config.GoogleClientID,
+                              ClientSecret = Config.GoogleClientSecret,
+                              Provider = new GoogleOAuth2AuthenticationProvider
+                                             {
+                                                 OnAuthenticated = context =>
+                                                     {
+                                                         context.Identity.AddClaim(
+                                                             new Claim("urn:google:email", context.Email, "XmlSchemaString", "Google"));
+                                                         context.Identity.AddClaim(
+                                                             new Claim("urn:google:id", context.Id, "XmlSchemaString", "Google"));
+                                                         context.Identity.AddClaim(
+                                                             new Claim("urn:google:name", context.Name, "XmlSchemaString", "Google"));
+
+                                                         return Task.FromResult(0);
+                                                     }
+                                             }
+                          };
+
+        app.UseGoogleAuthentication(options);
+    }
+
+    /*
+
+    /// <summary>
+    /// Register GitHub Authentication.
+    /// </summary>
+    /// <param name="app">
+    /// The app builder.
+    /// </param>
+    private static void RegisterGitHubMiddleWare(IAppBuilder app)
+    {
+        var options = new GitHubAuthenticationOptions
+        {
+            ClientId = Config.GitHubClientID,
+            ClientSecret = Config.GitHubClientSecret,
+            Provider = new GitHubAuthenticationProvider
+            {
+                OnAuthenticated = context =>
+                {
+                    BoardContext.Current.Get<ILogger>().Info(context.Email);
+                    context.Identity.AddClaim(
+                        new Claim("urn:github:email", context.Email, "XmlSchemaString", "GitHub"));
+                    context.Identity.AddClaim(
+                        new Claim("urn:github:id", context.Id, "XmlSchemaString", "GitHub"));
+                    context.Identity.AddClaim(
+                        new Claim("urn:github:name", context.Name, "XmlSchemaString", "GitHub"));
+                    context.Identity.AddClaim(
+                        new Claim("urn:github:username", context.UserName, "XmlSchemaString", "GitHub"));
+                    context.Identity.AddClaim(
+                        new Claim("urn:github:link", context.Link, "XmlSchemaString", "GitHub"));
+
+                    return Task.FromResult(0);
+                }
+            }
+        };
+
+        app.UseGitHubAuthentication(options);
+    }
+
+    /// <summary>
+    /// Register MicrosoftAccount Authentication.
+    /// </summary>
+    /// <param name="app">
+    /// The app builder.
+    /// </param>
+    private static void RegisterMicrosoftAccountMiddleWare(IAppBuilder app)
+    {
+        var options = new MicrosoftAccountAuthenticationOptions
+        {
+            ClientId = Config.MicrosoftAccountClientID,
+            ClientSecret = Config.MicrosoftAccountClientSecret,
+            Provider = new MicrosoftAccountAuthenticationProvider
+            {
+                OnAuthenticated = context =>
+                {
+                    context.Identity.AddClaim(
+                        new Claim("urn:microsoft:email", context.Email, "XmlSchemaString", "Microsoft"));
+                    context.Identity.AddClaim(
+                        new Claim("urn:microsoft:id", context.Id, "XmlSchemaString", "Microsoft"));
+                    context.Identity.AddClaim(
+                        new Claim("urn:microsoft:name", context.Name, "XmlSchemaString", "Microsoft"));
+
+                    return Task.FromResult(0);
+                }
+            }
+        };
+
+        app.UseMicrosoftAccountAuthentication(options);
+    }*/
 }

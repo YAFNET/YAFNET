@@ -22,115 +22,114 @@
  * under the License.
  */
 
-namespace YAF.Pages
-{
-    #region Using
+namespace YAF.Pages;
 
-    using System.Net.Mail;
+#region Using
+
+using System.Net.Mail;
+
+#endregion
+
+/// <summary>
+/// The Share Topic via email
+/// </summary>
+public partial class EmailTopic : ForumPage
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "EmailTopic" /> class.
+    /// </summary>
+    public EmailTopic()
+        : base("EMAILTOPIC", ForumPages.EmailTopic)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The Share Topic via email
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class EmailTopic : ForumPage
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "EmailTopic" /> class.
-        /// </summary>
-        public EmailTopic()
-            : base("EMAILTOPIC", ForumPages.EmailTopic)
+        if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageBoardContext.ForumReadAccess
+                                                                 || !this.PageBoardContext.BoardSettings.AllowEmailTopic)
         {
+            this.Get<LinkBuilder>().AccessDenied();
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        if (this.IsPostBack)
         {
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageBoardContext.ForumReadAccess
-                || !this.PageBoardContext.BoardSettings.AllowEmailTopic)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                nameof(JavaScriptBlocks.FormValidatorJs),
-                JavaScriptBlocks.FormValidatorJs(this.SendEmail.ClientID));
-
-            this.Subject.Text = this.PageBoardContext.PageTopic.TopicName;
-
-            var emailTopic = new TemplateEmail("EMAILTOPIC")
-            {
-                TemplateParams =
-                {
-                    ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
-                        ForumPages.Posts,
-                        new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName }),
-                    ["{user}"] = this.PageBoardContext.PageUser.DisplayOrUserName()
-                }
-            };
-
-            this.Message.Text = emailTopic.ProcessTemplate("EMAILTOPIC");
+            return;
         }
 
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.FormValidatorJs),
+            JavaScriptBlocks.FormValidatorJs(this.SendEmail.ClientID));
 
-            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+        this.Subject.Text = this.PageBoardContext.PageTopic.TopicName;
 
-            this.PageLinks.AddForum(this.PageBoardContext.PageForum);
+        var emailTopic = new TemplateEmail("EMAILTOPIC")
+                             {
+                                 TemplateParams =
+                                     {
+                                         ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                             ForumPages.Posts,
+                                             new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName }),
+                                         ["{user}"] = this.PageBoardContext.PageUser.DisplayOrUserName()
+                                     }
+                             };
 
-            this.PageLinks.AddLink(
-                this.PageBoardContext.PageTopic.TopicName,
-                this.Get<LinkBuilder>().GetTopicLink(this.PageBoardContext.PageTopicID, this.PageBoardContext.PageTopic.TopicName));
-        }
-
-        /// <summary>
-        /// Handles the Click event of the SendEmail control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void SendEmail_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            try
-            {
-                var emailTopic = new TemplateEmail("EMAILTOPIC")
-                {
-                    TemplateParams = { ["{message}"] = this.Message.Text.Trim() }
-                };
-
-                // send a change email message...
-                emailTopic.SendEmail(new MailAddress(this.EmailAddress.Text.Trim()), this.Subject.Text.Trim());
-
-                this.Get<LinkBuilder>().Redirect(
-                    ForumPages.Posts,
-                    new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
-            }
-            catch (Exception x)
-            {
-                this.Logger.Log(this.PageBoardContext.PageUserID, this, x);
-                this.PageBoardContext.Notify(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
-            }
-        }
-
-        #endregion
+        this.Message.Text = emailTopic.ProcessTemplate("EMAILTOPIC");
     }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+
+        this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+
+        this.PageLinks.AddForum(this.PageBoardContext.PageForum);
+
+        this.PageLinks.AddLink(
+            this.PageBoardContext.PageTopic.TopicName,
+            this.Get<LinkBuilder>().GetTopicLink(this.PageBoardContext.PageTopicID, this.PageBoardContext.PageTopic.TopicName));
+    }
+
+    /// <summary>
+    /// Handles the Click event of the SendEmail control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void SendEmail_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        try
+        {
+            var emailTopic = new TemplateEmail("EMAILTOPIC")
+                                 {
+                                     TemplateParams = { ["{message}"] = this.Message.Text.Trim() }
+                                 };
+
+            // send a change email message...
+            emailTopic.SendEmail(new MailAddress(this.EmailAddress.Text.Trim()), this.Subject.Text.Trim());
+
+            this.Get<LinkBuilder>().Redirect(
+                ForumPages.Posts,
+                new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
+        }
+        catch (Exception x)
+        {
+            this.Logger.Log(this.PageBoardContext.PageUserID, this, x);
+            this.PageBoardContext.Notify(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
+        }
+    }
+
+    #endregion
 }

@@ -21,24 +21,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BaseControls
+namespace YAF.Core.BaseControls;
+
+#region Using
+
+using System;
+using System.Web.UI;
+
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The base user control.
+/// </summary>
+public class BaseUserControl : UserControl, IRaiseControlLifeCycles, IHaveServiceLocator, IHaveLocalization
 {
-  #region Using
-
-  using System;
-  using System.Web.UI;
-
-  using YAF.Core.Context;
-  using YAF.Types.Interfaces;
-  using YAF.Types.Interfaces.Services;
-
-  #endregion
-
-  /// <summary>
-  /// The base user control.
-  /// </summary>
-  public class BaseUserControl : UserControl, IRaiseControlLifeCycles, IHaveServiceLocator, IHaveLocalization
-  {
     #region Constants and Fields
 
     /// <summary>
@@ -60,7 +60,7 @@ namespace YAF.Core.BaseControls
     /// </summary>
     public BaseUserControl()
     {
-      this.Get<IInjectServices>().Inject(this);
+        this.Get<IInjectServices>().Inject(this);
     }
 
     #endregion
@@ -98,7 +98,7 @@ namespace YAF.Core.BaseControls
     /// </summary>
     void IRaiseControlLifeCycles.RaiseInit()
     {
-      this.OnInit(EventArgs.Empty);
+        this.OnInit(EventArgs.Empty);
     }
 
     /// <summary>
@@ -106,7 +106,7 @@ namespace YAF.Core.BaseControls
     /// </summary>
     void IRaiseControlLifeCycles.RaiseLoad()
     {
-      this.OnLoad(EventArgs.Empty);
+        this.OnLoad(EventArgs.Empty);
     }
 
     /// <summary>
@@ -114,11 +114,10 @@ namespace YAF.Core.BaseControls
     /// </summary>
     void IRaiseControlLifeCycles.RaisePreRender()
     {
-      this.OnPreRender(EventArgs.Empty);
+        this.OnPreRender(EventArgs.Empty);
     }
 
     #endregion
 
     #endregion
-  }
 }

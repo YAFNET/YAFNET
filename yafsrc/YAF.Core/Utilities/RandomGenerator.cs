@@ -36,91 +36,90 @@
  *  your mileage may vary ;)
  *  
  */
-namespace YAF.Core.Utilities
+namespace YAF.Core.Utilities;
+
+#region Using
+
+using System;
+using System.Security.Cryptography;
+
+#endregion
+
+/// <summary>
+/// The random generator.
+/// </summary>
+public class RandomGenerator
 {
-    #region Using
-
-    using System;
-    using System.Security.Cryptography;
-
-    #endregion
+    /// <summary>
+    /// The crypto service provider.
+    /// </summary>
+    private readonly RNGCryptoServiceProvider cryptoServiceProvider;
 
     /// <summary>
-    /// The random generator.
+    /// Initializes a new instance of the <see cref="RandomGenerator"/> class.
     /// </summary>
-    public class RandomGenerator
+    public RandomGenerator()
     {
-        /// <summary>
-        /// The crypto service provider.
-        /// </summary>
-        private readonly RNGCryptoServiceProvider cryptoServiceProvider;
+        this.cryptoServiceProvider = new RNGCryptoServiceProvider();
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RandomGenerator"/> class.
-        /// </summary>
-        public RandomGenerator()
+    /// <summary>
+    /// Generates a Random Number
+    /// </summary>
+    /// <param name="minValue">
+    /// The min value.
+    /// </param>
+    /// <param name="maxExclusiveValue">
+    /// The max exclusive value.
+    /// </param>
+    /// <returns>
+    /// The <see cref="int"/>.
+    /// </returns>
+    public int Next(int minValue, int maxExclusiveValue)
+    {
+        if (minValue >= maxExclusiveValue)
         {
-            this.cryptoServiceProvider = new RNGCryptoServiceProvider();
+            throw new ArgumentOutOfRangeException("minValue must be lower than maxExclusiveValue");
         }
 
-        /// <summary>
-        /// Generates a Random Number
-        /// </summary>
-        /// <param name="minValue">
-        /// The min value.
-        /// </param>
-        /// <param name="maxExclusiveValue">
-        /// The max exclusive value.
-        /// </param>
-        /// <returns>
-        /// The <see cref="int"/>.
-        /// </returns>
-        public int Next(int minValue, int maxExclusiveValue)
+        var diff = (long)maxExclusiveValue - minValue;
+        var upperBound = uint.MaxValue / diff * diff;
+
+        uint ui;
+        do
         {
-            if (minValue >= maxExclusiveValue)
-            {
-                throw new ArgumentOutOfRangeException("minValue must be lower than maxExclusiveValue");
-            }
-
-            var diff = (long)maxExclusiveValue - minValue;
-            var upperBound = uint.MaxValue / diff * diff;
-
-            uint ui;
-            do
-            {
-                ui = this.GetRandomUInt();
-            } 
-            while (ui >= upperBound);
+            ui = this.GetRandomUInt();
+        } 
+        while (ui >= upperBound);
             
-            return (int)(minValue + (ui % diff));
-        }
+        return (int)(minValue + (ui % diff));
+    }
 
-        /// <summary>
-        /// The get random u int.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="uint"/>.
-        /// </returns>
-        private uint GetRandomUInt()
-        {
-            var randomBytes = this.GenerateRandomBytes(sizeof(uint));
-            return BitConverter.ToUInt32(randomBytes, 0);
-        }
+    /// <summary>
+    /// The get random u int.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="uint"/>.
+    /// </returns>
+    private uint GetRandomUInt()
+    {
+        var randomBytes = this.GenerateRandomBytes(sizeof(uint));
+        return BitConverter.ToUInt32(randomBytes, 0);
+    }
 
-        /// <summary>
-        /// The generate random bytes.
-        /// </summary>
-        /// <param name="bytesNumber">
-        /// The bytes number.
-        /// </param>
-        /// <returns>
-        /// Returns the byte
-        /// </returns>
-        private byte[] GenerateRandomBytes(int bytesNumber)
-        {
-            var buffer = new byte[bytesNumber];
-            this.cryptoServiceProvider.GetBytes(buffer);
-            return buffer;
-        }
+    /// <summary>
+    /// The generate random bytes.
+    /// </summary>
+    /// <param name="bytesNumber">
+    /// The bytes number.
+    /// </param>
+    /// <returns>
+    /// Returns the byte
+    /// </returns>
+    private byte[] GenerateRandomBytes(int bytesNumber)
+    {
+        var buffer = new byte[bytesNumber];
+        this.cryptoServiceProvider.GetBytes(buffer);
+        return buffer;
     }
 }

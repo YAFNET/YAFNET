@@ -22,107 +22,106 @@
  * under the License.
  */
 
-namespace YAF.Pages.Profile
+namespace YAF.Pages.Profile;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// The Change Password Page.
+/// </summary>
+public partial class ChangePassword : ProfilePage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ChangePassword"/> class.
+    /// </summary>
+    public ChangePassword()
+        : base("CHANGE_PASSWORD", ForumPages.Profile_ChangePassword)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The Change Password Page.
+    /// The cancel push button_ click.
     /// </summary>
-    public partial class ChangePassword : ProfilePage
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    protected void CancelPushButtonClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ChangePassword"/> class.
-        /// </summary>
-        public ChangePassword()
-            : base("CHANGE_PASSWORD", ForumPages.Profile_ChangePassword)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The cancel push button_ click.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void CancelPushButtonClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
-        }
-
-        /// <summary>
-        /// The change password click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void ChangePasswordClick(object sender, EventArgs e)
-        {
-            if (!this.Page.IsValid)
-            {
-                return;
-            }
-
-            var result = this.Get<IAspNetUsersHelper>().ChangePassword(
-                this.PageBoardContext.MembershipUser.Id,
-                this.CurrentPassword.Text,
-                this.NewPassword.Text);
-
-            if (result.Succeeded)
-            {
-                this.PageBoardContext.Notify(this.GetText("CHANGE_SUCCESS"), MessageTypes.success);
-            }
-            else
-            {
-                this.PageBoardContext.Notify(result.Errors.FirstOrDefault(), MessageTypes.danger);
-            }
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (Config.IsDotNetNuke)
-            {
-                // Not accessible...
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            if (this.IsPostBack)
-            {
-                this.ContentBody.CssClass = "card-body was-validated";
-                return;
-            }
-
-            this.NewPasswordCompare.ToolTip = this.NewPasswordCompare.ErrorMessage = this.GetText("NO_PASSWORD_MATCH");
-            this.NewOldPasswordCompare.ToolTip = this.NewOldPasswordCompare.ErrorMessage = this.GetText("PASSWORD_NOT_NEW");
-
-            this.DataBind();
-        }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
-            this.PageLinks.AddLink(this.GetText("TITLE"));
-        }
-
-        #endregion
+        this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
     }
+
+    /// <summary>
+    /// The change password click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ChangePasswordClick(object sender, EventArgs e)
+    {
+        if (!this.Page.IsValid)
+        {
+            return;
+        }
+
+        var result = this.Get<IAspNetUsersHelper>().ChangePassword(
+            this.PageBoardContext.MembershipUser.Id,
+            this.CurrentPassword.Text,
+            this.NewPassword.Text);
+
+        if (result.Succeeded)
+        {
+            this.PageBoardContext.Notify(this.GetText("CHANGE_SUCCESS"), MessageTypes.success);
+        }
+        else
+        {
+            this.PageBoardContext.Notify(result.Errors.FirstOrDefault(), MessageTypes.danger);
+        }
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (Config.IsDotNetNuke)
+        {
+            // Not accessible...
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        if (this.IsPostBack)
+        {
+            this.ContentBody.CssClass = "card-body was-validated";
+            return;
+        }
+
+        this.NewPasswordCompare.ToolTip = this.NewPasswordCompare.ErrorMessage = this.GetText("NO_PASSWORD_MATCH");
+        this.NewOldPasswordCompare.ToolTip = this.NewOldPasswordCompare.ErrorMessage = this.GetText("PASSWORD_NOT_NEW");
+
+        this.DataBind();
+    }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageLinks.AddLink(this.GetText("TITLE"));
+    }
+
+    #endregion
 }

@@ -21,59 +21,58 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+#region Using
+
+using System.Linq;
+
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// Transforms the style.
+/// </summary>
+public class StyleTransform : IStyleTransform
 {
-    #region Using
+    /// <summary>
+    /// Decode Style by String
+    /// </summary>
+    /// <param name="style">The style string.</param>
+    /// <returns>
+    /// The decode style by string.
+    /// </returns>
+    public string Decode([NotNull] string style)
+    {
+        if (style.IsNotSet())
+        {
+            return string.Empty;
+        }
 
-    using System.Linq;
+        var styleRow = style.Trim().Split('/');
 
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+        styleRow.Select(s => s.Split('!')).Where(x => x.Length > 1).ForEach(
+            pair => style = GetColorOnly(pair[1]));
 
-    #endregion
+        return style;
+    }
 
     /// <summary>
-    /// Transforms the style.
+    /// Gets the color only
     /// </summary>
-    public class StyleTransform : IStyleTransform
+    /// <param name="styleString">
+    /// The style string.
+    /// </param>
+    /// <returns>
+    /// The get color only.
+    /// </returns>
+    private static string GetColorOnly(string styleString)
     {
-        /// <summary>
-        /// Decode Style by String
-        /// </summary>
-        /// <param name="style">The style string.</param>
-        /// <returns>
-        /// The decode style by string.
-        /// </returns>
-        public string Decode([NotNull] string style)
-        {
-            if (style.IsNotSet())
-            {
-                return string.Empty;
-            }
-
-            var styleRow = style.Trim().Split('/');
-
-            styleRow.Select(s => s.Split('!')).Where(x => x.Length > 1).ForEach(
-                pair => style = GetColorOnly(pair[1]));
-
-            return style;
-        }
-
-        /// <summary>
-        /// Gets the color only
-        /// </summary>
-        /// <param name="styleString">
-        /// The style string.
-        /// </param>
-        /// <returns>
-        /// The get color only.
-        /// </returns>
-        private static string GetColorOnly(string styleString)
-        {
-            var styleArray = styleString.Split(';');
-            return styleArray.FirstOrDefault(t => t.ToLower().Contains("color"));
-        }
+        var styleArray = styleString.Split(';');
+        return styleArray.FirstOrDefault(t => t.ToLower().Contains("color"));
     }
 }

@@ -22,201 +22,201 @@
  * under the License.
  */
 
-namespace YAF.Core.Helpers
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Web;
-    using System.Xml;
+namespace YAF.Core.Helpers;
 
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Objects;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Xml;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Objects;
+
+/// <summary>
+/// The static data helper.
+/// </summary>
+public static class StaticDataHelper
+{
+    #region Public Methods
+
+    public static IReadOnlyCollection<ListItem> TopicListModes()
+    {
+        return TopicListModes(BoardContext.Current.Get<ILocalization>());
+    }
+
+    public static IReadOnlyCollection<ListItem> TopicListModes([NotNull] ILocalization localization)
+    {
+        var modesList = new List<ListItem>();
+
+        var modes = EnumExtensions.GetAllItems<TopicListMode>();
+
+        modes.ForEach(
+            mode => modesList.Add(
+                new ListItem(
+                    localization.GetText(
+                        "MYTOPICS",
+                        mode == TopicListMode.User ? "MYTOPICS" : $"{mode}Topics"),
+                    mode.ToString())));
+
+        return modesList;
+    }
+
+    public static IReadOnlyCollection<ListItem> Gender()
+    {
+        return Gender(BoardContext.Current.Get<ILocalization>());
+    }
 
     /// <summary>
-    /// The static data helper.
+    /// The country.
     /// </summary>
-    public static class StaticDataHelper
+    /// <param name="localization">
+    /// The localization.
+    /// </param>
+    /// <returns>
+    /// Returns a Data Table with all country names (localized).
+    /// </returns>
+    public static IReadOnlyCollection<ListItem> Gender([NotNull] ILocalization localization)
     {
-        #region Public Methods
+        var genderList = new List<ListItem>();
 
-        public static IReadOnlyCollection<ListItem> TopicListModes()
+        var genders = EnumExtensions.GetAllItems<Gender>();
+
+        genders.ForEach(
+            gender => genderList.Add(
+                new ListItem(localization.GetText("GENDER", gender.ToString()), gender.ToString())));
+
+        return genderList;
+    }
+
+    /// <summary>
+    /// Gets all country names list(localized).
+    /// </summary>
+    /// <returns>
+    /// Returns a List with all country names list(localized)
+    /// </returns>
+    public static IReadOnlyCollection<ListItem> Country()
+    {
+        return Country(BoardContext.Current.Get<ILocalization>());
+    }
+
+    /// <summary>
+    /// The country.
+    /// </summary>
+    /// <param name="localization">
+    /// The localization.
+    /// </param>
+    /// <returns>
+    /// Returns a Data Table with all country names (localized).
+    /// </returns>
+    public static IReadOnlyCollection<ListItem> Country([NotNull] ILocalization localization)
+    {
+        var countriesList = new List<ListItem>();
+
+        var item = new ListItem(localization.GetText("COMMON", "NONE"), null);
+
+        countriesList.Add(item);
+
+        var countries = localization.GetRegionNodesUsingQuery("COUNTRY", x => x.tag.StartsWith(string.Empty))
+            .OrderBy(c => c.Value).ToList();
+
+        // vzrus: a temporary hack - it returns all tags if the page is not found
+        if (countries.Count > 2000)
         {
-            return TopicListModes(BoardContext.Current.Get<ILocalization>());
-        }
-
-        public static IReadOnlyCollection<ListItem> TopicListModes([NotNull] ILocalization localization)
-        {
-            var modesList = new List<ListItem>();
-
-            var modes = EnumExtensions.GetAllItems<TopicListMode>();
-
-            modes.ForEach(
-                mode => modesList.Add(
-                    new ListItem(
-                        localization.GetText(
-                            "MYTOPICS",
-                            mode == TopicListMode.User ? "MYTOPICS" : $"{mode}Topics"),
-                        mode.ToString())));
-
-            return modesList;
-        }
-
-        public static IReadOnlyCollection<ListItem> Gender()
-        {
-            return Gender(BoardContext.Current.Get<ILocalization>());
-        }
-
-        /// <summary>
-        /// The country.
-        /// </summary>
-        /// <param name="localization">
-        /// The localization.
-        /// </param>
-        /// <returns>
-        /// Returns a Data Table with all country names (localized).
-        /// </returns>
-        public static IReadOnlyCollection<ListItem> Gender([NotNull] ILocalization localization)
-        {
-            var genderList = new List<ListItem>();
-
-            var genders = EnumExtensions.GetAllItems<Gender>();
-
-            genders.ForEach(
-                gender => genderList.Add(
-                    new ListItem(localization.GetText("GENDER", gender.ToString()), gender.ToString())));
-
-            return genderList;
-        }
-
-        /// <summary>
-        /// Gets all country names list(localized).
-        /// </summary>
-        /// <returns>
-        /// Returns a List with all country names list(localized)
-        /// </returns>
-        public static IReadOnlyCollection<ListItem> Country()
-        {
-            return Country(BoardContext.Current.Get<ILocalization>());
-        }
-
-        /// <summary>
-        /// The country.
-        /// </summary>
-        /// <param name="localization">
-        /// The localization.
-        /// </param>
-        /// <returns>
-        /// Returns a Data Table with all country names (localized).
-        /// </returns>
-        public static IReadOnlyCollection<ListItem> Country([NotNull] ILocalization localization)
-        {
-            var countriesList = new List<ListItem>();
-
-            var item = new ListItem(localization.GetText("COMMON", "NONE"), null);
-
-            countriesList.Add(item);
-
-            var countries = localization.GetRegionNodesUsingQuery("COUNTRY", x => x.tag.StartsWith(string.Empty))
-                .OrderBy(c => c.Value).ToList();
-
-            // vzrus: a temporary hack - it returns all tags if the page is not found
-            if (countries.Count > 2000)
-            {
-                return countriesList;
-            }
-
-            countries.ForEach(node => countriesList.Add(new ListItem(node.Value, node.tag)));
-
             return countriesList;
         }
 
-        /// <summary>
-        /// Gets all country names list(localized).
-        /// </summary>
-        /// <param name="localization">The localization.</param>
-        /// <param name="culture">The culture.</param>
-        /// <returns>
-        /// Returns a List with all country names list(localized)
-        /// </returns>
-        public static IReadOnlyCollection<ListItem> Region([NotNull] ILocalization localization, [NotNull] string culture)
+        countries.ForEach(node => countriesList.Add(new ListItem(node.Value, node.tag)));
+
+        return countriesList;
+    }
+
+    /// <summary>
+    /// Gets all country names list(localized).
+    /// </summary>
+    /// <param name="localization">The localization.</param>
+    /// <param name="culture">The culture.</param>
+    /// <returns>
+    /// Returns a List with all country names list(localized)
+    /// </returns>
+    public static IReadOnlyCollection<ListItem> Region([NotNull] ILocalization localization, [NotNull] string culture)
+    {
+        var list = new List<ListItem> { new(null, null) };
+
+        var countries = localization
+            .GetCountryNodesUsingQuery("REGION", x => x.tag.StartsWith($"RGN_{culture}_")).ToList();
+
+        countries.ForEach(
+            node => list.Add(new ListItem(node.Value, node.tag.Replace($"RGN_{culture}_", string.Empty))));
+
+        return list;
+    }
+
+    /// <summary>
+    /// Gets all region names (localized)
+    /// </summary>
+    /// <param name="culture">The culture.</param>
+    /// <returns>
+    /// Returns a List with all region names (localized)
+    /// </returns>
+    public static IReadOnlyCollection<ListItem> Region([NotNull] string culture)
+    {
+        return Region(BoardContext.Current.Get<ILocalization>(), culture);
+    }
+
+    /// <summary>
+    /// The cultures IetfLangTags (4-letter).
+    /// </summary>
+    /// <returns>
+    /// The cultures filtered by first 2 letters in the language tag in a language file
+    /// </returns>
+    public static IReadOnlyCollection<Culture> Cultures()
+    {
+        var list = new List<Culture>();
+
+        // Get all language files info
+        var dir = new DirectoryInfo(
+            BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
+        var files = dir.GetFiles("*.xml");
+
+        // Create an array with tags
+        var tags = new string[2, files.Length];
+
+        // Extract available language tags into the array
+        for (var i = 0; i < files.Length; i++)
         {
-            var list = new List<ListItem> { new(null, null) };
+            var doc = new XmlDocument();
 
-            var countries = localization
-                .GetCountryNodesUsingQuery("REGION", x => x.tag.StartsWith($"RGN_{culture}_")).ToList();
+            doc.Load(files[i].FullName);
+            tags[0, i] = files[i].Name;
+            var attr = doc.DocumentElement.Attributes["code"];
 
-            countries.ForEach(
-                node => list.Add(new ListItem(node.Value, node.tag.Replace($"RGN_{culture}_", string.Empty))));
-
-            return list;
-        }
-
-        /// <summary>
-        /// Gets all region names (localized)
-        /// </summary>
-        /// <param name="culture">The culture.</param>
-        /// <returns>
-        /// Returns a List with all region names (localized)
-        /// </returns>
-        public static IReadOnlyCollection<ListItem> Region([NotNull] string culture)
-        {
-            return Region(BoardContext.Current.Get<ILocalization>(), culture);
-        }
-
-        /// <summary>
-        /// The cultures IetfLangTags (4-letter).
-        /// </summary>
-        /// <returns>
-        /// The cultures filtered by first 2 letters in the language tag in a language file
-        /// </returns>
-        public static IReadOnlyCollection<Culture> Cultures()
-        {
-            var list = new List<Culture>();
-
-            // Get all language files info
-            var dir = new DirectoryInfo(
-                BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
-            var files = dir.GetFiles("*.xml");
-
-            // Create an array with tags
-            var tags = new string[2, files.Length];
-
-            // Extract available language tags into the array
-            for (var i = 0; i < files.Length; i++)
+            if (attr != null)
             {
-                var doc = new XmlDocument();
-
-                doc.Load(files[i].FullName);
-                tags[0, i] = files[i].Name;
-                var attr = doc.DocumentElement.Attributes["code"];
-
-                if (attr != null)
-                {
-                    tags[1, i] = attr.Value.Trim();
-                }
-                else
-                {
-                    tags[1, i] = "en-US";
-                }
+                tags[1, i] = attr.Value.Trim();
             }
+            else
+            {
+                tags[1, i] = "en-US";
+            }
+        }
 
-            var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+        var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
-            cultures.ForEach(
-                ci =>
+        cultures.ForEach(
+            ci =>
                 {
                     for (var j = 0; j < files.Length; j++)
                     {
                         if (ci.IsNeutralCulture || !tags[1, j].ToLower().Substring(0, 2)
-                                    .Contains(ci.TwoLetterISOLanguageName.ToLower()))
+                                .Contains(ci.TwoLetterISOLanguageName.ToLower()))
                         {
                             continue;
                         }
@@ -234,48 +234,48 @@ namespace YAF.Core.Helpers
                     }
                 });
 
-            return list;
+        return list;
+    }
+
+    /// <summary>
+    /// The cultures IetfLangTags (4-letter).
+    /// </summary>
+    /// <returns>
+    /// The cultures filtered by first 2 letters in the language tag in a language file
+    /// </returns>
+    public static IReadOnlyCollection<Culture> NeutralCultures()
+    {
+        var list = new List<Culture>();
+
+        // Get all language files info
+        var dir = new DirectoryInfo(
+            BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
+        var files = dir.GetFiles("*.xml");
+
+        // Create an array with tags
+        var tags = new string[2, files.Length];
+
+        // Extract available language tags into the array
+        for (var i = 0; i < files.Length; i++)
+        {
+            var doc = new XmlDocument();
+            doc.Load(files[i].FullName);
+            tags[0, i] = files[i].Name;
+            var attr = doc.DocumentElement.Attributes["code"];
+            if (attr != null)
+            {
+                tags[1, i] = attr.Value.Trim();
+            }
+            else
+            {
+                tags[1, i] = "en-US";
+            }
         }
 
-        /// <summary>
-        /// The cultures IetfLangTags (4-letter).
-        /// </summary>
-        /// <returns>
-        /// The cultures filtered by first 2 letters in the language tag in a language file
-        /// </returns>
-        public static IReadOnlyCollection<Culture> NeutralCultures()
-        {
-            var list = new List<Culture>();
+        var cultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
 
-            // Get all language files info
-            var dir = new DirectoryInfo(
-                BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
-            var files = dir.GetFiles("*.xml");
-
-            // Create an array with tags
-            var tags = new string[2, files.Length];
-
-            // Extract available language tags into the array
-            for (var i = 0; i < files.Length; i++)
-            {
-                var doc = new XmlDocument();
-                doc.Load(files[i].FullName);
-                tags[0, i] = files[i].Name;
-                var attr = doc.DocumentElement.Attributes["code"];
-                if (attr != null)
-                {
-                    tags[1, i] = attr.Value.Trim();
-                }
-                else
-                {
-                    tags[1, i] = "en-US";
-                }
-            }
-
-            var cultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
-
-            cultures.ForEach(
-                ci =>
+        cultures.ForEach(
+            ci =>
                 {
                     for (var j = 0; j < files.Length; j++)
                     {
@@ -298,147 +298,147 @@ namespace YAF.Core.Helpers
                     }
                 });
 
-            return list;
+        return list;
+    }
+
+    /// <summary>
+    /// Gets language tag info from language file tag.
+    /// </summary>
+    /// <param name="fileName">Name of the file.</param>
+    /// <returns>
+    /// A default full 4-letter culture from the existing language file.
+    /// </returns>
+    public static string CultureDefaultFromFile([CanBeNull] string fileName)
+    {
+        if (fileName.IsNotSet())
+        {
+            return "en-US";
         }
 
-        /// <summary>
-        /// Gets language tag info from language file tag.
-        /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <returns>
-        /// A default full 4-letter culture from the existing language file.
-        /// </returns>
-        public static string CultureDefaultFromFile([CanBeNull] string fileName)
+        string rawTag;
+
+        // Get all language files info
+        var dir = new DirectoryInfo(
+            BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
+        var files = dir.GetFiles(fileName);
+
+        if (files.Length <= 0)
         {
-            if (fileName.IsNotSet())
+            return null;
+        }
+
+        try
+        {
+            var doc = new XmlDocument();
+            doc.Load(files[0].FullName);
+            rawTag = doc.DocumentElement.Attributes["code"].Value.Trim();
+        }
+        catch (Exception)
+        {
+            return "en-US";
+        }
+
+        var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+
+        var tag = cultures.FirstOrDefault(
+            ci => !ci.IsNeutralCulture
+                  && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower())
+                  && ci.IetfLanguageTag.Length == 5)?.IetfLanguageTag;
+
+        return tag ?? "en-US";
+    }
+
+    /// <summary>
+    /// Get All Themes
+    /// </summary>
+    /// <returns>
+    /// Returns a List with all Themes
+    /// </returns>
+    public static IReadOnlyCollection<string> Themes()
+    {
+        var dir = new DirectoryInfo(
+            BoardContext.Current.Get<HttpRequestBase>().MapPath(
+                $"{BoardInfo.ForumServerFileRoot}/Content/Themes"));
+
+        return dir.GetDirectories().Select(folder => folder.Name).ToList();
+    }
+
+    /// <summary>
+    /// Get all time zones.
+    /// </summary>
+    /// <returns>
+    /// Returns a List with all time zones.
+    /// </returns>
+    public static IReadOnlyCollection<ListItem> TimeZones()
+    {
+        return TimeZones(TimeZoneInfo.GetSystemTimeZones());
+    }
+
+    /// <summary>
+    /// Gets all Time Zones
+    /// </summary>
+    /// <param name="getSystemTimeZones">The get system time zones.</param>
+    /// <returns>
+    /// Returns a List with all Time Zones
+    /// </returns>
+    public static IReadOnlyCollection<ListItem> TimeZones([NotNull] IReadOnlyCollection<TimeZoneInfo> getSystemTimeZones)
+    {
+        var list = new List<ListItem>();
+
+        getSystemTimeZones.ForEach(timeZoneInfo => list.Add(new ListItem(timeZoneInfo.DisplayName, timeZoneInfo.Id)));
+
+        return list;
+    }
+
+    /// <summary>
+    /// Gets all topic times.
+    /// </summary>
+    /// <returns>
+    /// Returns a List with all topic times.
+    /// </returns>
+    public static IReadOnlyCollection<ListItem> TopicTimes()
+    {
+        var list = new List<ListItem>();
+
+        string[] textArray =
             {
-                return "en-US";
-            }
+                "all", "last_day", "last_two_days", "last_week", "last_two_weeks", "last_month",
+                "last_two_months", "last_six_months", "last_year"
+            };
 
-            string rawTag;
-
-            // Get all language files info
-            var dir = new DirectoryInfo(
-                BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
-            var files = dir.GetFiles(fileName);
-
-            if (files.Length <= 0)
+        string[] textArrayProp =
             {
-                return null;
-            }
+                "All", "Last Day", "Last Two Days", "Last Week", "Last Two Weeks", "Last Month",
+                "Last Two Months", "Last Six Months", "Last Year"
+            };
 
-            try
-            {
-                var doc = new XmlDocument();
-                doc.Load(files[0].FullName);
-                rawTag = doc.DocumentElement.Attributes["code"].Value.Trim();
-            }
-            catch (Exception)
-            {
-                return "en-US";
-            }
+        for (var i = 0; i < 8; i++)
+        {
+            var item = new ListItem
+                           {
+                               Name = BoardContext.Current.Get<ILocalization>().TransPage == null
+                                          ? textArrayProp[i]
+                                          : BoardContext.Current.Get<ILocalization>().GetText(textArray[i]),
+                               Value = i.ToString()
+                           };
 
-            var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
-
-            var tag = cultures.FirstOrDefault(
-                ci => !ci.IsNeutralCulture
-                      && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower())
-                      && ci.IetfLanguageTag.Length == 5)?.IetfLanguageTag;
-
-            return tag ?? "en-US";
+            list.Add(item);
         }
 
-        /// <summary>
-        /// Get All Themes
-        /// </summary>
-        /// <returns>
-        /// Returns a List with all Themes
-        /// </returns>
-        public static IReadOnlyCollection<string> Themes()
-        {
-            var dir = new DirectoryInfo(
-                BoardContext.Current.Get<HttpRequestBase>().MapPath(
-                    $"{BoardInfo.ForumServerFileRoot}/Content/Themes"));
+        return list;
+    }
 
-            return dir.GetDirectories().Select(folder => folder.Name).ToList();
-        }
+    /// <summary>
+    /// Gets the List with Page Entries to Show
+    /// </summary>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<ListItem> PageEntries()
+    {
+        var list = new List<ListItem>();
 
-        /// <summary>
-        /// Get all time zones.
-        /// </summary>
-        /// <returns>
-        /// Returns a List with all time zones.
-        /// </returns>
-        public static IReadOnlyCollection<ListItem> TimeZones()
-        {
-            return TimeZones(TimeZoneInfo.GetSystemTimeZones());
-        }
-
-        /// <summary>
-        /// Gets all Time Zones
-        /// </summary>
-        /// <param name="getSystemTimeZones">The get system time zones.</param>
-        /// <returns>
-        /// Returns a List with all Time Zones
-        /// </returns>
-        public static IReadOnlyCollection<ListItem> TimeZones([NotNull] IReadOnlyCollection<TimeZoneInfo> getSystemTimeZones)
-        {
-            var list = new List<ListItem>();
-
-            getSystemTimeZones.ForEach(timeZoneInfo => list.Add(new ListItem(timeZoneInfo.DisplayName, timeZoneInfo.Id)));
-
-            return list;
-        }
-
-        /// <summary>
-        /// Gets all topic times.
-        /// </summary>
-        /// <returns>
-        /// Returns a List with all topic times.
-        /// </returns>
-        public static IReadOnlyCollection<ListItem> TopicTimes()
-        {
-            var list = new List<ListItem>();
-
-            string[] textArray =
-                {
-                    "all", "last_day", "last_two_days", "last_week", "last_two_weeks", "last_month",
-                    "last_two_months", "last_six_months", "last_year"
-                };
-
-            string[] textArrayProp =
-                {
-                    "All", "Last Day", "Last Two Days", "Last Week", "Last Two Weeks", "Last Month",
-                    "Last Two Months", "Last Six Months", "Last Year"
-                };
-
-            for (var i = 0; i < 8; i++)
-            {
-                var item = new ListItem
-                               {
-                                   Name = BoardContext.Current.Get<ILocalization>().TransPage == null
-                                              ? textArrayProp[i]
-                                              : BoardContext.Current.Get<ILocalization>().GetText(textArray[i]),
-                                   Value = i.ToString()
-                               };
-
-                list.Add(item);
-            }
-
-            return list;
-        }
-
-        /// <summary>
-        /// Gets the List with Page Entries to Show
-        /// </summary>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<ListItem> PageEntries()
-        {
-            var list = new List<ListItem>();
-
-            string[] textArray =
+        string[] textArray =
             {
                 "ENTRIES_5",
                 "ENTRIES_10",
@@ -447,21 +447,20 @@ namespace YAF.Core.Helpers
                 "ENTRIES_50",
             };
 
-            textArray.ForEach(
-                text =>
+        textArray.ForEach(
+            text =>
                 {
                     var item = new ListItem
-                    {
-                        Name = BoardContext.Current.Get<ILocalization>().GetText("COMMON", text),
-                        Value = text.Replace("ENTRIES_", string.Empty)
-                    };
+                                   {
+                                       Name = BoardContext.Current.Get<ILocalization>().GetText("COMMON", text),
+                                       Value = text.Replace("ENTRIES_", string.Empty)
+                                   };
 
                     list.Add(item);
                 });
 
-            return list;
-        }
-
-        #endregion
+        return list;
     }
+
+    #endregion
 }

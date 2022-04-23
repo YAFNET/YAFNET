@@ -8,47 +8,46 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ServiceStack.Script
+namespace ServiceStack.Script;
+
+using ServiceStack.Text;
+
+/// <summary>
+/// Handlebars.js like with block
+/// Usages: {{#with person}} Hi {{name}}, I'm {{age}} years old{{/with}}
+/// {{#with person}} Hi {{name}}, I'm {{age}} years old {{else}} no person {{/with}}
+/// </summary>
+public class WithScriptBlock : ScriptBlock
 {
-    using ServiceStack.Text;
+    /// <summary>
+    /// Gets the name.
+    /// </summary>
+    /// <value>The name.</value>
+    public override string Name => "with";
 
     /// <summary>
-    /// Handlebars.js like with block
-    /// Usages: {{#with person}} Hi {{name}}, I'm {{age}} years old{{/with}}
-    /// {{#with person}} Hi {{name}}, I'm {{age}} years old {{else}} no person {{/with}}
+    /// Write as an asynchronous operation.
     /// </summary>
-    public class WithScriptBlock : ScriptBlock
+    /// <param name="scope">The scope.</param>
+    /// <param name="block">The block.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
+    public override async Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
     {
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        public override string Name => "with";
+        var result = await block.Argument.GetJsExpressionAndEvaluateAsync(scope,
+                         ifNone: () => throw new NotSupportedException("'with' block does not have a valid expression"));
 
-        /// <summary>
-        /// Write as an asynchronous operation.
-        /// </summary>
-        /// <param name="scope">The scope.</param>
-        /// <param name="block">The block.</param>
-        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A Task representing the asynchronous operation.</returns>
-        public override async Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
+        if (result != null)
         {
-            var result = await block.Argument.GetJsExpressionAndEvaluateAsync(scope,
-                ifNone: () => throw new NotSupportedException("'with' block does not have a valid expression"));
+            var resultAsMap = result.ToObjectDictionary();
 
-            if (result != null)
-            {
-                var resultAsMap = result.ToObjectDictionary();
+            var withScope = scope.ScopeWithParams(resultAsMap);
 
-                var withScope = scope.ScopeWithParams(resultAsMap);
-
-                await WriteBodyAsync(withScope, block, token);
-            }
-            else
-            {
-                await WriteElseAsync(scope, block.ElseBlocks, token);
-            }
+            await WriteBodyAsync(withScope, block, token);
+        }
+        else
+        {
+            await WriteElseAsync(scope, block.ElseBlocks, token);
         }
     }
 }

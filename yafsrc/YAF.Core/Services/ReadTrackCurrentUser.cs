@@ -22,260 +22,259 @@
  * under the License.
  */
 
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+#region Using
+
+using System;
+using System.Linq;
+using System.Web;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Core.Helpers;
+using YAF.Core.Model;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+///     YAF Read Tracking Methods
+/// </summary>
+public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
 {
-    #region Using
+    #region Fields
 
-    using System;
-    using System.Linq;
-    using System.Web;
-
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
-    using YAF.Core.Model;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
+    /// <summary>
+    ///     The session state.
+    /// </summary>
+    private readonly HttpSessionStateBase sessionState;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    ///     YAF Read Tracking Methods
+    /// Initializes a new instance of the <see cref="ReadTrackCurrentUser" /> class.
     /// </summary>
-    public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
+    /// <param name="serviceLocator">The service locator.</param>
+    /// <param name="sessionState">The session State.</param>
+    public ReadTrackCurrentUser(IServiceLocator serviceLocator, HttpSessionStateBase sessionState)
     {
-        #region Fields
+        this.ServiceLocator = serviceLocator;
+        this.sessionState = sessionState;
+    }
 
-        /// <summary>
-        ///     The session state.
-        /// </summary>
-        private readonly HttpSessionStateBase sessionState;
+    #endregion
 
-        #endregion
+    #region Public Properties
 
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReadTrackCurrentUser" /> class.
-        /// </summary>
-        /// <param name="serviceLocator">The service locator.</param>
-        /// <param name="sessionState">The session State.</param>
-        public ReadTrackCurrentUser(IServiceLocator serviceLocator, HttpSessionStateBase sessionState)
+    /// <summary>
+    ///     Gets the last visit.
+    /// </summary>
+    public DateTime LastRead
+    {
+        get
         {
-            this.ServiceLocator = serviceLocator;
-            this.sessionState = sessionState;
-        }
+            var lastRead = this.sessionState["LastRead"]?.ToType<DateTime?>();
 
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets the last visit.
-        /// </summary>
-        public DateTime LastRead
-        {
-            get
+            if (!lastRead.HasValue && this.UseDatabaseReadTracking)
             {
-                var lastRead = this.sessionState["LastRead"]?.ToType<DateTime?>();
+                var lastForumRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId)
+                    .OrderByDescending(t => t.LastAccessDate).FirstOrDefault();
 
-                if (!lastRead.HasValue && this.UseDatabaseReadTracking)
+                var lastTopicRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId)
+                    .OrderByDescending(t => t.LastAccessDate).FirstOrDefault();
+
+                if (lastForumRead != null && lastTopicRead != null)
                 {
-                    var lastForumRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId)
-                        .OrderByDescending(t => t.LastAccessDate).FirstOrDefault();
-
-                    var lastTopicRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId)
-                        .OrderByDescending(t => t.LastAccessDate).FirstOrDefault();
-
-                    if (lastForumRead != null && lastTopicRead != null)
-                    {
-                        lastRead = lastForumRead.LastAccessDate > lastTopicRead.LastAccessDate ? lastForumRead.LastAccessDate : lastTopicRead.LastAccessDate;
-                    }
-                    else
-                    {
-                        if (lastForumRead != null)
-                        {
-                            lastRead = lastForumRead.LastAccessDate;
-                        }
-                        else
-                        {
-                            if (lastTopicRead != null)
-                            {
-                                lastRead = lastTopicRead.LastAccessDate;
-                            }
-                        }
-                    }
+                    lastRead = lastForumRead.LastAccessDate > lastTopicRead.LastAccessDate ? lastForumRead.LastAccessDate : lastTopicRead.LastAccessDate;
                 }
                 else
                 {
-                    lastRead = this.Get<ISession>().LastVisit;
+                    if (lastForumRead != null)
+                    {
+                        lastRead = lastForumRead.LastAccessDate;
+                    }
+                    else
+                    {
+                        if (lastTopicRead != null)
+                        {
+                            lastRead = lastTopicRead.LastAccessDate;
+                        }
+                    }
                 }
-
-                return lastRead ?? DateTimeHelper.SqlDbMinTime();
-            }
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        /// <summary>
-        ///     Gets the current user id.
-        /// </summary>
-        protected int CurrentUserId => BoardContext.Current.PageUserID;
-
-        /// <summary>
-        ///     Gets a value indicating whether this user is guest.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if this user is guest; otherwise, <c>false</c>.
-        /// </value>
-        protected bool IsGuest => BoardContext.Current.IsGuest;
-
-        /// <summary>
-        /// Gets a value indicating whether [use database read tracking].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [use database read tracking]; otherwise, <c>false</c>.
-        /// </value>
-        protected bool UseDatabaseReadTracking => this.Get<BoardSettings>().UseReadTrackingByDatabase && !this.IsGuest;
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        ///     The get forum read.
-        /// </summary>
-        /// <param name="forumId">The forum ID of the Forum</param>
-        /// <param name="readTimeOverride">The read Time Override.</param>
-        /// <returns>
-        ///     Returns the DateTime object from the Forum ID.
-        /// </returns>
-        public DateTime GetForumRead(int forumId, DateTime? readTimeOverride)
-        {
-            DateTime? readTime;
-
-            if (this.UseDatabaseReadTracking)
-            {
-                readTime = readTimeOverride ??
-                           this.GetRepository<ForumReadTracking>().LastRead(this.CurrentUserId, forumId);
             }
             else
             {
-                readTime = this.GetSessionForumRead(forumId) ?? this.LastRead;
+                lastRead = this.Get<ISession>().LastVisit;
             }
 
-            return readTime ?? DateTimeHelper.SqlDbMinTime();
+            return lastRead ?? DateTimeHelper.SqlDbMinTime();
         }
-
-        /// <summary>
-        ///     The get topic read.
-        /// </summary>
-        /// <param name="topicId">The topicID you wish to find the DateTime object for.</param>
-        /// <param name="readTimeOverride">The read Time Override.</param>
-        /// <returns>
-        ///     Returns the DateTime object from the topicID.
-        /// </returns>
-        public DateTime GetTopicRead(int topicId, DateTime? readTimeOverride)
-        {
-            DateTime? readTime;
-
-            if (this.UseDatabaseReadTracking)
-            {
-                readTime = readTimeOverride ??
-                           this.GetRepository<TopicReadTracking>().LastRead(this.CurrentUserId, topicId);
-            }
-            else
-            {
-                readTime = this.GetSessionTopicRead(topicId) ?? this.LastRead;
-            }
-
-            return readTime ?? DateTimeHelper.SqlDbMinTime();
-        }
-
-        /// <summary>
-        ///     The set forum read.
-        /// </summary>
-        /// <param name="forumId">The forum ID of the Forum</param>
-        public void SetForumRead(int forumId)
-        {
-            if (this.UseDatabaseReadTracking)
-            {
-                this.GetRepository<ForumReadTracking>().AddOrUpdate(this.CurrentUserId, forumId);
-            }
-            else
-            {
-                this.Get<ISession>().SetForumRead(forumId, DateTime.UtcNow);
-            }
-        }
-
-        /// <summary>
-        ///     The set topic read.
-        /// </summary>
-        /// <param name="topicId">The topic id to mark read.</param>
-        public void SetTopicRead(int topicId)
-        {
-            if (this.UseDatabaseReadTracking)
-            {
-                this.GetRepository<TopicReadTracking>().AddOrUpdate(this.CurrentUserId, topicId);
-            }
-            else
-            {
-                this.Get<ISession>().SetTopicRead(topicId, DateTime.UtcNow);
-            }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        ///     Gets the session forum read.
-        /// </summary>
-        /// <param name="forumId">The forum id.</param>
-        /// <returns>
-        ///     The get session forum read.
-        /// </returns>
-        private DateTime? GetSessionForumRead(int forumId)
-        {
-            var forumReadHashtable = this.Get<ISession>().ForumRead;
-
-            if (forumReadHashtable != null && forumReadHashtable.ContainsKey(forumId))
-            {
-                return forumReadHashtable[forumId].ToType<DateTime>();
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        ///     Gets the session topic read.
-        /// </summary>
-        /// <param name="topicId">The topic id.</param>
-        /// <returns>
-        ///     The get session topic read.
-        /// </returns>
-        private DateTime? GetSessionTopicRead(int topicId)
-        {
-            var topicReadHashtable = this.Get<ISession>().TopicRead;
-
-            if (topicReadHashtable != null && topicReadHashtable.ContainsKey(topicId))
-            {
-                return topicReadHashtable[topicId].ToType<DateTime>();
-            }
-
-            return null;
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    /// <summary>
+    ///     Gets the current user id.
+    /// </summary>
+    protected int CurrentUserId => BoardContext.Current.PageUserID;
+
+    /// <summary>
+    ///     Gets a value indicating whether this user is guest.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if this user is guest; otherwise, <c>false</c>.
+    /// </value>
+    protected bool IsGuest => BoardContext.Current.IsGuest;
+
+    /// <summary>
+    /// Gets a value indicating whether [use database read tracking].
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if [use database read tracking]; otherwise, <c>false</c>.
+    /// </value>
+    protected bool UseDatabaseReadTracking => this.Get<BoardSettings>().UseReadTrackingByDatabase && !this.IsGuest;
+
+    #endregion
+
+    #region Public Methods and Operators
+
+    /// <summary>
+    ///     The get forum read.
+    /// </summary>
+    /// <param name="forumId">The forum ID of the Forum</param>
+    /// <param name="readTimeOverride">The read Time Override.</param>
+    /// <returns>
+    ///     Returns the DateTime object from the Forum ID.
+    /// </returns>
+    public DateTime GetForumRead(int forumId, DateTime? readTimeOverride)
+    {
+        DateTime? readTime;
+
+        if (this.UseDatabaseReadTracking)
+        {
+            readTime = readTimeOverride ??
+                       this.GetRepository<ForumReadTracking>().LastRead(this.CurrentUserId, forumId);
+        }
+        else
+        {
+            readTime = this.GetSessionForumRead(forumId) ?? this.LastRead;
+        }
+
+        return readTime ?? DateTimeHelper.SqlDbMinTime();
+    }
+
+    /// <summary>
+    ///     The get topic read.
+    /// </summary>
+    /// <param name="topicId">The topicID you wish to find the DateTime object for.</param>
+    /// <param name="readTimeOverride">The read Time Override.</param>
+    /// <returns>
+    ///     Returns the DateTime object from the topicID.
+    /// </returns>
+    public DateTime GetTopicRead(int topicId, DateTime? readTimeOverride)
+    {
+        DateTime? readTime;
+
+        if (this.UseDatabaseReadTracking)
+        {
+            readTime = readTimeOverride ??
+                       this.GetRepository<TopicReadTracking>().LastRead(this.CurrentUserId, topicId);
+        }
+        else
+        {
+            readTime = this.GetSessionTopicRead(topicId) ?? this.LastRead;
+        }
+
+        return readTime ?? DateTimeHelper.SqlDbMinTime();
+    }
+
+    /// <summary>
+    ///     The set forum read.
+    /// </summary>
+    /// <param name="forumId">The forum ID of the Forum</param>
+    public void SetForumRead(int forumId)
+    {
+        if (this.UseDatabaseReadTracking)
+        {
+            this.GetRepository<ForumReadTracking>().AddOrUpdate(this.CurrentUserId, forumId);
+        }
+        else
+        {
+            this.Get<ISession>().SetForumRead(forumId, DateTime.UtcNow);
+        }
+    }
+
+    /// <summary>
+    ///     The set topic read.
+    /// </summary>
+    /// <param name="topicId">The topic id to mark read.</param>
+    public void SetTopicRead(int topicId)
+    {
+        if (this.UseDatabaseReadTracking)
+        {
+            this.GetRepository<TopicReadTracking>().AddOrUpdate(this.CurrentUserId, topicId);
+        }
+        else
+        {
+            this.Get<ISession>().SetTopicRead(topicId, DateTime.UtcNow);
+        }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    ///     Gets the session forum read.
+    /// </summary>
+    /// <param name="forumId">The forum id.</param>
+    /// <returns>
+    ///     The get session forum read.
+    /// </returns>
+    private DateTime? GetSessionForumRead(int forumId)
+    {
+        var forumReadHashtable = this.Get<ISession>().ForumRead;
+
+        if (forumReadHashtable != null && forumReadHashtable.ContainsKey(forumId))
+        {
+            return forumReadHashtable[forumId].ToType<DateTime>();
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    ///     Gets the session topic read.
+    /// </summary>
+    /// <param name="topicId">The topic id.</param>
+    /// <returns>
+    ///     The get session topic read.
+    /// </returns>
+    private DateTime? GetSessionTopicRead(int topicId)
+    {
+        var topicReadHashtable = this.Get<ISession>().TopicRead;
+
+        if (topicReadHashtable != null && topicReadHashtable.ContainsKey(topicId))
+        {
+            return topicReadHashtable[topicId].ToType<DateTime>();
+        }
+
+        return null;
+    }
+
+    #endregion
 }

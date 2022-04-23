@@ -22,32 +22,31 @@
  * under the License.
  */
 
-namespace YAF.Web.ReCAPTCHA
+namespace YAF.Web.ReCAPTCHA;
+
+using System.Runtime.Serialization;
+
+/// <summary>
+/// The recaptcha json.
+/// </summary>
+[DataContract]
+public class RecaptchaJson
 {
-    using System.Runtime.Serialization;
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="RecaptchaJson"/> is success.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if success; otherwise, <c>false</c>.
+    /// </value>
+    [DataMember(Name = "success")]
+    public bool Success { get; set; }
 
     /// <summary>
-    /// The recaptcha json.
+    /// Gets or sets the error codes.
     /// </summary>
-    [DataContract]
-    public class RecaptchaJson
-    {
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="RecaptchaJson"/> is success.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if success; otherwise, <c>false</c>.
-        /// </value>
-        [DataMember(Name = "success")]
-        public bool Success { get; set; }
-
-        /// <summary>
-        /// Gets or sets the error codes.
-        /// </summary>
-        /// <value>
-        /// The error codes.
-        /// </value>
-        [DataMember(Name = "error-codes")]
-        public string ErrorCodes { get; set; }
-    }
+    /// <value>
+    /// The error codes.
+    /// </value>
+    [DataMember(Name = "error-codes")]
+    public string ErrorCodes { get; set; }
 }

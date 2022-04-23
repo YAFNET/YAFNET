@@ -21,102 +21,101 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+#region Using
+
+using System;
+using System.Runtime.Caching;
+
+using YAF.Types;
+
+#endregion
+
+/// <summary>
+/// The MemoryCache extensions.
+/// </summary>
+public static class MemoryCacheExtensions
 {
-    #region Using
-
-    using System;
-    using System.Runtime.Caching;
-
-    using YAF.Types;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The MemoryCache extensions.
+    /// The get or set.
     /// </summary>
-    public static class MemoryCacheExtensions
+    /// <param name="cache">
+    /// The cache.
+    /// </param>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="getValue">
+    /// The get value.
+    /// </param>
+    /// <typeparam name="T">
+    /// The typed Parameter
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="T"/>.
+    /// The typed Parameter
+    /// </returns>
+    public static T GetOrSet<T>(
+        [NotNull] this MemoryCache cache,
+        [NotNull] string key,
+        [NotNull] Func<T> getValue)
     {
-        #region Public Methods
+        CodeContracts.VerifyNotNull(cache);
+        CodeContracts.VerifyNotNull(key);
+        CodeContracts.VerifyNotNull(getValue);
 
-        /// <summary>
-        /// The get or set.
-        /// </summary>
-        /// <param name="cache">
-        /// The cache.
-        /// </param>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <param name="getValue">
-        /// The get value.
-        /// </param>
-        /// <typeparam name="T">
-        /// The typed Parameter
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// The typed Parameter
-        /// </returns>
-        public static T GetOrSet<T>(
-            [NotNull] this MemoryCache cache,
-            [NotNull] string key,
-            [NotNull] Func<T> getValue)
+        var item = cache[key];
+
+        if (!Equals(item, default(T)))
         {
-            CodeContracts.VerifyNotNull(cache);
-            CodeContracts.VerifyNotNull(key);
-            CodeContracts.VerifyNotNull(getValue);
-
-            var item = cache[key];
-
-            if (!Equals(item, default(T)))
-            {
-                return (T)item;
-            }
-
-            item = cache[key];
-
-            if (!Equals(item, default(T)))
-            {
-                return (T)item;
-            }
-
-            item = getValue();
-            cache[key] = item;
-
             return (T)item;
         }
 
-        /// <summary>
-        /// The set.
-        /// </summary>
-        /// <param name="cache">
-        /// The cache.
-        /// </param>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <typeparam name="T">
-        /// The typed Parameter
-        /// </typeparam>
-        public static void Set<T>([NotNull] this MemoryCache cache, [NotNull] string key, [NotNull] T value)
-        {
-            CodeContracts.VerifyNotNull(cache);
-            CodeContracts.VerifyNotNull(key);
+        item = cache[key];
 
-            try
-            {
-                cache[key] = value;
-            }
-            catch (Exception)
-            {
-               // NOTE : Ignore if board settings is reset!
-            }
+        if (!Equals(item, default(T)))
+        {
+            return (T)item;
         }
 
-        #endregion
+        item = getValue();
+        cache[key] = item;
+
+        return (T)item;
     }
+
+    /// <summary>
+    /// The set.
+    /// </summary>
+    /// <param name="cache">
+    /// The cache.
+    /// </param>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <typeparam name="T">
+    /// The typed Parameter
+    /// </typeparam>
+    public static void Set<T>([NotNull] this MemoryCache cache, [NotNull] string key, [NotNull] T value)
+    {
+        CodeContracts.VerifyNotNull(cache);
+        CodeContracts.VerifyNotNull(key);
+
+        try
+        {
+            cache[key] = value;
+        }
+        catch (Exception)
+        {
+            // NOTE : Ignore if board settings is reset!
+        }
+    }
+
+    #endregion
 }

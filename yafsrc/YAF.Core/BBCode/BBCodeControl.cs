@@ -21,69 +21,68 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BBCode
+namespace YAF.Core.BBCode;
+
+#region Using
+
+using System.Collections.Generic;
+
+using YAF.Core.BaseControls;
+using YAF.Types;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The YAF BBCode control.
+/// </summary>
+public class BBCodeControl : BaseControl
 {
-    #region Using
+    #region Properties
 
-    using System.Collections.Generic;
+    /// <summary>
+    ///   Gets or sets CurrentMessageFlags.
+    /// </summary>
+    public MessageFlags CurrentMessageFlags { get; set; }
 
-    using YAF.Core.BaseControls;
-    using YAF.Types;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    ///   Gets or sets MessageID.
+    /// </summary>
+    public int? MessageID { get; set; }
+
+    /// <summary>
+    ///   Gets or sets DisplayUserID.
+    /// </summary>
+    public int? DisplayUserID { get; set; }
+
+    /// <summary>
+    ///   Gets or sets Parameters.
+    /// </summary>
+    public Dictionary<string, string> Parameters { get; set; } = new();
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The YAF BBCode control.
+    /// Gets the localized string.
     /// </summary>
-    public class BBCodeControl : BaseControl
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <param name="defaultString">
+    /// The default string.
+    /// </param>
+    /// <returns>
+    /// Returns the localized string.
+    /// </returns>
+    protected string LocalizedString([NotNull] string tag, [NotNull] string defaultString)
     {
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets CurrentMessageFlags.
-        /// </summary>
-        public MessageFlags CurrentMessageFlags { get; set; }
-
-        /// <summary>
-        ///   Gets or sets MessageID.
-        /// </summary>
-        public int? MessageID { get; set; }
-
-        /// <summary>
-        ///   Gets or sets DisplayUserID.
-        /// </summary>
-        public int? DisplayUserID { get; set; }
-
-        /// <summary>
-        ///   Gets or sets Parameters.
-        /// </summary>
-        public Dictionary<string, string> Parameters { get; set; } = new();
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Gets the localized string.
-        /// </summary>
-        /// <param name="tag">
-        /// The tag.
-        /// </param>
-        /// <param name="defaultString">
-        /// The default string.
-        /// </param>
-        /// <returns>
-        /// Returns the localized string.
-        /// </returns>
-        protected string LocalizedString([NotNull] string tag, [NotNull] string defaultString)
-        {
-            return this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tag)
-                       ? this.GetText("BBCODEMODULE", tag)
-                       : defaultString;
-        }
-
-        #endregion
+        return this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tag)
+                   ? this.GetText("BBCODEMODULE", tag)
+                   : defaultString;
     }
+
+    #endregion
 }

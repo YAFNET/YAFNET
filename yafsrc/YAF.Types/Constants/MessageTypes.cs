@@ -21,51 +21,50 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// Notification Bar/Modal Dialog Message Types
+/// </summary>
+public enum MessageTypes
 {
     /// <summary>
-    /// Notification Bar/Modal Dialog Message Types
+    /// Error Messages
     /// </summary>
-    public enum MessageTypes
-    {
-        /// <summary>
-        /// Error Messages
-        /// </summary>
-        danger,
+    danger,
 
-        /// <summary>
-        /// Info Messages
-        /// </summary>
-        info,
+    /// <summary>
+    /// Info Messages
+    /// </summary>
+    info,
 
-        /// <summary>
-        /// Warning Messages
-        /// </summary>
-        warning,
+    /// <summary>
+    /// Warning Messages
+    /// </summary>
+    warning,
 
-        /// <summary>
-        /// Success Messages
-        /// </summary>
-        success,
+    /// <summary>
+    /// Success Messages
+    /// </summary>
+    success,
 
-        /// <summary>
-        /// The primary.
-        /// </summary>
-        primary,
+    /// <summary>
+    /// The primary.
+    /// </summary>
+    primary,
 
-        /// <summary>
-        /// The secondary.
-        /// </summary>
-        secondary,
+    /// <summary>
+    /// The secondary.
+    /// </summary>
+    secondary,
 
-        /// <summary>
-        /// The light.
-        /// </summary>
-        light,
+    /// <summary>
+    /// The light.
+    /// </summary>
+    light,
 
-        /// <summary>
-        /// The dark.
-        /// </summary>
-        dark
-    }
+    /// <summary>
+    /// The dark.
+    /// </summary>
+    dark
 }

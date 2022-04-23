@@ -22,66 +22,65 @@
  * under the License.
  */
 
-namespace YAF.Dialogs
+namespace YAF.Dialogs;
+
+#region Using
+
+using YAF.Core.Services.Import;
+
+#endregion
+
+/// <summary>
+/// The Admin Spam Words Import Dialog.
+/// </summary>
+public partial class SpamWordsImport : BaseUserControl
 {
-    #region Using
-
-    using YAF.Core.Services.Import;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// The Admin Spam Words Import Dialog.
+    /// Try to Import from selected File
     /// </summary>
-    public partial class SpamWordsImport : BaseUserControl
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Methods
-
-        /// <summary>
-        /// Try to Import from selected File
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+        try
         {
-            try
-            {
-                // import selected file (if it's the proper format)...
-                if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
-                {
-                    this.PageBoardContext.Notify(
-                        this.GetTextFormatted("MSG_IMPORTED_FAILEDX", this.importFile.PostedFile.ContentType),
-                        MessageTypes.danger);
-
-                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                        "openModalJs",
-                        JavaScriptBlocks.OpenModalJs("ImportDialog"));
-
-                    return;
-                }
-
-                var importedCount = DataImport.SpamWordsImport(
-                    this.PageBoardContext.PageBoardID,
-                    this.importFile.PostedFile.InputStream);
-
-                this.PageBoardContext.Notify(
-                    importedCount > 0
-                        ? string.Format(this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_IMPORTED"), importedCount)
-                        : this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_NOTHING"),
-                    importedCount > 0 ? MessageTypes.success : MessageTypes.warning);
-            }
-            catch (Exception x)
+            // import selected file (if it's the proper format)...
+            if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
             {
                 this.PageBoardContext.Notify(
-                    this.GetTextFormatted("MSG_IMPORTED_FAILEDX", x.Message),
+                    this.GetTextFormatted("MSG_IMPORTED_FAILEDX", this.importFile.PostedFile.ContentType),
                     MessageTypes.danger);
 
                 this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.OpenModalJs("ImportDialog"));
-            }
-        }
 
-        #endregion
+                return;
+            }
+
+            var importedCount = DataImport.SpamWordsImport(
+                this.PageBoardContext.PageBoardID,
+                this.importFile.PostedFile.InputStream);
+
+            this.PageBoardContext.Notify(
+                importedCount > 0
+                    ? string.Format(this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_IMPORTED"), importedCount)
+                    : this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_NOTHING"),
+                importedCount > 0 ? MessageTypes.success : MessageTypes.warning);
+        }
+        catch (Exception x)
+        {
+            this.PageBoardContext.Notify(
+                this.GetTextFormatted("MSG_IMPORTED_FAILEDX", x.Message),
+                MessageTypes.danger);
+
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("ImportDialog"));
+        }
     }
+
+    #endregion
 }

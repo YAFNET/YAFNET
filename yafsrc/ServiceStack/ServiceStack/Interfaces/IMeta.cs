@@ -8,17 +8,16 @@
 
 using System.Collections.Generic;
 
-namespace ServiceStack
+namespace ServiceStack;
+
+/// <summary>
+/// Interface IMeta
+/// </summary>
+public interface IMeta
 {
     /// <summary>
-    /// Interface IMeta
+    /// Gets or sets the meta.
     /// </summary>
-    public interface IMeta
-    {
-        /// <summary>
-        /// Gets or sets the meta.
-        /// </summary>
-        /// <value>The meta.</value>
-        Dictionary<string, string> Meta { get; set; }
-    }
+    /// <value>The meta.</value>
+    Dictionary<string, string> Meta { get; set; }
 }

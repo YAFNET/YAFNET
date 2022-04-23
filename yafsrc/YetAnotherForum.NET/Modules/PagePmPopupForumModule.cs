@@ -21,108 +21,107 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
+namespace YAF.Modules;
+
+#region Using
+
+using YAF.Types.Attributes;
+
+#endregion
+
+/// <summary>
+/// The Page PM Popup Module
+/// </summary>
+[Module("Page PopUp Module", "Tiny Gecko", 1)]
+public class PagePmPopupForumModule : SimpleBaseForumModule
 {
-    #region Using
-
-    using YAF.Types.Attributes;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The Page PM Popup Module
+    /// The init after page.
     /// </summary>
-    [Module("Page PopUp Module", "Tiny Gecko", 1)]
-    public class PagePmPopupForumModule : SimpleBaseForumModule
+    public override void InitAfterPage()
     {
-        #region Public Methods
-
-        /// <summary>
-        /// The init after page.
-        /// </summary>
-        public override void InitAfterPage()
-        {
-            this.CurrentForumPage.Load += this.ForumPageLoad;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Displays the PM popup.
-        /// </summary>
-        /// <returns>
-        /// The display pm popup.
-        /// </returns>
-        protected bool DisplayPmPopup()
-        {
-            return this.PageBoardContext.UnreadPrivate > 0
-                   && this.PageBoardContext.LastUnreadPm > this.Get<ISession>().LastPm;
-        }
-
-        /// <summary>
-        /// The last pending buddies.
-        /// </summary>
-        /// <returns>
-        /// whether we should display the pending buddies notification or not
-        /// </returns>
-        protected bool DisplayPendingBuddies()
-        {
-            return this.PageBoardContext.PendingBuddies > 0
-                   && this.PageBoardContext.LastPendingBuddies > this.Get<ISession>().LastPendingBuddies;
-        }
-
-        /// <summary>
-        /// Handles the Load event of the ForumPage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.GeneratePopUp();
-        }
-
-        /// <summary>
-        /// Generates the Unread Messages Notification
-        /// </summary>
-        private void GeneratePopUp()
-        {
-            // This happens when user logs in
-            if (this.DisplayPmPopup() && this.PageBoardContext.CurrentForumPage.PageType != ForumPages.MyMessages)
-            {
-                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                    "ModalConfirmJs",
-                    JavaScriptBlocks.BootBoxConfirmJs(
-                        this.GetText("COMMON", "UNREAD_MSG_TITLE"),
-                        this.GetTextFormatted("UNREAD_MSG2", this.PageBoardContext.UnreadPrivate),
-                        this.GetText("COMMON", "YES"),
-                        this.GetText("COMMON", "NO"),
-                        this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages)));
-
-                this.Get<ISession>().LastPm = this.PageBoardContext.LastUnreadPm;
-
-                // Avoid Showing Both Popups
-                return;
-            }
-
-            if (!this.DisplayPendingBuddies() || this.PageBoardContext.CurrentForumPage.PageType == ForumPages.MyMessages)
-            {
-                return;
-            }
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "ModalConfirmJs",
-                JavaScriptBlocks.BootBoxConfirmJs(
-                    this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
-                    this.GetTextFormatted("PENDINGBUDDIES2", this.PageBoardContext.PendingBuddies),
-                    this.GetText("COMMON", "YES"),
-                    this.GetText("COMMON", "NO"),
-                    this.Get<LinkBuilder>().GetLink(ForumPages.Friends)));
-
-            this.Get<ISession>().LastPendingBuddies = this.PageBoardContext.LastPendingBuddies;
-        }
+        this.CurrentForumPage.Load += this.ForumPageLoad;
     }
 
     #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Displays the PM popup.
+    /// </summary>
+    /// <returns>
+    /// The display pm popup.
+    /// </returns>
+    protected bool DisplayPmPopup()
+    {
+        return this.PageBoardContext.UnreadPrivate > 0
+               && this.PageBoardContext.LastUnreadPm > this.Get<ISession>().LastPm;
+    }
+
+    /// <summary>
+    /// The last pending buddies.
+    /// </summary>
+    /// <returns>
+    /// whether we should display the pending buddies notification or not
+    /// </returns>
+    protected bool DisplayPendingBuddies()
+    {
+        return this.PageBoardContext.PendingBuddies > 0
+               && this.PageBoardContext.LastPendingBuddies > this.Get<ISession>().LastPendingBuddies;
+    }
+
+    /// <summary>
+    /// Handles the Load event of the ForumPage control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    private void ForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.GeneratePopUp();
+    }
+
+    /// <summary>
+    /// Generates the Unread Messages Notification
+    /// </summary>
+    private void GeneratePopUp()
+    {
+        // This happens when user logs in
+        if (this.DisplayPmPopup() && this.PageBoardContext.CurrentForumPage.PageType != ForumPages.MyMessages)
+        {
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                "ModalConfirmJs",
+                JavaScriptBlocks.BootBoxConfirmJs(
+                    this.GetText("COMMON", "UNREAD_MSG_TITLE"),
+                    this.GetTextFormatted("UNREAD_MSG2", this.PageBoardContext.UnreadPrivate),
+                    this.GetText("COMMON", "YES"),
+                    this.GetText("COMMON", "NO"),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages)));
+
+            this.Get<ISession>().LastPm = this.PageBoardContext.LastUnreadPm;
+
+            // Avoid Showing Both Popups
+            return;
+        }
+
+        if (!this.DisplayPendingBuddies() || this.PageBoardContext.CurrentForumPage.PageType == ForumPages.MyMessages)
+        {
+            return;
+        }
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "ModalConfirmJs",
+            JavaScriptBlocks.BootBoxConfirmJs(
+                this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
+                this.GetTextFormatted("PENDINGBUDDIES2", this.PageBoardContext.PendingBuddies),
+                this.GetText("COMMON", "YES"),
+                this.GetText("COMMON", "NO"),
+                this.Get<LinkBuilder>().GetLink(ForumPages.Friends)));
+
+        this.Get<ISession>().LastPendingBuddies = this.PageBoardContext.LastPendingBuddies;
+    }
 }
+
+#endregion

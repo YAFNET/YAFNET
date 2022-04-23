@@ -6,24 +6,23 @@
 // ***********************************************************************
 using System.Data;
 
-namespace ServiceStack.OrmLite.Converters
+namespace ServiceStack.OrmLite.Converters;
+
+/// <summary>
+/// Class ByteArrayConverter.
+/// Implements the <see cref="ServiceStack.OrmLite.OrmLiteConverter" />
+/// </summary>
+/// <seealso cref="ServiceStack.OrmLite.OrmLiteConverter" />
+public class ByteArrayConverter : OrmLiteConverter
 {
     /// <summary>
-    /// Class ByteArrayConverter.
-    /// Implements the <see cref="ServiceStack.OrmLite.OrmLiteConverter" />
+    /// SQL Column Definition used in CREATE Table.
     /// </summary>
-    /// <seealso cref="ServiceStack.OrmLite.OrmLiteConverter" />
-    public class ByteArrayConverter : OrmLiteConverter
-    {
-        /// <summary>
-        /// SQL Column Definition used in CREATE Table.
-        /// </summary>
-        /// <value>The column definition.</value>
-        public override string ColumnDefinition => "BLOB";
-        /// <summary>
-        /// Gets the type of the database.
-        /// </summary>
-        /// <value>The type of the database.</value>
-        public override DbType DbType => DbType.Binary;
-    }
+    /// <value>The column definition.</value>
+    public override string ColumnDefinition => "BLOB";
+    /// <summary>
+    /// Gets the type of the database.
+    /// </summary>
+    /// <value>The type of the database.</value>
+    public override DbType DbType => DbType.Binary;
 }

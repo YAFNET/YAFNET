@@ -21,30 +21,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Interfaces.Data;
+
+using YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// The Repository interface.
+/// </summary>
+/// <typeparam name="T">
+/// The Type Parameter
+/// </typeparam>
+public interface IRepository<T> : IEntity, IHaveBoardID
 {
-    using YAF.Types.Interfaces.Events;
+    #region Public Properties
 
     /// <summary>
-    /// The Repository interface.
+    /// Gets the DB access.
     /// </summary>
-    /// <typeparam name="T">
-    /// The Type Parameter
-    /// </typeparam>
-    public interface IRepository<T> : IEntity, IHaveBoardID
-    {
-        #region Public Properties
+    IDbAccess DbAccess { get; }
 
-        /// <summary>
-        /// Gets the DB access.
-        /// </summary>
-        IDbAccess DbAccess { get; }
+    /// <summary>
+    ///     Gets the DB event.
+    /// </summary>
+    IRaiseEvent DbEvent { get; }
 
-        /// <summary>
-        ///     Gets the DB event.
-        /// </summary>
-        IRaiseEvent DbEvent { get; }
-
-        #endregion
-    }
+    #endregion
 }

@@ -22,126 +22,125 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
-{
-    #region Using
+namespace YAF.Pages.Admin;
 
-    using YAF.Types.Models.Identity;
-    using YAF.Types.Models;
+#region Using
+
+using YAF.Types.Models.Identity;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The Admin edit user page.
+/// </summary>
+public partial class EditUser : AdminPage
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EditUser"/> class. 
+    /// </summary>
+    public EditUser()
+        : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
+    {
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The Admin edit user page.
+    /// Gets or sets the current edit user.
     /// </summary>
-    public partial class EditUser : AdminPage
+    /// <value>The user.</value>
+    public Tuple<User, AspNetUsers, Rank, vaccess> EditBoardUser
     {
-        #region Constructors and Destructors
+        get => this.ViewState["EditBoardUser"].ToType<Tuple<User, AspNetUsers, Rank, vaccess>>();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EditUser"/> class. 
-        /// </summary>
-        public EditUser()
-            : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
-        {
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the current edit user.
-        /// </summary>
-        /// <value>The user.</value>
-        public Tuple<User, AspNetUsers, Rank, vaccess> EditBoardUser
-        {
-            get => this.ViewState["EditBoardUser"].ToType<Tuple<User, AspNetUsers, Rank, vaccess>>();
-
-            set => this.ViewState["EditBoardUser"] = value;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Registers the java scripts
-        /// </summary>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            // setup jQuery and Jquery Ui Tabs.
-            this.PageBoardContext.PageElements.RegisterJsBlock(
-                "EditUserTabsJs",
-                JavaScriptBlocks.BootstrapTabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID));
-
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var currentUserId = this.Get<LinkBuilder>()
-                .StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-            this.EditBoardUser = this.Get<IAspNetUsersHelper>().GetBoardUser(currentUserId, includeNonApproved: true);
-
-            if (this.EditBoardUser == null)
-            {
-                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-
-                return;
-            }
-
-            this.ProfileSettings.User = this.EditBoardUser.Item1;
-            this.QuickEditControl.User = this.EditBoardUser;
-            this.ProfileEditControl.User = this.EditBoardUser;
-            this.GroupEditControl.User = this.EditBoardUser;
-            this.UserPointsControl.User = this.EditBoardUser.Item1;
-            this.KillEdit1.User = this.EditBoardUser;
-
-            // do admin permission check...
-            if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin && this.EditBoardUser.Item1.UserFlags.IsHostAdmin)
-            {
-                // user is not host admin and is attempted to edit host admin account...
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            var userName = this.HtmlEncode(this.EditBoardUser.Item1.DisplayOrUserName());
-
-            var header = string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName);
-
-            this.IconHeader.Text = header;
-
-            // current page label (no link)
-            this.PageLinks.AddLink(header, string.Empty);
-
-            this.EditUserTabs.DataBind();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddAdminIndex();
-
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_USERS", "TITLE"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Users));
-        }
-
-        #endregion
+        set => this.ViewState["EditBoardUser"] = value;
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Registers the java scripts
+    /// </summary>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected override void OnPreRender([NotNull] EventArgs e)
+    {
+        // setup jQuery and Jquery Ui Tabs.
+        this.PageBoardContext.PageElements.RegisterJsBlock(
+            "EditUserTabsJs",
+            JavaScriptBlocks.BootstrapTabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID));
+
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        var currentUserId = this.Get<LinkBuilder>()
+            .StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+
+        this.EditBoardUser = this.Get<IAspNetUsersHelper>().GetBoardUser(currentUserId, includeNonApproved: true);
+
+        if (this.EditBoardUser == null)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+
+            return;
+        }
+
+        this.ProfileSettings.User = this.EditBoardUser.Item1;
+        this.QuickEditControl.User = this.EditBoardUser;
+        this.ProfileEditControl.User = this.EditBoardUser;
+        this.GroupEditControl.User = this.EditBoardUser;
+        this.UserPointsControl.User = this.EditBoardUser.Item1;
+        this.KillEdit1.User = this.EditBoardUser;
+
+        // do admin permission check...
+        if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin && this.EditBoardUser.Item1.UserFlags.IsHostAdmin)
+        {
+            // user is not host admin and is attempted to edit host admin account...
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        var userName = this.HtmlEncode(this.EditBoardUser.Item1.DisplayOrUserName());
+
+        var header = string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName);
+
+        this.IconHeader.Text = header;
+
+        // current page label (no link)
+        this.PageLinks.AddLink(header, string.Empty);
+
+        this.EditUserTabs.DataBind();
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddAdminIndex();
+
+        this.PageLinks.AddLink(
+            this.GetText("ADMIN_USERS", "TITLE"),
+            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Users));
+    }
+
+    #endregion
 }

@@ -21,68 +21,67 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the Buddy table.
+/// </summary>
+[Serializable]
+[UniqueConstraint(nameof(FromUserID), nameof(ToUserID))]
+public class Buddy : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the Buddy table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    [UniqueConstraint(nameof(FromUserID), nameof(ToUserID))]
-    public class Buddy : IEntity, IHaveID
-    {
-        #region Properties
+    [AutoIncrement]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets from user identifier.
+    /// </summary>
+    /// <value>
+    /// From user identifier.
+    /// </value>
+    [References(typeof(User))]
+    [Required]
+    [Index]
+    public int FromUserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets from user identifier.
-        /// </summary>
-        /// <value>
-        /// From user identifier.
-        /// </value>
-        [References(typeof(User))]
-        [Required]
-        [Index]
-        public int FromUserID { get; set; }
+    /// <summary>
+    /// Gets or sets to user identifier.
+    /// </summary>
+    /// <value>
+    /// To user identifier.
+    /// </value>
+    [Required]
+    [Index]
+    public int ToUserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets to user identifier.
-        /// </summary>
-        /// <value>
-        /// To user identifier.
-        /// </value>
-        [Required]
-        [Index]
-        public int ToUserID { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="Buddy"/> is approved.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if approved; otherwise, <c>false</c>.
+    /// </value>
+    [Required]
+    public bool Approved { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="Buddy"/> is approved.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if approved; otherwise, <c>false</c>.
-        /// </value>
-        [Required]
-        public bool Approved { get; set; }
+    /// <summary>
+    /// Gets or sets the requested.
+    /// </summary>
+    /// <value>
+    /// The requested.
+    /// </value>
+    [Required]
+    public DateTime Requested { get; set; }
 
-        /// <summary>
-        /// Gets or sets the requested.
-        /// </summary>
-        /// <value>
-        /// The requested.
-        /// </value>
-        [Required]
-        public DateTime Requested { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

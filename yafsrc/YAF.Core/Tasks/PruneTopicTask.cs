@@ -21,91 +21,90 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Tasks
-{
-    using System;
+namespace YAF.Core.Tasks;
 
-    using YAF.Core.Context;
-    using YAF.Core.Model;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
+using System;
+
+using YAF.Core.Context;
+using YAF.Core.Model;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+
+/// <summary>
+/// Run when we want to do migration of users in the background...
+/// </summary>
+public class PruneTopicTask : LongBackgroundTask
+{
+    /// <summary>
+    /// Gets TaskName.
+    /// </summary>
+    public static string TaskName { get; } = "PruneTopicTask";
 
     /// <summary>
-    /// Run when we want to do migration of users in the background...
+    /// Gets or sets ForumId.
     /// </summary>
-    public class PruneTopicTask : LongBackgroundTask
+    public int ForumId { get; set; }
+
+    /// <summary>
+    /// Gets or sets Days.
+    /// </summary>
+    public int Days { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether PermDelete.
+    /// </summary>
+    public bool PermDelete { get; set; }
+
+    /// <summary>
+    /// Start Task
+    /// </summary>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <param name="days">
+    /// The days.
+    /// </param>
+    /// <param name="permDelete">
+    /// The perm delete.
+    /// </param>
+    /// <returns>
+    /// The start.
+    /// </returns>
+    public static bool Start(int boardId, int forumId, int days, bool permDelete)
     {
-        /// <summary>
-        /// Gets TaskName.
-        /// </summary>
-        public static string TaskName { get; } = "PruneTopicTask";
-
-        /// <summary>
-        /// Gets or sets ForumId.
-        /// </summary>
-        public int ForumId { get; set; }
-
-        /// <summary>
-        /// Gets or sets Days.
-        /// </summary>
-        public int Days { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether PermDelete.
-        /// </summary>
-        public bool PermDelete { get; set; }
-
-        /// <summary>
-        /// Start Task
-        /// </summary>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <param name="days">
-        /// The days.
-        /// </param>
-        /// <param name="permDelete">
-        /// The perm delete.
-        /// </param>
-        /// <returns>
-        /// The start.
-        /// </returns>
-        public static bool Start(int boardId, int forumId, int days, bool permDelete)
+        if (BoardContext.Current.Get<ITaskModuleManager>() == null)
         {
-            if (BoardContext.Current.Get<ITaskModuleManager>() == null)
-            {
-                return false;
-            }
-
-            BoardContext.Current.Get<ITaskModuleManager>().StartTask(
-                TaskName,
-                () => new PruneTopicTask { Data = boardId, ForumId = forumId, Days = days, PermDelete = permDelete });
-
-            return true;
+            return false;
         }
 
-        /// <summary>
-        /// The run once.
-        /// </summary>
-        public override void RunOnce()
+        BoardContext.Current.Get<ITaskModuleManager>().StartTask(
+            TaskName,
+            () => new PruneTopicTask { Data = boardId, ForumId = forumId, Days = days, PermDelete = permDelete });
+
+        return true;
+    }
+
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public override void RunOnce()
+    {
+        try
         {
-            try
-            {
-                this.Logger.Info(
-                    $"Starting Prune Task for ForumID {this.ForumId}, {this.Days} Days, Perm Delete {this.PermDelete}.");
+            this.Logger.Info(
+                $"Starting Prune Task for ForumID {this.ForumId}, {this.Days} Days, Perm Delete {this.PermDelete}.");
 
-                var count = this.GetRepository<Topic>().Prune((int)this.Data, this.ForumId, this.Days, this.PermDelete);
+            var count = this.GetRepository<Topic>().Prune((int)this.Data, this.ForumId, this.Days, this.PermDelete);
 
-                this.Logger.Info($"Prune Task Complete. Pruned {count} topics.");
-            }
-            catch (Exception x)
-            {
-                this.Logger.Error(x, $"Error In Prune Topic Task: {x.Message}");
-            }
+            this.Logger.Info($"Prune Task Complete. Pruned {count} topics.");
+        }
+        catch (Exception x)
+        {
+            this.Logger.Error(x, $"Error In Prune Topic Task: {x.Message}");
         }
     }
 }

@@ -21,19 +21,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Attributes
+namespace YAF.Types.Attributes;
+
+#region Using
+
+using System;
+
+#endregion
+
+/// <summary>
+/// The inject attribute -- mark a property that needs injection. Must be public.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property)]
+public class Inject : Attribute
 {
-    #region Using
-
-    using System;
-
-    #endregion
-
-    /// <summary>
-    /// The inject attribute -- mark a property that needs injection. Must be public.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
-    public class Inject : Attribute
-    {
-    }
 }

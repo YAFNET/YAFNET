@@ -22,36 +22,35 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+/// <summary>
+/// The culture.
+/// </summary>
+public class Culture
 {
     /// <summary>
-    /// The culture.
+    /// Gets or sets the culture tag.
     /// </summary>
-    public class Culture
-    {
-        /// <summary>
-        /// Gets or sets the culture tag.
-        /// </summary>
-        public string CultureTag { get; set; }
+    public string CultureTag { get; set; }
 
-        /// <summary>
-        /// Gets or sets the culture file.
-        /// </summary>
-        public string CultureFile { get; set; }
+    /// <summary>
+    /// Gets or sets the culture file.
+    /// </summary>
+    public string CultureFile { get; set; }
 
-        /// <summary>
-        /// Gets or sets the culture english name.
-        /// </summary>
-        public string CultureEnglishName { get; set; }
+    /// <summary>
+    /// Gets or sets the culture english name.
+    /// </summary>
+    public string CultureEnglishName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the culture native name.
-        /// </summary>
-        public string CultureNativeName { get; set; }
+    /// <summary>
+    /// Gets or sets the culture native name.
+    /// </summary>
+    public string CultureNativeName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the culture display name.
-        /// </summary>
-        public string CultureDisplayName { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the culture display name.
+    /// </summary>
+    public string CultureDisplayName { get; set; }
 }

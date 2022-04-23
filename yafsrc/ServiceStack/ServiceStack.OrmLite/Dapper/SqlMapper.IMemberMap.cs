@@ -7,47 +7,46 @@
 using System;
 using System.Reflection;
 
-namespace ServiceStack.OrmLite.Dapper
+namespace ServiceStack.OrmLite.Dapper;
+
+/// <summary>
+/// Class SqlMapper.
+/// </summary>
+public static partial class SqlMapper
 {
     /// <summary>
-    /// Class SqlMapper.
+    /// Implements this interface to provide custom member mapping
     /// </summary>
-    public static partial class SqlMapper
+    public interface IMemberMap
     {
         /// <summary>
-        /// Implements this interface to provide custom member mapping
+        /// Source DataReader column name
         /// </summary>
-        public interface IMemberMap
-        {
-            /// <summary>
-            /// Source DataReader column name
-            /// </summary>
-            /// <value>The name of the column.</value>
-            string ColumnName { get; }
+        /// <value>The name of the column.</value>
+        string ColumnName { get; }
 
-            /// <summary>
-            /// Target member type
-            /// </summary>
-            /// <value>The type of the member.</value>
-            Type MemberType { get; }
+        /// <summary>
+        /// Target member type
+        /// </summary>
+        /// <value>The type of the member.</value>
+        Type MemberType { get; }
 
-            /// <summary>
-            /// Target property
-            /// </summary>
-            /// <value>The property.</value>
-            PropertyInfo Property { get; }
+        /// <summary>
+        /// Target property
+        /// </summary>
+        /// <value>The property.</value>
+        PropertyInfo Property { get; }
 
-            /// <summary>
-            /// Target field
-            /// </summary>
-            /// <value>The field.</value>
-            FieldInfo Field { get; }
+        /// <summary>
+        /// Target field
+        /// </summary>
+        /// <value>The field.</value>
+        FieldInfo Field { get; }
 
-            /// <summary>
-            /// Target constructor parameter
-            /// </summary>
-            /// <value>The parameter.</value>
-            ParameterInfo Parameter { get; }
-        }
+        /// <summary>
+        /// Target constructor parameter
+        /// </summary>
+        /// <value>The parameter.</value>
+        ParameterInfo Parameter { get; }
     }
 }

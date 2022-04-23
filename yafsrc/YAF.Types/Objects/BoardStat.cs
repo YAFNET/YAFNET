@@ -22,23 +22,22 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
-{
-    using System;
+namespace YAF.Types.Objects;
 
-    public class BoardStat
-    {
-        public int Categories { get;set; }
-        public int Posts { get; set; }
-        public int Topics { get; set; }
-        public int Forums { get; set; }
-        public DateTime? LastPost { get; set; }
-        public int? LastUserID { get; set; }
-        public string LastUser { get; set; }
-        public string LastUserDisplayName { get; set; }
-        public string LastUserStyle { get; set; }
-        public DateTime? LastUserSuspended { get; set; }
-        public int Users { get; set; }
-        public DateTime BoardStart { get; set; }
-    }
+using System;
+
+public class BoardStat
+{
+    public int Categories { get;set; }
+    public int Posts { get; set; }
+    public int Topics { get; set; }
+    public int Forums { get; set; }
+    public DateTime? LastPost { get; set; }
+    public int? LastUserID { get; set; }
+    public string LastUser { get; set; }
+    public string LastUserDisplayName { get; set; }
+    public string LastUserStyle { get; set; }
+    public DateTime? LastUserSuspended { get; set; }
+    public int Users { get; set; }
+    public DateTime BoardStart { get; set; }
 }

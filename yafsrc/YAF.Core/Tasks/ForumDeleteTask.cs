@@ -22,147 +22,146 @@
  * under the License.
  */
 
-namespace YAF.Core.Tasks
-{
-    using System;
+namespace YAF.Core.Tasks;
 
-    using YAF.Core.Context;
-    using YAF.Core.Model;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Tasks;
-    using YAF.Types.Models;
+using System;
+
+using YAF.Core.Context;
+using YAF.Core.Model;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Tasks;
+using YAF.Types.Models;
+
+/// <summary>
+/// The forum delete task.
+/// </summary>
+public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
+{
+    #region Properties
 
     /// <summary>
-    /// The forum delete task.
+    /// The Blocking Task Names.
     /// </summary>
-    public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
+    private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
+
+    /// <summary>
+    /// Gets TaskName.
+    /// </summary>
+    public static string TaskName { get; } = "ForumDeleteTask";
+
+    /// <summary>
+    /// Gets or sets ForumId.
+    /// </summary>
+    public int ForumId { get; set; }
+
+    /// <summary>
+    /// Gets or sets Forum New Id.
+    /// </summary>
+    public int ForumNewId { get; set; }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Creates the Forum Delete Task
+    /// </summary>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <param name="failureMessage"> 
+    /// The failure message - is empty if task is launched successfully.
+    /// </param>
+    /// <returns>
+    /// Returns if Task was Successful
+    /// </returns>
+    public static bool Start(int boardId, int forumId, out string failureMessage)
     {
-        #region Properties
-
-        /// <summary>
-        /// The Blocking Task Names.
-        /// </summary>
-        private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
-
-        /// <summary>
-        /// Gets TaskName.
-        /// </summary>
-        public static string TaskName { get; } = "ForumDeleteTask";
-
-        /// <summary>
-        /// Gets or sets ForumId.
-        /// </summary>
-        public int ForumId { get; set; }
-
-        /// <summary>
-        /// Gets or sets Forum New Id.
-        /// </summary>
-        public int ForumNewId { get; set; }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Creates the Forum Delete Task
-        /// </summary>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <param name="failureMessage"> 
-        /// The failure message - is empty if task is launched successfully.
-        /// </param>
-        /// <returns>
-        /// Returns if Task was Successful
-        /// </returns>
-        public static bool Start(int boardId, int forumId, out string failureMessage)
+        failureMessage = string.Empty;
+        if (BoardContext.Current.Get<ITaskModuleManager>() == null)
         {
-            failureMessage = string.Empty;
-            if (BoardContext.Current.Get<ITaskModuleManager>() == null)
-            {
-                return false;
-            }
+            return false;
+        }
 
-            if (!BoardContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
+        if (!BoardContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
+        {
+            BoardContext.Current.Get<ITaskModuleManager>().StartTask(
+                TaskName,
+                () => new ForumDeleteTask { Data = boardId, ForumId = forumId, ForumNewId = -1 });
+        }
+        else
+        {
+            failureMessage =
+                $"You can't delete forum while blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
+            return false;
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// Creates the Forum Delete Task and moves the Messages to a new Forum
+    /// </summary>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="forumOldId">
+    /// The forum Old Id.
+    /// </param>
+    /// <param name="forumNewId">
+    /// The Forum New Id.
+    /// </param>
+    /// <param name="failureMessage"> 
+    /// The failure message - is empty if task is launched successfully.
+    /// </param>
+    /// <returns>
+    /// Returns if Task was Successful
+    /// </returns>
+    public static bool Start(int boardId, int forumOldId, int forumNewId, out string failureMessage)
+    {
+        failureMessage = string.Empty;
+        if (BoardContext.Current.Get<ITaskModuleManager>() == null)
+        {
+            return false;
+        }
+
+        BoardContext.Current.Get<ITaskModuleManager>().StartTask(
+            TaskName,
+            () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId });
+
+        return true;
+    }
+
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public override void RunOnce()
+    {
+        try
+        {
+            if (this.ForumNewId.Equals(-1))
             {
-                BoardContext.Current.Get<ITaskModuleManager>().StartTask(
-                    TaskName,
-                    () => new ForumDeleteTask { Data = boardId, ForumId = forumId, ForumNewId = -1 });
+                this.GetRepository<Forum>().Delete(this.ForumId);
+                this.Logger.Info($"Forum (ID: {this.ForumId}) Delete Task Complete.");
             }
             else
             {
-                failureMessage =
-                    $"You can't delete forum while blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
-                return false;
+                this.GetRepository<Forum>().Move(this.ForumId, this.ForumNewId);
+
+                this.Logger.Info(
+                    $"Forum (ID: {this.ForumId}) Delete Task Complete, and Topics has been moved to Forum (ID: {this.ForumNewId})");
             }
-
-            return true;
         }
-
-        /// <summary>
-        /// Creates the Forum Delete Task and moves the Messages to a new Forum
-        /// </summary>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="forumOldId">
-        /// The forum Old Id.
-        /// </param>
-        /// <param name="forumNewId">
-        /// The Forum New Id.
-        /// </param>
-        /// <param name="failureMessage"> 
-        /// The failure message - is empty if task is launched successfully.
-        /// </param>
-        /// <returns>
-        /// Returns if Task was Successful
-        /// </returns>
-        public static bool Start(int boardId, int forumOldId, int forumNewId, out string failureMessage)
+        catch (Exception x)
         {
-            failureMessage = string.Empty;
-            if (BoardContext.Current.Get<ITaskModuleManager>() == null)
-            {
-                return false;
-            }
-
-            BoardContext.Current.Get<ITaskModuleManager>().StartTask(
-                TaskName,
-                () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId });
-
-            return true;
+            this.Logger.Error(x, $"Error In (ID: {this.ForumId}) Delete Task");
         }
-
-        /// <summary>
-        /// The run once.
-        /// </summary>
-        public override void RunOnce()
-        {
-            try
-            {
-                if (this.ForumNewId.Equals(-1))
-                {
-                    this.GetRepository<Forum>().Delete(this.ForumId);
-                    this.Logger.Info($"Forum (ID: {this.ForumId}) Delete Task Complete.");
-                }
-                else
-                {
-                    this.GetRepository<Forum>().Move(this.ForumId, this.ForumNewId);
-
-                    this.Logger.Info(
-                        $"Forum (ID: {this.ForumId}) Delete Task Complete, and Topics has been moved to Forum (ID: {this.ForumNewId})");
-                }
-            }
-            catch (Exception x)
-            {
-                this.Logger.Error(x, $"Error In (ID: {this.ForumId}) Delete Task");
-            }
-        }
-
-        #endregion
     }
+
+    #endregion
 }

@@ -21,40 +21,39 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
+namespace YAF.Modules;
+
+#region Using
+
+using YAF.Types.Attributes;
+
+#endregion
+
+/// <summary>
+/// The page bb code registration.
+/// </summary>
+[Module("Page BBCode Registration Module", "Tiny Gecko", 1)]
+public class PageBBCodeRegistration : SimpleBaseForumModule
 {
-    #region Using
-
-    using YAF.Types.Attributes;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The page bb code registration.
+    /// The init after page.
     /// </summary>
-    [Module("Page BBCode Registration Module", "Tiny Gecko", 1)]
-    public class PageBBCodeRegistration : SimpleBaseForumModule
+    public override void InitAfterPage()
     {
-        #region Public Methods
-
-        /// <summary>
-        /// The init after page.
-        /// </summary>
-        public override void InitAfterPage()
+        switch (this.PageBoardContext.CurrentForumPage.PageType)
         {
-            switch (this.PageBoardContext.CurrentForumPage.PageType)
-            {
-                case ForumPages.PrivateMessage:
-                case ForumPages.Search:
-                case ForumPages.Posts:
-                case ForumPages.UserProfile:
-                    this.Get<IBBCode>().RegisterCustomBBCodePageElements(
-                        this.PageBoardContext.CurrentForumPage.Page,
-                        this.PageBoardContext.CurrentForumPage.GetType());
-                    break;
-            }
+            case ForumPages.PrivateMessage:
+            case ForumPages.Search:
+            case ForumPages.Posts:
+            case ForumPages.UserProfile:
+                this.Get<IBBCode>().RegisterCustomBBCodePageElements(
+                    this.PageBoardContext.CurrentForumPage.Page,
+                    this.PageBoardContext.CurrentForumPage.GetType());
+                break;
         }
-
-        #endregion
     }
+
+    #endregion
 }

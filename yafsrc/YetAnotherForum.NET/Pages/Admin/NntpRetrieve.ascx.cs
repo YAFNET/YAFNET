@@ -22,114 +22,113 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// The Admin Retrieve NNTP Articles Page
+/// </summary>
+public partial class NntpRetrieve : AdminPage
 {
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The Admin Retrieve NNTP Articles Page
+    /// Initializes a new instance of the <see cref="NntpRetrieve"/> class. 
     /// </summary>
-    public partial class NntpRetrieve : AdminPage
+    public NntpRetrieve()
+        : base("ADMIN_NNTPRETRIEVE", ForumPages.Admin_NntpRetrieve)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NntpRetrieve"/> class. 
-        /// </summary>
-        public NntpRetrieve()
-            : base("ADMIN_NNTPRETRIEVE", ForumPages.Admin_NntpRetrieve)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Gets the last message number
-        /// </summary>
-        /// <param name="forum">
-        /// The forum.
-        /// </param>
-        /// <returns>
-        /// The last message no.
-        /// </returns>
-        protected string LastMessageNo([NotNull] object forum)
-        {
-            var row = (Tuple<NntpForum, NntpServer, Forum>)forum;
-            return $"{row.Item1.LastMessageNo:N0}";
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddAdminIndex();
-            this.PageLinks.AddLink(this.GetText("ADMIN_NNTPRETRIEVE", "TITLE"), string.Empty);
-        }
-
-        /// <summary>
-        /// Retrieves the click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void RetrieveClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var seconds = int.Parse(this.Seconds.Text);
-            if (seconds < 1)
-            {
-                seconds = 1;
-            }
-
-            var articleCount = this.Get<INewsreader>()
-                .ReadArticles(
-                    this.PageBoardContext.PageBoardID,
-                    10,
-                    seconds,
-                    this.PageBoardContext.BoardSettings.CreateNntpUsers);
-
-            this.PageBoardContext.Notify(
-                string
-                    .Format(this.GetText("ADMIN_NNTPRETRIEVE", "Retrieved"), articleCount, (double)articleCount / seconds),
-                MessageTypes.success);
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            this.List.DataSource = this.GetRepository<NntpForum>().NntpForumList(this.PageBoardContext.PageBoardID, true)
-                .Where(n => (n.Item1.LastUpdate - DateTime.UtcNow).Minutes > 10);
-
-            this.DataBind();
-
-            if (this.List.Items.Count == 0)
-            {
-                this.RetrievePanel.Visible = false;
-                this.Footer.Visible = false;
-            }
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Gets the last message number
+    /// </summary>
+    /// <param name="forum">
+    /// The forum.
+    /// </param>
+    /// <returns>
+    /// The last message no.
+    /// </returns>
+    protected string LastMessageNo([NotNull] object forum)
+    {
+        var row = (Tuple<NntpForum, NntpServer, Forum>)forum;
+        return $"{row.Item1.LastMessageNo:N0}";
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddAdminIndex();
+        this.PageLinks.AddLink(this.GetText("ADMIN_NNTPRETRIEVE", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// Retrieves the click.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void RetrieveClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        var seconds = int.Parse(this.Seconds.Text);
+        if (seconds < 1)
+        {
+            seconds = 1;
+        }
+
+        var articleCount = this.Get<INewsreader>()
+            .ReadArticles(
+                this.PageBoardContext.PageBoardID,
+                10,
+                seconds,
+                this.PageBoardContext.BoardSettings.CreateNntpUsers);
+
+        this.PageBoardContext.Notify(
+            string
+                .Format(this.GetText("ADMIN_NNTPRETRIEVE", "Retrieved"), articleCount, (double)articleCount / seconds),
+            MessageTypes.success);
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        this.List.DataSource = this.GetRepository<NntpForum>().NntpForumList(this.PageBoardContext.PageBoardID, true)
+            .Where(n => (n.Item1.LastUpdate - DateTime.UtcNow).Minutes > 10);
+
+        this.DataBind();
+
+        if (this.List.Items.Count == 0)
+        {
+            this.RetrievePanel.Visible = false;
+            this.Footer.Visible = false;
+        }
+    }
+
+    #endregion
 }

@@ -22,35 +22,34 @@
 * under the License.
 */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System.Runtime.Serialization;
+
+/// <summary>
+/// The Select Options Class
+/// </summary>
+[DataContract]
+public class SelectOptions
 {
-    using System.Runtime.Serialization;
+    /// <summary>
+    /// Gets or sets the identifier.
+    /// </summary>
+    /// <value>
+    /// The identifier.
+    /// </value>
+    [DataMember]
+    public string id { get; set; }
 
     /// <summary>
-    /// The Select Options Class
+    /// Gets or sets the text.
     /// </summary>
-    [DataContract]
-    public class SelectOptions
-    {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        [DataMember]
-        public string id { get; set; }
+    /// <value>
+    /// The text.
+    /// </value>
+    [DataMember]
+    public string text { get; set; }
 
-        /// <summary>
-        /// Gets or sets the text.
-        /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
-        [DataMember]
-        public string text { get; set; }
-
-        [DataMember]
-        public string url { get; set; }
-    }
+    [DataMember]
+    public string url { get; set; }
 }

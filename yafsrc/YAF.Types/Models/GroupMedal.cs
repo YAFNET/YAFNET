@@ -21,57 +21,56 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the GroupMedal table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(MedalID), nameof(GroupID))]
+public class GroupMedal : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the GroupMedal table.
+    /// Gets or sets the group id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(MedalID), nameof(GroupID))]
-    public class GroupMedal : IEntity
-    {
-        #region Properties
+    [References(typeof(Group))]
+    [Required]
+    public int GroupID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the group id.
-        /// </summary>
-        [References(typeof(Group))]
-        [Required]
-        public int GroupID { get; set; }
+    /// <summary>
+    /// Gets or sets the medal id.
+    /// </summary>
+    [References(typeof(Medal))]
+    [Required]
+    public int MedalID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the medal id.
-        /// </summary>
-        [References(typeof(Medal))]
-        [Required]
-        public int MedalID { get; set; }
+    /// <summary>
+    /// Gets or sets the message.
+    /// </summary>
+    [StringLength(100)]
+    public string Message { get; set; }
 
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        [StringLength(100)]
-        public string Message { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether hide.
+    /// </summary>
+    [Required]
+    [Default(typeof(bool), "0")]
+    public bool Hide { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether hide.
-        /// </summary>
-        [Required]
-        [Default(typeof(bool), "0")]
-        public bool Hide { get; set; }
+    /// <summary>
+    /// Gets or sets the sort order.
+    /// </summary>
+    [Required]
+    [Default(255)]
+    public byte SortOrder { get; set; }
 
-        /// <summary>
-        /// Gets or sets the sort order.
-        /// </summary>
-        [Required]
-        [Default(255)]
-        public byte SortOrder { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

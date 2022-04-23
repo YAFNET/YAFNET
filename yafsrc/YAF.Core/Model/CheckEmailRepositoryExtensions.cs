@@ -21,99 +21,98 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
-{
-    using System;
-    using System.Collections.Generic;
+namespace YAF.Core.Model;
 
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+using System;
+using System.Collections.Generic;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+///     The check email repository extensions.
+/// </summary>
+public static class CheckEmailRepositoryExtensions
+{
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The check email repository extensions.
+    /// The list typed.
     /// </summary>
-    public static class CheckEmailRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="email">
+    /// The email.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IList"/>.
+    /// </returns>
+    public static IList<CheckEmail> ListTyped(
+        this IRepository<CheckEmail> repository,
+        [CanBeNull] string email = null)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// The list typed.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="email">
-        /// The email.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IList"/>.
-        /// </returns>
-        public static IList<CheckEmail> ListTyped(
-            this IRepository<CheckEmail> repository,
-            [CanBeNull] string email = null)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        return email.IsSet() ? repository.Get(mail => mail.Email == email) : repository.Get(null);
+    }
 
-            return email.IsSet() ? repository.Get(mail => mail.Email == email) : repository.Get(null);
-        }
+    /// <summary>
+    /// The save.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="hash">
+    /// The hash.
+    /// </param>
+    /// <param name="email">
+    /// The email.
+    /// </param>
+    public static void Save(
+        this IRepository<CheckEmail> repository,
+        int? userId,
+        [NotNull] string hash,
+        [NotNull] string email)
+    {
+        CodeContracts.VerifyNotNull(hash);
+        CodeContracts.VerifyNotNull(email);
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// The save.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="hash">
-        /// The hash.
-        /// </param>
-        /// <param name="email">
-        /// The email.
-        /// </param>
-        public static void Save(
-            this IRepository<CheckEmail> repository,
-            int? userId,
-            [NotNull] string hash,
-            [NotNull] string email)
-        {
-            CodeContracts.VerifyNotNull(hash);
-            CodeContracts.VerifyNotNull(email);
-            CodeContracts.VerifyNotNull(repository);
-
-            repository.Insert(
-                new CheckEmail
+        repository.Insert(
+            new CheckEmail
                 {
                     UserID = userId.Value, Email = email.ToLower(), Created = DateTime.UtcNow, Hash = hash
                 });
-        }
-
-        /// <summary>
-        /// Very confusingly named function that finds a user record with associated check email and returns a user if it's found.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="hash">
-        /// The hash.
-        /// </param>
-        /// <returns>
-        /// The <see cref="CheckEmail"/>.
-        /// </returns>
-        public static CheckEmail Update(this IRepository<CheckEmail> repository, [NotNull] string hash)
-        {
-            CodeContracts.VerifyNotNull(hash);
-            CodeContracts.VerifyNotNull(repository);
-
-            var mail = repository.GetSingle(c => c.Hash == hash);
-
-            return mail;
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Very confusingly named function that finds a user record with associated check email and returns a user if it's found.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="hash">
+    /// The hash.
+    /// </param>
+    /// <returns>
+    /// The <see cref="CheckEmail"/>.
+    /// </returns>
+    public static CheckEmail Update(this IRepository<CheckEmail> repository, [NotNull] string hash)
+    {
+        CodeContracts.VerifyNotNull(hash);
+        CodeContracts.VerifyNotNull(repository);
+
+        var mail = repository.GetSingle(c => c.Hash == hash);
+
+        return mail;
+    }
+
+    #endregion
 }

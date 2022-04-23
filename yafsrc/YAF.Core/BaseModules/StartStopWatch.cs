@@ -21,24 +21,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BaseModules
+namespace YAF.Core.BaseModules;
+
+#region Using
+
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+/// Stop watch start/stop
+/// </summary>
+[ExportService(ServiceLifetimeScope.InstancePerScope)]
+public class StartStopWatch : IHandleEvent<ForumPageInitEvent>, IHandleEvent<ForumPageUnloadEvent>
 {
-  #region Using
-
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.EventProxies;
-  using YAF.Types.Interfaces;
-  using YAF.Types.Interfaces.Events;
-
-  #endregion
-
-  /// <summary>
-  /// Stop watch start/stop
-  /// </summary>
-  [ExportService(ServiceLifetimeScope.InstancePerScope)]
-  public class StartStopWatch : IHandleEvent<ForumPageInitEvent>, IHandleEvent<ForumPageUnloadEvent>
-  {
     #region Constants and Fields
 
     /// <summary>
@@ -58,7 +58,7 @@ namespace YAF.Core.BaseModules
     /// </param>
     public StartStopWatch([NotNull] IStopWatch stopWatch)
     {
-      this.stopWatch = stopWatch;
+        this.stopWatch = stopWatch;
     }
 
     #endregion
@@ -78,8 +78,8 @@ namespace YAF.Core.BaseModules
     /// </param>
     public void Handle(ForumPageInitEvent @event)
     {
-      // start the stop watch on init...
-      this.stopWatch.Start();      
+        // start the stop watch on init...
+        this.stopWatch.Start();      
     }
 
     /// <summary>
@@ -90,10 +90,9 @@ namespace YAF.Core.BaseModules
     /// </param>
     public void Handle(ForumPageUnloadEvent @event)
     {
-      // stop the stop watch in case the footer did not...
-      this.stopWatch.Stop();
+        // stop the stop watch in case the footer did not...
+        this.stopWatch.Stop();
     }
 
     #endregion
-  }
 }

@@ -22,84 +22,83 @@
  * under the License.
  */
 
-namespace YAF.Core.Controllers
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Http;
+namespace YAF.Core.Controllers;
 
-    using YAF.Core.Context;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Objects;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+
+using YAF.Core.Context;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Objects;
+
+/// <summary>
+/// The YAF MultiQuote Button controller.
+/// </summary>
+[RoutePrefix("api")]
+public class MultiQuoteController : ApiController, IHaveServiceLocator
+{
+    #region Properties
 
     /// <summary>
-    /// The YAF MultiQuote Button controller.
+    ///   Gets ServiceLocator.
     /// </summary>
-    [RoutePrefix("api")]
-    public class MultiQuoteController : ApiController, IHaveServiceLocator
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+
+    #endregion
+
+    /// <summary>
+    /// Handles the multi quote Button.
+    /// </summary>
+    /// <param name="quoteButton">
+    /// The quote Button.
+    /// </param>
+    /// <returns>
+    /// Returns the Message Id and the Updated CSS Class for the Button
+    /// </returns>
+    [Route("MultiQuote/HandleMultiQuote")]
+    [HttpPost]
+    public IHttpActionResult HandleMultiQuote([NotNull] MultiQuoteButton quoteButton)
     {
-        #region Properties
+        var buttonId = quoteButton.ButtonId;
+        var isMultiQuoteButton = quoteButton.IsMultiQuoteButton;
+        var messageId = quoteButton.MessageId;
+        var topicId = quoteButton.TopicId;
+        var buttonCssClass = quoteButton.ButtonCssClass;
 
-        /// <summary>
-        ///   Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+        var yafSession = this.Get<ISession>();
 
-        #endregion
+        var multiQuote = new MultiQuote { MessageID = messageId, TopicID = topicId };
 
-        /// <summary>
-        /// Handles the multi quote Button.
-        /// </summary>
-        /// <param name="quoteButton">
-        /// The quote Button.
-        /// </param>
-        /// <returns>
-        /// Returns the Message Id and the Updated CSS Class for the Button
-        /// </returns>
-        [Route("MultiQuote/HandleMultiQuote")]
-        [HttpPost]
-        public IHttpActionResult HandleMultiQuote([NotNull] MultiQuoteButton quoteButton)
+        if (isMultiQuoteButton)
         {
-            var buttonId = quoteButton.ButtonId;
-            var isMultiQuoteButton = quoteButton.IsMultiQuoteButton;
-            var messageId = quoteButton.MessageId;
-            var topicId = quoteButton.TopicId;
-            var buttonCssClass = quoteButton.ButtonCssClass;
-
-            var yafSession = this.Get<ISession>();
-
-            var multiQuote = new MultiQuote { MessageID = messageId, TopicID = topicId };
-
-            if (isMultiQuoteButton)
+            if (yafSession.MultiQuoteIds != null)
             {
-                if (yafSession.MultiQuoteIds != null)
+                if (!yafSession.MultiQuoteIds.Any(m => m.MessageID.Equals(messageId)))
                 {
-                    if (!yafSession.MultiQuoteIds.Any(m => m.MessageID.Equals(messageId)))
-                    {
-                        yafSession.MultiQuoteIds.Add(multiQuote);
-                    }
+                    yafSession.MultiQuoteIds.Add(multiQuote);
                 }
-                else
-                {
-                    yafSession.MultiQuoteIds = new List<MultiQuote> { multiQuote };
-                }
-
-                buttonCssClass += " Checked";
             }
             else
             {
-                if (yafSession.MultiQuoteIds != null
-                    && yafSession.MultiQuoteIds.Any(m => m.MessageID.Equals(messageId)))
-                {
-                    yafSession.MultiQuoteIds.Remove(multiQuote);
-                }
-
-                buttonCssClass = "btn-multiquote form-check btn btn-link";
+                yafSession.MultiQuoteIds = new List<MultiQuote> { multiQuote };
             }
 
-            return this.Ok(new ReturnClass { Id = buttonId, NewTitle = buttonCssClass });
+            buttonCssClass += " Checked";
         }
+        else
+        {
+            if (yafSession.MultiQuoteIds != null
+                && yafSession.MultiQuoteIds.Any(m => m.MessageID.Equals(messageId)))
+            {
+                yafSession.MultiQuoteIds.Remove(multiQuote);
+            }
+
+            buttonCssClass = "btn-multiquote form-check btn btn-link";
+        }
+
+        return this.Ok(new ReturnClass { Id = buttonId, NewTitle = buttonCssClass });
     }
 }

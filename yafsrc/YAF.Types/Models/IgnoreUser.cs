@@ -21,35 +21,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the IgnoreUser table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(UserID), nameof(IgnoredUserID))]
+public class IgnoreUser : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the IgnoreUser table.
+    /// Gets or sets the user id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(UserID), nameof(IgnoredUserID))]
-    public class IgnoreUser : IEntity
-    {
-        #region Properties
+    [Required]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [Required]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the ignored user id.
+    /// </summary>
+    [Required]
+    public int IgnoredUserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the ignored user id.
-        /// </summary>
-        [Required]
-        public int IgnoredUserID { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

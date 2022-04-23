@@ -21,33 +21,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+using System;
+using System.Collections.Generic;
+
+using YAF.Types.Objects;
+
+public interface IBadWordReplace
 {
-    using System;
-    using System.Collections.Generic;
+    /// <summary>
+    ///   Gets ReplaceItems.
+    /// </summary>
+    IEnumerable<BadWordReplaceItem> ReplaceItems { get; }
 
-    using YAF.Types.Objects;
-
-    public interface IBadWordReplace
-    {
-        /// <summary>
-        ///   Gets ReplaceItems.
-        /// </summary>
-        IEnumerable<BadWordReplaceItem> ReplaceItems { get; }
-
-        /// <summary>
-        /// Searches through SearchText and replaces "bad words" with "good words"
-        ///   as defined in the database.
-        /// </summary>
-        /// <param name="searchText">
-        /// The string to search through.
-        /// </param>
-        /// <returns>
-        /// The replace.
-        /// </returns>
-        /// <exception cref="Exception">
-        /// <c>Exception</c>.
-        /// </exception>
-        string Replace([NotNull] string searchText);
-    }
+    /// <summary>
+    /// Searches through SearchText and replaces "bad words" with "good words"
+    ///   as defined in the database.
+    /// </summary>
+    /// <param name="searchText">
+    /// The string to search through.
+    /// </param>
+    /// <returns>
+    /// The replace.
+    /// </returns>
+    /// <exception cref="Exception">
+    /// <c>Exception</c>.
+    /// </exception>
+    string Replace([NotNull] string searchText);
 }

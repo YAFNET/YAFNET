@@ -21,95 +21,94 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Objects.Nntp
+namespace YAF.Types.Objects.Nntp;
+
+using System;
+
+/// <summary>
+/// The newsgroup.
+/// </summary>
+public class Newsgroup : IComparable
 {
-    using System;
+    /// <summary>
+    /// The group.
+    /// </summary>
+    protected string group;
 
     /// <summary>
-    /// The newsgroup.
+    /// The high.
     /// </summary>
-    public class Newsgroup : IComparable
+    protected int high;
+
+    /// <summary>
+    /// The low.
+    /// </summary>
+    protected int low;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Newsgroup"/> class.
+    /// </summary>
+    /// <param name="group">
+    /// The group.
+    /// </param>
+    /// <param name="low">
+    /// The low.
+    /// </param>
+    /// <param name="high">
+    /// The high.
+    /// </param>
+    public Newsgroup(string group, int low, int high)
     {
-        /// <summary>
-        /// The group.
-        /// </summary>
-        protected string group;
-
-        /// <summary>
-        /// The high.
-        /// </summary>
-        protected int high;
-
-        /// <summary>
-        /// The low.
-        /// </summary>
-        protected int low;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Newsgroup"/> class.
-        /// </summary>
-        /// <param name="group">
-        /// The group.
-        /// </param>
-        /// <param name="low">
-        /// The low.
-        /// </param>
-        /// <param name="high">
-        /// The high.
-        /// </param>
-        public Newsgroup(string group, int low, int high)
-        {
-            this.group = group;
-            this.low = low;
-            this.high = high;
-        }
-
-        /// <summary>
-        /// Gets or sets Group.
-        /// </summary>
-        public string Group
-        {
-            get => this.group;
-
-            set => this.group = value;
-        }
-
-        /// <summary>
-        /// Gets or sets Low.
-        /// </summary>
-        public int Low
-        {
-            get => this.low;
-
-            set => this.low = value;
-        }
-
-        /// <summary>
-        /// Gets or sets High.
-        /// </summary>
-        public int High
-        {
-            get => this.high;
-
-            set => this.high = value;
-        }
-
-        #region IComparable Members
-
-        /// <summary>
-        /// The compare to.
-        /// </summary>
-        /// <param name="r">
-        /// The r.
-        /// </param>
-        /// <returns>
-        /// The compare to.
-        /// </returns>
-        public int CompareTo(object r)
-        {
-            return string.Compare(this.Group, ((Newsgroup)r).Group, StringComparison.Ordinal);
-        }
-
-        #endregion
+        this.group = group;
+        this.low = low;
+        this.high = high;
     }
+
+    /// <summary>
+    /// Gets or sets Group.
+    /// </summary>
+    public string Group
+    {
+        get => this.group;
+
+        set => this.group = value;
+    }
+
+    /// <summary>
+    /// Gets or sets Low.
+    /// </summary>
+    public int Low
+    {
+        get => this.low;
+
+        set => this.low = value;
+    }
+
+    /// <summary>
+    /// Gets or sets High.
+    /// </summary>
+    public int High
+    {
+        get => this.high;
+
+        set => this.high = value;
+    }
+
+    #region IComparable Members
+
+    /// <summary>
+    /// The compare to.
+    /// </summary>
+    /// <param name="r">
+    /// The r.
+    /// </param>
+    /// <returns>
+    /// The compare to.
+    /// </returns>
+    public int CompareTo(object r)
+    {
+        return string.Compare(this.Group, ((Newsgroup)r).Group, StringComparison.Ordinal);
+    }
+
+    #endregion
 }

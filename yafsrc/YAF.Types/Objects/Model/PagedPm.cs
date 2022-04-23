@@ -22,133 +22,132 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects.Model
+namespace YAF.Types.Objects.Model;
+
+using System;
+
+/// <summary>
+/// The paged private Message.
+/// </summary>
+[Serializable]
+public class PagedPm
 {
-    using System;
+    /// <summary>
+    /// Gets or sets the reply to.
+    /// </summary>
+    public int? ReplyTo { get; set; }
 
     /// <summary>
-    /// The paged private Message.
+    /// Gets or sets the p message id.
     /// </summary>
-    [Serializable]
-    public class PagedPm
-    {
-        /// <summary>
-        /// Gets or sets the reply to.
-        /// </summary>
-        public int? ReplyTo { get; set; }
+    public int PMessageID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the p message id.
-        /// </summary>
-        public int PMessageID { get; set; }
+    /// <summary>
+    /// Gets or sets the user p message id.
+    /// </summary>
+    public int UserPMessageID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user p message id.
-        /// </summary>
-        public int UserPMessageID { get; set; }
+    /// <summary>
+    /// Gets or sets the from user id.
+    /// </summary>
+    public int FromUserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the from user id.
-        /// </summary>
-        public int FromUserID { get; set; }
+    /// <summary>
+    /// Gets or sets the from user.
+    /// </summary>
+    public string FromUser { get; set; }
 
-        /// <summary>
-        /// Gets or sets the from user.
-        /// </summary>
-        public string FromUser { get; set; }
+    /// <summary>
+    /// Gets or sets the from user display name.
+    /// </summary>
+    public string FromUserDisplayName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the from user display name.
-        /// </summary>
-        public string FromUserDisplayName { get; set; }
+    /// <summary>
+    /// Gets or sets the from style.
+    /// </summary>
+    public string FromStyle { get; set; }
 
-        /// <summary>
-        /// Gets or sets the from style.
-        /// </summary>
-        public string FromStyle { get; set; }
+    /// <summary>
+    /// Gets or sets the from suspended.
+    /// </summary>
+    public DateTime? FromSuspended { get; set; }
 
-        /// <summary>
-        /// Gets or sets the from suspended.
-        /// </summary>
-        public DateTime? FromSuspended { get; set; }
+    public string FromAvatar { get; set; }
 
-        public string FromAvatar { get; set; }
+    public bool FromHasAvatarImage { get; set; }
 
-        public bool FromHasAvatarImage { get; set; }
+    /// <summary>
+    /// Gets or sets the to user id.
+    /// </summary>
+    public int ToUserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the to user id.
-        /// </summary>
-        public int ToUserID { get; set; }
+    /// <summary>
+    /// Gets or sets the to user.
+    /// </summary>
+    public string ToUser { get; set; }
 
-        /// <summary>
-        /// Gets or sets the to user.
-        /// </summary>
-        public string ToUser { get; set; }
+    /// <summary>
+    /// Gets or sets the to user display name.
+    /// </summary>
+    public string ToUserDisplayName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the to user display name.
-        /// </summary>
-        public string ToUserDisplayName { get; set; }
+    /// <summary>
+    /// Gets or sets the to style.
+    /// </summary>
+    public string ToStyle { get; set; }
 
-        /// <summary>
-        /// Gets or sets the to style.
-        /// </summary>
-        public string ToStyle { get; set; }
+    /// <summary>
+    /// Gets or sets the to suspended.
+    /// </summary>
+    public DateTime? ToSuspended { get; set; }
 
-        /// <summary>
-        /// Gets or sets the to suspended.
-        /// </summary>
-        public DateTime? ToSuspended { get; set; }
+    /// <summary>
+    /// Gets or sets the created.
+    /// </summary>
+    public DateTime Created { get; set; }
 
-        /// <summary>
-        /// Gets or sets the created.
-        /// </summary>
-        public DateTime Created { get; set; }
+    /// <summary>
+    /// Gets or sets the subject.
+    /// </summary>
+    public string Subject { get; set; }
 
-        /// <summary>
-        /// Gets or sets the subject.
-        /// </summary>
-        public string Subject { get; set; }
+    /// <summary>
+    /// Gets or sets the body.
+    /// </summary>
+    public string Body { get; set; }
 
-        /// <summary>
-        /// Gets or sets the body.
-        /// </summary>
-        public string Body { get; set; }
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    public int Flags { get; set; }
 
-        /// <summary>
-        /// Gets or sets the flags.
-        /// </summary>
-        public int Flags { get; set; }
+    /// <summary>
+    /// Gets or sets the user pm flags.
+    /// </summary>
+    public int UserPMFlags { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user pm flags.
-        /// </summary>
-        public int UserPMFlags { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is read.
+    /// </summary>
+    public bool IsRead { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is read.
-        /// </summary>
-        public bool IsRead { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is reply.
+    /// </summary>
+    public bool IsReply { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is reply.
-        /// </summary>
-        public bool IsReply { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is in outbox.
+    /// </summary>
+    public bool IsInOutbox { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is in outbox.
-        /// </summary>
-        public bool IsInOutbox { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is archived.
+    /// </summary>
+    public bool IsArchived { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is archived.
-        /// </summary>
-        public bool IsArchived { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether is deleted.
-        /// </summary>
-        public bool IsDeleted { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets a value indicating whether is deleted.
+    /// </summary>
+    public bool IsDeleted { get; set; }
 }

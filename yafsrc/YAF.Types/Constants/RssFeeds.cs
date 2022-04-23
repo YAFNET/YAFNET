@@ -21,26 +21,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The YAF RSS feeds.
+/// </summary>
+public enum RssFeeds
 {
     /// <summary>
-    /// The YAF RSS feeds.
+    ///   The latest posts.
     /// </summary>
-    public enum RssFeeds
-    {
-        /// <summary>
-        ///   The latest posts.
-        /// </summary>
-        LatestPosts,
+    LatestPosts,
 
-        /// <summary>
-        ///   The posts.
-        /// </summary>
-        Posts,
+    /// <summary>
+    ///   The posts.
+    /// </summary>
+    Posts,
 
-        /// <summary>
-        ///   The topics.
-        /// </summary>
-        Topics
-    }
+    /// <summary>
+    ///   The topics.
+    /// </summary>
+    Topics
 }

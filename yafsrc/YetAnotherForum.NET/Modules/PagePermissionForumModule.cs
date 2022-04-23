@@ -21,89 +21,88 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
-{
-    #region Using
+namespace YAF.Modules;
 
-    using YAF.Types.Attributes;
+#region Using
+
+using YAF.Types.Attributes;
+
+#endregion
+
+/// <summary>
+/// Module that handles page permission feature
+/// </summary>
+[Module("Page Permission Module", "Tiny Gecko", 1)]
+public class PagePermissionForumModule : SimpleBaseForumModule
+{
+    #region Constants and Fields
+
+    /// <summary>
+    /// The permissions.
+    /// </summary>
+    private readonly IPermissions permissions;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Module that handles page permission feature
+    /// Initializes a new instance of the <see cref="PagePermissionForumModule"/> class.
     /// </summary>
-    [Module("Page Permission Module", "Tiny Gecko", 1)]
-    public class PagePermissionForumModule : SimpleBaseForumModule
+    /// <param name="permissions">
+    /// The permissions.
+    /// </param>
+    public PagePermissionForumModule([NotNull] IPermissions permissions)
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The permissions.
-        /// </summary>
-        private readonly IPermissions permissions;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PagePermissionForumModule"/> class.
-        /// </summary>
-        /// <param name="permissions">
-        /// The permissions.
-        /// </param>
-        public PagePermissionForumModule([NotNull] IPermissions permissions)
-        {
-            this.permissions = permissions;
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The init after page.
-        /// </summary>
-        public override void InitAfterPage()
-        {
-            this.CurrentForumPage.Load += this.CurrentPageLoad;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The current page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void CurrentPageLoad([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // check access permissions for specific pages...
-            switch (this.CurrentForumPage.PageType)
-            {
-                case ForumPages.ActiveUsers:
-                    this.permissions.HandleRequest(this.PageBoardContext.BoardSettings.ActiveUsersViewPermissions);
-                    break;
-                case ForumPages.Members:
-                    this.permissions.HandleRequest(this.PageBoardContext.BoardSettings.MembersListViewPermissions);
-                    break;
-                case ForumPages.UserProfile:
-                case ForumPages.Albums:
-                case ForumPages.Album:
-                    this.permissions.HandleRequest(this.PageBoardContext.BoardSettings.ProfileViewPermissions);
-                    break;
-                case ForumPages.Search:
-                    this.permissions.HandleRequest(this.PageBoardContext.BoardSettings.SearchPermissions);
-                    break;
-            }
-        }
-
-        #endregion
+        this.permissions = permissions;
     }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// The init after page.
+    /// </summary>
+    public override void InitAfterPage()
+    {
+        this.CurrentForumPage.Load += this.CurrentPageLoad;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The current page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void CurrentPageLoad([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // check access permissions for specific pages...
+        switch (this.CurrentForumPage.PageType)
+        {
+            case ForumPages.ActiveUsers:
+                this.permissions.HandleRequest(this.PageBoardContext.BoardSettings.ActiveUsersViewPermissions);
+                break;
+            case ForumPages.Members:
+                this.permissions.HandleRequest(this.PageBoardContext.BoardSettings.MembersListViewPermissions);
+                break;
+            case ForumPages.UserProfile:
+            case ForumPages.Albums:
+            case ForumPages.Album:
+                this.permissions.HandleRequest(this.PageBoardContext.BoardSettings.ProfileViewPermissions);
+                break;
+            case ForumPages.Search:
+                this.permissions.HandleRequest(this.PageBoardContext.BoardSettings.SearchPermissions);
+                break;
+        }
+    }
+
+    #endregion
 }

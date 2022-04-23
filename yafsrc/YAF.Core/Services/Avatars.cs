@@ -22,118 +22,117 @@
  * under the License.
  */
 
-namespace YAF.Core.Services
-{
-    #region Using
+namespace YAF.Core.Services;
 
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
+#region Using
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The avatars.
+/// </summary>
+public class Avatars : IAvatars
+{
+    #region Constants and Fields
+
+    /// <summary>
+    /// The YAF board settings.
+    /// </summary>
+    private readonly BoardSettings boardSettings;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// The avatars.
+    /// Initializes a new instance of the <see cref="Avatars"/> class.
     /// </summary>
-    public class Avatars : IAvatars
+    /// <param name="boardSettings">
+    /// The board settings.
+    /// </param>
+    public Avatars(BoardSettings boardSettings)
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The YAF board settings.
-        /// </summary>
-        private readonly BoardSettings boardSettings;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Avatars"/> class.
-        /// </summary>
-        /// <param name="boardSettings">
-        /// The board settings.
-        /// </param>
-        public Avatars(BoardSettings boardSettings)
-        {
-            this.boardSettings = boardSettings;
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The get avatar url for current user.
-        /// </summary>
-        /// <returns>
-        /// Returns the Avatar Url
-        /// </returns>
-        public string GetAvatarUrlForCurrentUser()
-        {
-            return this.GetAvatarUrlForUser(BoardContext.Current.PageUser);
-        }
-
-        /// <summary>
-        /// The get avatar url for user.
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <returns>
-        /// Returns the Avatar Url
-        /// </returns>
-        public string GetAvatarUrlForUser([NotNull] User user)
-        {
-            CodeContracts.VerifyNotNull(user);
-
-            return this.GetAvatarUrlForUser(
-                user.ID,
-                user.Avatar,
-                user.AvatarImage != null);
-        }
-
-        /// <summary>
-        /// The get avatar url for user.
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="avatarString">
-        /// The avatarString.
-        /// </param>
-        /// <param name="hasAvatarImage">
-        /// The hasAvatarImage.
-        /// </param>
-        /// <returns>
-        /// Returns the Avatar Url
-        /// </returns>
-        public string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage)
-        {
-            var avatarUrl = string.Empty;
-
-            if (this.boardSettings.AvatarUpload && hasAvatarImage)
-            {
-                avatarUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?u={userId}";
-            }
-            else if (avatarString.IsSet() && avatarString.StartsWith("/"))
-            {
-                avatarUrl = avatarString;
-            }
-
-            // Return NoAvatar Image is no Avatar available for that user.
-            if (avatarUrl.IsNotSet())
-            {
-                avatarUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?avatar={userId}";
-            }
-
-            return avatarUrl;
-        }
-
-        #endregion
+        this.boardSettings = boardSettings;
     }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// The get avatar url for current user.
+    /// </summary>
+    /// <returns>
+    /// Returns the Avatar Url
+    /// </returns>
+    public string GetAvatarUrlForCurrentUser()
+    {
+        return this.GetAvatarUrlForUser(BoardContext.Current.PageUser);
+    }
+
+    /// <summary>
+    /// The get avatar url for user.
+    /// </summary>
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <returns>
+    /// Returns the Avatar Url
+    /// </returns>
+    public string GetAvatarUrlForUser([NotNull] User user)
+    {
+        CodeContracts.VerifyNotNull(user);
+
+        return this.GetAvatarUrlForUser(
+            user.ID,
+            user.Avatar,
+            user.AvatarImage != null);
+    }
+
+    /// <summary>
+    /// The get avatar url for user.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="avatarString">
+    /// The avatarString.
+    /// </param>
+    /// <param name="hasAvatarImage">
+    /// The hasAvatarImage.
+    /// </param>
+    /// <returns>
+    /// Returns the Avatar Url
+    /// </returns>
+    public string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage)
+    {
+        var avatarUrl = string.Empty;
+
+        if (this.boardSettings.AvatarUpload && hasAvatarImage)
+        {
+            avatarUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?u={userId}";
+        }
+        else if (avatarString.IsSet() && avatarString.StartsWith("/"))
+        {
+            avatarUrl = avatarString;
+        }
+
+        // Return NoAvatar Image is no Avatar available for that user.
+        if (avatarUrl.IsNotSet())
+        {
+            avatarUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?avatar={userId}";
+        }
+
+        return avatarUrl;
+    }
+
+    #endregion
 }

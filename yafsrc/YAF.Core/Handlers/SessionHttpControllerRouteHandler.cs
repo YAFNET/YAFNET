@@ -22,29 +22,28 @@
  * under the License.
  */
 
-namespace YAF.Core.Handlers
-{
-    using System.Web;
-    using System.Web.Http.WebHost;
-    using System.Web.Routing;
+namespace YAF.Core.Handlers;
 
+using System.Web;
+using System.Web.Http.WebHost;
+using System.Web.Routing;
+
+/// <summary>
+/// The session http controller route handler.
+/// </summary>
+public class SessionHttpControllerRouteHandler : HttpControllerRouteHandler
+{
     /// <summary>
-    /// The session http controller route handler.
+    /// The get http handler.
     /// </summary>
-    public class SessionHttpControllerRouteHandler : HttpControllerRouteHandler
+    /// <param name="requestContext">
+    /// The request context.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IHttpHandler"/>.
+    /// </returns>
+    protected override IHttpHandler GetHttpHandler(RequestContext requestContext)
     {
-        /// <summary>
-        /// The get http handler.
-        /// </summary>
-        /// <param name="requestContext">
-        /// The request context.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IHttpHandler"/>.
-        /// </returns>
-        protected override IHttpHandler GetHttpHandler(RequestContext requestContext)
-        {
-            return new SessionControllerHandler(requestContext.RouteData);
-        }
+        return new SessionControllerHandler(requestContext.RouteData);
     }
 }

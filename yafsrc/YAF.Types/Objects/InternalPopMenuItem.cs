@@ -22,68 +22,67 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using YAF.Types;
+
+/// <summary>
+/// The internal pop menu item.
+/// </summary>
+public class InternalPopMenuItem
 {
-    using YAF.Types;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The internal pop menu item.
+    /// Initializes a new instance of the <see cref="InternalPopMenuItem"/> class.
     /// </summary>
-    public class InternalPopMenuItem
+    /// <param name="description">
+    /// The description.
+    /// </param>
+    /// <param name="postBackArgument">
+    /// The post-back argument.
+    /// </param>
+    /// <param name="clientScript">
+    /// The client script.
+    /// </param>
+    /// <param name="icon">
+    /// The icon.
+    /// </param>
+    public InternalPopMenuItem(
+        [NotNull] string description,
+        [NotNull] string postBackArgument,
+        [NotNull] string clientScript,
+        [NotNull] string icon)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InternalPopMenuItem"/> class.
-        /// </summary>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="postBackArgument">
-        /// The post-back argument.
-        /// </param>
-        /// <param name="clientScript">
-        /// The client script.
-        /// </param>
-        /// <param name="icon">
-        /// The icon.
-        /// </param>
-        public InternalPopMenuItem(
-            [NotNull] string description,
-            [NotNull] string postBackArgument,
-            [NotNull] string clientScript,
-            [NotNull] string icon)
-        {
-            this.Description = description;
-            this.PostBackArgument = postBackArgument;
-            this.ClientScript = clientScript;
-            this.Icon = icon;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets Icon.
-        /// </summary>
-        public string Icon { get; set; }
-
-        /// <summary>
-        ///   Gets or sets ClientScript.
-        /// </summary>
-        public string ClientScript { get; set; }
-
-        /// <summary>
-        ///   Gets or sets Description.
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        ///   Gets or sets PostBackArgument.
-        /// </summary>
-        public string PostBackArgument { get; set; }
-
-        #endregion
+        this.Description = description;
+        this.PostBackArgument = postBackArgument;
+        this.ClientScript = clientScript;
+        this.Icon = icon;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets or sets Icon.
+    /// </summary>
+    public string Icon { get; set; }
+
+    /// <summary>
+    ///   Gets or sets ClientScript.
+    /// </summary>
+    public string ClientScript { get; set; }
+
+    /// <summary>
+    ///   Gets or sets Description.
+    /// </summary>
+    public string Description { get; set; }
+
+    /// <summary>
+    ///   Gets or sets PostBackArgument.
+    /// </summary>
+    public string PostBackArgument { get; set; }
+
+    #endregion
 }

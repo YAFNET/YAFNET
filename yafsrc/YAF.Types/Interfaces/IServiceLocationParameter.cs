@@ -21,20 +21,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// A service location parameter
+/// </summary>
+public interface IServiceLocationParameter
 {
+    #region Properties
+
     /// <summary>
-    /// A service location parameter
+    /// Gets or sets Value.
     /// </summary>
-    public interface IServiceLocationParameter
-    {
-        #region Properties
+    object Value { get; set; }
 
-        /// <summary>
-        /// Gets or sets Value.
-        /// </summary>
-        object Value { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

@@ -21,33 +21,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
-{
-    using System.Collections.Generic;
+namespace YAF.Types.Interfaces.Services;
 
-    using YAF.Types.Objects;
+using System.Collections.Generic;
+
+using YAF.Types.Objects;
+
+/// <summary>
+/// SpamWordCheck Interface
+/// </summary>
+public interface ISpamWordCheck
+{
+    /// <summary>
+    /// Gets the spam word items.
+    /// </summary>
+    /// <value>
+    /// The spam word items.
+    /// </value>
+    IEnumerable<SpamWordCheckItem> SpamWordItems { get; }
 
     /// <summary>
-    /// SpamWordCheck Interface
+    /// Checks for spam word.
     /// </summary>
-    public interface ISpamWordCheck
-    {
-        /// <summary>
-        /// Gets the spam word items.
-        /// </summary>
-        /// <value>
-        /// The spam word items.
-        /// </value>
-        IEnumerable<SpamWordCheckItem> SpamWordItems { get; }
-
-        /// <summary>
-        /// Checks for spam word.
-        /// </summary>
-        /// <param name="searchText">The search text.</param>
-        /// <param name="spamWord">The spam word.</param>
-        /// <returns>
-        /// Returns if the search Text contains a spam word
-        /// </returns>
-        bool CheckForSpamWord([NotNull] string searchText, out string spamWord);
-    }
+    /// <param name="searchText">The search text.</param>
+    /// <param name="spamWord">The spam word.</param>
+    /// <returns>
+    /// Returns if the search Text contains a spam word
+    /// </returns>
+    bool CheckForSpamWord([NotNull] string searchText, out string spamWord);
 }

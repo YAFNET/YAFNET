@@ -21,127 +21,127 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System;
+using System.Linq;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.EventProxies;
+using YAF.Types.Extensions;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Models;
+
+/// <summary>
+///     The Rank repository extensions.
+/// </summary>
+public static class RankRepositoryExtensions
 {
-    using System;
-    using System.Linq;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Models;
-
     /// <summary>
-    ///     The Rank repository extensions.
+    /// Saves or adds a New Rank
     /// </summary>
-    public static class RankRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="rankId">
+    /// The rank Id.
+    /// </param>
+    /// <param name="boardId">
+    /// The board Id.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    /// <param name="minPosts">
+    /// The min posts.
+    /// </param>
+    /// <param name="messagesLimit">
+    /// The private message limit.
+    /// </param>
+    /// <param name="style">
+    /// The style.
+    /// </param>
+    /// <param name="sortOrder">
+    /// The sort order.
+    /// </param>
+    /// <param name="description">
+    /// The description.
+    /// </param>
+    /// <param name="signatureChars">
+    /// Defines number of allowed characters in user signature.
+    /// </param>
+    /// <param name="signatureBBCodes">
+    /// Defines comma separated BBCodes allowed for a rank, i.e in a user signature
+    /// </param>
+    /// <param name="userAlbums">
+    /// Defines allowed number of albums.
+    /// </param>
+    /// <param name="userAlbumImages">
+    /// Defines number of images allowed for an album.
+    /// </param>
+    public static void Save(
+        this IRepository<Rank> repository,
+        [CanBeNull] int? rankId,
+        [NotNull] int boardId,
+        [NotNull] string name,
+        [NotNull] RankFlags flags,
+        [CanBeNull] int? minPosts,
+        [NotNull] int messagesLimit,
+        [CanBeNull] string style,
+        [NotNull] short sortOrder,
+        [CanBeNull] string description,
+        [CanBeNull] int signatureChars,
+        [CanBeNull] string signatureBBCodes,
+        [NotNull] int userAlbums,
+        [NotNull] int userAlbumImages)
     {
-        /// <summary>
-        /// Saves or adds a New Rank
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="rankId">
-        /// The rank Id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <param name="minPosts">
-        /// The min posts.
-        /// </param>
-        /// <param name="messagesLimit">
-        /// The private message limit.
-        /// </param>
-        /// <param name="style">
-        /// The style.
-        /// </param>
-        /// <param name="sortOrder">
-        /// The sort order.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="signatureChars">
-        /// Defines number of allowed characters in user signature.
-        /// </param>
-        /// <param name="signatureBBCodes">
-        /// Defines comma separated BBCodes allowed for a rank, i.e in a user signature
-        /// </param>
-        /// <param name="userAlbums">
-        /// Defines allowed number of albums.
-        /// </param>
-        /// <param name="userAlbumImages">
-        /// Defines number of images allowed for an album.
-        /// </param>
-        public static void Save(
-            this IRepository<Rank> repository,
-            [CanBeNull] int? rankId,
-            [NotNull] int boardId,
-            [NotNull] string name,
-            [NotNull] RankFlags flags,
-            [CanBeNull] int? minPosts,
-            [NotNull] int messagesLimit,
-            [CanBeNull] string style,
-            [NotNull] short sortOrder,
-            [CanBeNull] string description,
-            [CanBeNull] int signatureChars,
-            [CanBeNull] string signatureBBCodes,
-            [NotNull] int userAlbums,
-            [NotNull] int userAlbumImages)
+        CodeContracts.VerifyNotNull(repository);
+
+        if (!flags.IsLadder)
         {
-            CodeContracts.VerifyNotNull(repository);
+            minPosts = null;
+        }
 
-            if (!flags.IsLadder)
-            {
-                minPosts = null;
-            }
+        if (flags.IsLadder && !minPosts.HasValue)
+        {
+            minPosts = 0;
+        }
 
-            if (flags.IsLadder && !minPosts.HasValue)
-            {
-                minPosts = 0;
-            }
+        if (rankId.HasValue)
+        {
+            repository.UpdateOnly(
+                () => new Rank
+                          {
+                              Name = name,
+                              Flags = flags.BitValue,
+                              MinPosts = minPosts,
+                              PMLimit = messagesLimit,
+                              Style = style,
+                              SortOrder = sortOrder,
+                              Description = description,
+                              UsrSigChars = signatureChars,
+                              UsrSigBBCodes = signatureBBCodes,
+                              UsrAlbums = userAlbums,
+                              UsrAlbumImages = userAlbumImages
+                          },
+                g => g.ID == rankId.Value);
 
-            if (rankId.HasValue)
-            {
-                repository.UpdateOnly(
-                    () => new Rank
-                    {
-                        Name = name,
-                        Flags = flags.BitValue,
-                        MinPosts = minPosts,
-                        PMLimit = messagesLimit,
-                        Style = style,
-                        SortOrder = sortOrder,
-                        Description = description,
-                        UsrSigChars = signatureChars,
-                        UsrSigBBCodes = signatureBBCodes,
-                        UsrAlbums = userAlbums,
-                        UsrAlbumImages = userAlbumImages
-                    },
-                    g => g.ID == rankId.Value);
-
-                repository.FireUpdated(rankId);
-            }
-            else
-            {
-                rankId = repository.Insert(
-                    new Rank
+            repository.FireUpdated(rankId);
+        }
+        else
+        {
+            rankId = repository.Insert(
+                new Rank
                     {
                         Name = name,
                         BoardID = boardId,
@@ -157,59 +157,58 @@ namespace YAF.Core.Model
                         UsrAlbumImages = userAlbumImages
                     });
 
-                repository.FireNew(rankId);
-            }
-
-            if (style.IsSet())
-            {
-                BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(boardId));
-            }
+            repository.FireNew(rankId);
         }
 
-        /// <summary>
-        /// Get the User with the Current Rank
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Tuple"/>.
-        /// </returns>
-        public static Tuple<User, Rank> GetUserAndRank(this IRepository<Rank> repository, [NotNull] int userId)
+        if (style.IsSet())
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
-
-            expression.Join<Rank>((u, r) => r.ID == u.RankID).Where<User>(u => u.ID == userId);
-
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User, Rank>(expression))
-                .FirstOrDefault();
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(boardId));
         }
+    }
 
-        /// <summary>
-        /// Gets the Style from Current User Rank.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns>Returns the Style if the Rank has one</returns>
-        public static string GetRankStyeForUser(
-            this IRepository<Rank> repository,
-            [NotNull] int userId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// Get the User with the Current Rank
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Tuple"/>.
+    /// </returns>
+    public static Tuple<User, Rank> GetUserAndRank(this IRepository<Rank> repository, [NotNull] int userId)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Rank>();
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-            expression.Join<User>((rank, user) => rank.ID == user.RankID)
-                .Where<Rank, User>((rank, user) => rank.Style != null && user.ID == userId);
+        expression.Join<Rank>((u, r) => r.ID == u.RankID).Where<User>(u => u.ID == userId);
 
-            var results = repository.DbAccess.Execute(db => db.Connection.Single(expression));
+        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User, Rank>(expression))
+            .FirstOrDefault();
+    }
 
-            return results?.Style;
-        }
+    /// <summary>
+    /// Gets the Style from Current User Rank.
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>Returns the Style if the Rank has one</returns>
+    public static string GetRankStyeForUser(
+        this IRepository<Rank> repository,
+        [NotNull] int userId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Rank>();
+
+        expression.Join<User>((rank, user) => rank.ID == user.RankID)
+            .Where<Rank, User>((rank, user) => rank.Style != null && user.ID == userId);
+
+        var results = repository.DbAccess.Execute(db => db.Connection.Single(expression));
+
+        return results?.Style;
     }
 }

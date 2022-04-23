@@ -21,36 +21,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Events
+namespace YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// The interface for DI classes that handle TEvent
+/// </summary>
+/// <typeparam name="TEvent">
+/// The event class that is handled.
+/// </typeparam>
+public interface IHandleEvent<in TEvent>
+    where TEvent : IAmEvent
 {
+    #region Public Properties
+
     /// <summary>
-    /// The interface for DI classes that handle TEvent
+    ///     Gets Order.
     /// </summary>
-    /// <typeparam name="TEvent">
-    /// The event class that is handled.
-    /// </typeparam>
-    public interface IHandleEvent<in TEvent>
-        where TEvent : IAmEvent
-    {
-        #region Public Properties
+    int Order { get; }
 
-        /// <summary>
-        ///     Gets Order.
-        /// </summary>
-        int Order { get; }
+    #endregion
 
-        #endregion
+    #region Public Methods and Operators
 
-        #region Public Methods and Operators
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
+    /// </param>
+    void Handle(TEvent @event);
 
-        /// <summary>
-        /// The handle.
-        /// </summary>
-        /// <param name="event">
-        /// The event.
-        /// </param>
-        void Handle(TEvent @event);
-
-        #endregion
-    }
+    #endregion
 }

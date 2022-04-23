@@ -21,57 +21,56 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Modules
+namespace YAF.Core.Modules;
+
+#region Using
+
+using System.Web;
+
+using Autofac;
+
+using YAF.Types;
+
+#endregion
+
+/// <summary>
+///     The utilities module.
+/// </summary>
+public class UtilitiesModule : BaseModule
 {
-    #region Using
-
-    using System.Web;
-
-    using Autofac;
-
-    using YAF.Types;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    ///     The utilities module.
+    /// The load.
     /// </summary>
-    public class UtilitiesModule : BaseModule
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    protected override void Load([NotNull] ContainerBuilder builder)
     {
-        #region Methods
-
-        /// <summary>
-        /// The load.
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        protected override void Load([NotNull] ContainerBuilder builder)
-        {
-            RegisterWebAbstractions(builder);
-        }
-
-        /// <summary>
-        /// The register web abstractions.
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        private static void RegisterWebAbstractions([NotNull] ContainerBuilder builder)
-        {
-            CodeContracts.VerifyNotNull(builder);
-
-            builder.Register(_ => new HttpContextWrapper(HttpContext.Current)).As<HttpContextBase>()
-                .InstancePerLifetimeScope();
-            builder.Register(c => c.Resolve<HttpContextBase>().Request).As<HttpRequestBase>().InstancePerLifetimeScope();
-            builder.Register(c => c.Resolve<HttpContextBase>().Response).As<HttpResponseBase>()
-                .InstancePerLifetimeScope();
-            builder.Register(c => c.Resolve<HttpContextBase>().Server).As<HttpServerUtilityBase>()
-                .InstancePerLifetimeScope();
-            builder.Register(c => c.Resolve<HttpContextBase>().Session).As<HttpSessionStateBase>()
-                .InstancePerLifetimeScope();
-        }
-
-        #endregion
+        RegisterWebAbstractions(builder);
     }
+
+    /// <summary>
+    /// The register web abstractions.
+    /// </summary>
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    private static void RegisterWebAbstractions([NotNull] ContainerBuilder builder)
+    {
+        CodeContracts.VerifyNotNull(builder);
+
+        builder.Register(_ => new HttpContextWrapper(HttpContext.Current)).As<HttpContextBase>()
+            .InstancePerLifetimeScope();
+        builder.Register(c => c.Resolve<HttpContextBase>().Request).As<HttpRequestBase>().InstancePerLifetimeScope();
+        builder.Register(c => c.Resolve<HttpContextBase>().Response).As<HttpResponseBase>()
+            .InstancePerLifetimeScope();
+        builder.Register(c => c.Resolve<HttpContextBase>().Server).As<HttpServerUtilityBase>()
+            .InstancePerLifetimeScope();
+        builder.Register(c => c.Resolve<HttpContextBase>().Session).As<HttpSessionStateBase>()
+            .InstancePerLifetimeScope();
+    }
+
+    #endregion
 }

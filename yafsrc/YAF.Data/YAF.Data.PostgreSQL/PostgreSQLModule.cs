@@ -22,34 +22,33 @@
  * under the License.
  */
 
-namespace YAF.Data.PostgreSQL
+namespace YAF.Data.PostgreSQL;
+
+using System.Data.Common;
+
+using Autofac;
+
+using Npgsql;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The PostgreSQL module.
+/// </summary>
+public class PostgreSQLModule : Module
 {
-    using System.Data.Common;
-
-    using Autofac;
-
-    using Npgsql;
-
-    using YAF.Types.Interfaces.Data;
-
     /// <summary>
-    /// The PostgreSQL module.
+    /// The load.
     /// </summary>
-    public class PostgreSQLModule : Module
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    protected override void Load(ContainerBuilder builder)
     {
-        /// <summary>
-        /// The load.
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterInstance<DbProviderFactory>(NpgsqlFactory.Instance);
+        builder.RegisterInstance<DbProviderFactory>(NpgsqlFactory.Instance);
 
-            builder.RegisterType<PostgreSQLDbAccess>()
-                .Named<IDbAccess>(PostgreSQLDbAccess.ProviderTypeName)
-                .InstancePerLifetimeScope();
-        }
+        builder.RegisterType<PostgreSQLDbAccess>()
+            .Named<IDbAccess>(PostgreSQLDbAccess.ProviderTypeName)
+            .InstancePerLifetimeScope();
     }
 }

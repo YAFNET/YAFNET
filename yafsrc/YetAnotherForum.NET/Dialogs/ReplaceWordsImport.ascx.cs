@@ -22,61 +22,61 @@
  * under the License.
  */
 
-namespace YAF.Dialogs
+namespace YAF.Dialogs;
+
+#region Using
+
+using System.Data;
+
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The Admin ReplaceWords Import Dialog.
+/// </summary>
+public partial class ReplaceWordsImport : BaseUserControl
 {
-    #region Using
-
-    using System.Data;
-
-    using YAF.Types.Models;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// The Admin ReplaceWords Import Dialog.
+    /// Try to Import from selected File
     /// </summary>
-    public partial class ReplaceWordsImport : BaseUserControl
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Methods
-
-        /// <summary>
-        /// Try to Import from selected File
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+        // import selected file (if it's the proper format)...
+        if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
         {
-            // import selected file (if it's the proper format)...
-            if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
+            this.PageBoardContext.Notify(
+                this.GetTextFormatted("MSG_IMPORTED_FAILEDX", this.importFile.PostedFile.ContentType),
+                MessageTypes.danger);
+
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("ImportDialog"));
+
+            return;
+        }
+
+        try
+        {
+            // import replace words...
+            var replaceWords = new DataSet();
+            replaceWords.ReadXml(this.importFile.PostedFile.InputStream);
+
+            if (replaceWords.Tables["YafReplaceWords"]?.Columns["badword"] != null && replaceWords.Tables["YafReplaceWords"].Columns["goodword"] != null)
             {
-                this.PageBoardContext.Notify(
-                    this.GetTextFormatted("MSG_IMPORTED_FAILEDX", this.importFile.PostedFile.ContentType),
-                    MessageTypes.danger);
+                var importedCount = 0;
 
-                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                    "openModalJs",
-                    JavaScriptBlocks.OpenModalJs("ImportDialog"));
+                var replaceWordsList = this.GetRepository<Replace_Words>().GetByBoardId();
 
-                return;
-            }
-
-            try
-            {
-                // import replace words...
-                var replaceWords = new DataSet();
-                replaceWords.ReadXml(this.importFile.PostedFile.InputStream);
-
-                if (replaceWords.Tables["YafReplaceWords"]?.Columns["badword"] != null && replaceWords.Tables["YafReplaceWords"].Columns["goodword"] != null)
-                {
-                    var importedCount = 0;
-
-                    var replaceWordsList = this.GetRepository<Replace_Words>().GetByBoardId();
-
-                    // import any extensions that don't exist...
-                    replaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().ForEach(row =>
+                // import any extensions that don't exist...
+                replaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().ForEach(row =>
                     {
                         if (replaceWordsList.Any(
-                            w => w.BadWord == row["badword"].ToString() && w.GoodWord == row["goodword"].ToString()))
+                                w => w.BadWord == row["badword"].ToString() && w.GoodWord == row["goodword"].ToString()))
                         {
                             return;
                         }
@@ -86,35 +86,34 @@ namespace YAF.Dialogs
                         importedCount++;
                     });
 
-                    this.PageBoardContext.Notify(
-                        importedCount > 0
-                            ? string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED"), importedCount)
-                            : this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"),
-                        importedCount > 0 ? MessageTypes.success : MessageTypes.warning);
-                }
-                else
-                {
-                    this.PageBoardContext.Notify(
-                        this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILED"),
-                        MessageTypes.warning);
-
-                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                        "openModalJs",
-                        JavaScriptBlocks.OpenModalJs("ImportDialog"));
-                }
+                this.PageBoardContext.Notify(
+                    importedCount > 0
+                        ? string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED"), importedCount)
+                        : this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"),
+                    importedCount > 0 ? MessageTypes.success : MessageTypes.warning);
             }
-            catch (Exception x)
+            else
             {
                 this.PageBoardContext.Notify(
-                    string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX"), x.Message),
-                    MessageTypes.danger);
+                    this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILED"),
+                    MessageTypes.warning);
 
                 this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.OpenModalJs("ImportDialog"));
             }
         }
+        catch (Exception x)
+        {
+            this.PageBoardContext.Notify(
+                string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX"), x.Message),
+                MessageTypes.danger);
 
-        #endregion
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("ImportDialog"));
+        }
     }
+
+    #endregion
 }

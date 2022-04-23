@@ -21,189 +21,188 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Flags
+namespace YAF.Types.Flags;
+
+using System;
+
+/// <summary>
+/// The forum flags.
+/// </summary>
+[Serializable]
+public class ForumFlags : FlagsBase
 {
-    using System;
+    #region Constructors
 
     /// <summary>
-    /// The forum flags.
+    /// Initializes a new instance of the <see cref="ForumFlags"/> class.
     /// </summary>
-    [Serializable]
-    public class ForumFlags : FlagsBase
+    public ForumFlags()
+        : this(0)
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ForumFlags"/> class.
-        /// </summary>
-        public ForumFlags()
-          : this(0)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ForumFlags"/> class.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        public ForumFlags(Flags flags)
-          : this((int)flags)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ForumFlags"/> class.
-        /// </summary>
-        /// <param name="bitValue">
-        /// The bit value.
-        /// </param>
-        public ForumFlags(object bitValue)
-          : this((int)bitValue)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ForumFlags"/> class.
-        /// </summary>
-        /// <param name="bitValue">
-        /// The bit value.
-        /// </param>
-        public ForumFlags(int bitValue)
-          : base(bitValue)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ForumFlags"/> class.
-        /// </summary>
-        /// <param name="bits">
-        /// The bits.
-        /// </param>
-        public ForumFlags(params bool[] bits)
-          : base(bits)
-        {
-        }
-
-        #endregion
-
-        #region Flags Enumeration
-
-        /// <summary>
-        /// Use for bit comparisons
-        /// </summary>
-        [Flags]
-        public enum Flags
-        {
-            /// <summary>
-            /// The is locked.
-            /// </summary>
-            IsLocked = 1,
-
-            /// <summary>
-            /// The is hidden.
-            /// </summary>
-            IsHidden = 2,
-
-            /// <summary>
-            /// The is test.
-            /// </summary>
-            IsTest = 4,
-
-            /// <summary>
-            /// The is moderated.
-            /// </summary>
-            IsModerated = 8
-
-            /* for future use
-                  xxxxx = 16,
-                  xxxxx = 32,
-                  xxxxx = 64,
-                  xxxxx = 128,
-                  xxxxx = 256,
-                  xxxxx = 512
-                   */
-        }
-
-        #endregion
-
-        #region Single Flags (can be 32 of them)
-
-        /// <summary>
-        /// Gets or sets a value indicating whether forum allows locked. No posting/activity can be made in locked forums.
-        /// </summary>
-        public bool IsLocked
-        {
-            // int value 1
-            get => this[0];
-
-            set => this[0] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether forum is hidden to users without read access.
-        /// </summary>
-        public bool IsHidden
-        {
-            // int value 2
-            get => this[1];
-
-            set => this[1] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether forum does not count to users' post count.
-        /// </summary>
-        public bool IsTest
-        {
-            // int value 4
-            get => this[2];
-
-            set => this[2] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the forum is moderated.
-        /// Posts in moderated posts has to be approved by moderator before they are published.
-        /// </summary>
-        public bool IsModerated
-        {
-            // int value 8
-            get => this[3];
-
-            set => this[3] = value;
-        }
-
-        #endregion
-
-        #region Operators
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="newBitValue">
-        /// The new bit value.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator ForumFlags(int newBitValue)
-        {
-            return new ForumFlags(newBitValue);
-        }
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator ForumFlags(Flags flags)
-        {
-            return new ForumFlags(flags);
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumFlags"/> class.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    public ForumFlags(Flags flags)
+        : this((int)flags)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public ForumFlags(object bitValue)
+        : this((int)bitValue)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public ForumFlags(int bitValue)
+        : base(bitValue)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumFlags"/> class.
+    /// </summary>
+    /// <param name="bits">
+    /// The bits.
+    /// </param>
+    public ForumFlags(params bool[] bits)
+        : base(bits)
+    {
+    }
+
+    #endregion
+
+    #region Flags Enumeration
+
+    /// <summary>
+    /// Use for bit comparisons
+    /// </summary>
+    [Flags]
+    public enum Flags
+    {
+        /// <summary>
+        /// The is locked.
+        /// </summary>
+        IsLocked = 1,
+
+        /// <summary>
+        /// The is hidden.
+        /// </summary>
+        IsHidden = 2,
+
+        /// <summary>
+        /// The is test.
+        /// </summary>
+        IsTest = 4,
+
+        /// <summary>
+        /// The is moderated.
+        /// </summary>
+        IsModerated = 8
+
+        /* for future use
+              xxxxx = 16,
+              xxxxx = 32,
+              xxxxx = 64,
+              xxxxx = 128,
+              xxxxx = 256,
+              xxxxx = 512
+               */
+    }
+
+    #endregion
+
+    #region Single Flags (can be 32 of them)
+
+    /// <summary>
+    /// Gets or sets a value indicating whether forum allows locked. No posting/activity can be made in locked forums.
+    /// </summary>
+    public bool IsLocked
+    {
+        // int value 1
+        get => this[0];
+
+        set => this[0] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether forum is hidden to users without read access.
+    /// </summary>
+    public bool IsHidden
+    {
+        // int value 2
+        get => this[1];
+
+        set => this[1] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether forum does not count to users' post count.
+    /// </summary>
+    public bool IsTest
+    {
+        // int value 4
+        get => this[2];
+
+        set => this[2] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the forum is moderated.
+    /// Posts in moderated posts has to be approved by moderator before they are published.
+    /// </summary>
+    public bool IsModerated
+    {
+        // int value 8
+        get => this[3];
+
+        set => this[3] = value;
+    }
+
+    #endregion
+
+    #region Operators
+
+    /// <summary>
+    /// The op_ implicit.
+    /// </summary>
+    /// <param name="newBitValue">
+    /// The new bit value.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static implicit operator ForumFlags(int newBitValue)
+    {
+        return new ForumFlags(newBitValue);
+    }
+
+    /// <summary>
+    /// The op_ implicit.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static implicit operator ForumFlags(Flags flags)
+    {
+        return new ForumFlags(flags);
+    }
+
+    #endregion
 }

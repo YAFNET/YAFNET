@@ -5,18 +5,17 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-namespace ServiceStack.Model
+namespace ServiceStack.Model;
+
+/// <summary>
+/// Interface IHasId
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public interface IHasId<out T>
 {
     /// <summary>
-    /// Interface IHasId
+    /// Gets the identifier.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public interface IHasId<out T>
-    {
-        /// <summary>
-        /// Gets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        T Id { get; }
-    }
+    /// <value>The identifier.</value>
+    T Id { get; }
 }

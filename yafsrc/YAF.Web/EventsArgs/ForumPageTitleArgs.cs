@@ -22,39 +22,38 @@
  * under the License.
  */
 
-namespace YAF.Web.EventsArgs
-{
-    using System;
+namespace YAF.Web.EventsArgs;
 
-    using YAF.Types;
+using System;
+
+using YAF.Types;
+
+/// <summary>
+/// EventArgs class for the PageTitleSet event
+/// </summary>
+public class ForumPageTitleArgs : EventArgs
+{
+    #region Constructors and Destructors
 
     /// <summary>
-    /// EventArgs class for the PageTitleSet event
+    /// Initializes a new instance of the <see cref="ForumPageTitleArgs"/> class.
     /// </summary>
-    public class ForumPageTitleArgs : EventArgs
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    public ForumPageTitleArgs([NotNull] string title)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ForumPageTitleArgs"/> class.
-        /// </summary>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        public ForumPageTitleArgs([NotNull] string title)
-        {
-            this.Title = title;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///   Gets Title.
-        /// </summary>
-        public string Title { get; }
-
-        #endregion
+        this.Title = title;
     }
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    ///   Gets Title.
+    /// </summary>
+    public string Title { get; }
+
+    #endregion
 }

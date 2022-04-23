@@ -21,28 +21,27 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// Generic I Write Value.
+/// </summary>
+/// <typeparam name="T">
+/// </typeparam>
+public interface IWriteValue<in T>
 {
+    #region Public Methods
+
     /// <summary>
-    /// Generic I Write Value.
+    /// Set a value.
     /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public interface IWriteValue<in T>
-    {
-        #region Public Methods
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    void Set(string key, T value);
 
-        /// <summary>
-        /// Set a value.
-        /// </summary>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        void Set(string key, T value);
-
-        #endregion
-    }
+    #endregion
 }

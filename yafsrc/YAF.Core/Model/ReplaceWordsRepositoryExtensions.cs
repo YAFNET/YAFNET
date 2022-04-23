@@ -21,47 +21,46 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+///     The replace words repository extensions.
+/// </summary>
+public static class ReplaceWordsRepositoryExtensions
 {
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The replace words repository extensions.
+    /// Saves changes to a word.
     /// </summary>
-    public static class ReplaceWordsRepositoryExtensions
+    /// <param name="repository">The repository.</param>
+    /// <param name="replaceWordId">The replace word identifier.</param>
+    /// <param name="badWord">The bad word.</param>
+    /// <param name="goodWord">The good word.</param>
+    /// <param name="boardId">The board identifier.</param>
+    public static void Save(
+        this IRepository<Replace_Words> repository,
+        [CanBeNull] int? replaceWordId,
+        [NotNull] string badWord,
+        [NotNull] string goodWord,
+        [CanBeNull] int? boardId = null)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Saves changes to a word.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="replaceWordId">The replace word identifier.</param>
-        /// <param name="badWord">The bad word.</param>
-        /// <param name="goodWord">The good word.</param>
-        /// <param name="boardId">The board identifier.</param>
-        public static void Save(
-            this IRepository<Replace_Words> repository,
-            [CanBeNull] int? replaceWordId,
-            [NotNull] string badWord,
-            [NotNull] string goodWord,
-            [CanBeNull] int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            repository.Upsert(
-                new Replace_Words
+        repository.Upsert(
+            new Replace_Words
                 {
                     BoardID = boardId ?? repository.BoardID,
                     ID = replaceWordId ?? 0,
                     BadWord = badWord,
                     GoodWord = goodWord
                 });
-        }
-
-        #endregion
     }
+
+    #endregion
 }

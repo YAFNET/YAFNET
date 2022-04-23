@@ -21,76 +21,75 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Extensions
-{
-    using System.Collections.Generic;
-    using System.Linq;
+namespace YAF.Types.Extensions;
 
-    using YAF.Types;
+using System.Collections.Generic;
+using System.Linq;
+
+using YAF.Types;
+
+/// <summary>
+/// The collection extensions.
+/// </summary>
+public static class CollectionExtensions
+{
+    #region Public Methods
 
     /// <summary>
-    /// The collection extensions.
+    /// The add or update.
     /// </summary>
-    public static class CollectionExtensions
+    /// <param name="dictionary">
+    /// The dictionary.
+    /// </param>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <typeparam name="TKey">
+    /// </typeparam>
+    /// <typeparam name="TValue">
+    /// </typeparam>
+    public static void AddOrUpdate<TKey, TValue>(
+        [NotNull] this IDictionary<TKey, TValue> dictionary,
+        TKey key,
+        TValue value)
     {
-        #region Public Methods
+        CodeContracts.VerifyNotNull(dictionary);
 
-        /// <summary>
-        /// The add or update.
-        /// </summary>
-        /// <param name="dictionary">
-        /// The dictionary.
-        /// </param>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <typeparam name="TKey">
-        /// </typeparam>
-        /// <typeparam name="TValue">
-        /// </typeparam>
-        public static void AddOrUpdate<TKey, TValue>(
-            [NotNull] this IDictionary<TKey, TValue> dictionary,
-            TKey key,
-            TValue value)
+        if (dictionary.ContainsKey(key))
         {
-            CodeContracts.VerifyNotNull(dictionary);
-
-            if (dictionary.ContainsKey(key))
-            {
-                dictionary[key] = value;
-            }
-            else
-            {
-                dictionary.Add(key, value);
-            }
+            dictionary[key] = value;
         }
-
-        /// <summary>
-        /// The add range.
-        /// </summary>
-        /// <param name="dictionaryFirst">
-        /// The dictionary first.
-        /// </param>
-        /// <param name="dictionarySecondary">
-        /// The dictionary secondary.
-        /// </param>
-        /// <typeparam name="TKey">
-        /// </typeparam>
-        /// <typeparam name="TValue">
-        /// </typeparam>
-        public static void AddRange<TKey, TValue>(
-            [NotNull] this IDictionary<TKey, TValue> dictionaryFirst,
-            [NotNull] IDictionary<TKey, TValue> dictionarySecondary)
+        else
         {
-            CodeContracts.VerifyNotNull(dictionaryFirst);
-            CodeContracts.VerifyNotNull(dictionarySecondary);
-
-            dictionarySecondary.ToList().ForEach(i => dictionaryFirst.AddOrUpdate(i.Key, i.Value));
+            dictionary.Add(key, value);
         }
-
-        #endregion
     }
+
+    /// <summary>
+    /// The add range.
+    /// </summary>
+    /// <param name="dictionaryFirst">
+    /// The dictionary first.
+    /// </param>
+    /// <param name="dictionarySecondary">
+    /// The dictionary secondary.
+    /// </param>
+    /// <typeparam name="TKey">
+    /// </typeparam>
+    /// <typeparam name="TValue">
+    /// </typeparam>
+    public static void AddRange<TKey, TValue>(
+        [NotNull] this IDictionary<TKey, TValue> dictionaryFirst,
+        [NotNull] IDictionary<TKey, TValue> dictionarySecondary)
+    {
+        CodeContracts.VerifyNotNull(dictionaryFirst);
+        CodeContracts.VerifyNotNull(dictionarySecondary);
+
+        dictionarySecondary.ToList().ForEach(i => dictionaryFirst.AddOrUpdate(i.Key, i.Value));
+    }
+
+    #endregion
 }

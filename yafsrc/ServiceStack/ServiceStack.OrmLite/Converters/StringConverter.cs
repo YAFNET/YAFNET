@@ -8,231 +8,230 @@ using System;
 using System.Data;
 using ServiceStack.DataAnnotations;
 
-namespace ServiceStack.OrmLite.Converters
+namespace ServiceStack.OrmLite.Converters;
+
+using ServiceStack.Text;
+
+/// <summary>
+/// Class StringConverter.
+/// Implements the <see cref="ServiceStack.OrmLite.OrmLiteConverter" />
+/// Implements the <see cref="ServiceStack.OrmLite.IHasColumnDefinitionLength" />
+/// </summary>
+/// <seealso cref="ServiceStack.OrmLite.OrmLiteConverter" />
+/// <seealso cref="ServiceStack.OrmLite.IHasColumnDefinitionLength" />
+public class StringConverter : OrmLiteConverter, IHasColumnDefinitionLength
 {
-    using ServiceStack.Text;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StringConverter"/> class.
+    /// </summary>
+    public StringConverter() : this(8000) { }
 
     /// <summary>
-    /// Class StringConverter.
-    /// Implements the <see cref="ServiceStack.OrmLite.OrmLiteConverter" />
-    /// Implements the <see cref="ServiceStack.OrmLite.IHasColumnDefinitionLength" />
+    /// Initializes a new instance of the <see cref="StringConverter"/> class.
     /// </summary>
-    /// <seealso cref="ServiceStack.OrmLite.OrmLiteConverter" />
-    /// <seealso cref="ServiceStack.OrmLite.IHasColumnDefinitionLength" />
-    public class StringConverter : OrmLiteConverter, IHasColumnDefinitionLength
+    /// <param name="stringLength">Length of the string.</param>
+    public StringConverter(int stringLength)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StringConverter"/> class.
-        /// </summary>
-        public StringConverter() : this(8000) { }
+        StringLength = stringLength;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StringConverter"/> class.
-        /// </summary>
-        /// <param name="stringLength">Length of the string.</param>
-        public StringConverter(int stringLength)
+    /// <summary>
+    /// Gets or sets a value indicating whether [use unicode].
+    /// </summary>
+    /// <value><c>true</c> if [use unicode]; otherwise, <c>false</c>.</value>
+    public bool UseUnicode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the length of the string.
+    /// </summary>
+    /// <value>The length of the string.</value>
+    public int StringLength { get; set; }
+
+    /// <summary>
+    /// Gets the maximum length of the variable character.
+    /// </summary>
+    /// <value>The maximum length of the variable character.</value>
+    public virtual int MaxVarCharLength => UseUnicode ? 8000 : 4000;
+
+    /// <summary>
+    /// The maximum column definition
+    /// </summary>
+    protected string maxColumnDefinition;
+    /// <summary>
+    /// Gets or sets the maximum column definition.
+    /// </summary>
+    /// <value>The maximum column definition.</value>
+    public virtual string MaxColumnDefinition
+    {
+        get => maxColumnDefinition ?? ColumnDefinition;
+        set => maxColumnDefinition = value;
+    }
+
+    /// <summary>
+    /// SQL Column Definition used in CREATE Table.
+    /// </summary>
+    /// <value>The column definition.</value>
+    public override string ColumnDefinition => GetColumnDefinition(StringLength);
+
+    /// <summary>
+    /// Gets the column definition.
+    /// </summary>
+    /// <param name="stringLength">Length of the string.</param>
+    /// <returns>System.String.</returns>
+    public virtual string GetColumnDefinition(int? stringLength)
+    {
+        if (stringLength.GetValueOrDefault() == StringLengthAttribute.MaxText)
+            return MaxColumnDefinition;
+
+        return UseUnicode
+                   ? $"NVARCHAR({stringLength.GetValueOrDefault(StringLength)})"
+                   : $"VARCHAR({stringLength.GetValueOrDefault(StringLength)})";
+    }
+
+    /// <summary>
+    /// Customize how DB Param is initialized. Useful for supporting RDBMS-specific Types.
+    /// </summary>
+    /// <param name="p">The p.</param>
+    /// <param name="fieldType">Type of the field.</param>
+    public override void InitDbParam(IDbDataParameter p, Type fieldType)
+    {
+        base.InitDbParam(p, fieldType);
+
+        if (p.Size == default && fieldType == typeof(string))
         {
-            StringLength = stringLength;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [use unicode].
-        /// </summary>
-        /// <value><c>true</c> if [use unicode]; otherwise, <c>false</c>.</value>
-        public bool UseUnicode { get; set; }
-
-        /// <summary>
-        /// Gets or sets the length of the string.
-        /// </summary>
-        /// <value>The length of the string.</value>
-        public int StringLength { get; set; }
-
-        /// <summary>
-        /// Gets the maximum length of the variable character.
-        /// </summary>
-        /// <value>The maximum length of the variable character.</value>
-        public virtual int MaxVarCharLength => UseUnicode ? 8000 : 4000;
-
-        /// <summary>
-        /// The maximum column definition
-        /// </summary>
-        protected string maxColumnDefinition;
-        /// <summary>
-        /// Gets or sets the maximum column definition.
-        /// </summary>
-        /// <value>The maximum column definition.</value>
-        public virtual string MaxColumnDefinition
-        {
-            get => maxColumnDefinition ?? ColumnDefinition;
-            set => maxColumnDefinition = value;
-        }
-
-        /// <summary>
-        /// SQL Column Definition used in CREATE Table.
-        /// </summary>
-        /// <value>The column definition.</value>
-        public override string ColumnDefinition => GetColumnDefinition(StringLength);
-
-        /// <summary>
-        /// Gets the column definition.
-        /// </summary>
-        /// <param name="stringLength">Length of the string.</param>
-        /// <returns>System.String.</returns>
-        public virtual string GetColumnDefinition(int? stringLength)
-        {
-            if (stringLength.GetValueOrDefault() == StringLengthAttribute.MaxText)
-                return MaxColumnDefinition;
-
-            return UseUnicode
-                ? $"NVARCHAR({stringLength.GetValueOrDefault(StringLength)})"
-                : $"VARCHAR({stringLength.GetValueOrDefault(StringLength)})";
-        }
-
-        /// <summary>
-        /// Customize how DB Param is initialized. Useful for supporting RDBMS-specific Types.
-        /// </summary>
-        /// <param name="p">The p.</param>
-        /// <param name="fieldType">Type of the field.</param>
-        public override void InitDbParam(IDbDataParameter p, Type fieldType)
-        {
-            base.InitDbParam(p, fieldType);
-
-            if (p.Size == default && fieldType == typeof(string))
-            {
-                p.Size = UseUnicode
-                    ? Math.Min(StringLength, 4000)
-                    : StringLength;
-            }
-        }
-
-        /// <summary>
-        /// Value from DB to Populate on POCO Data Model with
-        /// </summary>
-        /// <param name="fieldType">Type of the field.</param>
-        /// <param name="value">The value.</param>
-        /// <returns>System.Object.</returns>
-        public override object FromDbValue(Type fieldType, object value)
-        {
-            if (value is string strValue)
-            {
-                if (OrmLiteConfig.StringFilter != null)
-                    return OrmLiteConfig.StringFilter(strValue);
-            }
-
-            return value.ToString();
+            p.Size = UseUnicode
+                         ? Math.Min(StringLength, 4000)
+                         : StringLength;
         }
     }
 
     /// <summary>
-    /// Class CharConverter.
-    /// Implements the <see cref="ServiceStack.OrmLite.Converters.StringConverter" />
+    /// Value from DB to Populate on POCO Data Model with
     /// </summary>
-    /// <seealso cref="ServiceStack.OrmLite.Converters.StringConverter" />
-    public class CharConverter : StringConverter
+    /// <param name="fieldType">Type of the field.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>System.Object.</returns>
+    public override object FromDbValue(Type fieldType, object value)
     {
-        /// <summary>
-        /// Gets the column definition.
-        /// </summary>
-        /// <value>The column definition.</value>
-        public override string ColumnDefinition => "CHAR(1)";
-
-        /// <summary>
-        /// Used in DB Params. Defaults to DbType.String
-        /// </summary>
-        /// <value>The type of the database.</value>
-        public override DbType DbType => DbType.StringFixedLength;
-
-        /// <summary>
-        /// Gets the column definition.
-        /// </summary>
-        /// <param name="stringLength">Length of the string.</param>
-        /// <returns>System.String.</returns>
-        public override string GetColumnDefinition(int? stringLength)
+        if (value is string strValue)
         {
-            return ColumnDefinition;
+            if (OrmLiteConfig.StringFilter != null)
+                return OrmLiteConfig.StringFilter(strValue);
         }
 
-        /// <summary>
-        /// Froms the database value.
-        /// </summary>
-        /// <param name="fieldType">Type of the field.</param>
-        /// <param name="value">The value.</param>
-        /// <returns>System.Object.</returns>
-        public override object FromDbValue(Type fieldType, object value)
-        {
-            if (value is char)
-                return value;
+        return value.ToString();
+    }
+}
 
-            if (value is string strValue)
-                return strValue[0];
+/// <summary>
+/// Class CharConverter.
+/// Implements the <see cref="ServiceStack.OrmLite.Converters.StringConverter" />
+/// </summary>
+/// <seealso cref="ServiceStack.OrmLite.Converters.StringConverter" />
+public class CharConverter : StringConverter
+{
+    /// <summary>
+    /// Gets the column definition.
+    /// </summary>
+    /// <value>The column definition.</value>
+    public override string ColumnDefinition => "CHAR(1)";
 
-            if (value.GetType().IsIntegerType())
-                return (char)(int)this.ConvertNumber(typeof(int), value);
+    /// <summary>
+    /// Used in DB Params. Defaults to DbType.String
+    /// </summary>
+    /// <value>The type of the database.</value>
+    public override DbType DbType => DbType.StringFixedLength;
 
-            return (char)value;
-        }
-
-        /// <summary>
-        /// Parameterized value in parameterized queries
-        /// </summary>
-        /// <param name="fieldType">Type of the field.</param>
-        /// <param name="value">The value.</param>
-        /// <returns>System.Object.</returns>
-        public override object ToDbValue(Type fieldType, object value)
-        {
-            if (value != null && value.GetType().IsEnum)
-                return EnumConverter.ToCharValue(value);
-            if (value is int i)
-                return (char)i;
-
-            return base.ToDbValue(fieldType, value);
-        }
+    /// <summary>
+    /// Gets the column definition.
+    /// </summary>
+    /// <param name="stringLength">Length of the string.</param>
+    /// <returns>System.String.</returns>
+    public override string GetColumnDefinition(int? stringLength)
+    {
+        return ColumnDefinition;
     }
 
     /// <summary>
-    /// Class CharArrayConverter.
-    /// Implements the <see cref="ServiceStack.OrmLite.Converters.StringConverter" />
+    /// Froms the database value.
     /// </summary>
-    /// <seealso cref="ServiceStack.OrmLite.Converters.StringConverter" />
-    public class CharArrayConverter : StringConverter
+    /// <param name="fieldType">Type of the field.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>System.Object.</returns>
+    public override object FromDbValue(Type fieldType, object value)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CharArrayConverter"/> class.
-        /// </summary>
-        public CharArrayConverter() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CharArrayConverter"/> class.
-        /// </summary>
-        /// <param name="stringLength">Length of the string.</param>
-        public CharArrayConverter(int stringLength) : base(stringLength) { }
+        if (value is char)
+            return value;
 
-        /// <summary>
-        /// Parameterized value in parameterized queries
-        /// </summary>
-        /// <param name="fieldType">Type of the field.</param>
-        /// <param name="value">The value.</param>
-        /// <returns>System.Object.</returns>
-        public override object ToDbValue(Type fieldType, object value)
-        {
-            var chars = (char[])value;
-            return new string(chars);
-        }
+        if (value is string strValue)
+            return strValue[0];
 
-        /// <summary>
-        /// Froms the database value.
-        /// </summary>
-        /// <param name="fieldType">Type of the field.</param>
-        /// <param name="value">The value.</param>
-        /// <returns>System.Object.</returns>
-        public override object FromDbValue(Type fieldType, object value)
-        {
-            if (value is char[])
-                return value;
+        if (value.GetType().IsIntegerType())
+            return (char)(int)this.ConvertNumber(typeof(int), value);
 
-            if (value is string strValue)
-                return strValue.ToCharArray();
+        return (char)value;
+    }
 
-            return (char[])value;
-        }
+    /// <summary>
+    /// Parameterized value in parameterized queries
+    /// </summary>
+    /// <param name="fieldType">Type of the field.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>System.Object.</returns>
+    public override object ToDbValue(Type fieldType, object value)
+    {
+        if (value != null && value.GetType().IsEnum)
+            return EnumConverter.ToCharValue(value);
+        if (value is int i)
+            return (char)i;
+
+        return base.ToDbValue(fieldType, value);
+    }
+}
+
+/// <summary>
+/// Class CharArrayConverter.
+/// Implements the <see cref="ServiceStack.OrmLite.Converters.StringConverter" />
+/// </summary>
+/// <seealso cref="ServiceStack.OrmLite.Converters.StringConverter" />
+public class CharArrayConverter : StringConverter
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CharArrayConverter"/> class.
+    /// </summary>
+    public CharArrayConverter() { }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CharArrayConverter"/> class.
+    /// </summary>
+    /// <param name="stringLength">Length of the string.</param>
+    public CharArrayConverter(int stringLength) : base(stringLength) { }
+
+    /// <summary>
+    /// Parameterized value in parameterized queries
+    /// </summary>
+    /// <param name="fieldType">Type of the field.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>System.Object.</returns>
+    public override object ToDbValue(Type fieldType, object value)
+    {
+        var chars = (char[])value;
+        return new string(chars);
+    }
+
+    /// <summary>
+    /// Froms the database value.
+    /// </summary>
+    /// <param name="fieldType">Type of the field.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>System.Object.</returns>
+    public override object FromDbValue(Type fieldType, object value)
+    {
+        if (value is char[])
+            return value;
+
+        if (value is string strValue)
+            return strValue.ToCharArray();
+
+        return (char[])value;
     }
 }

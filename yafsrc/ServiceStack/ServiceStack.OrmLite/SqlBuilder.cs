@@ -5,498 +5,496 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-namespace ServiceStack.OrmLite
-{
-    using ServiceStack.Text;
+namespace ServiceStack.OrmLite;
 
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-    using System.Reflection;
-    using System.Reflection.Emit;
-    using System.Text.RegularExpressions;
-    using System.Threading;
+using ServiceStack.Text;
 
-    using PropertyAttributes = System.Reflection.PropertyAttributes;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Text.RegularExpressions;
+using System.Threading;
+
+using PropertyAttributes = System.Reflection.PropertyAttributes;
 
 #if !NO_EXPRESSIONS
+/// <summary>
+/// Nice SqlBuilder class by @samsaffron from Dapper.Contrib:
+/// http://samsaffron.com/archive/2011/09/05/Digging+ourselves+out+of+the+mess+Linq-2-SQL+created
+/// Modified to work in .NET 3.5
+/// </summary>
+public class SqlBuilder
+{
     /// <summary>
-    /// Nice SqlBuilder class by @samsaffron from Dapper.Contrib:
-    /// http://samsaffron.com/archive/2011/09/05/Digging+ourselves+out+of+the+mess+Linq-2-SQL+created
-    /// Modified to work in .NET 3.5
+    /// The data
     /// </summary>
-    public class SqlBuilder
+    private readonly Dictionary<string, Clauses> data = new();
+    /// <summary>
+    /// The seq
+    /// </summary>
+    private int seq;
+
+    /// <summary>
+    /// Class Clause.
+    /// </summary>
+    private class Clause
     {
         /// <summary>
-        /// The data
+        /// Gets or sets the SQL.
         /// </summary>
-        private readonly Dictionary<string, Clauses> data = new();
+        /// <value>The SQL.</value>
+        public string Sql { get; set; }
         /// <summary>
-        /// The seq
+        /// Gets or sets the parameters.
         /// </summary>
-        private int seq;
+        /// <value>The parameters.</value>
+        public object Parameters { get; set; }
+    }
 
+    /// <summary>
+    /// Class DynamicParameters.
+    /// </summary>
+    private class DynamicParameters
+    {
         /// <summary>
-        /// Class Clause.
+        /// Class Property.
         /// </summary>
-        private class Clause
+        private class Property
         {
             /// <summary>
-            /// Gets or sets the SQL.
+            /// Initializes a new instance of the <see cref="Property"/> class.
             /// </summary>
-            /// <value>The SQL.</value>
-            public string Sql { get; set; }
+            /// <param name="name">The name.</param>
+            /// <param name="type">The type.</param>
+            /// <param name="value">The value.</param>
+            public Property(string name, Type type, object value)
+            {
+                Name = name;
+                Type = type;
+                Value = value;
+            }
+
             /// <summary>
-            /// Gets or sets the parameters.
+            /// The name
             /// </summary>
-            /// <value>The parameters.</value>
-            public object Parameters { get; set; }
+            public readonly string Name;
+            /// <summary>
+            /// The type
+            /// </summary>
+            public readonly Type Type;
+            /// <summary>
+            /// The value
+            /// </summary>
+            public readonly object Value;
         }
 
         /// <summary>
-        /// Class DynamicParameters.
+        /// The properties
         /// </summary>
-        private class DynamicParameters
+        private readonly List<Property> properties = new();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DynamicParameters"/> class.
+        /// </summary>
+        /// <param name="initParams">The initialize parameters.</param>
+        public DynamicParameters(object initParams)
         {
-            /// <summary>
-            /// Class Property.
-            /// </summary>
-            private class Property
-            {
-                /// <summary>
-                /// Initializes a new instance of the <see cref="Property"/> class.
-                /// </summary>
-                /// <param name="name">The name.</param>
-                /// <param name="type">The type.</param>
-                /// <param name="value">The value.</param>
-                public Property(string name, Type type, object value)
-                {
-                    Name = name;
-                    Type = type;
-                    Value = value;
-                }
+            AddDynamicParams(initParams);
+        }
 
-                /// <summary>
-                /// The name
-                /// </summary>
-                public readonly string Name;
-                /// <summary>
-                /// The type
-                /// </summary>
-                public readonly Type Type;
-                /// <summary>
-                /// The value
-                /// </summary>
-                public readonly object Value;
+        /// <summary>
+        /// Adds the dynamic parameters.
+        /// </summary>
+        /// <param name="cmdParams">The command parameters.</param>
+        public void AddDynamicParams(object cmdParams)
+        {
+            if (cmdParams == null) return;
+            foreach (var pi in cmdParams.GetType().GetPublicProperties())
+            {
+                var getterFn = pi.CreateGetter();
+                if (getterFn == null) continue;
+                var value = getterFn(cmdParams);
+                properties.Add(new Property(pi.Name, pi.PropertyType, value));
             }
+        }
 
-            /// <summary>
-            /// The properties
-            /// </summary>
-            private readonly List<Property> properties = new();
+        // The property set and get methods require a special attrs:
+        /// <summary>
+        /// The get set attribute
+        /// </summary>
+        private const MethodAttributes GetSetAttr = MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.HideBySig;
 
-            /// <summary>
-            /// Initializes a new instance of the <see cref="DynamicParameters"/> class.
-            /// </summary>
-            /// <param name="initParams">The initialize parameters.</param>
-            public DynamicParameters(object initParams)
-            {
-                AddDynamicParams(initParams);
-            }
-
-            /// <summary>
-            /// Adds the dynamic parameters.
-            /// </summary>
-            /// <param name="cmdParams">The command parameters.</param>
-            public void AddDynamicParams(object cmdParams)
-            {
-                if (cmdParams == null) return;
-                foreach (var pi in cmdParams.GetType().GetPublicProperties())
-                {
-                    var getterFn = pi.CreateGetter();
-                    if (getterFn == null) continue;
-                    var value = getterFn(cmdParams);
-                    properties.Add(new Property(pi.Name, pi.PropertyType, value));
-                }
-            }
-
-            // The property set and get methods require a special attrs:
-            /// <summary>
-            /// The get set attribute
-            /// </summary>
-            private const MethodAttributes GetSetAttr = MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.HideBySig;
-
-            /// <summary>
-            /// Creates the type of the dynamic.
-            /// </summary>
-            /// <returns>System.Object.</returns>
-            public object CreateDynamicType()
-            {
-                var assemblyName = new AssemblyName { Name = "tmpAssembly" };
+        /// <summary>
+        /// Creates the type of the dynamic.
+        /// </summary>
+        /// <returns>System.Object.</returns>
+        public object CreateDynamicType()
+        {
+            var assemblyName = new AssemblyName { Name = "tmpAssembly" };
 #if NETCORE
                 var typeBuilder =
                     AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run)
                     .DefineDynamicModule("tmpModule")
                     .DefineType("SqlBuilderDynamicParameters", TypeAttributes.Public | TypeAttributes.Class);
 #else
-                var typeBuilder =
-                    Thread.GetDomain().DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run)
+            var typeBuilder =
+                Thread.GetDomain().DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run)
                     .DefineDynamicModule("tmpModule")
                     .DefineType("SqlBuilderDynamicParameters", TypeAttributes.Public | TypeAttributes.Class);
 #endif
-                var emptyCtor = typeBuilder.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, Type.EmptyTypes);
-                var ctorIL = emptyCtor.GetILGenerator();
+            var emptyCtor = typeBuilder.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, Type.EmptyTypes);
+            var ctorIL = emptyCtor.GetILGenerator();
 
-                var unsetValues = new List<Property>();
+            var unsetValues = new List<Property>();
 
-                // Loop over the attributes that will be used as the properties names in out new type
-                foreach (var p in properties)
+            // Loop over the attributes that will be used as the properties names in out new type
+            foreach (var p in properties)
+            {
+                // Generate a private field
+                var field = typeBuilder.DefineField("_" + p.Name, p.Type, FieldAttributes.Private);
+
+                //set default values with Emit for popular types
+                if (p.Type == typeof(int))
                 {
-                    // Generate a private field
-                    var field = typeBuilder.DefineField("_" + p.Name, p.Type, FieldAttributes.Private);
-
-                    //set default values with Emit for popular types
-                    if (p.Type == typeof(int))
-                    {
-                        ctorIL.Emit(OpCodes.Ldarg_0);
-                        ctorIL.Emit(OpCodes.Ldc_I4, (int)p.Value);
-                        ctorIL.Emit(OpCodes.Stfld, field);
-                    }
-                    else if (p.Type == typeof(long))
-                    {
-                        ctorIL.Emit(OpCodes.Ldarg_0);
-                        ctorIL.Emit(OpCodes.Ldc_I8, (long)p.Value);
-                        ctorIL.Emit(OpCodes.Stfld, field);
-                    }
-                    else if (p.Type == typeof(string))
-                    {
-                        ctorIL.Emit(OpCodes.Ldarg_0);
-                        ctorIL.Emit(OpCodes.Ldstr, (string)p.Value);
-                        ctorIL.Emit(OpCodes.Stfld, field);
-                    }
-                    else
-                    {
-                        unsetValues.Add(p); //otherwise use reflection
-                    }
-
-                    // Generate a public property
-                    var property = typeBuilder.DefineProperty(p.Name, PropertyAttributes.None, p.Type, new[] { p.Type });
-
-                    // Define the "get" accessor method for current private field.
-                    var currGetPropMthdBldr = typeBuilder.DefineMethod("get_" + p.Name, GetSetAttr, p.Type, Type.EmptyTypes);
-
-                    // Get Property impl
-                    var currGetIL = currGetPropMthdBldr.GetILGenerator();
-                    currGetIL.Emit(OpCodes.Ldarg_0);
-                    currGetIL.Emit(OpCodes.Ldfld, field);
-                    currGetIL.Emit(OpCodes.Ret);
-
-                    // Define the "set" accessor method for current private field.
-                    var currSetPropMthdBldr = typeBuilder.DefineMethod("set_" + p.Name, GetSetAttr, null, new[] { p.Type });
-
-                    // Set Property impl
-                    var currSetIL = currSetPropMthdBldr.GetILGenerator();
-                    currSetIL.Emit(OpCodes.Ldarg_0);
-                    currSetIL.Emit(OpCodes.Ldarg_1);
-                    currSetIL.Emit(OpCodes.Stfld, field);
-                    currSetIL.Emit(OpCodes.Ret);
-
-                    // Hook up, getters and setters.
-                    property.SetGetMethod(currGetPropMthdBldr);
-                    property.SetSetMethod(currSetPropMthdBldr);
+                    ctorIL.Emit(OpCodes.Ldarg_0);
+                    ctorIL.Emit(OpCodes.Ldc_I4, (int)p.Value);
+                    ctorIL.Emit(OpCodes.Stfld, field);
+                }
+                else if (p.Type == typeof(long))
+                {
+                    ctorIL.Emit(OpCodes.Ldarg_0);
+                    ctorIL.Emit(OpCodes.Ldc_I8, (long)p.Value);
+                    ctorIL.Emit(OpCodes.Stfld, field);
+                }
+                else if (p.Type == typeof(string))
+                {
+                    ctorIL.Emit(OpCodes.Ldarg_0);
+                    ctorIL.Emit(OpCodes.Ldstr, (string)p.Value);
+                    ctorIL.Emit(OpCodes.Stfld, field);
+                }
+                else
+                {
+                    unsetValues.Add(p); //otherwise use reflection
                 }
 
-                ctorIL.Emit(OpCodes.Ret);
+                // Generate a public property
+                var property = typeBuilder.DefineProperty(p.Name, PropertyAttributes.None, p.Type, new[] { p.Type });
+
+                // Define the "get" accessor method for current private field.
+                var currGetPropMthdBldr = typeBuilder.DefineMethod("get_" + p.Name, GetSetAttr, p.Type, Type.EmptyTypes);
+
+                // Get Property impl
+                var currGetIL = currGetPropMthdBldr.GetILGenerator();
+                currGetIL.Emit(OpCodes.Ldarg_0);
+                currGetIL.Emit(OpCodes.Ldfld, field);
+                currGetIL.Emit(OpCodes.Ret);
+
+                // Define the "set" accessor method for current private field.
+                var currSetPropMthdBldr = typeBuilder.DefineMethod("set_" + p.Name, GetSetAttr, null, new[] { p.Type });
+
+                // Set Property impl
+                var currSetIL = currSetPropMthdBldr.GetILGenerator();
+                currSetIL.Emit(OpCodes.Ldarg_0);
+                currSetIL.Emit(OpCodes.Ldarg_1);
+                currSetIL.Emit(OpCodes.Stfld, field);
+                currSetIL.Emit(OpCodes.Ret);
+
+                // Hook up, getters and setters.
+                property.SetGetMethod(currGetPropMthdBldr);
+                property.SetSetMethod(currSetPropMthdBldr);
+            }
+
+            ctorIL.Emit(OpCodes.Ret);
 
 #if NETCORE
                 var generetedType = typeBuilder.CreateTypeInfo().AsType();
 #else
-                var generetedType = typeBuilder.CreateType();
+            var generetedType = typeBuilder.CreateType();
 #endif
-                var instance = Activator.CreateInstance(generetedType);
+            var instance = Activator.CreateInstance(generetedType);
 
-                //Using reflection for less property types. Not caching since it's a generated type.
-                foreach (var p in unsetValues)
-                {
-                    generetedType.GetProperty(p.Name).GetSetMethod().Invoke(instance, new[] { p.Value });
-                }
-
-                return instance;
+            //Using reflection for less property types. Not caching since it's a generated type.
+            foreach (var p in unsetValues)
+            {
+                generetedType.GetProperty(p.Name).GetSetMethod().Invoke(instance, new[] { p.Value });
             }
+
+            return instance;
         }
+    }
+
+    /// <summary>
+    /// Class Clauses.
+    /// </summary>
+    private class Clauses : List<Clause>
+    {
+        /// <summary>
+        /// The joiner
+        /// </summary>
+        private readonly string joiner;
+        /// <summary>
+        /// The prefix
+        /// </summary>
+        private readonly string prefix;
+        /// <summary>
+        /// The postfix
+        /// </summary>
+        private readonly string postfix;
 
         /// <summary>
-        /// Class Clauses.
+        /// Initializes a new instance of the <see cref="Clauses"/> class.
         /// </summary>
-        private class Clauses : List<Clause>
-        {
-            /// <summary>
-            /// The joiner
-            /// </summary>
-            private readonly string joiner;
-            /// <summary>
-            /// The prefix
-            /// </summary>
-            private readonly string prefix;
-            /// <summary>
-            /// The postfix
-            /// </summary>
-            private readonly string postfix;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Clauses"/> class.
-            /// </summary>
-            /// <param name="joiner">The joiner.</param>
-            /// <param name="prefix">The prefix.</param>
-            /// <param name="postfix">The postfix.</param>
-            public Clauses(string joiner, string prefix = "", string postfix = "")
-            {
-                this.joiner = joiner;
-                this.prefix = prefix;
-                this.postfix = postfix;
-            }
-
-            /// <summary>
-            /// Resolves the clauses.
-            /// </summary>
-            /// <param name="p">The p.</param>
-            /// <returns>System.String.</returns>
-            public string ResolveClauses(DynamicParameters p)
-            {
-                foreach (var item in this)
-                {
-                    p.AddDynamicParams(item.Parameters);
-                }
-                return prefix + string.Join(joiner, this.Select(c => c.Sql).ToArray()) + postfix;
-            }
-        }
-
-        /// <summary>
-        /// Class Template.
-        /// Implements the <see cref="ServiceStack.OrmLite.ISqlExpression" />
-        /// </summary>
-        /// <seealso cref="ServiceStack.OrmLite.ISqlExpression" />
-        public class Template : ISqlExpression
-        {
-            /// <summary>
-            /// The SQL
-            /// </summary>
-            private readonly string sql;
-            /// <summary>
-            /// The builder
-            /// </summary>
-            private readonly SqlBuilder builder;
-            /// <summary>
-            /// The initialize parameters
-            /// </summary>
-            private readonly object initParams;
-            /// <summary>
-            /// The data seq
-            /// </summary>
-            private int dataSeq = -1; // Unresolved
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Template"/> class.
-            /// </summary>
-            /// <param name="builder">The builder.</param>
-            /// <param name="sql">The SQL.</param>
-            /// <param name="parameters">The parameters.</param>
-            public Template(SqlBuilder builder, string sql, object parameters)
-            {
-                this.initParams = parameters;
-                this.sql = sql;
-                this.builder = builder;
-            }
-
-            /// <summary>
-            /// The regex
-            /// </summary>
-            private static readonly Regex regex = new(@"\/\*\*.+\*\*\/", RegexOptions.Compiled | RegexOptions.Multiline);
-
-            /// <summary>
-            /// Resolves the SQL.
-            /// </summary>
-            private void ResolveSql()
-            {
-                if (dataSeq != builder.seq)
-                {
-                    var p = new DynamicParameters(initParams);
-
-                    rawSql = sql;
-
-                    foreach (var pair in builder.data)
-                    {
-                        rawSql = rawSql.Replace("/**" + pair.Key + "**/", pair.Value.ResolveClauses(p));
-                    }
-                    parameters = p.CreateDynamicType();
-
-                    // replace all that is left with empty
-                    rawSql = regex.Replace(rawSql, "");
-
-                    dataSeq = builder.seq;
-                }
-            }
-
-            /// <summary>
-            /// The raw SQL
-            /// </summary>
-            private string rawSql;
-            /// <summary>
-            /// The parameters
-            /// </summary>
-            private object parameters;
-
-            /// <summary>
-            /// Gets the raw SQL.
-            /// </summary>
-            /// <value>The raw SQL.</value>
-            public string RawSql { get { ResolveSql(); return rawSql; } }
-            /// <summary>
-            /// Gets the parameters.
-            /// </summary>
-            /// <value>The parameters.</value>
-            public object Parameters { get { ResolveSql(); return parameters; } }
-
-            /// <summary>
-            /// Gets the parameters.
-            /// </summary>
-            /// <value>The parameters.</value>
-            public List<IDbDataParameter> Params { get; private set; }
-
-            /// <summary>
-            /// Converts to selectstatement.
-            /// </summary>
-            /// <returns>string.</returns>
-            public string ToSelectStatement() => ToSelectStatement(QueryType.Select);
-            /// <summary>
-            /// Converts to selectstatement.
-            /// </summary>
-            /// <param name="forType">For type.</param>
-            /// <returns>string.</returns>
-            public string ToSelectStatement(QueryType forType)
-            {
-                return RawSql;
-            }
-
-            /// <summary>
-            /// Selects the into.
-            /// </summary>
-            /// <typeparam name="T"></typeparam>
-            /// <returns>System.String.</returns>
-            public string SelectInto<T>() => RawSql;
-            /// <summary>
-            /// Selects the into.
-            /// </summary>
-            /// <typeparam name="T"></typeparam>
-            /// <param name="queryType">Type of the query.</param>
-            /// <returns>System.String.</returns>
-            public string SelectInto<T>(QueryType queryType) => RawSql;
-        }
-
-        /// <summary>
-        /// Adds the template.
-        /// </summary>
-        /// <param name="sql">The SQL.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns>Template.</returns>
-        public Template AddTemplate(string sql, object parameters = null)
-        {
-            return new Template(this, sql, parameters);
-        }
-
-        /// <summary>
-        /// Adds the clause.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="sql">The SQL.</param>
-        /// <param name="parameters">The parameters.</param>
         /// <param name="joiner">The joiner.</param>
         /// <param name="prefix">The prefix.</param>
         /// <param name="postfix">The postfix.</param>
-        private void AddClause(string name, string sql, object parameters, string joiner, string prefix = "", string postfix = "")
+        public Clauses(string joiner, string prefix = "", string postfix = "")
         {
-            if (!data.TryGetValue(name, out Clauses clauses))
+            this.joiner = joiner;
+            this.prefix = prefix;
+            this.postfix = postfix;
+        }
+
+        /// <summary>
+        /// Resolves the clauses.
+        /// </summary>
+        /// <param name="p">The p.</param>
+        /// <returns>System.String.</returns>
+        public string ResolveClauses(DynamicParameters p)
+        {
+            foreach (var item in this)
             {
-                clauses = new Clauses(joiner, prefix, postfix);
-                data[name] = clauses;
+                p.AddDynamicParams(item.Parameters);
             }
-            clauses.Add(new Clause { Sql = sql, Parameters = parameters });
-            seq++;
-        }
-
-
-        /// <summary>
-        /// Lefts the join.
-        /// </summary>
-        /// <param name="sql">The SQL.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns>SqlBuilder.</returns>
-        public SqlBuilder LeftJoin(string sql, object parameters = null)
-        {
-            AddClause("leftjoin", sql, parameters, joiner: "\nLEFT JOIN ", prefix: "\nLEFT JOIN ", postfix: "\n");
-            return this;
-        }
-
-        /// <summary>
-        /// Wheres the specified SQL.
-        /// </summary>
-        /// <param name="sql">The SQL.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns>SqlBuilder.</returns>
-        public SqlBuilder Where(string sql, object parameters = null)
-        {
-            AddClause("where", sql, parameters, " AND ", prefix: "WHERE ", postfix: "\n");
-            return this;
-        }
-
-        /// <summary>
-        /// Orders the by.
-        /// </summary>
-        /// <param name="sql">The SQL.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns>SqlBuilder.</returns>
-        public SqlBuilder OrderBy(string sql, object parameters = null)
-        {
-            AddClause("orderby", sql, parameters, " , ", prefix: "ORDER BY ", postfix: "\n");
-            return this;
-        }
-
-        /// <summary>
-        /// Selects the specified SQL.
-        /// </summary>
-        /// <param name="sql">The SQL.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns>SqlBuilder.</returns>
-        public SqlBuilder Select(string sql, object parameters = null)
-        {
-            AddClause("select", sql, parameters, " , ", prefix: "", postfix: "\n");
-            return this;
-        }
-
-        /// <summary>
-        /// Adds the parameters.
-        /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns>SqlBuilder.</returns>
-        public SqlBuilder AddParameters(object parameters)
-        {
-            AddClause("--parameters", "", parameters, "");
-            return this;
-        }
-
-        /// <summary>
-        /// Joins the specified SQL.
-        /// </summary>
-        /// <param name="sql">The SQL.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns>SqlBuilder.</returns>
-        public SqlBuilder Join(string sql, object parameters = null)
-        {
-            AddClause("join", sql, parameters, joiner: "\nJOIN ", prefix: "\nJOIN", postfix: "\n");
-            return this;
+            return prefix + string.Join(joiner, this.Select(c => c.Sql).ToArray()) + postfix;
         }
     }
-#endif
 
+    /// <summary>
+    /// Class Template.
+    /// Implements the <see cref="ServiceStack.OrmLite.ISqlExpression" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.OrmLite.ISqlExpression" />
+    public class Template : ISqlExpression
+    {
+        /// <summary>
+        /// The SQL
+        /// </summary>
+        private readonly string sql;
+        /// <summary>
+        /// The builder
+        /// </summary>
+        private readonly SqlBuilder builder;
+        /// <summary>
+        /// The initialize parameters
+        /// </summary>
+        private readonly object initParams;
+        /// <summary>
+        /// The data seq
+        /// </summary>
+        private int dataSeq = -1; // Unresolved
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Template"/> class.
+        /// </summary>
+        /// <param name="builder">The builder.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="parameters">The parameters.</param>
+        public Template(SqlBuilder builder, string sql, object parameters)
+        {
+            this.initParams = parameters;
+            this.sql = sql;
+            this.builder = builder;
+        }
+
+        /// <summary>
+        /// The regex
+        /// </summary>
+        private static readonly Regex regex = new(@"\/\*\*.+\*\*\/", RegexOptions.Compiled | RegexOptions.Multiline);
+
+        /// <summary>
+        /// Resolves the SQL.
+        /// </summary>
+        private void ResolveSql()
+        {
+            if (dataSeq != builder.seq)
+            {
+                var p = new DynamicParameters(initParams);
+
+                rawSql = sql;
+
+                foreach (var pair in builder.data)
+                {
+                    rawSql = rawSql.Replace("/**" + pair.Key + "**/", pair.Value.ResolveClauses(p));
+                }
+                parameters = p.CreateDynamicType();
+
+                // replace all that is left with empty
+                rawSql = regex.Replace(rawSql, "");
+
+                dataSeq = builder.seq;
+            }
+        }
+
+        /// <summary>
+        /// The raw SQL
+        /// </summary>
+        private string rawSql;
+        /// <summary>
+        /// The parameters
+        /// </summary>
+        private object parameters;
+
+        /// <summary>
+        /// Gets the raw SQL.
+        /// </summary>
+        /// <value>The raw SQL.</value>
+        public string RawSql { get { ResolveSql(); return rawSql; } }
+        /// <summary>
+        /// Gets the parameters.
+        /// </summary>
+        /// <value>The parameters.</value>
+        public object Parameters { get { ResolveSql(); return parameters; } }
+
+        /// <summary>
+        /// Gets the parameters.
+        /// </summary>
+        /// <value>The parameters.</value>
+        public List<IDbDataParameter> Params { get; private set; }
+
+        /// <summary>
+        /// Converts to selectstatement.
+        /// </summary>
+        /// <returns>string.</returns>
+        public string ToSelectStatement() => ToSelectStatement(QueryType.Select);
+        /// <summary>
+        /// Converts to selectstatement.
+        /// </summary>
+        /// <param name="forType">For type.</param>
+        /// <returns>string.</returns>
+        public string ToSelectStatement(QueryType forType)
+        {
+            return RawSql;
+        }
+
+        /// <summary>
+        /// Selects the into.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>System.String.</returns>
+        public string SelectInto<T>() => RawSql;
+        /// <summary>
+        /// Selects the into.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryType">Type of the query.</param>
+        /// <returns>System.String.</returns>
+        public string SelectInto<T>(QueryType queryType) => RawSql;
+    }
+
+    /// <summary>
+    /// Adds the template.
+    /// </summary>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="parameters">The parameters.</param>
+    /// <returns>Template.</returns>
+    public Template AddTemplate(string sql, object parameters = null)
+    {
+        return new Template(this, sql, parameters);
+    }
+
+    /// <summary>
+    /// Adds the clause.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="parameters">The parameters.</param>
+    /// <param name="joiner">The joiner.</param>
+    /// <param name="prefix">The prefix.</param>
+    /// <param name="postfix">The postfix.</param>
+    private void AddClause(string name, string sql, object parameters, string joiner, string prefix = "", string postfix = "")
+    {
+        if (!data.TryGetValue(name, out Clauses clauses))
+        {
+            clauses = new Clauses(joiner, prefix, postfix);
+            data[name] = clauses;
+        }
+        clauses.Add(new Clause { Sql = sql, Parameters = parameters });
+        seq++;
+    }
+
+
+    /// <summary>
+    /// Lefts the join.
+    /// </summary>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="parameters">The parameters.</param>
+    /// <returns>SqlBuilder.</returns>
+    public SqlBuilder LeftJoin(string sql, object parameters = null)
+    {
+        AddClause("leftjoin", sql, parameters, joiner: "\nLEFT JOIN ", prefix: "\nLEFT JOIN ", postfix: "\n");
+        return this;
+    }
+
+    /// <summary>
+    /// Wheres the specified SQL.
+    /// </summary>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="parameters">The parameters.</param>
+    /// <returns>SqlBuilder.</returns>
+    public SqlBuilder Where(string sql, object parameters = null)
+    {
+        AddClause("where", sql, parameters, " AND ", prefix: "WHERE ", postfix: "\n");
+        return this;
+    }
+
+    /// <summary>
+    /// Orders the by.
+    /// </summary>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="parameters">The parameters.</param>
+    /// <returns>SqlBuilder.</returns>
+    public SqlBuilder OrderBy(string sql, object parameters = null)
+    {
+        AddClause("orderby", sql, parameters, " , ", prefix: "ORDER BY ", postfix: "\n");
+        return this;
+    }
+
+    /// <summary>
+    /// Selects the specified SQL.
+    /// </summary>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="parameters">The parameters.</param>
+    /// <returns>SqlBuilder.</returns>
+    public SqlBuilder Select(string sql, object parameters = null)
+    {
+        AddClause("select", sql, parameters, " , ", prefix: "", postfix: "\n");
+        return this;
+    }
+
+    /// <summary>
+    /// Adds the parameters.
+    /// </summary>
+    /// <param name="parameters">The parameters.</param>
+    /// <returns>SqlBuilder.</returns>
+    public SqlBuilder AddParameters(object parameters)
+    {
+        AddClause("--parameters", "", parameters, "");
+        return this;
+    }
+
+    /// <summary>
+    /// Joins the specified SQL.
+    /// </summary>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="parameters">The parameters.</param>
+    /// <returns>SqlBuilder.</returns>
+    public SqlBuilder Join(string sql, object parameters = null)
+    {
+        AddClause("join", sql, parameters, joiner: "\nJOIN ", prefix: "\nJOIN", postfix: "\n");
+        return this;
+    }
 }
+#endif

@@ -22,129 +22,128 @@
  * under the License.
  */
 
-namespace YAF.Core.Data
+namespace YAF.Core.Data;
+
+#region Using
+
+using Autofac.Features.Indexed;
+
+using YAF.Configuration;
+using YAF.Core.Events;
+using YAF.Core.Helpers;
+using YAF.Types;
+using YAF.Types.Exceptions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+///     The Database connection provider base.
+/// </summary>
+public class DbAccessProvider : IDbAccessProvider
 {
-    #region Using
+    #region Fields
 
-    using Autofac.Features.Indexed;
+    /// <summary>
+    /// The database access providers.
+    /// </summary>
+    private readonly IIndex<string, IDbAccess> _dbAccessProviders;
 
-    using YAF.Configuration;
-    using YAF.Core.Events;
-    using YAF.Core.Helpers;
-    using YAF.Types;
-    using YAF.Types.Exceptions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Events;
+    /// <summary>
+    /// The database access safe.
+    /// </summary>
+    private readonly SafeReadWriteProvider<IDbAccess> _dbAccessSafe;
+
+    /// <summary>
+    /// The service locator.
+    /// </summary>
+    private readonly IServiceLocator _serviceLocator;
+
+    /// <summary>
+    /// The provider name.
+    /// </summary>
+    private string _providerName;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    ///     The Database connection provider base.
+    ///     Initializes a new instance of the <see cref="DbAccessProvider" /> class.
     /// </summary>
-    public class DbAccessProvider : IDbAccessProvider
+    /// <param name="dbAccessProviders">
+    ///     The database access providers.
+    /// </param>
+    /// <param name="serviceLocator">
+    ///     The service locator.
+    /// </param>
+    public DbAccessProvider(IIndex<string, IDbAccess> dbAccessProviders, IServiceLocator serviceLocator)
     {
-        #region Fields
+        this._dbAccessProviders = dbAccessProviders;
+        this._serviceLocator = serviceLocator;
 
-        /// <summary>
-        /// The database access providers.
-        /// </summary>
-        private readonly IIndex<string, IDbAccess> _dbAccessProviders;
-
-        /// <summary>
-        /// The database access safe.
-        /// </summary>
-        private readonly SafeReadWriteProvider<IDbAccess> _dbAccessSafe;
-
-        /// <summary>
-        /// The service locator.
-        /// </summary>
-        private readonly IServiceLocator _serviceLocator;
-
-        /// <summary>
-        /// The provider name.
-        /// </summary>
-        private string _providerName;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="DbAccessProvider" /> class.
-        /// </summary>
-        /// <param name="dbAccessProviders">
-        ///     The database access providers.
-        /// </param>
-        /// <param name="serviceLocator">
-        ///     The service locator.
-        /// </param>
-        public DbAccessProvider(IIndex<string, IDbAccess> dbAccessProviders, IServiceLocator serviceLocator)
-        {
-            this._dbAccessProviders = dbAccessProviders;
-            this._serviceLocator = serviceLocator;
-
-            this._dbAccessSafe = new SafeReadWriteProvider<IDbAccess>(
-                () =>
-                    {
-                        // attempt to get the provider...
-                        if (this._dbAccessProviders.TryGetValue(this.ProviderName, out var dbAccess))
-                        {
-                            // first time...
-                            this._serviceLocator.Get<IRaiseEvent>()
-                                .Raise(new InitDatabaseProviderEvent(this.ProviderName, dbAccess));
-                        }
-                        else
-                        {
-                            throw new NoValidDbAccessProviderFoundException(
-                                $@"Unable to Locate Provider Named ""{this.ProviderName}"" in Data Access Providers (DLL Not Located in Bin Directory?).");
-                        }
-
-                        return dbAccess;
-                    });
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// Gets or sets the instance of the IDbAccess provider.
-        /// </summary>
-        /// <returns> </returns>
-        /// <exception cref="NoValidDbAccessProviderFoundException">
-        ///     <c>NoValidDbAccessProviderFoundException</c>
-        ///     .
-        /// </exception>
-        [CanBeNull]
-        public IDbAccess Instance
-        {
-            get => this._dbAccessSafe.Instance;
-
-            set
-            {
-                this._dbAccessSafe.Instance = value;
-                if (value != null)
+        this._dbAccessSafe = new SafeReadWriteProvider<IDbAccess>(
+            () =>
                 {
-                    this.ProviderName = value.Information.ProviderName;
-                }
-            }
-        }
+                    // attempt to get the provider...
+                    if (this._dbAccessProviders.TryGetValue(this.ProviderName, out var dbAccess))
+                    {
+                        // first time...
+                        this._serviceLocator.Get<IRaiseEvent>()
+                            .Raise(new InitDatabaseProviderEvent(this.ProviderName, dbAccess));
+                    }
+                    else
+                    {
+                        throw new NoValidDbAccessProviderFoundException(
+                            $@"Unable to Locate Provider Named ""{this.ProviderName}"" in Data Access Providers (DLL Not Located in Bin Directory?).");
+                    }
 
-        /// <summary>
-        ///     Gets or sets ProviderName.
-        /// </summary>
-        public string ProviderName
-        {
-            get => this._providerName ?? (this._providerName = Config.ConnectionProviderName);
-
-            set
-            {
-                this._providerName = value;
-                this._dbAccessSafe.Instance = null;
-            }
-        }
-
-        #endregion
+                    return dbAccess;
+                });
     }
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    /// Gets or sets the instance of the IDbAccess provider.
+    /// </summary>
+    /// <returns> </returns>
+    /// <exception cref="NoValidDbAccessProviderFoundException">
+    ///     <c>NoValidDbAccessProviderFoundException</c>
+    ///     .
+    /// </exception>
+    [CanBeNull]
+    public IDbAccess Instance
+    {
+        get => this._dbAccessSafe.Instance;
+
+        set
+        {
+            this._dbAccessSafe.Instance = value;
+            if (value != null)
+            {
+                this.ProviderName = value.Information.ProviderName;
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Gets or sets ProviderName.
+    /// </summary>
+    public string ProviderName
+    {
+        get => this._providerName ?? (this._providerName = Config.ConnectionProviderName);
+
+        set
+        {
+            this._providerName = value;
+            this._dbAccessSafe.Instance = null;
+        }
+    }
+
+    #endregion
 }

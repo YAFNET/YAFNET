@@ -22,141 +22,140 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces.Services
-{
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+namespace YAF.Types.Interfaces.Services;
 
-    using YAF.Types.Objects;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using YAF.Types.Objects;
+
+/// <summary>
+/// The Search interface
+/// </summary>
+public interface ISearch
+{
+    #region Public Methods
 
     /// <summary>
-    /// The Search interface
+    /// Optimizes the Search Index
     /// </summary>
-    public interface ISearch
-    {
-        #region Public Methods
+    void Optimize();
 
-        /// <summary>
-        /// Optimizes the Search Index
-        /// </summary>
-        void Optimize();
+    /// <summary>
+    /// Clears the search Index.
+    /// </summary>
+    /// <returns>Returns if clearing was successful</returns>
+    bool ClearSearchIndex();
 
-        /// <summary>
-        /// Clears the search Index.
-        /// </summary>
-        /// <returns>Returns if clearing was successful</returns>
-        bool ClearSearchIndex();
+    /// <summary>
+    /// Delete Search Index Record by Message Id.
+    /// </summary>
+    /// <param name="messageId">
+    /// The message id.
+    /// </param>
+    void DeleteSearchIndexRecordByMessageId(int messageId);
 
-        /// <summary>
-        /// Delete Search Index Record by Message Id.
-        /// </summary>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        void DeleteSearchIndexRecordByMessageId(int messageId);
+    /// <summary>
+    /// Delete Search Index Record by Topic Id.
+    /// </summary>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    void DeleteSearchIndexRecordByTopicId(int topicId);
 
-        /// <summary>
-        /// Delete Search Index Record by Topic Id.
-        /// </summary>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        void DeleteSearchIndexRecordByTopicId(int topicId);
+    /// <summary>
+    /// Adds the search index
+    /// </summary>
+    /// <param name="messageList">
+    /// The message list.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    Task AddSearchIndexAsync(IEnumerable<SearchMessage> messageList);
 
-        /// <summary>
-        /// Adds the search index
-        /// </summary>
-        /// <param name="messageList">
-        /// The message list.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        Task AddSearchIndexAsync(IEnumerable<SearchMessage> messageList);
+    /// <summary>
+    /// The add search index item.
+    /// </summary>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    void AddSearchIndexItem(SearchMessage message);
 
-        /// <summary>
-        /// The add search index item.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        void AddSearchIndexItem(SearchMessage message);
+    /// <summary>
+    /// Updates the Search Index Item or if not found adds it.
+    /// </summary>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="dispose">
+    /// Dispose IndexWriter after updating?
+    /// </param>
+    void UpdateSearchIndexItem(SearchMessage message, bool dispose = false);
 
-        /// <summary>
-        /// Updates the Search Index Item or if not found adds it.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="dispose">
-        /// Dispose IndexWriter after updating?
-        /// </param>
-        void UpdateSearchIndexItem(SearchMessage message, bool dispose = false);
+    /// <summary>
+    /// Only Get Number of Search Results (Hits)
+    /// </summary>
+    /// <param name="input">
+    /// The input.
+    /// </param>
+    /// <returns>
+    /// The <see cref="int"/>.
+    /// </returns>
+    int CountHits(string input);
 
-        /// <summary>
-        /// Only Get Number of Search Results (Hits)
-        /// </summary>
-        /// <param name="input">
-        /// The input.
-        /// </param>
-        /// <returns>
-        /// The <see cref="int"/>.
-        /// </returns>
-        int CountHits(string input);
+    /// <summary>
+    /// Searches the specified user identifier.
+    /// </summary>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <param name="input">The input.</param>
+    /// <param name="fieldName">Name of the field.</param>
+    /// <returns>
+    /// Returns the search results
+    /// </returns>
+    List<SearchMessage> DoSearch(int forumId, string input, string fieldName = "");
 
-        /// <summary>
-        /// Searches the specified user identifier.
-        /// </summary>
-        /// <param name="forumId">The forum identifier.</param>
-        /// <param name="input">The input.</param>
-        /// <param name="fieldName">Name of the field.</param>
-        /// <returns>
-        /// Returns the search results
-        /// </returns>
-        List<SearchMessage> DoSearch(int forumId, string input, string fieldName = "");
+    /// <summary>
+    /// Searches for similar words
+    /// </summary>
+    /// <param name="filter">
+    /// The filter.
+    /// </param>
+    /// <param name="input">
+    /// The input.
+    /// </param>
+    /// <param name="fieldName">
+    /// Name of the field.
+    /// </param>
+    /// <returns>
+    /// Returns the list of search results.
+    /// </returns>
+    List<SearchMessage> SearchSimilar(string filter, string input, string fieldName = "");
 
-        /// <summary>
-        /// Searches for similar words
-        /// </summary>
-        /// <param name="filter">
-        /// The filter.
-        /// </param>
-        /// <param name="input">
-        /// The input.
-        /// </param>
-        /// <param name="fieldName">
-        /// Name of the field.
-        /// </param>
-        /// <returns>
-        /// Returns the list of search results.
-        /// </returns>
-        List<SearchMessage> SearchSimilar(string filter, string input, string fieldName = "");
+    /// <summary>
+    /// Searches the paged.
+    /// </summary>
+    /// <param name="totalHits">The total hits.</param>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <param name="input">The input.</param>
+    /// <param name="pageIndex">Index of the page.</param>
+    /// <param name="pageSize">Size of the page.</param>
+    /// <param name="fieldName">Name of the field.</param>
+    /// <returns>
+    /// Returns the search results
+    /// </returns>
+    List<SearchMessage> SearchPaged(out int totalHits, int forumId, string input, int pageIndex, int pageSize, string fieldName = "");
 
-        /// <summary>
-        /// Searches the paged.
-        /// </summary>
-        /// <param name="totalHits">The total hits.</param>
-        /// <param name="forumId">The forum identifier.</param>
-        /// <param name="input">The input.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="fieldName">Name of the field.</param>
-        /// <returns>
-        /// Returns the search results
-        /// </returns>
-        List<SearchMessage> SearchPaged(out int totalHits, int forumId, string input, int pageIndex, int pageSize, string fieldName = "");
+    /// <summary>
+    /// Searches the default.
+    /// </summary>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <param name="input">The input.</param>
+    /// <param name="fieldName">Name of the field.</param>
+    /// <returns>
+    /// Returns the search results
+    /// </returns>
+    List<SearchMessage> SearchDefault(int forumId, string input, string fieldName = "");
 
-        /// <summary>
-        /// Searches the default.
-        /// </summary>
-        /// <param name="forumId">The forum identifier.</param>
-        /// <param name="input">The input.</param>
-        /// <param name="fieldName">Name of the field.</param>
-        /// <returns>
-        /// Returns the search results
-        /// </returns>
-        List<SearchMessage> SearchDefault(int forumId, string input, string fieldName = "");
-
-        #endregion
-    }
+    #endregion
 }

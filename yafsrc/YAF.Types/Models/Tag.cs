@@ -22,44 +22,43 @@
  * under the License.
  */
 
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the Tag table.
+/// </summary>
+[Serializable]
+[Alias("Tag")]
+public class Tag : IEntity, IHaveBoardID, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the Tag table.
+    /// Gets or sets the Tag id.
     /// </summary>
-    [Serializable]
-    [Alias("Tag")]
-    public class Tag : IEntity, IHaveBoardID, IHaveID
-    {
-        #region Properties
+    [AutoIncrement]
+    [Alias("TagID")]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the Tag id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("TagID")]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    [References(typeof(Board))]
+    [Required]
+    public int BoardID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the topic id.
-        /// </summary>
-        [References(typeof(Board))]
-        [Required]
-        public int BoardID { get; set; }
+    /// <summary>
+    /// Gets or sets the tag name.
+    /// </summary>
+    [Required]
+    public string TagName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the tag name.
-        /// </summary>
-        [Required]
-        public string TagName { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

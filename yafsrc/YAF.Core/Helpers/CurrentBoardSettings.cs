@@ -21,86 +21,86 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Helpers
+namespace YAF.Core.Helpers;
+
+#region Using
+
+using System.Runtime.Caching;
+
+using YAF.Configuration;
+using YAF.Core.BoardSettings;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+///     The current board settings.
+/// </summary>
+public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
 {
-    #region Using
+    #region Fields
 
-    using System.Runtime.Caching;
+    /// <summary>
+    ///     The have board id.
+    /// </summary>
+    private readonly IHaveBoardID haveBoardId;
 
-    using YAF.Configuration;
-    using YAF.Core.BoardSettings;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    ///     The inject services.
+    /// </summary>
+    private readonly IInjectServices injectServices;
+
+    /// <summary>
+    ///     The treat cache key.
+    /// </summary>
+    private readonly ITreatCacheKey treatCacheKey;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    ///     The current board settings.
+    /// Initializes a new instance of the <see cref="CurrentBoardSettings"/> class.
     /// </summary>
-    public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
+    /// <param name="injectServices">
+    /// The inject services.
+    /// </param>
+    /// <param name="haveBoardId">
+    /// The have board id.
+    /// </param>
+    /// <param name="treatCacheKey">
+    /// The treat Cache Key.
+    /// </param>
+    public CurrentBoardSettings(
+        [NotNull] IInjectServices injectServices,
+        [NotNull] IHaveBoardID haveBoardId,
+        [NotNull] ITreatCacheKey treatCacheKey)
     {
-        #region Fields
+        CodeContracts.VerifyNotNull(injectServices);
+        CodeContracts.VerifyNotNull(haveBoardId);
+        CodeContracts.VerifyNotNull(treatCacheKey);
 
-        /// <summary>
-        ///     The have board id.
-        /// </summary>
-        private readonly IHaveBoardID haveBoardId;
+        this.injectServices = injectServices;
+        this.haveBoardId = haveBoardId;
+        this.treatCacheKey = treatCacheKey;
+    }
 
-        /// <summary>
-        ///     The inject services.
-        /// </summary>
-        private readonly IInjectServices injectServices;
+    #endregion
 
-        /// <summary>
-        ///     The treat cache key.
-        /// </summary>
-        private readonly ITreatCacheKey treatCacheKey;
+    #region Public Properties
 
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CurrentBoardSettings"/> class.
-        /// </summary>
-        /// <param name="injectServices">
-        /// The inject services.
-        /// </param>
-        /// <param name="haveBoardId">
-        /// The have board id.
-        /// </param>
-        /// <param name="treatCacheKey">
-        /// The treat Cache Key.
-        /// </param>
-        public CurrentBoardSettings(
-            [NotNull] IInjectServices injectServices,
-            [NotNull] IHaveBoardID haveBoardId,
-            [NotNull] ITreatCacheKey treatCacheKey)
-        {
-            CodeContracts.VerifyNotNull(injectServices);
-            CodeContracts.VerifyNotNull(haveBoardId);
-            CodeContracts.VerifyNotNull(treatCacheKey);
-
-            this.injectServices = injectServices;
-            this.haveBoardId = haveBoardId;
-            this.treatCacheKey = treatCacheKey;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets or sets Object.
-        /// </summary>
-        public BoardSettings Instance
-        {
-            get =>
-                MemoryCache.Default.GetOrSet(
-                    this.treatCacheKey.Treat(Constants.Cache.BoardSettings),
-                    () =>
+    /// <summary>
+    ///     Gets or sets Object.
+    /// </summary>
+    public BoardSettings Instance
+    {
+        get =>
+            MemoryCache.Default.GetOrSet(
+                this.treatCacheKey.Treat(Constants.Cache.BoardSettings),
+                () =>
                     {
                         var boardSettings = (BoardSettings)new LoadBoardSettings(this.haveBoardId.BoardID);
 
@@ -110,17 +110,16 @@ namespace YAF.Core.Helpers
                         return boardSettings;
                     });
 
-            set => MemoryCache.Default.Set(this.treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
-        }
-
-        /// <summary>
-        /// Reset Board Settings 
-        /// </summary>
-        public void Reset()
-        {
-            MemoryCache.Default.Remove(this.treatCacheKey.Treat(Constants.Cache.BoardSettings));
-        }
-
-        #endregion
+        set => MemoryCache.Default.Set(this.treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
     }
+
+    /// <summary>
+    /// Reset Board Settings 
+    /// </summary>
+    public void Reset()
+    {
+        MemoryCache.Default.Remove(this.treatCacheKey.Treat(Constants.Cache.BoardSettings));
+    }
+
+    #endregion
 }

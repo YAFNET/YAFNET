@@ -21,151 +21,150 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Tasks
+namespace YAF.Core.Tasks;
+
+#region Using
+
+using System;
+using System.Globalization;
+using System.Threading;
+
+using YAF.Core.BoardSettings;
+using YAF.Core.Context;
+using YAF.Core.Model;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The Update Search Index task.
+/// </summary>
+public class UpdateSearchIndexTask : LongBackgroundTask
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System;
-    using System.Globalization;
-    using System.Threading;
-
-    using YAF.Core.BoardSettings;
-    using YAF.Core.Context;
-    using YAF.Core.Model;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "UpdateSearchIndexTask" /> class.
+    /// </summary>
+    public UpdateSearchIndexTask()
+    {
+        // set interval values...
+        this.StartDelayMs = 30000;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The Update Search Index task.
+    ///   Gets TaskName.
     /// </summary>
-    public class UpdateSearchIndexTask : LongBackgroundTask
+    public static string TaskName { get; } = "UpdateSearchIndexTask";
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public override void RunOnce()
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "UpdateSearchIndexTask" /> class.
-        /// </summary>
-        public UpdateSearchIndexTask()
+        try
         {
-            // set interval values...
-            this.StartDelayMs = 30000;
+            Thread.BeginCriticalRegion();
+
+            if (BoardContext.Current == null)
+            {
+                return;
+            }
+
+            var forums = this.GetRepository<Forum>().ListAll(BoardContext.Current.PageBoardID);
+
+            if (!IsTimeToUpdateSearchIndex())
+            {
+                return;
+            }
+
+            forums.ForEach(
+                forum =>
+                    {
+                        var messages =
+                            this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.Item1.ID);
+
+                        this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
+                    });
+
+            this.Get<ILoggerService>().Log(
+                "search index updated",
+                EventLogTypes.Information,
+                null,
+                "Update Search Index Task");
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets TaskName.
-        /// </summary>
-        public static string TaskName { get; } = "UpdateSearchIndexTask";
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The run once.
-        /// </summary>
-        public override void RunOnce()
+        catch (Exception x)
         {
-            try
-            {
-                Thread.BeginCriticalRegion();
-
-                if (BoardContext.Current == null)
-                {
-                    return;
-                }
-
-                var forums = this.GetRepository<Forum>().ListAll(BoardContext.Current.PageBoardID);
-
-                if (!IsTimeToUpdateSearchIndex())
-                {
-                    return;
-                }
-
-                forums.ForEach(
-                    forum =>
-                        {
-                            var messages =
-                                this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.Item1.ID);
-
-                            this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
-                        });
-
-                this.Get<ILoggerService>().Log(
-                    "search index updated",
-                    EventLogTypes.Information,
-                    null,
-                    "Update Search Index Task");
-            }
-            catch (Exception x)
-            {
-                this.Logger.Error(x, $"Error In {TaskName} Task");
-            }
-            finally
-            {
-                Thread.EndCriticalRegion();
-            }
+            this.Logger.Error(x, $"Error In {TaskName} Task");
         }
-
-        /// <summary>
-        /// The is time to update search index.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        private static bool IsTimeToUpdateSearchIndex()
+        finally
         {
-            var boardSettings = (LoadBoardSettings)BoardContext.Current.BoardSettings;
-            var lastSend = DateTime.MinValue;
-            var sendEveryXHours = boardSettings.UpdateSearchIndexEveryXHours;
+            Thread.EndCriticalRegion();
+        }
+    }
 
-            if (boardSettings.ForceUpdateSearchIndex)
-            {
-                boardSettings.LastSearchIndexUpdated = DateTime.Now.ToString(CultureInfo.InvariantCulture);
-                boardSettings.ForceUpdateSearchIndex = false;
+    /// <summary>
+    /// The is time to update search index.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    private static bool IsTimeToUpdateSearchIndex()
+    {
+        var boardSettings = (LoadBoardSettings)BoardContext.Current.BoardSettings;
+        var lastSend = DateTime.MinValue;
+        var sendEveryXHours = boardSettings.UpdateSearchIndexEveryXHours;
 
-                boardSettings.SaveRegistry();
-
-                return true;
-            }
-
-            if (boardSettings.LastSearchIndexUpdated.IsSet())
-            {
-                try
-                {
-                    lastSend = Convert.ToDateTime(
-                        boardSettings.LastSearchIndexUpdated,
-                        CultureInfo.InvariantCulture);
-                }
-                catch (Exception)
-                {
-                    lastSend = DateTime.MinValue;
-                }
-            }
-
-            var updateIndex = lastSend < DateTime.Now.AddHours(-sendEveryXHours)
-                             && DateTime.Now < DateTime.Today.AddHours(6);
-
-            if (!updateIndex)
-            {
-                return false;
-            }
-
+        if (boardSettings.ForceUpdateSearchIndex)
+        {
             boardSettings.LastSearchIndexUpdated = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+            boardSettings.ForceUpdateSearchIndex = false;
 
             boardSettings.SaveRegistry();
 
             return true;
         }
 
-        #endregion
+        if (boardSettings.LastSearchIndexUpdated.IsSet())
+        {
+            try
+            {
+                lastSend = Convert.ToDateTime(
+                    boardSettings.LastSearchIndexUpdated,
+                    CultureInfo.InvariantCulture);
+            }
+            catch (Exception)
+            {
+                lastSend = DateTime.MinValue;
+            }
+        }
+
+        var updateIndex = lastSend < DateTime.Now.AddHours(-sendEveryXHours)
+                          && DateTime.Now < DateTime.Today.AddHours(6);
+
+        if (!updateIndex)
+        {
+            return false;
+        }
+
+        boardSettings.LastSearchIndexUpdated = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+
+        boardSettings.SaveRegistry();
+
+        return true;
     }
+
+    #endregion
 }

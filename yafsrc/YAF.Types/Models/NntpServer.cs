@@ -21,68 +21,67 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the NntpServer table.
+/// </summary>
+[Serializable]
+public class NntpServer : IEntity, IHaveID, IHaveBoardID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the NntpServer table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class NntpServer : IEntity, IHaveID, IHaveBoardID
-    {
-        #region Properties
+    [Alias("NntpServerID")]
+    [AutoIncrement]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [Alias("NntpServerID")]
-        [AutoIncrement]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the board id.
+    /// </summary>
+    [References(typeof(Board))]
+    [Required]
+    public int BoardID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
-        [References(typeof(Board))]
-        [Required]
-        public int BoardID { get; set; }
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    [Required]
+    [StringLength(50)]
+    public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        [Required]
-        [StringLength(50)]
-        public string Name { get; set; }
+    /// <summary>
+    /// Gets or sets the address.
+    /// </summary>
+    [Required]
+    [StringLength(100)]
+    public string Address { get; set; }
 
-        /// <summary>
-        /// Gets or sets the address.
-        /// </summary>
-        [Required]
-        [StringLength(100)]
-        public string Address { get; set; }
+    /// <summary>
+    /// Gets or sets the port.
+    /// </summary>
+    public int? Port { get; set; }
 
-        /// <summary>
-        /// Gets or sets the port.
-        /// </summary>
-        public int? Port { get; set; }
+    /// <summary>
+    /// Gets or sets the user name.
+    /// </summary>
+    [StringLength(255)]
+    public string UserName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user name.
-        /// </summary>
-        [StringLength(255)]
-        public string UserName { get; set; }
+    /// <summary>
+    /// Gets or sets the user pass.
+    /// </summary>
+    [StringLength(50)]
+    public string UserPass { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user pass.
-        /// </summary>
-        [StringLength(50)]
-        public string UserPass { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

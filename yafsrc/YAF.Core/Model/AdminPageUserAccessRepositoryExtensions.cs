@@ -21,119 +21,118 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
-{
-    using System.Collections.Generic;
-    using System.Linq;
+namespace YAF.Core.Model;
 
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+using System.Collections.Generic;
+using System.Linq;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// The admin page user access repository extensions.
+/// </summary>
+public static class AdminPageUserAccessRepositoryExtensions
+{
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The admin page user access repository extensions.
+    /// Lists all Pages
     /// </summary>
-    public static class AdminPageUserAccessRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IEnumerable"/>.
+    /// </returns>
+    public static IEnumerable<AdminPageUserAccess> List(
+        this IRepository<AdminPageUserAccess> repository,
+        [NotNull] int userId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Lists all Pages
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IEnumerable"/>.
-        /// </returns>
-        public static IEnumerable<AdminPageUserAccess> List(
-            this IRepository<AdminPageUserAccess> repository,
-            [NotNull] int userId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.Get(a => a.UserID == userId).Select(
-                a => new AdminPageUserAccess { PageName = a.PageName, UserID = a.UserID, ReadAccess = true });
-        }
-
-        /// <summary>
-        /// Checks if the Admin user has Access to the Admin Page.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="pageName">
-        /// The page name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool HasAccess(
-            this IRepository<AdminPageUserAccess> repository,
-            [NotNull] int userId,
-            [NotNull] string pageName)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var access = repository.GetSingle(a => a.UserID == userId && a.PageName == pageName);
-
-            return access != null;
-        }
-
-        /// <summary>
-        /// The save.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="pageName">
-        /// The page name.
-        /// </param>
-        public static void Save(
-            this IRepository<AdminPageUserAccess> repository,
-            [NotNull] int userId,
-            [NotNull] string pageName)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            if (!repository.Get(a => a.UserID == userId && a.PageName == pageName).Any())
-            {
-                repository.Insert(new AdminPageUserAccess { UserID = userId, PageName = pageName });
-            }
-        }
-
-        /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="pageName">
-        /// The page name.
-        /// </param>
-        public static void Delete(
-            this IRepository<AdminPageUserAccess> repository,
-            [NotNull] int userId,
-            [NotNull] string pageName)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            repository.Delete(u => u.UserID == userId && u.PageName == pageName);
-        }
-
-        #endregion
+        return repository.Get(a => a.UserID == userId).Select(
+            a => new AdminPageUserAccess { PageName = a.PageName, UserID = a.UserID, ReadAccess = true });
     }
+
+    /// <summary>
+    /// Checks if the Admin user has Access to the Admin Page.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="pageName">
+    /// The page name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public static bool HasAccess(
+        this IRepository<AdminPageUserAccess> repository,
+        [NotNull] int userId,
+        [NotNull] string pageName)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var access = repository.GetSingle(a => a.UserID == userId && a.PageName == pageName);
+
+        return access != null;
+    }
+
+    /// <summary>
+    /// The save.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="pageName">
+    /// The page name.
+    /// </param>
+    public static void Save(
+        this IRepository<AdminPageUserAccess> repository,
+        [NotNull] int userId,
+        [NotNull] string pageName)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        if (!repository.Get(a => a.UserID == userId && a.PageName == pageName).Any())
+        {
+            repository.Insert(new AdminPageUserAccess { UserID = userId, PageName = pageName });
+        }
+    }
+
+    /// <summary>
+    /// The delete.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="pageName">
+    /// The page name.
+    /// </param>
+    public static void Delete(
+        this IRepository<AdminPageUserAccess> repository,
+        [NotNull] int userId,
+        [NotNull] string pageName)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        repository.Delete(u => u.UserID == userId && u.PageName == pageName);
+    }
+
+    #endregion
 }

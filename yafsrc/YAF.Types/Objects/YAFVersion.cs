@@ -22,38 +22,37 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using YAF.Types.Constants;
+
+/// <summary>
+/// The YAF version.
+/// </summary>
+public class YafVersion
 {
-    using YAF.Types.Constants;
+    /// <summary>
+    /// Gets or sets the major.
+    /// </summary>
+    public int Major { get; set; }
 
     /// <summary>
-    /// The YAF version.
+    /// Gets or sets the minor.
     /// </summary>
-    public class YafVersion
-    {
-        /// <summary>
-        /// Gets or sets the major.
-        /// </summary>
-        public int Major { get; set; }
+    public int Minor { get; set; }
 
-        /// <summary>
-        /// Gets or sets the minor.
-        /// </summary>
-        public int Minor { get; set; }
+    /// <summary>
+    /// Gets or sets the build.
+    /// </summary>
+    public int Build { get; set; }
 
-        /// <summary>
-        /// Gets or sets the build.
-        /// </summary>
-        public int Build { get; set; }
+    /// <summary>
+    /// Gets or sets the release type.
+    /// </summary>
+    public ReleaseType ReleaseType { get; set; }
 
-        /// <summary>
-        /// Gets or sets the release type.
-        /// </summary>
-        public ReleaseType ReleaseType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the release number.
-        /// </summary>
-        public int ReleaseNumber { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the release number.
+    /// </summary>
+    public int ReleaseNumber { get; set; }
 }

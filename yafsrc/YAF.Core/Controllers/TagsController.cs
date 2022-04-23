@@ -22,54 +22,86 @@
  * under the License.
  */
 
-namespace YAF.Core.Controllers
-{
-    using System.Collections.Generic;
-    using System.Web.Http;
+namespace YAF.Core.Controllers;
 
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
+using System;
+using System.Linq;
+using System.Web.Http;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+
+/// <summary>
+/// The YAF Tags controller.
+/// </summary>
+[RoutePrefix("api")]
+public class TagsController : ApiController, IHaveServiceLocator
+{
+    #region Properties
 
     /// <summary>
-    /// The YAF Tags controller.
+    ///   Gets ServiceLocator.
     /// </summary>
-    [RoutePrefix("api")]
-    public class TagsController : ApiController, IHaveServiceLocator
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+
+    #endregion
+
+    /// <summary>
+    /// Get all tags by Board Id
+    /// </summary>
+    /// <param name="searchTopic">
+    /// The search Topic.
+    /// </param>
+    /// <returns>
+    /// Returns list of all tags.
+    /// </returns>
+    [Route("Tags/GetBoardTags")]
+    [HttpPost]
+    public IHttpActionResult GetBoardTags(SearchTopic searchTopic)
     {
-        #region Properties
+        var tags = this.Get<IDataCache>().GetOrSet(
+            $"Tags_{BoardContext.Current.PageBoardID}",
+            () => this.GetRepository<Tag>().GetByBoardId(),
+            TimeSpan.FromMinutes(5));
 
-        /// <summary>
-        ///   Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-        #endregion
-
-        /// <summary>
-        /// Get all tags by Board Id
-        /// </summary>
-        /// <returns>
-        /// Returns list of all tags.
-        /// </returns>
-        [Route("Tags/GetBoardTags")]
-        [HttpPost]
-        public IHttpActionResult GetBoardTags()
+        if (searchTopic.SearchTerm.IsSet())
         {
-            var results = this.GetRepository<Tag>().GetByBoardId();
+            var tagsList = tags
+                .Where(tag => tag.TagName.ToLower().Contains(searchTopic.SearchTerm.ToLower()))
+                .Select(
+                    tag => new SelectOptions
+                               {
+                                   text = tag.TagName,
+                                   id = tag.ID.ToString()
+                               }).ToList();
 
-            var list = new List<string>();
+            var pagedTags = new SelectPagedOptions { Total = 0, Results = tagsList };
 
-            if (results is null)
-            {
-                return this.Ok(list);
-            }
+            return this.Ok(pagedTags);
+        }
+        else
+        {
+            var pager = new Paging { CurrentPageIndex = searchTopic.Page, PageSize = 20 };
+                
+            var tagsPaged = tags.GetPaged(pager);
+            var tagsList = (from Tag tag in tagsPaged
+                            select new SelectOptions
+                                       {
+                                           text = tag.TagName,
+                                           id = tag.ID.ToString()
+                                       }).ToList();
 
-            results.ForEach(result => list.Add(result.TagName));
+            var pagedTags = new SelectPagedOptions
+                                {
+                                    Total = tagsList.Any() ? tags.Count : 0,
+                                    Results = tagsList
+                                };
 
-            return this.Ok(list);
+            return this.Ok(pagedTags);
         }
     }
 }

@@ -22,20 +22,20 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Cache
+namespace YAF.Core.Services.Cache;
+
+#region Using
+
+using YAF.Types;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The treat cache key with board.
+/// </summary>
+public class TreatCacheKeyWithBoard : ITreatCacheKey
 {
-  #region Using
-
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-
-    #endregion
-
-  /// <summary>
-  /// The treat cache key with board.
-  /// </summary>
-  public class TreatCacheKeyWithBoard : ITreatCacheKey
-  {
     #region Constructors and Destructors
 
     /// <summary>
@@ -46,9 +46,9 @@ namespace YAF.Core.Services.Cache
     /// </param>
     public TreatCacheKeyWithBoard([NotNull] IHaveBoardID haveBoardId)
     {
-      CodeContracts.VerifyNotNull(haveBoardId);
+        CodeContracts.VerifyNotNull(haveBoardId);
 
-      this.HaveBoardId = haveBoardId;
+        this.HaveBoardId = haveBoardId;
     }
 
     #endregion
@@ -77,11 +77,10 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     public string Treat(string key)
     {
-      return $"{key}${this.HaveBoardId.BoardID}";
+        return $"{key}${this.HaveBoardId.BoardID}";
     }
 
     #endregion
 
     #endregion
-  }
 }

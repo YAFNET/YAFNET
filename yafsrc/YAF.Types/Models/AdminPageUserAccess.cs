@@ -21,43 +21,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+///     A class which represents the AdminPageUserAccess table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(UserID), nameof(PageName))]
+public class AdminPageUserAccess : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Public Properties
 
     /// <summary>
-    ///     A class which represents the AdminPageUserAccess table.
+    /// Gets or sets the user id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(UserID), nameof(PageName))]
-    public class AdminPageUserAccess : IEntity
-    {
-        #region Public Properties
+    [Required]
+    [References(typeof(User))]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [Required]
-        [References(typeof(User))]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the page name.
+    /// </summary>
+    [Required]
+    [StringLength(128)]
+    public string PageName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the page name.
-        /// </summary>
-        [Required]
-        [StringLength(128)]
-        public string PageName { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether read access.
+    /// </summary>
+    [Ignore]
+    public bool ReadAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether read access.
-        /// </summary>
-        [Ignore]
-        public bool ReadAccess { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

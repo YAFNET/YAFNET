@@ -10,42 +10,41 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace YAF.UrlRewriter.Utilities
+namespace YAF.UrlRewriter.Utilities;
+
+/// <summary>
+/// Message ids
+/// </summary>
+internal enum Message
 {
-    /// <summary>
-    /// Message ids
-    /// </summary>
-    internal enum Message
-    {
-        AttributeNotAllowed,
-        ElementNotAllowed,
-        ElementNoAttributes,
-        ElementNoElements,
-        MappedValuesNotAllowed,
-        ValueOfProcessingAttribute,
-        AttributeRequired,
-        FullTypeNameRequiresAssemblyName,
-        AssemblyNameRequired,
-        TypeNameRequired,
-        MapAlreadyDefined,
-        InvalidTypeSpecified,
-        InputIsNotHex,
-        AddressesNotOfSameType,
-        ProductName,
-        StoppingBecauseOfRule,
-        RestartingBecauseOfRule,
-        ResultNotFound,
-        CallingErrorHandler,
-        RewritingXtoY,
-        RedirectingXtoY,
-        TooManyRestarts,
-        InvalidHttpStatusCode,
-        StartedProcessing,
-        AttributeCannotBeBlank,
-        InvalidBooleanAttribute,
-        InvalidIntegerAttribute,
-        MissingConfigFileSection,
-        MappingNotFound,
-        TransformFunctionNotFound
-    }
+    AttributeNotAllowed,
+    ElementNotAllowed,
+    ElementNoAttributes,
+    ElementNoElements,
+    MappedValuesNotAllowed,
+    ValueOfProcessingAttribute,
+    AttributeRequired,
+    FullTypeNameRequiresAssemblyName,
+    AssemblyNameRequired,
+    TypeNameRequired,
+    MapAlreadyDefined,
+    InvalidTypeSpecified,
+    InputIsNotHex,
+    AddressesNotOfSameType,
+    ProductName,
+    StoppingBecauseOfRule,
+    RestartingBecauseOfRule,
+    ResultNotFound,
+    CallingErrorHandler,
+    RewritingXtoY,
+    RedirectingXtoY,
+    TooManyRestarts,
+    InvalidHttpStatusCode,
+    StartedProcessing,
+    AttributeCannotBeBlank,
+    InvalidBooleanAttribute,
+    InvalidIntegerAttribute,
+    MissingConfigFileSection,
+    MappingNotFound,
+    TransformFunctionNotFound
 }

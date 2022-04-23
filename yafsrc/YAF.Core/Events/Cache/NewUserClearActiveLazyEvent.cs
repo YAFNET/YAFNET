@@ -21,63 +21,62 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Events.Cache
+namespace YAF.Core.Events.Cache;
+
+using YAF.Types.Attributes;
+using YAF.Types.Constants;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+
+/// <summary>
+///     The attachment event handle file delete.
+/// </summary>
+[ExportService(ServiceLifetimeScope.OwnedByContainer)]
+public class NewUserClearActiveLazyEvent : IHandleEvent<NewUserRegisteredEvent>
 {
-    using YAF.Types.Attributes;
-    using YAF.Types.Constants;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
+    #region Constructors and Destructors
 
     /// <summary>
-    ///     The attachment event handle file delete.
+    /// Initializes a new instance of the <see cref="NewUserClearActiveLazyEvent"/> class.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.OwnedByContainer)]
-    public class NewUserClearActiveLazyEvent : IHandleEvent<NewUserRegisteredEvent>
+    /// <param name="dataCache">
+    /// The data cache.
+    /// </param>
+    public NewUserClearActiveLazyEvent(IDataCache dataCache)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NewUserClearActiveLazyEvent"/> class.
-        /// </summary>
-        /// <param name="dataCache">
-        /// The data cache.
-        /// </param>
-        public NewUserClearActiveLazyEvent(IDataCache dataCache)
-        {
-            this.DataCache = dataCache;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// Gets or sets the data cache.
-        /// </summary>
-        public IDataCache DataCache { get; set; }
-
-        /// <summary>
-        ///     Gets the order.
-        /// </summary>
-        public int Order => 10000;
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The handle.
-        /// </summary>
-        /// <param name="event">
-        /// The event.
-        /// </param>
-        public void Handle(NewUserRegisteredEvent @event)
-        {
-            this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
-            this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
-        }
-
-        #endregion
+        this.DataCache = dataCache;
     }
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    /// Gets or sets the data cache.
+    /// </summary>
+    public IDataCache DataCache { get; set; }
+
+    /// <summary>
+    ///     Gets the order.
+    /// </summary>
+    public int Order => 10000;
+
+    #endregion
+
+    #region Public Methods and Operators
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
+    /// </param>
+    public void Handle(NewUserRegisteredEvent @event)
+    {
+        this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
+        this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
+    }
+
+    #endregion
 }

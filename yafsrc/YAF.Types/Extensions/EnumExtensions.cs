@@ -21,158 +21,157 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Extensions
+namespace YAF.Types.Extensions;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using YAF.Types.Attributes;
+
+#endregion
+
+/// <summary>
+/// The Enumerator Extensions
+/// </summary>
+public static class EnumExtensions
 {
-    #region Using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using YAF.Types.Attributes;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The Enumerator Extensions
+    /// Gets all items for an Enumerator type.
     /// </summary>
-    public static class EnumExtensions
+    /// <typeparam name="T">
+    /// the Typed Parameter
+    /// </typeparam>
+    /// <returns>
+    /// Returns all Enumerator Items
+    /// </returns>
+    public static IEnumerable<T> GetAllItems<T>() where T : struct
     {
-        #region Public Methods
+        return Enum.GetValues(typeof(T)).Cast<T>();
+    }
 
-        /// <summary>
-        /// Gets all items for an Enumerator type.
-        /// </summary>
-        /// <typeparam name="T">
-        /// the Typed Parameter
-        /// </typeparam>
-        /// <returns>
-        /// Returns all Enumerator Items
-        /// </returns>
-        public static IEnumerable<T> GetAllItems<T>() where T : struct
+    /// <summary>
+    /// Will get the string value for a given Enumerator value, this will
+    ///   only work if you assign the StringValue attribute to
+    ///   the items in your Enumerator.
+    /// </summary>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public static string GetStringValue(this Enum value)
+    {
+        // Get the type
+        var type = value.GetType();
+
+        // Get field info for this type
+        var fieldInfo = type.GetField(value.ToString());
+
+        if (fieldInfo == null)
         {
-            return Enum.GetValues(typeof(T)).Cast<T>();
-        }
-
-        /// <summary>
-        /// Will get the string value for a given Enumerator value, this will
-        ///   only work if you assign the StringValue attribute to
-        ///   the items in your Enumerator.
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string GetStringValue(this Enum value)
-        {
-            // Get the type
-            var type = value.GetType();
-
-            // Get field info for this type
-            var fieldInfo = type.GetField(value.ToString());
-
-            if (fieldInfo == null)
-            {
-                return Enum.GetName(type, value);
-            }
-
-            // Return the first if there was a match.
-            if (fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) is StringValueAttribute[] attribs)
-            {
-                return attribs.Length > 0 ? attribs[0].StringValue : Enum.GetName(type, value);
-            }
-
             return Enum.GetName(type, value);
         }
 
-        /// <summary>
-        /// Converts A Integer to an Enumerator.
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <typeparam name="T">
-        /// The Typed Enumerator.
-        /// </typeparam>
-        /// <returns>
-        /// Returns the Typed Enumerator.
-        /// </returns>
-        public static T ToEnum<T>(this int value)
+        // Return the first if there was a match.
+        if (fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) is StringValueAttribute[] attribs)
         {
-            var enumType = typeof(T);
-            if (enumType.BaseType != typeof(Enum))
-            {
-                throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
-            }
-
-            return (T)Enum.Parse(enumType, value.ToString());
+            return attribs.Length > 0 ? attribs[0].StringValue : Enum.GetName(type, value);
         }
 
-        /// <summary>
-        /// Converts A String to an Enumerator.
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <typeparam name="T">
-        /// The Typed Enumerator.
-        /// </typeparam>
-        /// <returns>
-        /// Returns the Typed Enumerator.
-        /// </returns>
-        public static T ToEnum<T>(this string value)
-        {
-            var enumType = typeof(T);
-            if (enumType.BaseType != typeof(Enum))
-            {
-                throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
-            }
-
-            return (T)Enum.Parse(enumType, value);
-        }
-
-        /// <summary>
-        /// Converts A String to an Enumerator.
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <param name="ignoreCase">
-        /// The ignore Case.
-        /// </param>
-        /// <typeparam name="T">
-        /// The Typed Enumerator.
-        /// </typeparam>
-        /// <returns>
-        /// Returns the Typed Enumerator.
-        /// </returns>
-        public static T ToEnum<T>(this string value, bool ignoreCase)
-        {
-            var enumType = typeof(T);
-            if (enumType.BaseType != typeof(Enum))
-            {
-                throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
-            }
-
-            return (T)Enum.Parse(enumType, value, ignoreCase);
-        }
-
-        /// <summary>
-        /// Will get the Enumerator value as an integer saving a cast
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <returns>
-        /// The Integer value.
-        /// </returns>
-        public static int ToInt(this Enum value)
-        {
-            return value.ToType<int>();
-        }
-
-        #endregion
+        return Enum.GetName(type, value);
     }
+
+    /// <summary>
+    /// Converts A Integer to an Enumerator.
+    /// </summary>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <typeparam name="T">
+    /// The Typed Enumerator.
+    /// </typeparam>
+    /// <returns>
+    /// Returns the Typed Enumerator.
+    /// </returns>
+    public static T ToEnum<T>(this int value)
+    {
+        var enumType = typeof(T);
+        if (enumType.BaseType != typeof(Enum))
+        {
+            throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
+        }
+
+        return (T)Enum.Parse(enumType, value.ToString());
+    }
+
+    /// <summary>
+    /// Converts A String to an Enumerator.
+    /// </summary>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <typeparam name="T">
+    /// The Typed Enumerator.
+    /// </typeparam>
+    /// <returns>
+    /// Returns the Typed Enumerator.
+    /// </returns>
+    public static T ToEnum<T>(this string value)
+    {
+        var enumType = typeof(T);
+        if (enumType.BaseType != typeof(Enum))
+        {
+            throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
+        }
+
+        return (T)Enum.Parse(enumType, value);
+    }
+
+    /// <summary>
+    /// Converts A String to an Enumerator.
+    /// </summary>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <param name="ignoreCase">
+    /// The ignore Case.
+    /// </param>
+    /// <typeparam name="T">
+    /// The Typed Enumerator.
+    /// </typeparam>
+    /// <returns>
+    /// Returns the Typed Enumerator.
+    /// </returns>
+    public static T ToEnum<T>(this string value, bool ignoreCase)
+    {
+        var enumType = typeof(T);
+        if (enumType.BaseType != typeof(Enum))
+        {
+            throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
+        }
+
+        return (T)Enum.Parse(enumType, value, ignoreCase);
+    }
+
+    /// <summary>
+    /// Will get the Enumerator value as an integer saving a cast
+    /// </summary>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <returns>
+    /// The Integer value.
+    /// </returns>
+    public static int ToInt(this Enum value)
+    {
+        return value.ToType<int>();
+    }
+
+    #endregion
 }

@@ -21,141 +21,140 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// The Topic Tag repository extensions.
+/// </summary>
+public static class TopicTagRepositoryExtensions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The Topic Tag repository extensions.
+    /// Adds Topic Tag
     /// </summary>
-    public static class TopicTagRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="tagId">
+    /// The tag Id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic ID.
+    /// </param>
+    public static void Add(this IRepository<TopicTag> repository, [NotNull] int tagId, [NotNull] int topicId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Adds Topic Tag
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="tagId">
-        /// The tag Id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic ID.
-        /// </param>
-        public static void Add(this IRepository<TopicTag> repository, [NotNull] int tagId, [NotNull] int topicId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        var newId = repository.Insert(new TopicTag { TagID = tagId, TopicID = topicId });
 
-            var newId = repository.Insert(new TopicTag { TagID = tagId, TopicID = topicId });
-
-            repository.FireNew(newId);
-        }
-
-        /// <summary>
-        /// Add New or existing tags to a topic
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="tagsString">
-        /// The tags as delimited string.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic id.
-        /// </param>
-        public static void AddTagsToTopic(this IRepository<TopicTag> repository, [CanBeNull] string tagsString, int topicId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            if (tagsString.IsNotSet())
-            {
-                return;
-            }
-
-            var tags = tagsString.Split(',');
-
-            var boardTags = BoardContext.Current.GetRepository<Tag>().GetByBoardId();
-
-            tags.ForEach(
-                tag =>
-                    {
-                        var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
-
-                        if (existTag != null)
-                        {
-                            // add to topic
-                            repository.Add(
-                                existTag.ID,
-                                topicId);
-                        }
-                        else
-                        {
-                            // save new Tag
-                            var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
-
-                            // add to topic
-                            repository.Add(newTagId, topicId);
-                        }
-                    });
-        }
-
-        /// <summary>
-        /// List all Topic Tags
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<Tuple<TopicTag, Tag>> List(this IRepository<TopicTag> repository, [NotNull] int topicId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
-
-            expression.Join<Tag>((topicTag, tag) => tag.ID == topicTag.TagID)
-                .Where<TopicTag>(t => t.TopicID == topicId);
-
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<TopicTag, Tag>(expression));
-        }
-
-        /// <summary>
-        /// List all Topic Tags
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static string ListAsDelimitedString(this IRepository<TopicTag> repository, [NotNull] int topicId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
-        }
-
-        #endregion
+        repository.FireNew(newId);
     }
+
+    /// <summary>
+    /// Add New or existing tags to a topic
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="tagsString">
+    /// The tags as delimited string.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic id.
+    /// </param>
+    public static void AddTagsToTopic(this IRepository<TopicTag> repository, [CanBeNull] string tagsString, int topicId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        if (tagsString.IsNotSet())
+        {
+            return;
+        }
+
+        var tags = tagsString.Split(',');
+
+        var boardTags = BoardContext.Current.GetRepository<Tag>().GetByBoardId();
+
+        tags.ForEach(
+            tag =>
+                {
+                    var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
+
+                    if (existTag != null)
+                    {
+                        // add to topic
+                        repository.Add(
+                            existTag.ID,
+                            topicId);
+                    }
+                    else
+                    {
+                        // save new Tag
+                        var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
+
+                        // add to topic
+                        repository.Add(newTagId, topicId);
+                    }
+                });
+    }
+
+    /// <summary>
+    /// List all Topic Tags
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<Tuple<TopicTag, Tag>> List(this IRepository<TopicTag> repository, [NotNull] int topicId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
+
+        expression.Join<Tag>((topicTag, tag) => tag.ID == topicTag.TagID)
+            .Where<TopicTag>(t => t.TopicID == topicId);
+
+        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<TopicTag, Tag>(expression));
+    }
+
+    /// <summary>
+    /// List all Topic Tags
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static string ListAsDelimitedString(this IRepository<TopicTag> repository, [NotNull] int topicId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        return repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
+    }
+
+    #endregion
 }

@@ -21,34 +21,33 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// Interface for Startup Service
+/// </summary>
+public interface IStartupService
 {
+    #region Properties
+
     /// <summary>
-    /// Interface for Startup Service
+    ///   Gets a value indicating whether Initialized.
     /// </summary>
-    public interface IStartupService
-    {
-        #region Properties
+    bool Initialized { get; }
 
-        /// <summary>
-        ///   Gets a value indicating whether Initialized.
-        /// </summary>
-        bool Initialized { get; }
+    /// <summary>
+    ///   Gets the execution priority -- lower is run first.
+    /// </summary>
+    int Priority { get; }
 
-        /// <summary>
-        ///   Gets the execution priority -- lower is run first.
-        /// </summary>
-        int Priority { get; }
+    #endregion
 
-        #endregion
+    #region Public Methods
 
-        #region Public Methods
+    /// <summary>
+    /// Called to run the service.
+    /// </summary>
+    void Run();
 
-        /// <summary>
-        /// Called to run the service.
-        /// </summary>
-        void Run();
-
-        #endregion
-    }
+    #endregion
 }

@@ -21,39 +21,38 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Extensions.Data
+namespace YAF.Types.Extensions.Data;
+
+#region Using
+
+using System.Data;
+
+#endregion
+
+/// <summary>
+/// The function session extensions.
+/// </summary>
+public static class IDbFunctionSessionExtensions
 {
-    #region Using
-
-    using System.Data;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The function session extensions.
+    /// The setup.
     /// </summary>
-    public static class IDbFunctionSessionExtensions
+    /// <param name="command">
+    /// The command.
+    /// </param>
+    /// <param name="dbTransaction">
+    /// The transaction.
+    /// </param>
+    public static void Populate([NotNull] this IDbCommand command, IDbTransaction dbTransaction)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(dbTransaction);
+        CodeContracts.VerifyNotNull(command);
 
-        /// <summary>
-        /// The setup.
-        /// </summary>
-        /// <param name="command">
-        /// The command.
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The transaction.
-        /// </param>
-        public static void Populate([NotNull] this IDbCommand command, IDbTransaction dbTransaction)
-        {
-            CodeContracts.VerifyNotNull(dbTransaction);
-            CodeContracts.VerifyNotNull(command);
-
-            command.Connection = dbTransaction.Connection;
-            command.Transaction = dbTransaction;
-        }
-
-        #endregion
+        command.Connection = dbTransaction.Connection;
+        command.Transaction = dbTransaction;
     }
+
+    #endregion
 }

@@ -21,26 +21,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.ForumModules
+namespace YAF.Core.ForumModules;
+
+#region Using
+
+using System;
+
+using YAF.Core.BaseModules;
+using YAF.Core.Tasks;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The user clean up task module.
+/// </summary>
+[Module("Clean Up User Task Starting Module", "Tiny Gecko", 1)]
+public class UserCleanUpTaskForumModule : BaseForumModule
 {
-  #region Using
-
-  using System;
-
-  using YAF.Core.BaseModules;
-  using YAF.Core.Tasks;
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The user clean up task module.
-  /// </summary>
-  [Module("Clean Up User Task Starting Module", "Tiny Gecko", 1)]
-  public class UserCleanUpTaskForumModule : BaseForumModule
-  {
     #region Public Methods
 
     /// <summary>
@@ -48,8 +48,8 @@ namespace YAF.Core.ForumModules
     /// </summary>
     public override void Init()
     {
-      // hook the page init for mail sending...
-      this.PageBoardContext.AfterInit += this.Current_AfterInit;
+        // hook the page init for mail sending...
+        this.PageBoardContext.AfterInit += this.Current_AfterInit;
     }
 
     #endregion
@@ -67,9 +67,8 @@ namespace YAF.Core.ForumModules
     /// </param>
     private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.Get<ITaskModuleManager>().StartTask(UserCleanUpTask.TaskName, () => new UserCleanUpTask());
+        this.Get<ITaskModuleManager>().StartTask(UserCleanUpTask.TaskName, () => new UserCleanUpTask());
     }
 
     #endregion
-  }
 }

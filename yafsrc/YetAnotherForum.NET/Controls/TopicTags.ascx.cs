@@ -22,51 +22,50 @@
  * under the License.
  */
 
-namespace YAF.Controls
+namespace YAF.Controls;
+
+#region Using
+
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// Topic Tags Control
+/// </summary>
+public partial class TopicTags : BaseUserControl
 {
-    #region Using
-
-    using YAF.Types.Models;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// Topic Tags Control
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class TopicTags : BaseUserControl
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Binds the similar topics list.
-        /// </summary>
-        private void BindData()
-        {
-            var topicsList = this.GetRepository<TopicTag>().List(this.PageBoardContext.PageTopicID);
-
-            if (!topicsList.Any())
-            {
-                this.Visible = false;
-                return;
-            }
-
-            this.Tags.DataSource = topicsList;
-            this.Tags.DataBind();
-
-
-            this.DataBind();
-        }
-
-        #endregion
+        this.BindData();
     }
+
+    /// <summary>
+    /// Binds the similar topics list.
+    /// </summary>
+    private void BindData()
+    {
+        var topicsList = this.GetRepository<TopicTag>().List(this.PageBoardContext.PageTopicID);
+
+        if (!topicsList.Any())
+        {
+            this.Visible = false;
+            return;
+        }
+
+        this.Tags.DataSource = topicsList;
+        this.Tags.DataBind();
+
+
+        this.DataBind();
+    }
+
+    #endregion
 }

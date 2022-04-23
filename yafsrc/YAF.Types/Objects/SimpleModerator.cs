@@ -21,111 +21,110 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Flags;
+
+/// <summary>
+/// The moderator.
+/// </summary>
+[Serializable]
+public class SimpleModerator
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Flags;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleModerator"/> class.
+    /// </summary>
+    public SimpleModerator()
+    {
+        this.UserBlockFlags = new UserBlockFlags(this.ModeratorBlockFlags);
+    }
 
     /// <summary>
-    /// The moderator.
+    ///   Gets or sets The Moderators Forums
     /// </summary>
-    [Serializable]
-    public class SimpleModerator
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SimpleModerator"/> class.
-        /// </summary>
-        public SimpleModerator()
-        {
-            this.UserBlockFlags = new UserBlockFlags(this.ModeratorBlockFlags);
-        }
+    public ModeratorsForums[] ForumIDs { get; set; }
 
-        /// <summary>
-        ///   Gets or sets The Moderators Forums
-        /// </summary>
-        public ModeratorsForums[] ForumIDs { get; set; }
+    /// <summary>
+    /// Gets or sets ForumID.
+    /// </summary>
+    public int ForumID { get; set; }
 
-        /// <summary>
-        /// Gets or sets ForumID.
-        /// </summary>
-        public int ForumID { get; set; }
+    public int? ParentID { get; set; }
 
-        public int? ParentID { get; set; }
+    /// <summary>
+    /// Gets or sets Forum Name.
+    /// </summary>
+    public string ForumName { get; set; }
 
-        /// <summary>
-        /// Gets or sets Forum Name.
-        /// </summary>
-        public string ForumName { get; set; }
+    public int CategoryID { get; set; }
 
-        public int CategoryID { get; set; }
+    public string CategoryName { get; set; }
 
-        public string CategoryName { get; set; }
+    /// <summary>
+    /// Gets or sets ModeratorID.
+    /// </summary>
+    public int ModeratorID { get; set; }
 
-        /// <summary>
-        /// Gets or sets ModeratorID.
-        /// </summary>
-        public int ModeratorID { get; set; }
+    /// <summary>
+    /// Gets or sets Name.
+    /// </summary>
+    public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets Name.
-        /// </summary>
-        public string Name { get; set; }
+    /// <summary>
+    /// Gets or sets Email.
+    /// </summary>
+    public string Email { get; set; }
 
-        /// <summary>
-        /// Gets or sets Email.
-        /// </summary>
-        public string Email { get; set; }
+    /// <summary>
+    /// Gets or sets the block flags.
+    /// </summary>
+    public int ModeratorBlockFlags { get; set; }
 
-        /// <summary>
-        /// Gets or sets the block flags.
-        /// </summary>
-        public int ModeratorBlockFlags { get; set; }
+    /// <summary>
+    /// Gets or sets the user block flags.
+    /// </summary>
+    public UserBlockFlags UserBlockFlags { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user block flags.
-        /// </summary>
-        public UserBlockFlags UserBlockFlags { get; set; }
+    /// <summary>
+    /// Gets or sets Avatar.
+    /// </summary>
+    public string Avatar { get; set; }
 
-        /// <summary>
-        /// Gets or sets Avatar.
-        /// </summary>
-        public string Avatar { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether [avatar image].
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if [avatar image]; otherwise, <c>false</c>.
+    /// </value>
+    public byte[] AvatarImage { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether [avatar image].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [avatar image]; otherwise, <c>false</c>.
-        /// </value>
-        public byte[] AvatarImage { get; set; }
+    /// <summary>
+    /// Gets or sets Display Name.
+    /// </summary>
+    public string DisplayName { get; set; }
 
-        /// <summary>
-        /// Gets or sets Display Name.
-        /// </summary>
-        public string DisplayName { get; set; }
+    /// <summary>
+    /// Gets or sets Style.
+    /// </summary>
+    public string Style { get; set; }
 
-        /// <summary>
-        /// Gets or sets Style.
-        /// </summary>
-        public string Style { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether IsGroup.
+    /// </summary>
+    public bool IsGroup { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether IsGroup.
-        /// </summary>
-        public bool IsGroup { get; set; }
+    /// <summary>
+    /// Gets or sets the suspended.
+    /// </summary>
+    public DateTime? Suspended { get; set; }
 
-        /// <summary>
-        /// Gets or sets the suspended.
-        /// </summary>
-        public DateTime? Suspended { get; set; }
-
-        /// <summary>
-        /// Gets or sets the selected forum id.
-        /// </summary>
-        [Ignore]
-        public string SelectedForumId { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the selected forum id.
+    /// </summary>
+    [Ignore]
+    public string SelectedForumId { get; set; }
 }

@@ -22,106 +22,105 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// The Admin NNTP server page
+/// </summary>
+public partial class NntpServers : AdminPage
 {
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The Admin NNTP server page
+    /// Initializes a new instance of the <see cref="NntpServers"/> class. 
     /// </summary>
-    public partial class NntpServers : AdminPage
+    public NntpServers()
+        : base("ADMIN_NNTPSERVERS", ForumPages.Admin_NntpServers)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NntpServers"/> class. 
-        /// </summary>
-        public NntpServers()
-            : base("ADMIN_NNTPSERVERS", ForumPages.Admin_NntpServers)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// News the server click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void NewServerClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.EditDialog.BindData(null);
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "openModalJs",
-                JavaScriptBlocks.OpenModalJs("NntpServerEditDialog"));
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot()
-                .AddAdminIndex()
-                .AddLink(this.GetText("ADMIN_NNTPSERVERS", "TITLE"), string.Empty);
-        }
-
-        /// <summary>
-        /// Ranks the list item command.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void RankListItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "edit":
-                    this.EditDialog.BindData(e.CommandArgument.ToType<int>());
-
-                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                        "openModalJs",
-                        JavaScriptBlocks.OpenModalJs("NntpServerEditDialog"));
-                    break;
-                case "delete":
-                    var serverId = e.CommandArgument.ToType<int>();
-                    var forums = this.GetRepository<NntpForum>().Get(n => n.NntpServerID == serverId).Select(forum => forum.ForumID).ToList();
-
-                    this.GetRepository<NntpTopic>().DeleteByIds(forums);
-                    this.GetRepository<NntpForum>().Delete(n => n.NntpServerID == serverId);
-                    this.GetRepository<NntpForum>().Delete(n => n.NntpServerID == serverId);
-
-                    this.BindData();
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            this.RankList.DataSource = this.GetRepository<NntpServer>().GetByBoardId();
-            this.DataBind();
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// News the server click.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void NewServerClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.EditDialog.BindData(null);
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "openModalJs",
+            JavaScriptBlocks.OpenModalJs("NntpServerEditDialog"));
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot()
+            .AddAdminIndex()
+            .AddLink(this.GetText("ADMIN_NNTPSERVERS", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// Ranks the list item command.
+    /// </summary>
+    /// <param name="source">The source.</param>
+    /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
+    protected void RankListItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        switch (e.CommandName)
+        {
+            case "edit":
+                this.EditDialog.BindData(e.CommandArgument.ToType<int>());
+
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("NntpServerEditDialog"));
+                break;
+            case "delete":
+                var serverId = e.CommandArgument.ToType<int>();
+                var forums = this.GetRepository<NntpForum>().Get(n => n.NntpServerID == serverId).Select(forum => forum.ForumID).ToList();
+
+                this.GetRepository<NntpTopic>().DeleteByIds(forums);
+                this.GetRepository<NntpForum>().Delete(n => n.NntpServerID == serverId);
+                this.GetRepository<NntpForum>().Delete(n => n.NntpServerID == serverId);
+
+                this.BindData();
+                break;
+        }
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        this.RankList.DataSource = this.GetRepository<NntpServer>().GetByBoardId();
+        this.DataBind();
+    }
+
+    #endregion
 }

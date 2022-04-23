@@ -4,81 +4,80 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-namespace ServiceStack.OrmLite.MySql
+namespace ServiceStack.OrmLite.MySql;
+
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+/// <summary>
+/// Class MySqlExpression.
+/// Implements the <see cref="ServiceStack.OrmLite.SqlExpression{T}" />
+/// </summary>
+/// <typeparam name="T"></typeparam>
+/// <seealso cref="ServiceStack.OrmLite.SqlExpression{T}" />
+public class MySqlExpression<T> : SqlExpression<T>
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq.Expressions;
     /// <summary>
-    /// Class MySqlExpression.
-    /// Implements the <see cref="ServiceStack.OrmLite.SqlExpression{T}" />
+    /// Initializes a new instance of the <see cref="MySqlExpression{T}"/> class.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <seealso cref="ServiceStack.OrmLite.SqlExpression{T}" />
-    public class MySqlExpression<T> : SqlExpression<T>
+    /// <param name="dialectProvider">The dialect provider.</param>
+    public MySqlExpression(IOrmLiteDialectProvider dialectProvider)
+        : base(dialectProvider) { }
+
+    /// <summary>
+    /// Converts to cast.
+    /// </summary>
+    /// <param name="quotedColName">Name of the quoted col.</param>
+    /// <returns>string.</returns>
+    protected override string ToCast(string quotedColName)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MySqlExpression{T}"/> class.
-        /// </summary>
-        /// <param name="dialectProvider">The dialect provider.</param>
-        public MySqlExpression(IOrmLiteDialectProvider dialectProvider)
-            : base(dialectProvider) { }
+        return $"cast({quotedColName} as char(1000))";
+    }
 
-        /// <summary>
-        /// Converts to cast.
-        /// </summary>
-        /// <param name="quotedColName">Name of the quoted col.</param>
-        /// <returns>string.</returns>
-        protected override string ToCast(string quotedColName)
+    /// <summary>
+    /// Converts to deleterowstatement.
+    /// </summary>
+    /// <returns>string.</returns>
+    public override string ToDeleteRowStatement()
+    {
+        return base.tableDefs.Count > 1
+                   ? $"DELETE {DialectProvider.GetQuotedTableName(modelDef)} {FromExpression} {WhereExpression}"
+                   : base.ToDeleteRowStatement();
+    }
+
+    /// <summary>
+    /// Visits the column access method.
+    /// </summary>
+    /// <param name="m">The m.</param>
+    /// <returns>object.</returns>
+    protected override object VisitColumnAccessMethod(MethodCallExpression m)
+    {
+        if (m.Method.Name != nameof(ToString) || m.Object?.Type != typeof(DateTime))
         {
-            return $"cast({quotedColName} as char(1000))";
+            return base.VisitColumnAccessMethod(m);
         }
 
-        /// <summary>
-        /// Converts to deleterowstatement.
-        /// </summary>
-        /// <returns>string.</returns>
-        public override string ToDeleteRowStatement()
+        List<object> args = this.VisitExpressionList(m.Arguments);
+        var quotedColName = Visit(m.Object);
+
+        if (!IsSqlClass(quotedColName))
         {
-            return base.tableDefs.Count > 1
-                ? $"DELETE {DialectProvider.GetQuotedTableName(modelDef)} {FromExpression} {WhereExpression}"
-                : base.ToDeleteRowStatement();
+            quotedColName = ConvertToParam(quotedColName);
         }
 
-        /// <summary>
-        /// Visits the column access method.
-        /// </summary>
-        /// <param name="m">The m.</param>
-        /// <returns>object.</returns>
-        protected override object VisitColumnAccessMethod(MethodCallExpression m)
-        {
-            if (m.Method.Name != nameof(ToString) || m.Object?.Type != typeof(DateTime))
-            {
-                return base.VisitColumnAccessMethod(m);
-            }
+        var arg = args.Count > 0 ? args[0] : null;
+        string statement = arg == null ? ToCast(quotedColName.ToString()) : $"DATE_FORMAT({quotedColName},'{arg}')";
+        return new PartialSqlString(statement);
+    }
 
-            List<object> args = this.VisitExpressionList(m.Arguments);
-            var quotedColName = Visit(m.Object);
-
-            if (!IsSqlClass(quotedColName))
-            {
-                quotedColName = ConvertToParam(quotedColName);
-            }
-
-            var arg = args.Count > 0 ? args[0] : null;
-            string statement = arg == null ? ToCast(quotedColName.ToString()) : $"DATE_FORMAT({quotedColName},'{arg}')";
-            return new PartialSqlString(statement);
-        }
-
-        /// <summary>
-        /// Creates the in sub query SQL.
-        /// </summary>
-        /// <param name="quotedColName">Name of the quoted col.</param>
-        /// <param name="subSelect">The sub select.</param>
-        /// <returns>System.String.</returns>
-        protected override string CreateInSubQuerySql(object quotedColName, string subSelect)
-        {
-            return $"{quotedColName} IN (SELECT * FROM ({subSelect})  SubQuery)";
-        }
+    /// <summary>
+    /// Creates the in sub query SQL.
+    /// </summary>
+    /// <param name="quotedColName">Name of the quoted col.</param>
+    /// <param name="subSelect">The sub select.</param>
+    /// <returns>System.String.</returns>
+    protected override string CreateInSubQuerySql(object quotedColName, string subSelect)
+    {
+        return $"{quotedColName} IN (SELECT * FROM ({subSelect})  SubQuery)";
     }
 }

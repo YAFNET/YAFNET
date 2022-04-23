@@ -22,94 +22,94 @@
  * under the License.
  */
 
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+
+using YAF.Core.BaseControls;
+using YAF.Core.Services;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// Control displaying list of letters and/or characters for filtering list of members.
+/// </summary>
+public class AlphaSort : BaseControl
 {
-    #region Using
+    #region Properties
 
-    using System;
-    using System.Web;
-    using System.Web.UI;
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
+    /// <summary>
+    ///   Gets actually selected letter.
+    /// </summary>
+    public char CurrentLetter
+    {
+        get
+        {
+            var currentLetter = char.MinValue;
 
-    using YAF.Core.BaseControls;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("letter"))
+            {
+                return currentLetter;
+            }
+
+            // try to convert to char
+            char.TryParse(
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("letter"),
+                out currentLetter);
+
+            // since we cannot use '#' in URL, we use '_' instead, this is to give it the right meaning
+            if (currentLetter == '_')
+            {
+                currentLetter = '#';
+            }
+
+            return currentLetter;
+        }
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Control displaying list of letters and/or characters for filtering list of members.
+    /// Raises the Load event.
     /// </summary>
-    public class AlphaSort : BaseControl
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnLoad([NotNull] EventArgs e)
     {
-        #region Properties
+        base.OnLoad(e);
 
-        /// <summary>
-        ///   Gets actually selected letter.
-        /// </summary>
-        public char CurrentLetter
-        {
-            get
-            {
-                var currentLetter = char.MinValue;
+        var buttonGroup = new HtmlGenericControl("div");
+        buttonGroup.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "btn-group mb-3 d-none d-md-block");
 
-                if (!this.Get<HttpRequestBase>().QueryString.Exists("letter"))
+        this.Controls.Add(buttonGroup);
+
+        // get the localized character set
+        var charSet = this.GetText("LANGUAGE", "CHARSET").Split('/');
+
+        //var users = this.Get<IAspNetUsersHelper>().Users;
+
+        charSet.ForEach(
+            t =>
                 {
-                    return currentLetter;
-                }
+                    // get the current selected character (if there is one)
+                    var selectedLetter = this.CurrentLetter;
 
-                // try to convert to char
-                char.TryParse(
-                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("letter"),
-                    out currentLetter);
-
-                // since we cannot use '#' in URL, we use '_' instead, this is to give it the right meaning
-                if (currentLetter == '_')
-                {
-                    currentLetter = '#';
-                }
-
-                return currentLetter;
-            }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Raises the Load event.
-        /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected override void OnLoad([NotNull] EventArgs e)
-        {
-            base.OnLoad(e);
-
-            var buttonGroup = new HtmlGenericControl("div");
-            buttonGroup.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "btn-group mb-3 d-none d-md-block");
-
-            this.Controls.Add(buttonGroup);
-
-            // get the localized character set
-            var charSet = this.GetText("LANGUAGE", "CHARSET").Split('/');
-
-            //var users = this.Get<IAspNetUsersHelper>().Users;
-
-            charSet.ForEach(
-                t =>
-                    {
-                        // get the current selected character (if there is one)
-                        var selectedLetter = this.CurrentLetter;
-
-                        // go through all letters in a set
-                        t.ForEach(
-                            letter =>
+                    // go through all letters in a set
+                    t.ForEach(
+                        letter =>
                             {
                                 /*if (!users.Any(x => x.UserName.StartsWith(letter.ToString())))
                                 {
@@ -118,16 +118,16 @@ namespace YAF.Web.Controls
 
                                 // create a link to this letter
                                 var link = new HyperLink
-                                {
-                                    ToolTip =
-                                        this.GetTextFormatted(
-                                            "ALPHABET_FILTER_BY",
-                                            letter.ToString()),
-                                    Text = letter.ToString(),
-                                    NavigateUrl = this.Get<LinkBuilder>().GetLink(
-                                        ForumPages.Members,
-                                        new { letter = letter == '#' ? '_' : letter })
-                                };
+                                               {
+                                                   ToolTip =
+                                                       this.GetTextFormatted(
+                                                           "ALPHABET_FILTER_BY",
+                                                           letter.ToString()),
+                                                   Text = letter.ToString(),
+                                                   NavigateUrl = this.Get<LinkBuilder>().GetLink(
+                                                       ForumPages.Members,
+                                                       new { letter = letter == '#' ? '_' : letter })
+                                               };
 
                                 if (selectedLetter != char.MinValue && selectedLetter == letter)
                                 {
@@ -141,9 +141,8 @@ namespace YAF.Web.Controls
 
                                 buttonGroup.Controls.Add(link);
                             });
-                    });
-        }
-
-        #endregion
+                });
     }
+
+    #endregion
 }

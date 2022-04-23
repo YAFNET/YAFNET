@@ -21,47 +21,46 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the Spam_Words table.
+/// </summary>
+[Serializable]
+public class Spam_Words : IEntity, IHaveBoardID, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the Spam_Words table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class Spam_Words : IEntity, IHaveBoardID, IHaveID
-    {
-        #region Properties
+    [AutoIncrement]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the board identifier.
+    /// </summary>
+    /// <value>
+    /// The board identifier.
+    /// </value>
+    [Required]
+    public int BoardID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the board identifier.
-        /// </summary>
-        /// <value>
-        /// The board identifier.
-        /// </value>
-        [Required]
-        public int BoardID { get; set; }
+    /// <summary>
+    /// Gets or sets the spam word.
+    /// </summary>
+    /// <value>
+    /// The spam word.
+    /// </value>
+    [StringLength(255)]
+    public string SpamWord { get; set; }
 
-        /// <summary>
-        /// Gets or sets the spam word.
-        /// </summary>
-        /// <value>
-        /// The spam word.
-        /// </value>
-        [StringLength(255)]
-        public string SpamWord { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

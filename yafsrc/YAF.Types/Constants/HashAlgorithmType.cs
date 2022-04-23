@@ -22,36 +22,35 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The hash algorithm type.
+/// </summary>
+public enum HashAlgorithmType
 {
     /// <summary>
-    /// The hash algorithm type.
+    /// The MD5.
     /// </summary>
-    public enum HashAlgorithmType
-    {
-        /// <summary>
-        /// The MD5.
-        /// </summary>
-        MD5,
+    MD5,
 
-        /// <summary>
-        /// The SHA1.
-        /// </summary>
-        SHA1,
+    /// <summary>
+    /// The SHA1.
+    /// </summary>
+    SHA1,
 
-        /// <summary>
-        /// The SHA256.
-        /// </summary>
-        SHA256,
+    /// <summary>
+    /// The SHA256.
+    /// </summary>
+    SHA256,
 
-        /// <summary>
-        /// The SHA384.
-        /// </summary>
-        SHA384,
+    /// <summary>
+    /// The SHA384.
+    /// </summary>
+    SHA384,
 
-        /// <summary>
-        /// The SHA512.
-        /// </summary>
-        SHA512
-    }
+    /// <summary>
+    /// The SHA512.
+    /// </summary>
+    SHA512
 }

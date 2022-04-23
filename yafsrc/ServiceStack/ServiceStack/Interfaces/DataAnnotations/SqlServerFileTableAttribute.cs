@@ -6,42 +6,41 @@
 // ***********************************************************************
 using System;
 
-namespace ServiceStack.DataAnnotations
+namespace ServiceStack.DataAnnotations;
+
+/// <summary>
+/// Class SqlServerFileTableAttribute.
+/// Implements the <see cref="ServiceStack.AttributeBase" />
+/// </summary>
+/// <seealso cref="ServiceStack.AttributeBase" />
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+public class SqlServerFileTableAttribute : AttributeBase
 {
     /// <summary>
-    /// Class SqlServerFileTableAttribute.
-    /// Implements the <see cref="ServiceStack.AttributeBase" />
+    /// Initializes a new instance of the <see cref="SqlServerFileTableAttribute"/> class.
     /// </summary>
-    /// <seealso cref="ServiceStack.AttributeBase" />
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
-    public class SqlServerFileTableAttribute : AttributeBase
+    public SqlServerFileTableAttribute() { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SqlServerFileTableAttribute"/> class.
+    /// </summary>
+    /// <param name="directory">The directory.</param>
+    /// <param name="collateFileName">Name of the collate file.</param>
+    public SqlServerFileTableAttribute(string directory, string collateFileName = null)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SqlServerFileTableAttribute"/> class.
-        /// </summary>
-        public SqlServerFileTableAttribute() { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SqlServerFileTableAttribute"/> class.
-        /// </summary>
-        /// <param name="directory">The directory.</param>
-        /// <param name="collateFileName">Name of the collate file.</param>
-        public SqlServerFileTableAttribute(string directory, string collateFileName = null)
-        {
-            FileTableDirectory = directory;
-            FileTableCollateFileName = collateFileName;
-        }
-
-        /// <summary>
-        /// Gets the file table directory.
-        /// </summary>
-        /// <value>The file table directory.</value>
-        public string FileTableDirectory { get; internal set; }
-
-        /// <summary>
-        /// Gets the name of the file table collate file.
-        /// </summary>
-        /// <value>The name of the file table collate file.</value>
-        public string FileTableCollateFileName { get; internal set; }
+        FileTableDirectory = directory;
+        FileTableCollateFileName = collateFileName;
     }
+
+    /// <summary>
+    /// Gets the file table directory.
+    /// </summary>
+    /// <value>The file table directory.</value>
+    public string FileTableDirectory { get; internal set; }
+
+    /// <summary>
+    /// Gets the name of the file table collate file.
+    /// </summary>
+    /// <value>The name of the file table collate file.</value>
+    public string FileTableCollateFileName { get; internal set; }
 }

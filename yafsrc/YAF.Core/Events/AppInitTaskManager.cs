@@ -21,159 +21,159 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Events
+namespace YAF.Core.Events;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Web;
+
+using YAF.Core.Helpers;
+using YAF.Core.Tasks;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.EventProxies;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// Initializes the Application task manager.
+/// </summary>
+[ExportService(ServiceLifetimeScope.Singleton)]
+public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplicationInitEvent>, IHaveServiceLocator
 {
-    #region Using
+    #region Constants and Fields
 
-    using System;
-    using System.Collections.Generic;
-    using System.Web;
-
-    using YAF.Core.Helpers;
-    using YAF.Core.Tasks;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Interfaces.Services;
+    /// <summary>
+    ///   The app instance.
+    /// </summary>
+    private HttpApplication appInstance;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes the Application task manager.
+    /// Initializes a new instance of the <see cref="AppInitTaskManager"/> class.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.Singleton)]
-    public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplicationInitEvent>, IHaveServiceLocator
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <param name="logger">
+    /// The logger.
+    /// </param>
+    public AppInitTaskManager([NotNull] IServiceLocator serviceLocator, [NotNull] ILoggerService logger)
     {
-        #region Constants and Fields
+        this.ServiceLocator = serviceLocator;
+        this.Logger = logger;
+    }
 
-        /// <summary>
-        ///   The app instance.
-        /// </summary>
-        private HttpApplication appInstance;
+    #endregion
 
-        #endregion
+    #region Properties
 
-        #region Constructors and Destructors
+    /// <summary>
+    /// Gets or sets Logger.
+    /// </summary>
+    public ILoggerService Logger { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AppInitTaskManager"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        public AppInitTaskManager([NotNull] IServiceLocator serviceLocator, [NotNull] ILoggerService logger)
+    /// <summary>
+    ///   Gets Order.
+    /// </summary>
+    public int Order => 5;
+
+    /// <summary>
+    /// Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
+    /// </summary>
+    /// <param name="instanceName">
+    /// Unique name of this task
+    /// </param>
+    /// <param name="start">
+    /// Task to run
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public override bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start)
+    {
+        CodeContracts.VerifyNotNull(instanceName);
+        CodeContracts.VerifyNotNull(start);
+
+        if (this.appInstance is null)
         {
-            this.ServiceLocator = serviceLocator;
-            this.Logger = logger;
+            return false;
         }
 
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets Logger.
-        /// </summary>
-        public ILoggerService Logger { get; set; }
-
-        /// <summary>
-        ///   Gets Order.
-        /// </summary>
-        public int Order => 5;
-
-        /// <summary>
-        /// Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
-        /// </summary>
-        /// <param name="instanceName">
-        /// Unique name of this task
-        /// </param>
-        /// <param name="start">
-        /// Task to run
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public override bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start)
+        // add and start this module...
+        if (this.TaskExists(instanceName))
         {
-            CodeContracts.VerifyNotNull(instanceName);
-            CodeContracts.VerifyNotNull(start);
-
-            if (this.appInstance is null)
-            {
-                return false;
-            }
-
-            // add and start this module...
-            if (this.TaskExists(instanceName))
-            {
-                return false;
-            }
-
-            this.Logger.Debug($"Starting Task {instanceName}...");
-
-            var injectServices = this.Get<IInjectServices>();
-
-            taskManager.AddOrUpdate(
-                instanceName,
-                s =>
-                    {
-                        var task = start();
-                        injectServices.Inject(task);
-                        task.Run();
-                        return task;
-                    },
-                (s, task) =>
-                    {
-                        task?.Dispose();
-
-                        var newTask = start();
-                        injectServices.Inject(newTask);
-                        newTask.Run();
-                        return task;
-                    });
-
-            return true;
+            return false;
         }
 
-        #endregion
+        this.Logger.Debug($"Starting Task {instanceName}...");
 
-        #region Implemented Interfaces
+        var injectServices = this.Get<IInjectServices>();
 
-        #region IHandleEvent<HttpApplicationInitEvent>
+        taskManager.AddOrUpdate(
+            instanceName,
+            s =>
+                {
+                    var task = start();
+                    injectServices.Inject(task);
+                    task.Run();
+                    return task;
+                },
+            (s, task) =>
+                {
+                    task?.Dispose();
 
-        /// <summary>
-        /// The handle.
-        /// </summary>
-        /// <param name="event">
-        /// The event.
-        /// </param>
-        public void Handle([NotNull] HttpApplicationInitEvent @event)
-        {
-            this.appInstance = @event.HttpApplication;
+                    var newTask = start();
+                    injectServices.Inject(newTask);
+                    newTask.Run();
+                    return task;
+                });
 
-            // wire up provider so that the task module can be found...
-            this.Get<CurrentTaskModuleProvider>().Instance = this;
+        return true;
+    }
 
-            // create intermittent cleanup task...
-            this.StartTask("CleanUpTask", () => new CleanUpTask { TaskManager = this });
+    #endregion
 
-            this.Get<IEnumerable<IStartTasks>>().ForEach(
-                instance =>
+    #region Implemented Interfaces
+
+    #region IHandleEvent<HttpApplicationInitEvent>
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
+    /// </param>
+    public void Handle([NotNull] HttpApplicationInitEvent @event)
+    {
+        this.appInstance = @event.HttpApplication;
+
+        // wire up provider so that the task module can be found...
+        this.Get<CurrentTaskModuleProvider>().Instance = this;
+
+        // create intermittent cleanup task...
+        this.StartTask("CleanUpTask", () => new CleanUpTask { TaskManager = this });
+
+        this.Get<IEnumerable<IStartTasks>>().ForEach(
+            instance =>
                 {
                     try
                     {
@@ -184,10 +184,9 @@ namespace YAF.Core.Events
                         this.Logger.Error(ex, $"Failed to start: {instance.GetType().Name}");
                     }
                 });
-        }
-
-        #endregion
-
-        #endregion
     }
+
+    #endregion
+
+    #endregion
 }

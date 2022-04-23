@@ -22,241 +22,241 @@
  * under the License.
  */
 
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel.Syndication;
+using System.Text;
+using System.Web;
+using System.Xml;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Core.Helpers;
+using YAF.Core.Model;
+using YAF.Core.Services.Syndication;
+using YAF.Core.Utilities.StringUtils;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The Syndication feeds.
+/// </summary>
+public class SyndicationFeeds : IHaveServiceLocator
 {
-    #region Using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.ServiceModel.Syndication;
-    using System.Text;
-    using System.Web;
-    using System.Xml;
-
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
-    using YAF.Core.Model;
-    using YAF.Core.Services.Syndication;
-    using YAF.Core.Utilities.StringUtils;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
-
-    #endregion
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SyndicationFeeds"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public SyndicationFeeds(IServiceLocator serviceLocator)
+    {
+        this.ServiceLocator = serviceLocator;
+    }
 
     /// <summary>
-    /// The Syndication feeds.
+    ///     Gets or sets ServiceLocator.
     /// </summary>
-    public class SyndicationFeeds : IHaveServiceLocator
+    public IServiceLocator ServiceLocator { get; set; }
+
+    /// <summary>
+    /// Gets the Feed
+    /// </summary>
+    public void GetFeed()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SyndicationFeeds"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        public SyndicationFeeds(IServiceLocator serviceLocator)
+        FeedItem feed = null;
+
+        var lastPostName = this.Get<ILocalization>().GetText("DEFAULT", "GO_LAST_POST");
+
+        RssFeeds feedType;
+
+        try
         {
-            this.ServiceLocator = serviceLocator;
+            feedType = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("feed").ToEnum<RssFeeds>(true);
+        }
+        catch
+        {
+            // default to Forum Feed.
+            feedType = RssFeeds.LatestPosts;
         }
 
-        /// <summary>
-        ///     Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        /// <summary>
-        /// Gets the Feed
-        /// </summary>
-        public void GetFeed()
+        switch (feedType)
         {
-            FeedItem feed = null;
-
-            var lastPostName = this.Get<ILocalization>().GetText("DEFAULT", "GO_LAST_POST");
-
-            RssFeeds feedType;
-
-            try
-            {
-                feedType = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("feed").ToEnum<RssFeeds>(true);
-            }
-            catch
-            {
-                // default to Forum Feed.
-                feedType = RssFeeds.LatestPosts;
-            }
-
-            switch (feedType)
-            {
-                // Latest posts feed
-                case RssFeeds.LatestPosts:
-                    if (!(BoardContext.Current.BoardSettings.ShowActiveDiscussions && this.Get<IPermissions>()
-                        .Check(BoardContext.Current.BoardSettings.PostLatestFeedAccess)))
-                    {
-                        this.Get<LinkBuilder>().AccessDenied();
-                    }
-
-                    feed = this.GetPostLatestFeed(feedType, lastPostName);
-                    break;
-
-                // Posts Feed
-                case RssFeeds.Posts:
-                    if (!(BoardContext.Current.ForumReadAccess && this.Get<IPermissions>()
-                        .Check(BoardContext.Current.BoardSettings.PostsFeedAccess)))
-                    {
-                        this.Get<LinkBuilder>().AccessDenied();
-                    }
-
-                    if (this.Get<HttpRequestBase>().QueryString.Exists("t"))
-                    {
-                        var topicId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("t");
-
-                        feed = this.GetPostsFeed(feedType, topicId.Value);
-                    }
-
-                    break;
-
-                // Topics Feed
-                case RssFeeds.Topics:
-                    if (!(BoardContext.Current.ForumReadAccess && this.Get<IPermissions>()
-                        .Check(BoardContext.Current.BoardSettings.TopicsFeedAccess)))
-                    {
-                        this.Get<LinkBuilder>().AccessDenied();
-                    }
-
-                    if (this.Get<HttpRequestBase>().QueryString.Exists("f"))
-                    {
-                        var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("f");
-
-                        feed = this.GetTopicsFeed(feedType, lastPostName, forumId.Value);
-                    }
-
-                    break;
-                default:
+            // Latest posts feed
+            case RssFeeds.LatestPosts:
+                if (!(BoardContext.Current.BoardSettings.ShowActiveDiscussions && this.Get<IPermissions>()
+                          .Check(BoardContext.Current.BoardSettings.PostLatestFeedAccess)))
+                {
                     this.Get<LinkBuilder>().AccessDenied();
-                    break;
-            }
+                }
 
-            // update the feed with the item list...
-            // the list should be added after all other feed properties are set
-            if (feed != null)
-            {
-                var writer = new XmlTextWriter(this.Get<HttpResponseBase>().OutputStream, Encoding.UTF8);
-                writer.WriteStartDocument();
+                feed = this.GetPostLatestFeed(feedType, lastPostName);
+                break;
 
-                // write the feed to the response writer
-                var atomFormatter = new Atom10FeedFormatter(feed);
-                atomFormatter.WriteTo(writer);
+            // Posts Feed
+            case RssFeeds.Posts:
+                if (!(BoardContext.Current.ForumReadAccess && this.Get<IPermissions>()
+                          .Check(BoardContext.Current.BoardSettings.PostsFeedAccess)))
+                {
+                    this.Get<LinkBuilder>().AccessDenied();
+                }
 
-                this.Get<HttpResponseBase>().ContentType = "application/atom+xml";
+                if (this.Get<HttpRequestBase>().QueryString.Exists("t"))
+                {
+                    var topicId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("t");
 
-                writer.WriteEndDocument();
-                writer.Close();
+                    feed = this.GetPostsFeed(feedType, topicId.Value);
+                }
 
-                this.Get<HttpResponseBase>().ContentEncoding = Encoding.UTF8;
-                this.Get<HttpResponseBase>().Cache.SetCacheability(HttpCacheability.Public);
+                break;
 
-                this.Get<HttpResponseBase>().End();
-            }
-            else
-            {
-                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
-            }
+            // Topics Feed
+            case RssFeeds.Topics:
+                if (!(BoardContext.Current.ForumReadAccess && this.Get<IPermissions>()
+                          .Check(BoardContext.Current.BoardSettings.TopicsFeedAccess)))
+                {
+                    this.Get<LinkBuilder>().AccessDenied();
+                }
+
+                if (this.Get<HttpRequestBase>().QueryString.Exists("f"))
+                {
+                    var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("f");
+
+                    feed = this.GetTopicsFeed(feedType, lastPostName, forumId.Value);
+                }
+
+                break;
+            default:
+                this.Get<LinkBuilder>().AccessDenied();
+                break;
         }
 
-        /// <summary>
-        /// The method to return latest topic content to display in a feed.
-        /// </summary>
-        /// <param name="link">A link to an active topic.</param>
-        /// <param name="linkName">A latest topic displayed link name</param>
-        /// <param name="text">An active topic first message content/partial content.</param>
-        /// <param name="flags">The flags.</param>
-        /// <param name="altItem">The alt Item.</param>
-        /// <returns>
-        /// An Html formatted first message content string.
-        /// </returns>
-        public string GetPostLatestContent(
-            [NotNull] string link,
-            [NotNull] string linkName,
-            [NotNull] string text,
-            [NotNull] int flags,
-            [NotNull] bool altItem)
+        // update the feed with the item list...
+        // the list should be added after all other feed properties are set
+        if (feed != null)
         {
-            text = this.Get<IFormatMessage>().FormatSyndicationMessage(text, new MessageFlags(flags), altItem, 4000);
+            var writer = new XmlTextWriter(this.Get<HttpResponseBase>().OutputStream, Encoding.UTF8);
+            writer.WriteStartDocument();
 
-            return $@"{text}<a href=""{link}"" >{linkName}</a>";
+            // write the feed to the response writer
+            var atomFormatter = new Atom10FeedFormatter(feed);
+            atomFormatter.WriteTo(writer);
+
+            this.Get<HttpResponseBase>().ContentType = "application/atom+xml";
+
+            writer.WriteEndDocument();
+            writer.Close();
+
+            this.Get<HttpResponseBase>().ContentEncoding = Encoding.UTF8;
+            this.Get<HttpResponseBase>().Cache.SetCacheability(HttpCacheability.Public);
+
+            this.Get<HttpResponseBase>().End();
+        }
+        else
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+        }
+    }
+
+    /// <summary>
+    /// The method to return latest topic content to display in a feed.
+    /// </summary>
+    /// <param name="link">A link to an active topic.</param>
+    /// <param name="linkName">A latest topic displayed link name</param>
+    /// <param name="text">An active topic first message content/partial content.</param>
+    /// <param name="flags">The flags.</param>
+    /// <param name="altItem">The alt Item.</param>
+    /// <returns>
+    /// An Html formatted first message content string.
+    /// </returns>
+    public string GetPostLatestContent(
+        [NotNull] string link,
+        [NotNull] string linkName,
+        [NotNull] string text,
+        [NotNull] int flags,
+        [NotNull] bool altItem)
+    {
+        text = this.Get<IFormatMessage>().FormatSyndicationMessage(text, new MessageFlags(flags), altItem, 4000);
+
+        return $@"{text}<a href=""{link}"" >{linkName}</a>";
+    }
+
+    /// <summary>
+    /// The helper function gets media enclosure links for a post
+    /// </summary>
+    /// <param name="messageId">
+    /// The MessageId with attached files.
+    /// </param>
+    /// <returns>
+    /// The get media links.
+    /// </returns>
+    [NotNull]
+    public List<SyndicationLink> GetMediaLinks(int messageId)
+    {
+        var attachmentLinks = new List<SyndicationLink>();
+        var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == messageId);
+
+        if (attachments.Any())
+        {
+            attachmentLinks.AddRange(
+                from Attachment attachment in attachments
+                where attachment.FileName.IsSet()
+                select new SyndicationLink(
+                    new Uri(
+                        $"{BoardInfo.ForumBaseUrl}{BoardInfo.ForumClientFileRoot.TrimStart('/')}resource.ashx?a={attachment.ID}"),
+                    "enclosure",
+                    attachment.FileName,
+                    attachment.ContentType,
+                    attachment.Bytes.ToType<long>()));
         }
 
-        /// <summary>
-        /// The helper function gets media enclosure links for a post
-        /// </summary>
-        /// <param name="messageId">
-        /// The MessageId with attached files.
-        /// </param>
-        /// <returns>
-        /// The get media links.
-        /// </returns>
-        [NotNull]
-        public List<SyndicationLink> GetMediaLinks(int messageId)
-        {
-            var attachmentLinks = new List<SyndicationLink>();
-            var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == messageId);
+        return attachmentLinks;
+    }
 
-            if (attachments.Any())
-            {
-                attachmentLinks.AddRange(
-                    from Attachment attachment in attachments
-                    where attachment.FileName.IsSet()
-                    select new SyndicationLink(
-                        new Uri(
-                            $"{BoardInfo.ForumBaseUrl}{BoardInfo.ForumClientFileRoot.TrimStart('/')}resource.ashx?a={attachment.ID}"),
-                        "enclosure",
-                        attachment.FileName,
-                        attachment.ContentType,
-                        attachment.Bytes.ToType<long>()));
-            }
+    /// <summary>
+    /// The method creates Syndication Feed for topics in a forum.
+    /// </summary>
+    /// <param name="feedType">
+    /// The FeedType.
+    /// </param>
+    /// <param name="lastPostName">
+    /// The last post name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="FeedItem"/>.
+    /// </returns>
+    public FeedItem GetPostLatestFeed([NotNull] RssFeeds feedType, [NotNull] string lastPostName)
+    {
+        var syndicationItems = new List<SyndicationItem>();
 
-            return attachmentLinks;
-        }
+        var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
-        /// <summary>
-        /// The method creates Syndication Feed for topics in a forum.
-        /// </summary>
-        /// <param name="feedType">
-        /// The FeedType.
-        /// </param>
-        /// <param name="lastPostName">
-        /// The last post name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="FeedItem"/>.
-        /// </returns>
-        public FeedItem GetPostLatestFeed([NotNull] RssFeeds feedType, [NotNull] string lastPostName)
-        {
-            var syndicationItems = new List<SyndicationItem>();
+        var feed = new FeedItem(this.Get<ILocalization>().GetText("ACTIVE_DISCUSSIONS"), feedType, urlAlphaNum);
 
-            var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
+        var topics = this.GetRepository<Topic>().RssLatest(
+            BoardContext.Current.PageBoardID,
+            BoardContext.Current.BoardSettings.ActiveDiscussionsCount <= 50
+                ? BoardContext.Current.BoardSettings.ActiveDiscussionsCount
+                : 50,
+            BoardContext.Current.PageUserID);
 
-            var feed = new FeedItem(this.Get<ILocalization>().GetText("ACTIVE_DISCUSSIONS"), feedType, urlAlphaNum);
+        var altItem = false;
 
-            var topics = this.GetRepository<Topic>().RssLatest(
-                BoardContext.Current.PageBoardID,
-                BoardContext.Current.BoardSettings.ActiveDiscussionsCount <= 50
-                    ? BoardContext.Current.BoardSettings.ActiveDiscussionsCount
-                    : 50,
-                BoardContext.Current.PageUserID);
-
-            var altItem = false;
-
-            topics.ForEach(
-                topic =>
+        topics.ForEach(
+            topic =>
                 {
                     var lastPosted = topic.Item2.LastPosted.Value + this.Get<IDateTimeService>().TimeOffset;
                     if (syndicationItems.Count <= 0)
@@ -303,49 +303,49 @@ namespace YAF.Core.Services
                     feed.Items = syndicationItems;
                 });
 
-            return feed;
-        }
+        return feed;
+    }
 
-        /// <summary>
-        /// The method creates the SyndicationFeed for posts.
-        /// </summary>
-        /// <param name="feedType">
-        /// The FeedType.
-        /// </param>
-        /// <param name="topicId">
-        /// The TopicID
-        /// </param>
-        /// <returns>
-        /// The <see cref="FeedItem"/>.
-        /// </returns>
-        public FeedItem GetPostsFeed([NotNull] RssFeeds feedType, [NotNull] int topicId)
-        {
-            var syndicationItems = new List<SyndicationItem>();
+    /// <summary>
+    /// The method creates the SyndicationFeed for posts.
+    /// </summary>
+    /// <param name="feedType">
+    /// The FeedType.
+    /// </param>
+    /// <param name="topicId">
+    /// The TopicID
+    /// </param>
+    /// <returns>
+    /// The <see cref="FeedItem"/>.
+    /// </returns>
+    public FeedItem GetPostsFeed([NotNull] RssFeeds feedType, [NotNull] int topicId)
+    {
+        var syndicationItems = new List<SyndicationItem>();
 
-            var showDeleted = BoardContext.Current.BoardSettings.ShowDeletedMessagesToAll;
+        var showDeleted = BoardContext.Current.BoardSettings.ShowDeletedMessagesToAll;
 
-            var posts = this.GetRepository<Message>().PostListPaged(
-                topicId,
-                BoardContext.Current.PageUserID,
-                false,
-                showDeleted,
-                DateTimeHelper.SqlDbMinTime(),
-                DateTime.UtcNow,
-                0,
-                BoardContext.Current.BoardSettings.PostsPerPage,
-                -1);
+        var posts = this.GetRepository<Message>().PostListPaged(
+            topicId,
+            BoardContext.Current.PageUserID,
+            false,
+            showDeleted,
+            DateTimeHelper.SqlDbMinTime(),
+            DateTime.UtcNow,
+            0,
+            BoardContext.Current.BoardSettings.PostsPerPage,
+            -1);
 
-            var altItem = false;
+        var altItem = false;
 
-            var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
+        var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
-            var feed = new FeedItem(
-                $"{this.Get<ILocalization>().GetText("PROFILE", "TOPIC")}{BoardContext.Current.PageTopic.TopicName} - {BoardContext.Current.BoardSettings.PostsPerPage}",
-                feedType,
-                urlAlphaNum);
+        var feed = new FeedItem(
+            $"{this.Get<ILocalization>().GetText("PROFILE", "TOPIC")}{BoardContext.Current.PageTopic.TopicName} - {BoardContext.Current.BoardSettings.PostsPerPage}",
+            feedType,
+            urlAlphaNum);
 
-            posts.ForEach(
-                row =>
+        posts.ForEach(
+            row =>
                 {
                     var posted = row.Edited + this.Get<IDateTimeService>().TimeOffset;
 
@@ -388,44 +388,44 @@ namespace YAF.Core.Services
                     altItem = !altItem;
                 });
 
-            feed.Items = syndicationItems;
+        feed.Items = syndicationItems;
 
-            return feed;
-        }
+        return feed;
+    }
 
-        /// <summary>
-        /// The method creates SyndicationFeed for topics in a forum.
-        /// </summary>
-        /// <param name="feedType">
-        /// The FeedType.
-        /// </param>
-        /// <param name="lastPostName">
-        /// The last post name.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="FeedItem"/>.
-        /// </returns>
-        public FeedItem GetTopicsFeed([NotNull] RssFeeds feedType, [NotNull] string lastPostName, [NotNull] int forumId)
-        {
-            var syndicationItems = new List<SyndicationItem>();
+    /// <summary>
+    /// The method creates SyndicationFeed for topics in a forum.
+    /// </summary>
+    /// <param name="feedType">
+    /// The FeedType.
+    /// </param>
+    /// <param name="lastPostName">
+    /// The last post name.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="FeedItem"/>.
+    /// </returns>
+    public FeedItem GetTopicsFeed([NotNull] RssFeeds feedType, [NotNull] string lastPostName, [NotNull] int forumId)
+    {
+        var syndicationItems = new List<SyndicationItem>();
 
-            var topics = this.GetRepository<Topic>().RssList(
-                forumId,
-                BoardContext.Current.PageUserID,
-                BoardContext.Current.BoardSettings.TopicsFeedItemsCount);
+        var topics = this.GetRepository<Topic>().RssList(
+            forumId,
+            BoardContext.Current.PageUserID,
+            BoardContext.Current.BoardSettings.TopicsFeedItemsCount);
 
-            var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
+        var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
-            var feed = new FeedItem(
-                $"{this.Get<ILocalization>().GetText("DEFAULT", "FORUM")}:{BoardContext.Current.PageForum.Name}",
-                feedType,
-                urlAlphaNum);
+        var feed = new FeedItem(
+            $"{this.Get<ILocalization>().GetText("DEFAULT", "FORUM")}:{BoardContext.Current.PageForum.Name}",
+            feedType,
+            urlAlphaNum);
 
-            topics.ForEach(
-                topic =>
+        topics.ForEach(
+            topic =>
                 {
                     var lastPosted = topic.LastPosted + this.Get<IDateTimeService>().TimeOffset;
 
@@ -469,42 +469,41 @@ namespace YAF.Core.Services
                         feed);
                 });
 
-            feed.Items = syndicationItems;
+        feed.Items = syndicationItems;
 
-            return feed;
-        }
+        return feed;
+    }
 
-        /// <summary>
-        /// Format the Url to an URN compatible string
-        /// </summary>
-        /// <param name="inputUrl">
-        /// Input Url to format
-        /// </param>
-        /// <returns>
-        /// Formatted url
-        /// </returns>
-        [NotNull]
-        private static string FormatUrlForFeed([NotNull] string inputUrl)
+    /// <summary>
+    /// Format the Url to an URN compatible string
+    /// </summary>
+    /// <param name="inputUrl">
+    /// Input Url to format
+    /// </param>
+    /// <returns>
+    /// Formatted url
+    /// </returns>
+    [NotNull]
+    private static string FormatUrlForFeed([NotNull] string inputUrl)
+    {
+        var formattedUrl = inputUrl;
+
+        /*if (formattedUrl.Contains(@"http://www."))
         {
-            var formattedUrl = inputUrl;
-
-            /*if (formattedUrl.Contains(@"http://www."))
-            {
-                formattedUrl = formattedUrl.Replace("http://www.", string.Empty);
-            }
-            else if (formattedUrl.Contains(@"http://"))
-            {
-                formattedUrl = formattedUrl.Replace("http://", string.Empty);
-            }*/
-
-            formattedUrl = formattedUrl.Replace(".", "-").Replace("/", "-");
-
-            if (formattedUrl.EndsWith("/"))
-            {
-                formattedUrl = formattedUrl.Remove(formattedUrl.Length - 1);
-            }
-
-            return formattedUrl;
+            formattedUrl = formattedUrl.Replace("http://www.", string.Empty);
         }
+        else if (formattedUrl.Contains(@"http://"))
+        {
+            formattedUrl = formattedUrl.Replace("http://", string.Empty);
+        }*/
+
+        formattedUrl = formattedUrl.Replace(".", "-").Replace("/", "-");
+
+        if (formattedUrl.EndsWith("/"))
+        {
+            formattedUrl = formattedUrl.Remove(formattedUrl.Length - 1);
+        }
+
+        return formattedUrl;
     }
 }

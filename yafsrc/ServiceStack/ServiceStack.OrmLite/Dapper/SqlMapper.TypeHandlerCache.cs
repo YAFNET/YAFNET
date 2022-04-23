@@ -8,53 +8,52 @@ using System;
 using System.ComponentModel;
 using System.Data;
 
-namespace ServiceStack.OrmLite.Dapper
+namespace ServiceStack.OrmLite.Dapper;
+
+/// <summary>
+/// Class SqlMapper.
+/// </summary>
+public static partial class SqlMapper
 {
     /// <summary>
-    /// Class SqlMapper.
+    /// Not intended for direct usage
     /// </summary>
-    public static partial class SqlMapper
+    /// <typeparam name="T">The type to have a cache for.</typeparam>
+    [Obsolete(ObsoleteInternalUsageOnly, false)]
+    [Browsable(false)]
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public static class TypeHandlerCache<T>
     {
         /// <summary>
-        /// Not intended for direct usage
+        /// Not intended for direct usage.
         /// </summary>
-        /// <typeparam name="T">The type to have a cache for.</typeparam>
-        [Obsolete(ObsoleteInternalUsageOnly, false)]
-        [Browsable(false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static class TypeHandlerCache<T>
+        /// <param name="value">The object to parse.</param>
+        /// <returns>T.</returns>
+        [Obsolete(ObsoleteInternalUsageOnly, true)]
+        public static T Parse(object value) => (T)handler.Parse(typeof(T), value);
+
+        /// <summary>
+        /// Not intended for direct usage.
+        /// </summary>
+        /// <param name="parameter">The parameter to set a value for.</param>
+        /// <param name="value">The value to set.</param>
+        [Obsolete(ObsoleteInternalUsageOnly, true)]
+        public static void SetValue(IDbDataParameter parameter, object value) => handler.SetValue(parameter, value);
+
+        /// <summary>
+        /// Sets the handler.
+        /// </summary>
+        /// <param name="handler">The handler.</param>
+        internal static void SetHandler(ITypeHandler handler)
         {
-            /// <summary>
-            /// Not intended for direct usage.
-            /// </summary>
-            /// <param name="value">The object to parse.</param>
-            /// <returns>T.</returns>
-            [Obsolete(ObsoleteInternalUsageOnly, true)]
-            public static T Parse(object value) => (T)handler.Parse(typeof(T), value);
-
-            /// <summary>
-            /// Not intended for direct usage.
-            /// </summary>
-            /// <param name="parameter">The parameter to set a value for.</param>
-            /// <param name="value">The value to set.</param>
-            [Obsolete(ObsoleteInternalUsageOnly, true)]
-            public static void SetValue(IDbDataParameter parameter, object value) => handler.SetValue(parameter, value);
-
-            /// <summary>
-            /// Sets the handler.
-            /// </summary>
-            /// <param name="handler">The handler.</param>
-            internal static void SetHandler(ITypeHandler handler)
-            {
 #pragma warning disable 618
-                TypeHandlerCache<T>.handler = handler;
+            TypeHandlerCache<T>.handler = handler;
 #pragma warning restore 618
-            }
-
-            /// <summary>
-            /// The handler
-            /// </summary>
-            private static ITypeHandler handler;
         }
+
+        /// <summary>
+        /// The handler
+        /// </summary>
+        private static ITypeHandler handler;
     }
 }

@@ -21,38 +21,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the Extension table.
+/// </summary>
+[Serializable]
+[Alias("Extension")]
+[Obsolete("Only used for Migration")]
+public partial class FileExtension : IEntity, IHaveID
 {
-    using System;
+    #region Properties
 
-    using ServiceStack.DataAnnotations;
+    [AutoIncrement]
+    [Alias("ExtensionID")]
+    public int ID { get; set; }
 
-    using YAF.Types.Interfaces.Data;
+    [References(typeof(Board))]
+    [Required]
 
-    /// <summary>
-    /// A class which represents the Extension table.
-    /// </summary>
-    [Serializable]
-    [Alias("Extension")]
-    [Obsolete("Only used for Migration")]
-    public partial class FileExtension : IEntity, IHaveID
-    {
-        #region Properties
+    [Default(1)]
+    public int BoardId { get; set; }
 
-        [AutoIncrement]
-        [Alias("ExtensionID")]
-        public int ID { get; set; }
+    [Required]
+    [StringLength(10)]
+    public string Extension { get; set; }
 
-        [References(typeof(Board))]
-        [Required]
-
-        [Default(1)]
-        public int BoardId { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string Extension { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

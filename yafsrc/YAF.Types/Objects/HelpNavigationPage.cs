@@ -22,20 +22,19 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+/// <summary>
+/// Class for the Help Pages inside a Category
+/// </summary>
+public class HelpNavigationPage
 {
+    #region Properties
+
     /// <summary>
-    /// Class for the Help Pages inside a Category
+    ///   Gets or sets The Help page Name
     /// </summary>
-    public class HelpNavigationPage
-    {
-        #region Properties
+    public string HelpPage { get; set; }
 
-        /// <summary>
-        ///   Gets or sets The Help page Name
-        /// </summary>
-        public string HelpPage { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

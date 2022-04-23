@@ -21,37 +21,36 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
+namespace YAF.Types.EventProxies;
+
+using YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// A basic event that includes a message.
+/// </summary>
+public class SimpleEvent : IAmEvent
 {
-    using YAF.Types.Interfaces.Events;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// A basic event that includes a message.
+    /// Initializes a new instance of the <see cref="SimpleEvent"/> class.
     /// </summary>
-    public class SimpleEvent : IAmEvent
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    public SimpleEvent(string message)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SimpleEvent"/> class.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        public SimpleEvent(string message)
-        {
-            this.Message = message;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets Message.
-        /// </summary>
-        public string Message { get; set; }
-
-        #endregion
+        this.Message = message;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets Message.
+    /// </summary>
+    public string Message { get; set; }
+
+    #endregion
 }

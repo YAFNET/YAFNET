@@ -22,104 +22,103 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// Class to communicate in Jabber.
+/// </summary>
+public partial class Jabber : ForumPage
 {
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Class to communicate in Jabber.
+    ///   Initializes a new instance of the <see cref = "Jabber" /> class.
     /// </summary>
-    public partial class Jabber : ForumPage
+    public Jabber()
+        : base("IM_XMPP", ForumPages.Jabber)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "Jabber" /> class.
-        /// </summary>
-        public Jabber()
-            : base("IM_XMPP", ForumPages.Jabber)
-        {
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets UserID.
-        /// </summary>
-        public int UserID =>
-            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.User == null)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            // get user data...
-            var userHe = this.GetRepository<User>().GetById(this.UserID);
-
-            if (userHe == null)
-            {
-                // No such user exists
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            if (!userHe.UserFlags.IsApproved)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddUser(
-                this.UserID,
-                userHe.DisplayOrUserName());
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-            if (this.UserID == this.PageBoardContext.PageUserID)
-            {
-                this.NotifyLabel.Text = this.GetText("SERVERYOU");
-                this.Alert.Type = MessageTypes.warning;
-            }
-            else
-            {
-                // get full user data...
-                var userDataHe = this.Get<IAspNetUsersHelper>().GetUser(userHe.ProviderUserKey);
-
-                var serverHe = userDataHe.Profile_XMPP
-                    .Substring(userDataHe.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
-
-                var serverMe = this.PageBoardContext.MembershipUser.Profile_XMPP
-                    .Substring(this.PageBoardContext.MembershipUser.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
-
-                this.NotifyLabel.Text = serverMe == serverHe
-                                            ? this.GetTextFormatted("SERVERSAME", userDataHe.Profile_XMPP)
-                                            : this.GetTextFormatted("SERVEROTHER", $"http://{serverHe}");
-
-                this.Alert.Type = MessageTypes.info;
-            }
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets UserID.
+    /// </summary>
+    public int UserID =>
+        this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.User == null)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        // get user data...
+        var userHe = this.GetRepository<User>().GetById(this.UserID);
+
+        if (userHe == null)
+        {
+            // No such user exists
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        if (!userHe.UserFlags.IsApproved)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddUser(
+            this.UserID,
+            userHe.DisplayOrUserName());
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+        if (this.UserID == this.PageBoardContext.PageUserID)
+        {
+            this.NotifyLabel.Text = this.GetText("SERVERYOU");
+            this.Alert.Type = MessageTypes.warning;
+        }
+        else
+        {
+            // get full user data...
+            var userDataHe = this.Get<IAspNetUsersHelper>().GetUser(userHe.ProviderUserKey);
+
+            var serverHe = userDataHe.Profile_XMPP
+                .Substring(userDataHe.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
+
+            var serverMe = this.PageBoardContext.MembershipUser.Profile_XMPP
+                .Substring(this.PageBoardContext.MembershipUser.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
+
+            this.NotifyLabel.Text = serverMe == serverHe
+                                        ? this.GetTextFormatted("SERVERSAME", userDataHe.Profile_XMPP)
+                                        : this.GetTextFormatted("SERVEROTHER", $"http://{serverHe}");
+
+            this.Alert.Type = MessageTypes.info;
+        }
+    }
+
+    #endregion
 }

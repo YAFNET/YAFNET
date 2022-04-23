@@ -21,30 +21,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// IEditorModule Interface for Editor classes.
+/// </summary>
+public interface IEditorModule : IModuleDefinition
 {
+    #region Properties
+
     /// <summary>
-    /// IEditorModule Interface for Editor classes.
+    /// Gets or sets Text.
     /// </summary>
-    public interface IEditorModule : IModuleDefinition
-    {
-        #region Properties
+    string Text { get; set; }
 
-        /// <summary>
-        /// Gets or sets Text.
-        /// </summary>
-        string Text { get; set; }
+    /// <summary>
+    /// Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    bool UsesBBCode { get; }
 
-        /// <summary>
-        /// Gets a value indicating whether UsesBBCode.
-        /// </summary>
-        bool UsesBBCode { get; }
+    /// <summary>
+    /// Gets a value indicating whether UsesHTML.
+    /// </summary>
+    bool UsesHTML { get; }
 
-        /// <summary>
-        /// Gets a value indicating whether UsesHTML.
-        /// </summary>
-        bool UsesHTML { get; }
-
-        #endregion
-    }
+    #endregion
 }

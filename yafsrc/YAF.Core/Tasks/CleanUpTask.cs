@@ -21,58 +21,58 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Tasks
+namespace YAF.Core.Tasks;
+
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Tasks;
+
+/// <summary>
+/// Automatically cleans up the tasks if they are no longer running...
+/// </summary>
+public class CleanUpTask : IntermittentBackgroundTask, ICriticalBackgroundTask
 {
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Tasks;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Automatically cleans up the tasks if they are no longer running...
+    /// Initializes a new instance of the <see cref="CleanUpTask"/> class.
     /// </summary>
-    public class CleanUpTask : IntermittentBackgroundTask, ICriticalBackgroundTask
+    public CleanUpTask()
     {
-        #region Constructors and Destructors
+        // set interval values...
+        this.RunPeriodMs = 500;
+        this.StartDelayMs = 500;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CleanUpTask"/> class.
-        /// </summary>
-        public CleanUpTask()
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets TaskManager.
+    /// </summary>
+    public ITaskModuleManager TaskManager { get; set; }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public override void RunOnce()
+    {
+        // look for tasks to clean up...
+        if (this.TaskManager == null)
         {
-            // set interval values...
-            this.RunPeriodMs = 500;
-            this.StartDelayMs = 500;
+            return;
         }
 
-        #endregion
+        // make collection local...
+        var taskListKeys = this.TaskManager.TaskManagerInstances;
 
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets TaskManager.
-        /// </summary>
-        public ITaskModuleManager TaskManager { get; set; }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The run once.
-        /// </summary>
-        public override void RunOnce()
-        {
-            // look for tasks to clean up...
-            if (this.TaskManager == null)
-            {
-                return;
-            }
-
-            // make collection local...
-            var taskListKeys = this.TaskManager.TaskManagerInstances;
-
-            taskListKeys.ForEach(
-                instanceName =>
+        taskListKeys.ForEach(
+            instanceName =>
                 {
                     if (this.TaskManager.TryGetTask(instanceName, out var task))
                     {
@@ -89,8 +89,7 @@ namespace YAF.Core.Tasks
                         this.TaskManager.TryRemoveTask(instanceName);
                     }
                 });
-        }
-
-        #endregion
     }
+
+    #endregion
 }

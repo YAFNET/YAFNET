@@ -22,34 +22,33 @@
  * under the License.
  */
 
-namespace YAF.Data.MySql
+namespace YAF.Data.MySql;
+
+using System.Data.Common;
+
+using Autofac;
+
+using global::MySql.Data.MySqlClient;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The MySQL module.
+/// </summary>
+public class MySqlModule : Module
 {
-    using System.Data.Common;
-
-    using Autofac;
-
-    using global::MySql.Data.MySqlClient;
-
-    using YAF.Types.Interfaces.Data;
-
     /// <summary>
-    /// The MySQL module.
+    /// The load.
     /// </summary>
-    public class MySqlModule : Module
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    protected override void Load(ContainerBuilder builder)
     {
-        /// <summary>
-        /// The load.
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterInstance<DbProviderFactory>(MySqlClientFactory.Instance);
+        builder.RegisterInstance<DbProviderFactory>(MySqlClientFactory.Instance);
 
-            builder.RegisterType<MySqlDbAccess>()
-                .Named<IDbAccess>(MySqlDbAccess.ProviderTypeName)
-                .InstancePerLifetimeScope();
-        }
+        builder.RegisterType<MySqlDbAccess>()
+            .Named<IDbAccess>(MySqlDbAccess.ProviderTypeName)
+            .InstancePerLifetimeScope();
     }
 }

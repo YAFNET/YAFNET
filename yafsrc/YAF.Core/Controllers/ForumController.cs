@@ -22,112 +22,68 @@
  * under the License.
  */
 
-namespace YAF.Core.Controllers
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Http;
+namespace YAF.Core.Controllers;
 
-    using YAF.Core.Context;
-    using YAF.Core.Model;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Types.Objects;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+
+using YAF.Core.Context;
+using YAF.Core.Model;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+
+/// <summary>
+/// The YAF Forum controller.
+/// </summary>
+[RoutePrefix("api")]
+public class ForumController : ApiController, IHaveServiceLocator
+{
+    #region Properties
 
     /// <summary>
-    /// The YAF Forum controller.
+    ///   Gets ServiceLocator.
     /// </summary>
-    [RoutePrefix("api")]
-    public class ForumController : ApiController, IHaveServiceLocator
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+
+    #endregion
+
+    /// <summary>
+    /// Gets the topics by forum.
+    /// </summary>
+    /// <param name="searchTopic">
+    /// The search Topic.
+    /// </param>
+    /// <returns>
+    /// The <see cref="SelectPagedOptions"/>.
+    /// </returns>
+    [Route("Forum/GetForums")]
+    [HttpPost]
+    public IHttpActionResult GetForums(SearchTopic searchTopic)
     {
-        #region Properties
-
-        /// <summary>
-        ///   Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-        #endregion
-
-        /// <summary>
-        /// Gets the topics by forum.
-        /// </summary>
-        /// <param name="searchTopic">
-        /// The search Topic.
-        /// </param>
-        /// <returns>
-        /// The <see cref="SelectPagedOptions"/>.
-        /// </returns>
-        [Route("Forum/GetForums")]
-        [HttpPost]
-        public IHttpActionResult GetForums(SearchTopic searchTopic)
+        if (searchTopic.SearchTerm.IsSet())
         {
-            if (searchTopic.SearchTerm.IsSet())
-            {
-                var forums = this.GetRepository<Forum>().ListAllSorted(
-                    BoardContext.Current.PageBoardID,
-                    BoardContext.Current.PageUserID,
-                    searchTopic.SearchTerm.ToLower());
+            var forums = this.GetRepository<Forum>().ListAllSorted(
+                BoardContext.Current.PageBoardID,
+                BoardContext.Current.PageUserID,
+                searchTopic.SearchTerm.ToLower());
 
-                var pagedForums = new SelectPagedGroupOptions { Total = forums.Count, Results = forums };
+            var pagedForums = new SelectPagedGroupOptions { Total = forums.Count, Results = forums };
 
-               return this.Ok(pagedForums);
-            }
-            else
-            {
-               var forums = this.GetRepository<Forum>().ListAllSorted(
-                    BoardContext.Current.PageBoardID,
-                    BoardContext.Current.PageUserID,
-                    searchTopic.Page,
-                    20,
-                    out var pager);
-
-               if (searchTopic.AllForumsOption)
-               {
-                   forums.Insert(
-                       0,
-                       new SelectGroup
-                           {
-                               text = BoardContext.Current.Get<ILocalization>().GetText("ALL_CATEGORIES"),
-                               children = new List<SelectOptions>
-                                              {
-                                                  new ()
-                                                      {
-                                                          id = "0",
-                                                          text = BoardContext.Current.Get<ILocalization>()
-                                                              .GetText("ALL_FORUMS")
-                                                      }
-                                              }
-                           });
-               }
-
-               var pagedForums = new SelectPagedGroupOptions
-                                     {
-                                         Total = forums.Any() ? pager.Count : 0,
-                                         Results = forums
-                                     };
-
-                return this.Ok(pagedForums);
-            }
+            return this.Ok(pagedForums);
         }
-
-        /// <summary>
-        /// Get Forum
-        /// </summary>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IHttpActionResult"/>.
-        /// </returns>
-        [Route("Forum/GetForum/{forumId}")]
-        [HttpPost]
-        public IHttpActionResult GetForum(int forumId)
+        else
         {
-            var forums = new List<SelectGroup>();
+            var forums = this.GetRepository<Forum>().ListAllSorted(
+                BoardContext.Current.PageBoardID,
+                BoardContext.Current.PageUserID,
+                searchTopic.Page,
+                20,
+                out var pager);
 
-            if (forumId.Equals(0))
+            if (searchTopic.AllForumsOption)
             {
                 forums.Insert(
                     0,
@@ -145,17 +101,60 @@ namespace YAF.Core.Controllers
                                            }
                         });
             }
-            else
-            {
-                forums = this.GetRepository<Forum>().ListAllSorted(
-                    BoardContext.Current.PageBoardID,
-                    BoardContext.Current.PageUserID,
-                    forumId);
-            }
 
-            var pagedForums = new SelectPagedGroupOptions { Total = forums.Count, Results = forums };
+            var pagedForums = new SelectPagedGroupOptions
+                                  {
+                                      Total = forums.Any() ? pager.Count : 0,
+                                      Results = forums
+                                  };
 
             return this.Ok(pagedForums);
         }
+    }
+
+    /// <summary>
+    /// Get Forum
+    /// </summary>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IHttpActionResult"/>.
+    /// </returns>
+    [Route("Forum/GetForum/{forumId}")]
+    [HttpPost]
+    public IHttpActionResult GetForum(int forumId)
+    {
+        var forums = new List<SelectGroup>();
+
+        if (forumId.Equals(0))
+        {
+            forums.Insert(
+                0,
+                new SelectGroup
+                    {
+                        text = BoardContext.Current.Get<ILocalization>().GetText("ALL_CATEGORIES"),
+                        children = new List<SelectOptions>
+                                       {
+                                           new ()
+                                               {
+                                                   id = "0",
+                                                   text = BoardContext.Current.Get<ILocalization>()
+                                                       .GetText("ALL_FORUMS")
+                                               }
+                                       }
+                    });
+        }
+        else
+        {
+            forums = this.GetRepository<Forum>().ListAllSorted(
+                BoardContext.Current.PageBoardID,
+                BoardContext.Current.PageUserID,
+                forumId);
+        }
+
+        var pagedForums = new SelectPagedGroupOptions { Total = forums.Count, Results = forums };
+
+        return this.Ok(pagedForums);
     }
 }

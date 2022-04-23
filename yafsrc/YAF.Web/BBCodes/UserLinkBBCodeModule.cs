@@ -21,77 +21,76 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.BBCodes
+namespace YAF.Web.BBCodes;
+
+using System.Web.UI;
+
+using YAF.Core.BBCode;
+using YAF.Core.Extensions;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Identity;
+using YAF.Types.Models;
+using YAF.Web.Controls;
+
+/// <summary>
+/// The BB Code UserLink Module
+/// </summary>
+public class UserLinkBBCodeModule : BBCodeControl
 {
-    using System.Web.UI;
-
-    using YAF.Core.BBCode;
-    using YAF.Core.Extensions;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
-    using YAF.Types.Models;
-    using YAF.Web.Controls;
-
     /// <summary>
-    /// The BB Code UserLink Module
+    /// The render.
     /// </summary>
-    public class UserLinkBBCodeModule : BBCodeControl
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
     {
-        /// <summary>
-        /// The render.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render(HtmlTextWriter writer)
+        var userName = this.Parameters["inner"];
+
+        if (userName.StartsWith("@"))
         {
-            var userName = this.Parameters["inner"];
+            userName = userName.Replace("@", string.Empty);
+        }
 
-            if (userName.StartsWith("@"))
-            {
-                userName = userName.Replace("@", string.Empty);
-            }
+        if (userName.IsNotSet() || userName.Length > 50)
+        {
+            return;
+        }
 
-            if (userName.IsNotSet() || userName.Length > 50)
+        var user = this.Get<IAspNetUsersHelper>().GetUserByName(userName.Trim());
+
+        if (user != null)
+        {
+            var boardUser = this.GetRepository<User>().GetSingle(u => u.ProviderUserKey == user.Id);
+
+            if (boardUser == null)
             {
+                writer.Write(this.HtmlEncode(userName));
                 return;
             }
 
-            var user = this.Get<IAspNetUsersHelper>().GetUserByName(userName.Trim());
+            var userLink = new UserLink
+                               {
+                                   Suspended = boardUser.Suspended,
+                                   UserID = boardUser.ID,
+                                   Style = boardUser.UserStyle,
+                                   ReplaceName = boardUser.DisplayOrUserName(),
+                                   CssClass = "btn btn-outline-primary",
+                                   BlankTarget = true,
+                                   ID = $"UserLinkBBCodeFor{boardUser.ID}"
+                               };
 
-            if (user != null)
-            {
-                var boardUser = this.GetRepository<User>().GetSingle(u => u.ProviderUserKey == user.Id);
+            writer.Write("<!-- BEGIN userlink -->");
+            writer.Write(@"<span>");
+            userLink.RenderControl(writer);
 
-                if (boardUser == null)
-                {
-                    writer.Write(this.HtmlEncode(userName));
-                    return;
-                }
-
-                var userLink = new UserLink
-                {
-                    Suspended = boardUser.Suspended,
-                    UserID = boardUser.ID,
-                    Style = boardUser.UserStyle,
-                    ReplaceName = boardUser.DisplayOrUserName(),
-                    CssClass = "btn btn-outline-primary",
-                    BlankTarget = true,
-                    ID = $"UserLinkBBCodeFor{boardUser.ID}"
-                };
-
-                writer.Write("<!-- BEGIN userlink -->");
-                writer.Write(@"<span>");
-                userLink.RenderControl(writer);
-
-                writer.Write("</span>");
-                writer.Write("<!-- END userlink -->");
-            }
-            else
-            {
-                writer.Write(this.HtmlEncode(userName));
-            }
+            writer.Write("</span>");
+            writer.Write("<!-- END userlink -->");
+        }
+        else
+        {
+            writer.Write(this.HtmlEncode(userName));
         }
     }
 }

@@ -21,35 +21,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+[Serializable]
+public class vaccess_user : IEntity
 {
-    using System;
+    #region Public Properties
 
-    using ServiceStack.DataAnnotations;
+    [AutoIncrement]
+    public int UserID { get; set; }
+    public int? ForumID { get; set; }
+    public int? AccessMaskID { get; set; }
+    public int? GroupID { get; set; }
+    public int? ReadAccess { get; set; }
+    public int? PostAccess { get; set; }
+    public int? ReplyAccess { get; set; }
+    public int? PriorityAccess { get; set; }
+    public int? PollAccess { get; set; }
+    public int? VoteAccess { get; set; }
+    public int? ModeratorAccess { get; set; }
+    public int? EditAccess { get; set; }
+    public int? DeleteAccess { get; set; }
+    public int? AdminGroup { get; set; }
 
-    using YAF.Types.Interfaces.Data;
-
-    [Serializable]
-    public class vaccess_user : IEntity
-    {
-        #region Public Properties
-
-        [AutoIncrement]
-        public int UserID { get; set; }
-        public int? ForumID { get; set; }
-        public int? AccessMaskID { get; set; }
-        public int? GroupID { get; set; }
-        public int? ReadAccess { get; set; }
-        public int? PostAccess { get; set; }
-        public int? ReplyAccess { get; set; }
-        public int? PriorityAccess { get; set; }
-        public int? PollAccess { get; set; }
-        public int? VoteAccess { get; set; }
-        public int? ModeratorAccess { get; set; }
-        public int? EditAccess { get; set; }
-        public int? DeleteAccess { get; set; }
-        public int? AdminGroup { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

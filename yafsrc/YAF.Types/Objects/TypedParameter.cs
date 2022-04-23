@@ -21,52 +21,51 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+#region Using
+
+using System;
+
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The typed parameter.
+/// </summary>
+public class TypedParameter : IServiceLocationParameter
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System;
-
-    using YAF.Types.Interfaces;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TypedParameter"/> class.
+    /// </summary>
+    /// <param name="type">
+    /// The type.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    public TypedParameter([NotNull] Type type, [NotNull] object value)
+    {
+        this.Type = type;
+        this.Value = value;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The typed parameter.
+    /// Gets or sets Type.
     /// </summary>
-    public class TypedParameter : IServiceLocationParameter
-    {
-        #region Constructors and Destructors
+    public Type Type { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TypedParameter"/> class.
-        /// </summary>
-        /// <param name="type">
-        /// The type.
-        /// </param>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        public TypedParameter([NotNull] Type type, [NotNull] object value)
-        {
-            this.Type = type;
-            this.Value = value;
-        }
+    /// <summary>
+    /// Gets or sets Value.
+    /// </summary>
+    public object Value { get; set; }
 
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets Type.
-        /// </summary>
-        public Type Type { get; set; }
-
-        /// <summary>
-        /// Gets or sets Value.
-        /// </summary>
-        public object Value { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

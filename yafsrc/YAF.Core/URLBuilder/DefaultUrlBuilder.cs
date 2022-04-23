@@ -21,48 +21,47 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.URLBuilder
+namespace YAF.Core.URLBuilder;
+
+using YAF.Configuration;
+
+/// <summary>
+/// Implements URL Builder.
+/// </summary>
+public class DefaultUrlBuilder : BaseUrlBuilder
 {
-    using YAF.Configuration;
+    #region Public Methods
 
     /// <summary>
-    /// Implements URL Builder.
+    /// Builds path for calling page with parameter URL as page's escaped parameter.
     /// </summary>
-    public class DefaultUrlBuilder : BaseUrlBuilder
+    /// <param name="url">
+    /// URL to put into parameter.
+    /// </param>
+    /// <returns>
+    /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+    /// </returns>
+    public override string BuildUrl(string url)
     {
-        #region Public Methods
+        // escape & to &amp;
+        url = url.Replace("&", "&amp;");
 
-        /// <summary>
-        /// Builds path for calling page with parameter URL as page's escaped parameter.
-        /// </summary>
-        /// <param name="url">
-        /// URL to put into parameter.
-        /// </param>
-        /// <returns>
-        /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-        /// </returns>
-        public override string BuildUrl(string url)
-        {
-            // escape & to &amp;
-            url = url.Replace("&", "&amp;");
-
-            // return URL to current script with URL from parameter as script's parameter
-            return $"{AppPath}{Config.ForceScriptName ?? ScriptName}?{url}";
-        }
-
-        /// <summary>
-        /// Builds path for calling page with parameter URL as page's escaped parameter.
-        /// </summary>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <param name="url">URL to put into parameter.</param>
-        /// <returns>
-        /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-        /// </returns>
-        public override string BuildUrl(object boardSettings, string url)
-        {
-            return this.BuildUrl(url);
-        }
-
-        #endregion
+        // return URL to current script with URL from parameter as script's parameter
+        return $"{AppPath}{Config.ForceScriptName ?? ScriptName}?{url}";
     }
+
+    /// <summary>
+    /// Builds path for calling page with parameter URL as page's escaped parameter.
+    /// </summary>
+    /// <param name="boardSettings">The board settings.</param>
+    /// <param name="url">URL to put into parameter.</param>
+    /// <returns>
+    /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+    /// </returns>
+    public override string BuildUrl(object boardSettings, string url)
+    {
+        return this.BuildUrl(url);
+    }
+
+    #endregion
 }

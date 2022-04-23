@@ -22,66 +22,65 @@
  * under the License.
  */
 
-namespace YAF.Dialogs
+namespace YAF.Dialogs;
+
+#region Using
+
+using YAF.Core.Services.Import;
+
+#endregion
+
+/// <summary>
+/// The Banned IP Import Dialog.
+/// </summary>
+public partial class BannedIpImport : BaseUserControl
 {
-    #region Using
-
-    using YAF.Core.Services.Import;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// The Banned IP Import Dialog.
+    /// Try to Import from selected File
     /// </summary>
-    public partial class BannedIpImport : BaseUserControl
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Methods
-
-        /// <summary>
-        /// Try to Import from selected File
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+        // import selected file (if it's the proper format)...
+        if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
         {
-            // import selected file (if it's the proper format)...
-            if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
-            {
-                this.PageBoardContext.Notify(
-                    this.GetTextFormatted("IMPORT_FAILED", this.importFile.PostedFile.ContentType),
-                    MessageTypes.danger);
+            this.PageBoardContext.Notify(
+                this.GetTextFormatted("IMPORT_FAILED", this.importFile.PostedFile.ContentType),
+                MessageTypes.danger);
 
-                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                    "openModalJs",
-                    JavaScriptBlocks.OpenModalJs("ImportDialog"));
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("ImportDialog"));
 
-                return;
-            }
-
-            try
-            {
-                var importedCount = DataImport.BannedIpAddressesImport(
-                    this.PageBoardContext.PageBoardID,
-                    this.PageBoardContext.PageUserID,
-                    this.importFile.PostedFile.InputStream);
-
-                this.PageBoardContext.Notify(
-                    importedCount > 0
-                        ? string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_SUCESS"), importedCount)
-                        : this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_NOTHING"),
-                    MessageTypes.success);
-            }
-            catch (Exception x)
-            {
-                this.PageBoardContext.Notify(
-                    string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
-
-                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                    "openModalJs",
-                    JavaScriptBlocks.OpenModalJs("ImportDialog"));
-            }
+            return;
         }
 
-        #endregion
+        try
+        {
+            var importedCount = DataImport.BannedIpAddressesImport(
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID,
+                this.importFile.PostedFile.InputStream);
+
+            this.PageBoardContext.Notify(
+                importedCount > 0
+                    ? string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_SUCESS"), importedCount)
+                    : this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_NOTHING"),
+                MessageTypes.success);
+        }
+        catch (Exception x)
+        {
+            this.PageBoardContext.Notify(
+                string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
+
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("ImportDialog"));
+        }
     }
+
+    #endregion
 }

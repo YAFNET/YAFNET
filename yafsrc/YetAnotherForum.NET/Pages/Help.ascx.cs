@@ -22,123 +22,144 @@
  * under the License.
  */
 
-namespace YAF.Pages
-{
-    #region Using
+namespace YAF.Pages;
 
-    using System.IO;
-    using System.Xml.Serialization;
-    using YAF.Types.Objects;
+#region Using
+
+using System.IO;
+using System.Xml.Serialization;
+using YAF.Types.Objects;
+
+#endregion
+
+/// <summary>
+/// The Help Index.
+/// </summary>
+public partial class Help : ForumPage
+{
+    #region Constants and Fields
+
+    /// <summary>
+    ///  List with the Help Content
+    /// </summary>
+    private readonly List<HelpContent> helpContents = new();
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// The Help Index.
+    ///   Initializes a new instance of the <see cref = "Help" /> class.
     /// </summary>
-    public partial class Help : ForumPage
+    public Help()
+        : base("HELP", ForumPages.Help)
     {
-        #region Constants and Fields
+    }
 
-        /// <summary>
-        ///  List with the Help Content
-        /// </summary>
-        private readonly List<HelpContent> helpContents = new();
+    #endregion
 
-        #endregion
+    #region Methods
 
-        #region Constructors and Destructors
+    /// <summary>
+    /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
+    /// </summary>
+    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+        this.DoSearch.Click += this.DoSearch_Click;
+        base.OnInit(e);
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "Help" /> class.
-        /// </summary>
-        public Help()
-            : base("HELP", ForumPages.Help)
+        if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowHelpTo))
         {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.LoadHelpContent();
+
+        if (this.IsPostBack)
+        {
+            return;
         }
 
-        #endregion
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddLink(
+            this.GetText("SUBTITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Help));
 
-        #region Methods
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            this.DoSearch.Click += this.DoSearch_Click;
-            base.OnInit(e);
-
-            if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowHelpTo))
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.LoadHelpContent();
-
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("SUBTITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Help));
-
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
-            {
-                var faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
-
-                if (faqPage.Equals("index"))
-                {
-                    faqPage = "SEARCHHELP";
-                }
-
-                this.PageLinks.AddLink(
-                    this.GetText(
-                        "HELP_INDEX",
-                        $"{faqPage}TITLE"),
-                    string.Empty);
-
-                this.BindData();
-            }
-            else
-            {
-                this.PageLinks.AddLink(this.GetText("HELP_INDEX", "SEARCHHELPTITLE"), string.Empty);
-
-                // Load Index and Search
-                this.SearchHolder.Visible = true;
-
-                this.SubTitle.Text = this.GetText("subtitle");
-                this.HelpContent.Text = this.GetText("welcome");
-            }
-        }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-        }
-
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        private void BindData()
+        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
         {
             var faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
 
-            switch (faqPage)
+            if (faqPage.Equals("index"))
             {
-                case "index":
+                faqPage = "SEARCHHELP";
+            }
+
+            this.PageLinks.AddLink(
+                this.GetText(
+                    "HELP_INDEX",
+                    $"{faqPage}TITLE"),
+                string.Empty);
+
+            this.BindData();
+        }
+        else
+        {
+            this.PageLinks.AddLink(this.GetText("HELP_INDEX", "SEARCHHELPTITLE"), string.Empty);
+
+            // Load Index and Search
+            this.SearchHolder.Visible = true;
+
+            this.SubTitle.Text = this.GetText("subtitle");
+            this.HelpContent.Text = this.GetText("welcome");
+        }
+    }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private void BindData()
+    {
+        var faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
+
+        switch (faqPage)
+        {
+            case "index":
+                {
+                    // Load Index and Search
+                    this.SearchHolder.Visible = true;
+                    this.HelpList.Visible = false;
+
+                    this.SubTitle.Text = this.GetText("subtitle");
+                    this.HelpContent.Text = this.GetText("welcome");
+                }
+
+                break;
+            default:
+                {
+                    var helpContentList = this.helpContents.FindAll(check => check.HelpPage.ToLower().Equals(faqPage));
+
+                    if (helpContentList.Count > 0)
+                    {
+                        this.SearchHolder.Visible = false;
+                        this.HelpList.Visible = true;
+                        this.HelpList.DataSource = helpContentList;
+                    }
+                    else
                     {
                         // Load Index and Search
                         this.SearchHolder.Visible = true;
@@ -147,66 +168,45 @@ namespace YAF.Pages
                         this.SubTitle.Text = this.GetText("subtitle");
                         this.HelpContent.Text = this.GetText("welcome");
                     }
+                }
 
-                    break;
-                default:
-                    {
-                        var helpContentList = this.helpContents.FindAll(check => check.HelpPage.ToLower().Equals(faqPage));
-
-                        if (helpContentList.Count > 0)
-                        {
-                            this.SearchHolder.Visible = false;
-                            this.HelpList.Visible = true;
-                            this.HelpList.DataSource = helpContentList;
-                        }
-                        else
-                        {
-                            // Load Index and Search
-                            this.SearchHolder.Visible = true;
-                            this.HelpList.Visible = false;
-
-                            this.SubTitle.Text = this.GetText("subtitle");
-                            this.HelpContent.Text = this.GetText("welcome");
-                        }
-                    }
-
-                    break;
-            }
-
-            this.HelpList.DataBind();
-
-            this.DataBind();
+                break;
         }
 
-        /// <summary>
-        /// Search for Help Content
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void DoSearch_Click([NotNull] object sender, [NotNull] EventArgs e)
+        this.HelpList.DataBind();
+
+        this.DataBind();
+    }
+
+    /// <summary>
+    /// Search for Help Content
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    private void DoSearch_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.search.Text.IsNotSet())
         {
-            if (this.search.Text.IsNotSet())
-            {
-                return;
-            }
+            return;
+        }
 
-            if (this.search.Text.Length <= 3)
-            {
-                this.PageBoardContext.Notify(this.GetText("SEARCHLONGER"), MessageTypes.danger);
+        if (this.search.Text.Length <= 3)
+        {
+            this.PageBoardContext.Notify(this.GetText("SEARCHLONGER"), MessageTypes.danger);
 
-                return;
-            }
+            return;
+        }
 
-            var highlightWords = new List<string> { this.search.Text };
+        var highlightWords = new List<string> { this.search.Text };
 
-            var searchList =
-              this.helpContents.FindAll(
+        var searchList =
+            this.helpContents.FindAll(
                 check =>
-                check.Content.ToLower().Contains(this.search.Text.ToLower()) ||
-                check.Title.ToLower().Contains(this.search.Text.ToLower()));
+                    check.Content.ToLower().Contains(this.search.Text.ToLower()) ||
+                    check.Title.ToLower().Contains(this.search.Text.ToLower()));
 
-            searchList.ForEach(
-                item =>
+        searchList.ForEach(
+            item =>
                 {
                     item.Content = this.Get<IFormatMessage>().SurroundWordList(
                         item.Content, highlightWords, "<mark>", "</mark>");
@@ -214,49 +214,49 @@ namespace YAF.Pages
                         item.Title, highlightWords, "<mark>", "</mark>");
                 });
 
-            if (searchList.Count.Equals(0))
-            {
-                this.PageBoardContext.Notify(this.GetText("NORESULTS"), MessageTypes.warning);
+        if (searchList.Count.Equals(0))
+        {
+            this.PageBoardContext.Notify(this.GetText("NORESULTS"), MessageTypes.warning);
 
-                return;
-            }
-
-            this.HelpList.DataSource = searchList;
-            this.HelpList.DataBind();
-
-            this.SearchHolder.Visible = false;
-            this.HelpList.Visible = true;
+            return;
         }
 
-        /// <summary>
-        /// Load the Complete Help Pages From the language File.
-        /// </summary>
-        private void LoadHelpContent()
+        this.HelpList.DataSource = searchList;
+        this.HelpList.DataBind();
+
+        this.SearchHolder.Visible = false;
+        this.HelpList.Visible = true;
+    }
+
+    /// <summary>
+    /// Load the Complete Help Pages From the language File.
+    /// </summary>
+    private void LoadHelpContent()
+    {
+        if (!this.helpContents.Count.Equals(0))
         {
-            if (!this.helpContents.Count.Equals(0))
-            {
-                return;
-            }
+            return;
+        }
 
-            var helpNavigation = new List<HelpNavigation>();
+        var helpNavigation = new List<HelpNavigation>();
 
-            var serializer = new XmlSerializer(typeof(List<HelpNavigation>));
+        var serializer = new XmlSerializer(typeof(List<HelpNavigation>));
 
-            var xmlFilePath =
-                this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}Resources/HelpMenuList.xml");
+        var xmlFilePath =
+            this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}Resources/HelpMenuList.xml");
 
-            if (File.Exists(xmlFilePath))
-            {
-                var reader = new StreamReader(xmlFilePath);
+        if (File.Exists(xmlFilePath))
+        {
+            var reader = new StreamReader(xmlFilePath);
 
-                helpNavigation = (List<HelpNavigation>)serializer.Deserialize(reader);
+            helpNavigation = (List<HelpNavigation>)serializer.Deserialize(reader);
 
-                reader.Close();
-            }
+            reader.Close();
+        }
 
-            foreach (var helpPage in helpNavigation.SelectMany(category => category.HelpPages))
-            {
-                string helpContent = helpPage.HelpPage switch {
+        foreach (var helpPage in helpNavigation.SelectMany(category => category.HelpPages))
+        {
+            string helpContent = helpPage.HelpPage switch {
                     "RECOVER" => this.GetTextFormatted(
                         $"{helpPage.HelpPage}CONTENT",
                         this.Get<LinkBuilder>().GetLink(ForumPages.Account_ForgotPassword)),
@@ -267,16 +267,15 @@ namespace YAF.Pages
                     _ => this.GetText($"{helpPage.HelpPage}CONTENT")
                 };
 
-                this.helpContents.Add(
-                    new HelpContent
+            this.helpContents.Add(
+                new HelpContent
                     {
                         HelpPage = helpPage.HelpPage,
                         Title = this.GetText($"{helpPage.HelpPage}TITLE"),
                         Content = helpContent
                     });
-            }
         }
-
-        #endregion
     }
+
+    #endregion
 }

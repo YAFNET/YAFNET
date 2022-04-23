@@ -21,66 +21,65 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+namespace YAF.Controls;
+
+#region Using
+
+using System.Globalization;
+
+using YAF.Core.BoardSettings;
+
+#endregion
+
+/// <summary>
+/// The forum welcome control which shows the current Time and the Last Visit Time of the Current User.
+/// </summary>
+public partial class BoardAnnouncement : BaseUserControl
 {
-    #region Using
-
-    using System.Globalization;
-
-    using YAF.Core.BoardSettings;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// The forum welcome control which shows the current Time and the Last Visit Time of the Current User.
+    /// The on pre render.
     /// </summary>
-    public partial class BoardAnnouncement : BaseUserControl
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        #region Methods
-
-        /// <summary>
-        /// The on pre render.
-        /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
+        if (this.PageBoardContext.BoardSettings.BoardAnnouncement.IsNotSet())
         {
-            if (this.PageBoardContext.BoardSettings.BoardAnnouncement.IsNotSet())
-            {
-                this.Visible = false;
-                return;
-            }
-
-            var dateTime = Convert.ToDateTime(
-                this.PageBoardContext.BoardSettings.BoardAnnouncementUntil,
-                CultureInfo.InvariantCulture);
-
-            if (dateTime <= DateTime.Now)
-            {
-                var boardSettings = this.PageBoardContext.BoardSettings;
-
-                boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
-                boardSettings.BoardAnnouncement = string.Empty;
-
-                // save the settings to the database
-                ((LoadBoardSettings)boardSettings).SaveRegistry();
-
-                // delete no show
-                this.Visible = false;
-                return;
-            }
-
-            this.Badge.CssClass = $"badge bg-{this.PageBoardContext.BoardSettings.BoardAnnouncementType} me-1";
-
-            this.Announcement.CssClass = $"alert alert-{this.PageBoardContext.BoardSettings.BoardAnnouncementType} alert-dismissible";
-            this.Message.Text = this.PageBoardContext.BoardSettings.BoardAnnouncement;
-
-            this.DataBind();
-
-            base.OnPreRender(e);
+            this.Visible = false;
+            return;
         }
 
-        #endregion
+        var dateTime = Convert.ToDateTime(
+            this.PageBoardContext.BoardSettings.BoardAnnouncementUntil,
+            CultureInfo.InvariantCulture);
+
+        if (dateTime <= DateTime.Now)
+        {
+            var boardSettings = this.PageBoardContext.BoardSettings;
+
+            boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
+            boardSettings.BoardAnnouncement = string.Empty;
+
+            // save the settings to the database
+            ((LoadBoardSettings)boardSettings).SaveRegistry();
+
+            // delete no show
+            this.Visible = false;
+            return;
+        }
+
+        this.Badge.CssClass = $"badge bg-{this.PageBoardContext.BoardSettings.BoardAnnouncementType} me-1";
+
+        this.Announcement.CssClass = $"alert alert-{this.PageBoardContext.BoardSettings.BoardAnnouncementType} alert-dismissible";
+        this.Message.Text = this.PageBoardContext.BoardSettings.BoardAnnouncement;
+
+        this.DataBind();
+
+        base.OnPreRender(e);
     }
+
+    #endregion
 }

@@ -21,121 +21,120 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+#region Using
+
+using System;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+///     The NntpTopic repository extensions.
+/// </summary>
+public static class NntpTopicRepositoryExtensions
 {
-    #region Using
-
-    using System;
-
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The NntpTopic repository extensions.
+    /// The save message.
     /// </summary>
-    public static class NntpTopicRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="nntpForum">
+    /// The NNTP Forum.
+    /// </param>
+    /// <param name="topicName">
+    /// The topic name.
+    /// </param>
+    /// <param name="body">
+    /// The body.
+    /// </param>
+    /// <param name="user">
+    /// The user
+    /// </param>
+    /// <param name="userName">
+    /// The user name.
+    /// </param>
+    /// <param name="ip">
+    /// The IP Address.
+    /// </param>
+    /// <param name="posted">
+    /// The posted.
+    /// </param>
+    /// <param name="referenceMessageId">
+    /// The reference message id.
+    /// </param>
+    public static void SaveMessage(
+        this IRepository<NntpTopic> repository,
+        [NotNull] NntpForum nntpForum,
+        [NotNull] string topicName,
+        [NotNull] string body,
+        [NotNull] User user,
+        [NotNull] string userName,
+        [NotNull] string ip,
+        [NotNull] DateTime posted,
+        [NotNull] string referenceMessageId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// The save message.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="nntpForum">
-        /// The NNTP Forum.
-        /// </param>
-        /// <param name="topicName">
-        /// The topic name.
-        /// </param>
-        /// <param name="body">
-        /// The body.
-        /// </param>
-        /// <param name="user">
-        /// The user
-        /// </param>
-        /// <param name="userName">
-        /// The user name.
-        /// </param>
-        /// <param name="ip">
-        /// The IP Address.
-        /// </param>
-        /// <param name="posted">
-        /// The posted.
-        /// </param>
-        /// <param name="referenceMessageId">
-        /// The reference message id.
-        /// </param>
-        public static void SaveMessage(
-            this IRepository<NntpTopic> repository,
-            [NotNull] NntpForum nntpForum,
-            [NotNull] string topicName,
-            [NotNull] string body,
-            [NotNull] User user,
-            [NotNull] string userName,
-            [NotNull] string ip,
-            [NotNull] DateTime posted,
-            [NotNull] string referenceMessageId)
+        int? replyTo = null;
+
+        var externalMessage = BoardContext.Current.GetRepository<Message>()
+            .GetSingle(m => m.ExternalMessageId == referenceMessageId);
+
+        var forum = BoardContext.Current.GetRepository<Forum>().GetById(nntpForum.ForumID);
+
+        Topic topic;
+
+        if (externalMessage != null)
         {
-            CodeContracts.VerifyNotNull(repository);
+            // -- referenced message exists
+            replyTo = externalMessage.ID;
+            topic = BoardContext.Current.GetRepository<Topic>().GetById(externalMessage.TopicID);
+        }
+        else
+        {
+            // --thread doesn't exists
+            topic = new Topic
+                        {
+                            ForumID = nntpForum.ForumID,
+                            UserID = user.ID,
+                            UserName = userName,
+                            UserDisplayName = userName,
+                            Posted = posted,
+                            TopicName = topicName,
+                            Views = 0,
+                            Priority = 0,
+                            NumPosts = 0
+                        };
 
-            int? replyTo = null;
+            topic.ID = BoardContext.Current.GetRepository<Topic>().Insert(topic);
 
-            var externalMessage = BoardContext.Current.GetRepository<Message>()
-                .GetSingle(m => m.ExternalMessageId == referenceMessageId);
-
-            var forum = BoardContext.Current.GetRepository<Forum>().GetById(nntpForum.ForumID);
-
-            Topic topic;
-
-            if (externalMessage != null)
-            {
-                // -- referenced message exists
-                replyTo = externalMessage.ID;
-                topic = BoardContext.Current.GetRepository<Topic>().GetById(externalMessage.TopicID);
-            }
-            else
-            {
-                // --thread doesn't exists
-                topic = new Topic
-                {
-                    ForumID = nntpForum.ForumID,
-                    UserID = user.ID,
-                    UserName = userName,
-                    UserDisplayName = userName,
-                    Posted = posted,
-                    TopicName = topicName,
-                    Views = 0,
-                    Priority = 0,
-                    NumPosts = 0
-                };
-
-                topic.ID = BoardContext.Current.GetRepository<Topic>().Insert(topic);
-
-                repository.Insert(
-                    new NntpTopic { NntpForumID = nntpForum.ID, Thread = string.Empty, TopicID = topic.ID });
-            }
-
-            BoardContext.Current.GetRepository<Message>().SaveNew(
-                forum,
-                topic,
-                user,
-                body,
-                userName,
-                ip,
-                posted,
-                replyTo,
-                new MessageFlags(17));
+            repository.Insert(
+                new NntpTopic { NntpForumID = nntpForum.ID, Thread = string.Empty, TopicID = topic.ID });
         }
 
-        #endregion
+        BoardContext.Current.GetRepository<Message>().SaveNew(
+            forum,
+            topic,
+            user,
+            body,
+            userName,
+            ip,
+            posted,
+            replyTo,
+            new MessageFlags(17));
     }
+
+    #endregion
 }

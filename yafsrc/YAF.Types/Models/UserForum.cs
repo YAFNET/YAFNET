@@ -21,56 +21,55 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the WatchForum table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(UserID), nameof(ForumID))]
+public class UserForum : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the WatchForum table.
+    /// Gets or sets the user id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(UserID), nameof(ForumID))]
-    public class UserForum : IEntity
-    {
-        #region Properties
+    [References(typeof(User))]
+    [Required]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the forum id.
+    /// </summary>
+    [References(typeof(Forum))]
+    [Required]
+    public int ForumID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        [References(typeof(Forum))]
-        [Required]
-        public int ForumID { get; set; }
+    /// <summary>
+    /// Gets or sets the access mask id.
+    /// </summary>
+    [References(typeof(AccessMask))]
+    [Required]
+    public int AccessMaskID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the access mask id.
-        /// </summary>
-        [References(typeof(AccessMask))]
-        [Required]
-        public int AccessMaskID { get; set; }
+    /// <summary>
+    /// Gets or sets the invited.
+    /// </summary>
+    [Required]
+    public DateTime Invited { get; set; }
 
-        /// <summary>
-        /// Gets or sets the invited.
-        /// </summary>
-        [Required]
-        public DateTime Invited { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether accepted.
+    /// </summary>
+    [Required]
+    public bool Accepted { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether accepted.
-        /// </summary>
-        [Required]
-        public bool Accepted { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

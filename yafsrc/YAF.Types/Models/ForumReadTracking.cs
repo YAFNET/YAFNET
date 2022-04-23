@@ -21,43 +21,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the ForumReadTracking table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(UserID), nameof(ForumID))]
+public class ForumReadTracking : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the ForumReadTracking table.
+    /// Gets or sets the user id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(UserID), nameof(ForumID))]
-    public class ForumReadTracking : IEntity
-    {
-        #region Properties
+    [References(typeof(User))]
+    [Required]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the forum id.
+    /// </summary>
+    [References(typeof(Forum))]
+    [Required]
+    public int ForumID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        [References(typeof(Forum))]
-        [Required]
-        public int ForumID { get; set; }
+    /// <summary>
+    /// Gets or sets the last access date.
+    /// </summary>
+    [Required]
+    public DateTime LastAccessDate { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last access date.
-        /// </summary>
-        [Required]
-        public DateTime LastAccessDate { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

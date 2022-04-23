@@ -22,30 +22,29 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System;
+
+/// <summary>
+/// The Multi Quote
+/// </summary>
+[Serializable]
+public class MultiQuote
 {
-    using System;
+    /// <summary>
+    /// Gets or sets the post identifier.
+    /// </summary>
+    /// <value>
+    /// The post identifier.
+    /// </value>
+    public int MessageID { get; set; }
 
     /// <summary>
-    /// The Multi Quote
+    /// Gets or sets the topic identifier.
     /// </summary>
-    [Serializable]
-    public class MultiQuote
-    {
-        /// <summary>
-        /// Gets or sets the post identifier.
-        /// </summary>
-        /// <value>
-        /// The post identifier.
-        /// </value>
-        public int MessageID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the topic identifier.
-        /// </summary>
-        /// <value>
-        /// The topic identifier.
-        /// </value>
-        public int TopicID { get; set; }
-    }
+    /// <value>
+    /// The topic identifier.
+    /// </value>
+    public int TopicID { get; set; }
 }

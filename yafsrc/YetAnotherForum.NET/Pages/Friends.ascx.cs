@@ -21,101 +21,100 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Pages
-{
-    #region Using
+namespace YAF.Pages;
 
-    using YAF.Controls;
+#region Using
+
+using YAF.Controls;
+
+#endregion
+
+/// <summary>
+/// The user Friends Control Panel
+/// </summary>
+public partial class Friends : ForumPageRegistered
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Friends"/> class.
+    /// </summary>
+    public Friends()
+        : base("FRIENDS", ForumPages.Friends)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The user Friends Control Panel
+    /// The On PreRender event.
     /// </summary>
-    public partial class Friends : ForumPageRegistered
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
+        // setup jQuery and Jquery Ui Tabs.
+        this.PageBoardContext.PageElements.RegisterJsBlock(
+            "yafBuddiesTabsJs",
+            JavaScriptBlocks.BootstrapTabsLoadJs(this.BuddiesTabs.ClientID, this.hidLastTab.ClientID));
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Friends"/> class.
-        /// </summary>
-        public Friends()
-            : base("FRIENDS", ForumPages.Friends)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            // setup jQuery and Jquery Ui Tabs.
-            this.PageBoardContext.PageElements.RegisterJsBlock(
-                "yafBuddiesTabsJs",
-                JavaScriptBlocks.BootstrapTabsLoadJs(this.BuddiesTabs.ClientID, this.hidLastTab.ClientID));
-
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
-        /// Called when the page loads
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
-            this.PageLinks.AddLink(this.GetText("BUDDYLIST_TT"), string.Empty);
-        }
-
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        private void BindData()
-        {
-            var buddyList = this.Get<IFriends>().GetForUser(this.PageBoardContext.PageUserID);
-
-            this.InitializeBuddyList(this.BuddyList1, 2, buddyList);
-            this.InitializeBuddyList(this.PendingBuddyList, 3, buddyList);
-            this.InitializeBuddyList(this.BuddyRequested, 4, buddyList);
-        }
-
-        /// <summary>
-        /// Initializes the values of BuddyList control's properties.
-        /// </summary>
-        /// <param name="customBuddyList">
-        /// The custom BuddyList control.
-        /// </param>
-        /// <param name="mode">
-        /// The mode of this BuddyList.
-        /// </param>
-        /// <param name="buddyList">
-        /// The buddy List.
-        /// </param>
-        private void InitializeBuddyList([NotNull] BuddyList customBuddyList, int mode, List<BuddyUser> buddyList)
-        {
-            customBuddyList.FriendsList = buddyList;
-            customBuddyList.CurrentUserID = this.PageBoardContext.PageUserID;
-            customBuddyList.Mode = mode;
-            customBuddyList.Container = this;
-        }
-
-        #endregion
+        base.OnPreRender(e);
     }
+
+    /// <summary>
+    /// Called when the page loads
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageLinks.AddLink(this.GetText("BUDDYLIST_TT"), string.Empty);
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private void BindData()
+    {
+        var buddyList = this.Get<IFriends>().GetForUser(this.PageBoardContext.PageUserID);
+
+        this.InitializeBuddyList(this.BuddyList1, 2, buddyList);
+        this.InitializeBuddyList(this.PendingBuddyList, 3, buddyList);
+        this.InitializeBuddyList(this.BuddyRequested, 4, buddyList);
+    }
+
+    /// <summary>
+    /// Initializes the values of BuddyList control's properties.
+    /// </summary>
+    /// <param name="customBuddyList">
+    /// The custom BuddyList control.
+    /// </param>
+    /// <param name="mode">
+    /// The mode of this BuddyList.
+    /// </param>
+    /// <param name="buddyList">
+    /// The buddy List.
+    /// </param>
+    private void InitializeBuddyList([NotNull] BuddyList customBuddyList, int mode, List<BuddyUser> buddyList)
+    {
+        customBuddyList.FriendsList = buddyList;
+        customBuddyList.CurrentUserID = this.PageBoardContext.PageUserID;
+        customBuddyList.Mode = mode;
+        customBuddyList.Container = this;
+    }
+
+    #endregion
 }

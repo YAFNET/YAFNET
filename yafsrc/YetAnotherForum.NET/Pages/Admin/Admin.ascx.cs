@@ -22,460 +22,459 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+#region Using
+
+using System.Net.Mail;
+using FarsiLibrary.Utils;
+using YAF.Types.Extensions.Data;
+using YAF.Types.Interfaces.Data;
+using YAF.Web.Controls;
+
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The Admin Index Page.
+/// </summary>
+public partial class Admin : AdminPage
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System.Net.Mail;
-    using FarsiLibrary.Utils;
-    using YAF.Types.Extensions.Data;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Web.Controls;
-
-    using YAF.Types.Models;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Admin"/> class. 
+    /// </summary>
+    public Admin()
+        : base("ADMIN_ADMIN", ForumPages.Admin_Admin)
+    {
+    }
 
     #endregion
 
+    #region Public Methods
+
     /// <summary>
-    /// The Admin Index Page.
+    /// Loads the Board Stats for the Selected Board
     /// </summary>
-    public partial class Admin : AdminPage
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    public void BoardStatsSelectChanged([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
+        // re-bind data
+        this.BindData();
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Admin"/> class. 
-        /// </summary>
-        public Admin()
-            : base("ADMIN_ADMIN", ForumPages.Admin_Admin)
+    /// <summary>
+    /// Handles the ItemCommand event of the UserList control.
+    /// </summary>
+    /// <param name="source">The source of the event.</param>
+    /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
+    public void UserListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+        switch (e.CommandName)
         {
-        }
+            case "edit":
+                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = e.CommandArgument });
+                break;
+            case "resendEmail":
+                var commandArgument = e.CommandArgument.ToString().Split(';');
 
-        #endregion
+                var checkMail = this.GetRepository<CheckEmail>().ListTyped(commandArgument[0]).FirstOrDefault();
 
-        #region Public Methods
-
-        /// <summary>
-        /// Loads the Board Stats for the Selected Board
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        public void BoardStatsSelectChanged([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // re-bind data
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Handles the ItemCommand event of the UserList control.
-        /// </summary>
-        /// <param name="source">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        public void UserListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "edit":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = e.CommandArgument });
-                    break;
-                case "resendEmail":
-                    var commandArgument = e.CommandArgument.ToString().Split(';');
-
-                    var checkMail = this.GetRepository<CheckEmail>().ListTyped(commandArgument[0]).FirstOrDefault();
-
-                    if (checkMail != null)
-                    {
-                        var verifyEmail = new TemplateEmail("VERIFYEMAIL");
-
-                        var subject = this.Get<ILocalization>()
-                            .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageBoardContext.BoardSettings.Name);
-
-                        verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
-                            ForumPages.Account_Approve,
-                            new { code = checkMail.Hash });
-                        verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
-                        verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
-                        verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
-
-                        verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
-
-                        this.PageBoardContext.Notify(
-                            this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"),
-                            MessageTypes.success);
-                    }
-                    else
-                    {
-                        var userFound = this.Get<IUserDisplayName>().FindUserContainsName(commandArgument[1]).FirstOrDefault();
-
-                        var user = this.Get<IAspNetUsersHelper>().GetUserByName(userFound.Name);
-
-                        this.Get<ISendNotification>().SendVerificationEmail(user, commandArgument[0], userFound.ID);
-                    }
-
-                    break;
-                case "delete":
-                    if (!Config.IsAnyPortal)
-                    {
-                        this.Get<IAspNetUsersHelper>().DeleteUser(e.CommandArgument.ToType<int>());
-                    }
-
-                    this.BindData();
-                    break;
-                case "approve":
-                    this.Get<IAspNetUsersHelper>().ApproveUser(e.CommandArgument.ToType<int>());
-                    this.BindData();
-                    break;
-                case "deleteall":
-
-                    // vzrus: Should not delete the whole providers portal data? Under investigation.
-                    var daysValueAll =
-                        this.PageBoardContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
-                    if (!ValidationHelper.IsValidInt(daysValueAll))
-                    {
-                        this.PageBoardContext.Notify(
-                            this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"),
-                            MessageTypes.warning);
-                        return;
-                    }
-
-                    if (!Config.IsAnyPortal)
-                    {
-                        this.Get<IAspNetUsersHelper>().DeleteAllUnapproved(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
-                    }
-                    else
-                    {
-                        this.GetRepository<User>().DeleteOld(this.PageBoardContext.PageBoardID, daysValueAll.ToType<int>());
-                    }
-
-                    this.BindData();
-                    break;
-                case "approveall":
-                    this.Get<IAspNetUsersHelper>().ApproveAll();
-
-                    this.BindData();
-                    break;
-            }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Formats the forum link.
-        /// </summary>
-        /// <param name="forumId">
-        /// The forum ID.
-        /// </param>
-        /// <param name="forumName">
-        /// Name of the forum.
-        /// </param>
-        /// <returns>
-        /// The format forum link.
-        /// </returns>
-        protected string FormatForumLink([NotNull] object forumId, [NotNull] object forumName)
-        {
-            if (forumId.ToString() == string.Empty || forumName.ToString() == string.Empty)
-            {
-                return string.Empty;
-            }
-
-            return
-                $"<a target=\"_top\" href=\"{this.Get<LinkBuilder>().GetForumLink(forumId.ToType<int>(), forumName.ToString())}\">{forumName}</a>";
-        }
-
-        /// <summary>
-        /// Formats the topic link.
-        /// </summary>
-        /// <param name="topicId">
-        /// The topic ID.
-        /// </param>
-        /// <param name="topicName">
-        /// Name of the topic.
-        /// </param>
-        /// <returns>
-        /// The format topic link.
-        /// </returns>
-        protected string FormatTopicLink([NotNull] object topicId, [NotNull] string topicName)
-        {
-            if (topicId.ToString() == string.Empty || topicName.IsNotSet())
-            {
-                return string.Empty;
-            }
-
-            return
-                $"<a target=\"_top\" href=\"{this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new {t = topicId, name = topicName})}\">{topicName}</a>";
-        }
-
-        /// <summary>
-        /// Registers the needed Java Scripts
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.PageSize.DataSource = StaticDataHelper.PageEntries();
-            this.PageSize.DataTextField = "Name";
-            this.PageSize.DataValueField = "Value";
-            this.PageSize.DataBind();
-
-            this.PageSizeUnverified.DataSource = StaticDataHelper.PageEntries();
-            this.PageSizeUnverified.DataTextField = "Name";
-            this.PageSizeUnverified.DataValueField = "Value";
-            this.PageSizeUnverified.DataBind();
-
-            try
-            {
-                this.PageSize.SelectedValue =
-                    this.PageSizeUnverified.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
-            }
-            catch (Exception)
-            {
-                this.PageSize.SelectedValue = this.PageSizeUnverified.SelectedValue = "5";
-            }
-
-            this.BoardStatsSelect.Visible = this.PageBoardContext.PageUser.UserFlags.IsHostAdmin;
-
-            // bind data
-            this.BindBoardsList();
-
-            this.BindData();
-
-            this.ShowUpgradeMessage();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            // forum index
-            this.PageLinks.AddRoot();
-
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-        }
-
-        /// <summary>
-        /// The pager top_ page change.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void PagerTopChange([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.BindActiveUserData();
-        }
-
-        /// <summary>
-        /// The page size on selected index changed.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.BindActiveUserData();
-        }
-
-        /// <summary>
-        /// The pager top_ page change.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void PagerUnverifiedChange([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.BindUnverifiedUsers();
-        }
-
-        /// <summary>
-        /// The page size on selected index changed.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void PageSizeUnverifiedSelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.BindUnverifiedUsers();
-        }
-
-        /// <summary>
-        /// Shows the upgrade message.
-        /// </summary>
-        private void ShowUpgradeMessage()
-        {
-            try
-            {
-                var version = this.Get<IDataCache>().GetOrSet(
-                    "LatestVersion",
-                    () => this.Get<ILatestInformation>().GetLatestVersion(),
-                    TimeSpan.FromDays(1));
-
-                var latestVersion = (DateTime)version.VersionDate;
-
-                if (latestVersion.ToUniversalTime() <= BoardInfo.AppVersionDate.ToUniversalTime())
+                if (checkMail != null)
                 {
+                    var verifyEmail = new TemplateEmail("VERIFYEMAIL");
+
+                    var subject = this.Get<ILocalization>()
+                        .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageBoardContext.BoardSettings.Name);
+
+                    verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                        ForumPages.Account_Approve,
+                        new { code = checkMail.Hash });
+                    verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
+                    verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
+                    verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
+
+                    verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
+
+                    this.PageBoardContext.Notify(
+                        this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"),
+                        MessageTypes.success);
+                }
+                else
+                {
+                    var userFound = this.Get<IUserDisplayName>().FindUserContainsName(commandArgument[1]).FirstOrDefault();
+
+                    var user = this.Get<IAspNetUsersHelper>().GetUserByName(userFound.Name);
+
+                    this.Get<ISendNotification>().SendVerificationEmail(user, commandArgument[0], userFound.ID);
+                }
+
+                break;
+            case "delete":
+                if (!Config.IsAnyPortal)
+                {
+                    this.Get<IAspNetUsersHelper>().DeleteUser(e.CommandArgument.ToType<int>());
+                }
+
+                this.BindData();
+                break;
+            case "approve":
+                this.Get<IAspNetUsersHelper>().ApproveUser(e.CommandArgument.ToType<int>());
+                this.BindData();
+                break;
+            case "deleteall":
+
+                // vzrus: Should not delete the whole providers portal data? Under investigation.
+                var daysValueAll =
+                    this.PageBoardContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
+                if (!ValidationHelper.IsValidInt(daysValueAll))
+                {
+                    this.PageBoardContext.Notify(
+                        this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"),
+                        MessageTypes.warning);
                     return;
                 }
 
-                // updateLink
-                this.UpdateHightlight.Visible = true;
-                this.UpdateLinkHighlight.NavigateUrl = version.UpgradeUrl;
-            }
-            catch (Exception)
-            {
-                this.UpdateHightlight.Visible = false;
-            }
+                if (!Config.IsAnyPortal)
+                {
+                    this.Get<IAspNetUsersHelper>().DeleteAllUnapproved(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
+                }
+                else
+                {
+                    this.GetRepository<User>().DeleteOld(this.PageBoardContext.PageBoardID, daysValueAll.ToType<int>());
+                }
+
+                this.BindData();
+                break;
+            case "approveall":
+                this.Get<IAspNetUsersHelper>().ApproveAll();
+
+                this.BindData();
+                break;
         }
-
-        /// <summary>
-        /// Binds the active user data.
-        /// </summary>
-        private void BindActiveUserData()
-        {
-            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
-
-            var activeUsers = this.GetRepository<Active>().ListUsersPaged(
-                this.PageBoardContext.PageUserID,
-                true,
-                true,
-                this.PageBoardContext.BoardSettings.ActiveListTime,
-                this.PagerTop.CurrentPageIndex,
-                this.PagerTop.PageSize);
-
-            this.ActiveList.DataSource = activeUsers;
-            this.ActiveList.DataBind();
-        }
-
-        /// <summary>
-        /// Bind list of boards to drop down
-        /// </summary>
-        private void BindBoardsList()
-        {
-            // only if user is host admin, otherwise boards' list is hidden
-            if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
-            {
-                return;
-            }
-
-            var boards = this.GetRepository<Board>().GetAll();
-
-            // set data source
-            this.BoardStatsSelect.DataSource = boards;
-            this.BoardStatsSelect.DataBind();
-
-            // select current board as default
-            this.BoardStatsSelect.SelectedIndex =
-                this.BoardStatsSelect.Items.IndexOf(
-                    this.BoardStatsSelect.Items.FindByValue(this.PageBoardContext.PageBoardID.ToString()));
-        }
-
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        private void BindData()
-        {
-            this.BindUnverifiedUsers();
-
-            // get stats for current board, selected board or all boards (see function)
-            var data = this.GetRepository<Board>().Stats(this.GetSelectedBoardId());
-
-            this.NumCategories.Text = data.Categories.ToString();
-            this.NumForums.Text = data.Forums.ToString();
-            this.NumTopics.Text = $@"{data.Topics:N0}";
-            this.NumPosts.Text = $@"{data.Posts:N0}";
-            this.NumUsers.Text = $@"{data.Users:N0}";
-
-            var span = DateTime.UtcNow - data.BoardStart;
-            double days = span.Days;
-
-            this.BoardStart.Text = this.Get<IDateTimeService>().FormatDateTimeTopic(
-                this.PageBoardContext.BoardSettings.UseFarsiCalender
-                    ? PersianDateConverter.ToPersianDate(data.BoardStart)
-                    : data.BoardStart);
-
-            this.BoardStartAgo.Text = new DisplayDateTime
-            {
-                DateTime = data.BoardStart, Format = DateTimeFormat.BothTopic
-            }.RenderToString();
-
-            if (days < 1)
-            {
-                days = 1;
-            }
-
-            this.DayPosts.Text = $"{data.Posts / days:N2}";
-            this.DayTopics.Text = $"{data.Topics / days:N2}";
-            this.DayUsers.Text = $"{data.Users / days:N2}";
-
-            try
-            {
-                this.DBSize.Text = $"{this.Get<IDbAccess>().GetDatabaseSize()} MB";
-            }
-            catch (Exception)
-            {
-                this.DBSize.Text = this.GetText("ADMIN_ADMIN", "ERROR_DATABASESIZE");
-            }
-
-            this.BindActiveUserData();
-
-            this.DataBind();
-        }
-
-        /// <summary>
-        /// Bind unverified users.
-        /// </summary>
-        private void BindUnverifiedUsers()
-        {
-            this.UnverifiedUsersHolder.Visible = !Config.IsDotNetNuke;
-
-            if (!this.UnverifiedUsersHolder.Visible)
-            {
-                return;
-            }
-
-            this.PagerUnverified.PageSize = this.PageSizeUnverified.SelectedValue.ToType<int>();
-
-            var unverifiedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageBoardContext.PageBoardID)
-                .GetPaged(this.PagerUnverified);
-
-            // bind list
-            this.UserList.DataSource = unverifiedUsers;
-            this.UserList.DataBind();
-        }
-
-        /// <summary>
-        /// Gets board ID for which to show statistics.
-        /// </summary>
-        /// <returns>
-        /// Returns ID of selected board (for host admin), ID of current board (for admin), null if all boards is selected.
-        /// </returns>
-        private int GetSelectedBoardId()
-        {
-            // check dropdown only if user is host admin
-            return !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin
-                ? this.PageBoardContext.PageBoardID
-                : this.BoardStatsSelect.SelectedValue.ToType<int>();
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Formats the forum link.
+    /// </summary>
+    /// <param name="forumId">
+    /// The forum ID.
+    /// </param>
+    /// <param name="forumName">
+    /// Name of the forum.
+    /// </param>
+    /// <returns>
+    /// The format forum link.
+    /// </returns>
+    protected string FormatForumLink([NotNull] object forumId, [NotNull] object forumName)
+    {
+        if (forumId.ToString() == string.Empty || forumName.ToString() == string.Empty)
+        {
+            return string.Empty;
+        }
+
+        return
+            $"<a target=\"_top\" href=\"{this.Get<LinkBuilder>().GetForumLink(forumId.ToType<int>(), forumName.ToString())}\">{forumName}</a>";
+    }
+
+    /// <summary>
+    /// Formats the topic link.
+    /// </summary>
+    /// <param name="topicId">
+    /// The topic ID.
+    /// </param>
+    /// <param name="topicName">
+    /// Name of the topic.
+    /// </param>
+    /// <returns>
+    /// The format topic link.
+    /// </returns>
+    protected string FormatTopicLink([NotNull] object topicId, [NotNull] string topicName)
+    {
+        if (topicId.ToString() == string.Empty || topicName.IsNotSet())
+        {
+            return string.Empty;
+        }
+
+        return
+            $"<a target=\"_top\" href=\"{this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new {t = topicId, name = topicName})}\">{topicName}</a>";
+    }
+
+    /// <summary>
+    /// Registers the needed Java Scripts
+    /// </summary>
+    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+    protected override void OnPreRender([NotNull] EventArgs e)
+    {
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.PageSize.DataSource = StaticDataHelper.PageEntries();
+        this.PageSize.DataTextField = "Name";
+        this.PageSize.DataValueField = "Value";
+        this.PageSize.DataBind();
+
+        this.PageSizeUnverified.DataSource = StaticDataHelper.PageEntries();
+        this.PageSizeUnverified.DataTextField = "Name";
+        this.PageSizeUnverified.DataValueField = "Value";
+        this.PageSizeUnverified.DataBind();
+
+        try
+        {
+            this.PageSize.SelectedValue =
+                this.PageSizeUnverified.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
+        }
+        catch (Exception)
+        {
+            this.PageSize.SelectedValue = this.PageSizeUnverified.SelectedValue = "5";
+        }
+
+        this.BoardStatsSelect.Visible = this.PageBoardContext.PageUser.UserFlags.IsHostAdmin;
+
+        // bind data
+        this.BindBoardsList();
+
+        this.BindData();
+
+        this.ShowUpgradeMessage();
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        // forum index
+        this.PageLinks.AddRoot();
+
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+    }
+
+    /// <summary>
+    /// The pager top_ page change.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void PagerTopChange([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.BindActiveUserData();
+    }
+
+    /// <summary>
+    /// The page size on selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.BindActiveUserData();
+    }
+
+    /// <summary>
+    /// The pager top_ page change.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void PagerUnverifiedChange([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.BindUnverifiedUsers();
+    }
+
+    /// <summary>
+    /// The page size on selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void PageSizeUnverifiedSelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.BindUnverifiedUsers();
+    }
+
+    /// <summary>
+    /// Shows the upgrade message.
+    /// </summary>
+    private void ShowUpgradeMessage()
+    {
+        try
+        {
+            var version = this.Get<IDataCache>().GetOrSet(
+                "LatestVersion",
+                () => this.Get<ILatestInformation>().GetLatestVersion(),
+                TimeSpan.FromDays(1));
+
+            var latestVersion = (DateTime)version.VersionDate;
+
+            if (latestVersion.ToUniversalTime() <= BoardInfo.AppVersionDate.ToUniversalTime())
+            {
+                return;
+            }
+
+            // updateLink
+            this.UpdateHightlight.Visible = true;
+            this.UpdateLinkHighlight.NavigateUrl = version.UpgradeUrl;
+        }
+        catch (Exception)
+        {
+            this.UpdateHightlight.Visible = false;
+        }
+    }
+
+    /// <summary>
+    /// Binds the active user data.
+    /// </summary>
+    private void BindActiveUserData()
+    {
+        this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
+
+        var activeUsers = this.GetRepository<Active>().ListUsersPaged(
+            this.PageBoardContext.PageUserID,
+            true,
+            true,
+            this.PageBoardContext.BoardSettings.ActiveListTime,
+            this.PagerTop.CurrentPageIndex,
+            this.PagerTop.PageSize);
+
+        this.ActiveList.DataSource = activeUsers;
+        this.ActiveList.DataBind();
+    }
+
+    /// <summary>
+    /// Bind list of boards to drop down
+    /// </summary>
+    private void BindBoardsList()
+    {
+        // only if user is host admin, otherwise boards' list is hidden
+        if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
+        {
+            return;
+        }
+
+        var boards = this.GetRepository<Board>().GetAll();
+
+        // set data source
+        this.BoardStatsSelect.DataSource = boards;
+        this.BoardStatsSelect.DataBind();
+
+        // select current board as default
+        this.BoardStatsSelect.SelectedIndex =
+            this.BoardStatsSelect.Items.IndexOf(
+                this.BoardStatsSelect.Items.FindByValue(this.PageBoardContext.PageBoardID.ToString()));
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private void BindData()
+    {
+        this.BindUnverifiedUsers();
+
+        // get stats for current board, selected board or all boards (see function)
+        var data = this.GetRepository<Board>().Stats(this.GetSelectedBoardId());
+
+        this.NumCategories.Text = data.Categories.ToString();
+        this.NumForums.Text = data.Forums.ToString();
+        this.NumTopics.Text = $@"{data.Topics:N0}";
+        this.NumPosts.Text = $@"{data.Posts:N0}";
+        this.NumUsers.Text = $@"{data.Users:N0}";
+
+        var span = DateTime.UtcNow - data.BoardStart;
+        double days = span.Days;
+
+        this.BoardStart.Text = this.Get<IDateTimeService>().FormatDateTimeTopic(
+            this.PageBoardContext.BoardSettings.UseFarsiCalender
+                ? PersianDateConverter.ToPersianDate(data.BoardStart)
+                : data.BoardStart);
+
+        this.BoardStartAgo.Text = new DisplayDateTime
+                                      {
+                                          DateTime = data.BoardStart, Format = DateTimeFormat.BothTopic
+                                      }.RenderToString();
+
+        if (days < 1)
+        {
+            days = 1;
+        }
+
+        this.DayPosts.Text = $"{data.Posts / days:N2}";
+        this.DayTopics.Text = $"{data.Topics / days:N2}";
+        this.DayUsers.Text = $"{data.Users / days:N2}";
+
+        try
+        {
+            this.DBSize.Text = $"{this.Get<IDbAccess>().GetDatabaseSize()} MB";
+        }
+        catch (Exception)
+        {
+            this.DBSize.Text = this.GetText("ADMIN_ADMIN", "ERROR_DATABASESIZE");
+        }
+
+        this.BindActiveUserData();
+
+        this.DataBind();
+    }
+
+    /// <summary>
+    /// Bind unverified users.
+    /// </summary>
+    private void BindUnverifiedUsers()
+    {
+        this.UnverifiedUsersHolder.Visible = !Config.IsDotNetNuke;
+
+        if (!this.UnverifiedUsersHolder.Visible)
+        {
+            return;
+        }
+
+        this.PagerUnverified.PageSize = this.PageSizeUnverified.SelectedValue.ToType<int>();
+
+        var unverifiedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageBoardContext.PageBoardID)
+            .GetPaged(this.PagerUnverified);
+
+        // bind list
+        this.UserList.DataSource = unverifiedUsers;
+        this.UserList.DataBind();
+    }
+
+    /// <summary>
+    /// Gets board ID for which to show statistics.
+    /// </summary>
+    /// <returns>
+    /// Returns ID of selected board (for host admin), ID of current board (for admin), null if all boards is selected.
+    /// </returns>
+    private int GetSelectedBoardId()
+    {
+        // check dropdown only if user is host admin
+        return !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin
+                   ? this.PageBoardContext.PageBoardID
+                   : this.BoardStatsSelect.SelectedValue.ToType<int>();
+    }
+
+    #endregion
 }

@@ -21,52 +21,51 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.ForumModules
+namespace YAF.Core.ForumModules;
+
+#region Using
+
+using System;
+
+using YAF.Core.BaseModules;
+using YAF.Core.Tasks;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The Update Search Index Task
+/// </summary>
+/// <seealso cref="BaseForumModule" />
+[Module("Update Search Index Task Forum Module", "Tiny Gecko", 1)]
+public class UpdateSearchIndexTaskForumModule : BaseForumModule
 {
-    #region Using
+    #region Public Methods
 
-    using System;
-
-    using YAF.Core.BaseModules;
-    using YAF.Core.Tasks;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    /// The init.
+    /// </summary>
+    public override void Init()
+    {
+        // hook the page init for mail sending...
+        this.PageBoardContext.AfterInit += this.CurrentAfterInit;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The Update Search Index Task
+    /// Currents the after initialize.
     /// </summary>
-    /// <seealso cref="BaseForumModule" />
-    [Module("Update Search Index Task Forum Module", "Tiny Gecko", 1)]
-    public class UpdateSearchIndexTaskForumModule : BaseForumModule
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    private void CurrentAfterInit([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Public Methods
-
-        /// <summary>
-        /// The init.
-        /// </summary>
-        public override void Init()
-        {
-            // hook the page init for mail sending...
-            this.PageBoardContext.AfterInit += this.CurrentAfterInit;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Currents the after initialize.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CurrentAfterInit([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<ITaskModuleManager>().StartTask(UpdateSearchIndexTask.TaskName, () => new UpdateSearchIndexTask());
-        }
-
-        #endregion
+        this.Get<ITaskModuleManager>().StartTask(UpdateSearchIndexTask.TaskName, () => new UpdateSearchIndexTask());
     }
+
+    #endregion
 }

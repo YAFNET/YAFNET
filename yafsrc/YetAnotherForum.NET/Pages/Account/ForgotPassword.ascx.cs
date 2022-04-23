@@ -21,109 +21,108 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Pages.Account
+namespace YAF.Pages.Account;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// The recover Password Page.
+/// </summary>
+public partial class ForgotPassword : AccountPage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "ForgotPassword" /> class.
+    /// </summary>
+    public ForgotPassword()
+        : base("RECOVER_PASSWORD", ForumPages.Account_ForgotPassword)
+    {
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets a value indicating whether IsProtected.
+    /// </summary>
+    public override bool IsProtected => false;
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.FormValidatorJs),
+            JavaScriptBlocks.FormValidatorJs(this.Forgot.ClientID));
+
+        this.DataBind();
+
+        this.UserName.Focus();
+    }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddLink(this.GetText("TITLE"));
+    }
 
     #endregion
 
     /// <summary>
-    /// The recover Password Page.
+    /// The forgot password click.
     /// </summary>
-    public partial class ForgotPassword : AccountPage
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ForgotPasswordClick(object sender, EventArgs e)
     {
-        #region Constructors and Destructors
+        var user = this.UserName.Text.Contains("@")
+                       ? this.Get<IAspNetUsersHelper>().GetUserByEmail(this.UserName.Text)
+                       : this.Get<IAspNetUsersHelper>().GetUserByName(this.UserName.Text);
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "ForgotPassword" /> class.
-        /// </summary>
-        public ForgotPassword()
-            : base("RECOVER_PASSWORD", ForumPages.Account_ForgotPassword)
+        if (user == null)
         {
+            this.PageBoardContext.Notify(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
+            return;
         }
 
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets a value indicating whether IsProtected.
-        /// </summary>
-        public override bool IsProtected => false;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        // verify the user is approved, etc...
+        if (!user.IsApproved)
         {
-            if (this.IsPostBack)
-            {
-                return;
-            }
+            // explain they are not approved yet...
+            this.PageBoardContext.LoadMessage.AddSession(this.GetText("ACCOUNT_NOT_APPROVED_VERIFICATION"), MessageTypes.warning);
 
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                nameof(JavaScriptBlocks.FormValidatorJs),
-                JavaScriptBlocks.FormValidatorJs(this.Forgot.ClientID));
-
-            this.DataBind();
-
-            this.UserName.Focus();
+            return;
         }
 
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("TITLE"));
-        }
+        var code = HttpUtility.UrlEncode(this.Get<IAspNetUsersHelper>().GeneratePasswordResetToken(user.Id));
 
-        #endregion
+        this.Get<ISendNotification>().SendPasswordReset(user, code);
 
-        /// <summary>
-        /// The forgot password click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void ForgotPasswordClick(object sender, EventArgs e)
-        {
-            var user = this.UserName.Text.Contains("@")
-                ? this.Get<IAspNetUsersHelper>().GetUserByEmail(this.UserName.Text)
-                : this.Get<IAspNetUsersHelper>().GetUserByName(this.UserName.Text);
+        this.PageBoardContext.LoadMessage.AddSession(this.GetText("SUCCESS"), MessageTypes.success);
 
-            if (user == null)
-            {
-                this.PageBoardContext.Notify(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
-                return;
-            }
-
-            // verify the user is approved, etc...
-            if (!user.IsApproved)
-            {
-                // explain they are not approved yet...
-                this.PageBoardContext.LoadMessage.AddSession(this.GetText("ACCOUNT_NOT_APPROVED_VERIFICATION"), MessageTypes.warning);
-
-                return;
-            }
-
-            var code = HttpUtility.UrlEncode(this.Get<IAspNetUsersHelper>().GeneratePasswordResetToken(user.Id));
-
-            this.Get<ISendNotification>().SendPasswordReset(user, code);
-
-            this.PageBoardContext.LoadMessage.AddSession(this.GetText("SUCCESS"), MessageTypes.success);
-
-            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
-        }
+        this.Get<LinkBuilder>().Redirect(ForumPages.Board);
     }
 }

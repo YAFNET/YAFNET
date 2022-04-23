@@ -22,30 +22,29 @@
  * under the License.
  */
 
-namespace YAF.Data.Sqlite
+namespace YAF.Data.Sqlite;
+
+using ServiceStack.OrmLite.Sqlite;
+
+/// <summary>
+/// The YAF Sqlite ORM lite dialect provider.
+/// </summary>
+public class YafSqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProvider
 {
-    using ServiceStack.OrmLite.Sqlite;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The YAF Sqlite ORM lite dialect provider.
+    /// Initializes a new instance of the <see cref="YafSqliteOrmLiteDialectProvider"/> class.
     /// </summary>
-    public class YafSqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProvider
+    public YafSqliteOrmLiteDialectProvider()
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="YafSqliteOrmLiteDialectProvider"/> class.
-        /// </summary>
-        public YafSqliteOrmLiteDialectProvider()
-        {
-            this.NamingStrategy = new YafNamingStrategyBaseOverride();
-        }
-
-        /// <summary>
-        /// Gets or sets the instance.
-        /// </summary>
-        public static new YafSqliteOrmLiteDialectProvider Instance { get; set; } = new ();
-
-        #endregion
+        this.NamingStrategy = new YafNamingStrategyBaseOverride();
     }
+
+    /// <summary>
+    /// Gets or sets the instance.
+    /// </summary>
+    public static new YafSqliteOrmLiteDialectProvider Instance { get; set; } = new ();
+
+    #endregion
 }

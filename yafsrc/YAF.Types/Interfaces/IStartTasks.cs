@@ -21,17 +21,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// Interface for starting tasks
+/// </summary>
+public interface IStartTasks
 {
     /// <summary>
-    /// Interface for starting tasks
+    /// Start various tasks
     /// </summary>
-    public interface IStartTasks
-    {
-        /// <summary>
-        /// Start various tasks
-        /// </summary>
-        /// <param name="manager"></param>
-        void Start(ITaskModuleManager manager);
-    }
+    /// <param name="manager"></param>
+    void Start(ITaskModuleManager manager);
 }

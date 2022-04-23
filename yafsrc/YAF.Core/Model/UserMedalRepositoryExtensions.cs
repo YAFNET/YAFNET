@@ -21,138 +21,138 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System;
+using System.Collections.Generic;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+///     The UserMedal repository extensions.
+/// </summary>
+public static class UserMedalRepositoryExtensions
 {
-    using System;
-    using System.Collections.Generic;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The UserMedal repository extensions.
+    /// Lists users assigned to the medal
     /// </summary>
-    public static class UserMedalRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="medalId">
+    /// The medal Id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<Tuple<Medal, UserMedal, User>> List(
+        this IRepository<UserMedal> repository,
+        [NotNull] int? userId,
+        [NotNull] int medalId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Lists users assigned to the medal
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="medalId">
-        /// The medal Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<Tuple<Medal, UserMedal, User>> List(
-            this IRepository<UserMedal> repository,
-            [NotNull] int? userId,
-            [NotNull] int medalId)
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
+
+        if (userId.HasValue)
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
-
-            if (userId.HasValue)
-            {
-                expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
-                    .Join<UserMedal, User>((b, c) => c.ID == b.UserID)
-                    .Where<UserMedal>(b => b.MedalID == medalId && b.UserID == userId.Value).OrderBy<User>(x => x.Name)
-                    .ThenBy<UserMedal>(x => x.SortOrder);
-            }
-            else
-            {
-                expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
-                    .Join<UserMedal, User>((b, c) => c.ID == b.UserID).Where(a => a.ID == medalId)
-                    .OrderBy<User>(x => x.Name).ThenBy<UserMedal>(x => x.SortOrder);
-            }
-
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Medal, UserMedal, User>(expression));
+            expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
+                .Join<UserMedal, User>((b, c) => c.ID == b.UserID)
+                .Where<UserMedal>(b => b.MedalID == medalId && b.UserID == userId.Value).OrderBy<User>(x => x.Name)
+                .ThenBy<UserMedal>(x => x.SortOrder);
+        }
+        else
+        {
+            expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
+                .Join<UserMedal, User>((b, c) => c.ID == b.UserID).Where(a => a.ID == medalId)
+                .OrderBy<User>(x => x.Name).ThenBy<UserMedal>(x => x.SortOrder);
         }
 
-        /// <summary>
-        /// Update existing user-medal allocation.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userID">
-        /// ID of user.
-        /// </param>
-        /// <param name="medalID">
-        /// ID of medal.
-        /// </param>
-        /// <param name="message">
-        /// Medal message, to override medal's default one. Can be null.
-        /// </param>
-        /// <param name="hide">
-        /// Hide medal in user box.
-        /// </param>
-        /// <param name="sortOrder">
-        /// Sort order in user box. Overrides medal's default sort order.
-        /// </param>
-        public static void Save(
-            this IRepository<UserMedal> repository,
-            [NotNull] int userID,
-            [NotNull] int medalID,
-            [NotNull] string message,
-            [NotNull] bool hide,
-            [NotNull] byte sortOrder)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Medal, UserMedal, User>(expression));
+    }
 
-            repository.UpdateOnly(
-                () => new UserMedal { Message = message, Hide = hide, SortOrder = sortOrder },
-                m => m.UserID == userID && m.MedalID == medalID);
+    /// <summary>
+    /// Update existing user-medal allocation.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userID">
+    /// ID of user.
+    /// </param>
+    /// <param name="medalID">
+    /// ID of medal.
+    /// </param>
+    /// <param name="message">
+    /// Medal message, to override medal's default one. Can be null.
+    /// </param>
+    /// <param name="hide">
+    /// Hide medal in user box.
+    /// </param>
+    /// <param name="sortOrder">
+    /// Sort order in user box. Overrides medal's default sort order.
+    /// </param>
+    public static void Save(
+        this IRepository<UserMedal> repository,
+        [NotNull] int userID,
+        [NotNull] int medalID,
+        [NotNull] string message,
+        [NotNull] bool hide,
+        [NotNull] byte sortOrder)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            repository.FireUpdated(medalID);
-        }
+        repository.UpdateOnly(
+            () => new UserMedal { Message = message, Hide = hide, SortOrder = sortOrder },
+            m => m.UserID == userID && m.MedalID == medalID);
 
-        /// <summary>
-        /// Saves new user-medal allocation.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userID">
-        /// ID of user.
-        /// </param>
-        /// <param name="medalID">
-        /// ID of medal.
-        /// </param>
-        /// <param name="message">
-        /// Medal message, to override medal's default one. Can be null.
-        /// </param>
-        /// <param name="hide">
-        /// Hide medal in user box.
-        /// </param>
-        /// <param name="sortOrder">
-        /// Sort order in user box. Overrides medal's default sort order.
-        /// </param>
-        public static void SaveNew(
-            this IRepository<UserMedal> repository,
-            [NotNull] int userID,
-            [NotNull] int medalID,
-            [NotNull] string message,
-            [NotNull] bool hide,
-            [NotNull] byte sortOrder)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        repository.FireUpdated(medalID);
+    }
 
-            var newId = repository.Insert(
-                new UserMedal
+    /// <summary>
+    /// Saves new user-medal allocation.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userID">
+    /// ID of user.
+    /// </param>
+    /// <param name="medalID">
+    /// ID of medal.
+    /// </param>
+    /// <param name="message">
+    /// Medal message, to override medal's default one. Can be null.
+    /// </param>
+    /// <param name="hide">
+    /// Hide medal in user box.
+    /// </param>
+    /// <param name="sortOrder">
+    /// Sort order in user box. Overrides medal's default sort order.
+    /// </param>
+    public static void SaveNew(
+        this IRepository<UserMedal> repository,
+        [NotNull] int userID,
+        [NotNull] int medalID,
+        [NotNull] string message,
+        [NotNull] bool hide,
+        [NotNull] byte sortOrder)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var newId = repository.Insert(
+            new UserMedal
                 {
                     UserID = userID,
                     MedalID = medalID,
@@ -162,9 +162,8 @@ namespace YAF.Core.Model
                     DateAwarded = DateTime.UtcNow
                 });
 
-            repository.FireNew(newId);
-        }
-
-        #endregion
+        repository.FireNew(newId);
     }
+
+    #endregion
 }

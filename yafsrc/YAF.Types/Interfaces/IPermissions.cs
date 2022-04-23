@@ -21,36 +21,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+using YAF.Types.Constants;
+
+/// <summary>
+/// The i permissions.
+/// </summary>
+public interface IPermissions
 {
-    using YAF.Types.Constants;
+    #region Public Methods
 
     /// <summary>
-    /// The i permissions.
+    /// Check Permissions
     /// </summary>
-    public interface IPermissions
-    {
-        #region Public Methods
+    /// <param name="permission">
+    /// The permission.
+    /// </param>
+    /// <returns>
+    /// The check.
+    /// </returns>
+    bool Check(ViewPermissions permission);
 
-        /// <summary>
-        /// Check Permissions
-        /// </summary>
-        /// <param name="permission">
-        /// The permission.
-        /// </param>
-        /// <returns>
-        /// The check.
-        /// </returns>
-        bool Check(ViewPermissions permission);
+    /// <summary>
+    /// The handle request.
+    /// </summary>
+    /// <param name="permission">
+    /// The permission.
+    /// </param>
+    void HandleRequest(ViewPermissions permission);
 
-        /// <summary>
-        /// The handle request.
-        /// </summary>
-        /// <param name="permission">
-        /// The permission.
-        /// </param>
-        void HandleRequest(ViewPermissions permission);
-
-        #endregion
-    }
+    #endregion
 }

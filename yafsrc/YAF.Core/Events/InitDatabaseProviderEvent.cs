@@ -21,47 +21,46 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Events
+namespace YAF.Core.Events;
+
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// The init database provider event.
+/// </summary>
+public class InitDatabaseProviderEvent : IAmEvent
 {
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Events;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The init database provider event.
+    /// Initializes a new instance of the <see cref="InitDatabaseProviderEvent"/> class.
     /// </summary>
-    public class InitDatabaseProviderEvent : IAmEvent
+    /// <param name="providerName">
+    /// The provider name.
+    /// </param>
+    /// <param name="dbAccess">
+    /// The db access.
+    /// </param>
+    public InitDatabaseProviderEvent(string providerName, IDbAccess dbAccess)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InitDatabaseProviderEvent"/> class.
-        /// </summary>
-        /// <param name="providerName">
-        /// The provider name.
-        /// </param>
-        /// <param name="dbAccess">
-        /// The db access.
-        /// </param>
-        public InitDatabaseProviderEvent(string providerName, IDbAccess dbAccess)
-        {
-            this.ProviderName = providerName;
-            this.DbAccess = dbAccess;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// Gets or sets the db access.
-        /// </summary>
-        public IDbAccess DbAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the provider name.
-        /// </summary>
-        public string ProviderName { get; set; }
-
-        #endregion
+        this.ProviderName = providerName;
+        this.DbAccess = dbAccess;
     }
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    /// Gets or sets the db access.
+    /// </summary>
+    public IDbAccess DbAccess { get; set; }
+
+    /// <summary>
+    /// Gets or sets the provider name.
+    /// </summary>
+    public string ProviderName { get; set; }
+
+    #endregion
 }

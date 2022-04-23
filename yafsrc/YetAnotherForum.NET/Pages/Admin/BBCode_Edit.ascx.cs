@@ -22,149 +22,148 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// The BBCode Admin Edit Page.
+/// </summary>
+public partial class BBCode_Edit : AdminPage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BBCode_Edit"/> class. 
+    /// </summary>
+    public BBCode_Edit()
+        : base("ADMIN_BBCODE_EDIT", ForumPages.Admin_BBCode_Edit)
+    {
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The BBCode Admin Edit Page.
+    /// The bb code id.
     /// </summary>
-    public partial class BBCode_Edit : AdminPage
+    public int? BBCodeID =>
+        this.Get<HttpRequestBase>().QueryString.Exists("b")
+            ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("b")
+            : null;
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Adds the New BB Code or saves the existing one
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    protected void Add_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BBCode_Edit"/> class. 
-        /// </summary>
-        public BBCode_Edit()
-            : base("ADMIN_BBCODE_EDIT", ForumPages.Admin_BBCode_Edit)
+        if (!ValidationHelper.IsValidPosShort(this.txtExecOrder.Text.Trim()))
         {
+            this.PageBoardContext.Notify(
+                this.GetText("ADMIN_BBCODE_EDIT", "MSG_POSITIVE_VALUE"),
+                MessageTypes.warning);
+            return;
         }
 
-        #endregion
+        this.GetRepository<Types.Models.BBCode>().Save(
+            this.BBCodeID,
+            this.txtName.Text.Trim(),
+            this.txtDescription.Text,
+            this.txtOnClickJS.Text,
+            this.txtDisplayJS.Text,
+            this.txtEditJS.Text,
+            this.txtDisplayCSS.Text,
+            this.txtSearchRegEx.Text,
+            this.txtReplaceRegEx.Text,
+            this.txtVariables.Text,
+            this.chkUseModule.Checked,
+            this.UseToolbar.Checked,
+            this.txtModuleClass.Text,
+            this.txtExecOrder.Text.ToType<short>());
 
-        #region Properties
-
-        /// <summary>
-        /// The bb code id.
-        /// </summary>
-        public int? BBCodeID =>
-            this.Get<HttpRequestBase>().QueryString.Exists("b")
-                ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("b")
-                : null;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Adds the New BB Code or saves the existing one
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void Add_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!ValidationHelper.IsValidPosShort(this.txtExecOrder.Text.Trim()))
-            {
-                this.PageBoardContext.Notify(
-                    this.GetText("ADMIN_BBCODE_EDIT", "MSG_POSITIVE_VALUE"),
-                    MessageTypes.warning);
-                return;
-            }
-
-            this.GetRepository<Types.Models.BBCode>().Save(
-                this.BBCodeID,
-                this.txtName.Text.Trim(),
-                this.txtDescription.Text,
-                this.txtOnClickJS.Text,
-                this.txtDisplayJS.Text,
-                this.txtEditJS.Text,
-                this.txtDisplayCSS.Text,
-                this.txtSearchRegEx.Text,
-                this.txtReplaceRegEx.Text,
-                this.txtVariables.Text,
-                this.chkUseModule.Checked,
-                this.UseToolbar.Checked,
-                this.txtModuleClass.Text,
-                this.txtExecOrder.Text.ToType<short>());
-
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCodes);
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        protected void BindData()
-        {
-            if (!this.BBCodeID.HasValue)
-            {
-                return;
-            }
-
-            var code = this.GetRepository<Types.Models.BBCode>().GetById(this.BBCodeID.Value);
-
-            // fill the control values...
-            this.txtName.Text = code.Name;
-            this.txtExecOrder.Text = code.ExecOrder.ToString();
-            this.txtDescription.Text = code.Description;
-            this.txtOnClickJS.Text = code.OnClickJS;
-            this.txtDisplayJS.Text = code.DisplayJS;
-            this.txtEditJS.Text = code.EditJS;
-            this.txtDisplayCSS.Text = code.DisplayCSS;
-            this.txtSearchRegEx.Text = code.SearchRegex;
-            this.txtReplaceRegEx.Text = code.ReplaceRegex;
-            this.txtVariables.Text = code.Variables;
-            this.txtModuleClass.Text = code.ModuleClass;
-            this.chkUseModule.Checked = code.UseModule ?? false;
-            this.UseToolbar.Checked = code.UseToolbar ?? false;
-        }
-
-        /// <summary>
-        /// Cancel Edit
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCodes);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                nameof(JavaScriptBlocks.FormValidatorJs),
-                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            var strAddEdit = this.BBCodeID == null ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
-
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddAdminIndex();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_BBCODE", "TITLE"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BBCodes));
-            this.PageLinks.AddLink(string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit), string.Empty);
-        }
-
-        #endregion
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCodes);
     }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    protected void BindData()
+    {
+        if (!this.BBCodeID.HasValue)
+        {
+            return;
+        }
+
+        var code = this.GetRepository<Types.Models.BBCode>().GetById(this.BBCodeID.Value);
+
+        // fill the control values...
+        this.txtName.Text = code.Name;
+        this.txtExecOrder.Text = code.ExecOrder.ToString();
+        this.txtDescription.Text = code.Description;
+        this.txtOnClickJS.Text = code.OnClickJS;
+        this.txtDisplayJS.Text = code.DisplayJS;
+        this.txtEditJS.Text = code.EditJS;
+        this.txtDisplayCSS.Text = code.DisplayCSS;
+        this.txtSearchRegEx.Text = code.SearchRegex;
+        this.txtReplaceRegEx.Text = code.ReplaceRegex;
+        this.txtVariables.Text = code.Variables;
+        this.txtModuleClass.Text = code.ModuleClass;
+        this.chkUseModule.Checked = code.UseModule ?? false;
+        this.UseToolbar.Checked = code.UseToolbar ?? false;
+    }
+
+    /// <summary>
+    /// Cancel Edit
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCodes);
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.FormValidatorJs),
+            JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        var strAddEdit = this.BBCodeID == null ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
+
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddAdminIndex();
+        this.PageLinks.AddLink(
+            this.GetText("ADMIN_BBCODE", "TITLE"),
+            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BBCodes));
+        this.PageLinks.AddLink(string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit), string.Empty);
+    }
+
+    #endregion
 }

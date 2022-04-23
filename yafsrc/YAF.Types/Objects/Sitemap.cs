@@ -22,72 +22,71 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
-{
-    using System.Collections;
-    using System.Xml.Serialization;
+namespace YAF.Types.Objects;
 
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
+using System.Collections;
+using System.Xml.Serialization;
+
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+
+/// <summary>
+/// The site Map. XML
+/// </summary>
+[XmlRoot("urlset", Namespace = "https://www.sitemaps.org/schemas/sitemap/0.9")]
+public class SiteMap
+{
+    /// <summary>
+    /// The map.
+    /// </summary>
+    private ArrayList map;
 
     /// <summary>
-    /// The site Map. XML
+    /// Initializes a new instance of the <see cref="SiteMap"/> class.
     /// </summary>
-    [XmlRoot("urlset", Namespace = "https://www.sitemaps.org/schemas/sitemap/0.9")]
-    public class SiteMap
+    public SiteMap()
     {
-        /// <summary>
-        /// The map.
-        /// </summary>
-        private ArrayList map;
+        this.map = new ArrayList();
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SiteMap"/> class.
-        /// </summary>
-        public SiteMap()
+    /// <summary>
+    /// Gets or sets the locations.
+    /// </summary>
+    [XmlElement("url")]
+    public UrlLocation[] Locations
+    {
+        get
         {
-            this.map = new ArrayList();
+            var items = new UrlLocation[this.map.Count];
+            this.map.CopyTo(items);
+            return items;
         }
 
-        /// <summary>
-        /// Gets or sets the locations.
-        /// </summary>
-        [XmlElement("url")]
-        public UrlLocation[] Locations
+        set
         {
-            get
+            if (value == null)
             {
-                var items = new UrlLocation[this.map.Count];
-                this.map.CopyTo(items);
-                return items;
+                return;
             }
 
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
+            var items = value;
+            this.map.Clear();
 
-                var items = value;
-                this.map.Clear();
-
-                items.ForEach(item => this.map.Add(item));
-            }
+            items.ForEach(item => this.map.Add(item));
         }
+    }
 
-        /// <summary>
-        /// Add Url to List
-        /// </summary>
-        /// <param name="item">
-        /// The item.
-        /// </param>
-        /// <returns>
-        /// The <see cref="int"/>.
-        /// </returns>
-        public int Add(UrlLocation item)
-        {
-            return this.map.Add(item);
-        }
+    /// <summary>
+    /// Add Url to List
+    /// </summary>
+    /// <param name="item">
+    /// The item.
+    /// </param>
+    /// <returns>
+    /// The <see cref="int"/>.
+    /// </returns>
+    public int Add(UrlLocation item)
+    {
+        return this.map.Add(item);
     }
 }

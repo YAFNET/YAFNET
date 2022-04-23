@@ -22,121 +22,120 @@
  * under the License.
  */
 
-namespace YAF.Dialogs
+namespace YAF.Dialogs;
+
+#region Using
+
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The Admin Spam Words Add/Edit Dialog.
+/// </summary>
+public partial class SpamWordsEdit : BaseUserControl
 {
-    #region Using
-
-    using YAF.Types.Models;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// The Admin Spam Words Add/Edit Dialog.
+    /// Gets or sets the spam word identifier.
     /// </summary>
-    public partial class SpamWordsEdit : BaseUserControl
+    /// <value>
+    /// The spam word identifier.
+    /// </value>
+    public int? SpamWordId
     {
-        #region Methods
+        get => this.ViewState["SpamWordId"].ToType<int?>();
 
-        /// <summary>
-        /// Gets or sets the spam word identifier.
-        /// </summary>
-        /// <value>
-        /// The spam word identifier.
-        /// </value>
-        public int? SpamWordId
+        set => this.ViewState["SpamWordId"] = value;
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    /// <param name="spamWordId">The spam word identifier.</param>
+    public void BindData(int? spamWordId)
+    {
+        this.SpamWordId = spamWordId;
+
+        this.Title.LocalizedPage = "ADMIN_SPAMWORDS_EDIT";
+        this.Save.TextLocalizedPage = "ADMIN_SPAMWORDS";
+
+        if (this.SpamWordId.HasValue)
         {
-            get => this.ViewState["SpamWordId"].ToType<int?>();
+            // Edit
+            var spamWord = this.GetRepository<Spam_Words>().GetById(this.SpamWordId.Value);
 
-            set => this.ViewState["SpamWordId"] = value;
+            if (spamWord != null)
+            {
+                this.spamword.Text = spamWord.SpamWord;
+            }
+
+            this.Title.LocalizedTag = "TITLE_EDIT";
+            this.Save.TextLocalizedTag = "SAVE";
+        }
+        else
+        {
+            // Add
+            this.spamword.Text = string.Empty;
+
+            this.Title.LocalizedTag = "TITLE";
+            this.Save.TextLocalizedTag = "ADD";
+        }
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender. 
+    /// </param>
+    /// <param name="e">
+    /// The e. 
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.IsPostBack)
+        {
+            return;
         }
 
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        /// <param name="spamWordId">The spam word identifier.</param>
-        public void BindData(int? spamWordId)
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "loadValidatorFormJs",
+            JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+    }
+
+    /// <summary>
+    /// Handles the Click event of the Add control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.Page.IsValid)
         {
-            this.SpamWordId = spamWordId;
-
-            this.Title.LocalizedPage = "ADMIN_SPAMWORDS_EDIT";
-            this.Save.TextLocalizedPage = "ADMIN_SPAMWORDS";
-
-            if (this.SpamWordId.HasValue)
-            {
-                // Edit
-                var spamWord = this.GetRepository<Spam_Words>().GetById(this.SpamWordId.Value);
-
-                if (spamWord != null)
-                {
-                    this.spamword.Text = spamWord.SpamWord;
-                }
-
-                this.Title.LocalizedTag = "TITLE_EDIT";
-                this.Save.TextLocalizedTag = "SAVE";
-            }
-            else
-            {
-                // Add
-                this.spamword.Text = string.Empty;
-
-                this.Title.LocalizedTag = "TITLE";
-                this.Save.TextLocalizedTag = "ADD";
-            }
+            return;
         }
 
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        if (!ValidationHelper.IsValidRegex(this.spamword.Text.Trim()))
         {
-            if (!this.IsPostBack)
-            {
-                return;
-            }
+            this.PageBoardContext.Notify(
+                this.GetText("ADMIN_SPAMWORDS_EDIT", "MSG_REGEX_SPAM"),
+                MessageTypes.danger);
 
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "loadValidatorFormJs",
-                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
         }
-
-        /// <summary>
-        /// Handles the Click event of the Add control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+        else
         {
-            if (!this.Page.IsValid)
-            {
-                return;
-            }
+            this.GetRepository<Spam_Words>().Save(
+                this.SpamWordId,
+                this.spamword.Text);
 
-            if (!ValidationHelper.IsValidRegex(this.spamword.Text.Trim()))
-            {
-                this.PageBoardContext.Notify(
-                    this.GetText("ADMIN_SPAMWORDS_EDIT", "MSG_REGEX_SPAM"),
-                    MessageTypes.danger);
-
-                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                    "openModalJs",
-                    JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
-            }
-            else
-            {
-                this.GetRepository<Spam_Words>().Save(
-                     this.SpamWordId,
-                     this.spamword.Text);
-
-                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_SpamWords);
-            }
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_SpamWords);
         }
-
-        #endregion
     }
+
+    #endregion
 }

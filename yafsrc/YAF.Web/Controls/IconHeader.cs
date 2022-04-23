@@ -21,125 +21,124 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System.Web.UI;
+
+using ServiceStack.Text;
+
+using YAF.Core.BaseControls;
+using YAF.Core.Context;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// Icon Header creates a header with Icon and localized header text
+/// </summary>
+public class IconHeader : BaseControl, ILocalizationSupport
 {
-    #region Using
+    #region Properties
 
-    using System.Web.UI;
+    /// <summary>
+    /// Gets or sets a value indicating whether enable bb code.
+    /// </summary>
+    public bool EnableBBCode { get; set; }
 
-    using ServiceStack.Text;
+    /// <summary>
+    /// Gets or sets the icon name.
+    /// </summary>
+    public string IconName { get; set; }
 
-    using YAF.Core.BaseControls;
-    using YAF.Core.Context;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    /// Gets or sets the icon type.
+    /// </summary>
+    public string IconType { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon style.
+    /// </summary>
+    public string IconStyle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon size.
+    /// </summary>
+    public string IconSize { get; set; }
+
+    /// <summary>
+    /// Gets or sets the override text.
+    /// </summary>
+    public string Text { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets LocalizedPage.
+    /// </summary>
+    public string LocalizedPage { get; set; } = BoardContext.Current.CurrentForumPage != null
+                                                    ? BoardContext.Current.CurrentForumPage.PageName.ToUpper()
+                                                    : "DEFAULT";
+
+    /// <summary>
+    /// Gets or sets LocalizedTag.
+    /// </summary>
+    public string LocalizedTag { get; set; } = "TITLE";
+
+    /// <summary>
+    /// Gets or sets Parameter 0.
+    /// </summary>
+    public string Param0 { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets Parameter 1.
+    /// </summary>
+    public string Param1 { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets Parameter 2.
+    /// </summary>
+    public string Param2 { get; set; } = string.Empty;
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Icon Header creates a header with Icon and localized header text
+    /// Shows the localized text string (if available)
     /// </summary>
-    public class IconHeader : BaseControl, ILocalizationSupport
+    /// <param name="writer">The output.</param>
+    protected override void Render(HtmlTextWriter writer)
     {
-        #region Properties
+        writer.BeginRender();
 
-        /// <summary>
-        /// Gets or sets a value indicating whether enable bb code.
-        /// </summary>
-        public bool EnableBBCode { get; set; }
-
-        /// <summary>
-        /// Gets or sets the icon name.
-        /// </summary>
-        public string IconName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the icon type.
-        /// </summary>
-        public string IconType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the icon style.
-        /// </summary>
-        public string IconStyle { get; set; }
-
-        /// <summary>
-        /// Gets or sets the icon size.
-        /// </summary>
-        public string IconSize { get; set; }
-
-        /// <summary>
-        /// Gets or sets the override text.
-        /// </summary>
-        public string Text { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets LocalizedPage.
-        /// </summary>
-        public string LocalizedPage { get; set; } = BoardContext.Current.CurrentForumPage != null
-                                                        ? BoardContext.Current.CurrentForumPage.PageName.ToUpper()
-                                                        : "DEFAULT";
-
-        /// <summary>
-        /// Gets or sets LocalizedTag.
-        /// </summary>
-        public string LocalizedTag { get; set; } = "TITLE";
-
-        /// <summary>
-        /// Gets or sets Parameter 0.
-        /// </summary>
-        public string Param0 { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets Parameter 1.
-        /// </summary>
-        public string Param1 { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets Parameter 2.
-        /// </summary>
-        public string Param2 { get; set; } = string.Empty;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Shows the localized text string (if available)
-        /// </summary>
-        /// <param name="writer">The output.</param>
-        protected override void Render(HtmlTextWriter writer)
+        if (string.IsNullOrEmpty(this.IconType))
         {
-            writer.BeginRender();
-
-            if (string.IsNullOrEmpty(this.IconType))
-            {
-                this.IconType = "text-secondary";
-            }
-
-            var icon = new Icon { IconName = this.IconName, IconType = this.IconType, IconSize = this.IconSize };
-
-            if (this.IconStyle.IsSet())
-            {
-                icon.IconStyle = this.IconStyle;
-            }
-
-            icon.RenderControl(writer);
-
-            if (this.Text.IsSet())
-            {
-                writer.Write(this.Text);
-            }
-            else
-            {
-                var header = this.GetText(this.LocalizedPage, this.LocalizedTag).Fmt(this.Param0, this.Param1, this.Param2);
-
-                writer.Write(header);
-            }
-
-            writer.EndRender();
+            this.IconType = "text-secondary";
         }
 
-        #endregion
+        var icon = new Icon { IconName = this.IconName, IconType = this.IconType, IconSize = this.IconSize };
+
+        if (this.IconStyle.IsSet())
+        {
+            icon.IconStyle = this.IconStyle;
+        }
+
+        icon.RenderControl(writer);
+
+        if (this.Text.IsSet())
+        {
+            writer.Write(this.Text);
+        }
+        else
+        {
+            var header = this.GetText(this.LocalizedPage, this.LocalizedTag).Fmt(this.Param0, this.Param1, this.Param2);
+
+            writer.Write(header);
+        }
+
+        writer.EndRender();
     }
+
+    #endregion
 }

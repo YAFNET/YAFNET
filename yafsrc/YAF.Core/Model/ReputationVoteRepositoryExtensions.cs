@@ -21,63 +21,62 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
-{
-    using System;
+namespace YAF.Core.Model;
 
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+using System;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// The reputation vote repository extensions.
+/// </summary>
+public static class ReputationVoteRepositoryExtensions
+{
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The reputation vote repository extensions.
+    /// The update or add Reputation Vote.
     /// </summary>
-    public static class ReputationVoteRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from user id.
+    /// </param>
+    /// <param name="toUserId">
+    /// The to user id.
+    /// </param>
+    public static void UpdateOrAdd(
+        this IRepository<ReputationVote> repository,
+        [NotNull] int fromUserId,
+        [NotNull] int toUserId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// The update or add Reputation Vote.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from user id.
-        /// </param>
-        /// <param name="toUserId">
-        /// The to user id.
-        /// </param>
-        public static void UpdateOrAdd(
-            this IRepository<ReputationVote> repository,
-            [NotNull] int fromUserId,
-            [NotNull] int toUserId)
+        var voteDate = repository.GetSingle(
+            r => r.ReputationFromUserID == fromUserId && r.ReputationToUserID == toUserId);
+
+        if (voteDate != null)
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            var voteDate = repository.GetSingle(
-                r => r.ReputationFromUserID == fromUserId && r.ReputationToUserID == toUserId);
-
-            if (voteDate != null)
-            {
-                repository.FireUpdated(
-                    repository.UpdateOnly(
-                        () => new ReputationVote { VoteDate = DateTime.UtcNow },
-                        r => r.ReputationFromUserID == fromUserId && r.ReputationToUserID == toUserId));
-            }
-            else
-            {
-                repository.FireNew(repository.Insert(new ReputationVote
-                {
-                    ReputationFromUserID = fromUserId,
-                    ReputationToUserID = toUserId,
-                    VoteDate = DateTime.UtcNow
-                }));
-            }
+            repository.FireUpdated(
+                repository.UpdateOnly(
+                    () => new ReputationVote { VoteDate = DateTime.UtcNow },
+                    r => r.ReputationFromUserID == fromUserId && r.ReputationToUserID == toUserId));
         }
-
-        #endregion
+        else
+        {
+            repository.FireNew(repository.Insert(new ReputationVote
+                                                     {
+                                                         ReputationFromUserID = fromUserId,
+                                                         ReputationToUserID = toUserId,
+                                                         VoteDate = DateTime.UtcNow
+                                                     }));
+        }
     }
+
+    #endregion
 }

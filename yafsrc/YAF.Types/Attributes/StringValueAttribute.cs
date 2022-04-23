@@ -21,40 +21,39 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Attributes
+namespace YAF.Types.Attributes;
+
+using System;
+
+/// <summary>
+/// This attribute is used to represent a string value
+/// for a value in an enum.
+/// </summary>
+[AttributeUsage(AttributeTargets.Enum)]
+public class StringValueAttribute : Attribute
 {
-    using System;
+    #region Constructor
 
     /// <summary>
-    /// This attribute is used to represent a string value
-    /// for a value in an enum.
+    /// Initializes a new instance of the <see cref="StringValueAttribute"/> class. 
+    /// Constructor used to init a StringValue Attribute
     /// </summary>
-    [AttributeUsage(AttributeTargets.Enum)]
-    public class StringValueAttribute : Attribute
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    public StringValueAttribute(string value)
     {
-        #region Constructor
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StringValueAttribute"/> class. 
-        /// Constructor used to init a StringValue Attribute
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        public StringValueAttribute(string value)
-        {
-            this.StringValue = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the string value for a value in an enum.
-        /// </summary>
-        public string StringValue { get; protected set; }
-
-        #endregion
+        this.StringValue = value;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets the string value for a value in an enum.
+    /// </summary>
+    public string StringValue { get; protected set; }
+
+    #endregion
 }

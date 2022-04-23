@@ -6,18 +6,17 @@
 // ***********************************************************************
 using ServiceStack.OrmLite.Converters;
 
-namespace ServiceStack.OrmLite.MySql.Converters
+namespace ServiceStack.OrmLite.MySql.Converters;
+
+/// <summary>
+/// Class MySqlDecimalConverter.
+/// Implements the <see cref="ServiceStack.OrmLite.Converters.DecimalConverter" />
+/// </summary>
+/// <seealso cref="ServiceStack.OrmLite.Converters.DecimalConverter" />
+public class MySqlDecimalConverter : DecimalConverter
 {
     /// <summary>
-    /// Class MySqlDecimalConverter.
-    /// Implements the <see cref="ServiceStack.OrmLite.Converters.DecimalConverter" />
+    /// Initializes a new instance of the <see cref="MySqlDecimalConverter"/> class.
     /// </summary>
-    /// <seealso cref="ServiceStack.OrmLite.Converters.DecimalConverter" />
-    public class MySqlDecimalConverter : DecimalConverter
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MySqlDecimalConverter"/> class.
-        /// </summary>
-        public MySqlDecimalConverter() : base(38,6) { }
-    }
+    public MySqlDecimalConverter() : base(38,6) { }
 }

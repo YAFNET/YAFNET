@@ -22,134 +22,133 @@
  * under the License.
  */
 
-namespace YAF.Types.Extensions
+namespace YAF.Types.Extensions;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using YAF.Types;
+
+#endregion
+
+/// <summary>
+/// The enumerable extensions.
+/// </summary>
+public static class EnumerableExtensions
 {
-    #region Using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using YAF.Types;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The enumerable extensions.
+    ///     Iterates through a generic list type
     /// </summary>
-    public static class EnumerableExtensions
+    /// <typeparam name="T">The typed generic list</typeparam>
+    /// <param name="list"> </param>
+    /// <param name="action"> </param>
+    public static void ForEach<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T> action)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(list);
+        CodeContracts.VerifyNotNull(action);
 
-        /// <summary>
-        ///     Iterates through a generic list type
-        /// </summary>
-        /// <typeparam name="T">The typed generic list</typeparam>
-        /// <param name="list"> </param>
-        /// <param name="action"> </param>
-        public static void ForEach<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T> action)
-        {
-            CodeContracts.VerifyNotNull(list);
-            CodeContracts.VerifyNotNull(action);
-
-            list.ToList().ForEach(action);
-        }
-
-        /// <summary>
-        ///     Iterates through a list with a isFirst flag.
-        /// </summary>
-        /// <typeparam name="T">
-        /// The typed generic list
-        /// </typeparam>
-        /// <param name="list"> </param>
-        /// <param name="action"> </param>
-        public static void ForEachFirst<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, bool> action)
-        {
-            CodeContracts.VerifyNotNull(list);
-            CodeContracts.VerifyNotNull(action);
-
-            var isFirst = true;
-
-            list.ToList().ForEach(
-                item =>
-                    {
-                        action(item, isFirst);
-                        isFirst = false;
-                    });
-        }
-
-        /// <summary>
-        ///     Iterates through a list with a index.
-        /// </summary>
-        /// <typeparam name="T">
-        /// The typed generic list
-        /// </typeparam>
-        /// <param name="list"> </param>
-        /// <param name="action"> </param>
-        public static void ForEachIndex<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, int> action)
-        {
-            CodeContracts.VerifyNotNull(list);
-            CodeContracts.VerifyNotNull(action);
-
-            var i = 0;
-
-            list.ToList().ForEach(item => action(item, i++));
-        }
-
-        /// <summary>
-        ///     If the <paramref name="currentEnumerable" /> is <see langword="null" /> , an Empty IEnumerable of <typeparamref
-        ///      name="T" /> is returned, else <paramref name="currentEnumerable" /> is returned.
-        /// </summary>
-        /// <param name="currentEnumerable"> The current enumerable. </param>
-        /// <typeparam name="T">
-        /// The typed generic list
-        /// </typeparam>
-        /// <returns> </returns>
-        public static IEnumerable<T> IfNullEmpty<T>([CanBeNull] this IEnumerable<T> currentEnumerable)
-        {
-            return currentEnumerable ?? Enumerable.Empty<T>();
-        }
-
-        /// <summary>
-        /// The distinct by.
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="keySelector">
-        /// The key selector.
-        /// </param>
-        /// <typeparam name="TSource">
-        /// </typeparam>
-        /// <typeparam name="TKey">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IEnumerable"/>.
-        /// </returns>
-        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
-            this IEnumerable<TSource> source,
-            Func<TSource, TKey> keySelector)
-        {
-            var knownKeys = new HashSet<TKey>();
-            return source.Where(element => knownKeys.Add(keySelector(element)));
-        }
-
-        /// <summary>
-        /// Checks if List is Null Or Empty
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="source">The source.</param>
-        /// <returns><c>true</c> if Null Or Empty, <c>false</c> otherwise.</returns>
-        public static bool NullOrEmpty<T>(this IEnumerable<T> source)
-        {
-            if (source == null)
-            {
-                return true;
-            }
-
-            return !source.Any();
-        }
-
-        #endregion
+        list.ToList().ForEach(action);
     }
+
+    /// <summary>
+    ///     Iterates through a list with a isFirst flag.
+    /// </summary>
+    /// <typeparam name="T">
+    /// The typed generic list
+    /// </typeparam>
+    /// <param name="list"> </param>
+    /// <param name="action"> </param>
+    public static void ForEachFirst<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, bool> action)
+    {
+        CodeContracts.VerifyNotNull(list);
+        CodeContracts.VerifyNotNull(action);
+
+        var isFirst = true;
+
+        list.ToList().ForEach(
+            item =>
+                {
+                    action(item, isFirst);
+                    isFirst = false;
+                });
+    }
+
+    /// <summary>
+    ///     Iterates through a list with a index.
+    /// </summary>
+    /// <typeparam name="T">
+    /// The typed generic list
+    /// </typeparam>
+    /// <param name="list"> </param>
+    /// <param name="action"> </param>
+    public static void ForEachIndex<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, int> action)
+    {
+        CodeContracts.VerifyNotNull(list);
+        CodeContracts.VerifyNotNull(action);
+
+        var i = 0;
+
+        list.ToList().ForEach(item => action(item, i++));
+    }
+
+    /// <summary>
+    ///     If the <paramref name="currentEnumerable" /> is <see langword="null" /> , an Empty IEnumerable of <typeparamref
+    ///      name="T" /> is returned, else <paramref name="currentEnumerable" /> is returned.
+    /// </summary>
+    /// <param name="currentEnumerable"> The current enumerable. </param>
+    /// <typeparam name="T">
+    /// The typed generic list
+    /// </typeparam>
+    /// <returns> </returns>
+    public static IEnumerable<T> IfNullEmpty<T>([CanBeNull] this IEnumerable<T> currentEnumerable)
+    {
+        return currentEnumerable ?? Enumerable.Empty<T>();
+    }
+
+    /// <summary>
+    /// The distinct by.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="keySelector">
+    /// The key selector.
+    /// </param>
+    /// <typeparam name="TSource">
+    /// </typeparam>
+    /// <typeparam name="TKey">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="IEnumerable"/>.
+    /// </returns>
+    public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
+        this IEnumerable<TSource> source,
+        Func<TSource, TKey> keySelector)
+    {
+        var knownKeys = new HashSet<TKey>();
+        return source.Where(element => knownKeys.Add(keySelector(element)));
+    }
+
+    /// <summary>
+    /// Checks if List is Null Or Empty
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="source">The source.</param>
+    /// <returns><c>true</c> if Null Or Empty, <c>false</c> otherwise.</returns>
+    public static bool NullOrEmpty<T>(this IEnumerable<T> source)
+    {
+        if (source == null)
+        {
+            return true;
+        }
+
+        return !source.Any();
+    }
+
+    #endregion
 }

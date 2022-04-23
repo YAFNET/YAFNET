@@ -21,43 +21,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the TopicReadTracking table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(UserID), nameof(TopicID))]
+public class TopicReadTracking : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the TopicReadTracking table.
+    /// Gets or sets the user id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(UserID), nameof(TopicID))]
-    public class TopicReadTracking : IEntity
-    {
-        #region Properties
+    [References(typeof(User))]
+    [Required]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    [References(typeof(Topic))]
+    [Required]
+    public int TopicID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the topic id.
-        /// </summary>
-        [References(typeof(Topic))]
-        [Required]
-        public int TopicID { get; set; }
+    /// <summary>
+    /// Gets or sets the last access date.
+    /// </summary>
+    [Required]
+    public DateTime LastAccessDate { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last access date.
-        /// </summary>
-        [Required]
-        public DateTime LastAccessDate { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

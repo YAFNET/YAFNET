@@ -4,22 +4,21 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-namespace ServiceStack.OrmLite.Dapper
+namespace ServiceStack.OrmLite.Dapper;
+
+/// <summary>
+/// Class SqlMapper.
+/// </summary>
+public static partial class SqlMapper
 {
     /// <summary>
-    /// Class SqlMapper.
+    /// Extends IDynamicParameters with facilities for executing callbacks after commands have completed
     /// </summary>
-    public static partial class SqlMapper
+    public interface IParameterCallbacks : IDynamicParameters
     {
         /// <summary>
-        /// Extends IDynamicParameters with facilities for executing callbacks after commands have completed
+        /// Invoked when the command has executed
         /// </summary>
-        public interface IParameterCallbacks : IDynamicParameters
-        {
-            /// <summary>
-            /// Invoked when the command has executed
-            /// </summary>
-            void OnCompleted();
-        }
+        void OnCompleted();
     }
 }

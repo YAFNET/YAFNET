@@ -22,56 +22,55 @@
  * under the License.
  */
 
-namespace YAF.Controls
+namespace YAF.Controls;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// The last posts.
+/// </summary>
+public partial class LastPosts : BaseUserControl
 {
-    using YAF.Types.Models;
+    #region Properties
 
     /// <summary>
-    /// The last posts.
+    ///   Gets or sets TopicID.
     /// </summary>
-    public partial class LastPosts : BaseUserControl
+    public int? TopicID { get; set; }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets TopicID.
-        /// </summary>
-        public int? TopicID { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        private void BindData()
-        {
-            if (this.TopicID.HasValue)
-            {
-                var messages = this.GetRepository<Message>().LastPosts(
-                    this.TopicID.Value);
-
-                this.repLastPosts.DataSource = messages;
-            }
-            else
-            {
-                this.repLastPosts.DataSource = null;
-            }
-
-            this.repLastPosts.DataBind();
-        }
-
-        #endregion
+        this.BindData();
     }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private void BindData()
+    {
+        if (this.TopicID.HasValue)
+        {
+            var messages = this.GetRepository<Message>().LastPosts(
+                this.TopicID.Value);
+
+            this.repLastPosts.DataSource = messages;
+        }
+        else
+        {
+            this.repLastPosts.DataSource = null;
+        }
+
+        this.repLastPosts.DataBind();
+    }
+
+    #endregion
 }

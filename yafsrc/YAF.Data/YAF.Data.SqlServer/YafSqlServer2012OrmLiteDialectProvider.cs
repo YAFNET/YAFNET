@@ -22,30 +22,29 @@
  * under the License.
  */
 
-namespace YAF.Data.SqlServer
+namespace YAF.Data.SqlServer;
+
+using ServiceStack.OrmLite.SqlServer;
+
+/// <summary>
+/// The YAF SQL Server 2012 ORM lite dialect provider.
+/// </summary>
+public class YafSqlServer2012OrmLiteDialectProvider : SqlServer2012OrmLiteDialectProvider
 {
-    using ServiceStack.OrmLite.SqlServer;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The YAF SQL Server 2012 ORM lite dialect provider.
+    /// Initializes a new instance of the <see cref="YafSqlServer2012OrmLiteDialectProvider"/> class.
     /// </summary>
-    public class YafSqlServer2012OrmLiteDialectProvider : SqlServer2012OrmLiteDialectProvider
+    public YafSqlServer2012OrmLiteDialectProvider()
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="YafSqlServer2012OrmLiteDialectProvider"/> class.
-        /// </summary>
-        public YafSqlServer2012OrmLiteDialectProvider()
-        {
-            this.NamingStrategy = new YafNamingStrategyBaseOverride();
-        }
-
-        /// <summary>
-        /// Gets or sets the instance.
-        /// </summary>
-        public static new YafSqlServer2012OrmLiteDialectProvider Instance { get; set; } = new ();
-
-        #endregion
+        this.NamingStrategy = new YafNamingStrategyBaseOverride();
     }
+
+    /// <summary>
+    /// Gets or sets the instance.
+    /// </summary>
+    public static new YafSqlServer2012OrmLiteDialectProvider Instance { get; set; } = new ();
+
+    #endregion
 }

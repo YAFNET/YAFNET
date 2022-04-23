@@ -21,39 +21,38 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+using System;
+
+/// <summary>
+/// Base Replace Rules Interface
+/// </summary>
+public interface IReplaceRule
 {
-    using System;
+    #region Properties
 
     /// <summary>
-    /// Base Replace Rules Interface
+    ///   Gets RuleDescription.
     /// </summary>
-    public interface IReplaceRule
-    {
-        #region Properties
+    string RuleDescription { get; }
 
-        /// <summary>
-        ///   Gets RuleDescription.
-        /// </summary>
-        string RuleDescription { get; }
+    #endregion
 
-        #endregion
+    #region Public Methods
 
-        #region Public Methods
+    /// <summary>
+    /// The replace.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="replacement">
+    /// The replacement.
+    /// </param>
+    /// <exception cref="NotImplementedException">
+    /// </exception>
+    void Replace(ref string text, IReplaceBlocks replacement);
 
-        /// <summary>
-        /// The replace.
-        /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <param name="replacement">
-        /// The replacement.
-        /// </param>
-        /// <exception cref="NotImplementedException">
-        /// </exception>
-        void Replace(ref string text, IReplaceBlocks replacement);
-
-        #endregion
-    }
+    #endregion
 }

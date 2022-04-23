@@ -22,28 +22,27 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// The paging.
+/// </summary>
+public class Paging : IPager
 {
-    using YAF.Types.Interfaces;
+    /// <summary>
+    /// Gets or sets the count.
+    /// </summary>
+    public int Count { get; set; }
 
     /// <summary>
-    /// The paging.
+    /// Gets or sets the current page index.
     /// </summary>
-    public class Paging : IPager
-    {
-        /// <summary>
-        /// Gets or sets the count.
-        /// </summary>
-        public int Count { get; set; }
+    public int CurrentPageIndex { get; set; }
 
-        /// <summary>
-        /// Gets or sets the current page index.
-        /// </summary>
-        public int CurrentPageIndex { get; set; }
-
-        /// <summary>
-        /// Gets or sets the page size.
-        /// </summary>
-        public int PageSize { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the page size.
+    /// </summary>
+    public int PageSize { get; set; }
 }

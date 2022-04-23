@@ -22,49 +22,49 @@
  * under the License.
  */
 
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Mail;
+
+using YAF.Types;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+///     Functions to send email via SMTP
+/// </summary>
+public class MailService : IMailService
 {
-    #region Using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net.Mail;
-
-    using YAF.Types;
-    using YAF.Types.Interfaces.Services;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     Functions to send email via SMTP
+    /// Sends all MailMessages via the SMTP Client. Doesn't handle any exceptions.
     /// </summary>
-    public class MailService : IMailService
+    /// <param name="messages">
+    /// The messages.
+    /// </param>
+    /// <param name="handleException">
+    /// The handle Exception.
+    /// </param>
+    public void SendAll(
+        [NotNull] IEnumerable<MailMessage> messages,
+        [CanBeNull] Action<MailMessage, Exception> handleException = null)
     {
-        #region Public Methods and Operators
+        var mailMessages = messages.ToList();
 
-        /// <summary>
-        /// Sends all MailMessages via the SMTP Client. Doesn't handle any exceptions.
-        /// </summary>
-        /// <param name="messages">
-        /// The messages.
-        /// </param>
-        /// <param name="handleException">
-        /// The handle Exception.
-        /// </param>
-        public void SendAll(
-            [NotNull] IEnumerable<MailMessage> messages,
-            [CanBeNull] Action<MailMessage, Exception> handleException = null)
-        {
-            var mailMessages = messages.ToList();
+        CodeContracts.VerifyNotNull(mailMessages);
 
-            CodeContracts.VerifyNotNull(mailMessages);
+        var smtpClient = new SmtpClient();
 
-            var smtpClient = new SmtpClient();
-
-            // send the message...
-            mailMessages.ToList().ForEach(
-                m =>
+        // send the message...
+        mailMessages.ToList().ForEach(
+            m =>
                 {
                     try
                     {
@@ -88,9 +88,8 @@ namespace YAF.Core.Services
                     }
                 });
 
-            smtpClient.Dispose();
-        }
-
-        #endregion
+        smtpClient.Dispose();
     }
+
+    #endregion
 }

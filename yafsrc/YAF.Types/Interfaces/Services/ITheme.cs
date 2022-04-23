@@ -19,35 +19,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+/// <summary>
+/// The theme interface
+/// </summary>
+public interface ITheme
 {
+    #region Properties
+
     /// <summary>
-    /// The theme interface
+    ///   Gets the Theme.
     /// </summary>
-    public interface ITheme
-    {
-        #region Properties
+    string ThemeFile { get; }
 
-        /// <summary>
-        ///   Gets the Theme.
-        /// </summary>
-        string ThemeFile { get; }
+    #endregion
 
-        #endregion
+    #region Public Methods
 
-        #region Public Methods
+    /// <summary>
+    /// Gets full path to the given theme file.
+    /// </summary>
+    /// <param name="filename">
+    /// Short name of theme file.
+    /// </param>
+    /// <returns>
+    /// The build theme path.
+    /// </returns>
+    string BuildThemePath([NotNull] string filename);
 
-        /// <summary>
-        /// Gets full path to the given theme file.
-        /// </summary>
-        /// <param name="filename">
-        /// Short name of theme file.
-        /// </param>
-        /// <returns>
-        /// The build theme path.
-        /// </returns>
-        string BuildThemePath([NotNull] string filename);
-
-        #endregion
-    }
+    #endregion
 }

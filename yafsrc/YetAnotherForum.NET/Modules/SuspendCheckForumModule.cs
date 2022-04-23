@@ -21,77 +21,76 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
-{
-    #region Using
+namespace YAF.Modules;
 
-    using YAF.Types.Attributes;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Models;
+#region Using
+
+using YAF.Types.Attributes;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// Suspend Check Forum Module
+/// </summary>
+[Module("Suspend Check Module", "Tiny Gecko", 1)]
+public class SuspendCheckForumModule : SimpleBaseForumModule
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SuspendCheckForumModule"/> class.
+    /// </summary>
+    /// <param name="preLoadPage">
+    /// The pre load page.
+    /// </param>
+    public SuspendCheckForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> preLoadPage)
+    {
+        preLoadPage.HandleEvent += this._preLoadPage_HandleEvent;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Suspend Check Forum Module
+    /// Check if the user needs to be un-suspended or redirected to the info page
     /// </summary>
-    [Module("Suspend Check Module", "Tiny Gecko", 1)]
-    public class SuspendCheckForumModule : SimpleBaseForumModule
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The e.</param>
+    private void _preLoadPage_HandleEvent(
+        [NotNull] object sender,
+        [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SuspendCheckForumModule"/> class.
-        /// </summary>
-        /// <param name="preLoadPage">
-        /// The pre load page.
-        /// </param>
-        public SuspendCheckForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> preLoadPage)
+        // check for suspension if enabled...
+        if (!this.PageBoardContext.Globals.IsSuspendCheckEnabled)
         {
-            preLoadPage.HandleEvent += this._preLoadPage_HandleEvent;
+            return;
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Check if the user needs to be un-suspended or redirected to the info page
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        private void _preLoadPage_HandleEvent(
-            [NotNull] object sender,
-            [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
+        if (!this.PageBoardContext.IsSuspended)
         {
-            // check for suspension if enabled...
-            if (!this.PageBoardContext.Globals.IsSuspendCheckEnabled)
-            {
-                return;
-            }
-
-            if (!this.PageBoardContext.IsSuspended)
-            {
-                return;
-            }
-
-            if (this.Get<IDateTimeService>().GetUserDateTime(this.PageBoardContext.SuspendedUntil)
-                <= this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow))
-            {
-                this.GetRepository<User>().Suspend(this.PageBoardContext.PageUserID);
-
-                this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
-                    this.PageBoardContext.PageUser.Email,
-                    this.PageBoardContext.PageUser.DisplayOrUserName());
-
-                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
-            }
-            else
-            {
-                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Suspended);
-            }
+            return;
         }
 
-        #endregion
+        if (this.Get<IDateTimeService>().GetUserDateTime(this.PageBoardContext.SuspendedUntil)
+            <= this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow))
+        {
+            this.GetRepository<User>().Suspend(this.PageBoardContext.PageUserID);
+
+            this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
+                this.PageBoardContext.PageUser.Email,
+                this.PageBoardContext.PageUser.DisplayOrUserName());
+
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
+        }
+        else
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Suspended);
+        }
     }
+
+    #endregion
 }

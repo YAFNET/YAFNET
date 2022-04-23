@@ -22,98 +22,97 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The read track current user extensions.
+/// </summary>
+public static class IReadTrackCurrentUserExtensions
 {
-    #region Using
-
-    using System;
-    using System.Collections.Generic;
-
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces.Services;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The read track current user extensions.
+    /// The get forum topic read.
     /// </summary>
-    public static class IReadTrackCurrentUserExtensions
+    /// <param name="readTrackCurrentUser">
+    /// The read track current user.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic id.
+    /// </param>
+    /// <param name="forumReadOverride">
+    /// The forum read override.
+    /// </param>
+    /// <param name="topicReadOverride">
+    /// The topic read override.
+    /// </param>
+    /// <returns>
+    /// The <see cref="DateTime"/>.
+    /// </returns>
+    public static DateTime GetForumTopicRead(
+        this IReadTrackCurrentUser readTrackCurrentUser,
+        int forumId,
+        int topicId,
+        DateTime? forumReadOverride,
+        DateTime? topicReadOverride)
     {
-        #region Public Methods
+        CodeContracts.VerifyNotNull(readTrackCurrentUser);
 
-        /// <summary>
-        /// The get forum topic read.
-        /// </summary>
-        /// <param name="readTrackCurrentUser">
-        /// The read track current user.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic id.
-        /// </param>
-        /// <param name="forumReadOverride">
-        /// The forum read override.
-        /// </param>
-        /// <param name="topicReadOverride">
-        /// The topic read override.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DateTime"/>.
-        /// </returns>
-        public static DateTime GetForumTopicRead(
-            this IReadTrackCurrentUser readTrackCurrentUser,
-            int forumId,
-            int topicId,
-            DateTime? forumReadOverride,
-            DateTime? topicReadOverride)
+        var lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
+        var lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
+
+        if (lastReadForum > lastRead)
         {
-            CodeContracts.VerifyNotNull(readTrackCurrentUser);
-
-            var lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
-            var lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
-
-            if (lastReadForum > lastRead)
-            {
-                lastRead = lastReadForum;
-            }
-
-            return lastRead;
+            lastRead = lastReadForum;
         }
 
-        /// <summary>
-        /// The set forum read.
-        /// </summary>
-        /// <param name="readTrackCurrentUser">
-        /// The read track current user. 
-        /// </param>
-        /// <param name="forumIds">
-        /// The forum ids. 
-        /// </param>
-        public static void SetForumRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> forumIds)
-        {
-            CodeContracts.VerifyNotNull(readTrackCurrentUser);
-
-            forumIds.ForEach(readTrackCurrentUser.SetForumRead);
-        }
-
-        /// <summary>
-        /// The set topic read.
-        /// </summary>
-        /// <param name="readTrackCurrentUser">
-        /// The read track current user. 
-        /// </param>
-        /// <param name="topicIds">
-        /// The topic ids. 
-        /// </param>
-        public static void SetTopicRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> topicIds)
-        {
-            CodeContracts.VerifyNotNull(readTrackCurrentUser);
-
-            topicIds.ForEach(readTrackCurrentUser.SetTopicRead);
-        }
-
-        #endregion
+        return lastRead;
     }
+
+    /// <summary>
+    /// The set forum read.
+    /// </summary>
+    /// <param name="readTrackCurrentUser">
+    /// The read track current user. 
+    /// </param>
+    /// <param name="forumIds">
+    /// The forum ids. 
+    /// </param>
+    public static void SetForumRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> forumIds)
+    {
+        CodeContracts.VerifyNotNull(readTrackCurrentUser);
+
+        forumIds.ForEach(readTrackCurrentUser.SetForumRead);
+    }
+
+    /// <summary>
+    /// The set topic read.
+    /// </summary>
+    /// <param name="readTrackCurrentUser">
+    /// The read track current user. 
+    /// </param>
+    /// <param name="topicIds">
+    /// The topic ids. 
+    /// </param>
+    public static void SetTopicRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> topicIds)
+    {
+        CodeContracts.VerifyNotNull(readTrackCurrentUser);
+
+        topicIds.ForEach(readTrackCurrentUser.SetTopicRead);
+    }
+
+    #endregion
 }

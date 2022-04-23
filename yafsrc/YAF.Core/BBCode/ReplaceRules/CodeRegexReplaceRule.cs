@@ -21,85 +21,84 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BBCode.ReplaceRules
-{
-    using System.Text.RegularExpressions;
+namespace YAF.Core.BBCode.ReplaceRules;
 
-    using YAF.Types.Interfaces;
+using System.Text.RegularExpressions;
+
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// Simple code block regular express replace
+/// </summary>
+public class CodeRegexReplaceRule : SimpleRegexReplaceRule
+{
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Simple code block regular express replace
+    /// Initializes a new instance of the <see cref="CodeRegexReplaceRule"/> class.
     /// </summary>
-    public class CodeRegexReplaceRule : SimpleRegexReplaceRule
+    /// <param name="regExSearch">
+    /// The Search Regex
+    /// </param>
+    /// <param name="regExReplace">
+    /// The Replace Regex.
+    /// </param>
+    public CodeRegexReplaceRule(Regex regExSearch, string regExReplace)
+        : base(regExSearch, regExReplace)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CodeRegexReplaceRule"/> class.
-        /// </summary>
-        /// <param name="regExSearch">
-        /// The Search Regex
-        /// </param>
-        /// <param name="regExReplace">
-        /// The Replace Regex.
-        /// </param>
-        public CodeRegexReplaceRule(Regex regExSearch, string regExReplace)
-            : base(regExSearch, regExReplace)
-        {
-            // default high rank...
-            this.RuleRank = 2;
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The replace.
-        /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <param name="replacement">
-        /// The replacement.
-        /// </param>
-        public override void Replace(ref string text, IReplaceBlocks replacement)
-        {
-            var m = this.RegExSearch.Match(text);
-            while (m.Success)
-            {
-                var replaceItem = this.RegExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
-
-                var replaceIndex = replacement.Add(replaceItem);
-                text =
-                    $"{text.Substring(0, m.Groups[0].Index)}{replacement.Get(replaceIndex)}{text.Substring(m.Groups[0].Index + m.Groups[0].Length)}";
-
-                m = this.RegExSearch.Match(text);
-            }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// This just overrides how the inner value is handled
-        /// </summary>
-        /// <param name="innerValue">The inner value.</param>
-        /// <returns>
-        /// The get inner value.
-        /// </returns>
-        protected override string GetInnerValue(string innerValue)
-        {
-            innerValue = innerValue.Replace("\t", "&nbsp; &nbsp;&nbsp;");
-            innerValue = innerValue.Replace("[", "&#91;");
-            innerValue = innerValue.Replace("]", "&#93;");
-            innerValue = innerValue.Replace("<", "&lt;");
-            innerValue = innerValue.Replace(">", "&gt;");
-            innerValue = innerValue.Replace("\r\n", "<br />");
-            return innerValue;
-        }
-
-        #endregion
+        // default high rank...
+        this.RuleRank = 2;
     }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// The replace.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="replacement">
+    /// The replacement.
+    /// </param>
+    public override void Replace(ref string text, IReplaceBlocks replacement)
+    {
+        var m = this.RegExSearch.Match(text);
+        while (m.Success)
+        {
+            var replaceItem = this.RegExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
+
+            var replaceIndex = replacement.Add(replaceItem);
+            text =
+                $"{text.Substring(0, m.Groups[0].Index)}{replacement.Get(replaceIndex)}{text.Substring(m.Groups[0].Index + m.Groups[0].Length)}";
+
+            m = this.RegExSearch.Match(text);
+        }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// This just overrides how the inner value is handled
+    /// </summary>
+    /// <param name="innerValue">The inner value.</param>
+    /// <returns>
+    /// The get inner value.
+    /// </returns>
+    protected override string GetInnerValue(string innerValue)
+    {
+        innerValue = innerValue.Replace("\t", "&nbsp; &nbsp;&nbsp;");
+        innerValue = innerValue.Replace("[", "&#91;");
+        innerValue = innerValue.Replace("]", "&#93;");
+        innerValue = innerValue.Replace("<", "&lt;");
+        innerValue = innerValue.Replace(">", "&gt;");
+        innerValue = innerValue.Replace("\r\n", "<br />");
+        return innerValue;
+    }
+
+    #endregion
 }

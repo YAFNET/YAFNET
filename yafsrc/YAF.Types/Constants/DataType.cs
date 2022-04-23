@@ -22,26 +22,25 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The data type.
+/// </summary>
+public enum DataType
 {
     /// <summary>
-    /// The data type.
+    /// The text.
     /// </summary>
-    public enum DataType
-    {
-        /// <summary>
-        /// The text.
-        /// </summary>
-        Text = 1,
+    Text = 1,
 
-        /// <summary>
-        /// The number.
-        /// </summary>
-        Number = 2,
+    /// <summary>
+    /// The number.
+    /// </summary>
+    Number = 2,
 
-        /// <summary>
-        /// The check.
-        /// </summary>
-        Check = 3
-    }
+    /// <summary>
+    /// The check.
+    /// </summary>
+    Check = 3
 }

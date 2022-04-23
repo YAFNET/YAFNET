@@ -21,90 +21,90 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+#region Using
+
+using System.Web;
+using System.Web.Hosting;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The permissions.
+/// </summary>
+public class Permissions : IPermissions, IHaveServiceLocator
 {
-    #region Using
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Permissions"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public Permissions([NotNull] IServiceLocator serviceLocator)
+    {
+        this.ServiceLocator = serviceLocator;
+    }
 
-    using System.Web;
-    using System.Web.Hosting;
+    #region Properties
 
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    /// Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
 
     #endregion
 
+    #region Implemented Interfaces
+
+    #region IPermissions
+
     /// <summary>
-    /// The permissions.
+    /// Check Viewing Permissions
     /// </summary>
-    public class Permissions : IPermissions, IHaveServiceLocator
+    /// <param name="permission">
+    /// The permission.
+    /// </param>
+    /// <returns>
+    /// The check.
+    /// </returns>
+    public bool Check(ViewPermissions permission)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Permissions"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        public Permissions([NotNull] IServiceLocator serviceLocator)
+        return permission switch
+            {
+                ViewPermissions.Everyone => true,
+                ViewPermissions.RegisteredUsers => !BoardContext.Current.IsGuest,
+                _ => BoardContext.Current.IsAdmin
+            };
+    }
+
+    /// <summary>
+    /// The handle request.
+    /// </summary>
+    /// <param name="permission">
+    /// The permission.
+    /// </param>
+    public void HandleRequest(ViewPermissions permission)
+    {
+        var noAccess = true;
+
+        if (this.Check(permission))
         {
-            this.ServiceLocator = serviceLocator;
+            return;
         }
 
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IPermissions
-
-        /// <summary>
-        /// Check Viewing Permissions
-        /// </summary>
-        /// <param name="permission">
-        /// The permission.
-        /// </param>
-        /// <returns>
-        /// The check.
-        /// </returns>
-        public bool Check(ViewPermissions permission)
+        if (permission == ViewPermissions.RegisteredUsers)
         {
-            return permission switch
-                {
-                    ViewPermissions.Everyone => true,
-                    ViewPermissions.RegisteredUsers => !BoardContext.Current.IsGuest,
-                    _ => BoardContext.Current.IsAdmin
-                };
-        }
-
-        /// <summary>
-        /// The handle request.
-        /// </summary>
-        /// <param name="permission">
-        /// The permission.
-        /// </param>
-        public void HandleRequest(ViewPermissions permission)
-        {
-            var noAccess = true;
-
-            if (this.Check(permission))
+            switch (Config.AllowLoginAndLogoff)
             {
-                return;
-            }
-
-            if (permission == ViewPermissions.RegisteredUsers)
-            {
-                switch (Config.AllowLoginAndLogoff)
-                {
-                    case false when this.Get<BoardSettings>().CustomLoginRedirectUrl.IsSet():
+                case false when this.Get<BoardSettings>().CustomLoginRedirectUrl.IsSet():
                     {
                         var loginRedirectUrl = this.Get<BoardSettings>().CustomLoginRedirectUrl;
 
@@ -113,7 +113,7 @@ namespace YAF.Core.Services
                         noAccess = false;
                         break;
                     }
-                    case false when Config.IsDotNetNuke:
+                case false when Config.IsDotNetNuke:
                     {
                         // automatic DNN redirect...
                         var appPath = HostingEnvironment.ApplicationVirtualPath;
@@ -128,22 +128,21 @@ namespace YAF.Core.Services
                         noAccess = false;
                         break;
                     }
-                    case true:
-                        this.Get<LinkBuilder>().Redirect(ForumPages.Account_Login);
-                        noAccess = false;
-                        break;
-                }
-            }
-
-            // fall-through with no access...
-            if (noAccess)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
+                case true:
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Account_Login);
+                    noAccess = false;
+                    break;
             }
         }
 
-        #endregion
-
-        #endregion
+        // fall-through with no access...
+        if (noAccess)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
     }
+
+    #endregion
+
+    #endregion
 }

@@ -21,52 +21,52 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System.Collections.Generic;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Context;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+using YAF.Types.Objects.Model;
+
+/// <summary>
+///     The MessageHistory repository extensions.
+/// </summary>
+public static class MessageHistoryRepositoryExtensions
 {
-    using System.Collections.Generic;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Context;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
-    using YAF.Types.Objects.Model;
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The MessageHistory repository extensions.
+    /// Gets the List of all message changes.
     /// </summary>
-    public static class MessageHistoryRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="messageId">
+    /// The Message ID.
+    /// </param>
+    /// <param name="daysToClean">
+    /// Days to clean.
+    /// </param>
+    /// <returns>
+    /// Returns the List of all message changes.
+    /// </returns>
+    public static List<MessageHistoryTopic> List(
+        this IRepository<MessageHistory> repository,
+        [NotNull] int messageId,
+        [NotNull] int daysToClean)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Gets the List of all message changes.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The Message ID.
-        /// </param>
-        /// <param name="daysToClean">
-        /// Days to clean.
-        /// </param>
-        /// <returns>
-        /// Returns the List of all message changes.
-        /// </returns>
-        public static List<MessageHistoryTopic> List(
-            this IRepository<MessageHistory> repository,
-            [NotNull] int messageId,
-            [NotNull] int daysToClean)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        repository.DeleteOlderThen(daysToClean);
 
-            repository.DeleteOlderThen(daysToClean);
-
-            var list = repository.DbAccess.Execute(
-                db =>
+        var list = repository.DbAccess.Execute(
+            db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageHistory>();
 
@@ -76,74 +76,74 @@ namespace YAF.Core.Model
                         .Where<MessageHistory>(mh => mh.MessageID == messageId).OrderBy(mh => mh.Edited)
                         .ThenBy(mh => mh.MessageID).Select<MessageHistory, Message, Topic, User>(
                             (mh, m, t, u) => new
-                            {
-                                mh.EditReason,
-                                mh.Edited,
-                                mh.EditedBy,
-                                mh.Flags,
-                                mh.IP,
-                                mh.IsModeratorChanged,
-                                mh.MessageID,
-                                mh.Message,
-                                u.Name,
-                                u.DisplayName,
-                                u.UserStyle,
-                                u.Suspended,
-                                t.ForumID,
-                                TopicID = t.ID,
-                                Topic = t.TopicName,
-                                m.Posted,
-                                MessageIP = m.IP
-                            });
+                                                 {
+                                                     mh.EditReason,
+                                                     mh.Edited,
+                                                     mh.EditedBy,
+                                                     mh.Flags,
+                                                     mh.IP,
+                                                     mh.IsModeratorChanged,
+                                                     mh.MessageID,
+                                                     mh.Message,
+                                                     u.Name,
+                                                     u.DisplayName,
+                                                     u.UserStyle,
+                                                     u.Suspended,
+                                                     t.ForumID,
+                                                     TopicID = t.ID,
+                                                     Topic = t.TopicName,
+                                                     m.Posted,
+                                                     MessageIP = m.IP
+                                                 });
 
                     return db.Connection
                         .Select<MessageHistoryTopic>(expression);
                 });
 
-            // Load Current Message
-            var currentMessage = BoardContext.Current.GetRepository<Message>().GetMessageAsTuple(messageId);
+        // Load Current Message
+        var currentMessage = BoardContext.Current.GetRepository<Message>().GetMessageAsTuple(messageId);
 
-            var current = new MessageHistoryTopic
-            {
-                EditReason = currentMessage.Item2.EditReason,
-                Edited = currentMessage.Item2.Edited.Value,
-                EditedBy = currentMessage.Item2.UserID,
-                Flags = currentMessage.Item2.Flags,
-                IP = currentMessage.Item2.IP,
-                IsModeratorChanged = currentMessage.Item2.IsModeratorChanged,
-                MessageID = currentMessage.Item2.ID,
-                Message = currentMessage.Item2.MessageText,
-                Name = currentMessage.Item3.Name,
-                DisplayName = currentMessage.Item3.DisplayName,
-                UserStyle = currentMessage.Item3.UserStyle,
-                Suspended = currentMessage.Item3.Suspended,
-                ForumID = currentMessage.Item1.ForumID,
-                TopicID = currentMessage.Item1.ID,
-                Topic = currentMessage.Item1.TopicName,
-                Posted = currentMessage.Item2.Posted,
-                MessageIP = currentMessage.Item2.IP
-            };
+        var current = new MessageHistoryTopic
+                          {
+                              EditReason = currentMessage.Item2.EditReason,
+                              Edited = currentMessage.Item2.Edited.Value,
+                              EditedBy = currentMessage.Item2.UserID,
+                              Flags = currentMessage.Item2.Flags,
+                              IP = currentMessage.Item2.IP,
+                              IsModeratorChanged = currentMessage.Item2.IsModeratorChanged,
+                              MessageID = currentMessage.Item2.ID,
+                              Message = currentMessage.Item2.MessageText,
+                              Name = currentMessage.Item3.Name,
+                              DisplayName = currentMessage.Item3.DisplayName,
+                              UserStyle = currentMessage.Item3.UserStyle,
+                              Suspended = currentMessage.Item3.Suspended,
+                              ForumID = currentMessage.Item1.ForumID,
+                              TopicID = currentMessage.Item1.ID,
+                              Topic = currentMessage.Item1.TopicName,
+                              Posted = currentMessage.Item2.Posted,
+                              MessageIP = currentMessage.Item2.IP
+                          };
 
-            list.Add(current);
+        list.Add(current);
 
-            return list;
-        }
+        return list;
+    }
 
-        /// <summary>
-        /// Delete all message variants older then DaysToClean
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="daysToClean">
-        /// The days to clean.
-        /// </param>
-        private static void DeleteOlderThen(this IRepository<MessageHistory> repository, [NotNull] int daysToClean)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// Delete all message variants older then DaysToClean
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="daysToClean">
+    /// The days to clean.
+    /// </param>
+    private static void DeleteOlderThen(this IRepository<MessageHistory> repository, [NotNull] int daysToClean)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            repository.DbAccess.Execute(
-                db =>
+        repository.DbAccess.Execute(
+            db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageHistory>();
 
@@ -152,8 +152,7 @@ namespace YAF.Core.Model
 
                     return db.Connection.Delete(expression);
                 });
-        }
-
-        #endregion
     }
+
+    #endregion
 }

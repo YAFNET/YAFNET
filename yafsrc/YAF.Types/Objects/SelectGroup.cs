@@ -22,33 +22,32 @@
 * under the License.
 */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+
+/// <summary>
+/// The Select Group Class
+/// </summary>
+[DataContract]
+public class SelectGroup
 {
-    using System.Collections.Generic;
-    using System.Runtime.Serialization;
+    /// <summary>
+    /// Gets or sets the text.
+    /// </summary>
+    /// <value>
+    /// The text.
+    /// </value>
+    [DataMember]
+    public string text { get; set; }
 
     /// <summary>
-    /// The Select Group Class
+    /// Gets or sets the identifier.
     /// </summary>
-    [DataContract]
-    public class SelectGroup
-    {
-        /// <summary>
-        /// Gets or sets the text.
-        /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
-        [DataMember]
-        public string text { get; set; }
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        [DataMember]
-        public List<SelectOptions> children { get; set; }
-    }
+    /// <value>
+    /// The identifier.
+    /// </value>
+    [DataMember]
+    public List<SelectOptions> children { get; set; }
 }

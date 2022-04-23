@@ -22,257 +22,256 @@
  * under the License.
  */
 
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// The UserAlbumImage Repository Extensions
+/// </summary>
+public static class UserAlbumImageRepositoryExtensions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The UserAlbumImage Repository Extensions
+    /// Gets the number of images in the album with AlbumID.
     /// </summary>
-    public static class UserAlbumImageRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="albumId">
+    /// The album Id.
+    /// </param>
+    /// <returns>
+    /// Returns the number of images in the album with AlbumID.
+    /// </returns>
+    [NotNull]
+    public static long CountAlbumImages([NotNull] this IRepository<UserAlbumImage> repository, [NotNull] int albumId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Gets the number of images in the album with AlbumID.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="albumId">
-        /// The album Id.
-        /// </param>
-        /// <returns>
-        /// Returns the number of images in the album with AlbumID.
-        /// </returns>
-        [NotNull]
-        public static long CountAlbumImages([NotNull] this IRepository<UserAlbumImage> repository, [NotNull] int albumId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.Count(albumImage => albumImage.AlbumID == albumId);
-        }
-
-        /// <summary>
-        /// Lists all the images associated with the Album Id.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="albumId">
-        /// The album Id.
-        /// </param>
-        /// <returns>
-        /// a Data table containing the image(s).
-        /// </returns>
-        public static List<UserAlbumImage> List(
-            [NotNull] this IRepository<UserAlbumImage> repository,
-            [NotNull] int albumId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.Get(albumImage => albumImage.AlbumID == albumId).OrderByDescending(a => a.Uploaded)
-                .ToList();
-        }
-
-        /// <summary>
-        /// Lists all the images associated with the Album Id.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="albumId">
-        /// The album Id.
-        /// </param>
-        /// <param name="pageIndex">
-        /// The page Index.
-        /// </param>
-        /// <param name="pageSize">
-        /// The page Size.
-        /// </param>
-        /// <returns>
-        /// a Data table containing the image(s).
-        /// </returns>
-        public static List<UserAlbumImage> ListPaged(
-            [NotNull] this IRepository<UserAlbumImage> repository,
-            [NotNull] int albumId,
-            [NotNull] int pageIndex,
-            [NotNull] int pageSize)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.GetPaged(albumImage => albumImage.AlbumID == albumId, pageIndex, pageSize)
-                .OrderByDescending(a => a.Uploaded).ToList();
-        }
-
-        /// <summary>
-        /// Lists all the images associated with the AlbumID or
-        ///   the image with the ImageID.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="imageId">
-        /// The image Id.
-        /// </param>
-        /// <returns>
-        /// a Data table containing the image(s).
-        /// </returns>
-        public static Tuple<UserAlbumImage, UserAlbum> GetImage(
-            [NotNull] this IRepository<UserAlbumImage> repository,
-            int imageId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
-
-            expression.Join<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.ID == image.AlbumID)
-                .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => image.ID == imageId);
-
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<UserAlbumImage, UserAlbum>(expression)).FirstOrDefault();
-        }
-
-        /// <summary>
-        /// Gets the paged list of all users Album Images
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <returns>
-        /// Returns the list of entities
-        /// </returns>
-        public static List<UserAlbumImage> GetUserAlbumImagesPaged(
-            [NotNull] this IRepository<UserAlbumImage> repository,
-            int userId,
-            int pageIndex = 0,
-            int pageSize = 10000000)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
-
-            expression.Join<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.ID == image.AlbumID)
-                .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.UserID == userId)
-                .OrderByDescending<UserAlbumImage>(item => item.ID).Page(pageIndex + 1, pageSize);
-
-            return repository.DbAccess.Execute(db => db.Connection.Select(expression)); 
-        }
-
-        /// <summary>
-        /// Gets the user album image count.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns>
-        /// Returns the list of entities
-        /// </returns>
-        public static int GetUserAlbumImageCount([NotNull] this IRepository<UserAlbumImage> repository, int userId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
-
-            expression.Join<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.ID == image.AlbumID)
-                .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.UserID == userId);
-
-            return repository.DbAccess.Execute(db => db.Connection.Select(expression)).Count;
-        }
-
-        /// <summary>
-        /// Increments the image's download times.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="imageId">The image identifier.</param>
-        public static void IncrementDownload(this IRepository<UserAlbumImage> repository, [NotNull] int imageId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            repository.UpdateAdd(() => new UserAlbumImage { Downloads = 1 }, u => u.ID == imageId);
-        }
-
-        /// <summary>
-        /// The update caption.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="imageId">
-        /// The image id.
-        /// </param>
-        /// <param name="caption">
-        /// The caption.
-        /// </param>
-        public static void UpdateCaption(
-            this IRepository<UserAlbumImage> repository,
-            [NotNull] int imageId,
-            [CanBeNull] string caption)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            repository.UpdateOnly(
-                () => new UserAlbumImage { Caption = caption },
-                f => f.ID == imageId);
-        }
-
-        /// <summary>
-        /// Inserts/Saves a user image.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="imageId">
-        /// The image Id.
-        /// </param>
-        /// <param name="albumId">
-        /// the album id for adding a new image.
-        /// </param>
-        /// <param name="caption">
-        /// the caption of the existing/new image.
-        /// </param>
-        /// <param name="fileName">
-        /// the file name of the new image.
-        /// </param>
-        /// <param name="bytes">
-        /// the size of the new image.
-        /// </param>
-        /// <param name="contentType">
-        /// the content type.
-        /// </param>
-        public static void Save(
-            this IRepository<UserAlbumImage> repository,
-            [NotNull] int? imageId,
-            [NotNull] int albumId,
-            [CanBeNull] string caption,
-            [NotNull] string fileName,
-            [NotNull] int bytes,
-            [NotNull] string contentType)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            repository.Insert(
-                new UserAlbumImage
-                    {
-                        ID = imageId ?? 0,
-                        AlbumID = albumId,
-                        Caption = caption,
-                        Bytes = bytes,
-                        ContentType = contentType,
-                        Uploaded = DateTime.UtcNow,
-                        FileName = fileName,
-                        Downloads = 0
-                    });
-        }
-
-        #endregion
+        return repository.Count(albumImage => albumImage.AlbumID == albumId);
     }
+
+    /// <summary>
+    /// Lists all the images associated with the Album Id.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="albumId">
+    /// The album Id.
+    /// </param>
+    /// <returns>
+    /// a Data table containing the image(s).
+    /// </returns>
+    public static List<UserAlbumImage> List(
+        [NotNull] this IRepository<UserAlbumImage> repository,
+        [NotNull] int albumId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        return repository.Get(albumImage => albumImage.AlbumID == albumId).OrderByDescending(a => a.Uploaded)
+            .ToList();
+    }
+
+    /// <summary>
+    /// Lists all the images associated with the Album Id.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="albumId">
+    /// The album Id.
+    /// </param>
+    /// <param name="pageIndex">
+    /// The page Index.
+    /// </param>
+    /// <param name="pageSize">
+    /// The page Size.
+    /// </param>
+    /// <returns>
+    /// a Data table containing the image(s).
+    /// </returns>
+    public static List<UserAlbumImage> ListPaged(
+        [NotNull] this IRepository<UserAlbumImage> repository,
+        [NotNull] int albumId,
+        [NotNull] int pageIndex,
+        [NotNull] int pageSize)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        return repository.GetPaged(albumImage => albumImage.AlbumID == albumId, pageIndex, pageSize)
+            .OrderByDescending(a => a.Uploaded).ToList();
+    }
+
+    /// <summary>
+    /// Lists all the images associated with the AlbumID or
+    ///   the image with the ImageID.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="imageId">
+    /// The image Id.
+    /// </param>
+    /// <returns>
+    /// a Data table containing the image(s).
+    /// </returns>
+    public static Tuple<UserAlbumImage, UserAlbum> GetImage(
+        [NotNull] this IRepository<UserAlbumImage> repository,
+        int imageId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
+
+        expression.Join<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.ID == image.AlbumID)
+            .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => image.ID == imageId);
+
+        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<UserAlbumImage, UserAlbum>(expression)).FirstOrDefault();
+    }
+
+    /// <summary>
+    /// Gets the paged list of all users Album Images
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="userId">The user identifier.</param>
+    /// <param name="pageIndex">Index of the page.</param>
+    /// <param name="pageSize">Size of the page.</param>
+    /// <returns>
+    /// Returns the list of entities
+    /// </returns>
+    public static List<UserAlbumImage> GetUserAlbumImagesPaged(
+        [NotNull] this IRepository<UserAlbumImage> repository,
+        int userId,
+        int pageIndex = 0,
+        int pageSize = 10000000)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
+
+        expression.Join<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.ID == image.AlbumID)
+            .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.UserID == userId)
+            .OrderByDescending<UserAlbumImage>(item => item.ID).Page(pageIndex + 1, pageSize);
+
+        return repository.DbAccess.Execute(db => db.Connection.Select(expression)); 
+    }
+
+    /// <summary>
+    /// Gets the user album image count.
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>
+    /// Returns the list of entities
+    /// </returns>
+    public static int GetUserAlbumImageCount([NotNull] this IRepository<UserAlbumImage> repository, int userId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
+
+        expression.Join<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.ID == image.AlbumID)
+            .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.UserID == userId);
+
+        return repository.DbAccess.Execute(db => db.Connection.Select(expression)).Count;
+    }
+
+    /// <summary>
+    /// Increments the image's download times.
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="imageId">The image identifier.</param>
+    public static void IncrementDownload(this IRepository<UserAlbumImage> repository, [NotNull] int imageId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        repository.UpdateAdd(() => new UserAlbumImage { Downloads = 1 }, u => u.ID == imageId);
+    }
+
+    /// <summary>
+    /// The update caption.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="imageId">
+    /// The image id.
+    /// </param>
+    /// <param name="caption">
+    /// The caption.
+    /// </param>
+    public static void UpdateCaption(
+        this IRepository<UserAlbumImage> repository,
+        [NotNull] int imageId,
+        [CanBeNull] string caption)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        repository.UpdateOnly(
+            () => new UserAlbumImage { Caption = caption },
+            f => f.ID == imageId);
+    }
+
+    /// <summary>
+    /// Inserts/Saves a user image.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="imageId">
+    /// The image Id.
+    /// </param>
+    /// <param name="albumId">
+    /// the album id for adding a new image.
+    /// </param>
+    /// <param name="caption">
+    /// the caption of the existing/new image.
+    /// </param>
+    /// <param name="fileName">
+    /// the file name of the new image.
+    /// </param>
+    /// <param name="bytes">
+    /// the size of the new image.
+    /// </param>
+    /// <param name="contentType">
+    /// the content type.
+    /// </param>
+    public static void Save(
+        this IRepository<UserAlbumImage> repository,
+        [NotNull] int? imageId,
+        [NotNull] int albumId,
+        [CanBeNull] string caption,
+        [NotNull] string fileName,
+        [NotNull] int bytes,
+        [NotNull] string contentType)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        repository.Insert(
+            new UserAlbumImage
+                {
+                    ID = imageId ?? 0,
+                    AlbumID = albumId,
+                    Caption = caption,
+                    Bytes = bytes,
+                    ContentType = contentType,
+                    Uploaded = DateTime.UtcNow,
+                    FileName = fileName,
+                    Downloads = 0
+                });
+    }
+
+    #endregion
 }

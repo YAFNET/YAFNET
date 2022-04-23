@@ -22,42 +22,41 @@
  * under the License.
  */
 
-namespace YAF.Types.Models.Identity
+namespace YAF.Types.Models.Identity;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The asp net user claims.
+/// </summary>
+public class AspNetUserClaims : AspNetUserClaims<string>
 {
-    using ServiceStack.DataAnnotations;
+}
 
-    using YAF.Types.Interfaces.Data;
+/// <summary>
+/// The asp net user claims.
+/// </summary>
+/// <typeparam name="TKey">
+/// </typeparam>
+public class AspNetUserClaims<TKey> : IEntity
+{
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [StringLength(56)]
+    [ForeignKey(typeof(AspNetUsers), OnDelete = "CASCADE")]
+    [Required]
+    public TKey UserId { get; set; }
 
     /// <summary>
-    /// The asp net user claims.
+    /// Gets or sets the claim value.
     /// </summary>
-    public class AspNetUserClaims : AspNetUserClaims<string>
-    {
-    }
+    public string ClaimValue { get; set; }
 
     /// <summary>
-    /// The asp net user claims.
+    /// Gets or sets the claim type.
     /// </summary>
-    /// <typeparam name="TKey">
-    /// </typeparam>
-    public class AspNetUserClaims<TKey> : IEntity
-    {
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [StringLength(56)]
-        [ForeignKey(typeof(AspNetUsers), OnDelete = "CASCADE")]
-        [Required]
-        public TKey UserId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the claim value.
-        /// </summary>
-        public string ClaimValue { get; set; }
-
-        /// <summary>
-        /// Gets or sets the claim type.
-        /// </summary>
-        public string ClaimType { get; set; }
-    }
+    public string ClaimType { get; set; }
 }

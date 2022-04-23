@@ -21,56 +21,56 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
-{
-    using System;
+namespace YAF.Core.Model;
 
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+using System;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+///     The banned email repository extensions.
+/// </summary>
+public static class BannedEmailRepositoryExtensions
+{
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The banned email repository extensions.
+    /// The save.
     /// </summary>
-    public static class BannedEmailRepositoryExtensions
+    /// <param name="repository">
+    /// The repository. 
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <param name="mask">
+    /// The mask. 
+    /// </param>
+    /// <param name="reason">
+    /// The reason. 
+    /// </param>
+    /// <param name="boardId">
+    /// The board Id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public static bool Save(
+        this IRepository<BannedEmail> repository,
+        [CanBeNull] int? id,
+        [NotNull] string mask,
+        [NotNull] string reason,
+        [CanBeNull] int? boardId = null)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// The save.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <param name="mask">
-        /// The mask. 
-        /// </param>
-        /// <param name="reason">
-        /// The reason. 
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool Save(
-            this IRepository<BannedEmail> repository,
-            [CanBeNull] int? id,
-            [NotNull] string mask,
-            [NotNull] string reason,
-            [CanBeNull] int? boardId = null)
+        if (id.HasValue)
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            if (id.HasValue)
-            {
-                repository.Upsert(
-                    new BannedEmail
+            repository.Upsert(
+                new BannedEmail
                     {
                         BoardID = boardId ?? repository.BoardID,
                         ID = id.Value,
@@ -78,16 +78,16 @@ namespace YAF.Core.Model
                         Reason = reason,
                         Since = DateTime.Now
                     });
-                return true;
-            }
+            return true;
+        }
 
-            if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask))
-            {
-                return false;
-            }
+        if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask))
+        {
+            return false;
+        }
 
-            repository.Insert(
-                new BannedEmail
+        repository.Insert(
+            new BannedEmail
                 {
                     BoardID = boardId ?? repository.BoardID,
                     Mask = mask,
@@ -95,9 +95,8 @@ namespace YAF.Core.Model
                     Since = DateTime.Now
                 });
 
-            return true;
-        }
-
-        #endregion
+        return true;
     }
+
+    #endregion
 }

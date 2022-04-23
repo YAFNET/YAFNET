@@ -22,42 +22,41 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// Users Notifications Page.
+/// </summary>
+public partial class Notification : ForumPageRegistered
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Notification"/> class.
+    /// </summary>
+    public Notification()
+        : base("NOTIFICATION", ForumPages.Notification)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Users Notifications Page.
+    /// Create the Page links.
     /// </summary>
-    public partial class Notification : ForumPageRegistered
+    protected override void CreatePageLinks()
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Notification"/> class.
-        /// </summary>
-        public Notification()
-            : base("NOTIFICATION", ForumPages.Notification)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.PageBoardContext.PageUser.DisplayOrUserName(),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Notification));
-        }
-
-        #endregion
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddLink(
+            this.PageBoardContext.PageUser.DisplayOrUserName(),
+            this.Get<LinkBuilder>().GetLink(ForumPages.Notification));
     }
+
+    #endregion
 }

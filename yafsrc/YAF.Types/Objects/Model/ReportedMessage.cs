@@ -22,44 +22,43 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects.Model
+namespace YAF.Types.Objects.Model;
+
+using System;
+
+/// <summary>
+/// The reported message.
+/// </summary>
+public class ReportedMessage
 {
-    using System;
+    public int MessageID { get; set; }
+
+    public string Message { get; set; }
 
     /// <summary>
-    /// The reported message.
+    /// Gets or sets the resolved by.
     /// </summary>
-    public class ReportedMessage
-    {
-        public int MessageID { get; set; }
+    public int? ResolvedBy { get; set; }
 
-        public string Message { get; set; }
+    /// <summary>
+    /// Gets or sets the resolved date.
+    /// </summary>
+    public DateTime? ResolvedDate { get; set; }
 
-        /// <summary>
-        /// Gets or sets the resolved by.
-        /// </summary>
-        public int? ResolvedBy { get; set; }
-
-        /// <summary>
-        /// Gets or sets the resolved date.
-        /// </summary>
-        public DateTime? ResolvedDate { get; set; }
-
-        /// <summary>
-        /// Gets or sets the resolved.
-        /// </summary>
-        public bool? Resolved { get; set; }
-        public string OriginalMessage { get; set; }
-        public int Flags { get; set; }
-        public bool? IsModeratorChanged { get; set; }
-        public string UserName { get; set; }
-        public string UserDisplayName { get; set; }
-        public int UserID { get; set; }
-        public DateTime? Suspended { get; set; }
-        public string UserStyle { get; set; }
-        public DateTime Posted { get; set; }
-        public int TopicID { get; set; }
-        public string TopicName { get; set; }
-        public int NumberOfReports { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the resolved.
+    /// </summary>
+    public bool? Resolved { get; set; }
+    public string OriginalMessage { get; set; }
+    public int Flags { get; set; }
+    public bool? IsModeratorChanged { get; set; }
+    public string UserName { get; set; }
+    public string UserDisplayName { get; set; }
+    public int UserID { get; set; }
+    public DateTime? Suspended { get; set; }
+    public string UserStyle { get; set; }
+    public DateTime Posted { get; set; }
+    public int TopicID { get; set; }
+    public string TopicName { get; set; }
+    public int NumberOfReports { get; set; }
 }

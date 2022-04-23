@@ -21,76 +21,75 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+#region Using
+
+using System;
+
+using YAF.Types.Constants;
+
+#endregion
+
+/// <summary>
+/// The Message Notification
+/// </summary>
+[Serializable]
+public class MessageNotification
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MessageNotification"/> class.
+    /// </summary>
+    public MessageNotification()
+    {
+    }
 
-    using YAF.Types.Constants;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MessageNotification"/> class.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="messageType">Type of the message.</param>
+    public MessageNotification(string message, MessageTypes messageType)
+    {
+        this.Message = message;
+        this.MessageType = messageType;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MessageNotification"/> class.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="messageType">Type of the message.</param>
+    public MessageNotification(string message, MessageTypes messageType, string script)
+    {
+        this.Message = message;
+        this.MessageType = messageType;
+        this.Script = script;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The Message Notification
+    /// Gets or sets the message.
     /// </summary>
-    [Serializable]
-    public class MessageNotification
-    {
-        #region Constructors and Destructors
+    /// <value>
+    /// The message.
+    /// </value>
+    public string Message { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MessageNotification"/> class.
-        /// </summary>
-        public MessageNotification()
-        {
-        }
+    /// <summary>
+    /// Gets or sets the type of the message.
+    /// </summary>
+    /// <value>
+    /// The type of the message.
+    /// </value>
+    public MessageTypes MessageType { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MessageNotification"/> class.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="messageType">Type of the message.</param>
-        public MessageNotification(string message, MessageTypes messageType)
-        {
-            this.Message = message;
-            this.MessageType = messageType;
-        }
+    public string Script { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MessageNotification"/> class.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="messageType">Type of the message.</param>
-        public MessageNotification(string message, MessageTypes messageType, string script)
-        {
-            this.Message = message;
-            this.MessageType = messageType;
-            this.Script = script;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        /// <value>
-        /// The message.
-        /// </value>
-        public string Message { get; set; }
-
-        /// <summary>
-        /// Gets or sets the type of the message.
-        /// </summary>
-        /// <value>
-        /// The type of the message.
-        /// </value>
-        public MessageTypes MessageType { get; set; }
-
-        public string Script { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

@@ -21,31 +21,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// Spam Service Type
+/// </summary>
+public enum SpamService
 {
     /// <summary>
-    /// Spam Service Type
+    /// No Service
     /// </summary>
-    public enum SpamService
-    {
-        /// <summary>
-        /// No Service
-        /// </summary>
-        NoService = 0,
+    NoService = 0,
 
-        /// <summary>
-        ///  BlogSpam.NET Service
-        /// </summary>
-        BlogSpam = 1,
+    /// <summary>
+    ///  BlogSpam.NET Service
+    /// </summary>
+    BlogSpam = 1,
 
-        /// <summary>
-        /// Akismet.com Service
-        /// </summary>
-        Akismet = 2,
+    /// <summary>
+    /// Akismet.com Service
+    /// </summary>
+    Akismet = 2,
 
-        /// <summary>
-        /// Use Internal Spam Check
-        /// </summary>
-        Internal = 3
-    }
+    /// <summary>
+    /// Use Internal Spam Check
+    /// </summary>
+    Internal = 3
 }

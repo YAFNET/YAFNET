@@ -22,45 +22,44 @@
  * under the License.
  */
 
-namespace YAF.Core.BasePages
+namespace YAF.Core.BasePages;
+
+using YAF.Types.Constants;
+
+/// <summary>
+/// Profile Page Registered Class
+/// </summary>
+public class ProfilePage : ForumPageRegistered
 {
-    using YAF.Types.Constants;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ProfilePage"/> class.
+    /// </summary>
+    public ProfilePage()
+        : this(null, ForumPages.Board)
+    {
+    }
 
     /// <summary>
-    /// Profile Page Registered Class
+    /// Initializes a new instance of the <see cref="ProfilePage"/> class.
     /// </summary>
-    public class ProfilePage : ForumPageRegistered
+    /// <param name="transPage">
+    /// The trans page.
+    /// </param>
+    /// <param name="pageType">
+    /// The page Type.
+    /// </param>
+    public ProfilePage(string transPage, ForumPages pageType)
+        : base(transPage, pageType)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProfilePage"/> class.
-        /// </summary>
-        public ProfilePage()
-            : this(null, ForumPages.Board)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProfilePage"/> class.
-        /// </summary>
-        /// <param name="transPage">
-        /// The trans page.
-        /// </param>
-        /// <param name="pageType">
-        /// The page Type.
-        /// </param>
-        public ProfilePage(string transPage, ForumPages pageType)
-            : base(transPage, pageType)
-        {
-            this.IsRegisteredPage = true;
-        }
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the Page Name.
-        /// </summary>
-        public override string PageName => $"Profile_{base.PageName}";
-
-        #endregion
+        this.IsRegisteredPage = true;
     }
+
+    #region Properties
+
+    /// <summary>
+    /// Gets the Page Name.
+    /// </summary>
+    public override string PageName => $"Profile_{base.PageName}";
+
+    #endregion
 }

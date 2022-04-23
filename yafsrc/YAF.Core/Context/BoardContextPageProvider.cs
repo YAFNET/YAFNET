@@ -21,112 +21,111 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Context
+namespace YAF.Core.Context;
+
+#region Using
+
+using System.Web;
+
+using Autofac;
+using Autofac.Core.Lifetime;
+
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The board context page provider.
+/// </summary>
+internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
 {
-    #region Using
+    #region Constants and Fields
 
-    using System.Web;
+    /// <summary>
+    /// The page yaf context name.
+    /// </summary>
+    private const string PageBoardContextName = "YAF.BoardContext";
 
-    using Autofac;
-    using Autofac.Core.Lifetime;
+    /// <summary>
+    /// The _container.
+    /// </summary>
+    private readonly ILifetimeScope _lifetimeScope;
 
-    using YAF.Types.Interfaces;
+    private readonly IInjectServices _injectServices;
+
+    /// <summary>
+    /// The _global instance.
+    /// </summary>
+    private static BoardContext _globalInstance;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// The board context page provider.
+    /// Initializes a new instance of the <see cref="BoardContextPageProvider"/> class.
     /// </summary>
-    internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
+    /// <param name="lifetimeScope">
+    /// The container.
+    /// </param>
+    /// <param name="injectServices">
+    /// The inject Services.
+    /// </param>
+    public BoardContextPageProvider(ILifetimeScope lifetimeScope, IInjectServices injectServices)
     {
-        #region Constants and Fields
+        this._lifetimeScope = lifetimeScope;
+        this._injectServices = injectServices;
+    }
 
-        /// <summary>
-        /// The page yaf context name.
-        /// </summary>
-        private const string PageBoardContextName = "YAF.BoardContext";
+    #endregion
 
-        /// <summary>
-        /// The _container.
-        /// </summary>
-        private readonly ILifetimeScope _lifetimeScope;
+    #region Public Properties
 
-        private readonly IInjectServices _injectServices;
-
-        /// <summary>
-        /// The _global instance.
-        /// </summary>
-        private static BoardContext _globalInstance;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BoardContextPageProvider"/> class.
-        /// </summary>
-        /// <param name="lifetimeScope">
-        /// The container.
-        /// </param>
-        /// <param name="injectServices">
-        /// The inject Services.
-        /// </param>
-        public BoardContextPageProvider(ILifetimeScope lifetimeScope, IInjectServices injectServices)
+    /// <summary>
+    /// Gets Instance.
+    /// </summary>
+    public BoardContext Instance
+    {
+        get
         {
-            this._lifetimeScope = lifetimeScope;
-            this._injectServices = injectServices;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// Gets Instance.
-        /// </summary>
-        public BoardContext Instance
-        {
-            get
+            if (HttpContext.Current is null)
             {
-                if (HttpContext.Current is null)
-                {
-                    return _globalInstance ??= this.CreateContextInstance();
-                }
+                return _globalInstance ??= this.CreateContextInstance();
+            }
 
-                if (HttpContext.Current.Items[PageBoardContextName] is BoardContext pageInstance)
-                {
-                    return pageInstance;
-                }
-
-                pageInstance = this.CreateContextInstance();
-
-                // make sure it's put back in the page...
-                HttpContext.Current.Items[PageBoardContextName] = pageInstance;
-
+            if (HttpContext.Current.Items[PageBoardContextName] is BoardContext pageInstance)
+            {
                 return pageInstance;
             }
+
+            pageInstance = this.CreateContextInstance();
+
+            // make sure it's put back in the page...
+            HttpContext.Current.Items[PageBoardContextName] = pageInstance;
+
+            return pageInstance;
         }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The create context instance.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="BoardContext"/>.
-        /// </returns>
-        private BoardContext CreateContextInstance()
-        {
-            var lifetimeContainer = this._lifetimeScope.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
-
-            var instance = new BoardContext(lifetimeContainer);
-            this._injectServices.Inject(instance);
-
-            return instance;
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The create context instance.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="BoardContext"/>.
+    /// </returns>
+    private BoardContext CreateContextInstance()
+    {
+        var lifetimeContainer = this._lifetimeScope.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
+
+        var instance = new BoardContext(lifetimeContainer);
+        this._injectServices.Inject(instance);
+
+        return instance;
+    }
+
+    #endregion
 }

@@ -21,92 +21,92 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Helpers
+namespace YAF.Core.Helpers;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Reflection;
+
+using YAF.Types.Attributes;
+using YAF.Types.Extensions;
+
+#endregion
+
+/// <summary>
+///     The Enumerator helper.
+/// </summary>
+public static class EnumHelper
 {
-    #region Using
+    #region Public Methods and Operators
 
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Reflection;
+    /// <summary>
+    /// Converts an enumerator to a Dictionary
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="IDictionary"/>.
+    /// </returns>
+    public static IDictionary<int, string> EnumToDictionary<T>()
+    {
+        return InternalToDictionary<T, int>();
+    }
 
-    using YAF.Types.Attributes;
-    using YAF.Types.Extensions;
+    /// <summary>
+    /// Converts an enumerator to a List
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<T> EnumToList<T>()
+    {
+        var enumType = typeof(T);
+
+        // Can't use type constraints on value types, so have to do check like this
+        if (enumType.BaseType != typeof(Enum))
+        {
+            throw new ArgumentException("EnumToList does not support non-enum types");
+        }
+
+        var enumValArray = Enum.GetValues(enumType);
+
+        return enumValArray.Cast<int>().Select(val => (T)Enum.Parse(enumType, val.ToString(CultureInfo.InvariantCulture))).ToList();
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    ///     The Enumerator helper.
+    /// The internal to dictionary.
     /// </summary>
-    public static class EnumHelper
+    /// <typeparam name="TEnum">
+    /// </typeparam>
+    /// <typeparam name="TValue">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="IDictionary"/>.
+    /// </returns>
+    /// <exception cref="ApplicationException">
+    /// </exception>
+    private static IDictionary<TValue, string> InternalToDictionary<TEnum, TValue>()
     {
-        #region Public Methods and Operators
+        var enumType = typeof(TEnum);
 
-        /// <summary>
-        /// Converts an enumerator to a Dictionary
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IDictionary"/>.
-        /// </returns>
-        public static IDictionary<int, string> EnumToDictionary<T>()
+        if (enumType.BaseType != typeof(Enum))
         {
-            return InternalToDictionary<T, int>();
+            throw new ApplicationException("Enum To Dictionary conversion does not support non-enum types");
         }
 
-        /// <summary>
-        /// Converts an enumerator to a List
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<T> EnumToList<T>()
-        {
-            var enumType = typeof(T);
+        var list = new Dictionary<TValue, string>();
 
-            // Can't use type constraints on value types, so have to do check like this
-            if (enumType.BaseType != typeof(Enum))
-            {
-                throw new ArgumentException("EnumToList does not support non-enum types");
-            }
-
-            var enumValArray = Enum.GetValues(enumType);
-
-            return enumValArray.Cast<int>().Select(val => (T)Enum.Parse(enumType, val.ToString(CultureInfo.InvariantCulture))).ToList();
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The internal to dictionary.
-        /// </summary>
-        /// <typeparam name="TEnum">
-        /// </typeparam>
-        /// <typeparam name="TValue">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IDictionary"/>.
-        /// </returns>
-        /// <exception cref="ApplicationException">
-        /// </exception>
-        private static IDictionary<TValue, string> InternalToDictionary<TEnum, TValue>()
-        {
-            var enumType = typeof(TEnum);
-
-            if (enumType.BaseType != typeof(Enum))
-            {
-                throw new ApplicationException("Enum To Dictionary conversion does not support non-enum types");
-            }
-
-            var list = new Dictionary<TValue, string>();
-
-            enumType.GetFields(BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public).ForEach(field =>
+        enumType.GetFields(BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public).ForEach(field =>
             {
                 var value = (TValue)field.GetValue(null);
                 var display = Enum.GetName(enumType, value);
@@ -121,9 +121,8 @@ namespace YAF.Core.Helpers
                 list.Add(value, display);
             });
 
-            return list;
-        }
-
-        #endregion
+        return list;
     }
+
+    #endregion
 }

@@ -22,78 +22,77 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces.Identity
+namespace YAF.Types.Interfaces.Identity;
+
+using System.Collections.Generic;
+using System.Linq;
+
+using Microsoft.AspNet.Identity;
+
+using YAF.Types.Models.Identity;
+
+/// <summary>
+/// The AspNetRoleManager interface.
+/// </summary>
+public interface IAspNetRoleManager
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Microsoft.AspNet.Identity;
-
-    using YAF.Types.Models.Identity;
+    /// <summary>
+    /// Gets the roles.
+    /// </summary>
+    IQueryable<AspNetRoles> AspNetRoles { get; }
 
     /// <summary>
-    /// The AspNetRoleManager interface.
+    /// The get roles.
     /// </summary>
-    public interface IAspNetRoleManager
-    {
-        /// <summary>
-        /// Gets the roles.
-        /// </summary>
-        IQueryable<AspNetRoles> AspNetRoles { get; }
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IList"/>.
+    /// </returns>
+    IList<string> GetRoles(AspNetUsers user);
 
-        /// <summary>
-        /// The get roles.
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IList"/>.
-        /// </returns>
-        IList<string> GetRoles(AspNetUsers user);
+    /// <summary>
+    /// The find by name.
+    /// </summary>
+    /// <param name="roleName">
+    /// The role name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="AspNetRoles"/>.
+    /// </returns>
+    AspNetRoles FindByName(string roleName);
 
-        /// <summary>
-        /// The find by name.
-        /// </summary>
-        /// <param name="roleName">
-        /// The role name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="AspNetRoles"/>.
-        /// </returns>
-        AspNetRoles FindByName(string roleName);
+    /// <summary>
+    /// Create a role
+    /// </summary>
+    /// <param name="role">
+    /// The role.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IdentityResult"/>.
+    /// </returns>
+    IdentityResult Create(AspNetRoles role);
 
-        /// <summary>
-        /// Create a role
-        /// </summary>
-        /// <param name="role">
-        /// The role.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IdentityResult"/>.
-        /// </returns>
-        IdentityResult Create(AspNetRoles role);
+    /// <summary>
+    /// Delete a role
+    /// </summary>
+    /// <param name="role">
+    /// The role.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IdentityResult"/>.
+    /// </returns>
+    IdentityResult Delete(AspNetRoles role);
 
-        /// <summary>
-        /// Delete a role
-        /// </summary>
-        /// <param name="role">
-        /// The role.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IdentityResult"/>.
-        /// </returns>
-        IdentityResult Delete(AspNetRoles role);
-
-        /// <summary>
-        /// Returns true if the role exists
-        /// </summary>
-        /// <param name="roleName">
-        /// The role Name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        bool RoleExists(string roleName);
-    }
+    /// <summary>
+    /// Returns true if the role exists
+    /// </summary>
+    /// <param name="roleName">
+    /// The role Name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    bool RoleExists(string roleName);
 }

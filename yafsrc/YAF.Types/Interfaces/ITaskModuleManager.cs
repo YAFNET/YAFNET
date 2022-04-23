@@ -21,101 +21,100 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
-{
-    #region Using
+namespace YAF.Types.Interfaces;
 
-    using System;
-    using System.Collections.Generic;
-    using System.Web;
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Web;
+
+#endregion
+
+/// <summary>
+/// The i task module manager.
+/// </summary>
+public interface ITaskModuleManager
+{
+    #region Properties
+
+    /// <summary>
+    ///   Gets TaskCount.
+    /// </summary>
+    int TaskCount { get; }
+
+    /// <summary>
+    ///   All the names of tasks running.
+    /// </summary>
+    IList<string> TaskManagerInstances { get; }
+
+    /// <summary>
+    ///   Gets TaskManagerSnapshot.
+    /// </summary>
+    IDictionary<string, IBackgroundTask> TaskManagerSnapshot { get; }
 
     #endregion
 
+    #region Public Methods
+
     /// <summary>
-    /// The i task module manager.
+    /// Check if a Task is Running.
     /// </summary>
-    public interface ITaskModuleManager
-    {
-        #region Properties
+    /// <param name="instanceName">
+    /// </param>
+    /// <returns>
+    /// The is task running.
+    /// </returns>
+    bool IsTaskRunning([NotNull] string instanceName);
 
-        /// <summary>
-        ///   Gets TaskCount.
-        /// </summary>
-        int TaskCount { get; }
+    /// <summary>
+    /// Check if Tasks are Running.
+    /// </summary>
+    /// <param name="instanceName">
+    /// </param>
+    /// <returns>
+    /// The are tasks running.
+    /// </returns>
+    bool AreTasksRunning([NotNull] string[] instanceName);
 
-        /// <summary>
-        ///   All the names of tasks running.
-        /// </summary>
-        IList<string> TaskManagerInstances { get; }
+    /// <summary>
+    /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
+    /// </summary>
+    /// <param name="instanceName">
+    /// Unique name of this task
+    /// </param>
+    /// <param name="start">
+    /// Task to run
+    /// </param>
+    bool StartTask([NotNull] string instanceName, Func<IBackgroundTask> startTask);
 
-        /// <summary>
-        ///   Gets TaskManagerSnapshot.
-        /// </summary>
-        IDictionary<string, IBackgroundTask> TaskManagerSnapshot { get; }
+    /// <summary>
+    /// The stop task.
+    /// </summary>
+    /// <param name="instanceName">
+    /// The instance name.
+    /// </param>
+    void StopTask([NotNull] string instanceName);
 
-        #endregion
+    /// <summary>
+    /// Attempt to get the instance of the task.
+    /// </summary>
+    /// <param name="instanceName">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task);
 
-        #region Public Methods
+    /// <summary>
+    /// The try remove task.
+    /// </summary>
+    /// <param name="instanceName">
+    /// The instance name.
+    /// </param>
+    /// <returns>
+    /// The try remove task.
+    /// </returns>
+    bool TryRemoveTask([NotNull] string instanceName);
 
-        /// <summary>
-        /// Check if a Task is Running.
-        /// </summary>
-        /// <param name="instanceName">
-        /// </param>
-        /// <returns>
-        /// The is task running.
-        /// </returns>
-        bool IsTaskRunning([NotNull] string instanceName);
-
-        /// <summary>
-        /// Check if Tasks are Running.
-        /// </summary>
-        /// <param name="instanceName">
-        /// </param>
-        /// <returns>
-        /// The are tasks running.
-        /// </returns>
-        bool AreTasksRunning([NotNull] string[] instanceName);
-
-        /// <summary>
-        /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
-        /// </summary>
-        /// <param name="instanceName">
-        /// Unique name of this task
-        /// </param>
-        /// <param name="start">
-        /// Task to run
-        /// </param>
-        bool StartTask([NotNull] string instanceName, Func<IBackgroundTask> startTask);
-
-        /// <summary>
-        /// The stop task.
-        /// </summary>
-        /// <param name="instanceName">
-        /// The instance name.
-        /// </param>
-        void StopTask([NotNull] string instanceName);
-
-        /// <summary>
-        /// Attempt to get the instance of the task.
-        /// </summary>
-        /// <param name="instanceName">
-        /// </param>
-        /// <returns>
-        /// </returns>
-        bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task);
-
-        /// <summary>
-        /// The try remove task.
-        /// </summary>
-        /// <param name="instanceName">
-        /// The instance name.
-        /// </param>
-        /// <returns>
-        /// The try remove task.
-        /// </returns>
-        bool TryRemoveTask([NotNull] string instanceName);
-
-        #endregion
-    }
+    #endregion
 }

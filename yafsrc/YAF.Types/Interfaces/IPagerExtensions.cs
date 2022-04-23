@@ -21,93 +21,92 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+/// <summary>
+///     The pager extensions.
+/// </summary>
+public static class IPagerExtensions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The pager extensions.
+    /// Uses the pager to convert the list into a properly skipped and paged list.
     /// </summary>
-    public static class IPagerExtensions
+    /// <param name="list">
+    /// The enumerable.
+    /// </param>
+    /// <param name="pager">
+    /// The pager.
+    /// </param>
+    /// <typeparam name="T">
+    /// The Typed Parameter
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="IEnumerable{T}"/>.
+    /// </returns>
+    public static IList<T> GetPaged<T>([NotNull] this IList<T> list, [NotNull] IPager pager)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(list);
+        CodeContracts.VerifyNotNull(pager);
 
-        /// <summary>
-        /// Uses the pager to convert the list into a properly skipped and paged list.
-        /// </summary>
-        /// <param name="list">
-        /// The enumerable.
-        /// </param>
-        /// <param name="pager">
-        /// The pager.
-        /// </param>
-        /// <typeparam name="T">
-        /// The Typed Parameter
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IEnumerable{T}"/>.
-        /// </returns>
-        public static IList<T> GetPaged<T>([NotNull] this IList<T> list, [NotNull] IPager pager)
-        {
-            CodeContracts.VerifyNotNull(list);
-            CodeContracts.VerifyNotNull(pager);
+        pager.Count = list.Count;
 
-            pager.Count = list.Count;
-
-            return list.Skip(pager.SkipIndex()).Take(pager.PageSize).ToList();
-        }
-
-        /// <summary>
-        /// The page count.
-        /// </summary>
-        /// <param name="pager">
-        /// The pager. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="int"/> . 
-        /// </returns>
-        public static int PageCount(this IPager pager)
-        {
-            CodeContracts.VerifyNotNull(pager);
-
-            return PageCount(pager.Count, pager.PageSize);
-        }
-
-        /// <summary>
-        /// Gets the Page Count from the Page Items Count and Page Size
-        /// </summary>
-        /// <param name="pageItemsCount">
-        /// The page Items Count.
-        /// </param>
-        /// <param name="pageSize">
-        /// Size of the page.
-        /// </param>
-        /// <returns>
-        /// Returns the Pages Count
-        /// </returns>
-        public static int PageCount(int pageItemsCount, int pageSize)
-        {
-            return (int)Math.Ceiling((double)pageItemsCount / pageSize);
-        }
-
-        /// <summary>
-        /// The skip index.
-        /// </summary>
-        /// <param name="pager">
-        /// The pager. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="int"/> . 
-        /// </returns>
-        public static int SkipIndex([NotNull] this IPager pager)
-        {
-            CodeContracts.VerifyNotNull(pager);
-
-            return (int)Math.Ceiling((double)pager.CurrentPageIndex * pager.PageSize);
-        }
-
-        #endregion
+        return list.Skip(pager.SkipIndex()).Take(pager.PageSize).ToList();
     }
+
+    /// <summary>
+    /// The page count.
+    /// </summary>
+    /// <param name="pager">
+    /// The pager. 
+    /// </param>
+    /// <returns>
+    /// The <see cref="int"/> . 
+    /// </returns>
+    public static int PageCount(this IPager pager)
+    {
+        CodeContracts.VerifyNotNull(pager);
+
+        return PageCount(pager.Count, pager.PageSize);
+    }
+
+    /// <summary>
+    /// Gets the Page Count from the Page Items Count and Page Size
+    /// </summary>
+    /// <param name="pageItemsCount">
+    /// The page Items Count.
+    /// </param>
+    /// <param name="pageSize">
+    /// Size of the page.
+    /// </param>
+    /// <returns>
+    /// Returns the Pages Count
+    /// </returns>
+    public static int PageCount(int pageItemsCount, int pageSize)
+    {
+        return (int)Math.Ceiling((double)pageItemsCount / pageSize);
+    }
+
+    /// <summary>
+    /// The skip index.
+    /// </summary>
+    /// <param name="pager">
+    /// The pager. 
+    /// </param>
+    /// <returns>
+    /// The <see cref="int"/> . 
+    /// </returns>
+    public static int SkipIndex([NotNull] this IPager pager)
+    {
+        CodeContracts.VerifyNotNull(pager);
+
+        return (int)Math.Ceiling((double)pager.CurrentPageIndex * pager.PageSize);
+    }
+
+    #endregion
 }

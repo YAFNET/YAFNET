@@ -22,127 +22,127 @@
  * under the License.
  */
 
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Core.Services;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+using YAF.Types.Objects.Model;
+
+/// <summary>
+/// The Forum Repository Extensions
+/// </summary>
+public static class ForumRepositoryExtensions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
-    using YAF.Types.Objects;
-    using YAF.Types.Objects.Model;
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The Forum Repository Extensions
+    /// Saves a Forum or if forumId is null creates a new Forum
     /// </summary>
-    public static class ForumRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <param name="categoryId">
+    /// The category id.
+    /// </param>
+    /// <param name="parentId">
+    /// The parent id.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="description">
+    /// The description.
+    /// </param>
+    /// <param name="sortOrder">
+    /// The sort order.
+    /// </param>
+    /// <param name="locked">
+    /// The locked.
+    /// </param>
+    /// <param name="hidden">
+    /// The hidden.
+    /// </param>
+    /// <param name="isTest">
+    /// The is test.
+    /// </param>
+    /// <param name="moderated">
+    /// The moderated.
+    /// </param>
+    /// <param name="moderatedPostCount">
+    /// The moderated post count.
+    /// </param>
+    /// <param name="isModeratedNewTopicOnly">
+    /// The is moderated new topic only.
+    /// </param>
+    /// <param name="remoteUrl">
+    /// The remote url.
+    /// </param>
+    /// <param name="themeUrl">
+    /// The theme url.
+    /// </param>
+    /// <param name="imageUrl">
+    /// The image url.
+    /// </param>
+    /// <param name="styles">
+    /// The styles.
+    /// </param>
+    /// <returns>
+    /// The <see cref="int"/>.
+    /// </returns>
+    public static int Save(
+        [NotNull] this IRepository<Forum> repository,
+        [CanBeNull] int? forumId,
+        [NotNull] int categoryId,
+        [CanBeNull] int? parentId,
+        [NotNull] string name,
+        [NotNull] string description,
+        [NotNull] int sortOrder,
+        [NotNull] bool locked,
+        [NotNull] bool hidden,
+        [NotNull] bool isTest,
+        [NotNull] bool moderated,
+        [CanBeNull] int? moderatedPostCount,
+        [NotNull] bool isModeratedNewTopicOnly,
+        [CanBeNull] string remoteUrl,
+        [CanBeNull] string themeUrl,
+        [CanBeNull] string imageUrl,
+        [CanBeNull] string styles)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Saves a Forum or if forumId is null creates a new Forum
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <param name="categoryId">
-        /// The category id.
-        /// </param>
-        /// <param name="parentId">
-        /// The parent id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="sortOrder">
-        /// The sort order.
-        /// </param>
-        /// <param name="locked">
-        /// The locked.
-        /// </param>
-        /// <param name="hidden">
-        /// The hidden.
-        /// </param>
-        /// <param name="isTest">
-        /// The is test.
-        /// </param>
-        /// <param name="moderated">
-        /// The moderated.
-        /// </param>
-        /// <param name="moderatedPostCount">
-        /// The moderated post count.
-        /// </param>
-        /// <param name="isModeratedNewTopicOnly">
-        /// The is moderated new topic only.
-        /// </param>
-        /// <param name="remoteUrl">
-        /// The remote url.
-        /// </param>
-        /// <param name="themeUrl">
-        /// The theme url.
-        /// </param>
-        /// <param name="imageUrl">
-        /// The image url.
-        /// </param>
-        /// <param name="styles">
-        /// The styles.
-        /// </param>
-        /// <returns>
-        /// The <see cref="int"/>.
-        /// </returns>
-        public static int Save(
-            [NotNull] this IRepository<Forum> repository,
-            [CanBeNull] int? forumId,
-            [NotNull] int categoryId,
-            [CanBeNull] int? parentId,
-            [NotNull] string name,
-            [NotNull] string description,
-            [NotNull] int sortOrder,
-            [NotNull] bool locked,
-            [NotNull] bool hidden,
-            [NotNull] bool isTest,
-            [NotNull] bool moderated,
-            [CanBeNull] int? moderatedPostCount,
-            [NotNull] bool isModeratedNewTopicOnly,
-            [CanBeNull] string remoteUrl,
-            [CanBeNull] string themeUrl,
-            [CanBeNull] string imageUrl,
-            [CanBeNull] string styles)
+        if (parentId is 0)
         {
-            CodeContracts.VerifyNotNull(repository);
+            parentId = null;
+        }
 
-            if (parentId is 0)
-            {
-                parentId = null;
-            }
+        var flags = new ForumFlags
+                        {
+                            IsLocked = locked, IsHidden = hidden, IsTest = isTest, IsModerated = moderated
+                        };
 
-            var flags = new ForumFlags
-            {
-                IsLocked = locked, IsHidden = hidden, IsTest = isTest, IsModerated = moderated
-            };
-
-            if (!forumId.HasValue)
-            {
-                var newForumId = repository.Insert(
-                    new Forum
+        if (!forumId.HasValue)
+        {
+            var newForumId = repository.Insert(
+                new Forum
                     {
                         ParentID = parentId,
                         Name = name,
@@ -158,330 +158,330 @@ namespace YAF.Core.Model
                         IsModeratedNewTopicOnly = isModeratedNewTopicOnly
                     });
 
-                repository.FireNew(newForumId);
+            repository.FireNew(newForumId);
 
-                return newForumId;
-            }
+            return newForumId;
+        }
 
-            repository.UpdateOnly(
-                () => new Forum
+        repository.UpdateOnly(
+            () => new Forum
+                      {
+                          ParentID = parentId,
+                          Name = name,
+                          Description = description,
+                          SortOrder = sortOrder,
+                          CategoryID = categoryId,
+                          RemoteURL = remoteUrl,
+                          ThemeURL = themeUrl,
+                          ImageURL = imageUrl,
+                          Styles = styles,
+                          Flags = flags.BitValue,
+                          ModeratedPostCount = moderatedPostCount,
+                          IsModeratedNewTopicOnly = isModeratedNewTopicOnly
+                      },
+            f => f.ID == forumId);
+
+        repository.FireUpdated(forumId.Value);
+
+        return forumId.Value;
+    }
+
+    /// <summary>
+    /// The method returns an integer value for a  found parent forum
+    ///   if a forum is a parent of an existing child to avoid circular dependency
+    ///   while creating a new forum
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum Id.
+    /// </param>
+    /// <param name="parentId">
+    /// The parent Id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public static bool IsParentsChecker([NotNull] this IRepository<Forum> repository, [NotNull] int forumId, [NotNull] int parentId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        if (repository.Exists(f => f.ParentID == forumId))
+        {
+            // Forum Is already a Parent
+            return true;
+        }
+
+        // Checks if Parent Forum is parent or child
+        return repository.Exists(f => f.ParentID == parentId && f.ID != forumId) ||
+               repository.Exists(f => f.ID == parentId && f.ParentID != null);
+    }
+
+    /// <summary>
+    /// Lists all forums by Board Id
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board Id.
+    /// </param>
+    /// <returns>
+    /// Returns all Forums for the selected Board Id
+    /// </returns>
+    public static List<Tuple<Forum, Category>> ListAll(
+        [NotNull] this IRepository<Forum> repository,
+        [NotNull] int boardId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+        expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+            .Where<Forum, Category>((forum, category) => category.BoardID == boardId)
+            .OrderBy<Category>(c => c.SortOrder).ThenBy<Forum>(f => f.SortOrder).ThenBy<Category>(c => c.ID)
+            .ThenBy<Forum>(f => f.ID);
+
+        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Category>(expression));
+    }
+
+    /// <summary>
+    /// Lists all forums accessible to a user
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board Id.
+    /// </param>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <returns>
+    /// Returns all forums accessible to a user
+    /// </returns>
+    public static List<Tuple<Forum, Category, ActiveAccess>> ListAllWithAccess(
+        [NotNull] this IRepository<Forum> repository,
+        [NotNull] int boardId,
+        [NotNull] int userId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+        expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+            .Join<ActiveAccess>((forum, active) => active.ForumID == forum.ID)
+            .Where<Forum, Category, ActiveAccess>(
+                (forum, category, active) =>
+                    active.UserID == userId && category.BoardID == boardId && active.ReadAccess && forum.RemoteURL == null && (category.Flags & 1) == 1)
+            .OrderBy<Category>(c => c.SortOrder).ThenBy<Forum>(f => f.SortOrder).ThenBy<Category>(c => c.ID)
+            .ThenBy<Forum>(f => f.ID);
+
+        return repository.DbAccess.Execute(
+            db => db.Connection.SelectMulti<Forum, Category, ActiveAccess>(expression));
+    }
+
+    /// <summary>
+    /// Lists all forums within a given category
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="categoryId">
+    /// The category ID.
+    /// </param>
+    /// <returns>
+    /// Returns Sorted Forums 
+    /// </returns>
+    public static List<ForumSorted> ListAllFromCategory(
+        [NotNull] this IRepository<Forum> repository,
+        [NotNull] int categoryId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+        expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+            .Where<Forum, Category>(
+                (forum, category) => category.BoardID == repository.BoardID && category.ID == categoryId && (category.Flags & 1) == 1
+                                     && forum.ParentID == null).OrderBy<Forum>(f => f.SortOrder)
+            .ThenBy<Forum>(f => f.ID);
+
+        var list = repository.DbAccess.Execute(db => db.Connection.Select(expression));
+
+        var sortedList = new List<ForumSorted>();
+
+        list.ForEach(
+            forum =>
                 {
-                    ParentID = parentId,
-                    Name = name,
-                    Description = description,
-                    SortOrder = sortOrder,
-                    CategoryID = categoryId,
-                    RemoteURL = remoteUrl,
-                    ThemeURL = themeUrl,
-                    ImageURL = imageUrl,
-                    Styles = styles,
-                    Flags = flags.BitValue,
-                    ModeratedPostCount = moderatedPostCount,
-                    IsModeratedNewTopicOnly = isModeratedNewTopicOnly
-                },
-                f => f.ID == forumId);
+                    // import the row into the destination
+                    var item = new ForumSorted { ForumID = forum.ID, Forum = forum.Name, Icon = "comments" };
 
-            repository.FireUpdated(forumId.Value);
+                    sortedList.Add(item);
+                });
 
-            return forumId.Value;
-        }
+        return sortedList;
+    }
 
-        /// <summary>
-        /// The method returns an integer value for a  found parent forum
-        ///   if a forum is a parent of an existing child to avoid circular dependency
-        ///   while creating a new forum
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum Id.
-        /// </param>
-        /// <param name="parentId">
-        /// The parent Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool IsParentsChecker([NotNull] this IRepository<Forum> repository, [NotNull] int forumId, [NotNull] int parentId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// Gets the forum list all sorted, with Access and paged, by search term
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="searchTerm">
+    /// Filter Forums by Search Term
+    /// </param>
+    /// <returns>
+    /// Returns all Sorted Forums
+    /// </returns>
+    public static List<SelectGroup> ListAllSorted(
+        [NotNull] this IRepository<Forum> repository,
+        [NotNull] int boardId,
+        [NotNull] int userId,
+        [NotNull] string searchTerm)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            if (repository.Exists(f => f.ParentID == forumId))
-            {
-                // Forum Is already a Parent
-                return true;
-            }
+        var list = BoardContext.Current.Get<IDataCache>().GetOrSet(
+            string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
+            () => repository.ListAllWithAccess(boardId, userId),
+            TimeSpan.FromMinutes(5));
 
-            // Checks if Parent Forum is parent or child
-            return repository.Exists(f => f.ParentID == parentId && f.ID != forumId) ||
-                   repository.Exists(f => f.ID == parentId && f.ParentID != null);
-        }
+        return repository.SortList(list.Where(x => x.Item1.Name.ToLower().Contains(searchTerm)));
+    }
 
-        /// <summary>
-        /// Lists all forums by Board Id
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <returns>
-        /// Returns all Forums for the selected Board Id
-        /// </returns>
-        public static List<Tuple<Forum, Category>> ListAll(
-            [NotNull] this IRepository<Forum> repository,
-            [NotNull] int boardId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// Gets the forum list all sorted, with Access and paged, by search term
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="forumId">
+    /// Filter Forums by forum Id
+    /// </param>
+    /// <returns>
+    /// Return the selected forum as Select Group
+    /// </returns>
+    public static List<SelectGroup> ListAllSorted(
+        [NotNull] this IRepository<Forum> repository,
+        [NotNull] int boardId,
+        [NotNull] int userId,
+        [NotNull] int forumId)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+        var list = BoardContext.Current.Get<IDataCache>().GetOrSet(
+            string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
+            () => repository.ListAllWithAccess(boardId, userId),
+            TimeSpan.FromMinutes(5));
 
-            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                .Where<Forum, Category>((forum, category) => category.BoardID == boardId)
-                .OrderBy<Category>(c => c.SortOrder).ThenBy<Forum>(f => f.SortOrder).ThenBy<Category>(c => c.ID)
-                .ThenBy<Forum>(f => f.ID);
+        return repository.SortList(list.Where(x => x.Item1.ID == forumId));
+    }
 
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Category>(expression));
-        }
+    /// <summary>
+    /// Gets the forum list all sorted, with Access and paged.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="pageIndex">
+    /// The page index
+    /// </param>
+    /// <param name="pageSize">
+    /// The page size
+    /// </param>
+    /// <param name="pager">
+    /// the pager
+    /// </param>
+    /// <returns>
+    /// Returns Paged list of forums
+    /// </returns>
+    public static List<SelectGroup> ListAllSorted(
+        [NotNull] this IRepository<Forum> repository,
+        [NotNull] int boardId,
+        [NotNull] int userId,
+        [NotNull] int pageIndex,
+        [NotNull] int pageSize,
+        out Paging pager)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Lists all forums accessible to a user
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <returns>
-        /// Returns all forums accessible to a user
-        /// </returns>
-        public static List<Tuple<Forum, Category, ActiveAccess>> ListAllWithAccess(
-            [NotNull] this IRepository<Forum> repository,
-            [NotNull] int boardId,
-            [NotNull] int userId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        pager = new Paging { CurrentPageIndex = pageIndex, PageSize = pageSize };
 
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+        var forums = BoardContext.Current.Get<IDataCache>().GetOrSet(
+            string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
+            () => repository.ListAllWithAccess(boardId, userId),
+            TimeSpan.FromMinutes(5));
 
-            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                .Join<ActiveAccess>((forum, active) => active.ForumID == forum.ID)
-                .Where<Forum, Category, ActiveAccess>(
-                    (forum, category, active) =>
-                        active.UserID == userId && category.BoardID == boardId && active.ReadAccess && forum.RemoteURL == null && (category.Flags & 1) == 1)
-                .OrderBy<Category>(c => c.SortOrder).ThenBy<Forum>(f => f.SortOrder).ThenBy<Category>(c => c.ID)
-                .ThenBy<Forum>(f => f.ID);
+        var list = forums.GetPaged(pager);
 
-            return repository.DbAccess.Execute(
-                db => db.Connection.SelectMulti<Forum, Category, ActiveAccess>(expression));
-        }
+        return repository.SortList(list);
+    }
 
-        /// <summary>
-        /// Lists all forums within a given category
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="categoryId">
-        /// The category ID.
-        /// </param>
-        /// <returns>
-        /// Returns Sorted Forums 
-        /// </returns>
-        public static List<ForumSorted> ListAllFromCategory(
-            [NotNull] this IRepository<Forum> repository,
-            [NotNull] int categoryId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// Lists all forums
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The Board ID
+    /// </param>
+    /// <param name="userId">
+    /// The user ID.
+    /// </param>
+    /// <param name="categoryId">
+    /// The category ID.
+    /// </param>
+    /// <param name="parentId">
+    /// The Parent ID.
+    /// </param>
+    /// <param name="findLastRead">
+    /// Indicates if the Table should Contain the last Access Date
+    /// </param>
+    /// <param name="pageIndex">
+    /// The Current Page Index
+    /// </param>
+    /// <param name="pageSize">
+    /// The Number of items to retrieve.
+    /// </param>
+    /// <returns>
+    /// Returns List of Forum Read
+    /// </returns>
+    public static List<ForumRead> ListRead(
+        [NotNull] this IRepository<Forum> repository,
+        [NotNull] int boardId,
+        [NotNull] int userId,
+        [CanBeNull] int? categoryId,
+        [CanBeNull] int? parentId,
+        [NotNull] bool findLastRead, 
+        [NotNull] int pageIndex, 
+        [NotNull] int pageSize)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
-
-            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                .Where<Forum, Category>(
-                    (forum, category) => category.BoardID == repository.BoardID && category.ID == categoryId && (category.Flags & 1) == 1
-                                         && forum.ParentID == null).OrderBy<Forum>(f => f.SortOrder)
-                .ThenBy<Forum>(f => f.ID);
-
-            var list = repository.DbAccess.Execute(db => db.Connection.Select(expression));
-
-            var sortedList = new List<ForumSorted>();
-
-            list.ForEach(
-                forum =>
-                    {
-                        // import the row into the destination
-                        var item = new ForumSorted { ForumID = forum.ID, Forum = forum.Name, Icon = "comments" };
-
-                        sortedList.Add(item);
-                    });
-
-            return sortedList;
-        }
-
-        /// <summary>
-        /// Gets the forum list all sorted, with Access and paged, by search term
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="searchTerm">
-        /// Filter Forums by Search Term
-        /// </param>
-        /// <returns>
-        /// Returns all Sorted Forums
-        /// </returns>
-        public static List<SelectGroup> ListAllSorted(
-            [NotNull] this IRepository<Forum> repository,
-            [NotNull] int boardId,
-            [NotNull] int userId,
-            [NotNull] string searchTerm)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var list = BoardContext.Current.Get<IDataCache>().GetOrSet(
-                string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
-                () => repository.ListAllWithAccess(boardId, userId),
-                TimeSpan.FromMinutes(5));
-
-            return repository.SortList(list.Where(x => x.Item1.Name.ToLower().Contains(searchTerm)));
-        }
-
-        /// <summary>
-        /// Gets the forum list all sorted, with Access and paged, by search term
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="forumId">
-        /// Filter Forums by forum Id
-        /// </param>
-        /// <returns>
-        /// Return the selected forum as Select Group
-        /// </returns>
-        public static List<SelectGroup> ListAllSorted(
-            [NotNull] this IRepository<Forum> repository,
-            [NotNull] int boardId,
-            [NotNull] int userId,
-            [NotNull] int forumId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var list = BoardContext.Current.Get<IDataCache>().GetOrSet(
-                string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
-                () => repository.ListAllWithAccess(boardId, userId),
-                TimeSpan.FromMinutes(5));
-
-            return repository.SortList(list.Where(x => x.Item1.ID == forumId));
-        }
-
-        /// <summary>
-        /// Gets the forum list all sorted, with Access and paged.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="pageIndex">
-        /// The page index
-        /// </param>
-        /// <param name="pageSize">
-        /// The page size
-        /// </param>
-        /// <param name="pager">
-        /// the pager
-        /// </param>
-        /// <returns>
-        /// Returns Paged list of forums
-        /// </returns>
-        public static List<SelectGroup> ListAllSorted(
-            [NotNull] this IRepository<Forum> repository,
-            [NotNull] int boardId,
-            [NotNull] int userId,
-            [NotNull] int pageIndex,
-            [NotNull] int pageSize,
-                out Paging pager)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            pager = new Paging { CurrentPageIndex = pageIndex, PageSize = pageSize };
-
-            var forums = BoardContext.Current.Get<IDataCache>().GetOrSet(
-                string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
-                () => repository.ListAllWithAccess(boardId, userId),
-                TimeSpan.FromMinutes(5));
-
-           var list = forums.GetPaged(pager);
-
-           return repository.SortList(list);
-        }
-
-        /// <summary>
-        /// Lists all forums
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The Board ID
-        /// </param>
-        /// <param name="userId">
-        /// The user ID.
-        /// </param>
-        /// <param name="categoryId">
-        /// The category ID.
-        /// </param>
-        /// <param name="parentId">
-        /// The Parent ID.
-        /// </param>
-        /// <param name="findLastRead">
-        /// Indicates if the Table should Contain the last Access Date
-        /// </param>
-        /// <param name="pageIndex">
-        /// The Current Page Index
-        /// </param>
-        /// <param name="pageSize">
-        /// The Number of items to retrieve.
-        /// </param>
-        /// <returns>
-        /// Returns List of Forum Read
-        /// </returns>
-        public static List<ForumRead> ListRead(
-            [NotNull] this IRepository<Forum> repository,
-            [NotNull] int boardId,
-            [NotNull] int userId,
-            [CanBeNull] int? categoryId,
-            [CanBeNull] int? parentId,
-            [NotNull] bool findLastRead, 
-            [NotNull] int pageIndex, 
-            [NotNull] int pageSize)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.DbAccess.Execute(
-                db =>
+        return repository.DbAccess.Execute(
+            db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
@@ -551,81 +551,81 @@ namespace YAF.Core.Model
 
                     expression.Select<Category, Forum, ActiveAccess, Topic, User>(
                         (a, b, x, t, lastUser) => new
-                        {
-                            CategoryID = a.ID,
-                            Category = a.Name,
-                            a.CategoryImage,
-                            ForumID = b.ID,
-                            Forum = b.Name,
-                            b.Description,
-                            b.ImageURL,
-                            b.Styles,
-                            b.ParentID,
-                            Topics = b.NumTopics,
-                            Posts = b.NumPosts,
-                            t.LastPosted,
-                            t.LastMessageID,
-                            t.LastMessageFlags,
-                            t.LastUserID,
-                            LastUser = lastUser.Name,
-                            LastUserDisplayName = lastUser.DisplayName,
-                            LastUserSuspended = lastUser.Suspended,
-                            LastTopicID = t.ID,
-                            t.TopicMovedID,
-                            LastTopicName = t.TopicName,
-                            LastTopicStyles = t.Styles,
-                            b.Flags,
-                            Viewing = Sql.Custom($"({countViewsSql})"),
-                            b.RemoteURL,
-                            x.ReadAccess,
-                            Style = lastUser.UserStyle,
-                            LastForumAccess = Sql.Custom($"({lastForumAccessSql})"),
-                            LastTopicAccess = Sql.Custom($"({lastTopicAccessSql})"),
-                            SubForums = Sql.Custom($"({countSubForumsSql})"),
-                            Total = Sql.Custom($"({countTotalSql})")
-                        });
+                                                      {
+                                                          CategoryID = a.ID,
+                                                          Category = a.Name,
+                                                          a.CategoryImage,
+                                                          ForumID = b.ID,
+                                                          Forum = b.Name,
+                                                          b.Description,
+                                                          b.ImageURL,
+                                                          b.Styles,
+                                                          b.ParentID,
+                                                          Topics = b.NumTopics,
+                                                          Posts = b.NumPosts,
+                                                          t.LastPosted,
+                                                          t.LastMessageID,
+                                                          t.LastMessageFlags,
+                                                          t.LastUserID,
+                                                          LastUser = lastUser.Name,
+                                                          LastUserDisplayName = lastUser.DisplayName,
+                                                          LastUserSuspended = lastUser.Suspended,
+                                                          LastTopicID = t.ID,
+                                                          t.TopicMovedID,
+                                                          LastTopicName = t.TopicName,
+                                                          LastTopicStyles = t.Styles,
+                                                          b.Flags,
+                                                          Viewing = Sql.Custom($"({countViewsSql})"),
+                                                          b.RemoteURL,
+                                                          x.ReadAccess,
+                                                          Style = lastUser.UserStyle,
+                                                          LastForumAccess = Sql.Custom($"({lastForumAccessSql})"),
+                                                          LastTopicAccess = Sql.Custom($"({lastTopicAccessSql})"),
+                                                          SubForums = Sql.Custom($"({countSubForumsSql})"),
+                                                          Total = Sql.Custom($"({countTotalSql})")
+                                                      });
 
                     return db.Connection.Select<ForumRead>(expression);
                 });
+    }
+
+    /// <summary>
+    /// Deletes a forum
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum ID.
+    /// </param>
+    /// <returns>
+    /// Indicate that forum has been deleted
+    /// </returns>
+    public static bool Delete(this IRepository<Forum> repository, [NotNull] int forumId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        if (repository.Exists(f => f.ParentID == forumId))
+        {
+            return false;
         }
 
-        /// <summary>
-        /// Deletes a forum
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum ID.
-        /// </param>
-        /// <returns>
-        /// Indicate that forum has been deleted
-        /// </returns>
-        public static bool Delete(this IRepository<Forum> repository, [NotNull] int forumId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        repository.UpdateOnly(() => new Forum { LastMessageID = null, LastTopicID = null }, f => f.ID == forumId);
 
-            if (repository.Exists(f => f.ParentID == forumId))
-            {
-                return false;
-            }
+        BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+            () => new Topic { LastMessageID = null },
+            f => f.ID == forumId);
 
-            repository.UpdateOnly(() => new Forum { LastMessageID = null, LastTopicID = null }, f => f.ID == forumId);
+        BoardContext.Current.GetRepository<Active>().Delete(x => x.ForumID == forumId);
 
-            BoardContext.Current.GetRepository<Topic>().UpdateOnly(
-                () => new Topic { LastMessageID = null },
-                f => f.ID == forumId);
+        BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.ForumID == forumId);
+        BoardContext.Current.GetRepository<ForumReadTracking>().Delete(x => x.ForumID == forumId);
 
-            BoardContext.Current.GetRepository<Active>().Delete(x => x.ForumID == forumId);
+        // --- Delete topics, messages and attachments
+        var topics = BoardContext.Current.GetRepository<Topic>().Get(g => g.ForumID == forumId);
 
-            BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.ForumID == forumId);
-            BoardContext.Current.GetRepository<ForumReadTracking>().Delete(x => x.ForumID == forumId);
-
-            // --- Delete topics, messages and attachments
-            var topics = BoardContext.Current.GetRepository<Topic>().Get(g => g.ForumID == forumId);
-
-            topics.ForEach(
-                t =>
+        topics.ForEach(
+            t =>
                 {
                     BoardContext.Current.GetRepository<WatchTopic>().Delete(x => x.TopicID == t.ID);
                     BoardContext.Current.GetRepository<NntpTopic>().Delete(x => x.TopicID == t.ID);
@@ -633,100 +633,100 @@ namespace YAF.Core.Model
                     BoardContext.Current.GetRepository<Topic>().Delete(forumId, t.ID, true);
                 });
 
-            BoardContext.Current.GetRepository<NntpForum>().Delete(x => x.ForumID == forumId);
-            BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.ForumID == forumId);
-            BoardContext.Current.GetRepository<UserForum>().Delete(x => x.ForumID == forumId);
-            BoardContext.Current.GetRepository<Forum>().DeleteById(forumId);
+        BoardContext.Current.GetRepository<NntpForum>().Delete(x => x.ForumID == forumId);
+        BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.ForumID == forumId);
+        BoardContext.Current.GetRepository<UserForum>().Delete(x => x.ForumID == forumId);
+        BoardContext.Current.GetRepository<Forum>().DeleteById(forumId);
 
-            repository.FireDeleted(forumId);
+        repository.FireDeleted(forumId);
 
-            return true;
+        return true;
+    }
+
+    /// <summary>
+    /// Deletes a Forum and Moves the Content to a new Forum
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="oldForumId">
+    /// The Current Forum ID
+    /// </param>
+    /// <param name="newForumId">
+    /// The New Forum ID
+    /// </param>
+    /// <returns>
+    /// Indicates that forum has been deleted
+    /// </returns>
+    public static bool Move(this IRepository<Forum> repository, [NotNull] int oldForumId, [NotNull] int newForumId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        if (repository.Exists(f => f.ParentID == oldForumId))
+        {
+            return false;
         }
 
-        /// <summary>
-        /// Deletes a Forum and Moves the Content to a new Forum
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="oldForumId">
-        /// The Current Forum ID
-        /// </param>
-        /// <param name="newForumId">
-        /// The New Forum ID
-        /// </param>
-        /// <returns>
-        /// Indicates that forum has been deleted
-        /// </returns>
-        public static bool Move(this IRepository<Forum> repository, [NotNull] int oldForumId, [NotNull] int newForumId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        BoardContext.Current.GetRepository<Forum>().UpdateOnly(
+            () => new Forum { LastMessageID = null, LastTopicID = null },
+            f => f.ID == oldForumId);
+        BoardContext.Current.GetRepository<Active>().UpdateOnly(
+            () => new Active { ForumID = newForumId },
+            f => f.ForumID == oldForumId);
+        BoardContext.Current.GetRepository<NntpForum>().UpdateOnly(
+            () => new NntpForum { ForumID = newForumId },
+            f => f.ForumID == oldForumId);
+        BoardContext.Current.GetRepository<WatchForum>().UpdateOnly(
+            () => new WatchForum { ForumID = newForumId },
+            f => f.ForumID == oldForumId);
+        BoardContext.Current.GetRepository<ForumReadTracking>().UpdateOnly(
+            () => new ForumReadTracking { ForumID = newForumId },
+            f => f.ForumID == oldForumId);
 
-            if (repository.Exists(f => f.ParentID == oldForumId))
-            {
-                return false;
-            }
+        // -- Move topics, messages and attachments
+        var topics = BoardContext.Current.GetRepository<Topic>().Get(t => t.ForumID == oldForumId);
 
-            BoardContext.Current.GetRepository<Forum>().UpdateOnly(
-                () => new Forum { LastMessageID = null, LastTopicID = null },
-                f => f.ID == oldForumId);
-            BoardContext.Current.GetRepository<Active>().UpdateOnly(
-                () => new Active { ForumID = newForumId },
-                f => f.ForumID == oldForumId);
-            BoardContext.Current.GetRepository<NntpForum>().UpdateOnly(
-                () => new NntpForum { ForumID = newForumId },
-                f => f.ForumID == oldForumId);
-            BoardContext.Current.GetRepository<WatchForum>().UpdateOnly(
-                () => new WatchForum { ForumID = newForumId },
-                f => f.ForumID == oldForumId);
-            BoardContext.Current.GetRepository<ForumReadTracking>().UpdateOnly(
-                () => new ForumReadTracking { ForumID = newForumId },
-                f => f.ForumID == oldForumId);
+        topics.ForEach(
+            topic => BoardContext.Current.GetRepository<Topic>().Move(topic.ID, oldForumId, newForumId, false, 0));
 
-            // -- Move topics, messages and attachments
-            var topics = BoardContext.Current.GetRepository<Topic>().Get(t => t.ForumID == oldForumId);
+        BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.ForumID == oldForumId);
 
-            topics.ForEach(
-                topic => BoardContext.Current.GetRepository<Topic>().Move(topic.ID, oldForumId, newForumId, false, 0));
+        BoardContext.Current.GetRepository<UserForum>().UpdateOnly(
+            () => new UserForum { ForumID = newForumId },
+            f => f.ForumID == oldForumId);
 
-            BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.ForumID == oldForumId);
+        BoardContext.Current.GetRepository<Forum>().Delete(x => x.ID == oldForumId);
 
-            BoardContext.Current.GetRepository<UserForum>().UpdateOnly(
-                () => new UserForum { ForumID = newForumId },
-                f => f.ForumID == oldForumId);
+        return true;
+    }
 
-            BoardContext.Current.GetRepository<Forum>().Delete(x => x.ID == oldForumId);
+    /// <summary>
+    /// Return admin view of Categories with Forums/Sub-forums ordered accordingly.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The User ID
+    /// </param>
+    /// <param name="boardId">
+    /// The Board ID
+    /// </param>
+    /// <returns>
+    /// Returns thee Moderator List for the Board
+    /// </returns>
+    [NotNull]
+    public static List<ModerateForum> ModerateList(
+        this IRepository<Forum> repository,
+        [NotNull] int userId,
+        [NotNull] int boardId)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            return true;
-        }
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
-        /// <summary>
-        /// Return admin view of Categories with Forums/Sub-forums ordered accordingly.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The User ID
-        /// </param>
-        /// <param name="boardId">
-        /// The Board ID
-        /// </param>
-        /// <returns>
-        /// Returns thee Moderator List for the Board
-        /// </returns>
-        [NotNull]
-        public static List<ModerateForum> ModerateList(
-            this IRepository<Forum> repository,
-            [NotNull] int userId,
-            [NotNull] int boardId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
-
-            var forums = repository.DbAccess.Execute(
-                db =>
+        var forums = repository.DbAccess.Execute(
+            db =>
                 {
                     expression.Join<Forum>((c, f) => c.ID == f.CategoryID)
                         .Join<Forum, ActiveAccess>((f, x) => x.ForumID == f.ID);
@@ -768,234 +768,233 @@ namespace YAF.Core.Model
 
                     expression.Select<Category, Forum>(
                         (c, f) => new
-                        {
-                            Category = c.Name,
-                            f.CategoryID,
-                            f.Name,
-                            f.ParentID,
-                            ForumID = f.ID,
-                            ReportedCount = Sql.Custom($"({countReportedSql})"),
-                            MessageCount = Sql.Custom($"({countMessagesSql})")
-                        });
+                                      {
+                                          Category = c.Name,
+                                          f.CategoryID,
+                                          f.Name,
+                                          f.ParentID,
+                                          ForumID = f.ID,
+                                          ReportedCount = Sql.Custom($"({countReportedSql})"),
+                                          MessageCount = Sql.Custom($"({countMessagesSql})")
+                                      });
 
                     return db.Connection.Select<ModerateForum>(expression);
                 });
 
-            // Remove all forums with no reports. Would be better to do it in query...
-            forums.RemoveAll(f => f.MessageCount == 0 && f.ReportedCount == 0);
+        // Remove all forums with no reports. Would be better to do it in query...
+        forums.RemoveAll(f => f.MessageCount == 0 && f.ReportedCount == 0);
 
-            return forums;
-        }
+        return forums;
+    }
 
-        /// <summary>
-        /// Updates the Forum Stats (Posts and Topics Count).
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="forumId">The forum identifier.</param>
-        public static void UpdateStats([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
+    /// <summary>
+    /// Updates the Forum Stats (Posts and Topics Count).
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="forumId">The forum identifier.</param>
+    public static void UpdateStats([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
+
+        expression.Join<Forum>((t, f) => f.ID == t.ForumID)
+            .Where<Topic, Forum>((t, f) => (f.ID == forumId || f.ParentID == forumId) && (t.Flags & 8) != 8)
+            .Select<Topic, Forum>(
+                (t, f) => new { PostsCount = Sql.Sum(t.NumPosts), TopicsCount = Sql.Count(t.ID), });
+
+        var (postsCount, topicsCount) = repository.DbAccess
+            .Execute(db => db.Connection.Single<(int postsCount, int topicsCount)>(expression));
+
+        repository.UpdateOnly(
+            () => new Forum { NumPosts = postsCount, NumTopics = topicsCount },
+            f => f.ID == forumId);
+    }
+
+    /// <summary>
+    /// Updates the Forum Last Post.
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="forumId">The forum identifier.</param>
+    public static void UpdateLastPost([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
+
+        expression.Join<Message>((t, m) => m.TopicID == t.ID)
+            .Where<Topic, Message>((t, m) => t.ForumID == forumId && (t.Flags & 8) != 8 && (m.Flags & 24) == 16)
+            .OrderByDescending<Message>(m => m.Posted);
+
+        var message = repository.DbAccess.Execute(db => db.Connection.Single<Message>(expression));
+
+        if (message != null)
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
-
-            expression.Join<Forum>((t, f) => f.ID == t.ForumID)
-                .Where<Topic, Forum>((t, f) => (f.ID == forumId || f.ParentID == forumId) && (t.Flags & 8) != 8)
-                .Select<Topic, Forum>(
-                    (t, f) => new { PostsCount = Sql.Sum(t.NumPosts), TopicsCount = Sql.Count(t.ID), });
-
-            var (postsCount, topicsCount) = repository.DbAccess
-                .Execute(db => db.Connection.Single<(int postsCount, int topicsCount)>(expression));
-
             repository.UpdateOnly(
-                () => new Forum { NumPosts = postsCount, NumTopics = topicsCount },
+                () => new Forum
+                          {
+                              LastPosted = message.Posted,
+                              LastTopicID = message.TopicID,
+                              LastMessageID = message.ID,
+                              LastUserID = message.UserID,
+                              LastUserName = message.UserName,
+                              LastUserDisplayName = message.UserDisplayName
+                          },
                 f => f.ID == forumId);
         }
-
-        /// <summary>
-        /// Updates the Forum Last Post.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="forumId">The forum identifier.</param>
-        public static void UpdateLastPost([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
+        else
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
-
-            expression.Join<Message>((t, m) => m.TopicID == t.ID)
-                .Where<Topic, Message>((t, m) => t.ForumID == forumId && (t.Flags & 8) != 8 && (m.Flags & 24) == 16)
-                .OrderByDescending<Message>(m => m.Posted);
-
-            var message = repository.DbAccess.Execute(db => db.Connection.Single<Message>(expression));
-
-            if (message != null)
-            {
-                repository.UpdateOnly(
-                    () => new Forum
-                    {
-                        LastPosted = message.Posted,
-                        LastTopicID = message.TopicID,
-                        LastMessageID = message.ID,
-                        LastUserID = message.UserID,
-                        LastUserName = message.UserName,
-                        LastUserDisplayName = message.UserDisplayName
-                    },
-                    f => f.ID == forumId);
-            }
-            else
-            {
-                repository.UpdateOnly(
-                    () => new Forum
-                    {
-                        LastPosted = null,
-                        LastTopicID = null,
-                        LastMessageID = null,
-                        LastUserID = null,
-                        LastUserName = null,
-                        LastUserDisplayName = null
-                    },
-                    f => f.ID == forumId);
-            }
+            repository.UpdateOnly(
+                () => new Forum
+                          {
+                              LastPosted = null,
+                              LastTopicID = null,
+                              LastMessageID = null,
+                              LastUserID = null,
+                              LastUserName = null,
+                              LastUserDisplayName = null
+                          },
+                f => f.ID == forumId);
         }
+    }
 
-        /// <summary>
-        /// Re-Order all Forums By Name Ascending
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="forums">
-        /// The List of forums to be sorted
-        /// </param>
-        public static void ReOrderAllAscending(this IRepository<Forum> repository, List<Forum> forums)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// Re-Order all Forums By Name Ascending
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="forums">
+    /// The List of forums to be sorted
+    /// </param>
+    public static void ReOrderAllAscending(this IRepository<Forum> repository, List<Forum> forums)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            short sortOrder = 0;
+        short sortOrder = 0;
 
-            forums.OrderBy(x => x.Name).ForEach(
-                forum =>
-                    {
-                        repository.UpdateOnly(
-                            () => new Forum
-                                      {
-                                          SortOrder = sortOrder
-                                      },
-                            f => f.ID == forum.ID);
+        forums.OrderBy(x => x.Name).ForEach(
+            forum =>
+                {
+                    repository.UpdateOnly(
+                        () => new Forum
+                                  {
+                                      SortOrder = sortOrder
+                                  },
+                        f => f.ID == forum.ID);
 
-                        sortOrder++;
-                    });
-        }
+                    sortOrder++;
+                });
+    }
 
-        /// <summary>
-        /// Re-Order all Forums By Name Descending
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="forums">
-        /// The List of forums to be sorted
-        /// </param>
-        public static void ReOrderAllDescending(this IRepository<Forum> repository, List<Forum> forums)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// Re-Order all Forums By Name Descending
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="forums">
+    /// The List of forums to be sorted
+    /// </param>
+    public static void ReOrderAllDescending(this IRepository<Forum> repository, List<Forum> forums)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            short sortOrder = 0;
+        short sortOrder = 0;
 
-            forums.OrderByDescending(x => x.Name).ForEach(
-                forum =>
-                    {
-                        repository.UpdateOnly(
-                            () => new Forum
-                                      {
-                                          SortOrder = sortOrder
-                                      },
-                            f => f.ID == forum.ID);
+        forums.OrderByDescending(x => x.Name).ForEach(
+            forum =>
+                {
+                    repository.UpdateOnly(
+                        () => new Forum
+                                  {
+                                      SortOrder = sortOrder
+                                  },
+                        f => f.ID == forum.ID);
 
-                        sortOrder++;
-                    });
-        }
+                    sortOrder++;
+                });
+    }
 
-        /// <summary>
-        /// The SortList.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="listSource">
-        /// The list source.
-        /// </param>
-        /// <returns>
-        /// Returns the Sorted Moderator List
-        /// </returns>
-        [NotNull]
-        public static List<ForumSorted> SortModeratorList(
-            this IRepository<Forum> repository,
-            [NotNull] IEnumerable<ModeratorsForums> listSource)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// The SortList.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="listSource">
+    /// The list source.
+    /// </param>
+    /// <returns>
+    /// Returns the Sorted Moderator List
+    /// </returns>
+    [NotNull]
+    public static List<ForumSorted> SortModeratorList(
+        this IRepository<Forum> repository,
+        [NotNull] IEnumerable<ModeratorsForums> listSource)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            return listSource.Select(
-                forum => new ForumSorted
-                             {
-                                 Category = forum.CategoryName,
-                                 Forum = forum.ParentID.HasValue
-                                             ? $" - {HttpUtility.HtmlEncode(forum.ForumName)}"
-                                             : HttpUtility.HtmlEncode(forum.ForumName),
-                                 ForumID = forum.ForumID,
-                                 Icon = "comments",
-                                 ForumLink = BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.ForumName)
-                }).ToList();
-        }
+        return listSource.Select(
+            forum => new ForumSorted
+                         {
+                             Category = forum.CategoryName,
+                             Forum = forum.ParentID.HasValue
+                                         ? $" - {HttpUtility.HtmlEncode(forum.ForumName)}"
+                                         : HttpUtility.HtmlEncode(forum.ForumName),
+                             ForumID = forum.ForumID,
+                             Icon = "comments",
+                             ForumLink = BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.ForumName)
+                         }).ToList();
+    }
 
-        #endregion
+    #endregion
 
-        /// <summary>
-        /// The SortList.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="listSource">
-        /// The list source.
-        /// </param>
-        /// <returns>
-        /// Returns the Sorted List
-        /// </returns>
-        [NotNull]
-        private static List<SelectGroup> SortList(
-            this IRepository<Forum> repository,
-            [NotNull] IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource)
-        {
-            CodeContracts.VerifyNotNull(repository);
+    /// <summary>
+    /// The SortList.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="listSource">
+    /// The list source.
+    /// </param>
+    /// <returns>
+    /// Returns the Sorted List
+    /// </returns>
+    [NotNull]
+    private static List<SelectGroup> SortList(
+        this IRepository<Forum> repository,
+        [NotNull] IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-            var categories = listSource.Select(x => x.Item2).DistinctBy(x => x.ID);
+        var categories = listSource.Select(x => x.Item2).DistinctBy(x => x.ID);
 
-            var listDestination = new List<SelectGroup>();
+        var listDestination = new List<SelectGroup>();
 
-            categories.ForEach(
-                category =>
-                    {
-                        var forumsByCategory = listSource.Select(x => x.Item1).Where(x => x.CategoryID == category.ID);
+        categories.ForEach(
+            category =>
+                {
+                    var forumsByCategory = listSource.Select(x => x.Item1).Where(x => x.CategoryID == category.ID);
 
-                        var selectGroup = new SelectGroup
-                                              {
-                                                  text = category.Name,
-                                                  children = forumsByCategory.Select(
-                                                      forum => new SelectOptions
-                                                                   {
+                    var selectGroup = new SelectGroup
+                                          {
+                                              text = category.Name,
+                                              children = forumsByCategory.Select(
+                                                  forum => new SelectOptions
+                                                               {
 
-                                                                       id = forum.ID.ToString(),
-                                                                       text = forum.ParentID.HasValue ? $" - {HttpUtility.HtmlEncode(forum.Name)}"
-                                                                                  : HttpUtility.HtmlEncode(forum.Name),
-                                                                       url = BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum)
-                        }).ToList()
-                                              };
+                                                                   id = forum.ID.ToString(),
+                                                                   text = forum.ParentID.HasValue ? $" - {HttpUtility.HtmlEncode(forum.Name)}"
+                                                                              : HttpUtility.HtmlEncode(forum.Name),
+                                                                   url = BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum)
+                                                               }).ToList()
+                                          };
 
-                        listDestination.Add(selectGroup);
-                    });
+                    listDestination.Add(selectGroup);
+                });
 
-            return listDestination;
-        }
+        return listDestination;
     }
 }

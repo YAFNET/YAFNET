@@ -10,126 +10,125 @@ using System.Threading;
 using System.Threading.Tasks;
 using ServiceStack.Text;
 
-namespace ServiceStack.Script
+namespace ServiceStack.Script;
+
+/// <summary>
+/// Captures the output and assigns it to the specified variable.
+/// Accepts an optional Object Dictionary as scope arguments when evaluating body.
+/// Usages: {{#capture output}} {{#each args}} - [{{it}}](/path?arg={{it}}) {{/each}} {{/capture}}
+/// {{#capture output {nums:[1,2,3]} }} {{#each nums}} {{it}} {{/each}} {{/capture}}
+/// {{#capture appendTo output {nums:[1,2,3]} }} {{#each nums}} {{it}} {{/each}} {{/capture}}
+/// </summary>
+public class CaptureScriptBlock : ScriptBlock
 {
     /// <summary>
-    /// Captures the output and assigns it to the specified variable.
-    /// Accepts an optional Object Dictionary as scope arguments when evaluating body.
-    /// Usages: {{#capture output}} {{#each args}} - [{{it}}](/path?arg={{it}}) {{/each}} {{/capture}}
-    /// {{#capture output {nums:[1,2,3]} }} {{#each nums}} {{it}} {{/each}} {{/capture}}
-    /// {{#capture appendTo output {nums:[1,2,3]} }} {{#each nums}} {{it}} {{/each}} {{/capture}}
+    /// Gets the name.
     /// </summary>
-    public class CaptureScriptBlock : ScriptBlock
+    /// <value>The name.</value>
+    public override string Name => "capture";
+    /// <summary>
+    /// Parse Body using Specified Language. Uses host language if unspecified.
+    /// </summary>
+    /// <value>The body.</value>
+    public override ScriptLanguage Body => ScriptTemplate.Language;
+
+    /// <summary>
+    /// Struct Tuple
+    /// </summary>
+    internal struct Tuple
     {
         /// <summary>
-        /// Gets the name.
+        /// The name
         /// </summary>
-        /// <value>The name.</value>
-        public override string Name => "capture";
+        internal string name;
         /// <summary>
-        /// Parse Body using Specified Language. Uses host language if unspecified.
+        /// The scope arguments
         /// </summary>
-        /// <value>The body.</value>
-        public override ScriptLanguage Body => ScriptTemplate.Language;
-
+        internal Dictionary<string, object> scopeArgs;
         /// <summary>
-        /// Struct Tuple
+        /// The append to
         /// </summary>
-        internal struct Tuple
+        internal bool appendTo;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Tuple"/> struct.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="scopeArgs">The scope arguments.</param>
+        /// <param name="appendTo">if set to <c>true</c> [append to].</param>
+        internal Tuple(string name, Dictionary<string, object> scopeArgs, bool appendTo)
         {
-            /// <summary>
-            /// The name
-            /// </summary>
-            internal string name;
-            /// <summary>
-            /// The scope arguments
-            /// </summary>
-            internal Dictionary<string, object> scopeArgs;
-            /// <summary>
-            /// The append to
-            /// </summary>
-            internal bool appendTo;
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Tuple"/> struct.
-            /// </summary>
-            /// <param name="name">The name.</param>
-            /// <param name="scopeArgs">The scope arguments.</param>
-            /// <param name="appendTo">if set to <c>true</c> [append to].</param>
-            internal Tuple(string name, Dictionary<string, object> scopeArgs, bool appendTo)
-            {
-                this.name = name;
-                this.scopeArgs = scopeArgs;
-                this.appendTo = appendTo;
-            }
+            this.name = name;
+            this.scopeArgs = scopeArgs;
+            this.appendTo = appendTo;
+        }
+    }
+
+    /// <summary>
+    /// Write as an asynchronous operation.
+    /// </summary>
+    /// <param name="scope">The scope.</param>
+    /// <param name="block">The block.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
+    public override async Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
+    {
+        var tuple = Parse(scope, block);
+        var name = tuple.name;
+
+        using var ms = MemoryStreamFactory.GetStream();
+        var useScope = scope.ScopeWith(tuple.scopeArgs, ms);
+
+        await WriteBodyAsync(useScope, block, token).ConfigAwait();
+
+        // ReSharper disable once MethodHasAsyncOverload
+        var capturedOutput = ms.ReadToEnd();
+
+        if (tuple.appendTo && scope.PageResult.Args.TryGetValue(name, out var oVar)
+                           && oVar is string existingString)
+        {
+            scope.PageResult.Args[name] = existingString + capturedOutput;
+            return;
         }
 
-        /// <summary>
-        /// Write as an asynchronous operation.
-        /// </summary>
-        /// <param name="scope">The scope.</param>
-        /// <param name="block">The block.</param>
-        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A Task representing the asynchronous operation.</returns>
-        public override async Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
+        scope.PageResult.Args[name] = capturedOutput;
+    }
+
+    //Extract usages of Span outside of async method 
+    /// <summary>
+    /// Parses the specified scope.
+    /// </summary>
+    /// <param name="scope">The scope.</param>
+    /// <param name="block">The block.</param>
+    /// <returns>Tuple.</returns>
+    /// <exception cref="System.NotSupportedException">'capture' block is missing name of variable to assign captured output to</exception>
+    /// <exception cref="System.NotSupportedException">'capture' block is missing name of variable to assign captured output to</exception>
+    /// <exception cref="System.NotSupportedException">Any 'capture' argument must be an Object Dictionary</exception>
+    private Tuple Parse(ScriptScopeContext scope, PageBlockFragment block)
+    {
+        if (block.Argument.IsNullOrWhiteSpace())
+            throw new NotSupportedException("'capture' block is missing name of variable to assign captured output to");
+
+        var literal = block.Argument.AdvancePastWhitespace();
+        bool appendTo = false;
+        if (literal.StartsWith("appendTo "))
         {
-            var tuple = Parse(scope, block);
-            var name = tuple.name;
-
-            using var ms = MemoryStreamFactory.GetStream();
-            var useScope = scope.ScopeWith(tuple.scopeArgs, ms);
-
-            await WriteBodyAsync(useScope, block, token).ConfigAwait();
-
-            // ReSharper disable once MethodHasAsyncOverload
-            var capturedOutput = ms.ReadToEnd();
-
-            if (tuple.appendTo && scope.PageResult.Args.TryGetValue(name, out var oVar)
-                               && oVar is string existingString)
-            {
-                scope.PageResult.Args[name] = existingString + capturedOutput;
-                return;
-            }
-
-            scope.PageResult.Args[name] = capturedOutput;
+            appendTo = true;
+            literal = literal.Advance("appendTo ".Length);
         }
 
-        //Extract usages of Span outside of async method 
-        /// <summary>
-        /// Parses the specified scope.
-        /// </summary>
-        /// <param name="scope">The scope.</param>
-        /// <param name="block">The block.</param>
-        /// <returns>Tuple.</returns>
-        /// <exception cref="System.NotSupportedException">'capture' block is missing name of variable to assign captured output to</exception>
-        /// <exception cref="System.NotSupportedException">'capture' block is missing name of variable to assign captured output to</exception>
-        /// <exception cref="System.NotSupportedException">Any 'capture' argument must be an Object Dictionary</exception>
-        private Tuple Parse(ScriptScopeContext scope, PageBlockFragment block)
-        {
-            if (block.Argument.IsNullOrWhiteSpace())
-                throw new NotSupportedException("'capture' block is missing name of variable to assign captured output to");
+        literal = literal.ParseVarName(out var name);
+        if (name.IsNullOrEmpty())
+            throw new NotSupportedException("'capture' block is missing name of variable to assign captured output to");
 
-            var literal = block.Argument.AdvancePastWhitespace();
-            bool appendTo = false;
-            if (literal.StartsWith("appendTo "))
-            {
-                appendTo = true;
-                literal = literal.Advance("appendTo ".Length);
-            }
+        literal = literal.AdvancePastWhitespace();
 
-            literal = literal.ParseVarName(out var name);
-            if (name.IsNullOrEmpty())
-                throw new NotSupportedException("'capture' block is missing name of variable to assign captured output to");
+        var argValue = literal.GetJsExpressionAndEvaluate(scope);
 
-            literal = literal.AdvancePastWhitespace();
+        var scopeArgs = argValue as Dictionary<string, object>;
 
-            var argValue = literal.GetJsExpressionAndEvaluate(scope);
+        if (argValue != null && scopeArgs == null)
+            throw new NotSupportedException("Any 'capture' argument must be an Object Dictionary");
 
-            var scopeArgs = argValue as Dictionary<string, object>;
-
-            if (argValue != null && scopeArgs == null)
-                throw new NotSupportedException("Any 'capture' argument must be an Object Dictionary");
-
-            return new Tuple(name.ToString(), scopeArgs, appendTo);
-        }
+        return new Tuple(name.ToString(), scopeArgs, appendTo);
     }
 }

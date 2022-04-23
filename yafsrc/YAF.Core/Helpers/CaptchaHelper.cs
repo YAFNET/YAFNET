@@ -21,126 +21,125 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Helpers
-{
-    #region Using
+namespace YAF.Core.Helpers;
 
-    using System;
-    using System.IO;
-    using System.Runtime.Caching;
-    using System.Web;
+#region Using
 
-    using YAF.Core.Context;
-    using YAF.Core.Utilities.ImageUtils;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
+using System;
+using System.IO;
+using System.Runtime.Caching;
+using System.Web;
+
+using YAF.Core.Context;
+using YAF.Core.Utilities.ImageUtils;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
 
     
-    #endregion
+#endregion
+
+/// <summary>
+/// The captcha helper.
+/// </summary>
+public static class CaptchaHelper
+{
+    #region Public Methods
 
     /// <summary>
-    /// The captcha helper.
+    /// Gets the Captcha Image as base64 String
     /// </summary>
-    public static class CaptchaHelper
+    /// <returns>
+    /// Returns the Captcha Image as base64 String
+    /// </returns>
+    public static string GetCaptcha()
     {
-        #region Public Methods
+        using var stream = new MemoryStream();
 
-        /// <summary>
-        /// Gets the Captcha Image as base64 String
-        /// </summary>
-        /// <returns>
-        /// Returns the Captcha Image as base64 String
-        /// </returns>
-        public static string GetCaptcha()
-        {
-            using var stream = new MemoryStream();
+        var captchaImage = new CaptchaImage(
+            GetCaptchaText(BoardContext.Current.Get<HttpContextBase>().Session, MemoryCache.Default, true),
+            250,
+            50,
+            "Century Schoolbook");
 
-            var captchaImage = new CaptchaImage(
-                GetCaptchaText(BoardContext.Current.Get<HttpContextBase>().Session, MemoryCache.Default, true),
-                250,
-                50,
-                "Century Schoolbook");
+        captchaImage.Image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
 
-            captchaImage.Image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-
-            return $"data:image/png;base64,{Convert.ToBase64String(stream.ToArray())}";
-        }
-
-        /// <summary>
-        /// Gets the CaptchaString using the BoardSettings
-        /// </summary>
-        /// <returns>
-        /// The get captcha string.
-        /// </returns>
-        public static string GetCaptchaString()
-        {
-            return StringExtensions.GenerateRandomString(
-                BoardContext.Current.BoardSettings.CaptchaSize,
-                "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789");
-        }
-
-        /// <summary>
-        /// The get captcha text.
-        /// </summary>
-        /// <param name="session">
-        /// The session.
-        /// </param>
-        /// <param name="cache">
-        /// The cache.
-        /// </param>
-        /// <param name="forceNew">
-        /// The force New.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string GetCaptchaText(
-            [NotNull] HttpSessionStateBase session,
-            [NotNull] MemoryCache cache,
-            bool forceNew)
-        {
-            CodeContracts.VerifyNotNull(session);
-
-            var cacheName = $"Session{session.SessionID}CaptchaImageText";
-
-            if (!forceNew && cache[cacheName] != null)
-            {
-                return cache[cacheName].ToString();
-            }
-
-            var text = GetCaptchaString();
-
-            if (cache[cacheName] != null)
-            {
-                cache[cacheName] = text;
-            }
-            else
-            {
-                cache.Add(cacheName, text, DateTimeOffset.MaxValue);
-            }
-
-            return text;
-        }
-
-        /// <summary>
-        /// The is valid.
-        /// </summary>
-        /// <param name="captchaText">
-        /// The captcha text.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool IsValid([NotNull] string captchaText)
-        {
-            CodeContracts.VerifyNotNull(captchaText);
-
-            var text = GetCaptchaText(BoardContext.Current.Get<HttpSessionStateBase>(), MemoryCache.Default, false);
-
-            return string.Compare(text, captchaText, StringComparison.InvariantCultureIgnoreCase) == 0;
-        }
-
-        #endregion
+        return $"data:image/png;base64,{Convert.ToBase64String(stream.ToArray())}";
     }
+
+    /// <summary>
+    /// Gets the CaptchaString using the BoardSettings
+    /// </summary>
+    /// <returns>
+    /// The get captcha string.
+    /// </returns>
+    public static string GetCaptchaString()
+    {
+        return StringExtensions.GenerateRandomString(
+            BoardContext.Current.BoardSettings.CaptchaSize,
+            "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789");
+    }
+
+    /// <summary>
+    /// The get captcha text.
+    /// </summary>
+    /// <param name="session">
+    /// The session.
+    /// </param>
+    /// <param name="cache">
+    /// The cache.
+    /// </param>
+    /// <param name="forceNew">
+    /// The force New.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public static string GetCaptchaText(
+        [NotNull] HttpSessionStateBase session,
+        [NotNull] MemoryCache cache,
+        bool forceNew)
+    {
+        CodeContracts.VerifyNotNull(session);
+
+        var cacheName = $"Session{session.SessionID}CaptchaImageText";
+
+        if (!forceNew && cache[cacheName] != null)
+        {
+            return cache[cacheName].ToString();
+        }
+
+        var text = GetCaptchaString();
+
+        if (cache[cacheName] != null)
+        {
+            cache[cacheName] = text;
+        }
+        else
+        {
+            cache.Add(cacheName, text, DateTimeOffset.MaxValue);
+        }
+
+        return text;
+    }
+
+    /// <summary>
+    /// The is valid.
+    /// </summary>
+    /// <param name="captchaText">
+    /// The captcha text.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public static bool IsValid([NotNull] string captchaText)
+    {
+        CodeContracts.VerifyNotNull(captchaText);
+
+        var text = GetCaptchaText(BoardContext.Current.Get<HttpSessionStateBase>(), MemoryCache.Default, false);
+
+        return string.Compare(text, captchaText, StringComparison.InvariantCultureIgnoreCase) == 0;
+    }
+
+    #endregion
 }

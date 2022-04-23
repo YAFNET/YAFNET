@@ -22,11 +22,10 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+public interface IAdd<in T>
+    where T : new()
 {
-    public interface IAdd<in T>
-        where T : new()
-    {
-        void Add(T item);
-    }
+    void Add(T item);
 }

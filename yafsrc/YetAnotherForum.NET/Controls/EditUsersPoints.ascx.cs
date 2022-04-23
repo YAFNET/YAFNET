@@ -21,108 +21,107 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
-{
-    #region Using
+namespace YAF.Controls;
 
-    using YAF.Types.Models;
+#region Using
+
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The edit users points.
+/// </summary>
+public partial class EditUsersPoints : BaseUserControl
+{
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets the current edit user.
+    /// </summary>
+    /// <value>The user.</value>
+    public User User { get; set; }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The edit users points.
+    /// The add points_ click.
     /// </summary>
-    public partial class EditUsersPoints : BaseUserControl
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void AddPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Properties
+        this.GetRepository<User>().AddPoints(this.User.ID, null, this.txtAddPoints.Text.ToType<int>());
 
-        /// <summary>
-        /// Gets or sets the current edit user.
-        /// </summary>
-        /// <value>The user.</value>
-        public User User { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The add points_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void AddPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.GetRepository<User>().AddPoints(this.User.ID, null, this.txtAddPoints.Text.ToType<int>());
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The remove points_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void RemovePoints_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.GetRepository<User>().RemovePoints(
-                this.User.ID,
-                null,
-                this.txtRemovePoints.Text.ToType<int>());
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The set user points_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void SetUserPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.GetRepository<User>().SetPoints(this.User.ID, this.txtUserPoints.Text.ToType<int>());
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            this.ltrCurrentPoints.Text = this.txtUserPoints.Text = this.User.Points.ToString();
-        }
-
-        #endregion
+        this.BindData();
     }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The remove points_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void RemovePoints_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.GetRepository<User>().RemovePoints(
+            this.User.ID,
+            null,
+            this.txtRemovePoints.Text.ToType<int>());
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The set user points_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void SetUserPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.GetRepository<User>().SetPoints(this.User.ID, this.txtUserPoints.Text.ToType<int>());
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        this.ltrCurrentPoints.Text = this.txtUserPoints.Text = this.User.Points.ToString();
+    }
+
+    #endregion
 }

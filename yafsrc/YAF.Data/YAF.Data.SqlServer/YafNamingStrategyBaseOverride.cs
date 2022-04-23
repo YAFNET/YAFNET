@@ -22,98 +22,97 @@
  * under the License.
  */
 
-namespace YAF.Data.SqlServer
-{
-    using ServiceStack.OrmLite;
+namespace YAF.Data.SqlServer;
 
-    using YAF.Configuration;
+using ServiceStack.OrmLite;
+
+using YAF.Configuration;
+
+/// <summary>
+/// The YAF naming strategy base override.
+/// </summary>
+public class YafNamingStrategyBaseOverride : INamingStrategy
+{
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The YAF naming strategy base override.
+    /// The get column name.
     /// </summary>
-    public class YafNamingStrategyBaseOverride : INamingStrategy
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public string GetColumnName(string name)
     {
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The get column name.
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string GetColumnName(string name)
-        {
-            return name;
-        }
-
-        /// <summary>
-        /// Gets the name of the sequence.
-        /// </summary>
-        /// <param name="modelName">Name of the model.</param>
-        /// <param name="fieldName">Name of the field.</param>
-        /// <returns>Returns the sequence name</returns>
-        public virtual string GetSequenceName(string modelName, string fieldName)
-        {
-            return $"SEQ_{modelName}_{fieldName}";
-        }
-
-        /// <summary>
-        /// Applies the name restrictions.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>Returns the name</returns>
-        public string ApplyNameRestrictions(string name)
-        {
-            return name;
-        }
-
-        /// <summary>
-        /// Gets the name of the table.
-        /// </summary>
-        /// <param name="modelDef">The model definition.</param>
-        /// <returns>Returns the name of the table.</returns>
-        public string GetTableName(ModelDefinition modelDef)
-        {
-            return this.GetTableName(modelDef.ModelName);
-        }
-
-        /// <summary>
-        /// Gets the name of the table.
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <returns>Returns the name of the table.</returns>
-        public string GetTableName(string name)
-        {
-            return name is "UserRoles" or "Roles"
-                ? name
-                : $"{Config.DatabaseObjectQualifier}{name}";
-        }
-
-        /// <summary>
-        /// Gets the name of the schema.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>Returns the name of the schema</returns>
-        public string GetSchemaName(string name)
-        {
-            return Config.DatabaseOwner;
-        }
-
-        /// <summary>
-        /// Gets the name of the schema.
-        /// </summary>
-        /// <param name="modelDef">The model definition.</param>
-        /// <returns>Returns the name of the schema</returns>
-        public string GetSchemaName(ModelDefinition modelDef)
-        {
-            return this.GetSchemaName(modelDef.Schema);
-        }
-
-        #endregion
+        return name;
     }
+
+    /// <summary>
+    /// Gets the name of the sequence.
+    /// </summary>
+    /// <param name="modelName">Name of the model.</param>
+    /// <param name="fieldName">Name of the field.</param>
+    /// <returns>Returns the sequence name</returns>
+    public virtual string GetSequenceName(string modelName, string fieldName)
+    {
+        return $"SEQ_{modelName}_{fieldName}";
+    }
+
+    /// <summary>
+    /// Applies the name restrictions.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <returns>Returns the name</returns>
+    public string ApplyNameRestrictions(string name)
+    {
+        return name;
+    }
+
+    /// <summary>
+    /// Gets the name of the table.
+    /// </summary>
+    /// <param name="modelDef">The model definition.</param>
+    /// <returns>Returns the name of the table.</returns>
+    public string GetTableName(ModelDefinition modelDef)
+    {
+        return this.GetTableName(modelDef.ModelName);
+    }
+
+    /// <summary>
+    /// Gets the name of the table.
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <returns>Returns the name of the table.</returns>
+    public string GetTableName(string name)
+    {
+        return name is "UserRoles" or "Roles"
+                   ? name
+                   : $"{Config.DatabaseObjectQualifier}{name}";
+    }
+
+    /// <summary>
+    /// Gets the name of the schema.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <returns>Returns the name of the schema</returns>
+    public string GetSchemaName(string name)
+    {
+        return Config.DatabaseOwner;
+    }
+
+    /// <summary>
+    /// Gets the name of the schema.
+    /// </summary>
+    /// <param name="modelDef">The model definition.</param>
+    /// <returns>Returns the name of the schema</returns>
+    public string GetSchemaName(ModelDefinition modelDef)
+    {
+        return this.GetSchemaName(modelDef.Schema);
+    }
+
+    #endregion
 }

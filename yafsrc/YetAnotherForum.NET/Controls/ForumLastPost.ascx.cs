@@ -21,114 +21,114 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+namespace YAF.Controls;
+
+#region Using
+
+using System.Globalization;
+
+using YAF.Web.Controls;
+
+#endregion
+
+/// <summary>
+/// Renders the "Last Post" part of the Forum Topics
+/// </summary>
+public partial class ForumLastPost : BaseUserControl
 {
-    #region Using
+    #region Properties
 
-    using System.Globalization;
-
-    using YAF.Web.Controls;
+    /// <summary>
+    /// Gets or sets the data source.
+    /// </summary>
+    public ForumRead DataSource { get; set; }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Renders the "Last Post" part of the Forum Topics
+    /// Handles the PreRender event
     /// </summary>
-    public partial class ForumLastPost : BaseUserControl
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected override void OnPreRender(EventArgs e)
     {
-        #region Properties
+        base.OnPreRender(e);
 
-        /// <summary>
-        /// Gets or sets the data source.
-        /// </summary>
-        public ForumRead DataSource { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the PreRender event
-        /// </summary>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected override void OnPreRender(EventArgs e)
+        if (this.DataSource == null)
         {
-            base.OnPreRender(e);
+            return;
+        }
 
-            if (this.DataSource == null)
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "TopicLinkPopoverJs",
+            JavaScriptBlocks.TopicLinkPopoverJs(
+                $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
+                ".topic-link-popover",
+                "focus hover"));
+
+        if (!this.DataSource.ReadAccess)
+        {
+            this.TopicInPlaceHolder.Visible = false;
+
+            // show "no posts"
+            this.LastPostedHolder.Visible = false;
+            this.NoPostsPlaceHolder.Visible = true;
+
+            return;
+        }
+
+        if (this.DataSource.LastPosted.HasValue)
+        {
+            this.topicLink.Text = this.Get<IBadWordReplace>()
+                .Replace(this.HtmlEncode(this.DataSource.LastTopicName)).Truncate(50);
+
+            // Last Post Date
+            var lastPostedDateTime = this.DataSource.LastPosted.Value;
+
+            // Topic Link
+            this.topicLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
+                ForumPages.Posts,
+                new { t = this.DataSource.LastTopicID, name = this.topicLink.Text });
+
+            var styles = this.PageBoardContext.BoardSettings.UseStyledTopicTitles
+                             ? this.Get<IStyleTransform>().Decode(
+                                 this.DataSource.LastTopicStyles)
+                             : string.Empty;
+
+            if (styles.IsSet())
             {
-                return;
+                this.topicLink.Attributes.Add("style", styles);
             }
 
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "TopicLinkPopoverJs",
-                JavaScriptBlocks.TopicLinkPopoverJs(
-                    $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
-                    ".topic-link-popover",
-                    "focus hover"));
+            // Last Topic User
+            var lastUserLink = new UserLink
+                                   {
+                                       Suspended = this.DataSource.LastUserSuspended,
+                                       UserID = this.DataSource.LastUserID.Value,
+                                       IsGuest = true,
+                                       Style = this.PageBoardContext.BoardSettings.UseStyledNicks && this.DataSource.Style.IsSet()
+                                                   ? this.Get<IStyleTransform>().Decode(
+                                                       this.DataSource.Style)
+                                                   : string.Empty,
+                                       ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
+                                                         ? this.DataSource.LastUserDisplayName
+                                                         : this.DataSource.LastUser
+                                   };
 
-            if (!this.DataSource.ReadAccess)
-            {
-                this.TopicInPlaceHolder.Visible = false;
+            var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                this.DataSource.ForumID,
+                this.DataSource.LastTopicID,
+                this.DataSource.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
+                this.DataSource.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
-                // show "no posts"
-                this.LastPostedHolder.Visible = false;
-                this.NoPostsPlaceHolder.Visible = true;
+            var formattedDatetime = this.PageBoardContext.BoardSettings.ShowRelativeTime
+                                        ? lastPostedDateTime.ToRelativeTime()
+                                        : this.Get<IDateTimeService>().Format(
+                                            DateTimeFormat.BothTopic,
+                                            lastPostedDateTime);
 
-                return;
-            }
-
-            if (this.DataSource.LastPosted.HasValue)
-            {
-                this.topicLink.Text = this.Get<IBadWordReplace>()
-                    .Replace(this.HtmlEncode(this.DataSource.LastTopicName)).Truncate(50);
-
-                // Last Post Date
-                var lastPostedDateTime = this.DataSource.LastPosted.Value;
-
-                // Topic Link
-                this.topicLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
-                    ForumPages.Posts,
-                    new { t = this.DataSource.LastTopicID, name = this.topicLink.Text });
-
-                var styles = this.PageBoardContext.BoardSettings.UseStyledTopicTitles
-                                 ? this.Get<IStyleTransform>().Decode(
-                                     this.DataSource.LastTopicStyles)
-                                 : string.Empty;
-
-                if (styles.IsSet())
-                {
-                    this.topicLink.Attributes.Add("style", styles);
-                }
-
-                // Last Topic User
-                var lastUserLink = new UserLink
-                {
-                    Suspended = this.DataSource.LastUserSuspended,
-                    UserID = this.DataSource.LastUserID.Value,
-                    IsGuest = true,
-                    Style = this.PageBoardContext.BoardSettings.UseStyledNicks && this.DataSource.Style.IsSet()
-                                                       ? this.Get<IStyleTransform>().Decode(
-                                                           this.DataSource.Style)
-                                                       : string.Empty,
-                    ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
-                                                            ? this.DataSource.LastUserDisplayName
-                                                            : this.DataSource.LastUser
-                };
-
-                var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                    this.DataSource.ForumID,
-                    this.DataSource.LastTopicID,
-                    this.DataSource.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
-                    this.DataSource.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
-
-                var formattedDatetime = this.PageBoardContext.BoardSettings.ShowRelativeTime
-                                            ? lastPostedDateTime.ToRelativeTime()
-                                            : this.Get<IDateTimeService>().Format(
-                                                DateTimeFormat.BothTopic,
-                                                lastPostedDateTime);
-
-                this.Info.DataContent = $@"
+            this.Info.DataContent = $@"
                           {lastUserLink.RenderToString()}
                           <span class=""fa-stack"">
                                                     <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
@@ -137,30 +137,29 @@ namespace YAF.Controls
                                                 </span>&nbsp;{formattedDatetime}
                          ";
 
-                this.Info.Text = string.Format(
-                    this.GetText("Default", "BY"),
-                    this.PageBoardContext.BoardSettings.EnableDisplayName ? this.DataSource.LastUserDisplayName : this.DataSource.LastUser);
+            this.Info.Text = string.Format(
+                this.GetText("Default", "BY"),
+                this.PageBoardContext.BoardSettings.EnableDisplayName ? this.DataSource.LastUserDisplayName : this.DataSource.LastUser);
 
-                if (this.DataSource.LastPosted.Value > lastRead)
-                {
-                    this.NewMessage.Visible = true;
-                    this.NewMessage.Text = $" <span class=\"badge bg-success\">{this.GetText("NEW_POSTS")}</span>";
-                }
-                else
-                {
-                    this.NewMessage.Visible = false;
-                }
-
-                this.LastPostedHolder.Visible = true;
-                this.NoPostsPlaceHolder.Visible = false;
+            if (this.DataSource.LastPosted.Value > lastRead)
+            {
+                this.NewMessage.Visible = true;
+                this.NewMessage.Text = $" <span class=\"badge bg-success\">{this.GetText("NEW_POSTS")}</span>";
             }
             else
             {
-                // show "no posts"
-                this.LastPostedHolder.Visible = false;
-                this.NoPostsPlaceHolder.Visible = true;
+                this.NewMessage.Visible = false;
             }
+
+            this.LastPostedHolder.Visible = true;
+            this.NoPostsPlaceHolder.Visible = false;
         }
-        #endregion
+        else
+        {
+            // show "no posts"
+            this.LastPostedHolder.Visible = false;
+            this.NoPostsPlaceHolder.Visible = true;
+        }
     }
+    #endregion
 }

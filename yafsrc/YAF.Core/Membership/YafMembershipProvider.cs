@@ -22,32 +22,31 @@
  * under the License.
  */
 
-namespace YAF.Core.Membership
+namespace YAF.Core.Membership;
+
+using System;
+using System.Text;
+using System.Web.Security;
+
+/// <summary>
+/// The YAF membership provider.
+/// </summary>
+public class YafMembershipProvider : SqlMembershipProvider
 {
-    using System;
-    using System.Text;
-    using System.Web.Security;
-
     /// <summary>
-    /// The YAF membership provider.
+    /// The get clear text password.
     /// </summary>
-    public class YafMembershipProvider : SqlMembershipProvider
+    /// <param name="encryptedPassword">
+    /// The encrypted Password.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public string GetClearTextPassword(string encryptedPassword)
     {
-        /// <summary>
-        /// The get clear text password.
-        /// </summary>
-        /// <param name="encryptedPassword">
-        /// The encrypted Password.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string GetClearTextPassword(string encryptedPassword)
-        {
-            var encodedPassword = Convert.FromBase64String(encryptedPassword);
-            var bytes = this.DecryptPassword(encodedPassword);
+        var encodedPassword = Convert.FromBase64String(encryptedPassword);
+        var bytes = this.DecryptPassword(encodedPassword);
 
-            return bytes == null ? null : Encoding.Unicode.GetString(bytes, 0x10, bytes.Length - 0x10);
-        }
+        return bytes == null ? null : Encoding.Unicode.GetString(bytes, 0x10, bytes.Length - 0x10);
     }
 }

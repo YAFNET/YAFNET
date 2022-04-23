@@ -22,109 +22,108 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// The Admin Profile Definitions Page.
+/// </summary>
+public partial class ProfileDefinitions : AdminPage
 {
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The Admin Profile Definitions Page.
+    /// Initializes a new instance of the <see cref="ProfileDefinitions"/> class. 
     /// </summary>
-    public partial class ProfileDefinitions : AdminPage
+    public ProfileDefinitions()
+        : base("ADMIN_PROFILEDEFINITIONS", ForumPages.Admin_ProfileDefinitions)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProfileDefinitions"/> class. 
-        /// </summary>
-        public ProfileDefinitions()
-            : base("ADMIN_PROFILEDEFINITIONS", ForumPages.Admin_ProfileDefinitions)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Creates navigation page links on top of forum (breadcrumbs).
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            // board index
-            this.PageLinks.AddRoot();
-
-            // administration index
-            this.PageLinks.AddAdminIndex();
-
-            // current page label (no link)
-            this.PageLinks.AddLink(this.GetText("ADMIN_PROFILEDEFINITIONS", "TITLE"));
-        }
-
-        /// <summary>
-        /// Lists the item command.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            var defId = e.CommandArgument.ToType<int>();
-
-            switch (e.CommandName)
-            {
-                case "new":
-                    this.EditDialog.BindData(null);
-
-                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                        "openModalJs",
-                        JavaScriptBlocks.OpenModalJs("EditDialog"));
-                    break;
-                case "edit":
-
-                    this.EditDialog.BindData(defId);
-
-                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                        "openModalJs",
-                        JavaScriptBlocks.OpenModalJs("EditDialog"));
-                    break;
-                case "delete":
-
-                    this.GetRepository<ProfileCustom>().Delete(x => x.ProfileDefinitionID == defId);
-
-                    this.GetRepository<ProfileDefinition>().DeleteById(defId);
-
-                    this.BindData();
-
-                    // quit switch
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            // bind data
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            // list all access masks for this board
-            this.List.DataSource = this.GetRepository<ProfileDefinition>().GetByBoardId();
-            this.DataBind();
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Creates navigation page links on top of forum (breadcrumbs).
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        // board index
+        this.PageLinks.AddRoot();
+
+        // administration index
+        this.PageLinks.AddAdminIndex();
+
+        // current page label (no link)
+        this.PageLinks.AddLink(this.GetText("ADMIN_PROFILEDEFINITIONS", "TITLE"));
+    }
+
+    /// <summary>
+    /// Lists the item command.
+    /// </summary>
+    /// <param name="source">The source.</param>
+    /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
+    protected void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+        var defId = e.CommandArgument.ToType<int>();
+
+        switch (e.CommandName)
+        {
+            case "new":
+                this.EditDialog.BindData(null);
+
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("EditDialog"));
+                break;
+            case "edit":
+
+                this.EditDialog.BindData(defId);
+
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("EditDialog"));
+                break;
+            case "delete":
+
+                this.GetRepository<ProfileCustom>().Delete(x => x.ProfileDefinitionID == defId);
+
+                this.GetRepository<ProfileDefinition>().DeleteById(defId);
+
+                this.BindData();
+
+                // quit switch
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        // bind data
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        // list all access masks for this board
+        this.List.DataSource = this.GetRepository<ProfileDefinition>().GetByBoardId();
+        this.DataBind();
+    }
+
+    #endregion
 }

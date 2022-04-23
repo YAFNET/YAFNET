@@ -21,105 +21,104 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Extensions.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Dynamic;
-    using System.Linq;
+namespace YAF.Types.Extensions.Data;
 
-    using YAF.Types;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Dynamic;
+using System.Linq;
+
+using YAF.Types;
+
+/// <summary>
+/// The Database command extensions.
+/// </summary>
+public static class DbCommandExtensions
+{
+    #region Public Methods
 
     /// <summary>
-    /// The Database command extensions.
+    /// Extension method for adding a parameter
     /// </summary>
-    public static class DbCommandExtensions
+    /// <param name="cmd">
+    /// The cmd.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="item">
+    /// The item.
+    /// </param>
+    public static void AddParam([NotNull] this IDbCommand cmd, [NotNull] string name, [CanBeNull] object item)
     {
-        #region Public Methods
+        CodeContracts.VerifyNotNull(cmd);
+        CodeContracts.VerifyNotNull(name);
 
-        /// <summary>
-        /// Extension method for adding a parameter
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="item">
-        /// The item.
-        /// </param>
-        public static void AddParam([NotNull] this IDbCommand cmd, [NotNull] string name, [CanBeNull] object item)
-        {
-            CodeContracts.VerifyNotNull(cmd);
-            CodeContracts.VerifyNotNull(name);
-
-            AddParam(cmd, new KeyValuePair<string, object>(name, item));
-        }
-
-        /// <summary>
-        /// Extension for adding single parameter named or automatically named by number (0, 1, 2, 3, 4, etc.)
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd.
-        /// </param>
-        /// <param name="param">
-        /// The param.
-        /// </param>
-        public static void AddParam([NotNull] this IDbCommand cmd, KeyValuePair<string, object> param)
-        {
-            CodeContracts.VerifyNotNull(cmd);
-
-            var item = param.Value;
-
-            var p = cmd.CreateParameter();
-
-            p.ParameterName = $"{(param.Key.IsSet() ? param.Key : cmd.Parameters.Count.ToString())}";
-
-            if (item == null)
-            {
-                p.Value = DBNull.Value;
-            }
-            else
-            {
-                if (item is string asString)
-                {
-                    if (asString.Length < 4000)
-                    {
-                        p.Size = 4000;
-                    }
-                    else
-                    {
-                        p.Size = -1;
-                    }
-
-                    p.Value = asString;
-                }
-
-                switch (item)
-                {
-                    case Guid _:
-                        p.Value = item.ToString();
-                        p.DbType = DbType.String;
-                        p.Size = 4000;
-                        break;
-                    case ExpandoObject _:
-                        {
-                            var d = (IDictionary<string, object>)item;
-                            p.Value = d.Values.FirstOrDefault();
-                            break;
-                        }
-
-                    default:
-                        p.Value = item;
-                        break;
-                }
-            }
-
-            cmd.Parameters.Add(p);
-        }
-
-        #endregion
+        AddParam(cmd, new KeyValuePair<string, object>(name, item));
     }
+
+    /// <summary>
+    /// Extension for adding single parameter named or automatically named by number (0, 1, 2, 3, 4, etc.)
+    /// </summary>
+    /// <param name="cmd">
+    /// The cmd.
+    /// </param>
+    /// <param name="param">
+    /// The param.
+    /// </param>
+    public static void AddParam([NotNull] this IDbCommand cmd, KeyValuePair<string, object> param)
+    {
+        CodeContracts.VerifyNotNull(cmd);
+
+        var item = param.Value;
+
+        var p = cmd.CreateParameter();
+
+        p.ParameterName = $"{(param.Key.IsSet() ? param.Key : cmd.Parameters.Count.ToString())}";
+
+        if (item == null)
+        {
+            p.Value = DBNull.Value;
+        }
+        else
+        {
+            if (item is string asString)
+            {
+                if (asString.Length < 4000)
+                {
+                    p.Size = 4000;
+                }
+                else
+                {
+                    p.Size = -1;
+                }
+
+                p.Value = asString;
+            }
+
+            switch (item)
+            {
+                case Guid _:
+                    p.Value = item.ToString();
+                    p.DbType = DbType.String;
+                    p.Size = 4000;
+                    break;
+                case ExpandoObject _:
+                    {
+                        var d = (IDictionary<string, object>)item;
+                        p.Value = d.Values.FirstOrDefault();
+                        break;
+                    }
+
+                default:
+                    p.Value = item;
+                    break;
+            }
+        }
+
+        cmd.Parameters.Add(p);
+    }
+
+    #endregion
 }

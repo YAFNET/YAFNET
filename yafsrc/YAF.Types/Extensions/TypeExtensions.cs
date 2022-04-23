@@ -21,42 +21,41 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Extensions
+namespace YAF.Types.Extensions;
+
+#region Using
+
+using System;
+using System.Linq;
+using System.Security.Permissions;
+using System.Security.Policy;
+
+using YAF.Types;
+
+#endregion
+
+/// <summary>
+/// The type extensions.
+/// </summary>
+public static class TypeExtensions
 {
-    #region Using
-
-    using System;
-    using System.Linq;
-    using System.Security.Permissions;
-    using System.Security.Policy;
-
-    using YAF.Types;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The type extensions.
+    /// The get signing key.
     /// </summary>
-    public static class TypeExtensions
+    /// <param name="sourceType">
+    /// The source type.
+    /// </param>
+    /// <returns>
+    /// Returns the Signing Key
+    /// </returns>
+    public static StrongNamePublicKeyBlob GetSigningKey([NotNull] this Type sourceType)
     {
-        #region Public Methods
+        CodeContracts.VerifyNotNull(sourceType);
 
-        /// <summary>
-        /// The get signing key.
-        /// </summary>
-        /// <param name="sourceType">
-        /// The source type.
-        /// </param>
-        /// <returns>
-        /// Returns the Signing Key
-        /// </returns>
-        public static StrongNamePublicKeyBlob GetSigningKey([NotNull] this Type sourceType)
-        {
-            CodeContracts.VerifyNotNull(sourceType);
-
-            return sourceType.Assembly.Evidence.OfType<StrongName>().Select(t => t.PublicKey).FirstOrDefault();
-        }
-
-        #endregion
+        return sourceType.Assembly.Evidence.OfType<StrongName>().Select(t => t.PublicKey).FirstOrDefault();
     }
+
+    #endregion
 }

@@ -22,141 +22,140 @@
  * under the License.
  */
 
-namespace YAF.Core.Controllers
-{
-    using System.Web.Http;
+namespace YAF.Core.Controllers;
 
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Core.Model;
-    using YAF.Core.Utilities.StringUtils;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
+using System.Web.Http;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Core.Model;
+using YAF.Core.Utilities.StringUtils;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Identity;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+
+/// <summary>
+/// The YAF ThankYou controller.
+/// </summary>
+[RoutePrefix("api")]
+public class ThankYouController : ApiController, IHaveServiceLocator
+{
+    #region Properties
 
     /// <summary>
-    /// The YAF ThankYou controller.
+    ///   Gets ServiceLocator.
     /// </summary>
-    [RoutePrefix("api")]
-    public class ThankYouController : ApiController, IHaveServiceLocator
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+
+    #endregion
+
+    /// <summary>
+    /// Add Thanks to post
+    /// </summary>
+    /// <param name="messageId">
+    /// The message Id.
+    /// </param>
+    /// <returns>
+    /// Returns ThankYou Info
+    /// </returns>
+    [Route("ThankYou/GetThanks/{messageId}")]
+    [HttpPost]
+    public IHttpActionResult GetThanks([NotNull] int messageId)
     {
-        #region Properties
+        var membershipUser = this.Get<IAspNetUsersHelper>().GetUser();
 
-        /// <summary>
-        ///   Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-        #endregion
-
-        /// <summary>
-        /// Add Thanks to post
-        /// </summary>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <returns>
-        /// Returns ThankYou Info
-        /// </returns>
-        [Route("ThankYou/GetThanks/{messageId}")]
-        [HttpPost]
-        public IHttpActionResult GetThanks([NotNull] int messageId)
+        if (membershipUser is null)
         {
-            var membershipUser = this.Get<IAspNetUsersHelper>().GetUser();
-
-            if (membershipUser is null)
-            {
-                return this.NotFound();
-            }
-
-            var message = this.GetRepository<Message>().GetById(messageId);
-
-            var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
-
-            // if the user is empty, return a null object...
-            return userName.IsNotSet()
-                ? this.NotFound()
-                : this.Ok(
-                    this.Get<IThankYou>().GetThankYou(
-                        new UnicodeEncoder().XSSEncode(userName),
-                        "BUTTON_THANKSDELETE",
-                        "BUTTON_THANKSDELETE_TT",
-                        messageId));
+            return this.NotFound();
         }
 
-        /// <summary>
-         /// Add Thanks to post
-         /// </summary>
-         /// <param name="messageId">
-         /// The message Id.
-         /// </param>
-         /// <returns>
-         /// Returns ThankYou Info
-         /// </returns>
-        [Route("ThankYou/AddThanks/{messageId}")]
-        [HttpPost]
-        public IHttpActionResult AddThanks([NotNull] int messageId)
+        var message = this.GetRepository<Message>().GetById(messageId);
+
+        var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
+
+        // if the user is empty, return a null object...
+        return userName.IsNotSet()
+                   ? this.NotFound()
+                   : this.Ok(
+                       this.Get<IThankYou>().GetThankYou(
+                           new UnicodeEncoder().XSSEncode(userName),
+                           "BUTTON_THANKSDELETE",
+                           "BUTTON_THANKSDELETE_TT",
+                           messageId));
+    }
+
+    /// <summary>
+    /// Add Thanks to post
+    /// </summary>
+    /// <param name="messageId">
+    /// The message Id.
+    /// </param>
+    /// <returns>
+    /// Returns ThankYou Info
+    /// </returns>
+    [Route("ThankYou/AddThanks/{messageId}")]
+    [HttpPost]
+    public IHttpActionResult AddThanks([NotNull] int messageId)
+    {
+        var membershipUser = this.Get<IAspNetUsersHelper>().GetUser();
+
+        if (membershipUser is null)
         {
-            var membershipUser = this.Get<IAspNetUsersHelper>().GetUser();
-
-            if (membershipUser is null)
-            {
-                return this.NotFound();
-            }
-
-            var fromUserId = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(membershipUser.Id).ID;
-
-            var message = this.GetRepository<Message>().GetById(messageId);
-
-            var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
-
-            this.GetRepository<Thanks>().AddMessageThanks(fromUserId, message.UserID, messageId);
-
-            this.Get<IActivityStream>().AddThanksReceivedToStream(message.UserID, message.TopicID, messageId, fromUserId);
-            this.Get<IActivityStream>().AddThanksGivenToStream(fromUserId, message.TopicID, messageId, message.UserID);
-
-            // if the user is empty, return a null object...
-            return userName.IsNotSet()
-                       ? this.NotFound()
-                       : this.Ok(
-                           this.Get<IThankYou>().CreateThankYou(
-                               new UnicodeEncoder().XSSEncode(userName),
-                               "BUTTON_THANKSDELETE",
-                               "BUTTON_THANKSDELETE_TT",
-                               messageId));
+            return this.NotFound();
         }
 
-        /// <summary>
-        /// This method is called asynchronously when the user clicks on "Remove Thank" button.
-        /// </summary>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <returns>
-        /// Returns ThankYou Info
-        /// </returns>
-        [Route("ThankYou/RemoveThanks/{messageId}")]
-        [HttpPost]
-        public IHttpActionResult RemoveThanks([NotNull] int messageId)
-        {
-            var message = this.GetRepository<Message>().GetById(messageId);
+        var fromUserId = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(membershipUser.Id).ID;
 
-            var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
+        var message = this.GetRepository<Message>().GetById(messageId);
 
-           this.GetRepository<Thanks>().RemoveMessageThanks(
-                BoardContext.Current.PageUserID,
-                messageId,
-                this.Get<BoardSettings>().EnableDisplayName);
+        var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
-            this.GetRepository<Activity>()
-                .Delete(a => a.MessageID == messageId && (a.Flags == 1024 || a.Flags == 2048));
+        this.GetRepository<Thanks>().AddMessageThanks(fromUserId, message.UserID, messageId);
 
-            return this.Ok(
-                this.Get<IThankYou>().CreateThankYou(userName, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId));
-        }
+        this.Get<IActivityStream>().AddThanksReceivedToStream(message.UserID, message.TopicID, messageId, fromUserId);
+        this.Get<IActivityStream>().AddThanksGivenToStream(fromUserId, message.TopicID, messageId, message.UserID);
+
+        // if the user is empty, return a null object...
+        return userName.IsNotSet()
+                   ? this.NotFound()
+                   : this.Ok(
+                       this.Get<IThankYou>().CreateThankYou(
+                           new UnicodeEncoder().XSSEncode(userName),
+                           "BUTTON_THANKSDELETE",
+                           "BUTTON_THANKSDELETE_TT",
+                           messageId));
+    }
+
+    /// <summary>
+    /// This method is called asynchronously when the user clicks on "Remove Thank" button.
+    /// </summary>
+    /// <param name="messageId">
+    /// The message Id.
+    /// </param>
+    /// <returns>
+    /// Returns ThankYou Info
+    /// </returns>
+    [Route("ThankYou/RemoveThanks/{messageId}")]
+    [HttpPost]
+    public IHttpActionResult RemoveThanks([NotNull] int messageId)
+    {
+        var message = this.GetRepository<Message>().GetById(messageId);
+
+        var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
+
+        this.GetRepository<Thanks>().RemoveMessageThanks(
+            BoardContext.Current.PageUserID,
+            messageId,
+            this.Get<BoardSettings>().EnableDisplayName);
+
+        this.GetRepository<Activity>()
+            .Delete(a => a.MessageID == messageId && (a.Flags == 1024 || a.Flags == 2048));
+
+        return this.Ok(
+            this.Get<IThankYou>().CreateThankYou(userName, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId));
     }
 }

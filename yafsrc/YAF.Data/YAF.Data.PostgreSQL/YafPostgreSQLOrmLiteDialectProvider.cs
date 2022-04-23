@@ -22,30 +22,29 @@
  * under the License.
  */
 
-namespace YAF.Data.PostgreSQL
+namespace YAF.Data.PostgreSQL;
+
+using ServiceStack.OrmLite.PostgreSQL;
+
+/// <summary>
+/// The YAF PostgreSQL ORM lite dialect provider.
+/// </summary>
+public class YafPostgreSQLOrmLiteDialectProvider : PostgreSqlDialectProvider
 {
-    using ServiceStack.OrmLite.PostgreSQL;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The YAF PostgreSQL ORM lite dialect provider.
+    /// Initializes a new instance of the <see cref="YafPostgreSQLOrmLiteDialectProvider"/> class.
     /// </summary>
-    public class YafPostgreSQLOrmLiteDialectProvider : PostgreSqlDialectProvider
+    public YafPostgreSQLOrmLiteDialectProvider()
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="YafPostgreSQLOrmLiteDialectProvider"/> class.
-        /// </summary>
-        public YafPostgreSQLOrmLiteDialectProvider()
-        {
-            this.NamingStrategy = new YafNamingStrategyBaseOverride();
-        }
-
-        /// <summary>
-        /// Gets or sets the instance.
-        /// </summary>
-        public static new YafPostgreSQLOrmLiteDialectProvider Instance { get; set; } = new ();
-
-        #endregion
+        this.NamingStrategy = new YafNamingStrategyBaseOverride();
     }
+
+    /// <summary>
+    /// Gets or sets the instance.
+    /// </summary>
+    public static new YafPostgreSQLOrmLiteDialectProvider Instance { get; set; } = new ();
+
+    #endregion
 }

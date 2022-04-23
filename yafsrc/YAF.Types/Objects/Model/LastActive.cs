@@ -22,17 +22,16 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects.Model
-{
-    using System;
+namespace YAF.Types.Objects.Model;
 
-    public class LastActive
-    {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string DisplayName { get; set; }
-        public DateTime? Suspended { get; set; }
-        public string UserStyle { get; set; }
-        public int NumOfPosts { get; set; }
-    }
+using System;
+
+public class LastActive
+{
+    public int ID { get; set; }
+    public string Name { get; set; }
+    public string DisplayName { get; set; }
+    public DateTime? Suspended { get; set; }
+    public string UserStyle { get; set; }
+    public int NumOfPosts { get; set; }
 }

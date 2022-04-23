@@ -21,170 +21,169 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Pages
+namespace YAF.Pages;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// The Main Board Page.
+/// </summary>
+public partial class Board : ForumPage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "Board" /> class.
+    /// </summary>
+    public Board()
+        : base("DEFAULT", ForumPages.Board)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The Main Board Page.
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class Board : ForumPage
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
+        // Since these controls have EnabledViewState=false, set their visibility on every page load so that this value is not lost on post-back.
+        // This is important for another reason: these are board settings; values in the view state should have no impact on whether these controls are shown or not.
+        this.ForumStats.Visible = this.PageBoardContext.BoardSettings.ShowForumStatistics;
+        this.ForumStatistics.Visible = this.PageBoardContext.BoardSettings.ShowForumStatistics;
+        this.ActiveDiscussions.Visible = this.PageBoardContext.BoardSettings.ShowActiveDiscussions;
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "Board" /> class.
-        /// </summary>
-        public Board()
-            : base("DEFAULT", ForumPages.Board)
+        this.RenderGuestControls();
+
+        if (this.IsPostBack)
         {
+            return;
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        if (this.PageBoardContext.PageCategoryID == 0)
         {
-            // Since these controls have EnabledViewState=false, set their visibility on every page load so that this value is not lost on post-back.
-            // This is important for another reason: these are board settings; values in the view state should have no impact on whether these controls are shown or not.
-            this.ForumStats.Visible = this.PageBoardContext.BoardSettings.ShowForumStatistics;
-            this.ForumStatistics.Visible = this.PageBoardContext.BoardSettings.ShowForumStatistics;
-            this.ActiveDiscussions.Visible = this.PageBoardContext.BoardSettings.ShowActiveDiscussions;
-
-            this.RenderGuestControls();
-
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            if (this.PageBoardContext.PageCategoryID == 0)
-            {
-                return;
-            }
-
-            this.Welcome.Visible = false;
+            return;
         }
 
-        /// <summary>
-        /// The create page links.
-        /// </summary>
-        protected override void CreatePageLinks()
+        this.Welcome.Visible = false;
+    }
+
+    /// <summary>
+    /// The create page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+
+        if (this.PageBoardContext.PageCategoryID == 0)
         {
-            this.PageLinks.AddRoot();
-
-            if (this.PageBoardContext.PageCategoryID == 0)
-            {
-                return;
-            }
-
-            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+            return;
         }
 
-        /// <summary>
-        /// Render The GuestBar
-        /// </summary>
-        private void RenderGuestControls()
+        this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+    }
+
+    /// <summary>
+    /// Render The GuestBar
+    /// </summary>
+    private void RenderGuestControls()
+    {
+        if (!this.PageBoardContext.IsGuest)
         {
-            if (!this.PageBoardContext.IsGuest)
+            return;
+        }
+
+        if (!this.PageBoardContext.BoardSettings.ShowConnectMessageInTopic)
+        {
+            return;
+        }
+
+        this.GuestUserMessage.Visible = true;
+
+        this.GuestMessage.Text = this.GetText("TOOLBAR", "WELCOME_GUEST_FULL");
+
+        var endPoint = new Label { Text = "." };
+
+        var isLoginAllowed = false;
+        var isRegisterAllowed = false;
+
+        if (Config.IsAnyPortal)
+        {
+            this.GuestMessage.Text = this.GetText("TOOLBAR", "WELCOME_GUEST");
+        }
+        else
+        {
+            if (Config.AllowLoginAndLogoff)
             {
-                return;
+                var navigateUrl = "javascript:void(0);";
+
+                if (this.PageBoardContext.CurrentForumPage.IsAccountPage)
+                {
+                    navigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login);
+                }
+
+                // show login
+                var loginLink = new HyperLink
+                                    {
+                                        Text = this.GetText("TOOLBAR", "LOGIN"),
+                                        ToolTip = this.GetText("TOOLBAR", "LOGIN"),
+                                        NavigateUrl = navigateUrl,
+                                        CssClass = "alert-link LoginLink"
+                                    };
+
+                this.GuestUserMessage.Controls.Add(loginLink);
+
+                isLoginAllowed = true;
             }
 
-            if (!this.PageBoardContext.BoardSettings.ShowConnectMessageInTopic)
+            if (!this.PageBoardContext.BoardSettings.DisableRegistrations)
             {
-                return;
-            }
+                if (isLoginAllowed)
+                {
+                    this.GuestUserMessage.Controls.Add(
+                        new Label { Text = $"&nbsp;{this.GetText("COMMON", "OR")}&nbsp;" });
+                }
 
-            this.GuestUserMessage.Visible = true;
+                // show register link
+                var registerLink = new HyperLink
+                                       {
+                                           Text = this.GetText("TOOLBAR", "REGISTER"),
+                                           NavigateUrl = this.PageBoardContext.BoardSettings.ShowRulesForRegistration
+                                                             ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
+                                                             : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register),
+                                           CssClass = "alert-link"
+                                       };
 
-            this.GuestMessage.Text = this.GetText("TOOLBAR", "WELCOME_GUEST_FULL");
+                this.GuestUserMessage.Controls.Add(registerLink);
 
-            var endPoint = new Label { Text = "." };
+                this.GuestUserMessage.Controls.Add(endPoint);
 
-            var isLoginAllowed = false;
-            var isRegisterAllowed = false;
-
-            if (Config.IsAnyPortal)
-            {
-                this.GuestMessage.Text = this.GetText("TOOLBAR", "WELCOME_GUEST");
+                isRegisterAllowed = true;
             }
             else
             {
-                if (Config.AllowLoginAndLogoff)
-                {
-                    var navigateUrl = "javascript:void(0);";
+                this.GuestUserMessage.Controls.Add(endPoint);
 
-                    if (this.PageBoardContext.CurrentForumPage.IsAccountPage)
-                    {
-                        navigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login);
-                    }
-
-                    // show login
-                    var loginLink = new HyperLink
-                    {
-                        Text = this.GetText("TOOLBAR", "LOGIN"),
-                        ToolTip = this.GetText("TOOLBAR", "LOGIN"),
-                        NavigateUrl = navigateUrl,
-                        CssClass = "alert-link LoginLink"
-                    };
-
-                    this.GuestUserMessage.Controls.Add(loginLink);
-
-                    isLoginAllowed = true;
-                }
-
-                if (!this.PageBoardContext.BoardSettings.DisableRegistrations)
-                {
-                    if (isLoginAllowed)
-                    {
-                        this.GuestUserMessage.Controls.Add(
-                            new Label { Text = $"&nbsp;{this.GetText("COMMON", "OR")}&nbsp;" });
-                    }
-
-                    // show register link
-                    var registerLink = new HyperLink
-                    {
-                        Text = this.GetText("TOOLBAR", "REGISTER"),
-                        NavigateUrl = this.PageBoardContext.BoardSettings.ShowRulesForRegistration
-                            ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
-                            : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register),
-                        CssClass = "alert-link"
-                    };
-
-                    this.GuestUserMessage.Controls.Add(registerLink);
-
-                    this.GuestUserMessage.Controls.Add(endPoint);
-
-                    isRegisterAllowed = true;
-                }
-                else
-                {
-                    this.GuestUserMessage.Controls.Add(endPoint);
-
-                    this.GuestUserMessage.Controls.Add(
-                        new Label { Text = this.GetText("TOOLBAR", "DISABLED_REGISTER") });
-                }
-
-                // If both disallowed
-                if (isLoginAllowed || isRegisterAllowed)
-                {
-                    return;
-                }
-
-                this.GuestUserMessage.Controls.Clear();
-                this.GuestUserMessage.Controls.Add(new Label { Text = this.GetText("TOOLBAR", "WELCOME_GUEST_NO") });
+                this.GuestUserMessage.Controls.Add(
+                    new Label { Text = this.GetText("TOOLBAR", "DISABLED_REGISTER") });
             }
-        }
 
-        #endregion
+            // If both disallowed
+            if (isLoginAllowed || isRegisterAllowed)
+            {
+                return;
+            }
+
+            this.GuestUserMessage.Controls.Clear();
+            this.GuestUserMessage.Controls.Add(new Label { Text = this.GetText("TOOLBAR", "WELCOME_GUEST_NO") });
+        }
     }
+
+    #endregion
 }

@@ -22,74 +22,73 @@
  * under the License.
  */
 
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+#region Using
+
+using System;
+using System.Globalization;
+
+using FarsiLibrary.Utils;
+
+using PersianCalendar = System.Globalization.PersianCalendar;
+
+#endregion
+
+/// <summary>
+/// The culture extensions.
+/// </summary>
+public static class CultureExtensions
 {
-    #region Using
-
-    using System;
-    using System.Globalization;
-
-    using FarsiLibrary.Utils;
-
-    using PersianCalendar = System.Globalization.PersianCalendar;
-
-    #endregion
+    /// <summary>
+    /// The Farsi culture
+    /// </summary>
+    private static CultureInfo faCulture;
 
     /// <summary>
-    /// The culture extensions.
+    /// The internal Farsi culture
     /// </summary>
-    public static class CultureExtensions
+    private static CultureInfo internalFaCulture;
+
+    /// <summary>
+    /// The pc.
+    /// </summary>
+    private static readonly PersianCalendar pc = new();
+
+    /// <summary>
+    /// Gets the persian calendar.
+    /// </summary>
+    public static Calendar PersianCalendar => pc;
+
+    /// <summary>
+    /// Gets the Currently selected UICulture
+    /// </summary>
+    public static CultureInfo CurrentCulture => CultureInfo.CurrentUICulture;
+
+    /// <summary>
+    /// Instance of Farsi culture
+    /// </summary>
+    public static CultureInfo FarsiCulture => faCulture ?? (faCulture = new CultureInfo("fa-IR"));
+
+    /// <summary>
+    /// Instance of Persian Culture with correct date formatting.
+    /// </summary>
+    public static CultureInfo PersianCulture => internalFaCulture ?? (internalFaCulture = new PersianCultureInfo());
+
+    /// <summary>
+    /// The is farsi culture.
+    /// </summary>
+    /// <param name="culture">
+    /// The culture.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public static bool IsFarsiCulture(this CultureInfo culture)
     {
-        /// <summary>
-        /// The Farsi culture
-        /// </summary>
-        private static CultureInfo faCulture;
-
-        /// <summary>
-        /// The internal Farsi culture
-        /// </summary>
-        private static CultureInfo internalFaCulture;
-
-        /// <summary>
-        /// The pc.
-        /// </summary>
-        private static readonly PersianCalendar pc = new();
-
-        /// <summary>
-        /// Gets the persian calendar.
-        /// </summary>
-        public static Calendar PersianCalendar => pc;
-
-        /// <summary>
-        /// Gets the Currently selected UICulture
-        /// </summary>
-        public static CultureInfo CurrentCulture => CultureInfo.CurrentUICulture;
-
-        /// <summary>
-        /// Instance of Farsi culture
-        /// </summary>
-        public static CultureInfo FarsiCulture => faCulture ?? (faCulture = new CultureInfo("fa-IR"));
-
-        /// <summary>
-        /// Instance of Persian Culture with correct date formatting.
-        /// </summary>
-        public static CultureInfo PersianCulture => internalFaCulture ?? (internalFaCulture = new PersianCultureInfo());
-
-        /// <summary>
-        /// The is farsi culture.
-        /// </summary>
-        /// <param name="culture">
-        /// The culture.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool IsFarsiCulture(this CultureInfo culture)
-        {
-            return culture.Name.Equals(FarsiCulture.Name) || culture.Name.Equals(PersianCulture.Name)
-                                                          || culture.Name.Equals(
-                                                              "fa",
-                                                              StringComparison.InvariantCultureIgnoreCase);
-        }
+        return culture.Name.Equals(FarsiCulture.Name) || culture.Name.Equals(PersianCulture.Name)
+                                                      || culture.Name.Equals(
+                                                          "fa",
+                                                          StringComparison.InvariantCultureIgnoreCase);
     }
 }

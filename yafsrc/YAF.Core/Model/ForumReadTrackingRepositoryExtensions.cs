@@ -22,114 +22,113 @@
  * under the License.
  */
 
-namespace YAF.Core.Model
-{
-    using System;
+namespace YAF.Core.Model;
 
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+using System;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// The ForumReadTracking Repository Extensions
+/// </summary>
+public static class ForumReadTrackingRepositoryExtensions
+{
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The ForumReadTracking Repository Extensions
+    /// The add or update.
     /// </summary>
-    public static class ForumReadTrackingRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    public static void AddOrUpdate(
+        this IRepository<ForumReadTracking> repository,
+        [NotNull] int userId,
+        [NotNull] int forumId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// The add or update.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        public static void AddOrUpdate(
-            this IRepository<ForumReadTracking> repository,
-            [NotNull] int userId,
-            [NotNull] int forumId)
+        var item = repository.GetSingle(x => x.ForumID == forumId && x.UserID == userId);
+
+        if (item != null)
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            var item = repository.GetSingle(x => x.ForumID == forumId && x.UserID == userId);
-
-            if (item != null)
-            {
-                repository.UpdateOnly(
-                    () => new ForumReadTracking { LastAccessDate = DateTime.UtcNow },
-                    x => x.LastAccessDate == item.LastAccessDate && x.ForumID == userId && x.UserID == userId);
-            }
-            else
-            {
-                repository.Insert(
-                    new ForumReadTracking { UserID = userId, ForumID = forumId, LastAccessDate = DateTime.UtcNow });
-            }
-
-            // -- Delete TopicReadTracking for forum... 
-            // Remark : not needed ?!
-           // BoardContext.Current.GetRepository<TopicReadTracking>().Delete(x => x.UserID == userId)
+            repository.UpdateOnly(
+                () => new ForumReadTracking { LastAccessDate = DateTime.UtcNow },
+                x => x.LastAccessDate == item.LastAccessDate && x.ForumID == userId && x.UserID == userId);
+        }
+        else
+        {
+            repository.Insert(
+                new ForumReadTracking { UserID = userId, ForumID = forumId, LastAccessDate = DateTime.UtcNow });
         }
 
-        /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool Delete(this IRepository<ForumReadTracking> repository, [NotNull] int userId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var success = repository.Delete(x => x.UserID == userId) == 1;
-
-            if (success)
-            {
-                repository.FireDeleted();
-            }
-
-            return success;
-        }
-
-        /// <summary>
-        /// The last read.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DateTime?"/>.
-        /// </returns>
-        public static DateTime? LastRead(
-            this IRepository<ForumReadTracking> repository,
-            [NotNull] int userId,
-            [NotNull] int forumId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var forum = repository.GetSingle(t => t.UserID == userId && t.ForumID == forumId);
-
-            return forum?.LastAccessDate;
-        }
-
-        #endregion
+        // -- Delete TopicReadTracking for forum... 
+        // Remark : not needed ?!
+        // BoardContext.Current.GetRepository<TopicReadTracking>().Delete(x => x.UserID == userId)
     }
+
+    /// <summary>
+    /// The delete.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public static bool Delete(this IRepository<ForumReadTracking> repository, [NotNull] int userId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var success = repository.Delete(x => x.UserID == userId) == 1;
+
+        if (success)
+        {
+            repository.FireDeleted();
+        }
+
+        return success;
+    }
+
+    /// <summary>
+    /// The last read.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="DateTime?"/>.
+    /// </returns>
+    public static DateTime? LastRead(
+        this IRepository<ForumReadTracking> repository,
+        [NotNull] int userId,
+        [NotNull] int forumId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var forum = repository.GetSingle(t => t.UserID == userId && t.ForumID == forumId);
+
+        return forum?.LastAccessDate;
+    }
+
+    #endregion
 }

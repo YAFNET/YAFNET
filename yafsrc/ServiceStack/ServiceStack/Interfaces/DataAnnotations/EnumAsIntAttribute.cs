@@ -6,15 +6,14 @@
 // ***********************************************************************
 using System;
 
-namespace ServiceStack.DataAnnotations
+namespace ServiceStack.DataAnnotations;
+
+/// <summary>
+/// Class EnumAsIntAttribute.
+/// Implements the <see cref="ServiceStack.AttributeBase" />
+/// </summary>
+/// <seealso cref="ServiceStack.AttributeBase" />
+[AttributeUsage(AttributeTargets.Enum)]
+public class EnumAsIntAttribute : AttributeBase
 {
-    /// <summary>
-    /// Class EnumAsIntAttribute.
-    /// Implements the <see cref="ServiceStack.AttributeBase" />
-    /// </summary>
-    /// <seealso cref="ServiceStack.AttributeBase" />
-    [AttributeUsage(AttributeTargets.Enum)]
-    public class EnumAsIntAttribute : AttributeBase
-    {
-    }
 }

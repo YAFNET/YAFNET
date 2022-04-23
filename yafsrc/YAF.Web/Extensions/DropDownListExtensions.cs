@@ -22,38 +22,38 @@
  * under the License.
  */
 
-namespace YAF.Web.Extensions
+namespace YAF.Web.Extensions;
+
+using System.Collections.Generic;
+using System.Web.UI.WebControls;
+
+using YAF.Types;
+using YAF.Types.Objects.Model;
+
+/// <summary>
+/// The DropDown Extensions
+/// </summary>
+public static class DropDownListExtensions
 {
-    using System.Collections.Generic;
-    using System.Web.UI.WebControls;
-
-    using YAF.Types;
-    using YAF.Types.Objects.Model;
-
     /// <summary>
-    /// The DropDown Extensions
+    /// Add forum and category icons to dropdown list.
     /// </summary>
-    public static class DropDownListExtensions
+    /// <param name="dropDownList">
+    /// The drop down list.
+    /// </param>
+    /// <param name="forumList">
+    /// The forum list.
+    /// </param>
+    public static void AddForumAndCategoryIcons(this DropDownList dropDownList, [NotNull] List<ForumSorted> forumList)
     {
-        /// <summary>
-        /// Add forum and category icons to dropdown list.
-        /// </summary>
-        /// <param name="dropDownList">
-        /// The drop down list.
-        /// </param>
-        /// <param name="forumList">
-        /// The forum list.
-        /// </param>
-        public static void AddForumAndCategoryIcons(this DropDownList dropDownList, [NotNull] List<ForumSorted> forumList)
-        {
-            CodeContracts.VerifyNotNull(dropDownList);
+        CodeContracts.VerifyNotNull(dropDownList);
 
-            CodeContracts.VerifyNotNull(forumList);
+        CodeContracts.VerifyNotNull(forumList);
 
-            dropDownList.Items.Add(new ListItem());
+        dropDownList.Items.Add(new ListItem());
 
-            forumList.ForEach(
-                row =>
+        forumList.ForEach(
+            row =>
                 {
                     // don't render categories
                     if (row.Icon == "folder")
@@ -73,6 +73,5 @@ namespace YAF.Web.Extensions
 
                     dropDownList.Items.Add(item);
                 });
-        }
     }
 }

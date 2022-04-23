@@ -21,53 +21,52 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the UserAlbum table.
+/// </summary>
+[Serializable]
+public class UserAlbum : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the UserAlbum table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class UserAlbum : IEntity, IHaveID
-    {
-        #region Properties
+    [Alias("AlbumID")]
+    [AutoIncrement]
+    [Index]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [Alias("AlbumID")]
-        [AutoIncrement]
-        [Index]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [Required]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [Required]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the title.
+    /// </summary>
+    [StringLength(255)]
+    public string Title { get; set; }
 
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        [StringLength(255)]
-        public string Title { get; set; }
+    /// <summary>
+    /// Gets or sets the cover image id.
+    /// </summary>
+    public int? CoverImageID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the cover image id.
-        /// </summary>
-        public int? CoverImageID { get; set; }
+    /// <summary>
+    /// Gets or sets the updated.
+    /// </summary>
+    [Required]
+    public DateTime Updated { get; set; }
 
-        /// <summary>
-        /// Gets or sets the updated.
-        /// </summary>
-        [Required]
-        public DateTime Updated { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

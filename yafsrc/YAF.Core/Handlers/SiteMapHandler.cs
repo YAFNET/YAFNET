@@ -22,68 +22,68 @@
  * under the License.
  */
 
-namespace YAF.Core.Handlers
+namespace YAF.Core.Handlers;
+
+#region Using
+
+using System;
+using System.Globalization;
+using System.Web;
+using System.Web.SessionState;
+using System.Xml.Serialization;
+
+using YAF.Core.Context;
+using YAF.Core.Model;
+using YAF.Core.Services;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+
+using SiteMap = YAF.Types.Objects.SiteMap;
+
+#endregion
+
+/// <summary>
+/// The site map handler.
+/// </summary>
+public class SiteMapHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceLocator
 {
-    #region Using
+    #region Properties
 
-    using System;
-    using System.Globalization;
-    using System.Web;
-    using System.Web.SessionState;
-    using System.Xml.Serialization;
+    /// <summary>
+    ///   Gets a value indicating whether IsReusable.
+    /// </summary>
+    public bool IsReusable => false;
 
-    using YAF.Core.Context;
-    using YAF.Core.Model;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-
-    using SiteMap = YAF.Types.Objects.SiteMap;
+    /// <summary>
+    /// Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     #endregion
 
+    #region Implemented Interfaces
+
+    #region IHttpHandler
+
     /// <summary>
-    /// The site map handler.
+    /// The process request.
     /// </summary>
-    public class SiteMapHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceLocator
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    public void ProcessRequest([NotNull] HttpContext context)
     {
-        #region Properties
+        var siteMap = new SiteMap();
 
-        /// <summary>
-        ///   Gets a value indicating whether IsReusable.
-        /// </summary>
-        public bool IsReusable => false;
+        var forumList = this.GetRepository<Forum>().ListAllWithAccess(
+            BoardContext.Current.BoardSettings.BoardID,
+            BoardContext.Current.GuestUserID);
 
-        /// <summary>
-        /// Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IHttpHandler
-
-        /// <summary>
-        /// The process request.
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        public void ProcessRequest([NotNull] HttpContext context)
-        {
-            var siteMap = new SiteMap();
-
-            var forumList = this.GetRepository<Forum>().ListAllWithAccess(
-                BoardContext.Current.BoardSettings.BoardID,
-                BoardContext.Current.GuestUserID);
-
-            forumList.ForEach(
-                forum => siteMap.Add(
-                    new UrlLocation
+        forumList.ForEach(
+            forum => siteMap.Add(
+                new UrlLocation
                     {
                         Url = this.Get<LinkBuilder>().GetTopicLink(forum.Item1.ID, forum.Item1.Name),
                         Priority = 0.8D,
@@ -96,19 +96,18 @@ namespace YAF.Core.Handlers
                         ChangeFrequency = UrlLocation.ChangeFrequencies.always
                     }));
 
-            context.Response.Clear();
+        context.Response.Clear();
 
-            var xs = new XmlSerializer(typeof(SiteMap));
+        var xs = new XmlSerializer(typeof(SiteMap));
 
-            context.Response.ContentType = "text/xml";
+        context.Response.ContentType = "text/xml";
 
-            xs.Serialize(context.Response.Output, siteMap);
+        xs.Serialize(context.Response.Output, siteMap);
 
-            context.Response.End();
-        }
-
-        #endregion
-
-        #endregion
+        context.Response.End();
     }
+
+    #endregion
+
+    #endregion
 }

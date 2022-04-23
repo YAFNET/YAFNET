@@ -22,114 +22,113 @@
  * under the License.
  */
 
-namespace YAF.Dialogs
+namespace YAF.Dialogs;
+
+#region Using
+
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The Admin Banned Name Add/Edit Dialog.
+/// </summary>
+public partial class BannedNameEdit : BaseUserControl
 {
-    #region Using
-
-    using YAF.Types.Models;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// The Admin Banned Name Add/Edit Dialog.
+    /// Gets or sets the banned identifier.
     /// </summary>
-    public partial class BannedNameEdit : BaseUserControl
+    /// <value>
+    /// The banned identifier.
+    /// </value>
+    public int? BannedId
     {
-        #region Methods
+        get => this.ViewState["BannedId"].ToType<int?>();
 
-        /// <summary>
-        /// Gets or sets the banned identifier.
-        /// </summary>
-        /// <value>
-        /// The banned identifier.
-        /// </value>
-        public int? BannedId
-        {
-            get => this.ViewState["BannedId"].ToType<int?>();
-
-            set => this.ViewState["BannedId"] = value;
-        }
-
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        /// <param name="bannedId">The banned identifier.</param>
-        public void BindData(int? bannedId)
-        {
-            this.BannedId = bannedId;
-
-            this.Title.LocalizedPage = "ADMIN_BANNEDNAME_EDIT";
-            this.Save.TextLocalizedPage = "ADMIN_BANNEDNAME";
-
-            if (this.BannedId.HasValue)
-            {
-                // Edit
-                var banned = this.GetRepository<BannedName>().GetById(this.BannedId.Value);
-
-                if (banned != null)
-                {
-                    this.mask.Text = banned.Mask;
-                    this.BanReason.Text = banned.Reason;
-                }
-
-                this.Title.LocalizedTag = "TITLE_EDIT";
-                this.Save.TextLocalizedTag = "SAVE";
-            }
-            else
-            {
-                // Add
-                this.mask.Text = string.Empty;
-                this.BanReason.Text = string.Empty;
-
-                this.Title.LocalizedTag = "TITLE";
-                this.Save.TextLocalizedTag = "ADD_IP";
-            }
-        }
-
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.IsPostBack)
-            {
-                return;
-            }
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "loadValidatorFormJs",
-                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
-        }
-
-        /// <summary>
-        /// Handles the Click event of the Add control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.Page.IsValid)
-            {
-                return;
-            }
-
-            if (!this.GetRepository<BannedName>().Save(this.BannedId, this.mask.Text.Trim(), this.BanReason.Text.Trim()))
-            {
-                this.PageBoardContext.LoadMessage.AddSession(
-                    this.GetText("ADMIN_BANNEDNAME", "MSG_EXIST"),
-                    MessageTypes.warning);
-            }
-
-            // go back to banned names administration page
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BannedNames);
-        }
-
-        #endregion
+        set => this.ViewState["BannedId"] = value;
     }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    /// <param name="bannedId">The banned identifier.</param>
+    public void BindData(int? bannedId)
+    {
+        this.BannedId = bannedId;
+
+        this.Title.LocalizedPage = "ADMIN_BANNEDNAME_EDIT";
+        this.Save.TextLocalizedPage = "ADMIN_BANNEDNAME";
+
+        if (this.BannedId.HasValue)
+        {
+            // Edit
+            var banned = this.GetRepository<BannedName>().GetById(this.BannedId.Value);
+
+            if (banned != null)
+            {
+                this.mask.Text = banned.Mask;
+                this.BanReason.Text = banned.Reason;
+            }
+
+            this.Title.LocalizedTag = "TITLE_EDIT";
+            this.Save.TextLocalizedTag = "SAVE";
+        }
+        else
+        {
+            // Add
+            this.mask.Text = string.Empty;
+            this.BanReason.Text = string.Empty;
+
+            this.Title.LocalizedTag = "TITLE";
+            this.Save.TextLocalizedTag = "ADD_IP";
+        }
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender. 
+    /// </param>
+    /// <param name="e">
+    /// The e. 
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.IsPostBack)
+        {
+            return;
+        }
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "loadValidatorFormJs",
+            JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+    }
+
+    /// <summary>
+    /// Handles the Click event of the Add control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.Page.IsValid)
+        {
+            return;
+        }
+
+        if (!this.GetRepository<BannedName>().Save(this.BannedId, this.mask.Text.Trim(), this.BanReason.Text.Trim()))
+        {
+            this.PageBoardContext.LoadMessage.AddSession(
+                this.GetText("ADMIN_BANNEDNAME", "MSG_EXIST"),
+                MessageTypes.warning);
+        }
+
+        // go back to banned names administration page
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BannedNames);
+    }
+
+    #endregion
 }

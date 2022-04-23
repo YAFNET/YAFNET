@@ -21,76 +21,75 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Flags;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the Activity table.
+/// </summary>
+[Serializable]
+public class Activity : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the Activity table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class Activity : IEntity, IHaveID
+    [AutoIncrement]
+    public int ID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    public int UserID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the created.
+    /// </summary>
+    public DateTime Created { get; set; }
+
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    public int Flags { get; set; }
+
+    /// <summary>
+    /// Gets or sets the message flags.
+    /// </summary>
+    [Ignore]
+    public ActivityFlags ActivityFlags
     {
-        #region Properties
+        get => new(this.Flags);
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        public int UserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the created.
-        /// </summary>
-        public DateTime Created { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flags.
-        /// </summary>
-        public int Flags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the message flags.
-        /// </summary>
-        [Ignore]
-        public ActivityFlags ActivityFlags
-        {
-            get => new(this.Flags);
-
-            set => this.Flags = value.BitValue;
-        }
-
-        /// <summary>
-        /// Gets or sets the topic id.
-        /// </summary>
-        public int? TopicID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the message id.
-        /// </summary>
-        public int? MessageID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        public int? FromUserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether notification.
-        /// </summary>
-        [Default(typeof(bool), "0")]
-        public bool Notification { get; set; }
-
-        #endregion
+        set => this.Flags = value.BitValue;
     }
+
+    /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    public int? TopicID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the message id.
+    /// </summary>
+    public int? MessageID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    public int? FromUserID { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether notification.
+    /// </summary>
+    [Default(typeof(bool), "0")]
+    public bool Notification { get; set; }
+
+    #endregion
 }

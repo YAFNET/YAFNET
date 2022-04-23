@@ -22,60 +22,59 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The Gender Enumerators based on
+/// https://github.com/Lehoczky/gender-enum-generator
+/// </summary>
+public enum Gender
 {
-    /// <summary>
-    /// The Gender Enumerators based on
-    /// https://github.com/Lehoczky/gender-enum-generator
-    /// </summary>
-    public enum Gender
-    {
-        Other,
+    Other,
 
-        Man,
+    Man,
 
-        Woman,
+    Woman,
 
-        Agender,
+    Agender,
 
-        Androgyne,
+    Androgyne,
 
-        Bigender,
+    Bigender,
 
-        Cisgender,
+    Cisgender,
 
-        FemaleToMale,
+    FemaleToMale,
 
-        GenderFluid,
+    GenderFluid,
 
-        GenderNonconforming,
+    GenderNonconforming,
 
-        GenderQuestioning,
+    GenderQuestioning,
 
-        Genderqueer,
+    Genderqueer,
 
-        Intersex,
+    Intersex,
 
-        MaleToFemale,
+    MaleToFemale,
 
-        NonBinary,
+    NonBinary,
 
-        Pangender,
+    Pangender,
 
-        Trans,
+    Trans,
 
-        Transgender,
+    Transgender,
 
-        TransMan,
+    TransMan,
 
-        TransWoman,
+    TransWoman,
 
-        Transfeminine,
+    Transfeminine,
 
-        Transmasculine,
+    Transmasculine,
 
-        Transsexual,
+    Transsexual,
 
-        TwoSpirit
-    }
+    TwoSpirit
 }

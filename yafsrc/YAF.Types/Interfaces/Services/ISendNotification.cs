@@ -21,180 +21,179 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
-{
-    using System;
-    using System.Collections.Generic;
+namespace YAF.Types.Interfaces.Services;
 
-    using YAF.Types.Models;
-    using YAF.Types.Models.Identity;
+using System;
+using System.Collections.Generic;
+
+using YAF.Types.Models;
+using YAF.Types.Models.Identity;
+
+/// <summary>
+/// The SendNotification Interface
+/// </summary>
+public interface ISendNotification
+{
+    /// <summary>
+    /// Sends Notifications to Moderators that Message Needs Approval
+    /// </summary>
+    /// <param name="forumId">The forum id.</param>
+    /// <param name="newMessageId">The new message id.</param>
+    /// <param name="isSpamMessage">if set to <c>true</c> [is spam message].</param>
+    void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId, bool isSpamMessage);
 
     /// <summary>
-    /// The SendNotification Interface
+    /// Sends Notifications to Moderators that a Message was Reported
     /// </summary>
-    public interface ISendNotification
-    {
-        /// <summary>
-        /// Sends Notifications to Moderators that Message Needs Approval
-        /// </summary>
-        /// <param name="forumId">The forum id.</param>
-        /// <param name="newMessageId">The new message id.</param>
-        /// <param name="isSpamMessage">if set to <c>true</c> [is spam message].</param>
-        void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId, bool isSpamMessage);
+    /// <param name="pageForumID">
+    /// The page Forum ID.
+    /// </param>
+    /// <param name="reportedMessageId">
+    /// The reported message id.
+    /// </param>
+    /// <param name="reporter">
+    /// The reporter.
+    /// </param>
+    /// <param name="reportText">
+    /// The report Text.
+    /// </param>
+    void ToModeratorsThatMessageWasReported(
+        int pageForumID,
+        int reportedMessageId,
+        int reporter,
+        string reportText);
 
-        /// <summary>
-        /// Sends Notifications to Moderators that a Message was Reported
-        /// </summary>
-        /// <param name="pageForumID">
-        /// The page Forum ID.
-        /// </param>
-        /// <param name="reportedMessageId">
-        /// The reported message id.
-        /// </param>
-        /// <param name="reporter">
-        /// The reporter.
-        /// </param>
-        /// <param name="reportText">
-        /// The report Text.
-        /// </param>
-        void ToModeratorsThatMessageWasReported(
-            int pageForumID,
-            int reportedMessageId,
-            int reporter,
-            string reportText);
+    /// <summary>
+    /// Sends notification about new PM in user's inbox.
+    /// </summary>
+    /// <param name="toUserId">
+    /// User supposed to receive notification about new PM.
+    /// </param>
+    /// <param name="subject">
+    /// Subject of PM user is notified about.
+    /// </param>
+    void ToPrivateMessageRecipient(int toUserId, [NotNull] string subject);
 
-        /// <summary>
-        /// Sends notification about new PM in user's inbox.
-        /// </summary>
-        /// <param name="toUserId">
-        /// User supposed to receive notification about new PM.
-        /// </param>
-        /// <param name="subject">
-        /// Subject of PM user is notified about.
-        /// </param>
-        void ToPrivateMessageRecipient(int toUserId, [NotNull] string subject);
+    /// <summary>
+    /// The to watching users.
+    /// </summary>
+    /// <param name="messageId">
+    /// The message Id.
+    /// </param>
+    void ToWatchingUsers(int messageId);
 
-        /// <summary>
-        /// The to watching users.
-        /// </summary>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        void ToWatchingUsers(int messageId);
+    /// <summary>
+    /// The to watching users.
+    /// </summary>
+    /// <param name="message">
+    /// The new message.
+    /// </param>
+    /// <param name="newTopic">
+    /// Indicates if Post is New Topic or reply
+    /// </param>
+    void ToWatchingUsers(Message message, bool newTopic = false);
 
-        /// <summary>
-        /// The to watching users.
-        /// </summary>
-        /// <param name="message">
-        /// The new message.
-        /// </param>
-        /// <param name="newTopic">
-        /// Indicates if Post is New Topic or reply
-        /// </param>
-        void ToWatchingUsers(Message message, bool newTopic = false);
+    /// <summary>
+    /// Send an Email to the Newly Created User with
+    /// his Account Info (Pass, Security Question and Answer)
+    /// </summary>
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <param name="pass">
+    /// The pass.
+    /// </param>
+    /// <param name="templateName">
+    /// The template Name.
+    /// </param>
+    void SendRegistrationNotificationToUser(
+        [NotNull] AspNetUsers user,
+        [NotNull] string pass,
+        string templateName);
 
-        /// <summary>
-        /// Send an Email to the Newly Created User with
-        /// his Account Info (Pass, Security Question and Answer)
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <param name="pass">
-        /// The pass.
-        /// </param>
-        /// <param name="templateName">
-        /// The template Name.
-        /// </param>
-        void SendRegistrationNotificationToUser(
-            [NotNull] AspNetUsers user,
-            [NotNull] string pass,
-            string templateName);
+    /// <summary>
+    /// Sends notification that the User was awarded with a Medal
+    /// </summary>
+    /// <param name="toUserId">To user id.</param>
+    /// <param name="medalName">Name of the medal.</param>
+    void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName);
 
-        /// <summary>
-        /// Sends notification that the User was awarded with a Medal
-        /// </summary>
-        /// <param name="toUserId">To user id.</param>
-        /// <param name="medalName">Name of the medal.</param>
-        void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName);
+    /// <summary>
+    /// Sends the role assignment notification.
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <param name="addedRoles">The added roles.</param>
+    void SendRoleAssignmentNotification([NotNull] AspNetUsers user, List<string> addedRoles);
 
-        /// <summary>
-        /// Sends the role assignment notification.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <param name="addedRoles">The added roles.</param>
-        void SendRoleAssignmentNotification([NotNull] AspNetUsers user, List<string> addedRoles);
+    /// <summary>
+    /// Sends the role un assignment notification.
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <param name="removedRoles">The removed roles.</param>
+    void SendRoleUnAssignmentNotification([NotNull] AspNetUsers user, List<string> removedRoles);
 
-        /// <summary>
-        /// Sends the role un assignment notification.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <param name="removedRoles">The removed roles.</param>
-        void SendRoleUnAssignmentNotification([NotNull] AspNetUsers user, List<string> removedRoles);
+    /// <summary>
+    /// The send registration notification email.
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <param name="userId">The user id.</param>
+    void SendRegistrationNotificationEmail([NotNull] AspNetUsers user, int userId);
 
-        /// <summary>
-        /// The send registration notification email.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <param name="userId">The user id.</param>
-        void SendRegistrationNotificationEmail([NotNull] AspNetUsers user, int userId);
+    /// <summary>
+    /// Sends a spam bot notification to admins.
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <param name="userId">The user id.</param>
+    void SendSpamBotNotificationToAdmins([NotNull] AspNetUsers user, int userId);
 
-        /// <summary>
-        /// Sends a spam bot notification to admins.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <param name="userId">The user id.</param>
-        void SendSpamBotNotificationToAdmins([NotNull] AspNetUsers user, int userId);
+    /// <summary>
+    /// Sends the user welcome notification.
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <param name="userId">The user identifier.</param>
+    void SendUserWelcomeNotification([NotNull] AspNetUsers user, int userId);
 
-        /// <summary>
-        /// Sends the user welcome notification.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <param name="userId">The user identifier.</param>
-        void SendUserWelcomeNotification([NotNull] AspNetUsers user, int userId);
+    /// <summary>
+    /// Sends the verification email.
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <param name="email">The email.</param>
+    /// <param name="userId">The user identifier.</param>
+    /// <param name="newUsername">The new username.</param>
+    void SendVerificationEmail(
+        [NotNull] AspNetUsers user,
+        [NotNull] string email,
+        int? userId,
+        string newUsername = null);
 
-        /// <summary>
-        /// Sends the verification email.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <param name="email">The email.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="newUsername">The new username.</param>
-        void SendVerificationEmail(
-            [NotNull] AspNetUsers user,
-            [NotNull] string email,
-            int? userId,
-            string newUsername = null);
+    /// <summary>
+    /// Sends the user a suspension notification.
+    /// </summary>
+    /// <param name="suspendedUntil">The suspended until.</param>
+    /// <param name="suspendReason">The suspend reason.</param>
+    /// <param name="email">The email.</param>
+    /// <param name="userName">Name of the user.</param>
+    void SendUserSuspensionNotification(
+        [NotNull] DateTime suspendedUntil,
+        [NotNull] string suspendReason,
+        [NotNull] string email,
+        [NotNull] string userName);
 
-        /// <summary>
-        /// Sends the user a suspension notification.
-        /// </summary>
-        /// <param name="suspendedUntil">The suspended until.</param>
-        /// <param name="suspendReason">The suspend reason.</param>
-        /// <param name="email">The email.</param>
-        /// <param name="userName">Name of the user.</param>
-        void SendUserSuspensionNotification(
-            [NotNull] DateTime suspendedUntil,
-            [NotNull] string suspendReason,
-            [NotNull] string email,
-            [NotNull] string userName);
+    /// <summary>
+    /// Sends the user a suspension ended notification.
+    /// </summary>
+    /// <param name="email">The email.</param>
+    /// <param name="userName">Name of the user.</param>
+    void SendUserSuspensionEndedNotification([NotNull] string email, [NotNull] string userName);
 
-        /// <summary>
-        /// Sends the user a suspension ended notification.
-        /// </summary>
-        /// <param name="email">The email.</param>
-        /// <param name="userName">Name of the user.</param>
-        void SendUserSuspensionEndedNotification([NotNull] string email, [NotNull] string userName);
-
-        /// <summary>
-        /// The send password reset.
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <param name="token">
-        /// The token.
-        /// </param>
-        void SendPasswordReset([NotNull] AspNetUsers user, [NotNull] string token);
-    }
+    /// <summary>
+    /// The send password reset.
+    /// </summary>
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <param name="token">
+    /// The token.
+    /// </param>
+    void SendPasswordReset([NotNull] AspNetUsers user, [NotNull] string token);
 }

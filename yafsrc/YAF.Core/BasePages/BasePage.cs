@@ -22,74 +22,73 @@
  * under the License.
  */
 
-namespace YAF.Core.BasePages
+namespace YAF.Core.BasePages;
+
+using System.Globalization;
+using System.Threading;
+using System.Web.UI;
+
+/// <summary>
+/// The base page.
+/// </summary>
+public class BasePage : Page
 {
-    using System.Globalization;
-    using System.Threading;
-    using System.Web.UI;
-
     /// <summary>
-    /// The base page.
+    /// The initialize culture.
     /// </summary>
-    public class BasePage : Page
+    protected override void InitializeCulture()
     {
-        /// <summary>
-        /// The initialize culture.
-        /// </summary>
-        protected override void InitializeCulture()
+        var language = "en-US";
+
+        // Check if PostBack is caused by Language DropDownList.
+        if (this.Request.Form["__EVENTTARGET"] != null && this.Request.Form["__EVENTTARGET"].Contains("Languages"))
         {
-            var language = "en-US";
-
-            // Check if PostBack is caused by Language DropDownList.
-            if (this.Request.Form["__EVENTTARGET"] != null && this.Request.Form["__EVENTTARGET"].Contains("Languages"))
-            {
-                // Set the Language.
-                language = this.Request.Form[this.Request.Form["__EVENTTARGET"]];
-                this.Session["language"] = language;
-
-                SetLanguageUsingThread(language);
-            }
-            else
-            {
-                if (this.Session["language"] != null)
-                {
-                    language = this.Session["language"].ToString();
-                }
-                else
-                {
-                    // Detect User's Language.
-                    if (this.Request.UserLanguages != null)
-                    {
-                        // Set the Language.
-                        language = this.Request.UserLanguages[0];
-                    }
-                }
-            }
+            // Set the Language.
+            language = this.Request.Form[this.Request.Form["__EVENTTARGET"]];
+            this.Session["language"] = language;
 
             SetLanguageUsingThread(language);
         }
-
-        /// <summary>
-        /// The set language using thread.
-        /// </summary>
-        /// <param name="selectedLanguage">
-        /// The selected language.
-        /// </param>
-        private static void SetLanguageUsingThread(string selectedLanguage)
+        else
         {
-            CultureInfo info;
-
-            try
+            if (this.Session["language"] != null)
             {
-                info = CultureInfo.CreateSpecificCulture(selectedLanguage);
+                language = this.Session["language"].ToString();
             }
-            catch
+            else
             {
-                info = CultureInfo.CreateSpecificCulture("en-US");
+                // Detect User's Language.
+                if (this.Request.UserLanguages != null)
+                {
+                    // Set the Language.
+                    language = this.Request.UserLanguages[0];
+                }
             }
-
-            Thread.CurrentThread.CurrentUICulture = info;
-            Thread.CurrentThread.CurrentCulture = info;
         }
+
+        SetLanguageUsingThread(language);
+    }
+
+    /// <summary>
+    /// The set language using thread.
+    /// </summary>
+    /// <param name="selectedLanguage">
+    /// The selected language.
+    /// </param>
+    private static void SetLanguageUsingThread(string selectedLanguage)
+    {
+        CultureInfo info;
+
+        try
+        {
+            info = CultureInfo.CreateSpecificCulture(selectedLanguage);
+        }
+        catch
+        {
+            info = CultureInfo.CreateSpecificCulture("en-US");
+        }
+
+        Thread.CurrentThread.CurrentUICulture = info;
+        Thread.CurrentThread.CurrentCulture = info;
     }
 }

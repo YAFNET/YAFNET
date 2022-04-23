@@ -21,53 +21,52 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Objects.Nntp
+namespace YAF.Types.Objects.Nntp;
+
+using System.Collections;
+
+/// <summary>
+/// The mime part.
+/// </summary>
+public class MIMEPart
 {
-    using System.Collections;
+    /// <summary>
+    /// Gets or sets BinaryData.
+    /// </summary>
+    public byte[] BinaryData { get; set; }
 
     /// <summary>
-    /// The mime part.
+    /// Gets or sets Boundary.
     /// </summary>
-    public class MIMEPart
-    {
-        /// <summary>
-        /// Gets or sets BinaryData.
-        /// </summary>
-        public byte[] BinaryData { get; set; }
+    public string Boundary { get; set; }
 
-        /// <summary>
-        /// Gets or sets Boundary.
-        /// </summary>
-        public string Boundary { get; set; }
+    /// <summary>
+    /// Gets or sets ContentType.
+    /// </summary>
+    public string ContentType { get; set; }
 
-        /// <summary>
-        /// Gets or sets ContentType.
-        /// </summary>
-        public string ContentType { get; set; }
+    /// <summary>
+    /// Gets or sets ContentTransferEncoding.
+    /// </summary>
+    public string ContentTransferEncoding { get; set; }
 
-        /// <summary>
-        /// Gets or sets ContentTransferEncoding.
-        /// </summary>
-        public string ContentTransferEncoding { get; set; }
+    /// <summary>
+    /// Gets or sets Charset.
+    /// </summary>
+    public string Charset { get; set; }
 
-        /// <summary>
-        /// Gets or sets Charset.
-        /// </summary>
-        public string Charset { get; set; }
+    /// <summary>
+    /// Gets or sets Filename.
+    /// </summary>
+    public string Filename { get; set; }
 
-        /// <summary>
-        /// Gets or sets Filename.
-        /// </summary>
-        public string Filename { get; set; }
+    /// <summary>
+    /// Gets or sets Text.
+    /// </summary>
+    public string Text { get; set; }
 
-        /// <summary>
-        /// Gets or sets Text.
-        /// </summary>
-        public string Text { get; set; }
-
-        /// <summary>
-        /// Gets or sets EmbeddedPartList.
-        /// </summary>
-        public ArrayList EmbeddedPartList { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets EmbeddedPartList.
+    /// </summary>
+    public ArrayList EmbeddedPartList { get; set; }
 }

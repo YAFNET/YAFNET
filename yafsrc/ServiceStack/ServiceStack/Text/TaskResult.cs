@@ -5,82 +5,81 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-namespace ServiceStack.Text
+namespace ServiceStack.Text;
+
+using System.Threading.Tasks;
+
+/// <summary>
+/// Class TaskResult.
+/// </summary>
+public static class TaskResult
 {
-    using System.Threading.Tasks;
+    /// <summary>
+    /// The zero
+    /// </summary>
+    public static Task<int> Zero;
+    /// <summary>
+    /// The one
+    /// </summary>
+    public static Task<int> One;
+    /// <summary>
+    /// The true
+    /// </summary>
+    public static readonly Task<bool> True;
+    /// <summary>
+    /// The false
+    /// </summary>
+    public static readonly Task<bool> False;
+    /// <summary>
+    /// The finished
+    /// </summary>
+    public static readonly Task Finished;
+    /// <summary>
+    /// The canceled
+    /// </summary>
+    public static readonly Task Canceled;
 
     /// <summary>
-    /// Class TaskResult.
+    /// Initializes static members of the <see cref="TaskResult"/> class.
     /// </summary>
-    public static class TaskResult
+    static TaskResult()
     {
-        /// <summary>
-        /// The zero
-        /// </summary>
-        public static Task<int> Zero;
-        /// <summary>
-        /// The one
-        /// </summary>
-        public static Task<int> One;
-        /// <summary>
-        /// The true
-        /// </summary>
-        public static readonly Task<bool> True;
-        /// <summary>
-        /// The false
-        /// </summary>
-        public static readonly Task<bool> False;
-        /// <summary>
-        /// The finished
-        /// </summary>
-        public static readonly Task Finished;
-        /// <summary>
-        /// The canceled
-        /// </summary>
-        public static readonly Task Canceled;
+        Finished = ((object)null).InTask();
+        True = true.InTask();
+        False = false.InTask();
+        Zero = 0.InTask();
+        One = 1.InTask();
 
-        /// <summary>
-        /// Initializes static members of the <see cref="TaskResult"/> class.
-        /// </summary>
-        static TaskResult()
-        {
-            Finished = ((object)null).InTask();
-            True = true.InTask();
-            False = false.InTask();
-            Zero = 0.InTask();
-            One = 1.InTask();
-
-            var tcs = new TaskCompletionSource<object>();
-            tcs.SetCanceled();
-            Canceled = tcs.Task;
-        }
+        var tcs = new TaskCompletionSource<object>();
+        tcs.SetCanceled();
+        Canceled = tcs.Task;
     }
+}
+
+/// <summary>
+/// Class TaskResult.
+/// </summary>
+/// <typeparam name="T"></typeparam>
+internal class TaskResult<T>
+{
+    /// <summary>
+    /// The canceled
+    /// </summary>
+    public static readonly Task<T> Canceled;
+    /// <summary>
+    /// The default
+    /// </summary>
+    public static readonly Task<T> Default;
 
     /// <summary>
-    /// Class TaskResult.
+    /// Initializes static members of the <see cref="TaskResult{T}"/> class.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    internal class TaskResult<T>
+    static TaskResult()
     {
-        /// <summary>
-        /// The canceled
-        /// </summary>
-        public static readonly Task<T> Canceled;
-        /// <summary>
-        /// The default
-        /// </summary>
-        public static readonly Task<T> Default;
+        Default = ((T)typeof(T).GetDefaultValue()).InTask();
 
-        /// <summary>
-        /// Initializes static members of the <see cref="TaskResult{T}"/> class.
-        /// </summary>
-        static TaskResult()
-        {
-            Default = ((T)typeof(T).GetDefaultValue()).InTask();
-
-            var tcs = new TaskCompletionSource<T>();
-            tcs.SetCanceled();
-            Canceled = tcs.Task;
-        }
+        var tcs = new TaskCompletionSource<T>();
+        tcs.SetCanceled();
+        Canceled = tcs.Task;
     }
 }

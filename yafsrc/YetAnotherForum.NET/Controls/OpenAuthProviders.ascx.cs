@@ -22,47 +22,46 @@
  * under the License.
  */
 
-namespace YAF.Controls
-{
-    #region Using
+namespace YAF.Controls;
 
-    #endregion
+#region Using
+
+#endregion
+
+/// <summary>
+/// The Header.
+/// </summary>
+public partial class OpenAuthProviders : BaseUserControl
+{
+    /// <summary>
+    /// Gets the provider names.
+    /// </summary>
+    /// <returns>
+    /// Returns the Provider Names
+    /// </returns>
+    public IEnumerable<string> GetProviderNames()
+    {
+        return IdentityHelper.GetProviderNames();
+    }
 
     /// <summary>
-    /// The Header.
+    /// Do Login
     /// </summary>
-    public partial class OpenAuthProviders : BaseUserControl
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Login_OnCommand(object sender, CommandEventArgs e)
     {
-        /// <summary>
-        /// Gets the provider names.
-        /// </summary>
-        /// <returns>
-        /// Returns the Provider Names
-        /// </returns>
-        public IEnumerable<string> GetProviderNames()
-        {
-            return IdentityHelper.GetProviderNames();
-        }
+        var providerName = e.CommandArgument.ToString();
 
-        /// <summary>
-        /// Do Login
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Login_OnCommand(object sender, CommandEventArgs e)
-        {
-            var providerName = e.CommandArgument.ToString();
+        var redirectUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login, new { auth = providerName });
 
-            var redirectUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login, new { auth = providerName });
+        IdentityHelper.RegisterExternalLogin(this.Context, providerName, redirectUrl);
 
-            IdentityHelper.RegisterExternalLogin(this.Context, providerName, redirectUrl);
-
-            this.Response.StatusCode = 401;
-            this.Response.End();
-        }
+        this.Response.StatusCode = 401;
+        this.Response.End();
     }
 }

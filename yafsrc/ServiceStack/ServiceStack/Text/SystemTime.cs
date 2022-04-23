@@ -7,42 +7,41 @@
 
 using System;
 
-namespace ServiceStack.Text
+namespace ServiceStack.Text;
+
+/// <summary>
+/// Class SystemTime.
+/// </summary>
+public static class SystemTime
 {
     /// <summary>
-    /// Class SystemTime.
+    /// The UTC date time resolver
     /// </summary>
-    public static class SystemTime
+    public static Func<DateTime> UtcDateTimeResolver;
+
+    /// <summary>
+    /// Gets the now.
+    /// </summary>
+    /// <value>The now.</value>
+    public static DateTime Now
     {
-        /// <summary>
-        /// The UTC date time resolver
-        /// </summary>
-        public static Func<DateTime> UtcDateTimeResolver;
-
-        /// <summary>
-        /// Gets the now.
-        /// </summary>
-        /// <value>The now.</value>
-        public static DateTime Now
+        get
         {
-            get
-            {
-                var temp = UtcDateTimeResolver;
-                return temp == null ? DateTime.Now : temp().ToLocalTime();
-            }
+            var temp = UtcDateTimeResolver;
+            return temp == null ? DateTime.Now : temp().ToLocalTime();
         }
+    }
 
-        /// <summary>
-        /// Gets the UTC now.
-        /// </summary>
-        /// <value>The UTC now.</value>
-        public static DateTime UtcNow
+    /// <summary>
+    /// Gets the UTC now.
+    /// </summary>
+    /// <value>The UTC now.</value>
+    public static DateTime UtcNow
+    {
+        get
         {
-            get
-            {
-                var temp = UtcDateTimeResolver;
-                return temp == null ? DateTime.UtcNow : temp();
-            }
+            var temp = UtcDateTimeResolver;
+            return temp == null ? DateTime.UtcNow : temp();
         }
     }
 }

@@ -22,78 +22,77 @@
  * under the License.
  */
 
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+using System;
+using System.Dynamic;
+using System.Net;
+
+using ServiceStack;
+using ServiceStack.Text;
+
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+/// <summary>
+/// LatestInformation service class
+/// </summary>
+public class LatestInformation : IHaveServiceLocator, ILatestInformation
 {
-    using System;
-    using System.Dynamic;
-    using System.Net;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LatestInformation"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public LatestInformation([NotNull] IServiceLocator serviceLocator)
+    {
+        this.ServiceLocator = serviceLocator;
+    }
 
-    using ServiceStack;
-    using ServiceStack.Text;
-
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+    #region Properties
 
     /// <summary>
-    /// LatestInformation service class
+    /// Gets or sets ServiceLocator.
     /// </summary>
-    public class LatestInformation : IHaveServiceLocator, ILatestInformation
+    public IServiceLocator ServiceLocator { get; set; }
+
+    #endregion
+
+    /// <summary>
+    /// Gets the latest version information.
+    /// </summary>
+    /// <returns>Returns the LatestVersionInformation</returns>
+    public dynamic GetLatestVersion()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LatestInformation"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        public LatestInformation([NotNull] IServiceLocator serviceLocator)
+        dynamic version = new ExpandoObject();
+
+        try
         {
-            this.ServiceLocator = serviceLocator;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
+                                                   SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+
+            var test = "https://api.github.com/repos/YAFNET/YAFNET/releases/latest".GetJsonFromUrl(
+                x => x.UserAgent = "YAF.NET");
+
+            var json = DynamicJson.Deserialize(test);
+
+            var tagName = (string)json.tag_name;
+            var date = DateTime.SpecifyKind(
+                DateTime.Parse(json.published_at),
+                DateTimeKind.Unspecified);
+
+            version.UpgradeUrl = "https://yetanotherforum.net/download";
+            version.VersionDate = date;
+            version.Version = tagName.Replace("v", string.Empty);
+        }
+        catch (Exception x)
+        {
+            this.Get<ILoggerService>().Error(x, "Exception In LatestInformationService");
         }
 
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        #endregion
-
-        /// <summary>
-        /// Gets the latest version information.
-        /// </summary>
-        /// <returns>Returns the LatestVersionInformation</returns>
-        public dynamic GetLatestVersion()
-        {
-            dynamic version = new ExpandoObject();
-
-            try
-            {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
-                                                       SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
-
-                var test = "https://api.github.com/repos/YAFNET/YAFNET/releases/latest".GetJsonFromUrl(
-                    x => x.UserAgent = "YAF.NET");
-
-                var json = DynamicJson.Deserialize(test);
-
-                var tagName = (string)json.tag_name;
-                var date = DateTime.SpecifyKind(
-                    DateTime.Parse(json.published_at),
-                    DateTimeKind.Unspecified);
-
-                version.UpgradeUrl = "https://yetanotherforum.net/download";
-                version.VersionDate = date;
-                version.Version = tagName.Replace("v", string.Empty);
-            }
-            catch (Exception x)
-            {
-                this.Get<ILoggerService>().Error(x, "Exception In LatestInformationService");
-            }
-
-            return version;
-        }
+        return version;
     }
 }

@@ -21,33 +21,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Exceptions
+namespace YAF.Types.Exceptions;
+
+#region Using
+
+using System;
+
+#endregion
+
+/// <summary>
+/// The no valid guest user for board exception.
+/// </summary>
+[Serializable]
+public class NoValidGuestUserForBoardException : Exception
 {
-    #region Using
-
-    using System;
-
-    #endregion
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The no valid guest user for board exception.
+    /// Initializes a new instance of the <see cref="NoValidGuestUserForBoardException"/> class.
     /// </summary>
-    [Serializable]
-    public class NoValidGuestUserForBoardException : Exception
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    public NoValidGuestUserForBoardException(string message)
+        : base(message)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NoValidGuestUserForBoardException"/> class.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        public NoValidGuestUserForBoardException(string message)
-            : base(message)
-        {
-        }
-
-        #endregion
     }
+
+    #endregion
 }

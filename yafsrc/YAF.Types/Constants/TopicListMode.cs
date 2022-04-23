@@ -21,31 +21,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The topic list mode.
+/// </summary>
+public enum TopicListMode
 {
     /// <summary>
-    /// The topic list mode.
+    ///   The active topics list.
     /// </summary>
-    public enum TopicListMode
-    {
-        /// <summary>
-        ///   The active topics list.
-        /// </summary>
-        Active,
+    Active,
 
-        /// <summary>
-        ///   The unanswered topics list.
-        /// </summary>
-        Unanswered,
+    /// <summary>
+    ///   The unanswered topics list.
+    /// </summary>
+    Unanswered,
 
-        /// <summary>
-        ///   The watch topics list.
-        /// </summary>
-        Watch,
+    /// <summary>
+    ///   The watch topics list.
+    /// </summary>
+    Watch,
 
-        /// <summary>
-        ///   The User topics list.
-        /// </summary>
-        User
-    }
+    /// <summary>
+    ///   The User topics list.
+    /// </summary>
+    User
 }

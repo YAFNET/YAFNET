@@ -22,103 +22,102 @@
  * under the License.
  */
 
-namespace YAF.Core.Membership
+namespace YAF.Core.Membership;
+
+using System;
+using System.Web.Security;
+
+using Microsoft.AspNet.Identity;
+
+using YAF.Configuration;
+using YAF.Core.Helpers;
+using YAF.Types.Extensions;
+
+/// <summary>
+/// The SQL password hasher.
+/// </summary>
+public class SQLPasswordHasher : PasswordHasher
 {
-    using System;
-    using System.Web.Security;
+    /// <summary>
+    /// The verify hashed password.
+    /// </summary>
+    /// <param name="hashedPassword">
+    /// The hashed password.
+    /// </param>
+    /// <param name="providedPassword">
+    /// The provided password.
+    /// </param>
+    /// <returns>
+    /// The <see cref="PasswordVerificationResult"/>.
+    /// </returns>
+    public override PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
+    {
+        var passwordProperties = hashedPassword.Split('|');
 
-    using Microsoft.AspNet.Identity;
+        if (passwordProperties.Length != 3)
+        {
+            return base.VerifyHashedPassword(hashedPassword, providedPassword);
+        }
 
-    using YAF.Configuration;
-    using YAF.Core.Helpers;
-    using YAF.Types.Extensions;
+        var passwordHash = passwordProperties[0];
+        var salt = passwordProperties[2];
+
+        var passwordFormat = passwordProperties[1].ToEnum<MembershipPasswordFormat>();
+
+        var encryptedPassword = EncryptPassword(
+            passwordHash,
+            providedPassword,
+            passwordFormat,
+            salt);
+
+        return string.Equals(
+                   encryptedPassword,
+                   passwordFormat == MembershipPasswordFormat.Hashed
+                       ? passwordHash
+                       : providedPassword,
+                   StringComparison.CurrentCultureIgnoreCase)
+                   ? PasswordVerificationResult.SuccessRehashNeeded
+                   : PasswordVerificationResult.Failed;
+    }
 
     /// <summary>
-    /// The SQL password hasher.
+    /// The encrypt password.
     /// </summary>
-    public class SQLPasswordHasher : PasswordHasher
+    /// <param name="hashedPassword">
+    /// The hashed Password.
+    /// </param>
+    /// <param name="clearPassword">
+    /// The clear Password.
+    /// </param>
+    /// <param name="passwordFormat">
+    /// The password format.
+    /// </param>
+    /// <param name="salt">
+    /// The salt.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    private static string EncryptPassword(string hashedPassword, string clearPassword, MembershipPasswordFormat passwordFormat, string salt)
     {
-        /// <summary>
-        /// The verify hashed password.
-        /// </summary>
-        /// <param name="hashedPassword">
-        /// The hashed password.
-        /// </param>
-        /// <param name="providedPassword">
-        /// The provided password.
-        /// </param>
-        /// <returns>
-        /// The <see cref="PasswordVerificationResult"/>.
-        /// </returns>
-        public override PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
+        switch (passwordFormat)
         {
-            var passwordProperties = hashedPassword.Split('|');
-
-            if (passwordProperties.Length != 3)
-            {
-                return base.VerifyHashedPassword(hashedPassword, providedPassword);
-            }
-
-            var passwordHash = passwordProperties[0];
-            var salt = passwordProperties[2];
-
-            var passwordFormat = passwordProperties[1].ToEnum<MembershipPasswordFormat>();
-
-            var encryptedPassword = EncryptPassword(
-                passwordHash,
-                providedPassword,
-                passwordFormat,
-                salt);
-
-            return string.Equals(
-                encryptedPassword,
-                passwordFormat == MembershipPasswordFormat.Hashed
-                    ? passwordHash
-                    : providedPassword,
-                StringComparison.CurrentCultureIgnoreCase)
-                ? PasswordVerificationResult.SuccessRehashNeeded
-                : PasswordVerificationResult.Failed;
+            case MembershipPasswordFormat.Clear:
+                return clearPassword;
+            case MembershipPasswordFormat.Hashed:
+                return HashHelper.Hash(
+                    clearPassword,
+                    Config.LegacyMembershipHashAlgorithmType,
+                    salt,
+                    Config.LegacyMembershipHashHex,
+                    Config.LegacyMembershipHashCase,
+                    null,
+                    false);
+            case MembershipPasswordFormat.Encrypted:
+                var passwordManager = new YafMembershipProvider();
+                return passwordManager.GetClearTextPassword(hashedPassword);
         }
 
-        /// <summary>
-        /// The encrypt password.
-        /// </summary>
-        /// <param name="hashedPassword">
-        /// The hashed Password.
-        /// </param>
-        /// <param name="clearPassword">
-        /// The clear Password.
-        /// </param>
-        /// <param name="passwordFormat">
-        /// The password format.
-        /// </param>
-        /// <param name="salt">
-        /// The salt.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        private static string EncryptPassword(string hashedPassword, string clearPassword, MembershipPasswordFormat passwordFormat, string salt)
-        {
-            switch (passwordFormat)
-            {
-                case MembershipPasswordFormat.Clear:
-                    return clearPassword;
-                case MembershipPasswordFormat.Hashed:
-                    return HashHelper.Hash(
-                        clearPassword,
-                        Config.LegacyMembershipHashAlgorithmType,
-                        salt,
-                        Config.LegacyMembershipHashHex,
-                        Config.LegacyMembershipHashCase,
-                        null,
-                        false);
-                case MembershipPasswordFormat.Encrypted:
-                    var passwordManager = new YafMembershipProvider();
-                    return passwordManager.GetClearTextPassword(hashedPassword);
-            }
-
-            return clearPassword;
-        }
+        return clearPassword;
     }
 }

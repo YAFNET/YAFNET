@@ -22,133 +22,132 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+#region Using
+
+using System.Net.Mail;
+
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// Send Email from one user to the user
+/// </summary>
+public partial class Email : ForumPage
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System.Net.Mail;
-
-    using YAF.Types.Models;
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "Email" /> class.
+    /// </summary>
+    public Email()
+        : base("IM_EMAIL", ForumPages.Email)
+    {
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// Send Email from one user to the user
+    ///   Gets UserID.
     /// </summary>
-    public partial class Email : ForumPage
+    public int UserId =>
+        this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "Email" /> class.
-        /// </summary>
-        public Email()
-            : base("IM_EMAIL", ForumPages.Email)
+        if (this.User == null || !this.PageBoardContext.BoardSettings.AllowEmailSending)
         {
+            this.Get<LinkBuilder>().AccessDenied();
         }
 
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets UserID.
-        /// </summary>
-        public int UserId =>
-            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        if (this.IsPostBack)
         {
-            if (this.User == null || !this.PageBoardContext.BoardSettings.AllowEmailSending)
+            return;
+        }
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.FormValidatorJs),
+            JavaScriptBlocks.FormValidatorJs(this.Send.ClientID));
+
+        // get user data...
+        var user = this.GetRepository<User>().GetById(this.UserId);
+
+        if (user == null)
+        {
+            // No such user exists
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+        else
+        {
+            if (!user.UserFlags.IsApproved)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            if (this.IsPostBack)
-            {
-                return;
-            }
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddUser(this.UserId, user.DisplayOrUserName());
+            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                nameof(JavaScriptBlocks.FormValidatorJs),
-                JavaScriptBlocks.FormValidatorJs(this.Send.ClientID));
-
-            // get user data...
-            var user = this.GetRepository<User>().GetById(this.UserId);
-
-            if (user == null)
-            {
-                // No such user exists
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-            else
-            {
-                if (!user.UserFlags.IsApproved)
-                {
-                    this.Get<LinkBuilder>().AccessDenied();
-                }
-
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddUser(this.UserId, user.DisplayOrUserName());
-                this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-                this.LocalizedLabel6.Param0 = user.DisplayOrUserName();
-                this.IconHeader.Param0 = user.DisplayOrUserName();
-            }
+            this.LocalizedLabel6.Param0 = user.DisplayOrUserName();
+            this.IconHeader.Param0 = user.DisplayOrUserName();
         }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-        }
-
-        /// <summary>
-        /// Handles the Click event of the Send control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Send_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            try
-            {
-                // get "to" user...
-                var toUser = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserId);
-
-                // send it...
-                this.Get<IMailService>().Send(
-                    new MailAddress(this.PageBoardContext.MembershipUser.Email, this.PageBoardContext.MembershipUser.UserName),
-                    new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()),
-                    new MailAddress(this.PageBoardContext.BoardSettings.ForumEmail, this.PageBoardContext.BoardSettings.Name),
-                    this.Subject.Text.Trim(),
-                    this.Body.Text.Trim());
-
-                // redirect to profile page...
-                this.Get<LinkBuilder>().Redirect(
-                    ForumPages.UserProfile,
-                    false,
-                    new { u = this.UserId, name = this.Get<IUserDisplayName>().GetNameById(this.UserId)});
-            }
-            catch (Exception x)
-            {
-                this.Logger.Log(this.PageBoardContext.PageUserID, this, x);
-
-                this.PageBoardContext.Notify(
-                    this.PageBoardContext.IsAdmin ? x.Message : this.GetText("ERROR"),
-                    MessageTypes.danger);
-            }
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+    }
+
+    /// <summary>
+    /// Handles the Click event of the Send control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Send_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        try
+        {
+            // get "to" user...
+            var toUser = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserId);
+
+            // send it...
+            this.Get<IMailService>().Send(
+                new MailAddress(this.PageBoardContext.MembershipUser.Email, this.PageBoardContext.MembershipUser.UserName),
+                new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()),
+                new MailAddress(this.PageBoardContext.BoardSettings.ForumEmail, this.PageBoardContext.BoardSettings.Name),
+                this.Subject.Text.Trim(),
+                this.Body.Text.Trim());
+
+            // redirect to profile page...
+            this.Get<LinkBuilder>().Redirect(
+                ForumPages.UserProfile,
+                false,
+                new { u = this.UserId, name = this.Get<IUserDisplayName>().GetNameById(this.UserId)});
+        }
+        catch (Exception x)
+        {
+            this.Logger.Log(this.PageBoardContext.PageUserID, this, x);
+
+            this.PageBoardContext.Notify(
+                this.PageBoardContext.IsAdmin ? x.Message : this.GetText("ERROR"),
+                MessageTypes.danger);
+        }
+    }
+
+    #endregion
 }

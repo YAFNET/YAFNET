@@ -21,25 +21,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BBCode
+namespace YAF.Core.BBCode;
+
+#region Using
+
+using System.Collections.Generic;
+
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// Gets an instance of replace rules and uses
+///   caching if possible.
+/// </summary>
+public class ProcessReplaceRulesProvider : IHaveServiceLocator, IReadOnlyProvider<IProcessReplaceRules>
 {
-  #region Using
-
-    using System.Collections.Generic;
-
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-
-    #endregion
-
-  /// <summary>
-  /// Gets an instance of replace rules and uses
-  ///   caching if possible.
-  /// </summary>
-  public class ProcessReplaceRulesProvider : IHaveServiceLocator, IReadOnlyProvider<IProcessReplaceRules>
-  {
     #region Constants and Fields
 
     /// <summary>
@@ -77,15 +77,15 @@ namespace YAF.Core.BBCode
     /// The unique Flags.
     /// </param>
     public ProcessReplaceRulesProvider(
-      [NotNull] IObjectStore objectStore,
-      [NotNull] IServiceLocator serviceLocator,
-      [NotNull] IInjectServices injectServices,
-      [NotNull] IEnumerable<bool> uniqueFlags)
+        [NotNull] IObjectStore objectStore,
+        [NotNull] IServiceLocator serviceLocator,
+        [NotNull] IInjectServices injectServices,
+        [NotNull] IEnumerable<bool> uniqueFlags)
     {
-      this.ServiceLocator = serviceLocator;
-      this.objectStore = objectStore;
-      this.injectServices = injectServices;
-      this.uniqueFlags = uniqueFlags;
+        this.ServiceLocator = serviceLocator;
+        this.objectStore = objectStore;
+        this.injectServices = injectServices;
+        this.uniqueFlags = uniqueFlags;
     }
 
     #endregion
@@ -99,14 +99,14 @@ namespace YAF.Core.BBCode
         this.objectStore.GetOrSet(
             string.Format(Constants.Cache.ReplaceRules, this.uniqueFlags.ToIntOfBits()),
             () =>
-            {
-                var processRules = new ProcessReplaceRules();
+                {
+                    var processRules = new ProcessReplaceRules();
 
-                // inject
-                this.injectServices.Inject(processRules);
+                    // inject
+                    this.injectServices.Inject(processRules);
 
-                return processRules;
-            });
+                    return processRules;
+                });
 
     /// <summary>
     ///   Gets or sets ServiceLocator.
@@ -114,5 +114,4 @@ namespace YAF.Core.BBCode
     public IServiceLocator ServiceLocator { get; set; }
 
     #endregion
-  }
 }

@@ -21,96 +21,95 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+///     The event log types. Always use the same numbers in the enumeration and NEVER change the pairs.
+/// </summary>
+public enum EventLogTypes
 {
     /// <summary>
-    ///     The event log types. Always use the same numbers in the enumeration and NEVER change the pairs.
+    /// The debug.
     /// </summary>
-    public enum EventLogTypes
-    {
-        /// <summary>
-        /// The debug.
-        /// </summary>
-        Debug = -1000,
+    Debug = -1000,
 
-        /// <summary>
-        /// The trace.
-        /// </summary>
-        Trace = -500,
+    /// <summary>
+    /// The trace.
+    /// </summary>
+    Trace = -500,
 
-        /// <summary>
-        ///     The error.
-        /// </summary>
-        Error = 0,
+    /// <summary>
+    ///     The error.
+    /// </summary>
+    Error = 0,
 
-        /// <summary>
-        ///     The warning.
-        /// </summary>
-        Warning = 1,
+    /// <summary>
+    ///     The warning.
+    /// </summary>
+    Warning = 1,
 
-        /// <summary>
-        ///     The information.
-        /// </summary>
-        Information = 2,
+    /// <summary>
+    ///     The information.
+    /// </summary>
+    Information = 2,
 
-        /// <summary>
-        ///     The SQL error.
-        /// </summary>
-        SqlError = 3,
+    /// <summary>
+    ///     The SQL error.
+    /// </summary>
+    SqlError = 3,
 
-        /// <summary>
-        /// The login failure.
-        /// </summary>
-        LoginFailure = 4,
+    /// <summary>
+    /// The login failure.
+    /// </summary>
+    LoginFailure = 4,
 
-        /// <summary>
-        ///     The user suspended.
-        /// </summary>
-        UserSuspended = 1000,
+    /// <summary>
+    ///     The user suspended.
+    /// </summary>
+    UserSuspended = 1000,
 
-        /// <summary>
-        ///     The user unsuspended.
-        /// </summary>
-        UserUnsuspended = 1001,
+    /// <summary>
+    ///     The user unsuspended.
+    /// </summary>
+    UserUnsuspended = 1001,
 
-        /// <summary>
-        ///     The user deleted.
-        /// </summary>
-        UserDeleted = 1002,
+    /// <summary>
+    ///     The user deleted.
+    /// </summary>
+    UserDeleted = 1002,
 
-        /// <summary>
-        ///     The ban set.
-        /// </summary>
-        IpBanSet = 1003,
+    /// <summary>
+    ///     The ban set.
+    /// </summary>
+    IpBanSet = 1003,
 
-        /// <summary>
-        ///     The IP Ban Lifted.
-        /// </summary>
-        IpBanLifted = 1004,
+    /// <summary>
+    ///     The IP Ban Lifted.
+    /// </summary>
+    IpBanLifted = 1004,
 
-        /// <summary>
-        ///     The IP Ban Detected.
-        /// </summary>
-        IpBanDetected = 1005,
+    /// <summary>
+    ///     The IP Ban Detected.
+    /// </summary>
+    IpBanDetected = 1005,
 
-        /// <summary>
-        /// The spam bot reported
-        /// </summary>
-        SpamBotReported = 2000,
+    /// <summary>
+    /// The spam bot reported
+    /// </summary>
+    SpamBotReported = 2000,
 
-        /// <summary>
-        /// The spam bot detected
-        /// </summary>
-        SpamBotDetected = 2001,
+    /// <summary>
+    /// The spam bot detected
+    /// </summary>
+    SpamBotDetected = 2001,
 
-        /// <summary>
-        /// The spam message reported
-        /// </summary>
-        SpamMessageReported = 2002,
+    /// <summary>
+    /// The spam message reported
+    /// </summary>
+    SpamMessageReported = 2002,
 
-        /// <summary>
-        /// The spam message detected
-        /// </summary>
-        SpamMessageDetected = 2003
-    }
+    /// <summary>
+    /// The spam message detected
+    /// </summary>
+    SpamMessageDetected = 2003
 }

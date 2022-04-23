@@ -21,93 +21,93 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Events
+namespace YAF.Core.Events;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The service locator event raiser.
+/// </summary>
+public class ServiceLocatorEventRaiser : IRaiseEvent
 {
-    #region Using
+    #region Fields
 
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Interfaces.Services;
+    /// <summary>
+    ///     The _service locator.
+    /// </summary>
+    private readonly IServiceLocator _serviceLocator;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// The service locator event raiser.
+    /// Initializes a new instance of the <see cref="ServiceLocatorEventRaiser"/> class.
     /// </summary>
-    public class ServiceLocatorEventRaiser : IRaiseEvent
+    /// <param name="serviceLocator">
+    /// The service Locator.
+    /// </param>
+    /// <param name="logger">
+    /// The logger.
+    /// </param>
+    public ServiceLocatorEventRaiser([NotNull] IServiceLocator serviceLocator, ILoggerService logger)
     {
-        #region Fields
+        this.Logger = logger;
+        this._serviceLocator = serviceLocator;
+    }
 
-        /// <summary>
-        ///     The _service locator.
-        /// </summary>
-        private readonly IServiceLocator _serviceLocator;
+    #endregion
 
-        #endregion
+    #region Public Properties
 
-        #region Constructors and Destructors
+    /// <summary>
+    ///     Gets or sets the logger.
+    /// </summary>
+    public ILoggerService Logger { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ServiceLocatorEventRaiser"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service Locator.
-        /// </param>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        public ServiceLocatorEventRaiser([NotNull] IServiceLocator serviceLocator, ILoggerService logger)
-        {
-            this.Logger = logger;
-            this._serviceLocator = serviceLocator;
-        }
+    #endregion
 
-        #endregion
+    #region Public Methods and Operators
 
-        #region Public Properties
+    /// <summary>
+    /// The event raiser.
+    /// </summary>
+    /// <param name="eventObject">
+    /// The event object.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    public void Raise<T>(T eventObject) where T : IAmEvent
+    {
+        this.GetAggregatedAndOrderedEventHandlers<T>().ForEach(x => x.Handle(eventObject));
+    }
 
-        /// <summary>
-        ///     Gets or sets the logger.
-        /// </summary>
-        public ILoggerService Logger { get; set; }
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The event raiser.
-        /// </summary>
-        /// <param name="eventObject">
-        /// The event object.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        public void Raise<T>(T eventObject) where T : IAmEvent
-        {
-            this.GetAggregatedAndOrderedEventHandlers<T>().ForEach(x => x.Handle(eventObject));
-        }
-
-        /// <summary>
-        /// Raise all events using try/catch block.
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <param name="eventObject">
-        /// </param>
-        /// <param name="logExceptionAction">
-        /// </param>
-        public void RaiseIssolated<T>(T eventObject, [CanBeNull] Action<string, Exception> logExceptionAction)
-            where T : IAmEvent
-        {
-            this.GetAggregatedAndOrderedEventHandlers<T>().ForEach(
-                theHandler =>
+    /// <summary>
+    /// Raise all events using try/catch block.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="eventObject">
+    /// </param>
+    /// <param name="logExceptionAction">
+    /// </param>
+    public void RaiseIssolated<T>(T eventObject, [CanBeNull] Action<string, Exception> logExceptionAction)
+        where T : IAmEvent
+    {
+        this.GetAggregatedAndOrderedEventHandlers<T>().ForEach(
+            theHandler =>
                 {
                     theHandler.Handle(eventObject);
 
@@ -127,28 +127,27 @@ namespace YAF.Core.Events
                         }
                     }
                 });
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        ///     The get event handlers aggregated and ordered.
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        ///     The <see cref="IList" />.
-        /// </returns>
-        private IList<IHandleEvent<T>> GetAggregatedAndOrderedEventHandlers<T>() where T : IAmEvent
-        {
-            return this._serviceLocator.Get<IEnumerable<IHandleEvent<T>>>()
-                       .Concat(this._serviceLocator.Get<IEnumerable<IFireEvent<T>>>())
-                       .OrderBy(x => x.Order)
-                       .ToList();
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    ///     The get event handlers aggregated and ordered.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    ///     The <see cref="IList" />.
+    /// </returns>
+    private IList<IHandleEvent<T>> GetAggregatedAndOrderedEventHandlers<T>() where T : IAmEvent
+    {
+        return this._serviceLocator.Get<IEnumerable<IHandleEvent<T>>>()
+            .Concat(this._serviceLocator.Get<IEnumerable<IFireEvent<T>>>())
+            .OrderBy(x => x.Order)
+            .ToList();
+    }
+
+    #endregion
 }

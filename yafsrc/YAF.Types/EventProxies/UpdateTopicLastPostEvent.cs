@@ -21,50 +21,49 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
-{
-    #region Using
+namespace YAF.Types.EventProxies;
 
-    using YAF.Types.Interfaces.Events;
+#region Using
+
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+/// The update topic last post event.
+/// </summary>
+public class UpdateTopicLastPostEvent : IAmEvent
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateTopicLastPostEvent"/> class.
+    /// </summary>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    public UpdateTopicLastPostEvent(int forumId, int topicId)
+    {
+        this.ForumId = forumId;
+        this.TopicId = topicId;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The update topic last post event.
+    /// Gets or sets the forum id.
     /// </summary>
-    public class UpdateTopicLastPostEvent : IAmEvent
-    {
-        #region Constructors and Destructors
+    public int ForumId { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateTopicLastPostEvent"/> class.
-        /// </summary>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        public UpdateTopicLastPostEvent(int forumId, int topicId)
-        {
-            this.ForumId = forumId;
-            this.TopicId = topicId;
-        }
+    /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    public int TopicId { get; set; }
 
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        public int ForumId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the topic id.
-        /// </summary>
-        public int TopicId { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

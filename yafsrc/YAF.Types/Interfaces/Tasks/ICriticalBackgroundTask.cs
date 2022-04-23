@@ -21,12 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Tasks
+namespace YAF.Types.Interfaces.Tasks;
+
+/// <summary>
+/// Marker interface for a task that is very important and shouldn't be stopped
+/// </summary>
+public interface ICriticalBackgroundTask
 {
-    /// <summary>
-    /// Marker interface for a task that is very important and shouldn't be stopped
-    /// </summary>
-    public interface ICriticalBackgroundTask
-    {
-    }
 }

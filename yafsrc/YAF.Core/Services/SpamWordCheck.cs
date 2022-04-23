@@ -21,150 +21,150 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+
+#endregion
+
+/// <summary>
+/// The YAF bad word replace.
+/// </summary>
+public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
 {
-    #region Using
+    #region Constants and Fields
 
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text.RegularExpressions;
-
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
-    using YAF.Types.Objects;
+    /// <summary>
+    ///   The _options.
+    /// </summary>
+    private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Compiled;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// The YAF bad word replace.
+    /// Initializes a new instance of the <see cref="SpamWordCheck" /> class.
     /// </summary>
-    public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
+    /// <param name="objectStore">The object Store.</param>
+    /// <param name="logger">The logger.</param>
+    /// <param name="serviceLocator">The service locator.</param>
+    public SpamWordCheck([NotNull] IObjectStore objectStore, [NotNull] ILoggerService logger, IServiceLocator serviceLocator)
     {
-        #region Constants and Fields
+        this.ServiceLocator = serviceLocator;
+        this.ObjectStore = objectStore;
+        this.Logger = logger;
+    }
 
-        /// <summary>
-        ///   The _options.
-        /// </summary>
-        private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Compiled;
+    #endregion
 
-        #endregion
+    #region Properties
 
-        #region Constructors and Destructors
+    /// <summary>
+    /// Gets or sets the service locator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SpamWordCheck" /> class.
-        /// </summary>
-        /// <param name="objectStore">The object Store.</param>
-        /// <param name="logger">The logger.</param>
-        /// <param name="serviceLocator">The service locator.</param>
-        public SpamWordCheck([NotNull] IObjectStore objectStore, [NotNull] ILoggerService logger, IServiceLocator serviceLocator)
+    /// <summary>
+    /// Gets or sets Logger.
+    /// </summary>
+    public ILoggerService Logger { get; set; }
+
+    /// <summary>
+    /// Gets or sets ObjectStore.
+    /// </summary>
+    public IObjectStore ObjectStore { get; set; }
+
+    /// <summary>
+    /// Gets the spam word items.
+    /// </summary>
+    /// <value>
+    /// The spam word items.
+    /// </value>
+    public IEnumerable<SpamWordCheckItem> SpamWordItems
+    {
+        get
         {
-            this.ServiceLocator = serviceLocator;
-            this.ObjectStore = objectStore;
-            this.Logger = logger;
+            var spamItems = this.ObjectStore.GetOrSet(
+                Constants.Cache.SpamWords,
+                () =>
+                    {
+                        var spamWords = this.GetRepository<Spam_Words>().Get(
+                            x => x.BoardID == this.GetRepository<Spam_Words>().BoardID);
+
+                        // move to collection...
+                        return
+                            spamWords.Select(
+                                item => new SpamWordCheckItem(item.SpamWord, Options)).ToList();
+                    });
+
+            return spamItems;
+        }
+    }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region ISpamWordCheck
+
+    /// <summary>
+    /// Checks for spam word.
+    /// </summary>
+    /// <param name="searchText">The search text.</param>
+    /// <param name="spamWord">The spam word.</param>
+    /// <returns>
+    /// Returns if the search Text contains a spam word
+    /// </returns>
+    [NotNull]
+    public bool CheckForSpamWord([NotNull] string searchText, out string spamWord)
+    {
+        spamWord = string.Empty;
+
+        if (searchText.IsNotSet())
+        {
+            return false;
         }
 
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the service locator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        /// <summary>
-        /// Gets or sets Logger.
-        /// </summary>
-        public ILoggerService Logger { get; set; }
-
-        /// <summary>
-        /// Gets or sets ObjectStore.
-        /// </summary>
-        public IObjectStore ObjectStore { get; set; }
-
-        /// <summary>
-        /// Gets the spam word items.
-        /// </summary>
-        /// <value>
-        /// The spam word items.
-        /// </value>
-        public IEnumerable<SpamWordCheckItem> SpamWordItems
+        foreach (var item in this.SpamWordItems)
         {
-            get
+            try
             {
-                var spamItems = this.ObjectStore.GetOrSet(
-                    Constants.Cache.SpamWords,
-                    () =>
-                        {
-                            var spamWords = this.GetRepository<Spam_Words>().Get(
-                                x => x.BoardID == this.GetRepository<Spam_Words>().BoardID);
-
-                            // move to collection...
-                            return
-                                spamWords.Select(
-                                    item => new SpamWordCheckItem(item.SpamWord, Options)).ToList();
-                        });
-
-                return spamItems;
-            }
-        }
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region ISpamWordCheck
-
-        /// <summary>
-        /// Checks for spam word.
-        /// </summary>
-        /// <param name="searchText">The search text.</param>
-        /// <param name="spamWord">The spam word.</param>
-        /// <returns>
-        /// Returns if the search Text contains a spam word
-        /// </returns>
-        [NotNull]
-        public bool CheckForSpamWord([NotNull] string searchText, out string spamWord)
-        {
-            spamWord = string.Empty;
-
-            if (searchText.IsNotSet())
-            {
-                return false;
-            }
-
-            foreach (var item in this.SpamWordItems)
-            {
-                try
+                if (item.SpamWordRegEx == null || !item.Active)
                 {
-                    if (item.SpamWordRegEx == null || !item.Active)
-                    {
-                        continue;
-                    }
-
-                    var match = item.SpamWordRegEx.Match(searchText);
-
-                    if (!match.Success)
-                    {
-                        continue;
-                    }
-
-                    spamWord = match.Value;
-                    return true;
+                    continue;
                 }
+
+                var match = item.SpamWordRegEx.Match(searchText);
+
+                if (!match.Success)
+                {
+                    continue;
+                }
+
+                spamWord = match.Value;
+                return true;
+            }
 
 #if DEBUG
-                catch (Exception e)
-                {
-                    throw new Exception($"Spam Word Regular Expression Failed: {e.Message}", e);
-                }
+            catch (Exception e)
+            {
+                throw new Exception($"Spam Word Regular Expression Failed: {e.Message}", e);
+            }
 
 #else
                 catch (Exception x)
@@ -175,14 +175,13 @@ namespace YAF.Core.Services
                 }
 
 #endif
-            }
-
-            spamWord = string.Empty;
-            return false;
         }
 
-        #endregion
-
-        #endregion
+        spamWord = string.Empty;
+        return false;
     }
+
+    #endregion
+
+    #endregion
 }

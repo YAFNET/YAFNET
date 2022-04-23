@@ -22,74 +22,73 @@
  * under the License.
  */
 
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite;
+
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the EventLog table.
+/// </summary>
+[Serializable]
+public class EventLog : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-    using ServiceStack.OrmLite;
-
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the EventLog table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class EventLog : IEntity, IHaveID
+    [AutoIncrement]
+    [Alias("EventLogID")]
+    public int ID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the event time.
+    /// </summary>
+    [Required]
+    public DateTime EventTime { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    public int? UserID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the source.
+    /// </summary>
+    [Required]
+    [StringLength(50)]
+    public string Source { get; set; }
+
+    /// <summary>
+    /// Gets or sets the description.
+    /// </summary>
+    [CustomField(OrmLiteVariables.MaxText)]
+    public string Description { get; set; }
+
+    /// <summary>
+    /// Gets or sets the type.
+    /// </summary>
+    [Required]
+    [Default(0)]
+    public int Type { get; set; }
+
+    /// <summary>
+    /// Gets or sets the event type.
+    /// </summary>
+    [Ignore]
+    public EventLogTypes EventType
     {
-        #region Properties
+        get => this.Type.ToType<EventLogTypes>();
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("EventLogID")]
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the event time.
-        /// </summary>
-        [Required]
-        public DateTime EventTime { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        public int? UserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the source.
-        /// </summary>
-        [Required]
-        [StringLength(50)]
-        public string Source { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        [CustomField(OrmLiteVariables.MaxText)]
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the type.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public int Type { get; set; }
-
-        /// <summary>
-        /// Gets or sets the event type.
-        /// </summary>
-        [Ignore]
-        public EventLogTypes EventType
-        {
-            get => this.Type.ToType<EventLogTypes>();
-
-            set => this.Type = (int)value;
-        }
-
-        #endregion
+        set => this.Type = (int)value;
     }
+
+    #endregion
 }

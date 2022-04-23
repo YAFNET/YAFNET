@@ -22,58 +22,57 @@
  * under the License.
  */
 
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the CheckEmail table.
+/// </summary>
+[Serializable]
+
+[UniqueConstraint(nameof(Hash))]
+public class CheckEmail : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the CheckEmail table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
+    [AutoIncrement]
+    [Alias("CheckEmailID")]
+    public int ID { get; set; }
 
-    [UniqueConstraint(nameof(Hash))]
-    public class CheckEmail : IEntity, IHaveID
-    {
-        #region Properties
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [References(typeof(User))]
+    [Required]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("CheckEmailID")]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the email.
+    /// </summary>
+    [StringLength(255)]
+    public string Email { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the created.
+    /// </summary>
+    [Required]
+    public DateTime Created { get; set; }
 
-        /// <summary>
-        /// Gets or sets the email.
-        /// </summary>
-        [StringLength(255)]
-        public string Email { get; set; }
+    /// <summary>
+    /// Gets or sets the hash.
+    /// </summary>
+    [Required]
+    [Index]
+    [StringLength(255)]
+    public string Hash { get; set; }
 
-        /// <summary>
-        /// Gets or sets the created.
-        /// </summary>
-        [Required]
-        public DateTime Created { get; set; }
-
-        /// <summary>
-        /// Gets or sets the hash.
-        /// </summary>
-        [Required]
-        [Index]
-        [StringLength(255)]
-        public string Hash { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

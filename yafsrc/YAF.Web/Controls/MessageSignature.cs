@@ -21,113 +21,112 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System.Web.UI;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The message signature.
+/// </summary>
+public class MessageSignature : MessageBase
 {
-    #region Using
+    #region Properties
 
-    using System.Web.UI;
+    /// <summary>
+    /// Gets or sets the display user identifier.
+    /// </summary>
+    /// <value>
+    /// The display user identifier.
+    /// </value>
+    public int? DisplayUserId { get; set; }
 
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+    /// <summary>
+    /// Gets or sets the message identifier.
+    /// </summary>
+    /// <value>
+    /// The message identifier.
+    /// </value>
+    public int? MessageId { get; set; }
+
+    /// <summary>
+    /// Gets or sets Signature.
+    /// </summary>
+    /// <value>
+    /// The signature.
+    /// </value>
+    public string Signature { get; set; }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The message signature.
+    /// The render.
     /// </summary>
-    public class MessageSignature : MessageBase
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the display user identifier.
-        /// </summary>
-        /// <value>
-        /// The display user identifier.
-        /// </value>
-        public int? DisplayUserId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the message identifier.
-        /// </summary>
-        /// <value>
-        /// The message identifier.
-        /// </value>
-        public int? MessageId { get; set; }
-
-        /// <summary>
-        /// Gets or sets Signature.
-        /// </summary>
-        /// <value>
-        /// The signature.
-        /// </value>
-        public string Signature { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The render.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render([NotNull] HtmlTextWriter writer)
+        if (this.Signature.IsNotSet())
         {
-            if (this.Signature.IsNotSet())
-            {
-                return;
-            }
-
-            writer.BeginRender();
-
-            writer.Write("<hr />");
-
-            writer.WriteBeginTag("div");
-            writer.WriteAttribute("class", "card border-light card-message-signature");
-            writer.Write(HtmlTextWriter.TagRightChar);
-
-            writer.WriteBeginTag("div");
-            writer.WriteAttribute("class", "card-body py-0");
-            writer.Write(HtmlTextWriter.TagRightChar);
-
-            this.RenderSignature(writer);
-
-            base.Render(writer);
-
-            writer.WriteEndTag("div");
-
-            writer.WriteEndTag("div");
-
-            writer.EndRender();
+            return;
         }
 
-        /// <summary>
-        /// The render signature.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected void RenderSignature([NotNull] HtmlTextWriter writer)
-        {
-            if (!this.DisplayUserId.HasValue)
-            {
-                return;
-            }
+        writer.BeginRender();
 
-            // don't allow any HTML on signatures
-            var signatureFlags = new MessageFlags { IsHtml = false };
+        writer.Write("<hr />");
 
-            var signatureRendered = this.Get<IFormatMessage>().Format(0, this.Signature, signatureFlags);
+        writer.WriteBeginTag("div");
+        writer.WriteAttribute("class", "card border-light card-message-signature");
+        writer.Write(HtmlTextWriter.TagRightChar);
 
-            this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserId, this.MessageId);
-        }
+        writer.WriteBeginTag("div");
+        writer.WriteAttribute("class", "card-body py-0");
+        writer.Write(HtmlTextWriter.TagRightChar);
 
-        #endregion
+        this.RenderSignature(writer);
+
+        base.Render(writer);
+
+        writer.WriteEndTag("div");
+
+        writer.WriteEndTag("div");
+
+        writer.EndRender();
     }
+
+    /// <summary>
+    /// The render signature.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected void RenderSignature([NotNull] HtmlTextWriter writer)
+    {
+        if (!this.DisplayUserId.HasValue)
+        {
+            return;
+        }
+
+        // don't allow any HTML on signatures
+        var signatureFlags = new MessageFlags { IsHtml = false };
+
+        var signatureRendered = this.Get<IFormatMessage>().Format(0, this.Signature, signatureFlags);
+
+        this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserId, this.MessageId);
+    }
+
+    #endregion
 }

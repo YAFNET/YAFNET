@@ -22,67 +22,66 @@
  * under the License.
  */
 
-namespace YAF.Modules
+namespace YAF.Modules;
+
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using YAF.Types.Attributes;
+
+/// <summary>
+///     Generates a canonical meta tag to fight the dreaded duplicate content SEO warning
+/// </summary>
+[Module("Canonical Meta Tag Module", "BonzoFestoon", 1)]
+public class CanonicalMetaTagModule : SimpleBaseForumModule
 {
-    using System.Web.UI;
-    using System.Web.UI.HtmlControls;
-    using YAF.Types.Attributes;
+    /// <summary>
+    /// The initialization after page.
+    /// </summary>
+    public override void InitAfterPage()
+    {
+        this.CurrentForumPage.Load += this.CurrentForumPage_PreRender;
+    }
 
     /// <summary>
-    ///     Generates a canonical meta tag to fight the dreaded duplicate content SEO warning
+    ///     Handles the PreRender event of the ForumPage control.
     /// </summary>
-    [Module("Canonical Meta Tag Module", "BonzoFestoon", 1)]
-    public class CanonicalMetaTagModule : SimpleBaseForumModule
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-        /// <summary>
-        /// The initialization after page.
-        /// </summary>
-        public override void InitAfterPage()
+        var head = this.ForumControl.Page.Header
+                   ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+
+        if (head == null)
         {
-            this.CurrentForumPage.Load += this.CurrentForumPage_PreRender;
+            return;
         }
 
-        /// <summary>
-        ///     Handles the PreRender event of the ForumPage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        // in cases where we are not going to index, but follow, we will not add a canonical tag.
+        if (this.CurrentForumPage.PageType == ForumPages.Posts)
         {
-            var head = this.ForumControl.Page.Header
-                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
-
-            if (head == null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("m") ||
+                this.Get<HttpRequestBase>().QueryString.Exists("find"))
             {
-                return;
-            }
-
-            // in cases where we are not going to index, but follow, we will not add a canonical tag.
-            if (this.CurrentForumPage.PageType == ForumPages.Posts)
-            {
-                if (this.Get<HttpRequestBase>().QueryString.Exists("m") ||
-                    this.Get<HttpRequestBase>().QueryString.Exists("find"))
-                {
-                    // add no-index tag
-                    head.Controls.Add(ControlHelper.MakeMetaNoIndexControl());
-                }
-                else
-                {
-                    var topicUrl = this.Get<LinkBuilder>().GetAbsoluteLink(
-                        ForumPages.Posts,
-                        new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
-
-                    head.Controls.Add(new LiteralControl($"<link rel=\"canonical\" href=\"{topicUrl}\" />"));
-                }
-            }
-            else if (this.CurrentForumPage.PageType != ForumPages.Board && this.CurrentForumPage.PageType != ForumPages.Topics)
-            {
-                // there is not much SEO value to having lists indexed
-                // because they change as soon as some adds a new topic
-                // or post so don't index them, but follow the links
                 // add no-index tag
                 head.Controls.Add(ControlHelper.MakeMetaNoIndexControl());
             }
+            else
+            {
+                var topicUrl = this.Get<LinkBuilder>().GetAbsoluteLink(
+                    ForumPages.Posts,
+                    new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
+
+                head.Controls.Add(new LiteralControl($"<link rel=\"canonical\" href=\"{topicUrl}\" />"));
+            }
+        }
+        else if (this.CurrentForumPage.PageType != ForumPages.Board && this.CurrentForumPage.PageType != ForumPages.Topics)
+        {
+            // there is not much SEO value to having lists indexed
+            // because they change as soon as some adds a new topic
+            // or post so don't index them, but follow the links
+            // add no-index tag
+            head.Controls.Add(ControlHelper.MakeMetaNoIndexControl());
         }
     }
 }

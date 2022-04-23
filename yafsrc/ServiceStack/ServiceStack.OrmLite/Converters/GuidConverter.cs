@@ -7,24 +7,23 @@
 using System;
 using System.Data;
 
-namespace ServiceStack.OrmLite.Converters
+namespace ServiceStack.OrmLite.Converters;
+
+/// <summary>
+/// Class GuidConverter.
+/// Implements the <see cref="ServiceStack.OrmLite.OrmLiteConverter" />
+/// </summary>
+/// <seealso cref="ServiceStack.OrmLite.OrmLiteConverter" />
+public class GuidConverter : OrmLiteConverter
 {
     /// <summary>
-    /// Class GuidConverter.
-    /// Implements the <see cref="ServiceStack.OrmLite.OrmLiteConverter" />
+    /// SQL Column Definition used in CREATE Table.
     /// </summary>
-    /// <seealso cref="ServiceStack.OrmLite.OrmLiteConverter" />
-    public class GuidConverter : OrmLiteConverter
-    {
-        /// <summary>
-        /// SQL Column Definition used in CREATE Table.
-        /// </summary>
-        /// <value>The column definition.</value>
-        public override string ColumnDefinition => "GUID";
-        /// <summary>
-        /// Gets the type of the database.
-        /// </summary>
-        /// <value>The type of the database.</value>
-        public override DbType DbType => DbType.Guid;
-    }
+    /// <value>The column definition.</value>
+    public override string ColumnDefinition => "GUID";
+    /// <summary>
+    /// Gets the type of the database.
+    /// </summary>
+    /// <value>The type of the database.</value>
+    public override DbType DbType => DbType.Guid;
 }

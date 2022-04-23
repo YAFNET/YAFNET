@@ -21,52 +21,51 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Extensions
+namespace YAF.Types.Extensions;
+
+using System.IO;
+
+/// <summary>
+/// The stream extensions.
+/// </summary>
+public static class StreamExtensions
 {
-    using System.IO;
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The stream extensions.
+    /// Converts a Stream to a String.
     /// </summary>
-    public static class StreamExtensions
+    /// <param name="theStream">
+    /// The the Stream.
+    /// </param>
+    /// <returns>
+    /// The stream to string.
+    /// </returns>
+    public static string AsString(this Stream theStream)
     {
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// Converts a Stream to a String.
-        /// </summary>
-        /// <param name="theStream">
-        /// The the Stream.
-        /// </param>
-        /// <returns>
-        /// The stream to string.
-        /// </returns>
-        public static string AsString(this Stream theStream)
-        {
-            var reader = new StreamReader(theStream);
-            return reader.ReadToEnd();
-        }
-
-        /// <summary>
-        /// Reads the stream into a byte array.
-        /// </summary>
-        /// <param name="stream">
-        /// The stream.
-        /// </param>
-        /// <returns>
-        /// Returns the Byte Array
-        /// </returns>
-        public static byte[] ToArray([NotNull] this Stream stream)
-        {
-            CodeContracts.VerifyNotNull(stream);
-
-            var data = new byte[stream.Length];
-            stream.Seek(0, SeekOrigin.Begin);
-            stream.Read(data, 0, (int)stream.Length);
-
-            return data;
-        }
-
-        #endregion
+        var reader = new StreamReader(theStream);
+        return reader.ReadToEnd();
     }
+
+    /// <summary>
+    /// Reads the stream into a byte array.
+    /// </summary>
+    /// <param name="stream">
+    /// The stream.
+    /// </param>
+    /// <returns>
+    /// Returns the Byte Array
+    /// </returns>
+    public static byte[] ToArray([NotNull] this Stream stream)
+    {
+        CodeContracts.VerifyNotNull(stream);
+
+        var data = new byte[stream.Length];
+        stream.Seek(0, SeekOrigin.Begin);
+        stream.Read(data, 0, (int)stream.Length);
+
+        return data;
+    }
+
+    #endregion
 }

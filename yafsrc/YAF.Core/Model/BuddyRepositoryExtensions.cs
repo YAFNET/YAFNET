@@ -21,71 +21,71 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System;
+using System.Collections.Generic;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+using YAF.Types.Objects.Model;
+
+/// <summary>
+/// The Buddy repository extensions.
+/// </summary>
+public static class BuddyRepositoryExtensions
 {
-    using System;
-    using System.Collections.Generic;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
-    using YAF.Types.Objects.Model;
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The Buddy repository extensions.
+    /// Adds a buddy request. (Should be approved later by "ToUserID")
     /// </summary>
-    public static class BuddyRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from User Id.
+    /// </param>
+    /// <param name="toUserId">
+    /// The to User Id.
+    /// </param>
+    /// <returns>
+    /// The name of the second user + Whether this request is approved or not.
+    /// </returns>
+    public static bool AddRequest(
+        this IRepository<Buddy> repository,
+        [NotNull] int fromUserId,
+        [NotNull] int toUserId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Adds a buddy request. (Should be approved later by "ToUserID")
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from User Id.
-        /// </param>
-        /// <param name="toUserId">
-        /// The to User Id.
-        /// </param>
-        /// <returns>
-        /// The name of the second user + Whether this request is approved or not.
-        /// </returns>
-        public static bool AddRequest(
-            this IRepository<Buddy> repository,
-            [NotNull] int fromUserId,
-            [NotNull] int toUserId)
+        if (repository.Exists(x => x.FromUserID == fromUserId && x.ToUserID == toUserId))
         {
-            CodeContracts.VerifyNotNull(repository);
+            return false;
+        }
 
-            if (repository.Exists(x => x.FromUserID == fromUserId && x.ToUserID == toUserId))
-            {
-                return false;
-            }
-
-            if (repository.Exists(x => x.FromUserID == toUserId && x.ToUserID == fromUserId))
-            {
-                repository.Insert(
-                    new Buddy
+        if (repository.Exists(x => x.FromUserID == toUserId && x.ToUserID == fromUserId))
+        {
+            repository.Insert(
+                new Buddy
                     {
                         FromUserID = fromUserId, ToUserID = toUserId, Approved = true, Requested = DateTime.UtcNow
                     });
 
-                repository.UpdateOnly(
-                    () => new Buddy { Approved = true },
-                    b => b.FromUserID == toUserId && b.ToUserID == fromUserId);
+            repository.UpdateOnly(
+                () => new Buddy { Approved = true },
+                b => b.FromUserID == toUserId && b.ToUserID == fromUserId);
 
-                return true;
-            }
+            return true;
+        }
 
-            repository.Insert(
-                new Buddy
+        repository.Insert(
+            new Buddy
                 {
                     FromUserID = fromUserId,
                     ToUserID = toUserId,
@@ -93,170 +93,169 @@ namespace YAF.Core.Model
                     Requested = DateTime.UtcNow
                 });
 
+        return false;
+    }
+
+    /// <summary>
+    /// Approves a buddy request.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from User Id.
+    /// </param>
+    /// <param name="toUserId">
+    /// The to User Id.
+    /// </param>
+    /// <param name="mutual">
+    /// Should the requesting user (ToUserID) be added to FromUserID's buddy list too?
+    /// </param>
+    /// <returns>
+    /// the name of the second user.
+    /// </returns>
+    public static bool ApproveRequest(
+        this IRepository<Buddy> repository,
+        [NotNull] int fromUserId,
+        [NotNull] int toUserId,
+        [NotNull] bool mutual)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        if (!repository.Exists(x => x.FromUserID == fromUserId && x.ToUserID == toUserId))
+        {
             return false;
         }
 
-        /// <summary>
-        /// Approves a buddy request.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from User Id.
-        /// </param>
-        /// <param name="toUserId">
-        /// The to User Id.
-        /// </param>
-        /// <param name="mutual">
-        /// Should the requesting user (ToUserID) be added to FromUserID's buddy list too?
-        /// </param>
-        /// <returns>
-        /// the name of the second user.
-        /// </returns>
-        public static bool ApproveRequest(
-            this IRepository<Buddy> repository,
-            [NotNull] int fromUserId,
-            [NotNull] int toUserId,
-            [NotNull] bool mutual)
+        repository.UpdateOnly(
+            () => new Buddy { Approved = true },
+            b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
+
+        if (!mutual)
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            if (!repository.Exists(x => x.FromUserID == fromUserId && x.ToUserID == toUserId))
-            {
-                return false;
-            }
-
-            repository.UpdateOnly(
-                () => new Buddy { Approved = true },
-                b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
-
-            if (!mutual)
-            {
-                return true;
-            }
-
-            if (!repository.Exists(x => x.FromUserID == toUserId && x.ToUserID == fromUserId))
-            {
-                repository.Insert(
-                    new Buddy
-                    {
-                        FromUserID = toUserId, ToUserID = fromUserId, Approved = true, Requested = DateTime.UtcNow
-                    });
-            }
-
             return true;
         }
 
-        /// <summary>
-        /// Denies a friend request.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from User Id.
-        /// </param>
-        /// <param name="toUserId">
-        /// The to User Id.
-        /// </param>
-        public static void DenyRequest(
-            this IRepository<Buddy> repository,
-            [NotNull] int fromUserId,
-            [NotNull] int toUserId)
+        if (!repository.Exists(x => x.FromUserID == toUserId && x.ToUserID == fromUserId))
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            repository.Delete(b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
-        }
-
-        /// <summary>
-        /// Removes the "ToUserID" from "FromUserID"'s buddy list.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from user id.
-        /// </param>
-        /// <param name="toUserId">
-        /// The to user id.
-        /// </param>
-        public static void Remove(
-            this IRepository<Buddy> repository,
-            [NotNull] int fromUserId,
-            [NotNull] int toUserId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            repository.Delete(x => x.FromUserID == fromUserId && x.ToUserID == toUserId);
-
-            repository.FireDeleted();
-        }
-
-        /// <summary>
-        /// Gets all the buddies of a certain user.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="fromUserId">From user identifier.</param>
-        /// <returns>
-        /// The containing the buddy list.
-        /// </returns>
-        public static List<BuddyUser> ListAll(this IRepository<Buddy> repository, [NotNull] int fromUserId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
-
-            expression.Join<Rank>((u, r) => r.ID == u.RankID)
-                .Join<Buddy>((u, b) => b.ToUserID == u.ID && b.FromUserID == fromUserId && (u.Flags & 2) == 2)
-                .Select<User, Rank, Buddy>(
-                    (a, b, c) => new
+            repository.Insert(
+                new Buddy
                     {
-                        UserID = a.ID,
-                        a.BoardID,
-                        a.Name,
-                        a.DisplayName,
-                        a.Joined,
-                        a.NumPosts,
-                        RankName = b.Name,
-                        c.Approved,
-                        c.FromUserID,
-                        c.Requested,
-                        a.UserStyle,
-                        a.Suspended,
-                        a.Avatar,
-                        a.AvatarImage
+                        FromUserID = toUserId, ToUserID = fromUserId, Approved = true, Requested = DateTime.UtcNow
                     });
-
-            var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
-
-            expression2.Join<Rank>((u, r) => r.ID == u.RankID)
-                .Join<Buddy>((u, b) => b.ToUserID == fromUserId && b.FromUserID == u.ID && (u.Flags & 2) == 2)
-                .Select<User, Rank, Buddy>(
-                    (a, b, c) => new
-                    {
-                        UserID = c.FromUserID,
-                        a.BoardID,
-                        a.Name,
-                        a.DisplayName,
-                        a.Joined,
-                        a.NumPosts,
-                        RankName = b.Name,
-                        c.Approved,
-                        FromUserID = fromUserId,
-                        c.Requested,
-                        a.UserStyle,
-                        a.Suspended,
-                        a.Avatar,
-                        a.AvatarImage
-                    });
-
-            return repository.DbAccess.Execute(
-                db => db.Connection.Select<BuddyUser>(
-                    $"{expression.ToSelectStatement()} UNION ALL {expression2.ToSelectStatement()}"));
         }
 
-        #endregion
+        return true;
     }
+
+    /// <summary>
+    /// Denies a friend request.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from User Id.
+    /// </param>
+    /// <param name="toUserId">
+    /// The to User Id.
+    /// </param>
+    public static void DenyRequest(
+        this IRepository<Buddy> repository,
+        [NotNull] int fromUserId,
+        [NotNull] int toUserId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        repository.Delete(b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
+    }
+
+    /// <summary>
+    /// Removes the "ToUserID" from "FromUserID"'s buddy list.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from user id.
+    /// </param>
+    /// <param name="toUserId">
+    /// The to user id.
+    /// </param>
+    public static void Remove(
+        this IRepository<Buddy> repository,
+        [NotNull] int fromUserId,
+        [NotNull] int toUserId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        repository.Delete(x => x.FromUserID == fromUserId && x.ToUserID == toUserId);
+
+        repository.FireDeleted();
+    }
+
+    /// <summary>
+    /// Gets all the buddies of a certain user.
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="fromUserId">From user identifier.</param>
+    /// <returns>
+    /// The containing the buddy list.
+    /// </returns>
+    public static List<BuddyUser> ListAll(this IRepository<Buddy> repository, [NotNull] int fromUserId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+        expression.Join<Rank>((u, r) => r.ID == u.RankID)
+            .Join<Buddy>((u, b) => b.ToUserID == u.ID && b.FromUserID == fromUserId && (u.Flags & 2) == 2)
+            .Select<User, Rank, Buddy>(
+                (a, b, c) => new
+                                 {
+                                     UserID = a.ID,
+                                     a.BoardID,
+                                     a.Name,
+                                     a.DisplayName,
+                                     a.Joined,
+                                     a.NumPosts,
+                                     RankName = b.Name,
+                                     c.Approved,
+                                     c.FromUserID,
+                                     c.Requested,
+                                     a.UserStyle,
+                                     a.Suspended,
+                                     a.Avatar,
+                                     a.AvatarImage
+                                 });
+
+        var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+        expression2.Join<Rank>((u, r) => r.ID == u.RankID)
+            .Join<Buddy>((u, b) => b.ToUserID == fromUserId && b.FromUserID == u.ID && (u.Flags & 2) == 2)
+            .Select<User, Rank, Buddy>(
+                (a, b, c) => new
+                                 {
+                                     UserID = c.FromUserID,
+                                     a.BoardID,
+                                     a.Name,
+                                     a.DisplayName,
+                                     a.Joined,
+                                     a.NumPosts,
+                                     RankName = b.Name,
+                                     c.Approved,
+                                     FromUserID = fromUserId,
+                                     c.Requested,
+                                     a.UserStyle,
+                                     a.Suspended,
+                                     a.Avatar,
+                                     a.AvatarImage
+                                 });
+
+        return repository.DbAccess.Execute(
+            db => db.Connection.Select<BuddyUser>(
+                $"{expression.ToSelectStatement()} UNION ALL {expression2.ToSelectStatement()}"));
+    }
+
+    #endregion
 }

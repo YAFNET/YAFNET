@@ -21,127 +21,127 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System;
+using System.Linq;
+using System.Web.UI;
+
+using YAF.Core.BaseControls;
+using YAF.Core.Extensions;
+using YAF.Core.Model;
+using YAF.Core.Services;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// Shows a Reporters for reported posts
+/// </summary>
+public class BaseReportedPosts : BaseUserControl
 {
-    #region Using
+    #region Properties
 
-    using System;
-    using System.Linq;
-    using System.Web.UI;
+    /// <summary>
+    ///   Gets or sets MessageID.
+    /// </summary>
+    public virtual int MessageID { get; set; }
 
-    using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
-    using YAF.Core.Model;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
+    /// <summary>
+    ///   Gets or sets Resolved.
+    /// </summary>
+    [CanBeNull]
+    public virtual string Resolved { get; set; }
+
+    /// <summary>
+    ///   Gets or sets ResolvedBy. It returns UserID as string value
+    /// </summary>
+    [CanBeNull]
+    public virtual int? ResolvedBy { get; set; }
+
+    /// <summary>
+    ///   Gets or sets ResolvedDate.
+    /// </summary>
+    [CanBeNull]
+    public virtual string ResolvedDate { get; set; }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Shows a Reporters for reported posts
+    /// The render.
     /// </summary>
-    public class BaseReportedPosts : BaseUserControl
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
-        #region Properties
+        var reportersList = this.GetRepository<User>().MessageReporters(this.MessageID);
 
-        /// <summary>
-        ///   Gets or sets MessageID.
-        /// </summary>
-        public virtual int MessageID { get; set; }
-
-        /// <summary>
-        ///   Gets or sets Resolved.
-        /// </summary>
-        [CanBeNull]
-        public virtual string Resolved { get; set; }
-
-        /// <summary>
-        ///   Gets or sets ResolvedBy. It returns UserID as string value
-        /// </summary>
-        [CanBeNull]
-        public virtual int? ResolvedBy { get; set; }
-
-        /// <summary>
-        ///   Gets or sets ResolvedDate.
-        /// </summary>
-        [CanBeNull]
-        public virtual string ResolvedDate { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The render.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render([NotNull] HtmlTextWriter writer)
+        if (!reportersList.Any())
         {
-            var reportersList = this.GetRepository<User>().MessageReporters(this.MessageID);
+            return;
+        }
 
-            if (!reportersList.Any())
-            {
-                return;
-            }
+        writer.BeginRender();
 
-            writer.BeginRender();
+        reportersList.ForEach(
+            reporter =>
+                {
+                    writer.WriteLine(@"<div class=""alert alert-secondary"" role=""alert"">");
 
-            reportersList.ForEach(
-                reporter =>
+                    string howMany = null;
+                    if (reporter.Item1.ReportedNumber > 1)
                     {
-                        writer.WriteLine(@"<div class=""alert alert-secondary"" role=""alert"">");
+                        howMany = $"({this.GetTextFormatted("REPORTED_TIMES", reporter.Item1.ReportedNumber)})";
+                    }
 
-                        string howMany = null;
-                        if (reporter.Item1.ReportedNumber > 1)
-                        {
-                            howMany = $"({this.GetTextFormatted("REPORTED_TIMES", reporter.Item1.ReportedNumber)})";
-                        }
+                    var reporterName = reporter.Item2.DisplayOrUserName();
 
-                        var reporterName = reporter.Item2.DisplayOrUserName();
+                    // If the message was previously resolved we have not null string
+                    // and can add an info about last user who resolved the message
+                    if (this.ResolvedDate.IsSet() && DateTime.Parse(this.ResolvedDate) > DateTime.MinValue)
+                    {
+                        var resolvedBy = this.GetRepository<User>().GetById(
+                            this.ResolvedBy.Value);
 
-                        // If the message was previously resolved we have not null string
-                        // and can add an info about last user who resolved the message
-                        if (this.ResolvedDate.IsSet() && DateTime.Parse(this.ResolvedDate) > DateTime.MinValue)
-                        {
-                            var resolvedBy = this.GetRepository<User>().GetById(
-                                this.ResolvedBy.Value);
-
-                            var resolvedByName = resolvedBy.DisplayOrUserName();
-
-                            writer.Write(
-                                @"<span class=""fw-bold me-2"">{0}</span><a href=""{1}"">{2}</a> : {3}",
-                                this.GetText("RESOLVEDBY"),
-                                this.Get<LinkBuilder>().GetUserProfileLink(this.ResolvedBy.ToType<int>(), resolvedByName),
-                                resolvedByName,
-                                this.Get<IDateTimeService>().FormatDateTimeTopic(this.ResolvedDate));
-                        }
+                        var resolvedByName = resolvedBy.DisplayOrUserName();
 
                         writer.Write(
-                            @"<span class=""fw-bold mx-2"">{3}</span><a href=""{1}"" class=""me-2"">{0}</a><em>{2}</em>",
-                            reporterName,
-                            this.Get<LinkBuilder>().GetUserProfileLink(reporter.Item2.ID, reporterName),
-                            howMany,
-                            this.GetText("REPORTEDBY"));
+                            @"<span class=""fw-bold me-2"">{0}</span><a href=""{1}"">{2}</a> : {3}",
+                            this.GetText("RESOLVEDBY"),
+                            this.Get<LinkBuilder>().GetUserProfileLink(this.ResolvedBy.ToType<int>(), resolvedByName),
+                            resolvedByName,
+                            this.Get<IDateTimeService>().FormatDateTimeTopic(this.ResolvedDate));
+                    }
 
-                        writer.Write(
-                            @"<a class=""btn btn-secondary btn-sm ms-2"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
-                            reporterName,
-                            this.Get<LinkBuilder>().GetLink(
-                                ForumPages.PostPrivateMessage,
-                                new { u = reporter.Item2.ID, r = this.MessageID }),
-                            this.GetText("REPLYTO"));
+                    writer.Write(
+                        @"<span class=""fw-bold mx-2"">{3}</span><a href=""{1}"" class=""me-2"">{0}</a><em>{2}</em>",
+                        reporterName,
+                        this.Get<LinkBuilder>().GetUserProfileLink(reporter.Item2.ID, reporterName),
+                        howMany,
+                        this.GetText("REPORTEDBY"));
 
-                        var reportString = reporter.Item1.ReportText.Trim().Split('|');
+                    writer.Write(
+                        @"<a class=""btn btn-secondary btn-sm ms-2"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
+                        reporterName,
+                        this.Get<LinkBuilder>().GetLink(
+                            ForumPages.PostPrivateMessage,
+                            new { u = reporter.Item2.ID, r = this.MessageID }),
+                        this.GetText("REPLYTO"));
 
-                        reportString.ForEach(
-                            t =>
+                    var reportString = reporter.Item1.ReportText.Trim().Split('|');
+
+                    reportString.ForEach(
+                        t =>
                             {
                                 var textString = t.Split("??".ToCharArray());
 
@@ -156,15 +156,14 @@ namespace YAF.Web.Controls
                                 writer.WriteLine(@"</p>");
                             });
 
-                        writer.Write("</div>");
-                    });
+                    writer.Write("</div>");
+                });
 
-            // render controls...
-            base.Render(writer);
+        // render controls...
+        base.Render(writer);
 
-            writer.EndRender();
-        }
-
-        #endregion
+        writer.EndRender();
     }
+
+    #endregion
 }

@@ -21,32 +21,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+#region Using
+
+using System;
+
+#endregion
+
+/// <summary>
+/// The interface that marks a container with support for injection into an object.
+/// </summary>
+public interface IInjectServices
 {
-    #region Using
-
-    using System;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The interface that marks a container with support for injection into an object.
+    /// Inject an object with services.
     /// </summary>
-    public interface IInjectServices
-    {
-        #region Public Methods
+    /// <typeparam name="TAttribute">
+    /// TAttribute is the attribute that marks properties to inject to.
+    /// </typeparam>
+    /// <param name="instance">
+    /// the object to inject
+    /// </param>
+    void InjectMarked<TAttribute>([NotNull] object instance) where TAttribute : Attribute;
 
-        /// <summary>
-        /// Inject an object with services.
-        /// </summary>
-        /// <typeparam name="TAttribute">
-        /// TAttribute is the attribute that marks properties to inject to.
-        /// </typeparam>
-        /// <param name="instance">
-        /// the object to inject
-        /// </param>
-        void InjectMarked<TAttribute>([NotNull] object instance) where TAttribute : Attribute;
-
-        #endregion
-    }
+    #endregion
 }

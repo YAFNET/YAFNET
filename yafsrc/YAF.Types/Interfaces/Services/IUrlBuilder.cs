@@ -21,33 +21,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+/// <summary>
+/// Defines interface for <see cref="IUrlBuilder"/> class.
+/// </summary>
+public interface IUrlBuilder
 {
     /// <summary>
-    /// Defines interface for <see cref="IUrlBuilder"/> class.
+    /// Builds path for calling page with URL argument as the parameter.
     /// </summary>
-    public interface IUrlBuilder
-    {
-        /// <summary>
-        /// Builds path for calling page with URL argument as the parameter.
-        /// </summary>
-        /// <param name="url">
-        /// URL to use as a parameter.
-        /// </param>
-        /// <returns>
-        /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-        /// </returns>
-        string BuildUrl(string url);
+    /// <param name="url">
+    /// URL to use as a parameter.
+    /// </param>
+    /// <returns>
+    /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+    /// </returns>
+    string BuildUrl(string url);
 
-        /// <summary>
-        /// Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
-        /// </summary>
-        /// <param name="url">
-        /// URL to use as a parameter.
-        /// </param>
-        /// <returns>
-        /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-        /// </returns>
-        string BuildUrlFull(string url);
-    }
+    /// <summary>
+    /// Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
+    /// </summary>
+    /// <param name="url">
+    /// URL to use as a parameter.
+    /// </param>
+    /// <returns>
+    /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+    /// </returns>
+    string BuildUrlFull(string url);
 }

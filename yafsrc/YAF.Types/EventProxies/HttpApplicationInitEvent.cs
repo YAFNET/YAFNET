@@ -21,43 +21,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
+namespace YAF.Types.EventProxies;
+
+#region Using
+
+using System.Web;
+
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+/// The http application init event.
+/// </summary>
+public class HttpApplicationInitEvent : IAmEvent
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System.Web;
-
-    using YAF.Types.Interfaces.Events;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HttpApplicationInitEvent"/> class.
+    /// </summary>
+    /// <param name="httpApplication">
+    /// The http application.
+    /// </param>
+    public HttpApplicationInitEvent([NotNull] HttpApplication httpApplication)
+    {
+        this.HttpApplication = httpApplication;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The http application init event.
+    /// Gets or sets HttpApplication.
     /// </summary>
-    public class HttpApplicationInitEvent : IAmEvent
-    {
-        #region Constructors and Destructors
+    public HttpApplication HttpApplication { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HttpApplicationInitEvent"/> class.
-        /// </summary>
-        /// <param name="httpApplication">
-        /// The http application.
-        /// </param>
-        public HttpApplicationInitEvent([NotNull] HttpApplication httpApplication)
-        {
-            this.HttpApplication = httpApplication;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets HttpApplication.
-        /// </summary>
-        public HttpApplication HttpApplication { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

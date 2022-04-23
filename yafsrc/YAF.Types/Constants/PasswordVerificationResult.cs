@@ -22,24 +22,23 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>Return result for IPasswordHasher</summary>
+public enum PasswordVerificationResult
 {
-    /// <summary>Return result for IPasswordHasher</summary>
-    public enum PasswordVerificationResult
-    {
-        /// <summary>
-        /// Password verification failed
-        /// </summary>
-        Failed,
+    /// <summary>
+    /// Password verification failed
+    /// </summary>
+    Failed,
 
-        /// <summary>
-        /// Success
-        /// </summary>
-        Success,
+    /// <summary>
+    /// Success
+    /// </summary>
+    Success,
 
-        /// <summary>
-        /// Success but should update and rehash the password
-        /// </summary>
-        SuccessRehashNeeded,
-    }
+    /// <summary>
+    /// Success but should update and rehash the password
+    /// </summary>
+    SuccessRehashNeeded,
 }

@@ -21,54 +21,53 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+#region Using
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+#endregion
+
+/// <summary>
+///     A class which represents the YAF_Registry table in the YAF Database.
+/// </summary>
+[Serializable]
+public class Registry : IEntity, IHaveID
 {
-    #region Using
-
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
-
-    #endregion
+    #region Public Properties
 
     /// <summary>
-    ///     A class which represents the YAF_Registry table in the YAF Database.
+    ///     Gets or sets the Registry ID.
     /// </summary>
-    [Serializable]
-    public class Registry : IEntity, IHaveID
-    {
-        #region Public Properties
+    [AutoIncrement]
+    [Alias("RegistryID")]
+    public int ID { get; set; }
 
-        /// <summary>
-        ///     Gets or sets the Registry ID.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("RegistryID")]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    [Required]
+    [Index]
+    [StringLength(4000)]
+    public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        [Required]
-        [Index]
-        [StringLength(4000)]
-        public string Name { get; set; }
+    /// <summary>
+    /// Gets or sets the value.
+    /// </summary>
+    [StringLength(4000)]
+    public string Value { get; set; }
 
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        [StringLength(4000)]
-        public string Value { get; set; }
+    /// <summary>
+    /// Gets or sets the board id.
+    /// </summary>
+    [References(typeof(Board))]
+    [Index]
+    public int? BoardID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
-        [References(typeof(Board))]
-        [Index]
-        public int? BoardID { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

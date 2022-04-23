@@ -21,117 +21,116 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+///     A class which represents the Active table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(SessionID), nameof(BoardID))]
+public class Active : IEntity, IHaveBoardID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
+    #region Public Properties
 
     /// <summary>
-    ///     A class which represents the Active table.
+    /// Gets or sets the board id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(SessionID), nameof(BoardID))]
-    public class Active : IEntity, IHaveBoardID
+    [References(typeof(Board))]
+    [Required]
+    public int BoardID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the browser.
+    /// </summary>
+    [StringLength(50)]
+    public string Browser { get; set; }
+
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    public int? Flags { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user flags.
+    /// </summary>
+    [Ignore]
+    public ActiveFlags ActiveFlags
     {
-        #region Public Properties
+        get => new(this.Flags);
 
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
-        [References(typeof(Board))]
-        [Required]
-        public int BoardID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the browser.
-        /// </summary>
-        [StringLength(50)]
-        public string Browser { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flags.
-        /// </summary>
-        public int? Flags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user flags.
-        /// </summary>
-        [Ignore]
-        public ActiveFlags ActiveFlags
-        {
-            get => new(this.Flags);
-
-            set => this.Flags = value.BitValue;
-        }
-
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        [References(typeof(Forum))]
-        public int? ForumID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the forum page.
-        /// </summary>
-        [StringLength(1024)]
-        public string ForumPage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the IP Address.
-        /// </summary>
-        [Required]
-        [StringLength(39)]
-        public string IP { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last active.
-        /// </summary>
-        [Required]
-        public DateTime LastActive { get; set; }
-
-        /// <summary>
-        /// Gets or sets the location.
-        /// </summary>
-        [StringLength(255)]
-        public string Location { get; set; }
-
-        /// <summary>
-        /// Gets or sets the login.
-        /// </summary>
-        [Required]
-        public DateTime Login { get; set; }
-
-        /// <summary>
-        /// Gets or sets the platform.
-        /// </summary>
-        [StringLength(50)]
-        public string Platform { get; set; }
-
-        /// <summary>
-        /// Gets or sets the session id.
-        /// </summary>
-        [Required]
-        [StringLength(50)]
-        public string SessionID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the topic id.
-        /// </summary>
-        [References(typeof(Topic))]
-        public int? TopicID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        public int UserID { get; set; }
-
-        #endregion
+        set => this.Flags = value.BitValue;
     }
+
+    /// <summary>
+    /// Gets or sets the forum id.
+    /// </summary>
+    [References(typeof(Forum))]
+    public int? ForumID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the forum page.
+    /// </summary>
+    [StringLength(1024)]
+    public string ForumPage { get; set; }
+
+    /// <summary>
+    /// Gets or sets the IP Address.
+    /// </summary>
+    [Required]
+    [StringLength(39)]
+    public string IP { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last active.
+    /// </summary>
+    [Required]
+    public DateTime LastActive { get; set; }
+
+    /// <summary>
+    /// Gets or sets the location.
+    /// </summary>
+    [StringLength(255)]
+    public string Location { get; set; }
+
+    /// <summary>
+    /// Gets or sets the login.
+    /// </summary>
+    [Required]
+    public DateTime Login { get; set; }
+
+    /// <summary>
+    /// Gets or sets the platform.
+    /// </summary>
+    [StringLength(50)]
+    public string Platform { get; set; }
+
+    /// <summary>
+    /// Gets or sets the session id.
+    /// </summary>
+    [Required]
+    [StringLength(50)]
+    public string SessionID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    [References(typeof(Topic))]
+    public int? TopicID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [References(typeof(User))]
+    [Required]
+    public int UserID { get; set; }
+
+    #endregion
 }

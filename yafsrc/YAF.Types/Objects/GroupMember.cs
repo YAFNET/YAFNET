@@ -22,19 +22,18 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using ServiceStack.DataAnnotations;
+
+public class GroupMember
 {
-    using ServiceStack.DataAnnotations;
+    public int GroupID { get; set; }
 
-    public class GroupMember
-    {
-        public int GroupID { get; set; }
+    public string Name { get; set; }
 
-        public string Name { get; set; }
+    public int? UserID { get; set; }
 
-        public int? UserID { get; set; }
-
-        [Ignore]
-        public bool IsMember => this.UserID.HasValue;
-    }
+    [Ignore]
+    public bool IsMember => this.UserID.HasValue;
 }

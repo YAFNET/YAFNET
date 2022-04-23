@@ -21,40 +21,39 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The LocatablePage interface.
+/// </summary>
+public interface ILocatablePage
 {
+    #region Properties
+
     /// <summary>
-    /// The LocatablePage interface.
+    /// Gets a value indicating whether is account page.
     /// </summary>
-    public interface ILocatablePage
-    {
-        #region Properties
+    bool IsAccountPage { get; }
 
-        /// <summary>
-        /// Gets a value indicating whether is account page.
-        /// </summary>
-        bool IsAccountPage { get; }
+    /// <summary>
+    ///   Gets a value indicating whether IsAdminPage.
+    /// </summary>
+    bool IsAdminPage { get; }
 
-        /// <summary>
-        ///   Gets a value indicating whether IsAdminPage.
-        /// </summary>
-        bool IsAdminPage { get; }
+    /// <summary>
+    ///   Gets a value indicating whether IsHostAdminOnly.
+    /// </summary>
+    bool IsHostAdminOnly { get; }
 
-        /// <summary>
-        ///   Gets a value indicating whether IsHostAdminOnly.
-        /// </summary>
-        bool IsHostAdminOnly { get; }
+    /// <summary>
+    /// Gets a value indicating whether IsRegisteredPage.
+    /// </summary>
+    bool IsRegisteredPage { get; }
 
-        /// <summary>
-        /// Gets a value indicating whether IsRegisteredPage.
-        /// </summary>
-        bool IsRegisteredPage { get; }
+    /// <summary>
+    ///   Gets PageName.
+    /// </summary>
+    string PageName { get; }
 
-        /// <summary>
-        ///   Gets PageName.
-        /// </summary>
-        string PageName { get; }
-
-        #endregion
-    }
+    #endregion
 }

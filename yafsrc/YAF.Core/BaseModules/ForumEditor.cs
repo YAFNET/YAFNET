@@ -22,95 +22,94 @@
  * under the License.
  */
 
-namespace YAF.Core.BaseModules
+namespace YAF.Core.BaseModules;
+
+#region Using
+
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+
+using YAF.Core.BaseControls;
+using YAF.Types;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The Base ForumEditor Class
+/// </summary>
+public abstract class ForumEditor : BaseControl, IEditorModule
 {
-    #region Using
+    #region Properties
+        
+    /// <summary>
+    ///   Gets a value indicating whether Active.
+    /// </summary>
+    public abstract bool Active { get; }
 
-    using System.Web.UI;
-    using System.Web.UI.HtmlControls;
+    /// <summary>
+    ///   Gets Description.
+    /// </summary>
+    public abstract string Description { get; }
 
-    using YAF.Core.BaseControls;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    ///   Gets ModuleId.
+    /// </summary>
+    public virtual string ModuleId => this.Description.GetHashCode().ToString();
+
+    /// <summary>
+    ///   Gets or sets Text.
+    /// </summary>
+    public abstract string Text { get; set; }
+
+    /// <summary>
+    ///   Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public virtual bool UsesBBCode => false;
+
+    /// <summary>
+    ///   Gets a value indicating whether UsesHTML.
+    /// </summary>
+    public virtual bool UsesHTML => false;
+
+    /// <summary>
+    /// Gets a value indicating whether [allows uploads].
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if [allows uploads]; otherwise, <c>false</c>.
+    /// </value>
+    public virtual bool AllowsUploads => false;
+
+    /// <summary>
+    /// Gets or sets the max characters.
+    /// </summary>
+    public virtual int MaxCharacters { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether [user can upload].
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if [allow uploads]; otherwise, <c>false</c>.
+    /// </value>
+    public virtual bool UserCanUpload { get; set; }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The Base ForumEditor Class
+    /// The add editor control.
     /// </summary>
-    public abstract class ForumEditor : BaseControl, IEditorModule
+    /// <param name="editor">
+    /// The editor.
+    /// </param>
+    protected virtual void AddEditorControl([NotNull] Control editor)
     {
-        #region Properties
-        
-        /// <summary>
-        ///   Gets a value indicating whether Active.
-        /// </summary>
-        public abstract bool Active { get; }
-
-        /// <summary>
-        ///   Gets Description.
-        /// </summary>
-        public abstract string Description { get; }
-
-        /// <summary>
-        ///   Gets ModuleId.
-        /// </summary>
-        public virtual string ModuleId => this.Description.GetHashCode().ToString();
-
-        /// <summary>
-        ///   Gets or sets Text.
-        /// </summary>
-        public abstract string Text { get; set; }
-
-        /// <summary>
-        ///   Gets a value indicating whether UsesBBCode.
-        /// </summary>
-        public virtual bool UsesBBCode => false;
-
-        /// <summary>
-        ///   Gets a value indicating whether UsesHTML.
-        /// </summary>
-        public virtual bool UsesHTML => false;
-
-        /// <summary>
-        /// Gets a value indicating whether [allows uploads].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [allows uploads]; otherwise, <c>false</c>.
-        /// </value>
-        public virtual bool AllowsUploads => false;
-
-        /// <summary>
-        /// Gets or sets the max characters.
-        /// </summary>
-        public virtual int MaxCharacters { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [user can upload].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [allow uploads]; otherwise, <c>false</c>.
-        /// </value>
-        public virtual bool UserCanUpload { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The add editor control.
-        /// </summary>
-        /// <param name="editor">
-        /// The editor.
-        /// </param>
-        protected virtual void AddEditorControl([NotNull] Control editor)
-        {
-            var newDiv = new HtmlGenericControl("div") { ID = "EditorDiv" };
-            newDiv.Attributes.Add("class", "EditorDiv");
-            newDiv.Controls.Add(editor);
-            this.Controls.Add(newDiv);
-        }
-
-        #endregion
+        var newDiv = new HtmlGenericControl("div") { ID = "EditorDiv" };
+        newDiv.Attributes.Add("class", "EditorDiv");
+        newDiv.Controls.Add(editor);
+        this.Controls.Add(newDiv);
     }
+
+    #endregion
 }

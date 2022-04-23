@@ -22,60 +22,59 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl.
 */
 
-namespace YAF.Core.Utilities.StringUtils
+namespace YAF.Core.Utilities.StringUtils;
+
+#region Using
+
+using System.Text;
+
+using YAF.Types.Extensions;
+
+#endregion
+
+/// <summary>
+/// ASCII transliterations of Unicode text
+/// </summary>
+public static partial class Unidecoder
 {
-    #region Using
-
-    using System.Text;
-
-    using YAF.Types.Extensions;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// ASCII transliterations of Unicode text
+    /// Transliterate an UniCode object into an ASCII string
     /// </summary>
-    public static partial class Unidecoder
+    /// <remarks>
+    /// Unidecode(u"\u5317\u4EB0") == "Bei Jing "
+    /// </remarks>
+    /// <param name="input">
+    /// The input.
+    /// </param>
+    /// <returns>
+    /// Returns the translated string
+    /// </returns>
+    public static string Unidecode(this string input)
     {
-        #region Public Methods
-
-        /// <summary>
-        /// Transliterate an UniCode object into an ASCII string
-        /// </summary>
-        /// <remarks>
-        /// Unidecode(u"\u5317\u4EB0") == "Bei Jing "
-        /// </remarks>
-        /// <param name="input">
-        /// The input.
-        /// </param>
-        /// <returns>
-        /// Returns the translated string
-        /// </returns>
-        public static string Unidecode(this string input)
+        if (input.IsNotSet())
         {
-            if (input.IsNotSet())
-            {
-                return input;
-            }
-
-            var output = new StringBuilder();
-            foreach (var c in input)
-            {
-                if (c < 0x80)
-                {
-                    output.Append(c);
-                    continue;
-                }
-
-                var h = c >> 8;
-                var l = c & 0xff;
-
-                output.Append(characters.ContainsKey(h) ? characters[h][l] : string.Empty);
-            }
-
-            return output.ToString();
+            return input;
         }
 
-        #endregion
+        var output = new StringBuilder();
+        foreach (var c in input)
+        {
+            if (c < 0x80)
+            {
+                output.Append(c);
+                continue;
+            }
+
+            var h = c >> 8;
+            var l = c & 0xff;
+
+            output.Append(characters.ContainsKey(h) ? characters[h][l] : string.Empty);
+        }
+
+        return output.ToString();
     }
+
+    #endregion
 }

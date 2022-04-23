@@ -21,228 +21,227 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Pages.Admin
-{
-    #region Using
+namespace YAF.Pages.Admin;
 
-    using System.Xml.Linq;
-    using YAF.Types.Models;
+#region Using
+
+using System.Xml.Linq;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The Admin BBCode Page.
+/// </summary>
+public partial class BBCodes : AdminPage
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BBCodes"/> class. 
+    /// </summary>
+    public BBCodes()
+        : base("ADMIN_BBCODE", ForumPages.Admin_BBCodes)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The Admin BBCode Page.
+    /// The get selected bb code i ds.
     /// </summary>
-    public partial class BBCodes : AdminPage
+    /// <returns>
+    /// The Id of the BB Code
+    /// </returns>
+    [NotNull]
+    protected List<int> GetSelectedBbCodeIDs()
     {
-        #region Constructors and Destructors
+        // get checked items....
+        return (from RepeaterItem item in this.bbCodeList.Items
+                let sel = item.FindControlAs<CheckBox>("chkSelected")
+                where sel.Checked
+                select item.FindControlAs<HiddenField>("hiddenBBCodeID") into hiddenId
+                select hiddenId.Value.ToType<int>()).ToList();
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BBCodes"/> class. 
-        /// </summary>
-        public BBCodes()
-            : base("ADMIN_BBCODE", ForumPages.Admin_BBCodes)
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
         {
+            return;
         }
 
-        #endregion
+        this.PageSize.DataSource = StaticDataHelper.PageEntries();
+        this.PageSize.DataTextField = "Name";
+        this.PageSize.DataValueField = "Value";
+        this.PageSize.DataBind();
 
-        #region Methods
-
-        /// <summary>
-        /// The get selected bb code i ds.
-        /// </summary>
-        /// <returns>
-        /// The Id of the BB Code
-        /// </returns>
-        [NotNull]
-        protected List<int> GetSelectedBbCodeIDs()
+        try
         {
-            // get checked items....
-            return (from RepeaterItem item in this.bbCodeList.Items
-                    let sel = item.FindControlAs<CheckBox>("chkSelected")
-                    where sel.Checked
-                    select item.FindControlAs<HiddenField>("hiddenBBCodeID") into hiddenId
-                    select hiddenId.Value.ToType<int>()).ToList();
+            this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
+        }
+        catch (Exception)
+        {
+            this.PageSize.SelectedValue = "5";
         }
 
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddAdminIndex();
+        this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// The BBCode list item command.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
+    protected void BbCodeListItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+    {
+        switch (e.CommandName)
         {
-            if (this.IsPostBack)
-            {
-                return;
-            }
+            case "add":
+                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCode_Edit);
+                break;
+            case "edit":
+                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCode_Edit, new { b = e.CommandArgument });
+                break;
+            case "delete":
+                this.GetRepository<BBCode>().DeleteById(e.CommandArgument.ToType<int>());
+                this.BindData();
+                break;
+            case "export":
+                {
+                    this.ExportList();
+                }
 
-            this.PageSize.DataSource = StaticDataHelper.PageEntries();
-            this.PageSize.DataTextField = "Name";
-            this.PageSize.DataValueField = "Value";
-            this.PageSize.DataBind();
-
-            try
-            {
-                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
-            }
-            catch (Exception)
-            {
-                this.PageSize.SelectedValue = "5";
-            }
-
-            this.BindData();
+                break;
         }
+    }
 
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
+    /// <summary>
+    /// The pager top_ page change.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // rebind
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The page size on selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Exports the selected list.
+    /// </summary>
+    private void ExportList()
+    {
+        var codeIDs = this.GetSelectedBbCodeIDs();
+
+        if (codeIDs.Count > 0)
         {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddAdminIndex();
-            this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), string.Empty);
-        }
+            this.Get<HttpResponseBase>().Clear();
+            this.Get<HttpResponseBase>().ClearContent();
+            this.Get<HttpResponseBase>().ClearHeaders();
 
-        /// <summary>
-        /// The BBCode list item command.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void BbCodeListItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "add":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCode_Edit);
-                    break;
-                case "edit":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCode_Edit, new { b = e.CommandArgument });
-                    break;
-                case "delete":
-                    this.GetRepository<BBCode>().DeleteById(e.CommandArgument.ToType<int>());
-                    this.BindData();
-                    break;
-                case "export":
-                    {
-                        this.ExportList();
-                    }
+            this.Get<HttpResponseBase>().ContentType = "text/xml";
+            this.Get<HttpResponseBase>().AppendHeader(
+                "content-disposition",
+                "attachment; filename=BBCodeExport.xml");
 
-                    break;
-            }
-        }
+            // export this list as XML...
+            var list =
+                this.GetRepository<BBCode>().GetByBoardId();
 
-        /// <summary>
-        /// The pager top_ page change.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // rebind
-            this.BindData();
-        }
+            var selectedList = new List<BBCode>();
 
-        /// <summary>
-        /// The page size on selected index changed.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Exports the selected list.
-        /// </summary>
-        private void ExportList()
-        {
-            var codeIDs = this.GetSelectedBbCodeIDs();
-
-            if (codeIDs.Count > 0)
-            {
-                this.Get<HttpResponseBase>().Clear();
-                this.Get<HttpResponseBase>().ClearContent();
-                this.Get<HttpResponseBase>().ClearHeaders();
-
-                this.Get<HttpResponseBase>().ContentType = "text/xml";
-                this.Get<HttpResponseBase>().AppendHeader(
-                    "content-disposition",
-                    "attachment; filename=BBCodeExport.xml");
-
-                // export this list as XML...
-                var list =
-                    this.GetRepository<BBCode>().GetByBoardId();
-
-                var selectedList = new List<BBCode>();
-
-                codeIDs.ForEach(id =>
+            codeIDs.ForEach(id =>
                 {
                     var found = list.First(e => e.ID == id);
 
                     selectedList.Add(found);
                 });
 
-                var element = new XElement(
-                    "YafBBCodeList",
-                    from bbCode in selectedList
-                    select new XElement(
-                        "YafBBCode",
-                        new XElement("Name", bbCode.Name),
-                        new XElement("Description", bbCode.Description),
-                        new XElement("OnClickJS", bbCode.OnClickJS),
-                        new XElement("DisplayJS", bbCode.DisplayJS),
-                        new XElement("EditJS", bbCode.EditJS),
-                        new XElement("DisplayCSS", bbCode.DisplayCSS),
-                        new XElement("SearchRegex", bbCode.SearchRegex),
-                        new XElement("ReplaceRegex", bbCode.ReplaceRegex),
-                        new XElement("Variables", bbCode.Variables),
-                        new XElement("UseModule", bbCode.UseModule),
-                        new XElement("UseToolbar", bbCode.UseToolbar),
-                        new XElement("ModuleClass", bbCode.ModuleClass),
-                        new XElement("ExecOrder", bbCode.ExecOrder)));
+            var element = new XElement(
+                "YafBBCodeList",
+                from bbCode in selectedList
+                select new XElement(
+                    "YafBBCode",
+                    new XElement("Name", bbCode.Name),
+                    new XElement("Description", bbCode.Description),
+                    new XElement("OnClickJS", bbCode.OnClickJS),
+                    new XElement("DisplayJS", bbCode.DisplayJS),
+                    new XElement("EditJS", bbCode.EditJS),
+                    new XElement("DisplayCSS", bbCode.DisplayCSS),
+                    new XElement("SearchRegex", bbCode.SearchRegex),
+                    new XElement("ReplaceRegex", bbCode.ReplaceRegex),
+                    new XElement("Variables", bbCode.Variables),
+                    new XElement("UseModule", bbCode.UseModule),
+                    new XElement("UseToolbar", bbCode.UseToolbar),
+                    new XElement("ModuleClass", bbCode.ModuleClass),
+                    new XElement("ExecOrder", bbCode.ExecOrder)));
 
-                element.Save(this.Get<HttpResponseBase>().OutputStream);
+            element.Save(this.Get<HttpResponseBase>().OutputStream);
 
-                this.Get<HttpResponseBase>().Flush();
-                this.Get<HttpResponseBase>().End();
-            }
-            else
-            {
-                this.PageBoardContext.Notify(
-                    this.GetText("ADMIN_BBCODE", "MSG_NOTHING_SELECTED"),
-                    MessageTypes.warning);
-            }
+            this.Get<HttpResponseBase>().Flush();
+            this.Get<HttpResponseBase>().End();
         }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
+        else
         {
-            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
-
-            var list = this.GetRepository<BBCode>().ListPaged(
-                this.PageBoardContext.PageBoardID,
-                this.PagerTop.CurrentPageIndex,
-                this.PagerTop.PageSize);
-
-            this.bbCodeList.DataSource = list;
-
-            this.PagerTop.Count = !list.NullOrEmpty()
-                ? this.GetRepository<BBCode>()
-                    .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>()
-                : 0;
-
-            this.DataBind();
+            this.PageBoardContext.Notify(
+                this.GetText("ADMIN_BBCODE", "MSG_NOTHING_SELECTED"),
+                MessageTypes.warning);
         }
-
-        #endregion
     }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
+
+        var list = this.GetRepository<BBCode>().ListPaged(
+            this.PageBoardContext.PageBoardID,
+            this.PagerTop.CurrentPageIndex,
+            this.PagerTop.PageSize);
+
+        this.bbCodeList.DataSource = list;
+
+        this.PagerTop.Count = !list.NullOrEmpty()
+                                  ? this.GetRepository<BBCode>()
+                                      .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>()
+                                  : 0;
+
+        this.DataBind();
+    }
+
+    #endregion
 }

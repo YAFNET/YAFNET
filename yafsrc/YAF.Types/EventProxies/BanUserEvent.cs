@@ -21,68 +21,67 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
-{
-    #region Using
+namespace YAF.Types.EventProxies;
 
-    using YAF.Types.Interfaces.Events;
+#region Using
+
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+/// The ban user event.
+/// </summary>
+public class BanUserEvent : IAmEvent
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BanUserEvent"/> class.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="email">
+    /// The email.
+    /// </param>
+    /// <param name="ipAddress">
+    /// The IP Address.
+    /// </param>
+    public BanUserEvent(int userId, string name, string email, string ipAddress)
+    {
+        this.UserId = userId;
+        this.Name = name;
+        this.Email = email;
+        this.IpAddress = ipAddress;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The ban user event.
+    /// Gets or sets the user id.
     /// </summary>
-    public class BanUserEvent : IAmEvent
-    {
-        #region Constructors and Destructors
+    public int UserId { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BanUserEvent"/> class.
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="email">
-        /// The email.
-        /// </param>
-        /// <param name="ipAddress">
-        /// The IP Address.
-        /// </param>
-        public BanUserEvent(int userId, string name, string email, string ipAddress)
-        {
-            this.UserId = userId;
-            this.Name = name;
-            this.Email = email;
-            this.IpAddress = ipAddress;
-        }
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    public string Name { get; set; }
 
-        #endregion
+    /// <summary>
+    /// Gets or sets the email.
+    /// </summary>
+    public string Email { get; set; }
 
-        #region Properties
+    /// <summary>
+    /// Gets or sets the IP address.
+    /// </summary>
+    public string IpAddress { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        public int UserId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the email.
-        /// </summary>
-        public string Email { get; set; }
-
-        /// <summary>
-        /// Gets or sets the IP address.
-        /// </summary>
-        public string IpAddress { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

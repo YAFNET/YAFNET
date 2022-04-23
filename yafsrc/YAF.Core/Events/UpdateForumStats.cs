@@ -21,67 +21,66 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Events
+namespace YAF.Core.Events;
+
+using YAF.Core.Model;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Models;
+
+/// <summary>
+/// The update forum stats.
+/// </summary>
+[ExportService(ServiceLifetimeScope.OwnedByContainer)]
+public class UpdateForumStats : IHaveServiceLocator, IHandleEvent<UpdateForumStatsEvent>
 {
-    using YAF.Core.Model;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The update forum stats.
+    /// Initializes a new instance of the <see cref="UpdateForumStats"/> class.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.OwnedByContainer)]
-    public class UpdateForumStats : IHaveServiceLocator, IHandleEvent<UpdateForumStatsEvent>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public UpdateForumStats([NotNull] IServiceLocator serviceLocator)
     {
-        #region Constructors and Destructors
+        CodeContracts.VerifyNotNull(serviceLocator);
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateForumStats"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        public UpdateForumStats([NotNull] IServiceLocator serviceLocator)
-        {
-            CodeContracts.VerifyNotNull(serviceLocator);
-
-            this.ServiceLocator = serviceLocator;
-        }
-
-        #endregion
-        
-        #region Public Properties
-
-        /// <summary>
-        ///   Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        /// <summary>
-        ///     Gets the order.
-        /// </summary>
-        public int Order => 10000;
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The handle.
-        /// </summary>
-        /// <param name="event">
-        /// The event.
-        /// </param>
-        public void Handle(UpdateForumStatsEvent @event)
-        {
-            this.GetRepository<Forum>().UpdateStats(@event.ForumId);
-            this.GetRepository<Forum>().UpdateLastPost(@event.ForumId);
-        }
-
-        #endregion
+        this.ServiceLocator = serviceLocator;
     }
+
+    #endregion
+        
+    #region Public Properties
+
+    /// <summary>
+    ///   Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    /// <summary>
+    ///     Gets the order.
+    /// </summary>
+    public int Order => 10000;
+
+    #endregion
+
+    #region Public Methods and Operators
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
+    /// </param>
+    public void Handle(UpdateForumStatsEvent @event)
+    {
+        this.GetRepository<Forum>().UpdateStats(@event.ForumId);
+        this.GetRepository<Forum>().UpdateLastPost(@event.ForumId);
+    }
+
+    #endregion
 }

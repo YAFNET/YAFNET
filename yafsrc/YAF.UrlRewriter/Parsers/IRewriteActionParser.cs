@@ -5,43 +5,42 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Parsers
-{
-    using System.Xml;
+namespace YAF.UrlRewriter.Parsers;
 
-    using YAF.UrlRewriter.Actions;
-    using YAF.UrlRewriter.Configuration;
+using System.Xml;
+
+using YAF.UrlRewriter.Actions;
+using YAF.UrlRewriter.Configuration;
+
+/// <summary>
+/// Interface defining a parser which parses an XML node and returns the correct
+/// IRewriteAction instance based on the node.
+/// </summary>
+public interface IRewriteActionParser
+{
+    /// <summary>
+    /// Parses the node if possible.  The parser may be called on an action node
+    /// that it cannot parse, if it is registered on a common verb
+    /// which is shared by several action parsers (e.g., set).
+    /// </summary>
+    /// <param name="node">The node to parse.</param>
+    /// <param name="config">The rewriter configuration.</param>
+    /// <returns>The action parsed.  If the parser could not parse the node,
+    /// it <strong>must</strong> return null.</returns>
+    IRewriteAction Parse(XmlNode node, IRewriterConfiguration config);
 
     /// <summary>
-    /// Interface defining a parser which parses an XML node and returns the correct
-    /// IRewriteAction instance based on the node.
+    /// The name of the action.
     /// </summary>
-    public interface IRewriteActionParser
-    {
-        /// <summary>
-        /// Parses the node if possible.  The parser may be called on an action node
-        /// that it cannot parse, if it is registered on a common verb
-        /// which is shared by several action parsers (e.g., set).
-        /// </summary>
-        /// <param name="node">The node to parse.</param>
-        /// <param name="config">The rewriter configuration.</param>
-        /// <returns>The action parsed.  If the parser could not parse the node,
-        /// it <strong>must</strong> return null.</returns>
-        IRewriteAction Parse(XmlNode node, IRewriterConfiguration config);
+    string Name { get; }
 
-        /// <summary>
-        /// The name of the action.
-        /// </summary>
-        string Name { get; }
+    /// <summary>
+    /// Whether the action allows nested actions.
+    /// </summary>
+    bool AllowsNestedActions { get; }
 
-        /// <summary>
-        /// Whether the action allows nested actions.
-        /// </summary>
-        bool AllowsNestedActions { get; }
-
-        /// <summary>
-        /// Whether the action allows attributes.
-        /// </summary>
-        bool AllowsAttributes { get; }
-    }
+    /// <summary>
+    /// Whether the action allows attributes.
+    /// </summary>
+    bool AllowsAttributes { get; }
 }

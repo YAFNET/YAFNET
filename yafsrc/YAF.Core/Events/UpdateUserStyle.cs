@@ -21,66 +21,65 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Events
+namespace YAF.Core.Events;
+
+using YAF.Core.Model;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Models;
+
+/// <summary>
+/// Updates the user style
+/// </summary>
+[ExportService(ServiceLifetimeScope.OwnedByContainer)]
+public class UpdateUserStyle : IHaveServiceLocator, IHandleEvent<UpdateUserStyleEvent>
 {
-    using YAF.Core.Model;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Updates the user style
+    /// Initializes a new instance of the <see cref="UpdateUserStyle"/> class.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.OwnedByContainer)]
-    public class UpdateUserStyle : IHaveServiceLocator, IHandleEvent<UpdateUserStyleEvent>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public UpdateUserStyle([NotNull] IServiceLocator serviceLocator)
     {
-        #region Constructors and Destructors
+        CodeContracts.VerifyNotNull(serviceLocator);
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateUserStyle"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        public UpdateUserStyle([NotNull] IServiceLocator serviceLocator)
-        {
-            CodeContracts.VerifyNotNull(serviceLocator);
-
-            this.ServiceLocator = serviceLocator;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///   Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        /// <summary>
-        ///     Gets the order.
-        /// </summary>
-        public int Order => 10000;
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The handle.
-        /// </summary>
-        /// <param name="event">
-        /// The event.
-        /// </param>
-        public void Handle(UpdateUserStyleEvent @event)
-        {
-            this.GetRepository<User>().UpdateStyle(@event.UserId);
-        }
-
-        #endregion
+        this.ServiceLocator = serviceLocator;
     }
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    ///   Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    /// <summary>
+    ///     Gets the order.
+    /// </summary>
+    public int Order => 10000;
+
+    #endregion
+
+    #region Public Methods and Operators
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
+    /// </param>
+    public void Handle(UpdateUserStyleEvent @event)
+    {
+        this.GetRepository<User>().UpdateStyle(@event.UserId);
+    }
+
+    #endregion
 }

@@ -22,43 +22,42 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+/// <summary>
+/// The Custom List Item
+/// </summary>
+public class ListItem
 {
     /// <summary>
-    /// The Custom List Item
+    /// Initializes a new instance of the <see cref="ListItem"/> class.
     /// </summary>
-    public class ListItem
+    public ListItem()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ListItem"/> class.
-        /// </summary>
-        public ListItem()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ListItem"/> class.
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        public ListItem(string name, string value)
-        {
-            this.Name = name;
-            this.Value = value;
-        }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        public string Value { get; set; }
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ListItem"/> class.
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    public ListItem(string name, string value)
+    {
+        this.Name = name;
+        this.Value = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the value.
+    /// </summary>
+    public string Value { get; set; }
 }

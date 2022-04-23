@@ -6,27 +6,26 @@
 // ***********************************************************************
 using System;
 
-namespace ServiceStack.DataAnnotations
-{
-    // https://msdn.microsoft.com/en-us/library/ms184391.aspx
-    /// <summary>
-    /// Class SqlServerCollateAttribute.
-    /// Implements the <see cref="ServiceStack.AttributeBase" />
-    /// </summary>
-    /// <seealso cref="ServiceStack.AttributeBase" />
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class SqlServerCollateAttribute : AttributeBase
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SqlServerCollateAttribute"/> class.
-        /// </summary>
-        /// <param name="collation">The collation.</param>
-        public SqlServerCollateAttribute(string collation) { Collation = collation; }
+namespace ServiceStack.DataAnnotations;
 
-        /// <summary>
-        /// Gets or sets the collation.
-        /// </summary>
-        /// <value>The collation.</value>
-        public string Collation { get; set; }
-    }
+// https://msdn.microsoft.com/en-us/library/ms184391.aspx
+/// <summary>
+/// Class SqlServerCollateAttribute.
+/// Implements the <see cref="ServiceStack.AttributeBase" />
+/// </summary>
+/// <seealso cref="ServiceStack.AttributeBase" />
+[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+public class SqlServerCollateAttribute : AttributeBase
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SqlServerCollateAttribute"/> class.
+    /// </summary>
+    /// <param name="collation">The collation.</param>
+    public SqlServerCollateAttribute(string collation) { Collation = collation; }
+
+    /// <summary>
+    /// Gets or sets the collation.
+    /// </summary>
+    /// <value>The collation.</value>
+    public string Collation { get; set; }
 }

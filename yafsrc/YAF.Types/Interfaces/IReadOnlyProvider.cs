@@ -21,24 +21,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The read only provider interface.
+/// </summary>
+/// <typeparam name="T">
+/// </typeparam>
+public interface IReadOnlyProvider<out T>
 {
+    #region Public Methods
+
     /// <summary>
-    /// The read only provider interface.
+    /// The create.
     /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public interface IReadOnlyProvider<out T>
-    {
-        #region Public Methods
+    /// <returns>
+    /// </returns>
+    T Instance { get; }
 
-        /// <summary>
-        /// The create.
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        T Instance { get; }
-
-        #endregion
-    }
+    #endregion
 }

@@ -22,53 +22,52 @@
  * under the License.
  */
 
-namespace YAF.Pages.Account
-{
-    #region Using
+namespace YAF.Pages.Account;
 
-    using System.Web.Security;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces.Events;
+#region Using
+
+using System.Web.Security;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+/// The Logout function
+/// </summary>
+public partial class Logout : AccountPage
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "Logout" /> class.
+    /// </summary>
+    public Logout()
+        : base("LOGOUT", ForumPages.Account_Logout)
+    {
+        this.PageBoardContext.Globals.IsSuspendCheckEnabled = false;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The Logout function
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class Logout : AccountPage
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
+        this.Get<IAspNetUsersHelper>().SignOut();
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "Logout" /> class.
-        /// </summary>
-        public Logout()
-            : base("LOGOUT", ForumPages.Account_Logout)
-        {
-            this.PageBoardContext.Globals.IsSuspendCheckEnabled = false;
-        }
+        // Handle legacy ASP.NET Membership logout
+        FormsAuthentication.SignOut();
 
-        #endregion
+        this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageBoardContext.PageUserID));
 
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<IAspNetUsersHelper>().SignOut();
-
-            // Handle legacy ASP.NET Membership logout
-            FormsAuthentication.SignOut();
-
-            this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageBoardContext.PageUserID));
-
-            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
-        }
-
-        #endregion
+        this.Get<LinkBuilder>().Redirect(ForumPages.Board);
     }
+
+    #endregion
 }

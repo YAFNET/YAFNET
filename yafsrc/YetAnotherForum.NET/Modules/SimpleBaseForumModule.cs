@@ -21,103 +21,102 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
-{
-    #region Using
+namespace YAF.Modules;
 
-    using YAF.Web.Controls;
+#region Using
+
+using YAF.Web.Controls;
+
+#endregion
+
+/// <summary>
+/// The simple base forum module.
+/// </summary>
+public class SimpleBaseForumModule : BaseForumModule
+{
+    #region Properties
+
+    /// <summary>
+    ///   Gets CurrentForumPage.
+    /// </summary>
+    public ForumPage CurrentForumPage => this.PageBoardContext.CurrentForumPage;
+
+    /// <summary>
+    ///   Gets ForumControl.
+    /// </summary>
+    public Forum ForumControl => (Forum)this.ForumControlObj;
+
+    /// <summary>
+    ///   Gets ForumPageType.
+    /// </summary>
+    public ForumPages ForumPageType => this.PageBoardContext.CurrentForumPage.PageType;
 
     #endregion
 
+    #region Public Methods
+
     /// <summary>
-    /// The simple base forum module.
+    /// The initialization.
     /// </summary>
-    public class SimpleBaseForumModule : BaseForumModule
+    public override void Init()
     {
-        #region Properties
-
-        /// <summary>
-        ///   Gets CurrentForumPage.
-        /// </summary>
-        public ForumPage CurrentForumPage => this.PageBoardContext.CurrentForumPage;
-
-        /// <summary>
-        ///   Gets ForumControl.
-        /// </summary>
-        public Forum ForumControl => (Forum)this.ForumControlObj;
-
-        /// <summary>
-        ///   Gets ForumPageType.
-        /// </summary>
-        public ForumPages ForumPageType => this.PageBoardContext.CurrentForumPage.PageType;
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The initialization.
-        /// </summary>
-        public override void Init()
-        {
-            this.ForumControl.BeforeForumPageLoad += this.ForumControl_BeforeForumPageLoad;
-            this.ForumControl.AfterForumPageLoad += this.ForumControl_AfterForumPageLoad;
-            this.InitForum();
-        }
-
-        /// <summary>
-        /// The initialization after page.
-        /// </summary>
-        public virtual void InitAfterPage()
-        {
-        }
-
-        /// <summary>
-        /// The initialization before page.
-        /// </summary>
-        public virtual void InitBeforePage()
-        {
-        }
-
-        /// <summary>
-        /// The initialization forum.
-        /// </summary>
-        public virtual void InitForum()
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The forum control_ after forum page load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void ForumControl_AfterForumPageLoad([NotNull] object sender, [NotNull] AfterForumPageLoad e)
-        {
-            this.InitAfterPage();
-        }
-
-        /// <summary>
-        /// The forum control_ before forum page load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void ForumControl_BeforeForumPageLoad([NotNull] object sender, [NotNull] BeforeForumPageLoad e)
-        {
-            this.InitBeforePage();
-        }
-
-        #endregion
+        this.ForumControl.BeforeForumPageLoad += this.ForumControl_BeforeForumPageLoad;
+        this.ForumControl.AfterForumPageLoad += this.ForumControl_AfterForumPageLoad;
+        this.InitForum();
     }
+
+    /// <summary>
+    /// The initialization after page.
+    /// </summary>
+    public virtual void InitAfterPage()
+    {
+    }
+
+    /// <summary>
+    /// The initialization before page.
+    /// </summary>
+    public virtual void InitBeforePage()
+    {
+    }
+
+    /// <summary>
+    /// The initialization forum.
+    /// </summary>
+    public virtual void InitForum()
+    {
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The forum control_ after forum page load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumControl_AfterForumPageLoad([NotNull] object sender, [NotNull] AfterForumPageLoad e)
+    {
+        this.InitAfterPage();
+    }
+
+    /// <summary>
+    /// The forum control_ before forum page load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumControl_BeforeForumPageLoad([NotNull] object sender, [NotNull] BeforeForumPageLoad e)
+    {
+        this.InitBeforePage();
+    }
+
+    #endregion
 }

@@ -22,56 +22,55 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+/// <summary>
+/// Thank You Info
+/// </summary>
+public class ThankYouInfo
 {
     /// <summary>
-    /// Thank You Info
+    /// Gets or sets Text.
     /// </summary>
-    public class ThankYouInfo
+    public string Text
     {
-        /// <summary>
-        /// Gets or sets Text.
-        /// </summary>
-        public string Text
-        {
-            get;
-            set;
-        }
+        get;
+        set;
+    }
 
-        /// <summary>
-        /// Gets or sets Title.
-        /// </summary>
-        public string Title
-        {
-            get;
-            set;
-        }
+    /// <summary>
+    /// Gets or sets Title.
+    /// </summary>
+    public string Title
+    {
+        get;
+        set;
+    }
 
-        /// <summary>
-        /// Gets or sets MessageID.
-        /// </summary>
-        public int MessageID
-        {
-            get;
-            set;
-        }
+    /// <summary>
+    /// Gets or sets MessageID.
+    /// </summary>
+    public int MessageID
+    {
+        get;
+        set;
+    }
 
-        /// <summary>
-        /// Gets or sets ThanksInfo.
-        /// </summary>
-        public string ThanksInfo
-        {
-            get;
-            set;
-        }
+    /// <summary>
+    /// Gets or sets ThanksInfo.
+    /// </summary>
+    public string ThanksInfo
+    {
+        get;
+        set;
+    }
 
-        /// <summary>
-        /// Gets or sets Thanks.
-        /// </summary>
-        public string Thanks
-        {
-            get;
-            set;
-        }
+    /// <summary>
+    /// Gets or sets Thanks.
+    /// </summary>
+    public string Thanks
+    {
+        get;
+        set;
     }
 }

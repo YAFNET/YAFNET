@@ -21,41 +21,40 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
-{
-    #region Using
+namespace YAF.Types.EventProxies;
 
-    using YAF.Types.Interfaces.Events;
+#region Using
+
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+/// The update forum stats event.
+/// </summary>
+public class UpdateForumStatsEvent : IAmEvent
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateForumStatsEvent"/> class.
+    /// </summary>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    public UpdateForumStatsEvent(int forumId)
+    {
+        this.ForumId = forumId;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The update forum stats event.
+    /// Gets or sets the forum id.
     /// </summary>
-    public class UpdateForumStatsEvent : IAmEvent
-    {
-        #region Constructors and Destructors
+    public int ForumId { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateForumStatsEvent"/> class.
-        /// </summary>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        public UpdateForumStatsEvent(int forumId)
-        {
-            this.ForumId = forumId;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        public int ForumId { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

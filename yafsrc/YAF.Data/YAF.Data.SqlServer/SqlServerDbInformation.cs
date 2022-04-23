@@ -22,335 +22,334 @@
  * under the License.
  */
 
-namespace YAF.Data.SqlServer
+namespace YAF.Data.SqlServer;
+
+using ServiceStack.OrmLite;
+
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+
+using YAF.Core.Data;
+using YAF.Types;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+using Config = YAF.Configuration.Config;
+
+/// <summary>
+/// MySQL DB Information
+/// </summary>
+public class SqlServerDbInformation : IDbInformation
 {
-    using ServiceStack.OrmLite;
-
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Data.SqlClient;
-    using System.Linq;
-    using System.Text;
-
-    using YAF.Core.Data;
-    using YAF.Types;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
-
-    using Config = YAF.Configuration.Config;
+    /// <summary>
+    /// The YAF Provider Upgrade script list
+    /// </summary>
+    private static readonly string[] IdentityUpgradeScriptList = { };
 
     /// <summary>
-    /// MySQL DB Information
+    /// The DB parameters
     /// </summary>
-    public class SqlServerDbInformation : IDbInformation
+    private readonly DbConnectionParam[] connectionParameters = {
+                                                                        new(0, "Password", string.Empty),
+                                                                        new(1, "Data Source", "(local)"),
+                                                                        new(2, "Initial Catalog", string.Empty),
+                                                                        new(11, "Use Integrated Security", "true")
+                                                                    };
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SqlServerDbInformation"/> class.
+    /// </summary>
+    public SqlServerDbInformation()
     {
-        /// <summary>
-        /// The YAF Provider Upgrade script list
-        /// </summary>
-        private static readonly string[] IdentityUpgradeScriptList = { };
+        this.ConnectionString = () => Config.ConnectionString;
+        this.ProviderName = SqlServerDbAccess.ProviderTypeName;
+    }
 
-        /// <summary>
-        /// The DB parameters
-        /// </summary>
-        private readonly DbConnectionParam[] connectionParameters = {
-            new(0, "Password", string.Empty),
-            new(1, "Data Source", "(local)"),
-            new(2, "Initial Catalog", string.Empty),
-            new(11, "Use Integrated Security", "true")
-        };
+    /// <summary>
+    /// Gets or sets the DB Connection String
+    /// </summary>
+    public Func<string> ConnectionString { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SqlServerDbInformation"/> class.
-        /// </summary>
-        public SqlServerDbInformation()
-        {
-            this.ConnectionString = () => Config.ConnectionString;
-            this.ProviderName = SqlServerDbAccess.ProviderTypeName;
-        }
+    /// <summary>
+    /// Gets or sets the DB Provider Name
+    /// </summary>
+    public string ProviderName { get; protected set; }
 
-        /// <summary>
-        /// Gets or sets the DB Connection String
-        /// </summary>
-        public Func<string> ConnectionString { get; set; }
+    /// <summary>
+    /// Gets the YAF Provider Upgrade Script List.
+    /// </summary>
+    public IEnumerable<string> IdentityUpgradeScripts => IdentityUpgradeScriptList;
 
-        /// <summary>
-        /// Gets or sets the DB Provider Name
-        /// </summary>
-        public string ProviderName { get; protected set; }
+    /// <summary>
+    /// Gets the DB Connection Parameters.
+    /// </summary>
+    public IDbConnectionParam[] DbConnectionParameters =>
+        this.connectionParameters.OfType<IDbConnectionParam>().ToArray();
 
-        /// <summary>
-        /// Gets the YAF Provider Upgrade Script List.
-        /// </summary>
-        public IEnumerable<string> IdentityUpgradeScripts => IdentityUpgradeScriptList;
+    /// <summary>
+    /// Builds a connection string.
+    /// </summary>
+    /// <param name="parameters">The Connection Parameters</param>
+    /// <returns>Returns the Connection String</returns>
+    public string BuildConnectionString([NotNull] IEnumerable<IDbConnectionParam> parameters)
+    {
+        var connectionParams = parameters.ToList();
 
-        /// <summary>
-        /// Gets the DB Connection Parameters.
-        /// </summary>
-        public IDbConnectionParam[] DbConnectionParameters =>
-            this.connectionParameters.OfType<IDbConnectionParam>().ToArray();
+        CodeContracts.VerifyNotNull(connectionParams);
 
-        /// <summary>
-        /// Builds a connection string.
-        /// </summary>
-        /// <param name="parameters">The Connection Parameters</param>
-        /// <returns>Returns the Connection String</returns>
-        public string BuildConnectionString([NotNull] IEnumerable<IDbConnectionParam> parameters)
-        {
-            var connectionParams = parameters.ToList();
+        var connBuilder = new SqlConnectionStringBuilder();
 
-            CodeContracts.VerifyNotNull(connectionParams);
+        connectionParams.ForEach(param => connBuilder[param.Name] = param.Value);
 
-            var connBuilder = new SqlConnectionStringBuilder();
+        return connBuilder.ConnectionString;
+    }
 
-            connectionParams.ForEach(param => connBuilder[param.Name] = param.Value);
+    /// <summary>
+    /// Create Table Views
+    /// </summary>
+    /// <param name="dbAccess">
+    /// The database access.
+    /// </param>
+    /// <param name="dbCommand">
+    /// The database command.
+    /// </param>
+    public bool CreateViews(IDbAccess dbAccess, IDbCommand dbCommand)
+    {
+        var vaccessGroupSelect = new StringBuilder();
 
-            return connBuilder.ConnectionString;
-        }
+        vaccessGroupSelect.Append(" select ");
 
-        /// <summary>
-        /// Create Table Views
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The database access.
-        /// </param>
-        /// <param name="dbCommand">
-        /// The database command.
-        /// </param>
-        public bool CreateViews(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            var vaccessGroupSelect = new StringBuilder();
+        vaccessGroupSelect.Append("e.BoardID,");
+        vaccessGroupSelect.Append("b.UserID,");
+        vaccessGroupSelect.Append("c.ForumID,");
+        vaccessGroupSelect.Append("d.AccessMaskID,");
+        vaccessGroupSelect.Append("b.GroupID,");
+        vaccessGroupSelect.Append("ReadAccess = convert(int,d.Flags & 1),");
+        vaccessGroupSelect.Append("PostAccess = convert(int,d.Flags & 2),");
+        vaccessGroupSelect.Append("ReplyAccess = convert(int,d.Flags & 4),");
+        vaccessGroupSelect.Append("PriorityAccess = convert(int,d.Flags & 8),");
+        vaccessGroupSelect.Append("PollAccess = convert(int,d.Flags & 16),");
+        vaccessGroupSelect.Append("VoteAccess = convert(int,d.Flags & 32),");
+        vaccessGroupSelect.Append("ModeratorAccess = convert(int,d.Flags & 64),");
+        vaccessGroupSelect.Append("EditAccess = convert(int,d.Flags & 128),");
+        vaccessGroupSelect.Append("DeleteAccess = convert(int,d.Flags & 256),");
+        vaccessGroupSelect.Append("AdminGroup = convert(int,e.Flags & 1)");
 
-            vaccessGroupSelect.Append(" select ");
+        vaccessGroupSelect.Append(" from");
 
-            vaccessGroupSelect.Append("e.BoardID,");
-            vaccessGroupSelect.Append("b.UserID,");
-            vaccessGroupSelect.Append("c.ForumID,");
-            vaccessGroupSelect.Append("d.AccessMaskID,");
-            vaccessGroupSelect.Append("b.GroupID,");
-            vaccessGroupSelect.Append("ReadAccess = convert(int,d.Flags & 1),");
-            vaccessGroupSelect.Append("PostAccess = convert(int,d.Flags & 2),");
-            vaccessGroupSelect.Append("ReplyAccess = convert(int,d.Flags & 4),");
-            vaccessGroupSelect.Append("PriorityAccess = convert(int,d.Flags & 8),");
-            vaccessGroupSelect.Append("PollAccess = convert(int,d.Flags & 16),");
-            vaccessGroupSelect.Append("VoteAccess = convert(int,d.Flags & 32),");
-            vaccessGroupSelect.Append("ModeratorAccess = convert(int,d.Flags & 64),");
-            vaccessGroupSelect.Append("EditAccess = convert(int,d.Flags & 128),");
-            vaccessGroupSelect.Append("DeleteAccess = convert(int,d.Flags & 256),");
-            vaccessGroupSelect.Append("AdminGroup = convert(int,e.Flags & 1)");
+        vaccessGroupSelect.AppendFormat(
+            " [{0}].[{1}] b",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<UserGroup>());
+        vaccessGroupSelect.AppendFormat(
+            " INNER JOIN [{0}].[{1}] c on c.GroupID=b.GroupID",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<ForumAccess>());
+        vaccessGroupSelect.AppendFormat(
+            " INNER JOIN [{0}].[{1}] d on d.AccessMaskID=c.AccessMaskID",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<AccessMask>());
+        vaccessGroupSelect.AppendFormat(
+            " INNER JOIN [{0}].[{1}] e on e.GroupID=b.GroupID",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<Group>());
 
-            vaccessGroupSelect.Append(" from");
+        dbCommand.Connection.CreateView<vaccess_group>(vaccessGroupSelect);
 
-            vaccessGroupSelect.AppendFormat(
-                " [{0}].[{1}] b",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<UserGroup>());
-            vaccessGroupSelect.AppendFormat(
-                " INNER JOIN [{0}].[{1}] c on c.GroupID=b.GroupID",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<ForumAccess>());
-            vaccessGroupSelect.AppendFormat(
-                " INNER JOIN [{0}].[{1}] d on d.AccessMaskID=c.AccessMaskID",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<AccessMask>());
-            vaccessGroupSelect.AppendFormat(
-                " INNER JOIN [{0}].[{1}] e on e.GroupID=b.GroupID",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<Group>());
+        var vaccessNullSelect = new StringBuilder();
 
-            dbCommand.Connection.CreateView<vaccess_group>(vaccessGroupSelect);
+        vaccessNullSelect.Append(" select ");
 
-            var vaccessNullSelect = new StringBuilder();
+        vaccessNullSelect.Append("a.UserID,");
+        vaccessNullSelect.Append("ForumID = convert(int,0),");
+        vaccessNullSelect.Append("GroupID = convert(int,0),");
+        vaccessNullSelect.Append("AccessMaskID = convert(int, 0),");
+        vaccessNullSelect.Append("ReadAccess = convert(int, 0),");
+        vaccessNullSelect.Append("PostAccess = convert(int, 0),");
+        vaccessNullSelect.Append("ReplyAccess = convert(int, 0),");
+        vaccessNullSelect.Append("PriorityAccess = convert(int, 0),");
+        vaccessNullSelect.Append("PollAccess = convert(int, 0),");
+        vaccessNullSelect.Append("VoteAccess = convert(int, 0),");
+        vaccessNullSelect.Append("ModeratorAccess = convert(int, 0),");
+        vaccessNullSelect.Append("EditAccess = convert(int, 0),");
+        vaccessNullSelect.Append("DeleteAccess = convert(int, 0),");
+        vaccessNullSelect.Append("AdminGroup = convert(int, 0)");
 
-            vaccessNullSelect.Append(" select ");
+        vaccessNullSelect.Append(" from");
 
-            vaccessNullSelect.Append("a.UserID,");
-            vaccessNullSelect.Append("ForumID = convert(int,0),");
-            vaccessNullSelect.Append("GroupID = convert(int,0),");
-            vaccessNullSelect.Append("AccessMaskID = convert(int, 0),");
-            vaccessNullSelect.Append("ReadAccess = convert(int, 0),");
-            vaccessNullSelect.Append("PostAccess = convert(int, 0),");
-            vaccessNullSelect.Append("ReplyAccess = convert(int, 0),");
-            vaccessNullSelect.Append("PriorityAccess = convert(int, 0),");
-            vaccessNullSelect.Append("PollAccess = convert(int, 0),");
-            vaccessNullSelect.Append("VoteAccess = convert(int, 0),");
-            vaccessNullSelect.Append("ModeratorAccess = convert(int, 0),");
-            vaccessNullSelect.Append("EditAccess = convert(int, 0),");
-            vaccessNullSelect.Append("DeleteAccess = convert(int, 0),");
-            vaccessNullSelect.Append("AdminGroup = convert(int, 0)");
+        vaccessNullSelect.AppendFormat(
+            " [{0}].[{1}] a",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<User>());
 
-            vaccessNullSelect.Append(" from");
+        dbCommand.Connection.CreateView<vaccess_null>(vaccessNullSelect);
 
-            vaccessNullSelect.AppendFormat(
-                " [{0}].[{1}] a",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<User>());
+        var vaccessUserSelect = new StringBuilder();
 
-            dbCommand.Connection.CreateView<vaccess_null>(vaccessNullSelect);
+        vaccessUserSelect.Append(" select ");
 
-            var vaccessUserSelect = new StringBuilder();
+        vaccessUserSelect.Append("b.UserID,");
+        vaccessUserSelect.Append("b.ForumID,");
+        vaccessUserSelect.Append("c.AccessMaskID,");
+        vaccessUserSelect.Append("GroupID = convert(int, 0),");
+        vaccessUserSelect.Append("ReadAccess = convert(int, c.Flags & 1),");
+        vaccessUserSelect.Append("PostAccess = convert(int, c.Flags & 2),");
+        vaccessUserSelect.Append("ReplyAccess = convert(int, c.Flags & 4),");
+        vaccessUserSelect.Append("PriorityAccess = convert(int, c.Flags & 8),");
+        vaccessUserSelect.Append("PollAccess = convert(int, c.Flags & 16),");
+        vaccessUserSelect.Append("VoteAccess = convert(int, c.Flags & 32),");
+        vaccessUserSelect.Append("ModeratorAccess = convert(int, c.Flags & 64),");
+        vaccessUserSelect.Append("EditAccess = convert(int, c.Flags & 128),");
+        vaccessUserSelect.Append("DeleteAccess = convert(int, c.Flags & 256),");
+        vaccessUserSelect.Append("AdminGroup = convert(int, 0)");
 
-            vaccessUserSelect.Append(" select ");
+        vaccessUserSelect.Append(" from");
+        vaccessUserSelect.AppendFormat(
+            " [{0}].[{1}] b",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<UserForum>());
 
-            vaccessUserSelect.Append("b.UserID,");
-            vaccessUserSelect.Append("b.ForumID,");
-            vaccessUserSelect.Append("c.AccessMaskID,");
-            vaccessUserSelect.Append("GroupID = convert(int, 0),");
-            vaccessUserSelect.Append("ReadAccess = convert(int, c.Flags & 1),");
-            vaccessUserSelect.Append("PostAccess = convert(int, c.Flags & 2),");
-            vaccessUserSelect.Append("ReplyAccess = convert(int, c.Flags & 4),");
-            vaccessUserSelect.Append("PriorityAccess = convert(int, c.Flags & 8),");
-            vaccessUserSelect.Append("PollAccess = convert(int, c.Flags & 16),");
-            vaccessUserSelect.Append("VoteAccess = convert(int, c.Flags & 32),");
-            vaccessUserSelect.Append("ModeratorAccess = convert(int, c.Flags & 64),");
-            vaccessUserSelect.Append("EditAccess = convert(int, c.Flags & 128),");
-            vaccessUserSelect.Append("DeleteAccess = convert(int, c.Flags & 256),");
-            vaccessUserSelect.Append("AdminGroup = convert(int, 0)");
+        vaccessUserSelect.AppendFormat(
+            " INNER JOIN [{0}].[{1}] c on c.AccessMaskID=b.AccessMaskID",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<AccessMask>());
 
-            vaccessUserSelect.Append(" from");
-            vaccessUserSelect.AppendFormat(
-                " [{0}].[{1}] b",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<UserForum>());
+        dbCommand.Connection.CreateView<vaccess_user>(vaccessUserSelect);
 
-            vaccessUserSelect.AppendFormat(
-                " INNER JOIN [{0}].[{1}] c on c.AccessMaskID=b.AccessMaskID",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<AccessMask>());
+        var vaccessFullSelect = new StringBuilder();
 
-            dbCommand.Connection.CreateView<vaccess_user>(vaccessUserSelect);
+        vaccessFullSelect.Append(" select ");
 
-            var vaccessFullSelect = new StringBuilder();
+        vaccessFullSelect.Append("UserID,ForumID,");
+        vaccessFullSelect.Append("MAX(ReadAccess) AS ReadAccess,");
+        vaccessFullSelect.Append("MAX(PostAccess) AS PostAccess,");
+        vaccessFullSelect.Append("MAX(ReplyAccess) AS ReplyAccess,");
+        vaccessFullSelect.Append("MAX(PriorityAccess) AS PriorityAccess,");
+        vaccessFullSelect.Append("MAX(PollAccess) AS PollAccess,");
+        vaccessFullSelect.Append("MAX(VoteAccess) AS VoteAccess,");
+        vaccessFullSelect.Append("MAX(ModeratorAccess) AS ModeratorAccess,");
+        vaccessFullSelect.Append("MAX(EditAccess) AS EditAccess,");
+        vaccessFullSelect.Append("MAX(DeleteAccess) AS DeleteAccess,");
+        vaccessFullSelect.Append("MAX(AdminGroup) as AdminGroup");
 
-            vaccessFullSelect.Append(" select ");
+        vaccessFullSelect.Append(" FROM ( select");
 
-            vaccessFullSelect.Append("UserID,ForumID,");
-            vaccessFullSelect.Append("MAX(ReadAccess) AS ReadAccess,");
-            vaccessFullSelect.Append("MAX(PostAccess) AS PostAccess,");
-            vaccessFullSelect.Append("MAX(ReplyAccess) AS ReplyAccess,");
-            vaccessFullSelect.Append("MAX(PriorityAccess) AS PriorityAccess,");
-            vaccessFullSelect.Append("MAX(PollAccess) AS PollAccess,");
-            vaccessFullSelect.Append("MAX(VoteAccess) AS VoteAccess,");
-            vaccessFullSelect.Append("MAX(ModeratorAccess) AS ModeratorAccess,");
-            vaccessFullSelect.Append("MAX(EditAccess) AS EditAccess,");
-            vaccessFullSelect.Append("MAX(DeleteAccess) AS DeleteAccess,");
-            vaccessFullSelect.Append("MAX(AdminGroup) as AdminGroup");
+        vaccessFullSelect.Append(
+            " UserID, ForumID, ReadAccess, PostAccess, ReplyAccess, PriorityAccess, PollAccess, VoteAccess, ModeratorAccess,");
+        vaccessFullSelect.Append(" EditAccess, DeleteAccess, AdminGroup");
 
-            vaccessFullSelect.Append(" FROM ( select");
+        vaccessFullSelect.Append(" from ");
+        vaccessFullSelect.AppendFormat(
+            "[{0}].[{1}] b",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<vaccess_user>());
 
-            vaccessFullSelect.Append(
-                " UserID, ForumID, ReadAccess, PostAccess, ReplyAccess, PriorityAccess, PollAccess, VoteAccess, ModeratorAccess,");
-            vaccessFullSelect.Append(" EditAccess, DeleteAccess, AdminGroup");
+        vaccessFullSelect.Append(" union all select ");
 
-            vaccessFullSelect.Append(" from ");
-            vaccessFullSelect.AppendFormat(
-                "[{0}].[{1}] b",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<vaccess_user>());
+        vaccessFullSelect.Append(
+            " UserID, ForumID, ReadAccess, PostAccess, ReplyAccess, PriorityAccess, PollAccess, VoteAccess, ModeratorAccess,");
+        vaccessFullSelect.Append(" EditAccess, DeleteAccess, AdminGroup");
 
-            vaccessFullSelect.Append(" union all select ");
+        vaccessFullSelect.Append(" from ");
+        vaccessFullSelect.AppendFormat(
+            "[{0}].[{1}] b",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<vaccess_group>());
 
-            vaccessFullSelect.Append(
-                " UserID, ForumID, ReadAccess, PostAccess, ReplyAccess, PriorityAccess, PollAccess, VoteAccess, ModeratorAccess,");
-            vaccessFullSelect.Append(" EditAccess, DeleteAccess, AdminGroup");
+        vaccessFullSelect.Append(" union all select ");
 
-            vaccessFullSelect.Append(" from ");
-            vaccessFullSelect.AppendFormat(
-                "[{0}].[{1}] b",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<vaccess_group>());
+        vaccessFullSelect.Append(
+            " UserID, ForumID, ReadAccess, PostAccess, ReplyAccess, PriorityAccess, PollAccess, VoteAccess, ModeratorAccess,");
+        vaccessFullSelect.Append(" EditAccess, DeleteAccess, AdminGroup");
 
-            vaccessFullSelect.Append(" union all select ");
+        vaccessFullSelect.Append(" from ");
+        vaccessFullSelect.AppendFormat(
+            "[{0}].[{1}] b",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<vaccess_null>());
 
-            vaccessFullSelect.Append(
-                " UserID, ForumID, ReadAccess, PostAccess, ReplyAccess, PriorityAccess, PollAccess, VoteAccess, ModeratorAccess,");
-            vaccessFullSelect.Append(" EditAccess, DeleteAccess, AdminGroup");
+        vaccessFullSelect.Append(" ) access GROUP BY UserID,ForumID");
 
-            vaccessFullSelect.Append(" from ");
-            vaccessFullSelect.AppendFormat(
-                "[{0}].[{1}] b",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<vaccess_null>());
+        dbCommand.Connection.CreateView<vaccessfull>(vaccessFullSelect);
 
-            vaccessFullSelect.Append(" ) access GROUP BY UserID,ForumID");
+        var vaccessSelect = new StringBuilder();
 
-            dbCommand.Connection.CreateView<vaccessfull>(vaccessFullSelect);
+        vaccessSelect.Append(" select ");
 
-            var vaccessSelect = new StringBuilder();
+        vaccessSelect.Append(" UserID = a.UserID,");
+        vaccessSelect.Append("ForumID = x.ForumID,");
+        vaccessSelect.Append("IsAdmin = max(convert(int, b.Flags & 1)),");
+        vaccessSelect.Append("IsForumModerator = max(convert(int, b.Flags & 8)),");
 
-            vaccessSelect.Append(" select ");
+        vaccessSelect.AppendFormat(
+            "IsModerator = (select count(1) from[{0}].[{1}] v1,",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<UserGroup>());
+        vaccessSelect.AppendFormat("[{0}].[{1}] w2,", Config.DatabaseOwner, dbCommand.Connection.GetTableName<Group>());
+        vaccessSelect.AppendFormat(
+            "[{0}].[{1}] x,",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<ForumAccess>());
+        vaccessSelect.AppendFormat("[{0}].[{1}] y", Config.DatabaseOwner, dbCommand.Connection.GetTableName<AccessMask>());
+        vaccessSelect.Append(" where v1.UserID = a.UserID and w2.GroupID = v1.GroupID and x.GroupID = w2.GroupID");
+        vaccessSelect.Append(" and y.AccessMaskID = x.AccessMaskID and (y.Flags & 64) <> 0),");
 
-            vaccessSelect.Append(" UserID = a.UserID,");
-            vaccessSelect.Append("ForumID = x.ForumID,");
-            vaccessSelect.Append("IsAdmin = max(convert(int, b.Flags & 1)),");
-            vaccessSelect.Append("IsForumModerator = max(convert(int, b.Flags & 8)),");
+        vaccessSelect.Append("ReadAccess = max(x.ReadAccess),");
+        vaccessSelect.Append("PostAccess = max(x.PostAccess),");
+        vaccessSelect.Append("ReplyAccess = max(x.ReplyAccess),");
+        vaccessSelect.Append("PriorityAccess = max(x.PriorityAccess),");
+        vaccessSelect.Append("PollAccess = max(x.PollAccess),");
+        vaccessSelect.Append("VoteAccess = max(x.VoteAccess),");
+        vaccessSelect.Append("ModeratorAccess = max(x.ModeratorAccess),");
+        vaccessSelect.Append("EditAccess = max(x.EditAccess),");
+        vaccessSelect.Append("DeleteAccess = max(x.DeleteAccess)");
 
-            vaccessSelect.AppendFormat(
-                "IsModerator = (select count(1) from[{0}].[{1}] v1,",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<UserGroup>());
-            vaccessSelect.AppendFormat("[{0}].[{1}] w2,", Config.DatabaseOwner, dbCommand.Connection.GetTableName<Group>());
-            vaccessSelect.AppendFormat(
-                "[{0}].[{1}] x,",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<ForumAccess>());
-            vaccessSelect.AppendFormat("[{0}].[{1}] y", Config.DatabaseOwner, dbCommand.Connection.GetTableName<AccessMask>());
-            vaccessSelect.Append(" where v1.UserID = a.UserID and w2.GroupID = v1.GroupID and x.GroupID = w2.GroupID");
-            vaccessSelect.Append(" and y.AccessMaskID = x.AccessMaskID and (y.Flags & 64) <> 0),");
+        vaccessSelect.Append(" from");
 
-            vaccessSelect.Append("ReadAccess = max(x.ReadAccess),");
-            vaccessSelect.Append("PostAccess = max(x.PostAccess),");
-            vaccessSelect.Append("ReplyAccess = max(x.ReplyAccess),");
-            vaccessSelect.Append("PriorityAccess = max(x.PriorityAccess),");
-            vaccessSelect.Append("PollAccess = max(x.PollAccess),");
-            vaccessSelect.Append("VoteAccess = max(x.VoteAccess),");
-            vaccessSelect.Append("ModeratorAccess = max(x.ModeratorAccess),");
-            vaccessSelect.Append("EditAccess = max(x.EditAccess),");
-            vaccessSelect.Append("DeleteAccess = max(x.DeleteAccess)");
+        vaccessSelect.AppendFormat(
+            " [{0}].[{1}] as x WITH(NOLOCK)",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<vaccessfull>());
+        vaccessSelect.AppendFormat(
+            " INNER JOIN [{0}].[{1}] a WITH(NOLOCK) on a.UserID=x.UserID",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<UserGroup>());
+        vaccessSelect.AppendFormat(
+            " INNER JOIN [{0}].[{1}] b WITH(NOLOCK) on b.GroupID=a.GroupID",
+            Config.DatabaseOwner,
+            dbCommand.Connection.GetTableName<Group>());
 
-            vaccessSelect.Append(" from");
+        vaccessSelect.Append(" GROUP BY a.UserID,x.ForumID");
 
-            vaccessSelect.AppendFormat(
-                " [{0}].[{1}] as x WITH(NOLOCK)",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<vaccessfull>());
-            vaccessSelect.AppendFormat(
-                " INNER JOIN [{0}].[{1}] a WITH(NOLOCK) on a.UserID=x.UserID",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<UserGroup>());
-            vaccessSelect.AppendFormat(
-                " INNER JOIN [{0}].[{1}] b WITH(NOLOCK) on b.GroupID=a.GroupID",
-                Config.DatabaseOwner,
-                dbCommand.Connection.GetTableName<Group>());
+        dbCommand.Connection.CreateView<vaccess>(vaccessSelect);
 
-            vaccessSelect.Append(" GROUP BY a.UserID,x.ForumID");
+        return true;
+    }
 
-            dbCommand.Connection.CreateView<vaccess>(vaccessSelect);
-
-            return true;
-        }
-
-        /// <summary>
-        /// Create Indexes on Table Views
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The database access.
-        /// </param>
-        /// <param name="dbCommand">
-        /// The database command.
-        /// </param>
-        public bool CreateIndexViews(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            var selectSql = @"[UserID] ASC,
+    /// <summary>
+    /// Create Indexes on Table Views
+    /// </summary>
+    /// <param name="dbAccess">
+    /// The database access.
+    /// </param>
+    /// <param name="dbCommand">
+    /// The database command.
+    /// </param>
+    public bool CreateIndexViews(IDbAccess dbAccess, IDbCommand dbCommand)
+    {
+        var selectSql = @"[UserID] ASC,
                               [ForumID] ASC,
                               [AccessMaskID] ASC,
                               [GroupID] ASC";
 
-            dbCommand.Connection.CreateViewIndex<vaccess_user>("UserForum_PK", selectSql);
-            dbCommand.Connection.CreateViewIndex<vaccess_null>("UserForum_PK", selectSql);
-            dbCommand.Connection.CreateViewIndex<vaccess_group>("UserForum_PK", selectSql);
+        dbCommand.Connection.CreateViewIndex<vaccess_user>("UserForum_PK", selectSql);
+        dbCommand.Connection.CreateViewIndex<vaccess_null>("UserForum_PK", selectSql);
+        dbCommand.Connection.CreateViewIndex<vaccess_group>("UserForum_PK", selectSql);
 
-            return true;
-        }
+        return true;
     }
 }

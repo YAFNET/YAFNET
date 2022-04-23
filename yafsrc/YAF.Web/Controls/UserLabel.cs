@@ -21,168 +21,167 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System.Web.UI;
+
+using YAF.Core.BaseControls;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The UserLabel
+/// </summary>
+public class UserLabel : BaseControl
 {
-    #region Using
+    #region Properties
 
-    using System.Web.UI;
+    /// <summary>
+    ///   Gets or sets CSS Class.
+    /// </summary>
+    [NotNull]
+    public string CssClass
+    {
+        get => this.ViewState["CssClass"] != null ? this.ViewState["CssClass"].ToString() : string.Empty;
 
-    using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+        set => this.ViewState["CssClass"] = value;
+    }
+
+    /// <summary>
+    ///   Gets or sets The name of the user for this profile link
+    /// </summary>
+    [NotNull]
+    public string PostfixText
+    {
+        get => this.ViewState["PostfixText"] != null ? this.ViewState["PostfixText"].ToString() : string.Empty;
+
+        set => this.ViewState["PostfixText"] = value;
+    }
+
+    /// <summary>
+    ///   Gets or sets The replace Crawler name of this user for the link. Attention! Use it ONLY for crawlers. 
+    /// </summary>
+    [NotNull]
+    public string CrawlerName
+    {
+        get => this.ViewState["CrawlerName"] != null ? this.ViewState["CrawlerName"].ToString() : string.Empty;
+
+        set => this.ViewState["CrawlerName"] = value;
+    }
+
+    /// <summary>
+    ///   Gets or sets Style.
+    /// </summary>
+    [NotNull]
+    public string Style
+    {
+        get => this.ViewState["Style"] != null ? this.ViewState["Style"].ToString() : string.Empty;
+
+        set => this.ViewState["Style"] = value;
+    }
+
+    /// <summary>
+    ///   Gets or sets Style.
+    /// </summary>
+    [NotNull]
+    public string ReplaceName
+    {
+        get => this.ViewState["ReplaceName"] != null ? this.ViewState["ReplaceName"].ToString() : string.Empty;
+
+        set => this.ViewState["ReplaceName"] = value;
+    }
+
+    /// <summary>
+    ///   Gets or sets The User Id of this user for the link
+    /// </summary>
+    public int UserID
+    {
+        get
+        {
+            if (this.ViewState["UserID"] != null)
+            {
+                return this.ViewState["UserID"].ToType<int>();
+            }
+
+            return -1;
+        }
+
+        set => this.ViewState["UserID"] = value;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The UserLabel
+    /// The render.
     /// </summary>
-    public class UserLabel : BaseControl
+    /// <param name="writer">
+    /// The output.
+    /// </param>
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
-        #region Properties
+        var displayName = this.ReplaceName;
 
-        /// <summary>
-        ///   Gets or sets CSS Class.
-        /// </summary>
-        [NotNull]
-        public string CssClass
+        if (this.UserID == -1)
         {
-            get => this.ViewState["CssClass"] != null ? this.ViewState["CssClass"].ToString() : string.Empty;
-
-            set => this.ViewState["CssClass"] = value;
+            return;
         }
 
-        /// <summary>
-        ///   Gets or sets The name of the user for this profile link
-        /// </summary>
-        [NotNull]
-        public string PostfixText
-        {
-            get => this.ViewState["PostfixText"] != null ? this.ViewState["PostfixText"].ToString() : string.Empty;
+        writer.BeginRender();
 
-            set => this.ViewState["PostfixText"] = value;
+        writer.WriteBeginTag("span");
+
+        this.RenderMainTagAttributes(writer);
+
+        writer.Write(HtmlTextWriter.TagRightChar);
+
+        displayName = this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName;
+
+        writer.WriteEncodedText(this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName);
+
+        writer.WriteEndTag("span");
+
+        if (this.PostfixText.IsSet())
+        {
+            writer.Write(this.PostfixText);
         }
 
-        /// <summary>
-        ///   Gets or sets The replace Crawler name of this user for the link. Attention! Use it ONLY for crawlers. 
-        /// </summary>
-        [NotNull]
-        public string CrawlerName
-        {
-            get => this.ViewState["CrawlerName"] != null ? this.ViewState["CrawlerName"].ToString() : string.Empty;
-
-            set => this.ViewState["CrawlerName"] = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets Style.
-        /// </summary>
-        [NotNull]
-        public string Style
-        {
-            get => this.ViewState["Style"] != null ? this.ViewState["Style"].ToString() : string.Empty;
-
-            set => this.ViewState["Style"] = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets Style.
-        /// </summary>
-        [NotNull]
-        public string ReplaceName
-        {
-            get => this.ViewState["ReplaceName"] != null ? this.ViewState["ReplaceName"].ToString() : string.Empty;
-
-            set => this.ViewState["ReplaceName"] = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets The User Id of this user for the link
-        /// </summary>
-        public int UserID
-        {
-            get
-            {
-                if (this.ViewState["UserID"] != null)
-                {
-                    return this.ViewState["UserID"].ToType<int>();
-                }
-
-                return -1;
-            }
-
-            set => this.ViewState["UserID"] = value;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The render.
-        /// </summary>
-        /// <param name="writer">
-        /// The output.
-        /// </param>
-        protected override void Render([NotNull] HtmlTextWriter writer)
-        {
-            var displayName = this.ReplaceName;
-
-            if (this.UserID == -1)
-            {
-                return;
-            }
-
-            writer.BeginRender();
-
-            writer.WriteBeginTag("span");
-
-            this.RenderMainTagAttributes(writer);
-
-            writer.Write(HtmlTextWriter.TagRightChar);
-
-            displayName = this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName;
-
-            writer.WriteEncodedText(this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName);
-
-            writer.WriteEndTag("span");
-
-            if (this.PostfixText.IsSet())
-            {
-                writer.Write(this.PostfixText);
-            }
-
-            writer.EndRender();
-        }
-
-        /// <summary>
-        /// Renders "id", "style" and "class"
-        /// </summary>
-        /// <param name="output">
-        /// The output.
-        /// </param>
-        protected void RenderMainTagAttributes([NotNull] HtmlTextWriter output)
-        {
-            if (this.ClientID.IsSet())
-            {
-                output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
-            }
-
-            if (this.Style.IsSet() && this.PageBoardContext.BoardSettings.UseStyledNicks)
-            {
-                var style = this.Get<IStyleTransform>().Decode(this.Style);
-
-                output.WriteAttribute(HtmlTextWriterAttribute.Style.ToString(), this.HtmlEncode(style));
-            }
-
-            if (this.CssClass.IsSet())
-            {
-                output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), this.CssClass);
-            }
-        }
-
-        #endregion
+        writer.EndRender();
     }
+
+    /// <summary>
+    /// Renders "id", "style" and "class"
+    /// </summary>
+    /// <param name="output">
+    /// The output.
+    /// </param>
+    protected void RenderMainTagAttributes([NotNull] HtmlTextWriter output)
+    {
+        if (this.ClientID.IsSet())
+        {
+            output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
+        }
+
+        if (this.Style.IsSet() && this.PageBoardContext.BoardSettings.UseStyledNicks)
+        {
+            var style = this.Get<IStyleTransform>().Decode(this.Style);
+
+            output.WriteAttribute(HtmlTextWriterAttribute.Style.ToString(), this.HtmlEncode(style));
+        }
+
+        if (this.CssClass.IsSet())
+        {
+            output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), this.CssClass);
+        }
+    }
+
+    #endregion
 }

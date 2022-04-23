@@ -7,37 +7,36 @@
 using System;
 using System.Data;
 
-namespace ServiceStack.OrmLite.Dapper
+namespace ServiceStack.OrmLite.Dapper;
+
+/// <summary>
+/// Class SqlMapper.
+/// </summary>
+public static partial class SqlMapper
 {
     /// <summary>
-    /// Class SqlMapper.
+    /// Struct DeserializerState
     /// </summary>
-    public static partial class SqlMapper
+    private struct DeserializerState
     {
         /// <summary>
-        /// Struct DeserializerState
+        /// The hash
         /// </summary>
-        private struct DeserializerState
-        {
-            /// <summary>
-            /// The hash
-            /// </summary>
-            public readonly int Hash;
-            /// <summary>
-            /// The function
-            /// </summary>
-            public readonly Func<IDataReader, object> Func;
+        public readonly int Hash;
+        /// <summary>
+        /// The function
+        /// </summary>
+        public readonly Func<IDataReader, object> Func;
 
-            /// <summary>
-            /// Initializes a new instance of the <see cref="DeserializerState"/> struct.
-            /// </summary>
-            /// <param name="hash">The hash.</param>
-            /// <param name="func">The function.</param>
-            public DeserializerState(int hash, Func<IDataReader, object> func)
-            {
-                Hash = hash;
-                Func = func;
-            }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeserializerState"/> struct.
+        /// </summary>
+        /// <param name="hash">The hash.</param>
+        /// <param name="func">The function.</param>
+        public DeserializerState(int hash, Func<IDataReader, object> func)
+        {
+            Hash = hash;
+            Func = func;
         }
     }
 }

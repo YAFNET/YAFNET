@@ -22,113 +22,113 @@
  * under the License.
  */
 
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI;
+
+using YAF.Core.BaseControls;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Objects.Model;
+
+#endregion
+
+/// <summary>
+/// Control displaying list of user currently active on a forum.
+/// </summary>
+public class ActiveUsers : BaseControl
 {
-    #region Using
+    #region Constants and Fields
 
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.UI;
-
-    using YAF.Core.BaseControls;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Objects.Model;
+    /// <summary>
+    ///   The _active user table.
+    /// </summary>
+    private List<ActiveUser> activeUsers;
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// Control displaying list of user currently active on a forum.
+    ///   Gets or sets list of users to display in control.
     /// </summary>
-    public class ActiveUsers : BaseControl
+    [CanBeNull]
+    public List<ActiveUser> ActiveUsersList
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _active user table.
-        /// </summary>
-        private List<ActiveUser> activeUsers;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets list of users to display in control.
-        /// </summary>
-        [CanBeNull]
-        public List<ActiveUser> ActiveUsersList
+        get
         {
-            get
+            if (this.activeUsers != null)
             {
-                if (this.activeUsers != null)
-                {
-                    return this.activeUsers;
-                }
-
-                // read there data from view state
-                if (this.ViewState["ActiveUsers"] != null)
-                {
-                    // cast it
-                    this.activeUsers = this.ViewState["ActiveUsers"] as List<ActiveUser>;
-                }
-
-                // return data table
                 return this.activeUsers;
             }
 
-            set
+            // read there data from view state
+            if (this.ViewState["ActiveUsers"] != null)
             {
-                // save it to view state
-                this.ViewState["ActiveUsers"] = value;
-
-                // save it also to local variable to avoid repetitive casting from ViewState in getter
-                this.activeUsers = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the Instant ID for this control.
-        /// </summary>
-        /// <remarks>
-        /// Multiple instants of this control can exist in the same page but
-        /// each must have a different instant ID. Not specifying an Instant ID
-        /// default to the ID being string.Empty.
-        /// </remarks>
-        public string InstantId
-        {
-            get => (this.ViewState["InstantId"] as string) + string.Empty;
-
-            set => this.ViewState["InstantId"] = value;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Raises PreRender event and prepares control for rendering by creating links to active users.
-        /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            // IMPORTANT : call base implementation, raises PreRender event
-            base.OnPreRender(e);
-
-            // we shall continue only if there are active user data available
-            if (this.ActiveUsersList == null)
-            {
-                return;
+                // cast it
+                this.activeUsers = this.ViewState["ActiveUsers"] as List<ActiveUser>;
             }
 
-            var crawlers = new List<string>();
+            // return data table
+            return this.activeUsers;
+        }
 
-            // go through the table and process each row
-            this.ActiveUsersList.ForEach(
-                user =>
+        set
+        {
+            // save it to view state
+            this.ViewState["ActiveUsers"] = value;
+
+            // save it also to local variable to avoid repetitive casting from ViewState in getter
+            this.activeUsers = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the Instant ID for this control.
+    /// </summary>
+    /// <remarks>
+    /// Multiple instants of this control can exist in the same page but
+    /// each must have a different instant ID. Not specifying an Instant ID
+    /// default to the ID being string.Empty.
+    /// </remarks>
+    public string InstantId
+    {
+        get => (this.ViewState["InstantId"] as string) + string.Empty;
+
+        set => this.ViewState["InstantId"] = value;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Raises PreRender event and prepares control for rendering by creating links to active users.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
+    {
+        // IMPORTANT : call base implementation, raises PreRender event
+        base.OnPreRender(e);
+
+        // we shall continue only if there are active user data available
+        if (this.ActiveUsersList == null)
+        {
+            return;
+        }
+
+        var crawlers = new List<string>();
+
+        // go through the table and process each row
+        this.ActiveUsersList.ForEach(
+            user =>
                 {
                     UserLink userLink;
 
@@ -144,25 +144,25 @@ namespace YAF.Web.Controls
 
                         crawlers.Add(user.Browser);
                         userLink = new UserLink
-                        {
-                            Suspended = user.Suspended,
-                            CrawlerName = user.Browser,
-                            UserID = user.UserID,
-                            Style = user.UserStyle
-                        };
+                                       {
+                                           Suspended = user.Suspended,
+                                           CrawlerName = user.Browser,
+                                           UserID = user.UserID,
+                                           Style = user.UserStyle
+                                       };
                         userLink.ID += userLink.CrawlerName;
                     }
                     else
                     {
                         userLink = new UserLink
-                        {
-                            Suspended = user.Suspended,
-                            UserID = user.UserID,
-                            Style = user.UserStyle,
-                            ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
-                                ? user.UserDisplayName
-                                : user.UserName
-                        };
+                                       {
+                                           Suspended = user.Suspended,
+                                           UserID = user.UserID,
+                                           Style = user.UserStyle,
+                                           ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
+                                                             ? user.UserDisplayName
+                                                             : user.UserName
+                                       };
                         userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
                     }
 
@@ -200,22 +200,22 @@ namespace YAF.Web.Controls
 
                     this.Controls.Add(userLink);
                 });
-        }
+    }
 
-        /// <summary>
-        /// Implements rendering of control to the client through use of <see cref="HtmlTextWriter"/>.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render([NotNull] HtmlTextWriter writer)
-        {
-            // writes starting tag
-            writer.Write(@"<ul class=""list-inline"">");
+    /// <summary>
+    /// Implements rendering of control to the client through use of <see cref="HtmlTextWriter"/>.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render([NotNull] HtmlTextWriter writer)
+    {
+        // writes starting tag
+        writer.Write(@"<ul class=""list-inline"">");
 
-            // cycle through active user links contained within this control (see OnPreRender where this links are added)
-            this.Controls.Cast<Control>().Where(control => control is UserLink && control.Visible).ForEach(
-                control =>
+        // cycle through active user links contained within this control (see OnPreRender where this links are added)
+        this.Controls.Cast<Control>().Where(control => control is UserLink && control.Visible).ForEach(
+            control =>
                 {
                     writer.Write(@"<li class=""list-inline-item"">");
 
@@ -225,10 +225,9 @@ namespace YAF.Web.Controls
                     writer.Write(@"</li>");
                 });
 
-            // writes ending tag
-            writer.Write(@"</ul>");
-        }
-
-        #endregion
+        // writes ending tag
+        writer.Write(@"</ul>");
     }
+
+    #endregion
 }

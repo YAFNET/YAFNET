@@ -21,23 +21,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// Generic I Remove Value interface.
+/// </summary>
+public interface IRemoveValue
 {
+    #region Public Methods
+
     /// <summary>
-    /// Generic I Remove Value interface.
+    /// Remove a value.
     /// </summary>
-    public interface IRemoveValue
-    {
-        #region Public Methods
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    void Remove([NotNull] string key);
 
-        /// <summary>
-        /// Remove a value.
-        /// </summary>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        void Remove([NotNull] string key);
-
-        #endregion
-    }
+    #endregion
 }

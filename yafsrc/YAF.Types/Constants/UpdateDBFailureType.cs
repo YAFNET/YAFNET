@@ -22,21 +22,20 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+///     The update DB failure type.
+/// </summary>
+public enum UpdateDBFailureType
 {
     /// <summary>
-    ///     The update DB failure type.
+    ///     The none.
     /// </summary>
-    public enum UpdateDBFailureType
-    {
-        /// <summary>
-        ///     The none.
-        /// </summary>
-        None,
+    None,
 
-        /// <summary>
-        ///     The app settings write.
-        /// </summary>
-        AppSettingsWrite
-    }
+    /// <summary>
+    ///     The app settings write.
+    /// </summary>
+    AppSettingsWrite
 }

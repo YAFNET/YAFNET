@@ -21,108 +21,107 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Helpers
-{
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text.RegularExpressions;
+namespace YAF.Core.Helpers;
 
-    using YAF.Configuration;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Objects;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+using YAF.Configuration;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Objects;
+
+/// <summary>
+/// Provides helper functions for File handling
+/// </summary>
+public static class FileHelper
+{
+    /// <summary>
+    /// FileName Validator Expression
+    /// </summary>
+    private static readonly string FileNameValidatorExpression =
+        $"^[^{string.Join(string.Empty, Array.ConvertAll(Path.GetInvalidFileNameChars(), x => Regex.Escape(x.ToString())))}]+$";
 
     /// <summary>
-    /// Provides helper functions for File handling
+    /// FileName Validator Regex
     /// </summary>
-    public static class FileHelper
+    private static readonly Regex FileNameValidator = new(FileNameValidatorExpression, RegexOptions.Compiled);
+
+    /// <summary>
+    /// FileName Cleaner Expression
+    /// </summary>
+    private static readonly string FileNameCleanerExpression =
+        $"[{string.Join(string.Empty, Array.ConvertAll(Path.GetInvalidFileNameChars(), x => Regex.Escape(x.ToString())))}]";
+
+    /// <summary>
+    /// FileName Cleaner Regex
+    /// </summary>
+    private static readonly Regex FileNameCleaner = new(FileNameCleanerExpression, RegexOptions.Compiled);
+
+    /// <summary>
+    /// Validates the name of the file.
+    /// </summary>
+    /// <param name="fileName">
+    /// Name of the file.
+    /// </param>
+    /// <returns>
+    /// The validate file name.
+    /// </returns>
+    [NotNull]
+    public static bool ValidateFileName(string fileName)
     {
-        /// <summary>
-        /// FileName Validator Expression
-        /// </summary>
-        private static readonly string FileNameValidatorExpression =
-            $"^[^{string.Join(string.Empty, Array.ConvertAll(Path.GetInvalidFileNameChars(), x => Regex.Escape(x.ToString())))}]+$";
+        return FileNameValidator.IsMatch(fileName);
+    }
 
-        /// <summary>
-        /// FileName Validator Regex
-        /// </summary>
-        private static readonly Regex FileNameValidator = new(FileNameValidatorExpression, RegexOptions.Compiled);
+    /// <summary>
+    /// Cleans the name of the file.
+    /// </summary>
+    /// <param name="fileName">
+    /// Name of the file.
+    /// </param>
+    /// <returns>
+    /// The clean file name.
+    /// </returns>
+    [NotNull]
+    public static string CleanFileName(string fileName)
+    {
+        return FileNameCleaner.Replace(fileName, string.Empty);
+    }
 
-        /// <summary>
-        /// FileName Cleaner Expression
-        /// </summary>
-        private static readonly string FileNameCleanerExpression =
-            $"[{string.Join(string.Empty, Array.ConvertAll(Path.GetInvalidFileNameChars(), x => Regex.Escape(x.ToString())))}]";
+    /// <summary>
+    /// The add image files.
+    /// </summary>
+    /// <param name="list">
+    /// The list.
+    /// </param>
+    /// <param name="files">
+    /// The files.
+    /// </param>
+    /// <param name="folder">
+    /// The folder.
+    /// </param>
+    public static void AddImageFiles(
+        [NotNull] this List<NamedParameter> list,
+        [NotNull] List<FileInfo> files,
+        [NotNull] string folder)
+    {
+        CodeContracts.VerifyNotNull(files);
+        CodeContracts.VerifyNotNull(folder);
 
-        /// <summary>
-        /// FileName Cleaner Regex
-        /// </summary>
-        private static readonly Regex FileNameCleaner = new(FileNameCleanerExpression, RegexOptions.Compiled);
-
-        /// <summary>
-        /// Validates the name of the file.
-        /// </summary>
-        /// <param name="fileName">
-        /// Name of the file.
-        /// </param>
-        /// <returns>
-        /// The validate file name.
-        /// </returns>
-        [NotNull]
-        public static bool ValidateFileName(string fileName)
-        {
-            return FileNameValidator.IsMatch(fileName);
-        }
-
-        /// <summary>
-        /// Cleans the name of the file.
-        /// </summary>
-        /// <param name="fileName">
-        /// Name of the file.
-        /// </param>
-        /// <returns>
-        /// The clean file name.
-        /// </returns>
-        [NotNull]
-        public static string CleanFileName(string fileName)
-        {
-            return FileNameCleaner.Replace(fileName, string.Empty);
-        }
-
-        /// <summary>
-        /// The add image files.
-        /// </summary>
-        /// <param name="list">
-        /// The list.
-        /// </param>
-        /// <param name="files">
-        /// The files.
-        /// </param>
-        /// <param name="folder">
-        /// The folder.
-        /// </param>
-        public static void AddImageFiles(
-            [NotNull] this List<NamedParameter> list,
-            [NotNull] List<FileInfo> files,
-            [NotNull] string folder)
-        {
-            CodeContracts.VerifyNotNull(files);
-            CodeContracts.VerifyNotNull(folder);
-
-            files.Where(
-                e => e.Extension.Equals(".png", StringComparison.InvariantCultureIgnoreCase)
-                     || e.Extension.Equals(".gif", StringComparison.InvariantCultureIgnoreCase)
-                     || e.Extension.Equals(".jpg", StringComparison.InvariantCultureIgnoreCase) || e.Extension.Equals(
-                         ".svg",
-                         StringComparison.InvariantCultureIgnoreCase)).ForEach(
-                f =>
+        files.Where(
+            e => e.Extension.Equals(".png", StringComparison.InvariantCultureIgnoreCase)
+                 || e.Extension.Equals(".gif", StringComparison.InvariantCultureIgnoreCase)
+                 || e.Extension.Equals(".jpg", StringComparison.InvariantCultureIgnoreCase) || e.Extension.Equals(
+                     ".svg",
+                     StringComparison.InvariantCultureIgnoreCase)).ForEach(
+            f =>
                 {
                     var item = new NamedParameter(f.Name, $"{BoardInfo.ForumClientFileRoot}{folder}/{f.Name}");
 
                     list.Add(item);
                 });
-        }
     }
 }

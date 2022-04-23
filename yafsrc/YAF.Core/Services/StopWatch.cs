@@ -21,56 +21,55 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services
-{
-    using System.Diagnostics;
+namespace YAF.Core.Services;
 
-    using YAF.Types.Interfaces;
+using System.Diagnostics;
+
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// The stop watch.
+/// </summary>
+public class StopWatch : IStopWatch
+{
+    /// <summary>
+    /// Gets Watch.
+    /// </summary>
+    public Stopwatch Watch { get; } = new();
 
     /// <summary>
-    /// The stop watch.
+    /// Gets Duration.
     /// </summary>
-    public class StopWatch : IStopWatch
+    public double Duration
     {
-        /// <summary>
-        /// Gets Watch.
-        /// </summary>
-        public Stopwatch Watch { get; } = new();
-
-        /// <summary>
-        /// Gets Duration.
-        /// </summary>
-        public double Duration
+        get
         {
-            get
-            {
-                var duration = this.Watch.ElapsedMilliseconds / 1000.0;
-                return duration;
-            }
+            var duration = this.Watch.ElapsedMilliseconds / 1000.0;
+            return duration;
         }
+    }
 
-        /// <summary>
-        /// The start.
-        /// </summary>
-        public void Start()
-        {
-            this.Watch.Start();
-        }
+    /// <summary>
+    /// The start.
+    /// </summary>
+    public void Start()
+    {
+        this.Watch.Start();
+    }
 
-        /// <summary>
-        /// The stop.
-        /// </summary>
-        public void Stop()
-        {
-            this.Watch.Stop();
-        }
+    /// <summary>
+    /// The stop.
+    /// </summary>
+    public void Stop()
+    {
+        this.Watch.Stop();
+    }
 
-        /// <summary>
-        /// The reset.
-        /// </summary>
-        public void Reset()
-        {
-            this.Watch.Reset();
-        }
+    /// <summary>
+    /// The reset.
+    /// </summary>
+    public void Reset()
+    {
+        this.Watch.Reset();
     }
 }

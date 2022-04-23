@@ -21,37 +21,36 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The i add replace block.
+/// </summary>
+public interface IReplaceBlocks
 {
+    #region Public Methods
+
     /// <summary>
-    /// The i add replace block.
+    /// The add replacement.
     /// </summary>
-    public interface IReplaceBlocks
-    {
-        #region Public Methods
+    /// <param name="newItem">
+    /// The new item.
+    /// </param>
+    /// <returns>
+    /// The <see cref="int"/>.
+    /// </returns>
+    int Add(string newItem);
 
-        /// <summary>
-        /// The add replacement.
-        /// </summary>
-        /// <param name="newItem">
-        /// The new item.
-        /// </param>
-        /// <returns>
-        /// The <see cref="int"/>.
-        /// </returns>
-        int Add(string newItem);
+    /// <summary>
+    /// Gets the replacement value from the index.
+    /// </summary>
+    /// <param name="index">
+    /// The index.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    string Get(int index);
 
-        /// <summary>
-        /// Gets the replacement value from the index.
-        /// </summary>
-        /// <param name="index">
-        /// The index.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        string Get(int index);
-
-        #endregion
-    }
+    #endregion
 }

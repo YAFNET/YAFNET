@@ -22,114 +22,113 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
-{
-    #region Using
+namespace YAF.Pages.Admin;
 
-    using YAF.Core.Data;
-    using YAF.Types.Extensions.Data;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Web.Editors;
+#region Using
+
+using YAF.Core.Data;
+using YAF.Types.Extensions.Data;
+using YAF.Types.Interfaces.Data;
+using YAF.Web.Editors;
+
+#endregion
+
+/// <summary>
+/// The run SQL Query Page.
+/// </summary>
+public partial class RunSql : AdminPage
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RunSql"/> class. 
+    /// </summary>
+    public RunSql()
+        : base("ADMIN_RUNSQL", ForumPages.Admin_RunSql)
+    {
+    }
 
     #endregion
 
+
     /// <summary>
-    /// The run SQL Query Page.
+    ///   The editor.
     /// </summary>
-    public partial class RunSql : AdminPage
+    private ForumEditor editor;
+
+    #region Methods
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.FormValidatorJs),
+            JavaScriptBlocks.FormValidatorJs(this.RunQuery.ClientID));
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RunSql"/> class. 
-        /// </summary>
-        public RunSql()
-            : base("ADMIN_RUNSQL", ForumPages.Admin_RunSql)
+        if (this.IsPostBack)
         {
+            return;
         }
 
-        #endregion
-
-
-        /// <summary>
-        ///   The editor.
-        /// </summary>
-        private ForumEditor editor;
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                nameof(JavaScriptBlocks.FormValidatorJs),
-                JavaScriptBlocks.FormValidatorJs(this.RunQuery.ClientID));
-
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            this.editor = new CKEditorBBCodeEditorSql
-            {
-                UserCanUpload = false,
-                MaxCharacters = int.MaxValue
-            };
-
-            this.EditorLine.Controls.Add(this.editor);
-
-            base.OnInit(e);
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin));
-            this.PageLinks.AddLink(this.GetText("ADMIN_RUNSQL", "TITLE"), string.Empty);
-        }
-
-        /// <summary>
-        /// Runs the query click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void RunQueryClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.txtResult.Text = string.Empty;
-            this.ResultHolder.Visible = true;
-
-            this.txtResult.Text = this.Get<IDbAccess>().RunSQL(
-                CommandTextHelpers.GetCommandTextReplaced(this.editor.Text.Trim()),
-                Configuration.Config.SqlCommandTimeout);
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            this.DataBind();
-        }
-
-        #endregion
+        this.BindData();
     }
+
+    /// <summary>
+    /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+    /// </summary>
+    /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+        this.editor = new CKEditorBBCodeEditorSql
+                          {
+                              UserCanUpload = false,
+                              MaxCharacters = int.MaxValue
+                          };
+
+        this.EditorLine.Controls.Add(this.editor);
+
+        base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+
+        this.PageLinks.AddLink(
+            this.GetText("ADMIN_ADMIN", "Administration"),
+            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_RUNSQL", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// Runs the query click.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void RunQueryClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.txtResult.Text = string.Empty;
+        this.ResultHolder.Visible = true;
+
+        this.txtResult.Text = this.Get<IDbAccess>().RunSQL(
+            CommandTextHelpers.GetCommandTextReplaced(this.editor.Text.Trim()),
+            Configuration.Config.SqlCommandTimeout);
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        this.DataBind();
+    }
+
+    #endregion
 }

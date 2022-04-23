@@ -21,22 +21,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+#region Using
+
+using System.Text;
+using System.Text.RegularExpressions;
+
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The i replace blocks extensions.
+/// </summary>
+public static class IReplaceBlocksExtensions
 {
-  #region Using
-
-  using System.Text;
-  using System.Text.RegularExpressions;
-
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The i replace blocks extensions.
-  /// </summary>
-  public static class IReplaceBlocksExtensions
-  {
     #region Constants and Fields
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace YAF.Core.Extensions
     /// The _reg ex html.
     /// </summary>
     private static readonly Regex _regExHtml =
-      new(@"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", _options | RegexOptions.Compiled);
+        new(@"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", _options | RegexOptions.Compiled);
 
     #endregion
 
@@ -65,11 +65,11 @@ namespace YAF.Core.Extensions
     /// </param>
     public static void ReplaceHtmlFromText(this IReplaceBlocks replaceBlocks, ref string strText)
     {
-      var sb = new StringBuilder(strText);
+        var sb = new StringBuilder(strText);
 
-      ReplaceHtmlFromText(replaceBlocks, ref sb);
+        ReplaceHtmlFromText(replaceBlocks, ref sb);
 
-      strText = sb.ToString();
+        strText = sb.ToString();
     }
 
     /// <summary>
@@ -83,27 +83,26 @@ namespace YAF.Core.Extensions
     /// </param>
     public static void ReplaceHtmlFromText(this IReplaceBlocks replaceBlocks, ref StringBuilder sb)
     {
-      var m = _regExHtml.Match(sb.ToString());
+        var m = _regExHtml.Match(sb.ToString());
 
-      while (m.Success)
-      {
-        // add it to the list...
-        var index = replaceBlocks.Add(m.Groups[0].Value);
+        while (m.Success)
+        {
+            // add it to the list...
+            var index = replaceBlocks.Add(m.Groups[0].Value);
 
-        // replacement lookup code
-        var replace = replaceBlocks.Get(index);
+            // replacement lookup code
+            var replace = replaceBlocks.Get(index);
 
-        // remove the replaced item...
-        sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
+            // remove the replaced item...
+            sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
 
-        // insert the replaced value back in...
-        sb.Insert(m.Groups[0].Index, replace);
+            // insert the replaced value back in...
+            sb.Insert(m.Groups[0].Index, replace);
 
-        // text = text.Substring( 0, m.Groups [0].Index ) + replace + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
-        m = _regExHtml.Match(sb.ToString());
-      }
+            // text = text.Substring( 0, m.Groups [0].Index ) + replace + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+            m = _regExHtml.Match(sb.ToString());
+        }
     }
 
     #endregion
-  }
 }

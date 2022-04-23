@@ -8,26 +8,25 @@
 
 using System;
 
-namespace ServiceStack
+namespace ServiceStack;
+
+/// <summary>
+/// Class AttributeBase.
+/// Implements the <see cref="System.Attribute" />
+/// </summary>
+/// <seealso cref="System.Attribute" />
+public class AttributeBase : Attribute
 {
     /// <summary>
-    /// Class AttributeBase.
-    /// Implements the <see cref="System.Attribute" />
+    /// Initializes a new instance of the <see cref="AttributeBase"/> class.
     /// </summary>
-    /// <seealso cref="System.Attribute" />
-    public class AttributeBase : Attribute
+    public AttributeBase()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AttributeBase"/> class.
-        /// </summary>
-        public AttributeBase()
-        {
-            this.typeId = Guid.NewGuid();
-        }
-
-        /// <summary>
-        /// The type identifier
-        /// </summary>
-        protected readonly Guid typeId; //Hack required to give Attributes unique identity
+        this.typeId = Guid.NewGuid();
     }
+
+    /// <summary>
+    /// The type identifier
+    /// </summary>
+    protected readonly Guid typeId; //Hack required to give Attributes unique identity
 }

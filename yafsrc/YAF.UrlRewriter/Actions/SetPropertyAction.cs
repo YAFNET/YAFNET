@@ -5,50 +5,49 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Actions
+namespace YAF.UrlRewriter.Actions;
+
+using System;
+
+/// <summary>
+/// Action that sets properties in the context.
+/// </summary>
+public class SetPropertyAction : IRewriteAction
 {
-    using System;
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    /// <param name="name">The name of the variable.</param>
+    /// <param name="value">The name of the value.</param>
+    public SetPropertyAction(string name, string value)
+    {
+        this.Name = name ?? throw new ArgumentNullException(nameof(name));
+        this.Value = value ?? throw new ArgumentNullException(nameof(value));
+    }
 
     /// <summary>
-    /// Action that sets properties in the context.
+    /// The name of the variable.
     /// </summary>
-    public class SetPropertyAction : IRewriteAction
+    public string Name { get; }
+
+    /// <summary>
+    /// The value of the variable.
+    /// </summary>
+    public string Value { get; }
+
+    /// <summary>
+    /// Executes the action.
+    /// </summary>
+    /// <param name="context">The rewrite context.</param>
+    public RewriteProcessing Execute(IRewriteContext context)
     {
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        /// <param name="name">The name of the variable.</param>
-        /// <param name="value">The name of the value.</param>
-        public SetPropertyAction(string name, string value)
+        if (context == null)
         {
-            this.Name = name ?? throw new ArgumentNullException(nameof(name));
-            this.Value = value ?? throw new ArgumentNullException(nameof(value));
+            throw new ArgumentNullException(nameof(context));
         }
 
-        /// <summary>
-        /// The name of the variable.
-        /// </summary>
-        public string Name { get; }
+        context.Properties.Set(this.Name, context.Expand(this.Value));
 
-        /// <summary>
-        /// The value of the variable.
-        /// </summary>
-        public string Value { get; }
-
-        /// <summary>
-        /// Executes the action.
-        /// </summary>
-        /// <param name="context">The rewrite context.</param>
-        public RewriteProcessing Execute(IRewriteContext context)
-        {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            context.Properties.Set(this.Name, context.Expand(this.Value));
-
-            return RewriteProcessing.ContinueProcessing;
-        }
+        return RewriteProcessing.ContinueProcessing;
     }
 }

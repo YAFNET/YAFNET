@@ -21,22 +21,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Helpers
+namespace YAF.Core.Helpers;
+
+#region Using
+
+using System.Web;
+
+using YAF.Types;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The current http application provider.
+/// </summary>
+public class CurrentHttpApplicationStateBaseProvider : IReadWriteProvider<HttpApplicationStateBase>
 {
-  #region Using
-
-  using System.Web;
-
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The current http application provider.
-  /// </summary>
-  public class CurrentHttpApplicationStateBaseProvider : IReadWriteProvider<HttpApplicationStateBase>
-  {
     #region Constants and Fields
 
     /// <summary>
@@ -54,24 +54,23 @@ namespace YAF.Core.Helpers
     [CanBeNull]
     public HttpApplicationStateBase Instance
     {
-      get
-      {
-        if (this.applicationStateBase == null && HttpContext.Current != null)
+        get
         {
-          this.applicationStateBase = new HttpApplicationStateWrapper(HttpContext.Current.Application);
+            if (this.applicationStateBase == null && HttpContext.Current != null)
+            {
+                this.applicationStateBase = new HttpApplicationStateWrapper(HttpContext.Current.Application);
+            }
+
+            return this.applicationStateBase;
         }
 
-        return this.applicationStateBase;
-      }
+        set
+        {
+            CodeContracts.VerifyNotNull(value);
 
-      set
-      {
-        CodeContracts.VerifyNotNull(value);
-
-        this.applicationStateBase = value;
-      }
+            this.applicationStateBase = value;
+        }
     }
 
     #endregion
-  }
 }

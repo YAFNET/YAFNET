@@ -9,90 +9,89 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data;
 
-namespace ServiceStack.OrmLite
+namespace ServiceStack.OrmLite;
+
+/// <summary>
+/// Class IndexFieldsCacheKey.
+/// </summary>
+public class IndexFieldsCacheKey
 {
     /// <summary>
-    /// Class IndexFieldsCacheKey.
+    /// The hash code
     /// </summary>
-    public class IndexFieldsCacheKey
+    int hashCode;
+
+    /// <summary>
+    /// Gets the model definition.
+    /// </summary>
+    /// <value>The model definition.</value>
+    public ModelDefinition ModelDefinition { get; private set; }
+
+    /// <summary>
+    /// Gets the dialect.
+    /// </summary>
+    /// <value>The dialect.</value>
+    public IOrmLiteDialectProvider Dialect { get; private set; }
+
+    /// <summary>
+    /// Gets the fields.
+    /// </summary>
+    /// <value>The fields.</value>
+    public List<string> Fields { get; private set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="IndexFieldsCacheKey"/> class.
+    /// </summary>
+    /// <param name="reader">The reader.</param>
+    /// <param name="modelDefinition">The model definition.</param>
+    /// <param name="dialect">The dialect.</param>
+    public IndexFieldsCacheKey(IDataReader reader, ModelDefinition modelDefinition, IOrmLiteDialectProvider dialect)
     {
-        /// <summary>
-        /// The hash code
-        /// </summary>
-        int hashCode;
+        ModelDefinition = modelDefinition;
+        Dialect = dialect;
 
-        /// <summary>
-        /// Gets the model definition.
-        /// </summary>
-        /// <value>The model definition.</value>
-        public ModelDefinition ModelDefinition { get; private set; }
+        int startPos = 0;
+        int endPos = reader.FieldCount;
 
-        /// <summary>
-        /// Gets the dialect.
-        /// </summary>
-        /// <value>The dialect.</value>
-        public IOrmLiteDialectProvider Dialect { get; private set; }
+        Fields = new List<string>(endPos - startPos);
 
-        /// <summary>
-        /// Gets the fields.
-        /// </summary>
-        /// <value>The fields.</value>
-        public List<string> Fields { get; private set; }
+        for (int i = startPos; i < endPos; i++)
+            Fields.Add(reader.GetName(i));
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IndexFieldsCacheKey"/> class.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <param name="modelDefinition">The model definition.</param>
-        /// <param name="dialect">The dialect.</param>
-        public IndexFieldsCacheKey(IDataReader reader, ModelDefinition modelDefinition, IOrmLiteDialectProvider dialect)
+        unchecked
         {
-            ModelDefinition = modelDefinition;
-            Dialect = dialect;
-
-            int startPos = 0;
-            int endPos = reader.FieldCount;
-
-            Fields = new List<string>(endPos - startPos);
-
-            for (int i = startPos; i < endPos; i++)
-                Fields.Add(reader.GetName(i));
-
-            unchecked
-            {
-                hashCode = 17;
-                hashCode = hashCode * 23 + ModelDefinition.GetHashCode();
-                hashCode = hashCode * 23 + Dialect.GetHashCode();
-                hashCode = hashCode * 23 + Fields.Count;
-                for (int i = 0; i < Fields.Count; i++)
-                    hashCode = hashCode * 23 + Fields[i].Length;
-            }
+            hashCode = 17;
+            hashCode = hashCode * 23 + ModelDefinition.GetHashCode();
+            hashCode = hashCode * 23 + Dialect.GetHashCode();
+            hashCode = hashCode * 23 + Fields.Count;
+            for (int i = 0; i < Fields.Count; i++)
+                hashCode = hashCode * 23 + Fields[i].Length;
         }
+    }
 
-        /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
-        /// </summary>
-        /// <param name="obj">The object to compare with the current object.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
-        public override bool Equals(object obj)
-        {
-            var that = obj as IndexFieldsCacheKey;
+    /// <summary>
+    /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+    /// </summary>
+    /// <param name="obj">The object to compare with the current object.</param>
+    /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+    public override bool Equals(object obj)
+    {
+        var that = obj as IndexFieldsCacheKey;
 
-            if (obj == null) return false;
+        if (obj == null) return false;
 
-            return this.ModelDefinition == that.ModelDefinition
-                && this.Dialect == that.Dialect
-                && this.Fields.Count == that.Fields.Count
-                && this.Fields.SequenceEqual(that.Fields);
-        }
+        return this.ModelDefinition == that.ModelDefinition
+               && this.Dialect == that.Dialect
+               && this.Fields.Count == that.Fields.Count
+               && this.Fields.SequenceEqual(that.Fields);
+    }
 
-        /// <summary>
-        /// Returns a hash code for this instance.
-        /// </summary>
-        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
-        public override int GetHashCode()
-        {
-            return hashCode;
-        }
+    /// <summary>
+    /// Returns a hash code for this instance.
+    /// </summary>
+    /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+    public override int GetHashCode()
+    {
+        return hashCode;
     }
 }

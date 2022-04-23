@@ -22,48 +22,47 @@
  * under the License.
  */
 
-namespace YAF.Types.Attributes
+namespace YAF.Types.Attributes;
+
+using System;
+
+/// <summary>
+/// The YAF module.
+/// </summary>
+[AttributeUsage(AttributeTargets.Class)]
+public class Module : Attribute
 {
-    using System;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Module"/> class.
+    /// </summary>
+    /// <param name="moduleName">
+    /// The module name.
+    /// </param>
+    /// <param name="moduleAuthor">
+    /// The module author.
+    /// </param>
+    /// <param name="moduleVersion">
+    /// The module version.
+    /// </param>
+    public Module(string moduleName, string moduleAuthor, int moduleVersion)
+    {
+        this.ModuleName = moduleName;
+        this.ModuleAuthor = moduleAuthor;
+        this.ModuleVersion = moduleVersion;
+    }
 
     /// <summary>
-    /// The YAF module.
+    /// Gets or sets ModuleName.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
-    public class Module : Attribute
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Module"/> class.
-        /// </summary>
-        /// <param name="moduleName">
-        /// The module name.
-        /// </param>
-        /// <param name="moduleAuthor">
-        /// The module author.
-        /// </param>
-        /// <param name="moduleVersion">
-        /// The module version.
-        /// </param>
-        public Module(string moduleName, string moduleAuthor, int moduleVersion)
-        {
-            this.ModuleName = moduleName;
-            this.ModuleAuthor = moduleAuthor;
-            this.ModuleVersion = moduleVersion;
-        }
+    public string ModuleName { get; set; }
 
-        /// <summary>
-        /// Gets or sets ModuleName.
-        /// </summary>
-        public string ModuleName { get; set; }
+    /// <summary>
+    /// Gets or sets ModuleAuthor.
+    /// </summary>
+    public string ModuleAuthor { get; set; }
 
-        /// <summary>
-        /// Gets or sets ModuleAuthor.
-        /// </summary>
-        public string ModuleAuthor { get; set; }
-
-        /// <summary>
-        /// Gets or sets ModuleVersion.
-        /// </summary>
-        public int ModuleVersion { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets ModuleVersion.
+    /// </summary>
+    public int ModuleVersion { get; set; }
 }

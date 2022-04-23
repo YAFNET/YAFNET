@@ -22,45 +22,44 @@
  * under the License.
  */
 
-namespace YAF.Core.Context.Start
-{
-    using System;
-    using System.Web.Http;
-    using System.Web.Http.WebHost;
+namespace YAF.Core.Context.Start;
 
-    using YAF.Core.Handlers;
+using System;
+using System.Web.Http;
+using System.Web.Http.WebHost;
+
+using YAF.Core.Handlers;
+
+/// <summary>
+/// The WebAPI Config.
+/// </summary>
+public static class WebApiConfig
+{
+    /// <summary>
+    /// Gets the url prefix.
+    /// </summary>
+    public static string UrlPrefix => "api";
 
     /// <summary>
-    /// The WebAPI Config.
+    /// The register.
     /// </summary>
-    public static class WebApiConfig
+    /// <param name="config">
+    /// The config.
+    /// </param>
+    public static void Register(HttpConfiguration config)
     {
-        /// <summary>
-        /// Gets the url prefix.
-        /// </summary>
-        public static string UrlPrefix => "api";
+        var httpControllerRouteHandler = typeof(HttpControllerRouteHandler).GetField(
+            "_instance",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
 
-        /// <summary>
-        /// The register.
-        /// </summary>
-        /// <param name="config">
-        /// The config.
-        /// </param>
-        public static void Register(HttpConfiguration config)
+        if (httpControllerRouteHandler != null)
         {
-            var httpControllerRouteHandler = typeof(HttpControllerRouteHandler).GetField(
-                "_instance",
-                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
-
-            if (httpControllerRouteHandler != null)
-            {
-                httpControllerRouteHandler.SetValue(
-                    null,
-                    new Lazy<HttpControllerRouteHandler>(() => new SessionHttpControllerRouteHandler(), true));
-            }
-
-            // Attribute routing.
-            config.MapHttpAttributeRoutes();
+            httpControllerRouteHandler.SetValue(
+                null,
+                new Lazy<HttpControllerRouteHandler>(() => new SessionHttpControllerRouteHandler(), true));
         }
+
+        // Attribute routing.
+        config.MapHttpAttributeRoutes();
     }
 }

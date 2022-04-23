@@ -22,157 +22,157 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+#region Using
+using YAF.Types.Models;
+#endregion
+
+/// <summary>
+/// The Admin Restore Topics Page
+/// </summary>
+public partial class Restore : AdminPage
 {
-    #region Using
-    using YAF.Types.Models;
-    #endregion
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The Admin Restore Topics Page
+    /// Initializes a new instance of the <see cref="Restore"/> class. 
     /// </summary>
-    public partial class Restore : AdminPage
+    public Restore()
+        : base("ADMIN_RESTORE", ForumPages.Admin_Restore)
     {
-        #region Constructors and Destructors
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Restore"/> class. 
-        /// </summary>
-        public Restore()
-            : base("ADMIN_RESTORE", ForumPages.Admin_Restore)
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
         {
+            return;
         }
 
-        #endregion
+        this.PageSize.DataSource = StaticDataHelper.PageEntries();
+        this.PageSize.DataTextField = "Name";
+        this.PageSize.DataValueField = "Value";
+        this.PageSize.DataBind();
 
-        #region Methods
+        this.PageSizeMessages.DataSource = StaticDataHelper.PageEntries();
+        this.PageSizeMessages.DataTextField = "Name";
+        this.PageSizeMessages.DataValueField = "Value";
+        this.PageSizeMessages.DataBind();
 
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        try
         {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.PageSize.DataSource = StaticDataHelper.PageEntries();
-            this.PageSize.DataTextField = "Name";
-            this.PageSize.DataValueField = "Value";
-            this.PageSize.DataBind();
-
-            this.PageSizeMessages.DataSource = StaticDataHelper.PageEntries();
-            this.PageSizeMessages.DataTextField = "Name";
-            this.PageSizeMessages.DataValueField = "Value";
-            this.PageSizeMessages.DataBind();
-
-            try
-            {
-                this.PageSize.SelectedValue =
-                    this.PageSizeMessages.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
-            }
-            catch (Exception)
-            {
-                this.PageSize.SelectedValue = this.PageSizeMessages.SelectedValue = "5";
-            }
-
-            this.BindData();
+            this.PageSize.SelectedValue =
+                this.PageSizeMessages.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
+        }
+        catch (Exception)
+        {
+            this.PageSize.SelectedValue = this.PageSizeMessages.SelectedValue = "5";
         }
 
-        /// <summary>
-        /// The page size on selected index changed.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The page size on selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddAdminIndex();
+        this.PageLinks.AddLink(this.GetText("ADMIN_RESTORE", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// The list_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void List_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        var commandArgs = e.CommandArgument.ToString().Split(';');
+
+        var topicId = commandArgs[0].ToType<int>();
+        var forumId = commandArgs[1].ToType<int>();
+
+        switch (e.CommandName)
         {
-            this.BindData();
-        }
+            case "delete":
+                {
+                    this.GetRepository<Topic>().Delete(forumId, topicId, true);
 
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddAdminIndex();
-            this.PageLinks.AddLink(this.GetText("ADMIN_RESTORE", "TITLE"), string.Empty);
-        }
+                    this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
-        /// <summary>
-        /// The list_ item command.
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void List_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            var commandArgs = e.CommandArgument.ToString().Split(';');
+                    this.BindData();
+                }
 
-            var topicId = commandArgs[0].ToType<int>();
-            var forumId = commandArgs[1].ToType<int>();
+                break;
+            case "restore":
+                {
+                    var getFirstMessage = this.GetRepository<Message>()
+                        .GetSingle(m => m.TopicID == topicId && m.Position == 0);
 
-            switch (e.CommandName)
-            {
-                case "delete":
+                    if (getFirstMessage != null)
                     {
-                        this.GetRepository<Topic>().Delete(forumId, topicId, true);
-
-                        this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
-
-                        this.BindData();
+                        this.GetRepository<Message>().Delete(
+                            forumId,
+                            topicId,
+                            getFirstMessage.ID,
+                            true,
+                            string.Empty,
+                            false,
+                            true,
+                            false);
                     }
 
-                    break;
-                case "restore":
-                    {
-                        var getFirstMessage = this.GetRepository<Message>()
-                            .GetSingle(m => m.TopicID == topicId && m.Position == 0);
+                    var topic = this.GetRepository<Topic>().GetById(topicId);
 
-                        if (getFirstMessage != null)
-                        {
-                            this.GetRepository<Message>().Delete(
-                                forumId,
-                                topicId,
-                                getFirstMessage.ID,
-                                true,
-                                string.Empty,
-                                false,
-                                true,
-                                false);
-                        }
+                    var flags = topic.TopicFlags;
 
-                        var topic = this.GetRepository<Topic>().GetById(topicId);
+                    flags.IsDeleted = false;
 
-                        var flags = topic.TopicFlags;
+                    this.GetRepository<Topic>().UpdateOnly(
+                        () => new Topic { Flags = flags.BitValue },
+                        t => t.ID == topicId);
 
-                        flags.IsDeleted = false;
+                    this.PageBoardContext.Notify(this.GetText("MSG_RESTORED"), MessageTypes.success);
 
-                        this.GetRepository<Topic>().UpdateOnly(
-                            () => new Topic { Flags = flags.BitValue },
-                            t => t.ID == topicId);
+                    this.BindData();
+                }
 
-                        this.PageBoardContext.Notify(this.GetText("MSG_RESTORED"), MessageTypes.success);
+                break;
+            case "delete_all":
+                {
+                    var topicIds = new List<(int forumId, int topicId)>();
 
-                        this.BindData();
-                    }
-
-                    break;
-                case "delete_all":
-                    {
-                        var topicIds = new List<(int forumId, int topicId)>();
-
-                        this.DeletedTopics.Items.Cast<RepeaterItem>().ForEach(item =>
+                    this.DeletedTopics.Items.Cast<RepeaterItem>().ForEach(item =>
                         {
                             var hiddenId = item.FindControlAs<HiddenField>("hiddenID");
 
@@ -181,108 +181,108 @@ namespace YAF.Pages.Admin
                             topicIds.Add((args[1].ToType<int>(), args[0].ToType<int>()));
                         });
 
-                        topicIds.ForEach(
-                            x => this.GetRepository<Topic>().Delete(x.forumId, x.topicId, true));
+                    topicIds.ForEach(
+                        x => this.GetRepository<Topic>().Delete(x.forumId, x.topicId, true));
 
-                        this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
+                    this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
-                        this.PagerTop.CurrentPageIndex--;
+                    this.PagerTop.CurrentPageIndex--;
 
-                        this.BindData();
-                    }
+                    this.BindData();
+                }
 
-                    break;
+                break;
 
-                case "delete_complete":
-                    {
-                        var deletedTopics = this.GetRepository<Topic>().GetDeletedTopics(this.PageBoardContext.PageBoardID, this.Filter.Text);
+            case "delete_complete":
+                {
+                    var deletedTopics = this.GetRepository<Topic>().GetDeletedTopics(this.PageBoardContext.PageBoardID, this.Filter.Text);
 
-                        deletedTopics.ForEach(
-                            topic => this.GetRepository<Topic>().Delete(topic.Item2.ForumID, topic.Item2.ID, true));
+                    deletedTopics.ForEach(
+                        topic => this.GetRepository<Topic>().Delete(topic.Item2.ForumID, topic.Item2.ID, true));
 
-                        this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
+                    this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
-                        this.BindData();
-                    }
+                    this.BindData();
+                }
 
-                    break;
-                case "delete_zero":
-                    {
-                        var deletedTopics = this.GetRepository<Topic>().Get(t => (t.Flags & 8) == 8 && t.NumPosts.Equals(0));
+                break;
+            case "delete_zero":
+                {
+                    var deletedTopics = this.GetRepository<Topic>().Get(t => (t.Flags & 8) == 8 && t.NumPosts.Equals(0));
 
-                        deletedTopics.ForEach(
-                            topic => this.GetRepository<Topic>().Delete(topic.ForumID, topic.ID, true));
+                    deletedTopics.ForEach(
+                        topic => this.GetRepository<Topic>().Delete(topic.ForumID, topic.ID, true));
 
-                        this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
+                    this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
-                        this.BindData();
-                    }
+                    this.BindData();
+                }
 
-                    break;
-            }
+                break;
         }
+    }
 
-        /// <summary>
-        /// The messages_ item command.
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Messages_ItemCommand(object source, RepeaterCommandEventArgs e)
+    /// <summary>
+    /// The messages_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Messages_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        var commandArgs = e.CommandArgument.ToString().Split(';');
+
+        var messageId = commandArgs[0].ToType<int>();
+        var forumId = commandArgs[1].ToType<int>();
+        var topicId = commandArgs[2].ToType<int>();
+
+        switch (e.CommandName)
         {
-            var commandArgs = e.CommandArgument.ToString().Split(';');
+            case "delete":
+                {
+                    // delete message
+                    this.GetRepository<Message>().Delete(
+                        forumId,
+                        topicId,
+                        messageId,
+                        true,
+                        string.Empty,
+                        true,
+                        true,
+                        true);
 
-            var messageId = commandArgs[0].ToType<int>();
-            var forumId = commandArgs[1].ToType<int>();
-            var topicId = commandArgs[2].ToType<int>();
+                    this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
-            switch (e.CommandName)
-            {
-                case "delete":
-                    {
-                        // delete message
-                        this.GetRepository<Message>().Delete(
-                            forumId,
-                            topicId,
-                            messageId,
-                            true,
-                            string.Empty,
-                            true,
-                            true,
-                            true);
+                    this.BindData();
+                }
 
-                        this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
+                break;
+            case "restore":
+                {
+                    this.GetRepository<Message>().Delete(
+                        forumId,
+                        topicId,
+                        messageId,
+                        true,
+                        string.Empty,
+                        false,
+                        true,
+                        false);
 
-                        this.BindData();
-                    }
+                    this.PageBoardContext.Notify(this.GetText("MSG_RESTORED"), MessageTypes.success);
 
-                    break;
-                case "restore":
-                    {
-                        this.GetRepository<Message>().Delete(
-                            forumId,
-                            topicId,
-                            messageId,
-                            true,
-                            string.Empty,
-                            false,
-                            true,
-                            false);
+                    this.BindData();
+                }
 
-                        this.PageBoardContext.Notify(this.GetText("MSG_RESTORED"), MessageTypes.success);
+                break;
+            case "delete_all":
+                {
+                    var messageIds = new List<(int forumId, int topicId, int messageId)>();
 
-                        this.BindData();
-                    }
-
-                    break;
-                case "delete_all":
-                    {
-                        var messageIds = new List<(int forumId, int topicId, int messageId)>();
-
-                        this.DeletedMessages.Items.Cast<RepeaterItem>().ForEach(item =>
+                    this.DeletedMessages.Items.Cast<RepeaterItem>().ForEach(item =>
                         {
                             var hiddenId = item.FindControlAs<HiddenField>("hiddenID");
 
@@ -291,90 +291,89 @@ namespace YAF.Pages.Admin
                             messageIds.Add((args[1].ToType<int>(), args[2].ToType<int>(), args[0].ToType<int>()));
                         });
 
-                        messageIds.ForEach(
-                            x => this.GetRepository<Message>().Delete(
-                                x.forumId,
-                                x.topicId,
-                                x.messageId,
-                                true,
-                                string.Empty,
-                                true,
-                                true,
-                                true));
+                    messageIds.ForEach(
+                        x => this.GetRepository<Message>().Delete(
+                            x.forumId,
+                            x.topicId,
+                            x.messageId,
+                            true,
+                            string.Empty,
+                            true,
+                            true,
+                            true));
 
-                        this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
+                    this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
-                        this.PagerTop.CurrentPageIndex--;
+                    this.PagerTop.CurrentPageIndex--;
 
-                        this.BindData();
-                    }
+                    this.BindData();
+                }
 
-                    break;
-            }
+                break;
         }
-
-        /// <summary>
-        /// The pager top_ page change.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // rebind
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The refresh click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void RefreshClick(object sender, EventArgs e)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
-            this.PagerMessages.PageSize = this.PageSizeMessages.SelectedValue.ToType<int>();
-
-            var deletedTopics = this.GetRepository<Topic>()
-                .GetDeletedTopics(this.PageBoardContext.PageBoardID, this.Filter.Text);
-
-            var count = deletedTopics.Count;
-
-            var deletedTopicPaged = deletedTopics.GetPaged(this.PagerTop);
-
-            this.DeletedTopics.DataSource = deletedTopicPaged;
-            this.DeletedTopics.DataBind();
-
-            this.PagerTop.Count = deletedTopicPaged.Any()
-                                      ? count
-                                      : 0;
-
-            var deletedMessages = this.GetRepository<Message>()
-                .GetDeletedMessages(this.PageBoardContext.PageBoardID);
-
-            count = deletedMessages.Count;
-
-            var deletedMessagesPaged = deletedMessages.GetPaged(this.PagerMessages);
-
-            this.DeletedMessages.DataSource = deletedMessagesPaged;
-            this.DeletedMessages.DataBind();
-
-            this.PagerMessages.Count = deletedMessagesPaged.Any()
-                                      ? count
-                                      : 0;
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// The pager top_ page change.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // rebind
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The refresh click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void RefreshClick(object sender, EventArgs e)
+    {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
+        this.PagerMessages.PageSize = this.PageSizeMessages.SelectedValue.ToType<int>();
+
+        var deletedTopics = this.GetRepository<Topic>()
+            .GetDeletedTopics(this.PageBoardContext.PageBoardID, this.Filter.Text);
+
+        var count = deletedTopics.Count;
+
+        var deletedTopicPaged = deletedTopics.GetPaged(this.PagerTop);
+
+        this.DeletedTopics.DataSource = deletedTopicPaged;
+        this.DeletedTopics.DataBind();
+
+        this.PagerTop.Count = deletedTopicPaged.Any()
+                                  ? count
+                                  : 0;
+
+        var deletedMessages = this.GetRepository<Message>()
+            .GetDeletedMessages(this.PageBoardContext.PageBoardID);
+
+        count = deletedMessages.Count;
+
+        var deletedMessagesPaged = deletedMessages.GetPaged(this.PagerMessages);
+
+        this.DeletedMessages.DataSource = deletedMessagesPaged;
+        this.DeletedMessages.DataBind();
+
+        this.PagerMessages.Count = deletedMessagesPaged.Any()
+                                       ? count
+                                       : 0;
+    }
+
+    #endregion
 }

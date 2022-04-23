@@ -21,48 +21,47 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+///     A class which represents the PollVote table.
+/// </summary>
+[Serializable]
+public class PollVote : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Public Properties
 
     /// <summary>
-    ///     A class which represents the PollVote table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class PollVote : IEntity, IHaveID
-    {
-        #region Public Properties
+    [Alias("PollVoteID")]
+    [AutoIncrement]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [Alias("PollVoteID")]
-        [AutoIncrement]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the poll id.
+    /// </summary>
+    [References(typeof(Poll))]
+    [Required]
+    [Index]
+    public int PollID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the poll id.
-        /// </summary>
-        [References(typeof(Poll))]
-        [Required]
-        [Index]
-        public int PollID { get; set; }
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [Index]
+    public int? UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [Index]
-        public int? UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the choice id.
+    /// </summary>
+    public int? ChoiceID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the choice id.
-        /// </summary>
-        public int? ChoiceID { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

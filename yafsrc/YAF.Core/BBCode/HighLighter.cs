@@ -22,98 +22,97 @@
  * under the License.
  */
 
-namespace YAF.Core.BBCode
+namespace YAF.Core.BBCode;
+
+#region Using
+
+using System;
+using System.Text;
+using System.Web;
+
+using YAF.Core.Helpers;
+using YAF.Types.Extensions;
+
+#endregion
+
+/// <summary>
+/// The high lighter.
+/// </summary>
+public class HighLighter
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System;
-    using System.Text;
-    using System.Web;
-
-    using YAF.Core.Helpers;
-    using YAF.Types.Extensions;
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "HighLighter" /> class.
+    /// </summary>
+    public HighLighter()
+    {
+        this.ReplaceEnter = false;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The high lighter.
+    ///   Gets or sets a value indicating whether ReplaceEnter.
     /// </summary>
-    public class HighLighter
+    public bool ReplaceEnter { get; set; }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Colors the text.
+    /// </summary>
+    /// <param name="codeText">
+    /// The code to highlight.
+    /// </param>
+    /// <param name="language">
+    /// The language.
+    /// </param>
+    /// <returns>
+    /// The color text.
+    /// </returns>
+    public string ColorText(string codeText, string language)
     {
-        #region Constructors and Destructors
+        language = language.ToLower();
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "HighLighter" /> class.
-        /// </summary>
-        public HighLighter()
-        {
-            this.ReplaceEnter = false;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether ReplaceEnter.
-        /// </summary>
-        public bool ReplaceEnter { get; set; }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Colors the text.
-        /// </summary>
-        /// <param name="codeText">
-        /// The code to highlight.
-        /// </param>
-        /// <param name="language">
-        /// The language.
-        /// </param>
-        /// <returns>
-        /// The color text.
-        /// </returns>
-        public string ColorText(string codeText, string language)
-        {
-            language = language.ToLower();
-
-            language = language switch
-                {
-                    "cs" => "csharp",
-                    "xml" => "markup",
-                    "plain" => "markup",
-                    "" => "markup",
-                    _ => language.Replace("\"", string.Empty)
-                };
-
-            var tmpOutput = new StringBuilder();
-
-            var highlight = string.Empty;
-
-            // extract highlight
-            if (language.Contains(";"))
+        language = language switch
             {
-                highlight = language.Substring(language.IndexOf(";", StringComparison.Ordinal) + 1);
-                language = language.Remove(language.IndexOf(";", StringComparison.Ordinal));
-            }
+                "cs" => "csharp",
+                "xml" => "markup",
+                "plain" => "markup",
+                "" => "markup",
+                _ => language.Replace("\"", string.Empty)
+            };
 
-            // Create Output
-            tmpOutput.AppendFormat(
-                "<pre class=\"line-numbers language-{0}\"{1}><code class=\"language-{0}\">",
-                language,
-                highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty);
+        var tmpOutput = new StringBuilder();
 
-            tmpOutput.AppendFormat(
-                "<!---->{0}<!---->",
-                StringHelper.IsHtmlEncoded(codeText) ? codeText : HttpUtility.HtmlEncode(codeText));
+        var highlight = string.Empty;
 
-            tmpOutput.AppendFormat("</code></pre>{0}", Environment.NewLine);
-
-            return tmpOutput.ToString();
+        // extract highlight
+        if (language.Contains(";"))
+        {
+            highlight = language.Substring(language.IndexOf(";", StringComparison.Ordinal) + 1);
+            language = language.Remove(language.IndexOf(";", StringComparison.Ordinal));
         }
 
-        #endregion
+        // Create Output
+        tmpOutput.AppendFormat(
+            "<pre class=\"line-numbers language-{0}\"{1}><code class=\"language-{0}\">",
+            language,
+            highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty);
+
+        tmpOutput.AppendFormat(
+            "<!---->{0}<!---->",
+            StringHelper.IsHtmlEncoded(codeText) ? codeText : HttpUtility.HtmlEncode(codeText));
+
+        tmpOutput.AppendFormat("</code></pre>{0}", Environment.NewLine);
+
+        return tmpOutput.ToString();
     }
+
+    #endregion
 }

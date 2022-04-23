@@ -22,61 +22,60 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// The Admin Restart App Page.
+/// </summary>
+public partial class RestartApp : AdminPage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RestartApp"/> class. 
+    /// </summary>
+    public RestartApp()
+        : base("ADMIN_RESTARTAPP", ForumPages.Admin_RestartApp)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The Admin Restart App Page.
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class RestartApp : AdminPage
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RestartApp"/> class. 
-        /// </summary>
-        public RestartApp()
-            : base("ADMIN_RESTARTAPP", ForumPages.Admin_RestartApp)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.DataBind();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot()
-                .AddAdminIndex()
-                .AddLink(this.GetText("ADMIN_RESTARTAPP", "TITLE"));
-        }
-
-        /// <summary>
-        /// Try to Restart the Application
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void RestartAppClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            HttpRuntime.UnloadAppDomain();
-        }
-
-        #endregion
+        this.DataBind();
     }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot()
+            .AddAdminIndex()
+            .AddLink(this.GetText("ADMIN_RESTARTAPP", "TITLE"));
+    }
+
+    /// <summary>
+    /// Try to Restart the Application
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void RestartAppClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        HttpRuntime.UnloadAppDomain();
+    }
+
+    #endregion
 }

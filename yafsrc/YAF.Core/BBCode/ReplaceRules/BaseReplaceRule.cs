@@ -21,19 +21,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BBCode.ReplaceRules
+namespace YAF.Core.BBCode.ReplaceRules;
+
+using System;
+
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// Base class for all replacement rules.
+///   Provides compare functionality based on the rule rank.
+///   Override replace to handle replacement differently.
+/// </summary>
+public abstract class BaseReplaceRule : IComparable, IReplaceRule
 {
-    using System;
-
-    using YAF.Types.Interfaces;
-
-    /// <summary>
-  /// Base class for all replacement rules.
-  ///   Provides compare functionality based on the rule rank.
-  ///   Override replace to handle replacement differently.
-  /// </summary>
-  public abstract class BaseReplaceRule : IComparable, IReplaceRule
-  {
     #region Constants and Fields
 
     /// <summary>
@@ -103,5 +103,4 @@ namespace YAF.Core.BBCode.ReplaceRules
     #endregion
 
     #endregion
-  }
 }

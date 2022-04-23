@@ -4,18 +4,17 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-namespace ServiceStack
+namespace ServiceStack;
+
+/// <summary>
+/// Interface ICompressor
+/// </summary>
+public interface ICompressor
 {
     /// <summary>
-    /// Interface ICompressor
+    /// Compresses the specified source.
     /// </summary>
-    public interface ICompressor
-    {
-        /// <summary>
-        /// Compresses the specified source.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <returns>System.String.</returns>
-        string Compress(string source);
-    }
+    /// <param name="source">The source.</param>
+    /// <returns>System.String.</returns>
+    string Compress(string source);
 }

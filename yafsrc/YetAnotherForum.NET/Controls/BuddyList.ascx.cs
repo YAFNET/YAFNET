@@ -22,224 +22,224 @@
  * under the License.
  */
 
-namespace YAF.Controls
-{
-    #region Using
+namespace YAF.Controls;
 
-    using System.Web.UI;
+#region Using
+
+using System.Web.UI;
+
+#endregion
+
+/// <summary>
+/// Buddy List Control
+/// </summary>
+public partial class BuddyList : BaseUserControl
+{
+    #region Properties
+
+    /// <summary>
+    ///   The parent control of the current control. (Used in rptBuddy_ItemCommand method)
+    /// </summary>
+    public Control Container { get; set; }
+
+    /// <summary>
+    ///   Gets or sets the user ID.
+    /// </summary>
+    public int CurrentUserID { get; set; }
+
+    /// <summary>
+    ///   Gets or sets the Determines what is th current mode of the control.
+    /// </summary>
+    public int Mode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the count.
+    /// </summary>
+    public int Count { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Friends Table.
+    /// </summary>
+    public List<BuddyUser> FriendsList { get; set; }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Buddy List Control
+    /// Called when the page loads
     /// </summary>
-    public partial class BuddyList : BaseUserControl
+    /// <param name="sender">
+    /// </param>
+    /// <param name="e">
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Properties
-
-        /// <summary>
-        ///   The parent control of the current control. (Used in rptBuddy_ItemCommand method)
-        /// </summary>
-        public Control Container { get; set; }
-
-        /// <summary>
-        ///   Gets or sets the user ID.
-        /// </summary>
-        public int CurrentUserID { get; set; }
-
-        /// <summary>
-        ///   Gets or sets the Determines what is th current mode of the control.
-        /// </summary>
-        public int Mode { get; set; }
-
-        /// <summary>
-        /// Gets or sets the count.
-        /// </summary>
-        public int Count { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Friends Table.
-        /// </summary>
-        public List<BuddyUser> FriendsList { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Called when the page loads
-        /// </summary>
-        /// <param name="sender">
-        /// </param>
-        /// <param name="e">
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        if (this.IsPostBack)
         {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.PageSize.DataSource = StaticDataHelper.PageEntries();
-            this.PageSize.DataTextField = "Name";
-            this.PageSize.DataValueField = "Value";
-            this.PageSize.DataBind();
-
-            try
-            {
-                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
-            }
-            catch (Exception)
-            {
-                this.PageSize.SelectedValue = "5";
-            }
-
-            this.BindData();
+            return;
         }
 
-        /// <summary>
-        /// The page size on selected index changed.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        this.PageSize.DataSource = StaticDataHelper.PageEntries();
+        this.PageSize.DataTextField = "Name";
+        this.PageSize.DataValueField = "Value";
+        this.PageSize.DataBind();
+
+        try
         {
-            this.BindData();
+            this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
+        }
+        catch (Exception)
+        {
+            this.PageSize.SelectedValue = "5";
         }
 
-        /// <summary>
-        /// The pager_ page change.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The page size on selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The pager_ page change.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The ItemCommand method for the link buttons in the last column.
+    /// </summary>
+    /// <param name="sender">
+    /// the sender.
+    /// </param>
+    /// <param name="e">
+    /// the e.
+    /// </param>
+    protected void rptBuddy_ItemCommand([NotNull] object sender, [NotNull] CommandEventArgs e)
+    {
+        switch (e.CommandName)
         {
-            this.BindData();
+            case "remove":
+                this.PageBoardContext.Notify(
+                    string.Format(
+                        this.GetText("REMOVEBUDDY_NOTIFICATION"),
+                        this.Get<IFriends>().Remove(e.CommandArgument.ToType<int>())),
+                    MessageTypes.success);
+                this.CurrentUserID = this.PageBoardContext.PageUserID;
+                break;
+            case "approve":
+                this.PageBoardContext.Notify(
+                    string.Format(
+                        this.GetText("NOTIFICATION_BUDDYAPPROVED"),
+                        this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), false)),
+                    MessageTypes.success);
+                break;
+            case "approveadd":
+                this.PageBoardContext.Notify(
+                    string.Format(
+                        this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"),
+                        this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), true)),
+                    MessageTypes.success);
+                break;
+            case "approveall":
+                this.Get<IFriends>().ApproveAllRequests(false);
+                this.PageBoardContext.Notify(this.GetText("NOTIFICATION_ALL_APPROVED"), MessageTypes.success);
+                break;
+            case "approveaddall":
+                this.Get<IFriends>().ApproveAllRequests(true);
+                this.PageBoardContext.Notify(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
+                break;
+            case "deny":
+                this.Get<IFriends>().DenyRequest(e.CommandArgument.ToType<int>());
+                this.PageBoardContext.Notify(this.GetText("NOTIFICATION_BUDDYDENIED"), MessageTypes.info);
+                break;
+            case "denyall":
+                this.Get<IFriends>().DenyAllRequests();
+                this.PageBoardContext.Notify(this.GetText("NOTIFICATION_ALL_DENIED"), MessageTypes.info);
+                break;
         }
 
-        /// <summary>
-        /// The ItemCommand method for the link buttons in the last column.
-        /// </summary>
-        /// <param name="sender">
-        /// the sender.
-        /// </param>
-        /// <param name="e">
-        /// the e.
-        /// </param>
-        protected void rptBuddy_ItemCommand([NotNull] object sender, [NotNull] CommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "remove":
-                    this.PageBoardContext.Notify(
-                        string.Format(
-                            this.GetText("REMOVEBUDDY_NOTIFICATION"),
-                            this.Get<IFriends>().Remove(e.CommandArgument.ToType<int>())),
-                        MessageTypes.success);
-                    this.CurrentUserID = this.PageBoardContext.PageUserID;
-                    break;
-                case "approve":
-                    this.PageBoardContext.Notify(
-                        string.Format(
-                            this.GetText("NOTIFICATION_BUDDYAPPROVED"),
-                            this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), false)),
-                        MessageTypes.success);
-                    break;
-                case "approveadd":
-                    this.PageBoardContext.Notify(
-                        string.Format(
-                            this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"),
-                            this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), true)),
-                        MessageTypes.success);
-                    break;
-                case "approveall":
-                    this.Get<IFriends>().ApproveAllRequests(false);
-                    this.PageBoardContext.Notify(this.GetText("NOTIFICATION_ALL_APPROVED"), MessageTypes.success);
-                    break;
-                case "approveaddall":
-                    this.Get<IFriends>().ApproveAllRequests(true);
-                    this.PageBoardContext.Notify(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
-                    break;
-                case "deny":
-                    this.Get<IFriends>().DenyRequest(e.CommandArgument.ToType<int>());
-                    this.PageBoardContext.Notify(this.GetText("NOTIFICATION_BUDDYDENIED"), MessageTypes.info);
-                    break;
-                case "denyall":
-                    this.Get<IFriends>().DenyAllRequests();
-                    this.PageBoardContext.Notify(this.GetText("NOTIFICATION_ALL_DENIED"), MessageTypes.info);
-                    break;
-            }
+        // Update all buddy list controls in Friends.ascx page.
+        this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("BuddyList1"), 2);
+        this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("PendingBuddyList"), 3);
+        this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("BuddyRequested"), 4);
+    }
 
-            // Update all buddy list controls in Friends.ascx page.
-            this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("BuddyList1"), 2);
-            this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("PendingBuddyList"), 3);
-            this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("BuddyRequested"), 4);
-        }
-
-        /// <summary>
-        /// The rpt buddy_ item created.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void rptBuddy_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+    /// <summary>
+    /// The rpt buddy_ item created.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void rptBuddy_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+    {
+        // In what mode should this control work?
+        // 2: display the buddy list and ("Remove Buddy") buttons.
+        // 3: display pending buddy list posted to current user and add ("approve","approve all", "deny",
+        // "deny all","approve and add", "approve and add all") buttons.
+        // 4: show the pending requests posted from the current user.
+        switch (this.Mode)
         {
-            // In what mode should this control work?
-            // 2: display the buddy list and ("Remove Buddy") buttons.
-            // 3: display pending buddy list posted to current user and add ("approve","approve all", "deny",
-            // "deny all","approve and add", "approve and add all") buttons.
-            // 4: show the pending requests posted from the current user.
-            switch (this.Mode)
-            {
-                case 2:
-                    if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
+            case 2:
+                if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
+                {
+                    e.Item.FindControlAs<PlaceHolder>("pnlRemove").Visible = true;
+                }
+
+                break;
+            case 3:
+                if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
+                {
+                    e.Item.FindControlAs<PlaceHolder>("pnlPending").Visible = true;
+                }
+
+                if (e.Item.ItemType == ListItemType.Footer)
+                {
+                    if (this.rptBuddy.Items.Count > 0)
                     {
-                        e.Item.FindControlAs<PlaceHolder>("pnlRemove").Visible = true;
+                        e.Item.FindControlAs<Panel>("Footer").Visible = true;
                     }
+                }
 
-                    break;
-                case 3:
-                    if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
-                    {
-                        e.Item.FindControlAs<PlaceHolder>("pnlPending").Visible = true;
-                    }
+                break;
+            case 4:
+                if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
+                {
+                    e.Item.FindControlAs<PlaceHolder>("pnlRequests").Visible = true;
+                }
 
-                    if (e.Item.ItemType == ListItemType.Footer)
-                    {
-                        if (this.rptBuddy.Items.Count > 0)
-                        {
-                            e.Item.FindControlAs<Panel>("Footer").Visible = true;
-                        }
-                    }
-
-                    break;
-                case 4:
-                    if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
-                    {
-                        e.Item.FindControlAs<PlaceHolder>("pnlRequests").Visible = true;
-                    }
-
-                    break;
-            }
+                break;
         }
+    }
 
-        /// <summary>
-        /// Renders the Icon Header Text
-        /// </summary>
-        protected string GetHeaderText()
-        {
-            return this.Mode switch
+    /// <summary>
+    /// Renders the Icon Header Text
+    /// </summary>
+    protected string GetHeaderText()
+    {
+        return this.Mode switch
             {
                 1 => this.GetText("FRIENDS", "BUDDYLIST"),
                 2 => this.GetText("FRIENDS", "BUDDYLIST"),
@@ -247,85 +247,84 @@ namespace YAF.Controls
                 4 => this.GetText("FRIENDS", "YOUR_REQUESTS"),
                 _ => this.GetText("FRIENDS", "BUDDYLIST")
             };
-        }
+    }
 
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        this.Pager.PageSize = this.PageSize.SelectedValue.ToType<int>();
+
+        // set the Data table
+        var buddyList = this.FriendsList;
+
+        if (!buddyList.NullOrEmpty())
         {
-            this.Pager.PageSize = this.PageSize.SelectedValue.ToType<int>();
-
-            // set the Data table
-            var buddyList = this.FriendsList;
-
-            if (!buddyList.NullOrEmpty())
-            {
-                var buddyListView = buddyList;
-                // In what mode should this control work?
-                // Refer to "rptBuddy_ItemCreate" event for more info.
-                switch (this.Mode)
-                {
-                    case 1:
-                    case 2:
-                        buddyListView = buddyList.Where(x => x.Approved == true).ToList();
-                        break;
-                    case 3:
-                        buddyListView = buddyList.Where(x => x.Approved == false && x.FromUserID != this.CurrentUserID).ToList();
-                        break;
-                    case 4:
-                        buddyListView = buddyList.Where(x => x.Approved == false && x.FromUserID == this.CurrentUserID).ToList();
-                        break;
-                }
-
-                this.Pager.Count = buddyListView.Count;
-
-                var pds = new PagedDataSource
-                {
-                    DataSource = buddyListView,
-                    AllowPaging = true,
-                    CurrentPageIndex = this.Pager.CurrentPageIndex,
-                    PageSize = this.Pager.PageSize
-                };
-
-                this.rptBuddy.DataSource = pds;
-            }
-
-            this.DataBind();
-
-            this.Count = this.rptBuddy.Items.Count;
-
+            var buddyListView = buddyList;
+            // In what mode should this control work?
+            // Refer to "rptBuddy_ItemCreate" event for more info.
             switch (this.Mode)
             {
                 case 1:
                 case 2:
-                    this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-info text-info pe-1\"></i>{this.GetText("INFO_NO")}" });
+                    buddyListView = buddyList.Where(x => x.Approved == true).ToList();
                     break;
                 case 3:
+                    buddyListView = buddyList.Where(x => x.Approved == false && x.FromUserID != this.CurrentUserID).ToList();
+                    break;
                 case 4:
-                    this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-check text-success pe-1\"></i>{this.GetText("INFO_PENDING")}" });
+                    buddyListView = buddyList.Where(x => x.Approved == false && x.FromUserID == this.CurrentUserID).ToList();
                     break;
             }
+
+            this.Pager.Count = buddyListView.Count;
+
+            var pds = new PagedDataSource
+                          {
+                              DataSource = buddyListView,
+                              AllowPaging = true,
+                              CurrentPageIndex = this.Pager.CurrentPageIndex,
+                              PageSize = this.Pager.PageSize
+                          };
+
+            this.rptBuddy.DataSource = pds;
         }
 
-        /// <summary>
-        /// Initializes the values of BuddyList control's properties and calls the BindData()
-        ///   method of the control.
-        /// </summary>
-        /// <param name="customBuddyList">
-        /// The BuddyList control
-        /// </param>
-        /// <param name="BuddyListMode">
-        /// The mode of this BuddyList.
-        /// </param>
-        private void UpdateBuddyList([NotNull] BuddyList customBuddyList, int BuddyListMode)
+        this.DataBind();
+
+        this.Count = this.rptBuddy.Items.Count;
+
+        switch (this.Mode)
         {
-            customBuddyList.Mode = BuddyListMode;
-            customBuddyList.CurrentUserID = this.CurrentUserID;
-            customBuddyList.Container = this.Container;
-            customBuddyList.BindData();
+            case 1:
+            case 2:
+                this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-info text-info pe-1\"></i>{this.GetText("INFO_NO")}" });
+                break;
+            case 3:
+            case 4:
+                this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-check text-success pe-1\"></i>{this.GetText("INFO_PENDING")}" });
+                break;
         }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Initializes the values of BuddyList control's properties and calls the BindData()
+    ///   method of the control.
+    /// </summary>
+    /// <param name="customBuddyList">
+    /// The BuddyList control
+    /// </param>
+    /// <param name="BuddyListMode">
+    /// The mode of this BuddyList.
+    /// </param>
+    private void UpdateBuddyList([NotNull] BuddyList customBuddyList, int BuddyListMode)
+    {
+        customBuddyList.Mode = BuddyListMode;
+        customBuddyList.CurrentUserID = this.CurrentUserID;
+        customBuddyList.Container = this.Container;
+        customBuddyList.BindData();
+    }
+
+    #endregion
 }

@@ -21,43 +21,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+using System.Data.Linq.Mapping;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the yaf_PollGroupCluster table.
+/// </summary>
+[Serializable]
+[Table(Name = "PollGroupCluster")]
+[Obsolete("Only used for Droping")]
+public partial class PollGroupCluster : IEntity, IHaveID
 {
-    using System;
-    using System.Data.Linq.Mapping;
+    partial void OnCreated();
 
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
-
-    /// <summary>
-    /// A class which represents the yaf_PollGroupCluster table.
-    /// </summary>
-    [Serializable]
-    [Table(Name = "PollGroupCluster")]
-    [Obsolete("Only used for Droping")]
-    public partial class PollGroupCluster : IEntity, IHaveID
+    public PollGroupCluster()
     {
-        partial void OnCreated();
-
-        public PollGroupCluster()
-        {
-            this.OnCreated();
-        }
-
-        #region Properties
-
-        [Alias("PollGroupID")]
-        [AutoIncrement]
-        public int ID { get; set; }
-        [Required]
-        public int UserID { get; set; }
-        [Required]
-        [Default(0)]
-        public int Flags { get; set; }
-        [Compute]
-        public bool? IsBound { get; set; }
-
-        #endregion
+        this.OnCreated();
     }
+
+    #region Properties
+
+    [Alias("PollGroupID")]
+    [AutoIncrement]
+    public int ID { get; set; }
+    [Required]
+    public int UserID { get; set; }
+    [Required]
+    [Default(0)]
+    public int Flags { get; set; }
+    [Compute]
+    public bool? IsBound { get; set; }
+
+    #endregion
 }

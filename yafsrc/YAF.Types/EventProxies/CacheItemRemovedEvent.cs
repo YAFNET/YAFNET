@@ -21,55 +21,54 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
+namespace YAF.Types.EventProxies;
+
+#region Using
+
+using System.Runtime.Caching;
+
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+/// The cache item removed event.
+/// </summary>
+public class CacheItemRemovedEvent : IAmEvent
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System.Runtime.Caching;
-
-    using YAF.Types.Interfaces.Events;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CacheItemRemovedEvent"/> class.
+    /// </summary>
+    /// <param name="arguments">
+    /// The arguments.
+    /// </param>
+    public CacheItemRemovedEvent(CacheEntryRemovedArguments arguments)
+    {
+        this.Key = arguments.CacheItem.Key;
+        this.Value = arguments.CacheItem.Value;
+        this.Reason = arguments.RemovedReason;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The cache item removed event.
+    /// Gets or sets Key.
     /// </summary>
-    public class CacheItemRemovedEvent : IAmEvent
-    {
-        #region Constructors and Destructors
+    public string Key { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CacheItemRemovedEvent"/> class.
-        /// </summary>
-        /// <param name="arguments">
-        /// The arguments.
-        /// </param>
-        public CacheItemRemovedEvent(CacheEntryRemovedArguments arguments)
-        {
-            this.Key = arguments.CacheItem.Key;
-            this.Value = arguments.CacheItem.Value;
-            this.Reason = arguments.RemovedReason;
-        }
+    /// <summary>
+    /// Gets or sets Reason.
+    /// </summary>
+    public CacheEntryRemovedReason Reason { get; set; }
 
-        #endregion
+    /// <summary>
+    /// Gets or sets Value.
+    /// </summary>
+    public object Value { get; set; }
 
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets Key.
-        /// </summary>
-        public string Key { get; set; }
-
-        /// <summary>
-        /// Gets or sets Reason.
-        /// </summary>
-        public CacheEntryRemovedReason Reason { get; set; }
-
-        /// <summary>
-        /// Gets or sets Value.
-        /// </summary>
-        public object Value { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

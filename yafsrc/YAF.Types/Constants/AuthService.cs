@@ -22,31 +22,30 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The AUTH Services
+/// </summary>
+public enum AuthService
 {
     /// <summary>
-    /// The AUTH Services
+    /// The facebook AUTH service
     /// </summary>
-    public enum AuthService
-    {
-        /// <summary>
-        /// The facebook AUTH service
-        /// </summary>
-        facebook,
+    facebook,
 
-        /// <summary>
-        /// The twitter AUTH service
-        /// </summary>
-        twitter,
+    /// <summary>
+    /// The twitter AUTH service
+    /// </summary>
+    twitter,
 
-        /// <summary>
-        /// The google AUTH service
-        /// </summary>
-        google,
+    /// <summary>
+    /// The google AUTH service
+    /// </summary>
+    google,
 
-        /// <summary>
-        /// The github.
-        /// </summary>
-        github
-    }
+    /// <summary>
+    /// The github.
+    /// </summary>
+    github
 }

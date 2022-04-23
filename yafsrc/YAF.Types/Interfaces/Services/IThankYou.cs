@@ -22,81 +22,80 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+using YAF.Types.Objects;
+
+/// <summary>
+/// The ThankYou interface.
+/// </summary>
+public interface IThankYou
 {
-    using YAF.Types.Objects;
+    /// <summary>
+    /// Creates an instance of the thank you object from the current information.
+    /// </summary>
+    /// <param name="username">
+    /// The Current Username
+    /// </param>
+    /// <param name="textTag">
+    /// Button Text
+    /// </param>
+    /// <param name="titleTag">
+    /// Button  Title
+    /// </param>
+    /// <param name="messageId">
+    /// The message Id.
+    /// </param>
+    /// <returns>
+    /// Returns ThankYou Info
+    /// </returns>
+    [NotNull]
+    ThankYouInfo CreateThankYou(
+        [NotNull] string username,
+        [NotNull] string textTag,
+        [NotNull] string titleTag,
+        int messageId);
 
     /// <summary>
-    /// The ThankYou interface.
+    /// Creates an instance of the thank you object from the current information.
     /// </summary>
-    public interface IThankYou
-    {
-        /// <summary>
-        /// Creates an instance of the thank you object from the current information.
-        /// </summary>
-        /// <param name="username">
-        /// The Current Username
-        /// </param>
-        /// <param name="textTag">
-        /// Button Text
-        /// </param>
-        /// <param name="titleTag">
-        /// Button  Title
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <returns>
-        /// Returns ThankYou Info
-        /// </returns>
-        [NotNull]
-        ThankYouInfo CreateThankYou(
-            [NotNull] string username,
-            [NotNull] string textTag,
-            [NotNull] string titleTag,
-            int messageId);
+    /// <param name="username">
+    /// The Current Username
+    /// </param>
+    /// <param name="textTag">
+    /// Button Text
+    /// </param>
+    /// <param name="titleTag">
+    /// Button  Title
+    /// </param>
+    /// <param name="messageId">
+    /// The message Id.
+    /// </param>
+    /// <returns>
+    /// Returns ThankYou Info
+    /// </returns>
+    [NotNull]
+    ThankYouInfo GetThankYou(
+        [NotNull] string username,
+        [NotNull] string textTag,
+        [NotNull] string titleTag,
+        int messageId);
 
-        /// <summary>
-        /// Creates an instance of the thank you object from the current information.
-        /// </summary>
-        /// <param name="username">
-        /// The Current Username
-        /// </param>
-        /// <param name="textTag">
-        /// Button Text
-        /// </param>
-        /// <param name="titleTag">
-        /// Button  Title
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <returns>
-        /// Returns ThankYou Info
-        /// </returns>
-        [NotNull]
-        ThankYouInfo GetThankYou(
-            [NotNull] string username,
-            [NotNull] string textTag,
-            [NotNull] string titleTag,
-            int messageId);
-
-        /// <summary>
-        /// This method returns a string which shows how many times users have
-        ///   thanked the message with the provided messageID. Returns an empty string.
-        /// </summary>
-        /// <param name="username">
-        /// The username.
-        /// </param>
-        /// <param name="messageId">
-        /// The Message Id.
-        /// </param>
-        /// <param name="thanksInfoOnly">
-        /// The thank Info Only.
-        /// </param>
-        /// <returns>
-        /// The thanks info.
-        /// </returns>
-        string ThanksInfo([NotNull] string username, int messageId, bool thanksInfoOnly);
-    }
+    /// <summary>
+    /// This method returns a string which shows how many times users have
+    ///   thanked the message with the provided messageID. Returns an empty string.
+    /// </summary>
+    /// <param name="username">
+    /// The username.
+    /// </param>
+    /// <param name="messageId">
+    /// The Message Id.
+    /// </param>
+    /// <param name="thanksInfoOnly">
+    /// The thank Info Only.
+    /// </param>
+    /// <returns>
+    /// The thanks info.
+    /// </returns>
+    string ThanksInfo([NotNull] string username, int messageId, bool thanksInfoOnly);
 }

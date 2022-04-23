@@ -21,34 +21,33 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Helpers
+namespace YAF.Core.Helpers;
+
+#region Using
+
+using YAF.Core.BaseModules;
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The Forum Editor helper.
+/// </summary>
+public static class ForumEditorHelper
 {
-    #region Using
-
-    using YAF.Core.BaseModules;
-    using YAF.Core.Context;
-    using YAF.Types.Interfaces;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The Forum Editor helper.
+    /// Gets the current forum editor.
     /// </summary>
-    public static class ForumEditorHelper
+    /// <returns>
+    /// Returns the current forum editor
+    /// </returns>
+    public static ForumEditor GetCurrentForumEditor()
     {
-        #region Public Methods
-
-        /// <summary>
-        /// Gets the current forum editor.
-        /// </summary>
-        /// <returns>
-        /// Returns the current forum editor
-        /// </returns>
-        public static ForumEditor GetCurrentForumEditor()
-        {
-            return BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("4");
-        }
-
-        #endregion
+        return BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("4");
     }
+
+    #endregion
 }

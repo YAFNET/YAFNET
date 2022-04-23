@@ -6,19 +6,18 @@
 // ***********************************************************************
 using ServiceStack.OrmLite.Converters;
 
-namespace ServiceStack.OrmLite.MySql.Converters
+namespace ServiceStack.OrmLite.MySql.Converters;
+
+/// <summary>
+/// Class MySqlDateTimeOffsetConverter.
+/// Implements the <see cref="ServiceStack.OrmLite.Converters.DateTimeOffsetConverter" />
+/// </summary>
+/// <seealso cref="ServiceStack.OrmLite.Converters.DateTimeOffsetConverter" />
+public class MySqlDateTimeOffsetConverter : DateTimeOffsetConverter
 {
     /// <summary>
-    /// Class MySqlDateTimeOffsetConverter.
-    /// Implements the <see cref="ServiceStack.OrmLite.Converters.DateTimeOffsetConverter" />
+    /// Gets the column definition.
     /// </summary>
-    /// <seealso cref="ServiceStack.OrmLite.Converters.DateTimeOffsetConverter" />
-    public class MySqlDateTimeOffsetConverter : DateTimeOffsetConverter
-    {
-        /// <summary>
-        /// Gets the column definition.
-        /// </summary>
-        /// <value>The column definition.</value>
-        public override string ColumnDefinition => "VARCHAR(255)";
-    }
+    /// <value>The column definition.</value>
+    public override string ColumnDefinition => "VARCHAR(255)";
 }

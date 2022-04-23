@@ -22,130 +22,129 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.CheckForSpam
+namespace YAF.Core.Services.CheckForSpam;
+
+#region
+
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.CheckForSpam;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// Spam Checking Class for the Internal Spam Check
+/// </summary>
+public class InternalCheck : ICheckForBot
 {
-    #region
-
-    using System;
-    using System.Linq;
-    using System.Text.RegularExpressions;
-
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.CheckForSpam;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
-
-    #endregion
+    /// <summary>
+    /// Checks if user is a Bot.
+    /// </summary>
+    /// <param name="ipAddress">The IP Address.</param>
+    /// <param name="emailAddress">The email Address.</param>
+    /// <param name="userName">Name of the user.</param>
+    /// <returns>
+    /// Returns if user is a possible Bot or not
+    /// </returns>
+    public bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName)
+    {
+        return this.IsBot(ipAddress, emailAddress, userName, out _);
+    }
 
     /// <summary>
-    /// Spam Checking Class for the Internal Spam Check
+    /// Checks if user is a Bot.
     /// </summary>
-    public class InternalCheck : ICheckForBot
+    /// <param name="ipAddress">The IP Address.</param>
+    /// <param name="emailAddress">The email Address.</param>
+    /// <param name="userName">Name of the user.</param>
+    /// <param name="responseText">The response text.</param>
+    /// <returns>
+    /// Returns if user is a possible Bot or not
+    /// </returns>
+    public bool IsBot(
+        [CanBeNull] string ipAddress,
+        [CanBeNull] string emailAddress,
+        [CanBeNull] string userName,
+        out string responseText)
     {
-        /// <summary>
-        /// Checks if user is a Bot.
-        /// </summary>
-        /// <param name="ipAddress">The IP Address.</param>
-        /// <param name="emailAddress">The email Address.</param>
-        /// <param name="userName">Name of the user.</param>
-        /// <returns>
-        /// Returns if user is a possible Bot or not
-        /// </returns>
-        public bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName)
-        {
-            return this.IsBot(ipAddress, emailAddress, userName, out _);
-        }
+        responseText = string.Empty;
 
-        /// <summary>
-        /// Checks if user is a Bot.
-        /// </summary>
-        /// <param name="ipAddress">The IP Address.</param>
-        /// <param name="emailAddress">The email Address.</param>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="responseText">The response text.</param>
-        /// <returns>
-        /// Returns if user is a possible Bot or not
-        /// </returns>
-        public bool IsBot(
-            [CanBeNull] string ipAddress,
-            [CanBeNull] string emailAddress,
-            [CanBeNull] string userName,
-            out string responseText)
+        try
         {
-            responseText = string.Empty;
+            var bannedEmailRepository = BoardContext.Current.GetRepository<BannedEmail>();
+            var bannedIPRepository = BoardContext.Current.GetRepository<BannedIP>();
+
+            var bannedIpList = BoardContext.Current.Get<IDataCache>().GetOrSet(
+                Constants.Cache.BannedIP,
+                () => bannedIPRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
+                    .Select(x => x.Mask.Trim()).ToList());
+
+            var bannedNameRepository = BoardContext.Current.GetRepository<BannedName>();
+
+            var isBot = false;
 
             try
             {
-                var bannedEmailRepository = BoardContext.Current.GetRepository<BannedEmail>();
-                var bannedIPRepository = BoardContext.Current.GetRepository<BannedIP>();
+                var banned = bannedEmailRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
+                    .FirstOrDefault(b => Regex.Match(emailAddress, b.Mask).Success);
 
-                var bannedIpList = BoardContext.Current.Get<IDataCache>().GetOrSet(
-                    Constants.Cache.BannedIP,
-                    () => bannedIPRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
-                        .Select(x => x.Mask.Trim()).ToList());
-
-                var bannedNameRepository = BoardContext.Current.GetRepository<BannedName>();
-
-                var isBot = false;
-
-                try
+                if (banned != null)
                 {
-                    var banned = bannedEmailRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
-                        .FirstOrDefault(b => Regex.Match(emailAddress, b.Mask).Success);
-
-                    if (banned != null)
-                    {
-                        responseText = $"internal detection found email address {emailAddress}";
-                        isBot = true;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot Email");
-                }
-
-                if (bannedIpList.Any(i => i.Equals(ipAddress)))
-                {
-                    responseText = $"internal detection found ip address {ipAddress}";
+                    responseText = $"internal detection found email address {emailAddress}";
                     isBot = true;
                 }
-
-                foreach (var name in bannedNameRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID))
-                {
-                    try
-                    {
-                        if (!Regex.Match(userName, name.Mask).Success)
-                        {
-                            continue;
-                        }
-
-                        responseText = $"internal detection found name {name.Mask}";
-                        isBot = true;
-                        break;
-                    }
-                    catch (Exception ex)
-                    {
-                        isBot = false;
-
-                        BoardContext.Current.Get<ILoggerService>().Error(
-                            ex,
-                            $"Error while Checking for Bot Name (Check: {name.Mask})");
-                    }
-                }
-
-                return isBot;
             }
             catch (Exception ex)
             {
-                BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot");
-
-                return false;
+                BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot Email");
             }
+
+            if (bannedIpList.Any(i => i.Equals(ipAddress)))
+            {
+                responseText = $"internal detection found ip address {ipAddress}";
+                isBot = true;
+            }
+
+            foreach (var name in bannedNameRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID))
+            {
+                try
+                {
+                    if (!Regex.Match(userName, name.Mask).Success)
+                    {
+                        continue;
+                    }
+
+                    responseText = $"internal detection found name {name.Mask}";
+                    isBot = true;
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    isBot = false;
+
+                    BoardContext.Current.Get<ILoggerService>().Error(
+                        ex,
+                        $"Error while Checking for Bot Name (Check: {name.Mask})");
+                }
+            }
+
+            return isBot;
+        }
+        catch (Exception ex)
+        {
+            BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot");
+
+            return false;
         }
     }
 }

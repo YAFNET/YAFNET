@@ -21,51 +21,51 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+namespace YAF.Controls;
+
+#region Using
+
+using System.Text;
+
+using YAF.Types.Objects;
+using YAF.Web.Controls;
+
+#endregion
+
+/// <summary>
+/// The forum moderator list.
+/// </summary>
+public partial class ForumModeratorList : BaseUserControl
 {
-    #region Using
+    #region Properties
 
-    using System.Text;
-
-    using YAF.Types.Objects;
-    using YAF.Web.Controls;
+    /// <summary>
+    ///   Gets or sets DataSource.
+    /// </summary>
+    public List<SimpleModerator> DataSource { get; set; }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The forum moderator list.
+    /// Handles the PreRender event
     /// </summary>
-    public partial class ForumModeratorList : BaseUserControl
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected override void OnPreRender(EventArgs e)
     {
-        #region Properties
+        base.OnPreRender(e);
 
-        /// <summary>
-        ///   Gets or sets DataSource.
-        /// </summary>
-        public List<SimpleModerator> DataSource { get; set; }
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "ForumModsPopoverJs",
+            JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{this.GetText("DEFAULT", "MODERATORS")} ..."));
 
-        #endregion
+        var content = new StringBuilder();
 
-        #region Methods
+        content.Append(@"<ol class=""list-unstyled"">");
 
-        /// <summary>
-        /// Handles the PreRender event
-        /// </summary>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected override void OnPreRender(EventArgs e)
-        {
-            base.OnPreRender(e);
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "ForumModsPopoverJs",
-                JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{this.GetText("DEFAULT", "MODERATORS")} ..."));
-
-            var content = new StringBuilder();
-
-            content.Append(@"<ol class=""list-unstyled"">");
-
-            this.DataSource.DistinctBy(x => x.Name).ForEach(
-                row =>
+        this.DataSource.DistinctBy(x => x.Name).ForEach(
+            row =>
                 {
                     content.Append("<li>");
 
@@ -74,20 +74,20 @@ namespace YAF.Controls
                         // render mod group
                         content.Append(
                             this.PageBoardContext.BoardSettings.EnableDisplayName
-                                    ? row.DisplayName
-                                    : row.Name);
+                                ? row.DisplayName
+                                : row.Name);
                     }
                     else
                     {
                         // Render Moderator User Link
                         var userLink = new UserLink
-                        {
-                            Style = row.Style,
-                            UserID = row.ModeratorID,
-                            ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
-                                                                     ? row.DisplayName
-                                                                     : row.Name
-                        };
+                                           {
+                                               Style = row.Style,
+                                               UserID = row.ModeratorID,
+                                               ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
+                                                                 ? row.DisplayName
+                                                                 : row.Name
+                                           };
 
                         content.Append(userLink.RenderToString());
                     }
@@ -95,12 +95,11 @@ namespace YAF.Controls
                     content.Append(@"</li>");
                 });
 
-            content.Append("</ol>");
+        content.Append("</ol>");
 
-            this.ShowMods.DataContent = content.ToString().ToJsString();
-            this.ShowMods.Text = $"{this.GetText("SHOW")} {this.GetText("DEFAULT", "MODERATORS")}";
-        }
-
-        #endregion
+        this.ShowMods.DataContent = content.ToString().ToJsString();
+        this.ShowMods.Text = $"{this.GetText("SHOW")} {this.GetText("DEFAULT", "MODERATORS")}";
     }
+
+    #endregion
 }

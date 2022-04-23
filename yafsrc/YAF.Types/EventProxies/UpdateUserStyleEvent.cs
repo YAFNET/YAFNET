@@ -21,41 +21,40 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
-{
-    #region Using
+namespace YAF.Types.EventProxies;
 
-    using YAF.Types.Interfaces.Events;
+#region Using
+
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+/// The Update User Style Event
+/// </summary>
+public class UpdateUserStyleEvent : IAmEvent
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateUserStyleEvent"/> class.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    public UpdateUserStyleEvent(int userId)
+    {
+        this.UserId = userId;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The Update User Style Event
+    /// Gets or sets the user id.
     /// </summary>
-    public class UpdateUserStyleEvent : IAmEvent
-    {
-        #region Constructors and Destructors
+    public int UserId { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateUserStyleEvent"/> class.
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        public UpdateUserStyleEvent(int userId)
-        {
-            this.UserId = userId;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        public int UserId { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

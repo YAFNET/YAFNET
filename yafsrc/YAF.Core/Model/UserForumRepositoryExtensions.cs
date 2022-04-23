@@ -22,139 +22,138 @@
  * under the License.
  */
 
-namespace YAF.Core.Model
-{
-    using System;
-    using System.Collections.Generic;
-    
-    using ServiceStack.OrmLite;
+namespace YAF.Core.Model;
 
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+using System;
+using System.Collections.Generic;
+    
+using ServiceStack.OrmLite;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// The UserForum Repository Extensions
+/// </summary>
+public static class UserForumRepositoryExtensions
+{
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The UserForum Repository Extensions
+    /// Deletes the specified user identifier.
     /// </summary>
-    public static class UserForumRepositoryExtensions
+    /// <param name="repository">The repository.</param>
+    /// <param name="userId">The user identifier.</param>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <returns>Returns if deleting was successful or not</returns>
+    public static bool Delete(this IRepository<UserForum> repository, [NotNull] int userId, [NotNull] int forumId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Deletes the specified user identifier.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="forumId">The forum identifier.</param>
-        /// <returns>Returns if deleting was successful or not</returns>
-        public static bool Delete(this IRepository<UserForum> repository, [NotNull] int userId, [NotNull] int forumId)
+        var success = repository.DbAccess.Execute(
+                          db => db.Connection.Delete<UserForum>(x => x.UserID == userId && x.ForumID == forumId)) == 1;
+
+        if (success)
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            var success = repository.DbAccess.Execute(
-                db => db.Connection.Delete<UserForum>(x => x.UserID == userId && x.ForumID == forumId)) == 1;
-
-            if (success)
-            {
-                repository.FireDeleted();
-            }
-
-            return success;
+            repository.FireDeleted();
         }
 
-        /// <summary>
-        /// Gets the User (Moderator) Forum List
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<Tuple<User, UserForum, AccessMask>> List(
-            this IRepository<UserForum> repository,
-            [CanBeNull] int? userId,
-            [NotNull] int forumId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
-
-            if (userId.HasValue)
-            {
-                expression.Join<UserForum>((a, b) => b.UserID == a.ID)
-                    .Join<UserForum, AccessMask>((b, c) => c.ID == b.AccessMaskID)
-                    .Where<UserForum, User>((b, a) => b.ForumID == forumId && a.ID == userId)
-                    .Select<User, UserForum, AccessMask>((user, b, c) => new { user, b, c });
-            }
-            else
-            {
-                expression.Join<UserForum>((a, b) => b.UserID == a.ID).Join<UserForum, AccessMask>((b, c) => c.ID == b.AccessMaskID)
-                    .Where<UserForum>((b) => b.ForumID == forumId)
-                    .Select<User, UserForum, AccessMask>((user, b, c) => new { user, b, c });
-            }
-            
-            return repository.DbAccess.Execute(
-                db => db.Connection.SelectMulti<User, UserForum, AccessMask>(expression));
-        }
-
-        /// <summary>
-        /// Save the User Forum
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <param name="accessMaskId">
-        /// The access mask id.
-        /// </param>
-        public static void Save(
-            this IRepository<UserForum> repository,
-            [NotNull] int userId,
-            [NotNull] int forumId,
-            [NotNull] int accessMaskId)
-        {
-            var userForum = repository.GetSingle(x => x.UserID == userId && x.ForumID == forumId);
-
-            if (userForum != null)
-            {
-                // update
-                repository.UpdateOnly(
-                    () => new UserForum { AccessMaskID = accessMaskId },
-                    x => x.UserID == userId && x.ForumID == forumId);
-
-                repository.FireUpdated(forumId);
-            }
-            else
-            {
-                // add
-                repository.Insert(
-                    new UserForum
-                        {
-                            AccessMaskID = accessMaskId,
-                            UserID = userId,
-                            ForumID = forumId,
-                            Invited = DateTime.UtcNow,
-                            Accepted = true
-                        });
-
-                repository.FireNew(forumId);
-            }
-        }
-
-        #endregion
+        return success;
     }
+
+    /// <summary>
+    /// Gets the User (Moderator) Forum List
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum Id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<Tuple<User, UserForum, AccessMask>> List(
+        this IRepository<UserForum> repository,
+        [CanBeNull] int? userId,
+        [NotNull] int forumId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+        if (userId.HasValue)
+        {
+            expression.Join<UserForum>((a, b) => b.UserID == a.ID)
+                .Join<UserForum, AccessMask>((b, c) => c.ID == b.AccessMaskID)
+                .Where<UserForum, User>((b, a) => b.ForumID == forumId && a.ID == userId)
+                .Select<User, UserForum, AccessMask>((user, b, c) => new { user, b, c });
+        }
+        else
+        {
+            expression.Join<UserForum>((a, b) => b.UserID == a.ID).Join<UserForum, AccessMask>((b, c) => c.ID == b.AccessMaskID)
+                .Where<UserForum>((b) => b.ForumID == forumId)
+                .Select<User, UserForum, AccessMask>((user, b, c) => new { user, b, c });
+        }
+            
+        return repository.DbAccess.Execute(
+            db => db.Connection.SelectMulti<User, UserForum, AccessMask>(expression));
+    }
+
+    /// <summary>
+    /// Save the User Forum
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <param name="accessMaskId">
+    /// The access mask id.
+    /// </param>
+    public static void Save(
+        this IRepository<UserForum> repository,
+        [NotNull] int userId,
+        [NotNull] int forumId,
+        [NotNull] int accessMaskId)
+    {
+        var userForum = repository.GetSingle(x => x.UserID == userId && x.ForumID == forumId);
+
+        if (userForum != null)
+        {
+            // update
+            repository.UpdateOnly(
+                () => new UserForum { AccessMaskID = accessMaskId },
+                x => x.UserID == userId && x.ForumID == forumId);
+
+            repository.FireUpdated(forumId);
+        }
+        else
+        {
+            // add
+            repository.Insert(
+                new UserForum
+                    {
+                        AccessMaskID = accessMaskId,
+                        UserID = userId,
+                        ForumID = forumId,
+                        Invited = DateTime.UtcNow,
+                        Accepted = true
+                    });
+
+            repository.FireNew(forumId);
+        }
+    }
+
+    #endregion
 }

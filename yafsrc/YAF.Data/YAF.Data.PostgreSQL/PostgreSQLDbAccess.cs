@@ -21,41 +21,40 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Data.PostgreSQL
+namespace YAF.Data.PostgreSQL;
+
+#region Using
+
+using System;
+using System.Data.Common;
+
+using YAF.Core.Data;
+using YAF.Types;
+
+#endregion
+
+/// <summary>
+/// The PostgreSQL Database access.
+/// </summary>
+public class PostgreSQLDbAccess : DbAccessBase
 {
-    #region Using
+    /// <summary>
+    /// The provider type name.
+    /// </summary>
+    public const string ProviderTypeName = "Npgsql Data Provider";
 
-    using System;
-    using System.Data.Common;
-
-    using YAF.Core.Data;
-    using YAF.Types;
-
-    #endregion
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The PostgreSQL Database access.
+    /// Initializes a new instance of the <see cref="PostgreSQLDbAccess"/> class.
     /// </summary>
-    public class PostgreSQLDbAccess : DbAccessBase
+    /// <param name="dbProviderFactory">
+    /// The database provider factory.
+    /// </param>
+    public PostgreSQLDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
+        : base(dbProviderFactory, new PostgreSQLDbInformation())
     {
-        /// <summary>
-        /// The provider type name.
-        /// </summary>
-        public const string ProviderTypeName = "Npgsql Data Provider";
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PostgreSQLDbAccess"/> class.
-        /// </summary>
-        /// <param name="dbProviderFactory">
-        /// The database provider factory.
-        /// </param>
-        public PostgreSQLDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
-            : base(dbProviderFactory, new PostgreSQLDbInformation())
-        {
-        }
-
-        #endregion
     }
+
+    #endregion
 }

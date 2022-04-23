@@ -22,97 +22,96 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// Forum Rules Page.
+/// </summary>
+public partial class RulesAndPrivacy : ForumPage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "RulesAndPrivacy" /> class.
+    /// </summary>
+    public RulesAndPrivacy()
+        : base("RULES", ForumPages.RulesAndPrivacy)
+    {
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// Forum Rules Page.
+    ///   Gets a value indicating whether IsProtected.
     /// </summary>
-    public partial class RulesAndPrivacy : ForumPage
+    public override bool IsProtected => false;
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The accept_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Accept_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "RulesAndPrivacy" /> class.
-        /// </summary>
-        public RulesAndPrivacy()
-            : base("RULES", ForumPages.RulesAndPrivacy)
-        {
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets a value indicating whether IsProtected.
-        /// </summary>
-        public override bool IsProtected => false;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The accept_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Accept_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<LinkBuilder>().Redirect(ForumPages.Account_Register);
-        }
-
-        /// <summary>
-        /// The cancel_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
-        }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-
-            // current page label (no link)
-            this.PageLinks.AddLink(this.GetText("TITLE"));
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event.
-        /// </param>
-        /// <param name="e">
-        /// The <see cref="EventArgs"/> instance containing the event data.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.RulesText.Param0 = Config.GDPRControllerAddress.IsSet()
-                                        ? Config.GDPRControllerAddress
-                                        : this.PageBoardContext.BoardSettings.ForumEmail;
-
-            this.Footer.Visible = this.PageBoardContext.IsGuest;
-        }
-
-        #endregion
+        this.Get<LinkBuilder>().Redirect(ForumPages.Account_Register);
     }
+
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.Get<LinkBuilder>().Redirect(ForumPages.Board);
+    }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+
+        // current page label (no link)
+        this.PageLinks.AddLink(this.GetText("TITLE"));
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">
+    /// The source of the event.
+    /// </param>
+    /// <param name="e">
+    /// The <see cref="EventArgs"/> instance containing the event data.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.RulesText.Param0 = Config.GDPRControllerAddress.IsSet()
+                                    ? Config.GDPRControllerAddress
+                                    : this.PageBoardContext.BoardSettings.ForumEmail;
+
+        this.Footer.Visible = this.PageBoardContext.IsGuest;
+    }
+
+    #endregion
 }

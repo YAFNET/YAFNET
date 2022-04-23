@@ -21,49 +21,48 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// The Avatars interface.
+/// </summary>
+public interface IAvatars
 {
-    using YAF.Types.Models;
+    /// <summary>
+    /// The get avatar url for current user.
+    /// </summary>
+    /// <returns>
+    /// Returns the Avatar Url
+    /// </returns>
+    string GetAvatarUrlForCurrentUser();
 
     /// <summary>
-    /// The Avatars interface.
+    /// The get avatar url for user.
     /// </summary>
-    public interface IAvatars
-    {
-        /// <summary>
-        /// The get avatar url for current user.
-        /// </summary>
-        /// <returns>
-        /// Returns the Avatar Url
-        /// </returns>
-        string GetAvatarUrlForCurrentUser();
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <returns>
+    /// Returns the Avatar Url
+    /// </returns>
+    string GetAvatarUrlForUser([NotNull] User user);
 
-        /// <summary>
-        /// The get avatar url for user.
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <returns>
-        /// Returns the Avatar Url
-        /// </returns>
-        string GetAvatarUrlForUser([NotNull] User user);
-
-        /// <summary>
-        /// The get avatar url for user.
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="avatarString">
-        /// The avatarString.
-        /// </param>
-        /// <param name="hasAvatarImage">
-        /// The hasAvatarImage.
-        /// </param>
-        /// <returns>
-        /// Returns the Avatar Url
-        /// </returns>
-        string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage);
-    }
+    /// <summary>
+    /// The get avatar url for user.
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="avatarString">
+    /// The avatarString.
+    /// </param>
+    /// <param name="hasAvatarImage">
+    /// The hasAvatarImage.
+    /// </param>
+    /// <returns>
+    /// Returns the Avatar Url
+    /// </returns>
+    string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage);
 }

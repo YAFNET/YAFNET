@@ -21,44 +21,43 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+///     The spam words repository extensions.
+/// </summary>
+public static class SpamWordsRepositoryExtensions
 {
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The spam words repository extensions.
+    /// Saves changes to a word.
     /// </summary>
-    public static class SpamWordsRepositoryExtensions
+    /// <param name="repository">The repository.</param>
+    /// <param name="spamWordId">The spam word identifier.</param>
+    /// <param name="spamWord">The spam word.</param>
+    /// <param name="boardId">The board identifier.</param>
+    public static void Save(
+        this IRepository<Spam_Words> repository,
+        [CanBeNull] int? spamWordId,
+        [NotNull] string spamWord,
+        [CanBeNull] int? boardId = null)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Saves changes to a word.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="spamWordId">The spam word identifier.</param>
-        /// <param name="spamWord">The spam word.</param>
-        /// <param name="boardId">The board identifier.</param>
-        public static void Save(
-            this IRepository<Spam_Words> repository,
-            [CanBeNull] int? spamWordId,
-            [NotNull] string spamWord,
-            [CanBeNull] int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            repository.Upsert(
-                new Spam_Words
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = spamWordId ?? 0,
-                        SpamWord = spamWord
-                    });
-        }
-
-        #endregion
+        repository.Upsert(
+            new Spam_Words
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    ID = spamWordId ?? 0,
+                    SpamWord = spamWord
+                });
     }
+
+    #endregion
 }

@@ -22,326 +22,325 @@
  * under the License.
  */
 
-namespace YAF.Core.Services
-{
-    using System;
+namespace YAF.Core.Services;
 
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
+using System;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+
+/// <summary>
+/// The YAF Activity Stream.
+/// </summary>
+public class ActivityStream : IActivityStream, IHaveServiceLocator
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActivityStream"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public ActivityStream([NotNull] IServiceLocator serviceLocator)
+    {
+        this.ServiceLocator = serviceLocator;
+    }
 
     /// <summary>
-    /// The YAF Activity Stream.
+    /// Gets or sets ServiceLocator.
     /// </summary>
-    public class ActivityStream : IActivityStream, IHaveServiceLocator
+    public IServiceLocator ServiceLocator { get; protected set; }
+
+    /// <summary>
+    /// Adds the New Topic to the User's ActivityStream
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic unique identifier.
+    /// </param>
+    /// <param name="messageId">
+    /// The message unique identifier.
+    /// </param>
+    /// <param name="topicTitle">
+    /// The topic title.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    public void AddTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ActivityStream"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        public ActivityStream([NotNull] IServiceLocator serviceLocator)
-        {
-            this.ServiceLocator = serviceLocator;
-        }
+        var flags = new ActivityFlags { CreatedTopic = true };
 
-        /// <summary>
-        /// Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; protected set; }
+        var activity = new Activity
+                           {
+                               Flags = flags.BitValue,
+                               TopicID = topicId,
+                               MessageID = messageId,
+                               UserID = userId,
+                               Notification = false,
+                               Created = DateTime.UtcNow
+                           };
 
-        /// <summary>
-        /// Adds the New Topic to the User's ActivityStream
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic unique identifier.
-        /// </param>
-        /// <param name="messageId">
-        /// The message unique identifier.
-        /// </param>
-        /// <param name="topicTitle">
-        /// The topic title.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        public void AddTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message)
-        {
-            var flags = new ActivityFlags { CreatedTopic = true };
+        this.GetRepository<Activity>().Insert(activity);
+    }
 
-            var activity = new Activity
-            {
-                Flags = flags.BitValue,
-                TopicID = topicId,
-                MessageID = messageId,
-                UserID = userId,
-                Notification = false,
-                Created = DateTime.UtcNow
-            };
+    /// <summary>
+    /// Adds the Reply to the User's ActivityStream
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic unique identifier.
+    /// </param>
+    /// <param name="messageId">
+    /// The message unique identifier.
+    /// </param>
+    /// <param name="topicTitle">
+    /// The topic title.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    public void AddReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message)
+    {
+        var flags = new ActivityFlags { CreatedReply = true };
 
-            this.GetRepository<Activity>().Insert(activity);
-        }
+        var activity = new Activity
+                           {
+                               Flags = flags.BitValue,
+                               TopicID = topicId,
+                               MessageID = messageId,
+                               UserID = userId,
+                               Notification = false,
+                               Created = DateTime.UtcNow
+                           };
 
-        /// <summary>
-        /// Adds the Reply to the User's ActivityStream
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic unique identifier.
-        /// </param>
-        /// <param name="messageId">
-        /// The message unique identifier.
-        /// </param>
-        /// <param name="topicTitle">
-        /// The topic title.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        public void AddReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message)
-        {
-            var flags = new ActivityFlags { CreatedReply = true };
+        this.GetRepository<Activity>().Insert(activity);
+    }
 
-            var activity = new Activity
-            {
-                Flags = flags.BitValue,
-                TopicID = topicId,
-                MessageID = messageId,
-                UserID = userId,
-                Notification = false,
-                Created = DateTime.UtcNow
-            };
+    /// <summary>
+    /// Adds the New Watch Topic to the User's ActivityStream
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic unique identifier.
+    /// </param>
+    /// <param name="messageId">
+    /// The message unique identifier.
+    /// </param>
+    /// <param name="topicTitle">
+    /// The topic title.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from User Id.
+    /// </param>
+    public void AddWatchTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId)
+    {
+        var flags = new ActivityFlags { WatchForumReply = true };
 
-            this.GetRepository<Activity>().Insert(activity);
-        }
+        var activity = new Activity
+                           {
+                               Flags = flags.BitValue,
+                               FromUserID = fromUserId,
+                               TopicID = topicId,
+                               MessageID = messageId,
+                               UserID = userId,
+                               Notification = true,
+                               Created = DateTime.UtcNow
+                           };
 
-        /// <summary>
-        /// Adds the New Watch Topic to the User's ActivityStream
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic unique identifier.
-        /// </param>
-        /// <param name="messageId">
-        /// The message unique identifier.
-        /// </param>
-        /// <param name="topicTitle">
-        /// The topic title.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from User Id.
-        /// </param>
-        public void AddWatchTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId)
-        {
-            var flags = new ActivityFlags { WatchForumReply = true };
+        this.GetRepository<Activity>().Insert(activity);
+    }
 
-            var activity = new Activity
-            {
-                Flags = flags.BitValue,
-                FromUserID = fromUserId,
-                TopicID = topicId,
-                MessageID = messageId,
-                UserID = userId,
-                Notification = true,
-                Created = DateTime.UtcNow
-            };
+    /// <summary>
+    /// Adds the Watch Reply to the User's ActivityStream
+    /// </summary>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic unique identifier.
+    /// </param>
+    /// <param name="messageId">
+    /// The message unique identifier.
+    /// </param>
+    /// <param name="topicTitle">
+    /// The topic title.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from User Id.
+    /// </param>
+    public void AddWatchReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId)
+    {
+        var flags = new ActivityFlags { WatchTopicReply = true };
 
-            this.GetRepository<Activity>().Insert(activity);
-        }
+        var activity = new Activity
+                           {
+                               Flags = flags.BitValue,
+                               FromUserID = fromUserId,
+                               TopicID = topicId,
+                               MessageID = messageId,
+                               UserID = userId,
+                               Notification = true,
+                               Created = DateTime.UtcNow
+                           };
 
-        /// <summary>
-        /// Adds the Watch Reply to the User's ActivityStream
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic unique identifier.
-        /// </param>
-        /// <param name="messageId">
-        /// The message unique identifier.
-        /// </param>
-        /// <param name="topicTitle">
-        /// The topic title.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from User Id.
-        /// </param>
-        public void AddWatchReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId)
-        {
-            var flags = new ActivityFlags { WatchTopicReply = true };
+        this.GetRepository<Activity>().Insert(activity);
+    }
 
-            var activity = new Activity
-            {
-                Flags = flags.BitValue,
-                FromUserID = fromUserId,
-                TopicID = topicId,
-                MessageID = messageId,
-                UserID = userId,
-                Notification = true,
-                Created = DateTime.UtcNow
-            };
+    /// <summary>
+    /// Add Mention to Users Stream
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic id.
+    /// </param>
+    /// <param name="messageId">
+    /// The message id.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from user id.
+    /// </param>
+    public void AddMentionToStream(int userId, int topicId, int messageId, int fromUserId)
+    {
+        var flags = new ActivityFlags { WasMentioned = true };
 
-            this.GetRepository<Activity>().Insert(activity);
-        }
+        var activity = new Activity
+                           {
+                               Flags = flags.BitValue,
+                               FromUserID = fromUserId,
+                               TopicID = topicId,
+                               MessageID = messageId,
+                               UserID = userId,
+                               Notification = true,
+                               Created = DateTime.UtcNow
+                           };
 
-        /// <summary>
-        /// Add Mention to Users Stream
-        /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic id.
-        /// </param>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from user id.
-        /// </param>
-        public void AddMentionToStream(int userId, int topicId, int messageId, int fromUserId)
-        {
-            var flags = new ActivityFlags { WasMentioned = true };
+        this.GetRepository<Activity>().Insert(activity);
 
-            var activity = new Activity
-            {
-                                   Flags = flags.BitValue,
-                                   FromUserID = fromUserId,
-                                   TopicID = topicId,
-                                   MessageID = messageId,
-                                   UserID = userId,
-                                   Notification = true,
-                                   Created = DateTime.UtcNow
-            };
+        this.Get<IDataCache>().Remove(
+            string.Format(Constants.Cache.ActiveUserLazyData, userId));
+    }
 
-            this.GetRepository<Activity>().Insert(activity);
+    /// <summary>
+    /// Add Quoting to Users Stream
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic id.
+    /// </param>
+    /// <param name="messageId">
+    /// The message id.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from user id.
+    /// </param>
+    public void AddQuotingToStream(int userId, int topicId, int messageId, int fromUserId)
+    {
+        var flags = new ActivityFlags { WasQuoted = true };
 
-            this.Get<IDataCache>().Remove(
-                string.Format(Constants.Cache.ActiveUserLazyData, userId));
-        }
+        var activity = new Activity
+                           {
+                               Flags = flags.BitValue,
+                               FromUserID = fromUserId,
+                               TopicID = topicId,
+                               MessageID = messageId,
+                               UserID = userId,
+                               Notification = true,
+                               Created = DateTime.UtcNow
+                           };
 
-        /// <summary>
-        /// Add Quoting to Users Stream
-        /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic id.
-        /// </param>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from user id.
-        /// </param>
-        public void AddQuotingToStream(int userId, int topicId, int messageId, int fromUserId)
-        {
-            var flags = new ActivityFlags { WasQuoted = true };
+        this.GetRepository<Activity>().Insert(activity);
 
-            var activity = new Activity
-            {
-                                   Flags = flags.BitValue,
-                                   FromUserID = fromUserId,
-                                   TopicID = topicId,
-                                   MessageID = messageId,
-                                   UserID = userId,
-                                   Notification = true,
-                                   Created = DateTime.UtcNow
-                               };
+        this.Get<IDataCache>().Remove(
+            string.Format(Constants.Cache.ActiveUserLazyData, userId));
+    }
 
-            this.GetRepository<Activity>().Insert(activity);
+    /// <summary>
+    /// The add thanks received to stream.
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic id.
+    /// </param>
+    /// <param name="messageId">
+    /// The message id.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from user id.
+    /// </param>
+    public void AddThanksReceivedToStream(int userId, int topicId, int messageId, int fromUserId)
+    {
+        var flags = new ActivityFlags { ReceivedThanks = true };
 
-            this.Get<IDataCache>().Remove(
-                string.Format(Constants.Cache.ActiveUserLazyData, userId));
-        }
+        var activity = new Activity
+                           {
+                               Flags = flags.BitValue,
+                               FromUserID = fromUserId,
+                               TopicID = topicId,
+                               MessageID = messageId,
+                               UserID = userId,
+                               Notification = true,
+                               Created = DateTime.UtcNow
+                           };
 
-        /// <summary>
-        /// The add thanks received to stream.
-        /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic id.
-        /// </param>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from user id.
-        /// </param>
-        public void AddThanksReceivedToStream(int userId, int topicId, int messageId, int fromUserId)
-        {
-            var flags = new ActivityFlags { ReceivedThanks = true };
+        this.GetRepository<Activity>().Insert(activity);
 
-            var activity = new Activity
-            {
-                                   Flags = flags.BitValue,
-                                   FromUserID = fromUserId,
-                                   TopicID = topicId,
-                                   MessageID = messageId,
-                                   UserID = userId,
-                                   Notification = true,
-                                   Created = DateTime.UtcNow
-            };
+        this.Get<IDataCache>().Remove(
+            string.Format(Constants.Cache.ActiveUserLazyData, userId));
+    }
 
-            this.GetRepository<Activity>().Insert(activity);
+    /// <summary>
+    /// The add thanks given to stream.
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic id.
+    /// </param>
+    /// <param name="messageId">
+    /// The message id.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from user id.
+    /// </param>
+    public void AddThanksGivenToStream(int userId, int topicId, int messageId, int fromUserId)
+    {
+        var flags = new ActivityFlags { GivenThanks = true };
 
-            this.Get<IDataCache>().Remove(
-                string.Format(Constants.Cache.ActiveUserLazyData, userId));
-        }
+        var activity = new Activity
+                           {
+                               Flags = flags.BitValue,
+                               FromUserID = fromUserId,
+                               TopicID = topicId,
+                               MessageID = messageId,
+                               UserID = userId,
+                               Notification = false,
+                               Created = DateTime.UtcNow
+                           };
 
-        /// <summary>
-        /// The add thanks given to stream.
-        /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic id.
-        /// </param>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from user id.
-        /// </param>
-        public void AddThanksGivenToStream(int userId, int topicId, int messageId, int fromUserId)
-        {
-            var flags = new ActivityFlags { GivenThanks = true };
-
-            var activity = new Activity
-            {
-                                   Flags = flags.BitValue,
-                                   FromUserID = fromUserId,
-                                   TopicID = topicId,
-                                   MessageID = messageId,
-                                   UserID = userId,
-                                   Notification = false,
-                                   Created = DateTime.UtcNow
-            };
-
-            this.GetRepository<Activity>().Insert(activity);
-        }
+        this.GetRepository<Activity>().Insert(activity);
     }
 }

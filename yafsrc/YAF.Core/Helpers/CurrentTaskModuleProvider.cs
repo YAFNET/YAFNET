@@ -21,41 +21,40 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Helpers
+namespace YAF.Core.Helpers;
+
+#region Using
+
+using System.Runtime.Caching;
+
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The current task module provider.
+/// </summary>
+public class CurrentTaskModuleProvider : IReadWriteProvider<ITaskModuleManager>
 {
-    #region Using
-
-    using System.Runtime.Caching;
-
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-
-    #endregion
+    #region Properties
 
     /// <summary>
-    /// The current task module provider.
+    /// Gets or sets the instance.
     /// </summary>
-    public class CurrentTaskModuleProvider : IReadWriteProvider<ITaskModuleManager>
+    [CanBeNull]
+    public ITaskModuleManager Instance
     {
-        #region Properties
+        get => MemoryCache.Default[Constants.Cache.TaskModule] as ITaskModuleManager;
 
-        /// <summary>
-        /// Gets or sets the instance.
-        /// </summary>
-        [CanBeNull]
-        public ITaskModuleManager Instance
+        set
         {
-            get => MemoryCache.Default[Constants.Cache.TaskModule] as ITaskModuleManager;
+            CodeContracts.VerifyNotNull(value);
 
-            set
-            {
-                CodeContracts.VerifyNotNull(value);
-
-                MemoryCache.Default[Constants.Cache.TaskModule] = value;
-            }
+            MemoryCache.Default[Constants.Cache.TaskModule] = value;
         }
-
-        #endregion
     }
+
+    #endregion
 }

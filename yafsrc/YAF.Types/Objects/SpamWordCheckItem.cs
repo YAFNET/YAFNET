@@ -21,101 +21,100 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System;
+using System.Text.RegularExpressions;
+
+/// <summary>
+/// 
+/// </summary>
+[Serializable]
+public class SpamWordCheckItem
 {
-    using System;
-    using System.Text.RegularExpressions;
+    #region Constants and Fields
 
     /// <summary>
-    /// 
+    ///   The _active lock.
     /// </summary>
-    [Serializable]
-    public class SpamWordCheckItem
+    private readonly object _activeLock = new();
+
+    /// <summary>
+    ///   The _bad word.
+    /// </summary>
+    private readonly string _spamWord;
+
+    /// <summary>
+    ///   The _active.
+    /// </summary>
+    private bool _active = true;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SpamWordCheckItem" /> class.
+    /// </summary>
+    /// <param name="spamWord">The spam word.</param>
+    /// <param name="options">The options.</param>
+    public SpamWordCheckItem([NotNull] string spamWord, RegexOptions options)
     {
-        #region Constants and Fields
+        this.Options = options;
+        this._spamWord = spamWord;
 
-        /// <summary>
-        ///   The _active lock.
-        /// </summary>
-        private readonly object _activeLock = new();
-
-        /// <summary>
-        ///   The _bad word.
-        /// </summary>
-        private readonly string _spamWord;
-
-        /// <summary>
-        ///   The _active.
-        /// </summary>
-        private bool _active = true;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SpamWordCheckItem" /> class.
-        /// </summary>
-        /// <param name="spamWord">The spam word.</param>
-        /// <param name="options">The options.</param>
-        public SpamWordCheckItem([NotNull] string spamWord, RegexOptions options)
+        try
         {
-            this.Options = options;
-            this._spamWord = spamWord;
-
-            try
-            {
-                this.SpamWordRegEx = new Regex(spamWord, options);
-            }
-            catch (Exception)
-            {
-                this.SpamWordRegEx = null;
-            }
+            this.SpamWordRegEx = new Regex(spamWord, options);
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether Active.
-        /// </summary>
-        public bool Active
+        catch (Exception)
         {
-            get
-            {
-                bool value;
-
-                lock (this._activeLock)
-                {
-                    value = this._active;
-                }
-
-                return value;
-            }
-
-            set
-            {
-                lock (this._activeLock)
-                {
-                    this._active = value;
-                }
-            }
+            this.SpamWordRegEx = null;
         }
-
-        /// <summary>
-        /// Gets the spam word reg ex.
-        /// </summary>
-        /// <value>
-        /// The spam word reg ex.
-        /// </value>
-        public Regex SpamWordRegEx { get; }
-
-        /// <summary>
-        /// Gets or sets Options.
-        /// </summary>
-        public RegexOptions Options { get; protected set; }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether Active.
+    /// </summary>
+    public bool Active
+    {
+        get
+        {
+            bool value;
+
+            lock (this._activeLock)
+            {
+                value = this._active;
+            }
+
+            return value;
+        }
+
+        set
+        {
+            lock (this._activeLock)
+            {
+                this._active = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets the spam word reg ex.
+    /// </summary>
+    /// <value>
+    /// The spam word reg ex.
+    /// </value>
+    public Regex SpamWordRegEx { get; }
+
+    /// <summary>
+    /// Gets or sets Options.
+    /// </summary>
+    public RegexOptions Options { get; protected set; }
+
+    #endregion
 }

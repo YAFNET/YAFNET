@@ -22,142 +22,141 @@
  * under the License.
  */
 
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+#region Using
+
+using System;
+using System.IO;
+using System.Net;
+using System.Web;
+
+using ServiceStack.Text;
+
+using YAF.Configuration;
+using YAF.Core.Helpers;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Objects;
+
+#endregion
+
+/// <summary>
+/// The IP Info Service
+/// </summary>
+public class IpInfoService : IIpInfoService, IHaveServiceLocator
 {
-    #region Using
+    /// <summary>
+    /// Initializes a new instance of the <see cref="IpInfoService"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public IpInfoService([NotNull] IServiceLocator serviceLocator)
+    {
+        this.ServiceLocator = serviceLocator;
+    }
 
-    using System;
-    using System.IO;
-    using System.Net;
-    using System.Web;
+    #region Properties
 
-    using ServiceStack.Text;
-
-    using YAF.Configuration;
-    using YAF.Core.Helpers;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Objects;
+    /// <summary>
+    /// Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
 
     #endregion
 
     /// <summary>
-    /// The IP Info Service
+    /// Get the User IP Locator
     /// </summary>
-    public class IpInfoService : IIpInfoService, IHaveServiceLocator
+    /// <returns>
+    /// The <see cref="IDictionary"/>.
+    /// </returns>
+    public IpLocator GetUserIpLocator()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IpInfoService"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        public IpInfoService([NotNull] IServiceLocator serviceLocator)
+        return this.GetUserIpLocator(this.Get<HttpRequestBase>().GetUserRealIPAddress());
+    }
+
+    /// <summary>
+    /// Get the User IP Locator
+    /// </summary>
+    /// <param name="ipAddress">
+    /// The IP Address.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IDictionary"/>.
+    /// </returns>
+    public IpLocator GetUserIpLocator(string ipAddress)
+    {
+        if (ipAddress.IsNotSet())
         {
-            this.ServiceLocator = serviceLocator;
-        }
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        #endregion
-
-        /// <summary>
-        /// Get the User IP Locator
-        /// </summary>
-        /// <returns>
-        /// The <see cref="IDictionary"/>.
-        /// </returns>
-        public IpLocator GetUserIpLocator()
-        {
-            return this.GetUserIpLocator(this.Get<HttpRequestBase>().GetUserRealIPAddress());
-        }
-
-        /// <summary>
-        /// Get the User IP Locator
-        /// </summary>
-        /// <param name="ipAddress">
-        /// The IP Address.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IDictionary"/>.
-        /// </returns>
-        public IpLocator GetUserIpLocator(string ipAddress)
-        {
-            if (ipAddress.IsNotSet())
-            {
-                return null;
-            }
-
-            var userIpLocator = this.GetData(
-                ipAddress);
-
-            if (userIpLocator == null)
-            {
-                return null;
-            }
-
-            if (userIpLocator.StatusCode.Equals("OK"))
-            {
-                return userIpLocator;
-            }
-
-            this.Get<ILoggerService>().Log(
-                null,
-                this,
-                $"Geolocation Service reports: {userIpLocator.StatusMessage}",
-                EventLogTypes.Information);
-
             return null;
         }
 
-        /// <summary>
-        /// IP Details From IP Address
-        /// </summary>
-        /// <param name="ip">
-        /// The IP Address.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IDictionary"/>.
-        /// </returns>
-        private IpLocator GetData([CanBeNull] string ip)
+        var userIpLocator = this.GetData(
+            ipAddress);
+
+        if (userIpLocator == null)
         {
-            CodeContracts.VerifyNotNull(ip);
+            return null;
+        }
 
-            if (this.Get<BoardSettings>().IPLocatorResultsMapping.IsNotSet() ||
-                this.Get<BoardSettings>().IPLocatorUrlPath.IsNotSet())
-            {
-                return null;
-            }
+        if (userIpLocator.StatusCode.Equals("OK"))
+        {
+            return userIpLocator;
+        }
 
-            if (!this.Get<BoardSettings>().EnableIPInfoService)
-            {
-                return null;
-            }
+        this.Get<ILoggerService>().Log(
+            null,
+            this,
+            $"Geolocation Service reports: {userIpLocator.StatusMessage}",
+            EventLogTypes.Information);
 
-            try
-            {
-                var url = $"{this.Get<BoardSettings>().IPLocatorUrlPath}&format=json";
-                var path = string.Format(url, IPHelper.GetIpAddressAsString(ip));
+        return null;
+    }
 
-                var webRequest = (HttpWebRequest)WebRequest.Create(path);
-                var response = (HttpWebResponse)webRequest.GetResponse();
-                var streamReader = new StreamReader(response.GetResponseStream());
-                var responseText = streamReader.ReadToEnd();
+    /// <summary>
+    /// IP Details From IP Address
+    /// </summary>
+    /// <param name="ip">
+    /// The IP Address.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IDictionary"/>.
+    /// </returns>
+    private IpLocator GetData([CanBeNull] string ip)
+    {
+        CodeContracts.VerifyNotNull(ip);
 
-                return responseText.FromJson<IpLocator>();
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+        if (this.Get<BoardSettings>().IPLocatorResultsMapping.IsNotSet() ||
+            this.Get<BoardSettings>().IPLocatorUrlPath.IsNotSet())
+        {
+            return null;
+        }
+
+        if (!this.Get<BoardSettings>().EnableIPInfoService)
+        {
+            return null;
+        }
+
+        try
+        {
+            var url = $"{this.Get<BoardSettings>().IPLocatorUrlPath}&format=json";
+            var path = string.Format(url, IPHelper.GetIpAddressAsString(ip));
+
+            var webRequest = (HttpWebRequest)WebRequest.Create(path);
+            var response = (HttpWebResponse)webRequest.GetResponse();
+            var streamReader = new StreamReader(response.GetResponseStream());
+            var responseText = streamReader.ReadToEnd();
+
+            return responseText.FromJson<IpLocator>();
+        }
+        catch (Exception)
+        {
+            return null;
         }
     }
 }

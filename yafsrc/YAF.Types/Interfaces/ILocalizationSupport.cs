@@ -21,45 +21,44 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The localization support interface
+/// </summary>
+public interface ILocalizationSupport
 {
+    #region Properties
+
     /// <summary>
-    /// The localization support interface
+    /// Gets or sets a value indicating whether EnableBBCode.
     /// </summary>
-    public interface ILocalizationSupport
-    {
-        #region Properties
+    bool EnableBBCode { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether EnableBBCode.
-        /// </summary>
-        bool EnableBBCode { get; set; }
+    /// <summary>
+    /// Gets or sets LocalizedPage.
+    /// </summary>
+    string LocalizedPage { get; set; }
 
-        /// <summary>
-        /// Gets or sets LocalizedPage.
-        /// </summary>
-        string LocalizedPage { get; set; }
+    /// <summary>
+    /// Gets or sets LocalizedTag.
+    /// </summary>
+    string LocalizedTag { get; set; }
 
-        /// <summary>
-        /// Gets or sets LocalizedTag.
-        /// </summary>
-        string LocalizedTag { get; set; }
+    /// <summary>
+    /// Gets or sets Parameter 0.
+    /// </summary>
+    string Param0 { get; set; }
 
-        /// <summary>
-        /// Gets or sets Parameter 0.
-        /// </summary>
-        string Param0 { get; set; }
+    /// <summary>
+    /// Gets or sets Parameter 1.
+    /// </summary>
+    string Param1 { get; set; }
 
-        /// <summary>
-        /// Gets or sets Parameter 1.
-        /// </summary>
-        string Param1 { get; set; }
+    /// <summary>
+    /// Gets or sets Parameter 2.
+    /// </summary>
+    string Param2 { get; set; }
 
-        /// <summary>
-        /// Gets or sets Parameter 2.
-        /// </summary>
-        string Param2 { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

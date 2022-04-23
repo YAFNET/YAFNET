@@ -21,16 +21,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BBCode.ReplaceRules
-{
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
+namespace YAF.Core.BBCode.ReplaceRules;
 
-    /// <summary>
-  /// Not regular expression, just a simple replace
-  /// </summary>
-  public class SimpleReplaceRule : BaseReplaceRule
-  {
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// Not regular expression, just a simple replace
+/// </summary>
+public class SimpleReplaceRule : BaseReplaceRule
+{
     #region Constants and Fields
 
     /// <summary>
@@ -58,11 +58,11 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// </param>
     public SimpleReplaceRule(string find, string replace)
     {
-      this.find = find;
-      this.replace = replace;
+        this.find = find;
+        this.replace = replace;
 
-      // lower the rank by default
-      this.RuleRank = 100;
+        // lower the rank by default
+        this.RuleRank = 100;
     }
 
     #endregion
@@ -89,25 +89,24 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// </param>
     public override void Replace(ref string text, IReplaceBlocks replacement)
     {
-      int index;
+        int index;
 
-      do
-      {
-          index = text.FastIndexOf(this.find);
-
-        if (index < 0)
+        do
         {
-            continue;
-        }
+            index = text.FastIndexOf(this.find);
 
-        // replace it...
-        var replaceIndex = replacement.Add(this.replace);
-        text = text.Substring(0, index) + replacement.Get(replaceIndex) +
-               text.Substring(index + this.find.Length);
-      }
-      while (index >= 0);
+            if (index < 0)
+            {
+                continue;
+            }
+
+            // replace it...
+            var replaceIndex = replacement.Add(this.replace);
+            text = text.Substring(0, index) + replacement.Get(replaceIndex) +
+                   text.Substring(index + this.find.Length);
+        }
+        while (index >= 0);
     }
 
     #endregion
-  }
 }

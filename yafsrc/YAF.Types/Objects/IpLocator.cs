@@ -22,86 +22,85 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
-{
-    using System.Xml.Serialization;
+namespace YAF.Types.Objects;
 
-    using ServiceStack.DataAnnotations;
+using System.Xml.Serialization;
+
+using ServiceStack.DataAnnotations;
+
+/// <summary>
+/// The IP locator.
+/// </summary>
+[XmlRoot(ElementName = "Response", IsNullable = false)]
+public class IpLocator
+{
+    #region Properties
 
     /// <summary>
-    /// The IP locator.
+    /// Gets or sets Status.
     /// </summary>
-    [XmlRoot(ElementName = "Response", IsNullable = false)]
-    public class IpLocator
-    {
-        #region Properties
+    [Alias("statusCode")]
+    public string StatusCode { get; set; }
 
-        /// <summary>
-        /// Gets or sets Status.
-        /// </summary>
-        [Alias("statusCode")]
-        public string StatusCode { get; set; }
+    /// <summary>
+    /// Gets or sets Status.
+    /// </summary>
+    [Alias("statusMessage")]
+    public string StatusMessage { get; set; }
 
-        /// <summary>
-        /// Gets or sets Status.
-        /// </summary>
-        [Alias("statusMessage")]
-        public string StatusMessage { get; set; }
+    /// <summary>
+    /// Gets or sets IP.
+    /// </summary>
+    [Alias("ipAddress")]
+    public string IpAddress { get; set; }
 
-        /// <summary>
-        /// Gets or sets IP.
-        /// </summary>
-        [Alias("ipAddress")]
-        public string IpAddress { get; set; }
+    /// <summary>
+    /// Gets or sets CountryCode.
+    /// </summary>
+    [Alias("countryCode")]
+    public string CountryCode { get; set; }
 
-        /// <summary>
-        /// Gets or sets CountryCode.
-        /// </summary>
-        [Alias("countryCode")]
-        public string CountryCode { get; set; }
+    /// <summary>
+    /// Gets or sets CountryName.
+    /// </summary>
+    [Alias("countryName")]
+    public string CountryName { get; set; }
 
-        /// <summary>
-        /// Gets or sets CountryName.
-        /// </summary>
-        [Alias("countryName")]
-        public string CountryName { get; set; }
+    /// <summary>
+    /// Gets or sets RegionName.
+    /// </summary>
+    [Alias("RegionName")]
+    public string regionName { get; set; }
 
-        /// <summary>
-        /// Gets or sets RegionName.
-        /// </summary>
-        [Alias("RegionName")]
-        public string regionName { get; set; }
+    /// <summary>
+    /// Gets or sets City.
+    /// </summary>
+    [Alias("cityName")]
+    public string CityName { get; set; }
 
-        /// <summary>
-        /// Gets or sets City.
-        /// </summary>
-        [Alias("cityName")]
-        public string CityName { get; set; }
+    /// <summary>
+    /// Gets or sets Zip.
+    /// </summary>
+    [Alias("zipCode")]
+    public string ZipCode { get; set; }
 
-        /// <summary>
-        /// Gets or sets Zip.
-        /// </summary>
-        [Alias("zipCode")]
-        public string ZipCode { get; set; }
+    /// <summary>
+    /// Gets or sets Latitude.
+    /// </summary>
+    [Alias("latitude")]
+    public string Latitude { get; set; }
 
-        /// <summary>
-        /// Gets or sets Latitude.
-        /// </summary>
-        [Alias("latitude")]
-        public string Latitude { get; set; }
+    /// <summary>
+    /// Gets or sets Longitude.
+    /// </summary>
+    [Alias("longitude")]
+    public string Longitude { get; set; }
 
-        /// <summary>
-        /// Gets or sets Longitude.
-        /// </summary>
-        [Alias("longitude")]
-        public string Longitude { get; set; }
+    /// <summary>
+    /// Gets or sets Time zone Name.
+    /// </summary>
+    [Alias("timeZone")]
+    public string TimeZone { get; set; }
 
-        /// <summary>
-        /// Gets or sets Time zone Name.
-        /// </summary>
-        [Alias("timeZone")]
-        public string TimeZone { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

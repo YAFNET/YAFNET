@@ -21,125 +21,124 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+///     A class which represents the ActiveAccess table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(UserID), nameof(ForumID))]
+public class ActiveAccess : IEntity, IHaveBoardID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
+    #region Public Properties
 
     /// <summary>
-    ///     A class which represents the ActiveAccess table.
+    /// Gets or sets the board id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(UserID), nameof(ForumID))]
-    public class ActiveAccess : IEntity, IHaveBoardID
-    {
-        #region Public Properties
+    [Required]
+    public int BoardID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
-        [Required]
-        public int BoardID { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether delete access.
+    /// </summary>
+    [Required]
+    public bool DeleteAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether delete access.
-        /// </summary>
-        [Required]
-        public bool DeleteAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether edit access.
+    /// </summary>
+    public bool EditAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether edit access.
-        /// </summary>
-        public bool EditAccess { get; set; }
+    /// <summary>
+    /// Gets or sets the forum id.
+    /// </summary>
+    [Required]
+    public int ForumID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        [Required]
-        public int ForumID { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is admin.
+    /// </summary>
+    [Required]
+    public bool IsAdmin { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is admin.
-        /// </summary>
-        [Required]
-        public bool IsAdmin { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is forum moderator.
+    /// </summary>
+    [Required]
+    public bool IsForumModerator { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is forum moderator.
-        /// </summary>
-        [Required]
-        public bool IsForumModerator { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is guest x.
+    /// </summary>
+    [Required]
+    [Default(typeof(bool), "1")]
+    public bool IsGuestX { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is guest x.
-        /// </summary>
-        [Required]
-        [Default(typeof(bool), "1")]
-        public bool IsGuestX { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is moderator.
+    /// </summary>
+    [Required]
+    public bool IsModerator { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is moderator.
-        /// </summary>
-        [Required]
-        public bool IsModerator { get; set; }
+    /// <summary>
+    /// Gets or sets the last active.
+    /// </summary>
+    public DateTime? LastActive { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last active.
-        /// </summary>
-        public DateTime? LastActive { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether moderator access.
+    /// </summary>
+    [Required]
+    public bool ModeratorAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether moderator access.
-        /// </summary>
-        [Required]
-        public bool ModeratorAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether poll access.
+    /// </summary>
+    [Required]
+    public bool PollAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether poll access.
-        /// </summary>
-        [Required]
-        public bool PollAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether post access.
+    /// </summary>
+    [Required]
+    public bool PostAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether post access.
-        /// </summary>
-        [Required]
-        public bool PostAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether priority access.
+    /// </summary>
+    [Required]
+    public bool PriorityAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether priority access.
-        /// </summary>
-        [Required]
-        public bool PriorityAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether read access.
+    /// </summary>
+    [Required]
+    public bool ReadAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether read access.
-        /// </summary>
-        [Required]
-        public bool ReadAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether reply access.
+    /// </summary>
+    [Required]
+    public bool ReplyAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether reply access.
-        /// </summary>
-        [Required]
-        public bool ReplyAccess { get; set; }
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [Required]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [Required]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether vote access.
+    /// </summary>
+    [Required]
+    public bool VoteAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether vote access.
-        /// </summary>
-        [Required]
-        public bool VoteAccess { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

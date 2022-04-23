@@ -21,57 +21,56 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Helpers
-{
-    using System;
+namespace YAF.Core.Helpers;
 
-    using YAF.Core.Utilities.MinifyUtils;
+using System;
+
+using YAF.Core.Utilities.MinifyUtils;
+
+/// <summary>
+/// The JS and CSS helper.
+/// </summary>
+public static class JsAndCssHelper
+{
+    /// <summary>
+    /// Compresses JavaScript
+    /// </summary>
+    /// <param name="javaScript">
+    /// The Uncompressed Input JS
+    /// </param>
+    /// <returns>
+    /// The compressed java script.
+    /// </returns>
+    public static string CompressJavaScript(string javaScript)
+    {
+        try
+        {
+            return JSMinify.Minify(javaScript);
+        }
+        catch (Exception)
+        {
+            return javaScript;
+        }
+    }
 
     /// <summary>
-    /// The JS and CSS helper.
+    /// Compresses CSS
     /// </summary>
-    public static class JsAndCssHelper
+    /// <param name="css">
+    /// The Uncompressed Input CSS
+    /// </param>
+    /// <returns>
+    /// The compressed CSS output.
+    /// </returns>
+    public static string CompressCss(string css)
     {
-        /// <summary>
-        /// Compresses JavaScript
-        /// </summary>
-        /// <param name="javaScript">
-        /// The Uncompressed Input JS
-        /// </param>
-        /// <returns>
-        /// The compressed java script.
-        /// </returns>
-        public static string CompressJavaScript(string javaScript)
+        try
         {
-            try
-            {
-                return JSMinify.Minify(javaScript);
-            }
-            catch (Exception)
-            {
-                return javaScript;
-            }
+            return JSMinify.Minify(css);
         }
-
-        /// <summary>
-        /// Compresses CSS
-        /// </summary>
-        /// <param name="css">
-        /// The Uncompressed Input CSS
-        /// </param>
-        /// <returns>
-        /// The compressed CSS output.
-        /// </returns>
-        public static string CompressCss(string css)
+        catch (Exception)
         {
-            try
-            {
-                return JSMinify.Minify(css);
-            }
-            catch (Exception)
-            {
-                return css;
-            }
+            return css;
         }
     }
 }

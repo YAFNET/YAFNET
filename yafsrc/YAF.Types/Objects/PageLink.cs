@@ -22,30 +22,29 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System;
+
+/// <summary>
+/// The Page Link Class
+/// </summary>
+[Serializable]
+public class PageLink
 {
-    using System;
+    /// <summary>
+    /// Gets or sets the title.
+    /// </summary>
+    /// <value>
+    /// The title.
+    /// </value>
+    public string Title { get; set; }
 
     /// <summary>
-    /// The Page Link Class
+    /// Gets or sets the URL.
     /// </summary>
-    [Serializable]
-    public class PageLink
-    {
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        /// <value>
-        /// The title.
-        /// </value>
-        public string Title { get; set; }
-
-        /// <summary>
-        /// Gets or sets the URL.
-        /// </summary>
-        /// <value>
-        /// The URL.
-        /// </value>
-        public string URL { get; set; }
-    }
+    /// <value>
+    /// The URL.
+    /// </value>
+    public string URL { get; set; }
 }

@@ -21,21 +21,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+#region Using
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The current board id.
+/// </summary>
+public class CurrentBoardId : IHaveBoardID
 {
-  #region Using
-
-  using YAF.Configuration;
-  using YAF.Core.Context;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The current board id.
-  /// </summary>
-  public class CurrentBoardId : IHaveBoardID
-  {
     #region Properties
 
     /// <summary>
@@ -44,5 +44,4 @@ namespace YAF.Core.Services
     public int BoardID => BoardContext.Current.Get<ControlSettings>().BoardID;
 
     #endregion
-  }
 }

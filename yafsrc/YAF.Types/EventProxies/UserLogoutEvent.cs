@@ -21,37 +21,36 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
+namespace YAF.Types.EventProxies;
+
+using YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// The user logout event.
+/// </summary>
+public class UserLogoutEvent : IAmEvent
 {
-    using YAF.Types.Interfaces.Events;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The user logout event.
+    /// Initializes a new instance of the <see cref="UserLogoutEvent"/> class.
     /// </summary>
-    public class UserLogoutEvent : IAmEvent
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    public UserLogoutEvent([NotNull] int userId)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserLogoutEvent"/> class.
-        /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        public UserLogoutEvent([NotNull] int userId)
-        {
-            this.UserId = userId;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets UserId.
-        /// </summary>
-        public int UserId { get; set; }
-
-        #endregion
+        this.UserId = userId;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets UserId.
+    /// </summary>
+    public int UserId { get; set; }
+
+    #endregion
 }

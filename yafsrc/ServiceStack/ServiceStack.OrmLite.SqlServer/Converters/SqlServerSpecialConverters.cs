@@ -6,19 +6,18 @@
 // ***********************************************************************
 using ServiceStack.OrmLite.Converters;
 
-namespace ServiceStack.OrmLite.SqlServer.Converters
+namespace ServiceStack.OrmLite.SqlServer.Converters;
+
+/// <summary>
+/// Class SqlServerRowVersionConverter.
+/// Implements the <see cref="ServiceStack.OrmLite.Converters.RowVersionConverter" />
+/// </summary>
+/// <seealso cref="ServiceStack.OrmLite.Converters.RowVersionConverter" />
+public class SqlServerRowVersionConverter : RowVersionConverter
 {
     /// <summary>
-    /// Class SqlServerRowVersionConverter.
-    /// Implements the <see cref="ServiceStack.OrmLite.Converters.RowVersionConverter" />
+    /// Gets the column definition.
     /// </summary>
-    /// <seealso cref="ServiceStack.OrmLite.Converters.RowVersionConverter" />
-    public class SqlServerRowVersionConverter : RowVersionConverter
-    {
-        /// <summary>
-        /// Gets the column definition.
-        /// </summary>
-        /// <value>The column definition.</value>
-        public override string ColumnDefinition => "rowversion";
-    }
+    /// <value>The column definition.</value>
+    public override string ColumnDefinition => "rowversion";
 }

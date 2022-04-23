@@ -21,104 +21,103 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
-{
-    #region Using
+namespace YAF.Controls;
 
-    using YAF.Web.Controls;
-    using YAF.Types.Models;
+#region Using
+
+using YAF.Web.Controls;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The most active users.
+/// </summary>
+public partial class MostActiveUsers : BaseUserControl
+{
+    #region Properties
+
+    /// <summary>
+    ///   Gets or sets DisplayNumber.
+    /// </summary>
+    public int DisplayNumber { get; set; } = 10;
+
+    /// <summary>
+    ///   Gets or sets Number of Days.
+    /// </summary>
+    public int LastNumOfDays { get; set; } = 7;
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The most active users.
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class MostActiveUsers : BaseUserControl
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets DisplayNumber.
-        /// </summary>
-        public int DisplayNumber { get; set; } = 10;
-
-        /// <summary>
-        ///   Gets or sets Number of Days.
-        /// </summary>
-        public int LastNumOfDays { get; set; } = 7;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        if (this.IsPostBack)
         {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            // bind data
-            this.BindData();
+            return;
         }
 
-        /// <summary>
-        /// The users_ on item data bound.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Users_OnItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
-            {
-                return;
-            }
-
-            var item = (LastActive)e.Item.DataItem;
-
-            var userLink = e.Item.FindControlAs<UserLink>("UserLink");
-
-            // render UserLink...
-            userLink.UserID = item.ID;
-            userLink.Suspended = item.Suspended;
-            userLink.Style = item.UserStyle;
-            userLink.ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name;
-        }
-
-        /// <summary>
-        /// Binds the Data.
-        /// </summary>
-        private void BindData()
-        {
-            var users = this.Get<IDataCache>().GetOrSet(
-                 Constants.Cache.MostActiveUsers,
-                 () => this.GetRepository<User>().LastActive(
-                     this.PageBoardContext.PageBoardID,
-                     this.PageBoardContext.GuestUserID,
-                     DateTime.UtcNow.AddDays(-this.LastNumOfDays),
-                     this.DisplayNumber),
-                 TimeSpan.FromMinutes(5));
-
-            this.Users.DataSource = users;
-            this.Users.DataBind();
-
-            this.IconHeader.Param0 = this.LastNumOfDays.ToString();
-
-            if (!users.Any())
-            {
-                this.Visible = false;
-            }
-        }
-
-        #endregion
+        // bind data
+        this.BindData();
     }
+
+    /// <summary>
+    /// The users_ on item data bound.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Users_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+        {
+            return;
+        }
+
+        var item = (LastActive)e.Item.DataItem;
+
+        var userLink = e.Item.FindControlAs<UserLink>("UserLink");
+
+        // render UserLink...
+        userLink.UserID = item.ID;
+        userLink.Suspended = item.Suspended;
+        userLink.Style = item.UserStyle;
+        userLink.ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name;
+    }
+
+    /// <summary>
+    /// Binds the Data.
+    /// </summary>
+    private void BindData()
+    {
+        var users = this.Get<IDataCache>().GetOrSet(
+            Constants.Cache.MostActiveUsers,
+            () => this.GetRepository<User>().LastActive(
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.GuestUserID,
+                DateTime.UtcNow.AddDays(-this.LastNumOfDays),
+                this.DisplayNumber),
+            TimeSpan.FromMinutes(5));
+
+        this.Users.DataSource = users;
+        this.Users.DataBind();
+
+        this.IconHeader.Param0 = this.LastNumOfDays.ToString();
+
+        if (!users.Any())
+        {
+            this.Visible = false;
+        }
+    }
+
+    #endregion
 }

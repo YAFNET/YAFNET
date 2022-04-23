@@ -21,80 +21,79 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
-{
-    #region Using
+namespace YAF.Modules;
 
-    using System.IO;
-    using System.Runtime.InteropServices;
-    using System.Web.UI;
-    using System.Web.UI.HtmlControls;
-    using YAF.Types.Attributes;
+#region Using
+
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using YAF.Types.Attributes;
+
+#endregion
+
+/// <summary>
+/// Page Logo Handler Module
+/// </summary>
+[Module("Page Logo Handler Module", "Tiny Gecko", 1)]
+public class PageLogoHandlerForumModule : SimpleBaseForumModule
+{
+    #region Public Methods
+
+    /// <summary>
+    /// The init after page.
+    /// </summary>
+    public override void InitAfterPage()
+    {
+        this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
+    }
+
+    /// <summary>
+    /// The init before page.
+    /// </summary>
+    public override void InitBeforePage()
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Page Logo Handler Module
+    /// The forum page_ pre render.
     /// </summary>
-    [Module("Page Logo Handler Module", "Tiny Gecko", 1)]
-    public class PageLogoHandlerForumModule : SimpleBaseForumModule
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Public Methods
+        var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>("BannerLink");
+        var image = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlImage>("ForumLogo");
 
-        /// <summary>
-        /// The init after page.
-        /// </summary>
-        public override void InitAfterPage()
+        if (image == null)
         {
-            this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
+            return;
         }
 
-        /// <summary>
-        /// The init before page.
-        /// </summary>
-        public override void InitBeforePage()
+        bannerLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Board);
+        bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
+
+        var logoUrl = $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.PageBoardContext.BoardSettings.ForumLogo}";
+
+        image.Alt = "logo";
+        image.Src = logoUrl;
+
+        image.Attributes["class"] = "my-3";
+
+        if (!this.CurrentForumPage.ShowToolBar)
         {
+            bannerLink.Visible = false;
         }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The forum page_ pre render.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>("BannerLink");
-            var image = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlImage>("ForumLogo");
-
-            if (image == null)
-            {
-                return;
-            }
-
-            bannerLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Board);
-            bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
-
-            var logoUrl = $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.PageBoardContext.BoardSettings.ForumLogo}";
-
-            image.Alt = "logo";
-            image.Src = logoUrl;
-
-            image.Attributes["class"] = "my-3";
-
-            if (!this.CurrentForumPage.ShowToolBar)
-            {
-                bannerLink.Visible = false;
-            }
-        }
-
-        #endregion
     }
+
+    #endregion
 }

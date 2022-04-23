@@ -22,17 +22,16 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+/// <summary>
+/// The LatestInformation interface.
+/// </summary>
+public interface ILatestInformation
 {
     /// <summary>
-    /// The LatestInformation interface.
+    /// Gets the latest version information.
     /// </summary>
-    public interface ILatestInformation
-    {
-        /// <summary>
-        /// Gets the latest version information.
-        /// </summary>
-        /// <returns>Returns the LatestVersionInformation</returns>
-        dynamic GetLatestVersion();
-    }
+    /// <returns>Returns the LatestVersionInformation</returns>
+    dynamic GetLatestVersion();
 }

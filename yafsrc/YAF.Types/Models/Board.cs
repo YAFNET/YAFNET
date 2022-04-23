@@ -21,36 +21,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The board.
+/// </summary>
+[Serializable]
+public class Board : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// The board.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class Board : IEntity, IHaveID
-    {
-        #region Properties
+    [AutoIncrement]
+    [Alias("BoardID")]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("BoardID")]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    [Required]
+    [StringLength(50)]
+    public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        [Required]
-        [StringLength(50)]
-        public string Name { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

@@ -22,58 +22,57 @@
  * under the License.
  */
 
-namespace YAF.Core.Modules
+namespace YAF.Core.Modules;
+
+#region Using
+
+using System.Linq;
+
+using Autofac;
+using Autofac.Core;
+
+using YAF.Core.Services.Logger;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+///     The logging module.
+/// </summary>
+public class LoggingModule : BaseModule
 {
-    #region Using
-
-    using System.Linq;
-
-    using Autofac;
-    using Autofac.Core;
-
-    using YAF.Core.Services.Logger;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    ///     The logging module.
+    ///     The load.
     /// </summary>
-    public class LoggingModule : BaseModule
+    /// <param name="builder">
+    ///     The builder.
+    /// </param>
+    protected override void Load([NotNull] ContainerBuilder builder)
     {
-        #region Methods
+        CodeContracts.VerifyNotNull(builder);
 
-        /// <summary>
-        ///     The load.
-        /// </summary>
-        /// <param name="builder">
-        ///     The builder.
-        /// </param>
-        protected override void Load([NotNull] ContainerBuilder builder)
+        if (builder.ComponentRegistryBuilder.IsRegistered(new TypedService(typeof(ILoggerProvider))))
         {
-            CodeContracts.VerifyNotNull(builder);
+            return;
+        }
 
-            if (builder.ComponentRegistryBuilder.IsRegistered(new TypedService(typeof(ILoggerProvider))))
-            {
-                return;
-            }
-
-            builder.RegisterType<DbLoggerProvider>().As<ILoggerProvider>().SingleInstance().OnPreparing(e =>
+        builder.RegisterType<DbLoggerProvider>().As<ILoggerProvider>().SingleInstance().OnPreparing(e =>
             {
                 var t = e.Component.Activator.LimitType;
                 e.Parameters = e.Parameters.Union(
                     new[]
-                    {
-                        new ResolvedParameter(
-                            (p, i) => p.ParameterType == typeof(ILoggerService),
-                            (p, i) => i.Resolve<ILoggerProvider>().Create(t))
-                    });
+                        {
+                            new ResolvedParameter(
+                                (p, i) => p.ParameterType == typeof(ILoggerService),
+                                (p, i) => i.Resolve<ILoggerProvider>().Create(t))
+                        });
             });
-            builder.Register(c => c.Resolve<ILoggerProvider>().Create(null)).SingleInstance();
-        }
-
-        #endregion
+        builder.Register(c => c.Resolve<ILoggerProvider>().Create(null)).SingleInstance();
     }
+
+    #endregion
 }

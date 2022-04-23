@@ -21,41 +21,40 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Data.Sqlite
+namespace YAF.Data.Sqlite;
+
+#region Using
+
+using System;
+using System.Data.Common;
+
+using YAF.Core.Data;
+using YAF.Types;
+
+#endregion
+
+/// <summary>
+/// The Sqlite Database access.
+/// </summary>
+public class SqliteDbAccess : DbAccessBase
 {
-    #region Using
+    /// <summary>
+    /// The provider type name.
+    /// </summary>
+    public const string ProviderTypeName = "System.Data.SQLite";
 
-    using System;
-    using System.Data.Common;
-
-    using YAF.Core.Data;
-    using YAF.Types;
-
-    #endregion
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The Sqlite Database access.
+    /// Initializes a new instance of the <see cref="SqliteDbAccess"/> class.
     /// </summary>
-    public class SqliteDbAccess : DbAccessBase
+    /// <param name="dbProviderFactory">
+    /// The database provider factory.
+    /// </param>
+    public SqliteDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
+        : base(dbProviderFactory, new SqliteDbInformation())
     {
-        /// <summary>
-        /// The provider type name.
-        /// </summary>
-        public const string ProviderTypeName = "System.Data.SQLite";
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SqliteDbAccess"/> class.
-        /// </summary>
-        /// <param name="dbProviderFactory">
-        /// The database provider factory.
-        /// </param>
-        public SqliteDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
-            : base(dbProviderFactory, new SqliteDbInformation())
-        {
-        }
-
-        #endregion
     }
+
+    #endregion
 }

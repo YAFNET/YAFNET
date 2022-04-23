@@ -21,48 +21,47 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
-{
-    #region Using
+namespace YAF.Types.Interfaces;
 
-    using System;
+#region Using
+
+using System;
+
+#endregion
+
+/// <summary>
+/// Replace Rules Interface
+/// </summary>
+public interface IProcessReplaceRules
+{
+    #region Properties
+
+    /// <summary>
+    ///   Gets a value indicating whether any rules have been added.
+    /// </summary>
+    bool HasRules { get; }
 
     #endregion
 
+    #region Public Methods
+
     /// <summary>
-    /// Replace Rules Interface
+    /// The add rule.
     /// </summary>
-    public interface IProcessReplaceRules
-    {
-        #region Properties
+    /// <param name="newRule">
+    /// The new rule.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    /// </exception>
+    void AddRule([NotNull] IReplaceRule newRule);
 
-        /// <summary>
-        ///   Gets a value indicating whether any rules have been added.
-        /// </summary>
-        bool HasRules { get; }
+    /// <summary>
+    /// Process text using the rules.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    void Process([NotNull] ref string text);
 
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The add rule.
-        /// </summary>
-        /// <param name="newRule">
-        /// The new rule.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// </exception>
-        void AddRule([NotNull] IReplaceRule newRule);
-
-        /// <summary>
-        /// Process text using the rules.
-        /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        void Process([NotNull] ref string text);
-
-        #endregion
-    }
+    #endregion
 }

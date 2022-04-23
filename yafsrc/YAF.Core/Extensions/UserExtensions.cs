@@ -22,31 +22,30 @@
  * under the License.
  */
 
-namespace YAF.Core.Extensions
-{
-    using YAF.Core.Context;
-    using YAF.Types.Models;
+namespace YAF.Core.Extensions;
 
+using YAF.Core.Context;
+using YAF.Types.Models;
+
+/// <summary>
+/// The user extensions.
+/// </summary>
+public static class UserExtensions
+{
     /// <summary>
-    /// The user extensions.
+    /// Gets The Display Name or User Name,
+    /// depending in Display Name feature is enabled or not
     /// </summary>
-    public static class UserExtensions
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public static string DisplayOrUserName(this User user)
     {
-        /// <summary>
-        /// Gets The Display Name or User Name,
-        /// depending in Display Name feature is enabled or not
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string DisplayOrUserName(this User user)
-        {
-            return BoardContext.Current.BoardSettings.EnableDisplayName
-                ? user.DisplayName
-                : user.Name;
-        }
+        return BoardContext.Current.BoardSettings.EnableDisplayName
+                   ? user.DisplayName
+                   : user.Name;
     }
 }

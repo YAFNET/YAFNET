@@ -22,130 +22,129 @@
  * under the License.
  */
 
-namespace YAF.Core.Helpers
+namespace YAF.Core.Helpers;
+
+#region Using
+
+using System;
+using System.IO;
+using System.Runtime.Caching;
+using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
+
+using YAF.Types.Extensions;
+
+#endregion
+
+/// <summary>
+/// The load serialized xml file.
+/// </summary>
+/// <typeparam name="T">
+/// </typeparam>
+public class LoadSerializedXmlFile<T>
+    where T : class
 {
-    #region Using
+    #region Public Methods and Operators
 
-    using System;
-    using System.IO;
-    using System.Runtime.Caching;
-    using System.Text;
-    using System.Xml;
-    using System.Xml.Serialization;
+    /// <summary>
+    /// The attempt load file.
+    /// </summary>
+    /// <param name="xmlFileName">
+    /// The File Name.
+    /// </param>
+    /// <param name="cacheName">
+    /// The cache Name.
+    /// </param>
+    /// <param name="transformResource">
+    /// The transform Resource.
+    /// </param>
+    /// <returns>
+    /// The <see cref="T"/>.
+    /// </returns>
+    public T FromFile(string xmlFileName, string cacheName, Action<T> transformResource = null)
+    {
+        if (MemoryCache.Default.Get(cacheName) is T file)
+        {
+            return file;
+        }
 
-    using YAF.Types.Extensions;
+        if (!xmlFileName.IsSet() || !File.Exists(xmlFileName))
+        {
+            return null;
+        }
+
+        var lockObj = new object();
+
+        lock (lockObj)
+        {
+            var serializer = new XmlSerializer(typeof(T));
+            var sourceEncoding = GetEncodingForXmlFile(xmlFileName);
+
+            using var sourceReader = new StreamReader(xmlFileName, sourceEncoding);
+            var resources = (T)serializer.Deserialize(sourceReader);
+
+            transformResource?.Invoke(resources);
+
+            if (!cacheName.IsSet())
+            {
+                return resources;
+            }
+
+            var item = new CacheItem(cacheName) { Value = resources, RegionName = xmlFileName };
+
+            var cacheItemPolicy = new CacheItemPolicy
+                                      {
+                                          AbsoluteExpiration = DateTime.UtcNow.AddHours(1.0),
+                                          SlidingExpiration = TimeSpan.Zero,
+                                          Priority = CacheItemPriority.Default
+                                      };
+
+            MemoryCache.Default.Add(item, cacheItemPolicy);
+
+            return resources;
+        }
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The load serialized xml file.
+    /// The get encoding for xml file.
     /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public class LoadSerializedXmlFile<T>
-        where T : class
+    /// <param name="xmlFileName">
+    /// The xml file name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Encoding"/>.
+    /// </returns>
+    private static Encoding GetEncodingForXmlFile(string xmlFileName)
     {
-        #region Public Methods and Operators
+        var doc = new XmlDocument();
 
-        /// <summary>
-        /// The attempt load file.
-        /// </summary>
-        /// <param name="xmlFileName">
-        /// The File Name.
-        /// </param>
-        /// <param name="cacheName">
-        /// The cache Name.
-        /// </param>
-        /// <param name="transformResource">
-        /// The transform Resource.
-        /// </param>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        public T FromFile(string xmlFileName, string cacheName, Action<T> transformResource = null)
+        doc.Load(xmlFileName);
+
+        // The first child of a standard XML document is the XML declaration.
+        // The following code assumes and reads the first child as the XmlDeclaration.
+        if (doc.FirstChild.NodeType != XmlNodeType.XmlDeclaration)
         {
-            if (MemoryCache.Default.Get(cacheName) is T file)
-            {
-                return file;
-            }
-
-            if (!xmlFileName.IsSet() || !File.Exists(xmlFileName))
-            {
-                return null;
-            }
-
-            var lockObj = new object();
-
-            lock (lockObj)
-            {
-                var serializer = new XmlSerializer(typeof(T));
-                var sourceEncoding = GetEncodingForXmlFile(xmlFileName);
-
-                using var sourceReader = new StreamReader(xmlFileName, sourceEncoding);
-                var resources = (T)serializer.Deserialize(sourceReader);
-
-                transformResource?.Invoke(resources);
-
-                if (!cacheName.IsSet())
-                {
-                    return resources;
-                }
-
-                var item = new CacheItem(cacheName) { Value = resources, RegionName = xmlFileName };
-
-                var cacheItemPolicy = new CacheItemPolicy
-                {
-                    AbsoluteExpiration = DateTime.UtcNow.AddHours(1.0),
-                    SlidingExpiration = TimeSpan.Zero,
-                    Priority = CacheItemPriority.Default
-                };
-
-                MemoryCache.Default.Add(item, cacheItemPolicy);
-
-                return resources;
-            }
+            return Encoding.UTF8;
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The get encoding for xml file.
-        /// </summary>
-        /// <param name="xmlFileName">
-        /// The xml file name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Encoding"/>.
-        /// </returns>
-        private static Encoding GetEncodingForXmlFile(string xmlFileName)
+        // Get the encoding declaration.
+        var decl = (XmlDeclaration)doc.FirstChild;
+        try
         {
-            var doc = new XmlDocument();
-
-            doc.Load(xmlFileName);
-
-            // The first child of a standard XML document is the XML declaration.
-            // The following code assumes and reads the first child as the XmlDeclaration.
-            if (doc.FirstChild.NodeType != XmlNodeType.XmlDeclaration)
-            {
-                return Encoding.UTF8;
-            }
-
-            // Get the encoding declaration.
-            var decl = (XmlDeclaration)doc.FirstChild;
-            try
-            {
-                var currentEncoding = Encoding.GetEncoding(decl.Encoding);
-                return currentEncoding;
-            }
-            catch
-            {
-                // use default...
-                return Encoding.UTF8;
-            }
+            var currentEncoding = Encoding.GetEncoding(decl.Encoding);
+            return currentEncoding;
         }
-
-        #endregion
+        catch
+        {
+            // use default...
+            return Encoding.UTF8;
+        }
     }
+
+    #endregion
 }

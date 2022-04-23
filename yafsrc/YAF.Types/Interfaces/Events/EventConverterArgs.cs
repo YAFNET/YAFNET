@@ -21,44 +21,43 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Events
-{
-    #region Using
+namespace YAF.Types.Interfaces.Events;
 
-    using System;
+#region Using
+
+using System;
+
+#endregion
+
+/// <summary>
+/// The event converter args.
+/// </summary>
+/// <typeparam name="T">
+/// The type parameter
+/// </typeparam>
+public class EventConverterArgs<T> : EventArgs
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EventConverterArgs{T}"/> class.
+    /// </summary>
+    /// <param name="eventData">
+    /// The event data.
+    /// </param>
+    public EventConverterArgs(T eventData)
+    {
+        this.EventData = eventData;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The event converter args.
+    ///   Gets or sets EventData.
     /// </summary>
-    /// <typeparam name="T">
-    /// The type parameter
-    /// </typeparam>
-    public class EventConverterArgs<T> : EventArgs
-    {
-        #region Constructors and Destructors
+    public T EventData { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventConverterArgs{T}"/> class.
-        /// </summary>
-        /// <param name="eventData">
-        /// The event data.
-        /// </param>
-        public EventConverterArgs(T eventData)
-        {
-            this.EventData = eventData;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets EventData.
-        /// </summary>
-        public T EventData { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

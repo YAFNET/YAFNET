@@ -22,161 +22,160 @@
  * under the License.
  */
 
-namespace YAF.Controls
-{
-    #region Using
+namespace YAF.Controls;
 
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Models.Identity;
-    using YAF.Types.Models;
+#region Using
+
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Models.Identity;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The edit users groups.
+/// </summary>
+public partial class EditUsersGroups : BaseUserControl
+{
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets the User Data.
+    /// </summary>
+    [NotNull]
+    public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The edit users groups.
+    /// Handles click on cancel button.
     /// </summary>
-    public partial class EditUsersGroups : BaseUserControl
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the User Data.
-        /// </summary>
-        [NotNull]
-        public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles click on cancel button.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // redirect to user admin page.
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
-        }
-
-        /// <summary>
-        /// Handles page load event.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // this needs to be done just once, not during post-backs
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.SendEmail.Text = this.GetText("ADMIN_EDITUSER", "SEND_EMAIL");
-
-            // bind data
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Handles click on save button.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var addedRoles = new List<string>();
-            var removedRoles = new List<string>();
-
-            // go through all roles displayed on page
-            for (var i = 0; i < this.UserGroups.Items.Count; i++)
-            {
-                // get current item
-                var item = this.UserGroups.Items[i];
-
-                // get role ID from it
-                var roleID = int.Parse(item.FindControlAs<Label>("GroupID").Text);
-
-                // get role name
-                var roleName = this.GetRepository<Group>().GetById(roleID).Name;
-
-                // is user supposed to be in that role?
-                var isChecked = item.FindControlAs<CheckBox>("GroupMember").Checked;
-
-                // save user in role
-                this.GetRepository<UserGroup>().AddOrRemove(this.User.Item1.ID, roleID, isChecked);
-
-                // update roles if this user isn't the guest
-                if (this.Get<IAspNetUsersHelper>().IsGuestUser(this.User.Item1.ID))
-                {
-                    continue;
-                }
-
-                // add/remove user from roles in membership provider
-                if (isChecked && !this.Get<IAspNetRolesHelper>().IsUserInRole(this.User.Item2, roleName))
-                {
-                    this.Get<IAspNetRolesHelper>().AddUserToRole(this.User.Item2, roleName);
-
-                    addedRoles.Add(roleName);
-                }
-                else if (!isChecked && this.Get<IAspNetRolesHelper>().IsUserInRole(this.User.Item2, roleName))
-                {
-                    this.Get<IAspNetRolesHelper>().RemoveUserFromRole(this.User.Item2.Id, roleName);
-
-                    removedRoles.Add(roleName);
-                }
-            }
-
-            this.Get<IRaiseEvent>().Raise(new UpdateUserStyleEvent(this.User.Item1.ID));
-
-            if (this.SendEmail.Checked)
-            {
-                // send notification to user
-                if (addedRoles.Any())
-                {
-                    this.Get<ISendNotification>().SendRoleAssignmentNotification(this.User.Item2, addedRoles);
-                }
-
-                if (removedRoles.Any())
-                {
-                    this.Get<ISendNotification>().SendRoleUnAssignmentNotification(this.User.Item2, removedRoles);
-                }
-            }
-
-            // clear the cache for this user...
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.User.Item1.ID));
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Bind data for this control.
-        /// </summary>
-        private void BindData()
-        {
-            // get user roles
-            this.UserGroups.DataSource = this.GetRepository<Group>().Member(
-                this.PageBoardContext.PageBoardID,
-                this.User.Item1.ID);
-
-            // bind data to controls
-            this.DataBind();
-        }
-
-        #endregion
+        // redirect to user admin page.
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
     }
+
+    /// <summary>
+    /// Handles page load event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // this needs to be done just once, not during post-backs
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.SendEmail.Text = this.GetText("ADMIN_EDITUSER", "SEND_EMAIL");
+
+        // bind data
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Handles click on save button.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        var addedRoles = new List<string>();
+        var removedRoles = new List<string>();
+
+        // go through all roles displayed on page
+        for (var i = 0; i < this.UserGroups.Items.Count; i++)
+        {
+            // get current item
+            var item = this.UserGroups.Items[i];
+
+            // get role ID from it
+            var roleID = int.Parse(item.FindControlAs<Label>("GroupID").Text);
+
+            // get role name
+            var roleName = this.GetRepository<Group>().GetById(roleID).Name;
+
+            // is user supposed to be in that role?
+            var isChecked = item.FindControlAs<CheckBox>("GroupMember").Checked;
+
+            // save user in role
+            this.GetRepository<UserGroup>().AddOrRemove(this.User.Item1.ID, roleID, isChecked);
+
+            // update roles if this user isn't the guest
+            if (this.Get<IAspNetUsersHelper>().IsGuestUser(this.User.Item1.ID))
+            {
+                continue;
+            }
+
+            // add/remove user from roles in membership provider
+            if (isChecked && !this.Get<IAspNetRolesHelper>().IsUserInRole(this.User.Item2, roleName))
+            {
+                this.Get<IAspNetRolesHelper>().AddUserToRole(this.User.Item2, roleName);
+
+                addedRoles.Add(roleName);
+            }
+            else if (!isChecked && this.Get<IAspNetRolesHelper>().IsUserInRole(this.User.Item2, roleName))
+            {
+                this.Get<IAspNetRolesHelper>().RemoveUserFromRole(this.User.Item2.Id, roleName);
+
+                removedRoles.Add(roleName);
+            }
+        }
+
+        this.Get<IRaiseEvent>().Raise(new UpdateUserStyleEvent(this.User.Item1.ID));
+
+        if (this.SendEmail.Checked)
+        {
+            // send notification to user
+            if (addedRoles.Any())
+            {
+                this.Get<ISendNotification>().SendRoleAssignmentNotification(this.User.Item2, addedRoles);
+            }
+
+            if (removedRoles.Any())
+            {
+                this.Get<ISendNotification>().SendRoleUnAssignmentNotification(this.User.Item2, removedRoles);
+            }
+        }
+
+        // clear the cache for this user...
+        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.User.Item1.ID));
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Bind data for this control.
+    /// </summary>
+    private void BindData()
+    {
+        // get user roles
+        this.UserGroups.DataSource = this.GetRepository<Group>().Member(
+            this.PageBoardContext.PageBoardID,
+            this.User.Item1.ID);
+
+        // bind data to controls
+        this.DataBind();
+    }
+
+    #endregion
 }

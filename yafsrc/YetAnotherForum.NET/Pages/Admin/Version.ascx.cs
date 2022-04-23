@@ -22,81 +22,80 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+#region Using
+
+#endregion
+
+/// <summary>
+///    The version info page.
+/// </summary>
+public partial class Version : AdminPage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Version"/> class. 
+    /// </summary>
+    public Version()
+        : base("ADMIN_VERSION", ForumPages.Admin_Version)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    ///    The version info page.
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class Version : AdminPage
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Version"/> class. 
-        /// </summary>
-        public Version()
-            : base("ADMIN_VERSION", ForumPages.Admin_Version)
+        if (!this.IsPostBack)
         {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.IsPostBack)
+            try
             {
-                try
-                {
-                    var version = this.Get<IDataCache>().GetOrSet(
-                          "LatestVersion",
-                          () => this.Get<ILatestInformation>().GetLatestVersion(),
-                          TimeSpan.FromDays(1));
+                var version = this.Get<IDataCache>().GetOrSet(
+                    "LatestVersion",
+                    () => this.Get<ILatestInformation>().GetLatestVersion(),
+                    TimeSpan.FromDays(1));
 
-                    string lastVersion = version.Version;
-                    var lastVersionDate = (DateTime)version.VersionDate;
+                string lastVersion = version.Version;
+                var lastVersionDate = (DateTime)version.VersionDate;
 
-                    this.LatestVersion.Text = this.GetTextFormatted("LATEST_VERSION", lastVersion, this.Get<IDateTimeService>().FormatDateShort(lastVersionDate));
+                this.LatestVersion.Text = this.GetTextFormatted("LATEST_VERSION", lastVersion, this.Get<IDateTimeService>().FormatDateShort(lastVersionDate));
 
-                    this.UpgradeVersionHolder.Visible = lastVersionDate.ToUniversalTime() > BoardInfo.AppVersionDate.ToUniversalTime();
+                this.UpgradeVersionHolder.Visible = lastVersionDate.ToUniversalTime() > BoardInfo.AppVersionDate.ToUniversalTime();
 
-                    this.Download.NavigateUrl = version.UpgradeUrl;
-                    this.Download.DataBind();
-                }
-                catch (Exception)
-                {
-                    this.LatestVersion.Visible = false;
-                }
-
-                this.RunningVersion.Text = this.GetTextFormatted(
-                    "RUNNING_VERSION",
-                    BoardInfo.AppVersionName,
-                    this.Get<IDateTimeService>().FormatDateShort(BoardInfo.AppVersionDate));
+                this.Download.NavigateUrl = version.UpgradeUrl;
+                this.Download.DataBind();
+            }
+            catch (Exception)
+            {
+                this.LatestVersion.Visible = false;
             }
 
-            this.DataBind();
+            this.RunningVersion.Text = this.GetTextFormatted(
+                "RUNNING_VERSION",
+                BoardInfo.AppVersionName,
+                this.Get<IDateTimeService>().FormatDateShort(BoardInfo.AppVersionDate));
         }
 
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddAdminIndex();
-            this.PageLinks.AddLink(this.GetText("ADMIN_VERSION", "TITLE"), string.Empty);
-        }
-
-        #endregion
+        this.DataBind();
     }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddAdminIndex();
+        this.PageLinks.AddLink(this.GetText("ADMIN_VERSION", "TITLE"), string.Empty);
+    }
+
+    #endregion
 }

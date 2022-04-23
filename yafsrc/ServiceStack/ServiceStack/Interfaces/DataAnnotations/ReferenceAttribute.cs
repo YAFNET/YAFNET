@@ -6,15 +6,14 @@
 // ***********************************************************************
 using System;
 
-namespace ServiceStack.DataAnnotations
+namespace ServiceStack.DataAnnotations;
+
+/// <summary>
+/// Class ReferenceAttribute.
+/// Implements the <see cref="ServiceStack.AttributeBase" />
+/// </summary>
+/// <seealso cref="ServiceStack.AttributeBase" />
+[AttributeUsage(AttributeTargets.Property)]
+public class ReferenceAttribute : AttributeBase
 {
-    /// <summary>
-    /// Class ReferenceAttribute.
-    /// Implements the <see cref="ServiceStack.AttributeBase" />
-    /// </summary>
-    /// <seealso cref="ServiceStack.AttributeBase" />
-    [AttributeUsage(AttributeTargets.Property)]
-    public class ReferenceAttribute : AttributeBase
-    {
-    }
 }

@@ -21,98 +21,97 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Events
+namespace YAF.Core.Events;
+
+using YAF.Configuration;
+using YAF.Core.Model;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.Constants;
+using YAF.Types.EventProxies;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+
+/// <summary>
+/// Ban user (Adds IP/Email/Name to internal Spam Check List)
+/// </summary>
+[ExportService(ServiceLifetimeScope.OwnedByContainer)]
+public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
 {
-    using YAF.Configuration;
-    using YAF.Core.Model;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.Constants;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Ban user (Adds IP/Email/Name to internal Spam Check List)
+    /// Initializes a new instance of the <see cref="BanUser"/> class.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.OwnedByContainer)]
-    public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public BanUser([NotNull] IServiceLocator serviceLocator)
     {
-        #region Constructors and Destructors
+        CodeContracts.VerifyNotNull(serviceLocator);
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BanUser"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        public BanUser([NotNull] IServiceLocator serviceLocator)
-        {
-            CodeContracts.VerifyNotNull(serviceLocator);
-
-            this.ServiceLocator = serviceLocator;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///   Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        /// <summary>
-        ///     Gets the order.
-        /// </summary>
-        public int Order => 10000;
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The handle.
-        /// </summary>
-        /// <param name="event">
-        /// The event.
-        /// </param>
-        public void Handle([NotNull]BanUserEvent @event)
-        {
-            this.GetRepository<BannedIP>().Save(
-                null,
-                @event.IpAddress,
-                $"A spam Bot who was trying to register was banned by IP {@event.IpAddress}",
-                @event.UserId);
-
-            if (this.Get<BoardSettings>().LogBannedIP)
-            {
-                this.Get<ILoggerService>().Log(
-                    @event.UserId,
-                    "IP BAN of Bot",
-                    $"A spam Bot who was banned by IP {@event.IpAddress}",
-                    EventLogTypes.IpBanSet);
-            }
-
-            // Ban Name ?
-            this.GetRepository<BannedName>().Save(
-                null,
-                @event.Name,
-                "Name was reported by the automatic spam system.");
-
-            // Ban User Email?
-            this.GetRepository<BannedEmail>().Save(
-                null,
-                @event.Email,
-                "Email was reported by the automatic spam system.");
-
-            // Clear Spam caches
-            this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
-        }
-
-        #endregion
+        this.ServiceLocator = serviceLocator;
     }
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    ///   Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    /// <summary>
+    ///     Gets the order.
+    /// </summary>
+    public int Order => 10000;
+
+    #endregion
+
+    #region Public Methods and Operators
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
+    /// </param>
+    public void Handle([NotNull]BanUserEvent @event)
+    {
+        this.GetRepository<BannedIP>().Save(
+            null,
+            @event.IpAddress,
+            $"A spam Bot who was trying to register was banned by IP {@event.IpAddress}",
+            @event.UserId);
+
+        if (this.Get<BoardSettings>().LogBannedIP)
+        {
+            this.Get<ILoggerService>().Log(
+                @event.UserId,
+                "IP BAN of Bot",
+                $"A spam Bot who was banned by IP {@event.IpAddress}",
+                EventLogTypes.IpBanSet);
+        }
+
+        // Ban Name ?
+        this.GetRepository<BannedName>().Save(
+            null,
+            @event.Name,
+            "Name was reported by the automatic spam system.");
+
+        // Ban User Email?
+        this.GetRepository<BannedEmail>().Save(
+            null,
+            @event.Email,
+            "Email was reported by the automatic spam system.");
+
+        // Clear Spam caches
+        this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
+    }
+
+    #endregion
 }

@@ -22,155 +22,154 @@
  * under the License.
  */
 
-namespace YAF.Dialogs
+namespace YAF.Dialogs;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// The Nntp Forum Add/Edit Dialog.
+/// </summary>
+public partial class NntpForumEdit : BaseUserControl
 {
-    using YAF.Types.Models;
+    #region Methods
 
     /// <summary>
-    /// The Nntp Forum Add/Edit Dialog.
+    /// Gets or sets the forum identifier.
     /// </summary>
-    public partial class NntpForumEdit : BaseUserControl
+    /// <value>
+    /// The forum identifier.
+    /// </value>
+    public int? ForumId
     {
-        #region Methods
+        get => this.ViewState["ForumId"].ToType<int?>();
 
-        /// <summary>
-        /// Gets or sets the forum identifier.
-        /// </summary>
-        /// <value>
-        /// The forum identifier.
-        /// </value>
-        public int? ForumId
-        {
-            get => this.ViewState["ForumId"].ToType<int?>();
-
-            set => this.ViewState["ForumId"] = value;
-        }
-
-        /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                nameof(JavaScriptBlocks.SelectForumsLoadJs),
-                JavaScriptBlocks.SelectForumsLoadJs(
-                    "ForumList",
-                    this.GetText("ADMIN_EDITNNTPFORUM", "FORUM"),
-                    false,
-                    false,
-                    this.ForumListSelected.ClientID));
-
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        /// <param name="forumId">The forum identifier.</param>
-        public void BindData(int? forumId)
-        {
-            this.NntpServerID.DataSource = this.GetRepository<NntpServer>().GetByBoardId().OrderBy(s => s.Name);
-            this.NntpServerID.DataValueField = "ID";
-            this.NntpServerID.DataTextField = "Name";
-            this.NntpServerID.DataBind();
-
-            this.ForumId = forumId;
-
-            this.Title.LocalizedPage = "ADMIN_EDITNNTPSERVER";
-            this.Save.TextLocalizedPage = "ADMIN_NNTPFORUMS";
-
-            if (this.ForumId.HasValue)
-            {
-                // Edit
-                var forum = this.GetRepository<NntpForum>().GetById(this.ForumId.Value);
-
-                if (forum != null)
-                {
-                    this.NntpServerID.Items.FindByValue(forum.NntpServerID.ToString()).Selected = true;
-                    this.GroupName.Text = forum.GroupName;
-                    this.ForumListSelected.Value = forum.ForumID.ToString();
-                    this.Active.Checked = forum.Active;
-                    this.DateCutOff.Text = forum.DateCutOff.ToString();
-                }
-
-                this.Title.LocalizedTag = "TITLE_EDIT";
-                this.Save.TextLocalizedTag = "SAVE";
-            }
-            else
-            {
-                // Add
-                this.GroupName.Text = string.Empty;
-                this.Active.Checked = false;
-                this.DateCutOff.Text = string.Empty;
-
-                this.Title.LocalizedTag = "TITLE";
-                this.Save.TextLocalizedTag = "NEW_FORUM";
-            }
-        }
-
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.IsPostBack)
-            {
-                return;
-            }
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "loadValidatorFormJs",
-                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
-        }
-
-        /// <summary>
-        /// Handles the Click event of the Add control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.Page.IsValid)
-            {
-                return;
-            }
-
-            if (this.ForumListSelected.Value.ToType<int>() <= 0)
-            {
-                this.PageBoardContext.Notify(this.GetText("ADMIN_EDITNNTPFORUM", "MSG_SELECT_FORUM"), MessageTypes.warning);
-
-                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                    "openModalJs",
-                    JavaScriptBlocks.OpenModalJs("NntpForumEditDialog"));
-
-                return;
-            }
-
-            if (!DateTime.TryParse(this.DateCutOff.Text, out var dateCutOff))
-            {
-                dateCutOff = DateTime.MinValue;
-            }
-
-            this.GetRepository<NntpForum>().Save(
-                this.ForumId,
-                this.NntpServerID.SelectedValue.ToType<int>(),
-                this.GroupName.Text,
-                this.ForumListSelected.Value.ToType<int>(),
-                this.Active.Checked,
-                dateCutOff == DateTime.MinValue ? null : (DateTime?)dateCutOff);
-
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_NntpForums);
-        }
-
-        #endregion
+        set => this.ViewState["ForumId"] = value;
     }
+
+    /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
+    {
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.SelectForumsLoadJs),
+            JavaScriptBlocks.SelectForumsLoadJs(
+                "ForumList",
+                this.GetText("ADMIN_EDITNNTPFORUM", "FORUM"),
+                false,
+                false,
+                this.ForumListSelected.ClientID));
+
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    /// <param name="forumId">The forum identifier.</param>
+    public void BindData(int? forumId)
+    {
+        this.NntpServerID.DataSource = this.GetRepository<NntpServer>().GetByBoardId().OrderBy(s => s.Name);
+        this.NntpServerID.DataValueField = "ID";
+        this.NntpServerID.DataTextField = "Name";
+        this.NntpServerID.DataBind();
+
+        this.ForumId = forumId;
+
+        this.Title.LocalizedPage = "ADMIN_EDITNNTPSERVER";
+        this.Save.TextLocalizedPage = "ADMIN_NNTPFORUMS";
+
+        if (this.ForumId.HasValue)
+        {
+            // Edit
+            var forum = this.GetRepository<NntpForum>().GetById(this.ForumId.Value);
+
+            if (forum != null)
+            {
+                this.NntpServerID.Items.FindByValue(forum.NntpServerID.ToString()).Selected = true;
+                this.GroupName.Text = forum.GroupName;
+                this.ForumListSelected.Value = forum.ForumID.ToString();
+                this.Active.Checked = forum.Active;
+                this.DateCutOff.Text = forum.DateCutOff.ToString();
+            }
+
+            this.Title.LocalizedTag = "TITLE_EDIT";
+            this.Save.TextLocalizedTag = "SAVE";
+        }
+        else
+        {
+            // Add
+            this.GroupName.Text = string.Empty;
+            this.Active.Checked = false;
+            this.DateCutOff.Text = string.Empty;
+
+            this.Title.LocalizedTag = "TITLE";
+            this.Save.TextLocalizedTag = "NEW_FORUM";
+        }
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.IsPostBack)
+        {
+            return;
+        }
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "loadValidatorFormJs",
+            JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+    }
+
+    /// <summary>
+    /// Handles the Click event of the Add control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.Page.IsValid)
+        {
+            return;
+        }
+
+        if (this.ForumListSelected.Value.ToType<int>() <= 0)
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_EDITNNTPFORUM", "MSG_SELECT_FORUM"), MessageTypes.warning);
+
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("NntpForumEditDialog"));
+
+            return;
+        }
+
+        if (!DateTime.TryParse(this.DateCutOff.Text, out var dateCutOff))
+        {
+            dateCutOff = DateTime.MinValue;
+        }
+
+        this.GetRepository<NntpForum>().Save(
+            this.ForumId,
+            this.NntpServerID.SelectedValue.ToType<int>(),
+            this.GroupName.Text,
+            this.ForumListSelected.Value.ToType<int>(),
+            this.Active.Checked,
+            dateCutOff == DateTime.MinValue ? null : (DateTime?)dateCutOff);
+
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_NntpForums);
+    }
+
+    #endregion
 }

@@ -22,175 +22,174 @@
  * under the License.
  */
 
-namespace YAF.Dialogs
+namespace YAF.Dialogs;
+
+#region Using
+
+using System.Text;
+
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The Admin Banned IP Add/Edit Dialog.
+/// </summary>
+public partial class BannedIpEdit : BaseUserControl
 {
-    #region Using
-
-    using System.Text;
-
-    using YAF.Types.Models;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// The Admin Banned IP Add/Edit Dialog.
+    /// Gets or sets the banned identifier.
     /// </summary>
-    public partial class BannedIpEdit : BaseUserControl
+    /// <value>
+    /// The banned identifier.
+    /// </value>
+    public int? BannedId
     {
-        #region Methods
+        get => this.ViewState["BannedId"].ToType<int?>();
 
-        /// <summary>
-        /// Gets or sets the banned identifier.
-        /// </summary>
-        /// <value>
-        /// The banned identifier.
-        /// </value>
-        public int? BannedId
+        set => this.ViewState["BannedId"] = value;
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    /// <param name="bannedId">The banned identifier.</param>
+    public void BindData(int? bannedId)
+    {
+        this.BannedId = bannedId;
+
+        this.Title.LocalizedPage = "ADMIN_BANNEDIP_EDIT";
+        this.Save.TextLocalizedPage = "ADMIN_BANNEDIP";
+
+        if (this.BannedId.HasValue)
         {
-            get => this.ViewState["BannedId"].ToType<int?>();
+            // Edit
+            var banned = this.GetRepository<BannedIP>().GetById(this.BannedId.Value);
 
-            set => this.ViewState["BannedId"] = value;
+            if (banned != null)
+            {
+                this.mask.Text = banned.Mask;
+                this.BanReason.Text = banned.Reason;
+            }
+
+            this.Title.LocalizedTag = "TITLE_EDIT";
+            this.Save.TextLocalizedTag = "SAVE";
+        }
+        else
+        {
+            // Add
+            this.mask.Text = string.Empty;
+            this.BanReason.Text = string.Empty;
+
+            this.Title.LocalizedTag = "TITLE";
+            this.Save.TextLocalizedTag = "ADD_IP";
+        }
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender. 
+    /// </param>
+    /// <param name="e">
+    /// The e. 
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.IsPostBack)
+        {
+            return;
         }
 
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        /// <param name="bannedId">The banned identifier.</param>
-        public void BindData(int? bannedId)
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "loadValidatorFormJs",
+            JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+    }
+
+    /// <summary>
+    /// Handles the Click event of the Add control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.Page.IsValid)
         {
-            this.BannedId = bannedId;
+            return;
+        }
 
-            this.Title.LocalizedPage = "ADMIN_BANNEDIP_EDIT";
-            this.Save.TextLocalizedPage = "ADMIN_BANNEDIP";
+        var ipParts = this.mask.Text.Trim().Split('.');
 
-            if (this.BannedId.HasValue)
+        // do some validation...
+        var ipError = new StringBuilder();
+
+        if (ipParts.Length != 4)
+        {
+            ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_ADRESS"));
+        }
+
+        foreach (var ip in ipParts)
+        {
+            // see if they are numbers...
+            if (!ulong.TryParse(ip, out var number))
             {
-                // Edit
-                var banned = this.GetRepository<BannedIP>().GetById(this.BannedId.Value);
-
-                if (banned != null)
+                if (ip.Trim() == "*")
                 {
-                    this.mask.Text = banned.Mask;
-                    this.BanReason.Text = banned.Reason;
+                    continue;
                 }
 
-                this.Title.LocalizedTag = "TITLE_EDIT";
-                this.Save.TextLocalizedTag = "SAVE";
-            }
-            else
-            {
-                // Add
-                this.mask.Text = string.Empty;
-                this.BanReason.Text = string.Empty;
+                if (ip.Trim().Length != 0)
+                {
+                    ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_SECTION"), ip);
+                }
+                else
+                {
+                    ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_VALUE"));
+                }
 
-                this.Title.LocalizedTag = "TITLE";
-                this.Save.TextLocalizedTag = "ADD_IP";
+                break;
+            }
+
+            // try parse succeeded... verify number amount...
+            if (number > 255)
+            {
+                ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_LESS"), ip);
             }
         }
 
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        // show error(s) if not valid...
+        if (ipError.Length > 0)
         {
-            if (!this.IsPostBack)
-            {
-                return;
-            }
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "loadValidatorFormJs",
-                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+            this.PageBoardContext.Notify(ipError.ToString(), MessageTypes.warning);
+            return;
         }
 
-        /// <summary>
-        /// Handles the Click event of the Add control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.Page.IsValid)
-            {
-                return;
-            }
-
-            var ipParts = this.mask.Text.Trim().Split('.');
-
-            // do some validation...
-            var ipError = new StringBuilder();
-
-            if (ipParts.Length != 4)
-            {
-                ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_ADRESS"));
-            }
-
-            foreach (var ip in ipParts)
-            {
-                // see if they are numbers...
-                if (!ulong.TryParse(ip, out var number))
-                {
-                    if (ip.Trim() == "*")
-                    {
-                        continue;
-                    }
-
-                    if (ip.Trim().Length != 0)
-                    {
-                        ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_SECTION"), ip);
-                    }
-                    else
-                    {
-                        ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_VALUE"));
-                    }
-
-                    break;
-                }
-
-                // try parse succeeded... verify number amount...
-                if (number > 255)
-                {
-                    ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_LESS"), ip);
-                }
-            }
-
-            // show error(s) if not valid...
-            if (ipError.Length > 0)
-            {
-                this.PageBoardContext.Notify(ipError.ToString(), MessageTypes.warning);
-                return;
-            }
-
-            if (!this.GetRepository<BannedIP>().Save(
+        if (!this.GetRepository<BannedIP>().Save(
                 this.BannedId,
                 this.mask.Text.Trim(),
                 this.BanReason.Text.Trim(),
                 this.PageBoardContext.PageUserID))
+        {
+            this.PageBoardContext.LoadMessage.AddSession(
+                this.GetText("ADMIN_BANNEDIP", "MSG_EXIST"),
+                MessageTypes.warning);
+        }
+        else
+        {
+            if (this.PageBoardContext.BoardSettings.LogBannedIP)
             {
-                this.PageBoardContext.LoadMessage.AddSession(
-                    this.GetText("ADMIN_BANNEDIP", "MSG_EXIST"),
-                    MessageTypes.warning);
+                this.Logger.Log(
+                    $"IP or mask {this.mask.Text.Trim()} was saved by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
+                    EventLogTypes.IpBanSet);
             }
-            else
-            {
-                if (this.PageBoardContext.BoardSettings.LogBannedIP)
-                {
-                    this.Logger.Log(
-                        $"IP or mask {this.mask.Text.Trim()} was saved by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
-                        EventLogTypes.IpBanSet);
-                }
-            }
-
-            // go back to banned IPs administration page
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BannedIps);
         }
 
-        #endregion
+        // go back to banned IPs administration page
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BannedIps);
     }
+
+    #endregion
 }

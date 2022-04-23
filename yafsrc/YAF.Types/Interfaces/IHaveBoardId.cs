@@ -21,20 +21,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The i have board id.
+/// </summary>
+public interface IHaveBoardID
 {
+    #region Properties
+
     /// <summary>
-    /// The i have board id.
+    /// Gets BoardId.
     /// </summary>
-    public interface IHaveBoardID
-    {
-        #region Properties
+    int BoardID { get; }
 
-        /// <summary>
-        /// Gets BoardId.
-        /// </summary>
-        int BoardID { get; }
-
-        #endregion
-    }
+    #endregion
 }

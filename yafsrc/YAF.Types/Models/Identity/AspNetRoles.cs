@@ -22,110 +22,109 @@
  * under the License.
  */
 
-namespace YAF.Types.Models.Identity
+namespace YAF.Types.Models.Identity;
+
+using System;
+
+using Microsoft.AspNet.Identity;
+
+using ServiceStack.DataAnnotations;
+using ServiceStack.Model;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The asp net roles.
+/// </summary>
+public class AspNetRoles : AspNetRoles<string>
 {
-    using System;
-
-    using Microsoft.AspNet.Identity;
-
-    using ServiceStack.DataAnnotations;
-    using ServiceStack.Model;
-
-    using YAF.Types.Interfaces.Data;
-
     /// <summary>
-    /// The asp net roles.
+    /// Initializes a new instance of the <see cref="AspNetRoles"/> class.
     /// </summary>
-    public class AspNetRoles : AspNetRoles<string>
+    public AspNetRoles()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AspNetRoles"/> class.
-        /// </summary>
-        public AspNetRoles()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AspNetRoles"/> class.
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        public AspNetRoles(string name)
-            : base(Guid.NewGuid().ToString(), name)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AspNetRoles"/> class.
-        /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        public AspNetRoles(string id, string name)
-            : base(id, name)
-        {
-        }
+        this.Id = Guid.NewGuid().ToString();
     }
 
     /// <summary>
-    /// The asp net roles.
+    /// Initializes a new instance of the <see cref="AspNetRoles"/> class.
     /// </summary>
-    /// <typeparam name="TKey">
-    /// </typeparam>
-    public class AspNetRoles<TKey> : IRole<TKey>, IEntity, IHasId<TKey>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    public AspNetRoles(string name)
+        : base(Guid.NewGuid().ToString(), name)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AspNetRoles{TKey}"/> class. 
-        /// Default constructor for Role 
-        /// </summary>
-        public AspNetRoles()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AspNetRoles{TKey}"/> class. 
-        /// Constructor that takes names as argument 
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        public AspNetRoles(string name)
-            : this()
-        {
-            this.Name = name;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AspNetRoles{TKey}"/> class.
-        /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        public AspNetRoles(TKey id, string name) : this(name)
-        {
-            this.Id = id;
-        }
-
-        /// <summary>
-        /// Gets or sets the Role ID
-        /// </summary>
-        [StringLength(56)]
-        public TKey Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Role name
-        /// </summary>
-        [StringLength(50)]
-        [Index(Unique = true)]
-        [Required]
-        public string Name { get; set; }
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AspNetRoles"/> class.
+    /// </summary>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    public AspNetRoles(string id, string name)
+        : base(id, name)
+    {
+    }
+}
+
+/// <summary>
+/// The asp net roles.
+/// </summary>
+/// <typeparam name="TKey">
+/// </typeparam>
+public class AspNetRoles<TKey> : IRole<TKey>, IEntity, IHasId<TKey>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AspNetRoles{TKey}"/> class. 
+    /// Default constructor for Role 
+    /// </summary>
+    public AspNetRoles()
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AspNetRoles{TKey}"/> class. 
+    /// Constructor that takes names as argument 
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    public AspNetRoles(string name)
+        : this()
+    {
+        this.Name = name;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AspNetRoles{TKey}"/> class.
+    /// </summary>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    public AspNetRoles(TKey id, string name) : this(name)
+    {
+        this.Id = id;
+    }
+
+    /// <summary>
+    /// Gets or sets the Role ID
+    /// </summary>
+    [StringLength(56)]
+    public TKey Id { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Role name
+    /// </summary>
+    [StringLength(50)]
+    [Index(Unique = true)]
+    [Required]
+    public string Name { get; set; }
 }

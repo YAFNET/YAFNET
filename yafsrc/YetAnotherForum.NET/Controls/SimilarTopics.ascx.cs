@@ -22,64 +22,63 @@
  * under the License.
  */
 
-namespace YAF.Controls
-{
-    #region Using
+namespace YAF.Controls;
 
-    #endregion
+#region Using
+
+#endregion
+
+/// <summary>
+/// Similar Topics Control
+/// </summary>
+public partial class SimilarTopics : BaseUserControl
+{
+    #region Methods
 
     /// <summary>
-    /// Similar Topics Control
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class SimilarTopics : BaseUserControl
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        if (!this.PageBoardContext.BoardSettings.ShowSimilarTopics)
         {
-            if (!this.PageBoardContext.BoardSettings.ShowSimilarTopics)
+            this.SimilarTopicsHolder.Visible = false;
+            return;
+        }
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Binds the similar topics list.
+    /// </summary>
+    private void BindData()
+    {
+        try
+        {
+            var topicsList = this.Get<ISearch>().SearchSimilar(
+                this.PageBoardContext.PageTopicID.ToString(),
+                this.PageBoardContext.PageTopic.TopicName,
+                "Topic").Take(5).ToList();
+
+            if (!topicsList.Any())
             {
                 this.SimilarTopicsHolder.Visible = false;
                 return;
             }
 
-            this.BindData();
+            this.Topics.DataSource = topicsList;
+            this.Topics.DataBind();
         }
-
-        /// <summary>
-        /// Binds the similar topics list.
-        /// </summary>
-        private void BindData()
+        catch (Exception)
         {
-            try
-            {
-                var topicsList = this.Get<ISearch>().SearchSimilar(
-                    this.PageBoardContext.PageTopicID.ToString(),
-                    this.PageBoardContext.PageTopic.TopicName,
-                    "Topic").Take(5).ToList();
-
-                if (!topicsList.Any())
-                {
-                    this.SimilarTopicsHolder.Visible = false;
-                    return;
-                }
-
-                this.Topics.DataSource = topicsList;
-                this.Topics.DataBind();
-            }
-            catch (Exception)
-            {
-                this.SimilarTopicsHolder.Visible = false;
-            }
-
-            this.DataBind();
+            this.SimilarTopicsHolder.Visible = false;
         }
 
-        #endregion
+        this.DataBind();
     }
+
+    #endregion
 }

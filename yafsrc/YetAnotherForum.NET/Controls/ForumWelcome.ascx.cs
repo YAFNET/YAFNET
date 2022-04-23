@@ -21,43 +21,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
-{
-    #region Using
+namespace YAF.Controls;
 
-    #endregion
+#region Using
+
+#endregion
+
+/// <summary>
+/// The forum welcome control which shows the current Time and the Last Visit Time of the Current User.
+/// </summary>
+public partial class ForumWelcome : BaseUserControl
+{
+    #region Methods
 
     /// <summary>
-    /// The forum welcome control which shows the current Time and the Last Visit Time of the Current User.
+    /// Handles the PreRender event
     /// </summary>
-    public partial class ForumWelcome : BaseUserControl
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected override void OnPreRender(EventArgs e)
     {
-        #region Methods
+        base.OnPreRender(e);
 
-        /// <summary>
-        /// Handles the PreRender event
-        /// </summary>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected override void OnPreRender(EventArgs e)
+        this.TimeNow.Text = this.GetTextFormatted("Current_Time", this.Get<IDateTimeService>().FormatTime(DateTime.UtcNow));
+
+        var lastVisit = this.Get<ISession>().LastVisit;
+
+        if (lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime())
         {
-            base.OnPreRender(e);
-
-            this.TimeNow.Text = this.GetTextFormatted("Current_Time", this.Get<IDateTimeService>().FormatTime(DateTime.UtcNow));
-
-            var lastVisit = this.Get<ISession>().LastVisit;
-
-            if (lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime())
-            {
-                this.LastVisitHolder.Visible = true;
-                this.TimeLastVisit.Text = this.GetTextFormatted(
-                    "last_visit", this.Get<IDateTimeService>().FormatDateTime(lastVisit.Value));
-            }
-            else
-            {
-                this.LastVisitHolder.Visible = false;
-            }
+            this.LastVisitHolder.Visible = true;
+            this.TimeLastVisit.Text = this.GetTextFormatted(
+                "last_visit", this.Get<IDateTimeService>().FormatDateTime(lastVisit.Value));
         }
-
-        #endregion
+        else
+        {
+            this.LastVisitHolder.Visible = false;
+        }
     }
+
+    #endregion
 }

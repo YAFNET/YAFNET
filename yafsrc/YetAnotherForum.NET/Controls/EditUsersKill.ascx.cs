@@ -24,238 +24,238 @@
 
 using YAF.Types.Models;
 
-namespace YAF.Controls
+namespace YAF.Controls;
+
+#region Using
+
+using YAF.Core.Services.CheckForSpam;
+using YAF.Types.Models.Identity;
+
+using ListItem = ListItem;
+
+#endregion
+
+/// <summary>
+/// The edit users kill.
+/// </summary>
+public partial class EditUsersKill : BaseUserControl
 {
-    #region Using
+    #region Constants and Fields
 
-    using YAF.Core.Services.CheckForSpam;
-    using YAF.Types.Models.Identity;
-
-    using ListItem = ListItem;
+    /// <summary>
+    ///   The _all posts by user.
+    /// </summary>
+    private IOrderedEnumerable<Message> allPostsByUser;
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The edit users kill.
+    /// Gets or sets the User Data.
     /// </summary>
-    public partial class EditUsersKill : BaseUserControl
+    [NotNull]
+    public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
+
+    /// <summary>
+    ///   Gets AllPostsByUser.
+    /// </summary>
+    public IOrderedEnumerable<Message> AllPostsByUser =>
+        this.allPostsByUser ??= this.GetRepository<Message>().GetAllUserMessages(this.User.Item1.ID);
+
+    /// <summary>
+    ///   Gets IPAddresses.
+    /// </summary>
+    [NotNull]
+    public List<string> IPAddresses
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _all posts by user.
-        /// </summary>
-        private IOrderedEnumerable<Message> allPostsByUser;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the User Data.
-        /// </summary>
-        [NotNull]
-        public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
-
-        /// <summary>
-        ///   Gets AllPostsByUser.
-        /// </summary>
-        public IOrderedEnumerable<Message> AllPostsByUser =>
-            this.allPostsByUser ??= this.GetRepository<Message>().GetAllUserMessages(this.User.Item1.ID);
-
-        /// <summary>
-        ///   Gets IPAddresses.
-        /// </summary>
-        [NotNull]
-        public List<string> IPAddresses
+        get
         {
-            get
+            var list = this.AllPostsByUser.Select(m => m.IP).OrderBy(x => x).Distinct().ToList();
+
+            if (list.Count.Equals(0))
             {
-                var list = this.AllPostsByUser.Select(m => m.IP).OrderBy(x => x).Distinct().ToList();
-
-                if (list.Count.Equals(0))
-                {
-                    list.Add(this.User.Item1.IP);
-                }
-
-                return list;
+                list.Add(this.User.Item1.IP);
             }
+
+            return list;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the current user.
+    /// </summary>
+    /// <value>
+    /// The current user.
+    /// </value>
+    private User CurrentUser { get; set; }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Kills the PageUser
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Kill_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // Ban User Email?
+        if (this.BanEmail.Checked)
+        {
+            this.GetRepository<BannedEmail>().Save(
+                null,
+                this.User.Item1.Email,
+                $"Email was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
         }
 
-        /// <summary>
-        /// Gets or sets the current user.
-        /// </summary>
-        /// <value>
-        /// The current user.
-        /// </value>
-        private User CurrentUser { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Kills the PageUser
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Kill_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+        // Ban User IP?
+        if (this.BanIps.Checked && this.IPAddresses.Any())
         {
-            // Ban User Email?
-            if (this.BanEmail.Checked)
-            {
-                this.GetRepository<BannedEmail>().Save(
-                    null,
-                    this.User.Item1.Email,
-                    $"Email was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
-            }
+            this.BanUserIps();
+        }
 
-            // Ban User IP?
-            if (this.BanIps.Checked && this.IPAddresses.Any())
-            {
-                this.BanUserIps();
-            }
+        // Ban User IP?
+        if (this.BanName.Checked)
+        {
+            this.GetRepository<BannedName>().Save(
+                null,
+                this.User.Item1.Name,
+                $"Name was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
+        }
 
-            // Ban User IP?
-            if (this.BanName.Checked)
-            {
-                this.GetRepository<BannedName>().Save(
-                    null,
-                    this.User.Item1.Name,
-                    $"Name was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
-            }
+        this.DeleteAllUserMessages();
 
-            this.DeleteAllUserMessages();
-
-            if (this.ReportUser.Checked && this.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet() &&
-                this.IPAddresses.Any())
+        if (this.ReportUser.Checked && this.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet() &&
+            this.IPAddresses.Any())
+        {
+            try
             {
-                try
+                var stopForumSpam = new StopForumSpam();
+
+                if (stopForumSpam.ReportUserAsBot(this.IPAddresses.FirstOrDefault(), this.User.Item1.Email, this.User.Item1.Name))
                 {
-                    var stopForumSpam = new StopForumSpam();
-
-                    if (stopForumSpam.ReportUserAsBot(this.IPAddresses.FirstOrDefault(), this.User.Item1.Email, this.User.Item1.Name))
-                    {
-                        this.GetRepository<Registry>().IncrementReportedSpammers();
-
-                        this.Logger.Log(
-                            this.PageBoardContext.PageUserID,
-                            "User Reported to StopForumSpam.com",
-                            $"User (Name:{this.User.Item1.Name}/ID:{this.User.Item1.ID}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.PageBoardContext.PageUser.DisplayOrUserName()}",
-                            EventLogTypes.SpamBotReported);
-                    }
-                }
-                catch (Exception exception)
-                {
-                    this.PageBoardContext.Notify(
-                        this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"),
-                        MessageTypes.danger);
+                    this.GetRepository<Registry>().IncrementReportedSpammers();
 
                     this.Logger.Log(
                         this.PageBoardContext.PageUserID,
-                        $"User (Name{this.User.Item1.Name}/ID:{this.User.Item1.ID}) Report to StopForumSpam.com Failed",
-                        exception);
+                        "User Reported to StopForumSpam.com",
+                        $"User (Name:{this.User.Item1.Name}/ID:{this.User.Item1.ID}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.PageBoardContext.PageUser.DisplayOrUserName()}",
+                        EventLogTypes.SpamBotReported);
                 }
             }
-
-            switch (this.SuspendOrDelete.SelectedValue)
+            catch (Exception exception)
             {
-                case "delete":
-                    if (this.User.Item1.ID > 0)
-                    {
-                        // we are deleting user
-                        if (this.PageBoardContext.PageUserID == this.User.Item1.ID)
-                        {
-                            // deleting yourself isn't an option
-                            this.PageBoardContext.Notify(
-                                this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
-                                MessageTypes.danger);
-                            return;
-                        }
+                this.PageBoardContext.Notify(
+                    this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"),
+                    MessageTypes.danger);
 
-                        // get user(s) we are about to delete
-                        if (this.User.Item1.UserFlags.IsGuest)
-                        {
-                            // we cannot delete guest
-                            this.PageBoardContext.Notify(
-                                this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
-                                MessageTypes.danger);
-                            return;
-                        }
-
-                        if (this.User.Item4.IsAdmin == 1 ||
-                            this.User.Item1.UserFlags.IsHostAdmin)
-                        {
-                            // admin are not deletable either
-                            this.PageBoardContext.Notify(
-                                this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
-                                MessageTypes.danger);
-
-                            return;
-                        }
-
-                        // all is good, user can be deleted
-                        this.Get<IAspNetUsersHelper>().DeleteUser(this.User.Item1.ID);
-
-                        this.PageBoardContext.LoadMessage.AddSession(
-                            this.GetTextFormatted("MSG_USER_KILLED", this.User.Item1.Name),
-                            MessageTypes.success);
-
-                        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
-                    }
-
-                    break;
-                case "suspend":
-                    if (this.User.Item1.ID > 0)
-                    {
-                        this.GetRepository<User>().Suspend(
-                            this.User.Item1.ID,
-                            DateTime.UtcNow.AddYears(5));
-                    }
-
-                    break;
+                this.Logger.Log(
+                    this.PageBoardContext.PageUserID,
+                    $"User (Name{this.User.Item1.Name}/ID:{this.User.Item1.ID}) Report to StopForumSpam.com Failed",
+                    exception);
             }
-
-            // update the displayed data...
-            this.BindData();
         }
 
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        switch (this.SuspendOrDelete.SelectedValue)
         {
-            // this needs to be done just once, not during post-backs
-            if (this.IsPostBack)
-            {
-                return;
-            }
+            case "delete":
+                if (this.User.Item1.ID > 0)
+                {
+                    // we are deleting user
+                    if (this.PageBoardContext.PageUserID == this.User.Item1.ID)
+                    {
+                        // deleting yourself isn't an option
+                        this.PageBoardContext.Notify(
+                            this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
+                            MessageTypes.danger);
+                        return;
+                    }
 
-            this.SuspendOrDelete.Items.Add(new ListItem(this.GetText("ADMIN_EDITUSER", "DELETE_ACCOUNT"), "delete"));
-            this.SuspendOrDelete.Items.Add(
-                new ListItem(this.GetText("ADMIN_EDITUSER", "SUSPEND_ACCOUNT_USER"), "suspend"));
+                    // get user(s) we are about to delete
+                    if (this.User.Item1.UserFlags.IsGuest)
+                    {
+                        // we cannot delete guest
+                        this.PageBoardContext.Notify(
+                            this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
+                            MessageTypes.danger);
+                        return;
+                    }
 
-            this.SuspendOrDelete.Items[0].Selected = true;
+                    if (this.User.Item4.IsAdmin == 1 ||
+                        this.User.Item1.UserFlags.IsHostAdmin)
+                    {
+                        // admin are not deletable either
+                        this.PageBoardContext.Notify(
+                            this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
+                            MessageTypes.danger);
 
-            // bind data
-            this.BindData();
+                        return;
+                    }
+
+                    // all is good, user can be deleted
+                    this.Get<IAspNetUsersHelper>().DeleteUser(this.User.Item1.ID);
+
+                    this.PageBoardContext.LoadMessage.AddSession(
+                        this.GetTextFormatted("MSG_USER_KILLED", this.User.Item1.Name),
+                        MessageTypes.success);
+
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
+                }
+
+                break;
+            case "suspend":
+                if (this.User.Item1.ID > 0)
+                {
+                    this.GetRepository<User>().Suspend(
+                        this.User.Item1.ID,
+                        DateTime.UtcNow.AddYears(5));
+                }
+
+                break;
         }
 
-        /// <summary>
-        /// Bans the user IP Addresses.
-        /// </summary>
-        private void BanUserIps()
+        // update the displayed data...
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // this needs to be done just once, not during post-backs
+        if (this.IsPostBack)
         {
-            var allIps = this.GetRepository<BannedIP>().Get(x => x.BoardID == this.PageBoardContext.PageBoardID)
-                .Select(x => x.Mask).ToList();
+            return;
+        }
 
-            // ban user ips...
-            var name = this.User.Item1.DisplayOrUserName();
+        this.SuspendOrDelete.Items.Add(new ListItem(this.GetText("ADMIN_EDITUSER", "DELETE_ACCOUNT"), "delete"));
+        this.SuspendOrDelete.Items.Add(
+            new ListItem(this.GetText("ADMIN_EDITUSER", "SUSPEND_ACCOUNT_USER"), "suspend"));
 
-            this.IPAddresses.Except(allIps).ToList().Where(i => i.IsSet()).ForEach(
-                ip =>
+        this.SuspendOrDelete.Items[0].Selected = true;
+
+        // bind data
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Bans the user IP Addresses.
+    /// </summary>
+    private void BanUserIps()
+    {
+        var allIps = this.GetRepository<BannedIP>().Get(x => x.BoardID == this.PageBoardContext.PageBoardID)
+            .Select(x => x.Mask).ToList();
+
+        // ban user ips...
+        var name = this.User.Item1.DisplayOrUserName();
+
+        this.IPAddresses.Except(allIps).ToList().Where(i => i.IsSet()).ForEach(
+            ip =>
                 {
                     var linkUserBan = this.Get<ILocalization>().GetTextFormatted(
                         "ADMIN_EDITUSER",
@@ -266,81 +266,80 @@ namespace YAF.Controls
 
                     this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageBoardContext.PageUserID);
                 });
-        }
+    }
 
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        private void BindData()
-        {
-            this.ViewPostsLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
-                ForumPages.Search,
-                new
-                    {
-                        postedby = !this.User.Item1.UserFlags.IsGuest
-                                       ? this.User.Item1.DisplayOrUserName()
-                                       : this.Get<IAspNetUsersHelper>().GuestUser(this.PageBoardContext.PageBoardID).Name
-                    });
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private void BindData()
+    {
+        this.ViewPostsLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
+            ForumPages.Search,
+            new
+                {
+                    postedby = !this.User.Item1.UserFlags.IsGuest
+                                   ? this.User.Item1.DisplayOrUserName()
+                                   : this.Get<IAspNetUsersHelper>().GuestUser(this.PageBoardContext.PageBoardID).Name
+                });
 
-            this.ReportUserRow.Visible = this.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet();
+        this.ReportUserRow.Visible = this.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet();
 
-            // load ip address history for user...
-            this.IPAddresses.Take(5).ForEach(
-                ipAddress => this.IpAddresses.Text +=
-                                 $@"<a href=""{string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, ipAddress)}""
+        // load ip address history for user...
+        this.IPAddresses.Take(5).ForEach(
+            ipAddress => this.IpAddresses.Text +=
+                             $@"<a href=""{string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, ipAddress)}""
                                        target=""_blank""
                                        title=""{this.GetText("COMMON", "TT_IPDETAILS")}"">
                                        {ipAddress}
                                     </a>
                                     <br />");
 
-            // if no ip disable BanIp checkbox
-            if (!this.IPAddresses.Any())
-            {
-                this.BanIps.Checked = false;
-                this.BanIps.Enabled = false;
-                this.ReportUserRow.Visible = false;
-            }
-
-            // show post count...
-            this.PostCount.Text = this.AllPostsByUser.Count().ToString();
-
-            // get user's info
-            this.CurrentUser = this.GetRepository<User>().GetById(
-                this.User.Item1.ID);
-
-            if (this.CurrentUser.Suspended.HasValue)
-            {
-                this.SuspendedTo.Visible = true;
-
-                // is user suspended?
-                this.SuspendedTo.Text =
-                    $"<div class=\"alert alert-info\" role=\"alert\">{this.GetText("PROFILE", "ENDS")} {this.Get<IDateTimeService>().FormatDateTime(this.CurrentUser.Suspended.Value)}</div>";
-            }
-
-            this.DataBind();
-        }
-
-        /// <summary>
-        /// Deletes all user messages.
-        /// </summary>
-        private void DeleteAllUserMessages()
+        // if no ip disable BanIp checkbox
+        if (!this.IPAddresses.Any())
         {
-            // delete posts...
-            var messages = this.AllPostsByUser.Distinct().ToList();
-
-            messages.ForEach(
-                x => this.GetRepository<Message>().Delete(
-                    x.Topic.ForumID,
-                    x.Topic.ID,
-                    x.ID,
-                    true,
-                    string.Empty,
-                    true,
-                    true,
-                    true));
+            this.BanIps.Checked = false;
+            this.BanIps.Enabled = false;
+            this.ReportUserRow.Visible = false;
         }
 
-        #endregion
+        // show post count...
+        this.PostCount.Text = this.AllPostsByUser.Count().ToString();
+
+        // get user's info
+        this.CurrentUser = this.GetRepository<User>().GetById(
+            this.User.Item1.ID);
+
+        if (this.CurrentUser.Suspended.HasValue)
+        {
+            this.SuspendedTo.Visible = true;
+
+            // is user suspended?
+            this.SuspendedTo.Text =
+                $"<div class=\"alert alert-info\" role=\"alert\">{this.GetText("PROFILE", "ENDS")} {this.Get<IDateTimeService>().FormatDateTime(this.CurrentUser.Suspended.Value)}</div>";
+        }
+
+        this.DataBind();
     }
+
+    /// <summary>
+    /// Deletes all user messages.
+    /// </summary>
+    private void DeleteAllUserMessages()
+    {
+        // delete posts...
+        var messages = this.AllPostsByUser.Distinct().ToList();
+
+        messages.ForEach(
+            x => this.GetRepository<Message>().Delete(
+                x.Topic.ForumID,
+                x.Topic.ID,
+                x.ID,
+                true,
+                string.Empty,
+                true,
+                true,
+                true));
+    }
+
+    #endregion
 }

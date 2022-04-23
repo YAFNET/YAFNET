@@ -22,36 +22,35 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+/// <summary>
+/// The Multi Quote Button
+/// </summary>
+public class MultiQuoteButton
 {
     /// <summary>
-    /// The Multi Quote Button
+    /// Gets or sets the button id.
     /// </summary>
-    public class MultiQuoteButton
-    {
-        /// <summary>
-        /// Gets or sets the button id.
-        /// </summary>
-        public string ButtonId { get; set; }
+    public string ButtonId { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is multi quote button.
-        /// </summary>
-        public bool IsMultiQuoteButton { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is multi quote button.
+    /// </summary>
+    public bool IsMultiQuoteButton { get; set; }
 
-        /// <summary>
-        /// Gets or sets the message id.
-        /// </summary>
-        public int MessageId { get; set; }
+    /// <summary>
+    /// Gets or sets the message id.
+    /// </summary>
+    public int MessageId { get; set; }
 
-        /// <summary>
-        /// Gets or sets the topic id.
-        /// </summary>
-        public int TopicId { get; set; }
+    /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    public int TopicId { get; set; }
 
-        /// <summary>
-        /// Gets or sets the button CSS class.
-        /// </summary>
-        public string ButtonCssClass { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the button CSS class.
+    /// </summary>
+    public string ButtonCssClass { get; set; }
 }

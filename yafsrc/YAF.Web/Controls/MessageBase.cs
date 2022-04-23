@@ -21,49 +21,49 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web.UI;
+
+using YAF.Core.BaseControls;
+using YAF.Core.BBCode;
+using YAF.Core.Helpers;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The message base.
+/// </summary>
+public class MessageBase : BaseControl
 {
-    #region Using
+    #region Constants and Fields
 
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Web.UI;
-
-    using YAF.Core.BaseControls;
-    using YAF.Core.BBCode;
-    using YAF.Core.Helpers;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+    /// <summary>
+    ///   The _options.
+    /// </summary>
+    private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled;
 
     #endregion
 
     /// <summary>
-    /// The message base.
+    /// Gets CustomBBCode.
     /// </summary>
-    public class MessageBase : BaseControl
-    {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _options.
-        /// </summary>
-        private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled;
-
-        #endregion
-
-        /// <summary>
-        /// Gets CustomBBCode.
-        /// </summary>
-        protected IDictionary<Types.Models.BBCode, Regex> CustomBBCode =>
-            this.Get<IObjectStore>().GetOrSet(
-                "CustomBBCodeRegExDictionary",
-                () =>
+    protected IDictionary<Types.Models.BBCode, Regex> CustomBBCode =>
+        this.Get<IObjectStore>().GetOrSet(
+            "CustomBBCodeRegExDictionary",
+            () =>
                 {
                     var bbcodeTable = this.Get<IBBCode>().GetCustomBBCode();
                     return
@@ -71,85 +71,84 @@ namespace YAF.Web.Controls
                             codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
                 });
 
-        #region Methods
+    #region Methods
 
-        /// <summary>
-        /// The render modules in bb code.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        /// <param name="message">
-        /// The message
-        /// </param>
-        /// <param name="theseFlags">
-        /// The these flags.
-        /// </param>
-        /// <param name="displayUserId">
-        /// The display user id.
-        /// </param>
-        /// <param name="messageId">
-        /// The Message Id.
-        /// </param>
-        protected virtual void RenderModulesInBBCode(
+    /// <summary>
+    /// The render modules in bb code.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    /// <param name="message">
+    /// The message
+    /// </param>
+    /// <param name="theseFlags">
+    /// The these flags.
+    /// </param>
+    /// <param name="displayUserId">
+    /// The display user id.
+    /// </param>
+    /// <param name="messageId">
+    /// The Message Id.
+    /// </param>
+    protected virtual void RenderModulesInBBCode(
         [NotNull] HtmlTextWriter writer, [NotNull] string message, [NotNull] MessageFlags theseFlags, int? displayUserId, int? messageId)
-        {
-            var workingMessage = message;
+    {
+        var workingMessage = message;
 
-            // handle custom bbcodes row by row...
-            this.CustomBBCode.ForEach(
-                keyPair =>
+        // handle custom bbcodes row by row...
+        this.CustomBBCode.ForEach(
+            keyPair =>
+                {
+                    var codeRow = keyPair.Key;
+
+                    Match match;
+
+                    do
                     {
-                        var codeRow = keyPair.Key;
+                        match = keyPair.Value.Match(workingMessage);
 
-                        Match match;
-
-                        do
+                        if (!match.Success)
                         {
-                            match = keyPair.Value.Match(workingMessage);
-
-                            if (!match.Success)
-                            {
-                                continue;
-                            }
-
-                            var sb = new StringBuilder();
-
-                            var paramDic = new Dictionary<string, string> { { "inner", match.Groups["inner"].Value } };
-
-                            if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Any())
-                            {
-                                var vars = codeRow.Variables.Split(';');
-
-                                vars.Where(v => match.Groups[v] != null).ForEach(
-                                    v => paramDic.Add(v, match.Groups[v].Value));
-                            }
-
-                            sb.Append(workingMessage.Substring(0, match.Groups[0].Index));
-
-                            // create/render the control...
-                            var module = Type.GetType(codeRow.ModuleClass, true, false);
-                            var customModule = (BBCodeControl)Activator.CreateInstance(module);
-
-                            // assign parameters...
-                            customModule.CurrentMessageFlags = theseFlags;
-                            customModule.DisplayUserID = displayUserId;
-                            customModule.MessageID = messageId;
-                            customModule.Parameters = paramDic;
-
-                            // render this control...
-                            sb.Append(customModule.RenderToString());
-
-                            sb.Append(workingMessage.Substring(match.Groups[0].Index + match.Groups[0].Length));
-
-                            workingMessage = sb.ToString();
+                            continue;
                         }
-                        while (match.Success);
-                    });
 
-            writer.Write(workingMessage);
-        }
+                        var sb = new StringBuilder();
 
-        #endregion
+                        var paramDic = new Dictionary<string, string> { { "inner", match.Groups["inner"].Value } };
+
+                        if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Any())
+                        {
+                            var vars = codeRow.Variables.Split(';');
+
+                            vars.Where(v => match.Groups[v] != null).ForEach(
+                                v => paramDic.Add(v, match.Groups[v].Value));
+                        }
+
+                        sb.Append(workingMessage.Substring(0, match.Groups[0].Index));
+
+                        // create/render the control...
+                        var module = Type.GetType(codeRow.ModuleClass, true, false);
+                        var customModule = (BBCodeControl)Activator.CreateInstance(module);
+
+                        // assign parameters...
+                        customModule.CurrentMessageFlags = theseFlags;
+                        customModule.DisplayUserID = displayUserId;
+                        customModule.MessageID = messageId;
+                        customModule.Parameters = paramDic;
+
+                        // render this control...
+                        sb.Append(customModule.RenderToString());
+
+                        sb.Append(workingMessage.Substring(match.Groups[0].Index + match.Groups[0].Length));
+
+                        workingMessage = sb.ToString();
+                    }
+                    while (match.Success);
+                });
+
+        writer.Write(workingMessage);
     }
+
+    #endregion
 }

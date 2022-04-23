@@ -21,16 +21,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+namespace YAF.Controls;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// The forum icon legend.
+/// </summary>
+public partial class ForumIconLegend : BaseUserControl
 {
-    #region Using
-
-    #endregion
-
-    /// <summary>
-    /// The forum icon legend.
-    /// </summary>
-    public partial class ForumIconLegend : BaseUserControl
-    {
-    }
 }

@@ -21,43 +21,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+/// <summary>
+/// The UserIgnored interface.
+/// </summary>
+public interface IUserIgnored
 {
     /// <summary>
-    /// The UserIgnored interface.
+    /// The is ignored.
     /// </summary>
-    public interface IUserIgnored
-    {
-        /// <summary>
-        /// The is ignored.
-        /// </summary>
-        /// <param name="ignoredUserId">
-        /// The ignored user id.
-        /// </param>
-        /// <returns>
-        /// The is ignored.
-        /// </returns>
-        bool IsIgnored(int ignoredUserId);
+    /// <param name="ignoredUserId">
+    /// The ignored user id.
+    /// </param>
+    /// <returns>
+    /// The is ignored.
+    /// </returns>
+    bool IsIgnored(int ignoredUserId);
 
-        /// <summary>
-        /// The clear ignore cache.
-        /// </summary>
-        void ClearIgnoreCache();
+    /// <summary>
+    /// The clear ignore cache.
+    /// </summary>
+    void ClearIgnoreCache();
 
-        /// <summary>
-        /// The add ignored.
-        /// </summary>
-        /// <param name="ignoredUserId">
-        /// The ignored user id.
-        /// </param>
-        void AddIgnored(int ignoredUserId);
+    /// <summary>
+    /// The add ignored.
+    /// </summary>
+    /// <param name="ignoredUserId">
+    /// The ignored user id.
+    /// </param>
+    void AddIgnored(int ignoredUserId);
 
-        /// <summary>
-        /// The remove ignored.
-        /// </summary>
-        /// <param name="ignoredUserId">
-        /// The ignored user id.
-        /// </param>
-        void RemoveIgnored(int ignoredUserId);
-    }
+    /// <summary>
+    /// The remove ignored.
+    /// </summary>
+    /// <param name="ignoredUserId">
+    /// The ignored user id.
+    /// </param>
+    void RemoveIgnored(int ignoredUserId);
 }

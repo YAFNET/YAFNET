@@ -22,93 +22,92 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System;
+
+/// <summary>
+/// The user lazy data.
+/// </summary>
+public class UserLazyData
 {
-    using System;
+    /// <summary>
+    /// Gets or sets the provider user key.
+    /// </summary>
+    public string ProviderUserKey { get; set; }
 
     /// <summary>
-    /// The user lazy data.
+    /// Gets or sets the suspended.
     /// </summary>
-    public class UserLazyData
-    {
-        /// <summary>
-        /// Gets or sets the provider user key.
-        /// </summary>
-        public string ProviderUserKey { get; set; }
+    public DateTime? Suspended { get; set; }
 
-        /// <summary>
-        /// Gets or sets the suspended.
-        /// </summary>
-        public DateTime? Suspended { get; set; }
+    /// <summary>
+    /// Gets or sets the suspended reason.
+    /// </summary>
+    public string SuspendedReason { get; set; }
 
-        /// <summary>
-        /// Gets or sets the suspended reason.
-        /// </summary>
-        public string SuspendedReason { get; set; }
+    /// <summary>
+    /// Gets or sets the time zone user.
+    /// </summary>
+    public string TimeZoneUser { get; set; }
 
-        /// <summary>
-        /// Gets or sets the time zone user.
-        /// </summary>
-        public string TimeZoneUser { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is guest.
+    /// </summary>
+    public bool IsGuest { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is guest.
-        /// </summary>
-        public bool IsGuest { get; set; }
+    /// <summary>
+    /// Gets or sets the moderate posts.
+    /// </summary>
+    public int ModeratePosts { get; set; }
 
-        /// <summary>
-        /// Gets or sets the moderate posts.
-        /// </summary>
-        public int ModeratePosts { get; set; }
+    /// <summary>
+    /// Gets or sets the watch topic.
+    /// </summary>
+    public int WatchTopic { get; set; }
 
-        /// <summary>
-        /// Gets or sets the watch topic.
-        /// </summary>
-        public int WatchTopic { get; set; }
+    /// <summary>
+    /// Gets or sets the received thanks.
+    /// </summary>
+    public int ReceivedThanks { get; set; }
 
-        /// <summary>
-        /// Gets or sets the received thanks.
-        /// </summary>
-        public int ReceivedThanks { get; set; }
+    /// <summary>
+    /// Gets or sets the mention.
+    /// </summary>
+    public int Mention { get; set; }
 
-        /// <summary>
-        /// Gets or sets the mention.
-        /// </summary>
-        public int Mention { get; set; }
+    /// <summary>
+    /// Gets or sets the quoted.
+    /// </summary>
+    public int Quoted { get; set; }
 
-        /// <summary>
-        /// Gets or sets the quoted.
-        /// </summary>
-        public int Quoted { get; set; }
+    /// <summary>
+    /// Gets or sets the unread private.
+    /// </summary>
+    public int UnreadPrivate { get; set; }
 
-        /// <summary>
-        /// Gets or sets the unread private.
-        /// </summary>
-        public int UnreadPrivate { get; set; }
+    /// <summary>
+    /// Gets or sets the last unread pm.
+    /// </summary>
+    public DateTime? LastUnreadPm { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last unread pm.
-        /// </summary>
-        public DateTime? LastUnreadPm { get; set; }
+    /// <summary>
+    /// Gets or sets the pending buddies.
+    /// </summary>
+    public int PendingBuddies { get; set; }
 
-        /// <summary>
-        /// Gets or sets the pending buddies.
-        /// </summary>
-        public int PendingBuddies { get; set; }
+    /// <summary>
+    /// Gets or sets the last pending buddies.
+    /// </summary>
+    public DateTime LastPendingBuddies { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last pending buddies.
-        /// </summary>
-        public DateTime LastPendingBuddies { get; set; }
+    /// <summary>
+    /// Gets or sets the number of albums.
+    /// </summary>
+    public int NumAlbums { get; set; }
 
-        /// <summary>
-        /// Gets or sets the number of albums.
-        /// </summary>
-        public int NumAlbums { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether user has buddies.
-        /// </summary>
-        public bool UserHasBuddies { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets a value indicating whether user has buddies.
+    /// </summary>
+    public bool UserHasBuddies { get; set; }
 }

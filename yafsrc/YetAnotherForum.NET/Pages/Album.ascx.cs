@@ -22,115 +22,114 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+#region Using
+using YAF.Types.Models;
+#endregion
+
+/// <summary>
+/// the album page.
+/// </summary>
+public partial class Album : ForumPage
 {
-    #region Using
-    using YAF.Types.Models;
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the Album class.
+    /// </summary>
+    public Album()
+        : base("ALBUM", ForumPages.Album)
+    {
+    }
+
     #endregion
 
     /// <summary>
-    /// the album page.
+    ///   Gets user ID of edited user.
     /// </summary>
-    public partial class Album : ForumPage
+    protected int CurrentUserID =>
+        this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+
+    /// <summary>
+    /// The album id.
+    /// </summary>
+    protected int AlbumID =>
+        this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
+
+    #region Methods
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the Album class.
-        /// </summary>
-        public Album()
-            : base("ALBUM", ForumPages.Album)
+        if (!this.PageBoardContext.BoardSettings.EnableAlbum)
         {
+            this.Get<LinkBuilder>().AccessDenied();
         }
 
-        #endregion
-
-        /// <summary>
-        ///   Gets user ID of edited user.
-        /// </summary>
-        protected int CurrentUserID =>
-            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-        /// <summary>
-        /// The album id.
-        /// </summary>
-        protected int AlbumID =>
-            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        if (!this.Get<HttpRequestBase>().QueryString.Exists("u")
+            || !this.Get<HttpRequestBase>().QueryString.Exists("a"))
         {
-            if (!this.PageBoardContext.BoardSettings.EnableAlbum)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("u")
-                || !this.Get<HttpRequestBase>().QueryString.Exists("a"))
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            var displayName = this.Get<IUserDisplayName>().GetNameById(this.CurrentUserID);
-
-            var album = this.GetRepository<UserAlbum>().GetById(this.AlbumID);
-
-            // Generate the page links.
-            this.PageLinks.Clear();
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddUser(this.CurrentUserID, displayName);
-            this.PageLinks.AddLink(this.GetText("ALBUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Albums, new { u = this.CurrentUserID }));
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-            // Set the title text.
-            this.LocalizedLabel1.Param0 = this.Server.HtmlEncode(displayName);
-            this.LocalizedLabel1.Param1 =
-                this.Server.HtmlEncode(album.Title);
-
-            // Initialize the Album Image List control.
-            this.AlbumImageList1.UserID = this.CurrentUserID;
-            this.AlbumImageList1.UserAlbum = album;
-
-            this.EditAlbums.Visible = this.PageBoardContext.PageUserID == this.CurrentUserID;
+            this.Get<LinkBuilder>().AccessDenied();
         }
 
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-        }
+        var displayName = this.Get<IUserDisplayName>().GetNameById(this.CurrentUserID);
 
-        /// <summary>
-        /// Go Back to Albums Page
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Back_Click(object sender, EventArgs e)
-        {
-            this.Get<LinkBuilder>().Redirect(
-                ForumPages.Albums,
-                new { u = this.CurrentUserID });
-        }
+        var album = this.GetRepository<UserAlbum>().GetById(this.AlbumID);
 
-        /// <summary>
-        /// Redirect to the edit album page.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void EditAlbums_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<LinkBuilder>().Redirect(
-                ForumPages.EditAlbumImages,
-                new { a = this.AlbumID });
-        }
+        // Generate the page links.
+        this.PageLinks.Clear();
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddUser(this.CurrentUserID, displayName);
+        this.PageLinks.AddLink(this.GetText("ALBUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Albums, new { u = this.CurrentUserID }));
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-        #endregion
+        // Set the title text.
+        this.LocalizedLabel1.Param0 = this.Server.HtmlEncode(displayName);
+        this.LocalizedLabel1.Param1 =
+            this.Server.HtmlEncode(album.Title);
+
+        // Initialize the Album Image List control.
+        this.AlbumImageList1.UserID = this.CurrentUserID;
+        this.AlbumImageList1.UserAlbum = album;
+
+        this.EditAlbums.Visible = this.PageBoardContext.PageUserID == this.CurrentUserID;
     }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+    }
+
+    /// <summary>
+    /// Go Back to Albums Page
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Back_Click(object sender, EventArgs e)
+    {
+        this.Get<LinkBuilder>().Redirect(
+            ForumPages.Albums,
+            new { u = this.CurrentUserID });
+    }
+
+    /// <summary>
+    /// Redirect to the edit album page.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void EditAlbums_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.Get<LinkBuilder>().Redirect(
+            ForumPages.EditAlbumImages,
+            new { a = this.AlbumID });
+    }
+
+    #endregion
 }

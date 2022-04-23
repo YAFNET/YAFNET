@@ -21,79 +21,78 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the Category table.
+/// </summary>
+[Serializable]
+
+[UniqueConstraint(nameof(BoardID), nameof(Name))]
+public class Category : IEntity, IHaveID, IHaveBoardID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the Category table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
+    [AutoIncrement]
+    [Alias("CategoryID")]
+    public int ID { get; set; }
 
-    [UniqueConstraint(nameof(BoardID), nameof(Name))]
-    public class Category : IEntity, IHaveID, IHaveBoardID
+    /// <summary>
+    /// Gets or sets the board id.
+    /// </summary>
+    [References(typeof(Board))]
+    [Required]
+    [Index]
+    public int BoardID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    [Required]
+    [Index]
+    [StringLength(128)]
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the sort order.
+    /// </summary>
+    [Required]
+    public short SortOrder { get; set; }
+
+    /// <summary>
+    /// Gets or sets the category image.
+    /// </summary>
+    [StringLength(255)]
+    public string CategoryImage { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the flags.
+    /// </summary>
+    [Required]
+    [Default(1)]
+    public int Flags { get; set; }
+
+    /// <summary>
+    /// Gets or sets the category flags.
+    /// </summary>
+    [Ignore]
+    public CategoryFlags CategoryFlags
     {
-        #region Properties
+        get => new(this.Flags);
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("CategoryID")]
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
-        [References(typeof(Board))]
-        [Required]
-        [Index]
-        public int BoardID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        [Required]
-        [Index]
-        [StringLength(128)]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sort order.
-        /// </summary>
-        [Required]
-        public short SortOrder { get; set; }
-
-        /// <summary>
-        /// Gets or sets the category image.
-        /// </summary>
-        [StringLength(255)]
-        public string CategoryImage { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the flags.
-        /// </summary>
-        [Required]
-        [Default(1)]
-        public int Flags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the category flags.
-        /// </summary>
-        [Ignore]
-        public CategoryFlags CategoryFlags
-        {
-            get => new(this.Flags);
-
-            set => this.Flags = value.BitValue;
-        }
-
-        #endregion
+        set => this.Flags = value.BitValue;
     }
+
+    #endregion
 }

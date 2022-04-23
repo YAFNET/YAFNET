@@ -21,25 +21,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Events
-{
-  #region Using
+namespace YAF.Core.Events;
 
-  using System;
+#region Using
 
-  using YAF.Types.Interfaces.Events;
+using System;
 
-  #endregion
+using YAF.Types.Interfaces.Events;
 
-  /// <summary>
-  /// The event converter.
-  /// </summary>
-  /// <typeparam name="T">
-  /// The Typed Parameter
-  /// </typeparam>
-  public class FireEvent<T> : IFireEvent<T>
+#endregion
+
+/// <summary>
+/// The event converter.
+/// </summary>
+/// <typeparam name="T">
+/// The Typed Parameter
+/// </typeparam>
+public class FireEvent<T> : IFireEvent<T>
     where T : IAmEvent
-  {
+{
     #region Events
 
     /// <summary>
@@ -76,5 +76,4 @@ namespace YAF.Core.Events
     #endregion
 
     #endregion
-  }
 }

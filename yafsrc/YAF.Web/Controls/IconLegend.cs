@@ -21,147 +21,146 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+
+using YAF.Core.BaseControls;
+using YAF.Types;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// Icon Legend Control to Render Topic Icons
+/// </summary>
+public class IconLegend : BaseControl
 {
-    #region Using
+    #region Constructors and Destructors
 
-    using System;
-    using System.Web.UI;
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
-
-    using YAF.Core.BaseControls;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "IconLegend" /> class.
+    /// </summary>
+    public IconLegend()
+    {
+        this.Load += this.IconLegendLoad;
+    }
 
     #endregion
 
-    /// <summary>
-    /// Icon Legend Control to Render Topic Icons
-    /// </summary>
-    public class IconLegend : BaseControl
+    #region Methods
+
+    /// <summary>Gets the topic icon.</summary>
+    /// <param name="themeImageTag">The theme image tag.</param>
+    /// <returns>Returns the topic icon.</returns>
+    private static Icon GetTopicIcon(string themeImageTag)
     {
-        #region Constructors and Destructors
+        var iconNew = new Icon
+                          {
+                              IconName = "comment",
+                              IconStackName = "comment",
+                              IconStackType = "fa-inverse",
+                              IconStackSize = "fa-1x",
+                              IconType = "text-success"
+                          };
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "IconLegend" /> class.
-        /// </summary>
-        public IconLegend()
+        var icon = new Icon
+                       {
+                           IconName = "comment",
+                           IconStackName = "comment",
+                           IconStackType = "fa-inverse",
+                           IconStackSize = "fa-1x",
+                           IconType = "text-secondary"
+                       };
+
+        switch (themeImageTag)
         {
-            this.Load += this.IconLegendLoad;
+            case "NEW_POSTS_LOCKED":
+                iconNew.IconStackName = "lock";
+                return iconNew;
+            case "HOT_NEW_POSTS":
+                iconNew.IconStackName = "fire";
+                return iconNew;
+            case "NEW_POSTS":
+                iconNew.IconStackName = "comment";
+                return iconNew;
+            case "NO_NEW_POSTS_LOCKED":
+                icon.IconStackName = "lock";
+                return icon;
+            case "HOT_NO_NEW_POSTS":
+                icon.IconStackName = "fire";
+                return icon;
+            case "NO_NEW_POSTS":
+                icon.IconStackName = "comment";
+                return icon;
+            case "MOVED":
+                icon.IconStackName = "arrows-alt";
+                return icon;
+            default:
+                icon.IconStackName = "comment";
+                return icon;
         }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>Gets the topic icon.</summary>
-        /// <param name="themeImageTag">The theme image tag.</param>
-        /// <returns>Returns the topic icon.</returns>
-        private static Icon GetTopicIcon(string themeImageTag)
-        {
-            var iconNew = new Icon
-            {
-                IconName = "comment",
-                IconStackName = "comment",
-                IconStackType = "fa-inverse",
-                IconStackSize = "fa-1x",
-                IconType = "text-success"
-            };
-
-            var icon = new Icon
-            {
-                IconName = "comment",
-                IconStackName = "comment",
-                IconStackType = "fa-inverse",
-                IconStackSize = "fa-1x",
-                IconType = "text-secondary"
-            };
-
-            switch (themeImageTag)
-            {
-                case "NEW_POSTS_LOCKED":
-                    iconNew.IconStackName = "lock";
-                    return iconNew;
-                case "HOT_NEW_POSTS":
-                    iconNew.IconStackName = "fire";
-                    return iconNew;
-                case "NEW_POSTS":
-                    iconNew.IconStackName = "comment";
-                    return iconNew;
-                case "NO_NEW_POSTS_LOCKED":
-                    icon.IconStackName = "lock";
-                    return icon;
-                case "HOT_NO_NEW_POSTS":
-                    icon.IconStackName = "fire";
-                    return icon;
-                case "NO_NEW_POSTS":
-                    icon.IconStackName = "comment";
-                    return icon;
-                case "MOVED":
-                    icon.IconStackName = "arrows-alt";
-                    return icon;
-                default:
-                    icon.IconStackName = "comment";
-                    return icon;
-            }
-        }
-
-        /// <summary>
-        /// Icons the legend load.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void IconLegendLoad([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            string[] themeImageTags =
-                {
-                    "TOPIC_NEW", "TOPIC", "TOPIC_HOT_NEW", "TOPIC_HOT", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED",
-                    "TOPIC_MOVED"
-                };
-
-            string[] localizedTags =
-                {
-                    "NEW_POSTS", "NO_NEW_POSTS", "HOT_NEW_POSTS", "HOT_NO_NEW_POSTS", "NEW_POSTS_LOCKED",
-                    "NO_NEW_POSTS_LOCKED", "MOVED"
-                };
-
-            HtmlGenericControl row = null;
-
-            // add a table control
-            var table = new HtmlGenericControl("div");
-
-            this.Controls.Add(table);
-
-            for (var i = 0; i < themeImageTags.Length; i++)
-            {
-                if (i % 2 == 0 || row == null)
-                {
-                    // add row
-                    row = new HtmlGenericControl("div");
-                    row.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "row");
-                    table.Controls.Add(row);
-                }
-
-                // add column
-                var col = new HtmlGenericControl("div");
-                col.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "col");
-                row.Controls.Add(col);
-
-                // add the themed icons
-                col.Controls.Add(GetTopicIcon(localizedTags[i]));
-
-                var descriptionText = new Label
-                {
-                    Text = this.GetText(localizedTags[i]),
-                    CssClass = "small"
-                };
-
-                // localized text describing the image
-                col.Controls.Add(descriptionText);
-            }
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Icons the legend load.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    private void IconLegendLoad([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        string[] themeImageTags =
+            {
+                "TOPIC_NEW", "TOPIC", "TOPIC_HOT_NEW", "TOPIC_HOT", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED",
+                "TOPIC_MOVED"
+            };
+
+        string[] localizedTags =
+            {
+                "NEW_POSTS", "NO_NEW_POSTS", "HOT_NEW_POSTS", "HOT_NO_NEW_POSTS", "NEW_POSTS_LOCKED",
+                "NO_NEW_POSTS_LOCKED", "MOVED"
+            };
+
+        HtmlGenericControl row = null;
+
+        // add a table control
+        var table = new HtmlGenericControl("div");
+
+        this.Controls.Add(table);
+
+        for (var i = 0; i < themeImageTags.Length; i++)
+        {
+            if (i % 2 == 0 || row == null)
+            {
+                // add row
+                row = new HtmlGenericControl("div");
+                row.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "row");
+                table.Controls.Add(row);
+            }
+
+            // add column
+            var col = new HtmlGenericControl("div");
+            col.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "col");
+            row.Controls.Add(col);
+
+            // add the themed icons
+            col.Controls.Add(GetTopicIcon(localizedTags[i]));
+
+            var descriptionText = new Label
+                                      {
+                                          Text = this.GetText(localizedTags[i]),
+                                          CssClass = "small"
+                                      };
+
+            // localized text describing the image
+            col.Controls.Add(descriptionText);
+        }
+    }
+
+    #endregion
 }

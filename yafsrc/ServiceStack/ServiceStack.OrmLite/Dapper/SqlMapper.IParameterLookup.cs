@@ -4,24 +4,23 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-namespace ServiceStack.OrmLite.Dapper
+namespace ServiceStack.OrmLite.Dapper;
+
+/// <summary>
+/// Class SqlMapper.
+/// </summary>
+public static partial class SqlMapper
 {
     /// <summary>
-    /// Class SqlMapper.
+    /// Extends IDynamicParameters providing by-name lookup of parameter values
     /// </summary>
-    public static partial class SqlMapper
+    public interface IParameterLookup : IDynamicParameters
     {
         /// <summary>
-        /// Extends IDynamicParameters providing by-name lookup of parameter values
+        /// Get the value of the specified parameter (return null if not found)
         /// </summary>
-        public interface IParameterLookup : IDynamicParameters
-        {
-            /// <summary>
-            /// Get the value of the specified parameter (return null if not found)
-            /// </summary>
-            /// <param name="name">The name of the parameter to get.</param>
-            /// <returns>System.Object.</returns>
-            object this[string name] { get; }
-        }
+        /// <param name="name">The name of the parameter to get.</param>
+        /// <returns>System.Object.</returns>
+        object this[string name] { get; }
     }
 }

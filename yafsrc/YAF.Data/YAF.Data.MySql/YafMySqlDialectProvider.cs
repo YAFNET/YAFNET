@@ -22,30 +22,29 @@
  * under the License.
  */
 
-namespace YAF.Data.MySql
+namespace YAF.Data.MySql;
+
+using ServiceStack.OrmLite.MySql;
+
+/// <summary>
+/// The YAF MySQL ORM lite dialect provider.
+/// </summary>
+public class YafMySqlDialectProvider : MySqlDialectProvider
 {
-    using ServiceStack.OrmLite.MySql;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The YAF MySQL ORM lite dialect provider.
+    /// Initializes a new instance of the <see cref="YafMySqlDialectProvider"/> class.
     /// </summary>
-    public class YafMySqlDialectProvider : MySqlDialectProvider
+    public YafMySqlDialectProvider()
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="YafMySqlDialectProvider"/> class.
-        /// </summary>
-        public YafMySqlDialectProvider()
-        {
-            this.NamingStrategy = new YafNamingStrategyBaseOverride();
-        }
-
-        /// <summary>
-        /// Gets or sets the instance.
-        /// </summary>
-        public static new YafMySqlDialectProvider Instance { get; set; } = new ();
-
-        #endregion
+        this.NamingStrategy = new YafNamingStrategyBaseOverride();
     }
+
+    /// <summary>
+    /// Gets or sets the instance.
+    /// </summary>
+    public static new YafMySqlDialectProvider Instance { get; set; } = new ();
+
+    #endregion
 }

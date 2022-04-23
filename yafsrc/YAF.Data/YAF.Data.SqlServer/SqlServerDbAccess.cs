@@ -21,41 +21,40 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Data.SqlServer
+namespace YAF.Data.SqlServer;
+
+#region Using
+
+using System;
+using System.Data.Common;
+
+using YAF.Core.Data;
+using YAF.Types;
+
+#endregion
+
+/// <summary>
+/// The MS SQL Database access.
+/// </summary>
+public class SqlServerDbAccess : DbAccessBase
 {
-    #region Using
+    /// <summary>
+    /// The provider type name.
+    /// </summary>
+    public const string ProviderTypeName = "System.Data.SqlClient";
 
-    using System;
-    using System.Data.Common;
-
-    using YAF.Core.Data;
-    using YAF.Types;
-
-    #endregion
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The MS SQL Database access.
+    /// Initializes a new instance of the <see cref="SqlServerDbAccess"/> class.
     /// </summary>
-    public class SqlServerDbAccess : DbAccessBase
+    /// <param name="dbProviderFactory">
+    /// The database provider factory.
+    /// </param>
+    public SqlServerDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
+        : base(dbProviderFactory, new SqlServerDbInformation())
     {
-        /// <summary>
-        /// The provider type name.
-        /// </summary>
-        public const string ProviderTypeName = "System.Data.SqlClient";
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SqlServerDbAccess"/> class.
-        /// </summary>
-        /// <param name="dbProviderFactory">
-        /// The database provider factory.
-        /// </param>
-        public SqlServerDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
-            : base(dbProviderFactory, new SqlServerDbInformation())
-        {
-        }
-
-        #endregion
     }
+
+    #endregion
 }

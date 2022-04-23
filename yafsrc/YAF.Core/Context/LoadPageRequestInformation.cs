@@ -21,106 +21,105 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Context
-{
-    using System.Web;
+namespace YAF.Core.Context;
 
-    using YAF.Configuration;
-    using YAF.Core.Helpers;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
+using System.Web;
+
+using YAF.Configuration;
+using YAF.Core.Helpers;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// The load page request information.
+/// </summary>
+[ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
+public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
+{
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The load page request information.
+    /// Initializes a new instance of the <see cref="LoadPageRequestInformation"/> class.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
-    public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <param name="httpRequestBase">
+    /// The http request base.
+    /// </param>
+    public LoadPageRequestInformation(
+        [NotNull] IServiceLocator serviceLocator, [NotNull] HttpRequestBase httpRequestBase)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LoadPageRequestInformation"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <param name="httpRequestBase">
-        /// The http request base.
-        /// </param>
-        public LoadPageRequestInformation(
-            [NotNull] IServiceLocator serviceLocator, [NotNull] HttpRequestBase httpRequestBase)
-        {
-            this.ServiceLocator = serviceLocator;
-            this.HttpRequestBase = httpRequestBase;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets HttpRequestBase.
-        /// </summary>
-        public HttpRequestBase HttpRequestBase { get; set; }
-
-        /// <summary>
-        ///   Gets Order.
-        /// </summary>
-        public int Order => 10;
-
-        /// <summary>
-        ///   Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IHandleEvent<InitPageLoadEvent>
-
-        /// <summary>
-        /// Handles the specified @event.
-        /// </summary>
-        /// <param name="event">The @event.</param>
-        public void Handle([NotNull] InitPageLoadEvent @event)
-        {
-            var browser = $"{this.HttpRequestBase.Browser.Browser} {this.HttpRequestBase.Browser.Version}";
-            var platform = this.HttpRequestBase.Browser.Platform;
-
-            var userAgent = this.HttpRequestBase.UserAgent;
-
-            // try and get more verbose platform name by ref and other parameters
-            UserAgentHelper.Platform(
-                userAgent,
-                this.HttpRequestBase.Browser.Crawler,
-                ref platform,
-                ref browser,
-                out var isSearchEngine);
-
-            var doNotTrack = !this.Get<BoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
-
-            // don't track if this is a feed reader. May be to make it switchable in host settings.
-            // we don't have page 'g' token for the feed page.
-            if (browser.Contains("Unknown") && !doNotTrack)
-            {
-                doNotTrack = UserAgentHelper.IsFeedReader(userAgent);
-            }
-
-            @event.UserRequestData.DontTrack = doNotTrack;
-            @event.UserRequestData.UserAgent = userAgent;
-            @event.UserRequestData.IsSearchEngine = isSearchEngine;
-            @event.UserRequestData.Browser = browser;
-            @event.UserRequestData.Platform = platform;
-
-            BoardContext.Current.Vars["DontTrack"] = doNotTrack;
-        }
-
-        #endregion
-
-        #endregion
+        this.ServiceLocator = serviceLocator;
+        this.HttpRequestBase = httpRequestBase;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets HttpRequestBase.
+    /// </summary>
+    public HttpRequestBase HttpRequestBase { get; set; }
+
+    /// <summary>
+    ///   Gets Order.
+    /// </summary>
+    public int Order => 10;
+
+    /// <summary>
+    ///   Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IHandleEvent<InitPageLoadEvent>
+
+    /// <summary>
+    /// Handles the specified @event.
+    /// </summary>
+    /// <param name="event">The @event.</param>
+    public void Handle([NotNull] InitPageLoadEvent @event)
+    {
+        var browser = $"{this.HttpRequestBase.Browser.Browser} {this.HttpRequestBase.Browser.Version}";
+        var platform = this.HttpRequestBase.Browser.Platform;
+
+        var userAgent = this.HttpRequestBase.UserAgent;
+
+        // try and get more verbose platform name by ref and other parameters
+        UserAgentHelper.Platform(
+            userAgent,
+            this.HttpRequestBase.Browser.Crawler,
+            ref platform,
+            ref browser,
+            out var isSearchEngine);
+
+        var doNotTrack = !this.Get<BoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
+
+        // don't track if this is a feed reader. May be to make it switchable in host settings.
+        // we don't have page 'g' token for the feed page.
+        if (browser.Contains("Unknown") && !doNotTrack)
+        {
+            doNotTrack = UserAgentHelper.IsFeedReader(userAgent);
+        }
+
+        @event.UserRequestData.DontTrack = doNotTrack;
+        @event.UserRequestData.UserAgent = userAgent;
+        @event.UserRequestData.IsSearchEngine = isSearchEngine;
+        @event.UserRequestData.Browser = browser;
+        @event.UserRequestData.Platform = platform;
+
+        BoardContext.Current.Vars["DontTrack"] = doNotTrack;
+    }
+
+    #endregion
+
+    #endregion
 }

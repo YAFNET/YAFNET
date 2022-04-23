@@ -6,28 +6,27 @@
 // ***********************************************************************
 
 
-namespace ServiceStack.DataAnnotations
+namespace ServiceStack.DataAnnotations;
+
+/// <summary>
+/// Class DescriptionAttribute.
+/// Implements the <see cref="ServiceStack.AttributeBase" />
+/// </summary>
+/// <seealso cref="ServiceStack.AttributeBase" />
+public class DescriptionAttribute : AttributeBase
 {
     /// <summary>
-    /// Class DescriptionAttribute.
-    /// Implements the <see cref="ServiceStack.AttributeBase" />
+    /// Gets or sets the description.
     /// </summary>
-    /// <seealso cref="ServiceStack.AttributeBase" />
-    public class DescriptionAttribute : AttributeBase
-    {
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        /// <value>The description.</value>
-        public string Description { get; set; }
+    /// <value>The description.</value>
+    public string Description { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DescriptionAttribute"/> class.
-        /// </summary>
-        /// <param name="description">The description.</param>
-        public DescriptionAttribute(string description)
-        {
-            Description = description;
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DescriptionAttribute"/> class.
+    /// </summary>
+    /// <param name="description">The description.</param>
+    public DescriptionAttribute(string description)
+    {
+        Description = description;
     }
 }

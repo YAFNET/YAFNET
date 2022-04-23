@@ -21,43 +21,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.BBCodes
+namespace YAF.Web.BBCodes;
+
+using System.Web.UI;
+
+using YAF.Core.BBCode;
+using YAF.Core.Extensions;
+
+/// <summary>
+/// The spoiler bb code module.
+/// </summary>
+public class SpoilerBBCodeModule : BBCodeControl
 {
-    using System.Web.UI;
-
-    using YAF.Core.BBCode;
-    using YAF.Core.Extensions;
-
     /// <summary>
-    /// The spoiler bb code module.
+    /// The render.
     /// </summary>
-    public class SpoilerBBCodeModule : BBCodeControl
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
     {
-        /// <summary>
-        /// The render.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render(HtmlTextWriter writer)
-        {
-            var spoilerTitle = this.HtmlEncode(
-                this.LocalizedString(
-                    "SPOILERMOD_TOOLTIP",
-                    "Click here to show or hide the hidden text (also known as a spoiler)"));
+        var spoilerTitle = this.HtmlEncode(
+            this.LocalizedString(
+                "SPOILERMOD_TOOLTIP",
+                "Click here to show or hide the hidden text (also known as a spoiler)"));
 
-            writer.Write("<!-- BEGIN spoiler -->");
-            writer.Write(
-                @"<p>
+        writer.Write("<!-- BEGIN spoiler -->");
+        writer.Write(
+            @"<p>
                       <a class=""btn btn-secondary btn-sm"" data-bs-toggle=""collapse"" href=""#{0}"" role=""button"" aria-expanded=""false"" title=""{2}"">{1}</a>
                   </p>
                   <div class=""collapse"" id=""{0}""><div class=""card card-body"">",
-                this.GetUniqueID("spoil_"),
-                this.HtmlEncode(this.LocalizedString("SPOILERMOD_SHOW", "Show Spoiler")),
-                spoilerTitle);
-            writer.Write(this.Parameters["inner"]);
-            writer.Write("</div></div>");
-            writer.Write("<!-- END spoiler -->");
-        }
+            this.GetUniqueID("spoil_"),
+            this.HtmlEncode(this.LocalizedString("SPOILERMOD_SHOW", "Show Spoiler")),
+            spoilerTitle);
+        writer.Write(this.Parameters["inner"]);
+        writer.Write("</div></div>");
+        writer.Write("<!-- END spoiler -->");
     }
 }

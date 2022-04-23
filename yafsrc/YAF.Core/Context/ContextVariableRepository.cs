@@ -22,21 +22,21 @@
  * under the License.
  */
 
-namespace YAF.Core.Context
+namespace YAF.Core.Context;
+
+#region Using
+
+using YAF.Configuration.Pattern;
+using YAF.Types;
+
+#endregion
+
+/// <summary>
+/// Place to put helper properties for context variables inside.
+/// </summary>
+public class ContextVariableRepository
 {
-  #region Using
-
-  using YAF.Configuration.Pattern;
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// Place to put helper properties for context variables inside.
-  /// </summary>
-  public class ContextVariableRepository
-  {
-      #region Constructors and Destructors
+    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ContextVariableRepository"/> class.
@@ -46,7 +46,7 @@ namespace YAF.Core.Context
     /// </param>
     public ContextVariableRepository([NotNull] TypeDictionary dictionary)
     {
-      this.Vars = dictionary;
+        this.Vars = dictionary;
     }
 
     #endregion
@@ -59,9 +59,9 @@ namespace YAF.Core.Context
     /// </summary>
     public bool IsSuspendCheckEnabled
     {
-      get => this.Vars.AsBoolean("IsSuspendCheckEnabled") ?? true;
+        get => this.Vars.AsBoolean("IsSuspendCheckEnabled") ?? true;
 
-      set => this.Vars["IsSuspendCheckEnabled"] = value;
+        set => this.Vars["IsSuspendCheckEnabled"] = value;
     }
 
     /// <summary>
@@ -70,5 +70,4 @@ namespace YAF.Core.Context
     protected TypeDictionary Vars { get; }
 
     #endregion
-  }
 }

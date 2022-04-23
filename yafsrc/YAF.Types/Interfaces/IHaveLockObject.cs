@@ -21,12 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The i have lock object.
+/// </summary>
+public interface IHaveLockObject : IReadValue<object>
 {
-    /// <summary>
-    /// The i have lock object.
-    /// </summary>
-    public interface IHaveLockObject : IReadValue<object>
-    {
-    }
 }

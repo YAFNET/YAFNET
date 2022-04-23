@@ -21,61 +21,60 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+///     A class which represents the yaf_vaccess_null views.
+/// </summary>
+[Serializable]
+public partial class vaccess_null : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Constructors and Destructors
 
     /// <summary>
-    ///     A class which represents the yaf_vaccess_null views.
+    /// Initializes a new instance of the <see cref="vaccess_user"/> class.
     /// </summary>
-    [Serializable]
-    public partial class vaccess_null : IEntity
+    public vaccess_null()
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="vaccess_user"/> class.
-        /// </summary>
-        public vaccess_null()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        [Required]
-        public int UserID { get; set; }
-        [Required]
-        public int ForumID { get; set; }
-        [Required]
-        public int AccessMaskID { get; set; }
-        public int? GroupID { get; set; }
-        public int? ReadAccess { get; set; }
-        public int? PostAccess { get; set; }
-        public int? ReplyAccess { get; set; }
-        public int? PriorityAccess { get; set; }
-        public int? PollAccess { get; set; }
-        public int? VoteAccess { get; set; }
-        public int? ModeratorAccess { get; set; }
-        public int? EditAccess { get; set; }
-        public int? DeleteAccess { get; set; }
-        public int? AdminGroup { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
-
-        #endregion
+        this.OnCreated();
     }
+
+    #endregion
+
+    #region Public Properties
+
+    [Required]
+    public int UserID { get; set; }
+    [Required]
+    public int ForumID { get; set; }
+    [Required]
+    public int AccessMaskID { get; set; }
+    public int? GroupID { get; set; }
+    public int? ReadAccess { get; set; }
+    public int? PostAccess { get; set; }
+    public int? ReplyAccess { get; set; }
+    public int? PriorityAccess { get; set; }
+    public int? PollAccess { get; set; }
+    public int? VoteAccess { get; set; }
+    public int? ModeratorAccess { get; set; }
+    public int? EditAccess { get; set; }
+    public int? DeleteAccess { get; set; }
+    public int? AdminGroup { get; set; }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The on created.
+    /// </summary>
+    partial void OnCreated();
+
+    #endregion
 }

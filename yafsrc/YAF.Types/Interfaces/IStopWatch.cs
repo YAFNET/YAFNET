@@ -21,31 +21,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The StopWatch interface.
+/// </summary>
+public interface IStopWatch
 {
     /// <summary>
-    /// The StopWatch interface.
+    /// Gets Duration.
     /// </summary>
-    public interface IStopWatch
-    {
-        /// <summary>
-        /// Gets Duration.
-        /// </summary>
-        double Duration { get; }
+    double Duration { get; }
 
-        /// <summary>
-        /// The start.
-        /// </summary>
-        void Start();
+    /// <summary>
+    /// The start.
+    /// </summary>
+    void Start();
 
-        /// <summary>
-        /// The stop.
-        /// </summary>
-        void Stop();
+    /// <summary>
+    /// The stop.
+    /// </summary>
+    void Stop();
 
-        /// <summary>
-        /// The reset.
-        /// </summary>
-        void Reset();
-    }
+    /// <summary>
+    /// The reset.
+    /// </summary>
+    void Reset();
 }

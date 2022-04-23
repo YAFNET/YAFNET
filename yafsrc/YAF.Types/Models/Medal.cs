@@ -21,63 +21,62 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite;
+
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+///     A class which represents the Medal table.
+/// </summary>
+[Serializable]
+public class Medal : IEntity, IHaveBoardID, IHaveID
 {
-    using System;
+    #region Public Properties
 
-    using ServiceStack.DataAnnotations;
-    using ServiceStack.OrmLite;
+    [Required]
+    public int BoardID { get; set; }
 
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
+    [Alias("MedalID")]
+    [AutoIncrement]
+    [PrimaryKey]
+    public int ID { get; set; }
 
-    /// <summary>
-    ///     A class which represents the Medal table.
-    /// </summary>
-    [Serializable]
-    public class Medal : IEntity, IHaveBoardID, IHaveID
+    [Required]
+    [StringLength(100)]
+    public string Name { get; set; }
+
+    [CustomField(OrmLiteVariables.MaxText)]
+    public string Description { get; set; }
+
+    [Required]
+    [StringLength(100)]
+    public string Message { get; set; }
+
+    [StringLength(50)]
+    public string Category { get; set; }
+
+    [Required]
+    [StringLength(250)]
+    public string MedalURL { get; set; }
+
+    [Required]
+    [Default(0)]
+    public int Flags { get; set; }
+
+    [Ignore]
+    public MedalFlags MedalFlags
     {
-        #region Public Properties
+        get => new(this.Flags);
 
-        [Required]
-        public int BoardID { get; set; }
-
-        [Alias("MedalID")]
-        [AutoIncrement]
-        [PrimaryKey]
-        public int ID { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Name { get; set; }
-
-        [CustomField(OrmLiteVariables.MaxText)]
-        public string Description { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Message { get; set; }
-
-        [StringLength(50)]
-        public string Category { get; set; }
-
-        [Required]
-        [StringLength(250)]
-        public string MedalURL { get; set; }
-
-        [Required]
-        [Default(0)]
-        public int Flags { get; set; }
-
-        [Ignore]
-        public MedalFlags MedalFlags
-        {
-            get => new(this.Flags);
-
-            set => this.Flags = value.BitValue;
-        }
-
-        #endregion
+        set => this.Flags = value.BitValue;
     }
+
+    #endregion
 }

@@ -21,248 +21,248 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core;
+
+#region Using
+
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
+using Autofac;
+using Autofac.Core;
+
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+using NamedParameter = YAF.Types.Objects.NamedParameter;
+using TypedParameter = YAF.Types.Objects.TypedParameter;
+
+#endregion
+
+/// <summary>
+///     The AutoFac service locator provider.
+/// </summary>
+public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServices
 {
-    #region Using
+    #region Constants
 
-    using System;
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-
-    using Autofac;
-    using Autofac.Core;
-
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-
-    using NamedParameter = YAF.Types.Objects.NamedParameter;
-    using TypedParameter = YAF.Types.Objects.TypedParameter;
+    /// <summary>
+    ///     The default flags.
+    /// </summary>
+    private const BindingFlags DefaultFlags = BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.Instance;
 
     #endregion
 
+    #region Static Fields
+
     /// <summary>
-    ///     The AutoFac service locator provider.
+    ///     The _injection cache.
     /// </summary>
-    public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServices
+    private static readonly
+        ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> InjectionCache =
+            new();
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AutoFacServiceLocatorProvider"/> class.
+    /// </summary>
+    /// <param name="container">
+    /// The container.
+    /// </param>
+    public AutoFacServiceLocatorProvider([NotNull] ILifetimeScope container)
     {
-        #region Constants
+        CodeContracts.VerifyNotNull(container);
 
-        /// <summary>
-        ///     The default flags.
-        /// </summary>
-        private const BindingFlags DefaultFlags = BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.Instance;
+        this.Container = container;
+    }
 
-        #endregion
+    #endregion
 
-        #region Static Fields
+    #region Public Properties
 
-        /// <summary>
-        ///     The _injection cache.
-        /// </summary>
-        private static readonly
-            ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> InjectionCache =
-                new();
+    /// <summary>
+    ///     Gets or sets Container.
+    /// </summary>
+    public ILifetimeScope Container { get; set; }
 
-        #endregion
+    /// <summary>
+    /// Gets the tag.
+    /// </summary>
+    public object Tag => this.Container.Tag;
 
-        #region Constructors and Destructors
+    #endregion
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AutoFacServiceLocatorProvider"/> class.
-        /// </summary>
-        /// <param name="container">
-        /// The container.
-        /// </param>
-        public AutoFacServiceLocatorProvider([NotNull] ILifetimeScope container)
+    #region Public Methods and Operators
+
+    /// <summary>
+    /// The create scope.
+    /// </summary>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IScopeServiceLocator"/>.
+    /// </returns>
+    public IScopeServiceLocator CreateScope(object tag = null)
+    {
+        var newLifetime = this.Container.BeginLifetimeScope(
+            tag,
+            builder => builder.Register(c => c.Resolve<AutoFacServiceLocatorProvider>()).As<IScopeServiceLocator>()
+                .ExternallyOwned());
+
+        return newLifetime.Resolve<IScopeServiceLocator>();
+    }
+
+    /// <summary>
+    ///     The dispose.
+    /// </summary>
+    public void Dispose()
+    {
+        this.Container.Dispose();
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <returns>
+    /// The get.
+    /// </returns>
+    public object Get(Type serviceType)
+    {
+        CodeContracts.VerifyNotNull(serviceType);
+
+        return this.Container.Resolve(serviceType);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <returns>
+    /// The get.
+    /// </returns>
+    /// <exception cref="NotSupportedException">
+    /// <c>NotSupportedException</c>.
+    /// </exception>
+    public object Get(Type serviceType, IEnumerable<IServiceLocationParameter> parameters)
+    {
+        CodeContracts.VerifyNotNull(serviceType);
+        CodeContracts.VerifyNotNull(parameters);
+
+        return this.Container.Resolve(serviceType, ConvertToAutofacParameters(parameters));
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <returns>
+    /// The get.
+    /// </returns>
+    public object Get(Type serviceType, string named)
+    {
+        CodeContracts.VerifyNotNull(serviceType);
+        CodeContracts.VerifyNotNull(named);
+
+        return this.Container.ResolveNamed(named, serviceType);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <returns>
+    /// The get.
+    /// </returns>
+    public object Get(Type serviceType, string named, IEnumerable<IServiceLocationParameter> parameters)
+    {
+        CodeContracts.VerifyNotNull(serviceType);
+        CodeContracts.VerifyNotNull(named);
+        CodeContracts.VerifyNotNull(parameters);
+
+        return this.Container.ResolveNamed(named, serviceType, ConvertToAutofacParameters(parameters));
+    }
+
+    /// <summary>
+    /// Gets the service object of the specified type.
+    /// </summary>
+    /// <returns>
+    /// A service object of type <paramref name="serviceType"/>.
+    ///     -or-
+    ///     null if there is no service object of type <paramref name="serviceType"/>.
+    /// </returns>
+    /// <param name="serviceType">
+    /// An object that specifies the type of service object to get.
+    /// </param>
+    /// <filterpriority>2</filterpriority>
+    [CanBeNull]
+    public object GetService([NotNull] Type serviceType)
+    {
+        return this.TryGet(serviceType, out var instance) ? instance : null;
+    }
+
+    /// <summary>
+    /// Inject an object with services.
+    /// </summary>
+    /// <typeparam name="TAttribute">
+    /// TAttribute is the attribute that marks properties to inject to.
+    /// </typeparam>
+    /// <param name="instance">
+    /// the object to inject
+    /// </param>
+    public void InjectMarked<TAttribute>(object instance) where TAttribute : Attribute
+    {
+        CodeContracts.VerifyNotNull(instance);
+
+        // Container.InjectUnsetProperties(instance);
+        var type = instance.GetType();
+        var attributeType = typeof(TAttribute);
+
+        var keyPair = new KeyValuePair<Type, Type>(type, attributeType);
+
+        if (!InjectionCache.TryGetValue(keyPair, out var properties))
         {
-            CodeContracts.VerifyNotNull(container);
+            // find them...
+            properties =
+                type.GetProperties(DefaultFlags)
+                    .Where(p => p.GetSetMethod(false) != null && !p.GetIndexParameters().Any() && p.IsDefined(attributeType, true))
+                    .Select(p => Tuple.Create(p.PropertyType, p.DeclaringType, new Action<object, object>((i, v) => p.SetValue(i, v, null))))
+                    .ToList();
 
-            this.Container = container;
+            InjectionCache.AddOrUpdate(keyPair, k => properties, (k, v) => properties);
         }
 
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets or sets Container.
-        /// </summary>
-        public ILifetimeScope Container { get; set; }
-
-        /// <summary>
-        /// Gets the tag.
-        /// </summary>
-        public object Tag => this.Container.Tag;
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The create scope.
-        /// </summary>
-        /// <param name="tag">
-        /// The tag.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IScopeServiceLocator"/>.
-        /// </returns>
-        public IScopeServiceLocator CreateScope(object tag = null)
-        {
-            var newLifetime = this.Container.BeginLifetimeScope(
-                tag,
-                builder => builder.Register(c => c.Resolve<AutoFacServiceLocatorProvider>()).As<IScopeServiceLocator>()
-                    .ExternallyOwned());
-
-            return newLifetime.Resolve<IScopeServiceLocator>();
-        }
-
-        /// <summary>
-        ///     The dispose.
-        /// </summary>
-        public void Dispose()
-        {
-            this.Container.Dispose();
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceType">
-        /// The service type.
-        /// </param>
-        /// <returns>
-        /// The get.
-        /// </returns>
-        public object Get(Type serviceType)
-        {
-            CodeContracts.VerifyNotNull(serviceType);
-
-            return this.Container.Resolve(serviceType);
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceType">
-        /// The service type.
-        /// </param>
-        /// <param name="parameters">
-        /// The parameters.
-        /// </param>
-        /// <returns>
-        /// The get.
-        /// </returns>
-        /// <exception cref="NotSupportedException">
-        /// <c>NotSupportedException</c>.
-        /// </exception>
-        public object Get(Type serviceType, IEnumerable<IServiceLocationParameter> parameters)
-        {
-            CodeContracts.VerifyNotNull(serviceType);
-            CodeContracts.VerifyNotNull(parameters);
-
-            return this.Container.Resolve(serviceType, ConvertToAutofacParameters(parameters));
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceType">
-        /// The service type.
-        /// </param>
-        /// <param name="named">
-        /// The named.
-        /// </param>
-        /// <returns>
-        /// The get.
-        /// </returns>
-        public object Get(Type serviceType, string named)
-        {
-            CodeContracts.VerifyNotNull(serviceType);
-            CodeContracts.VerifyNotNull(named);
-
-            return this.Container.ResolveNamed(named, serviceType);
-        }
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceType">
-        /// The service type.
-        /// </param>
-        /// <param name="named">
-        /// The named.
-        /// </param>
-        /// <param name="parameters">
-        /// The parameters.
-        /// </param>
-        /// <returns>
-        /// The get.
-        /// </returns>
-        public object Get(Type serviceType, string named, IEnumerable<IServiceLocationParameter> parameters)
-        {
-            CodeContracts.VerifyNotNull(serviceType);
-            CodeContracts.VerifyNotNull(named);
-            CodeContracts.VerifyNotNull(parameters);
-
-            return this.Container.ResolveNamed(named, serviceType, ConvertToAutofacParameters(parameters));
-        }
-
-        /// <summary>
-        /// Gets the service object of the specified type.
-        /// </summary>
-        /// <returns>
-        /// A service object of type <paramref name="serviceType"/>.
-        ///     -or-
-        ///     null if there is no service object of type <paramref name="serviceType"/>.
-        /// </returns>
-        /// <param name="serviceType">
-        /// An object that specifies the type of service object to get.
-        /// </param>
-        /// <filterpriority>2</filterpriority>
-        [CanBeNull]
-        public object GetService([NotNull] Type serviceType)
-        {
-            return this.TryGet(serviceType, out var instance) ? instance : null;
-        }
-
-        /// <summary>
-        /// Inject an object with services.
-        /// </summary>
-        /// <typeparam name="TAttribute">
-        /// TAttribute is the attribute that marks properties to inject to.
-        /// </typeparam>
-        /// <param name="instance">
-        /// the object to inject
-        /// </param>
-        public void InjectMarked<TAttribute>(object instance) where TAttribute : Attribute
-        {
-            CodeContracts.VerifyNotNull(instance);
-
-            // Container.InjectUnsetProperties(instance);
-            var type = instance.GetType();
-            var attributeType = typeof(TAttribute);
-
-            var keyPair = new KeyValuePair<Type, Type>(type, attributeType);
-
-            if (!InjectionCache.TryGetValue(keyPair, out var properties))
-            {
-                // find them...
-                properties =
-                    type.GetProperties(DefaultFlags)
-                        .Where(p => p.GetSetMethod(false) != null && !p.GetIndexParameters().Any() && p.IsDefined(attributeType, true))
-                        .Select(p => Tuple.Create(p.PropertyType, p.DeclaringType, new Action<object, object>((i, v) => p.SetValue(i, v, null))))
-                        .ToList();
-
-                InjectionCache.AddOrUpdate(keyPair, k => properties, (k, v) => properties);
-            }
-
-            properties.ForEach(
-                injectProp =>
+        properties.ForEach(
+            injectProp =>
                 {
                     var serviceInstance = injectProp.Item1 == typeof(ILoggerService)
                                               ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.Item2)
@@ -271,79 +271,79 @@ namespace YAF.Core
                     // set value is super slow... best not to use it very much.
                     injectProp.Item3(instance, serviceInstance);
                 });
-        }
+    }
 
-        /// <summary>
-        /// The try get.
-        /// </summary>
-        /// <param name="serviceType">
-        /// The service type.
-        /// </param>
-        /// <param name="instance">
-        /// The instance.
-        /// </param>
-        /// <returns>
-        /// The try get.
-        /// </returns>
-        public bool TryGet(Type serviceType, [NotNull] out object instance)
-        {
-            CodeContracts.VerifyNotNull(serviceType);
+    /// <summary>
+    /// The try get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
+    /// <returns>
+    /// The try get.
+    /// </returns>
+    public bool TryGet(Type serviceType, [NotNull] out object instance)
+    {
+        CodeContracts.VerifyNotNull(serviceType);
 
-            return this.Container.TryResolve(serviceType, out instance);
-        }
+        return this.Container.TryResolve(serviceType, out instance);
+    }
 
-        /// <summary>
-        /// The try get.
-        /// </summary>
-        /// <param name="serviceType">
-        /// The service type.
-        /// </param>
-        /// <param name="named">
-        /// The named.
-        /// </param>
-        /// <param name="instance">
-        /// The instance.
-        /// </param>
-        /// <returns>
-        /// The try get.
-        /// </returns>
-        public bool TryGet(Type serviceType, string named, [NotNull] out object instance)
-        {
-            CodeContracts.VerifyNotNull(serviceType);
-            CodeContracts.VerifyNotNull(named);
+    /// <summary>
+    /// The try get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
+    /// <returns>
+    /// The try get.
+    /// </returns>
+    public bool TryGet(Type serviceType, string named, [NotNull] out object instance)
+    {
+        CodeContracts.VerifyNotNull(serviceType);
+        CodeContracts.VerifyNotNull(named);
 
-            return this.Container.TryResolveNamed(named, serviceType, out instance);
-        }
+        return this.Container.TryResolveNamed(named, serviceType, out instance);
+    }
 
-        #endregion
+    #endregion
 
-        #region Methods
+    #region Methods
 
-        /// <summary>
-        /// The convert to autofac parameters.
-        /// </summary>
-        /// <param name="parameters">
-        /// The parameters.
-        /// </param>
-        /// <exception cref="NotSupportedException">
-        /// <c>NotSupportedException</c>.
-        /// </exception>
-        /// <exception cref="NotSupportedException">
-        /// Parameter Type of is not supported.
-        /// </exception>
-        /// <returns>
-        /// The <see cref="IEnumerable"/>.
-        /// </returns>
-        [NotNull]
-        private static IEnumerable<Parameter> ConvertToAutofacParameters(
-            [NotNull] IEnumerable<IServiceLocationParameter> parameters)
-        {
-            CodeContracts.VerifyNotNull(parameters);
+    /// <summary>
+    /// The convert to autofac parameters.
+    /// </summary>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <exception cref="NotSupportedException">
+    /// <c>NotSupportedException</c>.
+    /// </exception>
+    /// <exception cref="NotSupportedException">
+    /// Parameter Type of is not supported.
+    /// </exception>
+    /// <returns>
+    /// The <see cref="IEnumerable"/>.
+    /// </returns>
+    [NotNull]
+    private static IEnumerable<Parameter> ConvertToAutofacParameters(
+        [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+    {
+        CodeContracts.VerifyNotNull(parameters);
 
-            var autoParams = new List<Parameter>();
+        var autoParams = new List<Parameter>();
 
-            parameters.ForEach(
-                parameter =>
+        parameters.ForEach(
+            parameter =>
                 {
                     switch (parameter)
                     {
@@ -358,9 +358,8 @@ namespace YAF.Core
                     }
                 });
             
-            return autoParams;
-        }
-
-        #endregion
+        return autoParams;
     }
+
+    #endregion
 }

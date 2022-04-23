@@ -22,68 +22,67 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects.Model
+namespace YAF.Types.Objects.Model;
+
+using System;
+
+/// <summary>
+/// The paged event log.
+/// </summary>
+public class PagedEventLog
 {
-    using System;
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    public int UserID { get; set; }
 
     /// <summary>
-    /// The paged event log.
+    /// Gets or sets the id.
     /// </summary>
-    public class PagedEventLog
-    {
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        public int UserID { get; set; }
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the event time.
+    /// </summary>
+    public DateTime EventTime { get; set; }
 
-        /// <summary>
-        /// Gets or sets the event time.
-        /// </summary>
-        public DateTime EventTime { get; set; }
+    /// <summary>
+    /// Gets or sets the source.
+    /// </summary>
+    public string Source { get; set; }
 
-        /// <summary>
-        /// Gets or sets the source.
-        /// </summary>
-        public string Source { get; set; }
+    /// <summary>
+    /// Gets or sets the description.
+    /// </summary>
+    public string Description { get; set; }
 
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        public string Description { get; set; }
+    /// <summary>
+    /// Gets or sets the type.
+    /// </summary>
+    public int Type { get; set; }
 
-        /// <summary>
-        /// Gets or sets the type.
-        /// </summary>
-        public int Type { get; set; }
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
+    /// <summary>
+    /// Gets or sets the display name.
+    /// </summary>
+    public string DisplayName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the display name.
-        /// </summary>
-        public string DisplayName { get; set; }
+    /// <summary>
+    /// Gets or sets the suspended.
+    /// </summary>
+    public DateTime? Suspended { get; set; }
 
-        /// <summary>
-        /// Gets or sets the suspended.
-        /// </summary>
-        public DateTime? Suspended { get; set; }
+    /// <summary>
+    /// Gets or sets the user style.
+    /// </summary>
+    public string UserStyle { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user style.
-        /// </summary>
-        public string UserStyle { get; set; }
-
-        /// <summary>
-        /// Gets or sets the total rows.
-        /// </summary>
-        public int TotalRows { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the total rows.
+    /// </summary>
+    public int TotalRows { get; set; }
 }

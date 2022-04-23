@@ -22,52 +22,51 @@
  * under the License.
  */
 
-namespace YAF.Core.Helpers
+namespace YAF.Core.Helpers;
+
+using System.Linq;
+using System.Web;
+
+public static class StringHelper
 {
-    using System.Linq;
-    using System.Web;
-
-    public static class StringHelper
+    public static string GetAbbreviation(this string data)
     {
-        public static string GetAbbreviation(this string data)
+        var trimmedData = data.Trim();
+
+        if (trimmedData.Contains(' '))
         {
-            var trimmedData = data.Trim();
-
-            if (trimmedData.Contains(' '))
-            {
-                var splitted = trimmedData.Split(' ');
-                return $"{splitted[0].ToUpper()[0]}{splitted[1].ToUpper()[0]}";
-            }
-
-            var pascalCase = trimmedData;
-
-            pascalCase = trimmedData.ToUpper()[0] + pascalCase.Substring(1);
-
-            var upperCaseOnly = string.Concat(pascalCase.Where(char.IsUpper));
-
-            if (upperCaseOnly.Length is > 1 and <= 3)
-            {
-                return upperCaseOnly.ToUpper();
-            }
-
-            return trimmedData.Length <= 3 ? trimmedData.ToUpper() : trimmedData.Substring(0, 3).ToUpper();
+            var splitted = trimmedData.Split(' ');
+            return $"{splitted[0].ToUpper()[0]}{splitted[1].ToUpper()[0]}";
         }
 
-        /// <summary>
-        /// Determines whether the text is Html Encoded or not
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <returns>Returns if text is Html Encoded or not</returns>
-        public static bool IsHtmlEncoded(string text)
-        {
-            if (text.Contains("<")) return false;
-            if (text.Contains(">")) return false;
-            if (text.Contains("\"")) return false;
-            if (text.Contains("'")) return false;
-            if (text.Contains("script")) return false;
+        var pascalCase = trimmedData;
 
-            // if decoded string == original string, it is already encoded
-            return HttpUtility.HtmlDecode(text) != text;
+        pascalCase = trimmedData.ToUpper()[0] + pascalCase.Substring(1);
+
+        var upperCaseOnly = string.Concat(pascalCase.Where(char.IsUpper));
+
+        if (upperCaseOnly.Length is > 1 and <= 3)
+        {
+            return upperCaseOnly.ToUpper();
         }
+
+        return trimmedData.Length <= 3 ? trimmedData.ToUpper() : trimmedData.Substring(0, 3).ToUpper();
+    }
+
+    /// <summary>
+    /// Determines whether the text is Html Encoded or not
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <returns>Returns if text is Html Encoded or not</returns>
+    public static bool IsHtmlEncoded(string text)
+    {
+        if (text.Contains("<")) return false;
+        if (text.Contains(">")) return false;
+        if (text.Contains("\"")) return false;
+        if (text.Contains("'")) return false;
+        if (text.Contains("script")) return false;
+
+        // if decoded string == original string, it is already encoded
+        return HttpUtility.HtmlDecode(text) != text;
     }
 }

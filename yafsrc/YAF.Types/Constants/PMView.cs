@@ -22,26 +22,25 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// Indicates the mode of the PMList.
+/// </summary>
+public enum PmView
 {
     /// <summary>
-    /// Indicates the mode of the PMList.
+    ///   The inbox.
     /// </summary>
-    public enum PmView
-    {
-        /// <summary>
-        ///   The inbox.
-        /// </summary>
-        Inbox = 0,
+    Inbox = 0,
 
-        /// <summary>
-        ///   The outbox.
-        /// </summary>
-        Outbox = 1,
+    /// <summary>
+    ///   The outbox.
+    /// </summary>
+    Outbox = 1,
 
-        /// <summary>
-        ///   The archive.
-        /// </summary>
-        Archive = 2
-    }
+    /// <summary>
+    ///   The archive.
+    /// </summary>
+    Archive = 2
 }

@@ -6,25 +6,24 @@
 // ***********************************************************************
 using System;
 
-namespace ServiceStack.DataAnnotations
+namespace ServiceStack.DataAnnotations;
+
+/// <summary>
+/// Class IdAttribute.
+/// Implements the <see cref="ServiceStack.AttributeBase" />
+/// </summary>
+/// <seealso cref="ServiceStack.AttributeBase" />
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Method)]
+public class IdAttribute : AttributeBase
 {
     /// <summary>
-    /// Class IdAttribute.
-    /// Implements the <see cref="ServiceStack.AttributeBase" />
+    /// Gets the identifier.
     /// </summary>
-    /// <seealso cref="ServiceStack.AttributeBase" />
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Method)]
-    public class IdAttribute : AttributeBase
-    {
-        /// <summary>
-        /// Gets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        public int Id { get; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IdAttribute"/> class.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        public IdAttribute(int id) => Id = id;
-    }
+    /// <value>The identifier.</value>
+    public int Id { get; }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="IdAttribute"/> class.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    public IdAttribute(int id) => Id = id;
 }

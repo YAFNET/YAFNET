@@ -22,200 +22,257 @@
  * under the License.
  */
 
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+#region Using
+
+using System;
+
+using FarsiLibrary.Utils;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The YAF DateTime.
+/// </summary>
+public class DateTimeService : IDateTimeService, IHaveServiceLocator
 {
-    #region Using
+    #region Constants and Fields
 
-    using System;
-
-    using FarsiLibrary.Utils;
-
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+    /// <summary>
+    ///   Time zone suffix for Guests
+    /// </summary>
+    private readonly string timeZoneName = BoardContext.Current.Get<ILocalization>().GetText("TIMEZONES", "NAME_UTC");
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// The YAF DateTime.
+    /// Initializes a new instance of the <see cref="DateTimeService"/> class.
     /// </summary>
-    public class DateTimeService : IDateTimeService, IHaveServiceLocator
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public DateTimeService(IServiceLocator serviceLocator)
     {
-        #region Constants and Fields
+        this.ServiceLocator = serviceLocator;
+    }
 
-        /// <summary>
-        ///   Time zone suffix for Guests
-        /// </summary>
-        private readonly string timeZoneName = BoardContext.Current.Get<ILocalization>().GetText("TIMEZONES", "NAME_UTC");
+    #endregion
 
-        #endregion
+    #region Properties
 
-        #region Constructors and Destructors
+    /// <summary>
+    /// Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DateTimeService"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        public DateTimeService(IServiceLocator serviceLocator)
+    /// <summary>
+    ///   Gets the time zone offset
+    ///   for the current user.
+    /// </summary>
+    public TimeSpan TimeOffset
+    {
+        get
         {
-            this.ServiceLocator = serviceLocator;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        /// <summary>
-        ///   Gets the time zone offset
-        ///   for the current user.
-        /// </summary>
-        public TimeSpan TimeOffset
-        {
-            get
+            if (BoardContext.Current.PageData == null)
             {
-                if (BoardContext.Current.PageData == null)
-                {
-                    return new TimeSpan(0, this.Get<BoardSettings>().ServerTimeCorrection, 0);
-                }
-
-                var min = BoardContext.Current.TimeZoneUserOffSet;
-                var hrs = min / 60;
-
-                return new TimeSpan(
-                    hrs,
-                    min % 60 + this.Get<BoardSettings>().ServerTimeCorrection,
-                    0);
-            }
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Formats a DateTime value into 7. february 2003
-        /// </summary>
-        /// <param name="dateTime">
-        /// The date to be formatted
-        /// </param>
-        /// <returns>
-        /// The format date long.
-        /// </returns>
-        public string FormatDateLong(DateTime dateTime)
-        {
-            string dateFormat;
-            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
-
-            try
-            {
-                dateFormat =
-                    this.Get<ILocalization>()
-                        .FormatDateTime(this.Get<ILocalization>().GetText("FORMAT_DATE_LONG"), dateTime);
-            }
-            catch (Exception)
-            {
-                dateFormat = dateTime.ToString("D");
+                return new TimeSpan(0, this.Get<BoardSettings>().ServerTimeCorrection, 0);
             }
 
-            return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
-                       ? PersianDateConverter.ToPersianDate(dateTime).ToString("D")
-                       : BoardContext.Current.IsGuest
-                             ? $"{dateFormat}{this.timeZoneName}"
-                             : dateFormat;
+            var min = BoardContext.Current.TimeZoneUserOffSet;
+            var hrs = min / 60;
+
+            return new TimeSpan(
+                hrs,
+                min % 60 + this.Get<BoardSettings>().ServerTimeCorrection,
+                0);
+        }
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Formats a DateTime value into 7. february 2003
+    /// </summary>
+    /// <param name="dateTime">
+    /// The date to be formatted
+    /// </param>
+    /// <returns>
+    /// The format date long.
+    /// </returns>
+    public string FormatDateLong(DateTime dateTime)
+    {
+        string dateFormat;
+        dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
+
+        try
+        {
+            dateFormat =
+                this.Get<ILocalization>()
+                    .FormatDateTime(this.Get<ILocalization>().GetText("FORMAT_DATE_LONG"), dateTime);
+        }
+        catch (Exception)
+        {
+            dateFormat = dateTime.ToString("D");
         }
 
-        /// <summary>
-        /// Formats a DateTime value into 07.03.2003
-        /// </summary>
-        /// <param name="dateTime">
-        /// The date Time.
-        /// </param>
-        /// <returns>
-        /// Short formatted date.
-        /// </returns>
-        public string FormatDateShort([NotNull] DateTime dateTime)
-        {
-            string dateFormat;
-            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
+        return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
+                   ? PersianDateConverter.ToPersianDate(dateTime).ToString("D")
+                   : BoardContext.Current.IsGuest
+                       ? $"{dateFormat}{this.timeZoneName}"
+                       : dateFormat;
+    }
 
-            try
+    /// <summary>
+    /// Formats a DateTime value into 07.03.2003
+    /// </summary>
+    /// <param name="dateTime">
+    /// The date Time.
+    /// </param>
+    /// <returns>
+    /// Short formatted date.
+    /// </returns>
+    public string FormatDateShort([NotNull] DateTime dateTime)
+    {
+        string dateFormat;
+        dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
+
+        try
+        {
+            dateFormat =
+                BoardContext.Current.Get<ILocalization>()
+                    .FormatDateTime(BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_SHORT"), dateTime);
+        }
+        catch (Exception)
+        {
+            dateFormat = dateTime.ToString("d");
+        }
+
+        return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
+                   ? PersianDateConverter.ToPersianDate(dateTime).ToString("d")
+                   : BoardContext.Current.IsGuest
+                       ? $"{dateFormat}{this.timeZoneName}"
+                       : dateFormat;
+    }
+
+    /// <summary>
+    /// Formats a DateTime value into 07.03.2003 22:32:34
+    /// </summary>
+    /// <param name="dateTime">
+    /// The date Time.
+    /// </param>
+    /// <returns>
+    /// Formatted  <see cref="string"/> of the formatted <see cref="DateTime"/> Object.
+    /// </returns>
+    public string FormatDateTime([NotNull] DateTime dateTime)
+    {
+        dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
+
+        string dateFormat;
+
+        try
+        {
+            dateFormat =
+                BoardContext.Current.Get<ILocalization>()
+                    .FormatDateTime(
+                        BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_LONG"),
+                        dateTime);
+        }
+        catch (Exception)
+        {
+            dateFormat = dateTime.ToString("F");
+        }
+
+        return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
+                   ? PersianDateConverter.ToPersianDate(dateTime).ToString()
+                   : BoardContext.Current.IsGuest
+                       ? $"{dateFormat}{this.timeZoneName}"
+                       : dateFormat;
+    }
+
+    /// <summary>
+    /// This formats a DateTime into a short string
+    /// </summary>
+    /// <param name="dateTime">
+    /// The date Time.
+    /// </param>
+    /// <returns>
+    /// The formatted string created from the DateTime object.
+    /// </returns>
+    public string FormatDateTimeShort([NotNull] DateTime dateTime)
+    {
+        string dateFormat;
+
+        dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
+
+        try
+        {
+            dateFormat =
+                BoardContext.Current.Get<ILocalization>()
+                    .FormatDateTime(
+                        BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"),
+                        dateTime);
+        }
+        catch (Exception)
+        {
+            dateFormat = dateTime.ToString("G");
+        }
+
+        return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
+                   ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
+                   : BoardContext.Current.IsGuest
+                       ? $"{dateFormat}{this.timeZoneName}"
+                       : dateFormat;
+    }
+
+    /// <summary>
+    /// Formats a DateTime value into 07.03.2003 00:00:00 except if
+    ///   the date is yesterday or today -- in which case it says that.
+    /// </summary>
+    /// <param name="dateTime">
+    /// The date Time.
+    /// </param>
+    /// <returns>
+    /// Formatted string of DateTime object
+    /// </returns>
+    public string FormatDateTimeTopic([NotNull] DateTime dateTime)
+    {
+        if (dateTime.Kind == DateTimeKind.Local)
+        {
+            dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
+        }
+
+        dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
+        var nowDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, BoardContext.Current.TimeZoneInfoUser);
+
+        string dateFormat;
+        try
+        {
+            if (dateTime.Date == nowDateTime.Date)
             {
+                // today
                 dateFormat =
                     BoardContext.Current.Get<ILocalization>()
-                        .FormatDateTime(BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_SHORT"), dateTime);
+                        .FormatString(BoardContext.Current.Get<ILocalization>().GetText("TodayAt"), dateTime);
             }
-            catch (Exception)
+            else if (dateTime.Date == nowDateTime.AddDays(-1).Date)
             {
-                dateFormat = dateTime.ToString("d");
-            }
-
-            return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
-                       ? PersianDateConverter.ToPersianDate(dateTime).ToString("d")
-                       : BoardContext.Current.IsGuest
-                             ? $"{dateFormat}{this.timeZoneName}"
-                             : dateFormat;
-        }
-
-        /// <summary>
-        /// Formats a DateTime value into 07.03.2003 22:32:34
-        /// </summary>
-        /// <param name="dateTime">
-        /// The date Time.
-        /// </param>
-        /// <returns>
-        /// Formatted  <see cref="string"/> of the formatted <see cref="DateTime"/> Object.
-        /// </returns>
-        public string FormatDateTime([NotNull] DateTime dateTime)
-        {
-            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
-
-            string dateFormat;
-
-            try
-            {
+                // yesterday
                 dateFormat =
                     BoardContext.Current.Get<ILocalization>()
-                        .FormatDateTime(
-                            BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_LONG"),
-                            dateTime);
+                        .FormatString(BoardContext.Current.Get<ILocalization>().GetText("YesterdayAt"), dateTime);
             }
-            catch (Exception)
-            {
-                dateFormat = dateTime.ToString("F");
-            }
-
-            return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
-                       ? PersianDateConverter.ToPersianDate(dateTime).ToString()
-                       : BoardContext.Current.IsGuest
-                             ? $"{dateFormat}{this.timeZoneName}"
-                             : dateFormat;
-        }
-
-        /// <summary>
-        /// This formats a DateTime into a short string
-        /// </summary>
-        /// <param name="dateTime">
-        /// The date Time.
-        /// </param>
-        /// <returns>
-        /// The formatted string created from the DateTime object.
-        /// </returns>
-        public string FormatDateTimeShort([NotNull] DateTime dateTime)
-        {
-            string dateFormat;
-
-            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
-
-            try
+            else
             {
                 dateFormat =
                     BoardContext.Current.Get<ILocalization>()
@@ -223,132 +280,74 @@ namespace YAF.Core.Services
                             BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"),
                             dateTime);
             }
-            catch (Exception)
-            {
-                dateFormat = dateTime.ToString("G");
-            }
-
-            return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
-                       ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
-                       : BoardContext.Current.IsGuest
-                             ? $"{dateFormat}{this.timeZoneName}"
-                             : dateFormat;
         }
-
-        /// <summary>
-        /// Formats a DateTime value into 07.03.2003 00:00:00 except if
-        ///   the date is yesterday or today -- in which case it says that.
-        /// </summary>
-        /// <param name="dateTime">
-        /// The date Time.
-        /// </param>
-        /// <returns>
-        /// Formatted string of DateTime object
-        /// </returns>
-        public string FormatDateTimeTopic([NotNull] DateTime dateTime)
+        catch (Exception)
         {
-            if (dateTime.Kind == DateTimeKind.Local)
-            {
-                dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
-            }
-
-            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
-            var nowDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, BoardContext.Current.TimeZoneInfoUser);
-
-            string dateFormat;
-            try
-            {
-                if (dateTime.Date == nowDateTime.Date)
-                {
-                    // today
-                    dateFormat =
-                        BoardContext.Current.Get<ILocalization>()
-                            .FormatString(BoardContext.Current.Get<ILocalization>().GetText("TodayAt"), dateTime);
-                }
-                else if (dateTime.Date == nowDateTime.AddDays(-1).Date)
-                {
-                    // yesterday
-                    dateFormat =
-                        BoardContext.Current.Get<ILocalization>()
-                            .FormatString(BoardContext.Current.Get<ILocalization>().GetText("YesterdayAt"), dateTime);
-                }
-                else
-                {
-                    dateFormat =
-                        BoardContext.Current.Get<ILocalization>()
-                            .FormatDateTime(
-                                BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"),
-                                dateTime);
-                }
-            }
-            catch (Exception)
-            {
-                dateFormat = dateTime.ToString("G");
-            }
-
-            return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
-                       ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
-                       : BoardContext.Current.IsGuest
-                             ? $"{dateFormat}{this.timeZoneName}"
-                             : dateFormat;
+            dateFormat = dateTime.ToString("G");
         }
 
-        /// <summary>
-        /// Formats a DateTime value into 22:32:34
-        /// </summary>
-        /// <param name="dateTime">
-        /// The date to be formatted
-        /// </param>
-        /// <returns>
-        /// The format time.
-        /// </returns>
-        public string FormatTime(DateTime dateTime)
-        {
-            string dateFormat;
-
-            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
-
-            try
-            {
-                dateFormat =
-                    BoardContext.Current.Get<ILocalization>()
-                        .FormatDateTime(BoardContext.Current.Get<ILocalization>().GetText("FORMAT_TIME"), dateTime);
-            }
-            catch (Exception)
-            {
-                dateFormat = dateTime.ToString("T");
-            }
-
-            return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
-                       ? PersianDateConverter.ToPersianDate(dateTime).ToString("T")
-                       : BoardContext.Current.IsGuest
-                             ? $"{dateFormat}{this.timeZoneName}"
-                             : dateFormat;
-        }
-
-        /// <summary>
-        /// Gets the user DateTime.
-        /// </summary>
-        /// <param name="dateTime">The Date Time.</param>
-        /// <returns>Returns the user Date Time</returns>
-        public DateTime GetUserDateTime(DateTime dateTime)
-        {
-            return TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
-        }
-
-        /// <summary>
-        /// Gets the user DateTime.
-        /// </summary>
-        /// <param name="dateTime">The Date Time.</param>
-        /// <param name="timeZone">The time zone.</param>
-        /// <returns>
-        /// Returns the user Date Time
-        /// </returns>
-        public DateTime GetUserDateTime(DateTime dateTime, TimeZoneInfo timeZone)
-        {
-            return TimeZoneInfo.ConvertTimeFromUtc(dateTime, timeZone);
-        }
-
-        #endregion
+        return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
+                   ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
+                   : BoardContext.Current.IsGuest
+                       ? $"{dateFormat}{this.timeZoneName}"
+                       : dateFormat;
     }
+
+    /// <summary>
+    /// Formats a DateTime value into 22:32:34
+    /// </summary>
+    /// <param name="dateTime">
+    /// The date to be formatted
+    /// </param>
+    /// <returns>
+    /// The format time.
+    /// </returns>
+    public string FormatTime(DateTime dateTime)
+    {
+        string dateFormat;
+
+        dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
+
+        try
+        {
+            dateFormat =
+                BoardContext.Current.Get<ILocalization>()
+                    .FormatDateTime(BoardContext.Current.Get<ILocalization>().GetText("FORMAT_TIME"), dateTime);
+        }
+        catch (Exception)
+        {
+            dateFormat = dateTime.ToString("T");
+        }
+
+        return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
+                   ? PersianDateConverter.ToPersianDate(dateTime).ToString("T")
+                   : BoardContext.Current.IsGuest
+                       ? $"{dateFormat}{this.timeZoneName}"
+                       : dateFormat;
+    }
+
+    /// <summary>
+    /// Gets the user DateTime.
+    /// </summary>
+    /// <param name="dateTime">The Date Time.</param>
+    /// <returns>Returns the user Date Time</returns>
+    public DateTime GetUserDateTime(DateTime dateTime)
+    {
+        return TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
+    }
+
+    /// <summary>
+    /// Gets the user DateTime.
+    /// </summary>
+    /// <param name="dateTime">The Date Time.</param>
+    /// <param name="timeZone">The time zone.</param>
+    /// <returns>
+    /// Returns the user Date Time
+    /// </returns>
+    public DateTime GetUserDateTime(DateTime dateTime, TimeZoneInfo timeZone)
+    {
+        return TimeZoneInfo.ConvertTimeFromUtc(dateTime, timeZone);
+    }
+
+    #endregion
 }

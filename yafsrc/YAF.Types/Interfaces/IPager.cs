@@ -21,30 +21,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The Pager interface.
+/// </summary>
+public interface IPager
 {
+    #region Public Properties
+
     /// <summary>
-    /// The Pager interface.
+    ///     Gets or sets Count.
     /// </summary>
-    public interface IPager
-    {
-        #region Public Properties
+    int Count { get; set; }
 
-        /// <summary>
-        ///     Gets or sets Count.
-        /// </summary>
-        int Count { get; set; }
+    /// <summary>
+    ///     Gets or sets CurrentPageIndex.
+    /// </summary>
+    int CurrentPageIndex { get; set; }
 
-        /// <summary>
-        ///     Gets or sets CurrentPageIndex.
-        /// </summary>
-        int CurrentPageIndex { get; set; }
+    /// <summary>
+    ///     Gets or sets PageSize.
+    /// </summary>
+    int PageSize { get; set; }
 
-        /// <summary>
-        ///     Gets or sets PageSize.
-        /// </summary>
-        int PageSize { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

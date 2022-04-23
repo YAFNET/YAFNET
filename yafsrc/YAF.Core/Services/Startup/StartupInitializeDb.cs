@@ -22,120 +22,119 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Startup
+namespace YAF.Core.Services.Startup;
+
+#region Using
+
+using System.Web;
+
+using YAF.Configuration;
+using YAF.Core.Extensions;
+using YAF.Core.Model;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Tasks;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The startup initialize Database.
+/// </summary>
+public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, IHaveServiceLocator
 {
-    #region Using
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StartupInitializeDb"/> class.
+    /// </summary>
+    /// <param name="httpResponseBase">
+    /// The http response base.
+    /// </param>
+    /// <param name="serviceLocator">
+    /// The service Locator.
+    /// </param>
+    public StartupInitializeDb(
+        [NotNull] HttpResponseBase httpResponseBase,
+        [NotNull] IServiceLocator serviceLocator)
+    {
+        this.HttpResponseBase = httpResponseBase;
+        this.ServiceLocator = serviceLocator;
+    }
 
-    using System.Web;
+    #region Properties
 
-    using YAF.Configuration;
-    using YAF.Core.Extensions;
-    using YAF.Core.Model;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Tasks;
-    using YAF.Types.Models;
+    /// <summary>
+    /// Gets or sets the ServiceLocator.
+    /// </summary>
+    /// <value>The service locator.</value>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    /// <summary>
+    ///   Gets or sets HttpResponseBase.
+    /// </summary>
+    public HttpResponseBase HttpResponseBase { get; set; }
+
+    /// <summary>
+    ///     Gets the service name.
+    /// </summary>
+    [NotNull]
+    protected override string ServiceName => "YafInitializeDb_Init";
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The startup initialize Database.
+    /// The run service.
     /// </summary>
-    public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, IHaveServiceLocator
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    protected override bool RunService()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StartupInitializeDb"/> class.
-        /// </summary>
-        /// <param name="httpResponseBase">
-        /// The http response base.
-        /// </param>
-        /// <param name="serviceLocator">
-        /// The service Locator.
-        /// </param>
-        public StartupInitializeDb(
-            [NotNull] HttpResponseBase httpResponseBase,
-            [NotNull] IServiceLocator serviceLocator)
+        if (HttpContext.Current == null)
         {
-            this.HttpResponseBase = httpResponseBase;
-            this.ServiceLocator = serviceLocator;
+            return true;
         }
 
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the ServiceLocator.
-        /// </summary>
-        /// <value>The service locator.</value>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        /// <summary>
-        ///   Gets or sets HttpResponseBase.
-        /// </summary>
-        public HttpResponseBase HttpResponseBase { get; set; }
-
-        /// <summary>
-        ///     Gets the service name.
-        /// </summary>
-        [NotNull]
-        protected override string ServiceName => "YafInitializeDb_Init";
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The run service.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        protected override bool RunService()
+        if (Config.ConnectionString == null)
         {
-            if (HttpContext.Current == null)
-            {
+            // attempt to create a connection string...
+            this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}install/default.aspx");
+
+            return false;
+        }
+
+        // attempt to init the db...
+        if (!this.Get<IDbAccess>().TestConnection(out var errorString))
+        {
+            // unable to connect to the DB...
+            this.Get<HttpSessionStateBase>()["StartupException"] = errorString;
+
+            this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}error.aspx");
+
+            return false;
+        }
+
+        // step 2: validate the database version...
+        var versionType = this.GetRepository<Registry>().ValidateVersion(BoardInfo.AppVersion);
+
+        switch (versionType)
+        {
+            case DbVersionType.Current:
                 return true;
-            }
-
-            if (Config.ConnectionString == null)
-            {
-                // attempt to create a connection string...
-                this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}install/default.aspx");
-
+            case DbVersionType.Upgrade:
+                // Run Auto Upgrade
+                this.Get<UpgradeService>().Upgrade();
                 return false;
-            }
-
-            // attempt to init the db...
-            if (!this.Get<IDbAccess>().TestConnection(out var errorString))
-            {
-                // unable to connect to the DB...
-                this.Get<HttpSessionStateBase>()["StartupException"] = errorString;
-
-                this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}error.aspx");
-
+            case DbVersionType.NewInstall:
+                this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}install/default.aspx", true);
                 return false;
-            }
-
-            // step 2: validate the database version...
-            var versionType = this.GetRepository<Registry>().ValidateVersion(BoardInfo.AppVersion);
-
-            switch (versionType)
-            {
-                case DbVersionType.Current:
-                    return true;
-                case DbVersionType.Upgrade:
-                    // Run Auto Upgrade
-                    this.Get<UpgradeService>().Upgrade();
-                    return false;
-                case DbVersionType.NewInstall:
-                    this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}install/default.aspx", true);
-                    return false;
-                default:
-                    return false;
-            }
+            default:
+                return false;
         }
-
-        #endregion
     }
+
+    #endregion
 }

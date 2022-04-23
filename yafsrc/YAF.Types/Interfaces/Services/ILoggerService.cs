@@ -21,48 +21,47 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+#region Using
+
+using System;
+
+using YAF.Types.Constants;
+
+#endregion
+
+/// <summary>
+///     The logger interface
+/// </summary>
+public interface ILoggerService
 {
-    #region Using
-
-    using System;
-
-    using YAF.Types.Constants;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The logger interface
+    /// The log.
     /// </summary>
-    public interface ILoggerService
-    {
-        #region Public Methods and Operators
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="eventType">
+    /// The event type.
+    /// </param>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="exception">
+    /// The exception.
+    /// </param>
+    void Log(
+        string message,
+        EventLogTypes eventType = EventLogTypes.Error,
+        int? userId = null,
+        string source = null,
+        Exception exception = null);
 
-        /// <summary>
-        /// The log.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="eventType">
-        /// The event type.
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="exception">
-        /// The exception.
-        /// </param>
-        void Log(
-            string message,
-            EventLogTypes eventType = EventLogTypes.Error,
-            int? userId = null,
-            string source = null,
-            Exception exception = null);
-
-        #endregion
-    }
+    #endregion
 }

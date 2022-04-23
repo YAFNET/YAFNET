@@ -22,103 +22,102 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+using System;
+
+/// <summary>
+/// The YAF DateTime Interface
+/// </summary>
+public interface IDateTimeService
 {
-    using System;
+    /// <summary>
+    ///   Gets the time zone offset 
+    ///   for the current user.
+    /// </summary>
+    TimeSpan TimeOffset { get; }
 
     /// <summary>
-    /// The YAF DateTime Interface
+    /// Formats a DateTime value into 7. february 2003
     /// </summary>
-    public interface IDateTimeService
-    {
-        /// <summary>
-        ///   Gets the time zone offset 
-        ///   for the current user.
-        /// </summary>
-        TimeSpan TimeOffset { get; }
+    /// <param name="dateTime">
+    /// The date to be formatted
+    /// </param>
+    /// <returns>
+    /// The format date long.
+    /// </returns>
+    string FormatDateLong(DateTime dateTime);
 
-        /// <summary>
-        /// Formats a DateTime value into 7. february 2003
-        /// </summary>
-        /// <param name="dateTime">
-        /// The date to be formatted
-        /// </param>
-        /// <returns>
-        /// The format date long.
-        /// </returns>
-        string FormatDateLong(DateTime dateTime);
+    /// <summary>
+    /// Formats a DateTime value into 07.03.2003
+    /// </summary>
+    /// <param name="dateTime">
+    /// The date Time.
+    /// </param>
+    /// <returns>
+    /// Short formatted date.
+    /// </returns>
+    string FormatDateShort([NotNull] DateTime dateTime);
 
-        /// <summary>
-        /// Formats a DateTime value into 07.03.2003
-        /// </summary>
-        /// <param name="dateTime">
-        /// The date Time.
-        /// </param>
-        /// <returns>
-        /// Short formatted date.
-        /// </returns>
-        string FormatDateShort([NotNull] DateTime dateTime);
+    /// <summary>
+    /// Formats a DateTime value into 07.03.2003 22:32:34
+    /// </summary>
+    /// <param name="dateTime">
+    /// The date Time.
+    /// </param>
+    /// <returns>
+    /// Formatted  <see cref="string"/> of the formatted <see cref="DateTime"/> Object.
+    /// </returns>
+    string FormatDateTime([NotNull] DateTime dateTime);
 
-        /// <summary>
-        /// Formats a DateTime value into 07.03.2003 22:32:34
-        /// </summary>
-        /// <param name="dateTime">
-        /// The date Time.
-        /// </param>
-        /// <returns>
-        /// Formatted  <see cref="string"/> of the formatted <see cref="DateTime"/> Object.
-        /// </returns>
-        string FormatDateTime([NotNull] DateTime dateTime);
+    /// <summary>
+    /// This formats a DateTime into a short string
+    /// </summary>
+    /// <param name="dateTime">
+    /// The date Time.
+    /// </param>
+    /// <returns>
+    /// The formatted string created from the DateTime object.
+    /// </returns>
+    string FormatDateTimeShort([NotNull] DateTime dateTime);
 
-        /// <summary>
-        /// This formats a DateTime into a short string
-        /// </summary>
-        /// <param name="dateTime">
-        /// The date Time.
-        /// </param>
-        /// <returns>
-        /// The formatted string created from the DateTime object.
-        /// </returns>
-        string FormatDateTimeShort([NotNull] DateTime dateTime);
+    /// <summary>
+    /// Formats a DateTime value into 07.03.2003 00:00:00 except if 
+    ///   the date is yesterday or today -- in which case it says that.
+    /// </summary>
+    /// <param name="dateTime">
+    /// The Date Time.
+    /// </param>
+    /// <returns>
+    /// Formatted string of Date Time object
+    /// </returns>
+    string FormatDateTimeTopic([NotNull] DateTime dateTime);
 
-        /// <summary>
-        /// Formats a DateTime value into 07.03.2003 00:00:00 except if 
-        ///   the date is yesterday or today -- in which case it says that.
-        /// </summary>
-        /// <param name="dateTime">
-        /// The Date Time.
-        /// </param>
-        /// <returns>
-        /// Formatted string of Date Time object
-        /// </returns>
-        string FormatDateTimeTopic([NotNull] DateTime dateTime);
+    /// <summary>
+    /// Formats a DateTime value into 22:32:34
+    /// </summary>
+    /// <param name="dateTime">
+    /// The date to be formatted
+    /// </param>
+    /// <returns>
+    /// The format time.
+    /// </returns>
+    string FormatTime([NotNull] DateTime dateTime);
 
-        /// <summary>
-        /// Formats a DateTime value into 22:32:34
-        /// </summary>
-        /// <param name="dateTime">
-        /// The date to be formatted
-        /// </param>
-        /// <returns>
-        /// The format time.
-        /// </returns>
-        string FormatTime([NotNull] DateTime dateTime);
+    /// <summary>
+    /// Gets the user DateTime.
+    /// </summary>
+    /// <param name="dateTime">The Date Time.</param>
+    /// <returns>Returns the user Date Time</returns>
+    DateTime GetUserDateTime([NotNull] DateTime dateTime);
 
-        /// <summary>
-        /// Gets the user DateTime.
-        /// </summary>
-        /// <param name="dateTime">The Date Time.</param>
-        /// <returns>Returns the user Date Time</returns>
-        DateTime GetUserDateTime([NotNull] DateTime dateTime);
-
-        /// <summary>
-        /// Gets the user DateTime.
-        /// </summary>
-        /// <param name="dateTime">The Date Time.</param>
-        /// <param name="timeZone">The time zone.</param>
-        /// <returns>
-        /// Returns the user Date Time
-        /// </returns>
-        DateTime GetUserDateTime([NotNull] DateTime dateTime, TimeZoneInfo timeZone);
-    }
+    /// <summary>
+    /// Gets the user DateTime.
+    /// </summary>
+    /// <param name="dateTime">The Date Time.</param>
+    /// <param name="timeZone">The time zone.</param>
+    /// <returns>
+    /// Returns the user Date Time
+    /// </returns>
+    DateTime GetUserDateTime([NotNull] DateTime dateTime, TimeZoneInfo timeZone);
 }

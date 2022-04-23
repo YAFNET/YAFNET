@@ -6,29 +6,28 @@
 // ***********************************************************************
 using System;
 
-namespace ServiceStack.DataAnnotations
+namespace ServiceStack.DataAnnotations;
+
+/// <summary>
+/// Class PreCreateTableAttribute.
+/// Implements the <see cref="ServiceStack.AttributeBase" />
+/// </summary>
+/// <seealso cref="ServiceStack.AttributeBase" />
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+public class PreCreateTableAttribute : AttributeBase
 {
     /// <summary>
-    /// Class PreCreateTableAttribute.
-    /// Implements the <see cref="ServiceStack.AttributeBase" />
+    /// Gets or sets the SQL.
     /// </summary>
-    /// <seealso cref="ServiceStack.AttributeBase" />
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class PreCreateTableAttribute : AttributeBase
-    {
-        /// <summary>
-        /// Gets or sets the SQL.
-        /// </summary>
-        /// <value>The SQL.</value>
-        public string Sql { get; set; }
+    /// <value>The SQL.</value>
+    public string Sql { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PreCreateTableAttribute"/> class.
-        /// </summary>
-        /// <param name="sql">The SQL.</param>
-        public PreCreateTableAttribute(string sql)
-        {
-            Sql = sql;
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PreCreateTableAttribute"/> class.
+    /// </summary>
+    /// <param name="sql">The SQL.</param>
+    public PreCreateTableAttribute(string sql)
+    {
+        Sql = sql;
     }
 }

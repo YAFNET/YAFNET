@@ -22,56 +22,55 @@
  * under the License.
  */
 
-namespace YAF.Core.Data
+namespace YAF.Core.Data;
+
+using YAF.Types;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+///     The database connection parameter.
+/// </summary>
+public struct DbConnectionParam : IDbConnectionParam
 {
-    using YAF.Types;
-    using YAF.Types.Interfaces.Data;
+    #region Constructors and Destructors
 
     /// <summary>
-    ///     The database connection parameter.
+    /// Initializes a new instance of the <see cref="DbConnectionParam"/> struct.
     /// </summary>
-    public struct DbConnectionParam : IDbConnectionParam
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="defaultValue">
+    /// The default value.
+    /// </param>
+    public DbConnectionParam(int id, string name, [NotNull] string defaultValue = null)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbConnectionParam"/> struct.
-        /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="defaultValue">
-        /// The default value.
-        /// </param>
-        public DbConnectionParam(int id, string name, [NotNull] string defaultValue = null)
-        {
-            this.ID = id;
-            this.Name = name;
-            this.Value = defaultValue ?? string.Empty;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets or sets the ID.
-        /// </summary>
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Gets the Label.
-        /// </summary>
-        public string Name { get; }
-
-        /// <summary>
-        /// Gets the Default Value.
-        /// </summary>
-        public string Value { get; }
-
-        #endregion
+        this.ID = id;
+        this.Name = name;
+        this.Value = defaultValue ?? string.Empty;
     }
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    ///     Gets or sets the ID.
+    /// </summary>
+    public int ID { get; set; }
+
+    /// <summary>
+    /// Gets the Label.
+    /// </summary>
+    public string Name { get; }
+
+    /// <summary>
+    /// Gets the Default Value.
+    /// </summary>
+    public string Value { get; }
+
+    #endregion
 }

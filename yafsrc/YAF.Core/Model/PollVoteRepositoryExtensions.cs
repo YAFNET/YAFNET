@@ -22,106 +22,105 @@
  * under the License.
  */
 
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System;
+using System.Collections.Generic;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// The PollVote Repository Extensions
+/// </summary>
+public static class PollVoteRepositoryExtensions
 {
-    using System;
-    using System.Collections.Generic;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The PollVote Repository Extensions
+    /// Checks for a vote in the database
     /// </summary>
-    public static class PollVoteRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="pollId">
+    /// The poll Id.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<PollVote> VoteCheck(
+        this IRepository<PollVote> repository,
+        [NotNull] int pollId,
+        [NotNull] int userId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Checks for a vote in the database
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="pollId">
-        /// The poll Id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<PollVote> VoteCheck(
-            this IRepository<PollVote> repository,
-            [NotNull] int pollId,
-            [NotNull] int userId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.Get(p => p.UserID == userId);
-        }
-
-        /// <summary>
-        /// Get all Voters for the Current Poll
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="pollId">
-        /// The poll id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<Tuple<PollVote, User>> Voters(
-            this IRepository<PollVote> repository,
-            [NotNull] int pollId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<PollVote>();
-
-            expression.Join<User>((p, u) => u.ID == p.UserID).Where<PollVote>(p => p.PollID == pollId);
-
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<PollVote, User>(expression));
-        }
-
-        /// <summary>
-        /// Adds a Vote
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="choiceId">
-        /// The choice id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="pollId">
-        /// The poll id.
-        /// </param>
-        public static void Vote(
-            this IRepository<PollVote> repository,
-            [NotNull] int choiceId,
-            [CanBeNull] int userId,
-            [NotNull] int pollId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var entity = new PollVote { PollID = pollId, UserID = userId, ChoiceID = choiceId };
-
-            repository.Insert(entity);
-
-            repository.FireNew(entity);
-        }
-
-        #endregion
+        return repository.Get(p => p.UserID == userId);
     }
+
+    /// <summary>
+    /// Get all Voters for the Current Poll
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="pollId">
+    /// The poll id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<Tuple<PollVote, User>> Voters(
+        this IRepository<PollVote> repository,
+        [NotNull] int pollId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<PollVote>();
+
+        expression.Join<User>((p, u) => u.ID == p.UserID).Where<PollVote>(p => p.PollID == pollId);
+
+        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<PollVote, User>(expression));
+    }
+
+    /// <summary>
+    /// Adds a Vote
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="choiceId">
+    /// The choice id.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="pollId">
+    /// The poll id.
+    /// </param>
+    public static void Vote(
+        this IRepository<PollVote> repository,
+        [NotNull] int choiceId,
+        [CanBeNull] int userId,
+        [NotNull] int pollId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var entity = new PollVote { PollID = pollId, UserID = userId, ChoiceID = choiceId };
+
+        repository.Insert(entity);
+
+        repository.FireNew(entity);
+    }
+
+    #endregion
 }

@@ -21,45 +21,44 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+///     A class which represents the ForumAccess table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(GroupID), nameof(ForumID))]
+public class ForumAccess : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Public Properties
 
     /// <summary>
-    ///     A class which represents the ForumAccess table.
+    /// Gets or sets the group id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(GroupID), nameof(ForumID))]
-    public class ForumAccess : IEntity
-    {
-        #region Public Properties
+    [References(typeof(Group))]
+    [Required]
+    public int GroupID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the group id.
-        /// </summary>
-        [References(typeof(Group))]
-        [Required]
-        public int GroupID { get; set; }
+    /// <summary>
+    /// Gets or sets the forum id.
+    /// </summary>
+    [References(typeof(Forum))]
+    [Required]
+    [Index]
+    public int ForumID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        [References(typeof(Forum))]
-        [Required]
-        [Index]
-        public int ForumID { get; set; }
+    /// <summary>
+    /// Gets or sets the access mask id.
+    /// </summary>
+    [References(typeof(AccessMask))]
+    [Required]
+    public int AccessMaskID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the access mask id.
-        /// </summary>
-        [References(typeof(AccessMask))]
-        [Required]
-        public int AccessMaskID { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

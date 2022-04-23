@@ -21,62 +21,61 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// The access mask repository extensions.
+/// </summary>
+public static class AccessMaskRepositoryExtensions
 {
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The access mask repository extensions.
+    /// The save.
     /// </summary>
-    public static class AccessMaskRepositoryExtensions
+    /// <param name="repository">The repository.</param>
+    /// <param name="accessMaskId">The access mask id.</param>
+    /// <param name="name">The name.</param>
+    /// <param name="flags">The Access Mask Flags</param>
+    /// <param name="sortOrder">The sort order.</param>
+    /// <param name="boardId">The board id.</param>
+    public static void Save(
+        this IRepository<AccessMask> repository,
+        [CanBeNull] int? accessMaskId,
+        [NotNull] string name,
+        [NotNull] AccessFlags flags,
+        [NotNull] short sortOrder,
+        [CanBeNull] int? boardId = null)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// The save.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="accessMaskId">The access mask id.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="flags">The Access Mask Flags</param>
-        /// <param name="sortOrder">The sort order.</param>
-        /// <param name="boardId">The board id.</param>
-        public static void Save(
-            this IRepository<AccessMask> repository,
-            [CanBeNull] int? accessMaskId,
-            [NotNull] string name,
-            [NotNull] AccessFlags flags,
-            [NotNull] short sortOrder,
-            [CanBeNull] int? boardId = null)
+        var newId = repository.Upsert(
+            new AccessMask
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    ID = accessMaskId ?? 0,
+                    Name = name,
+                    Flags = flags.BitValue,
+                    SortOrder = sortOrder
+                });
+
+        if (accessMaskId.HasValue)
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            var newId = repository.Upsert(
-                new AccessMask
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = accessMaskId ?? 0,
-                        Name = name,
-                        Flags = flags.BitValue,
-                        SortOrder = sortOrder
-                    });
-
-            if (accessMaskId.HasValue)
-            {
-                repository.FireUpdated(accessMaskId.Value);
-            }
-            else
-            {
-                repository.FireNew(newId);
-            }
+            repository.FireUpdated(accessMaskId.Value);
         }
-
-        #endregion
+        else
+        {
+            repository.FireNew(newId);
+        }
     }
+
+    #endregion
 }

@@ -22,104 +22,104 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
-{
-    #region Using
+namespace YAF.Pages.Admin;
 
-    using System.Text;
-    using YAF.Types.Extensions.Data;
-    using YAF.Types.Interfaces.Data;
+#region Using
+
+using System.Text;
+using YAF.Types.Extensions.Data;
+using YAF.Types.Interfaces.Data;
+
+#endregion
+
+/// <summary>
+/// The Admin Database Maintenance Page
+/// </summary>
+public partial class ReIndex : AdminPage
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReIndex"/> class. 
+    /// </summary>
+    public ReIndex()
+        : base("ADMIN_REINDEX", ForumPages.Admin_ReIndex)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The Admin Database Maintenance Page
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class ReIndex : AdminPage
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReIndex"/> class. 
-        /// </summary>
-        public ReIndex()
-            : base("ADMIN_REINDEX", ForumPages.Admin_ReIndex)
+        if (this.IsPostBack)
         {
+            return;
         }
 
-        #endregion
+        // Check and see if it should make panels enable or not
+        this.PanelReindex.Visible = true;
+        this.PanelShrink.Visible = true;
+        this.PanelRecoveryMode.Visible = true;
+        this.PanelGetStats.Visible = true;
 
-        #region Methods
+        this.Shrink.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_SHRINK");
 
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        this.Reindex.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_REINDEX");
+        this.Reindex.ReturnConfirmEvent = "blockUIMessage";
+
+        this.RecoveryMode.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_RECOVERY");
+
+        this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY1")));
+        this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY2")));
+        this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY3")));
+
+        this.RadioButtonList1.SelectedIndex = 0;
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddAdminIndex();
+        this.PageLinks.AddLink(this.GetText("ADMIN_REINDEX", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// Gets the stats click.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void GetStatsClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        try
         {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            // Check and see if it should make panels enable or not
-            this.PanelReindex.Visible = true;
-            this.PanelShrink.Visible = true;
-            this.PanelRecoveryMode.Visible = true;
-            this.PanelGetStats.Visible = true;
-
-            this.Shrink.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_SHRINK");
-
-            this.Reindex.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_REINDEX");
-            this.Reindex.ReturnConfirmEvent = "blockUIMessage";
-
-            this.RecoveryMode.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_RECOVERY");
-
-            this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY1")));
-            this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY2")));
-            this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY3")));
-
-            this.RadioButtonList1.SelectedIndex = 0;
-
-            this.BindData();
+            this.txtIndexStatistics.Text = this.Get<IDbAccess>().GetDatabaseFragmentationInfo();
         }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
+        catch (Exception ex)
         {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddAdminIndex();
-            this.PageLinks.AddLink(this.GetText("ADMIN_REINDEX", "TITLE"), string.Empty);
+            this.txtIndexStatistics.Text = $@"Failure: {ex}";
         }
+    }
 
-        /// <summary>
-        /// Gets the stats click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void GetStatsClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            try
-            {
-                this.txtIndexStatistics.Text = this.Get<IDbAccess>().GetDatabaseFragmentationInfo();
-            }
-            catch (Exception ex)
-            {
-                this.txtIndexStatistics.Text = $@"Failure: {ex}";
-            }
-        }
-
-        /// <summary>
-        /// Sets the Recovery mode
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void RecoveryModeClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var recoveryMode = this.RadioButtonList1.SelectedIndex switch
+    /// <summary>
+    /// Sets the Recovery mode
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void RecoveryModeClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        var recoveryMode = this.RadioButtonList1.SelectedIndex switch
             {
                 0 => "FULL",
                 1 => "SIMPLE",
@@ -127,65 +127,64 @@ namespace YAF.Pages.Admin
                 _ => string.Empty
             };
 
-            const string result = "Done";
+        const string result = "Done";
 
-            var stats = this.txtIndexStatistics.Text = this.Get<IDbAccess>().ChangeRecoveryMode(recoveryMode);
+        var stats = this.txtIndexStatistics.Text = this.Get<IDbAccess>().ChangeRecoveryMode(recoveryMode);
 
-            this.txtIndexStatistics.Text = stats.IsSet() ? stats : result;
-        }
-
-        /// <summary>
-        /// Re-indexing the Database
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void ReindexClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            const string result = "Done";
-
-            var stats = this.Get<IDbAccess>().ReIndexDatabase(Config.DatabaseObjectQualifier);
-
-            this.txtIndexStatistics.Text = stats.IsSet() ? stats : result;
-        }
-
-        /// <summary>
-        /// Mod By Touradg (herman_herman) 2009/10/19
-        /// Shrinking Database
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void ShrinkClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            try
-            {
-                var result = new StringBuilder();
-
-                result.Append(this.Get<IDbAccess>().ShrinkDatabase());
-
-                result.Append(" ");
-
-                result.AppendLine(this.GetTextFormatted(
-                    "INDEX_SHRINK",
-                    this.Get<IDbAccess>().GetDatabaseSize()));
-
-                result.Append(" ");
-
-                this.txtIndexStatistics.Text = result.ToString();
-            }
-            catch (Exception error)
-            {
-                this.txtIndexStatistics.Text += this.GetTextFormatted("INDEX_STATS_FAIL", error.Message);
-            }
-        }
-
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        private void BindData()
-        {
-            this.DataBind();
-        }
-
-        #endregion
+        this.txtIndexStatistics.Text = stats.IsSet() ? stats : result;
     }
+
+    /// <summary>
+    /// Re-indexing the Database
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void ReindexClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        const string result = "Done";
+
+        var stats = this.Get<IDbAccess>().ReIndexDatabase(Config.DatabaseObjectQualifier);
+
+        this.txtIndexStatistics.Text = stats.IsSet() ? stats : result;
+    }
+
+    /// <summary>
+    /// Mod By Touradg (herman_herman) 2009/10/19
+    /// Shrinking Database
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void ShrinkClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        try
+        {
+            var result = new StringBuilder();
+
+            result.Append(this.Get<IDbAccess>().ShrinkDatabase());
+
+            result.Append(" ");
+
+            result.AppendLine(this.GetTextFormatted(
+                "INDEX_SHRINK",
+                this.Get<IDbAccess>().GetDatabaseSize()));
+
+            result.Append(" ");
+
+            this.txtIndexStatistics.Text = result.ToString();
+        }
+        catch (Exception error)
+        {
+            this.txtIndexStatistics.Text += this.GetTextFormatted("INDEX_STATS_FAIL", error.Message);
+        }
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private void BindData()
+    {
+        this.DataBind();
+    }
+
+    #endregion
 }

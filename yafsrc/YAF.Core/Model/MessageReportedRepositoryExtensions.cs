@@ -21,42 +21,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+using System;
+using System.Collections.Generic;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+using YAF.Types.Objects.Model;
+
+/// <summary>
+///     The MessageReported repository extensions.
+/// </summary>
+public static class MessageReportedRepositoryExtensions
 {
-    using System;
-    using System.Collections.Generic;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
-    using YAF.Types.Objects.Model;
-
     /// <summary>
-    ///     The MessageReported repository extensions.
+    /// Retrieve all reported messages with the correct forumID argument.
     /// </summary>
-    public static class MessageReportedRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum Id.
+    /// </param>
+    public static
+        List<ReportedMessage> ListReported(this IRepository<MessageReported> repository, [NotNull] int forumId)
     {
-        /// <summary>
-        /// Retrieve all reported messages with the correct forumID argument.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum Id.
-        /// </param>
-        public static
-            List<ReportedMessage> ListReported(this IRepository<MessageReported> repository, [NotNull] int forumId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbAccess.Execute(
-                db =>
+        return repository.DbAccess.Execute(
+            db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageReported>();
 
@@ -76,112 +76,111 @@ namespace YAF.Core.Model
 
                     expression.Select<MessageReported, MessageReportedAudit, Message, Topic, User>(
                         (a, b, m, t, u) => new
-                        {
-                            MessageID = a.ID,
-                            a.Message,
-                            a.ResolvedBy,
-                            a.ResolvedDate,
-                            a.Resolved,
-                            OriginalMessage = m.MessageText,
-                            m.Flags,
-                            m.IsModeratorChanged,
-                            UserName = m.UserName == null ? u.Name : m.UserName,
-                            UserDisplayName = m.UserDisplayName == null ? u.DisplayName : m.UserDisplayName,
-                            m.UserID,
-                            u.Suspended,
-                            u.UserStyle,
-                            m.Posted,
-                            m.TopicID,
-                            t.TopicName,
-                            NumberOfReports = Sql.Custom($"({subSql})")
-                        });
+                                               {
+                                                   MessageID = a.ID,
+                                                   a.Message,
+                                                   a.ResolvedBy,
+                                                   a.ResolvedDate,
+                                                   a.Resolved,
+                                                   OriginalMessage = m.MessageText,
+                                                   m.Flags,
+                                                   m.IsModeratorChanged,
+                                                   UserName = m.UserName == null ? u.Name : m.UserName,
+                                                   UserDisplayName = m.UserDisplayName == null ? u.DisplayName : m.UserDisplayName,
+                                                   m.UserID,
+                                                   u.Suspended,
+                                                   u.UserStyle,
+                                                   m.Posted,
+                                                   m.TopicID,
+                                                   t.TopicName,
+                                                   NumberOfReports = Sql.Custom($"({subSql})")
+                                               });
 
                     return db.Connection
                         .Select<ReportedMessage>(expression);
                 });
+    }
+
+    /// <summary>
+    /// Save reported message back to the database.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="message">
+    /// The Message
+    /// </param>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="reportedDateTime">
+    /// The reported date time.
+    /// </param>
+    /// <param name="reportText">
+    /// The report text.
+    /// </param>
+    public static void Report(
+        this IRepository<MessageReported> repository,
+        [NotNull] Tuple<Topic, Message, User, Forum> message,
+        [NotNull] int userId,
+        [NotNull] DateTime reportedDateTime,
+        [NotNull] string reportText)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        reportText ??= string.Empty;
+
+        if (!repository.Exists(m => m.ID == message.Item2.ID))
+        {
+            repository.Insert(new MessageReported { ID = message.Item2.ID, Message = message.Item2.MessageText });
         }
 
-        /// <summary>
-        /// Save reported message back to the database.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="message">
-        /// The Message
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="reportedDateTime">
-        /// The reported date time.
-        /// </param>
-        /// <param name="reportText">
-        /// The report text.
-        /// </param>
-        public static void Report(
-            this IRepository<MessageReported> repository,
-            [NotNull] Tuple<Topic, Message, User, Forum> message,
-            [NotNull] int userId,
-            [NotNull] DateTime reportedDateTime,
-            [NotNull] string reportText)
+        var reportAudit = BoardContext.Current.GetRepository<MessageReportedAudit>()
+            .GetSingle(m => m.MessageID == message.Item2.ID && m.UserID == userId);
+
+        if (reportAudit == null)
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            reportText ??= string.Empty;
-
-            if (!repository.Exists(m => m.ID == message.Item2.ID))
-            {
-                repository.Insert(new MessageReported { ID = message.Item2.ID, Message = message.Item2.MessageText });
-            }
-
-            var reportAudit = BoardContext.Current.GetRepository<MessageReportedAudit>()
-                .GetSingle(m => m.MessageID == message.Item2.ID && m.UserID == userId);
-
-            if (reportAudit == null)
-            {
-                BoardContext.Current.GetRepository<MessageReportedAudit>().Insert(
-                    new MessageReportedAudit
+            BoardContext.Current.GetRepository<MessageReportedAudit>().Insert(
+                new MessageReportedAudit
                     {
                         MessageID = message.Item2.ID,
                         UserID = userId,
                         Reported = reportedDateTime,
                         ReportText = $"{DateTime.UtcNow}??{reportText}"
                     });
-            }
-            else
-            {
-                BoardContext.Current.GetRepository<MessageReportedAudit>().UpdateOnly(
-                    () => new MessageReportedAudit
-                    {
-                        ReportedNumber = reportAudit.ReportedNumber < 2147483647 ? reportAudit.ReportedNumber + 1 : reportAudit.ReportedNumber,
-                        Reported = reportedDateTime,
-                        ReportText = $"{reportAudit.ReportText}|{DateTime.UtcNow}??{reportText}"
-                    },
-                    m => m.MessageID == message.Item2.ID && m.UserID == userId);
-            }
-
-            var flags = message.Item2.MessageFlags;
-
-            flags.IsReported = true;
-
-            BoardContext.Current.GetRepository<Message>().UpdateFlags(message.Item2.ID, flags.BitValue);
         }
-
-        /// <summary>
-        /// Copy current Message text over reported Message text.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        public static void ReportCopyOver(this IRepository<MessageReported> repository, [NotNull] Message message)
+        else
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            repository.UpdateOnly(() => new MessageReported { Message = message.MessageText }, m => m.ID == message.ID);
+            BoardContext.Current.GetRepository<MessageReportedAudit>().UpdateOnly(
+                () => new MessageReportedAudit
+                          {
+                              ReportedNumber = reportAudit.ReportedNumber < 2147483647 ? reportAudit.ReportedNumber + 1 : reportAudit.ReportedNumber,
+                              Reported = reportedDateTime,
+                              ReportText = $"{reportAudit.ReportText}|{DateTime.UtcNow}??{reportText}"
+                          },
+                m => m.MessageID == message.Item2.ID && m.UserID == userId);
         }
+
+        var flags = message.Item2.MessageFlags;
+
+        flags.IsReported = true;
+
+        BoardContext.Current.GetRepository<Message>().UpdateFlags(message.Item2.ID, flags.BitValue);
+    }
+
+    /// <summary>
+    /// Copy current Message text over reported Message text.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    public static void ReportCopyOver(this IRepository<MessageReported> repository, [NotNull] Message message)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        repository.UpdateOnly(() => new MessageReported { Message = message.MessageText }, m => m.ID == message.ID);
     }
 }

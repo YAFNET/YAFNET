@@ -22,78 +22,77 @@
  * under the License.
  */
 
-namespace YAF.Modules
+namespace YAF.Modules;
+
+using System.Web.UI.HtmlControls;
+using YAF.Types.Attributes;
+
+/// <summary>
+///     Generates the Favicon code inside the head section
+/// </summary>
+[Module("Favicon Module", "Ingo Herbote", 1)]
+public class FaviconModule : SimpleBaseForumModule
 {
-    using System.Web.UI.HtmlControls;
-    using YAF.Types.Attributes;
+    /// <summary>
+    /// The initialization after page.
+    /// </summary>
+    public override void InitAfterPage()
+    {
+        this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
+    }
 
     /// <summary>
-    ///     Generates the Favicon code inside the head section
+    ///     Handles the PreRender event of the ForumPage control.
     /// </summary>
-    [Module("Favicon Module", "Ingo Herbote", 1)]
-    public class FaviconModule : SimpleBaseForumModule
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-        /// <summary>
-        /// The initialization after page.
-        /// </summary>
-        public override void InitAfterPage()
+        var head = this.ForumControl.Page.Header
+                   ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+
+        if (head == null || Config.IsAnyPortal)
         {
-            this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
+            return;
         }
 
-        /// <summary>
-        ///     Handles the PreRender event of the ForumPage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var head = this.ForumControl.Page.Header
-                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+        // Link tags
+        var appleTouchIcon = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/apple-touch-icon.png") };
+        appleTouchIcon.Attributes.Add("rel", "apple-touch-icon");
+        appleTouchIcon.Attributes.Add("sizes", "180x180");
+        head.Controls.Add(appleTouchIcon);
 
-            if (head == null || Config.IsAnyPortal)
-            {
-                return;
-            }
+        var icon32 = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/favicon-32x32.png") };
+        icon32.Attributes.Add("rel", "icon");
+        icon32.Attributes.Add("sizes", "32x32");
+        head.Controls.Add(icon32);
 
-            // Link tags
-            var appleTouchIcon = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/apple-touch-icon.png") };
-            appleTouchIcon.Attributes.Add("rel", "apple-touch-icon");
-            appleTouchIcon.Attributes.Add("sizes", "180x180");
-            head.Controls.Add(appleTouchIcon);
+        var icon16 = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/favicon-16x16.png") };
+        icon16.Attributes.Add("rel", "icon");
+        icon16.Attributes.Add("sizes", "16x16");
+        head.Controls.Add(icon16);
 
-            var icon32 = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/favicon-32x32.png") };
-            icon32.Attributes.Add("rel", "icon");
-            icon32.Attributes.Add("sizes", "32x32");
-            head.Controls.Add(icon32);
+        var manifest = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/site.webmanifest") };
+        manifest.Attributes.Add("rel", "manifest");
+        head.Controls.Add(manifest);
 
-            var icon16 = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/favicon-16x16.png") };
-            icon16.Attributes.Add("rel", "icon");
-            icon16.Attributes.Add("sizes", "16x16");
-            head.Controls.Add(icon16);
+        var maskIcon = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/safari-pinned-tab.svg") };
+        maskIcon.Attributes.Add("rel", "mask-icon");
+        maskIcon.Attributes.Add("color", "#5bbad5");
+        head.Controls.Add(maskIcon);
 
-            var manifest = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/site.webmanifest") };
-            manifest.Attributes.Add("rel", "manifest");
-            head.Controls.Add(manifest);
+        var shortcutIcon = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/favicon.ico") };
+        shortcutIcon.Attributes.Add("rel", "shortcut icon");
+        head.Controls.Add(shortcutIcon);
 
-            var maskIcon = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/safari-pinned-tab.svg") };
-            maskIcon.Attributes.Add("rel", "mask-icon");
-            maskIcon.Attributes.Add("color", "#5bbad5");
-            head.Controls.Add(maskIcon);
-
-            var shortcutIcon = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/favicon.ico") };
-            shortcutIcon.Attributes.Add("rel", "shortcut icon");
-            head.Controls.Add(shortcutIcon);
-
-            // Meta Tags
-            head.Controls.Add(new HtmlMeta { Name = "msapplication-TileColor", Content = "#da532c" });
-            head.Controls.Add(
-                new HtmlMeta
+        // Meta Tags
+        head.Controls.Add(new HtmlMeta { Name = "msapplication-TileColor", Content = "#da532c" });
+        head.Controls.Add(
+            new HtmlMeta
                 {
                     Name = "msapplication-config",
                     Content = BoardInfo.GetURLToContent("favicons/browserconfig.xml")
                 });
-            head.Controls.Add(new HtmlMeta { Name = "theme-color", Content = "#ffffff" });
-        }
+        head.Controls.Add(new HtmlMeta { Name = "theme-color", Content = "#ffffff" });
     }
 }

@@ -21,55 +21,54 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Data.PostgreSQL
+namespace YAF.Data.PostgreSQL;
+
+using System;
+
+using ServiceStack.OrmLite;
+
+using YAF.Configuration;
+using YAF.Core.Events;
+using YAF.Types.Attributes;
+using YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// Set the PostgreSQL dialect event.
+/// </summary>
+[ExportService(ServiceLifetimeScope.InstancePerDependency, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
+public class SetPostgreSQLDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
 {
-    using System;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Configuration;
-    using YAF.Core.Events;
-    using YAF.Types.Attributes;
-    using YAF.Types.Interfaces.Events;
+    #region Public Properties
 
     /// <summary>
-    /// Set the PostgreSQL dialect event.
+    ///     Gets the order.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.InstancePerDependency, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
-    public class SetPostgreSQLDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
+    public int Order => 1000;
+
+    #endregion
+
+    #region Public Methods and Operators
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
+    /// </param>
+    public void Handle(InitDatabaseProviderEvent @event)
     {
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets the order.
-        /// </summary>
-        public int Order => 1000;
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The handle.
-        /// </summary>
-        /// <param name="event">
-        /// The event.
-        /// </param>
-        public void Handle(InitDatabaseProviderEvent @event)
+        if (@event.ProviderName != PostgreSQLDbAccess.ProviderTypeName)
         {
-            if (@event.ProviderName != PostgreSQLDbAccess.ProviderTypeName)
-            {
-                return;
-            }
-
-            // set the OrmLite dialect provider...
-            OrmLiteConfig.DialectProvider = YafPostgreSQLOrmLiteDialectProvider.Instance;
-
-            OrmLiteConfig.DialectProvider.GetDateTimeConverter().DateStyle = DateTimeKind.Utc;
-            OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
-            OrmLiteConfig.CommandTimeout = Config.SqlCommandTimeout;
+            return;
         }
 
-        #endregion
+        // set the OrmLite dialect provider...
+        OrmLiteConfig.DialectProvider = YafPostgreSQLOrmLiteDialectProvider.Instance;
+
+        OrmLiteConfig.DialectProvider.GetDateTimeConverter().DateStyle = DateTimeKind.Utc;
+        OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
+        OrmLiteConfig.CommandTimeout = Config.SqlCommandTimeout;
     }
+
+    #endregion
 }

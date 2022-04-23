@@ -21,32 +21,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
-{
-    #region Using
+namespace YAF.Controls;
 
-    #endregion
+#region Using
+
+#endregion
+
+/// <summary>
+/// Display Ad Control
+/// </summary>
+public partial class DisplayAd : BaseUserControl
+{
+    #region Methods
 
     /// <summary>
-    /// Display Ad Control
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class DisplayAd : BaseUserControl
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Methods
+        this.AdMessage.Message = this.PageBoardContext.BoardSettings.AdPost;
+        this.AdMessage.Signature = this.GetText("AD_SIGNATURE");
 
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.AdMessage.Message = this.PageBoardContext.BoardSettings.AdPost;
-            this.AdMessage.Signature = this.GetText("AD_SIGNATURE");
-
-            this.AdMessage.MessageFlags = new MessageFlags { IsLocked = true, NotFormatted = true };
-        }
-
-        #endregion
+        this.AdMessage.MessageFlags = new MessageFlags { IsLocked = true, NotFormatted = true };
     }
+
+    #endregion
 }

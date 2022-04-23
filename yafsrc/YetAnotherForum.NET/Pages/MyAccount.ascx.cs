@@ -22,56 +22,55 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// Users Edit Profile Page.
+/// </summary>
+public partial class MyAccount : ForumPage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MyAccount"/> class.
+    /// </summary>
+    public MyAccount()
+        : base("ACCOUNT", ForumPages.MyAccount)
+    {
+        this.IsRegisteredPage = true;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Users Edit Profile Page.
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class MyAccount : ForumPage
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MyAccount"/> class.
-        /// </summary>
-        public MyAccount()
-            : base("ACCOUNT", ForumPages.MyAccount)
+        if (this.IsPostBack)
         {
-            this.IsRegisteredPage = true;
+            return;
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.ActivityPlaceHolder.Visible = this.PageBoardContext.PageUser.Activity;
-        }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
-        }
-
-        #endregion
+        this.ActivityPlaceHolder.Visible = this.PageBoardContext.PageUser.Activity;
     }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+    }
+
+    #endregion
 }

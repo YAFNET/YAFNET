@@ -22,125 +22,124 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// The Task Manager Admin Page
+/// </summary>
+public partial class TaskManager : AdminPage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TaskManager"/> class. 
+    /// </summary>
+    public TaskManager()
+        : base("ADMIN_TASKMANAGER", ForumPages.Admin_TaskManager)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The Task Manager Admin Page
+    /// Format access mask setting color formatting.
     /// </summary>
-    public partial class TaskManager : AdminPage
+    /// <param name="enabled">
+    /// The enabled.
+    /// </param>
+    /// <returns>
+    /// Set access mask flags are rendered green, rest black.
+    /// </returns>
+    protected string GetItemColor(bool enabled)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TaskManager"/> class. 
-        /// </summary>
-        public TaskManager()
-            : base("ADMIN_TASKMANAGER", ForumPages.Admin_TaskManager)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Format access mask setting color formatting.
-        /// </summary>
-        /// <param name="enabled">
-        /// The enabled.
-        /// </param>
-        /// <returns>
-        /// Set access mask flags are rendered green, rest black.
-        /// </returns>
-        protected string GetItemColor(bool enabled)
-        {
-            // show enabled flag red
-            return enabled ? "badge bg-success" : "badge badge-default";
-        }
-
-        /// <summary>
-        /// Get a user friendly item name.
-        /// </summary>
-        /// <param name="enabled">
-        /// The enabled.
-        /// </param>
-        /// <returns>
-        /// Item Name.
-        /// </returns>
-        protected string GetItemName(bool enabled)
-        {
-            return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
-        }
-
-        /// <summary>
-        /// binds data for this control
-        /// </summary>
-        protected void BindData()
-        {
-            this.taskRepeater.DataSource = this.Get<ITaskModuleManager>().TaskManagerSnapshot;
-            this.taskRepeater.DataBind();
-        }
-
-        /// <summary>
-        /// Formats the TimeSpan
-        /// </summary>
-        /// <param name="time">
-        /// The time item.
-        /// </param>
-        /// <returns>
-        /// returns the formatted time span.
-        /// </returns>
-        protected string FormatTimeSpan(DateTime time)
-        {
-            var elapsed = DateTime.UtcNow.Subtract(time);
-
-            return $"{elapsed.Days:D2}:{elapsed.Hours:D2}:{elapsed.Minutes:D2}:{elapsed.Seconds:D2}";
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddAdminIndex();
-
-            this.PageLinks.AddLink(this.GetText("ADMIN_TASKMANAGER", "TITLE"), string.Empty);
-        }
-
-        /// <summary>
-        /// Called on a command in the task repeater.
-        /// </summary>
-        /// <param name="source">The source of the event.</param>
-        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void TaskRepeaterItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            if (!e.CommandName.Equals("stop"))
-            {
-                return;
-            }
-
-            // attempt to stop a task...
-            this.Get<ITaskModuleManager>().StopTask(e.CommandArgument.ToString());
-
-            // refresh the display
-            this.BindData();
-        }
-
-        #endregion
+        // show enabled flag red
+        return enabled ? "badge bg-success" : "badge badge-default";
     }
+
+    /// <summary>
+    /// Get a user friendly item name.
+    /// </summary>
+    /// <param name="enabled">
+    /// The enabled.
+    /// </param>
+    /// <returns>
+    /// Item Name.
+    /// </returns>
+    protected string GetItemName(bool enabled)
+    {
+        return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
+    }
+
+    /// <summary>
+    /// binds data for this control
+    /// </summary>
+    protected void BindData()
+    {
+        this.taskRepeater.DataSource = this.Get<ITaskModuleManager>().TaskManagerSnapshot;
+        this.taskRepeater.DataBind();
+    }
+
+    /// <summary>
+    /// Formats the TimeSpan
+    /// </summary>
+    /// <param name="time">
+    /// The time item.
+    /// </param>
+    /// <returns>
+    /// returns the formatted time span.
+    /// </returns>
+    protected string FormatTimeSpan(DateTime time)
+    {
+        var elapsed = DateTime.UtcNow.Subtract(time);
+
+        return $"{elapsed.Days:D2}:{elapsed.Hours:D2}:{elapsed.Minutes:D2}:{elapsed.Seconds:D2}";
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddAdminIndex();
+
+        this.PageLinks.AddLink(this.GetText("ADMIN_TASKMANAGER", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// Called on a command in the task repeater.
+    /// </summary>
+    /// <param name="source">The source of the event.</param>
+    /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
+    protected void TaskRepeaterItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+        if (!e.CommandName.Equals("stop"))
+        {
+            return;
+        }
+
+        // attempt to stop a task...
+        this.Get<ITaskModuleManager>().StopTask(e.CommandArgument.ToString());
+
+        // refresh the display
+        this.BindData();
+    }
+
+    #endregion
 }

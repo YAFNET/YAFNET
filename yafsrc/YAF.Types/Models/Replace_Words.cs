@@ -21,48 +21,47 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the Replace_Words table.
+/// </summary>
+[Serializable]
+public class Replace_Words : IEntity, IHaveBoardID, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the Replace_Words table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class Replace_Words : IEntity, IHaveBoardID, IHaveID
-    {
-        #region Properties
+    [AutoIncrement]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the board id.
+    /// </summary>
+    [Required]
+    [Default(1)]
+    public int BoardID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
-        [Required]
-        [Default(1)]
-        public int BoardID { get; set; }
+    /// <summary>
+    /// Gets or sets the bad word.
+    /// </summary>
+    [StringLength(255)]
+    public string BadWord { get; set; }
 
-        /// <summary>
-        /// Gets or sets the bad word.
-        /// </summary>
-        [StringLength(255)]
-        public string BadWord { get; set; }
+    /// <summary>
+    /// Gets or sets the good word.
+    /// </summary>
+    [StringLength(255)]
+    public string GoodWord { get; set; }
 
-        /// <summary>
-        /// Gets or sets the good word.
-        /// </summary>
-        [StringLength(255)]
-        public string GoodWord { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

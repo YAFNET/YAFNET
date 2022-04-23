@@ -22,180 +22,179 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// For globally or multiple times used constants
+/// </summary>
+public static class Constants
 {
     /// <summary>
-    /// For globally or multiple times used constants
+    /// Cache key constants
     /// </summary>
-    public static class Constants
+    public struct Cache
+    {
+        #region Constants and Fields
+
+        /// <summary>
+        ///   The active discussions.
+        /// </summary>
+        public const string ActiveDiscussions = "ActiveDiscussions";
+
+        /// <summary>
+        ///   The user data which is not refreshed too often.
+        /// </summary>
+        public const string ActiveUserLazyData = "ActiveUserLazyData{0}";
+
+        /// <summary>
+        ///   The banned IP.
+        /// </summary>
+        public const string BannedIP = "BannedIP";
+
+        /// <summary>
+        ///  The board moderators cache.
+        /// </summary>
+        public const string BoardModerators = "BoardModerators";
+
+        /// <summary>
+        ///   The board admins cache.
+        /// </summary>
+        public const string BoardAdmins = "BoardAdmins";
+
+        /// <summary>
+        ///   The board settings.
+        /// </summary>
+        public const string BoardSettings = "BoardSettings";
+
+        /// <summary>
+        ///   The board stats.
+        /// </summary>
+        public const string BoardStats = "BoardStats";
+
+        /// <summary>
+        ///   The board user stats.
+        /// </summary>
+        public const string BoardUserStats = "BoardUserStats";
+
+        /// <summary>
+        ///   The board user members.
+        /// </summary>
+        public const string BoardMembers = "BoardMembers";
+
+        /// <summary>
+        ///   The custom bb code.
+        /// </summary>
+        public const string CustomBBCode = "CustomBBCode";
+
+        /// <summary>
+        ///   The user data which is not refreshed too often.
+        /// </summary>
+        public const string UserCustomProfileData = "UserCustomProfileData{0}";
+
+        /// <summary>
+        ///   The first post cleaned.
+        /// </summary>
+        public const string FirstPostCleaned = "FirstPostCleaned{0}{1}";
+
+        /// <summary>
+        ///   The forum jump.
+        /// </summary>
+        public const string ForumJump = "ForumJump{0}";
+
+        /// <summary>
+        ///   The forum moderators.
+        /// </summary>
+        public const string ForumModerators = "ForumModerators";
+
+        /// <summary>
+        ///   The guest user.
+        /// </summary>
+        public const string GuestUser = "GuestUser";
+
+        /// <summary>
+        ///   The most active users.
+        /// </summary>
+        public const string MostActiveUsers = "MostActiveUsers";
+
+        /// <summary>
+        ///   The replace rules.
+        /// </summary>
+        public const string ReplaceRules = "ReplaceRules{0}";
+
+        /// <summary>
+        ///   The replace words.
+        /// </summary>
+        public const string ReplaceWords = "ReplaceWords";
+
+        /// <summary>
+        ///   The spam words.
+        /// </summary>
+        public const string SpamWords = "SpamWords";
+
+        /// <summary>
+        /// The task module.
+        /// </summary>
+        public const string TaskModule = "TaskModule";
+
+        /// <summary>
+        ///   The user buddies.
+        /// </summary>
+        public const string UserBuddies = "UserBuddies{0}";
+
+        /// <summary>
+        ///   The user ignore list.
+        /// </summary>
+        public const string UserIgnoreList = "UserIgnoreList{0}";
+
+        /// <summary>
+        ///   The user medals.
+        /// </summary>
+        public const string UserMedals = "UserMedals{0}";
+
+        /// <summary>
+        ///   The user signature cache.
+        /// </summary>
+        public const string UserSignatureCache = "UserSignatureCache";
+
+        /// <summary>
+        ///   The users online status.
+        /// </summary>
+        public const string UsersOnlineStatus = "UsersOnlineStatus";
+
+        /// <summary>
+        /// The Visitors In The Last 30 Days
+        /// </summary>
+        public const string VisitorsInTheLast30Days = "VisitorsInTheLast30Days";
+
+        /// <summary>
+        /// The YAF Cache key.
+        /// </summary>
+        public const string YafCacheKey = "YAFCACHE";
+
+        /// <summary>
+        /// The version.
+        /// </summary>
+        public const string Version = "DBVersion";
+
+        /// <summary>
+        ///   Admin Page Access List.
+        /// </summary>
+        public const string AdminPageAccess = "AdminPageAccess{0}";
+
+        #endregion
+    }
+
+    /// <summary>
+    /// The forum rebuild.
+    /// </summary>
+    public struct ForumRebuild
     {
         /// <summary>
-        /// Cache key constants
+        /// The blocking task names.
         /// </summary>
-        public struct Cache
-        {
-            #region Constants and Fields
-
-            /// <summary>
-            ///   The active discussions.
-            /// </summary>
-            public const string ActiveDiscussions = "ActiveDiscussions";
-
-            /// <summary>
-            ///   The user data which is not refreshed too often.
-            /// </summary>
-            public const string ActiveUserLazyData = "ActiveUserLazyData{0}";
-
-            /// <summary>
-            ///   The banned IP.
-            /// </summary>
-            public const string BannedIP = "BannedIP";
-
-            /// <summary>
-            ///  The board moderators cache.
-            /// </summary>
-            public const string BoardModerators = "BoardModerators";
-
-            /// <summary>
-            ///   The board admins cache.
-            /// </summary>
-            public const string BoardAdmins = "BoardAdmins";
-
-            /// <summary>
-            ///   The board settings.
-            /// </summary>
-            public const string BoardSettings = "BoardSettings";
-
-            /// <summary>
-            ///   The board stats.
-            /// </summary>
-            public const string BoardStats = "BoardStats";
-
-            /// <summary>
-            ///   The board user stats.
-            /// </summary>
-            public const string BoardUserStats = "BoardUserStats";
-
-            /// <summary>
-            ///   The board user members.
-            /// </summary>
-            public const string BoardMembers = "BoardMembers";
-
-            /// <summary>
-            ///   The custom bb code.
-            /// </summary>
-            public const string CustomBBCode = "CustomBBCode";
-
-            /// <summary>
-            ///   The user data which is not refreshed too often.
-            /// </summary>
-            public const string UserCustomProfileData = "UserCustomProfileData{0}";
-
-            /// <summary>
-            ///   The first post cleaned.
-            /// </summary>
-            public const string FirstPostCleaned = "FirstPostCleaned{0}{1}";
-
-            /// <summary>
-            ///   The forum jump.
-            /// </summary>
-            public const string ForumJump = "ForumJump{0}";
-
-            /// <summary>
-            ///   The forum moderators.
-            /// </summary>
-            public const string ForumModerators = "ForumModerators";
-
-            /// <summary>
-            ///   The guest user.
-            /// </summary>
-            public const string GuestUser = "GuestUser";
-
-            /// <summary>
-            ///   The most active users.
-            /// </summary>
-            public const string MostActiveUsers = "MostActiveUsers";
-
-            /// <summary>
-            ///   The replace rules.
-            /// </summary>
-            public const string ReplaceRules = "ReplaceRules{0}";
-
-            /// <summary>
-            ///   The replace words.
-            /// </summary>
-            public const string ReplaceWords = "ReplaceWords";
-
-            /// <summary>
-            ///   The spam words.
-            /// </summary>
-            public const string SpamWords = "SpamWords";
-
-            /// <summary>
-            /// The task module.
-            /// </summary>
-            public const string TaskModule = "TaskModule";
-
-            /// <summary>
-            ///   The user buddies.
-            /// </summary>
-            public const string UserBuddies = "UserBuddies{0}";
-
-            /// <summary>
-            ///   The user ignore list.
-            /// </summary>
-            public const string UserIgnoreList = "UserIgnoreList{0}";
-
-            /// <summary>
-            ///   The user medals.
-            /// </summary>
-            public const string UserMedals = "UserMedals{0}";
-
-            /// <summary>
-            ///   The user signature cache.
-            /// </summary>
-            public const string UserSignatureCache = "UserSignatureCache";
-
-            /// <summary>
-            ///   The users online status.
-            /// </summary>
-            public const string UsersOnlineStatus = "UsersOnlineStatus";
-
-            /// <summary>
-            /// The Visitors In The Last 30 Days
-            /// </summary>
-            public const string VisitorsInTheLast30Days = "VisitorsInTheLast30Days";
-
-            /// <summary>
-            /// The YAF Cache key.
-            /// </summary>
-            public const string YafCacheKey = "YAFCACHE";
-
-            /// <summary>
-            /// The version.
-            /// </summary>
-            public const string Version = "DBVersion";
-
-            /// <summary>
-            ///   Admin Page Access List.
-            /// </summary>
-            public const string AdminPageAccess = "AdminPageAccess{0}";
-
-            #endregion
-        }
-
-        /// <summary>
-        /// The forum rebuild.
-        /// </summary>
-        public struct ForumRebuild
-        {
-            /// <summary>
-            /// The blocking task names.
-            /// </summary>
-            public static readonly string[] BlockingTaskNames =
-                {
-                    "ForumDeleteTask"
-                };
-        }
+        public static readonly string[] BlockingTaskNames =
+            {
+                "ForumDeleteTask"
+            };
     }
 }

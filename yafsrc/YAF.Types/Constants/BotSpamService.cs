@@ -21,36 +21,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// Spam Service Type
+/// </summary>
+public enum BotSpamService
 {
     /// <summary>
-    /// Spam Service Type
+    /// No Service
     /// </summary>
-    public enum BotSpamService
-    {
-        /// <summary>
-        /// No Service
-        /// </summary>
-        NoService = 0,
+    NoService = 0,
 
-        /// <summary>
-        /// StopForumSpam.com Service
-        /// </summary>
-        StopForumSpam = 1,
+    /// <summary>
+    /// StopForumSpam.com Service
+    /// </summary>
+    StopForumSpam = 1,
 
-        /// <summary>
-        ///  BotScout.com Service
-        /// </summary>
-        BotScout = 2,
+    /// <summary>
+    ///  BotScout.com Service
+    /// </summary>
+    BotScout = 2,
 
-        /// <summary>
-        /// StopForumSpam.com and BotScout.com Service
-        /// </summary>
-        BothServiceMatch = 3,
+    /// <summary>
+    /// StopForumSpam.com and BotScout.com Service
+    /// </summary>
+    BothServiceMatch = 3,
 
-        /// <summary>
-        /// StopForumSpam.com or BotScout.com Service
-        /// </summary>
-        OneServiceMatch = 4
-    }
+    /// <summary>
+    /// StopForumSpam.com or BotScout.com Service
+    /// </summary>
+    OneServiceMatch = 4
 }

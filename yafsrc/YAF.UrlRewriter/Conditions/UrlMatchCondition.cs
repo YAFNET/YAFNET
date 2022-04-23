@@ -5,74 +5,73 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Conditions
+namespace YAF.UrlRewriter.Conditions;
+
+using System;
+using System.Text.RegularExpressions;
+
+/// <summary>
+/// Matches on the current URL.
+/// </summary>
+public sealed class UrlMatchCondition : IRewriteCondition
 {
-    using System;
-    using System.Text.RegularExpressions;
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    /// <param name="pattern"></param>
+    public UrlMatchCondition(string pattern)
+    {
+        this.Pattern = pattern ?? throw new ArgumentNullException(nameof(pattern));
+    }
 
     /// <summary>
-    /// Matches on the current URL.
+    /// Determines if the condition is matched.
     /// </summary>
-    public sealed class UrlMatchCondition : IRewriteCondition
+    /// <param name="context">The rewriting context.</param>
+    /// <returns>True if the condition is met.</returns>
+    public bool IsMatch(IRewriteContext context)
     {
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        /// <param name="pattern"></param>
-        public UrlMatchCondition(string pattern)
+        if (context == null)
         {
-            this.Pattern = pattern ?? throw new ArgumentNullException(nameof(pattern));
+            throw new ArgumentNullException(nameof(context));
         }
 
-        /// <summary>
-        /// Determines if the condition is matched.
-        /// </summary>
-        /// <param name="context">The rewriting context.</param>
-        /// <returns>True if the condition is met.</returns>
-        public bool IsMatch(IRewriteContext context)
+        var regex = this.GetRegex(context);
+
+        var match = regex.Match(context.Location);
+        if (match.Success)
         {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            var regex = this.GetRegex(context);
-
-            var match = regex.Match(context.Location);
-            if (match.Success)
-            {
-                context.LastMatch = match;
-            }
-
-            return match.Success;
+            context.LastMatch = match;
         }
 
-        /// <summary>
-        /// Gets regular expression to evaluate.
-        /// </summary>
-        private Regex GetRegex(IRewriteContext context)
+        return match.Success;
+    }
+
+    /// <summary>
+    /// Gets regular expression to evaluate.
+    /// </summary>
+    private Regex GetRegex(IRewriteContext context)
+    {
+        // Use double-checked locking pattern to synchronise access to the regex.
+        if (this._regex != null)
         {
-            // Use double-checked locking pattern to synchronise access to the regex.
-            if (this._regex != null)
-            {
-                return this._regex;
-            }
-
-            var lockObj = new object();
-
-            lock (lockObj)
-            {
-                this._regex ??= new Regex(context.ResolveLocation(this.Pattern), RegexOptions.IgnoreCase);
-            }
-
             return this._regex;
         }
 
-        /// <summary>
-        /// The pattern to match.
-        /// </summary>
-        public string Pattern { get; }
+        var lockObj = new object();
 
-        private Regex _regex;
+        lock (lockObj)
+        {
+            this._regex ??= new Regex(context.ResolveLocation(this.Pattern), RegexOptions.IgnoreCase);
+        }
+
+        return this._regex;
     }
+
+    /// <summary>
+    /// The pattern to match.
+    /// </summary>
+    public string Pattern { get; }
+
+    private Regex _regex;
 }

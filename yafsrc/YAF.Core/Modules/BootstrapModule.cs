@@ -22,39 +22,38 @@
  * under the License.
  */
 
-namespace YAF.Core.Modules
-{
-    using System.Reflection;
+namespace YAF.Core.Modules;
 
-    using Autofac;
-    using Autofac.Core;
+using System.Reflection;
+
+using Autofac;
+using Autofac.Core;
+
+/// <summary>
+/// The bootstrap module.
+/// </summary>
+public class BootstrapModule : BaseModule
+{
+    /// <summary>
+    /// Bootstrap module is always called first
+    /// </summary>
+    public override int SortOrder => 1;
 
     /// <summary>
-    /// The bootstrap module.
+    /// The load.
     /// </summary>
-    public class BootstrapModule : BaseModule
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    protected override void Load(ContainerBuilder builder)
     {
-        /// <summary>
-        /// Bootstrap module is always called first
-        /// </summary>
-        public override int SortOrder => 1;
+        // register all the modules in this assembly first -- excluding this module
+        this.RegisterBaseModules<IModule>(
+            builder,
+            new[] { Assembly.GetExecutingAssembly() },
+            new[] { typeof(BootstrapModule) });
 
-        /// <summary>
-        /// The load.
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        protected override void Load(ContainerBuilder builder)
-        {
-            // register all the modules in this assembly first -- excluding this module
-            this.RegisterBaseModules<IModule>(
-                builder,
-                new[] { Assembly.GetExecutingAssembly() },
-                new[] { typeof(BootstrapModule) });
-
-            // register all the modules in scanned assemblies
-            this.RegisterBaseModules<IModule>(builder, ExtensionAssemblies);
-        }
+        // register all the modules in scanned assemblies
+        this.RegisterBaseModules<IModule>(builder, ExtensionAssemblies);
     }
 }

@@ -21,130 +21,129 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.ForumModules
+namespace YAF.Core.ForumModules;
+
+#region Using
+
+using System;
+using System.Web;
+
+using YAF.Core.BaseModules;
+using YAF.Core.Context;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The Anti XSRF Forum Module.
+/// "https://software-security.sans.org/developer-how-to/developer-guide-csrf"
+/// </summary>
+[Module("Anti CSRF Forum Module", "Tiny Gecko", 1)]
+public class AntiXsrfForumModule : BaseForumModule
 {
-    #region Using
+    /// <summary>
+    /// The anti XSRF token key.
+    /// </summary>
+    private const string AntiXsrfTokenKey = "__AntiXsrfToken";
 
-    using System;
-    using System.Web;
+    /// <summary>
+    /// The anti XSRF user name key.
+    /// </summary>
+    private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
 
-    using YAF.Core.BaseModules;
-    using YAF.Core.Context;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    /// The anti XSRF token value.
+    /// </summary>
+    private string antiXsrfTokenValue;
+
+    #region Public Methods
+
+    /// <summary>
+    /// The init.
+    /// </summary>
+    public override void Init()
+    {
+        // hook the page init for mail sending...
+        this.PageBoardContext.Init += this.CurrentPageInit;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The Anti XSRF Forum Module.
-    /// "https://software-security.sans.org/developer-how-to/developer-guide-csrf"
+    /// Currents the after initialize.
     /// </summary>
-    [Module("Anti CSRF Forum Module", "Tiny Gecko", 1)]
-    public class AntiXsrfForumModule : BaseForumModule
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    private void CurrentPageInit([NotNull] object sender, [NotNull] EventArgs e)
     {
-        /// <summary>
-        /// The anti XSRF token key.
-        /// </summary>
-        private const string AntiXsrfTokenKey = "__AntiXsrfToken";
+        var requestCookie = HttpContext.Current.Request.Cookies[AntiXsrfTokenKey];
 
-        /// <summary>
-        /// The anti XSRF user name key.
-        /// </summary>
-        private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
-
-        /// <summary>
-        /// The anti XSRF token value.
-        /// </summary>
-        private string antiXsrfTokenValue;
-
-        #region Public Methods
-
-        /// <summary>
-        /// The init.
-        /// </summary>
-        public override void Init()
+        if (requestCookie != null && Guid.TryParse(requestCookie.Value, out _))
         {
-            // hook the page init for mail sending...
-            this.PageBoardContext.Init += this.CurrentPageInit;
+            this.antiXsrfTokenValue = requestCookie.Value;
+
+            this.PageBoardContext.CurrentForumPage.Page.ViewStateUserKey = this.antiXsrfTokenValue;
+        }
+        else
+        {
+            // If the CSRF cookie is not found, then this is a new session.
+            // Generate a new Anti-XSRF token
+            this.antiXsrfTokenValue = Guid.NewGuid().ToString("N");
+
+            this.PageBoardContext.CurrentForumPage.Page.ViewStateUserKey = this.antiXsrfTokenValue;
+
+            // Create the non-persistent CSRF cookie
+            var responseCookie = new HttpCookie(AntiXsrfTokenKey)
+                                     {
+                                         HttpOnly = true,
+                                         Value = this.antiXsrfTokenValue,
+                                         Secure = BoardContext.Current.Get<HttpRequestBase>().IsSecureConnection
+                                     };
+
+            if (HttpContext.Current.Request.IsSecureConnection)
+            {
+                responseCookie.Secure = true;
+            }
+
+            HttpContext.Current.Response.Cookies.Set(responseCookie);
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Currents the after initialize.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CurrentPageInit([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var requestCookie = HttpContext.Current.Request.Cookies[AntiXsrfTokenKey];
-
-            if (requestCookie != null && Guid.TryParse(requestCookie.Value, out _))
-            {
-                this.antiXsrfTokenValue = requestCookie.Value;
-
-                this.PageBoardContext.CurrentForumPage.Page.ViewStateUserKey = this.antiXsrfTokenValue;
-            }
-            else
-            {
-                // If the CSRF cookie is not found, then this is a new session.
-                // Generate a new Anti-XSRF token
-                this.antiXsrfTokenValue = Guid.NewGuid().ToString("N");
-
-                this.PageBoardContext.CurrentForumPage.Page.ViewStateUserKey = this.antiXsrfTokenValue;
-
-                // Create the non-persistent CSRF cookie
-                var responseCookie = new HttpCookie(AntiXsrfTokenKey)
-                {
-                    HttpOnly = true,
-                    Value = this.antiXsrfTokenValue,
-                    Secure = BoardContext.Current.Get<HttpRequestBase>().IsSecureConnection
-                };
-
-                if (HttpContext.Current.Request.IsSecureConnection)
-                {
-                    responseCookie.Secure = true;
-                }
-
-                HttpContext.Current.Response.Cookies.Set(responseCookie);
-            }
-
-            this.PageBoardContext.CurrentForumPage.Page.PreLoad += this.Page_OnPreLoad;
-        }
-
-        /// <summary>
-        /// The page_ on pre load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        /// <exception cref="InvalidOperationException">
-        /// </exception>
-        private void Page_OnPreLoad(object sender, EventArgs e)
-        {
-            if (!this.PageBoardContext.CurrentForumPage.Page.IsPostBack)
-            {
-                HttpContext.Current.Items[AntiXsrfTokenKey] = this.PageBoardContext.CurrentForumPage.Page.ViewStateUserKey;
-                HttpContext.Current.Items[AntiXsrfUserNameKey] = HttpContext.Current.User.Identity.Name ?? string.Empty;
-            }
-            else
-            {
-                // Validate the Anti-XSRF token
-                if ((string)HttpContext.Current.Items[AntiXsrfTokenKey] != this.antiXsrfTokenValue ||
-                    (string)HttpContext.Current.Items[AntiXsrfUserNameKey] !=
-                    (HttpContext.Current.User.Identity.Name ?? string.Empty))
-                {
-                    throw new InvalidOperationException("Validation of Anti -XSRF token failed.");
-                }
-            }
-        }
-
-        #endregion
+        this.PageBoardContext.CurrentForumPage.Page.PreLoad += this.Page_OnPreLoad;
     }
+
+    /// <summary>
+    /// The page_ on pre load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    /// <exception cref="InvalidOperationException">
+    /// </exception>
+    private void Page_OnPreLoad(object sender, EventArgs e)
+    {
+        if (!this.PageBoardContext.CurrentForumPage.Page.IsPostBack)
+        {
+            HttpContext.Current.Items[AntiXsrfTokenKey] = this.PageBoardContext.CurrentForumPage.Page.ViewStateUserKey;
+            HttpContext.Current.Items[AntiXsrfUserNameKey] = HttpContext.Current.User.Identity.Name ?? string.Empty;
+        }
+        else
+        {
+            // Validate the Anti-XSRF token
+            if ((string)HttpContext.Current.Items[AntiXsrfTokenKey] != this.antiXsrfTokenValue ||
+                (string)HttpContext.Current.Items[AntiXsrfUserNameKey] !=
+                (HttpContext.Current.User.Identity.Name ?? string.Empty))
+            {
+                throw new InvalidOperationException("Validation of Anti -XSRF token failed.");
+            }
+        }
+    }
+
+    #endregion
 }

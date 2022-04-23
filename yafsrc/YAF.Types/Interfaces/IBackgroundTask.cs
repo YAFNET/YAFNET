@@ -21,42 +21,41 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+using System;
+
+/// <summary>
+/// The background task interface
+/// </summary>
+public interface IBackgroundTask : IDisposable
 {
-    using System;
+    /// <summary>
+    /// Sets Data
+    /// </summary>
+    object Data
+    {
+        set;
+    }
 
     /// <summary>
-    /// The background task interface
+    /// Gets Started.
     /// </summary>
-    public interface IBackgroundTask : IDisposable
+    DateTime Started
     {
-        /// <summary>
-        /// Sets Data
-        /// </summary>
-        object Data
-        {
-            set;
-        }
-
-        /// <summary>
-        /// Gets Started.
-        /// </summary>
-        DateTime Started
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether IsRunning.
-        /// </summary>
-        bool IsRunning
-        {
-            get;
-        }
-
-        /// <summary>
-        /// The run.
-        /// </summary>
-        void Run();
+        get;
     }
+
+    /// <summary>
+    /// Gets a value indicating whether IsRunning.
+    /// </summary>
+    bool IsRunning
+    {
+        get;
+    }
+
+    /// <summary>
+    /// The run.
+    /// </summary>
+    void Run();
 }

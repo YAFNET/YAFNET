@@ -5,20 +5,19 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Conditions
+namespace YAF.UrlRewriter.Conditions;
+
+/// <summary>
+/// Interface for conditions.  Conditions must be thread-safe as there is a single
+/// instance of each condition.  This means that you must not make any changes to fields/properties
+/// on the condition once its created.
+/// </summary>
+public interface IRewriteCondition
 {
     /// <summary>
-    /// Interface for conditions.  Conditions must be thread-safe as there is a single
-    /// instance of each condition.  This means that you must not make any changes to fields/properties
-    /// on the condition once its created.
+    /// Determines if the condition matches.
     /// </summary>
-    public interface IRewriteCondition
-    {
-        /// <summary>
-        /// Determines if the condition matches.
-        /// </summary>
-        /// <param name="context">The rewrite context.</param>
-        /// <returns>True if the condition is met.</returns>
-        bool IsMatch(IRewriteContext context);
-    }
+    /// <param name="context">The rewrite context.</param>
+    /// <returns>True if the condition is met.</returns>
+    bool IsMatch(IRewriteContext context);
 }

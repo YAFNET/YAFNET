@@ -22,25 +22,24 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The Database connection parameter.
+/// </summary>
+public interface IDbConnectionParam : IHaveID
 {
+    #region Properties
+
     /// <summary>
-    /// The Database connection parameter.
+    ///   Gets the DefaultValue.
     /// </summary>
-    public interface IDbConnectionParam : IHaveID
-    {
-        #region Properties
+    string Value { get; }
 
-        /// <summary>
-        ///   Gets the DefaultValue.
-        /// </summary>
-        string Value { get; }
+    /// <summary>
+    ///   Gets the Label.
+    /// </summary>
+    string Name { get; }
 
-        /// <summary>
-        ///   Gets the Label.
-        /// </summary>
-        string Name { get; }
-
-        #endregion
-    }
+    #endregion
 }

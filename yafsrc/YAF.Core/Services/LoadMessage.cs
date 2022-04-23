@@ -21,139 +21,138 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services
-{
-    #region Using
+namespace YAF.Core.Services;
 
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
     
-    using YAF.Core.Context;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Objects;
+using YAF.Core.Context;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Objects;
+
+#endregion
+
+/// <summary>
+/// The load message.
+/// </summary>
+public class LoadMessage
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "LoadMessage" /> class.
+    /// </summary>
+    public LoadMessage()
+    {
+        if (!this.SessionLoadString.NullOrEmpty())
+        {
+            this.LoadStringList.AddRange(this.SessionLoadString);
+
+            // session load string no longer needed
+            this.SessionLoadString.Clear();
+        }
+
+        BoardContext.Current.Unload += this.CurrentUnload;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The load message.
+    ///   Gets LoadStringList.
     /// </summary>
-    public class LoadMessage
+    [NotNull]
+    public List<MessageNotification> LoadStringList { get; } = new ();
+
+    /// <summary>
+    /// Gets the session load string.
+    /// </summary>
+    protected List<MessageNotification> SessionLoadString
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "LoadMessage" /> class.
-        /// </summary>
-        public LoadMessage()
+        get
         {
-            if (!this.SessionLoadString.NullOrEmpty())
+            if (BoardContext.Current.Get<IDataCache>().Get("LoadStringList") == null)
             {
-                this.LoadStringList.AddRange(this.SessionLoadString);
-
-                // session load string no longer needed
-                this.SessionLoadString.Clear();
+                BoardContext.Current.Get<IDataCache>().Set(
+                    "LoadStringList",
+                    new List<MessageNotification>(),
+                    TimeSpan.FromMinutes(30));
             }
 
-            BoardContext.Current.Unload += this.CurrentUnload;
+            return BoardContext.Current.Get<IDataCache>().Get("LoadStringList") as List<MessageNotification>;
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets LoadStringList.
-        /// </summary>
-        [NotNull]
-        public List<MessageNotification> LoadStringList { get; } = new ();
-
-        /// <summary>
-        /// Gets the session load string.
-        /// </summary>
-        protected List<MessageNotification> SessionLoadString
-        {
-            get
-            {
-                if (BoardContext.Current.Get<IDataCache>().Get("LoadStringList") == null)
-                {
-                    BoardContext.Current.Get<IDataCache>().Set(
-                        "LoadStringList",
-                        new List<MessageNotification>(),
-                        TimeSpan.FromMinutes(30));
-                }
-
-                return BoardContext.Current.Get<IDataCache>().Get("LoadStringList") as List<MessageNotification>;
-            }
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Creates a message that will be returned on the next page load.
-        /// </summary>
-        /// <param name="message">The message you wish to display.</param>
-        /// <param name="messageType">Type of the message.</param>
-        public void Add([NotNull] string message, MessageTypes messageType)
-        {
-            this.LoadStringList.Add(new MessageNotification(message, messageType));
-        }
-
-        /// <summary>
-        /// AddLoadMessageSession creates a message that will be returned on the next page.
-        /// </summary>
-        /// <param name="message">The message you wish to display.</param>
-        /// <param name="messageType">Type of the message.</param>
-        public void AddSession([NotNull] string message, MessageTypes messageType)
-        {
-            // add it too the session list...
-            this.SessionLoadString.Add(new MessageNotification(message, messageType));
-        }
-
-        /// <summary>
-        /// Clear the Load String (error) List
-        /// </summary>
-        public void Clear()
-        {
-            this.LoadStringList.Clear();
-        }
-
-       /// <summary>
-        /// Gets the message.
-        /// </summary>
-        /// <returns>Returns the Current Message</returns>
-        public MessageNotification GetMessage()
-        {
-            if (this.LoadStringList == null)
-            {
-                return null;
-            }
-
-            return !this.LoadStringList.Any()
-                       ? null
-                       : this.LoadStringList.First();
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Clear the load message...
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void CurrentUnload([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // clear the load message...
-            this.Clear();
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Creates a message that will be returned on the next page load.
+    /// </summary>
+    /// <param name="message">The message you wish to display.</param>
+    /// <param name="messageType">Type of the message.</param>
+    public void Add([NotNull] string message, MessageTypes messageType)
+    {
+        this.LoadStringList.Add(new MessageNotification(message, messageType));
+    }
+
+    /// <summary>
+    /// AddLoadMessageSession creates a message that will be returned on the next page.
+    /// </summary>
+    /// <param name="message">The message you wish to display.</param>
+    /// <param name="messageType">Type of the message.</param>
+    public void AddSession([NotNull] string message, MessageTypes messageType)
+    {
+        // add it too the session list...
+        this.SessionLoadString.Add(new MessageNotification(message, messageType));
+    }
+
+    /// <summary>
+    /// Clear the Load String (error) List
+    /// </summary>
+    public void Clear()
+    {
+        this.LoadStringList.Clear();
+    }
+
+    /// <summary>
+    /// Gets the message.
+    /// </summary>
+    /// <returns>Returns the Current Message</returns>
+    public MessageNotification GetMessage()
+    {
+        if (this.LoadStringList == null)
+        {
+            return null;
+        }
+
+        return !this.LoadStringList.Any()
+                   ? null
+                   : this.LoadStringList.First();
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Clear the load message...
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    private void CurrentUnload([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // clear the load message...
+        this.Clear();
+    }
+
+    #endregion
 }

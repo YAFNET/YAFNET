@@ -22,37 +22,36 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System;
+
+/// <summary>
+/// Moderator Forums
+/// </summary>
+[Serializable]
+public class ModeratorsForums
 {
-    using System;
+    #region Properties
 
     /// <summary>
-    /// Moderator Forums
+    ///   Gets or sets The Forum ID.
     /// </summary>
-    [Serializable]
-    public class ModeratorsForums
-    {
-        #region Properties
+    public int ForumID { get; set; }
 
-        /// <summary>
-        ///   Gets or sets The Forum ID.
-        /// </summary>
-        public int ForumID { get; set; }
+    public int? ParentID { get; set; }
 
-        public int? ParentID { get; set; }
+    /// <summary>
+    /// Gets or sets the name of the forum.
+    /// </summary>
+    /// <value>
+    /// The name of the forum.
+    /// </value>
+    public string ForumName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the forum.
-        /// </summary>
-        /// <value>
-        /// The name of the forum.
-        /// </value>
-        public string ForumName { get; set; }
+    public int CategoryID { get; set; }
 
-        public int CategoryID { get; set; }
+    public string CategoryName { get; set; }
 
-        public string CategoryName { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

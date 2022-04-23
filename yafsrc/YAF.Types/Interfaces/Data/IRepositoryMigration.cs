@@ -21,19 +21,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The Database Migration interface.
+/// </summary>
+public interface IRepositoryMigration
 {
     /// <summary>
-    /// The Database Migration interface.
+    /// Migrate Repositories (Database).
     /// </summary>
-    public interface IRepositoryMigration
-    {
-        /// <summary>
-        /// Migrate Repositories (Database).
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The Database access.
-        /// </param>
-        public void MigrateDatabase(IDbAccess dbAccess);
-    }
+    /// <param name="dbAccess">
+    /// The Database access.
+    /// </param>
+    public void MigrateDatabase(IDbAccess dbAccess);
 }

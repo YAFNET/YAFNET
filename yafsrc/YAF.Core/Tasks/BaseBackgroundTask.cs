@@ -21,132 +21,131 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Tasks
-{
-    using System;
+namespace YAF.Core.Tasks;
 
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Types.Attributes;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+using System;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Types.Attributes;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+/// <summary>
+/// The base background task.
+/// </summary>
+public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
+{
+    /// <summary>
+    /// The board id.
+    /// </summary>
+    protected int boardId = BoardContext.Current.Get<ControlSettings>().BoardID;
 
     /// <summary>
-    /// The base background task.
+    /// The is running.
     /// </summary>
-    public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
+    protected bool isRunning;
+
+    /// <summary>
+    /// The lock object.
+    /// </summary>
+    protected object lockObject = new();
+
+    /// <summary>
+    /// The started.
+    /// </summary>
+    protected DateTime started;
+
+    #region Implementation of IHaveServiceLocator
+
+    /// <summary>
+    /// Gets or sets the ServiceLocator.
+    /// </summary>
+    [Inject]
+    public IServiceLocator ServiceLocator { get; set; }
+
+    /// <summary>
+    /// Gets or sets the logger.
+    /// </summary>
+    [Inject]
+    public ILoggerService Logger { get; set; }
+
+    #endregion
+
+    #region IBackgroundTask Members
+
+    /// <summary>
+    /// Gets or sets BoardID.
+    /// </summary>
+    public virtual object Data
     {
-        /// <summary>
-        /// The board id.
-        /// </summary>
-        protected int boardId = BoardContext.Current.Get<ControlSettings>().BoardID;
-
-        /// <summary>
-        /// The is running.
-        /// </summary>
-        protected bool isRunning;
-
-        /// <summary>
-        /// The lock object.
-        /// </summary>
-        protected object lockObject = new();
-
-        /// <summary>
-        /// The started.
-        /// </summary>
-        protected DateTime started;
-
-        #region Implementation of IHaveServiceLocator
-
-        /// <summary>
-        /// Gets or sets the ServiceLocator.
-        /// </summary>
-        [Inject]
-        public IServiceLocator ServiceLocator { get; set; }
-
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        [Inject]
-        public ILoggerService Logger { get; set; }
-
-        #endregion
-
-        #region IBackgroundTask Members
-
-        /// <summary>
-        /// Gets or sets BoardID.
-        /// </summary>
-        public virtual object Data
+        protected get
         {
-            protected get
-            {
-                return this.boardId;
-            }
-
-            set
-            {
-                this.boardId = (int)value;
-            }
+            return this.boardId;
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether IsRunning.
-        /// </summary>
-        public virtual bool IsRunning
+        set
         {
-            get
-            {
-                lock (this.lockObject)
-                {
-                    return this.isRunning;
-                }
-            }
-
-            protected set
-            {
-                lock (this.lockObject)
-                {
-                    if (!this.isRunning && value)
-                    {
-                        this.started = DateTime.UtcNow;
-                    }
-
-                    this.isRunning = value;
-                }
-            }
+            this.boardId = (int)value;
         }
-
-        /// <summary>
-        /// Gets Started.
-        /// </summary>
-        public virtual DateTime Started => this.started;
-
-        /// <summary>
-        /// The run.
-        /// </summary>
-        public virtual void Run()
-        {
-            this.IsRunning = true;
-
-            this.RunOnce();
-
-            this.IsRunning = false;
-        }
-
-        /// <summary>
-        /// The dispose.
-        /// </summary>
-        public virtual void Dispose()
-        {
-            this.IsRunning = false;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// The run once.
-        /// </summary>
-        public abstract void RunOnce();
     }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether IsRunning.
+    /// </summary>
+    public virtual bool IsRunning
+    {
+        get
+        {
+            lock (this.lockObject)
+            {
+                return this.isRunning;
+            }
+        }
+
+        protected set
+        {
+            lock (this.lockObject)
+            {
+                if (!this.isRunning && value)
+                {
+                    this.started = DateTime.UtcNow;
+                }
+
+                this.isRunning = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets Started.
+    /// </summary>
+    public virtual DateTime Started => this.started;
+
+    /// <summary>
+    /// The run.
+    /// </summary>
+    public virtual void Run()
+    {
+        this.IsRunning = true;
+
+        this.RunOnce();
+
+        this.IsRunning = false;
+    }
+
+    /// <summary>
+    /// The dispose.
+    /// </summary>
+    public virtual void Dispose()
+    {
+        this.IsRunning = false;
+    }
+
+    #endregion
+
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public abstract void RunOnce();
 }

@@ -21,23 +21,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services.Logger
+namespace YAF.Core.Services.Logger;
+
+#region Using
+
+using System;
+
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The yaf db logger provider.
+/// </summary>
+public class DbLoggerProvider : ILoggerProvider
 {
-  #region Using
-
-    using System;
-
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-
-    #endregion
-
-  /// <summary>
-  /// The yaf db logger provider.
-  /// </summary>
-  public class DbLoggerProvider : ILoggerProvider
-  {
     #region Constructors and Destructors
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace YAF.Core.Services.Logger
     /// </param>
     public DbLoggerProvider([NotNull] IInjectServices injectServices)
     {
-      this.InjectServices = injectServices;
+        this.InjectServices = injectServices;
     }
 
     #endregion
@@ -77,14 +77,13 @@ namespace YAF.Core.Services.Logger
     [NotNull]
     public ILoggerService Create([CanBeNull] Type type)
     {
-      var logger = new DbLogger(type);
-      this.InjectServices.Inject(logger);
+        var logger = new DbLogger(type);
+        this.InjectServices.Inject(logger);
 
-      return logger;
+        return logger;
     }
 
     #endregion
 
     #endregion
-  }
 }

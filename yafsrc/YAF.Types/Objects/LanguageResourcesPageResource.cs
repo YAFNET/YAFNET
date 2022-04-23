@@ -22,78 +22,77 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
+/// <summary>
+/// The language resources page resource.
+/// </summary>
+[GeneratedCode("xsd", "2.0.50727.3038")]
+[Serializable]
+[DebuggerStepThrough]
+[DesignerCategory("code")]
+[XmlType(AnonymousType = true)]
+public class LanguageResourcesPageResource
 {
-    using System;
-    using System.CodeDom.Compiler;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using System.Xml.Serialization;
+    #region Constants and Fields
 
     /// <summary>
-    /// The language resources page resource.
+    /// The edit type field.
     /// </summary>
-    [GeneratedCode("xsd", "2.0.50727.3038")]
-    [Serializable]
-    [DebuggerStepThrough]
-    [DesignerCategory("code")]
-    [XmlType(AnonymousType = true)]
-    public class LanguageResourcesPageResource
+    private string editTypeField;
+
+    /// <summary>
+    /// The tag field.
+    /// </summary>
+    private string tagField;
+
+    /// <summary>
+    /// The value field.
+    /// </summary>
+    private string valueField;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets the value.
+    /// </summary>
+    [XmlText]
+    public string Value
     {
-        #region Constants and Fields
+        get => this.valueField;
 
-        /// <summary>
-        /// The edit type field.
-        /// </summary>
-        private string editTypeField;
-
-        /// <summary>
-        /// The tag field.
-        /// </summary>
-        private string tagField;
-
-        /// <summary>
-        /// The value field.
-        /// </summary>
-        private string valueField;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        [XmlText]
-        public string Value
-        {
-            get => this.valueField;
-
-            set => this.valueField = value;
-        }
-
-        /// <summary>
-        /// Gets or sets the edit type.
-        /// </summary>
-        [XmlAttribute]
-        public string editType
-        {
-            get => this.editTypeField;
-
-            set => this.editTypeField = value;
-        }
-
-        /// <summary>
-        /// Gets or sets tag.
-        /// </summary>
-        [XmlAttribute]
-        public string tag
-        {
-            get => this.tagField;
-
-            set => this.tagField = value;
-        }
-
-        #endregion
+        set => this.valueField = value;
     }
+
+    /// <summary>
+    /// Gets or sets the edit type.
+    /// </summary>
+    [XmlAttribute]
+    public string editType
+    {
+        get => this.editTypeField;
+
+        set => this.editTypeField = value;
+    }
+
+    /// <summary>
+    /// Gets or sets tag.
+    /// </summary>
+    [XmlAttribute]
+    public string tag
+    {
+        get => this.tagField;
+
+        set => this.tagField = value;
+    }
+
+    #endregion
 }

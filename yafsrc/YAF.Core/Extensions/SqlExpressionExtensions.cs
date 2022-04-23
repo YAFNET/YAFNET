@@ -22,51 +22,50 @@
  * under the License.
  */
 
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+using System;
+
+using ServiceStack.OrmLite;
+
+/// <summary>
+/// The SQL Expression Extensions
+/// </summary>
+public static class SqlExpressionExtensions
 {
-    using System;
-
-    using ServiceStack.OrmLite;
-
     /// <summary>
-    /// The SQL Expression Extensions
+    /// Pages the specified page.
     /// </summary>
-    public static class SqlExpressionExtensions
+    /// <typeparam name="T">The type parameter</typeparam>
+    /// <param name="expression">The expression.</param>
+    /// <param name="page">The page.</param>
+    /// <param name="pageSize">Size of the page.</param>
+    /// <returns>Adds the Limit to the Sql Expression</returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// page - Page must be a number greater than 0.
+    /// or
+    /// pageSize - PageSize must be a number greater than 0.
+    /// </exception>
+    public static SqlExpression<T> Page<T>(this SqlExpression<T> expression, int? page, int? pageSize)
     {
-        /// <summary>
-        /// Pages the specified page.
-        /// </summary>
-        /// <typeparam name="T">The type parameter</typeparam>
-        /// <param name="expression">The expression.</param>
-        /// <param name="page">The page.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <returns>Adds the Limit to the Sql Expression</returns>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// page - Page must be a number greater than 0.
-        /// or
-        /// pageSize - PageSize must be a number greater than 0.
-        /// </exception>
-        public static SqlExpression<T> Page<T>(this SqlExpression<T> expression, int? page, int? pageSize)
+        if (!page.HasValue || !pageSize.HasValue)
         {
-            if (!page.HasValue || !pageSize.HasValue)
-            {
-                return expression;
-            }
-
-            if (page <= 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(page), "Page must be a number greater than 0.");
-            }
-
-            if (pageSize <= 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(pageSize), "PageSize must be a number greater than 0.");
-            }
-
-            var skip = (page.Value - 1) * pageSize.Value;
-            var take = pageSize.Value;
-
-            return expression.Limit(skip, take);
+            return expression;
         }
+
+        if (page <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(page), "Page must be a number greater than 0.");
+        }
+
+        if (pageSize <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(pageSize), "PageSize must be a number greater than 0.");
+        }
+
+        var skip = (page.Value - 1) * pageSize.Value;
+        var take = pageSize.Value;
+
+        return expression.Limit(skip, take);
     }
 }

@@ -21,144 +21,144 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+
+#endregion
+
+/// <summary>
+/// The YAF bad word replace.
+/// </summary>
+public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
 {
-    #region Using
+    #region Constants and Fields
 
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text.RegularExpressions;
-
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
-    using YAF.Types.Objects;
+    /// <summary>
+    ///   The _options.
+    /// </summary>
+    private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Compiled;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    /// The YAF bad word replace.
+    /// Initializes a new instance of the <see cref="BadWordReplace" /> class.
     /// </summary>
-    public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
+    /// <param name="objectStore">The object Store.</param>
+    /// <param name="logger">The logger.</param>
+    /// <param name="serviceLocator">The service locator.</param>
+    public BadWordReplace(
+        [NotNull] IObjectStore objectStore,
+        [NotNull] ILoggerService logger,
+        IServiceLocator serviceLocator)
     {
-        #region Constants and Fields
+        this.ServiceLocator = serviceLocator;
+        this.ObjectStore = objectStore;
+        this.Logger = logger;
+    }
 
-        /// <summary>
-        ///   The _options.
-        /// </summary>
-        private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Compiled;
+    #endregion
 
-        #endregion
+    #region Properties
 
-        #region Constructors and Destructors
+    /// <summary>
+    /// Gets or sets the service locator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BadWordReplace" /> class.
-        /// </summary>
-        /// <param name="objectStore">The object Store.</param>
-        /// <param name="logger">The logger.</param>
-        /// <param name="serviceLocator">The service locator.</param>
-        public BadWordReplace(
-            [NotNull] IObjectStore objectStore,
-            [NotNull] ILoggerService logger,
-            IServiceLocator serviceLocator)
+    /// <summary>
+    /// Gets or sets Logger.
+    /// </summary>
+    public ILoggerService Logger { get; set; }
+
+    /// <summary>
+    /// Gets or sets ObjectStore.
+    /// </summary>
+    public IObjectStore ObjectStore { get; set; }
+
+    /// <summary>
+    ///   Gets ReplaceItems.
+    /// </summary>
+    public IEnumerable<BadWordReplaceItem> ReplaceItems
+    {
+        get
         {
-            this.ServiceLocator = serviceLocator;
-            this.ObjectStore = objectStore;
-            this.Logger = logger;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the service locator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        /// <summary>
-        /// Gets or sets Logger.
-        /// </summary>
-        public ILoggerService Logger { get; set; }
-
-        /// <summary>
-        /// Gets or sets ObjectStore.
-        /// </summary>
-        public IObjectStore ObjectStore { get; set; }
-
-        /// <summary>
-        ///   Gets ReplaceItems.
-        /// </summary>
-        public IEnumerable<BadWordReplaceItem> ReplaceItems
-        {
-            get
-            {
-                var replaceItems = this.ObjectStore.GetOrSet(
-                    Constants.Cache.ReplaceWords,
-                    () =>
-                        {
-                            var replaceWords = this.GetRepository<Replace_Words>().GetByBoardId();
-
-                            // move to collection...
-                            return replaceWords.Select(
-                                item => new BadWordReplaceItem(item.GoodWord, item.BadWord, Options)).ToList();
-                        });
-
-                return replaceItems;
-            }
-        }
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IBadWordReplace
-
-        /// <summary>
-        /// Searches through SearchText and replaces "bad words" with "good words"
-        /// as defined in the database.
-        /// </summary>
-        /// <param name="searchText">
-        /// The string to search through.
-        /// </param>
-        /// <returns>
-        /// The replace.
-        /// </returns>
-        /// <exception cref="Exception">
-        /// <c>Exception</c>.
-        /// </exception>
-        [NotNull]
-        public string Replace([NotNull] string searchText)
-        {
-            if (searchText.IsNotSet())
-            {
-                return searchText;
-            }
-
-            var strReturn = searchText;
-
-            this.ReplaceItems.ForEach(
-                item =>
+            var replaceItems = this.ObjectStore.GetOrSet(
+                Constants.Cache.ReplaceWords,
+                () =>
                     {
-                        try
+                        var replaceWords = this.GetRepository<Replace_Words>().GetByBoardId();
+
+                        // move to collection...
+                        return replaceWords.Select(
+                            item => new BadWordReplaceItem(item.GoodWord, item.BadWord, Options)).ToList();
+                    });
+
+            return replaceItems;
+        }
+    }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IBadWordReplace
+
+    /// <summary>
+    /// Searches through SearchText and replaces "bad words" with "good words"
+    /// as defined in the database.
+    /// </summary>
+    /// <param name="searchText">
+    /// The string to search through.
+    /// </param>
+    /// <returns>
+    /// The replace.
+    /// </returns>
+    /// <exception cref="Exception">
+    /// <c>Exception</c>.
+    /// </exception>
+    [NotNull]
+    public string Replace([NotNull] string searchText)
+    {
+        if (searchText.IsNotSet())
+        {
+            return searchText;
+        }
+
+        var strReturn = searchText;
+
+        this.ReplaceItems.ForEach(
+            item =>
+                {
+                    try
+                    {
+                        if (item.BadWordRegEx != null && item.Active)
                         {
-                            if (item.BadWordRegEx != null && item.Active)
-                            {
-                                strReturn = item.BadWordRegEx.Replace(strReturn, item.GoodWord);
-                            }
+                            strReturn = item.BadWordRegEx.Replace(strReturn, item.GoodWord);
                         }
+                    }
 
 #if DEBUG
-                        catch (Exception e)
-                        {
-                            throw new Exception($"Bad Word Regular Expression Failed: {e.Message}", e);
-                        }
+                    catch (Exception e)
+                    {
+                        throw new Exception($"Bad Word Regular Expression Failed: {e.Message}", e);
+                    }
 #else
                         catch (Exception x)
                         {
@@ -170,13 +170,12 @@ namespace YAF.Core.Services
                                 item.BadWordRegEx);
                         }
 #endif
-                    });
+                });
 
-            return strReturn;
-        }
-
-        #endregion
-
-        #endregion
+        return strReturn;
     }
+
+    #endregion
+
+    #endregion
 }

@@ -22,39 +22,38 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects.Model
+namespace YAF.Types.Objects.Model;
+
+using System;
+
+/// <summary>
+/// The forum sorted.
+/// </summary>
+[Serializable]
+public class ForumSorted
 {
-    using System;
+    /// <summary>
+    /// Gets or sets the forum id.
+    /// </summary>
+    public int ForumID { get; set; }
 
     /// <summary>
-    /// The forum sorted.
+    /// Gets or sets the forum.
     /// </summary>
-    [Serializable]
-    public class ForumSorted
-    {
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        public int ForumID { get; set; }
+    public string Forum { get; set; }
 
-        /// <summary>
-        /// Gets or sets the forum.
-        /// </summary>
-        public string Forum { get; set; }
+    /// <summary>
+    /// Gets or sets the category.
+    /// </summary>
+    public string Category { get; set; }
 
-        /// <summary>
-        /// Gets or sets the category.
-        /// </summary>
-        public string Category { get; set; }
+    /// <summary>
+    /// Gets or sets the icon.
+    /// </summary>
+    public string Icon { get; set; }
 
-        /// <summary>
-        /// Gets or sets the icon.
-        /// </summary>
-        public string Icon { get; set; }
-
-        /// <summary>
-        /// Gets or sets the forum link.
-        /// </summary>
-        public string ForumLink { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the forum link.
+    /// </summary>
+    public string ForumLink { get; set; }
 }

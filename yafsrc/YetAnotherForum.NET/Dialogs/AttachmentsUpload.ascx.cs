@@ -21,65 +21,64 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Dialogs
-{
-    #region Using
+namespace YAF.Dialogs;
 
-    #endregion
+#region Using
+
+#endregion
+
+/// <summary>
+/// The Attachments Upload Dialog.
+/// </summary>
+public partial class AttachmentsUpload : BaseUserControl
+{
+    #region Methods
 
     /// <summary>
-    /// The Attachments Upload Dialog.
+    /// Handles the PreRender event
     /// </summary>
-    public partial class AttachmentsUpload : BaseUserControl
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected override void OnPreRender(EventArgs e)
     {
-        #region Methods
+        base.OnPreRender(e);
 
-        /// <summary>
-        /// Handles the PreRender event
-        /// </summary>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected override void OnPreRender(EventArgs e)
-        {
-            base.OnPreRender(e);
-
-            // Setup Hover Card JS
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "fileUploadjs",
-                JavaScriptBlocks.FileUploadLoadJs(
-                    this.PageBoardContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
-                    this.PageBoardContext.BoardSettings.MaxFileSize,
-                    $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
-                    this.PageBoardContext.PageForumID,
-                    this.PageBoardContext.PageBoardID,
-                    this.PageBoardContext.BoardSettings.ImageAttachmentResizeWidth,
-                    this.PageBoardContext.BoardSettings.ImageAttachmentResizeHeight));
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // show disallowed or allowed localized text depending on the Board Setting
-            this.ExtensionTitle.LocalizedTag = "ALLOWED_EXTENSIONS";
-
-            this.ExtensionsList.Text = this.PageBoardContext.BoardSettings.AllowedFileExtensions.Replace(",", ", ");
-
-            if (this.PageBoardContext.BoardSettings.MaxFileSize > 0)
-            {
-                this.UploadNodePlaceHold.Visible = true;
-                this.UploadNote.Text = this.GetTextFormatted(
-                    "UPLOAD_NOTE",
-                    (this.PageBoardContext.BoardSettings.MaxFileSize / 1024).ToString());
-            }
-            else
-            {
-                this.UploadNodePlaceHold.Visible = false;
-            }
-        }
-
-        #endregion
+        // Setup Hover Card JS
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "fileUploadjs",
+            JavaScriptBlocks.FileUploadLoadJs(
+                this.PageBoardContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
+                this.PageBoardContext.BoardSettings.MaxFileSize,
+                $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
+                this.PageBoardContext.PageForumID,
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.BoardSettings.ImageAttachmentResizeWidth,
+                this.PageBoardContext.BoardSettings.ImageAttachmentResizeHeight));
     }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // show disallowed or allowed localized text depending on the Board Setting
+        this.ExtensionTitle.LocalizedTag = "ALLOWED_EXTENSIONS";
+
+        this.ExtensionsList.Text = this.PageBoardContext.BoardSettings.AllowedFileExtensions.Replace(",", ", ");
+
+        if (this.PageBoardContext.BoardSettings.MaxFileSize > 0)
+        {
+            this.UploadNodePlaceHold.Visible = true;
+            this.UploadNote.Text = this.GetTextFormatted(
+                "UPLOAD_NOTE",
+                (this.PageBoardContext.BoardSettings.MaxFileSize / 1024).ToString());
+        }
+        else
+        {
+            this.UploadNodePlaceHold.Visible = false;
+        }
+    }
+
+    #endregion
 }

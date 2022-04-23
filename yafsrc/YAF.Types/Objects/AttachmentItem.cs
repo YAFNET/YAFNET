@@ -22,43 +22,42 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+/// <summary>
+/// The Attachment Item
+/// </summary>
+public class AttachmentItem
 {
     /// <summary>
-    /// The Attachment Item
+    /// Gets or sets the name of the file.
     /// </summary>
-    public class AttachmentItem
-    {
-        /// <summary>
-        /// Gets or sets the name of the file.
-        /// </summary>
-        /// <value>
-        /// The name of the file.
-        /// </value>
-        public string FileName { get; set; }
+    /// <value>
+    /// The name of the file.
+    /// </value>
+    public string FileName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the on click.
-        /// </summary>
-        /// <value>
-        /// The on click.
-        /// </value>
-        public string OnClick { get; set; }
+    /// <summary>
+    /// Gets or sets the on click.
+    /// </summary>
+    /// <value>
+    /// The on click.
+    /// </value>
+    public string OnClick { get; set; }
 
-        /// <summary>
-        /// Gets or sets the data URL.
-        /// </summary>
-        /// <value>
-        /// The data URL.
-        /// </value>
-        public string DataURL { get; set; }
+    /// <summary>
+    /// Gets or sets the data URL.
+    /// </summary>
+    /// <value>
+    /// The data URL.
+    /// </value>
+    public string DataURL { get; set; }
 
-        /// <summary>
-        /// Gets or sets the icon image.
-        /// </summary>
-        /// <value>
-        /// The icon image.
-        /// </value>
-        public string IconImage { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the icon image.
+    /// </summary>
+    /// <value>
+    /// The icon image.
+    /// </value>
+    public string IconImage { get; set; }
 }

@@ -22,119 +22,118 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// Print topic Page.
+/// </summary>
+public partial class PrintTopic : ForumPage
 {
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Print topic Page.
+    ///   Initializes a new instance of the <see cref = "PrintTopic" /> class.
     /// </summary>
-    public partial class PrintTopic : ForumPage
+    public PrintTopic()
+        : base("PRINTTOPIC", ForumPages.PrintTopic)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "PrintTopic" /> class.
-        /// </summary>
-        public PrintTopic()
-            : base("PRINTTOPIC", ForumPages.PrintTopic)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Gets the print body.
-        /// </summary>
-        /// <param name="o">The o.</param>
-        /// <returns>
-        /// The get print body.
-        /// </returns>
-        protected string GetPrintBody([NotNull] object o)
-        {
-            var row = (PagedMessage)o;
-
-            var message = row.Message;
-
-            message = this.Get<IFormatMessage>().Format(row.MessageID, message, new MessageFlags(row.Flags));
-
-            // Remove HIDDEN Text
-            message = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message);
-
-            message = this.Get<IFormatMessage>().RemoveCustomBBCodes(message);
-
-            return message;
-        }
-
-        /// <summary>
-        /// Gets the print header.
-        /// </summary>
-        /// <param name="o">The o.</param>
-        /// <returns>
-        /// The get print header.
-        /// </returns>
-        protected string GetPrintHeader([NotNull] object o)
-        {
-            var row = (PagedMessage)o;
-            return
-                $"<strong>{this.GetText("postedby")}: {(this.PageBoardContext.BoardSettings.EnableDisplayName ? row.DisplayName : row.UserName)}</strong> - {this.Get<IDateTimeService>().FormatDateTime(row.Posted)}";
-        }
-
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageBoardContext.ForumReadAccess)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            this.ShowToolBar = false;
-
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            var showDeleted = this.PageBoardContext.BoardSettings.ShowDeletedMessagesToAll;
-
-            var posts = this.GetRepository<Message>().PostListPaged(
-                this.PageBoardContext.PageTopicID,
-                this.PageBoardContext.PageUserID,
-                !this.PageBoardContext.IsCrawler,
-                showDeleted,
-                DateTimeHelper.SqlDbMinTime(),
-                DateTime.UtcNow,
-                0,
-                500,
-                -1);
-
-            this.Posts.DataSource = posts;
-
-            this.DataBind();
-        }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
-
-            this.PageLinks.AddForum(this.PageBoardContext.PageForum);
-            this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Gets the print body.
+    /// </summary>
+    /// <param name="o">The o.</param>
+    /// <returns>
+    /// The get print body.
+    /// </returns>
+    protected string GetPrintBody([NotNull] object o)
+    {
+        var row = (PagedMessage)o;
+
+        var message = row.Message;
+
+        message = this.Get<IFormatMessage>().Format(row.MessageID, message, new MessageFlags(row.Flags));
+
+        // Remove HIDDEN Text
+        message = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message);
+
+        message = this.Get<IFormatMessage>().RemoveCustomBBCodes(message);
+
+        return message;
+    }
+
+    /// <summary>
+    /// Gets the print header.
+    /// </summary>
+    /// <param name="o">The o.</param>
+    /// <returns>
+    /// The get print header.
+    /// </returns>
+    protected string GetPrintHeader([NotNull] object o)
+    {
+        var row = (PagedMessage)o;
+        return
+            $"<strong>{this.GetText("postedby")}: {(this.PageBoardContext.BoardSettings.EnableDisplayName ? row.DisplayName : row.UserName)}</strong> - {this.Get<IDateTimeService>().FormatDateTime(row.Posted)}";
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageBoardContext.ForumReadAccess)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        this.ShowToolBar = false;
+
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        var showDeleted = this.PageBoardContext.BoardSettings.ShowDeletedMessagesToAll;
+
+        var posts = this.GetRepository<Message>().PostListPaged(
+            this.PageBoardContext.PageTopicID,
+            this.PageBoardContext.PageUserID,
+            !this.PageBoardContext.IsCrawler,
+            showDeleted,
+            DateTimeHelper.SqlDbMinTime(),
+            DateTime.UtcNow,
+            0,
+            500,
+            -1);
+
+        this.Posts.DataSource = posts;
+
+        this.DataBind();
+    }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+
+        this.PageLinks.AddForum(this.PageBoardContext.PageForum);
+        this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
+    }
+
+    #endregion
 }

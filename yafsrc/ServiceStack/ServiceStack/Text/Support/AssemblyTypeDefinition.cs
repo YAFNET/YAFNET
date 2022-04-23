@@ -5,54 +5,53 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-namespace ServiceStack.Text.Support
+namespace ServiceStack.Text.Support;
+
+using System;
+
+/// <summary>
+/// Class AssemblyTypeDefinition.
+/// </summary>
+internal class AssemblyTypeDefinition
 {
-    using System;
+    /// <summary>
+    /// The type definition seperator
+    /// </summary>
+    private const char TypeDefinitionSeperator = ',';
+    /// <summary>
+    /// The type name index
+    /// </summary>
+    private const int TypeNameIndex = 0;
+    /// <summary>
+    /// The assembly name index
+    /// </summary>
+    private const int AssemblyNameIndex = 1;
 
     /// <summary>
-    /// Class AssemblyTypeDefinition.
+    /// Initializes a new instance of the <see cref="AssemblyTypeDefinition"/> class.
     /// </summary>
-    internal class AssemblyTypeDefinition
+    /// <param name="typeDefinition">The type definition.</param>
+    /// <exception cref="System.ArgumentNullException"></exception>
+    public AssemblyTypeDefinition(string typeDefinition)
     {
-        /// <summary>
-        /// The type definition seperator
-        /// </summary>
-        private const char TypeDefinitionSeperator = ',';
-        /// <summary>
-        /// The type name index
-        /// </summary>
-        private const int TypeNameIndex = 0;
-        /// <summary>
-        /// The assembly name index
-        /// </summary>
-        private const int AssemblyNameIndex = 1;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyTypeDefinition"/> class.
-        /// </summary>
-        /// <param name="typeDefinition">The type definition.</param>
-        /// <exception cref="System.ArgumentNullException"></exception>
-        public AssemblyTypeDefinition(string typeDefinition)
+        if (string.IsNullOrEmpty(typeDefinition))
         {
-            if (string.IsNullOrEmpty(typeDefinition))
-            {
-                throw new ArgumentNullException();
-            }
-            var parts = typeDefinition.Split(TypeDefinitionSeperator);
-            TypeName = parts[TypeNameIndex].Trim();
-            AssemblyName = parts.Length > AssemblyNameIndex ? parts[AssemblyNameIndex].Trim() : null;
+            throw new ArgumentNullException();
         }
-
-        /// <summary>
-        /// Gets or sets the name of the type.
-        /// </summary>
-        /// <value>The name of the type.</value>
-        public string TypeName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the assembly.
-        /// </summary>
-        /// <value>The name of the assembly.</value>
-        public string AssemblyName { get; set; }
+        var parts = typeDefinition.Split(TypeDefinitionSeperator);
+        TypeName = parts[TypeNameIndex].Trim();
+        AssemblyName = parts.Length > AssemblyNameIndex ? parts[AssemblyNameIndex].Trim() : null;
     }
+
+    /// <summary>
+    /// Gets or sets the name of the type.
+    /// </summary>
+    /// <value>The name of the type.</value>
+    public string TypeName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the assembly.
+    /// </summary>
+    /// <value>The name of the assembly.</value>
+    public string AssemblyName { get; set; }
 }

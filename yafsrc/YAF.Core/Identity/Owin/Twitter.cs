@@ -22,223 +22,222 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Identity.Owin
+namespace YAF.Core.Identity.Owin;
+
+using System;
+using System.Linq;
+
+using Microsoft.Owin.Security;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Helpers;
+using YAF.Core.Model;
+using YAF.Core.Services;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.EventProxies;
+using YAF.Types.Extensions;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Interfaces.Identity;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+using YAF.Types.Models.Identity;
+
+/// <summary>
+/// Twitter Single Sign On Class
+/// </summary>
+public class Twitter : IAuthBase, IHaveServiceLocator
 {
-    using System;
-    using System.Linq;
-
-    using Microsoft.Owin.Security;
-
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Helpers;
-    using YAF.Core.Model;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Interfaces.Identity;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
-    using YAF.Types.Models.Identity;
+    /// <summary>
+    /// Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
-    /// Twitter Single Sign On Class
+    /// Logins the or create user.
     /// </summary>
-    public class Twitter : IAuthBase, IHaveServiceLocator
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <returns>
+    /// Returns if Login was successful or not
+    /// </returns>
+    public bool LoginOrCreateUser(out string message)
     {
-        /// <summary>
-        /// Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+        message = string.Empty;
 
-        /// <summary>
-        /// Logins the or create user.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <returns>
-        /// Returns if Login was successful or not
-        /// </returns>
-        public bool LoginOrCreateUser(out string message)
+        if (!this.Get<BoardSettings>().AllowSingleSignOn)
         {
-            message = string.Empty;
-
-            if (!this.Get<BoardSettings>().AllowSingleSignOn)
-            {
-                message = this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
-
-                return false;
-            }
-
-            var loginInfo = this.Get<IAuthenticationManager>().GetExternalLoginInfo();
-
-            // Get Values
-            var name = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "urn:twitter:name").Value;
-            var email = $"{name}@twitter.com";
-            var twitterUserId = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "urn:twitter:id").Value;
-
-            // Check if user exists
-            var existingUser = this.Get<IAspNetUsersHelper>().GetUserByName(name);
-
-            if (existingUser == null)
-            {
-                // Create new User
-                return this.CreateTwitterUser(name, email, twitterUserId, out message);
-            }
-
-            if (existingUser.Profile_TwitterId == twitterUserId)
-            {
-                message = string.Empty;
-                return true;
-            }
-
-            message = this.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED3");
+            message = this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
 
             return false;
         }
 
-        /// <summary>
-        /// Creates the twitter user
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="email">
-        /// The email.
-        /// </param>
-        /// <param name="twitterUserId">
-        /// The twitter User Id.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <returns>
-        /// Returns if the login was successfully or not
-        /// </returns>
-        private bool CreateTwitterUser(string name, string email, string twitterUserId, out string message)
+        var loginInfo = this.Get<IAuthenticationManager>().GetExternalLoginInfo();
+
+        // Get Values
+        var name = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "urn:twitter:name").Value;
+        var email = $"{name}@twitter.com";
+        var twitterUserId = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "urn:twitter:id").Value;
+
+        // Check if user exists
+        var existingUser = this.Get<IAspNetUsersHelper>().GetUserByName(name);
+
+        if (existingUser == null)
         {
-            if (this.Get<BoardSettings>().DisableRegistrations)
-            {
-                message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-                return false;
-            }
+            // Create new User
+            return this.CreateTwitterUser(name, email, twitterUserId, out message);
+        }
 
-            // Check if user name is null
-            var userName = name;
-            var displayName = userName;
-
-            userName = displayName.Replace(" ", ".");
-
-            var pass = PasswordGenerator.GeneratePassword(true, true, true, true, false, 16);
-
-            var user = new AspNetUsers
-            {
-                Id = Guid.NewGuid().ToString(),
-                ApplicationId = this.Get<BoardSettings>().ApplicationId,
-                UserName = userName,
-                LoweredUserName = userName.ToLower(),
-                Email = email,
-                IsApproved = true,
-                EmailConfirmed = true,
-                Profile_RealName = name,
-                Profile_Twitter = userName,
-                Profile_TwitterId = twitterUserId,
-            };
-
-            var result = this.Get<IAspNetUsersHelper>().Create(user, pass);
-
-            if (!result.Succeeded)
-            {
-                // error of some kind
-                message = result.Errors.FirstOrDefault();
-                return false;
-            }
-
-            // setup initial roles (if any) for this user
-            this.Get<IAspNetRolesHelper>().SetupUserRoles(BoardContext.Current.PageBoardID, user);
-
-            // create the user in the YAF DB as well as sync roles...
-            var userID = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
-
-            if (userID == null)
-            {
-                // something is seriously wrong here -- redirect to failure...
-                message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-                return false;
-            }
-
-            // send user register notification to the user...
-            this.SendRegistrationMessageToTwitterUser(user, pass, userID.Value);
-
-            if (this.Get<BoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
-            {
-                // send user register notification to the following admin users...
-                this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
-            }
-
-            var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
-                                         == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
-
-            // save the settings...
-            this.GetRepository<User>().SaveNotification(
-                userID.Value,
-                true,
-                autoWatchTopicsEnabled,
-                this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
-                this.Get<BoardSettings>().DefaultSendDigestEmail);
-
-            this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userID.Value));
-
+        if (existingUser.Profile_TwitterId == twitterUserId)
+        {
             message = string.Empty;
-
             return true;
         }
 
-        /// <summary>
-        /// Send an Private Message to the Newly Created User with
-        /// his Account Info (Pass, Security Question and Answer)
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <param name="pass">
-        /// The pass.
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        private void SendRegistrationMessageToTwitterUser(
-            [NotNull] AspNetUsers user,
-            [NotNull] string pass,
-            [NotNull] int userId)
+        message = this.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED3");
+
+        return false;
+    }
+
+    /// <summary>
+    /// Creates the twitter user
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="email">
+    /// The email.
+    /// </param>
+    /// <param name="twitterUserId">
+    /// The twitter User Id.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <returns>
+    /// Returns if the login was successfully or not
+    /// </returns>
+    private bool CreateTwitterUser(string name, string email, string twitterUserId, out string message)
+    {
+        if (this.Get<BoardSettings>().DisableRegistrations)
         {
-            var subject = string.Format(
-                BoardContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT"),
-                BoardContext.Current.BoardSettings.Name);
-
-            var notifyUser = new TemplateEmail("NOTIFICATION_ON_TWITTER_REGISTER")
-            {
-                TemplateParams =
-                                         {
-                                             ["{user}"] = user.UserName,
-                                             ["{email}"] = user.Email,
-                                             ["{pass}"] = pass,
-                                             ["{forumname}"] = BoardContext.Current.BoardSettings.Name
-                                         }
-            };
-
-            var emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_TWITTER_REGISTER");
-
-            var messageFlags = new MessageFlags { IsHtml = false, IsBBCode = true };
-
-            // Send Message also as DM to Twitter.
-            this.GetRepository<PMessage>().SendMessage(2, userId, subject, emailBody, messageFlags.BitValue, -1);
+            message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
+            return false;
         }
+
+        // Check if user name is null
+        var userName = name;
+        var displayName = userName;
+
+        userName = displayName.Replace(" ", ".");
+
+        var pass = PasswordGenerator.GeneratePassword(true, true, true, true, false, 16);
+
+        var user = new AspNetUsers
+                       {
+                           Id = Guid.NewGuid().ToString(),
+                           ApplicationId = this.Get<BoardSettings>().ApplicationId,
+                           UserName = userName,
+                           LoweredUserName = userName.ToLower(),
+                           Email = email,
+                           IsApproved = true,
+                           EmailConfirmed = true,
+                           Profile_RealName = name,
+                           Profile_Twitter = userName,
+                           Profile_TwitterId = twitterUserId,
+                       };
+
+        var result = this.Get<IAspNetUsersHelper>().Create(user, pass);
+
+        if (!result.Succeeded)
+        {
+            // error of some kind
+            message = result.Errors.FirstOrDefault();
+            return false;
+        }
+
+        // setup initial roles (if any) for this user
+        this.Get<IAspNetRolesHelper>().SetupUserRoles(BoardContext.Current.PageBoardID, user);
+
+        // create the user in the YAF DB as well as sync roles...
+        var userID = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
+
+        if (userID == null)
+        {
+            // something is seriously wrong here -- redirect to failure...
+            message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
+            return false;
+        }
+
+        // send user register notification to the user...
+        this.SendRegistrationMessageToTwitterUser(user, pass, userID.Value);
+
+        if (this.Get<BoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
+        {
+            // send user register notification to the following admin users...
+            this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
+        }
+
+        var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
+                                     == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+
+        // save the settings...
+        this.GetRepository<User>().SaveNotification(
+            userID.Value,
+            true,
+            autoWatchTopicsEnabled,
+            this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
+            this.Get<BoardSettings>().DefaultSendDigestEmail);
+
+        this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userID.Value));
+
+        message = string.Empty;
+
+        return true;
+    }
+
+    /// <summary>
+    /// Send an Private Message to the Newly Created User with
+    /// his Account Info (Pass, Security Question and Answer)
+    /// </summary>
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <param name="pass">
+    /// The pass.
+    /// </param>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    private void SendRegistrationMessageToTwitterUser(
+        [NotNull] AspNetUsers user,
+        [NotNull] string pass,
+        [NotNull] int userId)
+    {
+        var subject = string.Format(
+            BoardContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT"),
+            BoardContext.Current.BoardSettings.Name);
+
+        var notifyUser = new TemplateEmail("NOTIFICATION_ON_TWITTER_REGISTER")
+                             {
+                                 TemplateParams =
+                                     {
+                                         ["{user}"] = user.UserName,
+                                         ["{email}"] = user.Email,
+                                         ["{pass}"] = pass,
+                                         ["{forumname}"] = BoardContext.Current.BoardSettings.Name
+                                     }
+                             };
+
+        var emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_TWITTER_REGISTER");
+
+        var messageFlags = new MessageFlags { IsHtml = false, IsBBCode = true };
+
+        // Send Message also as DM to Twitter.
+        this.GetRepository<PMessage>().SendMessage(2, userId, subject, emailBody, messageFlags.BitValue, -1);
     }
 }

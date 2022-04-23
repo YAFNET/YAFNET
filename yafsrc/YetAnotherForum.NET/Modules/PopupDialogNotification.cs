@@ -22,39 +22,39 @@
  * under the License.
  */
 
-namespace YAF.Modules
+namespace YAF.Modules;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// The popup dialog notification.
+/// </summary>
+public class PopupDialogNotification : BaseUserControl
 {
-    #region Using
+    #region Properties
+
+    /// <summary>
+    ///   Gets ShowModalFunction.
+    /// </summary>
+    public string ShowModalFunction => $"ShowPopupDialogNotification{this.ClientID}";
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The popup dialog notification.
+    /// The on pre render.
     /// </summary>
-    public class PopupDialogNotification : BaseUserControl
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        #region Properties
-
-        /// <summary>
-        ///   Gets ShowModalFunction.
-        /// </summary>
-        public string ShowModalFunction => $"ShowPopupDialogNotification{this.ClientID}";
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on pre render.
-        /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            // add js for client-side error settings...
-            var javaScriptFunction =
-                $@"function {this.ShowModalFunction}(newErrorStr, newErrorType, script) {{ if (newErrorStr != null && newErrorStr != """") {{
+        // add js for client-side error settings...
+        var javaScriptFunction =
+            $@"function {this.ShowModalFunction}(newErrorStr, newErrorType, script) {{ if (newErrorStr != null && newErrorStr != """") {{
                       var iconFA = '';
 
                       if (newErrorType == 'warning') {{
@@ -87,14 +87,13 @@ namespace YAF.Modules
                                   delay: {this.PageBoardContext.BoardSettings.MessageNotifcationDuration} * 1000
                         }});}} }}";
 
-            this.PageBoardContext.PageElements.RegisterJsBlock(
-                this,
-                this.ShowModalFunction,
-                javaScriptFunction);
+        this.PageBoardContext.PageElements.RegisterJsBlock(
+            this,
+            this.ShowModalFunction,
+            javaScriptFunction);
 
-            base.OnPreRender(e);
-        }
-
-        #endregion
+        base.OnPreRender(e);
     }
+
+    #endregion
 }

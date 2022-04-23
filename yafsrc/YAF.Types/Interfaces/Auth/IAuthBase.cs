@@ -22,39 +22,38 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces.Auth
+namespace YAF.Types.Interfaces.Auth;
+
+using System.Web;
+
+/// <summary>
+/// Interface For oAUTH
+/// </summary>
+public interface IAuthBase
 {
-    using System.Web;
+    /// <summary>
+    /// Generates the login URL.
+    /// </summary>
+    /// <param name="generatePopUpUrl">if set to <c>true</c> [generate pop up URL].</param>
+    /// <param name="connectCurrentUser">if set to <c>true</c> [connect current user].</param>
+    /// <returns>Returns the Login URL</returns>
+    string GenerateLoginUrl(bool generatePopUpUrl, bool connectCurrentUser = false);
 
     /// <summary>
-    /// Interface For oAUTH
+    /// Logins the or create user.
     /// </summary>
-    public interface IAuthBase
-    {
-        /// <summary>
-        /// Generates the login URL.
-        /// </summary>
-        /// <param name="generatePopUpUrl">if set to <c>true</c> [generate pop up URL].</param>
-        /// <param name="connectCurrentUser">if set to <c>true</c> [connect current user].</param>
-        /// <returns>Returns the Login URL</returns>
-        string GenerateLoginUrl(bool generatePopUpUrl, bool connectCurrentUser = false);
+    /// <param name="request">The request.</param>
+    /// <param name="parameters">The parameters.</param>
+    /// <param name="message">The message.</param>
+    /// <returns>Returns if Login was successful or not</returns>
+    bool LoginOrCreateUser(HttpRequest request, string parameters, out string message);
 
-        /// <summary>
-        /// Logins the or create user.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="message">The message.</param>
-        /// <returns>Returns if Login was successful or not</returns>
-        bool LoginOrCreateUser(HttpRequest request, string parameters, out string message);
-
-        /// <summary>
-        /// Connects the user.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="message">The message.</param>
-        /// <returns>Returns if the connect was successful or not</returns>
-        bool ConnectUser(HttpRequest request, string parameters, out string message);
-    }
+    /// <summary>
+    /// Connects the user.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="parameters">The parameters.</param>
+    /// <param name="message">The message.</param>
+    /// <returns>Returns if the connect was successful or not</returns>
+    bool ConnectUser(HttpRequest request, string parameters, out string message);
 }

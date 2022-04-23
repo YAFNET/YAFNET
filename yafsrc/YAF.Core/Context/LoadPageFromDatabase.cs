@@ -22,178 +22,177 @@
  * under the License.
  */
 
-namespace YAF.Core.Context
-{
-    using System;
-    using System.Web;
+namespace YAF.Core.Context;
 
-    using YAF.Core.Helpers;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.Constants;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Interfaces.Identity;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
-    using YAF.Types.Objects.Model;
+using System;
+using System.Web;
+
+using YAF.Core.Helpers;
+using YAF.Core.Services;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.Constants;
+using YAF.Types.EventProxies;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Interfaces.Identity;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+using YAF.Types.Objects.Model;
+
+/// <summary>
+/// The load page from database.
+/// </summary>
+[ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
+public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
+{
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The load page from database.
+    /// Initializes a new instance of the <see cref="LoadPageFromDatabase"/> class.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
-    public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
+    /// <param name="serviceLocator">The service locator.</param>
+    /// <param name="logger">The logger.</param>
+    /// <param name="dataCache">The data cache.</param>
+    public LoadPageFromDatabase(
+        [NotNull] IServiceLocator serviceLocator, ILoggerService logger, [NotNull] IDataCache dataCache)
     {
-        #region Constructors and Destructors
+        this.ServiceLocator = serviceLocator;
+        this.Logger = logger;
+        this.DataCache = dataCache;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LoadPageFromDatabase"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">The service locator.</param>
-        /// <param name="logger">The logger.</param>
-        /// <param name="dataCache">The data cache.</param>
-        public LoadPageFromDatabase(
-            [NotNull] IServiceLocator serviceLocator, ILoggerService logger, [NotNull] IDataCache dataCache)
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets the logger.
+    /// </summary>
+    /// <value>
+    /// The logger.
+    /// </value>
+    public ILoggerService Logger { get; set; }
+
+    /// <summary>
+    /// Gets or sets DataCache.
+    /// </summary>
+    public IDataCache DataCache { get; set; }
+
+    /// <summary>
+    ///   Gets Order.
+    /// </summary>
+    public int Order => 1000;
+
+    /// <summary>
+    ///   Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IHandleEvent<InitPageLoadEvent>
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
+    /// </param>
+    public void Handle([NotNull] InitPageLoadEvent @event)
+    {
+        string userKey = null;
+
+        if (BoardContext.Current.MembershipUser != null)
         {
-            this.ServiceLocator = serviceLocator;
-            this.Logger = logger;
-            this.DataCache = dataCache;
+            userKey = BoardContext.Current.MembershipUser.Id;
         }
 
-        #endregion
+        var tries = 0;
+        Tuple<PageLoad, User, Category, Forum, Topic, Message> pageRow;
 
-        #region Properties
+        var location = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u");
 
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        /// <value>
-        /// The logger.
-        /// </value>
-        public ILoggerService Logger { get; set; }
-
-        /// <summary>
-        /// Gets or sets DataCache.
-        /// </summary>
-        public IDataCache DataCache { get; set; }
-
-        /// <summary>
-        ///   Gets Order.
-        /// </summary>
-        public int Order => 1000;
-
-        /// <summary>
-        ///   Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IHandleEvent<InitPageLoadEvent>
-
-        /// <summary>
-        /// The handle.
-        /// </summary>
-        /// <param name="event">
-        /// The event.
-        /// </param>
-        public void Handle([NotNull] InitPageLoadEvent @event)
+        if (location.IsNotSet())
         {
-            string userKey = null;
+            location = string.Empty;
+        }
 
-            if (BoardContext.Current.MembershipUser != null)
-            {
-                userKey = BoardContext.Current.MembershipUser.Id;
-            }
+        var forumPage = BoardContext.Current.CurrentForumPage != null
+                            ? BoardContext.Current.CurrentForumPage.PageType.ToString()
+                            : string.Empty;
 
-            var tries = 0;
-            Tuple<PageLoad, User, Category, Forum, Topic, Message> pageRow;
+        do
+        {
+            pageRow = this.Get<DataBroker>().GetPageLoad(
+                this.Get<HttpSessionStateBase>().SessionID,
+                BoardContext.Current.PageBoardID,
+                userKey,
+                this.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                location,
+                forumPage,
+                @event.UserRequestData.Browser,
+                @event.UserRequestData.Platform,
+                @event.PageQueryData.CategoryID,
+                @event.PageQueryData.ForumID,
+                @event.PageQueryData.TopicID,
+                @event.PageQueryData.MessageID,
+                @event.UserRequestData.IsSearchEngine,
+                @event.UserRequestData.DontTrack);
 
-            var location = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u");
-
-            if (location.IsNotSet())
-            {
-                location = string.Empty;
-            }
-
-            var forumPage = BoardContext.Current.CurrentForumPage != null
-                                ? BoardContext.Current.CurrentForumPage.PageType.ToString()
-                                : string.Empty;
-
-            do
-            {
-                pageRow = this.Get<DataBroker>().GetPageLoad(
-                    this.Get<HttpSessionStateBase>().SessionID,
-                    BoardContext.Current.PageBoardID,
-                    userKey,
-                    this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                    location,
-                    forumPage,
-                    @event.UserRequestData.Browser,
-                    @event.UserRequestData.Platform,
-                    @event.PageQueryData.CategoryID,
-                    @event.PageQueryData.ForumID,
-                    @event.PageQueryData.TopicID,
-                    @event.PageQueryData.MessageID,
-                    @event.UserRequestData.IsSearchEngine,
-                    @event.UserRequestData.DontTrack);
-
-                // if the user doesn't exist create the user...
-                if (userKey != null && pageRow is null && !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
+            // if the user doesn't exist create the user...
+            if (userKey != null && pageRow is null && !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
                     BoardContext.Current.MembershipUser,
                     BoardContext.Current.PageBoardID))
-                {
-                    throw new ApplicationException("Failed to create new user.");
-                }
-
-                if (tries++ < 2)
-                {
-                    continue;
-                }
-
-                if (userKey != null && pageRow is null)
-                {
-                    // probably no permissions, use guest user instead...
-                    userKey = null;
-                    continue;
-                }
-
-                // fail...
-                break;
-            }
-            while (pageRow is null && userKey != null);
-
-            // add all loaded page data into our data dictionary...
-            @event.PageLoadData = pageRow ?? throw new ApplicationException("Unable to find the Guest User!");
-
-            // update Query Data
-            @event.PageQueryData.CategoryID = pageRow.Item3?.ID ?? 0;
-
-            if (pageRow.Item4 != null)
             {
-                @event.PageQueryData.ForumID = pageRow.Item4.ID;
+                throw new ApplicationException("Failed to create new user.");
             }
 
-            if (pageRow.Item5 != null)
+            if (tries++ < 2)
             {
-                @event.PageQueryData.TopicID = pageRow.Item5.ID;
+                continue;
             }
 
-            // clear active users list
-            if (@event.PageLoadData.Item1.ActiveUpdate)
+            if (userKey != null && pageRow is null)
             {
-                // purge the cache if something has changed...
-                this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
+                // probably no permissions, use guest user instead...
+                userKey = null;
+                continue;
             }
+
+            // fail...
+            break;
+        }
+        while (pageRow is null && userKey != null);
+
+        // add all loaded page data into our data dictionary...
+        @event.PageLoadData = pageRow ?? throw new ApplicationException("Unable to find the Guest User!");
+
+        // update Query Data
+        @event.PageQueryData.CategoryID = pageRow.Item3?.ID ?? 0;
+
+        if (pageRow.Item4 != null)
+        {
+            @event.PageQueryData.ForumID = pageRow.Item4.ID;
         }
 
-        #endregion
+        if (pageRow.Item5 != null)
+        {
+            @event.PageQueryData.TopicID = pageRow.Item5.ID;
+        }
 
-        #endregion
+        // clear active users list
+        if (@event.PageLoadData.Item1.ActiveUpdate)
+        {
+            // purge the cache if something has changed...
+            this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
+        }
     }
+
+    #endregion
+
+    #endregion
 }

@@ -21,26 +21,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The view permissions.
+/// </summary>
+public enum ViewPermissions
 {
     /// <summary>
-    /// The view permissions.
+    ///   The nobody.
     /// </summary>
-    public enum ViewPermissions
-    {
-        /// <summary>
-        ///   The nobody.
-        /// </summary>
-        Nobody = 0,
+    Nobody = 0,
 
-        /// <summary>
-        ///   The registered users.
-        /// </summary>
-        RegisteredUsers = 1,
+    /// <summary>
+    ///   The registered users.
+    /// </summary>
+    RegisteredUsers = 1,
 
-        /// <summary>
-        ///   The everyone.
-        /// </summary>
-        Everyone = 2
-    }
+    /// <summary>
+    ///   The everyone.
+    /// </summary>
+    Everyone = 2
 }

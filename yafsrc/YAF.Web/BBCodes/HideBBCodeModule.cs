@@ -22,154 +22,153 @@
  * under the License.
  */
 
-namespace YAF.Web.BBCodes
+namespace YAF.Web.BBCodes;
+
+using System.Web.UI;
+
+using YAF.Core.BBCode;
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Core.Model;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+
+/// <summary>
+/// Hidden BBCode Module
+/// </summary>
+public class HideBBCodeModule : BBCodeControl
 {
-    using System.Web.UI;
-
-    using YAF.Core.BBCode;
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Core.Model;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-
     /// <summary>
-    /// Hidden BBCode Module
+    /// The render.
     /// </summary>
-    public class HideBBCodeModule : BBCodeControl
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
     {
-        /// <summary>
-        /// The render.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render(HtmlTextWriter writer)
+        var hiddenContent = this.Parameters["inner"];
+
+        var postsCount = -1;
+
+        if (this.Parameters.ContainsKey("posts"))
         {
-            var hiddenContent = this.Parameters["inner"];
+            postsCount = int.Parse(this.Parameters["posts"]);
+        }
 
-            var postsCount = -1;
+        var thanksCount = -1;
 
-            if (this.Parameters.ContainsKey("posts"))
+        if (this.Parameters.ContainsKey("thanks"))
+        {
+            thanksCount = int.Parse(this.Parameters["thanks"]);
+        }
+
+        var messageId = this.MessageID;
+
+        if (hiddenContent.IsNotSet())
+        {
+            return;
+        }
+
+        var description = this.LocalizedString(
+            "HIDDENMOD_DESC",
+            "The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You only need to thank the Current Post");
+
+        var descriptionGuest = this.LocalizedString(
+            "HIDDENMOD_GUEST",
+            "This board requires you to be registered and logged-in before you can view hidden messages.");
+
+        var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
+
+        string shownContent;
+
+        if (BoardContext.Current.IsAdmin)
+        {
+            writer.Write(hiddenContent);
+            return;
+        }
+
+        var userId = BoardContext.Current.PageUserID;
+
+        if (postsCount > -1)
+        {
+            // Handle Hide Posts Count X BBCOde
+            var descriptionPost = string.Format(
+                this.LocalizedString(
+                    "HIDDENMOD_POST",
+                    "Hidden Content (You must be registered and have {0} post(s) or more)"),
+                postsCount);
+
+            var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
+
+            if (BoardContext.Current.IsGuest)
             {
-                postsCount = int.Parse(this.Parameters["posts"]);
-            }
-
-            var thanksCount = -1;
-
-            if (this.Parameters.ContainsKey("thanks"))
-            {
-                thanksCount = int.Parse(this.Parameters["thanks"]);
-            }
-
-            var messageId = this.MessageID;
-
-            if (hiddenContent.IsNotSet())
-            {
+                writer.Write(shownContentGuest);
                 return;
             }
 
-            var description = this.LocalizedString(
-                "HIDDENMOD_DESC",
-                "The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You only need to thank the Current Post");
-
-            var descriptionGuest = this.LocalizedString(
-                "HIDDENMOD_GUEST",
-                "This board requires you to be registered and logged-in before you can view hidden messages.");
-
-            var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
-
-            string shownContent;
-
-            if (BoardContext.Current.IsAdmin)
+            if (this.DisplayUserID == userId ||
+                BoardContext.Current.PageUser.NumPosts >= postsCount)
             {
-                writer.Write(hiddenContent);
-                return;
-            }
-
-            var userId = BoardContext.Current.PageUserID;
-
-            if (postsCount > -1)
-            {
-                // Handle Hide Posts Count X BBCOde
-                var descriptionPost = string.Format(
-                    this.LocalizedString(
-                        "HIDDENMOD_POST",
-                        "Hidden Content (You must be registered and have {0} post(s) or more)"),
-                    postsCount);
-
-                var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
-
-                if (BoardContext.Current.IsGuest)
-                {
-                    writer.Write(shownContentGuest);
-                    return;
-                }
-
-                if (this.DisplayUserID == userId ||
-                    BoardContext.Current.PageUser.NumPosts >= postsCount)
-                {
-                    shownContent = hiddenContent;
-                }
-                else
-                {
-                    shownContent = shownContentPost;
-                }
-            }
-            else if (thanksCount > -1)
-            {
-                // Handle Hide Thanks Count X BBCode
-                var descriptionPost = string.Format(
-                    this.LocalizedString(
-                        "HIDDENMOD_THANKS",
-                        "Hidden Content (You must be registered and have at least {0} thank(s) received)"),
-                    thanksCount);
-
-                var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
-
-                if (BoardContext.Current.IsGuest)
-                {
-                    writer.Write(shownContentGuest);
-                    return;
-                }
-
-                if (this.DisplayUserID == userId ||
-                    this.GetRepository<Thanks>().Count(t => t.ThanksFromUserID == userId) >= thanksCount)
-                {
-                    shownContent = hiddenContent;
-                }
-                else
-                {
-                    shownContent = shownContentPost;
-                }
+                shownContent = hiddenContent;
             }
             else
             {
-                // Handle Hide Thanks
-                if (BoardContext.Current.IsGuest)
-                {
-                    writer.Write(shownContentGuest);
-                    return;
-                }
+                shownContent = shownContentPost;
+            }
+        }
+        else if (thanksCount > -1)
+        {
+            // Handle Hide Thanks Count X BBCode
+            var descriptionPost = string.Format(
+                this.LocalizedString(
+                    "HIDDENMOD_THANKS",
+                    "Hidden Content (You must be registered and have at least {0} thank(s) received)"),
+                thanksCount);
 
-                if (this.DisplayUserID == userId ||
-                    this.GetRepository<Thanks>().ThankedMessage(messageId.ToType<int>(), userId))
-                {
-                    // Show hidden content if user is the poster or have thanked the poster.
-                    shownContent = hiddenContent;
-                }
-                else
-                {
-                    shownContent = $@"<div class=""alert alert-danger"" role=""alert"">
+            var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
+
+            if (BoardContext.Current.IsGuest)
+            {
+                writer.Write(shownContentGuest);
+                return;
+            }
+
+            if (this.DisplayUserID == userId ||
+                this.GetRepository<Thanks>().Count(t => t.ThanksFromUserID == userId) >= thanksCount)
+            {
+                shownContent = hiddenContent;
+            }
+            else
+            {
+                shownContent = shownContentPost;
+            }
+        }
+        else
+        {
+            // Handle Hide Thanks
+            if (BoardContext.Current.IsGuest)
+            {
+                writer.Write(shownContentGuest);
+                return;
+            }
+
+            if (this.DisplayUserID == userId ||
+                this.GetRepository<Thanks>().ThankedMessage(messageId.ToType<int>(), userId))
+            {
+                // Show hidden content if user is the poster or have thanked the poster.
+                shownContent = hiddenContent;
+            }
+            else
+            {
+                shownContent = $@"<div class=""alert alert-danger"" role=""alert"">
                 <h4 class=""alert-heading"">Hidden Content</h4>
                 <hr>
                 <p class=""mb-0"">{description}</p>
 </div>";
-                }
             }
-
-            writer.Write(shownContent);
         }
+
+        writer.Write(shownContent);
     }
 }

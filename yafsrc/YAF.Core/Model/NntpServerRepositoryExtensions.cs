@@ -21,95 +21,94 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+#region Using
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+///     The NntpServer repository extensions.
+/// </summary>
+public static class NntpServerRepositoryExtensions
 {
-    #region Using
-
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The NntpServer repository extensions.
+    /// Save Server.
     /// </summary>
-    public static class NntpServerRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="nntpServerId">
+    /// The nntp server id.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="address">
+    /// The address.
+    /// </param>
+    /// <param name="port">
+    /// The port.
+    /// </param>
+    /// <param name="userName">
+    /// The user name.
+    /// </param>
+    /// <param name="userPass">
+    /// The user pass.
+    /// </param>
+    public static void Save(
+        this IRepository<NntpServer> repository,
+        [NotNull] int? nntpServerId,
+        [NotNull] int boardId,
+        [NotNull] string name,
+        [NotNull] string address,
+        [NotNull] int? port,
+        [NotNull] string userName,
+        [NotNull] string userPass)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Save Server.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="nntpServerId">
-        /// The nntp server id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="address">
-        /// The address.
-        /// </param>
-        /// <param name="port">
-        /// The port.
-        /// </param>
-        /// <param name="userName">
-        /// The user name.
-        /// </param>
-        /// <param name="userPass">
-        /// The user pass.
-        /// </param>
-        public static void Save(
-            this IRepository<NntpServer> repository,
-            [NotNull] int? nntpServerId,
-            [NotNull] int boardId,
-            [NotNull] string name,
-            [NotNull] string address,
-            [NotNull] int? port,
-            [NotNull] string userName,
-            [NotNull] string userPass)
+        if (nntpServerId.HasValue)
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            if (nntpServerId.HasValue)
-            {
-                repository.UpdateOnly(
-                    () => new NntpServer
-                              {
-                                  Name = name,
-                                  Address = address,
-                                  Port = port,
-                                  UserName = userName,
-                                  UserPass = userPass
-                              },
-                    n => n.ID == nntpServerId);
-            }
-            else
-            {
-                var entity = new NntpServer
-                                 {
-                                     Name = name,
-                                     BoardID = boardId,
-                                     Address = address,
-                                     Port = port,
-                                     UserName = userName,
-                                     UserPass = userPass
-                                 };
-
-                repository.Insert(entity);
-
-                repository.FireNew(entity);
-            }
+            repository.UpdateOnly(
+                () => new NntpServer
+                          {
+                              Name = name,
+                              Address = address,
+                              Port = port,
+                              UserName = userName,
+                              UserPass = userPass
+                          },
+                n => n.ID == nntpServerId);
         }
+        else
+        {
+            var entity = new NntpServer
+                             {
+                                 Name = name,
+                                 BoardID = boardId,
+                                 Address = address,
+                                 Port = port,
+                                 UserName = userName,
+                                 UserPass = userPass
+                             };
 
-        #endregion
+            repository.Insert(entity);
+
+            repository.FireNew(entity);
+        }
     }
+
+    #endregion
 }

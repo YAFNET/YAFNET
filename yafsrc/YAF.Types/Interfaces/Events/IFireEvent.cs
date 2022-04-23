@@ -21,29 +21,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Events
+namespace YAF.Types.Interfaces.Events;
+
+#region Using
+
+using System;
+
+#endregion
+
+/// <summary>
+/// Fires an event globally hookable.
+/// </summary>
+/// <typeparam name="T">
+/// </typeparam>
+public interface IFireEvent<T> : IHandleEvent<T>
+    where T : IAmEvent
 {
-    #region Using
-
-    using System;
-
-    #endregion
+    #region Public Events
 
     /// <summary>
-    /// Fires an event globally hookable.
+    ///     The handle event.
     /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public interface IFireEvent<T> : IHandleEvent<T>
-        where T : IAmEvent
-    {
-        #region Public Events
+    event EventHandler<EventConverterArgs<T>> HandleEvent;
 
-        /// <summary>
-        ///     The handle event.
-        /// </summary>
-        event EventHandler<EventConverterArgs<T>> HandleEvent;
-
-        #endregion
-    }
+    #endregion
 }

@@ -22,30 +22,29 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+using System;
+using System.Collections.Generic;
+using System.Net.Mail;
+
+/// <summary>
+/// The SendMail interface.
+/// </summary>
+public interface IMailService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Net.Mail;
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The SendMail interface.
+    /// Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
     /// </summary>
-    public interface IMailService
-    {
-        #region Public Methods and Operators
+    /// <param name="messages">
+    /// The messages.
+    /// </param>
+    /// <param name="handleException">
+    /// The handle Exception.
+    /// </param>
+    void SendAll([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleException = null);
 
-        /// <summary>
-        /// Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
-        /// </summary>
-        /// <param name="messages">
-        /// The messages.
-        /// </param>
-        /// <param name="handleException">
-        /// The handle Exception.
-        /// </param>
-        void SendAll([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleException = null);
-
-        #endregion
-    }
+    #endregion
 }

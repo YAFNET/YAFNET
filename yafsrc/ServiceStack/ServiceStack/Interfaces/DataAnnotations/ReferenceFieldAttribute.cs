@@ -5,36 +5,35 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-namespace ServiceStack.DataAnnotations
+namespace ServiceStack.DataAnnotations;
+
+using System;
+
+/// <summary>
+/// Populate with a field from a foreign table in Load* APIs
+/// </summary>
+[AttributeUsage(AttributeTargets.Property)]
+public class ReferenceFieldAttribute : AttributeBase
 {
-    using System;
+    /// <summary>
+    /// Foreign Key Table name
+    /// </summary>
+    public Type Model { get; set; }
 
     /// <summary>
-    /// Populate with a field from a foreign table in Load* APIs
+    /// The Field name on current Model to use for the Foreign Key Table Lookup 
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
-    public class ReferenceFieldAttribute : AttributeBase
+    public string Id { get; set; }
+
+    /// <summary>
+    /// Specify Field to reference (if different from property name)
+    /// </summary>
+    public string Field { get; set; }
+
+    public ReferenceFieldAttribute() { }
+    public ReferenceFieldAttribute(Type model, string id)
     {
-        /// <summary>
-        /// Foreign Key Table name
-        /// </summary>
-        public Type Model { get; set; }
-
-        /// <summary>
-        /// The Field name on current Model to use for the Foreign Key Table Lookup 
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Specify Field to reference (if different from property name)
-        /// </summary>
-        public string Field { get; set; }
-
-        public ReferenceFieldAttribute() { }
-        public ReferenceFieldAttribute(Type model, string id)
-        {
-            Model = model;
-            Id = id;
-        }
+        Model = model;
+        Id = id;
     }
 }

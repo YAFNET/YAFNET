@@ -22,156 +22,155 @@
  * under the License.
  */
 
-namespace YAF.Modules
-{
-    #region Using
+namespace YAF.Modules;
 
-    using System.Collections.Specialized;
-    using System.Web.UI;
-    using YAF.Types.Attributes;
+#region Using
+
+using System.Collections.Specialized;
+using System.Web.UI;
+using YAF.Types.Attributes;
+
+#endregion
+
+/// <summary>
+/// Automatic JavaScript Loading Module
+/// </summary>
+[Module("JavaScript Loading Module", "Ingo Herbote", 1)]
+public class ScriptsLoaderModule : SimpleBaseForumModule
+{
+    #region Public Methods
+
+    /// <summary>
+    /// The initializes after page.
+    /// </summary>
+    public override void InitAfterPage()
+    {
+        this.CurrentForumPage.PreRender += this.CurrentForumPagePreRender;
+        this.CurrentForumPage.Load += this.CurrentForumPageLoad;
+    }
 
     #endregion
 
-    /// <summary>
-    /// Automatic JavaScript Loading Module
-    /// </summary>
-    [Module("JavaScript Loading Module", "Ingo Herbote", 1)]
-    public class ScriptsLoaderModule : SimpleBaseForumModule
-    {
-        #region Public Methods
+    #region Methods
 
-        /// <summary>
-        /// The initializes after page.
-        /// </summary>
-        public override void InitAfterPage()
+    /// <summary>
+    /// Registers the jQuery script library.
+    /// </summary>
+    private void RegisterJQuery()
+    {
+        if (this.PageBoardContext.PageElements.PageElementExists("jquery"))
         {
-            this.CurrentForumPage.PreRender += this.CurrentForumPagePreRender;
-            this.CurrentForumPage.Load += this.CurrentForumPageLoad;
+            return;
         }
 
-        #endregion
+        var registerJQuery = true;
 
-        #region Methods
+        const string Key = "JQuery-Javascripts";
 
-        /// <summary>
-        /// Registers the jQuery script library.
-        /// </summary>
-        private void RegisterJQuery()
+        // check to see if DotNetAge is around and has registered jQuery for us...
+        if (HttpContext.Current.Items[Key] != null)
         {
-            if (this.PageBoardContext.PageElements.PageElementExists("jquery"))
+            if (HttpContext.Current.Items[Key] is StringCollection collection && collection.Contains("jquery"))
             {
-                return;
-            }
-
-            var registerJQuery = true;
-
-            const string Key = "JQuery-Javascripts";
-
-            // check to see if DotNetAge is around and has registered jQuery for us...
-            if (HttpContext.Current.Items[Key] != null)
-            {
-                if (HttpContext.Current.Items[Key] is StringCollection collection && collection.Contains("jquery"))
-                {
-                    registerJQuery = false;
-                }
-            }
-            else if (Config.IsDotNetNuke)
-            {
-                // latest version of DNN should register jQuery for us...
                 registerJQuery = false;
             }
-
-            if (registerJQuery)
-            {
-                this.PageBoardContext.PageElements.AddScriptReference("jquery");
-            }
-
-            this.PageBoardContext.PageElements.AddPageElement("jquery");
+        }
+        else if (Config.IsDotNetNuke)
+        {
+            // latest version of DNN should register jQuery for us...
+            registerJQuery = false;
         }
 
-        /// <summary>
-        /// Handles the Load event of the ForumPage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CurrentForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
+        if (registerJQuery)
         {
-            // Load CSS First
-            this.RegisterCssFiles(this.PageBoardContext.BoardSettings.CdvVersion);
+            this.PageBoardContext.PageElements.AddScriptReference("jquery");
         }
 
-        /// <summary>
-        /// Handles the PreRender event of the CurrentForumPage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
+        this.PageBoardContext.PageElements.AddPageElement("jquery");
+    }
+
+    /// <summary>
+    /// Handles the Load event of the ForumPage control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    private void CurrentForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // Load CSS First
+        this.RegisterCssFiles(this.PageBoardContext.BoardSettings.CdvVersion);
+    }
+
+    /// <summary>
+    /// Handles the PreRender event of the CurrentForumPage control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.RegisterJQuery();
+
+        if (this.PageBoardContext.Vars.ContainsKey("yafForumExtensions"))
         {
-            this.RegisterJQuery();
+            return;
+        }
 
-            if (this.PageBoardContext.Vars.ContainsKey("yafForumExtensions"))
-            {
-                return;
-            }
+        var version = this.PageBoardContext.BoardSettings.CdvVersion;
 
-            var version = this.PageBoardContext.BoardSettings.CdvVersion;
+        var forumJsName = Config.IsDotNetNuke ? "ForumExtensionsDnn" : "ForumExtensions";
+        var adminForumJsName = Config.IsDotNetNuke ? "ForumAdminExtensionsDnn" : "ForumAdminExtensions";
 
-            var forumJsName = Config.IsDotNetNuke ? "ForumExtensionsDnn" : "ForumExtensions";
-            var adminForumJsName = Config.IsDotNetNuke ? "ForumAdminExtensionsDnn" : "ForumAdminExtensions";
-
-            ScriptManager.ScriptResourceMapping.AddDefinition(
-                "yafForumAdminExtensions",
-                new ScriptResourceDefinition
+        ScriptManager.ScriptResourceMapping.AddDefinition(
+            "yafForumAdminExtensions",
+            new ScriptResourceDefinition
                 {
                     Path = BoardInfo.GetURLToScripts($"jquery.{adminForumJsName}.min.js?v={version}"),
                     DebugPath = BoardInfo.GetURLToScripts($"jquery.{adminForumJsName}.js?v={version}")
                 });
 
-            ScriptManager.ScriptResourceMapping.AddDefinition(
-                "yafForumExtensions",
-                new ScriptResourceDefinition
+        ScriptManager.ScriptResourceMapping.AddDefinition(
+            "yafForumExtensions",
+            new ScriptResourceDefinition
                 {
                     Path = BoardInfo.GetURLToScripts($"jquery.{forumJsName}.min.js?v={version}"),
                     DebugPath = BoardInfo.GetURLToScripts($"jquery.{forumJsName}.js?v={version}")
                 });
 
-            ScriptManager.ScriptResourceMapping.AddDefinition(
-                "FileUploadScript",
-                new ScriptResourceDefinition
+        ScriptManager.ScriptResourceMapping.AddDefinition(
+            "FileUploadScript",
+            new ScriptResourceDefinition
                 {
                     Path = BoardInfo.GetURLToScripts("jquery.fileupload.comb.min.js"),
                     DebugPath = BoardInfo.GetURLToScripts("jquery.fileupload.comb.js")
                 });
 
-            this.PageBoardContext.PageElements.AddScriptReference(
-                this.PageBoardContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");
+        this.PageBoardContext.PageElements.AddScriptReference(
+            this.PageBoardContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");
 
-            this.PageBoardContext.Vars["yafForumExtensions"] = true;
-        }
-
-        /// <summary>
-        /// Register the CSS Files in the header.
-        /// </summary>
-        /// <param name="version">
-        /// The version.
-        /// </param>
-        private void RegisterCssFiles(int version)
-        {
-            var element = this.PageBoardContext.CurrentForumPage.TopPageControl;
-
-            element.Controls.Add(
-                ControlHelper.MakeCssIncludeControl(
-                    $"{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}?v={version}"));
-
-            // make the style sheet link controls.
-            element.Controls.Add(
-                ControlHelper.MakeCssIncludeControl(
-                    BoardInfo.GetURLToContent(
-                        this.PageBoardContext.CurrentForumPage.IsAdminPage
-                            ? $"forum-admin.min.css?v={version}"
-                            : $"forum.min.css?v={version}")));
-        }
-
-        #endregion
+        this.PageBoardContext.Vars["yafForumExtensions"] = true;
     }
+
+    /// <summary>
+    /// Register the CSS Files in the header.
+    /// </summary>
+    /// <param name="version">
+    /// The version.
+    /// </param>
+    private void RegisterCssFiles(int version)
+    {
+        var element = this.PageBoardContext.CurrentForumPage.TopPageControl;
+
+        element.Controls.Add(
+            ControlHelper.MakeCssIncludeControl(
+                $"{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}?v={version}"));
+
+        // make the style sheet link controls.
+        element.Controls.Add(
+            ControlHelper.MakeCssIncludeControl(
+                BoardInfo.GetURLToContent(
+                    this.PageBoardContext.CurrentForumPage.IsAdminPage
+                        ? $"forum-admin.min.css?v={version}"
+                        : $"forum.min.css?v={version}")));
+    }
+
+    #endregion
 }

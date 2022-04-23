@@ -22,93 +22,93 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// The Admin Edit Admin Page Access Page
+/// </summary>
+public partial class PageAccessEdit : AdminPage
 {
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The Admin Edit Admin Page Access Page
+    /// Initializes a new instance of the <see cref="PageAccessEdit"/> class. 
     /// </summary>
-    public partial class PageAccessEdit : AdminPage
+    public PageAccessEdit()
+        : base("ADMIN_PAGEACCESSEDIT", ForumPages.Admin_PageAccessEdit)
     {
-        #region Constructors and Destructors
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PageAccessEdit"/> class. 
-        /// </summary>
-        public PageAccessEdit()
-            : base("ADMIN_PAGEACCESSEDIT", ForumPages.Admin_PageAccessEdit)
+    #endregion
+
+    /// <summary>
+    ///   Gets CurrentUserID.
+    /// </summary>
+    protected int CurrentUserID =>
+        this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+
+    #region Methods
+
+    /// <summary>
+    /// Cancels the click.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // get back to access admin list
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
+    }
+
+    /// <summary>
+    /// Creates navigation page links on top of forum (breadcrumbs).
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        // beard index
+        this.PageLinks.AddRoot();
+
+        // administration index
+        this.PageLinks.AddAdminIndex();
+
+        // current page label (no link)
+        this.PageLinks.AddLink(this.GetText("ADMIN_PAGEACCESSEDIT", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
         {
+            return;
         }
 
-        #endregion
+        this.BindData();
+    }
 
-        /// <summary>
-        ///   Gets CurrentUserID.
-        /// </summary>
-        protected int CurrentUserID =>
-            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-        #region Methods
-
-        /// <summary>
-        /// Cancels the click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // get back to access admin list
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
-        }
-
-        /// <summary>
-        /// Creates navigation page links on top of forum (breadcrumbs).
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            // beard index
-            this.PageLinks.AddRoot();
-
-            // administration index
-            this.PageLinks.AddAdminIndex();
-
-            // current page label (no link)
-            this.PageLinks.AddLink(this.GetText("ADMIN_PAGEACCESSEDIT", "TITLE"), string.Empty);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Handles the Click event of the Save control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.AccessList.Items.Cast<RepeaterItem>().ForEach(
-                ri =>
+    /// <summary>
+    /// Handles the Click event of the Save control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.AccessList.Items.Cast<RepeaterItem>().ForEach(
+            ri =>
                 {
                     var readAccess = ri.FindControlAs<CheckBox>("ReadAccess").Checked;
                     var pageName = ri.FindControlAs<Label>("PageName").Text.Trim();
 
                     if (readAccess || string.Equals(
-                        "Admin_Admin",
-                        pageName,
-                        StringComparison.InvariantCultureIgnoreCase))
+                            "Admin_Admin",
+                            pageName,
+                            StringComparison.InvariantCultureIgnoreCase))
                     {
                         // save it
                         this.GetRepository<AdminPageUserAccess>().Save(this.CurrentUserID, pageName);
@@ -119,38 +119,38 @@ namespace YAF.Pages.Admin
                     }
                 });
 
-            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
+        this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
-        }
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
+    }
 
-        /// <summary>
-        /// Grants all click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void GrantAllClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // save permissions to table -  checked only
-            this.AccessList.Items.Cast<RepeaterItem>().ForEach(
-                ri => this.GetRepository<AdminPageUserAccess>().Save(
-                    this.CurrentUserID,
-                    ri.FindControlAs<Label>("PageName").Text.Trim()));
+    /// <summary>
+    /// Grants all click.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void GrantAllClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // save permissions to table -  checked only
+        this.AccessList.Items.Cast<RepeaterItem>().ForEach(
+            ri => this.GetRepository<AdminPageUserAccess>().Save(
+                this.CurrentUserID,
+                ri.FindControlAs<Label>("PageName").Text.Trim()));
 
-            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
+        this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
-        }
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
+    }
 
-        /// <summary>
-        /// The RevokeAll _Click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void RevokeAllClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.AccessList.Items.Cast<RepeaterItem>().ForEach(
-                ri =>
+    /// <summary>
+    /// The RevokeAll _Click.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void RevokeAllClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.AccessList.Items.Cast<RepeaterItem>().ForEach(
+            ri =>
                 {
                     var pageName = ri.FindControlAs<Label>("PageName").Text.Trim();
 
@@ -163,72 +163,72 @@ namespace YAF.Pages.Admin
                     }
                 });
 
-            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
+        this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
+    }
+
+    /// <summary>
+    /// The PollGroup item command.
+    /// </summary>
+    /// <param name="source">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    protected void AccessList_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
+    {
+        var item = e.Item;
+        if (item.ItemType != ListItemType.Item && item.ItemType != ListItemType.AlternatingItem)
+        {
+            return;
         }
 
-        /// <summary>
-        /// The PollGroup item command.
-        /// </summary>
-        /// <param name="source">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void AccessList_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
-        {
-            var item = e.Item;
-            if (item.ItemType != ListItemType.Item && item.ItemType != ListItemType.AlternatingItem)
-            {
-                return;
-            }
+        var row = (AdminPageUserAccess)e.Item.DataItem;
 
-            var row = (AdminPageUserAccess)e.Item.DataItem;
+        var pageName = item.FindControlRecursiveAs<Label>("PageName");
+        var readAccess = item.FindControlRecursiveAs<CheckBox>("ReadAccess");
+        pageName.Text = row.PageName;
+        readAccess.Checked = row.ReadAccess;
+    }
 
-            var pageName = item.FindControlRecursiveAs<Label>("PageName");
-            var readAccess = item.FindControlRecursiveAs<CheckBox>("ReadAccess");
-            pageName.Text = row.PageName;
-            readAccess.Checked = row.ReadAccess;
-        }
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        var found = false;
 
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            var found = false;
+        // Load the page access list.
+        var dt = this.GetRepository<AdminPageUserAccess>().List(
+            this.CurrentUserID);
 
-            // Load the page access list.
-            var dt = this.GetRepository<AdminPageUserAccess>().List(
-                this.CurrentUserID);
+        // Get admin pages by page prefixes.
+        var listPages = Enum.GetNames(typeof(ForumPages)).Where(e => e.StartsWith("Admin_"));
 
-            // Get admin pages by page prefixes.
-            var listPages = Enum.GetNames(typeof(ForumPages)).Where(e => e.StartsWith("Admin_"));
+        // Initialize list with a helper class.
+        var pagesAll = new List<AdminPageUserAccess>();
 
-            // Initialize list with a helper class.
-            var pagesAll = new List<AdminPageUserAccess>();
+        // Protected host-admin pages
+        var hostPages = new[]
+                            {
+                                "Admin_Boards", "Admin_HostSettings", "Admin_PageAccessList", "Admin_PageAccessEdit"
+                            };
 
-            // Protected host-admin pages
-            var hostPages = new[]
-            {
-                "Admin_Boards", "Admin_HostSettings", "Admin_PageAccessList", "Admin_PageAccessEdit"
-            };
-
-            // Iterate thru all admin pages
-            listPages.ToList().ForEach(
-                listPage =>
+        // Iterate thru all admin pages
+        listPages.ToList().ForEach(
+            listPage =>
                 {
                     if (dt != null && dt.Any(
-                        a => a.PageName == listPage &&
-                              hostPages.All(s => s != a.PageName)))
+                            a => a.PageName == listPage &&
+                                 hostPages.All(s => s != a.PageName)))
                     {
                         found = true;
                         pagesAll.Add(
                             new AdminPageUserAccess
-                            {
-                                UserID = this.CurrentUserID
-                                    .ToType<int>(),
-                                PageName = listPage,
-                                ReadAccess = true
-                            });
+                                {
+                                    UserID = this.CurrentUserID
+                                        .ToType<int>(),
+                                    PageName = listPage,
+                                    ReadAccess = true
+                                });
                     }
 
                     // If it doesn't contain page for the user add it.
@@ -236,27 +236,26 @@ namespace YAF.Pages.Admin
                     {
                         pagesAll.Add(
                             new AdminPageUserAccess
-                            {
-                                UserID = this.CurrentUserID
-                                    .ToType<int>(),
-                                PageName = listPage,
-                                ReadAccess = false
-                            });
+                                {
+                                    UserID = this.CurrentUserID
+                                        .ToType<int>(),
+                                    PageName = listPage,
+                                    ReadAccess = false
+                                });
                     }
 
                     // Reset flag in the end of the outer loop
                     found = false;
                 });
 
-            this.IconHeader.Text =
-                $"{this.GetText("ADMIN_PAGEACCESSEDIT", "HEADER")}: <strong>{this.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(this.CurrentUserID))}</strong>";
+        this.IconHeader.Text =
+            $"{this.GetText("ADMIN_PAGEACCESSEDIT", "HEADER")}: <strong>{this.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(this.CurrentUserID))}</strong>";
 
-            // get admin pages list with access flags.
-            this.AccessList.DataSource = pagesAll;
+        // get admin pages list with access flags.
+        this.AccessList.DataSource = pagesAll;
 
-            this.DataBind();
-        }
-
-        #endregion
+        this.DataBind();
     }
+
+    #endregion
 }

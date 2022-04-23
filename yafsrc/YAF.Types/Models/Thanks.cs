@@ -21,61 +21,60 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+#region Using
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+#endregion
+
+/// <summary>
+///     A class which represents the Thanks table in the Database.
+/// </summary>
+[Serializable]
+public class Thanks : IEntity, IHaveID
 {
-    #region Using
-
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
-
-    #endregion
+    #region Public Properties
 
     /// <summary>
-    ///     A class which represents the Thanks table in the Database.
+    ///     Gets or sets the Thanks id.
     /// </summary>
-    [Serializable]
-    public class Thanks : IEntity, IHaveID
-    {
-        #region Public Properties
+    [AutoIncrement]
+    [Alias("ThanksID")]
+    public int ID { get; set; }
 
-        /// <summary>
-        ///     Gets or sets the Thanks id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("ThanksID")]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the thanks from user id.
+    /// </summary>
+    [References(typeof(User))]
+    [Required]
+    [Index]
+    public int ThanksFromUserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the thanks from user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        [Index]
-        public int ThanksFromUserID { get; set; }
+    /// <summary>
+    /// Gets or sets the thanks to user id.
+    /// </summary>
+    [Required]
+    [Index]
+    public int ThanksToUserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the thanks to user id.
-        /// </summary>
-        [Required]
-        [Index]
-        public int ThanksToUserID { get; set; }
+    /// <summary>
+    /// Gets or sets the message id.
+    /// </summary>
+    [Required]
+    [Index]
+    public int MessageID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the message id.
-        /// </summary>
-        [Required]
-        [Index]
-        public int MessageID { get; set; }
+    /// <summary>
+    /// Gets or sets the thanks date.
+    /// </summary>
+    [Required]
+    public DateTime ThanksDate { get; set; }
 
-        /// <summary>
-        /// Gets or sets the thanks date.
-        /// </summary>
-        [Required]
-        public DateTime ThanksDate { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

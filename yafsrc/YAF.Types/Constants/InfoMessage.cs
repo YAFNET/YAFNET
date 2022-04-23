@@ -21,56 +21,55 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// Enumerates forum info messages.
+/// </summary>
+public enum InfoMessage
 {
     /// <summary>
-    /// Enumerates forum info messages.
+    /// after posting to moderated forum
     /// </summary>
-    public enum InfoMessage
-    {
-        /// <summary>
-        /// after posting to moderated forum
-        /// </summary>
-        Moderated = 1,
+    Moderated = 1,
 
-        /// <summary>
-        /// informs user he's suspended
-        /// </summary>
-        Suspended = 2,
+    /// <summary>
+    /// informs user he's suspended
+    /// </summary>
+    Suspended = 2,
 
-        /// <summary>
-        /// informs user about registration email being sent
-        /// </summary>
-        RegistrationEmail = 3,
+    /// <summary>
+    /// informs user about registration email being sent
+    /// </summary>
+    RegistrationEmail = 3,
 
-        /// <summary>
-        /// access was denied
-        /// </summary>
-        AccessDenied = 4,
+    /// <summary>
+    /// access was denied
+    /// </summary>
+    AccessDenied = 4,
 
-        /// <summary>
-        /// informs user about feature being disabled by admin
-        /// </summary>
-        Disabled = 5,
+    /// <summary>
+    /// informs user about feature being disabled by admin
+    /// </summary>
+    Disabled = 5,
 
-        /// <summary>
-        /// informs user about invalid input/request
-        /// </summary>
-        Invalid = 6,
+    /// <summary>
+    /// informs user about invalid input/request
+    /// </summary>
+    Invalid = 6,
 
-        /// <summary>
-        /// system error
-        /// </summary>
-        Failure = 7,
+    /// <summary>
+    /// system error
+    /// </summary>
+    Failure = 7,
 
-        /// <summary>
-        /// requires cookies
-        /// </summary>
-        RequiresCookies = 8,
+    /// <summary>
+    /// requires cookies
+    /// </summary>
+    RequiresCookies = 8,
 
-        /// <summary>
-        /// The message for admin to ask access for admin pages viewing.
-        /// </summary>
-        HostAdminPermissionsAreRequired = 11
-    }
+    /// <summary>
+    /// The message for admin to ask access for admin pages viewing.
+    /// </summary>
+    HostAdminPermissionsAreRequired = 11
 }

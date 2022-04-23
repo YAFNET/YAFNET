@@ -22,58 +22,57 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// Reputation Interface
+/// </summary>
+public interface IReputation
 {
     /// <summary>
-    /// Reputation Interface
+    /// Checks if allow reputation voting.
     /// </summary>
-    public interface IReputation
-    {
-        /// <summary>
-        /// Checks if allow reputation voting.
-        /// </summary>
-        /// <param name="voteDateToCheck">The last vote date to check.</param>
-        /// <returns>
-        /// Returns if the Users is allowed to Vote
-        /// </returns>
-        bool CheckIfAllowReputationVoting(object voteDateToCheck);
+    /// <param name="voteDateToCheck">The last vote date to check.</param>
+    /// <returns>
+    /// Returns if the Users is allowed to Vote
+    /// </returns>
+    bool CheckIfAllowReputationVoting(object voteDateToCheck);
 
-        /// <summary>
-        /// Generate The Reputation Bar for the user
-        /// </summary>
-        /// <param name="points">
-        /// The points.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// Returns the Html String
-        /// </returns>
-        string GenerateReputationBar([NotNull] int points, [NotNull] int userId);
+    /// <summary>
+    /// Generate The Reputation Bar for the user
+    /// </summary>
+    /// <param name="points">
+    /// The points.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// Returns the Html String
+    /// </returns>
+    string GenerateReputationBar([NotNull] int points, [NotNull] int userId);
 
-        /// <summary>
-        /// Gets the reputation bar text.
-        /// </summary>
-        /// <param name="percentage">The percentage.</param>
-        /// <returns>Returns the Text for the Current Value</returns>
-        [NotNull]
-        string GetReputationBarText([NotNull] float percentage);
+    /// <summary>
+    /// Gets the reputation bar text.
+    /// </summary>
+    /// <param name="percentage">The percentage.</param>
+    /// <returns>Returns the Text for the Current Value</returns>
+    [NotNull]
+    string GetReputationBarText([NotNull] float percentage);
 
-        /// <summary>
-        /// Gets the reputation bar color.
-        /// </summary>
-        /// <param name="percentage">The percentage.</param>
-        /// <returns>Returns the Color for the Current Value</returns>
-        [NotNull]
-        string GetReputationBarColor([NotNull] float percentage);
+    /// <summary>
+    /// Gets the reputation bar color.
+    /// </summary>
+    /// <param name="percentage">The percentage.</param>
+    /// <returns>Returns the Color for the Current Value</returns>
+    [NotNull]
+    string GetReputationBarColor([NotNull] float percentage);
 
-        /// <summary>
-        /// Converts the points to percentage.
-        /// </summary>
-        /// <param name="points">The points.</param>
-        /// <returns>Returns the Percentage Value</returns>
-        [NotNull]
-        float ConvertPointsToPercentage([NotNull] int points);
-    }
+    /// <summary>
+    /// Converts the points to percentage.
+    /// </summary>
+    /// <param name="points">The points.</param>
+    /// <returns>Returns the Percentage Value</returns>
+    [NotNull]
+    float ConvertPointsToPercentage([NotNull] int points);
 }

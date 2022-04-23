@@ -21,286 +21,285 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite;
+
+using YAF.Types.Flags;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Objects.Model;
+
+/// <summary>
+/// A class which represents the Message table.
+/// </summary>
+[Serializable]
+public class Message : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-    using ServiceStack.OrmLite;
-
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Objects.Model;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Message"/> class.
+    /// </summary>
+    public Message()
+    {
+    }
 
     /// <summary>
-    /// A class which represents the Message table.
+    /// Initializes a new instance of the <see cref="Message"/> class.
     /// </summary>
-    [Serializable]
-    public class Message : IEntity, IHaveID
+    /// <param name="row">
+    /// The row.
+    /// </param>
+    public Message([NotNull] PagedMessage row)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Message"/> class.
-        /// </summary>
-        public Message()
+        this.ID = row.MessageID;
+        this.UserID = row.UserID;
+        this.UserName = row.UserName;
+        this.MessageText = row.Message;
+        this.TopicID = row.TopicID;
+
+        this.Posted = row.Posted;
+
+        this.TopicName = row.Topic;
+
+        this.Flags = row.Flags;
+
+        this.Edited = row.Edited;
+        this.EditReason = row.EditReason;
+
+        try
         {
+            this.Position = row.Position;
+        }
+        catch (Exception)
+        {
+            this.Position = 0;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Message"/> class.
-        /// </summary>
-        /// <param name="row">
-        /// The row.
-        /// </param>
-        public Message([NotNull] PagedMessage row)
+        try
         {
-            this.ID = row.MessageID;
-            this.UserID = row.UserID;
-            this.UserName = row.UserName;
-            this.MessageText = row.Message;
-            this.TopicID = row.TopicID;
-
-            this.Posted = row.Posted;
-
-            this.TopicName = row.Topic;
-
-            this.Flags = row.Flags;
-
-            this.Edited = row.Edited;
-            this.EditReason = row.EditReason;
-
-            try
-            {
-                this.Position = row.Position;
-            }
-            catch (Exception)
-            {
-                this.Position = 0;
-            }
-
-            try
-            {
-                this.IsModeratorChanged = row.IsModeratorChanged;
-            }
-            catch (Exception)
-            {
-                this.IsModeratorChanged = false;
-            }
-
-            try
-            {
-                this.DeleteReason = row.DeleteReason;
-            }
-            catch (Exception)
-            {
-                this.DeleteReason = string.Empty;
-            }
-
-            try
-            {
-                this.IP = row.IP;
-            }
-            catch (Exception)
-            {
-                this.IP = string.Empty;
-            }
-
-            try
-            {
-                this.ExternalMessageId = row.ExternalMessageId;
-            }
-            catch (Exception)
-            {
-                this.ExternalMessageId = string.Empty;
-            }
-
-            try
-            {
-                this.ReferenceMessageId = row.ReferenceMessageId;
-            }
-            catch (Exception)
-            {
-                this.ReferenceMessageId = string.Empty;
-            }
-
-            try
-            {
-                this.AnswerMessageId = row.AnswerMessageId;
-            }
-            catch (Exception)
-            {
-                this.AnswerMessageId = null;
-            }
-
-            try
-            {
-                this.Signature = row.Signature;
-            }
-            catch (Exception)
-            {
-                this.Signature = string.Empty;
-            }
+            this.IsModeratorChanged = row.IsModeratorChanged;
+        }
+        catch (Exception)
+        {
+            this.IsModeratorChanged = false;
         }
 
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        [AliasAttribute("MessageID")]
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the topic.
-        /// </summary>
-        [Ignore]
-        public string TopicName { get; set; }
-
-        [Reference]
-        public Topic Topic { get; set; }
-
-        /// <summary>
-        /// Gets or sets the topic id.
-        /// </summary>
-        [References(typeof(Topic))]
-        [Required]
-        [Index]
-
-        public int TopicID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the reply to.
-        /// </summary>
-        public int? ReplyTo { get; set; }
-
-        /// <summary>
-        /// Gets or sets the position.
-        /// </summary>
-        [Required]
-        public int Position { get; set; }
-
-        /// <summary>
-        /// Gets or sets the indent.
-        /// </summary>
-        [Required]
-        public int Indent { get; set; }
-
-        [Reference]
-        public User User { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        [Index]
-
-        public int UserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user name.
-        /// </summary>
-        [StringLength(255)]
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the posted.
-        /// </summary>
-        [Required]
-        public DateTime Posted { get; set; }
-
-        /// <summary>
-        /// Gets or sets the message text.
-        /// </summary>
-        [Alias("Message")]
-        [CustomField(OrmLiteVariables.MaxText)]
-        public string MessageText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the IP.
-        /// </summary>
-        [Required]
-        [StringLength(39)]
-        public string IP { get; set; }
-
-        /// <summary>
-        /// Gets or sets the edited.
-        /// </summary>
-        public DateTime? Edited { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flags.
-        /// </summary>
-        [Required]
-        [Default(23)]
-        [Index]
-        public int Flags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the message flags.
-        /// </summary>
-        [Ignore]
-        public MessageFlags MessageFlags
+        try
         {
-            get => new(this.Flags);
-
-            set => this.Flags = value.BitValue;
+            this.DeleteReason = row.DeleteReason;
+        }
+        catch (Exception)
+        {
+            this.DeleteReason = string.Empty;
         }
 
-        /// <summary>
-        /// Gets or sets the edit reason.
-        /// </summary>
-        [StringLength(100)]
-        public string EditReason { get; set; }
+        try
+        {
+            this.IP = row.IP;
+        }
+        catch (Exception)
+        {
+            this.IP = string.Empty;
+        }
 
-        /// <summary>
-        /// Gets or sets the signature.
-        /// </summary>
-        [Ignore]
-        public string Signature { get; set; }
+        try
+        {
+            this.ExternalMessageId = row.ExternalMessageId;
+        }
+        catch (Exception)
+        {
+            this.ExternalMessageId = string.Empty;
+        }
 
-        /// <summary>
-        /// Gets or sets the is moderator changed.
-        /// </summary>
-        [Required]
-        [Default(typeof(bool), "0")]
-        public bool? IsModeratorChanged { get; set; }
+        try
+        {
+            this.ReferenceMessageId = row.ReferenceMessageId;
+        }
+        catch (Exception)
+        {
+            this.ReferenceMessageId = string.Empty;
+        }
 
-        /// <summary>
-        /// Gets or sets the delete reason.
-        /// </summary>
-        [StringLength(100)]
-        public string DeleteReason { get; set; }
+        try
+        {
+            this.AnswerMessageId = row.AnswerMessageId;
+        }
+        catch (Exception)
+        {
+            this.AnswerMessageId = null;
+        }
 
-        /// <summary>
-        /// Gets or sets the edited by.
-        /// </summary>
-        public int? EditedBy { get; set; }
-
-        /// <summary>
-        /// Gets or sets the external message id.
-        /// </summary>
-        [StringLength(255)]
-        public string ExternalMessageId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the reference message id.
-        /// </summary>
-        [StringLength(255)]
-        public string ReferenceMessageId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user display name.
-        /// </summary>
-        [StringLength(255)]
-        public string UserDisplayName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the answer message id.
-        /// </summary>
-        [Ignore]
-        public int? AnswerMessageId { get; set; }
-
-        #endregion
+        try
+        {
+            this.Signature = row.Signature;
+        }
+        catch (Exception)
+        {
+            this.Signature = string.Empty;
+        }
     }
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets the id.
+    /// </summary>
+    [AutoIncrement]
+    [AliasAttribute("MessageID")]
+    public int ID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the topic.
+    /// </summary>
+    [Ignore]
+    public string TopicName { get; set; }
+
+    [Reference]
+    public Topic Topic { get; set; }
+
+    /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    [References(typeof(Topic))]
+    [Required]
+    [Index]
+
+    public int TopicID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the reply to.
+    /// </summary>
+    public int? ReplyTo { get; set; }
+
+    /// <summary>
+    /// Gets or sets the position.
+    /// </summary>
+    [Required]
+    public int Position { get; set; }
+
+    /// <summary>
+    /// Gets or sets the indent.
+    /// </summary>
+    [Required]
+    public int Indent { get; set; }
+
+    [Reference]
+    public User User { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [References(typeof(User))]
+    [Required]
+    [Index]
+
+    public int UserID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user name.
+    /// </summary>
+    [StringLength(255)]
+    public string UserName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the posted.
+    /// </summary>
+    [Required]
+    public DateTime Posted { get; set; }
+
+    /// <summary>
+    /// Gets or sets the message text.
+    /// </summary>
+    [Alias("Message")]
+    [CustomField(OrmLiteVariables.MaxText)]
+    public string MessageText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the IP.
+    /// </summary>
+    [Required]
+    [StringLength(39)]
+    public string IP { get; set; }
+
+    /// <summary>
+    /// Gets or sets the edited.
+    /// </summary>
+    public DateTime? Edited { get; set; }
+
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    [Required]
+    [Default(23)]
+    [Index]
+    public int Flags { get; set; }
+
+    /// <summary>
+    /// Gets or sets the message flags.
+    /// </summary>
+    [Ignore]
+    public MessageFlags MessageFlags
+    {
+        get => new(this.Flags);
+
+        set => this.Flags = value.BitValue;
+    }
+
+    /// <summary>
+    /// Gets or sets the edit reason.
+    /// </summary>
+    [StringLength(100)]
+    public string EditReason { get; set; }
+
+    /// <summary>
+    /// Gets or sets the signature.
+    /// </summary>
+    [Ignore]
+    public string Signature { get; set; }
+
+    /// <summary>
+    /// Gets or sets the is moderator changed.
+    /// </summary>
+    [Required]
+    [Default(typeof(bool), "0")]
+    public bool? IsModeratorChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the delete reason.
+    /// </summary>
+    [StringLength(100)]
+    public string DeleteReason { get; set; }
+
+    /// <summary>
+    /// Gets or sets the edited by.
+    /// </summary>
+    public int? EditedBy { get; set; }
+
+    /// <summary>
+    /// Gets or sets the external message id.
+    /// </summary>
+    [StringLength(255)]
+    public string ExternalMessageId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the reference message id.
+    /// </summary>
+    [StringLength(255)]
+    public string ReferenceMessageId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user display name.
+    /// </summary>
+    [StringLength(255)]
+    public string UserDisplayName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the answer message id.
+    /// </summary>
+    [Ignore]
+    public int? AnswerMessageId { get; set; }
+
+    #endregion
 }

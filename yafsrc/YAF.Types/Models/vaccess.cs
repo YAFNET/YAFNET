@@ -21,93 +21,92 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+///     A class which represents the yaf_vaccess views.
+/// </summary>
+[Serializable]
+public class vaccess : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Public Properties
 
     /// <summary>
-    ///     A class which represents the yaf_vaccess views.
+    /// Gets or sets the user id.
     /// </summary>
-    [Serializable]
-    public class vaccess : IEntity
-    {
-        #region Public Properties
+    [Required]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [Required]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the forum id.
+    /// </summary>
+    public int ForumID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        public int ForumID { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is admin.
+    /// </summary>
+    public int? IsAdmin { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is admin.
-        /// </summary>
-        public int? IsAdmin { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is forum moderator.
+    /// </summary>
+    public int? IsForumModerator { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is forum moderator.
-        /// </summary>
-        public int? IsForumModerator { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether is moderator.
+    /// </summary>
+    public int? IsModerator { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether is moderator.
-        /// </summary>
-        public int? IsModerator { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether read access.
+    /// </summary>
+    public int? ReadAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether read access.
-        /// </summary>
-        public int? ReadAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether post access.
+    /// </summary>
+    public int? PostAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether post access.
-        /// </summary>
-        public int? PostAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether reply access.
+    /// </summary>
+    public int? ReplyAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether reply access.
-        /// </summary>
-        public int? ReplyAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether priority access.
+    /// </summary>
+    public int? PriorityAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether priority access.
-        /// </summary>
-        public int? PriorityAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether poll access.
+    /// </summary>
+    public int? PollAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether poll access.
-        /// </summary>
-        public int? PollAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether vote access.
+    /// </summary>
+    public int? VoteAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether vote access.
-        /// </summary>
-        public int? VoteAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether moderator access.
+    /// </summary>
+    public int? ModeratorAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether moderator access.
-        /// </summary>
-        public int? ModeratorAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether edit access.
+    /// </summary>
+    public int? EditAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether edit access.
-        /// </summary>
-        public int? EditAccess { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether delete access.
+    /// </summary>
+    public int? DeleteAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether delete access.
-        /// </summary>
-        public int? DeleteAccess { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

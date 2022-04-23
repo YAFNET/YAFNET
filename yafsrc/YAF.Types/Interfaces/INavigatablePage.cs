@@ -21,30 +21,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The i navigatable page.
+/// </summary>
+public interface INavigatablePage
 {
+    #region Properties
+
     /// <summary>
-    /// The i navigatable page.
+    /// Gets a value indicating whether IsDebugOnly.
     /// </summary>
-    public interface INavigatablePage
-    {
-        #region Properties
+    bool IsDebugOnly { get; }
 
-        /// <summary>
-        /// Gets a value indicating whether IsDebugOnly.
-        /// </summary>
-        bool IsDebugOnly { get; }
+    /// <summary>
+    ///   Gets PageCategory.
+    /// </summary>
+    string PageCategory { get; }
 
-        /// <summary>
-        ///   Gets PageCategory.
-        /// </summary>
-        string PageCategory { get; }
+    /// <summary>
+    ///   Gets ParentPageName.
+    /// </summary>
+    string ParentPageName { get; }
 
-        /// <summary>
-        ///   Gets ParentPageName.
-        /// </summary>
-        string ParentPageName { get; }
-
-        #endregion
-    }
+    #endregion
 }

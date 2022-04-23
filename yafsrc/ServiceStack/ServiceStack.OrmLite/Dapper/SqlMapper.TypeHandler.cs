@@ -7,102 +7,101 @@
 using System;
 using System.Data;
 
-namespace ServiceStack.OrmLite.Dapper
+namespace ServiceStack.OrmLite.Dapper;
+
+/// <summary>
+/// Class SqlMapper.
+/// </summary>
+public static partial class SqlMapper
 {
     /// <summary>
-    /// Class SqlMapper.
+    /// Base-class for simple type-handlers
     /// </summary>
-    public static partial class SqlMapper
+    /// <typeparam name="T">This <see cref="Type" /> this handler is for.</typeparam>
+    public abstract class TypeHandler<T> : ITypeHandler
     {
         /// <summary>
-        /// Base-class for simple type-handlers
+        /// Assign the value of a parameter before a command executes
         /// </summary>
-        /// <typeparam name="T">This <see cref="Type" /> this handler is for.</typeparam>
-        public abstract class TypeHandler<T> : ITypeHandler
+        /// <param name="parameter">The parameter to configure</param>
+        /// <param name="value">Parameter value</param>
+        public abstract void SetValue(IDbDataParameter parameter, T value);
+
+        /// <summary>
+        /// Parse a database value back to a typed value
+        /// </summary>
+        /// <param name="value">The value from the database</param>
+        /// <returns>The typed value</returns>
+        public abstract T Parse(object value);
+
+        /// <summary>
+        /// Assign the value of a parameter before a command executes
+        /// </summary>
+        /// <param name="parameter">The parameter to configure</param>
+        /// <param name="value">Parameter value</param>
+        void ITypeHandler.SetValue(IDbDataParameter parameter, object value)
         {
-            /// <summary>
-            /// Assign the value of a parameter before a command executes
-            /// </summary>
-            /// <param name="parameter">The parameter to configure</param>
-            /// <param name="value">Parameter value</param>
-            public abstract void SetValue(IDbDataParameter parameter, T value);
-
-            /// <summary>
-            /// Parse a database value back to a typed value
-            /// </summary>
-            /// <param name="value">The value from the database</param>
-            /// <returns>The typed value</returns>
-            public abstract T Parse(object value);
-
-            /// <summary>
-            /// Assign the value of a parameter before a command executes
-            /// </summary>
-            /// <param name="parameter">The parameter to configure</param>
-            /// <param name="value">Parameter value</param>
-            void ITypeHandler.SetValue(IDbDataParameter parameter, object value)
+            if (value is DBNull)
             {
-                if (value is DBNull)
-                {
-                    parameter.Value = value;
-                }
-                else
-                {
-                    SetValue(parameter, (T)value);
-                }
+                parameter.Value = value;
             }
-
-            /// <summary>
-            /// Parse a database value back to a typed value
-            /// </summary>
-            /// <param name="destinationType">The type to parse to</param>
-            /// <param name="value">The value from the database</param>
-            /// <returns>The typed value</returns>
-            object ITypeHandler.Parse(Type destinationType, object value)
+            else
             {
-                return Parse(value);
+                SetValue(parameter, (T)value);
             }
         }
 
         /// <summary>
-        /// Base-class for simple type-handlers that are based around strings
+        /// Parse a database value back to a typed value
         /// </summary>
-        /// <typeparam name="T">This <see cref="Type" /> this handler is for.</typeparam>
-        public abstract class StringTypeHandler<T> : TypeHandler<T>
+        /// <param name="destinationType">The type to parse to</param>
+        /// <param name="value">The value from the database</param>
+        /// <returns>The typed value</returns>
+        object ITypeHandler.Parse(Type destinationType, object value)
         {
-            /// <summary>
-            /// Parse a string into the expected type (the string will never be null)
-            /// </summary>
-            /// <param name="xml">The string to parse.</param>
-            /// <returns>T.</returns>
-            protected abstract T Parse(string xml);
+            return Parse(value);
+        }
+    }
 
-            /// <summary>
-            /// Format an instace into a string (the instance will never be null)
-            /// </summary>
-            /// <param name="xml">The string to format.</param>
-            /// <returns>System.String.</returns>
-            protected abstract string Format(T xml);
+    /// <summary>
+    /// Base-class for simple type-handlers that are based around strings
+    /// </summary>
+    /// <typeparam name="T">This <see cref="Type" /> this handler is for.</typeparam>
+    public abstract class StringTypeHandler<T> : TypeHandler<T>
+    {
+        /// <summary>
+        /// Parse a string into the expected type (the string will never be null)
+        /// </summary>
+        /// <param name="xml">The string to parse.</param>
+        /// <returns>T.</returns>
+        protected abstract T Parse(string xml);
 
-            /// <summary>
-            /// Assign the value of a parameter before a command executes
-            /// </summary>
-            /// <param name="parameter">The parameter to configure</param>
-            /// <param name="value">Parameter value</param>
-            public override void SetValue(IDbDataParameter parameter, T value)
-            {
-                parameter.Value = value == null ? (object)DBNull.Value : Format(value);
-            }
+        /// <summary>
+        /// Format an instace into a string (the instance will never be null)
+        /// </summary>
+        /// <param name="xml">The string to format.</param>
+        /// <returns>System.String.</returns>
+        protected abstract string Format(T xml);
 
-            /// <summary>
-            /// Parse a database value back to a typed value
-            /// </summary>
-            /// <param name="value">The value from the database</param>
-            /// <returns>The typed value</returns>
-            public override T Parse(object value)
-            {
-                if (value == null || value is DBNull) return default(T);
-                return Parse((string)value);
-            }
+        /// <summary>
+        /// Assign the value of a parameter before a command executes
+        /// </summary>
+        /// <param name="parameter">The parameter to configure</param>
+        /// <param name="value">Parameter value</param>
+        public override void SetValue(IDbDataParameter parameter, T value)
+        {
+            parameter.Value = value == null ? (object)DBNull.Value : Format(value);
+        }
+
+        /// <summary>
+        /// Parse a database value back to a typed value
+        /// </summary>
+        /// <param name="value">The value from the database</param>
+        /// <returns>The typed value</returns>
+        public override T Parse(object value)
+        {
+            if (value == null || value is DBNull) return default(T);
+            return Parse((string)value);
         }
     }
 }

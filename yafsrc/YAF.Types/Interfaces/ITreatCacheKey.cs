@@ -21,25 +21,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// The i treat cache key.
+/// </summary>
+public interface ITreatCacheKey
 {
+    #region Public Methods
+
     /// <summary>
-    /// The i treat cache key.
+    /// The treat.
     /// </summary>
-    public interface ITreatCacheKey
-    {
-        #region Public Methods
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    string Treat([NotNull] string key);
 
-        /// <summary>
-        /// The treat.
-        /// </summary>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        string Treat([NotNull] string key);
-
-        #endregion
-    }
+    #endregion
 }

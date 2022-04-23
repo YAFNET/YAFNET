@@ -22,14 +22,13 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+public class PMessageCount
 {
-    public class PMessageCount
-    {
-        public int InboxCount { get; set; }
-        public int OutBoxCount { get; set; }
-        public int NumberTotal { get; set; }
-        public int ArchivedCount { get; set; }
-        public int Allowed { get; set; }
-    }
+    public int InboxCount { get; set; }
+    public int OutBoxCount { get; set; }
+    public int NumberTotal { get; set; }
+    public int ArchivedCount { get; set; }
+    public int Allowed { get; set; }
 }

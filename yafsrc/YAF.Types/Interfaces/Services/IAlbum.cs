@@ -21,78 +21,77 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
-{
-    using System.Web;
+namespace YAF.Types.Interfaces.Services;
 
-    using YAF.Types.Objects;
+using System.Web;
+
+using YAF.Types.Objects;
+
+/// <summary>
+/// The Album interface.
+/// </summary>
+public interface IAlbum
+{
+    /// <summary>
+    /// Deletes the specified album/image.
+    /// </summary>
+    /// <param name="uploadFolder">
+    /// The Upload folder.
+    /// </param>
+    /// <param name="albumId">
+    /// The album id.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="imageId">
+    /// The image id.
+    /// </param>
+    void AlbumImageDelete([NotNull] string uploadFolder, [CanBeNull] int? albumId, int userId, [CanBeNull] int? imageId);
 
     /// <summary>
-    /// The Album interface.
+    /// The change image caption.
     /// </summary>
-    public interface IAlbum
-    {
-        /// <summary>
-        /// Deletes the specified album/image.
-        /// </summary>
-        /// <param name="uploadFolder">
-        /// The Upload folder.
-        /// </param>
-        /// <param name="albumId">
-        /// The album id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="imageId">
-        /// The image id.
-        /// </param>
-        void AlbumImageDelete([NotNull] string uploadFolder, [CanBeNull] int? albumId, int userId, [CanBeNull] int? imageId);
+    /// <param name="imageId">
+    /// The Image id.
+    /// </param>
+    /// <param name="newCaption">
+    /// The New caption.
+    /// </param>
+    /// <returns>
+    /// the return object.
+    /// </returns>
+    ReturnClass ChangeImageCaption(int imageId, [NotNull] string newCaption);
 
-        /// <summary>
-        /// The change image caption.
-        /// </summary>
-        /// <param name="imageId">
-        /// The Image id.
-        /// </param>
-        /// <param name="newCaption">
-        /// The New caption.
-        /// </param>
-        /// <returns>
-        /// the return object.
-        /// </returns>
-        ReturnClass ChangeImageCaption(int imageId, [NotNull] string newCaption);
+    /// <summary>
+    /// The get album image preview.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    /// <param name="localizationFile">The localization file.</param>
+    /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
+    void GetAlbumImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped);
 
-        /// <summary>
-        /// The get album image preview.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <param name="localizationFile">The localization file.</param>
-        /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-        void GetAlbumImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped);
+    /// <summary>
+    /// The get album cover.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    /// <param name="localizationFile">The localization file.</param>
+    /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
+    void GetAlbumCover([NotNull] HttpContext context, string localizationFile, bool previewCropped);
 
-        /// <summary>
-        /// The get album cover.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <param name="localizationFile">The localization file.</param>
-        /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-        void GetAlbumCover([NotNull] HttpContext context, string localizationFile, bool previewCropped);
+    /// <summary>
+    /// The get album image.
+    /// </summary>
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    void GetAlbumImage([NotNull] HttpContext context);
 
-        /// <summary>
-        /// The get album image.
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        void GetAlbumImage([NotNull] HttpContext context);
-
-        /// <summary>
-        /// Gets the Preview Image as Response
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <param name="localizationFile">The localization file.</param>
-        /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-        void GetResponseImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped);
-    }
+    /// <summary>
+    /// Gets the Preview Image as Response
+    /// </summary>
+    /// <param name="context">The context.</param>
+    /// <param name="localizationFile">The localization file.</param>
+    /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
+    void GetResponseImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped);
 }

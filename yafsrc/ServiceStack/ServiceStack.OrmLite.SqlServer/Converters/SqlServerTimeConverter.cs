@@ -7,50 +7,49 @@
 using System;
 using System.Data;
 
-namespace ServiceStack.OrmLite.SqlServer.Converters
+namespace ServiceStack.OrmLite.SqlServer.Converters;
+
+/// <summary>
+/// Class SqlServerTimeConverter.
+/// Implements the <see cref="ServiceStack.OrmLite.OrmLiteConverter" />
+/// </summary>
+/// <seealso cref="ServiceStack.OrmLite.OrmLiteConverter" />
+public class SqlServerTimeConverter : OrmLiteConverter
 {
     /// <summary>
-    /// Class SqlServerTimeConverter.
-    /// Implements the <see cref="ServiceStack.OrmLite.OrmLiteConverter" />
+    /// The time span offset
     /// </summary>
-    /// <seealso cref="ServiceStack.OrmLite.OrmLiteConverter" />
-    public class SqlServerTimeConverter : OrmLiteConverter
+    private static readonly DateTime timeSpanOffset = new(1900, 01, 01);
+
+    /// <summary>
+    /// Gets or sets the precision.
+    /// </summary>
+    /// <value>The precision.</value>
+    public int? Precision { get; set; }
+
+    /// <summary>
+    /// SQL Column Definition used in CREATE Table.
+    /// </summary>
+    /// <value>The column definition.</value>
+    public override string ColumnDefinition => Precision != null
+                                                   ? $"TIME({Precision.Value})"
+                                                   : "TIME";
+
+    /// <summary>
+    /// Used in DB Params. Defaults to DbType.String
+    /// </summary>
+    /// <value>The type of the database.</value>
+    public override DbType DbType => DbType.DateTime;
+
+    /// <summary>
+    /// Converts to dbvalue.
+    /// </summary>
+    /// <param name="fieldType">Type of the field.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>System.Object.</returns>
+    public override object ToDbValue(Type fieldType, object value)
     {
-        /// <summary>
-        /// The time span offset
-        /// </summary>
-        private static readonly DateTime timeSpanOffset = new(1900, 01, 01);
-
-        /// <summary>
-        /// Gets or sets the precision.
-        /// </summary>
-        /// <value>The precision.</value>
-        public int? Precision { get; set; }
-
-        /// <summary>
-        /// SQL Column Definition used in CREATE Table.
-        /// </summary>
-        /// <value>The column definition.</value>
-        public override string ColumnDefinition => Precision != null
-            ? $"TIME({Precision.Value})"
-            : "TIME";
-
-        /// <summary>
-        /// Used in DB Params. Defaults to DbType.String
-        /// </summary>
-        /// <value>The type of the database.</value>
-        public override DbType DbType => DbType.DateTime;
-
-        /// <summary>
-        /// Converts to dbvalue.
-        /// </summary>
-        /// <param name="fieldType">Type of the field.</param>
-        /// <param name="value">The value.</param>
-        /// <returns>System.Object.</returns>
-        public override object ToDbValue(Type fieldType, object value)
-        {
-            var timeSpan = (TimeSpan)value;
-            return timeSpanOffset + timeSpan;
-        }
+        var timeSpan = (TimeSpan)value;
+        return timeSpanOffset + timeSpan;
     }
 }

@@ -21,105 +21,105 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
+namespace YAF.Core.Model;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using ServiceStack.OrmLite;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+///     The Thanks repository extensions.
+/// </summary>
+public static class ThanksRepositoryExtensions
 {
-    #region Using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The Thanks repository extensions.
+    /// The thanks from user.
     /// </summary>
-    public static class ThanksRepositoryExtensions
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="thanksFromUserId">
+    /// The thanks from user id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="long"/>.
+    /// </returns>
+    public static long ThanksFromUser(this IRepository<Thanks> repository, [NotNull] int thanksFromUserId)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// The thanks from user.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="thanksFromUserId">
-        /// The thanks from user id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="long"/>.
-        /// </returns>
-        public static long ThanksFromUser(this IRepository<Thanks> repository, [NotNull] int thanksFromUserId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        return repository.Count(thanks => thanks.ThanksFromUserID == thanksFromUserId);
+    }
 
-            return repository.Count(thanks => thanks.ThanksFromUserID == thanksFromUserId);
-        }
+    /// <summary>
+    /// Gets the number of times and posts that other users have thanked the
+    /// user with the provided userID.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="thanksToUserId">
+    /// The thanks To User Id.
+    /// </param>
+    /// <returns>
+    /// Returns the number of times and posts that other users have thanked the
+    /// user with the provided userID.
+    /// </returns>
+    public static (int Posts, string ThanksReceived) ThanksToUser(
+        this IRepository<Thanks> repository,
+        [NotNull] int thanksToUserId)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Gets the number of times and posts that other users have thanked the
-        /// user with the provided userID.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="thanksToUserId">
-        /// The thanks To User Id.
-        /// </param>
-        /// <returns>
-        /// Returns the number of times and posts that other users have thanked the
-        /// user with the provided userID.
-        /// </returns>
-        public static (int Posts, string ThanksReceived) ThanksToUser(
-            this IRepository<Thanks> repository,
-            [NotNull] int thanksToUserId)
-        {
-            CodeContracts.VerifyNotNull(repository);
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
+        expression.Where<Thanks>(t => t.ThanksToUserID == thanksToUserId).Select(
+            u => new { ThankesPosts = Sql.CountDistinct(u.MessageID), ThankesReceived = Sql.Count("*") });
 
-            expression.Where<Thanks>(t => t.ThanksToUserID == thanksToUserId).Select(
-                u => new { ThankesPosts = Sql.CountDistinct(u.MessageID), ThankesReceived = Sql.Count("*") });
+        return repository.DbAccess
+            .Execute(db => db.Connection.Single<(int Posts, string ThanksReceived)>(expression));
+    }
 
-            return repository.DbAccess
-                .Execute(db => db.Connection.Single<(int Posts, string ThanksReceived)>(expression));
-        }
+    /// <summary>
+    /// Add thanks to the Message
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from user id.
+    /// </param>
+    /// <param name="toUserId">
+    /// The to User Id.
+    /// </param>
+    /// <param name="messageId">
+    /// The message id.
+    /// </param>
+    [NotNull]
+    public static void AddMessageThanks(
+        this IRepository<Thanks> repository,
+        [NotNull] int fromUserId,
+        [NotNull] int toUserId,
+        [NotNull] int messageId)
+    {
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// Add thanks to the Message
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from user id.
-        /// </param>
-        /// <param name="toUserId">
-        /// The to User Id.
-        /// </param>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        [NotNull]
-        public static void AddMessageThanks(
-            this IRepository<Thanks> repository,
-            [NotNull] int fromUserId,
-            [NotNull] int toUserId,
-            [NotNull] int messageId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var newIdentity = repository.Insert(
-                new Thanks
+        var newIdentity = repository.Insert(
+            new Thanks
                 {
                     ThanksFromUserID = fromUserId,
                     ThanksToUserID = toUserId,
@@ -127,90 +127,89 @@ namespace YAF.Core.Model
                     ThanksDate = DateTime.UtcNow,
                 });
 
-            repository.FireNew(newIdentity);
-        }
-
-        /// <summary>
-        /// Gets the UserIDs and UserNames who have thanked the message
-        ///   with the provided messageID.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        /// <returns>
-        /// Returns the UserIDs and UserNames who have thanked the message
-        ///   with the provided messageID.
-        /// </returns>
-        public static List<Tuple<Thanks, User>> MessageGetThanksList(
-            this IRepository<Thanks> repository,
-            [NotNull] int messageId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
-
-            expression.Join<User>((a, b) => a.ThanksFromUserID == b.ID).Where<Thanks>(b => b.MessageID == messageId);
-            /* .Select<Thanks, User>(
-                 (a, b) => new { UserID = a.ThanksFromUserID, a.ThanksDate, b.Name, b.DisplayName });*/
-
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Thanks, User>(expression));
-        }
-
-        /// <summary>
-        /// The message remove thanks.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from user id.
-        /// </param>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        /// <param name="useDisplayName">
-        /// use the display name.
-        /// </param>
-        [NotNull]
-        public static void RemoveMessageThanks(
-            this IRepository<Thanks> repository,
-            [NotNull] int fromUserId,
-            [NotNull] int messageId,
-            [NotNull] bool useDisplayName)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            repository.Delete(t => t.ThanksFromUserID == fromUserId && t.MessageID == messageId);
-        }
-
-        /// <summary>
-        /// Has User Thanked the current Message
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// If the User Thanked the the Current Message
-        /// </returns>
-        public static bool ThankedMessage(
-            this IRepository<Thanks> repository,
-            [NotNull] int messageId,
-            [NotNull] int userId)
-        {
-            var thankCount = repository.Count(t => t.MessageID == messageId && t.ThanksFromUserID == userId);
-
-            return thankCount > 0;
-        }
-
-        #endregion
+        repository.FireNew(newIdentity);
     }
+
+    /// <summary>
+    /// Gets the UserIDs and UserNames who have thanked the message
+    ///   with the provided messageID.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="messageId">
+    /// The message id.
+    /// </param>
+    /// <returns>
+    /// Returns the UserIDs and UserNames who have thanked the message
+    ///   with the provided messageID.
+    /// </returns>
+    public static List<Tuple<Thanks, User>> MessageGetThanksList(
+        this IRepository<Thanks> repository,
+        [NotNull] int messageId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
+
+        expression.Join<User>((a, b) => a.ThanksFromUserID == b.ID).Where<Thanks>(b => b.MessageID == messageId);
+        /* .Select<Thanks, User>(
+             (a, b) => new { UserID = a.ThanksFromUserID, a.ThanksDate, b.Name, b.DisplayName });*/
+
+        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Thanks, User>(expression));
+    }
+
+    /// <summary>
+    /// The message remove thanks.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="fromUserId">
+    /// The from user id.
+    /// </param>
+    /// <param name="messageId">
+    /// The message id.
+    /// </param>
+    /// <param name="useDisplayName">
+    /// use the display name.
+    /// </param>
+    [NotNull]
+    public static void RemoveMessageThanks(
+        this IRepository<Thanks> repository,
+        [NotNull] int fromUserId,
+        [NotNull] int messageId,
+        [NotNull] bool useDisplayName)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        repository.Delete(t => t.ThanksFromUserID == fromUserId && t.MessageID == messageId);
+    }
+
+    /// <summary>
+    /// Has User Thanked the current Message
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="messageId">
+    /// The message Id.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// If the User Thanked the the Current Message
+    /// </returns>
+    public static bool ThankedMessage(
+        this IRepository<Thanks> repository,
+        [NotNull] int messageId,
+        [NotNull] int userId)
+    {
+        var thankCount = repository.Count(t => t.MessageID == messageId && t.ThanksFromUserID == userId);
+
+        return thankCount > 0;
+    }
+
+    #endregion
 }

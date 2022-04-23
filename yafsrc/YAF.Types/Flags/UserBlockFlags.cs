@@ -21,168 +21,167 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Flags
+namespace YAF.Types.Flags;
+
+using System;
+
+/// <summary>
+/// The User block flags
+/// </summary>
+[Serializable]
+public class UserBlockFlags : FlagsBase
 {
-    using System;
+    #region Constructors
 
     /// <summary>
-    /// The User block flags
+    /// Initializes a new instance of the <see cref="UserBlockFlags"/> class.
     /// </summary>
-    [Serializable]
-    public class UserBlockFlags : FlagsBase
+    public UserBlockFlags()
+        : this(0)
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserBlockFlags"/> class.
-        /// </summary>
-        public UserBlockFlags()
-            : this(0)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserBlockFlags"/> class.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        public UserBlockFlags(Flags flags)
-            : this((int)flags)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserBlockFlags"/> class.
-        /// </summary>
-        /// <param name="bitValue">
-        /// The bit value.
-        /// </param>
-        public UserBlockFlags(object bitValue)
-            : this((int)bitValue)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserBlockFlags"/> class.
-        /// </summary>
-        /// <param name="bitValue">
-        /// The bit value.
-        /// </param>
-        public UserBlockFlags(int bitValue)
-            : base(bitValue)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserBlockFlags"/> class.
-        /// </summary>
-        /// <param name="bits">
-        /// The bits.
-        /// </param>
-        public UserBlockFlags(params bool[] bits)
-            : base(bits)
-        {
-        }
-
-        #endregion
-
-        #region Flags Enumeration
-
-        /// <summary>
-        /// Use for bit comparisons
-        /// </summary>
-        [Flags]
-        public enum Flags
-        {
-            /// <summary>
-            /// None Flag
-            /// </summary>
-            None = 0,
-
-            /// <summary>
-            /// The block PMs.
-            /// </summary>
-            BlockPMs = 1,
-
-            /// <summary>
-            /// The block friend requests.
-            /// </summary>
-            BlockFriendRequests = 2,
-
-            /// <summary>
-            /// The block emails.
-            /// </summary>
-            BlockEmails = 4
-        }
-
-        #endregion
-
-        #region Single Flags (can be 32 of them)
-
-        /// <summary>
-        /// Gets or sets a value indicating whether block PMs.
-        /// </summary>
-        public bool BlockPMs
-        {
-            // int value 1
-            get => this[0];
-
-            set => this[0] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether block friend requests.
-        /// </summary>
-        public bool BlockFriendRequests
-        {
-            // int value 2
-            get => this[1];
-
-            set => this[1] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether block emails.
-        /// </summary>
-        public bool BlockEmails
-        {
-            // int value 4
-            get => this[2];
-
-            set => this[2] = value;
-        }
-
-        #endregion
-
-        #region Operators
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="newBitValue">
-        /// The new bit value.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator UserBlockFlags(int newBitValue)
-        {
-            return new UserBlockFlags(newBitValue);
-        }
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator UserBlockFlags(Flags flags)
-        {
-            return new UserBlockFlags(flags);
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserBlockFlags"/> class.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    public UserBlockFlags(Flags flags)
+        : this((int)flags)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserBlockFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public UserBlockFlags(object bitValue)
+        : this((int)bitValue)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserBlockFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public UserBlockFlags(int bitValue)
+        : base(bitValue)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserBlockFlags"/> class.
+    /// </summary>
+    /// <param name="bits">
+    /// The bits.
+    /// </param>
+    public UserBlockFlags(params bool[] bits)
+        : base(bits)
+    {
+    }
+
+    #endregion
+
+    #region Flags Enumeration
+
+    /// <summary>
+    /// Use for bit comparisons
+    /// </summary>
+    [Flags]
+    public enum Flags
+    {
+        /// <summary>
+        /// None Flag
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        /// The block PMs.
+        /// </summary>
+        BlockPMs = 1,
+
+        /// <summary>
+        /// The block friend requests.
+        /// </summary>
+        BlockFriendRequests = 2,
+
+        /// <summary>
+        /// The block emails.
+        /// </summary>
+        BlockEmails = 4
+    }
+
+    #endregion
+
+    #region Single Flags (can be 32 of them)
+
+    /// <summary>
+    /// Gets or sets a value indicating whether block PMs.
+    /// </summary>
+    public bool BlockPMs
+    {
+        // int value 1
+        get => this[0];
+
+        set => this[0] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether block friend requests.
+    /// </summary>
+    public bool BlockFriendRequests
+    {
+        // int value 2
+        get => this[1];
+
+        set => this[1] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether block emails.
+    /// </summary>
+    public bool BlockEmails
+    {
+        // int value 4
+        get => this[2];
+
+        set => this[2] = value;
+    }
+
+    #endregion
+
+    #region Operators
+
+    /// <summary>
+    /// The op_ implicit.
+    /// </summary>
+    /// <param name="newBitValue">
+    /// The new bit value.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static implicit operator UserBlockFlags(int newBitValue)
+    {
+        return new UserBlockFlags(newBitValue);
+    }
+
+    /// <summary>
+    /// The op_ implicit.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static implicit operator UserBlockFlags(Flags flags)
+    {
+        return new UserBlockFlags(flags);
+    }
+
+    #endregion
 }

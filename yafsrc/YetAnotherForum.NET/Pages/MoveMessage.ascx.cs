@@ -22,146 +22,145 @@
  * under the License.
  */
 
-namespace YAF.Pages
+namespace YAF.Pages;
+
+#region Using
+using YAF.Types.Models;
+#endregion
+
+/// <summary>
+/// Move Message Page
+/// </summary>
+public partial class MoveMessage : ForumPage
 {
-    #region Using
-    using YAF.Types.Models;
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "MoveMessage" /> class.
+    /// </summary>
+    public MoveMessage()
+        : base("MOVEMESSAGE", ForumPages.MoveMessage)
+    {
+    }
+
     #endregion
 
     /// <summary>
-    /// Move Message Page
+    /// The move message id.
     /// </summary>
-    public partial class MoveMessage : ForumPage
+    protected int MoveMessageId =>
+        this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+
+    #region Methods
+
+    /// <summary>
+    /// Handles the PreRender event
+    /// </summary>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected override void OnPreRender(EventArgs e)
     {
-        #region Constructors and Destructors
+        base.OnPreRender(e);
 
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "MoveMessage" /> class.
-        /// </summary>
-        public MoveMessage()
-            : base("MOVEMESSAGE", ForumPages.MoveMessage)
+        this.ForumListSelected.Value = this.PageBoardContext.PageForumID.ToString();
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.SelectForumsLoadJs),
+            JavaScriptBlocks.SelectForumsLoadJs(
+                "ForumList",
+                this.GetText("SELECT_FORUM"),
+                false,
+                false,
+                this.ForumListSelected.ClientID));
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.SelectTopicsLoadJs),
+            JavaScriptBlocks.SelectTopicsLoadJs(this.TopicsList.ClientID, this.ForumListSelected.ClientID));
+    }
+
+    /// <summary>
+    /// Handles the Click event of the CreateAndMove control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void CreateAndMove_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.TopicSubject.Text.IsSet())
         {
-        }
+            var topicId = this.GetRepository<Topic>().CreateByMessage(
+                this.MoveMessageId,
+                this.ForumListSelected.Value.ToType<int>(),
+                this.TopicSubject.Text);
 
-        #endregion
-
-        /// <summary>
-        /// The move message id.
-        /// </summary>
-        protected int MoveMessageId =>
-            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the PreRender event
-        /// </summary>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected override void OnPreRender(EventArgs e)
-        {
-            base.OnPreRender(e);
-
-            this.ForumListSelected.Value = this.PageBoardContext.PageForumID.ToString();
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                nameof(JavaScriptBlocks.SelectForumsLoadJs),
-                JavaScriptBlocks.SelectForumsLoadJs(
-                    "ForumList",
-                    this.GetText("SELECT_FORUM"),
-                    false,
-                    false,
-                    this.ForumListSelected.ClientID));
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                nameof(JavaScriptBlocks.SelectTopicsLoadJs),
-                JavaScriptBlocks.SelectTopicsLoadJs(this.TopicsList.ClientID, this.ForumListSelected.ClientID));
-        }
-
-        /// <summary>
-        /// Handles the Click event of the CreateAndMove control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void CreateAndMove_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.TopicSubject.Text.IsSet())
-            {
-                var topicId = this.GetRepository<Topic>().CreateByMessage(
-                    this.MoveMessageId,
-                    this.ForumListSelected.Value.ToType<int>(),
-                    this.TopicSubject.Text);
-
-                this.GetRepository<Message>().Move(
-                    this.MoveMessageId,
-                    topicId.ToType<int>(),
-                    true);
-
-                this.Get<LinkBuilder>().Redirect(
-                    ForumPages.Topics,
-                    new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
-            }
-            else
-            {
-                this.PageBoardContext.Notify(this.GetText("Empty_Topic"), MessageTypes.warning);
-            }
-        }
-
-        /// <summary>
-        /// Handles the Click event of the Move control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Move_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.TopicsList.SelectedValue.ToType<int>() != this.PageBoardContext.PageTopicID)
-            {
-                this.GetRepository<Message>().Move(
-                    this.MoveMessageId,
-                    this.TopicsList.SelectedValue.ToType<int>(),
-                    true);
-            }
+            this.GetRepository<Message>().Move(
+                this.MoveMessageId,
+                topicId.ToType<int>(),
+                true);
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Topics,
                 new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
         }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        else
         {
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("m") || !this.PageBoardContext.ForumModeratorAccess)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
+            this.PageBoardContext.Notify(this.GetText("Empty_Topic"), MessageTypes.warning);
         }
-
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
-            this.PageLinks.AddForum(this.PageBoardContext.PageForum);
-            this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
-
-            this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
-        }
-
-        /// <summary>
-        /// Handles the SelectedIndexChanged event of the TopicsList control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void TopicsList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Move.Visible = this.TopicsList.SelectedValue != string.Empty;
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Handles the Click event of the Move control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Move_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.TopicsList.SelectedValue.ToType<int>() != this.PageBoardContext.PageTopicID)
+        {
+            this.GetRepository<Message>().Move(
+                this.MoveMessageId,
+                this.TopicsList.SelectedValue.ToType<int>(),
+                true);
+        }
+
+        this.Get<LinkBuilder>().Redirect(
+            ForumPages.Topics,
+            new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (!this.Get<HttpRequestBase>().QueryString.Exists("m") || !this.PageBoardContext.ForumModeratorAccess)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+        this.PageLinks.AddForum(this.PageBoardContext.PageForum);
+        this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
+
+        this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
+    }
+
+    /// <summary>
+    /// Handles the SelectedIndexChanged event of the TopicsList control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void TopicsList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.Move.Visible = this.TopicsList.SelectedValue != string.Empty;
+    }
+
+    #endregion
 }

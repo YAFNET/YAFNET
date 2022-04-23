@@ -21,35 +21,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Utilities
+namespace YAF.Core.Utilities;
+
+#region Using
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Context.Start;
+using YAF.Core.Services;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Objects;
+
+#endregion
+
+/// <summary>
+/// Contains the Java Script Blocks
+/// </summary>
+public static class JavaScriptBlocks
 {
-    #region Using
-
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Context.Start;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Objects;
-
-    #endregion
+    #region Properties
 
     /// <summary>
-    /// Contains the Java Script Blocks
+    ///   Gets the script for changing the image caption.
     /// </summary>
-    public static class JavaScriptBlocks
-    {
-        #region Properties
-
-        /// <summary>
-        ///   Gets the script for changing the image caption.
-        /// </summary>
-        /// <returns></returns>
-        [NotNull]
-        public static string ChangeImageCaptionJs =>
-            $@"function changeImageCaption(imageID, txtTitleId){{
+    /// <returns></returns>
+    [NotNull]
+    public static string ChangeImageCaptionJs =>
+        $@"function changeImageCaption(imageID, txtTitleId){{
                         var newImgTitleTxt = {Config.JQueryAlias}('#' + txtTitleId).val();
               {Config.JQueryAlias}.ajax({{
                     url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Album/ChangeImageCaption',
@@ -66,15 +66,15 @@ namespace YAF.Core.Utilities
                  }});
                }}";
 
-        /// <summary>
-        ///   Gets the script for album/image title/image callback.
-        /// </summary>
-        /// <returns>
-        ///   the callback success js.
-        /// </returns>
-        [NotNull]
-        public static string AlbumCallbackSuccessJs =>
-            @"function changeTitleSuccess(res){
+    /// <summary>
+    ///   Gets the script for album/image title/image callback.
+    /// </summary>
+    /// <returns>
+    ///   the callback success js.
+    /// </returns>
+    [NotNull]
+    public static string AlbumCallbackSuccessJs =>
+        @"function changeTitleSuccess(res){
                   spnTitleVar = document.getElementById('spnTitle' + res.Id);
                   txtTitleVar =  document.getElementById('txtTitle' + res.Id);
                   spnTitleVar.firstChild.nodeValue = res.NewTitle;
@@ -82,23 +82,23 @@ namespace YAF.Core.Utilities
                   spnTitleVar.style.display = 'inline';
                   txtTitleVar.style.display='none';}";
 
-        /// <summary>
-        /// Gets the multi quote callback success JS.
-        /// </summary>
-        [NotNull]
-        public static string MultiQuoteCallbackSuccessJs =>
-            $@"function multiQuoteSuccess(res){{
+    /// <summary>
+    /// Gets the multi quote callback success JS.
+    /// </summary>
+    [NotNull]
+    public static string MultiQuoteCallbackSuccessJs =>
+        $@"function multiQuoteSuccess(res){{
                   var multiQuoteButton = {Config.JQueryAlias}('#' + res.Id).parent('span');
                   multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.NewTitle);
                   {Config.JQueryAlias}(document).scrollTop(multiQuoteButton.offset().top - 20);
                       }}";
 
-        /// <summary>
-        /// Gets the multi quote button JS.
-        /// </summary>
-        [NotNull]
-        public static string MultiQuoteButtonJs =>
-            $@"function handleMultiQuoteButton(button, msgId, tpId){{
+    /// <summary>
+    /// Gets the multi quote button JS.
+    /// </summary>
+    [NotNull]
+    public static string MultiQuoteButtonJs =>
+        $@"function handleMultiQuoteButton(button, msgId, tpId){{
                 var multiQuoteButton = {{}};
                     multiQuoteButton.ButtonId = button.id;
                     multiQuoteButton.IsMultiQuoteButton = button.checked;
@@ -121,21 +121,21 @@ namespace YAF.Core.Utilities
                  }});
         }}";
 
-        /// <summary>
-        /// Gets Board Tags JavaScript
-        /// </summary>
-        /// <param name="inputId">
-        /// The input Id.
-        /// </param>
-        /// <param name="hiddenId">
-        /// the hidden id
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        [NotNull]
-        public static string GetBoardTagsJs(string inputId, string hiddenId) =>
-            $@"{Config.JQueryAlias}(""#{inputId}"").select2({{
+    /// <summary>
+    /// Gets Board Tags JavaScript
+    /// </summary>
+    /// <param name="inputId">
+    /// The input Id.
+    /// </param>
+    /// <param name="hiddenId">
+    /// the hidden id
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    [NotNull]
+    public static string GetBoardTagsJs(string inputId, string hiddenId) =>
+        $@"{Config.JQueryAlias}(""#{inputId}"").select2({{
             tags: true,
             tokenSeparators: [',', ' '],
             ajax: {{
@@ -180,25 +180,25 @@ namespace YAF.Core.Utilities
                   $(""#{hiddenId}"").val($(this).select2('data').map(x => x.text).join());
         }});";
 
-        #endregion
+    #endregion
 
-        #region Public Methods
+    #region Public Methods
 
-        /// <summary>
-        /// Java Script events for Album pages.
-        /// </summary>
-        /// <param name="albumEmptyTitle">
-        /// The Album Empty Title.
-        /// </param>
-        /// <param name="imageEmptyCaption">
-        /// The Image Empty Caption.
-        /// </param>
-        /// <returns>
-        /// The album events JS.
-        /// </returns>
-        public static string AlbumEventsJs([NotNull] string albumEmptyTitle, [NotNull] string imageEmptyCaption)
-        {
-            return $@"function showTexBox(spnTitleId) {{
+    /// <summary>
+    /// Java Script events for Album pages.
+    /// </summary>
+    /// <param name="albumEmptyTitle">
+    /// The Album Empty Title.
+    /// </param>
+    /// <param name="imageEmptyCaption">
+    /// The Image Empty Caption.
+    /// </param>
+    /// <returns>
+    /// The album events JS.
+    /// </returns>
+    public static string AlbumEventsJs([NotNull] string albumEmptyTitle, [NotNull] string imageEmptyCaption)
+    {
+        return $@"function showTexBox(spnTitleId) {{
     {{
         spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));
         txtTitleVar = document.getElementById('txtTitle' + spnTitleId.substring(8));
@@ -269,53 +269,53 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }} else resetBox(txtTitleId, isAlbum);
     }}
 }}";
-        }
+    }
 
-        /// <summary>
-        /// Blocks the UI JS
-        /// </summary>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string BlockUiFunctionJs([NotNull] string messageId)
-        {
-            return $@"function blockUIMessage() {{ 
+    /// <summary>
+    /// Blocks the UI JS
+    /// </summary>
+    /// <param name="messageId">
+    /// The message id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public static string BlockUiFunctionJs([NotNull] string messageId)
+    {
+        return $@"function blockUIMessage() {{ 
                                  var modal = new bootstrap.Modal(document.getElementById('{messageId}'), {{
                                                  backdrop: 'static',
                                                  keyboard: false
                                               }});
                                    modal.show();
                        }};";
-        }
+    }
 
-        /// <summary>
-        /// Gets the Bootstrap Tab Load JS.
-        /// </summary>
-        /// <param name="tabId">The tab Id.</param>
-        /// <param name="hiddenId">The hidden field id.</param>
-        /// <returns>
-        /// Returns the the Bootstrap Tab Load JS string
-        /// </returns>
-        public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId)
-        {
-            return BootstrapTabsLoadJs(tabId, hiddenId, string.Empty);
-        }
+    /// <summary>
+    /// Gets the Bootstrap Tab Load JS.
+    /// </summary>
+    /// <param name="tabId">The tab Id.</param>
+    /// <param name="hiddenId">The hidden field id.</param>
+    /// <returns>
+    /// Returns the the Bootstrap Tab Load JS string
+    /// </returns>
+    public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId)
+    {
+        return BootstrapTabsLoadJs(tabId, hiddenId, string.Empty);
+    }
 
-        /// <summary>
-        /// Gets the Bootstrap Tab Load JS.
-        /// </summary>
-        /// <param name="tabId">The tab Id.</param>
-        /// <param name="hiddenId">The hidden field id.</param>
-        /// <param name="onClickEvent">The on click event.</param>
-        /// <returns>
-        /// Returns the the Bootstrap Tab Load JS string
-        /// </returns>
-        public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId, string onClickEvent)
-        {
-            return $@"{Config.JQueryAlias}(document).ready(function() {{
+    /// <summary>
+    /// Gets the Bootstrap Tab Load JS.
+    /// </summary>
+    /// <param name="tabId">The tab Id.</param>
+    /// <param name="hiddenId">The hidden field id.</param>
+    /// <param name="onClickEvent">The on click event.</param>
+    /// <returns>
+    /// Returns the the Bootstrap Tab Load JS string
+    /// </returns>
+    public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId, string onClickEvent)
+    {
+        return $@"{Config.JQueryAlias}(document).ready(function() {{
             var selectedTab = {Config.JQueryAlias}(""#{hiddenId}"");
             var tabId = selectedTab.val() != """" ? selectedTab.val() : ""View1"";
             {Config.JQueryAlias}('#{tabId} a[href=""#' + tabId + '""]').tab('show');
@@ -328,23 +328,23 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 {onClickEvent}
             }});
                            }});";
-        }
+    }
 
-        /// <summary>
-        /// Gets the Bootstrap Tab Load JS.
-        /// </summary>
-        /// <param name="tabId">
-        /// The tab Id.
-        /// </param>
-        /// <param name="hiddenId">
-        /// The hidden field id.
-        /// </param>
-        /// <returns>
-        /// Returns the the Bootstrap Tab Load JS string
-        /// </returns>
-        public static string BootstrapTabLoadJs([NotNull] string tabId, [NotNull] string hiddenId)
-        {
-            return $@"{Config.JQueryAlias}(document).ready(function() {{
+    /// <summary>
+    /// Gets the Bootstrap Tab Load JS.
+    /// </summary>
+    /// <param name="tabId">
+    /// The tab Id.
+    /// </param>
+    /// <param name="hiddenId">
+    /// The hidden field id.
+    /// </param>
+    /// <returns>
+    /// Returns the the Bootstrap Tab Load JS string
+    /// </returns>
+    public static string BootstrapTabLoadJs([NotNull] string tabId, [NotNull] string hiddenId)
+    {
+        return $@"{Config.JQueryAlias}(document).ready(function() {{
             var selectedTab = {Config.JQueryAlias}(""#{hiddenId}"");
             var tabId = selectedTab.val() != """" ? selectedTab.val() : ""View1"";
             {Config.JQueryAlias}('#{tabId} a[href=""#' + tabId + '""]').tab('show');
@@ -356,17 +356,17 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 }}
             }});
                            }});";
-        }
+    }
 
-        /// <summary>
-        /// The drop down toggle JS.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string DropDownToggleJs()
-        {
-            return $@"document.addEventListener('DOMContentLoaded', (event) => {{
+    /// <summary>
+    /// The drop down toggle JS.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public static string DropDownToggleJs()
+    {
+        return $@"document.addEventListener('DOMContentLoaded', (event) => {{
                 {Config.JQueryAlias}(function() {{
                 {Config.JQueryAlias}('.dropdown-menu').on('click', function(e) {{
                     if (e.target.type == 'button') {{
@@ -383,23 +383,23 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                  }});
                  }});
                 }});";
-        }
+    }
 
-        /// <summary>
-        /// The drop down toggle JS.
-        /// </summary>
-        /// <param name="hideText">
-        /// The hide Text.
-        /// </param>
-        /// <param name="showText">
-        /// The show Text.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string CollapseToggleJs([NotNull] string hideText, [NotNull] string showText)
-        {
-            return $@"{Config.JQueryAlias}(document).ready(function() {{
+    /// <summary>
+    /// The drop down toggle JS.
+    /// </summary>
+    /// <param name="hideText">
+    /// The hide Text.
+    /// </param>
+    /// <param name="showText">
+    /// The show Text.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public static string CollapseToggleJs([NotNull] string hideText, [NotNull] string showText)
+    {
+        return $@"{Config.JQueryAlias}(document).ready(function() {{
                           {Config.JQueryAlias}('a[data-bs-toggle=""collapse""]').click(function() {{
                               var button = $(this);
                               if (button.attr(""aria-expanded"") == ""false"") {{
@@ -409,58 +409,58 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               }}
                           }});
                       }});";
-        }
+    }
 
-        /// <summary>
-        /// Load Go to Anchor
-        /// </summary>
-        /// <param name="anchor">
-        /// The anchor.
-        /// </param>
-        /// <returns>
-        /// The load goto anchor.
-        /// </returns>
-        public static string LoadGotoAnchor([NotNull] string anchor)
-        {
-            return $@"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
+    /// <summary>
+    /// Load Go to Anchor
+    /// </summary>
+    /// <param name="anchor">
+    /// The anchor.
+    /// </param>
+    /// <returns>
+    /// The load goto anchor.
+    /// </returns>
+    public static string LoadGotoAnchor([NotNull] string anchor)
+    {
+        return $@"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
             function loadGotoAnchor() {{
                document.getElementById('{anchor}').scrollIntoView();
                   }}";
-        }
+    }
 
-        /// <summary>
-        /// Generates Modal Dialog Script
-        /// </summary>
-        /// <param name="openLink">
-        /// The Open Link, that opens the Modal Dialog.
-        /// </param>
-        /// <param name="dialogId">
-        /// The Id or CSS Class of the Dialog Content
-        /// </param>
-        /// <returns>
-        /// The YAF modal dialog Load JS.
-        /// </returns>
-        public static string LoginBoxLoadJs([NotNull] string openLink, [NotNull] string dialogId)
-        {
-            return $@"{Config.JQueryAlias}(document).ready(function() {{  
+    /// <summary>
+    /// Generates Modal Dialog Script
+    /// </summary>
+    /// <param name="openLink">
+    /// The Open Link, that opens the Modal Dialog.
+    /// </param>
+    /// <param name="dialogId">
+    /// The Id or CSS Class of the Dialog Content
+    /// </param>
+    /// <returns>
+    /// The YAF modal dialog Load JS.
+    /// </returns>
+    public static string LoginBoxLoadJs([NotNull] string openLink, [NotNull] string dialogId)
+    {
+        return $@"{Config.JQueryAlias}(document).ready(function() {{  
                                 {Config.JQueryAlias}('{openLink}').click(function () {{ 
                                         {Config.JQueryAlias}('{dialogId}').modal('show');
                                 }}); 
                    }});";
-        }
+    }
 
-        /// <summary>
-        /// script for the addThanks button
-        /// </summary>
-        /// <param name="removeThankBoxHtml">
-        /// HTML code for the "Remove Thank" button
-        /// </param>
-        /// <returns>
-        /// The add thanks JS.
-        /// </returns>
-        public static string AddThanksJs([NotNull] string removeThankBoxHtml)
-        {
-            return $@"function addThanks(messageID){{ 
+    /// <summary>
+    /// script for the addThanks button
+    /// </summary>
+    /// <param name="removeThankBoxHtml">
+    /// HTML code for the "Remove Thank" button
+    /// </param>
+    /// <returns>
+    /// The add thanks JS.
+    /// </returns>
+    public static string AddThanksJs([NotNull] string removeThankBoxHtml)
+    {
+        return $@"function addThanks(messageID){{ 
             {Config.JQueryAlias}.ajax({{
                     url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/ThankYou/AddThanks/' + messageID,
                     type: 'POST',
@@ -480,20 +480,20 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                  }});
 
                  }}";
-        }
+    }
 
-        /// <summary>
-        /// script for the removeThanks button
-        /// </summary>
-        /// <param name="addThankBoxHtml">
-        /// The Add Thank Box HTML.
-        /// </param>
-        /// <returns>
-        /// The remove thanks JS.
-        /// </returns>
-        public static string RemoveThanksJs([NotNull] string addThankBoxHtml)
-        {
-            return $@"function removeThanks(messageID){{ 
+    /// <summary>
+    /// script for the removeThanks button
+    /// </summary>
+    /// <param name="addThankBoxHtml">
+    /// The Add Thank Box HTML.
+    /// </param>
+    /// <returns>
+    /// The remove thanks JS.
+    /// </returns>
+    public static string RemoveThanksJs([NotNull] string addThankBoxHtml)
+    {
+        return $@"function removeThanks(messageID){{ 
             $.ajax({{
                     url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/ThankYou/RemoveThanks/' + messageID,
                     type: 'POST',
@@ -510,48 +510,48 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                  }});
                           
                  }}";
-        }
+    }
 
-        #endregion
+    #endregion
 
-        /// <summary>
-        /// The CKEditor Load JS.
-        /// </summary>
-        /// <param name="editorId">
-        /// The editor Id.
-        /// </param>
-        /// <param name="editorLanguage">
-        /// The editor language.
-        /// </param>
-        /// <param name="maxCharacters">
-        /// The max characters.
-        /// </param>
-        /// <param name="themeCssUrl">
-        /// The theme CSS url.
-        /// </param>
-        /// <param name="forumCssUrl">
-        /// The forum CSS url.
-        /// </param>
-        /// <param name="toolbar">
-        /// The toolbar.
-        /// </param>
-        /// <param name="uploadAllowed">
-        /// Check if uploads are allowed
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        [NotNull]
-        public static string CKEditorLoadJs(
-            [NotNull] string editorId,
-            [NotNull] string editorLanguage,
-            int maxCharacters,
-            [NotNull] string themeCssUrl,
-            [NotNull] string forumCssUrl,
-            [NotNull] string toolbar,
-            bool uploadAllowed)
-        {
-            var autoUploadJs = $@" CKEDITOR.on('instanceReady', function (ev) {{
+    /// <summary>
+    /// The CKEditor Load JS.
+    /// </summary>
+    /// <param name="editorId">
+    /// The editor Id.
+    /// </param>
+    /// <param name="editorLanguage">
+    /// The editor language.
+    /// </param>
+    /// <param name="maxCharacters">
+    /// The max characters.
+    /// </param>
+    /// <param name="themeCssUrl">
+    /// The theme CSS url.
+    /// </param>
+    /// <param name="forumCssUrl">
+    /// The forum CSS url.
+    /// </param>
+    /// <param name="toolbar">
+    /// The toolbar.
+    /// </param>
+    /// <param name="uploadAllowed">
+    /// Check if uploads are allowed
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    [NotNull]
+    public static string CKEditorLoadJs(
+        [NotNull] string editorId,
+        [NotNull] string editorLanguage,
+        int maxCharacters,
+        [NotNull] string themeCssUrl,
+        [NotNull] string forumCssUrl,
+        [NotNull] string toolbar,
+        bool uploadAllowed)
+    {
+        var autoUploadJs = $@" CKEDITOR.on('instanceReady', function (ev) {{
                      ev.editor.document.on('drop', function (event) {{
                        {Config.JQueryAlias}('.EditorDiv').yafFileUpload(""send"", {{files: event.data.$.dataTransfer.files}});
                      }});
@@ -560,7 +560,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                      }});
                   }});";
 
-            return $@"{Config.JQueryAlias}(document).ready(function() {{
+        return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
                           extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,attachments,quote,codemirror,textselection"",
                           removePlugins: 'bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
@@ -625,42 +625,42 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                   }});
 
                  {(uploadAllowed ? autoUploadJs : string.Empty)}";
-        }
+    }
 
-        /// <summary>
-        /// The CKEditor Load JS.
-        /// </summary>
-        /// <param name="editorId">
-        /// The editor Id.
-        /// </param>
-        /// <param name="editorLanguage">
-        /// The editor language.
-        /// </param>
-        /// <param name="maxCharacters">
-        /// The max characters.
-        /// </param>
-        /// <param name="themeCssUrl">
-        /// The theme CSS url.
-        /// </param>
-        /// <param name="forumCssUrl">
-        /// The forum CSS url.
-        /// </param>
-        /// <param name="toolbar">
-        /// The toolbar.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        [NotNull]
-        public static string CKEditorBasicLoadJs(
-            [NotNull] string editorId,
-            [NotNull] string editorLanguage,
-            int maxCharacters,
-            [NotNull] string themeCssUrl,
-            [NotNull] string forumCssUrl,
-            [NotNull] string toolbar)
-        {
-            return $@"{Config.JQueryAlias}(document).ready(function() {{
+    /// <summary>
+    /// The CKEditor Load JS.
+    /// </summary>
+    /// <param name="editorId">
+    /// The editor Id.
+    /// </param>
+    /// <param name="editorLanguage">
+    /// The editor language.
+    /// </param>
+    /// <param name="maxCharacters">
+    /// The max characters.
+    /// </param>
+    /// <param name="themeCssUrl">
+    /// The theme CSS url.
+    /// </param>
+    /// <param name="forumCssUrl">
+    /// The forum CSS url.
+    /// </param>
+    /// <param name="toolbar">
+    /// The toolbar.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    [NotNull]
+    public static string CKEditorBasicLoadJs(
+        [NotNull] string editorId,
+        [NotNull] string editorLanguage,
+        int maxCharacters,
+        [NotNull] string themeCssUrl,
+        [NotNull] string forumCssUrl,
+        [NotNull] string toolbar)
+    {
+        return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
                           extraPlugins: ""bbcode,mentions,wordcount,autolink,quote,codemirror"",
                           removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
@@ -714,42 +714,42 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               }}
                       }});
                   }});";
-        }
+    }
 
-        /// <summary>
-        /// The CKEditor Load JS.
-        /// </summary>
-        /// <param name="editorId">
-        /// The editor Id.
-        /// </param>
-        /// <param name="editorLanguage">
-        /// The editor language.
-        /// </param>
-        /// <param name="maxCharacters">
-        /// The max characters.
-        /// </param>
-        /// <param name="themeCssUrl">
-        /// The theme CSS url.
-        /// </param>
-        /// <param name="forumCssUrl">
-        /// The forum CSS url.
-        /// </param>
-        /// <param name="mime">
-        /// The mime.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        [NotNull]
-        public static string CKEditorSqlLoadJs(
-            [NotNull] string editorId,
-            [NotNull] string editorLanguage,
-            int maxCharacters,
-            [NotNull] string themeCssUrl,
-            [NotNull] string forumCssUrl,
-            [NotNull] string mime)
-        {
-            return $@"{Config.JQueryAlias}(document).ready(function() {{
+    /// <summary>
+    /// The CKEditor Load JS.
+    /// </summary>
+    /// <param name="editorId">
+    /// The editor Id.
+    /// </param>
+    /// <param name="editorLanguage">
+    /// The editor language.
+    /// </param>
+    /// <param name="maxCharacters">
+    /// The max characters.
+    /// </param>
+    /// <param name="themeCssUrl">
+    /// The theme CSS url.
+    /// </param>
+    /// <param name="forumCssUrl">
+    /// The forum CSS url.
+    /// </param>
+    /// <param name="mime">
+    /// The mime.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    [NotNull]
+    public static string CKEditorSqlLoadJs(
+        [NotNull] string editorId,
+        [NotNull] string editorLanguage,
+        int maxCharacters,
+        [NotNull] string themeCssUrl,
+        [NotNull] string forumCssUrl,
+        [NotNull] string mime)
+    {
+        return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
                           extraPlugins: ""wordcount,codemirror"",
                           removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
@@ -772,50 +772,50 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               yafCKEditor.editor.updateElement();
                           }});
                   }});";
-        }
+    }
 
-        /// <summary>
-        /// Gets the FileUpload Java Script.
-        /// </summary>
-        /// <param name="acceptedFileTypes">
-        /// The accepted file types.
-        /// </param>
-        /// <param name="maxFileSize">
-        /// Maximum size of the file.
-        /// </param>
-        /// <param name="fileUploaderUrl">
-        /// The file uploader URL.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum identifier.
-        /// </param>
-        /// <param name="boardId">
-        /// The board identifier.
-        /// </param>
-        /// <param name="imageMaxWidth">
-        /// The image Max Width.
-        /// </param>
-        /// <param name="imageMaxHeight">
-        /// The image Max Height.
-        /// </param>
-        /// <param name="editorId">
-        /// The editor Id.
-        /// </param>
-        /// <returns>
-        /// Returns the FileUpload Java Script.
-        /// </returns>
-        [NotNull]
-        public static string FileAutoUploadLoadJs(
-            [NotNull] string acceptedFileTypes,
-            [NotNull] int maxFileSize,
-            [NotNull] string fileUploaderUrl,
-            [NotNull] int forumId,
-            [NotNull] int boardId,
-            [NotNull] int imageMaxWidth,
-            [NotNull] int imageMaxHeight,
-            [NotNull] string editorId)
-        {
-            return $@"{Config.JQueryAlias}('.EditorDiv').yafFileUpload({{
+    /// <summary>
+    /// Gets the FileUpload Java Script.
+    /// </summary>
+    /// <param name="acceptedFileTypes">
+    /// The accepted file types.
+    /// </param>
+    /// <param name="maxFileSize">
+    /// Maximum size of the file.
+    /// </param>
+    /// <param name="fileUploaderUrl">
+    /// The file uploader URL.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum identifier.
+    /// </param>
+    /// <param name="boardId">
+    /// The board identifier.
+    /// </param>
+    /// <param name="imageMaxWidth">
+    /// The image Max Width.
+    /// </param>
+    /// <param name="imageMaxHeight">
+    /// The image Max Height.
+    /// </param>
+    /// <param name="editorId">
+    /// The editor Id.
+    /// </param>
+    /// <returns>
+    /// Returns the FileUpload Java Script.
+    /// </returns>
+    [NotNull]
+    public static string FileAutoUploadLoadJs(
+        [NotNull] string acceptedFileTypes,
+        [NotNull] int maxFileSize,
+        [NotNull] string fileUploaderUrl,
+        [NotNull] int forumId,
+        [NotNull] int boardId,
+        [NotNull] int imageMaxWidth,
+        [NotNull] int imageMaxHeight,
+        [NotNull] string editorId)
+    {
+        return $@"{Config.JQueryAlias}('.EditorDiv').yafFileUpload({{
                 url: '{fileUploaderUrl}',
                 acceptFileTypes: /(\.|\/)({acceptedFileTypes})$/i,
                 imageMaxWidth: {imageMaxWidth},
@@ -839,46 +839,46 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 dropZone: {Config.JQueryAlias}('.EditorDiv'),
                 pasteZone: {Config.JQueryAlias}('.EditorDiv')
             }});";
-        }
+    }
 
-        /// <summary>
-        /// Gets the FileUpload Java Script.
-        /// </summary>
-        /// <param name="acceptedFileTypes">
-        /// The accepted file types.
-        /// </param>
-        /// <param name="maxFileSize">
-        /// Maximum size of the file.
-        /// </param>
-        /// <param name="fileUploaderUrl">
-        /// The file uploader URL.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum identifier.
-        /// </param>
-        /// <param name="boardId">
-        /// The board identifier.
-        /// </param>
-        /// <param name="imageMaxWidth">
-        /// The image Max Width.
-        /// </param>
-        /// <param name="imageMaxHeight">
-        /// The image Max Height.
-        /// </param>
-        /// <returns>
-        /// Returns the FileUpload Java Script.
-        /// </returns>
-        [NotNull]
-        public static string FileUploadLoadJs(
-            [NotNull] string acceptedFileTypes,
-            [NotNull] int maxFileSize,
-            [NotNull] string fileUploaderUrl,
-            [NotNull] int forumId,
-            [NotNull] int boardId,
-            [NotNull] int imageMaxWidth,
-            [NotNull] int imageMaxHeight)
-        {
-            return $@"{Config.JQueryAlias}(function() {{
+    /// <summary>
+    /// Gets the FileUpload Java Script.
+    /// </summary>
+    /// <param name="acceptedFileTypes">
+    /// The accepted file types.
+    /// </param>
+    /// <param name="maxFileSize">
+    /// Maximum size of the file.
+    /// </param>
+    /// <param name="fileUploaderUrl">
+    /// The file uploader URL.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum identifier.
+    /// </param>
+    /// <param name="boardId">
+    /// The board identifier.
+    /// </param>
+    /// <param name="imageMaxWidth">
+    /// The image Max Width.
+    /// </param>
+    /// <param name="imageMaxHeight">
+    /// The image Max Height.
+    /// </param>
+    /// <returns>
+    /// Returns the FileUpload Java Script.
+    /// </returns>
+    [NotNull]
+    public static string FileUploadLoadJs(
+        [NotNull] string acceptedFileTypes,
+        [NotNull] int maxFileSize,
+        [NotNull] string fileUploaderUrl,
+        [NotNull] int forumId,
+        [NotNull] int boardId,
+        [NotNull] int imageMaxWidth,
+        [NotNull] int imageMaxHeight)
+    {
+        return $@"{Config.JQueryAlias}(function() {{
 
             {Config.JQueryAlias}('#fileupload').yafFileUpload({{
                 url: '{fileUploaderUrl}',
@@ -942,24 +942,24 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 }}, 100);
             }});
         }});";
-        }
+    }
 
-        /// <summary>
-        /// select2 topics load JS.
-        /// </summary>
-        /// <param name="topicsId">
-        /// The topics Id.
-        /// </param>
-        /// <param name="forumDropDownId">
-        /// The forum drop down identifier.
-        /// </param>
-        /// <returns>
-        /// Returns the select2 topics load JS.
-        /// </returns>
-        [NotNull]
-        public static string SelectTopicsLoadJs([NotNull] string topicsId, [NotNull] string forumDropDownId)
-        {
-            return $@"{Config.JQueryAlias}('#{topicsId}').select2({{
+    /// <summary>
+    /// select2 topics load JS.
+    /// </summary>
+    /// <param name="topicsId">
+    /// The topics Id.
+    /// </param>
+    /// <param name="forumDropDownId">
+    /// The forum drop down identifier.
+    /// </param>
+    /// <returns>
+    /// Returns the select2 topics load JS.
+    /// </returns>
+    [NotNull]
+    public static string SelectTopicsLoadJs([NotNull] string topicsId, [NotNull] string forumDropDownId)
+    {
+        return $@"{Config.JQueryAlias}('#{topicsId}').select2({{
             ajax: {{
                 url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Topic/GetTopics',
                 type: 'POST',
@@ -1001,41 +1001,41 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             cache: true,
             {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
         }});";
-        }
+    }
 
-        /// <summary>
-        /// select2 forum load JS.
-        /// </summary>
-        /// <param name="forumDropDownId">
-        /// The forum drop down identifier.
-        /// </param>
-        /// <param name="placeHolder">
-        /// The place Holder.
-        /// </param>
-        /// <param name="forumLink">
-        /// Go to Forum on select
-        /// </param>
-        /// <param name="allForumsOption">
-        /// Add All Forums option
-        /// </param>
-        /// <param name="selectedHiddenId">
-        /// The selected Hidden Id.
-        /// </param>
-        /// <returns>
-        /// Returns the select2 topics load JS.
-        /// </returns>
-        [NotNull]
-        public static string SelectForumsLoadJs([NotNull] string forumDropDownId, [NotNull] string placeHolder, bool forumLink, bool allForumsOption, [CanBeNull] string selectedHiddenId = null)
-        {
-            var selectHiddenValue = selectedHiddenId.IsSet()
-                                        ? $@"if (e.params.data.Total) {{ 
+    /// <summary>
+    /// select2 forum load JS.
+    /// </summary>
+    /// <param name="forumDropDownId">
+    /// The forum drop down identifier.
+    /// </param>
+    /// <param name="placeHolder">
+    /// The place Holder.
+    /// </param>
+    /// <param name="forumLink">
+    /// Go to Forum on select
+    /// </param>
+    /// <param name="allForumsOption">
+    /// Add All Forums option
+    /// </param>
+    /// <param name="selectedHiddenId">
+    /// The selected Hidden Id.
+    /// </param>
+    /// <returns>
+    /// Returns the select2 topics load JS.
+    /// </returns>
+    [NotNull]
+    public static string SelectForumsLoadJs([NotNull] string forumDropDownId, [NotNull] string placeHolder, bool forumLink, bool allForumsOption, [CanBeNull] string selectedHiddenId = null)
+    {
+        var selectHiddenValue = selectedHiddenId.IsSet()
+                                    ? $@"if (e.params.data.Total) {{ 
                                                  {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.Results[0].children[0].id);
                                              }} else {{
                                                  {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.id);
                                              }}"
-                                        : string.Empty;
+                                    : string.Empty;
 
-            var forumSelect = selectedHiddenId.IsSet() ? $@"var forumsListSelect = {Config.JQueryAlias}('#{forumDropDownId}');
+        var forumSelect = selectedHiddenId.IsSet() ? $@"var forumsListSelect = {Config.JQueryAlias}('#{forumDropDownId}');
             var forumId = {Config.JQueryAlias}('#{selectedHiddenId}').val();
 
             {Config.JQueryAlias}.ajax({{
@@ -1057,9 +1057,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                 }});}}
             }});" : string.Empty;
 
-            var allForumsOptionJs = allForumsOption ? "AllForumsOption: true," : string.Empty;
+        var allForumsOptionJs = allForumsOption ? "AllForumsOption: true," : string.Empty;
 
-            return $@"{Config.JQueryAlias}('#{forumDropDownId}').select2({{
+        return $@"{Config.JQueryAlias}('#{forumDropDownId}').select2({{
             ajax: {{
                 url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Forum/GetForums',
                 type: 'POST',
@@ -1128,32 +1128,32 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
             {forumSelect}
             ";
-        }
+    }
 
-        /// <summary>
-        /// Gets the Passwords strength checker Java Script.
-        /// </summary>
-        /// <param name="passwordClientId">The password client identifier.</param>
-        /// <param name="confirmPasswordClientId">The confirm password client identifier.</param>
-        /// <param name="minimumChars">The minimum chars.</param>
-        /// <param name="notMatchText">The not match text.</param>
-        /// <param name="passwordMinText">The password minimum text.</param>
-        /// <param name="passwordGoodText">The password good text.</param>
-        /// <param name="passwordStrongerText">The password stronger text.</param>
-        /// <param name="passwordWeakText">The password weak text.</param>
-        /// <returns>Returns the Passwords strength checker Java Script</returns>
-        [NotNull]
-        public static string PasswordStrengthCheckerJs(
-            [NotNull] string passwordClientId,
-            [NotNull] string confirmPasswordClientId,
-            [NotNull] int minimumChars,
-            [NotNull] string notMatchText,
-            [NotNull] string passwordMinText,
-            [NotNull] string passwordGoodText,
-            [NotNull] string passwordStrongerText,
-            [NotNull] string passwordWeakText)
-        {
-            return $@"{Config.JQueryAlias}(document).ready(function () {{
+    /// <summary>
+    /// Gets the Passwords strength checker Java Script.
+    /// </summary>
+    /// <param name="passwordClientId">The password client identifier.</param>
+    /// <param name="confirmPasswordClientId">The confirm password client identifier.</param>
+    /// <param name="minimumChars">The minimum chars.</param>
+    /// <param name="notMatchText">The not match text.</param>
+    /// <param name="passwordMinText">The password minimum text.</param>
+    /// <param name="passwordGoodText">The password good text.</param>
+    /// <param name="passwordStrongerText">The password stronger text.</param>
+    /// <param name="passwordWeakText">The password weak text.</param>
+    /// <returns>Returns the Passwords strength checker Java Script</returns>
+    [NotNull]
+    public static string PasswordStrengthCheckerJs(
+        [NotNull] string passwordClientId,
+        [NotNull] string confirmPasswordClientId,
+        [NotNull] int minimumChars,
+        [NotNull] string notMatchText,
+        [NotNull] string passwordMinText,
+        [NotNull] string passwordGoodText,
+        [NotNull] string passwordStrongerText,
+        [NotNull] string passwordWeakText)
+    {
+        return $@"{Config.JQueryAlias}(document).ready(function () {{
         var password = {Config.JQueryAlias}('#{passwordClientId}');
         var passwordConfirm = {Config.JQueryAlias}('#{confirmPasswordClientId}');
         // Check if passwords match
@@ -1213,49 +1213,49 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             }});
         }});
     }});";
-        }
+    }
 
-        /// <summary>
-        /// Renders Modal open JS.
-        /// </summary>
-        /// <param name="clientId">The client id.</param>
-        /// <returns>
-        /// Returns the JS String
-        /// </returns>
-        [NotNull]
-        public static string OpenModalJs([NotNull] string clientId)
-        {
-            return $"var myModal = new bootstrap.Modal(document.getElementById('{clientId}'), null);myModal.show();";
-        }
+    /// <summary>
+    /// Renders Modal open JS.
+    /// </summary>
+    /// <param name="clientId">The client id.</param>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    [NotNull]
+    public static string OpenModalJs([NotNull] string clientId)
+    {
+        return $"var myModal = new bootstrap.Modal(document.getElementById('{clientId}'), null);myModal.show();";
+    }
 
-        /// <summary>
-        /// Gets the Do Search java script.
-        /// </summary>
-        /// <returns>
-        /// Returns the do Search Java script String
-        /// </returns>
-        [NotNull]
-        public static string DoSearchJs()
-        {
-            return $"{Config.JQueryAlias}(document).ready(function() {{getSearchResultsData(0);}});";
-        }
+    /// <summary>
+    /// Gets the Do Search java script.
+    /// </summary>
+    /// <returns>
+    /// Returns the do Search Java script String
+    /// </returns>
+    [NotNull]
+    public static string DoSearchJs()
+    {
+        return $"{Config.JQueryAlias}(document).ready(function() {{getSearchResultsData(0);}});";
+    }
 
-        /// <summary>
-        /// Renders the Forum Icon Legend Popover JS.
-        /// </summary>
-        /// <param name="content">
-        /// The content.
-        /// </param>
-        /// <param name="cssClass">
-        /// The CSS Class.
-        /// </param>
-        /// <returns>
-        /// Returns the JS String
-        /// </returns>
-        [NotNull]
-        public static string ForumIconLegendPopoverJs([NotNull] string content, [NotNull] string cssClass)
-        {
-            return $@"var popoverTriggerIconList = [].slice.call(document.querySelectorAll('.{cssClass}'));
+    /// <summary>
+    /// Renders the Forum Icon Legend Popover JS.
+    /// </summary>
+    /// <param name="content">
+    /// The content.
+    /// </param>
+    /// <param name="cssClass">
+    /// The CSS Class.
+    /// </param>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    [NotNull]
+    public static string ForumIconLegendPopoverJs([NotNull] string content, [NotNull] string cssClass)
+    {
+        return $@"var popoverTriggerIconList = [].slice.call(document.querySelectorAll('.{cssClass}'));
                       var popoverIconList = popoverTriggerIconList.map(function(popoverTriggerEl) {{
                            return new bootstrap.Popover(popoverTriggerEl,{{
                            html: true,
@@ -1263,27 +1263,27 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                            trigger: ""focus""
                            }});
                     }});";
-        }
+    }
 
-        /// <summary>
-        /// Renders the Topic Link Popover JS.
-        /// </summary>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        /// <param name="cssClass">
-        /// The CSS Class.
-        /// </param>
-        /// <param name="trigger">
-        /// The trigger.
-        /// </param>
-        /// <returns>
-        /// Returns the JS String
-        /// </returns>
-        [NotNull]
-        public static string TopicLinkPopoverJs([NotNull] string title, [NotNull] string cssClass, [NotNull] string trigger)
-        {
-            return $@"{Config.JQueryAlias}(document).ready(function() {{
+    /// <summary>
+    /// Renders the Topic Link Popover JS.
+    /// </summary>
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    /// <param name="cssClass">
+    /// The CSS Class.
+    /// </param>
+    /// <param name="trigger">
+    /// The trigger.
+    /// </param>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    [NotNull]
+    public static string TopicLinkPopoverJs([NotNull] string title, [NotNull] string cssClass, [NotNull] string trigger)
+    {
+        return $@"{Config.JQueryAlias}(document).ready(function() {{
                      {Config.JQueryAlias}('{cssClass}').popover({{
                            title: '{title}',
                            html: true,
@@ -1291,21 +1291,21 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                            template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body""></div></div>'
                 }});
                 }});";
-        }
+    }
 
-        /// <summary>
-        /// The forum mods popover JS.
-        /// </summary>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        [NotNull]
-        public static string ForumModsPopoverJs([NotNull] string title)
-        {
-            return $@"var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
+    /// <summary>
+    /// The forum mods popover JS.
+    /// </summary>
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    [NotNull]
+    public static string ForumModsPopoverJs([NotNull] string title)
+    {
+        return $@"var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
                       var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {{
                            return new bootstrap.Popover(popoverTriggerEl,{{
                            title: '{title}',
@@ -1314,18 +1314,18 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                            template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'
                            }});
                 }});";
-        }
+    }
 
-        /// <summary>
-        /// The Hover Card Load JS.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        [NotNull]
-        public static string HoverCardJs()
-        {
-            return $@"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ 
+    /// <summary>
+    /// The Hover Card Load JS.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    [NotNull]
+    public static string HoverCardJs()
+    {
+        return $@"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ 
                       {Config.JQueryAlias}('.hc-user').hovercard({{
                                       delay: {BoardContext.Current.BoardSettings.HoverCardOpenDelay}, 
                                       width: 350,
@@ -1335,21 +1335,21 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                       postsText: '{BoardContext.Current.Get<ILocalization>().GetText("POSTS").ToJsString()}'
                       }});
                  }}";
-        }
+    }
 
-        /// <summary>
-        /// Form Validator JS.
-        /// </summary>
-        /// <param name="buttonClientId">
-        /// The button Client Id.
-        /// </param>
-        /// <returns>
-        /// Returns the JS String
-        /// </returns>
-        [NotNull]
-        public static string FormValidatorJs([NotNull] string buttonClientId)
-        {
-            return $@"(function() {{
+    /// <summary>
+    /// Form Validator JS.
+    /// </summary>
+    /// <param name="buttonClientId">
+    /// The button Client Id.
+    /// </param>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    [NotNull]
+    public static string FormValidatorJs([NotNull] string buttonClientId)
+    {
+        return $@"(function() {{
                 'use strict';
                 window.addEventListener('load', function() {{
                     var form = document.forms[0];
@@ -1366,54 +1366,54 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                    
                 }}, false);
             }})();";
-        }
+    }
 
-        /// <summary>
-        /// Click Button on Enter Key JS.
-        /// </summary>
-        /// <param name="buttonClientId">
-        /// The button Client Id.
-        /// </param>
-        /// <returns>
-        /// Returns the JS String
-        /// </returns>
-        [NotNull]
-        public static string ClickOnEnterJs([NotNull] string buttonClientId)
-        {
-            return $@"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
+    /// <summary>
+    /// Click Button on Enter Key JS.
+    /// </summary>
+    /// <param name="buttonClientId">
+    /// The button Client Id.
+    /// </param>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    [NotNull]
+    public static string ClickOnEnterJs([NotNull] string buttonClientId)
+    {
+        return $@"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
                               document.getElementById('{buttonClientId}').click();return false;}}}} else {{return true}}; ";
-        }
+    }
 
-        /// <summary>
-        /// Opens the BootBox Confirm Dialog JS.
-        /// </summary>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <param name="yes">
-        /// The yes.
-        /// </param>
-        /// <param name="no">
-        /// The no.
-        /// </param>
-        /// <param name="link">
-        /// The link.
-        /// </param>
-        /// <returns>
-        /// Returns the JS String
-        /// </returns>
-        [NotNull]
-        public static string BootBoxConfirmJs(
-            [NotNull] string title,
-            [NotNull] string text,
-            [NotNull] string yes,
-            [NotNull] string no,
-            [NotNull] string link)
-        {
-            return $@"document.addEventListener('DOMContentLoaded', function() {{
+    /// <summary>
+    /// Opens the BootBox Confirm Dialog JS.
+    /// </summary>
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="yes">
+    /// The yes.
+    /// </param>
+    /// <param name="no">
+    /// The no.
+    /// </param>
+    /// <param name="link">
+    /// The link.
+    /// </param>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    [NotNull]
+    public static string BootBoxConfirmJs(
+        [NotNull] string title,
+        [NotNull] string text,
+        [NotNull] string yes,
+        [NotNull] string no,
+        [NotNull] string link)
+    {
+        return $@"document.addEventListener('DOMContentLoaded', function() {{
                         bootbox.confirm({{
                 centerVertical: true,
                 title: '{title}',
@@ -1435,65 +1435,65 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 }}
             }}
         );}})";
-        }
+    }
 
-        /// <summary>
-        /// Opens the BootBox Prompt Dialog JS.
-        /// </summary>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="cancel">
-        /// The cancel.
-        /// </param>
-        /// <param name="ok">
-        /// The ok.
-        /// </param>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <returns>
-        /// Returns the JS String
-        /// </returns>
-        [NotNull]
-        public static string BootBoxPromptJs(
-            [NotNull] string title,
-            [NotNull] string message,
-            [NotNull] string cancel,
-            [NotNull] string ok,
-            [NotNull] string value)
-        {
-            return $@"bootbox.prompt({{ 
+    /// <summary>
+    /// Opens the BootBox Prompt Dialog JS.
+    /// </summary>
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="cancel">
+    /// The cancel.
+    /// </param>
+    /// <param name="ok">
+    /// The ok.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    [NotNull]
+    public static string BootBoxPromptJs(
+        [NotNull] string title,
+        [NotNull] string message,
+        [NotNull] string cancel,
+        [NotNull] string ok,
+        [NotNull] string value)
+    {
+        return $@"bootbox.prompt({{ 
                                       title: '{title}',
                                       message: '{message}',
                                       value: '{value}',
                                       buttons: {{cancel:{{label:'{cancel}'}}, confirm:{{label:'{ok}'}}}},
                                       callback: function(){{}}
                                   }});";
-        }
+    }
 
-        /// <summary>
-        /// select2 user load JS.
-        /// </summary>
-        /// <param name="selectClientId">
-        /// The select Client Id.
-        /// </param>
-        /// <param name="findUserClientId">
-        /// The find User Client Id.
-        /// </param>
-        /// <param name="userClientId">
-        /// The user Client Id.
-        /// </param>
-        /// <returns>
-        /// Returns the select2 user load JS.
-        /// </returns>
-        [NotNull]
-        public static string SelectUsersLoadJs([NotNull] string selectClientId, [NotNull] string findUserClientId, [NotNull] string userClientId)
-        {
-            return $@"{Config.JQueryAlias}('#{findUserClientId}').click(function() {{ 
+    /// <summary>
+    /// select2 user load JS.
+    /// </summary>
+    /// <param name="selectClientId">
+    /// The select Client Id.
+    /// </param>
+    /// <param name="findUserClientId">
+    /// The find User Client Id.
+    /// </param>
+    /// <param name="userClientId">
+    /// The user Client Id.
+    /// </param>
+    /// <returns>
+    /// Returns the select2 user load JS.
+    /// </returns>
+    [NotNull]
+    public static string SelectUsersLoadJs([NotNull] string selectClientId, [NotNull] string findUserClientId, [NotNull] string userClientId)
+    {
+        return $@"{Config.JQueryAlias}('#{findUserClientId}').click(function() {{ 
                               if ({Config.JQueryAlias}('#{userClientId}').val().lenth < 3)
                               {{
                                    return;
@@ -1541,38 +1541,38 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                  {Config.JQueryAlias}('#{userClientId}').val(data.text);
                 }});
             }});";
-        }
+    }
 
-        /// <summary>
-        /// The Logout Dialog Load JS.
-        /// </summary>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <param name="yes">
-        /// The yes.
-        /// </param>
-        /// <param name="no">
-        /// The no.
-        /// </param>
-        /// <param name="link">
-        /// The link.
-        /// </param>
-        /// <returns>
-        /// Returns the JS String
-        /// </returns>
-        [NotNull]
-        public static string LogOutJs(
-            [NotNull] string title,
-            [NotNull] string text,
-            [NotNull] string yes,
-            [NotNull] string no,
-            [NotNull] string link)
-        {
-            return $@"function LogOutClick() {{
+    /// <summary>
+    /// The Logout Dialog Load JS.
+    /// </summary>
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="yes">
+    /// The yes.
+    /// </param>
+    /// <param name="no">
+    /// The no.
+    /// </param>
+    /// <param name="link">
+    /// The link.
+    /// </param>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    [NotNull]
+    public static string LogOutJs(
+        [NotNull] string title,
+        [NotNull] string text,
+        [NotNull] string yes,
+        [NotNull] string no,
+        [NotNull] string link)
+    {
+        return $@"function LogOutClick() {{
                 bootbox.confirm({{
                 centerVertical: true,
                 title: '{title}',
@@ -1594,24 +1594,24 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 }}
             }}
         );}}";
-        }
+    }
 
-        /// <summary>
-        /// Renders the Load More on Scrolling JS.
-        /// </summary>
-        /// <param name="buttonUniqueId">
-        /// The button Unique Id.
-        /// </param>
-        /// <param name="buttonClientId">
-        /// The button Client Id.
-        /// </param>
-        /// <returns>
-        /// Returns the JS String
-        /// </returns>
-        [NotNull]
-        public static string LoadMoreOnScrolling([NotNull] string buttonUniqueId, [NotNull] string buttonClientId)
-        {
-            return $@"{Config.JQueryAlias}(window).scroll(function () {{
+    /// <summary>
+    /// Renders the Load More on Scrolling JS.
+    /// </summary>
+    /// <param name="buttonUniqueId">
+    /// The button Unique Id.
+    /// </param>
+    /// <param name="buttonClientId">
+    /// The button Client Id.
+    /// </param>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    [NotNull]
+    public static string LoadMoreOnScrolling([NotNull] string buttonUniqueId, [NotNull] string buttonClientId)
+    {
+        return $@"{Config.JQueryAlias}(window).scroll(function () {{
                            if ({Config.JQueryAlias}(window).scrollTop() == $(document).height() - {Config.JQueryAlias}(window).height()) {{
                                  var btn = document.getElementById(""{buttonClientId}"");
                                  if (btn != null) {{
@@ -1619,26 +1619,25 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                   }}
                               }}
                          }});";
-        }
+    }
 
-        /// <summary>
-        /// Renders toggleSelection Function JS.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <returns>
-        /// Returns the JS String
-        /// </returns>
-        [NotNull]
-        public static string ToggleDiffSelectionJs([NotNull] string message)
-        {
-            return $@"function toggleSelection(source) {{
+    /// <summary>
+    /// Renders toggleSelection Function JS.
+    /// </summary>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    [NotNull]
+    public static string ToggleDiffSelectionJs([NotNull] string message)
+    {
+        return $@"function toggleSelection(source) {{
                                               if ({Config.JQueryAlias}(""input[id*='Compare']:checked"").length > 2) {{
                                                   source.checked = false;
                                                   bootbox.alert({message});
                                               }}
                                           }}";
-        }
     }
 }

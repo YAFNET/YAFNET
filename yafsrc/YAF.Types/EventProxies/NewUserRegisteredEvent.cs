@@ -21,54 +21,53 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
-{
-    #region Using
+namespace YAF.Types.EventProxies;
 
-    using YAF.Types;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Models.Identity;
+#region Using
+
+using YAF.Types;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Models.Identity;
+
+#endregion
+
+/// <summary>
+/// The new user registered event.
+/// </summary>
+public class NewUserRegisteredEvent : IAmEvent
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NewUserRegisteredEvent"/> class.
+    /// </summary>
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    public NewUserRegisteredEvent([NotNull] AspNetUsers user, int userId)
+    {
+        CodeContracts.VerifyNotNull(user);
+
+        this.User = user;
+        this.UserId = userId;
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The new user registered event.
+    /// Gets or sets User.
     /// </summary>
-    public class NewUserRegisteredEvent : IAmEvent
-    {
-        #region Constructors and Destructors
+    public AspNetUsers User { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NewUserRegisteredEvent"/> class.
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        public NewUserRegisteredEvent([NotNull] AspNetUsers user, int userId)
-        {
-            CodeContracts.VerifyNotNull(user);
+    /// <summary>
+    /// Gets or sets UserId.
+    /// </summary>
+    public int UserId { get; set; }
 
-            this.User = user;
-            this.UserId = userId;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets User.
-        /// </summary>
-        public AspNetUsers User { get; set; }
-
-        /// <summary>
-        /// Gets or sets UserId.
-        /// </summary>
-        public int UserId { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

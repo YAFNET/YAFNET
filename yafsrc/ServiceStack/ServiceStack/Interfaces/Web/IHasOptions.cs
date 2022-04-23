@@ -6,17 +6,16 @@
 // ***********************************************************************
 using System.Collections.Generic;
 
-namespace ServiceStack.Web
+namespace ServiceStack.Web;
+
+/// <summary>
+/// Interface IHasOptions
+/// </summary>
+public interface IHasOptions
 {
     /// <summary>
-    /// Interface IHasOptions
+    /// Gets the options.
     /// </summary>
-    public interface IHasOptions
-    {
-        /// <summary>
-        /// Gets the options.
-        /// </summary>
-        /// <value>The options.</value>
-        IDictionary<string, string> Options { get; }
-    }
+    /// <value>The options.</value>
+    IDictionary<string, string> Options { get; }
 }

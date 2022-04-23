@@ -21,43 +21,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the ReputationVote table.
+/// </summary>
+[Serializable]
+[CompositePrimaryKey(nameof(ReputationFromUserID), nameof(ReputationToUserID))]
+public class ReputationVote : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the ReputationVote table.
+    /// Gets or sets the reputation from user id.
     /// </summary>
-    [Serializable]
-    [CompositePrimaryKey(nameof(ReputationFromUserID), nameof(ReputationToUserID))]
-    public class ReputationVote : IEntity
-    {
-        #region Properties
+    [References(typeof(User))]
+    [Required]
+    public int ReputationFromUserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the reputation from user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        public int ReputationFromUserID { get; set; }
+    /// <summary>
+    /// Gets or sets the reputation to user id.
+    /// </summary>
+    [References(typeof(User))]
+    [Required]
+    public int ReputationToUserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the reputation to user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        public int ReputationToUserID { get; set; }
+    /// <summary>
+    /// Gets or sets the vote date.
+    /// </summary>
+    [Required]
+    public DateTime VoteDate { get; set; }
 
-        /// <summary>
-        /// Gets or sets the vote date.
-        /// </summary>
-        [Required]
-        public DateTime VoteDate { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

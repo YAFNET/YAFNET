@@ -21,88 +21,87 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System.Web.UI;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The message signature.
+/// </summary>
+public class SignaturePreview : MessageBase
 {
-    #region Using
+    #region Properties
 
-    using System.Web.UI;
+    /// <summary>
+    ///   Gets or sets DisplayUserID.
+    /// </summary>
+    public int? DisplayUserID { get; set; }
 
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+    /// <summary>
+    ///   Gets or sets MessageID.
+    /// </summary>
+    public int? MessageID { get; set; }
+
+    /// <summary>
+    ///   Gets or sets Signature.
+    /// </summary>
+    public string Signature { get; set; }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The message signature.
+    /// The render.
     /// </summary>
-    public class SignaturePreview : MessageBase
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
-        #region Properties
+        writer.BeginRender();
 
-        /// <summary>
-        ///   Gets or sets DisplayUserID.
-        /// </summary>
-        public int? DisplayUserID { get; set; }
-
-        /// <summary>
-        ///   Gets or sets MessageID.
-        /// </summary>
-        public int? MessageID { get; set; }
-
-        /// <summary>
-        ///   Gets or sets Signature.
-        /// </summary>
-        public string Signature { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The render.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render([NotNull] HtmlTextWriter writer)
+        if (this.Signature.IsSet())
         {
-            writer.BeginRender();
-
-            if (this.Signature.IsSet())
-            {
-                this.RenderSignature(writer);
-            }
-
-            base.Render(writer);
-
-            writer.EndRender();
+            this.RenderSignature(writer);
         }
 
-        /// <summary>
-        /// The render signature.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected void RenderSignature([NotNull] HtmlTextWriter writer)
-        {
-            if (!this.DisplayUserID.HasValue)
-            {
-                return;
-            }
+        base.Render(writer);
 
-            // don't allow any HTML on signatures
-            var signatureFlags = new MessageFlags { IsHtml = false };
-
-            var signatureRendered = this.Get<IFormatMessage>().Format(0, this.Signature, signatureFlags);
-
-            this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserID, this.MessageID);
-        }
-
-        #endregion
+        writer.EndRender();
     }
+
+    /// <summary>
+    /// The render signature.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected void RenderSignature([NotNull] HtmlTextWriter writer)
+    {
+        if (!this.DisplayUserID.HasValue)
+        {
+            return;
+        }
+
+        // don't allow any HTML on signatures
+        var signatureFlags = new MessageFlags { IsHtml = false };
+
+        var signatureRendered = this.Get<IFormatMessage>().Format(0, this.Signature, signatureFlags);
+
+        this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserID, this.MessageID);
+    }
+
+    #endregion
 }

@@ -8,40 +8,39 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ServiceStack
+namespace ServiceStack;
+
+/// <summary>
+/// Class AssertUtils.
+/// </summary>
+public static class AssertUtils
 {
     /// <summary>
-    /// Class AssertUtils.
+    /// Ares the not null.
     /// </summary>
-    public static class AssertUtils
+    /// <typeparam name="T"></typeparam>
+    /// <param name="fields">The fields.</param>
+    /// <exception cref="System.ArgumentNullException"></exception>
+    public static void AreNotNull<T>(params T[] fields)
     {
-        /// <summary>
-        /// Ares the not null.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="fields">The fields.</param>
-        /// <exception cref="System.ArgumentNullException"></exception>
-        public static void AreNotNull<T>(params T[] fields)
+        if (fields.Contains(default(T)))
         {
-            if (fields.Contains(default(T)))
-            {
-                throw new ArgumentNullException(typeof(T).Name);
-            }
+            throw new ArgumentNullException(typeof(T).Name);
         }
+    }
 
-        /// <summary>
-        /// Ares the not null.
-        /// </summary>
-        /// <param name="fieldMap">The field map.</param>
-        /// <exception cref="System.ArgumentNullException"></exception>
-        public static void AreNotNull(IDictionary<string, object> fieldMap)
+    /// <summary>
+    /// Ares the not null.
+    /// </summary>
+    /// <param name="fieldMap">The field map.</param>
+    /// <exception cref="System.ArgumentNullException"></exception>
+    public static void AreNotNull(IDictionary<string, object> fieldMap)
+    {
+        foreach (var pair in fieldMap)
         {
-            foreach (var pair in fieldMap)
+            if (pair.Value == null)
             {
-                if (pair.Value == null)
-                {
-                    throw new ArgumentNullException(pair.Key);
-                }
+                throw new ArgumentNullException(pair.Key);
             }
         }
     }

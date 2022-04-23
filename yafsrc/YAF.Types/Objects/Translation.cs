@@ -22,35 +22,34 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+/// <summary>
+/// Support class for TextBox.Tag property value
+/// </summary>
+public class Translation
 {
+    #region Properties
+
     /// <summary>
-    /// Support class for TextBox.Tag property value
+    ///   Gets or sets the localized value.
     /// </summary>
-    public class Translation
-    {
-        #region Properties
+    public string LocalizedValue { get; set; }
 
-        /// <summary>
-        ///   Gets or sets the localized value.
-        /// </summary>
-        public string LocalizedValue { get; set; }
+    /// <summary>
+    ///   Gets or sets the page name.
+    /// </summary>
+    public string PageName { get; set; }
 
-        /// <summary>
-        ///   Gets or sets the page name.
-        /// </summary>
-        public string PageName { get; set; }
+    /// <summary>
+    ///   Gets or sets the resource name.
+    /// </summary>
+    public string ResourceName { get; set; }
 
-        /// <summary>
-        ///   Gets or sets the resource name.
-        /// </summary>
-        public string ResourceName { get; set; }
+    /// <summary>
+    ///   Gets or sets the resource value.
+    /// </summary>
+    public string ResourceValue { get; set; }
 
-        /// <summary>
-        ///   Gets or sets the resource value.
-        /// </summary>
-        public string ResourceValue { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

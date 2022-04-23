@@ -21,49 +21,48 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the yaf_MessageReported table.
+/// </summary>
+[Serializable]
+public class MessageReported : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the yaf_MessageReported table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    public class MessageReported : IEntity, IHaveID
-    {
-        #region Properties
+    [Alias("MessageID")]
+    [Required]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [Alias("MessageID")]
-        [Required]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the message.
+    /// </summary>
+    public string Message { get; set; }
 
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        public string Message { get; set; }
+    /// <summary>
+    /// Gets or sets the resolved.
+    /// </summary>
+    public bool? Resolved { get; set; }
 
-        /// <summary>
-        /// Gets or sets the resolved.
-        /// </summary>
-        public bool? Resolved { get; set; }
+    /// <summary>
+    /// Gets or sets the resolved by.
+    /// </summary>
+    public int? ResolvedBy { get; set; }
 
-        /// <summary>
-        /// Gets or sets the resolved by.
-        /// </summary>
-        public int? ResolvedBy { get; set; }
+    /// <summary>
+    /// Gets or sets the resolved date.
+    /// </summary>
+    public DateTime? ResolvedDate { get; set; }
 
-        /// <summary>
-        /// Gets or sets the resolved date.
-        /// </summary>
-        public DateTime? ResolvedDate { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

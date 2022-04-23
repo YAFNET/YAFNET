@@ -21,27 +21,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+using System;
+
+/// <summary>
+/// The base module interface.
+/// </summary>
+public interface IBaseForumModule : IModuleDefinition, IDisposable
 {
-    using System;
+    /// <summary>
+    /// Gets or sets ForumControlObj.
+    /// </summary>
+    object ForumControlObj
+    {
+        get;
+        set;
+    }
 
     /// <summary>
-    /// The base module interface.
+    /// The initialization function.
     /// </summary>
-    public interface IBaseForumModule : IModuleDefinition, IDisposable
-    {
-        /// <summary>
-        /// Gets or sets ForumControlObj.
-        /// </summary>
-        object ForumControlObj
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// The initialization function.
-        /// </summary>
-        void Init();
-    }
+    void Init();
 }

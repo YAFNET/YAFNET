@@ -21,80 +21,80 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Model
-{
-    using System;
+namespace YAF.Core.Model;
 
-    using YAF.Core.Extensions;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+using System;
+
+using YAF.Core.Extensions;
+using YAF.Types;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+///     The banned IP repository extensions.
+/// </summary>
+public static class BannedIpRepositoryExtensions
+{
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The banned IP repository extensions.
+    /// The save.
     /// </summary>
-    public static class BannedIpRepositoryExtensions
+    /// <param name="repository">
+    /// The repository. 
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <param name="mask">
+    /// The mask. 
+    /// </param>
+    /// <param name="reason">
+    /// The reason. 
+    /// </param>
+    /// <param name="userId">
+    /// The user id. 
+    /// </param>
+    /// <param name="boardId">
+    /// The board Id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public static bool Save(
+        this IRepository<BannedIP> repository,
+        [CanBeNull] int? id,
+        [NotNull] string mask,
+        [NotNull] string reason,
+        [NotNull] int userId,
+        [CanBeNull] int? boardId = null)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// The save.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <param name="mask">
-        /// The mask. 
-        /// </param>
-        /// <param name="reason">
-        /// The reason. 
-        /// </param>
-        /// <param name="userId">
-        /// The user id. 
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool Save(
-            this IRepository<BannedIP> repository,
-            [CanBeNull] int? id,
-            [NotNull] string mask,
-            [NotNull] string reason,
-            [NotNull] int userId,
-            [CanBeNull] int? boardId = null)
+        if (id.HasValue)
         {
-            CodeContracts.VerifyNotNull(repository);
-
-            if (id.HasValue)
-            {
-                repository.Upsert(
-                    new BannedIP
-                        {
-                            BoardID = boardId ?? repository.BoardID,
-                            ID = id.Value,
-                            Mask = mask,
-                            Reason = reason,
-                            UserID = userId,
-                            Since = DateTime.Now
-                        });
-
-                return true;
-            }
-
-            if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask))
-            {
-                return false;
-            }
-
-            var newId = repository.Upsert(
+            repository.Upsert(
                 new BannedIP
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        ID = id.Value,
+                        Mask = mask,
+                        Reason = reason,
+                        UserID = userId,
+                        Since = DateTime.Now
+                    });
+
+            return true;
+        }
+
+        if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask))
+        {
+            return false;
+        }
+
+        var newId = repository.Upsert(
+            new BannedIP
                 {
                     BoardID = boardId ?? repository.BoardID,
                     Mask = mask,
@@ -103,11 +103,10 @@ namespace YAF.Core.Model
                     Since = DateTime.Now
                 });
 
-            repository.FireNew(newId);
+        repository.FireNew(newId);
 
-            return true;
-        }
-
-        #endregion
+        return true;
     }
+
+    #endregion
 }

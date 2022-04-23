@@ -21,20 +21,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+/// <summary>
+/// The Style Transform interface.
+/// </summary>
+public interface IStyleTransform
 {
     /// <summary>
-    /// The Style Transform interface.
+    /// Decode style by string.
     /// </summary>
-    public interface IStyleTransform
-    {
-        /// <summary>
-        /// Decode style by string.
-        /// </summary>
-        /// <param name="style">The style string.</param>
-        /// <returns>
-        /// The decode style by string.
-        /// </returns>
-        string Decode(string style);
-    }
+    /// <param name="style">The style string.</param>
+    /// <returns>
+    /// The decode style by string.
+    /// </returns>
+    string Decode(string style);
 }

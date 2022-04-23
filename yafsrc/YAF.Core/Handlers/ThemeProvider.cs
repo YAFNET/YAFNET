@@ -19,122 +19,121 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Handlers
+namespace YAF.Core.Handlers;
+
+#region Using
+
+using System;
+
+using YAF.Core.Context;
+using YAF.Core.Services;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// The theme handler.
+/// </summary>
+public class ThemeProvider
 {
-    #region Using
+    #region Constants and Fields
 
-    using System;
+    /// <summary>
+    ///   The init theme.
+    /// </summary>
+    private bool initTheme;
 
-    using YAF.Core.Context;
-    using YAF.Core.Services;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+    /// <summary>
+    ///   The theme.
+    /// </summary>
+    private ITheme theme;
 
     #endregion
 
+    #region Events
+
     /// <summary>
-    /// The theme handler.
+    ///   The after init.
     /// </summary>
-    public class ThemeProvider
+    public event EventHandler<EventArgs> AfterInit;
+
+    /// <summary>
+    ///   The before init.
+    /// </summary>
+    public event EventHandler<EventArgs> BeforeInit;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets or sets Theme.
+    /// </summary>
+    public ITheme Theme
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The init theme.
-        /// </summary>
-        private bool initTheme;
-
-        /// <summary>
-        ///   The theme.
-        /// </summary>
-        private ITheme theme;
-
-        #endregion
-
-        #region Events
-
-        /// <summary>
-        ///   The after init.
-        /// </summary>
-        public event EventHandler<EventArgs> AfterInit;
-
-        /// <summary>
-        ///   The before init.
-        /// </summary>
-        public event EventHandler<EventArgs> BeforeInit;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets Theme.
-        /// </summary>
-        public ITheme Theme
+        get
         {
-            get
+            if (!this.initTheme)
             {
-                if (!this.initTheme)
-                {
-                    this.InitTheme();
-                }
-
-                return this.theme;
+                this.InitTheme();
             }
 
-            set
-            {
-                this.theme = value;
-                this.initTheme = value != null;
-            }
+            return this.theme;
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Sets the theme class up for usage
-        /// </summary>
-        private void InitTheme()
+        set
         {
-            if (this.initTheme)
-            {
-                return;
-            }
-
-            this.BeforeInit?.Invoke(this, EventArgs.Empty);
-
-            string themeFile;
-
-            if (BoardContext.Current.PageData != null && BoardContext.Current.PageUser.ThemeFile.IsSet() &&
-                BoardContext.Current.BoardSettings.AllowUserTheme)
-            {
-                // use user-selected theme
-                themeFile = BoardContext.Current.PageUser.ThemeFile;
-            }
-            else if (BoardContext.Current.PageData != null && BoardContext.Current.PageData.Item2.Item4 != null &&
-                     BoardContext.Current.PageData.Item2.Item4.ThemeURL.IsSet())
-            {
-                themeFile = BoardContext.Current.PageData.Item2.Item4.ThemeURL;
-            }
-            else
-            {
-                themeFile = BoardContext.Current.BoardSettings.Theme;
-            }
-
-            if (!Services.Theme.IsValidTheme(themeFile))
-            {
-                themeFile = "yaf";
-            }
-
-            // create the theme class
-            this.Theme = new Theme(themeFile);
-
-            this.AfterInit?.Invoke(this, EventArgs.Empty);
+            this.theme = value;
+            this.initTheme = value != null;
         }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Sets the theme class up for usage
+    /// </summary>
+    private void InitTheme()
+    {
+        if (this.initTheme)
+        {
+            return;
+        }
+
+        this.BeforeInit?.Invoke(this, EventArgs.Empty);
+
+        string themeFile;
+
+        if (BoardContext.Current.PageData != null && BoardContext.Current.PageUser.ThemeFile.IsSet() &&
+            BoardContext.Current.BoardSettings.AllowUserTheme)
+        {
+            // use user-selected theme
+            themeFile = BoardContext.Current.PageUser.ThemeFile;
+        }
+        else if (BoardContext.Current.PageData != null && BoardContext.Current.PageData.Item2.Item4 != null &&
+                 BoardContext.Current.PageData.Item2.Item4.ThemeURL.IsSet())
+        {
+            themeFile = BoardContext.Current.PageData.Item2.Item4.ThemeURL;
+        }
+        else
+        {
+            themeFile = BoardContext.Current.BoardSettings.Theme;
+        }
+
+        if (!Services.Theme.IsValidTheme(themeFile))
+        {
+            themeFile = "yaf";
+        }
+
+        // create the theme class
+        this.Theme = new Theme(themeFile);
+
+        this.AfterInit?.Invoke(this, EventArgs.Empty);
+    }
+
+    #endregion
 }

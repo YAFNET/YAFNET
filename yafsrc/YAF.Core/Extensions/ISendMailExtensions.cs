@@ -21,150 +21,149 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+#region Using
+
+using System.Collections.Generic;
+using System.Net.Mail;
+
+using YAF.Types;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+///   The YAF send mail extensions.
+/// </summary>
+public static class ISendMailExtensions
 {
-    #region Using
-
-    using System.Collections.Generic;
-    using System.Net.Mail;
-
-    using YAF.Types;
-    using YAF.Types.Interfaces.Services;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    ///   The YAF send mail extensions.
+    /// The send.
     /// </summary>
-    public static class ISendMailExtensions
+    /// <param name="sendMail">The send Mail.</param>
+    /// <param name="fromEmail">The from email.</param>
+    /// <param name="toEmail">The to email.</param>
+    /// <param name="senderEmail">The sender email.</param>
+    /// <param name="subject">The subject.</param>
+    /// <param name="body">The body.</param>
+    public static void Send(
+        [NotNull] this IMailService sendMail,
+        [NotNull] string fromEmail,
+        [NotNull] string toEmail,
+        [NotNull] string senderEmail,
+        [CanBeNull] string subject,
+        [CanBeNull] string body)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(fromEmail);
+        CodeContracts.VerifyNotNull(toEmail);
 
-        /// <summary>
-        /// The send.
-        /// </summary>
-        /// <param name="sendMail">The send Mail.</param>
-        /// <param name="fromEmail">The from email.</param>
-        /// <param name="toEmail">The to email.</param>
-        /// <param name="senderEmail">The sender email.</param>
-        /// <param name="subject">The subject.</param>
-        /// <param name="body">The body.</param>
-        public static void Send(
-            [NotNull] this IMailService sendMail,
-            [NotNull] string fromEmail,
-            [NotNull] string toEmail,
-            [NotNull] string senderEmail,
-            [CanBeNull] string subject,
-            [CanBeNull] string body)
-        {
-            CodeContracts.VerifyNotNull(fromEmail);
-            CodeContracts.VerifyNotNull(toEmail);
-
-            sendMail.Send(
-                new MailAddress(fromEmail),
-                new MailAddress(toEmail),
-                new MailAddress(senderEmail),
-                subject,
-                body);
-        }
-
-        /// <summary>
-        /// The send.
-        /// </summary>
-        /// <param name="sendMail">The send Mail.</param>
-        /// <param name="fromAddress">The from address.</param>
-        /// <param name="toAddress">The to address.</param>
-        /// <param name="senderAddress">The sender address.</param>
-        /// <param name="subject">The subject.</param>
-        /// <param name="bodyText">The body text.</param>
-        public static void Send(
-            [NotNull] this IMailService sendMail,
-            [NotNull] MailAddress fromAddress,
-            [NotNull] MailAddress toAddress,
-            [NotNull] MailAddress senderAddress,
-            [CanBeNull] string subject,
-            [CanBeNull] string bodyText)
-        {
-            sendMail.Send(fromAddress, toAddress, senderAddress, subject, bodyText, null);
-        }
-
-        /// <summary>
-        /// The send.
-        /// </summary>
-        /// <param name="sendMail">The send mail.</param>
-        /// <param name="fromAddress">The from address.</param>
-        /// <param name="toAddress">The to address.</param>
-        /// <param name="senderAddress">The sender address.</param>
-        /// <param name="subject">The subject.</param>
-        /// <param name="bodyText">The body text.</param>
-        /// <param name="bodyHtml">The body html.</param>
-        public static void Send(
-            [NotNull] this IMailService sendMail,
-            [NotNull] MailAddress fromAddress,
-            [NotNull] MailAddress toAddress,
-            [NotNull] MailAddress senderAddress,
-            [CanBeNull] string subject,
-            [CanBeNull] string bodyText,
-            [CanBeNull] string bodyHtml)
-        {
-            CodeContracts.VerifyNotNull(sendMail);
-            CodeContracts.VerifyNotNull(fromAddress);
-            CodeContracts.VerifyNotNull(toAddress);
-
-            var mailMessage = new MailMessage();
-
-            mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
-
-            sendMail.SendAll(new List<MailMessage> { mailMessage });
-        }
-
-        /// <summary>
-        /// The send.
-        /// </summary>
-        /// <param name="sendMail">
-        /// The send mail.
-        /// </param>
-        /// <param name="fromAddress">
-        /// The from address.
-        /// </param>
-        /// <param name="toAddress">
-        /// The to address.
-        /// </param>
-        /// <param name="senderAddress">
-        /// The sender address.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <param name="bodyText">
-        /// The body text.
-        /// </param>
-        /// <param name="bodyHtml">
-        /// The body html.
-        /// </param>
-        /// <returns>
-        /// The <see cref="MailMessage"/>.
-        /// </returns>
-        public static MailMessage CreateMessage(
-            [NotNull] this IMailService sendMail,
-            [NotNull] MailAddress fromAddress,
-            [NotNull] MailAddress toAddress,
-            [NotNull] MailAddress senderAddress,
-            [CanBeNull] string subject,
-            [CanBeNull] string bodyText,
-            [CanBeNull] string bodyHtml)
-        {
-            CodeContracts.VerifyNotNull(sendMail);
-            CodeContracts.VerifyNotNull(fromAddress);
-            CodeContracts.VerifyNotNull(toAddress);
-
-            var mailMessage = new MailMessage();
-
-            mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
-
-            return mailMessage;
-        }
-
-        #endregion
+        sendMail.Send(
+            new MailAddress(fromEmail),
+            new MailAddress(toEmail),
+            new MailAddress(senderEmail),
+            subject,
+            body);
     }
+
+    /// <summary>
+    /// The send.
+    /// </summary>
+    /// <param name="sendMail">The send Mail.</param>
+    /// <param name="fromAddress">The from address.</param>
+    /// <param name="toAddress">The to address.</param>
+    /// <param name="senderAddress">The sender address.</param>
+    /// <param name="subject">The subject.</param>
+    /// <param name="bodyText">The body text.</param>
+    public static void Send(
+        [NotNull] this IMailService sendMail,
+        [NotNull] MailAddress fromAddress,
+        [NotNull] MailAddress toAddress,
+        [NotNull] MailAddress senderAddress,
+        [CanBeNull] string subject,
+        [CanBeNull] string bodyText)
+    {
+        sendMail.Send(fromAddress, toAddress, senderAddress, subject, bodyText, null);
+    }
+
+    /// <summary>
+    /// The send.
+    /// </summary>
+    /// <param name="sendMail">The send mail.</param>
+    /// <param name="fromAddress">The from address.</param>
+    /// <param name="toAddress">The to address.</param>
+    /// <param name="senderAddress">The sender address.</param>
+    /// <param name="subject">The subject.</param>
+    /// <param name="bodyText">The body text.</param>
+    /// <param name="bodyHtml">The body html.</param>
+    public static void Send(
+        [NotNull] this IMailService sendMail,
+        [NotNull] MailAddress fromAddress,
+        [NotNull] MailAddress toAddress,
+        [NotNull] MailAddress senderAddress,
+        [CanBeNull] string subject,
+        [CanBeNull] string bodyText,
+        [CanBeNull] string bodyHtml)
+    {
+        CodeContracts.VerifyNotNull(sendMail);
+        CodeContracts.VerifyNotNull(fromAddress);
+        CodeContracts.VerifyNotNull(toAddress);
+
+        var mailMessage = new MailMessage();
+
+        mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
+
+        sendMail.SendAll(new List<MailMessage> { mailMessage });
+    }
+
+    /// <summary>
+    /// The send.
+    /// </summary>
+    /// <param name="sendMail">
+    /// The send mail.
+    /// </param>
+    /// <param name="fromAddress">
+    /// The from address.
+    /// </param>
+    /// <param name="toAddress">
+    /// The to address.
+    /// </param>
+    /// <param name="senderAddress">
+    /// The sender address.
+    /// </param>
+    /// <param name="subject">
+    /// The subject.
+    /// </param>
+    /// <param name="bodyText">
+    /// The body text.
+    /// </param>
+    /// <param name="bodyHtml">
+    /// The body html.
+    /// </param>
+    /// <returns>
+    /// The <see cref="MailMessage"/>.
+    /// </returns>
+    public static MailMessage CreateMessage(
+        [NotNull] this IMailService sendMail,
+        [NotNull] MailAddress fromAddress,
+        [NotNull] MailAddress toAddress,
+        [NotNull] MailAddress senderAddress,
+        [CanBeNull] string subject,
+        [CanBeNull] string bodyText,
+        [CanBeNull] string bodyHtml)
+    {
+        CodeContracts.VerifyNotNull(sendMail);
+        CodeContracts.VerifyNotNull(fromAddress);
+        CodeContracts.VerifyNotNull(toAddress);
+
+        var mailMessage = new MailMessage();
+
+        mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
+
+        return mailMessage;
+    }
+
+    #endregion
 }

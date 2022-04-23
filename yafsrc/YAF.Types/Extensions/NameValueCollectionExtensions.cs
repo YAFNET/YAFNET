@@ -22,140 +22,139 @@
  * under the License.
  */
 
-namespace YAF.Types.Extensions
+namespace YAF.Types.Extensions;
+
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+
+/// <summary>
+/// The name value collection extensions.
+/// </summary>
+public static class NameValueCollectionExtensions
 {
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.Linq;
+    #region Public Methods and Operators
 
     /// <summary>
-    /// The name value collection extensions.
+    /// Gets the first value of <paramref name="paramName"/> in the collection or default (Null).
     /// </summary>
-    public static class NameValueCollectionExtensions
+    /// <param name="collection">
+    /// The collection.
+    /// </param>
+    /// <param name="paramName">
+    /// The parameter Name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public static string GetFirstOrDefault(
+        [NotNull] this NameValueCollection collection,
+        [NotNull] string paramName)
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(collection);
+        CodeContracts.VerifyNotNull(paramName);
 
-        /// <summary>
-        /// Gets the first value of <paramref name="paramName"/> in the collection or default (Null).
-        /// </summary>
-        /// <param name="collection">
-        /// The collection.
-        /// </param>
-        /// <param name="paramName">
-        /// The parameter Name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string GetFirstOrDefault(
-            [NotNull] this NameValueCollection collection,
-            [NotNull] string paramName)
-        {
-            CodeContracts.VerifyNotNull(collection);
-            CodeContracts.VerifyNotNull(paramName);
+        return collection.GetValueList(paramName).FirstOrDefault();
+    }
 
-            return collection.GetValueList(paramName).FirstOrDefault();
-        }
+    /// <summary>
+    /// Gets the first value of <paramref name="paramName"/> in the collection as T or default (Null).
+    /// </summary>
+    /// <typeparam name="T">
+    /// The typed parameter.
+    /// </typeparam>
+    /// <param name="collection">
+    /// The collection.
+    /// </param>
+    /// <param name="paramName">
+    /// The parameter Name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="T"/>.
+    /// </returns>
+    public static T GetFirstOrDefaultAs<T>(
+        [NotNull] this NameValueCollection collection,
+        [NotNull] string paramName)
+    {
+        CodeContracts.VerifyNotNull(collection);
+        CodeContracts.VerifyNotNull(paramName);
 
-        /// <summary>
-        /// Gets the first value of <paramref name="paramName"/> in the collection as T or default (Null).
-        /// </summary>
-        /// <typeparam name="T">
-        /// The typed parameter.
-        /// </typeparam>
-        /// <param name="collection">
-        /// The collection.
-        /// </param>
-        /// <param name="paramName">
-        /// The parameter Name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        public static T GetFirstOrDefaultAs<T>(
-            [NotNull] this NameValueCollection collection,
-            [NotNull] string paramName)
-        {
-            CodeContracts.VerifyNotNull(collection);
-            CodeContracts.VerifyNotNull(paramName);
+        return collection.GetFirstOrDefault(paramName).ToType<T>();
+    }
 
-            return collection.GetFirstOrDefault(paramName).ToType<T>();
-        }
+    /// <summary>
+    /// Get Parameter as integer.
+    /// </summary>
+    /// <param name="collection">
+    /// The collection.
+    /// </param>
+    /// <param name="paramName">
+    /// The parameter name.
+    /// </param>
+    /// <returns>
+    /// Returns the integer Value
+    /// </returns>
+    public static int? GetFirstOrDefaultAsInt(
+        [NotNull] this NameValueCollection collection,
+        [NotNull] string paramName)
+    {
+        CodeContracts.VerifyNotNull(collection);
+        CodeContracts.VerifyNotNull(paramName);
 
-        /// <summary>
-        /// Get Parameter as integer.
-        /// </summary>
-        /// <param name="collection">
-        /// The collection.
-        /// </param>
-        /// <param name="paramName">
-        /// The parameter name.
-        /// </param>
-        /// <returns>
-        /// Returns the integer Value
-        /// </returns>
-        public static int? GetFirstOrDefaultAsInt(
-            [NotNull] this NameValueCollection collection,
-            [NotNull] string paramName)
-        {
-            CodeContracts.VerifyNotNull(collection);
-            CodeContracts.VerifyNotNull(paramName);
-
-            if (collection.GetFirstOrDefault(paramName) != null && int.TryParse(
+        if (collection.GetFirstOrDefault(paramName) != null && int.TryParse(
                 collection.GetFirstOrDefault(paramName),
                 out var value))
-            {
-                return value;
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Gets the value as an <see cref="IEnumerable"/> handling splitting the string if needed.
-        /// </summary>
-        /// <param name="collection">
-        /// The collection.
-        /// </param>
-        /// <param name="paramName">
-        /// The parameter Name.
-        /// </param>
-        /// <returns>
-        /// Does not return null.
-        /// </returns>
-        public static IEnumerable<string> GetValueList(
-            [NotNull] this NameValueCollection collection,
-            [NotNull] string paramName)
         {
-            CodeContracts.VerifyNotNull(collection);
-            CodeContracts.VerifyNotNull(paramName);
-
-            return collection[paramName] == null
-                ? Enumerable.Empty<string>()
-                : collection[paramName].Split(',').AsEnumerable();
+            return value;
         }
 
-        /// <summary>
-        /// Check if Element Exists in the collection
-        /// </summary>
-        /// <param name="collection">
-        /// The collection.
-        /// </param>
-        /// <param name="paramName">
-        /// The parameter name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool Exists([NotNull] this NameValueCollection collection, [NotNull] string paramName)
-        {
-            CodeContracts.VerifyNotNull(collection);
-            CodeContracts.VerifyNotNull(paramName);
-
-            return collection[paramName] != null;
-        }
-
-        #endregion
+        return null;
     }
+
+    /// <summary>
+    /// Gets the value as an <see cref="IEnumerable"/> handling splitting the string if needed.
+    /// </summary>
+    /// <param name="collection">
+    /// The collection.
+    /// </param>
+    /// <param name="paramName">
+    /// The parameter Name.
+    /// </param>
+    /// <returns>
+    /// Does not return null.
+    /// </returns>
+    public static IEnumerable<string> GetValueList(
+        [NotNull] this NameValueCollection collection,
+        [NotNull] string paramName)
+    {
+        CodeContracts.VerifyNotNull(collection);
+        CodeContracts.VerifyNotNull(paramName);
+
+        return collection[paramName] == null
+                   ? Enumerable.Empty<string>()
+                   : collection[paramName].Split(',').AsEnumerable();
+    }
+
+    /// <summary>
+    /// Check if Element Exists in the collection
+    /// </summary>
+    /// <param name="collection">
+    /// The collection.
+    /// </param>
+    /// <param name="paramName">
+    /// The parameter name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public static bool Exists([NotNull] this NameValueCollection collection, [NotNull] string paramName)
+    {
+        CodeContracts.VerifyNotNull(collection);
+        CodeContracts.VerifyNotNull(paramName);
+
+        return collection[paramName] != null;
+    }
+
+    #endregion
 }

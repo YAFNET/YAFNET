@@ -21,163 +21,162 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Flags
+namespace YAF.Types.Flags;
+
+using System;
+
+/// <summary>
+/// The topic flags.
+/// </summary>
+[Serializable]
+public class TopicFlags : FlagsBase
 {
-    using System;
+    #region Constructors
 
     /// <summary>
-    /// The topic flags.
+    /// Initializes a new instance of the <see cref="TopicFlags"/> class.
     /// </summary>
-    [Serializable]
-    public class TopicFlags : FlagsBase
+    public TopicFlags()
+        : this(0)
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TopicFlags"/> class.
-        /// </summary>
-        public TopicFlags()
-            : this(0)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TopicFlags"/> class.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        public TopicFlags(Flags flags)
-            : this((int)flags)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TopicFlags"/> class.
-        /// </summary>
-        /// <param name="bitValue">
-        /// The bit value.
-        /// </param>
-        public TopicFlags(object bitValue)
-            : base((int)bitValue)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TopicFlags"/> class.
-        /// </summary>
-        /// <param name="bitValue">
-        /// The bit value.
-        /// </param>
-        public TopicFlags(int bitValue)
-            : base(bitValue)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TopicFlags"/> class.
-        /// </summary>
-        /// <param name="bits">
-        /// The bits.
-        /// </param>
-        public TopicFlags(params bool[] bits)
-            : base(bits)
-        {
-        }
-
-        #endregion
-
-        #region Flags Enumeration
-
-        /// <summary>
-        /// Use for bit comparisons
-        /// </summary>
-        [Flags]
-        public enum Flags
-        {
-            /// <summary>
-            /// The none.
-            /// </summary>
-            None = 0,
-
-            /// <summary>
-            /// The is locked.
-            /// </summary>
-            IsLocked = 1,
-
-            /// <summary>
-            /// The is deleted.
-            /// </summary>
-            IsDeleted = 8,
-
-            /// <summary>
-            /// The is persistent.
-            /// </summary>
-            IsPersistent = 512,
-
-            /// <summary>
-            /// The is question.
-            /// </summary>
-            IsQuestion = 1024
-
-            /* for future use
-                  xxxxxxxx = 2048,
-                  xxxxxxxx = 4096,
-                  xxxxxxxx = 8192,
-                  xxxxxxxx = 16384,
-                  xxxxxxxx = 32768,
-                  xxxxxxxx = 65536
-                   */
-        }
-
-        #endregion
-
-        #region Single Flags (can be 32 of them)
-
-        /// <summary>
-        /// Gets or sets a value indicating whether topic is locked. Locked topics cannot be modified/deleted/replied to.
-        /// </summary>
-        public virtual bool IsLocked
-        {
-            // int value 1
-            get => this[0];
-
-            set => this[0] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether topic is deleted.
-        /// </summary>
-        public virtual bool IsDeleted
-        {
-            // int value 8
-            get => this[3];
-
-            set => this[3] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether topic is persistent. Persistent topics cannot be purged.
-        /// </summary>
-        public virtual bool IsPersistent
-        {
-            // int value 512
-            get => this[9];
-
-            set => this[9] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether topic is a question.
-        /// </summary>
-        public virtual bool IsQuestion
-        {
-            // int value 1024
-            get => this[this.EnumToIndex(Flags.IsQuestion)];
-
-            set => this[this.EnumToIndex(Flags.IsQuestion)] = value;
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TopicFlags"/> class.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    public TopicFlags(Flags flags)
+        : this((int)flags)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TopicFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public TopicFlags(object bitValue)
+        : base((int)bitValue)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TopicFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public TopicFlags(int bitValue)
+        : base(bitValue)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TopicFlags"/> class.
+    /// </summary>
+    /// <param name="bits">
+    /// The bits.
+    /// </param>
+    public TopicFlags(params bool[] bits)
+        : base(bits)
+    {
+    }
+
+    #endregion
+
+    #region Flags Enumeration
+
+    /// <summary>
+    /// Use for bit comparisons
+    /// </summary>
+    [Flags]
+    public enum Flags
+    {
+        /// <summary>
+        /// The none.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        /// The is locked.
+        /// </summary>
+        IsLocked = 1,
+
+        /// <summary>
+        /// The is deleted.
+        /// </summary>
+        IsDeleted = 8,
+
+        /// <summary>
+        /// The is persistent.
+        /// </summary>
+        IsPersistent = 512,
+
+        /// <summary>
+        /// The is question.
+        /// </summary>
+        IsQuestion = 1024
+
+        /* for future use
+              xxxxxxxx = 2048,
+              xxxxxxxx = 4096,
+              xxxxxxxx = 8192,
+              xxxxxxxx = 16384,
+              xxxxxxxx = 32768,
+              xxxxxxxx = 65536
+               */
+    }
+
+    #endregion
+
+    #region Single Flags (can be 32 of them)
+
+    /// <summary>
+    /// Gets or sets a value indicating whether topic is locked. Locked topics cannot be modified/deleted/replied to.
+    /// </summary>
+    public virtual bool IsLocked
+    {
+        // int value 1
+        get => this[0];
+
+        set => this[0] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether topic is deleted.
+    /// </summary>
+    public virtual bool IsDeleted
+    {
+        // int value 8
+        get => this[3];
+
+        set => this[3] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether topic is persistent. Persistent topics cannot be purged.
+    /// </summary>
+    public virtual bool IsPersistent
+    {
+        // int value 512
+        get => this[9];
+
+        set => this[9] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether topic is a question.
+    /// </summary>
+    public virtual bool IsQuestion
+    {
+        // int value 1024
+        get => this[this.EnumToIndex(Flags.IsQuestion)];
+
+        set => this[this.EnumToIndex(Flags.IsQuestion)] = value;
+    }
+
+    #endregion
 }

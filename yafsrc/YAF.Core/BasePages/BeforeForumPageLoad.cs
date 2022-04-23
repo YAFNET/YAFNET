@@ -22,14 +22,13 @@
  * under the License.
  */
 
-namespace YAF.Core.BasePages
-{
-    using System;
+namespace YAF.Core.BasePages;
 
-    /// <summary>
-    /// EventArgs class for the YafBeforeForumPageLoad event
-    /// </summary>
-    public class BeforeForumPageLoad : EventArgs
-    {
-    }
+using System;
+
+/// <summary>
+/// EventArgs class for the YafBeforeForumPageLoad event
+/// </summary>
+public class BeforeForumPageLoad : EventArgs
+{
 }

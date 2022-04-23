@@ -21,17 +21,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+using System.Web;
+
+/// <summary>
+/// The Attachment interface.
+/// </summary>
+public interface IAttachment
 {
-    using System.Web;
+    void GetResponseAttachment([NotNull] HttpContext context);
 
-    /// <summary>
-    /// The Attachment interface.
-    /// </summary>
-    public interface IAttachment
-    {
-        void GetResponseAttachment([NotNull] HttpContext context);
-
-        void GetResponseImage([NotNull] HttpContext context);
-    }
+    void GetResponseImage([NotNull] HttpContext context);
 }

@@ -22,41 +22,40 @@
  * under the License.
  */
 
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The date time format.
+/// </summary>
+public enum DateTimeFormat
 {
     /// <summary>
-    /// The date time format.
+    ///   The both.
     /// </summary>
-    public enum DateTimeFormat
-    {
-        /// <summary>
-        ///   The both.
-        /// </summary>
-        Both,
+    Both,
 
-        /// <summary>
-        ///   The both date short.
-        /// </summary>
-        BothDateShort,
+    /// <summary>
+    ///   The both date short.
+    /// </summary>
+    BothDateShort,
 
-        /// <summary>
-        ///   The time.
-        /// </summary>
-        Time,
+    /// <summary>
+    ///   The time.
+    /// </summary>
+    Time,
 
-        /// <summary>
-        ///   The date short.
-        /// </summary>
-        DateShort,
+    /// <summary>
+    ///   The date short.
+    /// </summary>
+    DateShort,
 
-        /// <summary>
-        ///   The date long.
-        /// </summary>
-        DateLong,
+    /// <summary>
+    ///   The date long.
+    /// </summary>
+    DateLong,
 
-        /// <summary>
-        ///   The both topic.
-        /// </summary>
-        BothTopic
-    }
+    /// <summary>
+    ///   The both topic.
+    /// </summary>
+    BothTopic
 }

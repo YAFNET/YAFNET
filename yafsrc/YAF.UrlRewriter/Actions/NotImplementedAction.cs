@@ -5,21 +5,20 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Actions
-{
-    using System.Net;
+namespace YAF.UrlRewriter.Actions;
 
+using System.Net;
+
+/// <summary>
+/// Returns a 501 Not Implemented HTTP status code.
+/// </summary>
+public sealed class NotImplementedAction : SetStatusAction
+{
     /// <summary>
-    /// Returns a 501 Not Implemented HTTP status code.
+    /// Default constructor.
     /// </summary>
-    public sealed class NotImplementedAction : SetStatusAction
+    public NotImplementedAction()
+        : base(HttpStatusCode.NotImplemented)
     {
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public NotImplementedAction()
-            : base(HttpStatusCode.NotImplemented)
-        {
-        }
     }
 }

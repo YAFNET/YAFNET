@@ -21,66 +21,65 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The Banned Name Table
+/// </summary>
+[Serializable]
+[UniqueConstraint(nameof(BoardID), nameof(Mask))]
+public class BannedName : IEntity, IHaveID, IHaveBoardID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// The Banned Name Table
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    [UniqueConstraint(nameof(BoardID), nameof(Mask))]
-    public class BannedName : IEntity, IHaveID, IHaveBoardID
-    {
-        #region Properties
+    [AutoIncrement]
+    [Alias("ID")]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("ID")]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the board id.
+    /// </summary>
+    [References(typeof(Board))]
+    [Required]
+    public int BoardID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
-        [References(typeof(Board))]
-        [Required]
-        public int BoardID { get; set; }
+    /// <summary>
+    /// Gets or sets the mask.
+    /// </summary>
+    /// <value>
+    /// The mask.
+    /// </value>
+    [Required]
+    [StringLength(255)]
+    public string Mask { get; set; }
 
-        /// <summary>
-        /// Gets or sets the mask.
-        /// </summary>
-        /// <value>
-        /// The mask.
-        /// </value>
-        [Required]
-        [StringLength(255)]
-        public string Mask { get; set; }
+    /// <summary>
+    /// Gets or sets the since.
+    /// </summary>
+    /// <value>
+    /// The since.
+    /// </value>
+    [Required]
+    public DateTime Since { get; set; }
 
-        /// <summary>
-        /// Gets or sets the since.
-        /// </summary>
-        /// <value>
-        /// The since.
-        /// </value>
-        [Required]
-        public DateTime Since { get; set; }
+    /// <summary>
+    /// Gets or sets the reason.
+    /// </summary>
+    /// <value>
+    /// The reason.
+    /// </value>
+    [StringLength(128)]
+    public string Reason { get; set; }
 
-        /// <summary>
-        /// Gets or sets the reason.
-        /// </summary>
-        /// <value>
-        /// The reason.
-        /// </value>
-        [StringLength(128)]
-        public string Reason { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

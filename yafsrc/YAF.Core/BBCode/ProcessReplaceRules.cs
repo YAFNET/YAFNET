@@ -22,155 +22,154 @@
  * under the License.
  */
 
-namespace YAF.Core.BBCode
+namespace YAF.Core.BBCode;
+
+#region Using
+
+using System;
+using System.Collections.Generic;
+
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+///     Provides a way to handle layers of replacements rules
+/// </summary>
+public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
 {
-    #region Using
+    #region Fields
 
-    using System;
-    using System.Collections.Generic;
+    /// <summary>
+    ///     The rules list.
+    /// </summary>
+    private readonly List<IReplaceRule> rulesList;
 
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    ///     The rules lock.
+    /// </summary>
+    private readonly object rulesLock = new();
+
+    /// <summary>
+    ///     The need sort.
+    /// </summary>
+    private bool needSort;
 
     #endregion
 
+    #region Constructors and Destructors
+
     /// <summary>
-    ///     Provides a way to handle layers of replacements rules
+    ///     Initializes a new instance of the <see cref="ProcessReplaceRules" /> class.
     /// </summary>
-    public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
+    public ProcessReplaceRules()
     {
-        #region Fields
-
-        /// <summary>
-        ///     The rules list.
-        /// </summary>
-        private readonly List<IReplaceRule> rulesList;
-
-        /// <summary>
-        ///     The rules lock.
-        /// </summary>
-        private readonly object rulesLock = new();
-
-        /// <summary>
-        ///     The need sort.
-        /// </summary>
-        private bool needSort;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ProcessReplaceRules" /> class.
-        /// </summary>
-        public ProcessReplaceRules()
-        {
-            this.rulesList = new List<IReplaceRule>();
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets a value indicating whether any rules have been added.
-        /// </summary>
-        public bool HasRules
-        {
-            get
-            {
-                lock (this.rulesLock)
-                {
-                    return this.rulesList.Count > 0;
-                }
-            }
-        }
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        ///     Add New Rule
-        /// </summary>
-        /// <param name="newRule">
-        ///     The new rule.
-        /// </param>
-        public void AddRule(IReplaceRule newRule)
-        {
-            CodeContracts.VerifyNotNull(newRule);
-
-            lock (this.rulesLock)
-            {
-                this.rulesList.Add(newRule);
-                this.needSort = true;
-            }
-        }
-
-        /// <summary>
-        ///     This clone method is a Deep Clone -- including all data.
-        /// </summary>
-        /// <returns>
-        ///     The clone.
-        /// </returns>
-        public object Clone()
-        {
-            var copyReplaceRules = new ProcessReplaceRules();
-
-            // move the rules over...
-            var ruleArray = new IReplaceRule[this.rulesList.Count];
-            this.rulesList.CopyTo(ruleArray);
-            copyReplaceRules.rulesList.InsertRange(0, ruleArray);
-            copyReplaceRules.needSort = this.needSort;
-
-            return copyReplaceRules;
-        }
-
-        /// <summary>
-        ///     The process.
-        /// </summary>
-        /// <param name="text">
-        ///     The text.
-        /// </param>
-        public void Process(ref string text)
-        {
-            if (text.IsNotSet())
-            {
-                return;
-            }
-
-            // sort the rules according to rank...
-            if (this.needSort)
-            {
-                lock (this.rulesLock)
-                {
-                    this.rulesList.Sort();
-                    this.needSort = false;
-                }
-            }
-
-            // make the replacementCollection for this instance...
-            var mainCollection = new ReplaceBlocksCollection();
-
-            // get as local list...
-            var localRulesList = new List<IReplaceRule>();
-
-            lock (this.rulesLock)
-            {
-                localRulesList.AddRange(this.rulesList);
-            }
-
-            // apply all rules...
-            foreach (var rule in localRulesList)
-            {
-                rule.Replace(ref text, mainCollection);
-            }
-
-            // reconstruct the html
-            mainCollection.Reconstruct(ref text);
-        }
-
-        #endregion
+        this.rulesList = new List<IReplaceRule>();
     }
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    ///     Gets a value indicating whether any rules have been added.
+    /// </summary>
+    public bool HasRules
+    {
+        get
+        {
+            lock (this.rulesLock)
+            {
+                return this.rulesList.Count > 0;
+            }
+        }
+    }
+
+    #endregion
+
+    #region Public Methods and Operators
+
+    /// <summary>
+    ///     Add New Rule
+    /// </summary>
+    /// <param name="newRule">
+    ///     The new rule.
+    /// </param>
+    public void AddRule(IReplaceRule newRule)
+    {
+        CodeContracts.VerifyNotNull(newRule);
+
+        lock (this.rulesLock)
+        {
+            this.rulesList.Add(newRule);
+            this.needSort = true;
+        }
+    }
+
+    /// <summary>
+    ///     This clone method is a Deep Clone -- including all data.
+    /// </summary>
+    /// <returns>
+    ///     The clone.
+    /// </returns>
+    public object Clone()
+    {
+        var copyReplaceRules = new ProcessReplaceRules();
+
+        // move the rules over...
+        var ruleArray = new IReplaceRule[this.rulesList.Count];
+        this.rulesList.CopyTo(ruleArray);
+        copyReplaceRules.rulesList.InsertRange(0, ruleArray);
+        copyReplaceRules.needSort = this.needSort;
+
+        return copyReplaceRules;
+    }
+
+    /// <summary>
+    ///     The process.
+    /// </summary>
+    /// <param name="text">
+    ///     The text.
+    /// </param>
+    public void Process(ref string text)
+    {
+        if (text.IsNotSet())
+        {
+            return;
+        }
+
+        // sort the rules according to rank...
+        if (this.needSort)
+        {
+            lock (this.rulesLock)
+            {
+                this.rulesList.Sort();
+                this.needSort = false;
+            }
+        }
+
+        // make the replacementCollection for this instance...
+        var mainCollection = new ReplaceBlocksCollection();
+
+        // get as local list...
+        var localRulesList = new List<IReplaceRule>();
+
+        lock (this.rulesLock)
+        {
+            localRulesList.AddRange(this.rulesList);
+        }
+
+        // apply all rules...
+        foreach (var rule in localRulesList)
+        {
+            rule.Replace(ref text, mainCollection);
+        }
+
+        // reconstruct the html
+        mainCollection.Reconstruct(ref text);
+    }
+
+    #endregion
 }

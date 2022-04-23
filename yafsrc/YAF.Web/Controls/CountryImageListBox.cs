@@ -22,41 +22,40 @@
  * under the License.
  */
 
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System.Linq;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+using YAF.Types.Extensions;
+
+#endregion
+
+/// <summary>
+/// Custom DropDown List Controls with Flag Icons
+/// </summary>
+public class CountryImageListBox : DropDownList
 {
-    #region Using
-
-    using System.Linq;
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-
-    using YAF.Types.Extensions;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// Custom DropDown List Controls with Flag Icons
+    /// Add Flag Images to Items
     /// </summary>
-    public class CountryImageListBox : DropDownList
+    /// <param name="writer">
+    /// The <paramref name="writer"/>.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
     {
-        #region Methods
+        this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
+            item => item.Attributes.Add(
+                "data-content",
+                $"<span class=\"select2-image-select-icon\"><span class=\"flag-icon flag-icon-{item.Value.ToLower()} me-1\" /></span>{item.Text}</span>"));
 
-        /// <summary>
-        /// Add Flag Images to Items
-        /// </summary>
-        /// <param name="writer">
-        /// The <paramref name="writer"/>.
-        /// </param>
-        protected override void Render(HtmlTextWriter writer)
-        {
-            this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
-                item => item.Attributes.Add(
-                    "data-content",
-                    $"<span class=\"select2-image-select-icon\"><span class=\"flag-icon flag-icon-{item.Value.ToLower()} me-1\" /></span>{item.Text}</span>"));
-
-            base.Render(writer);
-        }
-
-        #endregion
+        base.Render(writer);
     }
+
+    #endregion
 }

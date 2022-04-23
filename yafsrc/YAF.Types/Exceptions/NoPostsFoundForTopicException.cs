@@ -22,62 +22,61 @@
  * under the License.
  */
 
-namespace YAF.Types.Exceptions
-{
-    using System;
+namespace YAF.Types.Exceptions;
 
+using System;
+
+/// <summary>
+/// No Posts Found For Topic Exception
+/// </summary>
+[Serializable]
+public class NoPostsFoundForTopicException : Exception
+{
     /// <summary>
-    /// No Posts Found For Topic Exception
+    /// Initializes a new instance of the <see cref="NoPostsFoundForTopicException"/> class.
     /// </summary>
-    [Serializable]
-    public class NoPostsFoundForTopicException : Exception
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NoPostsFoundForTopicException"/> class.
-        /// </summary>
-        /// <param name="topicId">
-        /// The topic identifier.
-        /// </param>
-        /// <param name="userId">
-        /// The current user identifier.
-        /// </param>
-        /// <param name="updateViewCount">
-        /// The update view count.
-        /// </param>
-        /// <param name="showDeleted">
-        /// if set to <c>true</c> [show deleted].
-        /// </param>
-        /// <param name="sincePostedDate">
-        /// The since posted date.
-        /// </param>
-        /// <param name="toPostedDate">
-        /// To posted date.
-        /// </param>
-        /// <param name="pageIndex">
-        /// Index of the page.
-        /// </param>
-        /// <param name="pageSize">
-        /// Size of the page.
-        /// </param>
-        /// <param name="messagePosition">
-        /// The message position.
-        /// </param>
-        public NoPostsFoundForTopicException(
-            [NotNull] int topicId,
-            [NotNull] int userId,
-            [NotNull] bool updateViewCount,
-            [NotNull] bool showDeleted,
-            [NotNull] DateTime sincePostedDate,
-            [NotNull] DateTime toPostedDate,
-            [NotNull] int pageIndex,
-            [NotNull] int pageSize,
-            [NotNull] int messagePosition)
-            : base(
-                $@"No posts were found for topic [
+    /// <param name="topicId">
+    /// The topic identifier.
+    /// </param>
+    /// <param name="userId">
+    /// The current user identifier.
+    /// </param>
+    /// <param name="updateViewCount">
+    /// The update view count.
+    /// </param>
+    /// <param name="showDeleted">
+    /// if set to <c>true</c> [show deleted].
+    /// </param>
+    /// <param name="sincePostedDate">
+    /// The since posted date.
+    /// </param>
+    /// <param name="toPostedDate">
+    /// To posted date.
+    /// </param>
+    /// <param name="pageIndex">
+    /// Index of the page.
+    /// </param>
+    /// <param name="pageSize">
+    /// Size of the page.
+    /// </param>
+    /// <param name="messagePosition">
+    /// The message position.
+    /// </param>
+    public NoPostsFoundForTopicException(
+        [NotNull] int topicId,
+        [NotNull] int userId,
+        [NotNull] bool updateViewCount,
+        [NotNull] bool showDeleted,
+        [NotNull] DateTime sincePostedDate,
+        [NotNull] DateTime toPostedDate,
+        [NotNull] int pageIndex,
+        [NotNull] int pageSize,
+        [NotNull] int messagePosition)
+        : base(
+            $@"No posts were found for topic [
                             topicId:{topicId}, userId:{userId}, updateViewCount:{updateViewCount}, 
                             showDeleted:{showDeleted}, sincePostedDate:{sincePostedDate}, toPostedDate:{toPostedDate}, 
                             pageIndex:{pageIndex}, pageSize:{pageSize}, messagePosition:{messagePosition}]")
-        {
-        }
+    {
     }
 }

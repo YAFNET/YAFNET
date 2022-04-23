@@ -22,121 +22,120 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects.Model
+namespace YAF.Types.Objects.Model;
+
+using System;
+
+/// <summary>
+/// The latest topic.
+/// </summary>
+public class LatestTopic
 {
-    using System;
+    /// <summary>
+    /// Gets or sets the last posted.
+    /// </summary>
+    public DateTime? LastPosted { get; set; }
 
     /// <summary>
-    /// The latest topic.
+    /// Gets or sets the forum id.
     /// </summary>
-    public class LatestTopic
-    {
-        /// <summary>
-        /// Gets or sets the last posted.
-        /// </summary>
-        public DateTime? LastPosted { get; set; }
+    public int ForumID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        public int ForumID { get; set; }
+    public string Forum { get; set; }
 
-        public string Forum { get; set; }
+    public string Topic { get; set; }
 
-        public string Topic { get; set; }
+    /// <summary>
+    /// Gets or sets the status.
+    /// </summary>
+    public string Status { get; set; }
 
-        /// <summary>
-        /// Gets or sets the status.
-        /// </summary>
-        public string Status { get; set; }
+    /// <summary>
+    /// Gets or sets the styles.
+    /// </summary>
+    public string Styles { get; set; }
 
-        /// <summary>
-        /// Gets or sets the styles.
-        /// </summary>
-        public string Styles { get; set; }
+    /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    public int TopicID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the topic id.
-        /// </summary>
-        public int TopicID { get; set; }
+    /// <summary>
+    /// Gets or sets the topic moved id.
+    /// </summary>
+    public int? TopicMovedID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the topic moved id.
-        /// </summary>
-        public int? TopicMovedID { get; set; }
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the user name.
+    /// </summary>
+    public string UserName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user name.
-        /// </summary>
-        public string UserName { get; set; }
+    /// <summary>
+    /// Gets or sets the user display name.
+    /// </summary>
+    public string UserDisplayName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user display name.
-        /// </summary>
-        public string UserDisplayName { get; set; }
+    /// <summary>
+    /// Gets or sets the last message id.
+    /// </summary>
+    public int? LastMessageID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last message id.
-        /// </summary>
-        public int? LastMessageID { get; set; }
+    /// <summary>
+    /// Gets or sets the last message flags.
+    /// </summary>
+    public int? LastMessageFlags { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last message flags.
-        /// </summary>
-        public int? LastMessageFlags { get; set; }
+    /// <summary>
+    /// Gets or sets the last user id.
+    /// </summary>
+    public int? LastUserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last user id.
-        /// </summary>
-        public int? LastUserID { get; set; }
+    /// <summary>
+    /// Gets or sets the number of posts.
+    /// </summary>
+    public int NumPosts { get; set; }
 
-        /// <summary>
-        /// Gets or sets the number of posts.
-        /// </summary>
-        public int NumPosts { get; set; }
+    /// <summary>
+    /// Gets or sets the views.
+    /// </summary>
+    public int Views { get; set; }
 
-        /// <summary>
-        /// Gets or sets the views.
-        /// </summary>
-        public int Views { get; set; }
+    /// <summary>
+    /// Gets or sets the posted.
+    /// </summary>
+    public DateTime Posted { get; set; }
 
-        /// <summary>
-        /// Gets or sets the posted.
-        /// </summary>
-        public DateTime Posted { get; set; }
+    public string LastMessage { get; set; }
 
-        public string LastMessage { get; set; }
+    /// <summary>
+    /// Gets or sets the last user name.
+    /// </summary>
+    public string LastUserName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last user name.
-        /// </summary>
-        public string LastUserName { get; set; }
+    /// <summary>
+    /// Gets or sets the last user display name.
+    /// </summary>
+    public string LastUserDisplayName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last user display name.
-        /// </summary>
-        public string LastUserDisplayName { get; set; }
+    /// <summary>
+    /// Gets or sets the last user suspended.
+    /// </summary>
+    public DateTime? LastUserSuspended { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last user suspended.
-        /// </summary>
-        public DateTime? LastUserSuspended { get; set; }
+    public string LastUserStyle { get; set; }
 
-        public string LastUserStyle { get; set; }
+    /// <summary>
+    /// Gets or sets the last forum access.
+    /// </summary>
+    public DateTime? LastForumAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last forum access.
-        /// </summary>
-        public DateTime? LastForumAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last topic access.
-        /// </summary>
-        public DateTime? LastTopicAccess { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the last topic access.
+    /// </summary>
+    public DateTime? LastTopicAccess { get; set; }
 }

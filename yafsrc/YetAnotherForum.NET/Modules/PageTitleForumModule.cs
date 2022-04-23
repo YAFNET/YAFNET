@@ -21,67 +21,66 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
-{
-    #region Using
+namespace YAF.Modules;
 
-    using System.Web.UI.HtmlControls;
-    using YAF.Types.Attributes;
-    using YAF.Web.EventsArgs;
+#region Using
+
+using System.Web.UI.HtmlControls;
+using YAF.Types.Attributes;
+using YAF.Web.EventsArgs;
+
+#endregion
+
+/// <summary>
+/// Page Title Module
+/// </summary>
+[Module("Page Title Module", "Tiny Gecko", 1)]
+public class PageTitleForumModule : SimpleBaseForumModule
+{
+    #region Public Methods
+
+    /// <summary>
+    /// The initialization after page.
+    /// </summary>
+    public override void InitAfterPage()
+    {
+        this.CurrentForumPage.Load += this.ForumPage_Load;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Page Title Module
+    /// Handles the Load event of the ForumPage control.
     /// </summary>
-    [Module("Page Title Module", "Tiny Gecko", 1)]
-    public class PageTitleForumModule : SimpleBaseForumModule
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Public Methods
-
-        /// <summary>
-        /// The initialization after page.
-        /// </summary>
-        public override void InitAfterPage()
-        {
-            this.CurrentForumPage.Load += this.ForumPage_Load;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the ForumPage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.GeneratePageTitle();
-        }
-
-        /// <summary>
-        /// Creates this pages title and fires a PageTitleSet event if one is set
-        /// </summary>
-        private void GeneratePageTitle()
-        {
-            var head = this.ForumControl.Page.Header ??
-                       this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
-
-            if (head == null)
-            {
-                return;
-            }
-
-            // compute page title..
-            var forumPageTitle = this.CurrentForumPage.GeneratePageTitle();
-
-            head.Title = forumPageTitle;
-
-            this.ForumControl.FirePageTitleSet(this, new ForumPageTitleArgs(forumPageTitle));
-        }
-
-        #endregion
+        this.GeneratePageTitle();
     }
+
+    /// <summary>
+    /// Creates this pages title and fires a PageTitleSet event if one is set
+    /// </summary>
+    private void GeneratePageTitle()
+    {
+        var head = this.ForumControl.Page.Header ??
+                   this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+
+        if (head == null)
+        {
+            return;
+        }
+
+        // compute page title..
+        var forumPageTitle = this.CurrentForumPage.GeneratePageTitle();
+
+        head.Title = forumPageTitle;
+
+        this.ForumControl.FirePageTitleSet(this, new ForumPageTitleArgs(forumPageTitle));
+    }
+
+    #endregion
 }

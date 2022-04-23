@@ -22,292 +22,291 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
-{
-    #region Using
+namespace YAF.Pages.Admin;
 
-    using System.Globalization;
-    using FarsiLibrary.Utils;
-    using YAF.Web.Controls;
+#region Using
+
+using System.Globalization;
+using FarsiLibrary.Utils;
+using YAF.Web.Controls;
+
+#endregion
+
+/// <summary>
+/// The SPAM Event Log Page.
+/// </summary>
+public partial class SpamLog : AdminPage
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SpamLog"/> class. 
+    /// </summary>
+    public SpamLog()
+        : base("ADMIN_EVENTLOG", ForumPages.Admin_SpamLog)
+    {
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The SPAM Event Log Page.
+    /// Delete Selected Event Log Entry
     /// </summary>
-    public partial class SpamLog : AdminPage
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void DeleteAllClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
+        this.GetRepository<Types.Models.EventLog>().DeleteAll();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SpamLog"/> class. 
-        /// </summary>
-        public SpamLog()
-            : base("ADMIN_EVENTLOG", ForumPages.Admin_SpamLog)
+        // re-bind controls
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+    /// </summary>
+    /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+        this.List.ItemCommand += this.ListItemCommand;
+
+        base.OnInit(e);
+    }
+
+    /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
+    {
+        this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+
+        this.PageBoardContext.PageElements.RegisterJsBlock(
+            "collapseToggleJs",
+            JavaScriptBlocks.CollapseToggleJs(
+                this.GetText("ADMIN_EVENTLOG", "HIDE"),
+                this.GetText("ADMIN_EVENTLOG", "SHOW")));
+
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // do it only once, not on post-backs
+        if (this.IsPostBack)
         {
+            return;
         }
 
-        #endregion
+        this.PageSize.DataSource = StaticDataHelper.PageEntries();
+        this.PageSize.DataTextField = "Name";
+        this.PageSize.DataValueField = "Value";
+        this.PageSize.DataBind();
 
-        #region Methods
-
-        /// <summary>
-        /// Delete Selected Event Log Entry
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void DeleteAllClick([NotNull] object sender, [NotNull] EventArgs e)
+        try
         {
-            this.GetRepository<Types.Models.EventLog>().DeleteAll();
-
-            // re-bind controls
-            this.BindData();
+            this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
+        }
+        catch (Exception)
+        {
+            this.PageSize.SelectedValue = "5";
         }
 
-        /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            this.List.ItemCommand += this.ListItemCommand;
+        var ci = this.Get<ILocalization>().Culture;
 
-            base.OnInit(e);
+        if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
+        {
+            this.SinceDate.Text = PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
+            this.ToDate.Text = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
+        }
+        else
+        {
+            this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays).ToString("yyyy-MM-dd");
+            this.SinceDate.TextMode = TextBoxMode.Date;
+
+            this.ToDate.Text = DateTime.UtcNow.Date.ToString("yyyy-MM-dd");
+            this.ToDate.TextMode = TextBoxMode.Date;
         }
 
-        /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
+        // bind data to controls
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+
+        // administration index second
+        this.PageLinks.AddAdminIndex();
+
+        this.PageLinks.AddLink(this.GetText("ADMIN_SPAMLOG", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// Handles the PageChange event of the PagerTop control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    protected void PagerTopPageChange([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        // rebind
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Handles the Click event of the ApplyButton control.
+    /// </summary>
+    /// <param name="source">The source of the event.</param>
+    /// <param name="eventArgs">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void ApplyButtonClick([NotNull] object source, EventArgs eventArgs)
+    {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The page size on selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Renders the UserLink
+    /// </summary>
+    /// <param name="item">
+    /// The item.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    protected string UserLink([NotNull] PagedEventLog item)
+    {
+        if (item.UserID == 0 || item.UserID == this.PageBoardContext.GuestUserID)
         {
-            this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
-
-            this.PageBoardContext.PageElements.RegisterJsBlock(
-                "collapseToggleJs",
-                JavaScriptBlocks.CollapseToggleJs(
-                    this.GetText("ADMIN_EVENTLOG", "HIDE"),
-                    this.GetText("ADMIN_EVENTLOG", "SHOW")));
-
-            base.OnPreRender(e);
+            return string.Empty;
         }
 
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        var userLink = new UserLink
+                           {
+                               UserID = item.UserID,
+                               Suspended = item.Suspended,
+                               Style = item.UserStyle,
+                               ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name
+                           };
+
+        return userLink.RenderToString();
+    }
+
+    /// <summary>
+    /// Populates data source and binds data to controls.
+    /// </summary>
+    private void BindData()
+    {
+        var baseSize = this.PageSize.SelectedValue.ToType<int>();
+        var currentPageIndex = this.PagerTop.CurrentPageIndex;
+        this.PagerTop.PageSize = baseSize;
+
+        var sinceDate = DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays);
+        var toDate = DateTime.UtcNow;
+
+        var ci = this.Get<ILocalization>().Culture;
+
+        if (this.SinceDate.Text.IsSet())
         {
-            // do it only once, not on post-backs
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.PageSize.DataSource = StaticDataHelper.PageEntries();
-            this.PageSize.DataTextField = "Name";
-            this.PageSize.DataValueField = "Value";
-            this.PageSize.DataBind();
-
-            try
-            {
-                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
-            }
-            catch (Exception)
-            {
-                this.PageSize.SelectedValue = "5";
-            }
-
-            var ci = this.Get<ILocalization>().Culture;
-
             if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
             {
-                this.SinceDate.Text = PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
-                this.ToDate.Text = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
+                var persianDate = new PersianDate(this.SinceDate.Text.PersianNumberToEnglish());
+
+                sinceDate = PersianDateConverter.ToGregorianDateTime(persianDate);
             }
             else
             {
-                this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays).ToString("yyyy-MM-dd");
-                this.SinceDate.TextMode = TextBoxMode.Date;
-
-                this.ToDate.Text = DateTime.UtcNow.Date.ToString("yyyy-MM-dd");
-                this.ToDate.TextMode = TextBoxMode.Date;
-            }
-
-            // bind data to controls
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-
-            // administration index second
-            this.PageLinks.AddAdminIndex();
-
-            this.PageLinks.AddLink(this.GetText("ADMIN_SPAMLOG", "TITLE"), string.Empty);
-        }
-
-        /// <summary>
-        /// Handles the PageChange event of the PagerTop control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-        protected void PagerTopPageChange([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // rebind
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Handles the Click event of the ApplyButton control.
-        /// </summary>
-        /// <param name="source">The source of the event.</param>
-        /// <param name="eventArgs">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ApplyButtonClick([NotNull] object source, EventArgs eventArgs)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The page size on selected index changed.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Renders the UserLink
-        /// </summary>
-        /// <param name="item">
-        /// The item.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        protected string UserLink([NotNull] PagedEventLog item)
-        {
-            if (item.UserID == 0 || item.UserID == this.PageBoardContext.GuestUserID)
-            {
-                return string.Empty;
-            }
-
-            var userLink = new UserLink
-            {
-                UserID = item.UserID,
-                Suspended = item.Suspended,
-                Style = item.UserStyle,
-                ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name
-            };
-
-            return userLink.RenderToString();
-        }
-
-        /// <summary>
-        /// Populates data source and binds data to controls.
-        /// </summary>
-        private void BindData()
-        {
-            var baseSize = this.PageSize.SelectedValue.ToType<int>();
-            var currentPageIndex = this.PagerTop.CurrentPageIndex;
-            this.PagerTop.PageSize = baseSize;
-
-            var sinceDate = DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays);
-            var toDate = DateTime.UtcNow;
-
-            var ci = this.Get<ILocalization>().Culture;
-
-            if (this.SinceDate.Text.IsSet())
-            {
-                if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
-                {
-                    var persianDate = new PersianDate(this.SinceDate.Text.PersianNumberToEnglish());
-
-                    sinceDate = PersianDateConverter.ToGregorianDateTime(persianDate);
-                }
-                else
-                {
-                    DateTime.TryParse(this.SinceDate.Text, ci, DateTimeStyles.None, out sinceDate);
-                }
-            }
-
-            if (this.ToDate.Text.IsSet())
-            {
-                if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
-                {
-                    var persianDate = new PersianDate(this.ToDate.Text.PersianNumberToEnglish());
-
-                    toDate = PersianDateConverter.ToGregorianDateTime(persianDate);
-                }
-                else
-                {
-                    DateTime.TryParse(this.ToDate.Text, ci, DateTimeStyles.None, out toDate);
-                }
-            }
-
-            // list event for this board
-            var list = this.GetRepository<Types.Models.EventLog>()
-                               .ListPaged(
-                                   this.PageBoardContext.PageBoardID,
-                                   this.PageBoardContext.BoardSettings.EventLogMaxMessages,
-                                   this.PageBoardContext.BoardSettings.EventLogMaxDays,
-                                   currentPageIndex,
-                                   baseSize,
-                                   sinceDate,
-                                   toDate.AddDays(1).AddMinutes(-1),
-                                   null,
-                                   true);
-
-            this.List.DataSource = list;
-
-            this.PagerTop.Count = !list.NullOrEmpty()
-                                      ? list.FirstOrDefault().TotalRows
-                                      : 0;
-
-            // bind data to controls
-            this.DataBind();
-
-            if (this.List.Items.Count == 0)
-            {
-                this.NoInfo.Visible = true;
+                DateTime.TryParse(this.SinceDate.Text, ci, DateTimeStyles.None, out sinceDate);
             }
         }
 
-        /// <summary>
-        /// Handles single record commands in a repeater.
-        /// </summary>
-        /// <param name="source">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        private void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        if (this.ToDate.Text.IsSet())
         {
-            // what command are we serving?
-            switch (e.CommandName)
+            if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
             {
-                // delete log entry
-                case "delete":
+                var persianDate = new PersianDate(this.ToDate.Text.PersianNumberToEnglish());
 
-                    // delete just this particular log entry
-                    this.GetRepository<Types.Models.EventLog>().DeleteById(e.CommandArgument.ToType<int>());
-
-                    // re-bind controls
-                    this.BindData();
-                    break;
+                toDate = PersianDateConverter.ToGregorianDateTime(persianDate);
+            }
+            else
+            {
+                DateTime.TryParse(this.ToDate.Text, ci, DateTimeStyles.None, out toDate);
             }
         }
 
-        #endregion
+        // list event for this board
+        var list = this.GetRepository<Types.Models.EventLog>()
+            .ListPaged(
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.BoardSettings.EventLogMaxMessages,
+                this.PageBoardContext.BoardSettings.EventLogMaxDays,
+                currentPageIndex,
+                baseSize,
+                sinceDate,
+                toDate.AddDays(1).AddMinutes(-1),
+                null,
+                true);
+
+        this.List.DataSource = list;
+
+        this.PagerTop.Count = !list.NullOrEmpty()
+                                  ? list.FirstOrDefault().TotalRows
+                                  : 0;
+
+        // bind data to controls
+        this.DataBind();
+
+        if (this.List.Items.Count == 0)
+        {
+            this.NoInfo.Visible = true;
+        }
     }
+
+    /// <summary>
+    /// Handles single record commands in a repeater.
+    /// </summary>
+    /// <param name="source">The source of the event.</param>
+    /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
+    private void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+        // what command are we serving?
+        switch (e.CommandName)
+        {
+            // delete log entry
+            case "delete":
+
+                // delete just this particular log entry
+                this.GetRepository<Types.Models.EventLog>().DeleteById(e.CommandArgument.ToType<int>());
+
+                // re-bind controls
+                this.BindData();
+                break;
+        }
+    }
+
+    #endregion
 }

@@ -21,12 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Tasks
+namespace YAF.Types.Interfaces.Tasks;
+
+/// <summary>
+/// The i critical startup service.
+/// </summary>
+public interface ICriticalStartupService
 {
-    /// <summary>
-    /// The i critical startup service.
-    /// </summary>
-    public interface ICriticalStartupService
-    {
-    }
 }

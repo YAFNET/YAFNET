@@ -22,26 +22,25 @@
  * under the License.
  */
 
-namespace YAF.Core.Handlers
-{
-    using System.Web.Http.WebHost;
-    using System.Web.Routing;
-    using System.Web.SessionState;
+namespace YAF.Core.Handlers;
 
+using System.Web.Http.WebHost;
+using System.Web.Routing;
+using System.Web.SessionState;
+
+/// <summary>
+/// The session controller handler.
+/// </summary>
+public class SessionControllerHandler : HttpControllerHandler, IRequiresSessionState
+{
     /// <summary>
-    /// The session controller handler.
+    /// Initializes a new instance of the <see cref="SessionControllerHandler"/> class.
     /// </summary>
-    public class SessionControllerHandler : HttpControllerHandler, IRequiresSessionState
+    /// <param name="routeData">
+    /// The route data.
+    /// </param>
+    public SessionControllerHandler(RouteData routeData)
+        : base(routeData)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SessionControllerHandler"/> class.
-        /// </summary>
-        /// <param name="routeData">
-        /// The route data.
-        /// </param>
-        public SessionControllerHandler(RouteData routeData)
-            : base(routeData)
-        {
-        }
     }
 }

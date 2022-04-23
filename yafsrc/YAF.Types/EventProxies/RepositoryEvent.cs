@@ -21,85 +21,84 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
-{
-    #region Using
+namespace YAF.Types.EventProxies;
 
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Events;
+#region Using
+
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Events;
+
+#endregion
+
+/// <summary>
+///     The repository event type.
+/// </summary>
+public enum RepositoryEventType
+{
+    /// <summary>
+    ///     The new.
+    /// </summary>
+    New,
+
+    /// <summary>
+    ///     The update.
+    /// </summary>
+    Update,
+
+    /// <summary>
+    ///     The delete.
+    /// </summary>
+    Delete
+}
+
+/// <summary>
+/// The repository event.
+/// </summary>
+/// <typeparam name="T">
+/// The Typed Parameter
+/// </typeparam>
+public class RepositoryEvent<T> : IAmEvent
+    where T : class, IEntity
+{
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RepositoryEvent{T}"/> class. 
+    /// </summary>
+    /// <param name="repositoryEventType">
+    /// The repository event type. 
+    /// </param>
+    /// <param name="entityId">
+    /// The entity id. 
+    /// </param>
+    /// <param name="entity">
+    /// The entity.
+    /// </param>
+    public RepositoryEvent(RepositoryEventType repositoryEventType, int? entityId, T entity = null)
+    {
+        this.RepositoryEventType = repositoryEventType;
+        this.EntityId = entityId;
+        this.Entity = entity;
+    }
 
     #endregion
 
-    /// <summary>
-    ///     The repository event type.
-    /// </summary>
-    public enum RepositoryEventType
-    {
-        /// <summary>
-        ///     The new.
-        /// </summary>
-        New,
-
-        /// <summary>
-        ///     The update.
-        /// </summary>
-        Update,
-
-        /// <summary>
-        ///     The delete.
-        /// </summary>
-        Delete
-    }
+    #region Public Properties
 
     /// <summary>
-    /// The repository event.
+    /// Gets or sets the entity.
     /// </summary>
-    /// <typeparam name="T">
-    /// The Typed Parameter
-    /// </typeparam>
-    public class RepositoryEvent<T> : IAmEvent
-        where T : class, IEntity
-    {
-        #region Constructors and Destructors
+    public T Entity { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RepositoryEvent{T}"/> class. 
-        /// </summary>
-        /// <param name="repositoryEventType">
-        /// The repository event type. 
-        /// </param>
-        /// <param name="entityId">
-        /// The entity id. 
-        /// </param>
-        /// <param name="entity">
-        /// The entity.
-        /// </param>
-        public RepositoryEvent(RepositoryEventType repositoryEventType, int? entityId, T entity = null)
-        {
-            this.RepositoryEventType = repositoryEventType;
-            this.EntityId = entityId;
-            this.Entity = entity;
-        }
+    /// <summary>
+    ///     Gets or sets the entity id.
+    /// </summary>
+    public int? EntityId { get; set; }
 
-        #endregion
+    /// <summary>
+    ///     Gets or sets the repository event type.
+    /// </summary>
+    public RepositoryEventType RepositoryEventType { get; set; }
 
-        #region Public Properties
-
-        /// <summary>
-        /// Gets or sets the entity.
-        /// </summary>
-        public T Entity { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the entity id.
-        /// </summary>
-        public int? EntityId { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the repository event type.
-        /// </summary>
-        public RepositoryEventType RepositoryEventType { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

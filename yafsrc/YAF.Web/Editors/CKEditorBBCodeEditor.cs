@@ -21,88 +21,87 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Editors
+namespace YAF.Web.Editors;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Helpers;
+using YAF.Core.Utilities;
+using YAF.Types;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+/// <summary>
+/// The CKEditor BBCode editor.
+/// </summary>
+public class CKEditorBBCodeEditor : CKEditor
 {
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Helpers;
-    using YAF.Core.Utilities;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+    #region Properties
 
     /// <summary>
-    /// The CKEditor BBCode editor.
+    ///   Gets Description.
     /// </summary>
-    public class CKEditorBBCodeEditor : CKEditor
+    [NotNull]
+    public override string Description => "CKEditor (BBCode) - Full";
+
+    /// <summary>
+    ///   Gets ModuleId.
+    /// </summary>
+    public override string ModuleId => "4";
+
+    /// <summary>
+    ///   Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public override bool UsesBBCode => true;
+
+    /// <summary>
+    ///   Gets a value indicating whether UsesHTML.
+    /// </summary>
+    public override bool UsesHTML => false;
+
+    /// <summary>
+    /// The allows uploads.
+    /// </summary>
+    public override bool AllowsUploads => true;
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The register CKEditor custom JS.
+    /// </summary>
+    protected override void RegisterCKEditorCustomJS()
     {
-        #region Properties
+        var toolbar = this.PageBoardContext.BoardSettings.EditorToolbarFull;
 
-        /// <summary>
-        ///   Gets Description.
-        /// </summary>
-        [NotNull]
-        public override string Description => "CKEditor (BBCode) - Full";
-
-        /// <summary>
-        ///   Gets ModuleId.
-        /// </summary>
-        public override string ModuleId => "4";
-
-        /// <summary>
-        ///   Gets a value indicating whether UsesBBCode.
-        /// </summary>
-        public override bool UsesBBCode => true;
-
-        /// <summary>
-        ///   Gets a value indicating whether UsesHTML.
-        /// </summary>
-        public override bool UsesHTML => false;
-
-        /// <summary>
-        /// The allows uploads.
-        /// </summary>
-        public override bool AllowsUploads => true;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The register CKEditor custom JS.
-        /// </summary>
-        protected override void RegisterCKEditorCustomJS()
+        if (!(this.PageBoardContext.BoardSettings.EnableAlbum && this.PageBoardContext.NumAlbums > 0))
         {
-            var toolbar = this.PageBoardContext.BoardSettings.EditorToolbarFull;
-
-            if (!(this.PageBoardContext.BoardSettings.EnableAlbum && this.PageBoardContext.NumAlbums > 0))
-            {
-                // remove albums
-                toolbar = toolbar.Replace(", \"albumsbrowser\"", string.Empty);
-            }
-
-            var language = BoardContext.Current.PageUser.Culture.IsSet()
-                ? BoardContext.Current.PageUser.Culture.Substring(0, 2)
-                : this.PageBoardContext.BoardSettings.Culture.Substring(0, 2);
-
-            if (ValidationHelper.IsNumeric(language))
-            {
-                language = this.PageBoardContext.BoardSettings.Culture;
-            }
-
-            BoardContext.Current.PageElements.RegisterJsBlock(
-                "ckeditorinitbbcode",
-                JavaScriptBlocks.CKEditorLoadJs(
-                    this.TextAreaControl.ClientID,
-                    language,
-                    this.MaxCharacters,
-                    this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"),
-                    BoardInfo.GetURLToContent("forum.min.css"),
-                    toolbar,
-                    this.PageBoardContext.UploadAccess));
+            // remove albums
+            toolbar = toolbar.Replace(", \"albumsbrowser\"", string.Empty);
         }
 
-        #endregion
+        var language = BoardContext.Current.PageUser.Culture.IsSet()
+                           ? BoardContext.Current.PageUser.Culture.Substring(0, 2)
+                           : this.PageBoardContext.BoardSettings.Culture.Substring(0, 2);
+
+        if (ValidationHelper.IsNumeric(language))
+        {
+            language = this.PageBoardContext.BoardSettings.Culture;
+        }
+
+        BoardContext.Current.PageElements.RegisterJsBlock(
+            "ckeditorinitbbcode",
+            JavaScriptBlocks.CKEditorLoadJs(
+                this.TextAreaControl.ClientID,
+                language,
+                this.MaxCharacters,
+                this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"),
+                BoardInfo.GetURLToContent("forum.min.css"),
+                toolbar,
+                this.PageBoardContext.UploadAccess));
     }
+
+    #endregion
 }

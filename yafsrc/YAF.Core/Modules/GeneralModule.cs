@@ -22,156 +22,155 @@
  * under the License.
  */
 
-namespace YAF.Core.Modules
+namespace YAF.Core.Modules;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
+using Autofac;
+
+using YAF.Core.BaseModules;
+using YAF.Core.Context;
+using YAF.Core.Data;
+using YAF.Core.Events;
+using YAF.Core.Helpers;
+using YAF.Core.Nntp;
+using YAF.Core.Services.Cache;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// The general module.
+/// </summary>
+public class GeneralModule : BaseModule
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-
-    using Autofac;
-
-    using YAF.Core.BaseModules;
-    using YAF.Core.Context;
-    using YAF.Core.Data;
-    using YAF.Core.Events;
-    using YAF.Core.Helpers;
-    using YAF.Core.Nntp;
-    using YAF.Core.Services.Cache;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Events;
+    #region Methods
 
     /// <summary>
-    /// The general module.
+    /// The load.
     /// </summary>
-    public class GeneralModule : BaseModule
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    protected override void Load(ContainerBuilder builder)
     {
-        #region Methods
-
-        /// <summary>
-        /// The load.
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        protected override void Load(ContainerBuilder builder)
-        {
-            RegisterDataBindings(builder);
-            RegisterGeneral(builder);
-            RegisterEventBindings(builder);
-            RegisterModules(builder);
-            RegisterPages(builder);
-        }
-
-        /// <summary>
-        ///     The register data bindings.
-        /// </summary>
-        /// <param name="builder">
-        ///     The builder.
-        /// </param>
-        private static void RegisterDataBindings(ContainerBuilder builder)
-        {
-            // data
-            builder.RegisterType<DbAccessProvider>().As<IDbAccessProvider>().SingleInstance();
-            builder.Register(c => c.Resolve<IComponentContext>().Resolve<IDbAccessProvider>().Instance).As<IDbAccess>()
-                .InstancePerDependency().PreserveExistingDefaults();
-
-            // register generic IRepository handler, which can be easily overriden by more advanced repository handler
-            builder.RegisterGeneric(typeof(BasicRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
-
-            // register filters -- even if they require BoardContext, they MUST BE REGISTERED UNDER GENERAL SCOPE
-            // Do the BoardContext check inside the constructor and throw an exception if it's required.
-            // builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
-        }
-
-        /// <summary>
-        /// Register event bindings
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        private static void RegisterEventBindings(ContainerBuilder builder)
-        {
-            builder.RegisterType<ServiceLocatorEventRaiser>().As<IRaiseEvent>().InstancePerLifetimeScope();
-            builder.RegisterGeneric(typeof(FireEvent<>)).As(typeof(IFireEvent<>)).InstancePerLifetimeScope();
-
-            //// scan assemblies for events to wire up...
-            // builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AsClosedTypesOf(typeof(IHandleEvent<>)).
-            // AsImplementedInterfaces().InstancePerLifetimeScope();
-        }
-
-        /// <summary>
-        /// The register basic bindings.
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        private static void RegisterGeneral(ContainerBuilder builder)
-        {
-            builder.Register(x => ExtensionAssemblies).Named<IList<Assembly>>("ExtensionAssemblies").SingleInstance();
-            builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>()
-                .InstancePerLifetimeScope();
-
-            // BoardContext registration...
-            builder.RegisterType<BoardContextPageProvider>().AsSelf().As<IReadOnlyProvider<BoardContext>>().SingleInstance()
-                .PreserveExistingDefaults();
-            builder.Register((k) => k.Resolve<IComponentContext>().Resolve<BoardContextPageProvider>().Instance)
-                .ExternallyOwned().PreserveExistingDefaults();
-
-            // Http Application Base
-            builder.RegisterType<CurrentHttpApplicationStateBaseProvider>().SingleInstance().PreserveExistingDefaults();
-            builder.Register(
-                    k => k.Resolve<IComponentContext>().Resolve<CurrentHttpApplicationStateBaseProvider>().Instance)
-                .ExternallyOwned().PreserveExistingDefaults();
-
-            // Task Module
-            builder.RegisterType<CurrentTaskModuleProvider>().SingleInstance().PreserveExistingDefaults();
-            builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentTaskModuleProvider>().Instance)
-                .ExternallyOwned().PreserveExistingDefaults();
-
-            builder.RegisterType<Nntp>().As<INewsreader>().InstancePerLifetimeScope().PreserveExistingDefaults();
-
-            // cache bindings.
-            builder.RegisterType<StaticLockObject>().As<IHaveLockObject>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<HttpRuntimeCache>().As<IDataCache>().SingleInstance().PreserveExistingDefaults();
-
-            // Shared object store -- used for objects local only
-            builder.RegisterType<HttpRuntimeCache>().As<IObjectStore>().SingleInstance().PreserveExistingDefaults();
-        }
-
-        /// <summary>
-        /// The register modules.
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        private static void RegisterModules(ContainerBuilder builder)
-        {
-            var assemblies = ExtensionAssemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).ToArray();
-
-            // forum modules...
-            builder.RegisterAssemblyTypes(assemblies).AssignableTo<IBaseForumModule>().As<IBaseForumModule>()
-                .InstancePerLifetimeScope();
-
-            // editor modules...
-            builder.RegisterAssemblyTypes(assemblies).AssignableTo<ForumEditor>().As<ForumEditor>()
-                .InstancePerLifetimeScope();
-        }
-
-        /// <summary>
-        /// The register pages
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        private static void RegisterPages(ContainerBuilder builder)
-        {
-            var assemblies = ExtensionAssemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).ToArray();
-
-            builder.RegisterAssemblyTypes(assemblies).AssignableTo<ILocatablePage>().AsImplementedInterfaces()
-                .SingleInstance();
-        }
-
-        #endregion
+        RegisterDataBindings(builder);
+        RegisterGeneral(builder);
+        RegisterEventBindings(builder);
+        RegisterModules(builder);
+        RegisterPages(builder);
     }
+
+    /// <summary>
+    ///     The register data bindings.
+    /// </summary>
+    /// <param name="builder">
+    ///     The builder.
+    /// </param>
+    private static void RegisterDataBindings(ContainerBuilder builder)
+    {
+        // data
+        builder.RegisterType<DbAccessProvider>().As<IDbAccessProvider>().SingleInstance();
+        builder.Register(c => c.Resolve<IComponentContext>().Resolve<IDbAccessProvider>().Instance).As<IDbAccess>()
+            .InstancePerDependency().PreserveExistingDefaults();
+
+        // register generic IRepository handler, which can be easily overriden by more advanced repository handler
+        builder.RegisterGeneric(typeof(BasicRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
+
+        // register filters -- even if they require BoardContext, they MUST BE REGISTERED UNDER GENERAL SCOPE
+        // Do the BoardContext check inside the constructor and throw an exception if it's required.
+        // builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
+    }
+
+    /// <summary>
+    /// Register event bindings
+    /// </summary>
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    private static void RegisterEventBindings(ContainerBuilder builder)
+    {
+        builder.RegisterType<ServiceLocatorEventRaiser>().As<IRaiseEvent>().InstancePerLifetimeScope();
+        builder.RegisterGeneric(typeof(FireEvent<>)).As(typeof(IFireEvent<>)).InstancePerLifetimeScope();
+
+        //// scan assemblies for events to wire up...
+        // builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AsClosedTypesOf(typeof(IHandleEvent<>)).
+        // AsImplementedInterfaces().InstancePerLifetimeScope();
+    }
+
+    /// <summary>
+    /// The register basic bindings.
+    /// </summary>
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    private static void RegisterGeneral(ContainerBuilder builder)
+    {
+        builder.Register(x => ExtensionAssemblies).Named<IList<Assembly>>("ExtensionAssemblies").SingleInstance();
+        builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>()
+            .InstancePerLifetimeScope();
+
+        // BoardContext registration...
+        builder.RegisterType<BoardContextPageProvider>().AsSelf().As<IReadOnlyProvider<BoardContext>>().SingleInstance()
+            .PreserveExistingDefaults();
+        builder.Register((k) => k.Resolve<IComponentContext>().Resolve<BoardContextPageProvider>().Instance)
+            .ExternallyOwned().PreserveExistingDefaults();
+
+        // Http Application Base
+        builder.RegisterType<CurrentHttpApplicationStateBaseProvider>().SingleInstance().PreserveExistingDefaults();
+        builder.Register(
+                k => k.Resolve<IComponentContext>().Resolve<CurrentHttpApplicationStateBaseProvider>().Instance)
+            .ExternallyOwned().PreserveExistingDefaults();
+
+        // Task Module
+        builder.RegisterType<CurrentTaskModuleProvider>().SingleInstance().PreserveExistingDefaults();
+        builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentTaskModuleProvider>().Instance)
+            .ExternallyOwned().PreserveExistingDefaults();
+
+        builder.RegisterType<Nntp>().As<INewsreader>().InstancePerLifetimeScope().PreserveExistingDefaults();
+
+        // cache bindings.
+        builder.RegisterType<StaticLockObject>().As<IHaveLockObject>().SingleInstance().PreserveExistingDefaults();
+        builder.RegisterType<HttpRuntimeCache>().As<IDataCache>().SingleInstance().PreserveExistingDefaults();
+
+        // Shared object store -- used for objects local only
+        builder.RegisterType<HttpRuntimeCache>().As<IObjectStore>().SingleInstance().PreserveExistingDefaults();
+    }
+
+    /// <summary>
+    /// The register modules.
+    /// </summary>
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    private static void RegisterModules(ContainerBuilder builder)
+    {
+        var assemblies = ExtensionAssemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).ToArray();
+
+        // forum modules...
+        builder.RegisterAssemblyTypes(assemblies).AssignableTo<IBaseForumModule>().As<IBaseForumModule>()
+            .InstancePerLifetimeScope();
+
+        // editor modules...
+        builder.RegisterAssemblyTypes(assemblies).AssignableTo<ForumEditor>().As<ForumEditor>()
+            .InstancePerLifetimeScope();
+    }
+
+    /// <summary>
+    /// The register pages
+    /// </summary>
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    private static void RegisterPages(ContainerBuilder builder)
+    {
+        var assemblies = ExtensionAssemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).ToArray();
+
+        builder.RegisterAssemblyTypes(assemblies).AssignableTo<ILocatablePage>().AsImplementedInterfaces()
+            .SingleInstance();
+    }
+
+    #endregion
 }

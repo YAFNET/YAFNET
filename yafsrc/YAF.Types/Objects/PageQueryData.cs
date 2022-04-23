@@ -21,35 +21,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+/// <summary>
+/// The page query data.
+/// </summary>
+public class PageQueryData
 {
+    #region Public Properties
+
     /// <summary>
-    /// The page query data.
+    /// Gets or sets the category id.
     /// </summary>
-    public class PageQueryData
-    {
-        #region Public Properties
+    public int CategoryID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the category id.
-        /// </summary>
-        public int CategoryID { get; set; }
+    /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    public int TopicID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the topic id.
-        /// </summary>
-        public int TopicID { get; set; }
+    /// <summary>
+    /// Gets or sets the forum id.
+    /// </summary>
+    public int ForumID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        public int ForumID { get; set; }
+    /// <summary>
+    /// Gets or sets the message id.
+    /// </summary>
+    public int MessageID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the message id.
-        /// </summary>
-        public int MessageID { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

@@ -5,65 +5,64 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Configuration
-{
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
+namespace YAF.UrlRewriter.Configuration;
 
-    using YAF.UrlRewriter.Actions;
-    using YAF.UrlRewriter.Errors;
-    using YAF.UrlRewriter.Logging;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+
+using YAF.UrlRewriter.Actions;
+using YAF.UrlRewriter.Errors;
+using YAF.UrlRewriter.Logging;
+
+/// <summary>
+/// Interface for the rewriter's configuration.
+/// Useful for plugging out config in unit tests.
+/// </summary>
+public interface IRewriterConfiguration
+{
+    /// <summary>
+    /// The rules.
+    /// </summary>
+    IList<IRewriteAction> Rules { get; }
 
     /// <summary>
-    /// Interface for the rewriter's configuration.
-    /// Useful for plugging out config in unit tests.
+    /// The action parser factory.
     /// </summary>
-    public interface IRewriterConfiguration
-    {
-        /// <summary>
-        /// The rules.
-        /// </summary>
-        IList<IRewriteAction> Rules { get; }
+    ActionParserFactory ActionParserFactory { get; }
 
-        /// <summary>
-        /// The action parser factory.
-        /// </summary>
-        ActionParserFactory ActionParserFactory { get; }
+    /// <summary>
+    /// The transform factory.
+    /// </summary>
+    TransformFactory TransformFactory { get; }
 
-        /// <summary>
-        /// The transform factory.
-        /// </summary>
-        TransformFactory TransformFactory { get; }
+    /// <summary>
+    /// The condition parser pipeline.
+    /// </summary>
+    ConditionParserPipeline ConditionParserPipeline { get; }
 
-        /// <summary>
-        /// The condition parser pipeline.
-        /// </summary>
-        ConditionParserPipeline ConditionParserPipeline { get; }
+    /// <summary>
+    /// Dictionary of error handlers.
+    /// </summary>
+    IDictionary<int, IRewriteErrorHandler> ErrorHandlers { get; }
 
-        /// <summary>
-        /// Dictionary of error handlers.
-        /// </summary>
-        IDictionary<int, IRewriteErrorHandler> ErrorHandlers { get; }
+    /// <summary>
+    /// Logger to use for logging information.
+    /// </summary>
+    IRewriteLogger Logger { get; set; }
 
-        /// <summary>
-        /// Logger to use for logging information.
-        /// </summary>
-        IRewriteLogger Logger { get; set; }
+    /// <summary>
+    /// Collection of default document names to use if the result of a rewriting
+    /// is a directory name.
+    /// </summary>
+    StringCollection DefaultDocuments { get; }
 
-        /// <summary>
-        /// Collection of default document names to use if the result of a rewriting
-        /// is a directory name.
-        /// </summary>
-        StringCollection DefaultDocuments { get; }
+    /// <summary>
+    /// Additional X-Powered-By header.
+    /// </summary>
+    string XPoweredBy { get; }
 
-        /// <summary>
-        /// Additional X-Powered-By header.
-        /// </summary>
-        string XPoweredBy { get; }
-
-        /// <summary>
-        /// The configuration manager instance.
-        /// </summary>
-        IConfigurationManager ConfigurationManager { get; }
-    }
+    /// <summary>
+    /// The configuration manager instance.
+    /// </summary>
+    IConfigurationManager ConfigurationManager { get; }
 }

@@ -22,164 +22,163 @@
  * under the License.
  */
 
-namespace YAF.Core.Controllers
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Http;
-    using System.Web.UI.WebControls;
+namespace YAF.Core.Controllers;
 
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
-    using YAF.Core.Services;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
-    using YAF.Types.Objects;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using System.Web.UI.WebControls;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Core.Helpers;
+using YAF.Core.Services;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+
+/// <summary>
+/// The Notifications controller.
+/// </summary>
+[RoutePrefix("api")]
+public class NotifyController : ApiController, IHaveServiceLocator
+{
+    #region Properties
 
     /// <summary>
-    /// The Notifications controller.
+    ///   Gets ServiceLocator.
     /// </summary>
-    [RoutePrefix("api")]
-    public class NotifyController : ApiController, IHaveServiceLocator
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+
+    #endregion
+
+    /// <summary>
+    /// Gets the paged attachments.
+    /// </summary>
+    /// <param name="pagedResults">
+    /// The paged Results.
+    /// </param>
+    /// <returns>
+    /// Returns the Attachment List as Grid Data Set
+    /// </returns>
+    [Route("Notify/GetNotifications")]
+    [HttpPost]
+    public IHttpActionResult GetNotifications(PagedResults pagedResults)
     {
-        #region Properties
+        var userId = pagedResults.UserId;
+        var pageSize = pagedResults.PageSize;
+        var pageNumber = pagedResults.PageNumber;
 
-        /// <summary>
-        ///   Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+        var activities = this.GetRepository<Activity>().GetPaged(
+            a => a.UserID == userId && a.FromUserID.HasValue && a.Notification,
+            pageNumber,
+            pageSize);
 
-        #endregion
+        var attachmentItems = new List<AttachmentItem>();
 
-        /// <summary>
-        /// Gets the paged attachments.
-        /// </summary>
-        /// <param name="pagedResults">
-        /// The paged Results.
-        /// </param>
-        /// <returns>
-        /// Returns the Attachment List as Grid Data Set
-        /// </returns>
-        [Route("Notify/GetNotifications")]
-        [HttpPost]
-        public IHttpActionResult GetNotifications(PagedResults pagedResults)
-        {
-            var userId = pagedResults.UserId;
-            var pageSize = pagedResults.PageSize;
-            var pageNumber = pagedResults.PageNumber;
-
-            var activities = this.GetRepository<Activity>().GetPaged(
-                a => a.UserID == userId && a.FromUserID.HasValue && a.Notification,
-                pageNumber,
-                pageSize);
-
-            var attachmentItems = new List<AttachmentItem>();
-
-            activities.ForEach(
-                activity =>
+        activities.ForEach(
+            activity =>
+                {
+                    if (!activity.TopicID.HasValue || !activity.FromUserID.HasValue || !activity.MessageID.HasValue)
                     {
-                        if (!activity.TopicID.HasValue || !activity.FromUserID.HasValue || !activity.MessageID.HasValue)
-                        {
-                            return;
-                        }
+                        return;
+                    }
 
-                        var messageHolder = new PlaceHolder();
-                        var iconLabel = new Label { CssClass = "fa-stack" };
+                    var messageHolder = new PlaceHolder();
+                    var iconLabel = new Label { CssClass = "fa-stack" };
 
-                        var message = string.Empty;
-                        var icon = string.Empty;
+                    var message = string.Empty;
+                    var icon = string.Empty;
 
-                        var topic = this.GetRepository<Topic>().GetById(activity.TopicID.Value);
+                    var topic = this.GetRepository<Topic>().GetById(activity.TopicID.Value);
 
-                        var topicLink = new HyperLink
-                                            {
-                                                NavigateUrl =
-                                                    this.Get<LinkBuilder>().GetLink(
-                                                        ForumPages.Posts,
-                                                        new { m = activity.MessageID.Value, name = topic.TopicName }),
-                                                Text = $@"<i class=""fas fa-comment fa-fw me-1""></i>{topic.TopicName}"
-                                            };
+                    var topicLink = new HyperLink
+                                        {
+                                            NavigateUrl =
+                                                this.Get<LinkBuilder>().GetLink(
+                                                    ForumPages.Posts,
+                                                    new { m = activity.MessageID.Value, name = topic.TopicName }),
+                                            Text = $@"<i class=""fas fa-comment fa-fw me-1""></i>{topic.TopicName}"
+                                        };
 
-                        var name = this.Get<IUserDisplayName>().GetNameById(activity.FromUserID.Value);
+                    var name = this.Get<IUserDisplayName>().GetNameById(activity.FromUserID.Value);
 
-                        if (activity.ActivityFlags.ReceivedThanks)
-                        {
-                            icon = "heart";
-                            message = this.Get<ILocalization>().GetTextFormatted(
-                                "RECEIVED_THANKS_MSG",
-                                name,
-                                topicLink.RenderToString());
-                        }
+                    if (activity.ActivityFlags.ReceivedThanks)
+                    {
+                        icon = "heart";
+                        message = this.Get<ILocalization>().GetTextFormatted(
+                            "RECEIVED_THANKS_MSG",
+                            name,
+                            topicLink.RenderToString());
+                    }
 
-                        if (activity.ActivityFlags.WasMentioned)
-                        {
-                            icon = "at";
-                            message = this.Get<ILocalization>().GetTextFormatted(
-                                "WAS_MENTIONED_MSG",
-                                name,
-                                topicLink.RenderToString());
-                        }
+                    if (activity.ActivityFlags.WasMentioned)
+                    {
+                        icon = "at";
+                        message = this.Get<ILocalization>().GetTextFormatted(
+                            "WAS_MENTIONED_MSG",
+                            name,
+                            topicLink.RenderToString());
+                    }
 
-                        if (activity.ActivityFlags.WasQuoted)
-                        {
-                            icon = "quote-left";
-                            message = this.Get<ILocalization>().GetTextFormatted(
-                                "WAS_QUOTED_MSG",
-                                name,
-                                topicLink.RenderToString());
-                        }
+                    if (activity.ActivityFlags.WasQuoted)
+                    {
+                        icon = "quote-left";
+                        message = this.Get<ILocalization>().GetTextFormatted(
+                            "WAS_QUOTED_MSG",
+                            name,
+                            topicLink.RenderToString());
+                    }
 
-                        if (activity.ActivityFlags.WatchForumReply)
-                        {
-                            icon = "comments";
-                            message = this.Get<ILocalization>().GetTextFormatted(
-                                "WATCH_FORUM_MSG",
-                                name,
-                                topicLink.RenderToString());
-                        }
+                    if (activity.ActivityFlags.WatchForumReply)
+                    {
+                        icon = "comments";
+                        message = this.Get<ILocalization>().GetTextFormatted(
+                            "WATCH_FORUM_MSG",
+                            name,
+                            topicLink.RenderToString());
+                    }
 
-                        if (activity.ActivityFlags.WatchTopicReply)
-                        {
-                            icon = "comment";
-                            message = this.Get<ILocalization>().GetTextFormatted(
-                                "WATCH_TOPIC_MSG",
-                                name,
-                                topicLink.RenderToString());
-                        }
+                    if (activity.ActivityFlags.WatchTopicReply)
+                    {
+                        icon = "comment";
+                        message = this.Get<ILocalization>().GetTextFormatted(
+                            "WATCH_TOPIC_MSG",
+                            name,
+                            topicLink.RenderToString());
+                    }
 
-                        var notify = activity.Notification ? "text-success" : "text-secondary";
+                    var notify = activity.Notification ? "text-success" : "text-secondary";
 
-                        iconLabel.Text = $@"<i class=""fas fa-circle fa-stack-2x {notify}""></i>
+                    iconLabel.Text = $@"<i class=""fas fa-circle fa-stack-2x {notify}""></i>
                                             <i class=""fas fa-{icon} fa-stack-1x fa-inverse""></i>";
 
-                        messageHolder.Controls.Add(iconLabel);
+                    messageHolder.Controls.Add(iconLabel);
 
-                        messageHolder.Controls.Add(new Literal { Text = message });
+                    messageHolder.Controls.Add(new Literal { Text = message });
 
-                        var attachment = new AttachmentItem
-                                             {
-                                                 FileName = messageHolder.RenderToString()
-                                             };
+                    var attachment = new AttachmentItem
+                                         {
+                                             FileName = messageHolder.RenderToString()
+                                         };
 
-                        attachmentItems.Add(attachment);
-                    });
+                    attachmentItems.Add(attachment);
+                });
 
-            return this.Ok(
-                new GridDataSet
-                    {
-                        PageNumber = pageNumber,
-                        TotalRecords =
-                            activities.Any()
-                                ? this.GetRepository<Activity>().Count(a => a.UserID == userId && a.FromUserID.HasValue && a.Notification)
-                                    .ToType<int>()
-                                : 0,
-                        PageSize = pageSize,
-                        AttachmentList = attachmentItems
-                    });
-        }
+        return this.Ok(
+            new GridDataSet
+                {
+                    PageNumber = pageNumber,
+                    TotalRecords =
+                        activities.Any()
+                            ? this.GetRepository<Activity>().Count(a => a.UserID == userId && a.FromUserID.HasValue && a.Notification)
+                                .ToType<int>()
+                            : 0,
+                    PageSize = pageSize,
+                    AttachmentList = attachmentItems
+                });
     }
 }

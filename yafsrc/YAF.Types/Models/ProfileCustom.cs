@@ -21,45 +21,44 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the ProfileCustom table.
+/// </summary>
+[Serializable]
+
+[CompositePrimaryKey(nameof(ProfileDefinitionID), nameof(UserID))]
+public class ProfileCustom : IEntity
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-    using ServiceStack.OrmLite;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the ProfileCustom table.
+    /// Gets or sets the profile definition id.
     /// </summary>
-    [Serializable]
+    [References(typeof(ProfileDefinition))]
+    [Required]
+    public int ProfileDefinitionID { get; set; }
 
-    [CompositePrimaryKey(nameof(ProfileDefinitionID), nameof(UserID))]
-    public class ProfileCustom : IEntity
-    {
-        #region Properties
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [References(typeof(User))]
+    [Required]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the profile definition id.
-        /// </summary>
-        [References(typeof(ProfileDefinition))]
-        [Required]
-        public int ProfileDefinitionID { get; set; }
+    /// <summary>
+    /// Gets or sets the value.
+    /// </summary>
+    [CustomField(OrmLiteVariables.MaxText)]
+    public string Value { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        public int UserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        [CustomField(OrmLiteVariables.MaxText)]
-        public string Value { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

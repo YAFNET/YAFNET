@@ -22,62 +22,61 @@
  * under the License.
  */
 
-namespace YAF.Core.Helpers
+namespace YAF.Core.Helpers;
+
+#region Using
+
+using System;
+using System.Drawing;
+using System.IO;
+
+#endregion
+
+/// <summary>
+/// The Image Helper.
+/// </summary>
+public static class ImageHelper
 {
-    #region Using
-
-    using System;
-    using System.Drawing;
-    using System.IO;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The Image Helper.
+    /// Returns resized image stream.
     /// </summary>
-    public static class ImageHelper
+    /// <param name="img">
+    /// The Image.
+    /// </param>
+    /// <param name="x">
+    /// The image width.
+    /// </param>
+    /// <param name="y">
+    /// The image height.
+    /// </param>
+    /// <returns>
+    /// A resized image stream Stream.
+    /// </returns>
+    public static Stream GetResizedImageStreamFromImage(Image img, long x, long y)
     {
-        #region Public Methods
-
-        /// <summary>
-        /// Returns resized image stream.
-        /// </summary>
-        /// <param name="img">
-        /// The Image.
-        /// </param>
-        /// <param name="x">
-        /// The image width.
-        /// </param>
-        /// <param name="y">
-        /// The image height.
-        /// </param>
-        /// <returns>
-        /// A resized image stream Stream.
-        /// </returns>
-        public static Stream GetResizedImageStreamFromImage(Image img, long x, long y)
+        double newWidth = img.Width;
+        double newHeight = img.Height;
+        if (newWidth > x)
         {
-            double newWidth = img.Width;
-            double newHeight = img.Height;
-            if (newWidth > x)
-            {
-                newHeight = newHeight * x / newWidth;
-                newWidth = x;
-            }
-
-            if (newHeight > y)
-            {
-                newWidth = newWidth * y / newHeight;
-                newHeight = y;
-            }
-
-            // TODO : Save an Animated Gif
-            var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
-
-            var resized = new MemoryStream();
-            bitmap.Save(resized, img.RawFormat);
-            return resized;
+            newHeight = newHeight * x / newWidth;
+            newWidth = x;
         }
 
-        #endregion
+        if (newHeight > y)
+        {
+            newWidth = newWidth * y / newHeight;
+            newHeight = y;
+        }
+
+        // TODO : Save an Animated Gif
+        var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
+
+        var resized = new MemoryStream();
+        bitmap.Save(resized, img.RawFormat);
+        return resized;
     }
+
+    #endregion
 }

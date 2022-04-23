@@ -22,58 +22,57 @@
  * under the License.
  */
 
-namespace YAF.Core.Services
+namespace YAF.Core.Services;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// The YAF board folders.
+/// </summary>
+public class BoardFolders
 {
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Types.Interfaces;
+    /// <summary>
+    /// Gets BoardFolder.
+    /// </summary>
+    public string BoardFolder =>
+        Config.MultiBoardFolders
+            ? $"{Config.BoardRoot}{BoardContext.Current.Get<ControlSettings>().BoardID}/"
+            : Config.BoardRoot;
 
     /// <summary>
-    /// The YAF board folders.
+    /// Gets Uploads.
     /// </summary>
-    public class BoardFolders
-    {
-        /// <summary>
-        /// Gets BoardFolder.
-        /// </summary>
-        public string BoardFolder =>
-            Config.MultiBoardFolders
-                ? $"{Config.BoardRoot}{BoardContext.Current.Get<ControlSettings>().BoardID}/"
-                : Config.BoardRoot;
+    public string Uploads => $"{this.BoardFolder}Uploads";
 
-        /// <summary>
-        /// Gets Uploads.
-        /// </summary>
-        public string Uploads => $"{this.BoardFolder}Uploads";
+    /// <summary>
+    /// Gets Images.
+    /// </summary>
+    public string Images => $"{this.BoardFolder}Images";
 
-        /// <summary>
-        /// Gets Images.
-        /// </summary>
-        public string Images => $"{this.BoardFolder}Images";
+    /// <summary>
+    /// Gets Avatars.
+    /// </summary>
+    public string Avatars => $"{this.BoardFolder}Images/Avatars";
 
-        /// <summary>
-        /// Gets Avatars.
-        /// </summary>
-        public string Avatars => $"{this.BoardFolder}Images/Avatars";
+    /// <summary>
+    /// Gets Categories.
+    /// </summary>
+    public string Categories => $"{this.BoardFolder}Images/Categories";
 
-        /// <summary>
-        /// Gets Categories.
-        /// </summary>
-        public string Categories => $"{this.BoardFolder}Images/Categories";
+    /// <summary>
+    /// Gets Categories.
+    /// </summary>
+    public string Forums => $"{this.BoardFolder}Images/Forums";
 
-        /// <summary>
-        /// Gets Categories.
-        /// </summary>
-        public string Forums => $"{this.BoardFolder}Images/Forums";
+    /// <summary>
+    /// Gets Medals.
+    /// </summary>
+    public string Medals => $"{this.BoardFolder}Images/Medals";
 
-        /// <summary>
-        /// Gets Medals.
-        /// </summary>
-        public string Medals => $"{this.BoardFolder}Images/Medals";
-
-        /// <summary>
-        /// Gets Logos.
-        /// </summary>
-        public string Logos => $"{this.BoardFolder}Images/Logos";
-    }
+    /// <summary>
+    /// Gets Logos.
+    /// </summary>
+    public string Logos => $"{this.BoardFolder}Images/Logos";
 }

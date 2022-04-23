@@ -22,22 +22,21 @@
  * under the License.
  */
 
-namespace YAF.Core.Identity.Owin
+namespace YAF.Core.Identity.Owin;
+
+/// <summary>
+/// Interface For oAUTH
+/// </summary>
+public interface IAuthBase
 {
     /// <summary>
-    /// Interface For oAUTH
+    /// The login or create user.
     /// </summary>
-    public interface IAuthBase
-    {
-        /// <summary>
-        /// The login or create user.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        bool LoginOrCreateUser(out string message);
-    }
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    bool LoginOrCreateUser(out string message);
 }

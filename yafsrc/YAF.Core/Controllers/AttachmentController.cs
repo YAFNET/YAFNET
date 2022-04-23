@@ -22,98 +22,97 @@
  * under the License.
  */
 
-namespace YAF.Core.Controllers
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Http;
+namespace YAF.Core.Controllers;
 
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Types.Objects;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+
+/// <summary>
+/// The YAF Attachment controller.
+/// </summary>
+[RoutePrefix("api")]
+public class AttachmentController : ApiController, IHaveServiceLocator
+{
+    #region Properties
 
     /// <summary>
-    /// The YAF Attachment controller.
+    ///   Gets ServiceLocator.
     /// </summary>
-    [RoutePrefix("api")]
-    public class AttachmentController : ApiController, IHaveServiceLocator
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+
+    #endregion
+
+    /// <summary>
+    /// Gets the paged attachments.
+    /// </summary>
+    /// <param name="pagedResults">
+    /// The paged Results.
+    /// </param>
+    /// <returns>
+    /// Returns the Attachment List as Grid Data Set
+    /// </returns>
+    [Route("Attachment/GetAttachments")]
+    [HttpPost]
+    public IHttpActionResult GetAttachments(PagedResults pagedResults)
     {
-        #region Properties
+        var userId = BoardContext.Current.PageUserID;
+        var pageSize = pagedResults.PageSize;
+        var pageNumber = pagedResults.PageNumber;
 
-        /// <summary>
-        ///   Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+        var attachments = this.GetRepository<Attachment>().GetPaged(
+            a => a.UserID == userId,
+            pageNumber,
+            pageSize);
 
-        #endregion
+        var attachmentItems = new List<AttachmentItem>();
 
-        /// <summary>
-        /// Gets the paged attachments.
-        /// </summary>
-        /// <param name="pagedResults">
-        /// The paged Results.
-        /// </param>
-        /// <returns>
-        /// Returns the Attachment List as Grid Data Set
-        /// </returns>
-        [Route("Attachment/GetAttachments")]
-        [HttpPost]
-        public IHttpActionResult GetAttachments(PagedResults pagedResults)
-        {
-            var userId = BoardContext.Current.PageUserID;
-            var pageSize = pagedResults.PageSize;
-            var pageNumber = pagedResults.PageNumber;
+        attachments.ForEach(
+            attach =>
+                {
+                    var url =
+                        $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&editor=true";
 
-            var attachments = this.GetRepository<Attachment>().GetPaged(
-                a => a.UserID == userId,
-                pageNumber,
-                pageSize);
+                    var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
 
-            var attachmentItems = new List<AttachmentItem>();
+                    var iconImage = attach.FileName.IsImageName()
+                                        ? $@"<img src=""{url}"" alt=""{description}"" title=""{description}"" class=""img-fluid img-thumbnail me-1"" />"
+                                        : "<i class=\"far fa-file-alt attachment-icon\"></i>";
 
-            attachments.ForEach(
-                attach =>
+                    var attachment = new AttachmentItem
+                                         {
+                                             FileName = attach.FileName,
+                                             OnClick = $"CKEDITOR.tools.insertAttachment('{attach.ID}')",
+                                             IconImage = $@"{iconImage}<span>{description}</span>"
+                                         };
+
+                    if (attach.FileName.IsImageName())
                     {
-                        var url =
-                            $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&editor=true";
+                        attachment.DataURL = url;
+                    }
 
-                        var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
+                    attachmentItems.Add(attachment);
+                });
 
-                        var iconImage = attach.FileName.IsImageName()
-                                            ? $@"<img src=""{url}"" alt=""{description}"" title=""{description}"" class=""img-fluid img-thumbnail me-1"" />"
-                                            : "<i class=\"far fa-file-alt attachment-icon\"></i>";
-
-                        var attachment = new AttachmentItem
-                        {
-                                                 FileName = attach.FileName,
-                                                 OnClick = $"CKEDITOR.tools.insertAttachment('{attach.ID}')",
-                                                 IconImage = $@"{iconImage}<span>{description}</span>"
-                                             };
-
-                        if (attach.FileName.IsImageName())
-                        {
-                            attachment.DataURL = url;
-                        }
-
-                        attachmentItems.Add(attachment);
-                    });
-
-            return this.Ok(
-                new GridDataSet
-                    {
-                        PageNumber = pageNumber,
-                        TotalRecords =
-                            attachments.Any()
-                                ? this.GetRepository<Attachment>().Count(a => a.UserID == userId)
-                                    .ToType<int>()
-                                : 0,
-                        PageSize = pageSize,
-                        AttachmentList = attachmentItems
-                    });
-        }
+        return this.Ok(
+            new GridDataSet
+                {
+                    PageNumber = pageNumber,
+                    TotalRecords =
+                        attachments.Any()
+                            ? this.GetRepository<Attachment>().Count(a => a.UserID == userId)
+                                .ToType<int>()
+                            : 0,
+                    PageSize = pageSize,
+                    AttachmentList = attachmentItems
+                });
     }
 }

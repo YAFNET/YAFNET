@@ -22,172 +22,171 @@
  * under the License.
  */
 
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Flags;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the Forum table.
+/// </summary>
+[Serializable]
+[UniqueConstraint(nameof(CategoryID), nameof(Name))]
+public class Forum : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the Forum table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    [UniqueConstraint(nameof(CategoryID), nameof(Name))]
-    public class Forum : IEntity, IHaveID
+    [AutoIncrement]
+    [Alias("ForumID")]
+    public int ID { get; set; }
+
+    [Reference]
+    public Category Category { get; set; }
+
+    /// <summary>
+    /// Gets or sets the category id.
+    /// </summary>
+    [References(typeof(Category))]
+    [Required]
+    [Index]
+    public int CategoryID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the parent id.
+    /// </summary>
+    [References(typeof(Forum))]
+    [Index]
+    public int? ParentID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    [Required]
+    [StringLength(50)]
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the description.
+    /// </summary>
+    [StringLength(255)]
+    public string Description { get; set; }
+
+    /// <summary>
+    /// Gets or sets the sort order.
+    /// </summary>
+    [Required]
+    public int SortOrder { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last posted.
+    /// </summary>
+    public DateTime? LastPosted { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last topic id.
+    /// </summary>
+    public int? LastTopicID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last message id.
+    /// </summary>
+    public int? LastMessageID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last user id.
+    /// </summary>
+    [References(typeof(User))]
+    public int? LastUserID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last user name.
+    /// </summary>
+    [StringLength(255)]
+    public string LastUserName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last user display name.
+    /// </summary>
+    [StringLength(255)]
+    public string LastUserDisplayName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of topics.
+    /// </summary>
+    [Required]
+    public int NumTopics { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of posts.
+    /// </summary>
+    [Required]
+    public int NumPosts { get; set; }
+
+    /// <summary>
+    /// Gets or sets the remote url.
+    /// </summary>
+    [StringLength(100)]
+    public string RemoteURL { get; set; }
+
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    [Required]
+    [Index]
+    [Default(0)]
+    public int Flags { get; set; }
+
+    /// <summary>
+    /// Gets or sets the forum flags.
+    /// </summary>
+    [Ignore]
+    public ForumFlags ForumFlags
     {
-        #region Properties
+        get => new(this.Flags);
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("ForumID")]
-        public int ID { get; set; }
-
-        [Reference]
-        public Category Category { get; set; }
-
-        /// <summary>
-        /// Gets or sets the category id.
-        /// </summary>
-        [References(typeof(Category))]
-        [Required]
-        [Index]
-        public int CategoryID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the parent id.
-        /// </summary>
-        [References(typeof(Forum))]
-        [Index]
-        public int? ParentID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        [Required]
-        [StringLength(50)]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        [StringLength(255)]
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sort order.
-        /// </summary>
-        [Required]
-        public int SortOrder { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last posted.
-        /// </summary>
-        public DateTime? LastPosted { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last topic id.
-        /// </summary>
-        public int? LastTopicID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last message id.
-        /// </summary>
-        public int? LastMessageID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last user id.
-        /// </summary>
-        [References(typeof(User))]
-        public int? LastUserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last user name.
-        /// </summary>
-        [StringLength(255)]
-        public string LastUserName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last user display name.
-        /// </summary>
-        [StringLength(255)]
-        public string LastUserDisplayName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the number of topics.
-        /// </summary>
-        [Required]
-        public int NumTopics { get; set; }
-
-        /// <summary>
-        /// Gets or sets the number of posts.
-        /// </summary>
-        [Required]
-        public int NumPosts { get; set; }
-
-        /// <summary>
-        /// Gets or sets the remote url.
-        /// </summary>
-        [StringLength(100)]
-        public string RemoteURL { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flags.
-        /// </summary>
-        [Required]
-        [Index]
-        [Default(0)]
-        public int Flags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the forum flags.
-        /// </summary>
-        [Ignore]
-        public ForumFlags ForumFlags
-        {
-            get => new(this.Flags);
-
-            set => this.Flags = value.BitValue;
-        }
-
-        /// <summary>
-        /// Gets or sets the theme url.
-        /// </summary>
-        [StringLength(50)]
-        public string ThemeURL { get; set; }
-
-        /// <summary>
-        /// Gets or sets the image url.
-        /// </summary>
-        [StringLength(128)]
-        public string ImageURL { get; set; }
-
-        /// <summary>
-        /// Gets or sets the styles.
-        /// </summary>
-        [StringLength(255)]
-        public string Styles { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        public int? UserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the moderated post count.
-        /// </summary>
-        public int? ModeratedPostCount { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether is moderated new topic only.
-        /// </summary>
-        [Default(typeof(bool), "0")]
-        public bool IsModeratedNewTopicOnly { get; set; }
-
-        #endregion
+        set => this.Flags = value.BitValue;
     }
+
+    /// <summary>
+    /// Gets or sets the theme url.
+    /// </summary>
+    [StringLength(50)]
+    public string ThemeURL { get; set; }
+
+    /// <summary>
+    /// Gets or sets the image url.
+    /// </summary>
+    [StringLength(128)]
+    public string ImageURL { get; set; }
+
+    /// <summary>
+    /// Gets or sets the styles.
+    /// </summary>
+    [StringLength(255)]
+    public string Styles { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    public int? UserID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the moderated post count.
+    /// </summary>
+    public int? ModeratedPostCount { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether is moderated new topic only.
+    /// </summary>
+    [Default(typeof(bool), "0")]
+    public bool IsModeratedNewTopicOnly { get; set; }
+
+    #endregion
 }

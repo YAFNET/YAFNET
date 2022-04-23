@@ -21,114 +21,113 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Pages.Account
+namespace YAF.Pages.Account;
+
+#region Using
+
+#endregion
+
+/// <summary>
+/// The Reset Password Page.
+/// </summary>
+public partial class ResetPassword : AccountPage
 {
-    #region Using
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "ResetPassword" /> class.
+    /// </summary>
+    public ResetPassword()
+        : base("ACCOUNT_RESEST_PASSWORD", ForumPages.Account_ResetPassword)
+    {
+    }
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The Reset Password Page.
+    ///   Gets a value indicating whether IsProtected.
     /// </summary>
-    public partial class ResetPassword : AccountPage
+    public override bool IsProtected => false;
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "ResetPassword" /> class.
-        /// </summary>
-        public ResetPassword()
-            : base("ACCOUNT_RESEST_PASSWORD", ForumPages.Account_ResetPassword)
+        if (this.IsPostBack)
         {
+            this.ContentBody.CssClass = "card-body was-validated";
+            return;
         }
 
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets a value indicating whether IsProtected.
-        /// </summary>
-        public override bool IsProtected => false;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        if (!this.Get<HttpRequestBase>().QueryString.Exists("code"))
         {
-            if (this.IsPostBack)
-            {
-                this.ContentBody.CssClass = "card-body was-validated";
-                return;
-            }
-
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("code"))
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-                return;
-            }
-
-            this.DataBind();
+            this.Get<LinkBuilder>().AccessDenied();
+            return;
         }
 
-        /// <summary>
-        /// Create the Page links.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("TITLE"));
-        }
-
-        /// <summary>
-        /// Reset Password for the user
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void ResetClick(object sender, EventArgs e)
-        {
-            if (!this.Page.IsValid)
-            {
-                return;
-            }
-
-            var user = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text);
-
-            if (user == null)
-            {
-                this.PageBoardContext.Notify(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
-                return;
-            }
-
-            var code = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("code");
-
-            var result = this.Get<IAspNetUsersHelper>().ResetPassword(user.Id, code, this.Password.Text);
-
-            if (result.Succeeded)
-            {
-                // Get User again to get updated Password Hash
-                user = this.Get<IAspNetUsersHelper>().GetUser(user.Id);
-
-                this.Get<IAspNetUsersHelper>().SignIn(user);
-
-                this.Get<LinkBuilder>().Redirect(ForumPages.Board);
-
-                return;
-            }
-
-            this.PageBoardContext.Notify(result.Errors.FirstOrDefault(), MessageTypes.danger);
-        }
-
-        #endregion
+        this.DataBind();
     }
+
+    /// <summary>
+    /// Create the Page links.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        this.PageLinks.AddRoot();
+        this.PageLinks.AddLink(this.GetText("TITLE"));
+    }
+
+    /// <summary>
+    /// Reset Password for the user
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ResetClick(object sender, EventArgs e)
+    {
+        if (!this.Page.IsValid)
+        {
+            return;
+        }
+
+        var user = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text);
+
+        if (user == null)
+        {
+            this.PageBoardContext.Notify(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
+            return;
+        }
+
+        var code = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("code");
+
+        var result = this.Get<IAspNetUsersHelper>().ResetPassword(user.Id, code, this.Password.Text);
+
+        if (result.Succeeded)
+        {
+            // Get User again to get updated Password Hash
+            user = this.Get<IAspNetUsersHelper>().GetUser(user.Id);
+
+            this.Get<IAspNetUsersHelper>().SignIn(user);
+
+            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
+
+            return;
+        }
+
+        this.PageBoardContext.Notify(result.Errors.FirstOrDefault(), MessageTypes.danger);
+    }
+
+    #endregion
 }

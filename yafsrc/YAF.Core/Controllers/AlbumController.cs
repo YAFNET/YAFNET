@@ -22,108 +22,107 @@
  * under the License.
  */
 
-namespace YAF.Core.Controllers
+namespace YAF.Core.Controllers;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+
+using Newtonsoft.Json.Linq;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Model;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+
+/// <summary>
+/// The YAF Album controller.
+/// </summary>
+[RoutePrefix("api")]
+public class AlbumController : ApiController, IHaveServiceLocator
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Http;
-
-    using Newtonsoft.Json.Linq;
-
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Model;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
-    using YAF.Types.Objects;
+    #region Properties
 
     /// <summary>
-    /// The YAF Album controller.
+    ///   Gets ServiceLocator.
     /// </summary>
-    [RoutePrefix("api")]
-    public class AlbumController : ApiController, IHaveServiceLocator
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+
+    #endregion
+
+    /// <summary>
+    /// The change image caption.
+    /// </summary>
+    /// <param name="jsonData">
+    /// The JSON Data.
+    /// </param>
+    /// <returns>
+    /// the return object.
+    /// </returns>
+    [Route("Album/ChangeImageCaption")]
+    [HttpPost]
+    public IHttpActionResult ChangeImageCaption(JObject jsonData)
     {
-        #region Properties
+        dynamic json = jsonData;
 
-        /// <summary>
-        ///   Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+        return this.Ok(this.Get<IAlbum>().ChangeImageCaption((int)json.ImageId, (string)json.NewCaption));
+    }
 
-        #endregion
+    /// <summary>
+    /// Gets the paged album images
+    /// </summary>
+    /// <param name="pagedResults">
+    /// The paged Results.
+    /// </param>
+    /// <returns>
+    /// Returns the Attachment List as Grid Data Set
+    /// </returns>
+    [Route("Album/GetAlbumImages")]
+    [HttpPost]
+    public IHttpActionResult GetAlbumImages(PagedResults pagedResults)
+    {
+        var userId = BoardContext.Current.PageUserID;
+        var pageSize = pagedResults.PageSize;
+        var pageNumber = pagedResults.PageNumber;
 
-        /// <summary>
-        /// The change image caption.
-        /// </summary>
-        /// <param name="jsonData">
-        /// The JSON Data.
-        /// </param>
-        /// <returns>
-        /// the return object.
-        /// </returns>
-        [Route("Album/ChangeImageCaption")]
-        [HttpPost]
-        public IHttpActionResult ChangeImageCaption(JObject jsonData)
-        {
-            dynamic json = jsonData;
+        var albumImages = this.GetRepository<UserAlbumImage>().GetUserAlbumImagesPaged(
+            userId,
+            pageNumber,
+            pageSize);
 
-            return this.Ok(this.Get<IAlbum>().ChangeImageCaption((int)json.ImageId, (string)json.NewCaption));
-        }
+        var images = new List<AttachmentItem>();
 
-        /// <summary>
-        /// Gets the paged album images
-        /// </summary>
-        /// <param name="pagedResults">
-        /// The paged Results.
-        /// </param>
-        /// <returns>
-        /// Returns the Attachment List as Grid Data Set
-        /// </returns>
-        [Route("Album/GetAlbumImages")]
-        [HttpPost]
-        public IHttpActionResult GetAlbumImages(PagedResults pagedResults)
-        {
-            var userId = BoardContext.Current.PageUserID;
-            var pageSize = pagedResults.PageSize;
-            var pageNumber = pagedResults.PageNumber;
+        albumImages.ForEach(
+            image =>
+                {
+                    var url = $"{BoardInfo.ForumClientFileRoot}resource.ashx?imgprv={image.ID}";
 
-            var albumImages = this.GetRepository<UserAlbumImage>().GetUserAlbumImagesPaged(
-                userId,
-                pageNumber,
-                pageSize);
+                    var attachment = new AttachmentItem
+                                         {
+                                             FileName = image.FileName,
+                                             OnClick = $"CKEDITOR.tools.insertAlbumImage('{image.ID}')",
+                                             IconImage =
+                                                 $@"<img src=""{url}"" alt=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" title=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" class=""img-fluid img-thumbnail me-1"" />",
+                                             DataURL = url
+                                         };
 
-            var images = new List<AttachmentItem>();
+                    images.Add(attachment);
+                });
 
-            albumImages.ForEach(
-                image =>
-                    {
-                        var url = $"{BoardInfo.ForumClientFileRoot}resource.ashx?imgprv={image.ID}";
-
-                        var attachment = new AttachmentItem
-                        {
-                                                 FileName = image.FileName,
-                                                 OnClick = $"CKEDITOR.tools.insertAlbumImage('{image.ID}')",
-                                                 IconImage =
-                                                     $@"<img src=""{url}"" alt=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" title=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" class=""img-fluid img-thumbnail me-1"" />",
-                                                 DataURL = url
-                                             };
-
-                        images.Add(attachment);
-                    });
-
-            return this.Ok(
-                new GridDataSet
-                    {
-                        PageNumber = pageNumber,
-                        TotalRecords =
-                            albumImages.Any()
-                                ? this.GetRepository<UserAlbumImage>().GetUserAlbumImageCount(userId)
-                                : 0,
-                        PageSize = pageSize,
-                        AttachmentList = images
-                    });
-        }
+        return this.Ok(
+            new GridDataSet
+                {
+                    PageNumber = pageNumber,
+                    TotalRecords =
+                        albumImages.Any()
+                            ? this.GetRepository<UserAlbumImage>().GetUserAlbumImageCount(userId)
+                            : 0,
+                    PageSize = pageSize,
+                    AttachmentList = images
+                });
     }
 }

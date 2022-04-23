@@ -21,87 +21,86 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Controls
+namespace YAF.Web.Controls;
+
+#region Using
+
+using System.Web.UI;
+
+using YAF.Core.BaseControls;
+using YAF.Core.Helpers;
+using YAF.Core.Services;
+using YAF.Types;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+/// The RSS feed link (with optional icon)
+/// </summary>
+public class RssFeedLink : BaseControl
 {
-    #region Using
-
-    using System.Web.UI;
-
-    using YAF.Core.BaseControls;
-    using YAF.Core.Helpers;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-
-    #endregion
+    #region Methods
 
     /// <summary>
-    /// The RSS feed link (with optional icon)
+    /// Renders the specified output.
     /// </summary>
-    public class RssFeedLink : BaseControl
+    /// <param name="writer">The output.</param>
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
-        #region Methods
-
-        /// <summary>
-        /// Renders the specified output.
-        /// </summary>
-        /// <param name="writer">The output.</param>
-        protected override void Render([NotNull] HtmlTextWriter writer)
+        if (!this.Visible)
         {
-            if (!this.Visible)
-            {
-                return;
-            }
-
-            if (!this.PageBoardContext.BoardSettings.ShowAtomLink)
-            {
-                return;
-            }
-
-            writer.BeginRender();
-
-            string url;
-
-            if (this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Topics or ForumPages.Posts)
-            {
-                url = this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Topics
-                          ? this.Get<LinkBuilder>().GetLink(
-                              ForumPages.Feed,
-                              new
-                                  {
-                                      feed = RssFeeds.Topics.ToInt(),
-                                      f = this.PageBoardContext.PageForumID,
-                                      name = UrlRewriteHelper.CleanStringForURL(this.PageBoardContext.PageForum.Name)
-                                  })
-                          : this.Get<LinkBuilder>().GetLink(
-                              ForumPages.Feed,
-                              new
-                                  {
-                                      feed = RssFeeds.Posts.ToInt(),
-                                      t = this.PageBoardContext.PageTopicID,
-                                      name = UrlRewriteHelper.CleanStringForURL(this.PageBoardContext.PageTopic.TopicName)
-                                  });
-            }
-            else
-            {
-                url = this.Get<LinkBuilder>().GetLink(ForumPages.Feed, new {feed = RssFeeds.LatestPosts.ToInt()});
-            }
-
-            new ThemeButton
-                {
-                    Type = ButtonStyle.Warning,
-                    Size = ButtonSize.Small,
-                    Icon = "rss-square",
-                    DataToggle = "tooltip",
-                    TitleNonLocalized = this.GetText("ATOMFEED"),
-                    NavigateUrl = url
-                }.RenderControl(writer);
-
-            writer.EndRender();
+            return;
         }
 
-        #endregion
+        if (!this.PageBoardContext.BoardSettings.ShowAtomLink)
+        {
+            return;
+        }
+
+        writer.BeginRender();
+
+        string url;
+
+        if (this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Topics or ForumPages.Posts)
+        {
+            url = this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Topics
+                      ? this.Get<LinkBuilder>().GetLink(
+                          ForumPages.Feed,
+                          new
+                              {
+                                  feed = RssFeeds.Topics.ToInt(),
+                                  f = this.PageBoardContext.PageForumID,
+                                  name = UrlRewriteHelper.CleanStringForURL(this.PageBoardContext.PageForum.Name)
+                              })
+                      : this.Get<LinkBuilder>().GetLink(
+                          ForumPages.Feed,
+                          new
+                              {
+                                  feed = RssFeeds.Posts.ToInt(),
+                                  t = this.PageBoardContext.PageTopicID,
+                                  name = UrlRewriteHelper.CleanStringForURL(this.PageBoardContext.PageTopic.TopicName)
+                              });
+        }
+        else
+        {
+            url = this.Get<LinkBuilder>().GetLink(ForumPages.Feed, new {feed = RssFeeds.LatestPosts.ToInt()});
+        }
+
+        new ThemeButton
+            {
+                Type = ButtonStyle.Warning,
+                Size = ButtonSize.Small,
+                Icon = "rss-square",
+                DataToggle = "tooltip",
+                TitleNonLocalized = this.GetText("ATOMFEED"),
+                NavigateUrl = url
+            }.RenderControl(writer);
+
+        writer.EndRender();
     }
+
+    #endregion
 }

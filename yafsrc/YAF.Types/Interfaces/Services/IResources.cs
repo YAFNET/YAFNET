@@ -21,49 +21,48 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services
+namespace YAF.Types.Interfaces.Services;
+
+using System.Web;
+
+/// <summary>
+/// The Resources interface.
+/// </summary>
+public interface IResources
 {
-    using System.Web;
+    /// <summary>
+    /// Gets the forum user info as JSON string for the hover cards
+    /// </summary>
+    /// <param name="context">The context.</param>
+    void GetUserInfo([NotNull] HttpContext context);
 
     /// <summary>
-    /// The Resources interface.
+    /// Gets the list of all Custom BB Codes
     /// </summary>
-    public interface IResources
-    {
-        /// <summary>
-        /// Gets the forum user info as JSON string for the hover cards
-        /// </summary>
-        /// <param name="context">The context.</param>
-        void GetUserInfo([NotNull] HttpContext context);
+    /// <param name="context">The context.</param>
+    void GetCustomBBCodes([NotNull] HttpContext context);
 
-        /// <summary>
-        /// Gets the list of all Custom BB Codes
-        /// </summary>
-        /// <param name="context">The context.</param>
-        void GetCustomBBCodes([NotNull] HttpContext context);
+    /// <summary>
+    /// Get all Mentioned Users
+    /// </summary>
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    void GetMentionUsers([NotNull] HttpContext context);
 
-        /// <summary>
-        /// Get all Mentioned Users
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        void GetMentionUsers([NotNull] HttpContext context);
+    /// <summary>
+    /// Gets the Default Text Avatar
+    /// </summary>
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    void GetTextAvatar([NotNull] HttpContext context);
 
-        /// <summary>
-        /// Gets the Default Text Avatar
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        void GetTextAvatar([NotNull] HttpContext context);
-
-        /// <summary>
-        /// The get response local avatar.
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        void GetResponseLocalAvatar([NotNull] HttpContext context);
-    }
+    /// <summary>
+    /// The get response local avatar.
+    /// </summary>
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    void GetResponseLocalAvatar([NotNull] HttpContext context);
 }

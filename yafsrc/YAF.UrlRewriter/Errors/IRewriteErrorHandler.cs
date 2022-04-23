@@ -5,19 +5,18 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter.Errors
-{
-    using System.Web;
+namespace YAF.UrlRewriter.Errors;
 
+using System.Web;
+
+/// <summary>
+/// Interface for rewriter error handlers.
+/// </summary>
+public interface IRewriteErrorHandler
+{
     /// <summary>
-    /// Interface for rewriter error handlers.
+    /// Handles the error.
     /// </summary>
-    public interface IRewriteErrorHandler
-    {
-        /// <summary>
-        /// Handles the error.
-        /// </summary>
-        /// <param name="context">The HTTP context.</param>
-        void HandleError(HttpContext context);
-    }
+    /// <param name="context">The HTTP context.</param>
+    void HandleError(HttpContext context);
 }

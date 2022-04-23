@@ -21,30 +21,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// the module definition
+/// </summary>
+public interface IModuleDefinition
 {
+    #region Properties
+
     /// <summary>
-    /// the module definition
+    ///   Gets a value indicating whether Active.
     /// </summary>
-    public interface IModuleDefinition
-    {
-        #region Properties
+    bool Active { get; }
 
-        /// <summary>
-        ///   Gets a value indicating whether Active.
-        /// </summary>
-        bool Active { get; }
+    /// <summary>
+    ///   Gets Description.
+    /// </summary>
+    string Description { get; }
 
-        /// <summary>
-        ///   Gets Description.
-        /// </summary>
-        string Description { get; }
+    /// <summary>
+    ///   Gets ModuleId.
+    /// </summary>
+    string ModuleId { get; }
 
-        /// <summary>
-        ///   Gets ModuleId.
-        /// </summary>
-        string ModuleId { get; }
-
-        #endregion
-    }
+    #endregion
 }

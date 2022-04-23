@@ -22,33 +22,32 @@
  * under the License.
  */
 
-namespace YAF.Data.SqlServer
+namespace YAF.Data.SqlServer;
+
+using System.Data.Common;
+using System.Data.SqlClient;
+
+using Autofac;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The MS SQL module.
+/// </summary>
+public class SqlServerModule : Module
 {
-    using System.Data.Common;
-    using System.Data.SqlClient;
-
-    using Autofac;
-
-    using YAF.Types.Interfaces.Data;
-
     /// <summary>
-    /// The MS SQL module.
+    /// The load.
     /// </summary>
-    public class SqlServerModule : Module
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    protected override void Load(ContainerBuilder builder)
     {
-        /// <summary>
-        /// The load.
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterInstance<DbProviderFactory>(SqlClientFactory.Instance);
+        builder.RegisterInstance<DbProviderFactory>(SqlClientFactory.Instance);
 
-            builder.RegisterType<SqlServerDbAccess>()
-                .Named<IDbAccess>(SqlServerDbAccess.ProviderTypeName)
-                .InstancePerLifetimeScope();
-        }
+        builder.RegisterType<SqlServerDbAccess>()
+            .Named<IDbAccess>(SqlServerDbAccess.ProviderTypeName)
+            .InstancePerLifetimeScope();
     }
 }

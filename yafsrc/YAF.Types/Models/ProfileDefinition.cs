@@ -21,86 +21,85 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the ProfileDefinition table.
+/// </summary>
+[Serializable]
+
+[UniqueConstraint(nameof(ID))]
+public class ProfileDefinition : IEntity, IHaveID, IHaveBoardID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the ProfileDefinition table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
+    [Alias("ProfileDefinitionID")]
+    [AutoIncrement]
+    public int ID { get; set; }
 
-    [UniqueConstraint(nameof(ID))]
-    public class ProfileDefinition : IEntity, IHaveID, IHaveBoardID
-    {
-        #region Properties
+    /// <summary>
+    /// Gets or sets the board id.
+    /// </summary>
+    [References(typeof(Board))]
+    [Required]
+    public int BoardID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [Alias("ProfileDefinitionID")]
-        [AutoIncrement]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    [Required]
+    public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
-        [References(typeof(Board))]
-        [Required]
-        public int BoardID { get; set; }
+    /// <summary>
+    /// Gets or sets the data type.
+    /// </summary>
+    [Required]
+    public string DataType { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        [Required]
-        public string Name { get; set; }
+    /// <summary>
+    /// Gets or sets the default value.
+    /// </summary>
+    [Required]
+    public string DefaultValue { get; set; }
 
-        /// <summary>
-        /// Gets or sets the data type.
-        /// </summary>
-        [Required]
-        public string DataType { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether required.
+    /// </summary>
+    [Required]
+    public bool Required { get; set; }
 
-        /// <summary>
-        /// Gets or sets the default value.
-        /// </summary>
-        [Required]
-        public string DefaultValue { get; set; }
+    /// <summary>
+    /// Gets or sets the length.
+    /// </summary>
+    [Required]
+    public int Length { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether required.
-        /// </summary>
-        [Required]
-        public bool Required { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether show in user info.
+    /// </summary>
+    [Required]
+    [Default(0)]
+    public bool ShowInUserInfo { get; set; }
 
-        /// <summary>
-        /// Gets or sets the length.
-        /// </summary>
-        [Required]
-        public int Length { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether show on register page.
+    /// </summary>
+    [Required]
+    [Default(0)]
+    public bool ShowOnRegisterPage { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether show in user info.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public bool ShowInUserInfo { get; set; }
+    [Ignore]
+    public string Value { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether show on register page.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public bool ShowOnRegisterPage { get; set; }
-
-        [Ignore]
-        public string Value { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

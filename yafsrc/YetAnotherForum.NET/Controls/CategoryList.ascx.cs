@@ -21,250 +21,249 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
-{
-    #region Using
+namespace YAF.Controls;
 
-    using YAF.Types.Objects;
-    using YAF.Web.Controls;
-    using YAF.Types.Models;
+#region Using
+
+using YAF.Types.Objects;
+using YAF.Web.Controls;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The category list.
+/// </summary>
+public partial class CategoryList : BaseUserControl
+{
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets the page index.
+    /// </summary>
+    public int PageIndex
+    {
+        get => this.ViewState["PageIndex"]?.ToType<int>() ?? 0;
+
+        set => this.ViewState["PageIndex"] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the data.
+    /// </summary>
+    private Tuple<List<SimpleModerator>, List<ForumRead>> Data
+    {
+        get => this.ViewState["Data"]?.ToType<Tuple<List<SimpleModerator>, List<ForumRead>>>();
+
+        set => this.ViewState["Data"] = value;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The category list.
+    /// Gets the Category Image
     /// </summary>
-    public partial class CategoryList : BaseUserControl
+    /// <param name="forum">
+    /// The forum.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public string GetCategoryImage([NotNull] ForumRead forum)
     {
-        #region Properties
+        var hasCategoryImage = forum.CategoryImage.IsSet();
 
-        /// <summary>
-        /// Gets or sets the page index.
-        /// </summary>
-        public int PageIndex
-        {
-            get => this.ViewState["PageIndex"]?.ToType<int>() ?? 0;
+        var image = new Image
+                        {
+                            ImageUrl =
+                                $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Categories}/{forum.CategoryImage}",
+                            AlternateText = forum.Category
+                        };
 
-            set => this.ViewState["PageIndex"] = value;
-        }
+        var icon = new Icon { IconName = "folder", IconType = "text-warning" };
 
-        /// <summary>
-        /// Gets or sets the data.
-        /// </summary>
-        private Tuple<List<SimpleModerator>, List<ForumRead>> Data
-        {
-            get => this.ViewState["Data"]?.ToType<Tuple<List<SimpleModerator>, List<ForumRead>>>();
+        return hasCategoryImage
+                   ? $"{image.RenderToString()}&nbsp;"
+                   : $"{icon.RenderToString()}&nbsp;";
+    }
 
-            set => this.ViewState["Data"] = value;
-        }
+    /// <summary>
+    /// The mark all_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void WatchAllClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        var markAll = (ThemeButton)sender;
 
-        #endregion
+        var categoryId = markAll.CommandArgument.ToType<int?>();
 
-        #region Methods
+        var forums = this.Data.Item2.Where(x => x.CategoryID == categoryId);
 
-        /// <summary>
-        /// Gets the Category Image
-        /// </summary>
-        /// <param name="forum">
-        /// The forum.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string GetCategoryImage([NotNull] ForumRead forum)
-        {
-            var hasCategoryImage = forum.CategoryImage.IsSet();
+        var watchForums = this.GetRepository<WatchForum>().List(this.PageBoardContext.PageUserID);
 
-            var image = new Image
-            {
-                ImageUrl =
-                                    $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Categories}/{forum.CategoryImage}",
-                AlternateText = forum.Category
-            };
-
-            var icon = new Icon { IconName = "folder", IconType = "text-warning" };
-
-            return hasCategoryImage
-                       ? $"{image.RenderToString()}&nbsp;"
-                       : $"{icon.RenderToString()}&nbsp;";
-        }
-
-        /// <summary>
-        /// The mark all_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void WatchAllClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var markAll = (ThemeButton)sender;
-
-            var categoryId = markAll.CommandArgument.ToType<int?>();
-
-            var forums = this.Data.Item2.Where(x => x.CategoryID == categoryId);
-
-            var watchForums = this.GetRepository<WatchForum>().List(this.PageBoardContext.PageUserID);
-
-            forums.ForEach(
-                forum =>
+        forums.ForEach(
+            forum =>
                 {
                     if (!watchForums.Any(
-                        w => w.Item1.ForumID == forum.ForumID && w.Item1.UserID == this.PageBoardContext.PageUserID))
+                            w => w.Item1.ForumID == forum.ForumID && w.Item1.UserID == this.PageBoardContext.PageUserID))
                     {
                         this.GetRepository<WatchForum>().Add(this.PageBoardContext.PageUserID, forum.ForumID);
                     }
                 });
 
-            this.PageBoardContext.Notify(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
+        this.PageBoardContext.Notify(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
 
-            this.BindData();
-        }
+        this.BindData();
+    }
 
-        /// <summary>
-        /// The mark all_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void MarkAllClick([NotNull] object sender, [NotNull] EventArgs e)
+    /// <summary>
+    /// The mark all_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void MarkAllClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        var markAll = (ThemeButton)sender;
+
+        var categoryId = markAll.CommandArgument.ToType<int?>();
+
+        var forums = this.Data.Item2.Where(x => x.CategoryID == categoryId);
+
+        this.Get<IReadTrackCurrentUser>().SetForumRead(forums.Select(f => f.ForumID));
+
+        this.PageBoardContext.Notify(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Load more categories and forums.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ShowMoreClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.PageIndex++;
+
+        this.BindData(true);
+    }
+
+    /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
+    {
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.LoadMoreOnScrolling),
+            JavaScriptBlocks.LoadMoreOnScrolling(this.ShowMore.UniqueID, this.ShowMore.ClientID));
+
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Gets the Forums.
+    /// </summary>
+    /// <param name="item">
+    /// The item.
+    /// </param>
+    /// <returns>
+    /// Returns the Forums
+    /// </returns>
+    protected Tuple<List<SimpleModerator>, List<ForumRead>> GetForums([NotNull] ForumRead item)
+    {
+        var forums = this.Data;
+
+        return new Tuple<List<SimpleModerator>, List<ForumRead>>(
+            forums.Item1,
+            forums.Item2.Where(forum => forum.CategoryID == item.CategoryID).ToList());
+    }
+
+    /// <summary>
+    /// Bind Data
+    /// </summary>
+    /// <param name="appendData">
+    /// Append data or re-load data
+    /// </param>
+    private void BindData(bool appendData = false)
+    {
+        if (appendData)
         {
-            var markAll = (ThemeButton)sender;
+            var newData = this.Get<DataBroker>().BoardLayout(
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID,
+                this.PageIndex,
+                20,
+                this.PageBoardContext.PageCategoryID,
+                null);
 
-            var categoryId = markAll.CommandArgument.ToType<int?>();
+            this.Data.Item1.AddRange(newData.Item1);
 
-            var forums = this.Data.Item2.Where(x => x.CategoryID == categoryId);
-
-            this.Get<IReadTrackCurrentUser>().SetForumRead(forums.Select(f => f.ForumID));
-
-            this.PageBoardContext.Notify(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
-
-            this.BindData();
+            this.Data.Item2.AddRange(newData.Item2);
         }
-
-        /// <summary>
-        /// Load more categories and forums.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void ShowMoreClick([NotNull] object sender, [NotNull] EventArgs e)
+        else
         {
-            this.PageIndex++;
-
-            this.BindData(true);
-        }
-
-        /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                nameof(JavaScriptBlocks.LoadMoreOnScrolling),
-                JavaScriptBlocks.LoadMoreOnScrolling(this.ShowMore.UniqueID, this.ShowMore.ClientID));
-
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Gets the Forums.
-        /// </summary>
-        /// <param name="item">
-        /// The item.
-        /// </param>
-        /// <returns>
-        /// Returns the Forums
-        /// </returns>
-        protected Tuple<List<SimpleModerator>, List<ForumRead>> GetForums([NotNull] ForumRead item)
-        {
-            var forums = this.Data;
-
-            return new Tuple<List<SimpleModerator>, List<ForumRead>>(
-                forums.Item1,
-                forums.Item2.Where(forum => forum.CategoryID == item.CategoryID).ToList());
-        }
-
-        /// <summary>
-        /// Bind Data
-        /// </summary>
-        /// <param name="appendData">
-        /// Append data or re-load data
-        /// </param>
-        private void BindData(bool appendData = false)
-        {
-            if (appendData)
+            if (!this.IsPostBack)
             {
-                var newData = this.Get<DataBroker>().BoardLayout(
+                this.Data = this.Get<DataBroker>().BoardLayout(
                     this.PageBoardContext.PageBoardID,
                     this.PageBoardContext.PageUserID,
                     this.PageIndex,
                     20,
                     this.PageBoardContext.PageCategoryID,
                     null);
-
-                this.Data.Item1.AddRange(newData.Item1);
-
-                this.Data.Item2.AddRange(newData.Item2);
             }
-            else
-            {
-                if (!this.IsPostBack)
-                {
-                    this.Data = this.Get<DataBroker>().BoardLayout(
-                        this.PageBoardContext.PageBoardID,
-                        this.PageBoardContext.PageUserID,
-                        this.PageIndex,
-                        20,
-                        this.PageBoardContext.PageCategoryID,
-                        null);
-                }
-            }
+        }
             
-            if (this.Data.Item2.First().Total > this.Data.Item2.Count)
-            {
-                this.ShowMore.Visible = true;
-            }
-
-            if (this.Data.Item2.First().Total > 20)
-            {
-                this.ForumsShown.Visible = true;
-                this.ForumsShownLabel.Text = this.GetTextFormatted("FORUMS_SHOWN", this.Data.Item2.Count, this.Data.Item2.First().Total);
-            }
-            
-
-            // Filter Categories
-            var categories = this.Data.Item2.DistinctBy(x => x.CategoryID).ToList();
-
-            this.Categories.DataSource = categories;
-            this.Categories.DataBind();
+        if (this.Data.Item2.First().Total > this.Data.Item2.Count)
+        {
+            this.ShowMore.Visible = true;
         }
 
-        #endregion
+        if (this.Data.Item2.First().Total > 20)
+        {
+            this.ForumsShown.Visible = true;
+            this.ForumsShownLabel.Text = this.GetTextFormatted("FORUMS_SHOWN", this.Data.Item2.Count, this.Data.Item2.First().Total);
+        }
+            
+
+        // Filter Categories
+        var categories = this.Data.Item2.DistinctBy(x => x.CategoryID).ToList();
+
+        this.Categories.DataSource = categories;
+        this.Categories.DataBind();
     }
+
+    #endregion
 }

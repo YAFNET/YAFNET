@@ -22,276 +22,275 @@
  * under the License.
  */
 
-namespace YAF.Controls
+namespace YAF.Controls;
+
+#region Using
+
+using System.Text;
+
+using YAF.Web.Controls;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// PollList Class
+/// </summary>
+public partial class PollChoiceList : BaseUserControl
 {
-    #region Using
+    #region Events
 
-    using System.Text;
-
-    using YAF.Web.Controls;
-    using YAF.Types.Models;
+    /// <summary>
+    ///   The event bubbles info to parent control to rebind repeater.
+    /// </summary>
+    public event EventHandler ChoiceVoted;
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// PollList Class
+    ///   Gets or sets a value indicating whether user can vote
     /// </summary>
-    public partial class PollChoiceList : BaseUserControl
+    public bool CanVote { get; set; }
+
+    /// <summary>
+    ///   Gets or sets the Choice Id array.
+    /// </summary>
+    public List<PollVote> UserPollVotes { get; set; }
+
+    /// <summary>
+    ///   Gets or sets the data source.
+    /// </summary>
+    public List<Tuple<Poll, Choice>> DataSource { get; set; }
+
+    /// <summary>
+    ///   Gets or sets number of  days to run.
+    /// </summary>
+    public int? DaysToRun { get; set; }
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether to hide results.
+    /// </summary>
+    public bool HideResults { get; set; }
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether parent topic IsClosed
+    /// </summary>
+    public bool IsClosed { get; set; }
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether parent topic IsLocked
+    /// </summary>
+    public bool IsLocked { get; set; }
+
+    /// <summary>
+    ///   Gets or sets Voters. Stores users which are voted for a choice.
+    /// </summary>
+    public List<Tuple<PollVote, User>> Voters { get; set; }
+
+    /// <summary>
+    ///   Gets or sets the PollId for the choices.
+    /// </summary>
+    public int PollId { get; set; }
+
+    /// <summary>
+    ///   Gets or sets number of votes.
+    /// </summary>
+    public int Votes { get; set; }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The get image height.
+    /// </summary>
+    /// <param name="mimeType">
+    /// The mime type.
+    /// </param>
+    /// <returns>
+    /// Returns image height.
+    /// </returns>
+    protected int GetImageHeight([NotNull] object mimeType)
     {
-        #region Events
-
-        /// <summary>
-        ///   The event bubbles info to parent control to rebind repeater.
-        /// </summary>
-        public event EventHandler ChoiceVoted;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether user can vote
-        /// </summary>
-        public bool CanVote { get; set; }
-
-        /// <summary>
-        ///   Gets or sets the Choice Id array.
-        /// </summary>
-        public List<PollVote> UserPollVotes { get; set; }
-
-        /// <summary>
-        ///   Gets or sets the data source.
-        /// </summary>
-        public List<Tuple<Poll, Choice>> DataSource { get; set; }
-
-        /// <summary>
-        ///   Gets or sets number of  days to run.
-        /// </summary>
-        public int? DaysToRun { get; set; }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether to hide results.
-        /// </summary>
-        public bool HideResults { get; set; }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether parent topic IsClosed
-        /// </summary>
-        public bool IsClosed { get; set; }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether parent topic IsLocked
-        /// </summary>
-        public bool IsLocked { get; set; }
-
-        /// <summary>
-        ///   Gets or sets Voters. Stores users which are voted for a choice.
-        /// </summary>
-        public List<Tuple<PollVote, User>> Voters { get; set; }
-
-        /// <summary>
-        ///   Gets or sets the PollId for the choices.
-        /// </summary>
-        public int PollId { get; set; }
-
-        /// <summary>
-        ///   Gets or sets number of votes.
-        /// </summary>
-        public int Votes { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The get image height.
-        /// </summary>
-        /// <param name="mimeType">
-        /// The mime type.
-        /// </param>
-        /// <returns>
-        /// Returns image height.
-        /// </returns>
-        protected int GetImageHeight([NotNull] object mimeType)
-        {
-            var attrs = mimeType.ToString().Split('!')[1].Split(';');
-            return attrs[1].ToType<int>();
-        }
-
-        /// <summary>
-        /// The Page_Load event.
-        /// </summary>
-        /// <param name="sender">
-        /// The event sender.
-        /// </param>
-        /// <param name="e">
-        /// The EventArgs e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The poll_ item command.
-        /// </summary>
-        /// <param name="source">
-        /// The object source.
-        /// </param>
-        /// <param name="e">
-        /// The RepeaterCommandEventArgs e.
-        /// </param>
-        protected void Poll_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            if (e.CommandName != "vote")
-            {
-                return;
-            }
-
-            if (!this.CanVote)
-            {
-                this.PageBoardContext.Notify(this.GetText("WARN_ALREADY_VOTED"), MessageTypes.warning);
-                return;
-            }
-
-            if (this.IsLocked)
-            {
-                this.PageBoardContext.Notify(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
-                return;
-            }
-
-            if (this.IsClosed)
-            {
-                this.PageBoardContext.Notify(this.GetText("WARN_POLL_CLOSED"), MessageTypes.warning);
-                return;
-            }
-
-            var choiceId = e.CommandArgument.ToType<int>();
-
-            this.GetRepository<Choice>().Vote(choiceId);
-
-            this.GetRepository<PollVote>().Vote(choiceId, this.PageBoardContext.PageUserID, this.PollId);
-
-            this.BindData();
-
-            // Initialize bubble event to update parent control.
-            this.ChoiceVoted?.Invoke(source, e);
-
-            this.PageBoardContext.Notify(this.GetText("INFO_VOTED"), MessageTypes.success);
-        }
-
-        /// <summary>
-        /// The poll_ on item data bound.
-        /// </summary>
-        /// <param name="source">
-        /// The event source.
-        /// </param>
-        /// <param name="e">
-        /// The RepeaterItemEventArgs e.
-        /// </param>
-        protected void Poll_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
-        {
-            var item = e.Item;
-            var choice = (Tuple<Poll, Choice>)e.Item.DataItem;
-
-            if (item.ItemType != ListItemType.Item && item.ItemType != ListItemType.AlternatingItem)
-            {
-                return;
-            }
-
-            // Voting link 
-            var voteButton = item.FindControlRecursiveAs<ThemeButton>("VoteButton");
-
-            var myChoiceMarker = item.FindControlRecursiveAs<Label>("YourChoice");
-
-            if (this.UserPollVotes.Any())
-            {
-                if (this.UserPollVotes.Any(v => choice.Item2.ID == v.ChoiceID))
-                {
-                    myChoiceMarker.Visible = true;
-                }
-            }
-
-            if (!this.Voters.NullOrEmpty())
-            {
-                var voters = item.FindControlRecursiveAs<Label>("Voters");
-                var voterNames = new StringBuilder();
-
-                var votersByChoice = this.Voters.Where(i => i.Item1.ChoiceID == choice.Item2.ID).ToList();
-
-                if (votersByChoice.Any())
-                {
-                    voterNames.Append("(");
-
-                    votersByChoice.ForEach(
-                        itemTuple => voterNames.AppendFormat(
-                            "{0}, ",
-                            itemTuple.Item2.DisplayOrUserName()));
-
-                    voterNames.Remove(voterNames.Length - 2, 2);
-
-                    voterNames.Append(")");
-
-                    voters.Text = voterNames.ToString();
-                }
-            }
-
-            voteButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
-            voteButton.Visible = true;
-
-            // Poll Choice image
-            var choiceImage = item.FindControlRecursiveAs<Image>("ChoiceImage");
-
-            // Don't render if it's a standard image
-            if (choice.Item2.ObjectPath.IsSet())
-            {
-                choiceImage.ImageUrl = this.HtmlEncode(choice.Item2.ObjectPath);
-
-                choiceImage.AlternateText =
-                    choiceImage.ToolTip = this.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName);
-            }
-            else
-            {
-                choiceImage.Visible = false;
-            }
-
-            item.FindControlRecursiveAs<Panel>("resultsSpan").Visible = !this.HideResults;
-            item.FindControlRecursiveAs<Label>("VoteSpan").Visible = !this.HideResults;
-        }
-
-        /// <summary>
-        /// The vote width.
-        /// </summary>
-        /// <param name="o">
-        /// The object o.
-        /// </param>
-        /// <returns>
-        /// Returns the vote width.
-        /// </returns>
-        protected int VoteWidth([NotNull] object o)
-        {
-            try
-            {
-                var itemTuple = (Tuple<Poll, Choice>)o;
-
-                var votes = this.DataSource.Sum(x => x.Item2.Votes);
-
-                return 100 * itemTuple.Item2.Votes / votes;
-            }
-            catch (Exception)
-            {
-                return 0;
-            }
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            this.DataBind();
-        }
-
-        #endregion
+        var attrs = mimeType.ToString().Split('!')[1].Split(';');
+        return attrs[1].ToType<int>();
     }
+
+    /// <summary>
+    /// The Page_Load event.
+    /// </summary>
+    /// <param name="sender">
+    /// The event sender.
+    /// </param>
+    /// <param name="e">
+    /// The EventArgs e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The poll_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The object source.
+    /// </param>
+    /// <param name="e">
+    /// The RepeaterCommandEventArgs e.
+    /// </param>
+    protected void Poll_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+        if (e.CommandName != "vote")
+        {
+            return;
+        }
+
+        if (!this.CanVote)
+        {
+            this.PageBoardContext.Notify(this.GetText("WARN_ALREADY_VOTED"), MessageTypes.warning);
+            return;
+        }
+
+        if (this.IsLocked)
+        {
+            this.PageBoardContext.Notify(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
+            return;
+        }
+
+        if (this.IsClosed)
+        {
+            this.PageBoardContext.Notify(this.GetText("WARN_POLL_CLOSED"), MessageTypes.warning);
+            return;
+        }
+
+        var choiceId = e.CommandArgument.ToType<int>();
+
+        this.GetRepository<Choice>().Vote(choiceId);
+
+        this.GetRepository<PollVote>().Vote(choiceId, this.PageBoardContext.PageUserID, this.PollId);
+
+        this.BindData();
+
+        // Initialize bubble event to update parent control.
+        this.ChoiceVoted?.Invoke(source, e);
+
+        this.PageBoardContext.Notify(this.GetText("INFO_VOTED"), MessageTypes.success);
+    }
+
+    /// <summary>
+    /// The poll_ on item data bound.
+    /// </summary>
+    /// <param name="source">
+    /// The event source.
+    /// </param>
+    /// <param name="e">
+    /// The RepeaterItemEventArgs e.
+    /// </param>
+    protected void Poll_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
+    {
+        var item = e.Item;
+        var choice = (Tuple<Poll, Choice>)e.Item.DataItem;
+
+        if (item.ItemType != ListItemType.Item && item.ItemType != ListItemType.AlternatingItem)
+        {
+            return;
+        }
+
+        // Voting link 
+        var voteButton = item.FindControlRecursiveAs<ThemeButton>("VoteButton");
+
+        var myChoiceMarker = item.FindControlRecursiveAs<Label>("YourChoice");
+
+        if (this.UserPollVotes.Any())
+        {
+            if (this.UserPollVotes.Any(v => choice.Item2.ID == v.ChoiceID))
+            {
+                myChoiceMarker.Visible = true;
+            }
+        }
+
+        if (!this.Voters.NullOrEmpty())
+        {
+            var voters = item.FindControlRecursiveAs<Label>("Voters");
+            var voterNames = new StringBuilder();
+
+            var votersByChoice = this.Voters.Where(i => i.Item1.ChoiceID == choice.Item2.ID).ToList();
+
+            if (votersByChoice.Any())
+            {
+                voterNames.Append("(");
+
+                votersByChoice.ForEach(
+                    itemTuple => voterNames.AppendFormat(
+                        "{0}, ",
+                        itemTuple.Item2.DisplayOrUserName()));
+
+                voterNames.Remove(voterNames.Length - 2, 2);
+
+                voterNames.Append(")");
+
+                voters.Text = voterNames.ToString();
+            }
+        }
+
+        voteButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
+        voteButton.Visible = true;
+
+        // Poll Choice image
+        var choiceImage = item.FindControlRecursiveAs<Image>("ChoiceImage");
+
+        // Don't render if it's a standard image
+        if (choice.Item2.ObjectPath.IsSet())
+        {
+            choiceImage.ImageUrl = this.HtmlEncode(choice.Item2.ObjectPath);
+
+            choiceImage.AlternateText =
+                choiceImage.ToolTip = this.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName);
+        }
+        else
+        {
+            choiceImage.Visible = false;
+        }
+
+        item.FindControlRecursiveAs<Panel>("resultsSpan").Visible = !this.HideResults;
+        item.FindControlRecursiveAs<Label>("VoteSpan").Visible = !this.HideResults;
+    }
+
+    /// <summary>
+    /// The vote width.
+    /// </summary>
+    /// <param name="o">
+    /// The object o.
+    /// </param>
+    /// <returns>
+    /// Returns the vote width.
+    /// </returns>
+    protected int VoteWidth([NotNull] object o)
+    {
+        try
+        {
+            var itemTuple = (Tuple<Poll, Choice>)o;
+
+            var votes = this.DataSource.Sum(x => x.Item2.Votes);
+
+            return 100 * itemTuple.Item2.Votes / votes;
+        }
+        catch (Exception)
+        {
+            return 0;
+        }
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        this.DataBind();
+    }
+
+    #endregion
 }

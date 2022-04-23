@@ -7,236 +7,235 @@
 
 using System;
 
-namespace ServiceStack.Logging
+namespace ServiceStack.Logging;
+
+/// <summary>
+/// Default logger is to System.Diagnostics.Debug.WriteLine
+/// Made public so its testable
+/// </summary>
+public class DebugLogger : ILog
 {
     /// <summary>
-    /// Default logger is to System.Diagnostics.Debug.WriteLine
-    /// Made public so its testable
+    /// The debug
     /// </summary>
-    public class DebugLogger : ILog
+    const string DEBUG = "DEBUG: ";
+    /// <summary>
+    /// The error
+    /// </summary>
+    const string ERROR = "ERROR: ";
+    /// <summary>
+    /// The fatal
+    /// </summary>
+    const string FATAL = "FATAL: ";
+    /// <summary>
+    /// The information
+    /// </summary>
+    const string INFO = "INFO: ";
+    /// <summary>
+    /// The warn
+    /// </summary>
+    const string WARN = "WARN: ";
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DebugLogger" /> class.
+    /// </summary>
+    /// <param name="type">The type.</param>
+    public DebugLogger(string type)
     {
-        /// <summary>
-        /// The debug
-        /// </summary>
-        const string DEBUG = "DEBUG: ";
-        /// <summary>
-        /// The error
-        /// </summary>
-        const string ERROR = "ERROR: ";
-        /// <summary>
-        /// The fatal
-        /// </summary>
-        const string FATAL = "FATAL: ";
-        /// <summary>
-        /// The information
-        /// </summary>
-        const string INFO = "INFO: ";
-        /// <summary>
-        /// The warn
-        /// </summary>
-        const string WARN = "WARN: ";
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DebugLogger" /> class.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        public DebugLogger(string type)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DebugLogger" /> class.
+    /// </summary>
+    /// <param name="type">The type.</param>
+    public DebugLogger(Type type)
+    {
+    }
+
+    /// <summary>
+    /// Logs the specified message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="exception">The exception.</param>
+    private static void Log(object message, Exception exception)
+    {
+        string msg = message?.ToString() ?? string.Empty;
+        if (exception != null)
         {
+            msg += ", Exception: " + exception.Message;
         }
+        System.Diagnostics.Debug.WriteLine(msg);
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DebugLogger" /> class.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        public DebugLogger(Type type)
-        {
-        }
+    /// <summary>
+    /// Logs the format.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="args">The arguments.</param>
+    private static void LogFormat(object message, params object[] args)
+    {
+        string msg = message?.ToString() ?? string.Empty;
+        System.Diagnostics.Debug.WriteLine(string.Format(msg, args));
+    }
 
-        /// <summary>
-        /// Logs the specified message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="exception">The exception.</param>
-        private static void Log(object message, Exception exception)
-        {
-            string msg = message?.ToString() ?? string.Empty;
-            if (exception != null)
-            {
-                msg += ", Exception: " + exception.Message;
-            }
-            System.Diagnostics.Debug.WriteLine(msg);
-        }
+    /// <summary>
+    /// Logs the specified message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    private static void Log(object message)
+    {
+        string msg = message?.ToString() ?? string.Empty;
+        System.Diagnostics.Debug.WriteLine(msg);
+    }
 
-        /// <summary>
-        /// Logs the format.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="args">The arguments.</param>
-        private static void LogFormat(object message, params object[] args)
-        {
-            string msg = message?.ToString() ?? string.Empty;
-            System.Diagnostics.Debug.WriteLine(string.Format(msg, args));
-        }
+    /// <summary>
+    /// Logs a Debug message and exception.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="exception">The exception.</param>
+    public void Debug(object message, Exception exception)
+    {
+        Log(DEBUG + message, exception);
+    }
 
-        /// <summary>
-        /// Logs the specified message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        private static void Log(object message)
-        {
-            string msg = message?.ToString() ?? string.Empty;
-            System.Diagnostics.Debug.WriteLine(msg);
-        }
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is debug enabled.
+    /// </summary>
+    /// <value><c>true</c> if this instance is debug enabled; otherwise, <c>false</c>.</value>
+    public bool IsDebugEnabled { get; set; }
 
-        /// <summary>
-        /// Logs a Debug message and exception.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="exception">The exception.</param>
-        public void Debug(object message, Exception exception)
-        {
-            Log(DEBUG + message, exception);
-        }
+    /// <summary>
+    /// Logs a Debug message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    public void Debug(object message)
+    {
+        Log(DEBUG + message);
+    }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is debug enabled.
-        /// </summary>
-        /// <value><c>true</c> if this instance is debug enabled; otherwise, <c>false</c>.</value>
-        public bool IsDebugEnabled { get; set; }
+    /// <summary>
+    /// Logs a Debug format message.
+    /// </summary>
+    /// <param name="format">The format.</param>
+    /// <param name="args">The args.</param>
+    public void DebugFormat(string format, params object[] args)
+    {
+        LogFormat(DEBUG + format, args);
+    }
 
-        /// <summary>
-        /// Logs a Debug message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        public void Debug(object message)
-        {
-            Log(DEBUG + message);
-        }
+    /// <summary>
+    /// Logs a Error message and exception.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="exception">The exception.</param>
+    public void Error(object message, Exception exception)
+    {
+        Log(ERROR + message, exception);
+    }
 
-        /// <summary>
-        /// Logs a Debug format message.
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
-        public void DebugFormat(string format, params object[] args)
-        {
-            LogFormat(DEBUG + format, args);
-        }
+    /// <summary>
+    /// Logs a Error message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    public void Error(object message)
+    {
+        Log(ERROR + message);
+    }
 
-        /// <summary>
-        /// Logs a Error message and exception.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="exception">The exception.</param>
-        public void Error(object message, Exception exception)
-        {
-            Log(ERROR + message, exception);
-        }
+    /// <summary>
+    /// Logs a Error format message.
+    /// </summary>
+    /// <param name="format">The format.</param>
+    /// <param name="args">The args.</param>
+    public void ErrorFormat(string format, params object[] args)
+    {
+        LogFormat(ERROR + format, args);
+    }
 
-        /// <summary>
-        /// Logs a Error message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        public void Error(object message)
-        {
-            Log(ERROR + message);
-        }
+    /// <summary>
+    /// Logs a Fatal message and exception.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="exception">The exception.</param>
+    public void Fatal(object message, Exception exception)
+    {
+        Log(FATAL + message, exception);
+    }
 
-        /// <summary>
-        /// Logs a Error format message.
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
-        public void ErrorFormat(string format, params object[] args)
-        {
-            LogFormat(ERROR + format, args);
-        }
+    /// <summary>
+    /// Fatals the specified message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    public void Fatal(object message)
+    {
+        Log(FATAL + message);
+    }
 
-        /// <summary>
-        /// Logs a Fatal message and exception.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="exception">The exception.</param>
-        public void Fatal(object message, Exception exception)
-        {
-            Log(FATAL + message, exception);
-        }
+    /// <summary>
+    /// Logs a Error format message.
+    /// </summary>
+    /// <param name="format">The format.</param>
+    /// <param name="args">The args.</param>
+    public void FatalFormat(string format, params object[] args)
+    {
+        LogFormat(FATAL + format, args);
+    }
 
-        /// <summary>
-        /// Fatals the specified message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        public void Fatal(object message)
-        {
-            Log(FATAL + message);
-        }
+    /// <summary>
+    /// Logs an Info message and exception.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="exception">The exception.</param>
+    public void Info(object message, Exception exception)
+    {
+        Log(INFO + message, exception);
+    }
 
-        /// <summary>
-        /// Logs a Error format message.
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
-        public void FatalFormat(string format, params object[] args)
-        {
-            LogFormat(FATAL + format, args);
-        }
+    /// <summary>
+    /// Logs an Info message and exception.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    public void Info(object message)
+    {
+        Log(INFO + message);
+    }
 
-        /// <summary>
-        /// Logs an Info message and exception.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="exception">The exception.</param>
-        public void Info(object message, Exception exception)
-        {
-            Log(INFO + message, exception);
-        }
+    /// <summary>
+    /// Logs an Info format message.
+    /// </summary>
+    /// <param name="format">The format.</param>
+    /// <param name="args">The args.</param>
+    public void InfoFormat(string format, params object[] args)
+    {
+        LogFormat(INFO + format, args);
+    }
 
-        /// <summary>
-        /// Logs an Info message and exception.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        public void Info(object message)
-        {
-            Log(INFO + message);
-        }
+    /// <summary>
+    /// Logs a Warning message and exception.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="exception">The exception.</param>
+    public void Warn(object message, Exception exception)
+    {
+        Log(WARN + message, exception);
+    }
 
-        /// <summary>
-        /// Logs an Info format message.
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
-        public void InfoFormat(string format, params object[] args)
-        {
-            LogFormat(INFO + format, args);
-        }
+    /// <summary>
+    /// Logs a Warning message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    public void Warn(object message)
+    {
+        Log(WARN + message);
+    }
 
-        /// <summary>
-        /// Logs a Warning message and exception.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="exception">The exception.</param>
-        public void Warn(object message, Exception exception)
-        {
-            Log(WARN + message, exception);
-        }
-
-        /// <summary>
-        /// Logs a Warning message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        public void Warn(object message)
-        {
-            Log(WARN + message);
-        }
-
-        /// <summary>
-        /// Logs a Warning format message.
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
-        public void WarnFormat(string format, params object[] args)
-        {
-            LogFormat(WARN + format, args);
-        }
+    /// <summary>
+    /// Logs a Warning format message.
+    /// </summary>
+    /// <param name="format">The format.</param>
+    /// <param name="args">The args.</param>
+    public void WarnFormat(string format, params object[] args)
+    {
+        LogFormat(WARN + format, args);
     }
 }

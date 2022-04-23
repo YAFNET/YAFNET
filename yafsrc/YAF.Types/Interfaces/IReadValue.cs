@@ -21,25 +21,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+/// <summary>
+/// Generic I Read Value interface.
+/// </summary>
+/// <typeparam name="T">
+/// Type returned from the configuration.
+/// </typeparam>
+public interface IReadValue<out T>
 {
     /// <summary>
-    /// Generic I Read Value interface.
+    /// Get a value.
     /// </summary>
-    /// <typeparam name="T">
-    /// Type returned from the configuration.
-    /// </typeparam>
-    public interface IReadValue<out T>
-    {
-        /// <summary>
-        /// Get a value.
-        /// </summary>
-        /// <param name="originalKey">
-        /// The key.
-        /// </param>
-        /// <returns>
-        /// Config value or default(T) if not available.
-        /// </returns>
-        T Get(string originalKey);
-    }
+    /// <param name="originalKey">
+    /// The key.
+    /// </param>
+    /// <returns>
+    /// Config value or default(T) if not available.
+    /// </returns>
+    T Get(string originalKey);
 }

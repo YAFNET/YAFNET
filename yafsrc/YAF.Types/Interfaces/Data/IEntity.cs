@@ -21,12 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// The Entity interface.
+/// </summary>
+public interface IEntity
 {
-    /// <summary>
-    /// The Entity interface.
-    /// </summary>
-    public interface IEntity
-    {
-    }
 }

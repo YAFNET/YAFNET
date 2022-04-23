@@ -7,150 +7,149 @@
 using System;
 using System.Text;
 
-namespace ServiceStack.Text
+namespace ServiceStack.Text;
+
+/// <summary>
+/// Reusable StringBuilder ThreadStatic Cache
+/// </summary>
+public static class StringBuilderCache
 {
     /// <summary>
-    /// Reusable StringBuilder ThreadStatic Cache
+    /// The cache
     /// </summary>
-    public static class StringBuilderCache
+    [ThreadStatic]
+    static StringBuilder cache;
+
+    /// <summary>
+    /// Allocates this instance.
+    /// </summary>
+    /// <returns>StringBuilder.</returns>
+    public static StringBuilder Allocate()
     {
-        /// <summary>
-        /// The cache
-        /// </summary>
-        [ThreadStatic]
-        static StringBuilder cache;
+        var ret = cache;
+        if (ret == null)
+            return new StringBuilder();
 
-        /// <summary>
-        /// Allocates this instance.
-        /// </summary>
-        /// <returns>StringBuilder.</returns>
-        public static StringBuilder Allocate()
-        {
-            var ret = cache;
-            if (ret == null)
-                return new StringBuilder();
-
-            ret.Length = 0;
-            cache = null;  //don't re-issue cached instance until it's freed
-            return ret;
-        }
-
-        /// <summary>
-        /// Frees the specified sb.
-        /// </summary>
-        /// <param name="sb">The sb.</param>
-        public static void Free(StringBuilder sb)
-        {
-            cache = sb;
-        }
-
-        /// <summary>
-        /// Returns the and free.
-        /// </summary>
-        /// <param name="sb">The sb.</param>
-        /// <returns>System.String.</returns>
-        public static string ReturnAndFree(StringBuilder sb)
-        {
-            var ret = sb.ToString();
-            cache = sb;
-            return ret;
-        }
+        ret.Length = 0;
+        cache = null;  //don't re-issue cached instance until it's freed
+        return ret;
     }
 
     /// <summary>
-    /// Alternative Reusable StringBuilder ThreadStatic Cache
+    /// Frees the specified sb.
     /// </summary>
-    public static class StringBuilderCacheAlt
+    /// <param name="sb">The sb.</param>
+    public static void Free(StringBuilder sb)
     {
-        /// <summary>
-        /// The cache
-        /// </summary>
-        [ThreadStatic]
-        static StringBuilder cache;
-
-        /// <summary>
-        /// Allocates this instance.
-        /// </summary>
-        /// <returns>StringBuilder.</returns>
-        public static StringBuilder Allocate()
-        {
-            var ret = cache;
-            if (ret == null)
-                return new StringBuilder();
-
-            ret.Length = 0;
-            cache = null;  //don't re-issue cached instance until it's freed
-            return ret;
-        }
-
-        /// <summary>
-        /// Frees the specified sb.
-        /// </summary>
-        /// <param name="sb">The sb.</param>
-        public static void Free(StringBuilder sb)
-        {
-            cache = sb;
-        }
-
-        /// <summary>
-        /// Returns the and free.
-        /// </summary>
-        /// <param name="sb">The sb.</param>
-        /// <returns>System.String.</returns>
-        public static string ReturnAndFree(StringBuilder sb)
-        {
-            var ret = sb.ToString();
-            cache = sb;
-            return ret;
-        }
+        cache = sb;
     }
 
-    //Use separate cache internally to avoid re-allocations and cache misses
     /// <summary>
-    /// Class StringBuilderThreadStatic.
+    /// Returns the and free.
     /// </summary>
-    internal static class StringBuilderThreadStatic
+    /// <param name="sb">The sb.</param>
+    /// <returns>System.String.</returns>
+    public static string ReturnAndFree(StringBuilder sb)
     {
-        /// <summary>
-        /// The cache
-        /// </summary>
-        [ThreadStatic]
-        static StringBuilder cache;
+        var ret = sb.ToString();
+        cache = sb;
+        return ret;
+    }
+}
 
-        /// <summary>
-        /// Allocates this instance.
-        /// </summary>
-        /// <returns>StringBuilder.</returns>
-        public static StringBuilder Allocate()
-        {
-            var ret = cache;
-            if (ret == null)
-                return new StringBuilder();
+/// <summary>
+/// Alternative Reusable StringBuilder ThreadStatic Cache
+/// </summary>
+public static class StringBuilderCacheAlt
+{
+    /// <summary>
+    /// The cache
+    /// </summary>
+    [ThreadStatic]
+    static StringBuilder cache;
 
-            ret.Length = 0;
-            cache = null;  //don't re-issue cached instance until it's freed
-            return ret;
-        }
+    /// <summary>
+    /// Allocates this instance.
+    /// </summary>
+    /// <returns>StringBuilder.</returns>
+    public static StringBuilder Allocate()
+    {
+        var ret = cache;
+        if (ret == null)
+            return new StringBuilder();
 
-        /// <summary>
-        /// Frees the specified sb.
-        /// </summary>
-        /// <param name="sb">The sb.</param>
-        public static void Free(StringBuilder sb)
-        {
-            cache = sb;
-        }
+        ret.Length = 0;
+        cache = null;  //don't re-issue cached instance until it's freed
+        return ret;
+    }
 
-        /// <summary>
-        /// Returns the and free.
-        /// </summary>
-        /// <param name="sb">The sb.</param>
-        /// <returns>System.String.</returns>
-        public static string ReturnAndFree(StringBuilder sb)
-        {
-            var ret = sb.ToString();
-            cache = sb;
-            return ret;
-        }
+    /// <summary>
+    /// Frees the specified sb.
+    /// </summary>
+    /// <param name="sb">The sb.</param>
+    public static void Free(StringBuilder sb)
+    {
+        cache = sb;
+    }
+
+    /// <summary>
+    /// Returns the and free.
+    /// </summary>
+    /// <param name="sb">The sb.</param>
+    /// <returns>System.String.</returns>
+    public static string ReturnAndFree(StringBuilder sb)
+    {
+        var ret = sb.ToString();
+        cache = sb;
+        return ret;
+    }
+}
+
+//Use separate cache internally to avoid re-allocations and cache misses
+/// <summary>
+/// Class StringBuilderThreadStatic.
+/// </summary>
+internal static class StringBuilderThreadStatic
+{
+    /// <summary>
+    /// The cache
+    /// </summary>
+    [ThreadStatic]
+    static StringBuilder cache;
+
+    /// <summary>
+    /// Allocates this instance.
+    /// </summary>
+    /// <returns>StringBuilder.</returns>
+    public static StringBuilder Allocate()
+    {
+        var ret = cache;
+        if (ret == null)
+            return new StringBuilder();
+
+        ret.Length = 0;
+        cache = null;  //don't re-issue cached instance until it's freed
+        return ret;
+    }
+
+    /// <summary>
+    /// Frees the specified sb.
+    /// </summary>
+    /// <param name="sb">The sb.</param>
+    public static void Free(StringBuilder sb)
+    {
+        cache = sb;
+    }
+
+    /// <summary>
+    /// Returns the and free.
+    /// </summary>
+    /// <param name="sb">The sb.</param>
+    /// <returns>System.String.</returns>
+    public static string ReturnAndFree(StringBuilder sb)
+    {
+        var ret = sb.ToString();
+        cache = sb;
+        return ret;
     }
 }

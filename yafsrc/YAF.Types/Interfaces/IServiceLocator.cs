@@ -21,133 +21,132 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
-{
-    #region Using
+namespace YAF.Types.Interfaces;
 
-    using System;
-    using System.Collections.Generic;
+#region Using
+
+using System;
+using System.Collections.Generic;
+
+#endregion
+
+/// <summary>
+/// The ScopeServiceLocator interface.
+/// </summary>
+public interface IScopeServiceLocator : IServiceLocator, IDisposable
+{
+}
+
+/// <summary>
+///     The i service locator.
+/// </summary>
+public interface IServiceLocator : IServiceProvider
+{
+    #region Public Properties
+
+    /// <summary>
+    /// Gets the tag.
+    /// </summary>
+    object Tag { get; }
 
     #endregion
 
-    /// <summary>
-    /// The ScopeServiceLocator interface.
-    /// </summary>
-    public interface IScopeServiceLocator : IServiceLocator, IDisposable
-    {
-    }
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The i service locator.
+    /// The create scope.
     /// </summary>
-    public interface IServiceLocator : IServiceProvider
-    {
-        #region Public Properties
+    /// <returns>
+    /// The <see cref="IScopeServiceLocator"/>.
+    /// </returns>
+    IScopeServiceLocator CreateScope(object tag = null);
 
-        /// <summary>
-        /// Gets the tag.
-        /// </summary>
-        object Tag { get; }
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <returns>
+    /// The get.
+    /// </returns>
+    object Get([NotNull] Type serviceType);
 
-        #endregion
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <returns>
+    /// The get.
+    /// </returns>
+    object Get([NotNull] Type serviceType, [NotNull] IEnumerable<IServiceLocationParameter> parameters);
 
-        #region Public Methods and Operators
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <returns>
+    /// The get.
+    /// </returns>
+    object Get([NotNull] Type serviceType, [NotNull] string named);
 
-        /// <summary>
-        /// The create scope.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="IScopeServiceLocator"/>.
-        /// </returns>
-        IScopeServiceLocator CreateScope(object tag = null);
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <returns>
+    /// The get.
+    /// </returns>
+    object Get([NotNull] Type serviceType, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters);
 
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceType">
-        /// The service type.
-        /// </param>
-        /// <returns>
-        /// The get.
-        /// </returns>
-        object Get([NotNull] Type serviceType);
+    /// <summary>
+    /// The try get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
+    /// <returns>
+    /// The try get.
+    /// </returns>
+    bool TryGet([NotNull] Type serviceType, [NotNull] out object instance);
 
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceType">
-        /// The service type.
-        /// </param>
-        /// <param name="parameters">
-        /// The parameters.
-        /// </param>
-        /// <returns>
-        /// The get.
-        /// </returns>
-        object Get([NotNull] Type serviceType, [NotNull] IEnumerable<IServiceLocationParameter> parameters);
+    /// <summary>
+    /// The try get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
+    /// <returns>
+    /// The try get.
+    /// </returns>
+    bool TryGet([NotNull] Type serviceType, [NotNull] string named, [NotNull] out object instance);
 
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceType">
-        /// The service type.
-        /// </param>
-        /// <param name="named">
-        /// The named.
-        /// </param>
-        /// <returns>
-        /// The get.
-        /// </returns>
-        object Get([NotNull] Type serviceType, [NotNull] string named);
-
-        /// <summary>
-        /// The get.
-        /// </summary>
-        /// <param name="serviceType">
-        /// The service type.
-        /// </param>
-        /// <param name="named">
-        /// The named.
-        /// </param>
-        /// <param name="parameters">
-        /// The parameters.
-        /// </param>
-        /// <returns>
-        /// The get.
-        /// </returns>
-        object Get([NotNull] Type serviceType, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters);
-
-        /// <summary>
-        /// The try get.
-        /// </summary>
-        /// <param name="serviceType">
-        /// The service type.
-        /// </param>
-        /// <param name="instance">
-        /// The instance.
-        /// </param>
-        /// <returns>
-        /// The try get.
-        /// </returns>
-        bool TryGet([NotNull] Type serviceType, [NotNull] out object instance);
-
-        /// <summary>
-        /// The try get.
-        /// </summary>
-        /// <param name="serviceType">
-        /// The service type.
-        /// </param>
-        /// <param name="named">
-        /// The named.
-        /// </param>
-        /// <param name="instance">
-        /// The instance.
-        /// </param>
-        /// <returns>
-        /// The try get.
-        /// </returns>
-        bool TryGet([NotNull] Type serviceType, [NotNull] string named, [NotNull] out object instance);
-
-        #endregion
-    }
+    #endregion
 }

@@ -9,23 +9,22 @@ using System.Threading.Tasks;
 using ServiceStack.Text;
 using ServiceStack.Web;
 
-namespace ServiceStack
+namespace ServiceStack;
+
+/// <summary>
+/// Class SharpPagesExtensions.
+/// </summary>
+public static class SharpPagesExtensions
 {
     /// <summary>
-    /// Class SharpPagesExtensions.
+    /// Render to string as an asynchronous operation.
     /// </summary>
-    public static class SharpPagesExtensions
+    /// <param name="writer">The writer.</param>
+    /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
+    public static async Task<string> RenderToStringAsync(this IStreamWriterAsync writer)
     {
-        /// <summary>
-        /// Render to string as an asynchronous operation.
-        /// </summary>
-        /// <param name="writer">The writer.</param>
-        /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
-        public static async Task<string> RenderToStringAsync(this IStreamWriterAsync writer)
-        {
-            using var ms = MemoryStreamFactory.GetStream();
-            await writer.WriteToAsync(ms);
-            return await ms.ReadToEndAsync();
-        }
+        using var ms = MemoryStreamFactory.GetStream();
+        await writer.WriteToAsync(ms);
+        return await ms.ReadToEndAsync();
     }
 }

@@ -20,37 +20,36 @@
  * under the License.
  */
 
-namespace YAF.Web.EventsArgs
+namespace YAF.Web.EventsArgs;
+
+using System;
+
+/// <summary>
+///     The goto page forum event args.
+/// </summary>
+public class GotoPageForumEventArgs : EventArgs
 {
-    using System;
+    #region Constructors and Destructors
 
     /// <summary>
-    ///     The goto page forum event args.
+    ///     Initializes a new instance of the <see cref="GotoPageForumEventArgs" /> class.
     /// </summary>
-    public class GotoPageForumEventArgs : EventArgs
+    /// <param name="gotoPage">
+    ///     The goto page.
+    /// </param>
+    public GotoPageForumEventArgs(int gotoPage)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="GotoPageForumEventArgs" /> class.
-        /// </summary>
-        /// <param name="gotoPage">
-        ///     The goto page.
-        /// </param>
-        public GotoPageForumEventArgs(int gotoPage)
-        {
-            this.GotoPage = gotoPage;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets or sets GotoPage.
-        /// </summary>
-        public int GotoPage { get; set; }
-
-        #endregion
+        this.GotoPage = gotoPage;
     }
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    ///     Gets or sets GotoPage.
+    /// </summary>
+    public int GotoPage { get; set; }
+
+    #endregion
 }

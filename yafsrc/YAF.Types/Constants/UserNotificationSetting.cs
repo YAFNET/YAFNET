@@ -21,26 +21,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Constants
+namespace YAF.Types.Constants;
+
+/// <summary>
+/// The user communication type.
+/// </summary>
+public enum UserNotificationSetting
 {
     /// <summary>
-    /// The user communication type.
+    ///   No Notifications
     /// </summary>
-    public enum UserNotificationSetting
-    {
-        /// <summary>
-        ///   No Notifications
-        /// </summary>
-        NoNotification = 10,
+    NoNotification = 10,
 
-        /// <summary>
-        ///   The topics I post to or subscribe to.
-        /// </summary>
-        TopicsIPostToOrSubscribeTo = 30,
+    /// <summary>
+    ///   The topics I post to or subscribe to.
+    /// </summary>
+    TopicsIPostToOrSubscribeTo = 30,
 
-        /// <summary>
-        ///   The topics i subscribe to.
-        /// </summary>
-        TopicsISubscribeTo = 0
-    }
+    /// <summary>
+    ///   The topics i subscribe to.
+    /// </summary>
+    TopicsISubscribeTo = 0
 }

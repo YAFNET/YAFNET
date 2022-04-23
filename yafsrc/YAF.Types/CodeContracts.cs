@@ -22,41 +22,40 @@
  * under the License.
  */
 
-namespace YAF.Types
-{
-    using System;
+namespace YAF.Types;
 
-    using YAF.Types.Attributes;
+using System;
+
+using YAF.Types.Attributes;
+
+/// <summary>
+///     Provides functions used for code contracts.
+/// </summary>
+public static class CodeContracts
+{
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     Provides functions used for code contracts.
+    ///     Validates argument (obj) is not <see langword="null" />. Throws exception
+    ///     if it is.
     /// </summary>
-    public static class CodeContracts
+    /// <typeparam name="T">
+    ///     type of the argument that's being verified
+    /// </typeparam>
+    /// <param name="obj">value of argument to verify not null</param>
+    /// <exception cref="ArgumentNullException">
+    ///     <paramref name="obj" /> is
+    ///     <c>null</c>.
+    /// </exception>
+    [ContractAnnotation("obj:null => halt")]
+    public static void VerifyNotNull<T>([CanBeNull] T obj) where T : class
     {
-        #region Public Methods and Operators
-
-        /// <summary>
-        ///     Validates argument (obj) is not <see langword="null" />. Throws exception
-        ///     if it is.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     type of the argument that's being verified
-        /// </typeparam>
-        /// <param name="obj">value of argument to verify not null</param>
-        /// <exception cref="ArgumentNullException">
-        ///     <paramref name="obj" /> is
-        ///     <c>null</c>.
-        /// </exception>
-        [ContractAnnotation("obj:null => halt")]
-        public static void VerifyNotNull<T>([CanBeNull] T obj) where T : class
+        var argumentName = nameof(obj);
+        if (obj == null)
         {
-            var argumentName = nameof(obj);
-            if (obj == null)
-            {
-                throw new ArgumentNullException(argumentName, $"{argumentName} cannot be null");
-            }
+            throw new ArgumentNullException(argumentName, $"{argumentName} cannot be null");
         }
-
-        #endregion
     }
+
+    #endregion
 }

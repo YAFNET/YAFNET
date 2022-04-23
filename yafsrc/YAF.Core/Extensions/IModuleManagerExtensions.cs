@@ -22,38 +22,37 @@
  * under the License.
  */
 
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+#region Using
+
+using System.Collections.Generic;
+
+using YAF.Types;
+using YAF.Types.Interfaces;
+
+#endregion
+
+/// <summary>
+///     The module manager extensions.
+/// </summary>
+public static class IModuleManagerExtensions
 {
-    #region Using
-
-    using System.Collections.Generic;
-
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-
-    #endregion
+    #region Public Methods and Operators
 
     /// <summary>
-    ///     The module manager extensions.
+    /// Get all active modules.
     /// </summary>
-    public static class IModuleManagerExtensions
+    /// <typeparam name="TModule">The type of the module.</typeparam>
+    /// <param name="moduleManager">The module Manager.</param>
+    /// <returns>Returns all active modules</returns>
+    public static IEnumerable<TModule> GetAll<TModule>([NotNull] this IModuleManager<TModule> moduleManager)
+        where TModule : IModuleDefinition
     {
-        #region Public Methods and Operators
+        CodeContracts.VerifyNotNull(moduleManager);
 
-        /// <summary>
-        /// Get all active modules.
-        /// </summary>
-        /// <typeparam name="TModule">The type of the module.</typeparam>
-        /// <param name="moduleManager">The module Manager.</param>
-        /// <returns>Returns all active modules</returns>
-        public static IEnumerable<TModule> GetAll<TModule>([NotNull] this IModuleManager<TModule> moduleManager)
-            where TModule : IModuleDefinition
-        {
-            CodeContracts.VerifyNotNull(moduleManager);
-
-            return moduleManager.GetAll(false);
-        }
-
-        #endregion
+        return moduleManager.GetAll(false);
     }
+
+    #endregion
 }

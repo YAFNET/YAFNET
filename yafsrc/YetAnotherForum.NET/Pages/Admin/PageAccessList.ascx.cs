@@ -22,87 +22,86 @@
  * under the License.
  */
 
-namespace YAF.Pages.Admin
+namespace YAF.Pages.Admin;
+
+using YAF.Types.Models;
+
+/// <summary>
+/// The Admin Page Admin Access list page
+/// </summary>
+public partial class PageAccessList : AdminPage
 {
-    using YAF.Types.Models;
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The Admin Page Admin Access list page
+    /// Initializes a new instance of the <see cref="PageAccessList"/> class. 
     /// </summary>
-    public partial class PageAccessList : AdminPage
+    public PageAccessList()
+        : base("ADMIN_PAGEACCESSLIST", ForumPages.Admin_PageAccessList)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PageAccessList"/> class. 
-        /// </summary>
-        public PageAccessList()
-            : base("ADMIN_PAGEACCESSLIST", ForumPages.Admin_PageAccessList)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Creates navigation page links on top of forum (breadcrumbs).
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            // board index
-            this.PageLinks.AddRoot();
-
-            // administration index
-            this.PageLinks.AddAdminIndex();
-
-            // current page label (no link)
-            this.PageLinks.AddLink(this.GetText("ADMIN_PAGEACCESSLIST", "TITLE"), string.Empty);
-        }
-
-        /// <summary>
-        /// Handles the ItemCommand event of the List control.
-        /// </summary>
-        /// <param name="source">The source of the event.</param>
-        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "edit":
-
-                    // redirect to editing page
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessEdit, new { u = e.CommandArgument });
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            // list admins but not host admins
-            this.List.DataSource = this.GetRepository<User>().ListAdmins(this.PageBoardContext.PageBoardID)
-                .Where(u => !u.UserFlags.IsHostAdmin);
-            this.DataBind();
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Creates navigation page links on top of forum (breadcrumbs).
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+        // board index
+        this.PageLinks.AddRoot();
+
+        // administration index
+        this.PageLinks.AddAdminIndex();
+
+        // current page label (no link)
+        this.PageLinks.AddLink(this.GetText("ADMIN_PAGEACCESSLIST", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// Handles the ItemCommand event of the List control.
+    /// </summary>
+    /// <param name="source">The source of the event.</param>
+    /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
+    protected void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+        switch (e.CommandName)
+        {
+            case "edit":
+
+                // redirect to editing page
+                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessEdit, new { u = e.CommandArgument });
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.BindData();
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+        // list admins but not host admins
+        this.List.DataSource = this.GetRepository<User>().ListAdmins(this.PageBoardContext.PageBoardID)
+            .Where(u => !u.UserFlags.IsHostAdmin);
+        this.DataBind();
+    }
+
+    #endregion
 }

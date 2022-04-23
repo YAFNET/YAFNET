@@ -21,119 +21,118 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Context
-{
-    using System.Web;
+namespace YAF.Core.Context;
 
-    using YAF.Configuration;
-    using YAF.Core.Helpers;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Interfaces.Services;
+using System.Web;
+
+using YAF.Configuration;
+using YAF.Core.Helpers;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.EventProxies;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Interfaces.Services;
+
+/// <summary>
+/// The load page log bad agent.
+/// </summary>
+[ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
+public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
+{
+    #region Constructors and Destructors
 
     /// <summary>
-    /// The load page log bad agent.
+    /// Initializes a new instance of the <see cref="LoadPageLogBadAgent"/> class.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
-    public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <param name="logger">
+    /// The logger.
+    /// </param>
+    /// <param name="httpRequestBase">
+    /// The http request base.
+    /// </param>
+    public LoadPageLogBadAgent(
+        [NotNull] IServiceLocator serviceLocator,
+        [NotNull] ILoggerService logger,
+        [NotNull] HttpRequestBase httpRequestBase)
     {
-        #region Constructors and Destructors
+        CodeContracts.VerifyNotNull(serviceLocator);
+        CodeContracts.VerifyNotNull(logger);
+        CodeContracts.VerifyNotNull(httpRequestBase);
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LoadPageLogBadAgent"/> class.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        /// <param name="httpRequestBase">
-        /// The http request base.
-        /// </param>
-        public LoadPageLogBadAgent(
-            [NotNull] IServiceLocator serviceLocator,
-            [NotNull] ILoggerService logger,
-            [NotNull] HttpRequestBase httpRequestBase)
-        {
-            CodeContracts.VerifyNotNull(serviceLocator);
-            CodeContracts.VerifyNotNull(logger);
-            CodeContracts.VerifyNotNull(httpRequestBase);
-
-            this.ServiceLocator = serviceLocator;
-            this.Logger = logger;
-            this.HttpRequestBase = httpRequestBase;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets HttpRequestBase.
-        /// </summary>
-        public HttpRequestBase HttpRequestBase { get; set; }
-
-        /// <summary>
-        /// Gets or sets Logger.
-        /// </summary>
-        public ILoggerService Logger { get; set; }
-
-        /// <summary>
-        ///   Gets Order.
-        /// </summary>
-        public int Order => 2000;
-
-        /// <summary>
-        ///   Gets or sets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator { get; set; }
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IHandleEvent<InitPageLoadEvent>
-
-        /// <summary>
-        /// Handles the specified @event.
-        /// </summary>
-        /// <param name="event">The @event.</param>
-        public void Handle([NotNull] InitPageLoadEvent @event)
-        {
-            // log unhandled UserAgent strings
-            if (!this.Get<BoardSettings>().UserAgentBadLog)
-            {
-                return;
-            }
-
-            if (this.HttpRequestBase.Url.ToString().Contains("digest"))
-            {
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(@event.UserRequestData.UserAgent))
-            {
-                this.Logger.Warn("UserAgent string is empty.");
-            }
-
-            if ((@event.UserRequestData.Platform.ToLower().Contains("unknown")
-                 || @event.UserRequestData.Browser.ToLower().Contains("unknown"))
-                && !UserAgentHelper.IsSearchEngineSpider(@event.UserRequestData.UserAgent))
-            {
-                this.Logger.Log(
-                    BoardContext.Current.PageUserID,
-                    this,
-                    $"Unhandled UserAgent string:'{@event.UserRequestData.UserAgent}'<br />Platform:'{this.HttpRequestBase.Browser.Platform}'<br />Browser:'{this.HttpRequestBase.Browser.Browser}'");
-            }
-        }
-
-        #endregion
-
-        #endregion
+        this.ServiceLocator = serviceLocator;
+        this.Logger = logger;
+        this.HttpRequestBase = httpRequestBase;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets HttpRequestBase.
+    /// </summary>
+    public HttpRequestBase HttpRequestBase { get; set; }
+
+    /// <summary>
+    /// Gets or sets Logger.
+    /// </summary>
+    public ILoggerService Logger { get; set; }
+
+    /// <summary>
+    ///   Gets Order.
+    /// </summary>
+    public int Order => 2000;
+
+    /// <summary>
+    ///   Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IHandleEvent<InitPageLoadEvent>
+
+    /// <summary>
+    /// Handles the specified @event.
+    /// </summary>
+    /// <param name="event">The @event.</param>
+    public void Handle([NotNull] InitPageLoadEvent @event)
+    {
+        // log unhandled UserAgent strings
+        if (!this.Get<BoardSettings>().UserAgentBadLog)
+        {
+            return;
+        }
+
+        if (this.HttpRequestBase.Url.ToString().Contains("digest"))
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(@event.UserRequestData.UserAgent))
+        {
+            this.Logger.Warn("UserAgent string is empty.");
+        }
+
+        if ((@event.UserRequestData.Platform.ToLower().Contains("unknown")
+             || @event.UserRequestData.Browser.ToLower().Contains("unknown"))
+            && !UserAgentHelper.IsSearchEngineSpider(@event.UserRequestData.UserAgent))
+        {
+            this.Logger.Log(
+                BoardContext.Current.PageUserID,
+                this,
+                $"Unhandled UserAgent string:'{@event.UserRequestData.UserAgent}'<br />Platform:'{this.HttpRequestBase.Browser.Platform}'<br />Browser:'{this.HttpRequestBase.Browser.Browser}'");
+        }
+    }
+
+    #endregion
+
+    #endregion
 }

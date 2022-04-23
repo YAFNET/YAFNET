@@ -22,46 +22,45 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects.Model
+namespace YAF.Types.Objects.Model;
+
+/// <summary>
+/// The moderate forum.
+/// </summary>
+public class ModerateForum
 {
     /// <summary>
-    /// The moderate forum.
+    /// Gets or sets the category.
     /// </summary>
-    public class ModerateForum
-    {
-        /// <summary>
-        /// Gets or sets the category.
-        /// </summary>
-        public string Category { get; set; }
+    public string Category { get; set; }
 
-        /// <summary>
-        /// Gets or sets the category id.
-        /// </summary>
-        public int CategoryID { get; set; }
+    /// <summary>
+    /// Gets or sets the category id.
+    /// </summary>
+    public int CategoryID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        public int ForumID { get; set; }
+    /// <summary>
+    /// Gets or sets the forum id.
+    /// </summary>
+    public int ForumID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the parent id.
-        /// </summary>
-        public int? ParentID { get; set; }
+    /// <summary>
+    /// Gets or sets the parent id.
+    /// </summary>
+    public int? ParentID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the reported count.
-        /// </summary>
-        public int ReportedCount { get; set; }
+    /// <summary>
+    /// Gets or sets the reported count.
+    /// </summary>
+    public int ReportedCount { get; set; }
 
-        /// <summary>
-        /// Gets or sets the message count.
-        /// </summary>
-        public int MessageCount { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the message count.
+    /// </summary>
+    public int MessageCount { get; set; }
 }

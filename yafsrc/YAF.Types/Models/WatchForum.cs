@@ -21,62 +21,61 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models;
+
+using System;
+
+using ServiceStack.DataAnnotations;
+
+using YAF.Types.Interfaces.Data;
+
+/// <summary>
+/// A class which represents the WatchForum table.
+/// </summary>
+[Serializable]
+[UniqueConstraint(nameof(ForumID), nameof(UserID))]
+public class WatchForum : IEntity, IHaveID
 {
-    using System;
-
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces.Data;
+    #region Properties
 
     /// <summary>
-    /// A class which represents the WatchForum table.
+    /// Gets or sets the id.
     /// </summary>
-    [Serializable]
-    [UniqueConstraint(nameof(ForumID), nameof(UserID))]
-    public class WatchForum : IEntity, IHaveID
-    {
-        #region Properties
+    [Alias("WatchForumID")]
+    [AutoIncrement]
+    public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [Alias("WatchForumID")]
-        [AutoIncrement]
-        public int ID { get; set; }
+    /// <summary>
+    /// Gets or sets the forum id.
+    /// </summary>
+    [References(typeof(Forum))]
+    [Required]
+    public int ForumID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        [References(typeof(Forum))]
-        [Required]
-        public int ForumID { get; set; }
+    /// <summary>
+    /// Gets or sets the user id.
+    /// </summary>
+    [References(typeof(User))]
+    [Required]
+    public int UserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        [References(typeof(User))]
-        [Required]
-        public int UserID { get; set; }
+    /// <summary>
+    /// Gets or sets the created.
+    /// </summary>
+    [Required]
+    public DateTime Created { get; set; }
 
-        /// <summary>
-        /// Gets or sets the created.
-        /// </summary>
-        [Required]
-        public DateTime Created { get; set; }
+    /// <summary>
+    /// Gets or sets the last mail.
+    /// </summary>
+    public DateTime? LastMail { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last mail.
-        /// </summary>
-        public DateTime? LastMail { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether
+    /// selected for editing.
+    /// </summary>
+    [Ignore]
+    public bool Selected { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether
-        /// selected for editing.
-        /// </summary>
-        [Ignore]
-        public bool Selected { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

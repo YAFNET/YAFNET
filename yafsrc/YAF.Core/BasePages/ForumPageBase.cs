@@ -21,133 +21,132 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.BasePages
+namespace YAF.Core.BasePages;
+
+#region Using
+
+using System;
+using System.Globalization;
+using System.Threading;
+using System.Web;
+using System.Web.UI;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Core.Services.Startup;
+using YAF.Types.Constants;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Services;
+
+#endregion
+
+/// <summary>
+/// Optional forum page base providing some helper functions.
+/// </summary>
+public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
 {
-    #region Using
+    #region Properties
 
-    using System;
-    using System.Globalization;
-    using System.Threading;
-    using System.Web;
-    using System.Web.UI;
+    /// <summary>
+    ///   Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Core.Services.Startup;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
+    /// <summary>
+    /// Gets the page context.
+    /// </summary>
+    /// <value>
+    /// The page context.
+    /// </value>
+    public BoardContext PageBoardContext => BoardContext.Current;
 
     #endregion
 
+    #region Public Methods
+
     /// <summary>
-    /// Optional forum page base providing some helper functions.
+    /// The initialize culture.
     /// </summary>
-    public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
+    protected override void InitializeCulture()
     {
-        #region Properties
+        var language = "en-US";
 
-        /// <summary>
-        ///   Gets ServiceLocator.
-        /// </summary>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-        /// <summary>
-        /// Gets the page context.
-        /// </summary>
-        /// <value>
-        /// The page context.
-        /// </value>
-        public BoardContext PageBoardContext => BoardContext.Current;
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The initialize culture.
-        /// </summary>
-        protected override void InitializeCulture()
+        if (this.Session["language"] != null)
         {
-            var language = "en-US";
-
-            if (this.Session["language"] != null)
+            language = this.Session["language"].ToString();
+        }
+        else
+        {
+            // Detect PageUser's Language.
+            if (this.Request.UserLanguages != null)
             {
-                language = this.Session["language"].ToString();
+                // Set the Language.
+                language = this.Request.UserLanguages[0];
             }
-            else
-            {
-                // Detect PageUser's Language.
-                if (this.Request.UserLanguages != null)
-                {
-                    // Set the Language.
-                    language = this.Request.UserLanguages[0];
-                }
-            }
-
-            SetLanguageUsingThread(language);
         }
 
-        /// <summary>
-        /// Handles the Error event of the Page control.
-        /// </summary>
-        /// <param name="e">
-        /// The <see cref="EventArgs"/> instance containing the event data.
-        /// </param>
-        protected override void OnError(EventArgs e)
+        SetLanguageUsingThread(language);
+    }
+
+    /// <summary>
+    /// Handles the Error event of the Page control.
+    /// </summary>
+    /// <param name="e">
+    /// The <see cref="EventArgs"/> instance containing the event data.
+    /// </param>
+    protected override void OnError(EventArgs e)
+    {
+        if (!this.Get<StartupInitializeDb>().Initialized)
         {
-            if (!this.Get<StartupInitializeDb>().Initialized)
-            {
-                return;
-            }
+            return;
+        }
 
-            var error = this.Get<HttpServerUtilityBase>().GetLastError();
+        var error = this.Get<HttpServerUtilityBase>().GetLastError();
 
-            if (error.GetType() == typeof(HttpException) && error.InnerException is ViewStateException
-                || error.Source.Contains("ViewStateException"))
-            {
-                if (this.PageBoardContext.BoardSettings.LogViewStateError)
-                {
-                    this.Get<ILoggerService>()
-                        .Log(BoardContext.Current.PageUser.ID, error.Source, error, EventLogTypes.Information);
-                }
-            }
-            else
+        if (error.GetType() == typeof(HttpException) && error.InnerException is ViewStateException
+            || error.Source.Contains("ViewStateException"))
+        {
+            if (this.PageBoardContext.BoardSettings.LogViewStateError)
             {
                 this.Get<ILoggerService>()
-                    .Log(
-                        BoardContext.Current.PageUser.ID,
-                        error.Source,
-                        error);
+                    .Log(BoardContext.Current.PageUser.ID, error.Source, error, EventLogTypes.Information);
             }
-
-            base.OnError(e);
         }
-
-        /// <summary>
-        /// The set language using thread.
-        /// </summary>
-        /// <param name="selectedLanguage">
-        /// The selected language.
-        /// </param>
-        private static void SetLanguageUsingThread(string selectedLanguage)
+        else
         {
-            CultureInfo info;
-
-            try
-            {
-                info = CultureInfo.CreateSpecificCulture(selectedLanguage);
-            }
-            catch
-            {
-                info = CultureInfo.CreateSpecificCulture("en-US");
-            }
-
-            Thread.CurrentThread.CurrentUICulture = info;
-            Thread.CurrentThread.CurrentCulture = info;
-
+            this.Get<ILoggerService>()
+                .Log(
+                    BoardContext.Current.PageUser.ID,
+                    error.Source,
+                    error);
         }
 
-        #endregion
+        base.OnError(e);
     }
+
+    /// <summary>
+    /// The set language using thread.
+    /// </summary>
+    /// <param name="selectedLanguage">
+    /// The selected language.
+    /// </param>
+    private static void SetLanguageUsingThread(string selectedLanguage)
+    {
+        CultureInfo info;
+
+        try
+        {
+            info = CultureInfo.CreateSpecificCulture(selectedLanguage);
+        }
+        catch
+        {
+            info = CultureInfo.CreateSpecificCulture("en-US");
+        }
+
+        Thread.CurrentThread.CurrentUICulture = info;
+        Thread.CurrentThread.CurrentCulture = info;
+
+    }
+
+    #endregion
 }

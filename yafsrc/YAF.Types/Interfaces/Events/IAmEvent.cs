@@ -21,12 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Events
+namespace YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// Marker interface for events
+/// </summary>
+public interface IAmEvent
 {
-    /// <summary>
-    /// Marker interface for events
-    /// </summary>
-    public interface IAmEvent
-    {
-    }
 }

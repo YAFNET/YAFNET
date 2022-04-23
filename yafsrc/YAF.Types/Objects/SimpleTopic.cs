@@ -21,87 +21,86 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Objects
+namespace YAF.Types.Objects;
+
+#region Using
+
+using System;
+
+#endregion
+
+/// <summary>
+/// The simple topic.
+/// </summary>
+[Serializable]
+public class SimpleTopic
 {
-    #region Using
-
-    using System;
-
-    #endregion
+    #region Properties
 
     /// <summary>
-    /// The simple topic.
+    /// Gets or sets CreatedDate.
     /// </summary>
-    [Serializable]
-    public class SimpleTopic
-    {
-        #region Properties
+    public DateTime CreatedDate { get; set; }
 
-        /// <summary>
-        /// Gets or sets CreatedDate.
-        /// </summary>
-        public DateTime CreatedDate { get; set; }
+    /// <summary>
+    /// Gets or sets FirstMessage.
+    /// </summary>
+    public string FirstMessage { get; set; }
 
-        /// <summary>
-        /// Gets or sets FirstMessage.
-        /// </summary>
-        public string FirstMessage { get; set; }
+    /// <summary>
+    /// Gets or sets Forum.
+    /// </summary>
+    public SimpleForum Forum { get; set; }
 
-        /// <summary>
-        /// Gets or sets Forum.
-        /// </summary>
-        public SimpleForum Forum { get; set; }
+    /// <summary>
+    /// Gets or sets LastMessage.
+    /// </summary>
+    public string LastMessage { get; set; }
 
-        /// <summary>
-        /// Gets or sets LastMessage.
-        /// </summary>
-        public string LastMessage { get; set; }
+    /// <summary>
+    /// Gets or sets LastMessageID.
+    /// </summary>
+    public int LastMessageID { get; set; }
 
-        /// <summary>
-        /// Gets or sets LastMessageID.
-        /// </summary>
-        public int LastMessageID { get; set; }
+    /// <summary>
+    /// Gets or sets LastPostDate.
+    /// </summary>
+    public DateTime LastPostDate { get; set; }
 
-        /// <summary>
-        /// Gets or sets LastPostDate.
-        /// </summary>
-        public DateTime LastPostDate { get; set; }
+    /// <summary>
+    /// Gets or sets LastUserID.
+    /// </summary>
+    public int LastUserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets LastUserID.
-        /// </summary>
-        public int LastUserID { get; set; }
+    /// <summary>
+    /// Gets or sets LastUserName.
+    /// </summary>
+    public string LastUserName { get; set; }
 
-        /// <summary>
-        /// Gets or sets LastUserName.
-        /// </summary>
-        public string LastUserName { get; set; }
+    /// <summary>
+    /// Gets or sets Replies.
+    /// </summary>
+    public int Replies { get; set; }
 
-        /// <summary>
-        /// Gets or sets Replies.
-        /// </summary>
-        public int Replies { get; set; }
+    /// <summary>
+    /// Gets or sets StartedUserID.
+    /// </summary>
+    public int StartedUserID { get; set; }
 
-        /// <summary>
-        /// Gets or sets StartedUserID.
-        /// </summary>
-        public int StartedUserID { get; set; }
+    /// <summary>
+    /// Gets or sets StartedUserName.
+    /// </summary>
+    public string StartedUserName { get; set; }
 
-        /// <summary>
-        /// Gets or sets StartedUserName.
-        /// </summary>
-        public string StartedUserName { get; set; }
+    /// <summary>
+    /// Gets or sets Subject.
+    /// </summary>
+    public string Subject { get; set; }
 
-        /// <summary>
-        /// Gets or sets Subject.
-        /// </summary>
-        public string Subject { get; set; }
+    /// <summary>
+    /// Gets or sets TopicID.
+    /// </summary>
+    public int TopicID { get; set; }
 
-        /// <summary>
-        /// Gets or sets TopicID.
-        /// </summary>
-        public int TopicID { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

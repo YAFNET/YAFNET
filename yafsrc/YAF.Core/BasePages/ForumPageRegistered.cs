@@ -22,36 +22,35 @@
  * under the License.
  */
 
-namespace YAF.Core.BasePages
+namespace YAF.Core.BasePages;
+
+using YAF.Types.Constants;
+
+/// <summary>
+/// Forum Page Registered Class
+/// </summary>
+public class ForumPageRegistered : ForumPage
 {
-    using YAF.Types.Constants;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumPageRegistered"/> class.
+    /// </summary>
+    public ForumPageRegistered()
+        : this(null, ForumPages.Board)
+    {
+    }
 
     /// <summary>
-    /// Forum Page Registered Class
+    /// Initializes a new instance of the <see cref="ForumPageRegistered"/> class.
     /// </summary>
-    public class ForumPageRegistered : ForumPage
+    /// <param name="transPage">
+    /// The trans page.
+    /// </param>
+    /// <param name="pageType">
+    /// The page Type.
+    /// </param>
+    public ForumPageRegistered(string transPage, ForumPages pageType)
+        : base(transPage, pageType)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ForumPageRegistered"/> class.
-        /// </summary>
-        public ForumPageRegistered()
-            : this(null, ForumPages.Board)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ForumPageRegistered"/> class.
-        /// </summary>
-        /// <param name="transPage">
-        /// The trans page.
-        /// </param>
-        /// <param name="pageType">
-        /// The page Type.
-        /// </param>
-        public ForumPageRegistered(string transPage, ForumPages pageType)
-            : base(transPage, pageType)
-        {
-            this.IsRegisteredPage = true;
-        }
+        this.IsRegisteredPage = true;
     }
 }

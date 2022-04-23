@@ -21,90 +21,89 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Flags
+namespace YAF.Types.Flags;
+
+using System;
+
+/// <summary>
+/// The category flags.
+/// </summary>
+public class CategoryFlags : FlagsBase
 {
-    using System;
+    #region Constructors
 
     /// <summary>
-    /// The category flags.
+    /// Initializes a new instance of the <see cref="CategoryFlags"/> class. 
     /// </summary>
-    public class CategoryFlags : FlagsBase
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public CategoryFlags(int bitValue)
+        : base(bitValue)
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CategoryFlags"/> class. 
-        /// </summary>
-        /// <param name="bitValue">
-        /// The bit value.
-        /// </param>
-        public CategoryFlags(int bitValue)
-            : base(bitValue)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CategoryFlags"/> class.
-        /// </summary>
-        public CategoryFlags()
-        {
-        }
-
-        #endregion
-
-        #region Flags Enumeration
-
-        /// <summary>
-        /// Use for bit comparisons
-        /// </summary>
-        [Flags]
-        public enum Flags
-        {
-            /// <summary>
-            /// The none.
-            /// </summary>
-            None = 0,
-
-            /// <summary>
-            /// The is active.
-            /// </summary>
-            IsActive = 1,
-
-            /* for future use
-              XXXXXXXX = 2,
-              XXXXXXXX = 4,
-              XXXXXXXX = 8,
-              XXXXXXXX = 16,
-              XXXXXXXX = 32,
-              XXXXXXXX = 64,
-              XXXXXXXX = 128,
-              XXXXXXXX = 256,
-              xxxxxxxx =  512,
-              xxxxxxxx = 1024,
-              xxxxxxxx = 2048,
-              xxxxxxxx = 4096,
-              xxxxxxxx = 8192,
-              xxxxxxxx = 16384,
-              xxxxxxxx = 32768,
-              xxxxxxxx = 65536
-                   */
-        }
-
-        #endregion
-
-        #region Single Flags (can be 32 of them)
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the Category is Active.
-        /// </summary>
-        public bool IsActive
-        {
-            // int value 1
-            get => this[0];
-
-            set => this[0] = value;
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CategoryFlags"/> class.
+    /// </summary>
+    public CategoryFlags()
+    {
+    }
+
+    #endregion
+
+    #region Flags Enumeration
+
+    /// <summary>
+    /// Use for bit comparisons
+    /// </summary>
+    [Flags]
+    public enum Flags
+    {
+        /// <summary>
+        /// The none.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        /// The is active.
+        /// </summary>
+        IsActive = 1,
+
+        /* for future use
+          XXXXXXXX = 2,
+          XXXXXXXX = 4,
+          XXXXXXXX = 8,
+          XXXXXXXX = 16,
+          XXXXXXXX = 32,
+          XXXXXXXX = 64,
+          XXXXXXXX = 128,
+          XXXXXXXX = 256,
+          xxxxxxxx =  512,
+          xxxxxxxx = 1024,
+          xxxxxxxx = 2048,
+          xxxxxxxx = 4096,
+          xxxxxxxx = 8192,
+          xxxxxxxx = 16384,
+          xxxxxxxx = 32768,
+          xxxxxxxx = 65536
+               */
+    }
+
+    #endregion
+
+    #region Single Flags (can be 32 of them)
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the Category is Active.
+    /// </summary>
+    public bool IsActive
+    {
+        // int value 1
+        get => this[0];
+
+        set => this[0] = value;
+    }
+
+    #endregion
 }

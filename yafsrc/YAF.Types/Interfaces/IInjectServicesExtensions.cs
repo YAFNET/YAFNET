@@ -21,38 +21,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces;
+
+#region Using
+
+using YAF.Types.Attributes;
+
+#endregion
+
+/// <summary>
+/// The inject services extensions.
+/// </summary>
+public static class IInjectServicesExtensions
 {
-    #region Using
-
-    using YAF.Types.Attributes;
-
-    #endregion
+    #region Public Methods
 
     /// <summary>
-    /// The inject services extensions.
+    /// Injects instance with public properties marked with Inject attribute.
     /// </summary>
-    public static class IInjectServicesExtensions
+    /// <param name="injectServices">
+    /// The inject services.
+    /// </param>
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
+    public static void Inject([NotNull] this IInjectServices injectServices, [NotNull] object instance)
     {
-        #region Public Methods
+        CodeContracts.VerifyNotNull(injectServices);
+        CodeContracts.VerifyNotNull(instance);
 
-        /// <summary>
-        /// Injects instance with public properties marked with Inject attribute.
-        /// </summary>
-        /// <param name="injectServices">
-        /// The inject services.
-        /// </param>
-        /// <param name="instance">
-        /// The instance.
-        /// </param>
-        public static void Inject([NotNull] this IInjectServices injectServices, [NotNull] object instance)
-        {
-            CodeContracts.VerifyNotNull(injectServices);
-            CodeContracts.VerifyNotNull(instance);
-
-            injectServices.InjectMarked<Inject>(instance);
-        }
-
-        #endregion
+        injectServices.InjectMarked<Inject>(instance);
     }
+
+    #endregion
 }

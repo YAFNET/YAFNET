@@ -6,15 +6,14 @@
 // ***********************************************************************
 using System;
 
-namespace ServiceStack.DataAnnotations
+namespace ServiceStack.DataAnnotations;
+
+/// <summary>
+/// Class AutoIncrementAttribute.
+/// Implements the <see cref="ServiceStack.AttributeBase" />
+/// </summary>
+/// <seealso cref="ServiceStack.AttributeBase" />
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+public class AutoIncrementAttribute : AttributeBase
 {
-    /// <summary>
-    /// Class AutoIncrementAttribute.
-    /// Implements the <see cref="ServiceStack.AttributeBase" />
-    /// </summary>
-    /// <seealso cref="ServiceStack.AttributeBase" />
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class AutoIncrementAttribute : AttributeBase
-    {
-    }
 }

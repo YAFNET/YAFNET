@@ -22,321 +22,320 @@
  * under the License.
  */
 
-namespace YAF.Controls
-{
-    #region Using
+namespace YAF.Controls;
 
-    using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Models;
+#region Using
+
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Models;
+
+#endregion
+
+/// <summary>
+/// The edit users settings.
+/// </summary>
+public partial class EditUsersSettings : BaseUserControl
+{
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets the current edit user.
+    /// </summary>
+    /// <value>The user.</value>
+    public User User { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether UpdateEmailFlag.
+    /// </summary>
+    protected bool UpdateEmailFlag
+    {
+        get => this.ViewState["bUpdateEmail"] != null && this.ViewState["bUpdateEmail"].ToType<bool>();
+
+        set => this.ViewState["bUpdateEmail"] = value;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The edit users settings.
+    /// Handles the Click event of the Cancel control.
     /// </summary>
-    public partial class EditUsersSettings : BaseUserControl
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Properties
+        this.Get<LinkBuilder>().Redirect(
+            this.PageBoardContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
+    }
 
-        /// <summary>
-        /// Gets or sets the current edit user.
-        /// </summary>
-        /// <value>The user.</value>
-        public User User { get; set; }
+    /// <summary>
+    /// Handles the TextChanged event of the Email control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void EmailTextChanged([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.UpdateEmailFlag = true;
+    }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether UpdateEmailFlag.
-        /// </summary>
-        protected bool UpdateEmailFlag
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
         {
-            get => this.ViewState["bUpdateEmail"] != null && this.ViewState["bUpdateEmail"].ToType<bool>();
-
-            set => this.ViewState["bUpdateEmail"] = value;
+            return;
         }
 
-        #endregion
+        this.LoginInfo.Visible = true;
 
-        #region Methods
+        // End Modifications for enhanced profile
+        this.UserThemeRow.Visible = this.PageBoardContext.BoardSettings.AllowUserTheme;
+        this.UserLanguageRow.Visible = this.PageBoardContext.BoardSettings.AllowUserLanguage;
+        this.LoginInfo.Visible = this.PageBoardContext.BoardSettings.AllowEmailChange;
 
-        /// <summary>
-        /// Handles the Click event of the Cancel control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+        // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
+        if (Config.IsDotNetNuke)
         {
-            this.Get<LinkBuilder>().Redirect(
-                this.PageBoardContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
+            this.LoginInfo.Visible = false;
         }
 
-        /// <summary>
-        /// Handles the TextChanged event of the Email control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void EmailTextChanged([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.UpdateEmailFlag = true;
-        }
+        this.BindData();
+    }
 
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    /// <summary>
+    /// Saves the Updated Profile
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void UpdateProfileClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.UpdateEmailFlag)
         {
-            if (this.IsPostBack)
+            var newEmail = this.Email.Text.Trim();
+
+            if (!ValidationHelper.IsValidEmail(newEmail))
             {
+                this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                 return;
             }
 
-            this.LoginInfo.Visible = true;
+            var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim());
 
-            // End Modifications for enhanced profile
-            this.UserThemeRow.Visible = this.PageBoardContext.BoardSettings.AllowUserTheme;
-            this.UserLanguageRow.Visible = this.PageBoardContext.BoardSettings.AllowUserLanguage;
-            this.LoginInfo.Visible = this.PageBoardContext.BoardSettings.AllowEmailChange;
-
-            // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
-            if (Config.IsDotNetNuke)
+            if (userFromEmail != null && userFromEmail.Email != this.User.Name)
             {
-                this.LoginInfo.Visible = false;
+                this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                return;
             }
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Saves the Updated Profile
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void UpdateProfileClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.UpdateEmailFlag)
-            {
-                var newEmail = this.Email.Text.Trim();
-
-                if (!ValidationHelper.IsValidEmail(newEmail))
-                {
-                    this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
-                    return;
-                }
-
-                var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim());
-
-                if (userFromEmail != null && userFromEmail.Email != this.User.Name)
-                {
-                    this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
-                    return;
-                }
-
-                try
-                {
-                    this.Get<IAspNetUsersHelper>().UpdateEmail(userFromEmail, this.Email.Text.Trim());
-                }
-                catch (ApplicationException)
-                {
-                    this.PageBoardContext.Notify(
-                        this.GetText("PROFILE", "DUPLICATED_EMAIL"),
-                        MessageTypes.warning);
-
-                    return;
-                }
-            }
-
-            // vzrus: We should do it as we need to write null value to db, else it will be empty.
-            // Localizer currently treats only nulls.
-            string language = null;
-            var culture = this.Culture.SelectedValue;
-            var theme = this.Theme.SelectedValue;
-            var pageSize = this.PageSize.SelectedValue.ToType<int>();
-
-            if (this.Theme.SelectedValue.IsNotSet())
-            {
-                theme = null;
-            }
-
-            if (this.Culture.SelectedValue.IsNotSet())
-            {
-                culture = null;
-            }
-            else
-            {
-                StaticDataHelper.Cultures()
-                    .Where(row => culture == row.CultureTag).ForEach(
-                        row => language = row.CultureFile);
-            }
-
-            // save remaining settings to the DB
-            this.GetRepository<User>().Save(
-                this.User.ID,
-                this.TimeZones.SelectedValue,
-                language,
-                culture,
-                theme,
-                this.HideMe.Checked,
-                this.Activity.Checked,
-                pageSize);
-
-            if (this.User.UserFlags.IsGuest)
-            {
-                this.GetRepository<Registry>().Save(
-                    "timezone",
-                    this.TimeZones.SelectedValue,
-                    this.PageBoardContext.PageBoardID);
-            }
-
-            // clear the cache for this user...)
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.User.ID));
-
-            this.Get<IDataCache>().Clear();
-
-            if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)
-            {
-                this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
-            }
-            else
-            {
-                this.BindData();
-            }
-        }
-
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        private void BindData()
-        {
-            this.TimeZones.DataSource = StaticDataHelper.TimeZones();
-
-            if (this.PageBoardContext.BoardSettings.AllowUserTheme)
-            {
-                this.Theme.DataSource = StaticDataHelper.Themes();
-            }
-
-            if (this.PageBoardContext.BoardSettings.AllowUserLanguage)
-            {
-                this.Culture.DataSource = StaticDataHelper.Cultures();
-                this.Culture.DataValueField = "CultureTag";
-                this.Culture.DataTextField = "CultureNativeName";
-            }
-
-            this.PageSize.DataSource = StaticDataHelper.PageEntries();
-            this.PageSize.DataTextField = "Name";
-            this.PageSize.DataValueField = "Value";
-
-            this.DataBind();
 
             try
             {
-                this.PageSize.SelectedValue = this.User.PageSize.ToString();
+                this.Get<IAspNetUsersHelper>().UpdateEmail(userFromEmail, this.Email.Text.Trim());
             }
-            catch (Exception)
+            catch (ApplicationException)
             {
-                this.PageSize.SelectedValue = "5";
+                this.PageBoardContext.Notify(
+                    this.GetText("PROFILE", "DUPLICATED_EMAIL"),
+                    MessageTypes.warning);
+
+                return;
+            }
+        }
+
+        // vzrus: We should do it as we need to write null value to db, else it will be empty.
+        // Localizer currently treats only nulls.
+        string language = null;
+        var culture = this.Culture.SelectedValue;
+        var theme = this.Theme.SelectedValue;
+        var pageSize = this.PageSize.SelectedValue.ToType<int>();
+
+        if (this.Theme.SelectedValue.IsNotSet())
+        {
+            theme = null;
+        }
+
+        if (this.Culture.SelectedValue.IsNotSet())
+        {
+            culture = null;
+        }
+        else
+        {
+            StaticDataHelper.Cultures()
+                .Where(row => culture == row.CultureTag).ForEach(
+                    row => language = row.CultureFile);
+        }
+
+        // save remaining settings to the DB
+        this.GetRepository<User>().Save(
+            this.User.ID,
+            this.TimeZones.SelectedValue,
+            language,
+            culture,
+            theme,
+            this.HideMe.Checked,
+            this.Activity.Checked,
+            pageSize);
+
+        if (this.User.UserFlags.IsGuest)
+        {
+            this.GetRepository<Registry>().Save(
+                "timezone",
+                this.TimeZones.SelectedValue,
+                this.PageBoardContext.PageBoardID);
+        }
+
+        // clear the cache for this user...)
+        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.User.ID));
+
+        this.Get<IDataCache>().Clear();
+
+        if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)
+        {
+            this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
+        }
+        else
+        {
+            this.BindData();
+        }
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private void BindData()
+    {
+        this.TimeZones.DataSource = StaticDataHelper.TimeZones();
+
+        if (this.PageBoardContext.BoardSettings.AllowUserTheme)
+        {
+            this.Theme.DataSource = StaticDataHelper.Themes();
+        }
+
+        if (this.PageBoardContext.BoardSettings.AllowUserLanguage)
+        {
+            this.Culture.DataSource = StaticDataHelper.Cultures();
+            this.Culture.DataValueField = "CultureTag";
+            this.Culture.DataTextField = "CultureNativeName";
+        }
+
+        this.PageSize.DataSource = StaticDataHelper.PageEntries();
+        this.PageSize.DataTextField = "Name";
+        this.PageSize.DataValueField = "Value";
+
+        this.DataBind();
+
+        try
+        {
+            this.PageSize.SelectedValue = this.User.PageSize.ToString();
+        }
+        catch (Exception)
+        {
+            this.PageSize.SelectedValue = "5";
+        }
+
+        this.Email.Text = this.User.Email;
+
+        var timeZoneItem = this.TimeZones.Items.FindByValue(this.User.TimeZoneInfo.Id);
+
+        if (timeZoneItem != null)
+        {
+            timeZoneItem.Selected = true;
+        }
+
+        if (this.PageBoardContext.BoardSettings.AllowUserTheme && this.Theme.Items.Count > 0)
+        {
+            // Allows to use different per-forum themes,
+            // While "Allow User Change Theme" option in the host settings is true
+            var themeFile = this.PageBoardContext.BoardSettings.Theme;
+
+            if (this.User.ThemeFile.IsSet())
+            {
+                themeFile = this.User.ThemeFile;
             }
 
-            this.Email.Text = this.User.Email;
+            var themeItem = this.Theme.Items.FindByValue(themeFile);
 
-            var timeZoneItem = this.TimeZones.Items.FindByValue(this.User.TimeZoneInfo.Id);
-
-            if (timeZoneItem != null)
+            if (themeItem != null)
             {
-                timeZoneItem.Selected = true;
+                themeItem.Selected = true;
             }
-
-            if (this.PageBoardContext.BoardSettings.AllowUserTheme && this.Theme.Items.Count > 0)
+            else
             {
-                // Allows to use different per-forum themes,
-                // While "Allow User Change Theme" option in the host settings is true
-                var themeFile = this.PageBoardContext.BoardSettings.Theme;
-
-                if (this.User.ThemeFile.IsSet())
-                {
-                    themeFile = this.User.ThemeFile;
-                }
-
-                var themeItem = this.Theme.Items.FindByValue(themeFile);
+                themeItem = this.Theme.Items.FindByValue("yaf");
 
                 if (themeItem != null)
                 {
                     themeItem.Selected = true;
                 }
-                else
-                {
-                    themeItem = this.Theme.Items.FindByValue("yaf");
-
-                    if (themeItem != null)
-                    {
-                        themeItem.Selected = true;
-                    }
-                }
-            }
-
-            this.HideMe.Checked = this.User.UserFlags.IsActiveExcluded
-                                  && (this.PageBoardContext.BoardSettings.AllowUserHideHimself || this.PageBoardContext.IsAdmin);
-
-            this.Activity.Checked = this.User.Activity;
-
-            if (!this.PageBoardContext.BoardSettings.AllowUserLanguage || this.Culture.Items.Count <= 0)
-            {
-                return;
-            }
-
-            // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
-            var foundCultItem = this.Culture.Items.FindByValue(this.GetCulture(true));
-
-            if (foundCultItem != null)
-            {
-                foundCultItem.Selected = true;
             }
         }
 
-        #endregion
+        this.HideMe.Checked = this.User.UserFlags.IsActiveExcluded
+                              && (this.PageBoardContext.BoardSettings.AllowUserHideHimself || this.PageBoardContext.IsAdmin);
 
-        /// <summary>
-        /// Gets the culture.
-        /// </summary>
-        /// <param name="overrideByPageUserCulture">if set to <c>true</c> [override by page user culture].</param>
-        /// <returns>
-        /// The get culture.
-        /// </returns>
-        private string GetCulture(bool overrideByPageUserCulture)
+        this.Activity.Checked = this.User.Activity;
+
+        if (!this.PageBoardContext.BoardSettings.AllowUserLanguage || this.Culture.Items.Count <= 0)
         {
-            // Language and culture
-            var languageFile = this.PageBoardContext.BoardSettings.Language;
-            var culture4Tag = this.PageBoardContext.BoardSettings.Culture;
-
-            if (overrideByPageUserCulture)
-            {
-                if (this.PageBoardContext.PageUser.LanguageFile.IsSet())
-                {
-                    languageFile = this.PageBoardContext.PageUser.LanguageFile;
-                }
-
-                if (this.PageBoardContext.PageUser.Culture.IsSet())
-                {
-                    culture4Tag = this.PageBoardContext.PageUser.Culture;
-                }
-            }
-            else
-            {
-                if (this.User.LanguageFile.IsSet())
-                {
-                    languageFile = this.User.LanguageFile;
-                }
-
-                if (this.User.Culture.IsSet())
-                {
-                    culture4Tag = this.User.Culture;
-                }
-            }
-
-            // Get first default full culture from a language file tag.
-            var langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
-            return langFileCulture.Substring(0, 2) == culture4Tag.Substring(0, 2) ? culture4Tag : langFileCulture;
+            return;
         }
+
+        // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
+        var foundCultItem = this.Culture.Items.FindByValue(this.GetCulture(true));
+
+        if (foundCultItem != null)
+        {
+            foundCultItem.Selected = true;
+        }
+    }
+
+    #endregion
+
+    /// <summary>
+    /// Gets the culture.
+    /// </summary>
+    /// <param name="overrideByPageUserCulture">if set to <c>true</c> [override by page user culture].</param>
+    /// <returns>
+    /// The get culture.
+    /// </returns>
+    private string GetCulture(bool overrideByPageUserCulture)
+    {
+        // Language and culture
+        var languageFile = this.PageBoardContext.BoardSettings.Language;
+        var culture4Tag = this.PageBoardContext.BoardSettings.Culture;
+
+        if (overrideByPageUserCulture)
+        {
+            if (this.PageBoardContext.PageUser.LanguageFile.IsSet())
+            {
+                languageFile = this.PageBoardContext.PageUser.LanguageFile;
+            }
+
+            if (this.PageBoardContext.PageUser.Culture.IsSet())
+            {
+                culture4Tag = this.PageBoardContext.PageUser.Culture;
+            }
+        }
+        else
+        {
+            if (this.User.LanguageFile.IsSet())
+            {
+                languageFile = this.User.LanguageFile;
+            }
+
+            if (this.User.Culture.IsSet())
+            {
+                culture4Tag = this.User.Culture;
+            }
+        }
+
+        // Get first default full culture from a language file tag.
+        var langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
+        return langFileCulture.Substring(0, 2) == culture4Tag.Substring(0, 2) ? culture4Tag : langFileCulture;
     }
 }
