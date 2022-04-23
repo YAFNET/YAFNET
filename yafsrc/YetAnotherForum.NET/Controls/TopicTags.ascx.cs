@@ -26,13 +26,6 @@ namespace YAF.Controls
 {
     #region Using
 
-    using System;
-    using System.Linq;
-
-    using YAF.Core.BaseControls;
-    using YAF.Core.Model;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Models;
 
     #endregion

@@ -25,13 +25,8 @@ namespace YAF.Modules
 {
     #region Using
 
-    using System;
     using System.Web.UI.HtmlControls;
-
-    using YAF.Core.Helpers;
-    using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Types.Interfaces;
 
     #endregion
 

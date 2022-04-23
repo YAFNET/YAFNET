@@ -25,10 +25,6 @@ namespace YAF.Modules
 {
     #region Using
 
-    using System;
-    using System.Web;
-
-    using YAF.Types;
     using YAF.Types.Attributes;
 
     #endregion

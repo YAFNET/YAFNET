@@ -52,14 +52,11 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "node_modules/moment/min/moment-with-locales.js",
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
                     "Scripts/jquery.bootstrap-touchspin.js",
                     "Scripts/select2.js",
-                    "Scripts/bootstrap-tagsinput.js",
-                    "Scripts/bootstrap-typeahead.js",
                     "Scripts/blueimp-gallery/blueimp-gallery.js",
                     "Scripts/blueimp-gallery/blueimp-gallery-indicator.js",
                     "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
@@ -85,13 +82,10 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "node_modules/moment/min/moment-with-locales.js",
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
                     "Scripts/jquery.bootstrap-touchspin.js",
                     "Scripts/select2.js",
-                    "Scripts/bootstrap-tagsinput.js",
-                    "Scripts/bootstrap-typeahead.js",
                     "Scripts/blueimp-gallery/blueimp-gallery.js",
                     "Scripts/blueimp-gallery/blueimp-gallery-indicator.js",
                     "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
@@ -117,7 +111,6 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "node_modules/moment/min/moment-with-locales.js",
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-datetimepicker.js",
@@ -145,7 +138,6 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "node_modules/moment/min/moment-with-locales.js",
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-datetimepicker.js",
                     "Scripts/bootstrap-notify.js",

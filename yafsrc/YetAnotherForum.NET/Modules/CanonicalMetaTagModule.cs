@@ -24,18 +24,9 @@
 
 namespace YAF.Modules
 {
-    using System;
-    using System.Web;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
-
-    using YAF.Core.Helpers;
-    using YAF.Core.Services;
-    using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
 
     /// <summary>
     ///     Generates a canonical meta tag to fight the dreaded duplicate content SEO warning

@@ -77,6 +77,10 @@ $(document).ready(function () {
             templateResult: formatState,
             templateSelection: formatState,
             placeholder: $(this).attr("placeholder")
+        }).on("select2:select", function (e) {
+            if (e.params.data.url) {
+                window.location = e.params.data.url;
+            }
         });
     });
 

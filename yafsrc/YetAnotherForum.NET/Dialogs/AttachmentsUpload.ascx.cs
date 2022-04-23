@@ -25,14 +25,6 @@ namespace YAF.Dialogs
 {
     #region Using
 
-    using System;
-
-    using YAF.Configuration;
-    using YAF.Core.BaseControls;
-    using YAF.Core.Utilities;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
-
     #endregion
 
     /// <summary>

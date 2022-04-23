@@ -25,13 +25,9 @@ namespace YAF.Controls
 {
     #region Using
 
-    using System;
     using System.Globalization;
 
-    using YAF.Core.BaseControls;
     using YAF.Core.BoardSettings;
-    using YAF.Types;
-    using YAF.Types.Extensions;
 
     #endregion
 

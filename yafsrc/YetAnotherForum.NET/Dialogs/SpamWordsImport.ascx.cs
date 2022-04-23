@@ -26,14 +26,7 @@ namespace YAF.Dialogs
 {
     #region Using
 
-    using System;
-
-    using YAF.Core.BaseControls;
     using YAF.Core.Services.Import;
-    using YAF.Core.Utilities;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
 
     #endregion
 

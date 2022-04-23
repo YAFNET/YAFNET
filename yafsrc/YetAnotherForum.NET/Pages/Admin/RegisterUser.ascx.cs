@@ -26,22 +26,8 @@ namespace YAF.Pages.Admin
 {
     #region Using
 
-    using System;
-    using System.Linq;
-
-    using YAF.Core.BasePages;
-    using YAF.Core.Helpers;
-    using YAF.Core.Model;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
-    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
-    using YAF.Web.Extensions;
 
     #endregion
 
@@ -93,6 +79,7 @@ namespace YAF.Pages.Admin
                 this.PageBoardContext.Notify(this.GetText("ADMIN_REGUSER", "MSG_NAME_EXISTS"), MessageTypes.danger);
                 return;
             }
+
 
             var user = new AspNetUsers
             {

@@ -26,15 +26,6 @@ namespace YAF.Controls
 {
     #region Using
 
-    using System.Collections.Generic;
-    using System.Web.UI.WebControls;
-
-    using YAF.Core.BaseControls;
-    using YAF.Core.Helpers;
-    using YAF.Core.Services;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-
     #endregion
 
     /// <summary>

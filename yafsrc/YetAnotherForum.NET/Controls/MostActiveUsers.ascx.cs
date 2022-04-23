@@ -25,19 +25,8 @@ namespace YAF.Controls
 {
     #region Using
 
-    using System;
-    using System.Linq;
-    using System.Web.UI.WebControls;
-
-    using YAF.Core.BaseControls;
-    using YAF.Core.Helpers;
-    using YAF.Core.Model;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
+    using YAF.Types.Models;
 
     #endregion
 

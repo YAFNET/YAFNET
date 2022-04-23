@@ -25,15 +25,7 @@ namespace YAF.Modules
 {
     #region Using
 
-    using System;
-
-    using YAF.Core.Services;
-    using YAF.Core.Utilities;
-    using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -92,7 +84,7 @@ namespace YAF.Modules
         }
 
         /// <summary>
-        /// Creates this pages title and fires a PageTitleSet event if one is set
+        /// Generates the Unread Messages Notification
         /// </summary>
         private void GeneratePopUp()
         {

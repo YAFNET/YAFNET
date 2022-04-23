@@ -90,12 +90,11 @@
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="TagsHolder" runat="server" Visible="True">
                     <div class="mb-3">
-                        <asp:Label runat="server" AssociatedControlID="Tags">
+                        <asp:Label runat="server" AssociatedControlID="TagsValue">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="TAGS" />
                         </asp:Label>
-                        <asp:TextBox runat="server" ID="Tags"
-                                     CssClass="form-control">
-                        </asp:TextBox>
+                        <select id="Tags" multiple="multiple" class="form-control"></select>
+                        <asp:HiddenField runat="server" ID="TagsValue"/>
                     </div>
                 </asp:PlaceHolder>
                 <div class="mb-3">

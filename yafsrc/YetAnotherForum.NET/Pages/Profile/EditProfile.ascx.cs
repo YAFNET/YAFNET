@@ -25,19 +25,8 @@ namespace YAF.Pages.Profile
 {
     #region Using
 
-    using System;
-
-    using YAF.Core.BasePages;
-    using YAF.Core.Extensions;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
-    using YAF.Types.Models;
     using YAF.Types.Models.Identity;
-    using YAF.Web.Extensions;
+    using YAF.Types.Models;
 
     #endregion
 

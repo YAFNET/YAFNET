@@ -25,19 +25,9 @@ namespace YAF.Pages.Admin
 {
     #region Using
 
-    using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using System.Net.Mail;
-
-    using YAF.Core.BasePages;
     using YAF.Core.BoardSettings;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Web.Extensions;
 
     #endregion
 

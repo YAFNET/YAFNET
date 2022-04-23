@@ -26,18 +26,9 @@ namespace YAF.Modules
 {
     #region Using
 
-    using System;
     using System.Collections.Specialized;
-    using System.Web;
     using System.Web.UI;
-
-    using YAF.Configuration;
-    using YAF.Core.Helpers;
-    using YAF.Core.Utilities;
-    using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
 
     #endregion
 

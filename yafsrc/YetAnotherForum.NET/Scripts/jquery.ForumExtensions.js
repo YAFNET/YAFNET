@@ -7579,7 +7579,7 @@
                         return;
                     }
                     var $remove = $(this);
-                    var $selection = $remove.parent();
+                    var $selection = $remove.parent().parent();
                     var data = Utils.GetData($selection[0], "data");
                     self.trigger("unselect", {
                         originalEvent: evt,
@@ -7604,7 +7604,7 @@
                 return escapeMarkup(template(data, container));
             };
             MultipleSelection.prototype.selectionContainer = function() {
-                var $container = $('<li class="select2-selection__choice">' + '<button type="button" class="select2-selection__choice__remove" ' + 'tabindex="-1">' + '<span aria-hidden="true">&times;</span>' + "</button>" + '<span class="select2-selection__choice__display"></span>' + "</li>");
+                var $container = $('<li class="select2-selection__choice">' + '<span class="badge bg-primary">' + '<i class="fas fa-tag me-1"></i>' + '<span class="select2-selection__choice__display"></span>' + '<button type="button" class="btn-close btn-close-white btn-sm select2-selection__choice__remove" ' + 'tabindex="-1">' + "</button>" + "</span>" + "</li>");
                 return $container;
             };
             MultipleSelection.prototype.update = function(data) {
@@ -7760,9 +7760,9 @@
             }
             Search.prototype.render = function(decorated) {
                 var searchLabel = this.options.get("translations").get("search");
-                var $search = $('<span class="select2-search select2-search--inline">' + '<textarea class="select2-search__field"' + ' type="search" tabindex="-1"' + ' autocorrect="off" autocapitalize="none"' + ' placeholder="search..."' + ' spellcheck="false" role="searchbox" aria-autocomplete="list" >' + "</textarea>" + "</span>");
+                var $search = $('<span class="select2-search select2-search--inline">' + '<input class="select2-search__field"' + ' type="search" tabindex="-1"' + ' placeholder="search..."' + ' aria-autocomplete="list" >' + "</input>" + "</span>");
                 this.$searchContainer = $search;
-                this.$search = $search.find("textarea");
+                this.$search = $search.find("input");
                 this.$search.prop("autocomplete", this.options.get("autocomplete"));
                 this.$search.attr("aria-label", searchLabel());
                 var $rendered = decorated.call(this);
@@ -16673,6 +16673,10 @@ $(document).ready(function() {
             templateResult: formatState,
             templateSelection: formatState,
             placeholder: $(this).attr("placeholder")
+        }).on("select2:select", function(e) {
+            if (e.params.data.url) {
+                window.location = e.params.data.url;
+            }
         });
     });
     if ($("#PostAttachmentListPlaceholder").length) {

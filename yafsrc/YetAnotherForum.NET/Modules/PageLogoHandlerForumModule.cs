@@ -25,22 +25,11 @@ namespace YAF.Modules
 {
     #region Using
 
-    using System;
     using System.IO;
     using System.Runtime.InteropServices;
-    using System.Web;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
-
-    using YAF.Configuration;
-    using YAF.Core.Helpers;
-    using YAF.Core.Services;
-    using YAF.Core.Utilities;
-    using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
 
     #endregion
 

@@ -26,30 +26,13 @@ namespace YAF.Pages.Admin
 {
     #region Using
 
-    using System;
-    using System.Linq;
     using System.Net.Mail;
-    using System.Web.UI.WebControls;
-
     using FarsiLibrary.Utils;
-
-    using YAF.Configuration;
-    using YAF.Core.BasePages;
-    using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
-    using YAF.Core.Model;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Identity;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
     using YAF.Web.Controls;
-    using YAF.Web.Extensions;
+
+    using YAF.Types.Models;
 
     #endregion
 

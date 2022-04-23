@@ -25,18 +25,9 @@ namespace YAF.Modules
 {
     #region Using
 
-    using System;
-
-    using YAF.Core.Extensions;
-    using YAF.Core.Model;
-    using YAF.Core.Services;
-    using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Types.Constants;
     using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     #endregion

@@ -114,10 +114,10 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ExcludeFilesFromDeployment>package-lock.json;packages.config;Gruntfile.js;YetAnotherForum.NET.snk;Content\bootstrap-datetimepicker.css;Content\bootstrap-notify.css;Content\bootstrap-tagsinput.css;Content\prism.css;
+    <ExcludeFilesFromDeployment>package-lock.json;packages.config;Gruntfile.js;YetAnotherForum.NET.snk;Content\bootstrap-datetimepicker.css;Content\bootstrap-notify.css;Content\prism.css;
 	web.config;app.config;db.config;mail.config;
   Scripts\jquery.ForumAdminExtensionsDnn.js;Scripts\jquery.ForumAdminExtensionsDnn.min.js;
-  Scripts\bootbox.js;Scripts\bootstrap.bundle.js;Scripts\bootstrap.bundle.min.js;Scripts\bootstrap-notify.js;Scripts\bootstrap-tagsinput.js;Scripts\bootstrap-typeahead.js;Scripts\jquery.bootstrap-touchspin.js;
+  Scripts\bootbox.js;Scripts\bootstrap.bundle.js;Scripts\bootstrap.bundle.min.js;Scripts\bootstrap-notify.js;Scripts\jquery.bootstrap-touchspin.js;
   Scripts\jquery.hovercard.js;Scripts\prism.js;Scripts\select2.js;**\Content\**\*.scss</ExcludeFilesFromDeployment>
     <ExcludeFoldersFromDeployment>Content\select2;Content\flag-icons;Content\fontawesome;Content\forum;Content\bootstrap;Content\jQuery.FileUpload;Scripts\jQuery.FileUpload;Scripts\blueimp-gallery;Scripts\forum</ExcludeFoldersFromDeployment>
   </PropertyGroup>
@@ -660,6 +660,7 @@
     <Compile Include="error.aspx.designer.cs">
       <DependentUpon>error.aspx</DependentUpon>
     </Compile>
+    <Compile Include="GlobalUsings.cs" />
     <Compile Include="Install\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
@@ -1171,7 +1172,6 @@
       <LastGenOutput>Install.de.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="Content\bootstrap-tagsinput.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap\bootstrap.css">
       <DependentUpon>bootstrap.scss</DependentUpon>
@@ -2255,7 +2255,6 @@
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <None Include="Content\forum-admin.scss" />
-    <Content Include="Scripts\bootstrap-typeahead.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js">
       <DependentUpon>bootstrap.bundle.js</DependentUpon>
@@ -2892,7 +2891,6 @@
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\forum\yaf.Utilities.js" />
-    <Content Include="Scripts\bootstrap-tagsinput.js" />
     <Content Include="Scripts\forum\InstallWizard.js" />
     <Content Include="Scripts\jquery.hovercard.js" />
     <Content Include="Scripts\jquery.ForumExtensions.js" />

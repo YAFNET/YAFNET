@@ -25,19 +25,6 @@ namespace YAF.Pages.Account
 {
     #region Using
 
-    using System;
-    using System.Web;
-
-    using YAF.Core.BasePages;
-    using YAF.Core.Services;
-    using YAF.Core.Utilities;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Web.Extensions;
-
     #endregion
 
     /// <summary>

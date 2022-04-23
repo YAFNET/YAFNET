@@ -38,7 +38,7 @@
                         <ul class="list-group">
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <li class="list-group-item list-group-item-action list-group-item-menu">
+                            <li class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between text-break">
                                     <h5 class="mb-1">
                                         <YAF:UserLink ID="NameLink" runat="server"

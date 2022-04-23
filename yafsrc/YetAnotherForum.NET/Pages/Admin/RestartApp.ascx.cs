@@ -26,15 +26,6 @@ namespace YAF.Pages.Admin
 {
     #region Using
 
-    using System;
-    using System.Web;
-
-    using YAF.Core.BasePages;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-    using YAF.Web.Extensions;
-
     #endregion
 
     /// <summary>

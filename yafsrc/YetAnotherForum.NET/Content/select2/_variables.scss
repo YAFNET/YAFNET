@@ -71,8 +71,8 @@ $s2bs5-multi-item-padding-x:     $badge-padding-x !default;
 $s2bs5-options-max-height:       15rem !default;
 
 // Clear/Remove
-$s2bs5-clear-width:              .75rem !default;
-$s2bs5-clear-height:             .75rem !default;
+$s2bs5-clear-width:              .6rem !default;
+$s2bs5-clear-height:             .6rem !default;
 $s2bs5-clear-padding-y:          $btn-close-padding-y !default;
 $s2bs5-clear-padding-x:          $btn-close-padding-x !default;
 $s2bs5-clear-icon:               str-replace($btn-close-bg, #{$btn-close-color}, #{shade-color($s2bs5-border-color, 50%)}) !default;

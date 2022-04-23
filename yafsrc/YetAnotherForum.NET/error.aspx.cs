@@ -26,10 +26,7 @@ namespace YAF
 {
     #region Using
 
-    using System;
     using System.Web.UI;
-
-    using YAF.Types;
 
     #endregion
 

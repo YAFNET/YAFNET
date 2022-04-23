@@ -127,34 +127,58 @@ namespace YAF.Core.Utilities
         /// <param name="inputId">
         /// The input Id.
         /// </param>
+        /// <param name="hiddenId">
+        /// the hidden id
+        /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
         [NotNull]
-        public static string GetBoardTagsJs(string inputId) =>
-            $@" $(""#{inputId}"").tagsinput({{
-        typeahead: {{
-            source: function () {{
-                var ajaxUrl = ""{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Tags/GetBoardTags"";
-                return $.ajax({{
-                    url: ajaxUrl,
-                    type: 'POST',
-                    dataType: 'JSON',
-                   // data: 'query=' + query,
-                    success: function (data) {{
-                        return data;
+        public static string GetBoardTagsJs(string inputId, string hiddenId) =>
+            $@"{Config.JQueryAlias}(""#{inputId}"").select2({{
+            tags: true,
+            tokenSeparators: [',', ' '],
+            ajax: {{
+                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Tags/GetBoardTags',
+                type: 'POST',
+                dataType: 'json',
+                data: function(params) {{
+                    var query = {{
+                        ForumId: 0,
+                        UserId: 0,
+                        PageSize: 15,
+                        Page: params.page || 0,
+                        SearchTerm: params.term || ''
                     }}
-                }});
-            }}
-        }},
-        freeInput: true
-    }});
+                    return query;
+                }},
+                error: function(x, e) {{
+                    console.log('An Error has occurred!');
+                    console.log(x.responseText);
+                    console.log(x.status);
+                }},
+                processResults: function(data, params) {{
+                    params.page = params.page || 0;
 
-    $(""input"").on('itemAdded', function (event) {{
-        setTimeout(function () {{
-            $("">input[type=text]"", "".bootstrap-tagsinput"").val("""");
-        }}, 1);
-    }});";
+                    var resultsPerPage = 15 * 2;
+
+                    var total = params.page == 0 ? data.Results.length : resultsPerPage;
+
+                    return {{
+                        results: data.Results,
+                        pagination: {{
+                            more: total < data.Total
+                        }}
+                    }}
+                }}
+            }},
+            allowClearing: false,
+            width: '100%',
+            theme: 'bootstrap-5',
+            {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
+        }}).on(""select2:select"", function (e) {{
+                  $(""#{hiddenId}"").val($(this).select2('data').map(x => x.text).join());
+        }});";
 
         #endregion
 
@@ -940,8 +964,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Topic/GetTopics',
                 type: 'POST',
                 dataType: 'json',
-                minimumInputLength: 0,
-                allowClearing: false,
+                minimumInputLength: 1,
                 data: function(params) {{
                       var query = {{
                           ForumId : {Config.JQueryAlias}('#{forumDropDownId}').val(),
@@ -972,7 +995,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     }}
                 }}
             }},
-
+            allowClearing: false,
             width: '100%',
             theme: 'bootstrap-5',
             cache: true,
@@ -1267,15 +1290,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                            trigger: '{trigger}',
                            template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body""></div></div>'
                 }});
-                }});
-                {Config.JQueryAlias}('{cssClass}').on('inserted.bs.popover', function () {{
-                      {Config.JQueryAlias}('.popover-timeago').each(function() {{
-                  {Config.JQueryAlias}(this).html(function(index, value) {{
-                                          return moment(value).fromNow();
-                  }});
-                  {Config.JQueryAlias}(this).removeClass('popover-timeago');
-            }});
-                }})";
+                }});";
         }
 
         /// <summary>

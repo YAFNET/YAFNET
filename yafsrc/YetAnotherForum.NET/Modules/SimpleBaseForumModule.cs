@@ -25,10 +25,6 @@ namespace YAF.Modules
 {
     #region Using
 
-    using YAF.Core.BaseModules;
-    using YAF.Core.BasePages;
-    using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Web.Controls;
 
     #endregion

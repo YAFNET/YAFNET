@@ -25,19 +25,8 @@ namespace YAF.Controls
 {
     #region Using
 
-    using System;
     using System.Globalization;
 
-    using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
-    using YAF.Core.Services;
-    using YAF.Core.Utilities;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
 
     #endregion
@@ -134,14 +123,10 @@ namespace YAF.Controls
                     this.DataSource.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
                 var formattedDatetime = this.PageBoardContext.BoardSettings.ShowRelativeTime
-                                            ? lastPostedDateTime.ToString(
-                                                "yyyy-MM-ddTHH:mm:ssZ",
-                                                CultureInfo.InvariantCulture)
+                                            ? lastPostedDateTime.ToRelativeTime()
                                             : this.Get<IDateTimeService>().Format(
                                                 DateTimeFormat.BothTopic,
                                                 lastPostedDateTime);
-
-                var span = this.PageBoardContext.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
                 this.Info.DataContent = $@"
                           {lastUserLink.RenderToString()}
@@ -149,7 +134,7 @@ namespace YAF.Controls
                                                     <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
                                                     <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
                                                     <i class=""fa fa-clock fa-badge text-secondary""></i>
-                                                </span>&nbsp;{span}{formattedDatetime}</span>
+                                                </span>&nbsp;{formattedDatetime}
                          ";
 
                 this.Info.Text = string.Format(

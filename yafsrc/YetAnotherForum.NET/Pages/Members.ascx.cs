@@ -24,31 +24,7 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
-    #region
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.UI.WebControls;
-
-    using YAF.Configuration;
-    using YAF.Core.BasePages;
-    using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
-    using YAF.Core.Services;
-    using YAF.Core.Utilities;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
-    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
-    using YAF.Types.Objects.Model;
-    using YAF.Web.Extensions;
-
-    #endregion
 
     /// <summary>
     /// The Members List Page

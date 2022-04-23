@@ -24,21 +24,7 @@
 
 namespace YAF.Dialogs
 {
-    #region Using
-
-    using System;
-    using System.Linq;
-
-    using YAF.Core.BaseControls;
-    using YAF.Core.Model;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Types.Models;
-
-    #endregion
 
     /// <summary>
     /// The Admin Medal Group Add/Edit Dialog.

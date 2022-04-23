@@ -195,13 +195,13 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.PlaceHolder TagsHolder;
 
         /// <summary>
-        /// Tags-Steuerelement.
+        /// TagsValue-Steuerelement.
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Tags;
+        protected global::System.Web.UI.WebControls.HiddenField TagsValue;
 
         /// <summary>
         /// EditorLine-Steuerelement.

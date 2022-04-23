@@ -26,17 +26,6 @@ namespace YAF.Pages.Profile
 {
     #region Using
 
-    using System;
-
-    using YAF.Configuration;
-    using YAF.Core.BasePages;
-    using YAF.Core.Extensions;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
-    using YAF.Web.Extensions;
-
     #endregion
 
     /// <summary>

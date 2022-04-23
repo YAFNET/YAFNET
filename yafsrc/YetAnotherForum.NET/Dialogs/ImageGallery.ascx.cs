@@ -24,16 +24,6 @@
 
 namespace YAF.Dialogs
 {
-    // YAF.Pages
-    #region Using
-
-    using System;
-
-    using YAF.Core.BaseControls;
-    using YAF.Types;
-
-    #endregion
-
     /// <summary>
     /// The Image Gallery
     /// </summary>

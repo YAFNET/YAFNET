@@ -24,22 +24,7 @@
 
 namespace YAF.Pages
 {
-    #region Using
-
-    using System;
-    using System.Web;
-
-    using YAF.Core.BasePages;
-    using YAF.Core.Extensions;
-    using YAF.Core.Services;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Web.Extensions;
-
-    #endregion
 
     /// <summary>
     /// the Albums Page.

@@ -25,27 +25,13 @@ namespace YAF.Controls
 {
     #region Using
 
-    using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using System.Web;
-    using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
-    using YAF.Core.BaseControls;
     using YAF.Core.BoardSettings;
-    using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
-    using YAF.Core.Services;
     using YAF.Core.Services.Localization;
     using YAF.Core.Services.Startup;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
     using YAF.Types.Objects;
+    using YAF.Types.Models;
 
     #endregion
 

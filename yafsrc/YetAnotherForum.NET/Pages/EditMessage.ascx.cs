@@ -22,35 +22,10 @@
  * under the License.
  */
 
+using YAF.Types.Models;
+
 namespace YAF.Pages
 {
-    #region Using
-
-    using System;
-    using System.Linq;
-    using System.Web;
-
-    using YAF.Core.BaseModules;
-    using YAF.Core.BasePages;
-    using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
-    using YAF.Core.Model;
-    using YAF.Core.Services;
-    using YAF.Core.Utilities;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
-    using YAF.Types.Interfaces.Services;
-    using YAF.Types.Models;
-    using YAF.Web.Extensions;
-
-    using ListItem = System.Web.UI.WebControls.ListItem;
-
-    #endregion
-
     /// <summary>
     /// The Edit message Page.
     /// </summary>
@@ -208,8 +183,8 @@ namespace YAF.Pages
         {
             // setup jQuery and Jquery Ui Tabs.
             this.PageBoardContext.PageElements.RegisterJsBlock(
-                "GetBoardTagsJs",
-                JavaScriptBlocks.GetBoardTagsJs(this.Tags.ClientID));
+                nameof(JavaScriptBlocks.GetBoardTagsJs),
+                JavaScriptBlocks.GetBoardTagsJs("Tags", this.TagsValue.ClientID));
 
             base.OnPreRender(e);
         }
@@ -422,7 +397,7 @@ namespace YAF.Pages
             {
                 this.GetRepository<TopicTag>().Delete(x => x.TopicID == this.PageBoardContext.PageTopicID);
 
-                this.GetRepository<TopicTag>().AddTagsToTopic(this.Tags.Text, this.PageBoardContext.PageTopicID);
+                this.GetRepository<TopicTag>().AddTagsToTopic(this.TagsValue.Value, this.PageBoardContext.PageTopicID);
             }
 
             this.UpdateWatchTopic(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
@@ -713,7 +688,7 @@ namespace YAF.Pages
 
             if (topicsList.Any())
             {
-                this.Tags.Text = topicsList.Select(t => t.Item2.TagName).ToDelimitedString(",");
+                this.TagsValue.Value = topicsList.Select(t => t.Item2.TagName).ToDelimitedString(",");
             }
 
             // Ederon : 9/9/2007 - moderators can reply in locked topics
