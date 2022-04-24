@@ -300,9 +300,11 @@ public static class BoardRepositoryExtensions
         BoardContext.Current.GetRepository<UserGroup>().Insert(
             new UserGroup { UserID = userIdGuest, GroupID = groupIdGuest });
 
+        var categoryFlags = new CategoryFlags {IsActive = true};
+
         // -- Category
         var categoryId = BoardContext.Current.GetRepository<Category>().Insert(
-            new Category { BoardID = newBoardId, Name = "Test Category", SortOrder = 1 });
+            new Category { BoardID = newBoardId, Name = "Test Category", SortOrder = 1, Flags = categoryFlags.BitValue});
 
         // -- Forum
         var forum = new Forum

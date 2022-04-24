@@ -15,8 +15,8 @@
 </head>
 <body id="YafBody" runat="server">
 <asp:HyperLink runat="server" id="BannerLink">
-    <asp:HtmlImage runat="server" ID="ForumLogo" Width="276" Height="128">
-    </asp:HtmlImage>
+    <asp:Image runat="server" ID="ForumLogo" Width="276" Height="128">
+    </asp:Image>
 </asp:HyperLink>
 <YAF:Form id="form1" runat="server" enctype="multipart/form-data">
     <YAF:Forum runat="server" ID="forum" BoardID="1">

@@ -72,7 +72,7 @@ public class PageLogoHandlerForumModule : SimpleBaseForumModule
     private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
         var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>("BannerLink");
-        var image = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlImage>("ForumLogo");
+        var image = this.CurrentForumPage.FindControlRecursiveBothAs<Image>("ForumLogo");
 
         if (image == null)
         {
@@ -84,8 +84,8 @@ public class PageLogoHandlerForumModule : SimpleBaseForumModule
 
         var logoUrl = $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.PageBoardContext.BoardSettings.ForumLogo}";
 
-        image.Alt = "logo";
-        image.Src = logoUrl;
+        image.AlternateText = "logo";
+        image.ImageUrl = logoUrl;
 
         image.Attributes["class"] = "my-3";
 
