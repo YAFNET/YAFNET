@@ -27,7 +27,6 @@ namespace YAF.Install;
 #region Using
 
 using System.Configuration;
-using System.Globalization;
 using System.Security.Permissions;
 using System.Web.UI;
 using YAF.App_GlobalResources;
@@ -761,6 +760,11 @@ public partial class _default : BasePage, IHaveServiceLocator
 
             this.UserChoice.Items[0].Text = Install.CreateUser;
             this.UserChoice.Items[1].Text = Install.ExistingUser;
+
+            if (!this.IsForumInstalled)
+            {
+                this.UserChoice.Items.RemoveAt(1);
+            }
 
             this.DataBind();
 
