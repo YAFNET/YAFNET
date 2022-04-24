@@ -24,10 +24,6 @@
 
 namespace YAF.Pages.Profile;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The edit user signature page
 /// </summary>

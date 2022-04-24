@@ -24,10 +24,6 @@
 
 namespace YAF.Pages.Profile;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The Change Password Page.
 /// </summary>

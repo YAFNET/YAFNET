@@ -24,10 +24,6 @@
 
 namespace YAF.Pages;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The Search Page.
 /// </summary>

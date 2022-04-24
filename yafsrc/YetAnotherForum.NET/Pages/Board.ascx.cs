@@ -23,10 +23,6 @@
  */
 namespace YAF.Pages;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The Main Board Page.
 /// </summary>

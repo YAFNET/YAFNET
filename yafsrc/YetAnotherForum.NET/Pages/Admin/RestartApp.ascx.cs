@@ -24,10 +24,6 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The Admin Restart App Page.
 /// </summary>

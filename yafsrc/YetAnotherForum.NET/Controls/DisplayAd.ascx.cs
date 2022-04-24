@@ -23,10 +23,6 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// Display Ad Control
 /// </summary>

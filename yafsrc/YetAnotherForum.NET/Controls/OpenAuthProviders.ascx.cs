@@ -24,10 +24,6 @@
 
 namespace YAF.Controls;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The Header.
 /// </summary>

@@ -24,10 +24,6 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The BBCode Admin Edit Page.
 /// </summary>

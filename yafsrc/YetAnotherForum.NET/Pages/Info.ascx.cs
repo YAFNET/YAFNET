@@ -23,10 +23,6 @@
  */
 namespace YAF.Pages;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// Information control displaying feedback information to users.
 /// </summary>

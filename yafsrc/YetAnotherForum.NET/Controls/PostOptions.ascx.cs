@@ -23,10 +23,6 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The post options.
 /// </summary>

@@ -23,10 +23,6 @@
  */
 namespace YAF.Dialogs;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The Attachments Upload Dialog.
 /// </summary>

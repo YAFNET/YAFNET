@@ -24,10 +24,6 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// Admin Page that Shows the List of available Language Files
 /// </summary>

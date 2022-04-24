@@ -24,10 +24,6 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The Task Manager Admin Page
 /// </summary>

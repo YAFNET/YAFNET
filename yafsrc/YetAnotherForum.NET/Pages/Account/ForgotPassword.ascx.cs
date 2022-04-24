@@ -23,10 +23,6 @@
  */
 namespace YAF.Pages.Account;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The recover Password Page.
 /// </summary>

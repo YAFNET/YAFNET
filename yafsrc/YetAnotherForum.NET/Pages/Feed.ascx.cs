@@ -24,10 +24,6 @@
 
 namespace YAF.Pages;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// Generates the RSS Feeds.
 /// </summary>

@@ -23,10 +23,6 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The forum welcome control which shows the current Time and the Last Visit Time of the Current User.
 /// </summary>
