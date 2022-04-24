@@ -24,10 +24,6 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
-#endregion
-
 /// <summary>
 ///    The version info page.
 /// </summary>
@@ -64,11 +60,15 @@ public partial class Version : AdminPage
                     TimeSpan.FromDays(1));
 
                 string lastVersion = version.Version;
-                var lastVersionDate = (DateTime)version.VersionDate;
+                var lastVersionDate = (DateTime) version.VersionDate;
 
-                this.LatestVersion.Text = this.GetTextFormatted("LATEST_VERSION", lastVersion, this.Get<IDateTimeService>().FormatDateShort(lastVersionDate));
+                this.LatestVersion.Text = this.GetTextFormatted(
+                    "LATEST_VERSION",
+                    lastVersion,
+                    this.Get<IDateTimeService>().FormatDateShort(lastVersionDate));
 
-                this.UpgradeVersionHolder.Visible = lastVersionDate.ToUniversalTime() > BoardInfo.AppVersionDate.ToUniversalTime();
+                this.UpgradeVersionHolder.Visible = lastVersionDate.ToUniversalTime().Date
+                                                    > BoardInfo.AppVersionDate.ToUniversalTime().Date;
 
                 this.Download.NavigateUrl = version.UpgradeUrl;
                 this.Download.DataBind();

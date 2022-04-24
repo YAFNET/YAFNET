@@ -329,9 +329,9 @@ public partial class Admin : AdminPage
                 () => this.Get<ILatestInformation>().GetLatestVersion(),
                 TimeSpan.FromDays(1));
 
-            var latestVersion = (DateTime)version.VersionDate;
+            var latestVersion = (DateTime) version.VersionDate;
 
-            if (latestVersion.ToUniversalTime() <= BoardInfo.AppVersionDate.ToUniversalTime())
+            if (latestVersion.ToUniversalTime().Date <= BoardInfo.AppVersionDate.ToUniversalTime().Date)
             {
                 return;
             }
@@ -422,13 +422,13 @@ public partial class Admin : AdminPage
             days = 1;
         }
 
-        this.DayPosts.Text = $"{data.Posts / days:N2}";
-        this.DayTopics.Text = $"{data.Topics / days:N2}";
-        this.DayUsers.Text = $"{data.Users / days:N2}";
+        this.DayPosts.Text = $@"{data.Posts / days:N2}";
+        this.DayTopics.Text = $@"{data.Topics / days:N2}";
+        this.DayUsers.Text = $@"{data.Users / days:N2}";
 
         try
         {
-            this.DBSize.Text = $"{this.Get<IDbAccess>().GetDatabaseSize()} MB";
+            this.DBSize.Text = $@"{this.Get<IDbAccess>().GetDatabaseSize()} MB";
         }
         catch (Exception)
         {
