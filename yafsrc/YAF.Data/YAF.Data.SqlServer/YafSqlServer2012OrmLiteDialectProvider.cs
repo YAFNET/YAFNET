@@ -24,8 +24,6 @@
 
 namespace YAF.Data.SqlServer;
 
-using ServiceStack.OrmLite.SqlServer;
-
 /// <summary>
 /// The YAF SQL Server 2012 ORM lite dialect provider.
 /// </summary>

@@ -23,10 +23,6 @@
  */
 namespace YAF.Web.BBCodes;
 
-using System.Web.UI;
-
-using YAF.Core.BBCode;
-
 /// <summary>
 /// The example bb code module.
 /// </summary>

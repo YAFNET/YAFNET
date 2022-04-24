@@ -30,8 +30,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
 using YAF.Core.Extensions;
-using YAF.Types;
-using YAF.Types.Interfaces;
 using YAF.Types.Models.Identity;
 
 /// <summary>

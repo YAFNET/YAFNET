@@ -23,17 +23,6 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
-using System;
-using System.Web.UI.WebControls;
-
-using YAF.Core.Context;
-using YAF.Core.Extensions;
-using YAF.Types.Interfaces;
-
-#endregion
-
 /// <summary>
 /// The localized required field validator.
 /// </summary>

@@ -25,11 +25,9 @@ namespace YAF.Types.Objects;
 
 #region Using
 
-using System;
 using System.Globalization;
 
 using YAF.Types.Extensions;
-using YAF.Types.Models;
 
 #endregion
 

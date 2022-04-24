@@ -32,7 +32,6 @@ using System.Linq;
 using System.Reflection;
 
 using YAF.Types.Attributes;
-using YAF.Types.Extensions;
 
 #endregion
 

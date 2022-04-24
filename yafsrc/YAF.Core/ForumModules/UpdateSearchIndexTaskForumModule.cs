@@ -29,9 +29,7 @@ using System;
 
 using YAF.Core.BaseModules;
 using YAF.Core.Tasks;
-using YAF.Types;
 using YAF.Types.Attributes;
-using YAF.Types.Interfaces;
 
 #endregion
 

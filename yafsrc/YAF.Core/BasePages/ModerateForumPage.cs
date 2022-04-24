@@ -29,10 +29,8 @@ namespace YAF.Core.BasePages;
 using System;
 
 using YAF.Core.Services;
-using YAF.Types;
 using YAF.Types.Constants;
-using YAF.Types.Interfaces;
-    
+
 #endregion
 
 /// <summary>

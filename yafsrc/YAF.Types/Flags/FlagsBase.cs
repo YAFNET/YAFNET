@@ -25,7 +25,7 @@ namespace YAF.Types.Flags;
 
 #region Using
 
-using System;
+
 
 #endregion
 

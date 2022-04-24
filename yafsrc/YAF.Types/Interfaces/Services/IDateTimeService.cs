@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Interfaces.Services;
 
-using System;
-
 /// <summary>
 /// The YAF DateTime Interface
 /// </summary>

@@ -24,8 +24,6 @@
 
 namespace YAF.Data.MySql;
 
-using ServiceStack.OrmLite.MySql;
-
 /// <summary>
 /// The YAF MySQL ORM lite dialect provider.
 /// </summary>

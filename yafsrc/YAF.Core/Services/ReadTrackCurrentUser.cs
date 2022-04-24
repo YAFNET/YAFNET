@@ -35,9 +35,6 @@ using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 using YAF.Types.Models;
 
 #endregion

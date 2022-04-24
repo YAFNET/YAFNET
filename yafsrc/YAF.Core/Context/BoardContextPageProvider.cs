@@ -30,8 +30,6 @@ using System.Web;
 using Autofac;
 using Autofac.Core.Lifetime;
 
-using YAF.Types.Interfaces;
-
 #endregion
 
 /// <summary>

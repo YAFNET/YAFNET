@@ -27,11 +27,7 @@ using System;
 using System.Web;
 
 using YAF.Core.Context;
-using YAF.Types;
 using YAF.Types.Constants;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 
 /// <summary>
 ///     The Logger extensions.

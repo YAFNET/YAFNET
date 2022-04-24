@@ -25,7 +25,7 @@ namespace YAF.Types.Interfaces.Events;
 
 #region Using
 
-using System;
+
 
 #endregion
 

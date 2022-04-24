@@ -28,8 +28,6 @@ using System.Linq;
     
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 using YAF.Types.Models;
 
 /// <summary>

@@ -24,22 +24,6 @@
 
 namespace YAF.Data.Sqlite;
 
-using ServiceStack.OrmLite;
-
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-
-using YAF.Core.Data;
-using YAF.Types;
-using YAF.Types.Interfaces.Data;
-using YAF.Types.Models;
-
-using Config = YAF.Configuration.Config;
-
 /// <summary>
 /// MySQL DB Information
 /// </summary>

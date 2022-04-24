@@ -22,8 +22,6 @@
 
 namespace YAF.Web.EventsArgs;
 
-using System;
-
 /// <summary>
 ///     The goto page forum event args.
 /// </summary>

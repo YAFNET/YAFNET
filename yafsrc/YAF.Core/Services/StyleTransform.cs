@@ -27,11 +27,6 @@ namespace YAF.Core.Services;
 
 using System.Linq;
 
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
-
 #endregion
 
 /// <summary>

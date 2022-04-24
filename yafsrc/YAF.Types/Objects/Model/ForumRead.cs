@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Objects.Model;
 
-using System;
-
 using ServiceStack.DataAnnotations;
 
 using YAF.Types.Flags;

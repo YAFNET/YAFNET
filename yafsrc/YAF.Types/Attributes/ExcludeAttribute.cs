@@ -23,12 +23,6 @@
  */
 namespace YAF.Types.Attributes;
 
-#region Using
-
-using System;
-
-#endregion
-
 /// <summary>
 /// Exclude a field from the dynamic object conversion.
 /// </summary>

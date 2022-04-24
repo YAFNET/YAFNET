@@ -23,19 +23,6 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
-using System.Text;
-using System.Web.UI;
-
-using YAF.Configuration;
-using YAF.Core.BaseControls;
-using YAF.Core.Context;
-using YAF.Types;
-using YAF.Types.Interfaces;
-
-#endregion
-
 /// <summary>
 /// Activity Notifications Menu
 /// </summary>

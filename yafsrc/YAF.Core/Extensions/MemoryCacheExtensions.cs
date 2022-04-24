@@ -28,8 +28,6 @@ namespace YAF.Core.Extensions;
 using System;
 using System.Runtime.Caching;
 
-using YAF.Types;
-
 #endregion
 
 /// <summary>

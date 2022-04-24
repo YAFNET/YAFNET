@@ -32,9 +32,6 @@ using FarsiLibrary.Utils;
 
 using YAF.Configuration;
 using YAF.Core.Context;
-using YAF.Types;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 
 #endregion
 

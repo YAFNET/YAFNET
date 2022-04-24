@@ -32,9 +32,6 @@ using Autofac;
 using Autofac.Core;
 
 using YAF.Core.Services.Logger;
-using YAF.Types;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 
 #endregion
 

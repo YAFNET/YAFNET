@@ -27,9 +27,6 @@ namespace YAF.Types.Extensions;
 #region Using
 
 using System.Collections.Generic;
-using System.Text;
-
-using YAF.Types;
 
 #endregion
 

@@ -26,10 +26,7 @@ namespace YAF.Core.BaseModules;
 #region Using
 
 using YAF.Core.Context;
-using YAF.Types;
 using YAF.Types.Attributes;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 
 #endregion
 

@@ -26,15 +26,6 @@ namespace YAF.Web.Controls;
 
 #region Using
 
-using System;
-using System.ComponentModel;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-using YAF.Core.Context;
-using YAF.Core.Helpers;
-using YAF.Types;
-using YAF.Types.Extensions;
 using YAF.Web.ReCAPTCHA;
 
 #endregion

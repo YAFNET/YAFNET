@@ -24,7 +24,6 @@
 
 namespace YAF.Types.Interfaces.Identity;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -32,9 +31,6 @@ using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 
 using YAF.Types.Exceptions;
-using YAF.Types.Models;
-using YAF.Types.Models.Identity;
-using YAF.Types.Objects.Model;
 
 /// <summary>
 /// The AspNetUsersHelper interface.

@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Interfaces;
 
-using System;
-
 /// <summary>
 /// The base module interface.
 /// </summary>

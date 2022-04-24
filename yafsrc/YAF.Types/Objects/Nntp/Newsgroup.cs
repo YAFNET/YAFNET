@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Objects.Nntp;
 
-using System;
-
 /// <summary>
 /// The newsgroup.
 /// </summary>

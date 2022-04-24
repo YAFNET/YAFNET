@@ -26,7 +26,6 @@ namespace YAF.Types.Interfaces;
 
 #region Using
 
-using System;
 using System.Collections.Generic;
 
 using YAF.Types.Extensions;

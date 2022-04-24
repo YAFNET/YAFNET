@@ -23,14 +23,6 @@
  */
 namespace YAF.Types.Attributes;
 
-#region Using
-
-using System;
-
-using YAF.Types.Interfaces;
-
-#endregion
-
 /// <summary>
 /// The assembly sort order -- sorts the assembly load order in the modules.
 /// </summary>

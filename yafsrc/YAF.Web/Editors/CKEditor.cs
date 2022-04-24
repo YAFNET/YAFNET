@@ -23,19 +23,6 @@
  */
 namespace YAF.Web.Editors;
 
-#region Using
-
-using System;
-
-using YAF.Configuration;
-using YAF.Core.Context;
-using YAF.Core.Utilities;
-using YAF.Types;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
-
-#endregion
-
 /// <summary>
 /// The CKEditor.
 /// </summary>

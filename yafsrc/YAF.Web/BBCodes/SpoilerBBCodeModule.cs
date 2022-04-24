@@ -23,11 +23,6 @@
  */
 namespace YAF.Web.BBCodes;
 
-using System.Web.UI;
-
-using YAF.Core.BBCode;
-using YAF.Core.Extensions;
-
 /// <summary>
 /// The spoiler bb code module.
 /// </summary>

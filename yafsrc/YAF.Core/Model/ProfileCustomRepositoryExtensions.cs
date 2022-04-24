@@ -29,7 +29,6 @@ using System.Collections.Generic;
     
 using ServiceStack.OrmLite;
 
-using YAF.Types;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Models;
 

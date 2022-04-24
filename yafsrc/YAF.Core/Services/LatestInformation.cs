@@ -31,11 +31,6 @@ using System.Net;
 using ServiceStack;
 using ServiceStack.Text;
 
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
-
 /// <summary>
 /// LatestInformation service class
 /// </summary>

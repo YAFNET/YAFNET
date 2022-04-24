@@ -31,7 +31,6 @@ using System.Web.UI;
 
 using YAF.Core.Context;
 using YAF.Core.Utilities.StringUtils;
-using YAF.Types.Extensions;
 
 #endregion
 

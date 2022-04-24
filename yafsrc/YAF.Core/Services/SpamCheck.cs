@@ -28,11 +28,7 @@ using YAF.Configuration;
 using YAF.Core.Context;
 using YAF.Core.Helpers;
 using YAF.Core.Services.CheckForSpam;
-using YAF.Types;
 using YAF.Types.Constants;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 
 /// <summary>
 /// User and Content Spam Checking

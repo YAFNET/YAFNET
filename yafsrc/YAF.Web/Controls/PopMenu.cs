@@ -25,14 +25,7 @@ namespace YAF.Web.Controls;
 
 #region Using
 
-using System.Collections.Generic;
-using System.Web.UI;
-
-using YAF.Core.BaseControls;
-using YAF.Types;
-using YAF.Types.Extensions;
 using YAF.Types.Objects;
-using YAF.Web.EventsArgs;
 
 #endregion
 

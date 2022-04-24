@@ -20,8 +20,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using YAF.Types.Extensions;
-
 /// <summary>
 /// The stack trace beautify.
 /// </summary>

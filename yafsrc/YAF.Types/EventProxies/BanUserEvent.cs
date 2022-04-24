@@ -23,12 +23,6 @@
  */
 namespace YAF.Types.EventProxies;
 
-#region Using
-
-using YAF.Types.Interfaces.Events;
-
-#endregion
-
 /// <summary>
 /// The ban user event.
 /// </summary>

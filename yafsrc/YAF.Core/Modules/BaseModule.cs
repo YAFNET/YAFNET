@@ -39,8 +39,6 @@ using Autofac.Core;
 
 using YAF.Core.BaseModules;
 using YAF.Core.Extensions;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 
 using Module = Autofac.Module;
 

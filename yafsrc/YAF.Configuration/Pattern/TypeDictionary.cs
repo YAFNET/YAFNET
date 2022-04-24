@@ -24,7 +24,6 @@
 
 namespace YAF.Configuration.Pattern;
 
-using System;
 using System.Collections.Generic;
 
 /// <summary>

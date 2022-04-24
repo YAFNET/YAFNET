@@ -31,9 +31,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using YAF.Types;
 using YAF.Types.Attributes;
-using YAF.Types.Extensions;
 
 #endregion
 

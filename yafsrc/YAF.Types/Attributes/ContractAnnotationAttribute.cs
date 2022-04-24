@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Attributes;
 
-using System;
-
 /// <summary>
 ///     Describes dependency between method input and output
 /// </summary>

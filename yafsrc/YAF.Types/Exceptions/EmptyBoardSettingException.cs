@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Exceptions;
 
-using System;
-
 /// <summary>
 ///     The empty board setting exception.
 /// </summary>

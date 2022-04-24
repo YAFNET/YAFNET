@@ -28,9 +28,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-using YAF.Types;
-using YAF.Types.Extensions;
-
 /// <summary>
 /// The html helper.
 /// </summary>

@@ -26,24 +26,9 @@ namespace YAF.Web.Controls;
 
 #region Using
 
-using System;
-using System.IO;
 #if DEBUG
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 #endif
-using System.Web;
-using System.Web.UI;
-
-using YAF.Configuration;
-using YAF.Core.BaseControls;
-using YAF.Core.Helpers;
-using YAF.Core.Services;
-using YAF.Types;
-using YAF.Types.Constants;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 
 #endregion
 

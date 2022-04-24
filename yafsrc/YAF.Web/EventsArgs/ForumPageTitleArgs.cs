@@ -24,10 +24,6 @@
 
 namespace YAF.Web.EventsArgs;
 
-using System;
-
-using YAF.Types;
-
 /// <summary>
 /// EventArgs class for the PageTitleSet event
 /// </summary>

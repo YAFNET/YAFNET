@@ -23,10 +23,6 @@
  */
 namespace YAF.Types.Interfaces.Services;
 
-using System.Web;
-
-using YAF.Types.Objects;
-
 /// <summary>
 /// The Album interface.
 /// </summary>

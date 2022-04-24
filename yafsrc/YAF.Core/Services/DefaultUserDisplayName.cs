@@ -29,9 +29,6 @@ using System.Collections.Generic;
 
 using YAF.Configuration;
 using YAF.Core.Extensions;
-using YAF.Types;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 using YAF.Types.Models;
 
 #endregion

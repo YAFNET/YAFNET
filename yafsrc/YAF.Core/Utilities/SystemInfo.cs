@@ -29,9 +29,6 @@ using System;
 
 using Microsoft.Win32;
 
-using YAF.Types;
-using YAF.Types.Extensions;
-
 #endregion
 
 /// <summary>

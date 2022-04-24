@@ -24,8 +24,6 @@
 
 namespace YAF.Configuration.Pattern;
 
-using System;
-
 /// <summary>
 ///     Provides a method for automatic overriding of a base hash...
 /// </summary>

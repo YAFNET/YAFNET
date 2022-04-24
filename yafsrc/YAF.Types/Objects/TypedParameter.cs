@@ -25,9 +25,7 @@ namespace YAF.Types.Objects;
 
 #region Using
 
-using System;
 
-using YAF.Types.Interfaces;
 
 #endregion
 

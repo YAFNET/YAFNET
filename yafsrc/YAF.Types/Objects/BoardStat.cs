@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Objects;
 
-using System;
-
 public class BoardStat
 {
     public int Categories { get;set; }

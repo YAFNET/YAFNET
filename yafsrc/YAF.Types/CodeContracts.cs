@@ -24,10 +24,6 @@
 
 namespace YAF.Types;
 
-using System;
-
-using YAF.Types.Attributes;
-
 /// <summary>
 ///     Provides functions used for code contracts.
 /// </summary>

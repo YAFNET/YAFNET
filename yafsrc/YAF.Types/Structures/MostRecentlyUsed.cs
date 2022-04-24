@@ -25,12 +25,7 @@ namespace YAF.Types.Structures;
 
 #region Using
 
-using System;
-using System.Collections;
 using System.Collections.Specialized;
-using System.Text;
-
-using YAF.Types;
 
 #endregion
 

@@ -23,11 +23,7 @@
  */
 namespace YAF.Types.Models;
 
-using System;
-
 using ServiceStack.DataAnnotations;
-
-using YAF.Types.Interfaces.Data;
 
 /// <summary>
 /// A class which represents the IgnoreUser table.

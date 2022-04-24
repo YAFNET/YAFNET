@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Attributes;
 
-using System;
-
 /// <summary>
 /// This attribute is used to represent a string value
 /// for a value in an enum.

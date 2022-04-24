@@ -24,23 +24,6 @@
 
 namespace YAF.Web.Controls;
 
-#region Using
-
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-using YAF.Core.BaseControls;
-using YAF.Core.Services;
-using YAF.Types;
-using YAF.Types.Constants;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-
-#endregion
-
 /// <summary>
 /// Control displaying list of letters and/or characters for filtering list of members.
 /// </summary>

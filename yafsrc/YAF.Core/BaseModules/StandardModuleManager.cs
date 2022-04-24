@@ -28,9 +28,6 @@ namespace YAF.Core.BaseModules;
 using System.Collections.Generic;
 using System.Linq;
 
-using YAF.Types;
-using YAF.Types.Interfaces;
-
 #endregion
 
 /// <summary>

@@ -29,8 +29,6 @@ namespace YAF.Core.Helpers;
 using System;
 using System.Text.RegularExpressions;
 
-using YAF.Types.Extensions;
-
 #endregion
 
 /// <summary>

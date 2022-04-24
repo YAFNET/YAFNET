@@ -25,16 +25,7 @@ namespace YAF.Web.Controls;
 
 #region Using
 
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
 using ServiceStack.Text;
-
-using YAF.Core.BaseControls;
-using YAF.Core.Extensions;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 
 #endregion
 

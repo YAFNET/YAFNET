@@ -33,10 +33,7 @@ using Autofac;
 using Autofac.Core.Lifetime;
 
 using YAF.Core.Extensions;
-using YAF.Types;
 using YAF.Types.Attributes;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 
 /// <summary>
 /// The dynamic services module.

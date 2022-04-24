@@ -35,11 +35,8 @@ using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Constants;
 using YAF.Types.EventProxies;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
-using YAF.Types.Interfaces.Services;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 

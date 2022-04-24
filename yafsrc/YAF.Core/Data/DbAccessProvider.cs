@@ -31,9 +31,7 @@ using Autofac.Features.Indexed;
 using YAF.Configuration;
 using YAF.Core.Events;
 using YAF.Core.Helpers;
-using YAF.Types;
 using YAF.Types.Exceptions;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Interfaces.Events;
 

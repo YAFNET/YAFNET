@@ -25,20 +25,10 @@ namespace YAF.Web.ReCAPTCHA;
 
 #region Using
 
-using System;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Web;
 
 using ServiceStack.Text;
-
-using YAF.Core.Context;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 
 #endregion
 

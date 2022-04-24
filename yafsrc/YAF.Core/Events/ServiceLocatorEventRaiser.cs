@@ -29,11 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Events;
-using YAF.Types.Interfaces.Services;
 
 #endregion
 

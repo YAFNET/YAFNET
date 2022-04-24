@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Flags;
 
-using System;
-
 /// <summary>
 /// The medal flags.
 /// </summary>

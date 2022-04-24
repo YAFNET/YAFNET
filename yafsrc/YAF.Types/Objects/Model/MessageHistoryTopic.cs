@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Objects.Model;
 
-using System;
-
 public class MessageHistoryTopic
 {
     public string EditReason { get; set; }

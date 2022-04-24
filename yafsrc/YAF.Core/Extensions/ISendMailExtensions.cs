@@ -28,9 +28,6 @@ namespace YAF.Core.Extensions;
 using System.Collections.Generic;
 using System.Net.Mail;
 
-using YAF.Types;
-using YAF.Types.Interfaces.Services;
-
 #endregion
 
 /// <summary>

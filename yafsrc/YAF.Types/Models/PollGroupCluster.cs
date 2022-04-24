@@ -23,12 +23,9 @@
  */
 namespace YAF.Types.Models;
 
-using System;
 using System.Data.Linq.Mapping;
 
 using ServiceStack.DataAnnotations;
-
-using YAF.Types.Interfaces.Data;
 
 /// <summary>
 /// A class which represents the yaf_PollGroupCluster table.

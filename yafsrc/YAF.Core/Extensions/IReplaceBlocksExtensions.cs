@@ -28,8 +28,6 @@ namespace YAF.Core.Extensions;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using YAF.Types.Interfaces;
-
 #endregion
 
 /// <summary>

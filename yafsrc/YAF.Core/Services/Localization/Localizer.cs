@@ -34,8 +34,6 @@ using System.Linq;
 using YAF.Core.Context;
 using YAF.Core.Helpers;
 using YAF.Core.Services.Startup;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 using YAF.Types.Objects;
 
 #endregion

@@ -28,8 +28,6 @@ using System;
 using System.Text.RegularExpressions;
 
 using YAF.Core.Context;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 
 /// <summary>
 /// DateTime Helper

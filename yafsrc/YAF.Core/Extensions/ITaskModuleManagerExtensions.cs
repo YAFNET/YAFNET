@@ -27,9 +27,6 @@ namespace YAF.Core.Extensions;
 
 using System;
 
-using YAF.Types;
-using YAF.Types.Interfaces;
-
 #endregion
 
 /// <summary>

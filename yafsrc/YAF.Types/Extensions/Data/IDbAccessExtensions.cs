@@ -23,18 +23,14 @@
  */
 namespace YAF.Types.Extensions.Data;
 
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Text.RegularExpressions;
 
 using ServiceStack.OrmLite;
-
-using YAF.Types.Interfaces.Data;
 
 /// <summary>
 ///     The DBAccess extensions.

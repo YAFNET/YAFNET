@@ -35,12 +35,9 @@ using YAF.Configuration;
 using YAF.Core.Context.Start;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
-using YAF.Types;
 using YAF.Types.Constants;
 using YAF.Types.EventProxies;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Events;
-using YAF.Types.Interfaces.Services;
 
 /// <summary>
 /// The YAF HttpApplication.

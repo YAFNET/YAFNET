@@ -23,12 +23,6 @@
  */
 namespace YAF.Types.Structures;
 
-using System;
-using System.Collections;
-using System.Threading;
-
-using YAF.Types;
-
 /// <summary>
 /// Class that represents a doubly linked list (I can't believe that .NET didn't
 ///   have one of these).  The primary usage for this class is with the Most Recently Used class,

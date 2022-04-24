@@ -21,11 +21,8 @@ namespace YAF.Types.Exceptions;
 
 #region Using
 
-using System;
 using System.Net;
 using System.Runtime.Serialization;
-
-using YAF.Types;
 
 #endregion
 

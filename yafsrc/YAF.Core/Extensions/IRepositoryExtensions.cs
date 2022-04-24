@@ -32,10 +32,7 @@ using System.Linq.Expressions;
 
 using ServiceStack.OrmLite;
 
-using YAF.Types;
-using YAF.Types.Extensions;
 using YAF.Types.Extensions.Data;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 
 /// <summary>

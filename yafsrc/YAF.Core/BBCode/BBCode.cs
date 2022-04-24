@@ -38,12 +38,8 @@ using YAF.Core.BBCode.ReplaceRules;
 using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
-using YAF.Types;
 using YAF.Types.Constants;
-using YAF.Types.Extensions;
 using YAF.Types.Flags;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 
 #endregion
 

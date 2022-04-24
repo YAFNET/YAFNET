@@ -24,12 +24,7 @@
 
 namespace YAF.Data.SqlServer;
 
-using System.Data.Common;
-using System.Data.SqlClient;
-
 using Autofac;
-
-using YAF.Types.Interfaces.Data;
 
 /// <summary>
 /// The MS SQL module.

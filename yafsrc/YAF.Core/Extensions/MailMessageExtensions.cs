@@ -30,9 +30,6 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
 
-using YAF.Types;
-using YAF.Types.Extensions;
-
 #endregion
 
 /// <summary>

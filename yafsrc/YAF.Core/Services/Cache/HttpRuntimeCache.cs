@@ -30,10 +30,8 @@ using System.Collections.Generic;
 using System.Runtime.Caching;
 using System.Web.Caching;
 
-using YAF.Types;
 using YAF.Types.Constants;
 using YAF.Types.EventProxies;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Events;
 
 #endregion

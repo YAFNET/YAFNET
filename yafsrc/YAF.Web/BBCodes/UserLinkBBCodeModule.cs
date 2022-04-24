@@ -23,14 +23,6 @@
  */
 namespace YAF.Web.BBCodes;
 
-using System.Web.UI;
-
-using YAF.Core.BBCode;
-using YAF.Core.Extensions;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Identity;
-using YAF.Types.Models;
 using YAF.Web.Controls;
 
 /// <summary>

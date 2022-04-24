@@ -26,7 +26,6 @@ namespace YAF.Core.Services;
 
 using YAF.Configuration;
 using YAF.Core.Context;
-using YAF.Types.Interfaces;
 
 /// <summary>
 /// The YAF board folders.

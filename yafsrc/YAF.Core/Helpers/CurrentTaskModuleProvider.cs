@@ -27,9 +27,7 @@ namespace YAF.Core.Helpers;
 
 using System.Runtime.Caching;
 
-using YAF.Types;
 using YAF.Types.Constants;
-using YAF.Types.Interfaces;
 
 #endregion
 

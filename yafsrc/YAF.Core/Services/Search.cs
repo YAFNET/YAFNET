@@ -46,12 +46,8 @@ using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Search.Highlight;
 using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Util;
-using YAF.Types;
 using YAF.Types.Constants;
-using YAF.Types.Extensions;
 using YAF.Types.Flags;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 

@@ -29,8 +29,6 @@ using Autofac;
 using Autofac.Core.Lifetime;
 
 using YAF.Core.Modules;
-using YAF.Types;
-using YAF.Types.Interfaces;
 
 #endregion
 

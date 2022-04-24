@@ -25,8 +25,6 @@ namespace YAF.Core.Services;
 
 using System.Diagnostics;
 
-using YAF.Types.Interfaces;
-
 /// <summary>
 /// The stop watch.
 /// </summary>

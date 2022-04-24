@@ -33,8 +33,6 @@ using System.Linq;
 
 using YAF.Configuration;
 using YAF.Core.Extensions;
-using YAF.Types;
-using YAF.Types.Extensions;
 using YAF.Types.Extensions.Data;
 using YAF.Types.Interfaces.Data;
 

@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Models.Identity;
 
-using System;
-
 /// <summary>
 /// The profile info.
 /// </summary>

@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Interfaces.Auth;
 
-using System.Web;
-
 /// <summary>
 /// Interface For oAUTH
 /// </summary>

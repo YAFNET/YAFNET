@@ -28,9 +28,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-using YAF.Types;
 using YAF.Types.Exceptions;
-using YAF.Types.Extensions;
 
 #endregion
 

@@ -23,12 +23,6 @@
  */
 namespace YAF.Types;
 
-#region Using
-
-using YAF.Types.Interfaces;
-
-#endregion
-
 /// <summary>
 /// The service locator access -- kind of a hack. Will not be needed in the future.
 /// </summary>

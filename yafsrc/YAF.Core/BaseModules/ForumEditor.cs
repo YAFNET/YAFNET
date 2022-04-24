@@ -30,8 +30,6 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
 using YAF.Core.BaseControls;
-using YAF.Types;
-using YAF.Types.Interfaces;
 
 #endregion
 

@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Flags;
 
-using System;
-
 /// <summary>
 /// User flags manipulation class from the DB.
 /// </summary>

@@ -26,13 +26,11 @@ namespace YAF.Types.Objects;
 
 #region Using
 
-using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Schema;
-using System.Xml.Serialization;
 
 #endregion
 

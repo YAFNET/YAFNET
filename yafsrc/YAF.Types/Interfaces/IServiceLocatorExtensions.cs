@@ -27,8 +27,6 @@ namespace YAF.Types.Interfaces;
 
 using System.Collections.Generic;
 
-using YAF.Types.Interfaces.Data;
-
 #endregion
 
 /// <summary>

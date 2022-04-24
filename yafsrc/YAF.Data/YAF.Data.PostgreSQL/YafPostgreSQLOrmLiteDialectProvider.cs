@@ -24,8 +24,6 @@
 
 namespace YAF.Data.PostgreSQL;
 
-using ServiceStack.OrmLite.PostgreSQL;
-
 /// <summary>
 /// The YAF PostgreSQL ORM lite dialect provider.
 /// </summary>

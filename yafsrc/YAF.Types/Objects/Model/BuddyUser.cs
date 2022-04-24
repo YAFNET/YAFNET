@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Objects.Model;
 
-using System;
-
 /// <summary>
 /// Class BuddyUser.
 /// </summary>

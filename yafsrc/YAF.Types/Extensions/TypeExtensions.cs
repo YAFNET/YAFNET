@@ -25,12 +25,9 @@ namespace YAF.Types.Extensions;
 
 #region Using
 
-using System;
 using System.Linq;
 using System.Security.Permissions;
 using System.Security.Policy;
-
-using YAF.Types;
 
 #endregion
 

@@ -24,10 +24,6 @@
 
 namespace YAF.Data.Sqlite;
 
-using ServiceStack.OrmLite;
-
-using YAF.Configuration;
-
 /// <summary>
 /// The YAF naming strategy base override.
 /// </summary>

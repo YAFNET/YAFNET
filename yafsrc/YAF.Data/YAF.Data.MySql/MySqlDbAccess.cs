@@ -23,16 +23,6 @@
  */
 namespace YAF.Data.MySql;
 
-#region Using
-
-using System;
-using System.Data.Common;
-
-using YAF.Core.Data;
-using YAF.Types;
-
-#endregion
-
 /// <summary>
 /// The MySQL Database access.
 /// </summary>

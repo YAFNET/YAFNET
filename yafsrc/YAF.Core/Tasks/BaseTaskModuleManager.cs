@@ -32,8 +32,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-using YAF.Types;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Tasks;
 
 #endregion

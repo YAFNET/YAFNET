@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Interfaces.Services;
 
-using YAF.Types.Models;
-
 /// <summary>
 /// The Avatars interface.
 /// </summary>

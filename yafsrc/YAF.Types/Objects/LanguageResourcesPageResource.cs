@@ -24,11 +24,9 @@
 
 namespace YAF.Types.Objects;
 
-using System;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Xml.Serialization;
 
 /// <summary>
 /// The language resources page resource.

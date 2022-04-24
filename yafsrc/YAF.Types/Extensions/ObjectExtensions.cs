@@ -25,7 +25,6 @@ namespace YAF.Types.Extensions;
 
 #region Using
 
-using System;
 using System.ComponentModel;
 using System.Linq;
 

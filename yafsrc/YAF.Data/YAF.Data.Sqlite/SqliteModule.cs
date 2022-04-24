@@ -24,12 +24,7 @@
 
 namespace YAF.Data.Sqlite;
 
-using System.Data.Common;
-using System.Data.SQLite;
-
 using Autofac;
-
-using YAF.Types.Interfaces.Data;
 
 /// <summary>
 /// The Sqlite module.

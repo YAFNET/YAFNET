@@ -23,21 +23,6 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
-using System;
-using System.Web;
-using System.Web.UI;
-
-using YAF.Core.BaseControls;
-using YAF.Core.Services;
-using YAF.Types;
-using YAF.Types.Constants;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-
-#endregion
-
 /// <summary>
 /// Pager Control.
 /// </summary>

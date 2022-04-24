@@ -23,15 +23,6 @@
  */
 namespace YAF.Data.SqlServer;
 
-using System;
-
-using ServiceStack.OrmLite;
-
-using YAF.Configuration;
-using YAF.Core.Events;
-using YAF.Types.Attributes;
-using YAF.Types.Interfaces.Events;
-
 /// <summary>
 /// Set the MS SQL dialect event.
 /// </summary>

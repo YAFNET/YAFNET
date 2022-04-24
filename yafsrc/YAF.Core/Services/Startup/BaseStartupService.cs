@@ -28,7 +28,6 @@ namespace YAF.Core.Services.Startup;
 using System;
 
 using YAF.Core.Context;
-using YAF.Types.Interfaces;
 
 #endregion
 

@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Interfaces.Services;
 
-using System.Web;
-
 /// <summary>
 /// The Resources interface.
 /// </summary>

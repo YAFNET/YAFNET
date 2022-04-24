@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Exceptions;
 
-using System;
-
 /// <summary>
 ///     The no valid DB access provider found exception.
 /// </summary>

@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Constants;
 
-using System.Xml.Serialization;
-
 /// <summary>
 /// The URL location.
 /// </summary>

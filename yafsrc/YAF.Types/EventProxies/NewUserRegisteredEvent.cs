@@ -23,14 +23,6 @@
  */
 namespace YAF.Types.EventProxies;
 
-#region Using
-
-using YAF.Types;
-using YAF.Types.Interfaces.Events;
-using YAF.Types.Models.Identity;
-
-#endregion
-
 /// <summary>
 /// The new user registered event.
 /// </summary>

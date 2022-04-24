@@ -24,13 +24,7 @@
 
 namespace YAF.Data.MySql;
 
-using System.Data.Common;
-
 using Autofac;
-
-using global::MySql.Data.MySqlClient;
-
-using YAF.Types.Interfaces.Data;
 
 /// <summary>
 /// The MySQL module.

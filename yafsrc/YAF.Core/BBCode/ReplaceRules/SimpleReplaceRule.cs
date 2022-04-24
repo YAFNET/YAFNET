@@ -23,9 +23,6 @@
  */
 namespace YAF.Core.BBCode.ReplaceRules;
 
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-
 /// <summary>
 /// Not regular expression, just a simple replace
 /// </summary>

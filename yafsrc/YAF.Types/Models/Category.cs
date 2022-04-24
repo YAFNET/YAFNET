@@ -23,13 +23,9 @@
  */
 namespace YAF.Types.Models;
 
-using System;
-
 using ServiceStack.DataAnnotations;
 
 using YAF.Types.Flags;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Data;
 
 /// <summary>
 /// A class which represents the Category table.

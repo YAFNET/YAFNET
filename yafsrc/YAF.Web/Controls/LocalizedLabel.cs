@@ -23,16 +23,6 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
-using System.Web.UI;
-
-using YAF.Core.BaseControls;
-using YAF.Core.Extensions;
-using YAF.Types.Interfaces;
-
-#endregion
-
 /// <summary>
 /// Makes a very simple localized label
 /// </summary>

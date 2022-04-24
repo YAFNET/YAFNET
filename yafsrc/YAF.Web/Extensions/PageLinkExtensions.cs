@@ -24,13 +24,6 @@
 
 namespace YAF.Web.Extensions;
 
-using YAF.Core.Context;
-using YAF.Core.Extensions;
-using YAF.Core.Services;
-using YAF.Types;
-using YAF.Types.Constants;
-using YAF.Types.Interfaces;
-using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Web.Controls;
 

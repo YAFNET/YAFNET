@@ -25,16 +25,7 @@ namespace YAF.Configuration;
 
 #region Using
 
-using System;
-using System.Runtime.Caching;
-using System.Text;
-using System.Web;
 using System.Web.Hosting;
-
-using YAF.Types;
-using YAF.Types.Exceptions;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces.Services;
 
 #endregion
 

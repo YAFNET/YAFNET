@@ -25,13 +25,9 @@ namespace YAF.Types.Models;
 
 #region Using
 
-using System;
-
 using ServiceStack.DataAnnotations;
 
 using YAF.Types.Flags;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Data;
 
 #endregion
 

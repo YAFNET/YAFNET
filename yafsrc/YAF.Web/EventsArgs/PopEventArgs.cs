@@ -24,10 +24,6 @@
 
 namespace YAF.Web.EventsArgs;
 
-using System;
-
-using YAF.Types;
-
 /// <summary>
 /// The pop event args.
 /// </summary>

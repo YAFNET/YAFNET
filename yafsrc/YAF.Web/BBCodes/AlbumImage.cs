@@ -23,13 +23,6 @@
  */
 namespace YAF.Web.BBCodes;
 
-using System.Web.UI;
-
-using YAF.Configuration;
-using YAF.Core.BBCode;
-using YAF.Types;
-using YAF.Types.Interfaces;
-
 /// <summary>
 /// The Album Image BB Code Module.
 /// </summary>

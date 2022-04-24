@@ -27,8 +27,6 @@ namespace YAF.Types.Interfaces.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using YAF.Types.Objects;
-
 /// <summary>
 /// The Search interface
 /// </summary>

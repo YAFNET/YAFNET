@@ -24,12 +24,6 @@
 
 namespace YAF.Web.Extensions;
 
-using System.Collections.Generic;
-using System.Web.UI.WebControls;
-
-using YAF.Types;
-using YAF.Types.Objects.Model;
-
 /// <summary>
 /// The DropDown Extensions
 /// </summary>

@@ -23,15 +23,6 @@
  */
 namespace YAF.Data.PostgreSQL;
 
-using System;
-
-using ServiceStack.OrmLite;
-
-using YAF.Configuration;
-using YAF.Core.Events;
-using YAF.Types.Attributes;
-using YAF.Types.Interfaces.Events;
-
 /// <summary>
 /// Set the PostgreSQL dialect event.
 /// </summary>

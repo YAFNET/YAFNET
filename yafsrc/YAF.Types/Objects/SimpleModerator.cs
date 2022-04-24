@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Objects;
 
-using System;
-
 using ServiceStack.DataAnnotations;
 
 using YAF.Types.Flags;

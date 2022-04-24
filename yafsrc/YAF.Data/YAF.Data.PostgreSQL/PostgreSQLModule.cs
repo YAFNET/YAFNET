@@ -24,13 +24,7 @@
 
 namespace YAF.Data.PostgreSQL;
 
-using System.Data.Common;
-
 using Autofac;
-
-using Npgsql;
-
-using YAF.Types.Interfaces.Data;
 
 /// <summary>
 /// The PostgreSQL module.

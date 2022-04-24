@@ -33,7 +33,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using YAF.Types.Extensions;
 using YAF.Types.Objects.Nntp;
 
 /// <summary>

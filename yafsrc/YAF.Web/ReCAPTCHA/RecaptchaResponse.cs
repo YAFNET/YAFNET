@@ -23,8 +23,6 @@
  */
 namespace YAF.Web.ReCAPTCHA;
 
-using YAF.Types;
-
 /// <summary>
 /// The reCAPTCHA response.
 /// </summary>

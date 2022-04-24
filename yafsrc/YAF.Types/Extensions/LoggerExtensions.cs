@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Extensions;
 
-using System;
-
 using YAF.Types.Constants;
 using YAF.Types.Interfaces.Services;
 

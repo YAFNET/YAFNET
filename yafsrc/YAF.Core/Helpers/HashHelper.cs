@@ -30,9 +30,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-using YAF.Types;
 using YAF.Types.Constants;
-using YAF.Types.Extensions;
 
 #endregion
 

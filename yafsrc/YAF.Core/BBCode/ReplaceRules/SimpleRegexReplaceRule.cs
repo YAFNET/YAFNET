@@ -27,7 +27,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 using YAF.Core.Extensions;
-using YAF.Types.Interfaces;
 
 /// <summary>
 /// For basic regex with no variables

@@ -23,24 +23,6 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
-using System;
-using System.Text;
-using System.Web;
-using System.Web.UI;
-
-using YAF.Configuration;
-using YAF.Core.Context;
-using YAF.Core.Extensions;
-using YAF.Core.Services;
-using YAF.Core.Utilities;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-
-#endregion
-
 /// <summary>
 ///     Provides a basic "profile link" for a YAF User
 /// </summary>

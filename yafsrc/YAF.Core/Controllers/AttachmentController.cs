@@ -31,8 +31,6 @@ using System.Web.Http;
 using YAF.Configuration;
 using YAF.Core.Context;
 using YAF.Core.Extensions;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 

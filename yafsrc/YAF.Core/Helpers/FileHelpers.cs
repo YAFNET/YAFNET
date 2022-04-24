@@ -29,8 +29,6 @@ using System.Web.Hosting;
 using YAF.Configuration;
 using YAF.Core.Context;
 using YAF.Core.Services;
-using YAF.Types;
-using YAF.Types.Interfaces;
 using YAF.Types.Models;
 
 /// <summary>

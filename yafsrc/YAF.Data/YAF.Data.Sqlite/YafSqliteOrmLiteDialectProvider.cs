@@ -24,8 +24,6 @@
 
 namespace YAF.Data.Sqlite;
 
-using ServiceStack.OrmLite.Sqlite;
-
 /// <summary>
 /// The YAF Sqlite ORM lite dialect provider.
 /// </summary>

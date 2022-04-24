@@ -25,8 +25,6 @@ namespace YAF.Types.Interfaces.Services;
 
 using System.Collections.Generic;
 
-using YAF.Types.Objects;
-
 /// <summary>
 /// SpamWordCheck Interface
 /// </summary>

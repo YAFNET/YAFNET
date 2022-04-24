@@ -32,9 +32,6 @@ using System.Collections.Generic;
 using System.Web;
 
 using YAF.Core.Helpers;
-using YAF.Types;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 using YAF.Types.Objects;
 
 #endregion

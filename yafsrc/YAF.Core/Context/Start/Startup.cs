@@ -31,8 +31,6 @@ using Autofac.Util;
 
 using Owin;
 
-using YAF.Types.Extensions;
-
 /// <summary>
 /// The startup.
 /// </summary>

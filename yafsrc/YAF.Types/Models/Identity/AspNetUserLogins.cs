@@ -26,8 +26,6 @@ namespace YAF.Types.Models.Identity;
 
 using ServiceStack.DataAnnotations;
 
-using YAF.Types.Interfaces.Data;
-
 /// <summary>
 /// The asp net user logins.
 /// </summary>

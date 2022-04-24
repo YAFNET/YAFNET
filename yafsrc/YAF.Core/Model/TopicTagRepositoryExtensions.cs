@@ -31,9 +31,6 @@ using ServiceStack.OrmLite;
 
 using YAF.Core.Context;
 using YAF.Core.Extensions;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Models;
 

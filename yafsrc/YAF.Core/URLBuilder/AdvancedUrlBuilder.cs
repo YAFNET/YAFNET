@@ -34,7 +34,6 @@ using YAF.Configuration;
 using YAF.Core.Helpers;
 using YAF.Core.Utilities;
 using YAF.Types.Constants;
-using YAF.Types.Extensions;
 
 using Config = YAF.Configuration.Config;
 

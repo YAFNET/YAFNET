@@ -28,9 +28,6 @@ namespace YAF.Core.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Tasks;
 
 #endregion

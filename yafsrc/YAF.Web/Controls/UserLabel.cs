@@ -23,19 +23,6 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
-using System.Web.UI;
-
-using YAF.Core.BaseControls;
-using YAF.Core.Extensions;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
-
-#endregion
-
 /// <summary>
 /// The UserLabel
 /// </summary>

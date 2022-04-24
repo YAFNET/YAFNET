@@ -26,7 +26,6 @@ namespace YAF.Types.Interfaces;
 #region Using
 
 using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Data;
 
 #endregion
 

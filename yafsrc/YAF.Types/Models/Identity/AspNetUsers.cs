@@ -26,14 +26,10 @@ namespace YAF.Types.Models.Identity;
 
 #region Using
 
-using System;
-
 using Microsoft.AspNet.Identity;
 
 using ServiceStack.DataAnnotations;
 using ServiceStack.Model;
-
-using YAF.Types.Interfaces.Data;
 
 #endregion
 

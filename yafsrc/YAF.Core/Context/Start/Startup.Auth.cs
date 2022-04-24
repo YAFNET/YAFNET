@@ -41,7 +41,6 @@ using Owin;
 
 using YAF.Configuration;
 using YAF.Core.Identity;
-using YAF.Types.Extensions;
 using YAF.Types.Models.Identity;
 
 /// <summary>

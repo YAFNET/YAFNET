@@ -31,10 +31,6 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-
 /// <summary>
 /// Provides helper functions for using and accessing controls.
 /// </summary>

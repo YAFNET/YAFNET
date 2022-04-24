@@ -25,7 +25,6 @@
 namespace YAF.Core.Data;
 
 using YAF.Configuration;
-using YAF.Types;
 
 /// <summary>
 /// Command Text Helpers

@@ -24,16 +24,6 @@
 
 namespace YAF.Web.Controls;
 
-#region Using
-
-using System.Linq;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-using YAF.Types.Extensions;
-
-#endregion
-
 /// <summary>
 /// Custom DropDown List Controls with Flag Icons
 /// </summary>

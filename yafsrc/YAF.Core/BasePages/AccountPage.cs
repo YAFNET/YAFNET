@@ -26,7 +26,6 @@ namespace YAF.Core.BasePages;
 
 #region Using
 
-using YAF.Types;
 using YAF.Types.Constants;
 
 #endregion

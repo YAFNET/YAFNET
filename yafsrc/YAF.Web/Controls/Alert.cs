@@ -24,14 +24,6 @@
 
 namespace YAF.Web.Controls;
 
-using System.ComponentModel;
-using System.Web.UI;
-
-using YAF.Core.BaseControls;
-using YAF.Types;
-using YAF.Types.Constants;
-using YAF.Types.Extensions;
-
 /// <summary>
 /// Alert Message Control
 /// </summary>

@@ -34,11 +34,6 @@ using System.Reflection;
 using Autofac;
 using Autofac.Core;
 
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
-
 using NamedParameter = YAF.Types.Objects.NamedParameter;
 using TypedParameter = YAF.Types.Objects.TypedParameter;
 

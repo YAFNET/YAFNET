@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Attributes;
 
-using System;
-
 /// <summary>
 /// The YAF module.
 /// </summary>

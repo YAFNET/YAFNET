@@ -23,12 +23,6 @@
  */
 namespace YAF.Types.EventProxies;
 
-#region Using
-
-using YAF.Types.Interfaces.Events;
-
-#endregion
-
 /// <summary>
 /// The update user event.
 /// </summary>

@@ -29,8 +29,6 @@ using System;
 using System.Web.UI;
 
 using YAF.Core.Context;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 
 #endregion
 

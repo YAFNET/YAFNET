@@ -3,8 +3,6 @@ namespace YAF.Core.Helpers;
 using System;
 using System.Threading;
 
-using YAF.Types.Interfaces;
-
 /// <summary>
 /// The safe read write provider.
 /// </summary>

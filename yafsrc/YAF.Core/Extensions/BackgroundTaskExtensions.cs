@@ -23,7 +23,6 @@
  */
 namespace YAF.Core.Extensions;
 
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Tasks;
 
 /// <summary>

@@ -23,22 +23,6 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
-using System;
-using System.Linq;
-using System.Web.UI;
-
-using YAF.Core.BaseControls;
-using YAF.Core.Context;
-using YAF.Core.Model;
-using YAF.Types;
-using YAF.Types.Constants;
-using YAF.Types.Interfaces;
-using YAF.Types.Models;
-
-#endregion
-
 /// <summary>
 /// Provides an Online/Offline/Suspended status for a YAF User
 /// </summary>

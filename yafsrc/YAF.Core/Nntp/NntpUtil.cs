@@ -34,10 +34,6 @@ using System.Text.RegularExpressions;
 using System.Web;
 
 using YAF.Core.Context;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 using YAF.Types.Objects.Nntp;
 
 #endregion

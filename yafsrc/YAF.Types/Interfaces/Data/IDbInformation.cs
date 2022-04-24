@@ -24,7 +24,6 @@
 
 namespace YAF.Types.Interfaces.Data;
 
-using System;
 using System.Collections.Generic;
 using System.Data;
 

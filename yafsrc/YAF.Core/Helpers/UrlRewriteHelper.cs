@@ -32,8 +32,6 @@ using System.Web;
 
 using YAF.Configuration;
 using YAF.Core.Utilities.StringUtils;
-using YAF.Types;
-using YAF.Types.Extensions;
 
 /// <summary>
 /// URL Rewriter Helper Class

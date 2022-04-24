@@ -27,8 +27,6 @@ using System.Collections.Generic;
 using System.Text;
 
 using YAF.Core.Utilities;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 
 /// <summary>
 /// Handles the collection of replacement tags and can also pull the HTML out of the text making a new replacement tag

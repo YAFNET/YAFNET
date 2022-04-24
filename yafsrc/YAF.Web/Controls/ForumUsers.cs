@@ -24,20 +24,6 @@
 
 namespace YAF.Web.Controls;
 
-#region Using
-
-using System;
-using System.Web.UI;
-
-using YAF.Core.BaseControls;
-using YAF.Core.Extensions;
-using YAF.Core.Model;
-using YAF.Types;
-using YAF.Types.Interfaces;
-using YAF.Types.Models;
-
-#endregion
-
 /// <summary>
 /// Displays the forum users.
 /// </summary>

@@ -25,8 +25,6 @@ namespace YAF.Types.Interfaces.Services;
 
 #region Using
 
-using System;
-
 using YAF.Types.Constants;
 
 #endregion

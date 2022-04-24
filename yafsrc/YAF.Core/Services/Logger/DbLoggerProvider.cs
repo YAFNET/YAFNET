@@ -27,10 +27,6 @@ namespace YAF.Core.Services.Logger;
 
 using System;
 
-using YAF.Types;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
-
 #endregion
 
 /// <summary>

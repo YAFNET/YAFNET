@@ -23,14 +23,6 @@
  */
 namespace YAF.Types.EventProxies;
 
-#region Using
-
-using System.Runtime.Caching;
-
-using YAF.Types.Interfaces.Events;
-
-#endregion
-
 /// <summary>
 /// The cache item removed event.
 /// </summary>

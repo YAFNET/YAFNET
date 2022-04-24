@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Objects;
 
-using YAF.Types.Interfaces;
-
 /// <summary>
 /// The named parameter.
 /// </summary>

@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Interfaces;
 
-using System;
-
 /// <summary>
 /// Base Replace Rules Interface
 /// </summary>

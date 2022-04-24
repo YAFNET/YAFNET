@@ -28,8 +28,6 @@ using System.Text.RegularExpressions;
 using System.Web;
 
 using YAF.Core.Extensions;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 
 /// <summary>
 /// For complex regex with variable/default and truncate support

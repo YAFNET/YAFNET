@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Objects.Nntp;
 
-using System.Collections;
-
 /// <summary>
 /// The mime part.
 /// </summary>

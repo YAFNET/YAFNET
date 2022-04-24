@@ -33,8 +33,6 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-using YAF.Types.Extensions;
-
 #endregion
 
 /// <summary>

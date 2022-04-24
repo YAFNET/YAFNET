@@ -23,13 +23,8 @@
  */
 namespace YAF.Types.Models;
 
-using System;
-
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
-
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Data;
 
 /// <summary>
 /// A class which represents the BBCode table.

@@ -24,15 +24,6 @@
 
 namespace YAF.Web.BBCodes;
 
-using System.Linq;
-using System.Web.UI;
-
-using YAF.Core.BBCode;
-using YAF.Core.Context;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Identity;
-
 /// <summary>
 /// Hide Group BBCode Module
 /// </summary>

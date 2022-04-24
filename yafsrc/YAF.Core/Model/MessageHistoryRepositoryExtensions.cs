@@ -28,8 +28,6 @@ using System.Collections.Generic;
 using ServiceStack.OrmLite;
 
 using YAF.Core.Context;
-using YAF.Types;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;

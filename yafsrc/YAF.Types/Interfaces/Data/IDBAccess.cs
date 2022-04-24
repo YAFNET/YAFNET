@@ -25,7 +25,6 @@ namespace YAF.Types.Interfaces.Data;
 
 #region Using
 
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;

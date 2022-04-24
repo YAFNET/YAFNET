@@ -28,8 +28,6 @@ namespace YAF.Core.Utilities.StringUtils;
 
 using System.Text;
 
-using YAF.Types.Extensions;
-
 #endregion
 
 /// <summary>

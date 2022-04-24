@@ -36,10 +36,6 @@ using System.Web.Hosting;
 using YAF.Configuration;
 using YAF.Core.Context;
 using YAF.Core.Helpers;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 using YAF.Types.Objects;
 
 #endregion

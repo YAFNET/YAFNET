@@ -25,8 +25,6 @@ namespace YAF.Types.Interfaces.Services;
 
 using System.Net.Mail;
 
-using YAF.Types.Models;
-
 /// <summary>
 /// The digest interface
 /// </summary>

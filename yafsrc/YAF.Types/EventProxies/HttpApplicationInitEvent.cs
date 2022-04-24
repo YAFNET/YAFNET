@@ -23,14 +23,6 @@
  */
 namespace YAF.Types.EventProxies;
 
-#region Using
-
-using System.Web;
-
-using YAF.Types.Interfaces.Events;
-
-#endregion
-
 /// <summary>
 /// The http application init event.
 /// </summary>

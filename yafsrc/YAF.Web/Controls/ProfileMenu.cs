@@ -24,22 +24,6 @@
 
 namespace YAF.Web.Controls;
 
-#region Using
-
-using System.Text;
-using System.Web.UI;
-
-using YAF.Configuration;
-using YAF.Core.BaseControls;
-using YAF.Core.Extensions;
-using YAF.Core.Services;
-using YAF.Types;
-using YAF.Types.Constants;
-using YAF.Types.Interfaces;
-using YAF.Types.Models;
-
-#endregion
-
 /// <summary>
 /// User Profile Menu in the User Control Panel
 /// </summary>

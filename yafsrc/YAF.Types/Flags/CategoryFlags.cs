@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Flags;
 
-using System;
-
 /// <summary>
 /// The category flags.
 /// </summary>

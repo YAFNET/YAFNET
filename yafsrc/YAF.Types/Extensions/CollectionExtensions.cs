@@ -26,8 +26,6 @@ namespace YAF.Types.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
-using YAF.Types;
-
 /// <summary>
 /// The collection extensions.
 /// </summary>

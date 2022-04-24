@@ -29,10 +29,6 @@ using ServiceStack.Text;
 
 using YAF.Core.BaseControls;
 using YAF.Core.Context;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 
 /// <summary>
 /// The localization support extensions.

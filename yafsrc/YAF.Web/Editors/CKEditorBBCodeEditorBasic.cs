@@ -23,15 +23,6 @@
  */
 namespace YAF.Web.Editors;
 
-using YAF.Configuration;
-using YAF.Core.Context;
-using YAF.Core.Helpers;
-using YAF.Core.Utilities;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
-
 /// <summary>
 /// The CKEditor BBCode editor (Basic).
 /// </summary>

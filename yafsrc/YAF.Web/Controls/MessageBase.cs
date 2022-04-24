@@ -25,21 +25,7 @@ namespace YAF.Web.Controls;
 
 #region Using
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Web.UI;
-
-using YAF.Core.BaseControls;
-using YAF.Core.BBCode;
-using YAF.Core.Helpers;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Flags;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 
 #endregion
 

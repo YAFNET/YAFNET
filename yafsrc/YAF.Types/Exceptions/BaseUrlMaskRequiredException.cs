@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Exceptions;
 
-using System;
-
 /// <summary>
 /// Base Url MaskRequired Exception Class
 /// </summary>

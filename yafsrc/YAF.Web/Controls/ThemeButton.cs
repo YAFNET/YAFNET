@@ -25,20 +25,6 @@ namespace YAF.Web.Controls;
 
 #region Using
 
-using System;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-using YAF.Core.BaseControls;
-using YAF.Types;
-using YAF.Types.Constants;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-
 using AttributeCollection = System.Web.UI.AttributeCollection;
 using ButtonStyle = YAF.Types.Constants.ButtonStyle;
 

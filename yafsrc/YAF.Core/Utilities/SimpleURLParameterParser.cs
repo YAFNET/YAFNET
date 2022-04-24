@@ -29,9 +29,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
-using YAF.Types;
-using YAF.Types.Extensions;
-
 #endregion
 
 /// <summary>

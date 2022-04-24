@@ -24,14 +24,11 @@
 
 namespace YAF.Types.Models;
 
-using System;
-
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
 
 using YAF.Types.Constants;
 using YAF.Types.Extensions;
-using YAF.Types.Interfaces.Data;
 
 /// <summary>
 /// A class which represents the EventLog table.

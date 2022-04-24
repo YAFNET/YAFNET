@@ -27,7 +27,6 @@ namespace YAF.Core.Context;
 #region Using
 
 using YAF.Configuration.Pattern;
-using YAF.Types;
 
 #endregion
 

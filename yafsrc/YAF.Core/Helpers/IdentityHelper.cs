@@ -32,8 +32,6 @@ using System.Web;
 using Microsoft.Owin.Security;
 
 using YAF.Core.Context;
-using YAF.Types;
-using YAF.Types.Interfaces;
 
 /// <summary>
 /// The identity helper class.

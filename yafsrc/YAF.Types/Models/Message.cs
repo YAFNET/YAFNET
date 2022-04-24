@@ -23,14 +23,10 @@
  */
 namespace YAF.Types.Models;
 
-using System;
-
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
 
 using YAF.Types.Flags;
-using YAF.Types.Interfaces.Data;
-using YAF.Types.Objects.Model;
 
 /// <summary>
 /// A class which represents the Message table.

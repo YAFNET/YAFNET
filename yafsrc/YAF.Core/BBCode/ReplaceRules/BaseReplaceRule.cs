@@ -25,8 +25,6 @@ namespace YAF.Core.BBCode.ReplaceRules;
 
 using System;
 
-using YAF.Types.Interfaces;
-
 /// <summary>
 /// Base class for all replacement rules.
 ///   Provides compare functionality based on the rule rank.

@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Objects;
 
-using System;
-
 public class UserRequestData
 {
     public bool DontTrack { get; set; }

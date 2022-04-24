@@ -24,16 +24,6 @@
 
 namespace YAF.Web.BBCodes;
 
-using System.Web.UI;
-
-using YAF.Core.BBCode;
-using YAF.Core.Context;
-using YAF.Core.Extensions;
-using YAF.Core.Model;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Models;
-
 /// <summary>
 /// Hidden BBCode Module
 /// </summary>

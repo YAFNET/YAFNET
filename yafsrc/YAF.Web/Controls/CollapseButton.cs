@@ -21,23 +21,6 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
-using System;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-using YAF.Core.Context;
-using YAF.Core.Extensions;
-using YAF.Core.Helpers;
-using YAF.Types;
-using YAF.Types.Constants;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
-
-#endregion
-
 /// <summary>
 /// The collapsible image.
 /// </summary>

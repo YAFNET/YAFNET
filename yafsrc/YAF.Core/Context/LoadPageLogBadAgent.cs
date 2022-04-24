@@ -27,13 +27,9 @@ using System.Web;
 
 using YAF.Configuration;
 using YAF.Core.Helpers;
-using YAF.Types;
 using YAF.Types.Attributes;
 using YAF.Types.EventProxies;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Events;
-using YAF.Types.Interfaces.Services;
 
 /// <summary>
 /// The load page log bad agent.

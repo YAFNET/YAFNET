@@ -28,8 +28,6 @@ namespace YAF.Core.Extensions;
 using Autofac.Builder;
 using Autofac.Core.Lifetime;
 
-using YAF.Types;
-
 #endregion
 
 /// <summary>

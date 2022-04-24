@@ -30,9 +30,6 @@ using System.Globalization;
 using System.Linq;
 
 using YAF.Configuration;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 
 /// <summary>
 /// Class to Generate The Reputation Bar

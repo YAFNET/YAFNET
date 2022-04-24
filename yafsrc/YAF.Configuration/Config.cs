@@ -26,14 +26,9 @@ namespace YAF.Configuration;
 
 #region Using
 
-using System;
 using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.Web.Configuration;
-using YAF.Types;
-using YAF.Types.Constants;
-using YAF.Types.Extensions;
 
 #endregion
 

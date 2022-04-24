@@ -34,11 +34,7 @@ using System.Runtime.Serialization;
 using ServiceStack.Text;
 
 using YAF.Core.Context;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.CheckForSpam;
-using YAF.Types.Interfaces.Services;
 using YAF.Types.Objects;
 
 #endregion

@@ -23,11 +23,7 @@
  */
 namespace YAF.Types.Interfaces.Services;
 
-using System;
 using System.Collections.Generic;
-
-using YAF.Types.Models;
-using YAF.Types.Models.Identity;
 
 /// <summary>
 /// The SendNotification Interface

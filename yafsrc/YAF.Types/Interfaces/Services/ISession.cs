@@ -23,11 +23,7 @@
  */
 namespace YAF.Types.Interfaces.Services;
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
-
-using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF Session Interface

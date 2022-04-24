@@ -23,12 +23,6 @@
  */
 namespace YAF.Types.Exceptions;
 
-#region Using
-
-using System;
-
-#endregion
-
 /// <summary>
 /// The no valid guest user for board exception.
 /// </summary>

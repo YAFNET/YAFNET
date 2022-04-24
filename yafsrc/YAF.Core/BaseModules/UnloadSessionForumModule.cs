@@ -31,9 +31,7 @@ using System.Web.UI;
 
 using YAF.Core.Context;
 using YAF.Core.Services.Startup;
-using YAF.Types;
 using YAF.Types.Attributes;
-using YAF.Types.Interfaces;
 
 #endregion
 

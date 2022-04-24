@@ -34,9 +34,6 @@ using Newtonsoft.Json;
 
 using YAF.Configuration;
 using YAF.Core.Context;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 using YAF.Types.Objects;
 
 /// <summary>

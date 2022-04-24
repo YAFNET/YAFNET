@@ -32,11 +32,7 @@ using System.Web;
 
 using YAF.Core.Context;
 using YAF.Core.Utilities.ImageUtils;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 
-    
 #endregion
 
 /// <summary>

@@ -24,13 +24,6 @@
 
 namespace YAF.Configuration;
 
-using System;
-using System.Text;
-
-using YAF.Types;
-using YAF.Types.Constants;
-using YAF.Types.Objects;
-
 /// <summary>
 /// Class provides helper functions related to the forum path and URLs as well as forum version information.
 /// </summary>

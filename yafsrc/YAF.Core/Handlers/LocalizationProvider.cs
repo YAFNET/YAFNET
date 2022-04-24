@@ -29,7 +29,6 @@ namespace YAF.Core.Handlers;
 using System;
 
 using YAF.Core.Services.Localization;
-using YAF.Types.Interfaces;
 
 #endregion
 

@@ -24,10 +24,7 @@
 
 namespace YAF.Configuration.Pattern;
 
-using System;
 using System.Collections.Generic;
-
-using YAF.Types.Extensions;
 
 /// <summary>
 ///     The registry dictionary.

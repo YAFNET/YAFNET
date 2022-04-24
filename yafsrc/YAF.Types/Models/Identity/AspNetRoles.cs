@@ -24,14 +24,10 @@
 
 namespace YAF.Types.Models.Identity;
 
-using System;
-
 using Microsoft.AspNet.Identity;
 
 using ServiceStack.DataAnnotations;
 using ServiceStack.Model;
-
-using YAF.Types.Interfaces.Data;
 
 /// <summary>
 /// The asp net roles.

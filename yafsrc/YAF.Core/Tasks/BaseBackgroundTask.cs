@@ -28,8 +28,6 @@ using System;
 using YAF.Configuration;
 using YAF.Core.Context;
 using YAF.Types.Attributes;
-using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Services;
 
 /// <summary>
 /// The base background task.

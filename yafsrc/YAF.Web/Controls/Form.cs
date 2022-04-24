@@ -8,8 +8,6 @@
 namespace YAF.Web.Controls;
 
 using System.Runtime.InteropServices;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 
 using YAF.UrlRewriter;
 using YAF.UrlRewriter.Utilities;

@@ -29,9 +29,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using YAF.Types;
-using YAF.Types.Extensions;
-
 /// <summary>
 /// The module scanner
 /// </summary>

@@ -29,9 +29,6 @@ using System.Linq;
 
 using YAF.Core.Context;
 using YAF.Core.Services;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
 using YAF.Types.Models;
 
 /// <summary>

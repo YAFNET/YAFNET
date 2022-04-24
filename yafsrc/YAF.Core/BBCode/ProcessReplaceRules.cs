@@ -29,10 +29,6 @@ namespace YAF.Core.BBCode;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces;
-
 #endregion
 
 /// <summary>

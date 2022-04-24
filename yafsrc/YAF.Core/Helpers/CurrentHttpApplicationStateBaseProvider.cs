@@ -27,9 +27,6 @@ namespace YAF.Core.Helpers;
 
 using System.Web;
 
-using YAF.Types;
-using YAF.Types.Interfaces;
-
 #endregion
 
 /// <summary>

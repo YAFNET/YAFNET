@@ -29,8 +29,6 @@ using System.Linq;
 
 using Microsoft.AspNet.Identity;
 
-using YAF.Types.Models.Identity;
-
 /// <summary>
 /// The AspNetRoleManager interface.
 /// </summary>

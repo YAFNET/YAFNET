@@ -23,12 +23,6 @@
  */
 namespace YAF.Types.Attributes;
 
-#region Using
-
-using System;
-
-#endregion
-
 /// <summary>
 /// The service lifetime scope.
 /// </summary>

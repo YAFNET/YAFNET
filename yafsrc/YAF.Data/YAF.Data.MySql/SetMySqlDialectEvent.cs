@@ -23,15 +23,6 @@
  */
 namespace YAF.Data.MySql;
 
-using System;
-
-using ServiceStack.OrmLite;
-
-using YAF.Configuration;
-using YAF.Core.Events;
-using YAF.Types.Attributes;
-using YAF.Types.Interfaces.Events;
-
 /// <summary>
 /// Sets the MySQL dialect event.
 /// </summary>

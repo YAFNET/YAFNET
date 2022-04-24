@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Objects;
 
-using System;
-
 /// <summary>
 /// The Page Link Class
 /// </summary>

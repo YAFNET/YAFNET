@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Interfaces;
 
-using YAF.Types.Objects;
-
 /// <summary>
 /// The IP Info Service interface.
 /// </summary>

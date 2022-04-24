@@ -47,9 +47,7 @@ using YAF.Core.Services.Cache;
 using YAF.Core.Services.Migrations;
 using YAF.Core.Services.Startup;
 using YAF.Core.URLBuilder;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Identity;
-using YAF.Types.Interfaces.Services;
 using YAF.Types.Models.Identity;
 
 using BBCode = YAF.Core.BBCode.BBCode;

@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Objects;
 
-using System.Xml.Serialization;
-
 using ServiceStack.DataAnnotations;
 
 /// <summary>

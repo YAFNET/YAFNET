@@ -35,9 +35,7 @@ using System.Xml.Serialization;
 using YAF.Core.Context;
 using YAF.Core.Model;
 using YAF.Core.Services;
-using YAF.Types;
 using YAF.Types.Constants;
-using YAF.Types.Interfaces;
 using YAF.Types.Models;
 
 using SiteMap = YAF.Types.Objects.SiteMap;

@@ -29,8 +29,6 @@ using System.Web;
 
 using Autofac;
 
-using YAF.Types;
-
 #endregion
 
 /// <summary>

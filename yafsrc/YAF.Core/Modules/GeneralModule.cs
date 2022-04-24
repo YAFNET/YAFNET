@@ -37,7 +37,6 @@ using YAF.Core.Events;
 using YAF.Core.Helpers;
 using YAF.Core.Nntp;
 using YAF.Core.Services.Cache;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Interfaces.Events;
 

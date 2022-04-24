@@ -24,13 +24,6 @@
 
 namespace YAF.Web.Controls;
 
-using System.ComponentModel;
-using System.Web.UI;
-
-using YAF.Core.BaseControls;
-using YAF.Types;
-using YAF.Types.Extensions;
-
 /// <summary>
 /// The icon.
 /// </summary>
