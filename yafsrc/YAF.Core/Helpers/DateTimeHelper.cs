@@ -202,8 +202,8 @@ public static class DateTimeHelper
                            : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("D", ts.Minutes));
             case < 30 * Day:
                 return isFuture
-                           ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("DD", ts.Minutes))
-                           : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("DD", ts.Minutes));
+                           ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("DD", ts.Days))
+                           : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("DD", ts.Days));
             case < 12 * Month:
                 {
                     var months = Convert.ToInt32(Math.Floor((double) ts.Days / 30));
