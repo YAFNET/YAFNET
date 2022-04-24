@@ -5012,6 +5012,23 @@ Spoiler Content
     <Resource tag="USERNAME_LENGTH_WARN">Benutzername darf mehr als {0} Zeichen haben.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Bestätigung der Anmeldedaten für {0}</Resource>
   </page>
+  <page name="RELATIVE_TIME">
+    <Resource tag="D">a day</Resource>
+    <Resource tag="DD">{0} days</Resource>
+    <Resource tag="FUTURE">in {0}</Resource>
+    <Resource tag="H">an hour</Resource>
+    <Resource tag="HH">{0} hours</Resource>
+    <Resource tag="M">a minute</Resource>
+    <Resource tag="MM">{0} minutes</Resource>
+    <Resource tag="MO">a month</Resource>
+    <Resource tag="MOMO">{0} months</Resource>
+    <Resource tag="NOW">Right now</Resource>
+    <Resource tag="PAST">{0} ago</Resource>
+    <Resource tag="S">a few seconds</Resource>
+    <Resource tag="SS">{0} seconds</Resource>
+    <Resource tag="Y">a year</Resource>
+    <Resource tag="YY">{0} years</Resource>
+  </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">Abbruch</Resource>
     <Resource tag="CANCEL_TITLE">Beitrag Melden abbrechen</Resource>

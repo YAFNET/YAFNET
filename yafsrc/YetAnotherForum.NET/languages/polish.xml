@@ -5056,6 +5056,23 @@ Spoiler Content
     <Resource tag="USERNAME_LENGTH_WARN">Nazwa użytkownika powinna się składać z co najmniej {0} znaków.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Weryfikacja rejestracji na forum {0}</Resource>
   </page>
+  <page name="RELATIVE_TIME">
+    <Resource tag="D">a day</Resource>
+    <Resource tag="DD">{0} days</Resource>
+    <Resource tag="FUTURE">in {0}</Resource>
+    <Resource tag="H">an hour</Resource>
+    <Resource tag="HH">{0} hours</Resource>
+    <Resource tag="M">a minute</Resource>
+    <Resource tag="MM">{0} minutes</Resource>
+    <Resource tag="MO">a month</Resource>
+    <Resource tag="MOMO">{0} months</Resource>
+    <Resource tag="NOW">Right now</Resource>
+    <Resource tag="PAST">{0} ago</Resource>
+    <Resource tag="S">a few seconds</Resource>
+    <Resource tag="SS">{0} seconds</Resource>
+    <Resource tag="Y">a year</Resource>
+    <Resource tag="YY">{0} years</Resource>
+  </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">Anuluj</Resource>
     <Resource tag="CANCEL_TITLE">Anulowanie zgłoszenia postu</Resource>
@@ -5080,23 +5097,23 @@ Spoiler Content
     <Resource tag="VALUE_20">Wrogi</Resource>
   </page>
   <page name="RTE">
-    <Resource tag="BOLD">Pogrubienie</Resource>
-    <Resource tag="CENTER">Wyśrodkuj</Resource>
-    <Resource tag="CLEAR">Usuń Formatowanie</Resource>
-    <Resource tag="FORMATTED">Sformatowane</Resource>
-    <Resource tag="IMAGE">Wstaw obraz</Resource>
-    <Resource tag="INDENT">Zmniejsz wcięcie</Resource>
-    <Resource tag="ITALIC">Kursywa</Resource>
-    <Resource tag="LEFT">Wyrównaj do lewej</Resource>
-    <Resource tag="LINK">Wstaw Łącze</Resource>
-    <Resource tag="NORMAL">Normalny</Resource>
-    <Resource tag="ORDERED">Lista numerowana</Resource>
-    <Resource tag="OUTDENT">Zwiększ wcięcie</Resource>
-    <Resource tag="RIGHT">Wyrównaj do Prawej</Resource>
-    <Resource tag="SPELL">Sprawdź pisownię</Resource>
-    <Resource tag="SPELL_CORRECT">Wszystkie słowa są zapisane poprawnie.</Resource>
-    <Resource tag="UNDERLINE">Podkreślenie</Resource>
-    <Resource tag="UNORDERED">Lista punktowana</Resource>
+    <Resource tag="BOLD">Bold</Resource>
+    <Resource tag="CENTER">Center</Resource>
+    <Resource tag="CLEAR">Clear Formatting</Resource>
+    <Resource tag="FORMATTED">Formatted</Resource>
+    <Resource tag="IMAGE">Add Image</Resource>
+    <Resource tag="INDENT">Indent</Resource>
+    <Resource tag="ITALIC">Italic</Resource>
+    <Resource tag="LEFT">Align Left</Resource>
+    <Resource tag="LINK">Insert Link</Resource>
+    <Resource tag="NORMAL">Normal</Resource>
+    <Resource tag="ORDERED">Ordered List</Resource>
+    <Resource tag="OUTDENT">Outdent</Resource>
+    <Resource tag="RIGHT">Align Right</Resource>
+    <Resource tag="SPELL">Check Spelling</Resource>
+    <Resource tag="SPELL_CORRECT">There are no incorrectly spelt words.</Resource>
+    <Resource tag="UNDERLINE">Underline</Resource>
+    <Resource tag="UNORDERED">Unordered List</Resource>
   </page>
   <page name="RULES">
     <Resource tag="ACCEPT">Akceptuję</Resource>
