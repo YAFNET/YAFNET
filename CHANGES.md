@@ -1,6 +1,13 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.4
+* [NEW] Active Flag for Categories to enable/disable a Category
+* [NEW] Infinite Scrolling on Board Index if there are more then 20 Forums
+* [NEW] Infinite Scrolling for all Forum Dropdowns
+* [FIXED] New Installations
+* [PERFORMANCE] removed various javascript libaries to server side rendering
+
 # YetAnotherForum.NET v3.1.3
 * Added new Audio BBCode (thanks to User daprose-dotcom)
 * Upgraded to FontAwesome 6.1.1
