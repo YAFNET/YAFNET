@@ -564,28 +564,12 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             return null;
         }
 
-        string posted;
-
-        try
-        {
-            var postedDateTime = doc.Get("Posted").ToType<DateTime>();
-
-            posted = this.Get<BoardSettings>().ShowRelativeTime
-                         ? postedDateTime.ToRelativeTime()
-                         : this.Get<IDateTimeService>().Format(DateTimeFormat.BothTopic, postedDateTime);
-        }
-        catch (Exception)
-        {
-            posted = doc.Get("Posted");
-        }
-        
-
         return new SearchMessage
                    {
                        Topic = doc.Get("Topic"),
                        TopicId = doc.Get("TopicId").ToType<int>(),
                        TopicUrl = this.Get<LinkBuilder>().GetTopicLink(doc.Get("TopicId").ToType<int>(), doc.Get("Topic")),
-                       Posted = posted,
+                       Posted = doc.Get("Posted"),
                        UserId = doc.Get("UserId").ToType<int>(),
                        UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
                        UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
@@ -756,12 +740,27 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             topic = doc.Get("Topic");
         }
 
+        string posted;
+
+        try
+        {
+            var postedDateTime = doc.Get("Posted").ToType<DateTime>();
+
+            posted = this.Get<BoardSettings>().ShowRelativeTime
+                         ? postedDateTime.ToRelativeTime()
+                         : this.Get<IDateTimeService>().Format(DateTimeFormat.BothTopic, postedDateTime);
+        }
+        catch (Exception)
+        {
+            posted = doc.Get("Posted");
+        }
+
         return new SearchMessage
                    {
                        MessageId = doc.Get("MessageId").ToType<int>(),
                        Message = message,
                        Flags = flags,
-                       Posted = doc.Get("Posted"),
+                       Posted = posted,
                        UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
                        UserId = doc.Get("UserId").ToType<int>(),
                        TopicId = doc.Get("TopicId").ToType<int>(),
