@@ -324,11 +324,6 @@ public partial class EditMedal : AdminPage
     {
         var medal = this.GetRepository<Medal>().GetSingle(m => m.ID == this.CurrentMedalId.Value);
 
-        if (medal == null)
-        {
-            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-        }
-
         // load available images from images/medals folder
         var medals = new List<NamedParameter> {
                                                       new(this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE"), "")
@@ -366,6 +361,11 @@ public partial class EditMedal : AdminPage
 
         this.GroupList.DataSource = this.GetRepository<GroupMedal>().List(null, this.CurrentMedalId.Value);
         this.GroupList.DataBind();
+
+        if (medal == null)
+        {
+            return;
+        }
 
         // set controls
         this.Name.Text = medal.Name;
