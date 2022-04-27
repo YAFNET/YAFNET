@@ -23,9 +23,6 @@
  */
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
-
 /// <summary>
 /// A class which represents the BBCode table.
 /// </summary>
@@ -70,31 +67,31 @@ public class BBCode : IEntity, IHaveBoardID, IHaveID
     /// <summary>
     /// Gets or sets the display JS.
     /// </summary>
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string DisplayJS { get; set; }
 
     /// <summary>
     /// Gets or sets the edit JS.
     /// </summary>
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string EditJS { get; set; }
 
     /// <summary>
     /// Gets or sets the display CSS.
     /// </summary>
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string DisplayCSS { get; set; }
 
     /// <summary>
     /// Gets or sets the search regex.
     /// </summary>
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string SearchRegex { get; set; }
 
     /// <summary>
     /// Gets or sets the replace regex.
     /// </summary>
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string ReplaceRegex { get; set; }
 
     /// <summary>

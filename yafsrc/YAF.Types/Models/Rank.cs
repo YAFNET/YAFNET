@@ -25,9 +25,7 @@ namespace YAF.Types.Models;
 
 #region Using
 
-using ServiceStack.DataAnnotations;
 
-using YAF.Types.Flags;
 
 #endregion
 

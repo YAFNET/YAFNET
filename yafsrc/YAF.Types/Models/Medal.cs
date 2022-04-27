@@ -23,11 +23,6 @@
  */
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
-
-using YAF.Types.Flags;
-
 /// <summary>
 ///     A class which represents the Medal table.
 /// </summary>
@@ -48,7 +43,7 @@ public class Medal : IEntity, IHaveBoardID, IHaveID
     [StringLength(100)]
     public string Name { get; set; }
 
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string Description { get; set; }
 
     [Required]

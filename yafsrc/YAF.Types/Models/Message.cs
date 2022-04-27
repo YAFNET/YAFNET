@@ -23,11 +23,6 @@
  */
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
-
-using YAF.Types.Flags;
-
 /// <summary>
 /// A class which represents the Message table.
 /// </summary>
@@ -209,7 +204,7 @@ public class Message : IEntity, IHaveID
     /// Gets or sets the message text.
     /// </summary>
     [Alias("Message")]
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string MessageText { get; set; }
 
     /// <summary>

@@ -23,11 +23,6 @@
  */
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
-
-using YAF.Types.Flags;
-
 /// <summary>
 /// A class which represents the PMessage table.
 /// </summary>
@@ -66,7 +61,7 @@ public class PMessage : IEntity, IHaveID
     /// <summary>
     /// Gets or sets the body.
     /// </summary>
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string Body { get; set; }
 
     /// <summary>

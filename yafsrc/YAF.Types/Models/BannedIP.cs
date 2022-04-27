@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-
 /// <summary>
 /// The banned IP table.
 /// </summary>

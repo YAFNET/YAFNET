@@ -23,9 +23,6 @@
  */
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
-
 /// <summary>
 /// A class which represents the ProfileCustom table.
 /// </summary>
@@ -53,7 +50,7 @@ public class ProfileCustom : IEntity
     /// <summary>
     /// Gets or sets the value.
     /// </summary>
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string Value { get; set; }
 
     #endregion

@@ -28,7 +28,6 @@ namespace YAF.Types.Models.Identity;
 
 using Microsoft.AspNet.Identity;
 
-using ServiceStack.DataAnnotations;
 using ServiceStack.Model;
 
 #endregion

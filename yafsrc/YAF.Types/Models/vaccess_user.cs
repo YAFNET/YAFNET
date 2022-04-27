@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-
 [Serializable]
 public class vaccess_user : IEntity
 {

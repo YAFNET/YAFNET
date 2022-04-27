@@ -24,9 +24,6 @@
 
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
-
 using YAF.Types.Constants;
 using YAF.Types.Extensions;
 
@@ -66,7 +63,7 @@ public class EventLog : IEntity, IHaveID
     /// <summary>
     /// Gets or sets the description.
     /// </summary>
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string Description { get; set; }
 
     /// <summary>

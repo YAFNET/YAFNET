@@ -24,10 +24,6 @@
 
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-
-using YAF.Types.Flags;
-
 /// <summary>
 /// A class which represents the Topic table.
 /// </summary>

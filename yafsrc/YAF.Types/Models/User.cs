@@ -24,12 +24,8 @@
 
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
-
 using YAF.Types.Constants;
 using YAF.Types.Extensions;
-using YAF.Types.Flags;
 
 /// <summary>
 /// A class which represents the User table.
@@ -174,7 +170,7 @@ public class User : IEntity, IHaveBoardID, IHaveID
     /// <summary>
     /// Gets or sets the signature.
     /// </summary>
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string Signature { get; set; }
 
     /// <summary>

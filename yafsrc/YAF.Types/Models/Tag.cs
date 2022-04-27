@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-
 /// <summary>
 /// A class which represents the Tag table.
 /// </summary>

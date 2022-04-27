@@ -23,9 +23,6 @@
  */
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
-
 /// <summary>
 /// A class which represents the MessageHistory table.
 /// </summary>
@@ -45,7 +42,7 @@ public class MessageHistory : IEntity
     /// <summary>
     /// Gets or sets the message.
     /// </summary>
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string Message { get; set; }
 
     /// <summary>

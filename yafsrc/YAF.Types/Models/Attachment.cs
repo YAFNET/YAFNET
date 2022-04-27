@@ -24,9 +24,6 @@
 
 namespace YAF.Types.Models;
 
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
-
 /// <summary>
 /// The attachment.
 /// </summary>
@@ -71,7 +68,7 @@ public class Attachment : IEntity, IHaveID
     /// <summary>
     /// Gets or sets the content type.
     /// </summary>
-    [CustomField(OrmLiteVariables.MaxText)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string ContentType { get; set; }
 
     /// <summary>
