@@ -170,7 +170,7 @@
                                 "</span>" +
                                 posted +
                                 " " +
-                                moment(data.Posted).fromNow() +
+                                data.Posted +
                                 " " +
                                 '<i class="fa fa-user fa-fw text-secondary"></i>' +
                                 by +

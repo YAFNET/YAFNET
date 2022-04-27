@@ -30,11 +30,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 
 using YAF.Configuration;
 using YAF.Core.Context;
-using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.Standard;
@@ -47,7 +45,6 @@ using YAF.Lucene.Net.Search.Highlight;
 using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Util;
 using YAF.Types.Constants;
-using YAF.Types.Flags;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -567,12 +564,28 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             return null;
         }
 
+        string posted;
+
+        try
+        {
+            var postedDateTime = doc.Get("Posted").ToType<DateTime>();
+
+            posted = this.Get<BoardSettings>().ShowRelativeTime
+                         ? postedDateTime.ToRelativeTime()
+                         : this.Get<IDateTimeService>().Format(DateTimeFormat.BothTopic, postedDateTime);
+        }
+        catch (Exception)
+        {
+            posted = doc.Get("Posted");
+        }
+        
+
         return new SearchMessage
                    {
                        Topic = doc.Get("Topic"),
                        TopicId = doc.Get("TopicId").ToType<int>(),
                        TopicUrl = this.Get<LinkBuilder>().GetTopicLink(doc.Get("TopicId").ToType<int>(), doc.Get("Topic")),
-                       Posted = doc.Get("Posted"),
+                       Posted = posted,
                        UserId = doc.Get("UserId").ToType<int>(),
                        UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
                        UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
