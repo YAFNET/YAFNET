@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
-MinimumVisualStudioVersion = 10.0.40219.1
+MinimumVisualStudioVersion = 17.0.32014.148
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Third-Party Libs", "Third-Party Libs", "{CFC7B19E-F7F2-41F1-B709-5C1D72A9BAD0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Web", "YAF.Web\YAF.Web.csproj", "{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}"
