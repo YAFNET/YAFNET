@@ -27,6 +27,8 @@ namespace YAF.Core.Helpers;
 using System;
 using System.Text.RegularExpressions;
 
+using ServiceStack.Text;
+
 using YAF.Core.Context;
 
 /// <summary>
@@ -186,20 +188,24 @@ public static class DateTimeHelper
                            : localizer.GetTextFormatted("PAST", localizer.GetText("RELATIVE_TIME", "M"));
             case < 45 * Minute:
                 return isFuture
-                           ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("MM", ts.Minutes))
-                           : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("MM", ts.Minutes));
+                           ? localizer.GetTextFormatted(
+                               "FUTURE",
+                               localizer.GetText("RELATIVE_TIME", "MM").FormatWith(ts.Minutes))
+                           : localizer.GetTextFormatted(
+                               "PAST",
+                               localizer.GetText("RELATIVE_TIME", "MM").FormatWith(ts.Minutes));
             case < 90 * Minute:
                 return isFuture
                            ? localizer.GetTextFormatted("FUTURE", localizer.GetText("RELATIVE_TIME", "H"))
                            : localizer.GetTextFormatted("PAST", localizer.GetText("RELATIVE_TIME", "H"));
             case < 24 * Hour:
                 return isFuture
-                           ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("HH", ts.Minutes))
-                           : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("HH", ts.Minutes));
+                           ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("HH", ts.Hours))
+                           : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("HH", ts.Hours));
             case < 48 * Hour:
                 return isFuture
-                           ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("D", ts.Minutes))
-                           : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("D", ts.Minutes));
+                           ? localizer.GetTextFormatted("FUTURE", localizer.GetText("RELATIVE_TIME", "D"))
+                           : localizer.GetTextFormatted("PAST", localizer.GetText("RELATIVE_TIME", "D"));
             case < 30 * Day:
                 return isFuture
                            ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("DD", ts.Days))
