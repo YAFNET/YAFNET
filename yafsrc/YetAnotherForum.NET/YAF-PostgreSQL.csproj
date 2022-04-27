@@ -3301,7 +3301,6 @@
     <Content Include="Content\forum\dropdowns.scss" />
     <Content Include="Content\forum\social-icons.scss" />
     <Content Include="Content\forum\button-scroll.scss" />
-    <Content Include="Content\forum\logo.scss" />
     <Content Include="Content\forum\quotes.scss" />
     <Content Include="Content\forum\sidebar-help.scss" />
     <Content Include="Content\forum\editor.scss" />
