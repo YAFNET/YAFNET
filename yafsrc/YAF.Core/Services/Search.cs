@@ -27,12 +27,9 @@ namespace YAF.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-using YAF.Configuration;
-using YAF.Core.Context;
 using YAF.Core.Model;
 using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.Standard;

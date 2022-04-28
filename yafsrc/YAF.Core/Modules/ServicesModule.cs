@@ -25,24 +25,17 @@
 namespace YAF.Core.Modules;
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 
 using Autofac;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-using YAF.Configuration;
 using YAF.Core.BaseModules;
 using YAF.Core.BBCode;
-using YAF.Core.Context;
-using YAF.Core.Extensions;
 using YAF.Core.Handlers;
-using YAF.Core.Helpers;
 using YAF.Core.Identity;
-using YAF.Core.Services;
 using YAF.Core.Services.Cache;
 using YAF.Core.Services.Migrations;
 using YAF.Core.Services.Startup;
@@ -157,6 +150,7 @@ public class ServicesModule : BaseModule
             .InstancePerLifetimeScope();
 
         // board settings...
+        builder.RegisterType<BoardSettingsService>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
         builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
         builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentBoardSettings>().Instance)
             .ExternallyOwned().PreserveExistingDefaults();

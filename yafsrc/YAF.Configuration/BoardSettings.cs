@@ -46,6 +46,21 @@ public class BoardSettings
         this.Registry.OverrideDictionary = this.RegistryBoard;
     }
 
+    public BoardSettings(
+        [NotNull] int boardId,
+        [NotNull] string boardName,
+        RegistryDictionaryOverride registry,
+        RegistryDictionary registryBoard)
+    {
+        this.BoardId = boardId;
+        this.BoardName = boardName;
+        this.Registry = registry;
+        this.RegistryBoard = registryBoard;
+
+        // set the board dictionary as the override...
+        this.Registry.OverrideDictionary = this.RegistryBoard;
+    }
+
     /// <summary>
     /// Gets or sets the denied user registrations count.
     /// </summary>
@@ -2342,20 +2357,20 @@ public class BoardSettings
     /// <summary>
     /// Gets or sets the RegistryDictionaryOverride.
     /// </summary>
-    protected virtual RegistryDictionaryOverride Registry { get; set; }
+    public RegistryDictionaryOverride Registry { get; set; }
 
     /// <summary>
     /// Gets or sets the RegistryDictionary.
     /// </summary>
-    protected virtual RegistryDictionary RegistryBoard { get; set; }
+    public RegistryDictionary RegistryBoard { get; set; }
 
     /// <summary>
     ///  Gets or sets the board id.
     /// </summary>
-    protected virtual int BoardId { get; set; }
+    public int BoardId { get; set; }
 
     /// <summary>
     /// Gets or sets the board name.
     /// </summary>
-    protected virtual string BoardName { get; set; }
+    public string BoardName { get; set; }
 }

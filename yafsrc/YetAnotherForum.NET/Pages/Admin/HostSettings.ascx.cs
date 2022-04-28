@@ -24,7 +24,6 @@ namespace YAF.Pages.Admin;
 
 #region Using
 
-using YAF.Core.BoardSettings;
 using YAF.Types.Extensions.Data;
 using YAF.Types.Interfaces.Data;
 
@@ -61,7 +60,8 @@ public partial class HostSettings : AdminPage
     protected void IndexSearch_OnClick(object sender, EventArgs e)
     {
         this.PageBoardContext.BoardSettings.ForceUpdateSearchIndex = true;
-        ((LoadBoardSettings)this.PageBoardContext.BoardSettings).SaveRegistry();
+
+        this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
         this.PageBoardContext.Notify(this.GetText("FORCE_SEARCHINDED"), MessageTypes.info);
     }
@@ -318,7 +318,7 @@ public partial class HostSettings : AdminPage
                 });
 
         // save the settings to the database
-        ((LoadBoardSettings)this.PageBoardContext.BoardSettings).SaveRegistry();
+        this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Admin);
     }

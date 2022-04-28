@@ -26,11 +26,8 @@ namespace YAF.Core.Tasks;
 #region Using
 
 using System;
-using System.Globalization;
 using System.Threading;
 
-using YAF.Core.BoardSettings;
-using YAF.Core.Context;
 using YAF.Core.Model;
 using YAF.Types.Constants;
 using YAF.Types.Models;
@@ -120,7 +117,7 @@ public class UpdateSearchIndexTask : LongBackgroundTask
     /// </returns>
     private static bool IsTimeToUpdateSearchIndex()
     {
-        var boardSettings = (LoadBoardSettings)BoardContext.Current.BoardSettings;
+        var boardSettings = BoardContext.Current.BoardSettings;
         var lastSend = DateTime.MinValue;
         var sendEveryXHours = boardSettings.UpdateSearchIndexEveryXHours;
 
@@ -129,7 +126,7 @@ public class UpdateSearchIndexTask : LongBackgroundTask
             boardSettings.LastSearchIndexUpdated = DateTime.Now.ToString(CultureInfo.InvariantCulture);
             boardSettings.ForceUpdateSearchIndex = false;
 
-            boardSettings.SaveRegistry();
+            BoardContext.Current.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
             return true;
         }
@@ -158,7 +155,7 @@ public class UpdateSearchIndexTask : LongBackgroundTask
 
         boardSettings.LastSearchIndexUpdated = DateTime.Now.ToString(CultureInfo.InvariantCulture);
 
-        boardSettings.SaveRegistry();
+        BoardContext.Current.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
         return true;
     }

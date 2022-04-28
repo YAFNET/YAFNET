@@ -27,9 +27,6 @@ namespace YAF.Core.Helpers;
 
 using System.Runtime.Caching;
 
-using YAF.Configuration;
-using YAF.Core.BoardSettings;
-using YAF.Core.Extensions;
 using YAF.Types.Constants;
 
 #endregion
@@ -100,7 +97,8 @@ public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
                 this.treatCacheKey.Treat(Constants.Cache.BoardSettings),
                 () =>
                     {
-                        var boardSettings = (BoardSettings)new LoadBoardSettings(this.haveBoardId.BoardID);
+                        var boardSettings = BoardContext.Current.Get<BoardSettingsService>()
+                            .LoadBoardSettings(this.haveBoardId.BoardID, null);
 
                         // inject
                         this.injectServices.Inject(boardSettings);

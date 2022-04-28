@@ -25,9 +25,7 @@ namespace YAF.Pages.Admin;
 
 #region Using
 
-using System.Globalization;
 using System.Net.Mail;
-using YAF.Core.BoardSettings;
 
 #endregion
 
@@ -54,7 +52,7 @@ public partial class Digest : AdminPage
     protected void ForceSendClick([NotNull] object sender, [NotNull] EventArgs e)
     {
         this.PageBoardContext.BoardSettings.ForceDigestSend = true;
-        ((LoadBoardSettings)this.PageBoardContext.BoardSettings).SaveRegistry();
+        this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
         this.PageBoardContext.Notify(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
     }

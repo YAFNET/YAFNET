@@ -27,18 +27,9 @@ namespace YAF.Core.Model;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
-using ServiceStack.OrmLite;
-
-using YAF.Core.Context;
-using YAF.Core.Extensions;
 using YAF.Types.Constants;
-using YAF.Types.EventProxies;
-using YAF.Types.Flags;
-using YAF.Types.Interfaces.Data;
-using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -109,18 +100,9 @@ public static class TopicRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
-        string topicName;
+        var topic = repository.GetTopicFromMessage(messageId);
 
-        try
-        {
-            topicName = repository.GetTopicFromMessage(messageId).TopicName;
-        }
-        catch (Exception)
-        {
-            topicName = string.Empty;
-        }
-
-        return topicName;
+        return topic == null ? string.Empty : topic.TopicName;
     }
 
     /// <summary>

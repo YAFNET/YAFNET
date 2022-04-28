@@ -24,13 +24,6 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
-using System.Globalization;
-using YAF.Core.BoardSettings;
-
-#endregion
-
 /// <summary>
 /// The Admin Board Announcement Page.
 /// </summary>
@@ -110,7 +103,7 @@ public partial class BoardAnnouncement : AdminPage
         boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
 
         // save the settings to the database
-        ((LoadBoardSettings)boardSettings).SaveRegistry();
+        this.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
     }
@@ -133,7 +126,7 @@ public partial class BoardAnnouncement : AdminPage
         boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
 
         // save the settings to the database
-        ((LoadBoardSettings)boardSettings).SaveRegistry();
+        this.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
     }

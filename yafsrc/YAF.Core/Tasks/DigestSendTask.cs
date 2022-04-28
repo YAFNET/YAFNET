@@ -27,15 +27,9 @@ namespace YAF.Core.Tasks;
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
-using System.Web;
 
-using YAF.Configuration;
-using YAF.Core.BoardSettings;
-using YAF.Core.Extensions;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 
@@ -89,7 +83,7 @@ public class DigestSendTask : LongBackgroundTask
     /// <returns>
     /// The is time to send digest for board.
     /// </returns>
-    private static bool IsTimeToSendDigestForBoard([NotNull] LoadBoardSettings boardSettings)
+    private static bool IsTimeToSendDigestForBoard([NotNull] BoardSettings boardSettings)
     {
         CodeContracts.VerifyNotNull(boardSettings);
 
@@ -132,7 +126,7 @@ public class DigestSendTask : LongBackgroundTask
         boardSettings.LastDigestSend = DateTime.Now.ToString(CultureInfo.InvariantCulture);
         boardSettings.ForceDigestSend = false;
 
-        boardSettings.SaveRegistry();
+        BoardContext.Current.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
         return true;
     }
@@ -144,12 +138,12 @@ public class DigestSendTask : LongBackgroundTask
     {
         try
         {
-            var boardIds = this.GetRepository<Board>().GetAll().Select(b => b.ID);
+            var boards = this.GetRepository<Board>().GetAll();
 
-            boardIds.ForEach(
-                id =>
+            boards.ForEach(
+                board =>
                     {
-                        var boardSettings = new LoadBoardSettings(id);
+                        var boardSettings = this.Get<BoardSettingsService>().LoadBoardSettings(board.ID, board);
 
                         if (!IsTimeToSendDigestForBoard(boardSettings))
                         {
@@ -158,7 +152,7 @@ public class DigestSendTask : LongBackgroundTask
 
                         // get users with digest enabled...
                         var usersWithDigest = this.GetRepository<User>().Get(
-                            u => u.BoardID == id && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
+                            u => u.BoardID == board.ID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
                                  u.DailyDigest);
 
                         if (usersWithDigest.Any())

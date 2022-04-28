@@ -27,7 +27,6 @@ namespace YAF.Controls;
 
 using System.IO;
 
-using YAF.Core.BoardSettings;
 using YAF.Core.Services.Localization;
 using YAF.Core.Services.Startup;
 using YAF.Types.Objects;
@@ -221,11 +220,11 @@ public partial class EmailDigest : BaseUserControl
         {
             this.BoardSettings = this.PageBoardContext.BoardSettings.BoardID.Equals(this.BoardID)
                                      ? this.PageBoardContext.BoardSettings
-                                     : new LoadBoardSettings(this.BoardID);
+                                     : this.Get<BoardSettingsService>().LoadBoardSettings(this.BoardID, null);
         }
         else
         {
-            this.BoardSettings = new LoadBoardSettings(this.BoardID);
+            this.BoardSettings = this.Get<BoardSettingsService>().LoadBoardSettings(this.BoardID, null);
         }
 
         this.Get<StartupInitializeDb>().Run();

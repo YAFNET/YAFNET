@@ -27,11 +27,8 @@ namespace YAF.Pages.Admin;
 #region Using
 
 using System.IO;
-using YAF.Core.BoardSettings;
 using YAF.Types.Objects;
 using YAF.Types.Models;
-
-using ListItem = ListItem;
 
 #endregion
 
@@ -107,24 +104,23 @@ public partial class Settings : AdminPage
             this.Culture.SelectedValue);
 
         // save poll group
-        var boardSettings = new LoadBoardSettings(this.PageBoardContext.PageBoardID)
-                                {
-                                    Language = languageFile, Culture = this.Culture.SelectedValue,
-                                    Theme = this.Theme.SelectedValue,
-                                    ForumDefaultAccessMask = this.ForumDefaultAccessMask.SelectedValue.ToType<int>(),
-                                    ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>(),
-                                    NotificationOnUserRegisterEmailList = this.NotificationOnUserRegisterEmailList.Text.Trim(),
-                                    EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked,
-                                    EmailModeratorsOnReportedPost = this.EmailModeratorsOnReportedPost.Checked,
-                                    AllowDigestEmail = this.AllowDigestEmail.Checked,
-                                    DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked,
-                                    DefaultNotificationSetting = this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>(),
-                                    DefaultCollapsiblePanelState = this.DefaultCollapsiblePanelState.SelectedValue.ToEnum<CollapsiblePanelState>(),
-                                    ForumEmail = this.ForumEmail.Text,
-                                    BaseUrlMask = this.ForumBaseUrlMask.Text,
-                                    CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim(),
-                                    DigestSendEveryXHours = this.DigestSendEveryXHours.Text.ToType<int>()
-                                };
+        var boardSettings = this.Get<BoardSettingsService>().LoadBoardSettings(this.PageBoardContext.PageBoardID, null);
+
+        boardSettings.Language = languageFile;
+        boardSettings.Culture = this.Culture.SelectedValue;
+        boardSettings.Theme = this.Theme.SelectedValue;
+        boardSettings.ForumDefaultAccessMask = this.ForumDefaultAccessMask.SelectedValue.ToType<int>();
+        boardSettings.ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
+        boardSettings.NotificationOnUserRegisterEmailList = this.NotificationOnUserRegisterEmailList.Text.Trim();
+        boardSettings.EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;
+        boardSettings.EmailModeratorsOnReportedPost = this.EmailModeratorsOnReportedPost.Checked;
+        boardSettings.AllowDigestEmail = this.AllowDigestEmail.Checked;
+        boardSettings.DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked;
+        boardSettings.DefaultNotificationSetting = this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
+        boardSettings.DefaultCollapsiblePanelState = this.DefaultCollapsiblePanelState.SelectedValue.ToEnum<CollapsiblePanelState>();
+        boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
+        boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
+        boardSettings.DigestSendEveryXHours = this.DigestSendEveryXHours.Text.ToType<int>();
 
         if (this.BoardLogo.SelectedIndex > 0)
         {
@@ -132,7 +128,7 @@ public partial class Settings : AdminPage
         }
 
         // save the settings to the database
-        boardSettings.SaveRegistry();
+        this.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
         // Clearing cache with old users permissions data to get new default styles...
         this.Get<IDataCache>().Remove(x => x.StartsWith(Constants.Cache.ActiveUserLazyData));
@@ -148,7 +144,7 @@ public partial class Settings : AdminPage
     protected void IncreaseVersionOnClick(object sender, EventArgs e)
     {
         this.PageBoardContext.BoardSettings.CdvVersion++;
-        ((LoadBoardSettings)this.PageBoardContext.BoardSettings).SaveRegistry();
+        this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
         this.CdvVersion.Text = this.PageBoardContext.BoardSettings.CdvVersion.ToString();
     }

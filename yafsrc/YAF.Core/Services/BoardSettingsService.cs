@@ -1,0 +1,107 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014-2022 Ingo Herbote
+ * https://www.yetanotherforum.net/
+ * 
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * https://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+namespace YAF.Core.Services;
+
+using YAF.Configuration.Pattern;
+using YAF.Core.Model;
+using YAF.Types.Exceptions;
+using YAF.Types.Models;
+
+public class BoardSettingsService : IHaveServiceLocator
+{
+    public BoardSettingsService([NotNull] ILoggerService logger, IServiceLocator serviceLocator)
+    {
+        this.ServiceLocator = serviceLocator;
+        this.Logger = logger;
+    }
+
+    /// <summary>
+    /// Gets or sets the service locator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    /// <summary>
+    /// Gets or sets Logger.
+    /// </summary>
+    public ILoggerService Logger { get; set; }
+
+    public BoardSettings LoadBoardSettings([NotNull] int boardId, [CanBeNull] Board board)
+    {
+        if (board == null)
+        {
+            board = this.GetRepository<Board>().GetById(boardId);
+
+            if (board == null)
+            {
+                throw new EmptyBoardSettingException($"No data for board ID: {boardId}");
+            }
+        }
+
+        var registry = new RegistryDictionaryOverride();
+        var registryBoard = new RegistryDictionary();
+
+        // get all the registry values for the forum
+        var registryList = this.GetRepository<Registry>().List();
+
+        // get all the registry settings into our hash table
+        registryList.ForEach(
+            row =>
+                {
+                    if (!registry.ContainsKey(row.Name.ToLower()))
+                    {
+                        registry.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
+                    }
+                });
+
+        var registryBoardList = this.GetRepository<Registry>().List(boardId);
+
+        // get all the registry settings into our hash table
+        registryBoardList.ForEach(
+            row =>
+                {
+                    if (!registryBoard.ContainsKey(row.Name.ToLower()))
+                    {
+                        registryBoard.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
+                    }
+                });
+
+        return new BoardSettings(boardId, board.Name, registry, registryBoard);
+    }
+
+    /// <summary>
+    ///     Saves the whole setting registry to the database.
+    /// </summary>
+    public void SaveRegistry(BoardSettings boardSettings)
+    {
+        // loop through all values and commit them to the DB
+        boardSettings.Registry.Keys.ForEach(
+            key => this.GetRepository<Registry>().Save(key, boardSettings.Registry[key]));
+
+        boardSettings.RegistryBoard.Keys.ForEach(
+            key => this.GetRepository<Registry>().Save(key, boardSettings.RegistryBoard[key], boardSettings.BoardId));
+
+        // Reset Board Settings
+        this.Get<CurrentBoardSettings>().Reset();
+    }
+}

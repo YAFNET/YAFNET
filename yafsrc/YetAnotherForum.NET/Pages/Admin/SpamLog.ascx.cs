@@ -26,7 +26,6 @@ namespace YAF.Pages.Admin;
 
 #region Using
 
-using System.Globalization;
 using FarsiLibrary.Utils;
 using YAF.Web.Controls;
 
