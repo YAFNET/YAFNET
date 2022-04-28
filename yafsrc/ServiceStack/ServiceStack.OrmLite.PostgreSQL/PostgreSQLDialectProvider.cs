@@ -878,6 +878,32 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     }
 
     /// <summary>
+    /// Gets the type of the column data.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="columnName">Name of the column.</param>
+    /// <param name="tableName">Name of the table.</param>
+    /// <param name="schema">The schema.</param>
+    /// <returns>System.String.</returns>
+    public override string GetColumnDataType(
+        IDbConnection db,
+        string columnName,
+        string tableName,
+        string schema = null)
+    {
+        var sql =
+            "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
+                .SqlFmt(this, tableName, columnName);
+
+        if (schema != null)
+        {
+            sql += " AND TABLE_SCHEMA = @schema";
+        }
+
+        return db.SqlScalar<string>(sql, new { tableName, columnName, schema });
+    }
+
+    /// <summary>
     /// Converts to executeprocedurestatement.
     /// </summary>
     /// <param name="objWithProperties">The object with properties.</param>

@@ -110,6 +110,32 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     }
 
     /// <summary>
+    /// Gets the type of the column data.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="columnName">Name of the column.</param>
+    /// <param name="tableName">Name of the table.</param>
+    /// <param name="schema">The schema.</param>
+    /// <returns>System.String.</returns>
+    public override string GetColumnDataType(
+        IDbConnection db,
+        string columnName,
+        string tableName,
+        string schema = null)
+    {
+        var sql =
+            "select type from pragma_table_info(@tableName) where name= @columnName;"
+                .SqlFmt(tableName, columnName);
+
+        if (schema != null)
+        {
+            sql += " AND TABLE_SCHEMA = @schema";
+        }
+
+        return db.SqlScalar<string>(sql, new { tableName, columnName, schema });
+    }
+
+    /// <summary>
     /// Converts to postcreatetablestatement.
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
@@ -333,7 +359,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     public override bool DoesTableExist(IDbCommand dbCmd, string tableName, string schema = null)
     {
         var sql = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name = {0}"
-            .SqlFmt(this, GetTableName(tableName, schema));
+            .SqlFmt(tableName);
 
         dbCmd.CommandText = sql;
         var result = dbCmd.LongScalar();
@@ -352,7 +378,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     public override bool DoesColumnExist(IDbConnection db, string columnName, string tableName, string schema = null)
     {
         var sql = "PRAGMA table_info({0})"
-            .SqlFmt(this, GetTableName(tableName, schema));
+            .SqlFmt(tableName);
 
         var columns = db.SqlList<Dictionary<string, object>>(sql);
         foreach (var column in columns)

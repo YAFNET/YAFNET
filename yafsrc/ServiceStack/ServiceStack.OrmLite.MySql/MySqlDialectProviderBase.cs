@@ -596,6 +596,32 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     }
 
     /// <summary>
+    /// Gets the type of the column data.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="columnName">Name of the column.</param>
+    /// <param name="tableName">Name of the table.</param>
+    /// <param name="schema">The schema.</param>
+    /// <returns>System.String.</returns>
+    public override string GetColumnDataType(
+        IDbConnection db,
+        string columnName,
+        string tableName,
+        string schema = null)
+    {
+        var sql =
+            "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
+                .SqlFmt(this, GetTableName(tableName, schema).StripDbQuotes(), columnName);
+
+        if (schema != null)
+        {
+            sql += " AND TABLE_SCHEMA = @schema";
+        }
+
+        return db.SqlScalar<string>(sql, new { tableName, columnName, schema });
+    }
+
+    /// <summary>
     /// Converts to createtablestatement.
     /// </summary>
     /// <param name="tableType">Type of the table.</param>

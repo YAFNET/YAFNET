@@ -1237,6 +1237,35 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
     }
 
+    public virtual string GetInsertColumnsStatement<T>()
+    {
+        var sbColumnNames = StringBuilderCache.Allocate();
+        var modelDef = typeof(T).GetModelDefinition();
+
+        var fieldDefs = modelDef.FieldDefinitions.OrderBy(fd => fd.Order);
+
+        foreach (var fieldDef in fieldDefs)
+        {
+            if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                continue;
+
+            if (sbColumnNames.Length > 0)
+                sbColumnNames.Append(",");
+
+            try
+            {
+                sbColumnNames.Append(this.GetQuotedColumnName(fieldDef.FieldName));
+            }
+            catch (Exception ex)
+            {
+                Log.Error("ERROR in ToInsertRowStatement(): " + ex.Message, ex);
+                throw;
+            }
+        }
+
+        return StringBuilderCache.ReturnAndFree(sbColumnNames);
+    }
+
     /// <summary>
     /// Converts to updatestatement.
     /// </summary>

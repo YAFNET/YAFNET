@@ -133,6 +133,39 @@ public static class OrmLiteSchemaModifyApi
     /// <typeparam name="T">The Table Model</typeparam>
     /// <param name="dbConn">The database connection.</param>
     /// <param name="field">The field.</param>
+    /// <param name="oldTablePrefix"></param>
+    public static void AlterColumn<T>(this IDbConnection dbConn, Expression<Func<T, object>> field, string oldTablePrefix)
+    {
+        var columns = dbConn.GetDialectProvider().GetInsertColumnsStatement<T>();
+
+        var modelDef = typeof(T).GetModelDefinition();
+
+        var tableName = dbConn.GetDialectProvider().GetQuotedTableName(modelDef);
+        var oldTableName = dbConn.GetDialectProvider().GetQuotedTableName($"{modelDef.Name}{oldTablePrefix}");
+
+        dbConn.ExecuteSql(
+            $@"BEGIN TRANSACTION;
+                           ALTER TABLE {tableName} RENAME TO {oldTableName}; 
+                       COMMIT;");
+
+        dbConn.CreateTable<T>();
+
+        dbConn.ExecuteSql(
+            $@"BEGIN TRANSACTION;
+                           INSERT INTO {tableName} ({columns})
+                           SELECT {columns} FROM {oldTableName}; 
+                       COMMIT;");
+
+        dbConn.ExecuteSql(
+            $@"DROP TABLE {oldTableName};");
+    }
+
+    /// <summary>
+    /// Alters the column.
+    /// </summary>
+    /// <typeparam name="T">The Table Model</typeparam>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="field">The field.</param>
     public static void AlterColumn<T>(this IDbConnection dbConn, Expression<Func<T, object>> field)
     {
         var modelDef = ModelDefinition<T>.Definition;

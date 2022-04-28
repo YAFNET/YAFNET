@@ -26,24 +26,14 @@ namespace YAF.Core.Services;
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Configuration;
 
-using ServiceStack.OrmLite;
-
-using YAF.Configuration;
 using YAF.Core.Data;
-using YAF.Core.Extensions;
-using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services.Import;
 using YAF.Core.Services.Migrations;
-using YAF.Types.EventProxies;
 using YAF.Types.Extensions.Data;
-using YAF.Types.Interfaces.Data;
-using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
@@ -183,13 +173,11 @@ public class UpgradeService : IHaveServiceLocator
         if (prevVersion < 81)
         {
             this.Get<V81_Migration>().MigrateDatabase(this.DbAccess);
-
         }
             
         if (prevVersion < 82)
         {
             this.Get<V82_Migration>().MigrateDatabase(this.DbAccess);
-
         }
 
         if (prevVersion is 80 or 81 or 82 or 83)
@@ -225,13 +213,16 @@ public class UpgradeService : IHaveServiceLocator
         if (prevVersion < 84)
         {
             this.Get<V84_Migration>().MigrateDatabase(this.DbAccess);
-
         }
 
         if (prevVersion < 85)
         {
             this.Get<V85_Migration>().MigrateDatabase(this.DbAccess);
+        }
 
+        if (prevVersion < 86)
+        {
+            this.Get<V86_Migration>().MigrateDatabase(this.DbAccess);
         }
 
         this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);

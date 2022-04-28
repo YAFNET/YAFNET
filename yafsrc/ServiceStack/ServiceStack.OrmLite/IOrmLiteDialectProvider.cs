@@ -533,6 +533,8 @@ public interface IOrmLiteDialectProvider
     /// <param name="args">The arguments.</param>
     void PrepareInsertRowStatement<T>(IDbCommand dbCmd, Dictionary<string, object> args);
 
+    string GetInsertColumnsStatement<T>();
+
     /// <summary>
     /// Converts to deletestatement.
     /// </summary>

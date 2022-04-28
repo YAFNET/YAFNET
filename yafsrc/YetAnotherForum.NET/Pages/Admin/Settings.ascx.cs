@@ -30,6 +30,8 @@ using System.IO;
 using YAF.Types.Objects;
 using YAF.Types.Models;
 
+using ListItem = ListItem;
+
 #endregion
 
 /// <summary>
