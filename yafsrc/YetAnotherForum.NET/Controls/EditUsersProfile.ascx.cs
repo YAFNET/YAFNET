@@ -26,7 +26,6 @@ namespace YAF.Controls;
 
 #region Using
 
-using System.Globalization;
 using System.Text.RegularExpressions;
 using FarsiLibrary.Utils;
 

@@ -25,8 +25,6 @@ namespace YAF.Controls;
 
 #region Using
 
-using System.Globalization;
-
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models.Identity;

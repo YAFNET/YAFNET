@@ -24,10 +24,6 @@
 
 namespace YAF.Modules;
 
-#region Using
-
-#endregion
-
 /// <summary>
 /// The popup dialog notification.
 /// </summary>

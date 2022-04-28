@@ -23,14 +23,6 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
-using System.Globalization;
-
-using YAF.Core.BoardSettings;
-
-#endregion
-
 /// <summary>
 /// The forum welcome control which shows the current Time and the Last Visit Time of the Current User.
 /// </summary>
@@ -64,7 +56,7 @@ public partial class BoardAnnouncement : BaseUserControl
             boardSettings.BoardAnnouncement = string.Empty;
 
             // save the settings to the database
-            ((LoadBoardSettings)boardSettings).SaveRegistry();
+            this.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
             // delete no show
             this.Visible = false;

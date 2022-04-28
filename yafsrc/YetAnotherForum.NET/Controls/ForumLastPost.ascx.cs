@@ -25,8 +25,6 @@ namespace YAF.Controls;
 
 #region Using
 
-using System.Globalization;
-
 using YAF.Web.Controls;
 
 #endregion
