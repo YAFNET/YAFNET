@@ -29,8 +29,6 @@ using System.Web.Hosting;
 
 using ServiceStack.Text;
 
-using YAF.Configuration;
-
 #endregion
 
 /// <summary>

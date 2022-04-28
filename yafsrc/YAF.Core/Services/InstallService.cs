@@ -26,19 +26,9 @@ namespace YAF.Core.Services;
 
 using System;
 using System.IO;
-using System.Linq;
-using System.Web;
 
-using ServiceStack.OrmLite;
-
-using YAF.Configuration;
-using YAF.Core.Extensions;
-using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services.Import;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Data;
-using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 

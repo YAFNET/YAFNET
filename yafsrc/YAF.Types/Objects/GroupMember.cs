@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Objects;
 
-using ServiceStack.DataAnnotations;
-
 public class GroupMember
 {
     public int GroupID { get; set; }

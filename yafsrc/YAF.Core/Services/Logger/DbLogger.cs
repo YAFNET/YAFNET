@@ -28,15 +28,9 @@ namespace YAF.Core.Services.Logger;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Web;
 
-using YAF.Configuration;
-using YAF.Core.Extensions;
-using YAF.Core.Helpers;
 using YAF.Types.Attributes;
 using YAF.Types.Constants;
-using YAF.Types.Interfaces.Data;
 
 using EventLog = YAF.Types.Models.EventLog;
 

@@ -24,7 +24,6 @@
 
 namespace YAF.Core.BasePages;
 
-using System.Globalization;
 using System.Threading;
 using System.Web.UI;
 

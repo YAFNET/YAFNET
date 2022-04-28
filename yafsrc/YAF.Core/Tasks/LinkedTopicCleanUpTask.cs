@@ -24,8 +24,7 @@
 namespace YAF.Core.Tasks;
 
 using System;
-    
-using YAF.Core.Extensions;
+
 using YAF.Core.Model;
 using YAF.Types.Models;
 

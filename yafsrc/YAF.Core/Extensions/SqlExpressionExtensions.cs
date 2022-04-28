@@ -26,8 +26,6 @@ namespace YAF.Core.Extensions;
 
 using System;
 
-using ServiceStack.OrmLite;
-
 /// <summary>
 /// The SQL Expression Extensions
 /// </summary>

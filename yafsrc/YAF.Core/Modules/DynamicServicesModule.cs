@@ -26,13 +26,11 @@ namespace YAF.Core.Modules;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 using Autofac;
 using Autofac.Core.Lifetime;
 
-using YAF.Core.Extensions;
 using YAF.Types.Attributes;
 
 /// <summary>

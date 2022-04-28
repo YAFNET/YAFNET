@@ -30,8 +30,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
-using ServiceStack.OrmLite;
-
 /// <summary>
 ///     The DBAccess extensions.
 /// </summary>

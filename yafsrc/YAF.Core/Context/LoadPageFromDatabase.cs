@@ -25,14 +25,9 @@
 namespace YAF.Core.Context;
 
 using System;
-using System.Web;
 
-using YAF.Core.Helpers;
-using YAF.Core.Services;
 using YAF.Types.Attributes;
 using YAF.Types.Constants;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;

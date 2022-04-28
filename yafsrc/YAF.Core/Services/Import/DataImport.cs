@@ -27,11 +27,8 @@ namespace YAF.Core.Services.Import;
 using System;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Net;
 
-using YAF.Core.Context;
-using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Types.Models;
 

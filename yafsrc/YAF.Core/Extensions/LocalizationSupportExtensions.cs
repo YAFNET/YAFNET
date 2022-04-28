@@ -28,7 +28,6 @@ using System.Web.UI;
 using ServiceStack.Text;
 
 using YAF.Core.BaseControls;
-using YAF.Core.Context;
 
 /// <summary>
 /// The localization support extensions.

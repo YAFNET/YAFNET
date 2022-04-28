@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.URLBuilder;
 
-using YAF.Configuration;
-
 /// <summary>
 /// Implements URL Builder.
 /// </summary>

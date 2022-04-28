@@ -23,10 +23,6 @@
  */
 namespace YAF.Types.Objects;
 
-using ServiceStack.DataAnnotations;
-
-using YAF.Types.Flags;
-
 /// <summary>
 /// The moderator.
 /// </summary>

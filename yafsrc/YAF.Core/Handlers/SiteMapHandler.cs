@@ -27,14 +27,10 @@ namespace YAF.Core.Handlers;
 #region Using
 
 using System;
-using System.Globalization;
-using System.Web;
 using System.Web.SessionState;
 using System.Xml.Serialization;
 
-using YAF.Core.Context;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 

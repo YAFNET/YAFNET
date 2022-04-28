@@ -25,13 +25,10 @@
 namespace YAF.Core.Identity;
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNet.Identity;
 
-using YAF.Core.Context;
-using YAF.Core.Extensions;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models.Identity;
 

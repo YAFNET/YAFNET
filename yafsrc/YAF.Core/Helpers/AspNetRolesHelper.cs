@@ -28,13 +28,8 @@ namespace YAF.Core.Helpers;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
-using YAF.Configuration;
-using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;

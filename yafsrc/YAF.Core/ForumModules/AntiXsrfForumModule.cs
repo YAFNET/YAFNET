@@ -26,10 +26,8 @@ namespace YAF.Core.ForumModules;
 #region Using
 
 using System;
-using System.Web;
 
 using YAF.Core.BaseModules;
-using YAF.Core.Context;
 using YAF.Types.Attributes;
 
 #endregion

@@ -31,8 +31,6 @@ using System.Runtime.Caching;
 using System.Web.Caching;
 
 using YAF.Types.Constants;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Events;
 
 #endregion
 

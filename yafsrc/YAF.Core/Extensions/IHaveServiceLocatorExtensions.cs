@@ -26,7 +26,6 @@ namespace YAF.Core.Extensions;
 #region Using
 
 using System.Collections.Generic;
-using System.Linq;
 
 using YAF.Types.Interfaces.Tasks;
 

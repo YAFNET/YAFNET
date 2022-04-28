@@ -23,9 +23,6 @@
  */
 namespace YAF.Core.Events;
 
-using YAF.Types.Interfaces.Data;
-using YAF.Types.Interfaces.Events;
-
 /// <summary>
 /// The init database provider event.
 /// </summary>

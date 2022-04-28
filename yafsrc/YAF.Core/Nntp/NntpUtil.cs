@@ -28,12 +28,9 @@ namespace YAF.Core.Nntp;
 using System;
 using System.Collections;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 
-using YAF.Core.Context;
 using YAF.Types.Objects.Nntp;
 
 #endregion

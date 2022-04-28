@@ -27,10 +27,8 @@ namespace YAF.Core.Services;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 
-using YAF.Core.Extensions;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;

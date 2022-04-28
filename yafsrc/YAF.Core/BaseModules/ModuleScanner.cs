@@ -26,7 +26,6 @@ namespace YAF.Core.BaseModules;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 
 /// <summary>

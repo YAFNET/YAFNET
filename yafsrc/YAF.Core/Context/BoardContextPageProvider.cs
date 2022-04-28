@@ -25,8 +25,6 @@ namespace YAF.Core.Context;
 
 #region Using
 
-using System.Web;
-
 using Autofac;
 using Autofac.Core.Lifetime;
 

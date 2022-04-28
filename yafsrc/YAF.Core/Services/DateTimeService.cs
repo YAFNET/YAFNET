@@ -30,9 +30,6 @@ using System;
 
 using FarsiLibrary.Utils;
 
-using YAF.Configuration;
-using YAF.Core.Context;
-
 #endregion
 
 /// <summary>

@@ -28,8 +28,6 @@ namespace YAF.Core.BaseControls;
 using System;
 using System.Web.UI;
 
-using YAF.Core.Context;
-
 #endregion
 
 /// <summary>

@@ -28,8 +28,6 @@ namespace YAF.Types.Interfaces.Services;
 using System.Collections.Generic;
 using System.Web.UI;
 
-using YAF.Types.Flags;
-
 #endregion
 
 /// <summary>

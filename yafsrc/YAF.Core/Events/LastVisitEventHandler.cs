@@ -26,14 +26,8 @@ namespace YAF.Core.Events;
 #region Using
 
 using System;
-using System.Globalization;
-using System.Web;
 
-using YAF.Core.Context;
-using YAF.Core.Helpers;
 using YAF.Types.Attributes;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Events;
 
 #endregion
 

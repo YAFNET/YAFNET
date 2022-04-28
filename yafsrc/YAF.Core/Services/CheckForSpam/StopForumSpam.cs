@@ -33,7 +33,6 @@ using System.Runtime.Serialization;
 
 using ServiceStack.Text;
 
-using YAF.Core.Context;
 using YAF.Types.Interfaces.CheckForSpam;
 using YAF.Types.Objects;
 

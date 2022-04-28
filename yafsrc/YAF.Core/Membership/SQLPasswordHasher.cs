@@ -29,9 +29,6 @@ using System.Web.Security;
 
 using Microsoft.AspNet.Identity;
 
-using YAF.Configuration;
-using YAF.Core.Helpers;
-
 /// <summary>
 /// The SQL password hasher.
 /// </summary>

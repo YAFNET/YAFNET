@@ -26,17 +26,8 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web.Hosting;
 
-using ServiceStack.OrmLite;
-
-using YAF.Configuration;
-using YAF.Core.Context;
-using YAF.Core.Extensions;
-using YAF.Core.Helpers;
-using YAF.Core.Services;
-using YAF.Types.Interfaces.Data;
 using YAF.Types.Models;
 
 /// <summary>

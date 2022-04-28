@@ -28,9 +28,6 @@ namespace YAF.Core.BBCode;
 
 using System;
 using System.Text;
-using System.Web;
-
-using YAF.Core.Helpers;
 
 #endregion
 

@@ -23,10 +23,7 @@
  */
 namespace YAF.Core.Context;
 
-using YAF.Core.Services;
 using YAF.Types.Attributes;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Events;
 
 /// <summary>
 /// The load page lazy user data.

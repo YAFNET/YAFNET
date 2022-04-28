@@ -27,12 +27,8 @@ namespace YAF.Core.Services.Localization;
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 
-using YAF.Core.Context;
-using YAF.Core.Helpers;
 using YAF.Core.Services.Startup;
 using YAF.Types.Objects;
 

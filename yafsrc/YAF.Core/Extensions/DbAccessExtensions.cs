@@ -25,9 +25,7 @@ namespace YAF.Core.Extensions;
 
 using System.Data.Common;
 
-using YAF.Configuration;
 using YAF.Types.Extensions.Data;
-using YAF.Types.Interfaces.Data;
 
 /// <summary>
 /// The db access extensions.

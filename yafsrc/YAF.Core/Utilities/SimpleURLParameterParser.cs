@@ -26,7 +26,6 @@ namespace YAF.Core.Utilities;
 #region Using
 
 using System.Collections.Specialized;
-using System.Linq;
 using System.Text;
 
 #endregion

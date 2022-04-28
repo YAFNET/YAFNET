@@ -27,8 +27,6 @@ namespace YAF.Core.Services;
 
 using System.Collections.Generic;
 
-using YAF.Configuration;
-using YAF.Core.Extensions;
 using YAF.Types.Models;
 
 #endregion

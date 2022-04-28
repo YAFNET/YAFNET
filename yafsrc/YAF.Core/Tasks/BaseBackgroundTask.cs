@@ -25,8 +25,6 @@ namespace YAF.Core.Tasks;
 
 using System;
 
-using YAF.Configuration;
-using YAF.Core.Context;
 using YAF.Types.Attributes;
 
 /// <summary>

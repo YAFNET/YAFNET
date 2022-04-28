@@ -25,8 +25,6 @@ namespace YAF.Core.Modules;
 
 #region Using
 
-using System.Web;
-
 using Autofac;
 
 #endregion

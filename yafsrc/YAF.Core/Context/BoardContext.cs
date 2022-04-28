@@ -30,14 +30,9 @@ using System;
 
 using Autofac;
 
-using YAF.Configuration;
 using YAF.Configuration.Pattern;
 using YAF.Core.BasePages;
-using YAF.Core.Helpers;
-using YAF.Core.Services;
 using YAF.Types.Constants;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 

@@ -27,13 +27,9 @@ namespace YAF.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 
 using Newtonsoft.Json;
 
-using YAF.Configuration;
-using YAF.Core.Context;
 using YAF.Types.Objects;
 
 /// <summary>

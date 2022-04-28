@@ -26,14 +26,9 @@ namespace YAF.Core.Helpers;
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Xml;
 
-using YAF.Configuration;
-using YAF.Core.Context;
 using YAF.Types.Constants;
 using YAF.Types.Objects;
 

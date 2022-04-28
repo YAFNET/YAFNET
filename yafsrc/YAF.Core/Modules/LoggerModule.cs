@@ -26,8 +26,6 @@ namespace YAF.Core.Modules;
 
 #region Using
 
-using System.Linq;
-
 using Autofac;
 using Autofac.Core;
 

@@ -30,8 +30,6 @@ using System.Text;
 
 using J2N.Text;
 
-using YAF.Configuration;
-using YAF.Core.Helpers;
 using YAF.Core.Utilities;
 using YAF.Types.Constants;
 

@@ -25,8 +25,6 @@ namespace YAF.Types.Interfaces.Services;
 
 using System.Collections.Generic;
 
-using YAF.Types.Flags;
-
 /// <summary>
 /// The FormatMessage Interface
 /// </summary>

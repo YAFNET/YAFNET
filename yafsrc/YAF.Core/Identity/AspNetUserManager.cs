@@ -26,13 +26,11 @@ namespace YAF.Core.Identity;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
-using YAF.Core.Context;
 using YAF.Core.Membership;
 using YAF.Types.Models.Identity;
 

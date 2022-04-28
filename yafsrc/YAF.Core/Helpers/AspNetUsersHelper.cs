@@ -27,27 +27,17 @@ namespace YAF.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Claims;
-using System.Web;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-using ServiceStack.OrmLite;
-
 using System.Linq.Expressions;
 
-using YAF.Configuration;
-using YAF.Core.Context;
-using YAF.Core.Extensions;
 using YAF.Core.Identity;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Constants;
-using YAF.Types.EventProxies;
 using YAF.Types.Exceptions;
-using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;

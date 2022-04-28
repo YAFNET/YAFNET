@@ -26,7 +26,6 @@ namespace YAF.Core.BaseModules;
 #region Using
 
 using System.Collections.Generic;
-using System.Linq;
 
 #endregion
 

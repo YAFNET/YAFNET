@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Data;
 
-using YAF.Types.Interfaces.Data;
-
 /// <summary>
 ///     The database connection parameter.
 /// </summary>

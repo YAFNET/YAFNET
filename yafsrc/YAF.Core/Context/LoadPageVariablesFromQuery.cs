@@ -23,11 +23,7 @@
  */
 namespace YAF.Core.Context;
 
-using System.Web;
-
 using YAF.Types.Attributes;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Events;
 
 /// <summary>
 /// The load page variables from query.

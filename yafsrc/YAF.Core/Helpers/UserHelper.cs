@@ -24,11 +24,7 @@
 namespace YAF.Core.Helpers;
 
 using System;
-using System.Globalization;
-using System.Linq;
 
-using YAF.Core.Context;
-using YAF.Core.Services;
 using YAF.Types.Models;
 
 /// <summary>

@@ -23,13 +23,7 @@
  */
 namespace YAF.Core.Context;
 
-using System.Web;
-
-using YAF.Configuration;
-using YAF.Core.Helpers;
 using YAF.Types.Attributes;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Events;
 
 /// <summary>
 /// The load page log bad agent.

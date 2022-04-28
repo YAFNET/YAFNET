@@ -27,10 +27,7 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using YAF.Core.Context;
-using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 

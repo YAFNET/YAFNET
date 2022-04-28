@@ -39,7 +39,6 @@ using Microsoft.Owin.Security.Twitter;
 
 using Owin;
 
-using YAF.Configuration;
 using YAF.Core.Identity;
 using YAF.Types.Models.Identity;
 

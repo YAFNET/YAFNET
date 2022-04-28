@@ -26,10 +26,6 @@ namespace YAF.Core.Services;
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-
-using YAF.Configuration;
 
 /// <summary>
 /// Class to Generate The Reputation Bar

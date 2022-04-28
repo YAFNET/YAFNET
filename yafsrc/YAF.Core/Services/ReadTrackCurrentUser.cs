@@ -27,13 +27,7 @@ namespace YAF.Core.Services;
 #region Using
 
 using System;
-using System.Linq;
-using System.Web;
 
-using YAF.Configuration;
-using YAF.Core.Context;
-using YAF.Core.Extensions;
-using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Models;
 

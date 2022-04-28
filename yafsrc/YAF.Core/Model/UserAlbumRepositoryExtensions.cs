@@ -26,10 +26,7 @@ namespace YAF.Core.Model;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
-using YAF.Core.Extensions;
-using YAF.Types.Interfaces.Data;
 using YAF.Types.Models;
 
 /// <summary>

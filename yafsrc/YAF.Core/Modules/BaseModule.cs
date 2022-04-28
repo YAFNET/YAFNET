@@ -31,14 +31,12 @@ using System.Collections.Generic;
 #if DEBUG
 using System.Diagnostics;
 #endif
-using System.Linq;
 using System.Reflection;
 
 using Autofac;
 using Autofac.Core;
 
 using YAF.Core.BaseModules;
-using YAF.Core.Extensions;
 
 using Module = Autofac.Module;
 

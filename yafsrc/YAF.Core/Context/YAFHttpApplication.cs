@@ -25,19 +25,13 @@
 namespace YAF.Core.Context;
 
 using System;
-using System.Web;
 using System.Web.Http;
 using System.Web.UI;
 
 using Autofac;
 
-using YAF.Configuration;
 using YAF.Core.Context.Start;
-using YAF.Core.Extensions;
-using YAF.Core.Helpers;
 using YAF.Types.Constants;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Events;
 
 /// <summary>
 /// The YAF HttpApplication.

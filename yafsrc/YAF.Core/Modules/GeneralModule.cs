@@ -25,20 +25,15 @@
 namespace YAF.Core.Modules;
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 using Autofac;
 
 using YAF.Core.BaseModules;
-using YAF.Core.Context;
 using YAF.Core.Data;
 using YAF.Core.Events;
-using YAF.Core.Helpers;
 using YAF.Core.Nntp;
 using YAF.Core.Services.Cache;
-using YAF.Types.Interfaces.Data;
-using YAF.Types.Interfaces.Events;
 
 /// <summary>
 /// The general module.

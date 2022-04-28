@@ -30,9 +30,6 @@ using System.Net;
 using System.Net.Mail;
 using System.Web.UI;
 
-using YAF.Configuration;
-using YAF.Core.Extensions;
-using YAF.Core.Helpers;
 using YAF.Types.Models;
 
 #endregion

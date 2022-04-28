@@ -28,18 +28,12 @@ namespace YAF.Core.BBCode;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.UI;
 
-using YAF.Configuration;
 using YAF.Core.BBCode.ReplaceRules;
-using YAF.Core.Context;
-using YAF.Core.Extensions;
-using YAF.Core.Helpers;
 using YAF.Types.Constants;
-using YAF.Types.Flags;
 
 #endregion
 

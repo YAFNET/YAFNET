@@ -25,11 +25,8 @@ namespace YAF.Core.Services;
 
 #region Using
 
-using System.Web;
 using System.Web.Hosting;
 
-using YAF.Configuration;
-using YAF.Core.Context;
 using YAF.Types.Constants;
 
 #endregion

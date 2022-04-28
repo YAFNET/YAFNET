@@ -29,12 +29,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
 
-using YAF.Configuration;
-using YAF.Core.Extensions;
 using YAF.Types.Extensions.Data;
-using YAF.Types.Interfaces.Data;
 
 #endregion
 

@@ -27,8 +27,6 @@ namespace YAF.Core.Events;
 
 using System;
 
-using YAF.Types.Interfaces.Events;
-
 #endregion
 
 /// <summary>

@@ -24,12 +24,10 @@
 
 namespace YAF.Core.Identity;
 
-using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNet.Identity;
 
-using YAF.Core.Extensions;
 using YAF.Types.Models.Identity;
 
 /// <summary>

@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Extensions;
 
-using YAF.Core.Context;
 using YAF.Types.Models;
 
 /// <summary>

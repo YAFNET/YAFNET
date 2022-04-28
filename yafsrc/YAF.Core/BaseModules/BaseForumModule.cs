@@ -25,7 +25,6 @@ namespace YAF.Core.BaseModules;
 
 #region Using
 
-using YAF.Core.Context;
 using YAF.Types.Attributes;
 
 #endregion

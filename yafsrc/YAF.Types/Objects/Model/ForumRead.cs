@@ -24,10 +24,6 @@
 
 namespace YAF.Types.Objects.Model;
 
-using ServiceStack.DataAnnotations;
-
-using YAF.Types.Flags;
-
 /// <summary>
 /// The forum read.
 /// </summary>

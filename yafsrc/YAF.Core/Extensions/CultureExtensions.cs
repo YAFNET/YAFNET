@@ -27,7 +27,6 @@ namespace YAF.Core.Extensions;
 #region Using
 
 using System;
-using System.Globalization;
 
 using FarsiLibrary.Utils;
 

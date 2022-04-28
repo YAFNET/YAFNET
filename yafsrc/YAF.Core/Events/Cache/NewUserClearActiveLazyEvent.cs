@@ -25,8 +25,6 @@ namespace YAF.Core.Events.Cache;
 
 using YAF.Types.Attributes;
 using YAF.Types.Constants;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Events;
 
 /// <summary>
 ///     The attachment event handle file delete.

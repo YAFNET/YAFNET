@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Objects;
 
-using ServiceStack.DataAnnotations;
-
 /// <summary>
 /// The IP locator.
 /// </summary>

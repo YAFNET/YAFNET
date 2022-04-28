@@ -24,9 +24,6 @@
 
 namespace YAF.Core.Services;
 
-using YAF.Configuration;
-using YAF.Core.Context;
-using YAF.Core.Helpers;
 using YAF.Core.Services.CheckForSpam;
 using YAF.Types.Constants;
 

@@ -24,9 +24,6 @@
 
 namespace YAF.Core.Helpers;
 
-using System.Linq;
-using System.Web;
-
 public static class StringHelper
 {
     public static string GetAbbreviation(this string data)

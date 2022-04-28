@@ -25,13 +25,9 @@
 namespace YAF.Core.Helpers;
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Web;
 
 using Microsoft.Owin.Security;
-
-using YAF.Core.Context;
 
 /// <summary>
 /// The identity helper class.

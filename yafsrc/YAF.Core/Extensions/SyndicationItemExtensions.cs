@@ -27,8 +27,6 @@ using System;
 using System.Collections.Generic;
 using System.ServiceModel.Syndication;
 
-using YAF.Core.Context;
-using YAF.Core.Services;
 using YAF.Core.Services.Syndication;
 
 /// <summary>

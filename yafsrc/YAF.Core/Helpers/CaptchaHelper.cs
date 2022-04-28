@@ -28,9 +28,7 @@ namespace YAF.Core.Helpers;
 using System;
 using System.IO;
 using System.Runtime.Caching;
-using System.Web;
 
-using YAF.Core.Context;
 using YAF.Core.Utilities.ImageUtils;
 
 #endregion

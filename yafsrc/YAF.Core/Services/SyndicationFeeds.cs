@@ -28,21 +28,14 @@ namespace YAF.Core.Services;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Text;
-using System.Web;
 using System.Xml;
 
-using YAF.Configuration;
-using YAF.Core.Context;
-using YAF.Core.Extensions;
-using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services.Syndication;
 using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Constants;
-using YAF.Types.Flags;
 using YAF.Types.Models;
 
 #endregion

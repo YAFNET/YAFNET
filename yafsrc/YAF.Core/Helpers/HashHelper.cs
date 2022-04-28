@@ -26,7 +26,6 @@ namespace YAF.Core.Helpers;
 #region Using
 
 using System;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 

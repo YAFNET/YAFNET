@@ -26,9 +26,7 @@ namespace YAF.Core.Helpers;
 using System;
 using System.Collections.Specialized;
 using System.Configuration;
-using System.Linq;
 using System.Security.Permissions;
-using System.Web;
 using System.Web.Configuration;
 
 /// <summary>

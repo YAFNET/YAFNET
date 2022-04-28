@@ -28,11 +28,7 @@ namespace YAF.Core.Handlers;
 
 using System;
 using System.Net;
-using System.Web;
 using System.Web.SessionState;
-
-using YAF.Core.Context;
-using YAF.Core.Extensions;
 
 #endregion
 

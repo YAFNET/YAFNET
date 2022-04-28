@@ -26,13 +26,9 @@ namespace YAF.Core.BasePages;
 #region Using
 
 using System;
-using System.Globalization;
 using System.Threading;
-using System.Web;
 using System.Web.UI;
 
-using YAF.Core.Context;
-using YAF.Core.Extensions;
 using YAF.Core.Services.Startup;
 using YAF.Types.Constants;
 

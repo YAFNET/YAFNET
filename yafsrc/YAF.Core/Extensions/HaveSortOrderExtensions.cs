@@ -25,7 +25,6 @@
 namespace YAF.Core.Extensions;
 
 using System.Collections.Generic;
-using System.Linq;
 
 /// <summary>
 /// The have sort order extensions.

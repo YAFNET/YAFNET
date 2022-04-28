@@ -25,13 +25,7 @@ namespace YAF.Core.Services;
 
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Mail;
-using System.Web;
-
-using YAF.Configuration;
-using YAF.Core.Context;
-using YAF.Core.Extensions;
 
 /// <summary>
 ///     The YAF template email.

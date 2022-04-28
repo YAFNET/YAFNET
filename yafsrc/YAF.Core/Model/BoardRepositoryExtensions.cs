@@ -25,14 +25,6 @@ namespace YAF.Core.Model;
 
 using System;
 
-using ServiceStack.OrmLite;
-
-using YAF.Core.Context;
-using YAF.Core.Extensions;
-using YAF.Types.EventProxies;
-using YAF.Types.Flags;
-using YAF.Types.Interfaces.Data;
-using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -341,9 +333,9 @@ public static class BoardRepositoryExtensions
                                    IsHtml = false, IsBBCode = true, IsPersistent = true, IsApproved = true
                                };
 
-        /*var topic = BoardContext.Current.GetRepository<Topic>().SaveNew(
+        var topic = BoardContext.Current.GetRepository<Topic>().SaveNew(
             forum,
-            "Welcome to YetAnotherForum.NET",
+            "Hello to YAF.NET",
             string.Empty,
             string.Empty,
             "Welcome to the New YAF.NET Installation",
@@ -355,7 +347,7 @@ public static class BoardRepositoryExtensions
             BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
             DateTime.UtcNow,
             messageFlags,
-            out _);*/
+            out _);
 
         return newBoardId;
     }

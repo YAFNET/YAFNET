@@ -26,10 +26,8 @@ namespace YAF.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 
-using YAF.Configuration;
 using YAF.Types.Objects;
 
 /// <summary>

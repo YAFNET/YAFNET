@@ -25,7 +25,6 @@
 namespace YAF.Core.Context.Start;
 
 using System;
-using System.Linq;
 
 using Autofac.Util;
 

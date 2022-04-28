@@ -25,8 +25,7 @@ namespace YAF.Core.Data;
 
 #region Using
 
-using YAF.Types.Interfaces.Data;
-using YAF.Types.Interfaces.Events;
+
 
 #endregion
 

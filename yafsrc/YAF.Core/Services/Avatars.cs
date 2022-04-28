@@ -26,8 +26,6 @@ namespace YAF.Core.Services;
 
 #region Using
 
-using YAF.Configuration;
-using YAF.Core.Context;
 using YAF.Types.Models;
 
 #endregion

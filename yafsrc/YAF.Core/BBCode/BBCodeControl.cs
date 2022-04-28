@@ -28,7 +28,6 @@ namespace YAF.Core.BBCode;
 using System.Collections.Generic;
 
 using YAF.Core.BaseControls;
-using YAF.Types.Flags;
 
 #endregion
 

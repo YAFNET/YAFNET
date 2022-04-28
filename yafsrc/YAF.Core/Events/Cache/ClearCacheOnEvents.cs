@@ -27,11 +27,8 @@ namespace YAF.Core.Events.Cache;
 
 using System;
 
-using YAF.Core.Extensions;
 using YAF.Types.Attributes;
 using YAF.Types.Constants;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 using YAF.Types.Structures;
 

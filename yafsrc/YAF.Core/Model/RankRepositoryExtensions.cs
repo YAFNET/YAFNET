@@ -24,16 +24,7 @@
 namespace YAF.Core.Model;
 
 using System;
-using System.Linq;
 
-using ServiceStack.OrmLite;
-
-using YAF.Core.Context;
-using YAF.Core.Extensions;
-using YAF.Types.EventProxies;
-using YAF.Types.Flags;
-using YAF.Types.Interfaces.Data;
-using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 
 /// <summary>

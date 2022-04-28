@@ -27,8 +27,6 @@ namespace YAF.Core.Services.Startup;
 
 using System;
 
-using YAF.Core.Context;
-
 #endregion
 
 /// <summary>

@@ -26,10 +26,8 @@ namespace YAF.Core.Nntp;
 #region Using
 
 using System;
-using System.Linq;
 using System.Runtime.Caching;
 
-using YAF.Core.Context;
 using YAF.Core.Model;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;

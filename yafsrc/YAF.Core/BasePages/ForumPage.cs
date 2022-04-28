@@ -30,16 +30,10 @@ using System.Collections;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-using YAF.Configuration;
-using YAF.Core.Context;
-using YAF.Core.Extensions;
 using YAF.Core.Handlers;
-using YAF.Core.Helpers;
 using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Attributes;
 using YAF.Types.Constants;
-using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Events;
 using YAF.Types.Models.Identity;
 
 #endregion

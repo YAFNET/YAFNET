@@ -30,7 +30,6 @@ using System;
 using System.IO;
 using System.Net;
 
-using YAF.Core.Context;
 using YAF.Types.Interfaces.CheckForSpam;
 
 #endregion

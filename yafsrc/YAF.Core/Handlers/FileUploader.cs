@@ -27,14 +27,9 @@ namespace YAF.Core.Handlers;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.SessionState;
 
-using YAF.Configuration;
-using YAF.Core.Context;
-using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Utilities;
 using YAF.Types.Models;

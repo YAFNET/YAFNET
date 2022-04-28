@@ -26,10 +26,8 @@ namespace YAF.Core.BaseModules;
 #region Using
 
 using System;
-using System.Web;
 using System.Web.UI;
 
-using YAF.Core.Context;
 using YAF.Core.Services.Startup;
 using YAF.Types.Attributes;
 

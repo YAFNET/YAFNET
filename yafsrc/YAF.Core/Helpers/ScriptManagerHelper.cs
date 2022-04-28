@@ -25,8 +25,6 @@ namespace YAF.Core.Helpers;
 
 using System.Web.UI;
 
-using YAF.Configuration;
-
 /// <summary>
 /// The ScriptManager helper Class.
 /// </summary>

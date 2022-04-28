@@ -25,14 +25,9 @@
 namespace YAF.Core.Controllers;
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using System.Web.UI.WebControls;
 
-using YAF.Core.Context;
-using YAF.Core.Extensions;
-using YAF.Core.Helpers;
-using YAF.Core.Services;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;

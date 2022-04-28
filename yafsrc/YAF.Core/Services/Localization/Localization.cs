@@ -28,14 +28,9 @@ namespace YAF.Core.Services.Localization;
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Hosting;
 
-using YAF.Configuration;
-using YAF.Core.Context;
-using YAF.Core.Helpers;
 using YAF.Types.Objects;
 
 #endregion
