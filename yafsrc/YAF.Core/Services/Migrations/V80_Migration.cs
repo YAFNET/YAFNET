@@ -1171,11 +1171,6 @@ namespace YAF.Core.Services.Migrations
                 dbCommand.Connection.AlterColumn<MessageHistory>(x => x.Message);
             }
 
-            if (dbCommand.Connection.ColumnExists<MessageHistory>("MessageHistoryID"))
-            {
-                dbCommand.Connection.DropColumn<MessageHistory>("MessageHistoryID");
-            }
-
             if (dbCommand.Connection.ColumnMaxLength<MessageHistory>(x => x.IP) < 39)
             {
                 dbCommand.Connection.AlterColumn<MessageHistory>(x => x.IP);
@@ -1192,6 +1187,14 @@ namespace YAF.Core.Services.Migrations
                     $@" update {expression.Table<MessageHistory>()} set Edited = GETDATE() WHERE Edited IS NULL");
 
                 dbCommand.Connection.AlterColumn<MessageHistory>(x => x.Edited);
+            }
+
+            if (dbCommand.Connection.ColumnExists<MessageHistory>("MessageHistoryID"))
+            {
+                dbCommand.Connection.DropConstraint<MessageHistory>(
+                    $"DF_{Config.DatabaseObjectQualifier}{nameof(MessageHistory)}_MessageHistoryID");
+
+                dbCommand.Connection.DropColumn<MessageHistory>("MessageHistoryID");
             }
         }
 

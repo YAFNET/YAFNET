@@ -65,6 +65,60 @@ GO
 
 /* Create missing profile columns first if not exist */
 
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Interests')
+begin
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Interests nvarchar(255)  Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Blog')
+begin
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Blog nvarchar(255)  Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Occupation')
+begin
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Occupation nvarchar(255)  Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Skype')
+begin
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Skype nvarchar(255)  Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='RealName')
+begin
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add RealName nvarchar(255)  Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Location')
+begin
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add [Location] nvarchar(255)  Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Homepage')
+begin
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Homepage nvarchar(255)  Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Gender')
+begin
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Gender int  Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Birthday')
+begin
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Birthday datetime  Null
+end
+GO
+
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='GoogleId')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add GoogleId nvarchar(255)  Null
