@@ -454,9 +454,4 @@ public partial class EventLog : AdminPage
     }
 
     #endregion
-
-    private string Test(string htmlEncode)
-    {
-        return htmlEncode;
-    }
 }
