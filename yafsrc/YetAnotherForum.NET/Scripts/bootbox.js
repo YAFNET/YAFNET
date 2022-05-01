@@ -1,6 +1,6 @@
 /*! @preserve
  * bootbox.js
- * version: 5.5.2
+ * version: 5.5.3
  * author: Nick Payne <nick@kurai.co.uk>
  * license: MIT
  * http://bootboxjs.com/
@@ -65,7 +65,7 @@
 
   var exports = {};
 
-  var VERSION = '5.5.2';
+  var VERSION = '5.5.3';
   exports.VERSION = VERSION;
 
   var locales = {
@@ -92,7 +92,7 @@
     footer:
     '<div class="modal-footer"></div>',
     closeButton:
-    '<button type="button" class="bootbox-close-button btn-close" aria-hidden="true"></button>',
+    '<button type="button" class="bootbox-close-button close" aria-hidden="true">&times;</button>',
     form:
     '<form class="bootbox-form"></form>',
     button:
@@ -156,7 +156,9 @@
     // Automatically scroll modal content when height exceeds viewport height
     scrollable: false,
     // whether or not to destroy the modal on hide
-    reusable: false
+    reusable: false,
+    // the element that triggered the dialog opening
+    relatedTarget: null
   };
 
 
@@ -505,7 +507,7 @@
     });
 
     if (options.show) {
-      dialog.modal('show');
+      dialog.modal('show', options.relatedTarget);
     }
 
     return dialog;

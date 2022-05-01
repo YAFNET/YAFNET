@@ -4809,7 +4809,7 @@
         }();
     }
     var exports = {};
-    var VERSION = "5.5.2";
+    var VERSION = "5.5.3";
     exports.VERSION = VERSION;
     var locales = {
         en: {
@@ -4855,7 +4855,8 @@
         centerVertical: false,
         multiple: false,
         scrollable: false,
-        reusable: false
+        reusable: false,
+        relatedTarget: null
     };
     exports.locales = function(name) {
         return name ? locales[name] : locales;
@@ -5082,7 +5083,7 @@
             show: false
         });
         if (options.show) {
-            dialog.modal("show");
+            dialog.modal("show", options.relatedTarget);
         }
         return dialog;
     };
