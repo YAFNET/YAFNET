@@ -256,7 +256,7 @@ public partial class EditMessage : ForumPage
 
             announcement.Attributes.Add(
                 "data-content",
-                $"<span class='select2-image-select-icon'><i class='fas fa-bullhorn fa-fw text-secondary me-1'></i>;{this.GetText("announcement")}</span>");
+                $"<span class='select2-image-select-icon'><i class='fas fa-bullhorn fa-fw text-secondary me-1'></i>{this.GetText("announcement")}</span>");
 
             this.Priority.Items.Add(announcement);
 

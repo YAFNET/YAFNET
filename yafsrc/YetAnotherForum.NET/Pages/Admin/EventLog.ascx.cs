@@ -288,7 +288,7 @@ public partial class EventLog : AdminPage
 
                     item.Attributes.Add(
                         "data-content",
-                        $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{icon} fa-fw text-secondary me-1\"></i>&nbsp;{type}</span>");
+                        $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{icon} fa-fw text-secondary me-1\"></i>{type}</span>");
 
                     this.Types.Items.Add(item);
                 });
