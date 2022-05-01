@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
-    <PackageReference Include="Npgsql" Version="5.0.11" />
+    <PackageReference Include="Npgsql" Version="5.0.13" />
   </ItemGroup>
 
 </Project>

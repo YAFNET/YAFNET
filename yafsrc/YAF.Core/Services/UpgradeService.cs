@@ -116,8 +116,6 @@ public class UpgradeService : IHaveServiceLocator
     {
         this.CreateTablesIfNotExists();
 
-        this.AddOrUpdateExtensions();
-
         var prevVersion = this.GetRepository<Registry>().GetDbVersion();
 
         this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
@@ -224,6 +222,8 @@ public class UpgradeService : IHaveServiceLocator
         {
             this.Get<V86_Migration>().MigrateDatabase(this.DbAccess);
         }
+
+        this.AddOrUpdateExtensions();
 
         this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
 
