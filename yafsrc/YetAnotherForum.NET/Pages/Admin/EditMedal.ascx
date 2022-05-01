@@ -7,6 +7,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+<%@ Import Namespace="YAF.Types.Models" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
@@ -232,7 +233,7 @@
                                                 LocalizedTag="DATE_AWARDED"
                                                 LocalizedPage="ADMIN_EDITMEDAL" />:
                         </span>
-                        <%# this.Get<IDateTimeService>().FormatDateTimeTopic((DateTime)this.Eval("Item2.DateAwarded")) %>
+                        <%# this.Get<IDateTimeService>().FormatDateTimeTopic(((Tuple<Medal, UserMedal, User>)Container.DataItem).Item2.DateAwarded) %>
                     </small>
                 </div>
                 <p class="mb-1">
@@ -241,13 +242,13 @@
                                             LocalizedTag="MESSAGE"
                                             LocalizedPage="COMMON" />
                     </span>
-                    <%# this.Eval("Item2.Message").ToString().IsSet() ? this.Eval("Item2.Message") :  this.Eval("Item1.Message")%>
+                    <%# ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item2.Message.IsSet() ? ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item2.Message :  ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item1.Message%>
                 </p>
                 <small>
                     <div class="btn-group btn-group-sm">
                         <YAF:ThemeButton runat="server"
                                          CommandName="edit"
-                                         CommandArgument='<%# this.Eval("Item2.UserID") %>'
+                                         CommandArgument="<%# ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item2.UserID %>"
                                          TextLocalizedTag="EDIT"
                                          Type="Info"
                                          Size="Small"
@@ -255,7 +256,7 @@
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server"
                                          CommandName="remove"
-                                         CommandArgument='<%# this.Eval("Item2.UserID") %>'
+                                         CommandArgument="<%# ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item2.UserID %>"
                                          TextLocalizedTag="REMOVE"
                                          Type="Danger"
                                          Size="Small"
@@ -266,7 +267,7 @@
                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                         <YAF:ThemeButton runat="server"
                                          CommandName="edit"
-                                         CommandArgument='<%# this.Eval("Item2.UserID") %>'
+                                         CommandArgument="<%# ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item2.UserID %>"
                                          TextLocalizedTag="EDIT"
                                          Type="None"
                                          CssClass="dropdown-item"
@@ -274,7 +275,7 @@
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server"
                                          CommandName="remove"
-                                         CommandArgument='<%# this.Eval("Item2.UserID") %>'
+                                         CommandArgument="<%# ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item2.UserID %>"
                                          TextLocalizedTag="REMOVE"
                                          Type="None"
                                          CssClass="dropdown-item"
