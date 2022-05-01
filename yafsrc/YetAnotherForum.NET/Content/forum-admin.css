@@ -13865,15 +13865,6 @@ div#UploadDialog {
   color: #ecf0f1;
 }
 
-.scrolltop {
-  display: none;
-  width: 100%;
-  margin: 0 auto;
-  position: fixed;
-  bottom: 20px;
-  right: 10px;
-}
-
 .scroll-top {
   display: none;
   width: 100%;
