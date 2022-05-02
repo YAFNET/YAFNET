@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -41,6 +41,7 @@ public class MessageReported : IEntity, IHaveID
     /// <summary>
     /// Gets or sets the message.
     /// </summary>
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string Message { get; set; }
 
     /// <summary>

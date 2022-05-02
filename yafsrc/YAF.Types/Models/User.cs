@@ -315,6 +315,7 @@ public class User : IEntity, IHaveBoardID, IHaveID
     /// <summary>
     /// Gets or sets the suspended reason.
     /// </summary>
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string SuspendedReason { get; set; }
 
     /// <summary>
