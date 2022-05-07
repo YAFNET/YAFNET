@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -38,8 +38,8 @@ CKEDITOR.dialog.add("syntaxhighlightDialog", function(editor) {
         title: editor.lang.syntaxhighlight.title,
         minWidth: 500,
         minHeight: 400,
-        onShow: function() {
-            
+        onShow: function () {
+
         },
         onOk: function () {
             var editor = this.getParentEditor();
@@ -62,7 +62,7 @@ CKEDITOR.dialog.add("syntaxhighlightDialog", function(editor) {
                 doc.replaceRange(insert, pos);
 
             } else {
-                editor.insertHtml(insert);
+                editor.insertText(insert);
             }
 
         },
@@ -72,66 +72,65 @@ CKEDITOR.dialog.add("syntaxhighlightDialog", function(editor) {
                 label: editor.lang.syntaxhighlight.sourceTab,
                 accessKey: "S",
                 elements:
-                [
-                    {
-                        type: "vbox",
-                        children: [
-                            {
-                                id: "cmbBBCode",
-                                type: "select",
-                                labelLayout: "horizontal",
-                                label: editor.lang.syntaxhighlight.langLbl,
-                                'default': "markup",
-                                widths: ["25%", "75%"],
-                                items:
-								[
-								["Plain Text", "markup"],
-								[   "Bash(shell)","bash" ],
-                                        [   "C","c" ],
-                                        [   "C++","cpp" ],
-                                        [   "C#","csharp" ],
-                                        [   "CSS","css" ],
-										
-                                        [   "SCSS","scss" ],
-                                        [   "Git","git" ],
-                                        [   "HTML","markup" ],
-                                        [   "Java","java" ],
-                                        [   "JavaScript","javascript" ],
-                                        [   "Python","python" ],
-                                        [   "SQL","sql" ],
-                                        [   "XML","markup" ],
-                                        [  "Visual Basic","vb" ]
-								],
-                                setup: function(data) {
-									if (data.bbcodeName)
-                                        this.setValue(data.bbcodeName);
-                                },
-                                commit: function(data) {
-                                    data.bbcodeName = this.getValue();
-                                },
-                                onChange: function(data) {
-                                    var dialog = this.getDialog(),
-                                        bbCodeType = this.getValue(),
-                                        contentBox = dialog.getContentElement("source", "CodeBox");
+                    [
+                        {
+                            type: "vbox",
+                            children: [
+                                {
+                                    id: "cmbBBCode",
+                                    type: "select",
+                                    labelLayout: "horizontal",
+                                    label: editor.lang.syntaxhighlight.langLbl,
+                                    'default': "markup",
+                                    widths: ["25%", "75%"],
+                                    items:
+                                        [
+                                            ["Plain Text", "markup"],
+                                            ["Bash(shell)", "bash"],
+                                            ["C", "c"],
+                                            ["C++", "cpp"],
+                                            ["C#", "csharp"],
+                                            ["CSS", "css"],
+                                            ["SCSS", "scss"],
+                                            ["Git", "git"],
+                                            ["HTML", "markup"],
+                                            ["Java", "java"],
+                                            ["JavaScript", "javascript"],
+                                            ["Python", "python"],
+                                            ["SQL", "sql"],
+                                            ["XML", "markup"],
+                                            ["Visual Basic", "vb"]
+                                        ],
+                                    setup: function (data) {
+                                        if (data.bbcodeName)
+                                            this.setValue(data.bbcodeName);
+                                    },
+                                    commit: function (data) {
+                                        data.bbcodeName = this.getValue();
+                                    },
+                                    onChange: function (data) {
+                                        var dialog = this.getDialog(),
+                                            bbCodeType = this.getValue(),
+                                            contentBox = dialog.getContentElement("source", "CodeBox");
+                                    }
                                 }
-                            }
-                        ]
-                    },
-                    {
-                        type: "textarea",
-						label: editor.lang.syntaxhighlight.sourceTab,
-                        id: "CodeBox",
-                        rows: 22,
-                        style: "width: 100%",
-                        setup: function(data) {
-                            if (data.code)
-                                this.setValue(data.code);
+                            ]
                         },
-                        commit: function(data) {
-                            data.code = this.getValue();
+                        {
+                            type: "textarea",
+                            label: editor.lang.syntaxhighlight.sourceTab,
+                            id: "CodeBox",
+                            rows: 22,
+                            style: "width: 100%",
+                            setup: function (data) {
+                                if (data.code)
+                                    this.setValue(data.code);
+                            },
+                            commit: function (data) {
+                                data.code = this.getValue();
+                            }
                         }
-                    }
-                ]
+                    ]
             }
         ]
     };

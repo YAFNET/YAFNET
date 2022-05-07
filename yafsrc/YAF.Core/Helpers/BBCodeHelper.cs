@@ -98,7 +98,7 @@ public static class BBCodeHelper
 
         return regex.Replace(
             text,
-            match => $"]{BoardContext.Current.CurrentForumPage.HtmlEncode(match.Groups["inner"].Value)}[/code]");
+            match => $"]{HttpUtility.HtmlEncode(match.Groups["inner"].Value)}[/code]");
     }
 
     /// <summary>
