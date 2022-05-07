@@ -118,9 +118,6 @@ public class UpgradeService : IHaveServiceLocator
 
         var prevVersion = this.GetRepository<Registry>().GetDbVersion();
 
-        this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
-        this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
-
         // initialize search index
         if (this.Get<BoardSettings>().LastSearchIndexUpdated.IsNotSet())
         {
@@ -228,6 +225,9 @@ public class UpgradeService : IHaveServiceLocator
         this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
 
         this.Get<IDataCache>().Remove(Constants.Cache.Version);
+
+        this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
+        this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
 
         this.Get<ILoggerService>().Info($"YAF.NET Upgraded to Version {BoardInfo.AppVersionName}");
 
@@ -410,9 +410,11 @@ public class UpgradeService : IHaveServiceLocator
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileCustom>());
     }
 
+    /// <summary>
+    /// Migrate old attachments from message to user attachments.
+    /// </summary>
     private void MigrateAttachments()
     {
-
         // attempt to run the migration code...
         var messages = this.GetRepository<Attachment>().GetMessageAttachments();
 
