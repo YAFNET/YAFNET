@@ -46,8 +46,15 @@ public class SQLPasswordHasher : PasswordHasher
     /// <returns>
     /// The <see cref="PasswordVerificationResult"/>.
     /// </returns>
-    public override PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
+    public override PasswordVerificationResult VerifyHashedPassword(
+        [NotNull] string hashedPassword,
+        [NotNull] string providedPassword)
     {
+        if (hashedPassword.IsNotSet())
+        {
+            return PasswordVerificationResult.Failed;
+        }
+
         var passwordProperties = hashedPassword.Split('|');
 
         if (passwordProperties.Length != 3)
@@ -60,17 +67,11 @@ public class SQLPasswordHasher : PasswordHasher
 
         var passwordFormat = passwordProperties[1].ToEnum<MembershipPasswordFormat>();
 
-        var encryptedPassword = EncryptPassword(
-            passwordHash,
-            providedPassword,
-            passwordFormat,
-            salt);
+        var encryptedPassword = EncryptPassword(passwordHash, providedPassword, passwordFormat, salt);
 
         return string.Equals(
                    encryptedPassword,
-                   passwordFormat == MembershipPasswordFormat.Hashed
-                       ? passwordHash
-                       : providedPassword,
+                   passwordFormat == MembershipPasswordFormat.Hashed ? passwordHash : providedPassword,
                    StringComparison.CurrentCultureIgnoreCase)
                    ? PasswordVerificationResult.SuccessRehashNeeded
                    : PasswordVerificationResult.Failed;
@@ -94,7 +95,11 @@ public class SQLPasswordHasher : PasswordHasher
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    private static string EncryptPassword(string hashedPassword, string clearPassword, MembershipPasswordFormat passwordFormat, string salt)
+    private static string EncryptPassword(
+        [NotNull] string hashedPassword,
+        [NotNull] string clearPassword,
+        [NotNull] MembershipPasswordFormat passwordFormat,
+        [CanBeNull] string salt)
     {
         switch (passwordFormat)
         {
