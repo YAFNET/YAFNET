@@ -376,24 +376,6 @@ namespace YAF.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Use Existing User ähnelt.
-        /// </summary>
-        public static string ExistingUser {
-            get {
-                return ResourceManager.GetString("ExistingUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Enter the name of the existing user to make super user (host) ähnelt.
-        /// </summary>
-        public static string ExistingUserName {
-            get {
-                return ResourceManager.GetString("ExistingUserName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Finish ähnelt.
         /// </summary>
         public static string Finish {

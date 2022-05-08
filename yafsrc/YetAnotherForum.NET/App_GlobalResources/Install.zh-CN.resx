@@ -225,12 +225,6 @@
   <data name="ExistConnection" xml:space="preserve">
     <value>使用现有DB连接字符串</value>
   </data>
-  <data name="ExistingUser" xml:space="preserve">
-    <value>使用现有用户</value>
-  </data>
-  <data name="ExistingUserName" xml:space="preserve">
-    <value>输入现有用户的名称以使超级用户（主机）</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>完</value>
   </data>

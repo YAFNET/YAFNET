@@ -225,12 +225,6 @@
   <data name="ExistConnection" xml:space="preserve">
     <value>Использовать существующую строку подключения к БД</value>
   </data>
-  <data name="ExistingUser" xml:space="preserve">
-    <value>Использовать существующего пользователя</value>
-  </data>
-  <data name="ExistingUserName" xml:space="preserve">
-    <value>Введите имя существующего пользователя, чтобы сделать суперпользователя (хост)</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>Конец</value>
   </data>

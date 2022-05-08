@@ -225,12 +225,6 @@
   <data name="ExistConnection" xml:space="preserve">
     <value>Bruk eksisterende DB-tilkoblingsstreng</value>
   </data>
-  <data name="ExistingUser" xml:space="preserve">
-    <value>Bruk eksisterende bruker</value>
-  </data>
-  <data name="ExistingUserName" xml:space="preserve">
-    <value>Skriv inn navnet på den eksisterende brukeren for å gjøre superbruker (vert)</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>Bli ferdig</value>
   </data>

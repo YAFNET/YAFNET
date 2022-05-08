@@ -225,12 +225,6 @@
   <data name="ExistConnection" xml:space="preserve">
     <value>Gebruik bestaande DB-verbindingsreeks</value>
   </data>
-  <data name="ExistingUser" xml:space="preserve">
-    <value>Gebruik bestaande gebruiker</value>
-  </data>
-  <data name="ExistingUserName" xml:space="preserve">
-    <value>Voer de naam van de bestaande gebruiker in om supergebruiker (host) te maken</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>Af hebben</value>
   </data>

@@ -225,12 +225,6 @@
   <data name="ExistConnection" xml:space="preserve">
     <value>Utiliser une chaîne de connexion à la base de données existante</value>
   </data>
-  <data name="ExistingUser" xml:space="preserve">
-    <value>Utiliser un utilisateur existant</value>
-  </data>
-  <data name="ExistingUserName" xml:space="preserve">
-    <value>Entrez le nom de l'utilisateur existant à rendre super utilisateur (hôte)</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>terminer</value>
   </data>

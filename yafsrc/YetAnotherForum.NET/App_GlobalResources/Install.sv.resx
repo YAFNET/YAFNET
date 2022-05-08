@@ -225,12 +225,6 @@
   <data name="ExistConnection" xml:space="preserve">
     <value>Använd befintlig DB-anslutningssträng</value>
   </data>
-  <data name="ExistingUser" xml:space="preserve">
-    <value>Använd befintlig användare</value>
-  </data>
-  <data name="ExistingUserName" xml:space="preserve">
-    <value>Ange namnet på den befintliga användaren för att göra superanvändare (värd)</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>Avsluta</value>
   </data>

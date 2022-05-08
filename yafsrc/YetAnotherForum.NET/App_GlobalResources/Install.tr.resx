@@ -225,12 +225,6 @@
   <data name="ExistConnection" xml:space="preserve">
     <value>Mevcut DB Bağlantı Dizesini Kullan</value>
   </data>
-  <data name="ExistingUser" xml:space="preserve">
-    <value>Mevcut Kullanıcıyı Kullan</value>
-  </data>
-  <data name="ExistingUserName" xml:space="preserve">
-    <value>Süper kullanıcı (host) yapmak için mevcut kullanıcının adını girin</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>Bitiş</value>
   </data>

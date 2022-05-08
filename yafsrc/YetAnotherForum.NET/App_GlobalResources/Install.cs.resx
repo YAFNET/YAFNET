@@ -225,12 +225,6 @@
   <data name="ExistConnection" xml:space="preserve">
     <value>Použít existující řetězec připojení DB</value>
   </data>
-  <data name="ExistingUser" xml:space="preserve">
-    <value>Použít existujícího uživatele</value>
-  </data>
-  <data name="ExistingUserName" xml:space="preserve">
-    <value>Zadejte jméno existujícího uživatele, aby se super uživatel (hostitel)</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>Dokončit</value>
   </data>

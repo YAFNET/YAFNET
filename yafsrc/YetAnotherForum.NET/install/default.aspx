@@ -232,27 +232,10 @@
                                      CssClass="form-control"/>
                     </div>
                     <hr/>
-                    <div class="form-check">
-                        <asp:RadioButtonList ID="UserChoice" runat="server"
-                                             AutoPostBack="true"
-                                             OnSelectedIndexChanged="UserChoice_SelectedIndexChanged"
-                                             RepeatLayout="UnorderedList"
-                                             CssClass="list-unstyled">
-                            <asp:ListItem Selected="true" Value="create"/>
-                            <asp:ListItem Value="existing" />
-                        </asp:RadioButtonList>
-                    </div>
-                    <asp:PlaceHolder ID="ExistingUserHolder" runat="server" Visible="false">
-                        <div class="mb-3">
-                            <asp:TextBox ID="ExistingUserName" runat="server"
-                                         Placeholder="<%# YAF.App_GlobalResources.Install.ExistingUserName %>"
-                                         RenderWrapper="True"
-                                         LabelText="Existing User Name"
-                                         CssClass="form-control"/>
-                        </div>
-                    </asp:PlaceHolder>
-                    <asp:PlaceHolder ID="CreateAdminUserHolder" runat="server">
-                        <div class="mb-3">
+                    <h4>
+                        <%# YAF.App_GlobalResources.Install.CreateUser %>
+                    </h4>
+                    <div class="mb-3">
                             <asp:TextBox ID="UserName" runat="server"
                                          Placeholder="<%# YAF.App_GlobalResources.Install.AdminName %>"
                                          RenderWrapper="True"
@@ -285,7 +268,6 @@
                                          Type="Password"
                                          CssClass="form-control"/>
                         </div>
-                    </asp:PlaceHolder>
                 </asp:WizardStep>
             <asp:WizardStep runat="server" StepType="Finish" Title="Finished" ID="WizFinished">
                     <h4>

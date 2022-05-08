@@ -225,12 +225,6 @@
   <data name="ExistConnection" xml:space="preserve">
     <value>Użyj istniejącego ciągu połączenia DB</value>
   </data>
-  <data name="ExistingUser" xml:space="preserve">
-    <value>Użyj istniejącego użytkownika</value>
-  </data>
-  <data name="ExistingUserName" xml:space="preserve">
-    <value>Wprowadź nazwę istniejącego użytkownika, aby utworzyć superużytkownika (hosta)</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>koniec</value>
   </data>

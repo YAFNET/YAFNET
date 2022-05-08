@@ -262,26 +262,6 @@ public partial class _default : BasePage, IHaveServiceLocator
     }
 
     /// <summary>
-    /// The user choice_ selected index changed.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void UserChoice_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        switch (this.UserChoice.SelectedValue)
-        {
-            case "create":
-                this.ExistingUserHolder.Visible = false;
-                this.CreateAdminUserHolder.Visible = true;
-                break;
-            case "existing":
-                this.ExistingUserHolder.Visible = true;
-                this.CreateAdminUserHolder.Visible = false;
-                break;
-        }
-    }
-
-    /// <summary>
     /// Handles the ActiveStepChanged event of the Wizard control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -551,64 +531,50 @@ public partial class _default : BasePage, IHaveServiceLocator
         AspNetUsers user;
         var applicationId = Guid.NewGuid();
 
-        if (this.UserChoice.SelectedValue == "create")
+        if (this.UserName.Text.IsNotSet())
         {
-            if (this.UserName.Text.IsNotSet())
-            {
-                this.ShowErrorMessage(Install.ErrorUserName);
-                return false;
-            }
-
-            if (this.AdminEmail.Text.IsNotSet())
-            {
-                this.ShowErrorMessage(Install.ErrorUserEmail);
-                return false;
-            }
-
-            if (this.Password1.Text.IsNotSet())
-            {
-                this.ShowErrorMessage(Install.ErrorPassword);
-                return false;
-            }
-
-            if (this.Password1.Text != this.Password2.Text)
-            {
-                this.ShowErrorMessage(Install.PasswordNoMatch);
-                return false;
-            }
-
-            // fake the board settings
-            BoardContext.Current.BoardSettings ??= new BoardSettings();
-
-            // create the admin user...
-            user = new AspNetUsers
-                       {
-                           Id = Guid.NewGuid().ToString(),
-                           ApplicationId = applicationId,
-                           UserName = this.UserName.Text,
-                           LoweredUserName = this.UserName.Text,
-                           Email = this.AdminEmail.Text,
-                           IsApproved = true
-                       };
-
-            var result = this.Get<IAspNetUsersHelper>().Create(user, this.Password1.Text);
-
-            if (!result.Succeeded)
-            {
-                this.ShowErrorMessage($"{Install.ErrorUserCreate} - {result.Errors.FirstOrDefault()}");
-                return false;
-            }
+            this.ShowErrorMessage(Install.ErrorUserName);
+            return false;
         }
-        else
-        {
-            // try to get data for the existing user...
-            user = this.Get<IAspNetUsersHelper>().GetUserByName(this.ExistingUserName.Text.Trim());
 
-            if (user == null)
-            {
-                this.ShowErrorMessage(Install.ErrorUserNotFound);
-                return false;
-            }
+        if (this.AdminEmail.Text.IsNotSet())
+        {
+            this.ShowErrorMessage(Install.ErrorUserEmail);
+            return false;
+        }
+
+        if (this.Password1.Text.IsNotSet())
+        {
+            this.ShowErrorMessage(Install.ErrorPassword);
+            return false;
+        }
+
+        if (this.Password1.Text != this.Password2.Text)
+        {
+            this.ShowErrorMessage(Install.PasswordNoMatch);
+            return false;
+        }
+
+        // fake the board settings
+        BoardContext.Current.BoardSettings ??= new BoardSettings();
+
+        // create the admin user...
+        user = new AspNetUsers
+               {
+                   Id = Guid.NewGuid().ToString(),
+                   ApplicationId = applicationId,
+                   UserName = this.UserName.Text,
+                   LoweredUserName = this.UserName.Text,
+                   Email = this.AdminEmail.Text,
+                   IsApproved = true
+               };
+
+        var result = this.Get<IAspNetUsersHelper>().Create(user, this.Password1.Text);
+
+        if (!result.Succeeded)
+        {
+            this.ShowErrorMessage($"{Install.ErrorUserCreate} - {result.Errors.FirstOrDefault()}");
+            return false;
         }
 
         try
@@ -755,14 +721,6 @@ public partial class _default : BasePage, IHaveServiceLocator
             this.Cultures.DataValueField = "CultureTag";
             this.Cultures.DataTextField = "CultureNativeName";
 
-            this.UserChoice.Items[0].Text = Install.CreateUser;
-            this.UserChoice.Items[1].Text = Install.ExistingUser;
-
-            if (!this.IsForumInstalled)
-            {
-                this.UserChoice.Items.RemoveAt(1);
-            }
-
             this.DataBind();
 
             if (this.Cultures.Items.Count > 0)
@@ -807,18 +765,6 @@ public partial class _default : BasePage, IHaveServiceLocator
                                 break;
                         }
                     });
-
-            // Hide New User on DNN
-            if (!Config.IsDotNetNuke)
-            {
-                return;
-            }
-
-            this.UserChoice.SelectedIndex = 1;
-            this.UserChoice.Items[0].Enabled = false;
-
-            this.ExistingUserHolder.Visible = true;
-            this.CreateAdminUserHolder.Visible = false;
         }
     }
 

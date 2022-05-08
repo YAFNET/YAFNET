@@ -225,12 +225,6 @@
   <data name="ExistConnection" xml:space="preserve">
     <value>Käytä olemassa olevaa DB-yhteysjonoa</value>
   </data>
-  <data name="ExistingUser" xml:space="preserve">
-    <value>Käytä olemassa olevaa käyttäjää</value>
-  </data>
-  <data name="ExistingUserName" xml:space="preserve">
-    <value>Kirjoita nykyisen käyttäjän nimi, jotta superkäyttäjä (isäntä)</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>Suorittaa loppuun</value>
   </data>

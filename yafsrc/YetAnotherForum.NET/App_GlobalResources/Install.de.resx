@@ -225,12 +225,6 @@
   <data name="ExistConnection" xml:space="preserve">
     <value>Vorhandene DB-Verbindungszeichenfolge verwenden</value>
   </data>
-  <data name="ExistingUser" xml:space="preserve">
-    <value>Bestehenden Benutzer verwenden</value>
-  </data>
-  <data name="ExistingUserName" xml:space="preserve">
-    <value>Geben Sie den Namen des vorhandenen Benutzers ein, um ihn zum Superuser (Host) zu machen.</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>Fertig</value>
   </data>

@@ -384,42 +384,6 @@ namespace YAF.Install
         protected global::System.Web.UI.WebControls.TextBox ForumBaseUrlMask;
 
         /// <summary>
-        /// UserChoice-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList UserChoice;
-
-        /// <summary>
-        /// ExistingUserHolder-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ExistingUserHolder;
-
-        /// <summary>
-        /// ExistingUserName-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ExistingUserName;
-
-        /// <summary>
-        /// CreateAdminUserHolder-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder CreateAdminUserHolder;
-
-        /// <summary>
         /// UserName-Steuerelement.
         /// </summary>
         /// <remarks>

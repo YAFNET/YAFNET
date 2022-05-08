@@ -225,12 +225,6 @@
   <data name="ExistConnection" xml:space="preserve">
     <value>Utilizați șirul de conexiune DB existent</value>
   </data>
-  <data name="ExistingUser" xml:space="preserve">
-    <value>Utilizați un utilizator existent</value>
-  </data>
-  <data name="ExistingUserName" xml:space="preserve">
-    <value>Introduceți numele utilizatorului existent pentru a face super utilizator (gazdă)</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>finalizarea</value>
   </data>
