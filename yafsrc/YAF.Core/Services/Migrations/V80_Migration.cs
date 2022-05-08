@@ -160,7 +160,7 @@ namespace YAF.Core.Services.Migrations
                         {
                             // Migrate File Extensions
                             var extensions = this.GetRepository<FileExtension>().Get(
-                                x => x.BoardId == this.Get<BoardSettings>().BoardID);
+                                x => x.BoardId == this.Get<BoardSettings>().BoardId);
 
                             this.GetRepository<Registry>().Save(
                                 "allowedfileextensions",

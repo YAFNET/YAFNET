@@ -1,6 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
+﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
     Inherits="YAF.Controls.CookieConsent" Codebehind="CookieConsent.ascx.cs" %>
-
 
 <div class="alert alert-dismissible text-center cookiealert" role="alert">
     <h4 class="alert-heading">

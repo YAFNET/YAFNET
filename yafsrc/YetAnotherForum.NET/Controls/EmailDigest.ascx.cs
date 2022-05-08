@@ -218,7 +218,7 @@ public partial class EmailDigest : BaseUserControl
 
         if (HttpContext.Current != null)
         {
-            this.BoardSettings = this.PageBoardContext.BoardSettings.BoardID.Equals(this.BoardID)
+            this.BoardSettings = this.PageBoardContext.BoardSettings.BoardId.Equals(this.BoardID)
                                      ? this.PageBoardContext.BoardSettings
                                      : this.Get<BoardSettingsService>().LoadBoardSettings(this.BoardID, null);
         }

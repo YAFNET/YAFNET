@@ -72,7 +72,7 @@ public class SiteMapHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceL
         var siteMap = new SiteMap();
 
         var forumList = this.GetRepository<Forum>().ListAllWithAccess(
-            BoardContext.Current.BoardSettings.BoardID,
+            BoardContext.Current.BoardSettings.BoardId,
             BoardContext.Current.GuestUserID);
 
         forumList.ForEach(

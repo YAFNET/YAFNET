@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -46,6 +46,11 @@ public class BoardSettingsService : IHaveServiceLocator
     /// </summary>
     public ILoggerService Logger { get; set; }
 
+    /// <summary>Loads the board settings.</summary>
+    /// <param name="boardId">The board identifier.</param>
+    /// <param name="board">The board.</param>
+    /// <returns>BoardSettings.</returns>
+    /// <exception cref="YAF.Types.Exceptions.EmptyBoardSettingException">No data for board ID: {boardId}</exception>
     public BoardSettings LoadBoardSettings([NotNull] int boardId, [CanBeNull] Board board)
     {
         if (board == null)

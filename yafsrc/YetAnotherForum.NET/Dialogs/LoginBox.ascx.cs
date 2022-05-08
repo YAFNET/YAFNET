@@ -155,6 +155,7 @@ public partial class LoginBox : BaseUserControl
         var result = (PasswordVerificationResult)this.Get<IAspNetUsersHelper>().IPasswordHasher
             .VerifyHashedPassword(user.PasswordHash, this.Password.Text);
 
+
         switch (result)
         {
             case PasswordVerificationResult.Success:
@@ -164,6 +165,7 @@ public partial class LoginBox : BaseUserControl
                 user.PasswordHash = this.Get<IAspNetUsersHelper>().IPasswordHasher.HashPassword(this.Password.Text);
                 this.UserAuthenticated(user);
                 break;
+            case PasswordVerificationResult.Failed:
             default:
                 {
                     // Lockout for 15 minutes if more than 10 failed attempts

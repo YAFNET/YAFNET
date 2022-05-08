@@ -186,7 +186,7 @@ public class InstallService : IHaveServiceLocator
         this.GetRepository<Registry>().Save("forumlogo", forumLogo);
         this.GetRepository<Registry>().Save("baseurlmask", forumBaseUrlMask);
 
-        this.GetRepository<Board>().Create(
+        var boardId = this.GetRepository<Board>().Create(
             forumName,
             forumEmail,
             culture,
@@ -196,6 +196,9 @@ public class InstallService : IHaveServiceLocator
             adminProviderUserKey,
             true,
             Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
+
+        // reload the board settings...
+        BoardContext.Current.BoardSettings = this.Get<BoardSettingsService>().LoadBoardSettings(boardId, null);
 
         this.AddOrUpdateExtensions();
     }

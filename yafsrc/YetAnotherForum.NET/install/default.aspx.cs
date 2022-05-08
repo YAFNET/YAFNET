@@ -337,9 +337,6 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// <param name="e">The <see cref="WizardNavigationEventArgs"/> instance containing the event data.</param>
     protected void Wizard_FinishButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
     {
-        // reset the board settings...
-        BoardContext.Current.BoardSettings = null;
-
         this.Get<HttpResponseBase>().Redirect("~/");
     }
 

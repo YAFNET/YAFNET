@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -75,9 +75,9 @@ public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
         return this.Get<BoardSettings>().EnableDisplayName
                    ? this.GetRepository<User>().Get(
                        u => u.DisplayName.Contains(contains) &&
-                            u.BoardID == this.Get<BoardSettings>().BoardID)
+                            u.BoardID == this.Get<BoardSettings>().BoardId)
                    : this.GetRepository<User>().Get(
-                       u => u.Name.Contains(contains) && u.BoardID == this.Get<BoardSettings>().BoardID);
+                       u => u.Name.Contains(contains) && u.BoardID == this.Get<BoardSettings>().BoardId);
     }
 
     /// <summary>
@@ -95,9 +95,9 @@ public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
         return this.Get<BoardSettings>().EnableDisplayName
                    ? this.GetRepository<User>().GetSingle(
                        u => u.DisplayName == name &&
-                            u.BoardID == this.Get<BoardSettings>().BoardID)
+                            u.BoardID == this.Get<BoardSettings>().BoardId)
                    : this.GetRepository<User>().GetSingle(
-                       u => u.Name == name && u.BoardID == this.Get<BoardSettings>().BoardID);
+                       u => u.Name == name && u.BoardID == this.Get<BoardSettings>().BoardId);
     }
 
     /// <summary>
