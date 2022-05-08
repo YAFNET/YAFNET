@@ -352,7 +352,13 @@ namespace YAF.Core.Services.Migrations
                 dbCommand.Connection.AlterColumn<User>(x => x.Signature);
             }
 
-            if (dbCommand.Connection.ColumnDataType<User>(x => x.TimeZone) == "ntext")
+            var timeZoneType = dbCommand.Connection.ColumnDataType<User>(x => x.TimeZone);
+
+            if (timeZoneType == "ntext")
+            {
+                dbCommand.Connection.AlterColumn<User>(x => x.TimeZone);
+            }
+            else if (timeZoneType == "int")
             {
                 dbCommand.Connection.AlterColumn<User>(x => x.TimeZone);
             }
