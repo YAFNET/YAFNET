@@ -1,6 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.5
+* bug fixes
+
 # YetAnotherForum.NET v3.1.4
 * [NEW] Active Flag for Categories to enable/disable a Category
 * [NEW] Infinite Scrolling on Board Index if there are more then 20 Forums
