@@ -88,7 +88,7 @@ public class UpdateSearchIndexTask : LongBackgroundTask
                 forum =>
                     {
                         var messages =
-                            this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.Item1.ID);
+                            this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.Item2.ID);
 
                         this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
                     });

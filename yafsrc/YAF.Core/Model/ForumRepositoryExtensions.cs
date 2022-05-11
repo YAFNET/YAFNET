@@ -218,20 +218,20 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Returns all Forums for the selected Board Id
     /// </returns>
-    public static List<Tuple<Forum, Category>> ListAll(
+    public static List<Tuple<Category,Forum>> ListAll(
         [NotNull] this IRepository<Forum> repository,
         [NotNull] int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
-        expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+        expression.LeftJoin<Category, Forum>((category, forum) => category.ID == forum.CategoryID)
             .Where<Forum, Category>((forum, category) => category.BoardID == boardId)
             .OrderBy<Category>(c => c.SortOrder).ThenBy<Forum>(f => f.SortOrder).ThenBy<Category>(c => c.ID)
             .ThenBy<Forum>(f => f.ID);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Category>(expression));
+        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Category, Forum>(expression));
     }
 
     /// <summary>

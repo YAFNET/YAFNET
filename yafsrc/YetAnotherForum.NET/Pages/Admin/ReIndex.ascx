@@ -72,7 +72,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="DeleteForumMessage" aria-hidden="true" aria-labelledby="MessageToggleLabel" tabindex="-1">
+<div class="modal fade" id="ReindexMessage" aria-hidden="true" aria-labelledby="MessageToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

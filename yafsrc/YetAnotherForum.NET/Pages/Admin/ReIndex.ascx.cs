@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -72,7 +72,6 @@ public partial class ReIndex : AdminPage
         this.Shrink.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_SHRINK");
 
         this.Reindex.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_REINDEX");
-        this.Reindex.ReturnConfirmEvent = "blockUIMessage";
 
         this.RecoveryMode.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_RECOVERY");
 
@@ -141,11 +140,15 @@ public partial class ReIndex : AdminPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void ReindexClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        const string result = "Done";
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "BlockUiFunctionJs",
+            JavaScriptBlocks.BlockUiFunctionJs("ReindexMessage"));
+
+        const string Result = "Done";
 
         var stats = this.Get<IDbAccess>().ReIndexDatabase(Config.DatabaseObjectQualifier);
 
-        this.txtIndexStatistics.Text = stats.IsSet() ? stats : result;
+        this.txtIndexStatistics.Text = stats.IsSet() ? stats : Result;
     }
 
     /// <summary>

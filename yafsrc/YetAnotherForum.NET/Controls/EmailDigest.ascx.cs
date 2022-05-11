@@ -213,7 +213,7 @@ public partial class EmailDigest : BaseUserControl
     {
         if (this.BoardID == 0)
         {
-            this.BoardID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("BoardID").ToType<int>();
+            this.BoardID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("BoardID");
         }
 
         if (HttpContext.Current != null)
@@ -258,7 +258,7 @@ public partial class EmailDigest : BaseUserControl
 
         if (this.CurrentUser == null)
         {
-            var userId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("UserID").Value;
+            var userId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("UserID");
             this.CurrentUser = this.GetRepository<User>().GetById(userId);
         }
 

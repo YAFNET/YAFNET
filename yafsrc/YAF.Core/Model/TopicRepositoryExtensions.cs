@@ -1379,11 +1379,14 @@ public static class TopicRepositoryExtensions
 
         BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByTopicId(topicId);
 
-        BoardContext.Current.Get<ILoggerService>().Log(
-            BoardContext.Current.PageUserID,
-            "YAF",
-            BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_TOPIC", topicId),
-            EventLogTypes.Information);
+        if (BoardContext.Current.CurrentForumPage != null)
+        {
+            BoardContext.Current.Get<ILoggerService>().Log(
+                BoardContext.Current.PageUserID,
+                "YAF",
+                BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_TOPIC", topicId),
+                EventLogTypes.Information);
+        }
 
         repository.FireDeleted(topicId);
 

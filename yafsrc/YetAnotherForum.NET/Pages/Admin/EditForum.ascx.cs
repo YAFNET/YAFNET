@@ -199,9 +199,9 @@ public partial class EditForum : AdminPage
             {
                 // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
                 var forumCheck = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID)
-                    .OrderByDescending(a => a.Item1.SortOrder).FirstOrDefault();
+                    .OrderByDescending(a => a.Item2.SortOrder).FirstOrDefault();
 
-                sortOrder = forumCheck.Item1.SortOrder + sortOrder;
+                sortOrder = forumCheck.Item2.SortOrder + sortOrder;
             }
             catch
             {

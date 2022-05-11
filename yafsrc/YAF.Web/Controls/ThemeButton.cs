@@ -252,20 +252,6 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     }
 
     /// <summary>
-    /// Gets or sets the return confirm event.
-    /// </summary>
-    [CanBeNull]
-    public string ReturnConfirmEvent
-    {
-        get =>
-            this.ViewState["ReturnConfirmEvent"] != null
-                ? this.ViewState["ReturnConfirmEvent"] as string
-                : string.Empty;
-
-        set => this.ViewState["ReturnConfirmEvent"] = value;
-    }
-
-    /// <summary>
     /// Gets or sets the data target.
     /// </summary>
     /// <value>
@@ -583,11 +569,6 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
             writer.WriteAttribute("data-title", this.ReturnConfirmText);
             writer.WriteAttribute("data-yes", this.GetText("YES"));
             writer.WriteAttribute("data-no", this.GetText("NO"));
-
-            if (this.ReturnConfirmEvent.IsSet())
-            {
-                writer.WriteAttribute("data-confirm-event", this.ReturnConfirmEvent);
-            }
         }
 
         // Write Modal

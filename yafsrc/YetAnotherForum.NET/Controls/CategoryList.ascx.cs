@@ -245,18 +245,20 @@ public partial class CategoryList : BaseUserControl
                     null);
             }
         }
-            
-        if (this.Data.Item2.First().Total > this.Data.Item2.Count)
-        {
-            this.ShowMore.Visible = true;
-        }
 
-        if (this.Data.Item2.First().Total > 20)
+        if (this.Data.Item2.Any())
         {
-            this.ForumsShown.Visible = true;
-            this.ForumsShownLabel.Text = this.GetTextFormatted("FORUMS_SHOWN", this.Data.Item2.Count, this.Data.Item2.First().Total);
+            if (this.Data.Item2.First().Total > this.Data.Item2.Count)
+            {
+                this.ShowMore.Visible = true;
+            }
+
+            if (this.Data.Item2.First().Total > 20)
+            {
+                this.ForumsShown.Visible = true;
+                this.ForumsShownLabel.Text = this.GetTextFormatted("FORUMS_SHOWN", this.Data.Item2.Count, this.Data.Item2.First().Total);
+            }
         }
-            
 
         // Filter Categories
         var categories = this.Data.Item2.DistinctBy(x => x.CategoryID).ToList();

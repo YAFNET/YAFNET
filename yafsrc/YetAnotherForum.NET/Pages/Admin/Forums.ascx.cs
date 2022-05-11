@@ -52,9 +52,9 @@ public partial class Forums : AdminPage
     /// <summary>
     /// Gets or sets the user album.
     /// </summary>
-    public IList<Tuple<Forum, Category>> ListAll
+    public IList<Tuple<Category, Forum>> ListAll
     {
-        get => this.ViewState["ListAll"].ToType<List<Tuple<Forum, Category>>>();
+        get => this.ViewState["ListAll"].ToType<List<Tuple<Category, Forum>>>();
 
         set => this.ViewState["ListAll"] = value;
     }
@@ -163,7 +163,7 @@ public partial class Forums : AdminPage
 
         var category = (Category)e.Item.DataItem;
 
-        var forums = this.ListAll.Select(x => x.Item1).Where(x => x.CategoryID == category.ID).ToList();
+        var forums = this.ListAll.Select(x => x.Item2).Where(x => x.CategoryID == category.ID).ToList();
 
         var themeButtonDelete = e.Item.FindControlAs<ThemeButton>("ThemeButtonDelete");
         var themeButton2 = e.Item.FindControlAs<ThemeButton>("ThemeButton2");
@@ -201,7 +201,7 @@ public partial class Forums : AdminPage
     /// </param>
     protected void SortCategoriesAscending(object sender, EventArgs e)
     {
-        var categories = this.ListAll.Select(x => x.Item2).DistinctBy(x => x.Name).ToList();
+        var categories = this.ListAll.Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
 
         this.GetRepository<Category>().ReOrderAllAscending(categories);
 
@@ -223,7 +223,7 @@ public partial class Forums : AdminPage
     /// </param>
     protected void SortCategoriesDescending(object sender, EventArgs e)
     {
-        var categories = this.ListAll.Select(x => x.Item2).DistinctBy(x => x.Name).ToList();
+        var categories = this.ListAll.Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
 
         this.GetRepository<Category>().ReOrderAllDescending(categories);
 
@@ -245,7 +245,7 @@ public partial class Forums : AdminPage
     /// </param>
     protected void SortForumsAscending(object sender, EventArgs e)
     {
-        var categories = this.ListAll.Select(x => x.Item2).DistinctBy(x => x.Name).ToList();
+        var categories = this.ListAll.Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
 
         if (categories.NullOrEmpty())
         {
@@ -254,7 +254,7 @@ public partial class Forums : AdminPage
 
         categories.ForEach(category =>
             {
-                var forums = this.ListAll.Select(x => x.Item1).Where(x => x.CategoryID == category.ID).ToList();
+                var forums = this.ListAll.Select(x => x.Item2).Where(x => x.CategoryID == category.ID).ToList();
 
                 this.GetRepository<Forum>().ReOrderAllAscending(forums);
             });
@@ -277,7 +277,7 @@ public partial class Forums : AdminPage
     /// </param>
     protected void SortForumsDescending(object sender, EventArgs e)
     {
-        var categories = this.ListAll.Select(x => x.Item2).DistinctBy(x => x.Name).ToList();
+        var categories = this.ListAll.Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
 
         if (categories.NullOrEmpty())
         {
@@ -286,7 +286,7 @@ public partial class Forums : AdminPage
 
         categories.ForEach(category =>
             {
-                var forums = this.ListAll.Select(x => x.Item1).Where(x => x.CategoryID == category.ID).ToList();
+                var forums = this.ListAll.Select(x => x.Item2).Where(x => x.CategoryID == category.ID).ToList();
 
                 this.GetRepository<Forum>().ReOrderAllDescending(forums);
             });
@@ -318,7 +318,7 @@ public partial class Forums : AdminPage
 
         this.ListAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID).GetPaged(this.PagerTop);
 
-        this.CategoryList.DataSource = this.ListAll.Select(x => x.Item2).DistinctBy(x => x.Name);
+        this.CategoryList.DataSource = this.ListAll.Select(x => x.Item1).DistinctBy(x => x.Name);
 
         // Hide the New Forum Button if there are no Categories.
         this.NewForum.Visible = this.CategoryList.Items.Count < 1;

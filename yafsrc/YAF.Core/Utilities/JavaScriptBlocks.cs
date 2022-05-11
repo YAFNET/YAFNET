@@ -276,13 +276,12 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </returns>
     public static string BlockUiFunctionJs([NotNull] string messageId)
     {
-        return $@"function blockUIMessage() {{ 
-                                 var modal = new bootstrap.Modal(document.getElementById('{messageId}'), {{
+        return $@"var modal = new bootstrap.Modal(document.getElementById('{messageId}'), {{
                                                  backdrop: 'static',
                                                  keyboard: false
                                               }});
                                    modal.show();
-                       }};";
+                       ";
     }
 
     /// <summary>

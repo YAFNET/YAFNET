@@ -149,7 +149,6 @@
                 var link = $(this).attr("href");
                 var text = $(this).data("title");
                 var title = $(this).html();
-                var blockUI = $(this).data("confirm-event");
                 bootbox.confirm({
                         centerVertical: true,
                         title: title,
@@ -167,10 +166,6 @@
                         callback: function(confirmed) {
                             if (confirmed) {
                                 document.location.href = link;
-
-                                if (typeof blockUI !== "undefined") {
-                                    window[blockUI]();
-                                }
                             }
                         }
                     }

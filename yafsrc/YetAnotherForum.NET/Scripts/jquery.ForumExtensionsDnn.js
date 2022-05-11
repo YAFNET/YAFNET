@@ -10277,7 +10277,6 @@ $(document).on("click", '[data-bs-toggle="confirm"]', function(e) {
         var text = button.data("title");
         var title = button.html();
         $(this).html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...");
-        var blockUI = $(this).data("confirm-event");
         bootbox.confirm({
             centerVertical: true,
             title: title,
@@ -10295,47 +10294,12 @@ $(document).on("click", '[data-bs-toggle="confirm"]', function(e) {
             callback: function(confirmed) {
                 if (confirmed) {
                     document.location.href = link;
-                    if (typeof blockUI !== "undefined") {
-                        window[blockUI]();
-                    }
                 } else {
                     button.html(title);
                 }
             }
         });
     }
-});
-
-$(".form-confirm").submit(function(e) {
-    var button = $(e)[0].originalEvent;
-    var text = button.submitter.getAttribute("data-title");
-    var title = button.submitter.innerHTML;
-    var blockUI = button.submitter.getAttribute("data-confirm-event");
-    var currentForm = this;
-    e.preventDefault();
-    bootbox.confirm({
-        centerVertical: true,
-        title: title,
-        message: text,
-        buttons: {
-            confirm: {
-                label: '<i class="fa fa-check"></i> ' + button.submitter.getAttribute("data-yes"),
-                className: "btn-success"
-            },
-            cancel: {
-                label: '<i class="fa fa-times"></i> ' + button.submitter.getAttribute("data-no"),
-                className: "btn-danger"
-            }
-        },
-        callback: function(confirmed) {
-            if (confirmed) {
-                currentForm.submit();
-                if (typeof blockUI !== "undefined") {
-                    window[blockUI]();
-                }
-            }
-        }
-    });
 });
 
 $(window).scroll(function() {
@@ -10999,7 +10963,6 @@ jQuery(document).ready(function() {
                 var link = $(this).attr("href");
                 var text = $(this).data("title");
                 var title = $(this).html();
-                var blockUI = $(this).data("confirm-event");
                 bootbox.confirm({
                     centerVertical: true,
                     title: title,
@@ -11017,9 +10980,6 @@ jQuery(document).ready(function() {
                     callback: function(confirmed) {
                         if (confirmed) {
                             document.location.href = link;
-                            if (typeof blockUI !== "undefined") {
-                                window[blockUI]();
-                            }
                         }
                     }
                 });

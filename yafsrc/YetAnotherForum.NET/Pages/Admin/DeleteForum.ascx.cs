@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -56,11 +56,7 @@ public partial class DeleteForum : AdminPage
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-            "BlockUiFunctionJs",
-            JavaScriptBlocks.BlockUiFunctionJs("DeleteForumMessage"));
-            
-        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+       this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.SelectForumsLoadJs),
             JavaScriptBlocks.SelectForumsLoadJs(
                 "ForumList",
@@ -82,7 +78,6 @@ public partial class DeleteForum : AdminPage
         this.Cancel.Click += this.Cancel_Click;
 
         this.Delete.ReturnConfirmText = this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE");
-        this.Delete.ReturnConfirmEvent = "blockUIMessage";
 
         base.OnInit(e);
     }
@@ -166,6 +161,10 @@ public partial class DeleteForum : AdminPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     private void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
     {
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "BlockUiFunctionJs",
+            JavaScriptBlocks.BlockUiFunctionJs("DeleteForumMessage"));
+
         string errorMessage;
 
         var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
