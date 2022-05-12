@@ -92,7 +92,7 @@ public class Attachments : IAttachment, IHaveServiceLocator
 
             if (attachment.FileData == null)
             {
-                var uploadFolder = this.Get<BoardFolders>().Uploads;
+                var uploadFolder = Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads);
 
                 var oldFileName =
                     context.Server.MapPath(
@@ -196,7 +196,7 @@ public class Attachments : IAttachment, IHaveServiceLocator
 
             if (attachment.FileData == null)
             {
-                var uploadFolder = this.Get<BoardFolders>().Uploads;
+                var uploadFolder = Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads);
 
                 var oldFileName =
                     context.Server.MapPath(
