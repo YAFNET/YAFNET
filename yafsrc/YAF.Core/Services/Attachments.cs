@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2022 Ingo Herbote
@@ -154,8 +154,7 @@ public class Attachments : IAttachment, IHaveServiceLocator
                 .Log(
                     BoardContext.Current.PageUserID,
                     this,
-                    $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
-                    EventLogTypes.Information);
+                    $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}");
             context.Response.Write(
                 "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
         }
@@ -251,8 +250,7 @@ public class Attachments : IAttachment, IHaveServiceLocator
                 .Log(
                     BoardContext.Current.PageUserID,
                     this,
-                    $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
-                    EventLogTypes.Information);
+                    $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}");
 
             context.Response.Write(
                 "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
