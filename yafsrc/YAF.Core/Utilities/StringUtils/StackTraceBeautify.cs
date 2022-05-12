@@ -189,13 +189,19 @@ public class StackTraceBeautify
                     }
 
                     var cleanedParameter = parameter.TrimStart().Split(' ');
-                    var paramType = cleanedParameter[0];
-                    var paramName = cleanedParameter[1];
 
                     if (cleanedParameter[0].IsNotSet())
                     {
                         continue;
                     }
+
+                    if (cleanedParameter.Length <= 1)
+                    {
+                        continue;
+                    }
+
+                    var paramType = cleanedParameter[0];
+                    var paramName = cleanedParameter[1];
 
                     var theParam =
                         $"<span class=\"{this.paramTypeCssClass}\">{paramType}</span> <span class=\"{this.paramNameCssClass}\">{paramName}</span>";
