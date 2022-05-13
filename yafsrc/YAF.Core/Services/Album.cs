@@ -201,7 +201,7 @@ public class Album : IAlbum, IHaveServiceLocator
             var image = this.GetRepository<UserAlbumImage>()
                 .GetImage(context.Request.QueryString.GetFirstOrDefaultAs<int>("imgprv"));
 
-            var uploadFolder = this.Get<BoardFolders>().Uploads;
+            var uploadFolder = Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads);
 
             var oldFileName = context.Server.MapPath(
                 $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}");
@@ -284,7 +284,7 @@ public class Album : IAlbum, IHaveServiceLocator
                 {
                     var image = this.GetRepository<UserAlbumImage>().GetImage(album[random.Next(1, album.Count)].ID);
 
-                    var uploadFolder = this.Get<BoardFolders>().Uploads;
+                    var uploadFolder = Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads);
 
                     var oldFileName = context.Server.MapPath(
                         $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}");
@@ -302,7 +302,7 @@ public class Album : IAlbum, IHaveServiceLocator
 
                 if (image != null)
                 {
-                    var uploadFolder = this.Get<BoardFolders>().Uploads;
+                    var uploadFolder = Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads);
 
                     var oldFileName = context.Server.MapPath(
                         $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}");
@@ -367,7 +367,7 @@ public class Album : IAlbum, IHaveServiceLocator
 
             byte[] data;
 
-            var uploadFolder = this.Get<BoardFolders>().Uploads;
+            var uploadFolder = Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads);
 
             var oldFileName = context.Server.MapPath(
                 $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}");
@@ -451,7 +451,7 @@ public class Album : IAlbum, IHaveServiceLocator
 
             if (attachment.FileData == null)
             {
-                var uploadFolder = this.Get<BoardFolders>().Uploads;
+                var uploadFolder = Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads);
 
                 var oldFileName = context.Server.MapPath(
                     $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}");
