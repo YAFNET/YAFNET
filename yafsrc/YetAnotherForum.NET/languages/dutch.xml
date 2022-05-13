@@ -1506,6 +1506,8 @@
     <Resource tag="TWOCOLUMN_BOARD_HELP">If enabled show forums in the left column and forum discussions and Stats in the Right Column</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Zet Onbehandelde UserAgent Log aan:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Als deze aangevinkt is, worden alle onbehandelde UserAgent teksten gelogd.</Resource>
+    <Resource tag="USE_CUSTOM_CONTEXTMENU">Use Custom Context Menus in Posts:</Resource>
+    <Resource tag="USE_CUSTOM_CONTEXTMENU_HELP">If enabled use a custom context menu inside a post, otherwise browser default context menu is used</Resource>
     <Resource tag="USE_FARSI_CALENDER">Gebruik de Farsi (Shamsi) Persische Kalender:</Resource>
     <Resource tag="USE_FARSI_CALENDER_HELP">Als actief, dan worden alle datums geconverteerd naar de Persische kalender.</Resource>
     <Resource tag="USE_READ_TRACKING">Gebruik Read Tracking via de Database:</Resource>

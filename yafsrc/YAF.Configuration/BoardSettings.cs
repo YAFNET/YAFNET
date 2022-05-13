@@ -1780,6 +1780,17 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether use Custom Context Menu
+    /// or the Default browser Context Menu
+    /// </summary>
+    public bool UseCustomContextMenu
+    {
+        get => this.Registry.GetValue("UseCustomContextMenu", true);
+
+        set => this.Registry.SetValue("UseCustomContextMenu", value);
+    }
+
+    /// <summary>
     /// Gets or sets AlbumImagesSizeMax.
     /// </summary>
     public int AlbumImagesSizeMax

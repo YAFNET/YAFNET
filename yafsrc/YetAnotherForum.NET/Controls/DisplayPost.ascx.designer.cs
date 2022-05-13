@@ -258,6 +258,15 @@ namespace YAF.Controls
         protected global::YAF.Web.Controls.DisplayDateTime DisplayDateTime;
 
         /// <summary>
+        /// MessagePanel-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel MessagePanel;
+
+        /// <summary>
         /// panMessage-Steuerelement.
         /// </summary>
         /// <remarks>

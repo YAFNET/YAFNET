@@ -1504,6 +1504,8 @@
     <Resource tag="TWOCOLUMN_BOARD_HELP">If enabled show forums in the left column and forum discussions and Stats in the Right Column</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Aktiviere Unbehandelter User Agent Protokoll:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Wenn aktiviert werden alle unbehandelten User Agent string Protokolliert.</Resource>
+    <Resource tag="USE_CUSTOM_CONTEXTMENU">Use Custom Context Menus in Posts:</Resource>
+    <Resource tag="USE_CUSTOM_CONTEXTMENU_HELP">If enabled use a custom context menu inside a post, otherwise browser default context menu is used</Resource>
     <Resource tag="USE_FARSI_CALENDER">Farsi (Shamsi) Persischer Kalender Verwenden:</Resource>
     <Resource tag="USE_FARSI_CALENDER_HELP">Wenn aktiviert werden alle Datumsangaben mit dem Persischen Kalender dargestellt.</Resource>
     <Resource tag="USE_READ_TRACKING">Benutzer Lesen Verfolgen aktivieren via Datanbank:</Resource>

@@ -1505,6 +1505,8 @@
     <Resource tag="TWOCOLUMN_BOARD_HELP">If enabled show forums in the left column and forum discussions and Stats in the Right Column</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Включить журналирование для UserAgent:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Все неидентифицируемые UserAgent будут в журнале. Не включайте это постоянно.</Resource>
+    <Resource tag="USE_CUSTOM_CONTEXTMENU">Use Custom Context Menus in Posts:</Resource>
+    <Resource tag="USE_CUSTOM_CONTEXTMENU_HELP">If enabled use a custom context menu inside a post, otherwise browser default context menu is used</Resource>
     <Resource tag="USE_FARSI_CALENDER">Использовать Фарси/арабский календарь :</Resource>
     <Resource tag="USE_FARSI_CALENDER_HELP">Если включено то все даты будут преобразовываться в Фарси/арабские календарные даты.</Resource>
     <Resource tag="USE_READ_TRACKING">Отслеживать прочитанные сообщение в базе данных:</Resource>

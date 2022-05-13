@@ -3003,6 +3003,24 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox PagingTitleTemplate;
 
         /// <summary>
+        /// HelpLabel15-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel15;
+
+        /// <summary>
+        /// UseCustomContextMenu-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox UseCustomContextMenu;
+
+        /// <summary>
         /// ThemeButton4-Steuerelement.
         /// </summary>
         /// <remarks>

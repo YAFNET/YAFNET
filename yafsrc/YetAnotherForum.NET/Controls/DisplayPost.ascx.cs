@@ -147,27 +147,36 @@ public partial class DisplayPost : BaseUserControl
             this.Separator2.Visible = true;
         }
 
-        if (!this.PostData.PostDeleted && this.PostData.CanReply
-                                       && !this.PostData.IsLocked)
+        if (this.PageBoardContext.BoardSettings.UseCustomContextMenu)
         {
-            this.ContextMenu.Attributes.Add(
-                "data-url",
-                this.Get<LinkBuilder>().GetLink(
-                    ForumPages.PostMessage,
-                    new { t = this.PageBoardContext.PageTopicID, f = this.PageBoardContext.PageForumID }));
+            this.MessagePanel.CssClass = "message";
+
+            if (!this.PostData.PostDeleted && this.PostData.CanReply
+                                           && !this.PostData.IsLocked)
+            {
+                this.ContextMenu.Attributes.Add(
+                    "data-url",
+                    this.Get<LinkBuilder>().GetLink(
+                        ForumPages.PostMessage,
+                        new { t = this.PageBoardContext.PageTopicID, f = this.PageBoardContext.PageForumID }));
+
+                this.ContextMenu.Attributes.Add(
+                    "data-quote",
+                    this.GetText("COMMON", "SELECTED_QUOTE"));
+            }
 
             this.ContextMenu.Attributes.Add(
-                "data-quote",
-                this.GetText("COMMON", "SELECTED_QUOTE"));
+                "data-copy",
+                this.GetText("COMMON", "SELECTED_COPY"));
+
+            this.ContextMenu.Attributes.Add(
+                "data-search",
+                this.GetText("COMMON", "SELECTED_SEARCH"));
         }
-
-        this.ContextMenu.Attributes.Add(
-            "data-copy",
-            this.GetText("COMMON", "SELECTED_COPY"));
-
-        this.ContextMenu.Attributes.Add(
-            "data-search",
-            this.GetText("COMMON", "SELECTED_SEARCH"));
+        else
+        {
+            this.ContextMenu.Visible = false;
+        }
 
         this.Quote.Text = this.GetText("BUTTON_QUOTE_TT");
         this.Quote.IconMobileOnly = true;

@@ -1473,6 +1473,14 @@
                             <asp:TextBox CssClass="form-control" ID="PagingTitleTemplate" runat="server"></asp:TextBox>
                         </div>
                     </div>
+                    <div class="mb-3">
+                        <YAF:HelpLabel ID="HelpLabel15" runat="server"
+                                       AssociatedControlID="UseCustomContextMenu"
+                                       LocalizedTag="USE_CUSTOM_CONTEXTMENU" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <div class="form-check form-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="UseCustomContextMenu" runat="server"></asp:CheckBox>
+                        </div>
+                    </div>
                     </div>
                 <div class="card-footer text-lg-center">
                     <YAF:ThemeButton ID="ThemeButton4" runat="server"  Type="Primary" OnClick="SaveClick"

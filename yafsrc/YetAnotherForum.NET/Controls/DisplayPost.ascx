@@ -178,7 +178,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="message">
+                <asp:panel runat="server" id="MessagePanel">
                     <asp:panel id="panMessage" runat="server">
                             <YAF:MessagePostData runat="server"
                                                  DataRow="<%# this.DataSource %>"
@@ -249,7 +249,7 @@
                                          CssClass="dropdown-item" />
 
                     </div>
-                </div>
+                </asp:panel>
             </div>
             <asp:PlaceHolder runat="server" ID="Footer">
                 <div class="card-footer py-0">
