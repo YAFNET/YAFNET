@@ -1176,12 +1176,46 @@ public static class TopicRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
+        var topic = repository.GetById(topicId);
+
+        repository.Move(topic, oldForumId, newForumId, showMoved, linkDays);
+    }
+
+    /// <summary>
+    /// Move the Topic.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="topic">
+    /// The topic.
+    /// </param>
+    /// <param name="oldForumId">
+    /// The old Forum Id.
+    /// </param>
+    /// <param name="newForumId">
+    /// The new Forum Id.
+    /// </param>
+    /// <param name="showMoved">
+    /// The show moved.
+    /// </param>
+    /// <param name="linkDays">
+    /// The link Days.
+    /// </param>
+    public static void Move(
+        this IRepository<Topic> repository,
+        [NotNull] Topic topic,
+        [NotNull] int oldForumId,
+        [NotNull] int newForumId,
+        [NotNull] bool showMoved,
+        [NotNull] int linkDays)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
         if (showMoved)
         {
             // -- delete an old link if exists
-            repository.Delete(t => t.TopicMovedID == topicId);
-
-            var topic = repository.GetById(topicId);
+            repository.Delete(t => t.TopicMovedID == topic.ID);
 
             var linkDate = DateTime.UtcNow.AddDays(linkDays);
 
@@ -1199,7 +1233,7 @@ public static class TopicRepositoryExtensions
                         Flags = topic.Flags,
                         Priority = topic.Priority,
                         PollID = topic.PollID,
-                        TopicMovedID = topicId,
+                        TopicMovedID = topic.ID,
                         LastPosted = topic.LastPosted,
                         NumPosts = 0,
                         LinkDate = linkDate
@@ -1207,7 +1241,7 @@ public static class TopicRepositoryExtensions
         }
 
         // -- move the topic
-        repository.UpdateOnly(() => new Topic { ForumID = newForumId }, t => t.ID == topicId);
+        repository.UpdateOnly(() => new Topic { ForumID = newForumId }, t => t.ID == topic.ID);
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(newForumId));
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(oldForumId));

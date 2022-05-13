@@ -802,8 +802,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string acceptedFileTypes,
         [NotNull] int maxFileSize,
         [NotNull] string fileUploaderUrl,
-        [NotNull] int forumId,
-        [NotNull] int boardId,
         [NotNull] int imageMaxWidth,
         [NotNull] int imageMaxHeight,
         [NotNull] string editorId)
@@ -823,11 +821,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     ckEditor.insertHtml( '[attach]' + data.result[0].fileID + '[/attach]' );
                 }},
                 formData: {{
-                    forumID: '{forumId}',
-                    boardID: '{boardId}',
-                    userID: '{BoardContext.Current.PageUserID}',
-                    uploadFolder: '{BoardContext.Current.Get<BoardFolders>().Uploads}',
-                    allowedUpload: true
+                    userID: '{BoardContext.Current.PageUserID}'
                 }},
                 dropZone: {Config.JQueryAlias}('.EditorDiv'),
                 pasteZone: {Config.JQueryAlias}('.EditorDiv')
@@ -866,8 +860,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string acceptedFileTypes,
         [NotNull] int maxFileSize,
         [NotNull] string fileUploaderUrl,
-        [NotNull] int forumId,
-        [NotNull] int boardId,
         [NotNull] int imageMaxWidth,
         [NotNull] int imageMaxHeight)
     {
@@ -899,11 +891,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     }}
                 }},
                 formData: {{
-                    forumID: '{forumId}',
-                    boardID: '{boardId}',
-                    userID: '{BoardContext.Current.PageUserID}',
-                    uploadFolder: '{BoardContext.Current.Get<BoardFolders>().Uploads}',
-                    allowedUpload: true
+                    userID: '{BoardContext.Current.PageUserID}'
                 }},
                 dropZone: {Config.JQueryAlias}('#UploadDialog')
             }});

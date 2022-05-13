@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -124,7 +124,7 @@ public partial class MoveTopic : BaseUserControl
 
             // Ederon : 7/14/2007
             this.GetRepository<Topic>().Move(
-                this.PageBoardContext.PageTopicID,
+                this.PageBoardContext.PageTopic,
                 this.PageBoardContext.PageForumID,
                 this.ForumListSelected.Value.ToType<int>(),
                 this.LeavePointer.Checked,

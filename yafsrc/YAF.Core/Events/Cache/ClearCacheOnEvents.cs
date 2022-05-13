@@ -313,6 +313,9 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         // clear active discussions cache..
         this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
 
+        this.DataCache.Remove(
+            k => k.StartsWith(string.Format(Constants.Cache.ForumJump, string.Empty)));
+
         this.ClearModeratorsCache();
         this.ClearAccess();
     }

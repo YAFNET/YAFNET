@@ -122,6 +122,11 @@ public static class ForumRepositoryExtensions
             parentId = null;
         }
 
+        if (remoteUrl.IsNotSet())
+        {
+            remoteUrl = null;
+        }
+
         var flags = new ForumFlags
                         {
                             IsLocked = locked, IsHidden = hidden, IsTest = isTest, IsModerated = moderated
@@ -675,7 +680,7 @@ public static class ForumRepositoryExtensions
         var topics = BoardContext.Current.GetRepository<Topic>().Get(t => t.ForumID == oldForumId);
 
         topics.ForEach(
-            topic => BoardContext.Current.GetRepository<Topic>().Move(topic.ID, oldForumId, newForumId, false, 0));
+            topic => BoardContext.Current.GetRepository<Topic>().Move(topic, oldForumId, newForumId, false, 0));
 
         BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.ForumID == oldForumId);
 

@@ -190,33 +190,36 @@ public class TopicContainer : BaseControl
         writer.Write(topicLink.RenderToString());
 
         // Render Replies & Views
-        var repliesLabel = new Label
+        if (!this.TopicItem.TopicMovedID.HasValue)
+        {
+            var repliesLabel = new Label
                                {
                                    CssClass = "badge bg-light text-dark ms-1 me-1",
                                    Text = new IconHeader
-                                              {
-                                                  IconName = "comment", IconType = " ", IconStyle = "far", Text = this.FormatReplies()
-                                              }.RenderToString(),
+                                          {
+                                              IconName = "comment", IconType = " ", IconStyle = "far", Text = this.FormatReplies()
+                                          }.RenderToString(),
                                    ToolTip = this.GetText("MODERATE", "REPLIES"),
                                };
 
-        repliesLabel.Attributes.Add("data-bs-toggle", "tooltip");
+            repliesLabel.Attributes.Add("data-bs-toggle", "tooltip");
 
-        repliesLabel.RenderControl(writer);
+            repliesLabel.RenderControl(writer);
 
-        var viewsLabel = new Label
+            var viewsLabel = new Label
                              {
                                  CssClass = "badge bg-light text-dark",
                                  Text = new IconHeader
-                                            {
-                                                IconName = "eye", IconType = " ", IconStyle = "far", Text = this.FormatViews()
-                                            }.RenderToString(),
+                                        {
+                                            IconName = "eye", IconType = " ", IconStyle = "far", Text = this.FormatViews()
+                                        }.RenderToString(),
                                  ToolTip = this.GetText("MODERATE", "VIEWS"),
                              };
 
-        viewsLabel.Attributes.Add("data-bs-toggle", "tooltip");
+            viewsLabel.Attributes.Add("data-bs-toggle", "tooltip");
 
-        viewsLabel.RenderControl(writer);
+            viewsLabel.RenderControl(writer);
+        }
 
         // Render Pager
         var actualPostCount = this.TopicItem.Replies + 1;

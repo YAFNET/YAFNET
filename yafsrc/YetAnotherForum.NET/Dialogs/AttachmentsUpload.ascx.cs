@@ -40,13 +40,11 @@ public partial class AttachmentsUpload : BaseUserControl
 
         // Setup Hover Card JS
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-            "fileUploadjs",
+            nameof(JavaScriptBlocks.FileUploadLoadJs),
             JavaScriptBlocks.FileUploadLoadJs(
                 this.PageBoardContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
                 this.PageBoardContext.BoardSettings.MaxFileSize,
                 $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
-                this.PageBoardContext.PageForumID,
-                this.PageBoardContext.PageBoardID,
                 this.PageBoardContext.BoardSettings.ImageAttachmentResizeWidth,
                 this.PageBoardContext.BoardSettings.ImageAttachmentResizeHeight));
     }
