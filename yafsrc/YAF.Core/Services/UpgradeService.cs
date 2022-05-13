@@ -33,6 +33,7 @@ using YAF.Core.Data;
 using YAF.Core.Model;
 using YAF.Core.Services.Import;
 using YAF.Core.Services.Migrations;
+using YAF.Types.Constants;
 using YAF.Types.Extensions.Data;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
@@ -235,6 +236,13 @@ public class UpgradeService : IHaveServiceLocator
         this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
 
         this.Get<ILoggerService>().Info($"YAF.NET Upgraded to Version {BoardInfo.AppVersionName}");
+
+        if (BoardContext.Current.IsAdmin){
+
+            BoardContext.Current.Notify(
+            $"YAF.NET Upgraded to Version {BoardInfo.AppVersionName}",
+            MessageTypes.success);
+        }
 
         return true;
     }
