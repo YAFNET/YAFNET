@@ -166,6 +166,7 @@ public class ServicesModule : BaseModule
         builder.RegisterType<V84_Migration>().AsSelf().PreserveExistingDefaults();
         builder.RegisterType<V85_Migration>().AsSelf().PreserveExistingDefaults();
         builder.RegisterType<V86_Migration>().AsSelf().PreserveExistingDefaults();
+        builder.RegisterType<V87_Migration>().AsSelf().PreserveExistingDefaults();
 
         // Caching
         //builder.RegisterType<MemoryCache>().As<IMemoryCache>().SingleInstance();
