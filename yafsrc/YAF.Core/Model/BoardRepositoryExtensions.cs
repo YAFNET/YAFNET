@@ -564,7 +564,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
         // --- Delete all forums of the board
         var forums = BoardContext.Current.GetRepository<Forum>().ListAll(boardId);
 
-        forums.ForEach(f => BoardContext.Current.GetRepository<Forum>().Delete(f.Item1.ID));
+        forums.ForEach(f => BoardContext.Current.GetRepository<Forum>().Delete(f.Item2.ID));
 
         // --- Delete user(s)
         var users = BoardContext.Current.GetRepository<User>().Get(u => u.BoardID == boardId);

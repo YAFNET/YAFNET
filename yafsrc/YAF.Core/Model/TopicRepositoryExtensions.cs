@@ -830,9 +830,8 @@ public static class TopicRepositoryExtensions
             pageIndex,
             pageSize,
             findLastRead,
-            (t, x, c) => t.ForumID == forumId &&
-                         t.Priority != 2 && t.LastPosted >= sinceDate &&
-                         (t.Flags & 8) != 8 && (t.TopicMovedID != null || t.NumPosts > 0 && x.UserID == userId && x.ReadAccess));
+            (t, x, c) => t.ForumID == forumId && t.Priority != 2 && t.LastPosted >= sinceDate && (t.Flags & 8) != 8
+                         && x.UserID == userId && x.ReadAccess && (t.TopicMovedID != null || t.NumPosts > 0));
     }
 
     /// <summary>
