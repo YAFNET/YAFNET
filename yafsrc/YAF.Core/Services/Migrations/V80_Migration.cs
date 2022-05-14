@@ -488,6 +488,8 @@ namespace YAF.Core.Services.Migrations
 
         private void UpgradeTable(IRepository<Attachment> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
+            dbCommand.Connection.DropForeignKey<Attachment>($"{Config.DatabaseObjectQualifier}Message");
+
             if (dbCommand.Connection.ColumnMaxLength<Attachment>(x => x.ContentType) < 255)
             {
                 dbCommand.Connection.AlterColumn<Attachment>(x => x.ContentType);

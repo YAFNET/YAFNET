@@ -429,7 +429,7 @@ public class UpgradeService : IHaveServiceLocator
     private void MigrateAttachments()
     {
         // attempt to run the migration code...
-        var messages = this.GetRepository<Attachment>().GetMessageAttachments();
+        var messages = this.GetRepository<Attachment>().GetMessageAttachments().DistinctBy(x => x.ID).ToList();
 
         if (!messages.Any())
         {
@@ -451,34 +451,36 @@ public class UpgradeService : IHaveServiceLocator
                                 updatedMessage.AppendFormat(" [ATTACH]{0}[/Attach] ", attach.ID);
 
                                 // Rename filename
-                                if (attach.FileData != null)
+                                if (attach.FileData == null)
                                 {
-                                    return;
+                                    var oldFilePath = this.Get<HttpRequestBase>().MapPath(
+                                        $"{Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads)}/{attach.MessageID}.{attach.FileName}.yafupload");
+
+                                    var newFilePath = this.Get<HttpRequestBase>().MapPath(
+                                        $"{Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads)}/u{message.UserID}.{attach.FileName}.yafupload");
+
+                                    try
+                                    {
+                                        File.Move(oldFilePath, newFilePath);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        this.Get<ILoggerService>().Log(null, this, ex);
+                                        //this.GetRepository<Attachment>().DeleteById(attach.ID);
+                                    }
                                 }
 
-                                var oldFilePath = this.Get<HttpRequestBase>().MapPath(
-                                    $"{this.Get<BoardFolders>().Uploads}/{attach.MessageID}.{attach.FileName}.yafupload");
+                                attach.MessageID = 0;
+                                attach.UserID = message.UserID;
 
-                                var newFilePath = this.Get<HttpRequestBase>().MapPath(
-                                    $"{this.Get<BoardFolders>().Uploads}/u{attach.UserID}.{attach.FileName}.yafupload");
-
-                                try
-                                {
-                                    File.Move(oldFilePath, newFilePath);
-
-                                    attach.MessageID = 0;
-                                    this.GetRepository<Attachment>().Update(attach);
-                                }
-                                catch (Exception)
-                                {
-                                    this.GetRepository<Attachment>().DeleteById(attach.ID);
-                                }
+                                this.GetRepository<Attachment>().Update(attach);
                             });
 
                     // Update Message
                     this.GetRepository<Message>().UpdateOnly(
-                        () => new Message {MessageText = updatedMessage.ToString()},
+                        () => new Message { MessageText = updatedMessage.ToString() },
                         m => m.ID == message.ID);
+
                 });
     }
 
