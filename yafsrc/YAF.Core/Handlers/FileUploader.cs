@@ -60,12 +60,6 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
     /// <param name="context">An <see cref="T:System.Web.HttpContext" /> object that provides references to the intrinsic server objects (for example, Request, Response, Session, and Server) used to service HTTP requests.</param>
     public void ProcessRequest(HttpContext context)
     {
-        // resource no longer works with dynamic compile...
-        if (HttpContext.Current.Request["allowedUpload"] is null)
-        {
-            return;
-        }
-
         context.Response.AddHeader("Pragma", "no-cache");
         context.Response.AddHeader("Cache-Control", "private, no-cache");
 
@@ -142,7 +136,7 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
     private void UploadWholeFile(HttpContext context, ICollection<FilesUploadStatus> statuses)
     {
         var yafUserId = BoardContext.Current.PageUserID;
-        var uploadFolder = HttpContext.Current.Request["uploadFolder"];
+        var uploadFolder = BoardContext.Current.Get<BoardFolders>().Uploads;
 
         if (!BoardContext.Current.UploadAccess)
         {
