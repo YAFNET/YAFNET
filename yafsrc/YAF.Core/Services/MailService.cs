@@ -30,13 +30,20 @@ using System;
 using System.Collections.Generic;
 using System.Net.Mail;
 
+using YAF.Types.Constants;
+
 #endregion
 
 /// <summary>
 ///     Functions to send email via SMTP
 /// </summary>
-public class MailService : IMailService
+public class MailService : IMailService, IHaveServiceLocator
 {
+    /// <summary>
+    ///     Gets the service locator.
+    /// </summary>
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+
     #region Public Methods and Operators
 
     /// <summary>
@@ -45,18 +52,14 @@ public class MailService : IMailService
     /// <param name="messages">
     /// The messages.
     /// </param>
-    /// <param name="handleException">
-    /// The handle Exception.
-    /// </param>
     public void SendAll(
-        [NotNull] IEnumerable<MailMessage> messages,
-        [CanBeNull] Action<MailMessage, Exception> handleException = null)
+        [NotNull] IEnumerable<MailMessage> messages)
     {
         var mailMessages = messages.ToList();
 
         CodeContracts.VerifyNotNull(mailMessages);
 
-        var smtpClient = new SmtpClient();
+        using var smtpClient = new SmtpClient();
 
         // send the message...
         mailMessages.ToList().ForEach(
@@ -72,15 +75,7 @@ public class MailService : IMailService
                     }
                     catch (Exception ex)
                     {
-                        if (handleException != null)
-                        {
-                            handleException(m, ex);
-                        }
-                        else
-                        {
-                            // don't handle here...
-                            throw;
-                        }
+                        this.Get<ILoggerService>().Log("Mail Error", EventLogTypes.Error, null, null, ex);
                     }
                 });
 

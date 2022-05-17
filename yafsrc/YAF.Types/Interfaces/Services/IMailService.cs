@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -40,10 +40,7 @@ public interface IMailService
     /// <param name="messages">
     /// The messages.
     /// </param>
-    /// <param name="handleException">
-    /// The handle Exception.
-    /// </param>
-    void SendAll([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleException = null);
+    void SendAll([NotNull] IEnumerable<MailMessage> messages);
 
     #endregion
 }

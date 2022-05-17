@@ -471,14 +471,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         if (mailMessages.Any())
         {
             // Now send all mails..
-            this.Get<IMailService>().SendAll(
-                mailMessages,
-                (_, exception) => this.Get<ILoggerService>().Log(
-                    "Mail Error",
-                    EventLogTypes.Error,
-                    null,
-                    null,
-                    exception));
+            this.Get<IMailService>().SendAll(mailMessages);
         }
     }
 
