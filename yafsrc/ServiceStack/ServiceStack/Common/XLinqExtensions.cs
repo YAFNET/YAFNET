@@ -55,7 +55,7 @@ public static class XLinqExtensions
         if (converter == null)
             throw new ArgumentNullException(nameof(converter));
 
-        return IsNullOrEmpty(attr?.Value) ? default(T) : converter(attr);
+        return IsNullOrEmpty(attr?.Value) ? default : converter(attr);
     }
 
     /// <summary>
@@ -318,7 +318,7 @@ public static class XLinqExtensions
             throw new ArgumentNullException(nameof(converter));
 
         var el = GetElement(element, name);
-        return IsNullOrEmpty(el?.Value) ? default(T) : converter(el);
+        return IsNullOrEmpty(el?.Value) ? default : converter(el);
     }
 
     /// <summary>

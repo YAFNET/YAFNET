@@ -27,7 +27,7 @@ public static class DictionaryExtensions
     /// <returns>TValue.</returns>
     public static TValue GetValueOrDefault<TValue, TKey>(this Dictionary<TKey, TValue> dictionary, TKey key)
     {
-        return dictionary.ContainsKey(key) ? dictionary[key] : default(TValue);
+        return dictionary.ContainsKey(key) ? dictionary[key] : default;
     }
 
     /// <summary>
@@ -121,8 +121,7 @@ public static class DictionaryExtensions
         //simulate ConcurrentDictionary.GetOrAdd
         lock (map)
         {
-            V val;
-            if (!map.TryGetValue(key, out val))
+            if (!map.TryGetValue(key, out V val))
                 map[key] = val = createFn(key);
 
             return val;

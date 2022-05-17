@@ -362,7 +362,7 @@ public static class EnumerableExtensions
         {
             if (!Equals(value, default(T))) return value;
         }
-        return default(T);
+        return default;
     }
 
     /// <summary>
@@ -404,16 +404,9 @@ public static class EnumerableExtensions
         if (array.Length != otherArray.Length)
             return false;
 
-        if (comparer == null)
-            comparer = (v1, v2) => v1.Equals(v2);
+        comparer ??= (v1, v2) => v1.Equals(v2);
 
-        for (var i = 0; i < array.Length; i++)
-        {
-            if (!comparer(array[i], otherArray[i]))
-                return false;
-        }
-
-        return true;
+        return !array.Where((t, i) => !comparer(t, otherArray[i])).Any();
     }
 
     /// <summary>
@@ -426,8 +419,7 @@ public static class EnumerableExtensions
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public static bool EquivalentTo<T>(this IEnumerable<T> thisList, IEnumerable<T> otherList, Func<T, T, bool> comparer = null)
     {
-        if (comparer == null)
-            comparer = (v1, v2) => v1.Equals(v2);
+        comparer ??= (v1, v2) => v1.Equals(v2);
 
         if (thisList == null || otherList == null)
             return thisList == otherList;
@@ -461,8 +453,7 @@ public static class EnumerableExtensions
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public static bool EquivalentTo<K, V>(this IDictionary<K, V> a, IDictionary<K, V> b, Func<V, V, bool> comparer = null)
     {
-        if (comparer == null)
-            comparer = (v1, v2) => v1.Equals(v2);
+        comparer ??= (v1, v2) => v1.Equals(v2);
 
         if (a == null || b == null)
             return a == b;
@@ -472,8 +463,7 @@ public static class EnumerableExtensions
 
         foreach (var entry in a)
         {
-            V value;
-            if (!b.TryGetValue(entry.Key, out value))
+            if (!b.TryGetValue(entry.Key, out V value))
                 return false;
             if (entry.Value == null || value == null)
             {

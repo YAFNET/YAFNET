@@ -56,7 +56,7 @@ public static class CsvConfig
         set
         {
             tsItemSeperatorString = value;
-            if (sItemSeperatorString == null) sItemSeperatorString = value;
+            sItemSeperatorString ??= value;
             ResetEscapeStrings();
         }
     }
@@ -80,7 +80,7 @@ public static class CsvConfig
         set
         {
             tsItemDelimiterString = value;
-            if (sItemDelimiterString == null) sItemDelimiterString = value;
+            sItemDelimiterString ??= value;
             EscapedItemDelimiterString = value + value;
             ResetEscapeStrings();
         }
@@ -110,7 +110,7 @@ public static class CsvConfig
         set
         {
             tsEscapedItemDelimiterString = value;
-            if (sEscapedItemDelimiterString == null) sEscapedItemDelimiterString = value;
+            sEscapedItemDelimiterString ??= value;
         }
     }
 
@@ -138,7 +138,7 @@ public static class CsvConfig
         private set
         {
             tsEscapeStrings = value;
-            if (sEscapeStrings == null) sEscapeStrings = value;
+            sEscapeStrings ??= value;
         }
     }
 
@@ -178,7 +178,7 @@ public static class CsvConfig
         set
         {
             tsRowSeparatorString = value;
-            if (sRowSeparatorString == null) sRowSeparatorString = value;
+            sRowSeparatorString ??= value;
             ResetEscapeStrings();
         }
     }

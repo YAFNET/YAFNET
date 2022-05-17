@@ -35,19 +35,13 @@ public class FileSystemVirtualDirectory : AbstractVirtualDirectoryBase
     /// Gets the files.
     /// </summary>
     /// <value>The files.</value>
-    public override IEnumerable<IVirtualFile> Files
-    {
-        get { return this.Where(n => n.IsDirectory == false).Cast<IVirtualFile>(); }
-    }
+    public override IEnumerable<IVirtualFile> Files => this.Where(n => n.IsDirectory == false).Cast<IVirtualFile>();
 
     /// <summary>
     /// Gets the directories.
     /// </summary>
     /// <value>The directories.</value>
-    public override IEnumerable<IVirtualDirectory> Directories
-    {
-        get { return this.Where(n => n.IsDirectory).Cast<IVirtualDirectory>(); }
-    }
+    public override IEnumerable<IVirtualDirectory> Directories => this.Where(n => n.IsDirectory).Cast<IVirtualDirectory>();
 
     /// <summary>
     /// Gets the name.

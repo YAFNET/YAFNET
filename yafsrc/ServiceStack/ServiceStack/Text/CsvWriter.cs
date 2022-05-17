@@ -434,9 +434,7 @@ public class CsvWriter<T>
                 var propGetter = propGetters[i];
                 var value = propGetter(record) ?? "";
 
-                var strValue = value is string s
-                                   ? s
-                                   : TypeSerializer.SerializeToString(value).StripQuotes();
+                var strValue = value as string ?? TypeSerializer.SerializeToString(value).StripQuotes();
 
                 row[i] = strValue;
             }

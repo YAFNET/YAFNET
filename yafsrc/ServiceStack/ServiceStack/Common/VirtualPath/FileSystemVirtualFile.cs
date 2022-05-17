@@ -79,8 +79,7 @@ public class FileSystemVirtualFile : AbstractVirtualFileBase
             }
             catch (IOException ex) // catch The process cannot access the file '...' because it is being used by another process.
             {
-                if (originalEx == null)
-                    originalEx = ex;
+                originalEx ??= ex;
 
                 i.SleepBackOffMultiplier();
             }

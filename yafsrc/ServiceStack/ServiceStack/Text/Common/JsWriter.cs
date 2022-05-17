@@ -317,8 +317,7 @@ public class JsWriter<TSerializer>
     {
         var underlyingType = Nullable.GetUnderlyingType(type);
         var isNullable = underlyingType != null;
-        if (underlyingType == null)
-            underlyingType = type;
+        underlyingType ??= type;
 
         switch (underlyingType.IsEnum)
         {
@@ -440,20 +439,17 @@ public class JsWriter<TSerializer>
             ret = JsConfig<T>.WriteFn<TSerializer>;
         }
 
-        if (ret == null)
-        {
-            ret = GetCoreWriteFn<T>();
-        }
+        ret ??= GetCoreWriteFn<T>();
 
         var onSerializedFn = JsConfig<T>.OnSerializedFn;
-        if (onSerializedFn != null)
+        if (onSerializedFn == null) return ret;
         {
             var writerFunc = ret;
             ret = (w, x) =>
-                {
-                    writerFunc(w, x);
-                    onSerializedFn((T)x);
-                };
+            {
+                writerFunc(w, x);
+                onSerializedFn((T)x);
+            };
         }
 
         return ret;

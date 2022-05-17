@@ -1565,7 +1565,7 @@ namespace ServiceStack.OrmLite.Dapper
         private static IEnumerable<TReturn> MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn, CommandDefinition command, Delegate map, string splitOn, IDataReader reader, Identity identity, bool finalize)
         {
             object param = command.Parameters;
-            identity = identity ?? new Identity<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(command.CommandText, command.CommandType, cnn, typeof(TFirst), param?.GetType());
+            identity ??= new Identity<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(command.CommandText, command.CommandType, cnn, typeof(TFirst), param?.GetType());
             CacheInfo cinfo = GetCacheInfo(identity, param, command.AddToCache);
 
             IDbCommand ownedCommand = null;
@@ -1655,7 +1655,7 @@ namespace ServiceStack.OrmLite.Dapper
             }
 
             object param = command.Parameters;
-            identity = identity ?? new IdentityWithTypes(command.CommandText, command.CommandType, cnn, types[0], param?.GetType(), types);
+            identity ??= new IdentityWithTypes(command.CommandText, command.CommandType, cnn, types[0], param?.GetType(), types);
             CacheInfo cinfo = GetCacheInfo(identity, param, command.AddToCache);
 
             IDbCommand ownedCommand = null;
@@ -2151,10 +2151,12 @@ namespace ServiceStack.OrmLite.Dapper
         [Obsolete(ObsoleteInternalUsageOnly, false)]
         public static char ReadChar(object value)
         {
-            if (value == null || value is DBNull) throw new ArgumentNullException(nameof(value));
-            if (value is string s && s.Length == 1) return s[0];
-            if (value is char c) return c;
-            throw new ArgumentException("A single-character was expected", nameof(value));
+            return value switch {
+                null or DBNull => throw new ArgumentNullException(nameof(value)),
+                string {Length: 1} s => s[0],
+                char c => c,
+                _ => throw new ArgumentException("A single-character was expected", nameof(value))
+            };
         }
 
         /// <summary>
@@ -2168,10 +2170,18 @@ namespace ServiceStack.OrmLite.Dapper
         [Obsolete(ObsoleteInternalUsageOnly, false)]
         public static char? ReadNullableChar(object value)
         {
-            if (value == null || value is DBNull) return null;
-            if (value is string s && s.Length == 1) return s[0];
-            if (value is char c) return c;
-            throw new ArgumentException("A single-character was expected", nameof(value));
+            switch (value)
+            {
+                case null:
+                case DBNull:
+                    return null;
+                case string {Length: 1} s:
+                    return s[0];
+                case char c:
+                    return c;
+                default:
+                    throw new ArgumentException("A single-character was expected", nameof(value));
+            }
         }
 
         /// <summary>
@@ -2503,30 +2513,29 @@ namespace ServiceStack.OrmLite.Dapper
         [Obsolete(ObsoleteInternalUsageOnly, false)]
         public static object SanitizeParameterValue(object value)
         {
-            if (value == null) return DBNull.Value;
-            if (value is Enum)
+            switch (value)
             {
-                TypeCode typeCode;
-                if (value is IConvertible)
+                case null:
+                    return DBNull.Value;
+                case Enum:
                 {
-                    typeCode = ((IConvertible)value).GetTypeCode();
-                }
-                else
-                {
-                    typeCode = Type.GetTypeCode(Enum.GetUnderlyingType(value.GetType()));
-                }
-                switch (typeCode)
-                {
-                    case TypeCode.Byte: return (byte)value;
-                    case TypeCode.SByte: return (sbyte)value;
-                    case TypeCode.Int16: return (short)value;
-                    case TypeCode.Int32: return (int)value;
-                    case TypeCode.Int64: return (long)value;
-                    case TypeCode.UInt16: return (ushort)value;
-                    case TypeCode.UInt32: return (uint)value;
-                    case TypeCode.UInt64: return (ulong)value;
+                    TypeCode typeCode = value is IConvertible ? ((IConvertible)value).GetTypeCode() : Type.GetTypeCode(Enum.GetUnderlyingType(value.GetType()));
+                    switch (typeCode)
+                    {
+                        case TypeCode.Byte: return (byte)value;
+                        case TypeCode.SByte: return (sbyte)value;
+                        case TypeCode.Int16: return (short)value;
+                        case TypeCode.Int32: return (int)value;
+                        case TypeCode.Int64: return (long)value;
+                        case TypeCode.UInt16: return (ushort)value;
+                        case TypeCode.UInt32: return (uint)value;
+                        case TypeCode.UInt64: return (ulong)value;
+                    }
+
+                    break;
                 }
             }
+
             return value;
         }
 
@@ -2737,7 +2746,7 @@ namespace ServiceStack.OrmLite.Dapper
 
             bool isStruct = type.IsValueType;
             var _sizeLocal = (LocalBuilder)null;
-            LocalBuilder GetSizeLocal() => _sizeLocal ?? (_sizeLocal = il.DeclareLocal(typeof(int)));
+            LocalBuilder GetSizeLocal() => _sizeLocal ??= il.DeclareLocal(typeof(int));
             il.Emit(OpCodes.Ldarg_1); // stack is now [untyped-param]
 
             LocalBuilder typedParameterLocal;
@@ -2758,12 +2767,7 @@ namespace ServiceStack.OrmLite.Dapper
 
             var allTypeProps = type.GetProperties();
             var propsList = new List<PropertyInfo>(allTypeProps.Length);
-            for (int i = 0; i < allTypeProps.Length; ++i)
-            {
-                var p = allTypeProps[i];
-                if (p.GetIndexParameters().Length == 0)
-                    propsList.Add(p);
-            }
+            propsList.AddRange(allTypeProps.Where(p => p.GetIndexParameters().Length == 0));
 
             var ctors = type.GetConstructors();
             ParameterInfo[] ctorParams;
@@ -3041,12 +3045,12 @@ namespace ServiceStack.OrmLite.Dapper
                     // find the best member, preferring case-sensitive
                     PropertyInfo exact = null, fallback = null;
                     string huntName = literal.Member;
-                    for (int i = 0; i < propsList.Count; i++)
+                    foreach (var t in propsList)
                     {
-                        string thisName = propsList[i].Name;
+                        string thisName = t.Name;
                         if (string.Equals(thisName, huntName, StringComparison.OrdinalIgnoreCase))
                         {
-                            fallback = propsList[i];
+                            fallback = t;
                             if (string.Equals(thisName, huntName, StringComparison.Ordinal))
                             {
                                 exact = fallback;
@@ -3132,7 +3136,7 @@ namespace ServiceStack.OrmLite.Dapper
         {
             typeof(bool), typeof(sbyte), typeof(byte), typeof(ushort), typeof(short),
             typeof(uint), typeof(int), typeof(ulong), typeof(long), typeof(float), typeof(double), typeof(decimal)
-        }.ToDictionary(x => Type.GetTypeCode(x), x => x.GetPublicInstanceMethod(nameof(object.ToString), new[] { typeof(IFormatProvider) }));
+        }.ToDictionary(Type.GetTypeCode, x => x.GetPublicInstanceMethod(nameof(object.ToString), new[] { typeof(IFormatProvider) }));
 
         /// <summary>
         /// Gets to string.
@@ -3452,7 +3456,7 @@ namespace ServiceStack.OrmLite.Dapper
         private static LocalBuilder GetTempLocal(ILGenerator il, ref Dictionary<Type, LocalBuilder> locals, Type type, bool initAndLoad)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
-            locals = locals ?? new Dictionary<Type, LocalBuilder>();
+            locals ??= new Dictionary<Type, LocalBuilder>();
             if (!locals.TryGetValue(type, out LocalBuilder found))
             {
                 found = il.DeclareLocal(type);
@@ -3625,7 +3629,7 @@ namespace ServiceStack.OrmLite.Dapper
             il.Emit(OpCodes.Ldc_I4_0);
             il.Emit(OpCodes.Stloc, currentIndexDiagnosticLocal);
 
-            var names = Enumerable.Range(startBound, length).Select(i => reader.GetName(i)).ToArray();
+            var names = Enumerable.Range(startBound, length).Select(reader.GetName).ToArray();
 
             ITypeMap typeMap = GetTypeMap(type);
 

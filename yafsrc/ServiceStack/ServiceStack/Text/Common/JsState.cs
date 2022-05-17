@@ -71,8 +71,7 @@ internal static class JsState
     /// <typeparam name="T"></typeparam>
     internal static void RegisterSerializer<T>()
     {
-        if (InSerializerFns == null)
-            InSerializerFns = new HashSet<Type>();
+        InSerializerFns ??= new HashSet<Type>();
 
         InSerializerFns.Add(typeof(T));
     }
@@ -111,8 +110,7 @@ internal static class JsState
     /// <typeparam name="T"></typeparam>
     internal static void RegisterDeserializer<T>()
     {
-        if (InDeserializerFns == null)
-            InDeserializerFns = new HashSet<Type>();
+        InDeserializerFns ??= new HashSet<Type>();
 
         InDeserializerFns.Add(typeof(T));
     }
@@ -123,10 +121,7 @@ internal static class JsState
     /// <typeparam name="T"></typeparam>
     internal static void UnRegisterDeserializer<T>()
     {
-        if (InDeserializerFns == null)
-            return;
-
-        InDeserializerFns.Remove(typeof(T));
+        InDeserializerFns?.Remove(typeof(T));
     }
 
     /// <summary>

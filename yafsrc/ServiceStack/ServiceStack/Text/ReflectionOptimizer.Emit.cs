@@ -79,14 +79,9 @@ namespace ServiceStack.Text
             var gen = getter.GetILGenerator();
             gen.Emit(OpCodes.Ldarg_0);
 
-            if (propertyInfo.DeclaringType.IsValueType)
-            {
-                gen.Emit(OpCodes.Unbox, propertyInfo.DeclaringType);
-            }
-            else
-            {
-                gen.Emit(OpCodes.Castclass, propertyInfo.DeclaringType);
-            }
+            gen.Emit(
+                propertyInfo.DeclaringType.IsValueType ? OpCodes.Unbox : OpCodes.Castclass,
+                propertyInfo.DeclaringType);
 
             var mi = propertyInfo.GetGetMethod(true);
             if (mi == null)
@@ -167,25 +162,15 @@ namespace ServiceStack.Text
             var gen = setter.GetILGenerator();
             gen.Emit(OpCodes.Ldarg_0);
 
-            if (propertyInfo.DeclaringType.IsValueType)
-            {
-                gen.Emit(OpCodes.Unbox, propertyInfo.DeclaringType);
-            }
-            else
-            {
-                gen.Emit(OpCodes.Castclass, propertyInfo.DeclaringType);
-            }
+            gen.Emit(
+                propertyInfo.DeclaringType.IsValueType ? OpCodes.Unbox : OpCodes.Castclass,
+                propertyInfo.DeclaringType);
 
             gen.Emit(OpCodes.Ldarg_1);
 
-            if (propertyInfo.PropertyType.IsValueType)
-            {
-                gen.Emit(OpCodes.Unbox_Any, propertyInfo.PropertyType);
-            }
-            else
-            {
-                gen.Emit(OpCodes.Castclass, propertyInfo.PropertyType);
-            }
+            gen.Emit(
+                propertyInfo.PropertyType.IsValueType ? OpCodes.Unbox_Any : OpCodes.Castclass,
+                propertyInfo.PropertyType);
 
             gen.EmitCall(mi.IsFinal ? OpCodes.Call : OpCodes.Callvirt, mi, (Type[])null);
 
@@ -217,14 +202,7 @@ namespace ServiceStack.Text
 
             gen.Emit(OpCodes.Ldarg_0);
 
-            if (fieldInfo.DeclaringType.IsValueType)
-            {
-                gen.Emit(OpCodes.Unbox, fieldInfo.DeclaringType);
-            }
-            else
-            {
-                gen.Emit(OpCodes.Castclass, fieldInfo.DeclaringType);
-            }
+            gen.Emit(fieldInfo.DeclaringType.IsValueType ? OpCodes.Unbox : OpCodes.Castclass, fieldInfo.DeclaringType);
 
             gen.Emit(OpCodes.Ldfld, fieldInfo);
 
@@ -276,14 +254,7 @@ namespace ServiceStack.Text
             var gen = setter.GetILGenerator();
             gen.Emit(OpCodes.Ldarg_0);
 
-            if (fieldInfo.DeclaringType.IsValueType)
-            {
-                gen.Emit(OpCodes.Unbox, fieldInfo.DeclaringType);
-            }
-            else
-            {
-                gen.Emit(OpCodes.Castclass, fieldInfo.DeclaringType);
-            }
+            gen.Emit(fieldInfo.DeclaringType.IsValueType ? OpCodes.Unbox : OpCodes.Castclass, fieldInfo.DeclaringType);
 
             gen.Emit(OpCodes.Ldarg_1);
 

@@ -25,7 +25,10 @@ public class CustomSelectAttribute : AttributeBase
     /// Initializes a new instance of the <see cref="CustomSelectAttribute"/> class.
     /// </summary>
     /// <param name="sql">The SQL.</param>
-    public CustomSelectAttribute(string sql) => Sql = sql;
+    public CustomSelectAttribute(string sql)
+    {
+        Sql = sql;
+    }
 }
 
 /// <summary>
@@ -45,7 +48,10 @@ public class CustomInsertAttribute : AttributeBase
     /// Initializes a new instance of the <see cref="CustomInsertAttribute"/> class.
     /// </summary>
     /// <param name="sql">The SQL.</param>
-    public CustomInsertAttribute(string sql) => Sql = sql;
+    public CustomInsertAttribute(string sql)
+    {
+        Sql = sql;
+    }
 }
 
 /// <summary>
@@ -65,5 +71,8 @@ public class CustomUpdateAttribute : AttributeBase
     /// Initializes a new instance of the <see cref="CustomUpdateAttribute"/> class.
     /// </summary>
     /// <param name="sql">The SQL.</param>
-    public CustomUpdateAttribute(string sql) => Sql = sql;
+    public CustomUpdateAttribute(string sql)
+    {
+        Sql = sql;
+    }
 }

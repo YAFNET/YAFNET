@@ -67,9 +67,9 @@ public static class JsvWriter
             do
             {
                 snapshot = WriteFnCache;
-                newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache);
-                newCache[type] = writeFn;
-
+                newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache) {
+                               [type] = writeFn
+                           };
             } while (!ReferenceEquals(
                          Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
 

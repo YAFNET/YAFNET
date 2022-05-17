@@ -149,6 +149,6 @@ public class FileSystemMapping : AbstractVirtualPathProviderBase
     /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
     public override IEnumerable<IVirtualFile> GetRootFiles()
     {
-        return new IVirtualFile[0];
+        return Array.Empty<IVirtualFile>();
     }
 }

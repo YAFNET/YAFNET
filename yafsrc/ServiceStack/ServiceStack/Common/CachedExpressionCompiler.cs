@@ -239,12 +239,7 @@ namespace ServiceStack.ExpressionUtil
                     // model => model
 
                     // don't need to lock, as all identity funcs are identical
-                    if (_identityFunc == null)
-                    {
-                        _identityFunc = expr.Compile();
-                    }
-
-                    return _identityFunc;
+                    return _identityFunc ??= expr.Compile();
                 }
 
                 return null;
@@ -257,8 +252,7 @@ namespace ServiceStack.ExpressionUtil
             /// <returns>Func&lt;TIn, TOut&gt;.</returns>
             private static Func<TIn, TOut> CompileFromFingerprint(Expression<Func<TIn, TOut>> expr)
             {
-                List<object> capturedConstants;
-                ExpressionFingerprintChain fingerprint = FingerprintingExpressionVisitor.GetFingerprintChain(expr, out capturedConstants);
+                ExpressionFingerprintChain fingerprint = FingerprintingExpressionVisitor.GetFingerprintChain(expr, out List<object> capturedConstants);
 
                 if (fingerprint != null)
                 {
@@ -290,8 +284,7 @@ namespace ServiceStack.ExpressionUtil
                 // by around one microsecond, so it's not worth it to complicate the logic here with
                 // an architecture check.
 
-                MemberExpression memberExpr = expr.Body as MemberExpression;
-                if (memberExpr != null)
+                if (expr.Body is MemberExpression memberExpr)
                 {
                     if (memberExpr.Expression == expr.Parameters[0] || memberExpr.Expression == null)
                     {
@@ -299,8 +292,7 @@ namespace ServiceStack.ExpressionUtil
                         return _simpleMemberAccessDict.GetOrAdd(memberExpr.Member, _ => expr.Compile());
                     }
 
-                    ConstantExpression constExpr = memberExpr.Expression as ConstantExpression;
-                    if (constExpr != null)
+                    if (memberExpr.Expression is ConstantExpression constExpr)
                     {
                         // model => {const}.Member (captured local variable)
                         var del = _constMemberAccessDict.GetOrAdd(memberExpr.Member, _ =>
@@ -360,8 +352,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            ConditionalExpressionFingerprint other = obj as ConditionalExpressionFingerprint;
-            return other != null
+            return obj is ConditionalExpressionFingerprint other
                    && this.Equals(other);
         }
 
@@ -401,8 +392,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            ConstantExpressionFingerprint other = obj as ConstantExpressionFingerprint;
-            return other != null
+            return obj is ConstantExpressionFingerprint other
                    && this.Equals(other);
         }
 
@@ -442,8 +432,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            DefaultExpressionFingerprint other = obj as DefaultExpressionFingerprint;
-            return other != null
+            return obj is DefaultExpressionFingerprint other
                    && this.Equals(other);
         }
 
@@ -1107,10 +1096,7 @@ namespace ServiceStack.ExpressionUtil
         /// Gets the combined hash.
         /// </summary>
         /// <value>The combined hash.</value>
-        public int CombinedHash
-        {
-            get { return _combinedHash64.GetHashCode(); }
-        }
+        public int CombinedHash => _combinedHash64.GetHashCode();
 
         /// <summary>
         /// Adds the fingerprint.
@@ -1165,7 +1151,7 @@ namespace ServiceStack.ExpressionUtil
         /// <param name="o">The o.</param>
         public void AddObject(object o)
         {
-            int hashCode = o != null ? o.GetHashCode() : 0;
+            int hashCode = o?.GetHashCode() ?? 0;
             AddInt32(hashCode);
         }
     }
@@ -1269,8 +1255,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            IndexExpressionFingerprint other = obj as IndexExpressionFingerprint;
-            return other != null
+            return obj is IndexExpressionFingerprint other
                    && Equals(this.Indexer, other.Indexer)
                    && this.Equals(other);
         }
@@ -1321,8 +1306,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            LambdaExpressionFingerprint other = obj as LambdaExpressionFingerprint;
-            return other != null
+            return obj is LambdaExpressionFingerprint other
                    && this.Equals(other);
         }
 
@@ -1369,8 +1353,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            MemberExpressionFingerprint other = obj as MemberExpressionFingerprint;
-            return other != null
+            return obj is MemberExpressionFingerprint other
                    && Equals(this.Member, other.Member)
                    && this.Equals(other);
         }
@@ -1431,8 +1414,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            MethodCallExpressionFingerprint other = obj as MethodCallExpressionFingerprint;
-            return other != null
+            return obj is MethodCallExpressionFingerprint other
                    && Equals(this.Method, other.Method)
                    && this.Equals(other);
         }
@@ -1490,8 +1472,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            ParameterExpressionFingerprint other = obj as ParameterExpressionFingerprint;
-            return other != null
+            return obj is ParameterExpressionFingerprint other
                    && this.ParameterIndex == other.ParameterIndex
                    && this.Equals(other);
         }
@@ -1549,8 +1530,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            TypeBinaryExpressionFingerprint other = obj as TypeBinaryExpressionFingerprint;
-            return other != null
+            return obj is TypeBinaryExpressionFingerprint other
                    && Equals(this.TypeOperand, other.TypeOperand)
                    && this.Equals(other);
         }
@@ -1611,8 +1591,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            UnaryExpressionFingerprint other = obj as UnaryExpressionFingerprint;
-            return other != null
+            return obj is UnaryExpressionFingerprint other
                    && Equals(this.Method, other.Method)
                    && this.Equals(other);
         }

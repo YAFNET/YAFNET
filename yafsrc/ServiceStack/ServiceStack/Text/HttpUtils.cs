@@ -1,4 +1,4 @@
-// ***********************************************************************
+﻿// ***********************************************************************
 // <copyright file="HttpUtils.cs" company="ServiceStack, Inc.">
 //     Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // </copyright>
@@ -44,8 +44,7 @@ public static partial class HttpUtils
 
     public static string AddQueryParam(this string url, string key, string val, bool encode = true)
     {
-        if (url == null)
-            url = "";
+        url ??= "";
 
         if (key == null || val == null)
             return url;
@@ -61,8 +60,7 @@ public static partial class HttpUtils
 
     public static string SetQueryParam(this string url, string key, string val)
     {
-        if (url == null)
-            url = "";
+        url ??= "";
 
         if (key == null || val == null)
             return url;
@@ -97,8 +95,7 @@ public static partial class HttpUtils
 
     public static string AddHashParam(this string url, string key, string val)
     {
-        if (url == null)
-            url = "";
+        url ??= "";
 
         if (key == null || val == null)
             return url;
@@ -109,8 +106,7 @@ public static partial class HttpUtils
 
     public static string SetHashParam(this string url, string key, string val)
     {
-        if (url == null)
-            url = "";
+        url ??= "";
 
         if (key == null || val == null)
             return url;
@@ -349,8 +345,7 @@ public static partial class HttpUtils
     {
         using var stream = webRes.GetResponseStream();
         using var reader = new StreamReader(stream, UseEncoding, true, 1024, leaveOpen: true);
-        string line;
-        while ((line = reader.ReadLine()) != null)
+        while (reader.ReadLine() is { } line)
         {
             yield return line;
         }

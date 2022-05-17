@@ -189,13 +189,13 @@ namespace ServiceStack.OrmLite.Converters
         /// <returns>System.Char.</returns>
         public static char ToCharValue(object value)
         {
-            var charValue = value is char c
-                ? c
-                : value is string s && s.Length == 1
-                    ? s[0]
-                    : value is int i
-                        ? (char)i
-                        : (char)Convert.ChangeType(value, typeof(char));
+            var charValue = value switch
+            {
+                char c => c,
+                string {Length: 1} s => s[0],
+                int i => (char)i,
+                _ => (char)Convert.ChangeType(value, typeof(char))
+            };
             return charValue;
         }
 

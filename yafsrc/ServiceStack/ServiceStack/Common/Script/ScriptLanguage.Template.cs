@@ -1041,7 +1041,7 @@ public static class ScriptTemplateUtils
                 body = Expression.Call(propItemExpr.Object, mi, indexExpr, valueToAssign);
             }
         }
-        else if (body is BinaryExpression binaryExpr && binaryExpr.NodeType == ExpressionType.ArrayIndex)
+        else if (body is BinaryExpression {NodeType: ExpressionType.ArrayIndex} binaryExpr)
         {
             var arrayInstance = binaryExpr.Left;
             var indexExpr = binaryExpr.Right;
@@ -1061,17 +1061,14 @@ public static class ScriptTemplateUtils
         }
         else if (body is MemberExpression propExpr)
         {
-            if (propExpr.Type != typeof(object))
-            {
-                body = Expression.Assign(propExpr, Expression.Call(CreateConvertMethod(propExpr.Type), valueToAssign));
-            }
-            else
-            {
-                body = Expression.Assign(propExpr, valueToAssign);
-            }
+            body = propExpr.Type != typeof(object)
+                       ? Expression.Assign(propExpr, Expression.Call(CreateConvertMethod(propExpr.Type), valueToAssign))
+                       : Expression.Assign(propExpr, valueToAssign);
         }
         else
+        {
             throw new BindingExpressionException($"Assignment expression for '{expr}' not supported yet", "valueToAssign", expr.ToString());
+        }
 
         return Expression.Lambda<Action<ScriptScopeContext, object, object>>(body, scope, instance, valueToAssign).Compile();
     }
@@ -1154,5 +1151,5 @@ public static class ScriptTemplateUtils
     /// <returns>bool.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsWhiteSpace(this char c) =>
-        c == ' ' || c >= '\x0009' && c <= '\x000d' || c == '\x00a0' || c == '\x0085';
+        c == ' ' || c is >= '\x0009' and <= '\x000d' || c == '\x00a0' || c == '\x0085';
 }

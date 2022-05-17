@@ -281,7 +281,7 @@ public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
     /// Gets the provider.
     /// </summary>
     /// <value>The provider.</value>
-    public static ExpressionReflectionOptimizer Provider => provider ?? (provider = new ExpressionReflectionOptimizer());
+    public static ExpressionReflectionOptimizer Provider => provider ??= new ExpressionReflectionOptimizer();
     /// <summary>
     /// Prevents a default instance of the <see cref="ExpressionReflectionOptimizer"/> class from being created.
     /// </summary>

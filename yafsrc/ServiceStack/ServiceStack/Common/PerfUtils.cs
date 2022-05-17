@@ -1,4 +1,4 @@
-// ***********************************************************************
+﻿// ***********************************************************************
 // <copyright file="PerfUtils.cs" company="ServiceStack, Inc.">
 //     Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // </copyright>
@@ -68,8 +68,7 @@ namespace ServiceStack
             setup?.Invoke();
 
             // Warmup for at least 100ms. Discard result.
-            if (warmup == null)
-                warmup = fn;
+            warmup ??= fn;
 
             GC.Collect();
 

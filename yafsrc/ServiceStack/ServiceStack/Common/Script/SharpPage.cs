@@ -253,7 +253,7 @@ public class SharpPage
 
         foreach (var fragment in pageFragments)
         {
-            if (fragment is PageVariableFragment var && var.Binding == ScriptConstants.Page)
+            if (fragment is PageVariableFragment {Binding: ScriptConstants.Page})
             {
                 IsLayout = true;
                 break;

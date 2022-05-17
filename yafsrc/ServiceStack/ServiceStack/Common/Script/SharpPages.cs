@@ -100,7 +100,10 @@ public partial class SharpPages : ISharpPages
     /// Initializes a new instance of the <see cref="SharpPages"/> class.
     /// </summary>
     /// <param name="context">The context.</param>
-    public SharpPages(ScriptContext context) => this.Context = context;
+    public SharpPages(ScriptContext context)
+    {
+        this.Context = context;
+    }
 
     /// <summary>
     /// The layout
@@ -447,7 +450,7 @@ public partial class SharpPages : ISharpPages
             var lastFilter = fragment.FilterExpressions?.LastOrDefault();
             if (lastFilter?.Name == "selectPartial")
             {
-                if (lastFilter.Arguments.FirstOrDefault() is JsLiteral argLiteral && argLiteral.Value is string partialArg)
+                if (lastFilter.Arguments.FirstOrDefault() is JsLiteral {Value: string partialArg})
                 {
                     if (!string.IsNullOrEmpty(partialArg))
                     {

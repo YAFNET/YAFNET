@@ -471,7 +471,7 @@ public static class DateTimeSerializer
     /// <returns>System.DateTimeOffset.</returns>
     public static DateTimeOffset ParseDateTimeOffset(string dateTimeOffsetStr)
     {
-        if (string.IsNullOrEmpty(dateTimeOffsetStr)) return default(DateTimeOffset);
+        if (string.IsNullOrEmpty(dateTimeOffsetStr)) return default;
 
         // for interop, do not assume format based on config
         // format: prefer TimestampOffset, DCJSCompatible

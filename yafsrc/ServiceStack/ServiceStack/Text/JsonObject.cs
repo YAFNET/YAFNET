@@ -261,7 +261,7 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
         {
             if (long.TryParse(strValue, out var longValue))
             {
-                return longValue < JsonUtils.MaxInteger && longValue > JsonUtils.MinInteger;
+                return longValue is < JsonUtils.MaxInteger and > JsonUtils.MinInteger;
             }
             return false;
         }

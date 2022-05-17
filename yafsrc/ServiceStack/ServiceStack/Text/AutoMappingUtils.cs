@@ -100,7 +100,7 @@ public static class AutoMappingUtils
     /// <param name="defaultValue">The default value.</param>
     /// <returns>T.</returns>
     public static T ConvertTo<T>(this object from, T defaultValue) =>
-        from == null || @from is string and ""
+        from == null || @from is ""
             ? defaultValue
             : from.ConvertTo<T>();
 
@@ -586,7 +586,7 @@ public static class AutoMappingUtils
     /// <returns>To.</returns>
     public static To PopulateWith<To, From>(this To to, From from)
     {
-        if (Equals(to, default(To)) || Equals(from, default(From))) return default(To);
+        if (Equals(to, default(To)) || Equals(from, default(From))) return default;
 
         var assignmentDefinition = GetAssignmentDefinition(to.GetType(), from.GetType());
 

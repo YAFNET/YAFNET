@@ -38,7 +38,7 @@ class Link<TKey, TValue> where TKey : class
             }
             link = link.Tail;
         }
-        value = default(TValue);
+        value = default;
         return false;
     }
 
@@ -55,8 +55,7 @@ class Link<TKey, TValue> where TKey : class
         do
         {
             var snapshot = Interlocked.CompareExchange(ref head, null, null);
-            TValue found;
-            if (TryGet(snapshot, key, out found))
+            if (TryGet(snapshot, key, out TValue found))
             { // existing match; report the existing value instead
                 value = found;
                 return false;

@@ -503,10 +503,8 @@ public struct JsonTypeSerializer
     /// <param name="decimalValue">The decimal value.</param>
     public void WriteDecimal(TextWriter writer, object decimalValue)
     {
-        if (decimalValue == null)
-            writer.Write(JsonUtils.Null);
-        else
-            writer.Write(((decimal)decimalValue).ToString(CultureInfo.InvariantCulture));
+        writer.Write(
+            decimalValue == null ? JsonUtils.Null : ((decimal)decimalValue).ToString(CultureInfo.InvariantCulture));
     }
 
     /// <summary>
@@ -1053,7 +1051,7 @@ public struct JsonTypeSerializer
             //If we are at the end, return.
             case JsWriter.ItemSeperator:
             case JsWriter.MapEndChar:
-                return default(ReadOnlySpan<char>);
+                return default;
 
             //Is Within Quotes, i.e. "..."
             case JsWriter.QuoteChar:

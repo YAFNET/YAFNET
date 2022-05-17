@@ -567,7 +567,7 @@ public static class TemplateFilterUtils
         if (args.TryGetValue("use", out var oUse))
         {
             var use = (Dictionary<string, object>)oUse;
-            if (use.TryGetValue("context", out var oContext) && oContext is bool useContext && useContext)
+            if (use.TryGetValue("context", out var oContext) && oContext is true)
             {
                 return scope.Context;
             }

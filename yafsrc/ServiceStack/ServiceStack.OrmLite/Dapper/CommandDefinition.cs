@@ -24,14 +24,7 @@ public struct CommandDefinition
     /// <returns>CommandDefinition.</returns>
     internal static CommandDefinition ForCallback(object parameters)
     {
-        if (parameters is DynamicParameters)
-        {
-            return new CommandDefinition(parameters);
-        }
-        else
-        {
-            return default(CommandDefinition);
-        }
+        return parameters is DynamicParameters ? new CommandDefinition(parameters) : default;
     }
 
     /// <summary>

@@ -46,7 +46,7 @@ public static class JsonSerializer
     /// <returns>T.</returns>
     public static T DeserializeFromString<T>(string value)
     {
-        return JsonReader<T>.Parse(value) is T obj ? obj : default(T);
+        return JsonReader<T>.Parse(value) is T obj ? obj : default;
     }
 
     /// <summary>
@@ -57,7 +57,7 @@ public static class JsonSerializer
     /// <returns>T.</returns>
     public static T DeserializeFromSpan<T>(ReadOnlySpan<char> value)
     {
-        return JsonReader<T>.Parse(value) is T obj ? obj : default(T);
+        return JsonReader<T>.Parse(value) is T obj ? obj : default;
     }
 
     /// <summary>

@@ -159,7 +159,7 @@ internal static class DeserializeTypeRefJson
                 }
             }
 
-            if (typeAccessor?.GetProperty != null && typeAccessor.SetProperty != null)
+            if (typeAccessor is {GetProperty: { }, SetProperty: { }})
             {
                 try
                 {

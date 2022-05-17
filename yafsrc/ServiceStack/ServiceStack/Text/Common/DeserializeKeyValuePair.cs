@@ -107,9 +107,9 @@ internal static class DeserializeKeyValuePair<TSerializer>
         do
         {
             snapshot = ParseDelegateCache;
-            newCache = new Dictionary<string, ParseKeyValuePairDelegate>(ParseDelegateCache);
-            newCache[key] = parseDelegate;
-
+            newCache = new Dictionary<string, ParseKeyValuePairDelegate>(ParseDelegateCache) {
+                           [key] = parseDelegate
+                       };
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref ParseDelegateCache, newCache, snapshot), snapshot));
 

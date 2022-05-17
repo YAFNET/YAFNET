@@ -147,7 +147,7 @@ public class PageFormat
                 sb.AppendLine($"{innerEx.GetType().Name}: {innerEx.Message}");
                 if (pageResult.Context.DebugMode)
                     sb.AppendLine(innerEx.StackTrace);
-                innerEx = innerEx.InnerException; ;
+                innerEx = innerEx.InnerException;
             }
         }
         if (ContentType == MimeTypes.Html)

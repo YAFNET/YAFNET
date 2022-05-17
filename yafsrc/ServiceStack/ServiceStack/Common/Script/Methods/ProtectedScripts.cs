@@ -1586,8 +1586,7 @@ public class ProtectedScripts : ScriptMethods
 
         if (scopedParams.TryRemove("data", out object data))
         {
-            if (webReq.ContentType == null)
-                webReq.ContentType = MimeTypes.FormUrlEncoded;
+            webReq.ContentType ??= MimeTypes.FormUrlEncoded;
 
             var body = ConvertDataToString(data, webReq.ContentType);
             using var stream = await webReq.GetRequestStreamAsync();
@@ -1637,8 +1636,7 @@ public class ProtectedScripts : ScriptMethods
 
         if (scopedParams.TryRemove("data", out object data))
         {
-            if (webReq.ContentType == null)
-                webReq.ContentType = MimeTypes.FormUrlEncoded;
+            webReq.ContentType ??= MimeTypes.FormUrlEncoded;
 
             var body = ConvertDataToString(data, webReq.ContentType);
             using var stream = webReq.GetRequestStream();
@@ -1980,9 +1978,7 @@ public class ProtectedScripts : ScriptMethods
         if (o == null)
             return TypeConstants<ScriptMethodInfo>.EmptyArray;
 
-        var type = o is Type t
-                       ? t
-                       : o.GetType();
+        var type = o as Type ?? o.GetType();
 
         return filterMethods(type.GetInstanceMethods());
     }
@@ -2011,9 +2007,7 @@ public class ProtectedScripts : ScriptMethods
         if (o == null)
             return TypeConstants<ScriptMethodInfo>.EmptyArray;
 
-        var type = o is Type t
-                       ? t
-                       : o.GetType();
+        var type = o as Type ?? o.GetType();
 
         return filterMethods(type.GetMethods(BindingFlags.Static | BindingFlags.Public));
     }
@@ -2028,9 +2022,7 @@ public class ProtectedScripts : ScriptMethods
         if (o == null)
             return TypeConstants<ScriptMethodInfo>.EmptyArray;
 
-        var type = o is Type t
-                       ? t
-                       : o.GetType();
+        var type = o as Type ?? o.GetType();
 
         return type.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
             .Select(ScriptMethodInfo.Create).ToArray();
@@ -2046,9 +2038,7 @@ public class ProtectedScripts : ScriptMethods
         if (o == null)
             return TypeConstants<MemberInfo>.EmptyArray;
 
-        var type = o is Type t
-                       ? t
-                       : o.GetType();
+        var type = o as Type ?? o.GetType();
 
         return type.GetMembers(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
     }
@@ -2161,8 +2151,7 @@ public class ProtectedScripts : ScriptMethods
         if (string.IsNullOrEmpty(arguments))
             return null;
 
-        if (options == null)
-            options = new Dictionary<string, object>();
+        options ??= new Dictionary<string, object>();
 
         if (Env.IsWindows)
         {

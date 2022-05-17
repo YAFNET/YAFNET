@@ -46,7 +46,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <exception cref="System.ArgumentNullException">connection</exception>
     private void Init(DbConnection connection, IDbProfiler profiler, bool autoDisposeConnection)
     {
-        if (connection == null) throw new ArgumentNullException("connection");
+        if (connection == null) throw new ArgumentNullException(nameof(connection));
 
         AutoDisposeConnection = autoDisposeConnection;
         _conn = connection;
@@ -67,11 +67,9 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <exception cref="System.ArgumentException"></exception>
     public ProfiledConnection(IDbConnection connection, IDbProfiler profiler, bool autoDisposeConnection = true)
     {
-        var hasConn = connection as IHasDbConnection;
-        if (hasConn != null) connection = hasConn.DbConnection;
-        var dbConn = connection as DbConnection;
+        if (connection is IHasDbConnection hasConn) connection = hasConn.DbConnection;
 
-        if (dbConn == null)
+        if (connection is not DbConnection dbConn)
             throw new ArgumentException(connection.GetType().FullName + " does not inherit DbConnection");
 
         Init(dbConn, profiler, autoDisposeConnection);
@@ -86,18 +84,15 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <value>The inner connection.</value>
     public DbConnection InnerConnection
     {
-        get { return _conn; }
-        protected set { _conn = value; }
+        get => _conn;
+        protected set => _conn = value;
     }
 
     /// <summary>
     /// Gets the database connection.
     /// </summary>
     /// <value>The database connection.</value>
-    public IDbConnection DbConnection
-    {
-        get { return _conn; }
-    }
+    public IDbConnection DbConnection => _conn;
 
     /// <summary>
     /// The current profiler instance; could be null.
@@ -105,27 +100,21 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <value>The profiler.</value>
     public IDbProfiler Profiler
     {
-        get { return _profiler; }
-        protected set { _profiler = value; }
+        get => _profiler;
+        protected set => _profiler = value;
     }
 
     /// <summary>
     /// The raw connection this is wrapping
     /// </summary>
     /// <value>The wrapped connection.</value>
-    public DbConnection WrappedConnection
-    {
-        get { return _conn; }
-    }
+    public DbConnection WrappedConnection => _conn;
 
     /// <summary>
     /// Gets a value indicating whether the component can raise an event.
     /// </summary>
     /// <value><c>true</c> if this instance can raise events; otherwise, <c>false</c>.</value>
-    protected override bool CanRaiseEvents
-    {
-        get { return true; }
-    }
+    protected override bool CanRaiseEvents => true;
 
     /// <summary>
     /// Gets or sets the string used to open the connection.
@@ -133,54 +122,39 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <value>The connection string.</value>
     public override string ConnectionString
     {
-        get { return _conn.ConnectionString; }
-        set { _conn.ConnectionString = value; }
+        get => _conn.ConnectionString;
+        set => _conn.ConnectionString = value;
     }
 
     /// <summary>
     /// Gets the time to wait while establishing a connection before terminating the attempt and generating an error.
     /// </summary>
     /// <value>The connection timeout.</value>
-    public override int ConnectionTimeout
-    {
-        get { return _conn.ConnectionTimeout; }
-    }
+    public override int ConnectionTimeout => _conn.ConnectionTimeout;
 
     /// <summary>
     /// Gets the name of the current database after a connection is opened, or the database name specified in the connection string before the connection is opened.
     /// </summary>
     /// <value>The database.</value>
-    public override string Database
-    {
-        get { return _conn.Database; }
-    }
+    public override string Database => _conn.Database;
 
     /// <summary>
     /// Gets the name of the database server to which to connect.
     /// </summary>
     /// <value>The data source.</value>
-    public override string DataSource
-    {
-        get { return _conn.DataSource; }
-    }
+    public override string DataSource => _conn.DataSource;
 
     /// <summary>
     /// Gets a string that represents the version of the server to which the object is connected.
     /// </summary>
     /// <value>The server version.</value>
-    public override string ServerVersion
-    {
-        get { return _conn.ServerVersion; }
-    }
+    public override string ServerVersion => _conn.ServerVersion;
 
     /// <summary>
     /// Gets a string that describes the state of the connection.
     /// </summary>
     /// <value>The state.</value>
-    public override ConnectionState State
-    {
-        get { return _conn.State; }
-    }
+    public override ConnectionState State => _conn.State;
 
     /// <summary>
     /// Gets or sets a value indicating whether [automatic dispose connection].

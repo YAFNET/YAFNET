@@ -840,10 +840,8 @@ public partial class ScriptContext : IDisposable
     internal void InitMethod(ScriptMethods method)
     {
         if (method == null) return;
-        if (method.Context == null)
-            method.Context = this;
-        if (method.Pages == null)
-            method.Pages = Pages;
+        method.Context ??= this;
+        method.Pages ??= Pages;
 
         if (method is IConfigureScriptContext init)
             init.Configure(this);
@@ -856,10 +854,8 @@ public partial class ScriptContext : IDisposable
     internal void InitBlock(ScriptBlock block)
     {
         if (block == null) return;
-        if (block.Context == null)
-            block.Context = this;
-        if (block.Pages == null)
-            block.Pages = Pages;
+        block.Context ??= this;
+        block.Pages ??= Pages;
 
         if (block is IConfigureScriptContext init)
             init.Configure(this);

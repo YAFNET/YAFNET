@@ -33,7 +33,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// Gets the provider.
     /// </summary>
     /// <value>The provider.</value>
-    public static DefaultMemory Provider => provider ?? (provider = new DefaultMemory());
+    public static DefaultMemory Provider => provider ??= new DefaultMemory();
     /// <summary>
     /// Prevents a default instance of the <see cref="DefaultMemory"/> class from being created.
     /// </summary>
@@ -453,7 +453,7 @@ public sealed class DefaultMemory : MemoryProvider
                     //skip leading zeroes
                     while (c == '0' && i < end) c = value[i++];
 
-                    if (c > '0' && c <= '9')
+                    if (c is > '0' and <= '9')
                     {
                         var exp = SignedInteger<long>.ParseInt64(value.Slice(i - 1, end - i + 1));
                         if (exp < sbyte.MinValue || exp > sbyte.MaxValue)
@@ -1261,7 +1261,7 @@ internal static class SignedInteger<T> where T : struct, IComparable<T>, IEquata
 
                     break;
                 case ParseState.Number:
-                    if (c >= '0' && c <= '9')
+                    if (c is >= '0' and <= '9')
                     {
                         checked
                         {

@@ -126,7 +126,7 @@ public static class DeserializeType<TSerializer>
                 case JsWriter.MapStartChar when endChar == JsWriter.MapEndChar:
                     {
                         var dynamicMatch = DeserializeDictionary<TSerializer>.ParseDictionary<string, object>(strType, null, v => Serializer.UnescapeString(v).ToString(), v => Serializer.UnescapeString(v).ToString());
-                        if (dynamicMatch != null && dynamicMatch.Count > 0)
+                        if (dynamicMatch is {Count: > 0})
                         {
                             return dynamicMatch;
                         }
@@ -612,21 +612,21 @@ public static class DeserializeTypeExensions
                 {
                     // Value is a whole number
                     var parseAs = config.ParsePrimitiveIntegerTypes;
-                    if (parseAs.Has(ParseAsType.Byte) && decimalValue <= byte.MaxValue && decimalValue >= byte.MinValue)
+                    if (parseAs.Has(ParseAsType.Byte) && decimalValue is <= byte.MaxValue and >= byte.MinValue)
                         return (byte)decimalValue;
-                    if (parseAs.Has(ParseAsType.SByte) && decimalValue <= sbyte.MaxValue && decimalValue >= sbyte.MinValue)
+                    if (parseAs.Has(ParseAsType.SByte) && decimalValue is <= sbyte.MaxValue and >= sbyte.MinValue)
                         return (sbyte)decimalValue;
-                    if (parseAs.Has(ParseAsType.Int16) && decimalValue <= short.MaxValue && decimalValue >= short.MinValue)
+                    if (parseAs.Has(ParseAsType.Int16) && decimalValue is <= short.MaxValue and >= short.MinValue)
                         return (short)decimalValue;
-                    if (parseAs.Has(ParseAsType.UInt16) && decimalValue <= ushort.MaxValue && decimalValue >= ushort.MinValue)
+                    if (parseAs.Has(ParseAsType.UInt16) && decimalValue is <= ushort.MaxValue and >= ushort.MinValue)
                         return (ushort)decimalValue;
-                    if (parseAs.Has(ParseAsType.Int32) && decimalValue <= int.MaxValue && decimalValue >= int.MinValue)
+                    if (parseAs.Has(ParseAsType.Int32) && decimalValue is <= int.MaxValue and >= int.MinValue)
                         return (int)decimalValue;
-                    if (parseAs.Has(ParseAsType.UInt32) && decimalValue <= uint.MaxValue && decimalValue >= uint.MinValue)
+                    if (parseAs.Has(ParseAsType.UInt32) && decimalValue is <= uint.MaxValue and >= uint.MinValue)
                         return (uint)decimalValue;
-                    if (parseAs.Has(ParseAsType.Int64) && decimalValue <= long.MaxValue && decimalValue >= long.MinValue)
+                    if (parseAs.Has(ParseAsType.Int64) && decimalValue is <= long.MaxValue and >= long.MinValue)
                         return (long)decimalValue;
-                    if (parseAs.Has(ParseAsType.UInt64) && decimalValue <= ulong.MaxValue && decimalValue >= ulong.MinValue)
+                    if (parseAs.Has(ParseAsType.UInt64) && decimalValue is <= ulong.MaxValue and >= ulong.MinValue)
                         return (ulong)decimalValue;
                     return decimalValue;
                 }

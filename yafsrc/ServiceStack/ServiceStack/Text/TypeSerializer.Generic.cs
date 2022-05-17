@@ -37,7 +37,7 @@ public class TypeSerializer<T> : ITypeSerializer<T>
     /// <returns>T.</returns>
     public T DeserializeFromString(string value)
     {
-        if (string.IsNullOrEmpty(value)) return default(T);
+        if (string.IsNullOrEmpty(value)) return default;
         return (T)JsvReader<T>.Parse(value);
     }
 

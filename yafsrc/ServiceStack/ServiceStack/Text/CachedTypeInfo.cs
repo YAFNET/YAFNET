@@ -107,10 +107,7 @@ public class EnumInfo
             var enumMemberAttr = fi.FirstAttribute<EnumMemberAttribute>();
             if (enumMemberAttr?.Value != null)
             {
-                if (enumMemberValues == null)
-                {
-                    enumMemberValues = new Dictionary<object, string>();
-                }
+                enumMemberValues ??= new Dictionary<object, string>();
                 enumMemberValues[enumValue] = enumMemberAttr.Value;
                 enumMemberReverseLookup[enumMemberAttr.Value] = enumValue;
             }

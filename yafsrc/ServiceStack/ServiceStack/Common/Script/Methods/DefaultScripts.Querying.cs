@@ -328,8 +328,7 @@ public partial class DefaultScripts
                 scope.AddItemToScope(itemBinding, item);
                 var result = expr.Evaluate(scope);
                 if (result == null) continue;
-                if (itemType == null)
-                    itemType = result.GetType();
+                itemType ??= result.GetType();
 
                 total = fn(total, result.ConvertTo<double>());
             }
@@ -339,8 +338,7 @@ public partial class DefaultScripts
             foreach (var item in items)
             {
                 if (item == null) continue;
-                if (itemType == null)
-                    itemType = item.GetType();
+                itemType ??= item.GetType();
                 total = fn(total, item.ConvertTo<double>());
             }
         }
@@ -409,8 +407,7 @@ public partial class DefaultScripts
 
             var result = expr.Evaluate(scope);
             if (result == null) continue;
-            if (itemType == null)
-                itemType = result.GetType();
+            itemType ??= result.GetType();
 
             accumulator = result.ConvertTo<double>();
         }

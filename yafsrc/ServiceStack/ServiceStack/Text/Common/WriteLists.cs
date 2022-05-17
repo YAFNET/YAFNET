@@ -37,8 +37,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetListWriteFn(Type elementType)
     {
-        WriteObjectDelegate writeFn;
-        if (ListCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
+        if (ListCacheFns.TryGetValue(elementType, out WriteObjectDelegate writeFn)) return writeFn;
 
         var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteList");
@@ -48,9 +47,9 @@ public static class WriteListsOfElements<TSerializer>
         do
         {
             snapshot = ListCacheFns;
-            newCache = new Dictionary<Type, WriteObjectDelegate>(ListCacheFns);
-            newCache[elementType] = writeFn;
-
+            newCache = new Dictionary<Type, WriteObjectDelegate>(ListCacheFns) {
+                                                                                   [elementType] = writeFn
+                                                                               };
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref ListCacheFns, newCache, snapshot), snapshot));
 
@@ -70,8 +69,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetIListWriteFn(Type elementType)
     {
-        WriteObjectDelegate writeFn;
-        if (IListCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
+        if (IListCacheFns.TryGetValue(elementType, out WriteObjectDelegate writeFn)) return writeFn;
 
         var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteIList");
@@ -81,9 +79,9 @@ public static class WriteListsOfElements<TSerializer>
         do
         {
             snapshot = IListCacheFns;
-            newCache = new Dictionary<Type, WriteObjectDelegate>(IListCacheFns);
-            newCache[elementType] = writeFn;
-
+            newCache = new Dictionary<Type, WriteObjectDelegate>(IListCacheFns) {
+                           [elementType] = writeFn
+                       };
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref IListCacheFns, newCache, snapshot), snapshot));
 
@@ -102,8 +100,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetGenericWriteArray(Type elementType)
     {
-        WriteObjectDelegate writeFn;
-        if (CacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
+        if (CacheFns.TryGetValue(elementType, out WriteObjectDelegate writeFn)) return writeFn;
 
         var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteArray");
@@ -113,9 +110,9 @@ public static class WriteListsOfElements<TSerializer>
         do
         {
             snapshot = CacheFns;
-            newCache = new Dictionary<Type, WriteObjectDelegate>(CacheFns);
-            newCache[elementType] = writeFn;
-
+            newCache = new Dictionary<Type, WriteObjectDelegate>(CacheFns) {
+                                                                               [elementType] = writeFn
+                                                                           };
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref CacheFns, newCache, snapshot), snapshot));
 
@@ -134,8 +131,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetGenericWriteEnumerable(Type elementType)
     {
-        WriteObjectDelegate writeFn;
-        if (EnumerableCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
+        if (EnumerableCacheFns.TryGetValue(elementType, out WriteObjectDelegate writeFn)) return writeFn;
 
         var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteEnumerable");
@@ -145,9 +141,9 @@ public static class WriteListsOfElements<TSerializer>
         do
         {
             snapshot = EnumerableCacheFns;
-            newCache = new Dictionary<Type, WriteObjectDelegate>(EnumerableCacheFns);
-            newCache[elementType] = writeFn;
-
+            newCache = new Dictionary<Type, WriteObjectDelegate>(EnumerableCacheFns) {
+                           [elementType] = writeFn
+                       };
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref EnumerableCacheFns, newCache, snapshot), snapshot));
 
@@ -166,8 +162,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetWriteListValueType(Type elementType)
     {
-        WriteObjectDelegate writeFn;
-        if (ListValueTypeCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
+        if (ListValueTypeCacheFns.TryGetValue(elementType, out WriteObjectDelegate writeFn)) return writeFn;
 
         var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteListValueType");
@@ -177,9 +172,9 @@ public static class WriteListsOfElements<TSerializer>
         do
         {
             snapshot = ListValueTypeCacheFns;
-            newCache = new Dictionary<Type, WriteObjectDelegate>(ListValueTypeCacheFns);
-            newCache[elementType] = writeFn;
-
+            newCache = new Dictionary<Type, WriteObjectDelegate>(ListValueTypeCacheFns) {
+                           [elementType] = writeFn
+                       };
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref ListValueTypeCacheFns, newCache, snapshot), snapshot));
 
@@ -198,9 +193,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetWriteIListValueType(Type elementType)
     {
-        WriteObjectDelegate writeFn;
-
-        if (IListValueTypeCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
+        if (IListValueTypeCacheFns.TryGetValue(elementType, out WriteObjectDelegate writeFn)) return writeFn;
 
         var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteIListValueType");
@@ -210,9 +203,9 @@ public static class WriteListsOfElements<TSerializer>
         do
         {
             snapshot = IListValueTypeCacheFns;
-            newCache = new Dictionary<Type, WriteObjectDelegate>(IListValueTypeCacheFns);
-            newCache[elementType] = writeFn;
-
+            newCache = new Dictionary<Type, WriteObjectDelegate>(IListValueTypeCacheFns) {
+                           [elementType] = writeFn
+                       };
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref IListValueTypeCacheFns, newCache, snapshot), snapshot));
 
@@ -648,10 +641,6 @@ internal static class WriteLists<T, TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>
-    /// The cache function
-    /// </summary>
-    private static readonly WriteObjectDelegate CacheFn;
-    /// <summary>
     /// The serializer
     /// </summary>
     private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
@@ -661,14 +650,14 @@ internal static class WriteLists<T, TSerializer>
     /// </summary>
     static WriteLists()
     {
-        CacheFn = GetWriteFn();
+        Write = GetWriteFn();
     }
 
     /// <summary>
     /// Gets the write.
     /// </summary>
     /// <value>The write.</value>
-    public static WriteObjectDelegate Write => CacheFn;
+    public static WriteObjectDelegate Write { get; }
 
     /// <summary>
     /// Gets the write function.

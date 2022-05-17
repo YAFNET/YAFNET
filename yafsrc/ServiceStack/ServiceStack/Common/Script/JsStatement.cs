@@ -92,12 +92,19 @@ public class JsBlockStatement : JsStatement
     /// Initializes a new instance of the <see cref="JsBlockStatement"/> class.
     /// </summary>
     /// <param name="statements">The statements.</param>
-    public JsBlockStatement(JsStatement[] statements) => Statements = statements;
+    public JsBlockStatement(JsStatement[] statements)
+    {
+        Statements = statements;
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="JsBlockStatement"/> class.
     /// </summary>
     /// <param name="statement">The statement.</param>
-    public JsBlockStatement(JsStatement statement) => Statements = new[] { statement };
+    public JsBlockStatement(JsStatement statement)
+    {
+        Statements = new[] {statement};
+    }
 
     /// <summary>
     /// Equalses the specified other.
@@ -142,7 +149,10 @@ public class JsExpressionStatement : JsStatement
     /// Initializes a new instance of the <see cref="JsExpressionStatement"/> class.
     /// </summary>
     /// <param name="expression">The expression.</param>
-    public JsExpressionStatement(JsToken expression) => Expression = expression;
+    public JsExpressionStatement(JsToken expression)
+    {
+        Expression = expression;
+    }
 
     /// <summary>
     /// Equalses the specified other.
@@ -187,7 +197,10 @@ public class JsPageBlockFragmentStatement : JsStatement
     /// Initializes a new instance of the <see cref="JsPageBlockFragmentStatement"/> class.
     /// </summary>
     /// <param name="block">The block.</param>
-    public JsPageBlockFragmentStatement(PageBlockFragment block) => Block = block;
+    public JsPageBlockFragmentStatement(PageBlockFragment block)
+    {
+        Block = block;
+    }
 
     /// <summary>
     /// Equalses the specified other.

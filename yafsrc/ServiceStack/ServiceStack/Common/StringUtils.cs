@@ -75,7 +75,6 @@ public static class StringUtils
                                               char separator = ',')
     {
         var to = new List<Command>();
-        List<ReadOnlyMemory<char>> args = null;
         var pos = 0;
 
         if (commandsString.IsNullOrEmpty())
@@ -146,7 +145,7 @@ public static class StringUtils
                     pos = i + 1;
 
                     var literal = commandsString.Slice(pos);
-                    var literalRemaining = ParseArguments(literal, out args);
+                    var literalRemaining = ParseArguments(literal, out List<ReadOnlyMemory<char>> args);
                     cmd.Args = args;
                     var endPos = literal.Length - literalRemaining.Length;
 

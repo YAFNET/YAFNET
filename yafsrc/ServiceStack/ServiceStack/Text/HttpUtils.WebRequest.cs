@@ -1,4 +1,4 @@
-// ***********************************************************************
+﻿// ***********************************************************************
 // <copyright file="HttpUtils.WebRequest.cs" company="ServiceStack, Inc.">
 //     Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // </copyright>
@@ -1323,11 +1323,9 @@ namespace ServiceStack
             try
             {
                 var webReq = (HttpWebRequest) WebRequest.Create(url);
-                using (var webRes = PclExport.Instance.GetResponse(webReq))
-                {
-                    var httpRes = webRes as HttpWebResponse;
-                    return httpRes?.StatusCode;
-                }
+                using var webRes = PclExport.Instance.GetResponse(webReq);
+                var httpRes = webRes as HttpWebResponse;
+                return httpRes?.StatusCode;
             }
             catch (Exception ex)
             {

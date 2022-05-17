@@ -851,8 +851,7 @@ public static class PlatformExtensions
         if (!type.IsGenericTypeDefinition)
             throw new ArgumentException(type.FullName + " is not a Generic Type Definition");
 
-        if (argTypes == null)
-            argTypes = TypeConstants.EmptyTypeArray;
+        argTypes ??= TypeConstants.EmptyTypeArray;
 
         var sb = StringBuilderThreadStatic.Allocate()
             .Append(type.FullName);
@@ -1455,7 +1454,7 @@ public static class PlatformExtensions
 
                 try
                 {
-                    if (valueType == null || !valueType.IsClass || valueType == typeof(string))
+                    if (valueType is not {IsClass: true} || valueType == typeof(string))
                     {
                         to[entry.Key] = entry.Value;
                     }

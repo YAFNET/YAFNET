@@ -23,7 +23,7 @@ public static class AssertUtils
     /// <exception cref="System.ArgumentNullException"></exception>
     public static void AreNotNull<T>(params T[] fields)
     {
-        if (fields.Contains(default(T)))
+        if (fields.Contains(default))
         {
             throw new ArgumentNullException(typeof(T).Name);
         }

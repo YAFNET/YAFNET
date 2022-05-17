@@ -124,8 +124,7 @@ public static class PathUtils
     /// <returns>System.String.</returns>
     public static string CombineWith(this string path, string withPath)
     {
-        if (path == null)
-            path = "";
+        path ??= "";
         if (string.IsNullOrEmpty(withPath))
             return path;
         var startPath = path.TrimEndIf(Slashes);
@@ -140,8 +139,7 @@ public static class PathUtils
     /// <returns>System.String.</returns>
     public static string CombineWith(this string path, params string[] thesePaths)
     {
-        if (path == null)
-            path = "";
+        path ??= "";
 
         if (thesePaths.Length == 1 && thesePaths[0] == null) return path;
         var startPath = path.TrimEndIf(Slashes);

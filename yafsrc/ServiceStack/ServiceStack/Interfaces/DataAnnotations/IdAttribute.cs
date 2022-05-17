@@ -25,5 +25,8 @@ public class IdAttribute : AttributeBase
     /// Initializes a new instance of the <see cref="IdAttribute"/> class.
     /// </summary>
     /// <param name="id">The identifier.</param>
-    public IdAttribute(int id) => Id = id;
+    public IdAttribute(int id)
+    {
+        Id = id;
+    }
 }

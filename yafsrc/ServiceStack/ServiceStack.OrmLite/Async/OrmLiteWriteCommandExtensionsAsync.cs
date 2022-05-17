@@ -240,8 +240,7 @@ namespace ServiceStack.OrmLite
             IDbTransaction dbTrans = null;
 
             int count = 0;
-            if (dbCmd.Transaction == null)
-                dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -396,8 +395,7 @@ namespace ServiceStack.OrmLite
             IDbTransaction dbTrans = null;
 
             int count = 0;
-            if (dbCmd.Transaction == null)
-                dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -760,8 +758,7 @@ namespace ServiceStack.OrmLite
 
             IDbTransaction dbTrans = null;
 
-            if (dbCmd.Transaction == null)
-                dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -872,8 +869,7 @@ namespace ServiceStack.OrmLite
 
             IDbTransaction dbTrans = null;
 
-            if (dbCmd.Transaction == null)
-                dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
 

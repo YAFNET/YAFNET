@@ -234,7 +234,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns><c>true</c> if the specified target is true; otherwise, <c>false</c>.</returns>
-    public static bool isTrue(object target) => target is bool b && b;
+    public static bool isTrue(object target) => target is true;
 
     /// <summary>
     /// Determines whether the specified target is truthy.
@@ -311,7 +311,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="test">The test.</param>
     /// <param name="defaultValue">The default value.</param>
     /// <returns>System.Object.</returns>
-    public object ifElse(object returnTarget, object test, object defaultValue) => test is bool b && b ? returnTarget : defaultValue;
+    public object ifElse(object returnTarget, object test, object defaultValue) => test is true ? returnTarget : defaultValue;
     /// <summary>
     /// Ifs the not else.
     /// </summary>
@@ -1159,7 +1159,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns><c>true</c> if the specified target is list; otherwise, <c>false</c>.</returns>
-    public bool isList(object target) => target is IEnumerable && target is not IDictionary && target is not string;
+    public bool isList(object target) => target is IEnumerable and not IDictionary and not string;
     /// <summary>
     /// Determines whether the specified target is enumerable.
     /// </summary>
@@ -1298,11 +1298,9 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
             else
                 return target.GetType().Name == typeName;
         }
-        if (t == null)
-        {
-            t = type as Type
-                ?? throw new NotSupportedException($"{nameof(instanceOf)} expects Type or Type Name but was {type.GetType().Name}");
-        }
+        t ??= type as Type
+              ?? throw new NotSupportedException(
+                  $"{nameof(instanceOf)} expects Type or Type Name but was {type.GetType().Name}");
 
         return t.IsInstanceOfType(target);
     }
@@ -1665,7 +1663,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
             {
                 l.Insert(0, value);
             }
-            else if (collection is IEnumerable e && collection is not string)
+            else if (collection is IEnumerable e and not string)
             {
                 var to = new List<object> { value };
                 foreach (var item in e)
@@ -1678,7 +1676,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         }
         else
         {
-            if (value is IEnumerable && value is not string)
+            if (value is IEnumerable and not string)
                 args[varName] = value;
             else
                 args[varName] = new List<object> { value };
@@ -1726,14 +1724,14 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         if (args.TryGetValue(varName, out object collection))
         {
             if (TryAddToCollection(collection, value)) { }
-            else if (collection is IEnumerable e && collection is not string)
+            else if (collection is IEnumerable e and not string)
             {
                 var to = new List<object>();
                 foreach (var item in e)
                 {
                     to.Add(item);
                 }
-                if (value is IEnumerable eValues && value is not string)
+                if (value is IEnumerable eValues and not string)
                 {
                     foreach (var item in eValues)
                     {
@@ -2226,7 +2224,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Char.</returns>
-    public char toChar(object target) => target is string s && s.Length == 1 ? s[0] : target.ConvertTo<char>();
+    public char toChar(object target) => target is string {Length: 1} s ? s[0] : target.ConvertTo<char>();
     /// <summary>
     /// To the chars.
     /// </summary>
@@ -2579,12 +2577,12 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <returns>Task.</returns>
     public Task @do(ScriptScopeContext scope, object target, object expression, object scopeOptions)
     {
-        if (isNull(target) || target is bool b && !b)
+        if (isNull(target) || target is false)
             return TypeConstants.EmptyTask;
 
         var token = scope.AssertExpression(nameof(@do), expression, scopeOptions, out var itemBinding);
 
-        if (target is IEnumerable objs && target is not IDictionary && target is not string)
+        if (target is IEnumerable objs and not IDictionary and not string)
         {
             var items = target.AssertEnumerable(nameof(@do));
 
@@ -2629,9 +2627,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         if (o == null)
             return TypeConstants<PropertyInfo>.EmptyArray;
 
-        var type = o is Type t
-                       ? t
-                       : o.GetType();
+        var type = o as Type ?? o.GetType();
 
         return type.GetPublicProperties();
     }
@@ -2660,9 +2656,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         if (o == null)
             return TypeConstants<PropertyInfo>.EmptyArray;
 
-        var type = o is Type t
-                       ? t
-                       : o.GetType();
+        var type = o as Type ?? o.GetType();
 
         return type.GetProperties(BindingFlags.Static | BindingFlags.Public);
     }
@@ -2691,9 +2685,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         if (o == null)
             return TypeConstants<FieldInfo>.EmptyArray;
 
-        var type = o is Type t
-                       ? t
-                       : o.GetType();
+        var type = o as Type ?? o.GetType();
 
         return type.GetPublicFields();
     }
@@ -2722,9 +2714,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         if (o == null)
             return TypeConstants<FieldInfo>.EmptyArray;
 
-        var type = o is Type t
-                       ? t
-                       : o.GetType();
+        var type = o as Type ?? o.GetType();
 
         return type.GetFields(BindingFlags.Static | BindingFlags.Public);
     }
@@ -2792,7 +2782,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         var token = scope.AssertExpression(nameof(map), expression, scopeOptions, out var itemBinding);
 
         scope = scope.Clone();
-        if (target is IEnumerable items && target is not IDictionary && target is not string)
+        if (target is IEnumerable items and not IDictionary and not string)
         {
             var i = 0;
             return items.Map(item => token.Evaluate(scope.AddItemToScope(itemBinding, item, i++)));
@@ -2951,7 +2941,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         var template = JsonTypeSerializer.Unescape(selectTemplate.ToString(), removeQuotes: false);
         var itemScope = scope.CreateScopedContext(template, scopedParams);
 
-        if (target is IEnumerable objs && target is not IDictionary && target is not string)
+        if (target is IEnumerable objs and not IDictionary and not string)
         {
             var i = 0;
             foreach (var item in objs)
@@ -3014,7 +3004,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         pageParams[ScriptConstants.PartialArg] = page;
 
         scope = scope.Clone();
-        if (target is IEnumerable objs && target is not IDictionary && target is not string)
+        if (target is IEnumerable objs and not IDictionary and not string)
         {
             var i = 0;
             foreach (var item in objs)
@@ -3038,7 +3028,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <returns>System.Object.</returns>
     public object removeKeyFromDictionary(IDictionary dictionary, object keyToRemove)
     {
-        var removeKeys = keyToRemove is IEnumerable e && keyToRemove is not string
+        var removeKeys = keyToRemove is IEnumerable e and not string
                              ? e.Map(x => x)
                              : null;
 
@@ -3290,10 +3280,8 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
                                ? ld.ToArray()
                                : sources is List<object> lo
                                    ? lo.ToArray()
-                                   : sources is object[] la
-                                       ? la
-                                       : throw new NotSupportedException(
-                                             $"{nameof(merge)} cannot merge objects of type ${sources.GetType().Name}");
+                                   : sources as object[] ?? throw new NotSupportedException(
+                                         $"{nameof(merge)} cannot merge objects of type ${sources.GetType().Name}");
 
         return target.MergeIntoObjectDictionary(srcArray);
     }
@@ -3429,14 +3417,14 @@ public partial class DefaultScripts //Methods named after common keywords breaks
     /// </summary>
     /// <param name="test">The test.</param>
     /// <returns>System.Object.</returns>
-    public object @if(object test) => test is bool b && b ? (object)IgnoreResult.Value : StopExecution.Value;
+    public object @if(object test) => test is true ? IgnoreResult.Value : StopExecution.Value;
     /// <summary>
     /// Ifs the specified return target.
     /// </summary>
     /// <param name="returnTarget">The return target.</param>
     /// <param name="test">The test.</param>
     /// <returns>System.Object.</returns>
-    public object @if(object returnTarget, object test) => test is bool b && b ? returnTarget : StopExecution.Value;
+    public object @if(object returnTarget, object test) => test is true ? returnTarget : StopExecution.Value;
     /// <summary>
     /// Defaults the specified return target.
     /// </summary>

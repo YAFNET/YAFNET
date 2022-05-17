@@ -99,8 +99,7 @@ public abstract class SharpCodePage : IDisposable
             var arg = scope.GetValue(renderParam.Name);
             if (arg == null)
             {
-                if (requestParams == null)
-                    requestParams = (scope.GetValue("Request") as Web.IRequest)?.GetRequestParams();
+                requestParams ??= (scope.GetValue("Request") as Web.IRequest)?.GetRequestParams();
 
                 if (requestParams != null && requestParams.TryGetValue(renderParam.Name, out var reqParam))
                     arg = reqParam;
@@ -142,13 +141,11 @@ public abstract class SharpCodePage : IDisposable
             HasInit = true;
             var type = GetType();
 
-            if (Format == null)
-                Format = Context.PageFormats.First();
+            Format ??= Context.PageFormats.First();
 
             var pageAttr = type.FirstAttribute<PageAttribute>();
             VirtualPath = pageAttr.VirtualPath;
-            if (Layout == null)
-                Layout = pageAttr?.Layout;
+            Layout ??= pageAttr?.Layout;
 
             LayoutPage = Pages.ResolveLayoutPage(this, Layout);
 

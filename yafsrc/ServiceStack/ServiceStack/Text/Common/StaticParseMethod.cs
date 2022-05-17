@@ -119,32 +119,24 @@ public static class StaticParseMethod<T>
     const string ParseMethod = "Parse";
 
     /// <summary>
-    /// The cache function
-    /// </summary>
-    private static readonly ParseStringDelegate CacheFn;
-    /// <summary>
-    /// The cache string span function
-    /// </summary>
-    private static readonly ParseStringSpanDelegate CacheStringSpanFn;
-
-    /// <summary>
     /// Gets the parse.
     /// </summary>
     /// <value>The parse.</value>
-    public static ParseStringDelegate Parse => CacheFn;
+    public static ParseStringDelegate Parse { get; }
+
     /// <summary>
     /// Gets the parse string span.
     /// </summary>
     /// <value>The parse string span.</value>
-    public static ParseStringSpanDelegate ParseStringSpan => CacheStringSpanFn;
+    public static ParseStringSpanDelegate ParseStringSpan { get; }
 
     /// <summary>
     /// Initializes static members of the <see cref="StaticParseMethod{T}" /> class.
     /// </summary>
     static StaticParseMethod()
     {
-        CacheFn = ParseMethodUtilities.GetParseFn<T>(ParseMethod);
-        CacheStringSpanFn = ParseMethodUtilities.GetParseStringSpanFn<T>(ParseMethod);
+        Parse = ParseMethodUtilities.GetParseFn<T>(ParseMethod);
+        ParseStringSpan = ParseMethodUtilities.GetParseStringSpanFn<T>(ParseMethod);
     }
 
 }
@@ -172,31 +164,23 @@ internal static class StaticParseRefTypeMethod<TSerializer, T>
                                                        : "ParseStringSpanJson";
 
     /// <summary>
-    /// The cache function
-    /// </summary>
-    private static readonly ParseStringDelegate CacheFn;
-    /// <summary>
-    /// The cache string span function
-    /// </summary>
-    private static readonly ParseStringSpanDelegate CacheStringSpanFn;
-
-    /// <summary>
     /// Gets the parse.
     /// </summary>
     /// <value>The parse.</value>
-    public static ParseStringDelegate Parse => CacheFn;
+    public static ParseStringDelegate Parse { get; }
+
     /// <summary>
     /// Gets the parse string span.
     /// </summary>
     /// <value>The parse string span.</value>
-    public static ParseStringSpanDelegate ParseStringSpan => CacheStringSpanFn;
+    public static ParseStringSpanDelegate ParseStringSpan { get; }
 
     /// <summary>
     /// Initializes static members of the <see cref="StaticParseRefTypeMethod{TSerializer, T}" /> class.
     /// </summary>
     static StaticParseRefTypeMethod()
     {
-        CacheFn = ParseMethodUtilities.GetParseFn<T>(ParseMethod);
-        CacheStringSpanFn = ParseMethodUtilities.GetParseStringSpanFn<T>(ParseStringSpanMethod);
+        Parse = ParseMethodUtilities.GetParseFn<T>(ParseMethod);
+        ParseStringSpan = ParseMethodUtilities.GetParseStringSpanFn<T>(ParseStringSpanMethod);
     }
 }

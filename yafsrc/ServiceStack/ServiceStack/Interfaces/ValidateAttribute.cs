@@ -18,7 +18,7 @@ using ServiceStack.DataAnnotations;
 /// <summary>
 /// Assert pre-conditions before DTO's Fluent Validation properties are evaluated
 /// </summary>
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
 [Tag("PropertyOrder")]
 public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAttributeConverter
 {
@@ -31,7 +31,10 @@ public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAt
     /// Initializes a new instance of the <see cref="ValidateRequestAttribute"/> class.
     /// </summary>
     /// <param name="validator">The validator.</param>
-    public ValidateRequestAttribute(string validator) => Validator = validator;
+    public ValidateRequestAttribute(string validator)
+    {
+        Validator = validator;
+    }
 
     /// <summary>
     /// Script Expression to create an IPropertyValidator registered in Validators.Types
@@ -200,7 +203,10 @@ public class ValidateAttribute : AttributeBase, IValidateRule, IReflectAttribute
     /// Initializes a new instance of the <see cref="ValidateAttribute"/> class.
     /// </summary>
     /// <param name="validator">The validator.</param>
-    public ValidateAttribute(string validator) => Validator = validator;
+    public ValidateAttribute(string validator)
+    {
+        Validator = validator;
+    }
 
     /// <summary>
     /// Script Expression to create an IPropertyValidator registered in Validators.Types

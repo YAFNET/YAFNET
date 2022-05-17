@@ -38,15 +38,7 @@ public static class TextExtensions
     /// <returns>System.Object.</returns>
     public static object ToCsvField(this object text)
     {
-        var textSerialized = string.Empty;
-        if (text is string)
-        {
-            textSerialized = text.ToString();
-        }
-        else
-        {
-            textSerialized = TypeSerializer.SerializeToString(text).StripQuotes();
-        }
+        string textSerialized = text is string ? text.ToString() : TypeSerializer.SerializeToString(text).StripQuotes();
 
         return textSerialized.IsNullOrEmpty() || !CsvWriter.HasAnyEscapeChars(textSerialized)
                    ? textSerialized

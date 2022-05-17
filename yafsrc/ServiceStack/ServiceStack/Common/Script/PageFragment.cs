@@ -184,7 +184,7 @@ public class PageStringFragment : PageFragment
     /// Gets the value string.
     /// </summary>
     /// <value>The value string.</value>
-    public string ValueString => valueString ?? (valueString = Value.ToString());
+    public string ValueString => valueString ??= Value.ToString();
 
     /// <summary>
     /// The value UTF8
@@ -205,7 +205,10 @@ public class PageStringFragment : PageFragment
     /// Initializes a new instance of the <see cref="PageStringFragment"/> class.
     /// </summary>
     /// <param name="value">The value.</param>
-    public PageStringFragment(ReadOnlyMemory<char> value) => Value = value;
+    public PageStringFragment(ReadOnlyMemory<char> value)
+    {
+        Value = value;
+    }
 
     /// <summary>
     /// Equalses the specified other.
@@ -271,7 +274,7 @@ public class PageBlockFragment : PageFragment
     /// Gets the argument string.
     /// </summary>
     /// <value>The argument string.</value>
-    public string ArgumentString => argumentString ?? (argumentString = Argument.ToString());
+    public string ArgumentString => argumentString ??= Argument.ToString();
 
     /// <summary>
     /// Gets the body.

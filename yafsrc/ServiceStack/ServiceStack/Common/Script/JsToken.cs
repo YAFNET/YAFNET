@@ -142,7 +142,7 @@ public static class JsTokenUtils
         var a = new byte['z' + 1];
         for (var i = (int)'$'; i < a.Length; i++)
         {
-            if (i >= 'A' && i <= 'Z' || i >= 'a' && i <= 'z' || i >= '0' && i <= '9' || i == '_' || i == '$')
+            if (i is >= 'A' and <= 'Z' or >= 'a' and <= 'z' or >= '0' and <= '9' or '_' or '$')
                 a[i] = True;
         }
         ValidVarNameChars = a;
@@ -273,7 +273,7 @@ public static class JsTokenUtils
     /// <returns>System.Char.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static char SafeGetChar(this ReadOnlySpan<char> literal, int index) =>
-        index >= 0 && index < literal.Length ? literal[index] : default(char);
+        index >= 0 && index < literal.Length ? literal[index] : default;
 
     /// <summary>
     /// Counts the preceding occurrences.
@@ -713,7 +713,7 @@ public static class JsTokenUtils
             return literal.Advance(i + 1);
         }
 
-        if (firstChar >= '0' && firstChar <= '9')
+        if (firstChar is >= '0' and <= '9')
         {
             i = 1;
             var hasExponent = false;
@@ -863,13 +863,12 @@ public static class JsTokenUtils
     /// <returns>System.Int32.</returns>
     public static int IndexOfQuotedString(this ReadOnlySpan<char> literal, char quoteChar, out bool hasEscapeChars)
     {
-        char c;
         int i = 1;
         hasEscapeChars = false;
 
         while (i < literal.Length)
         {
-            c = literal[i];
+            char c = literal[i];
             if (c == quoteChar)
             {
                 if (!literal.SafeCharEquals(i - 1, '\\') ||

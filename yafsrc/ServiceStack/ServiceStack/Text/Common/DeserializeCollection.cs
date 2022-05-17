@@ -188,9 +188,9 @@ internal static class DeserializeCollection<TSerializer>
         do
         {
             snapshot = ParseDelegateCache;
-            newCache = new Dictionary<Type, ParseCollectionDelegate>(ParseDelegateCache);
-            newCache[elementType] = parseDelegate;
-
+            newCache = new Dictionary<Type, ParseCollectionDelegate>(ParseDelegateCache) {
+                           [elementType] = parseDelegate
+                       };
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref ParseDelegateCache, newCache, snapshot), snapshot));
 

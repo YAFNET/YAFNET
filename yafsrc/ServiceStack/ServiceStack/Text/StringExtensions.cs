@@ -1264,7 +1264,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>int.</returns>
-    public static int ToInt(this string text) => text == null ? default(int) : int.Parse(text);
+    public static int ToInt(this string text) => text == null ? default : int.Parse(text);
 
     /// <summary>
     /// Converts the string representation of a number to an integer.
@@ -1307,14 +1307,14 @@ public static class StringExtensions
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>float.</returns>
-    public static float ToFloat(this string text) => text == null ? default(float) : float.Parse(text);
+    public static float ToFloat(this string text) => text == null ? default : float.Parse(text);
 
     /// <summary>
     /// Converts to floatinvariant.
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>float.</returns>
-    public static float ToFloatInvariant(this string text) => text == null ? default(float) : float.Parse(text, CultureInfo.InvariantCulture);
+    public static float ToFloatInvariant(this string text) => text == null ? default : float.Parse(text, CultureInfo.InvariantCulture);
 
     /// <summary>
     /// Converts to float.
@@ -1329,14 +1329,14 @@ public static class StringExtensions
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>double.</returns>
-    public static double ToDouble(this string text) => text == null ? default(double) : double.Parse(text);
+    public static double ToDouble(this string text) => text == null ? default : double.Parse(text);
 
     /// <summary>
     /// Converts to doubleinvariant.
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>double.</returns>
-    public static double ToDoubleInvariant(this string text) => text == null ? default(double) : double.Parse(text, CultureInfo.InvariantCulture);
+    public static double ToDoubleInvariant(this string text) => text == null ? default : double.Parse(text, CultureInfo.InvariantCulture);
 
     /// <summary>
     /// Converts to double.
@@ -1351,14 +1351,14 @@ public static class StringExtensions
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>decimal.</returns>
-    public static decimal ToDecimal(this string text) => text == null ? default(decimal) : decimal.Parse(text);
+    public static decimal ToDecimal(this string text) => text == null ? default : decimal.Parse(text);
 
     /// <summary>
     /// Converts to decimalinvariant.
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>decimal.</returns>
-    public static decimal ToDecimalInvariant(this string text) => text == null ? default(decimal) : decimal.Parse(text, CultureInfo.InvariantCulture);
+    public static decimal ToDecimalInvariant(this string text) => text == null ? default : decimal.Parse(text, CultureInfo.InvariantCulture);
 
     /// <summary>
     /// Converts to decimal.
@@ -1557,9 +1557,8 @@ public static class StringExtensions
     /// <returns>System.Collections.Generic.IEnumerable&lt;string&gt;.</returns>
     public static IEnumerable<string> ReadLines(this string text)
     {
-        string line;
         var reader = new StringReader(text ?? "");
-        while ((line = reader.ReadLine()) != null)
+        while (reader.ReadLine() is { } line)
         {
             yield return line;
         }

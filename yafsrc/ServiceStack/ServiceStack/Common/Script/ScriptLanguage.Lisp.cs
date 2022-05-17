@@ -1632,7 +1632,7 @@ namespace ServiceStack.Script
         /// </summary>
         /// <param name="test">The test.</param>
         /// <returns><c>true</c> if the specified test is true; otherwise, <c>false</c>.</returns>
-        private static bool isTrue(object test) => test != null && !(test is bool b && !b);
+        private static bool isTrue(object test) => test != null && test is not false;
 
         /// <summary>
         /// Core of the Lisp interpreter
@@ -2040,9 +2040,7 @@ namespace ServiceStack.Script
                         ? DynamicInt.Instance.Convert(I.invoke(fnclosure, x, y))
                         : fnmacro != null
                             ? DynamicInt.Instance.Convert(I.invoke(fnclosure, x, y))
-                            : fnCompareTo != null
-                                ? fnCompareTo(x, y)
-                                : DynamicInt.Instance.Convert(I.invoke(fndel, x, y));
+                            : fnCompareTo?.Invoke(x, y) ?? DynamicInt.Instance.Convert(I.invoke(fndel, x, y));
 
                 /// <summary>
                 /// Determines whether the specified objects are equal.
@@ -2191,11 +2189,9 @@ namespace ServiceStack.Script
                 {
                     var scope = I.AssertScope();
 
-                    var path = a[0] is string s
-                        ? s
-                        : a[0] is Sym sym
-                            ? sym.Name + ".l"
-                            : throw new LispEvalException("not a string or symbol name", a[0]);
+                    var path = a[0] as string ?? (a[0] is Sym sym
+                                                      ? sym.Name + ".l"
+                                                      : throw new LispEvalException("not a string or symbol name", a[0]));
 
                     var cacheKey = nameof(Lisp) + ":load:" + path;
                     var importSymbols = (Dictionary<Sym, object>)scope.Context.Cache.GetOrAdd(cacheKey, k =>
@@ -2226,11 +2222,9 @@ namespace ServiceStack.Script
                 {
                     var scope = I.AssertScope();
 
-                    var path = a[0] is string s
-                        ? s
-                        : a[0] is Sym sym
-                            ? sym.Name + ".l"
-                            : throw new LispEvalException("not a string or symbol name", a[0]);
+                    var path = a[0] as string ?? (a[0] is Sym sym
+                                                      ? sym.Name + ".l"
+                                                      : throw new LispEvalException("not a string or symbol name", a[0]));
 
                     var span = lispContents(scope, path);
                     return span.ToString();
@@ -2464,10 +2458,7 @@ namespace ServiceStack.Script
                         else
                         {
                             var fn = resolve1ArgFn(keyFn, I);
-                            if (seq == null)
-                                seq = list.OrderBy(fn);
-                            else
-                                seq = seq.ThenBy(fn);
+                            seq = seq == null ? list.OrderBy(fn) : seq.ThenBy(fn);
                         }
                     }
 
@@ -2707,7 +2698,7 @@ namespace ServiceStack.Script
                 });
                 Def("average", -1, a =>
                 {
-                    var e = a[0] is Cell c ? c.Car is Cell ca ? ca : c : a[0] as IEnumerable ?? a;
+                    var e = a[0] is Cell c ? c.Car as Cell ?? c : a[0] as IEnumerable ?? a;
                     var rest = EnumerableUtils.SplitOnFirst(e, out var first);
                     var ret = FoldL(first, rest, DynamicNumber.Add);
                     return DynamicDouble.Instance.div(ret, rest.Count + 1);
@@ -3071,7 +3062,7 @@ namespace ServiceStack.Script
                                 {
                                     if (fn == QUOTE)
                                     {
-                                        if (arg != null && arg.Cdr == null)
+                                        if (arg is {Cdr: null})
                                             return arg.Car;
                                         throw new LispEvalException("bad quote", x);
                                     }
@@ -3103,7 +3094,7 @@ namespace ServiceStack.Script
                                     }
                                     else if (fn == QUASIQUOTE)
                                     {
-                                        if (arg != null && arg.Cdr == null)
+                                        if (arg is {Cdr: null})
                                             x = QqExpand(arg.Car);
                                         else
                                             throw new LispEvalException("bad quasiquote",
@@ -3318,9 +3309,7 @@ namespace ServiceStack.Script
 
                     var key = c.Car is Sym sym
                         ? sym.Name
-                        : c.Car is string s
-                            ? s
-                            : throw new LispEvalException("Map Key ", c.Car);
+                        : c.Car as string ?? throw new LispEvalException("Map Key ", c.Car);
 
                     if (c.Cdr is not Cell v)
                         throw new LispEvalException("Expected Cell Value", c.Cdr);
@@ -3366,25 +3355,21 @@ namespace ServiceStack.Script
                 for (; j != null; j = CdrCell(j))
                 {
                     var clause = j.Car;
-                    if (clause != null)
+                    switch (clause)
                     {
-                        if (clause is Cell k)
+                        case null:
+                            continue;
+                        case Cell k:
                         {
                             var result = Eval(k.Car, env);
-                            var f = result is bool b && !b;
-                            if (result != null && !f)
-                            { // If the condition holds //DB: added false check
-                                Cell body = CdrCell(k);
-                                if (body == null)
-                                    return QqQuote(result);
-                                else
-                                    return EvalProgN(body, env);
-                            }
+                            var f = result is false;
+                            if (result == null || f) continue;
+                            // If the condition holds //DB: added false check
+                            Cell body = CdrCell(k);
+                            return body == null ? QqQuote(result) : EvalProgN(body, env);
                         }
-                        else
-                        {
+                        default:
                             throw new LispEvalException("cond test expected", clause);
-                        }
                     }
                 }
                 return null;        // No clause holds.
@@ -3547,7 +3532,7 @@ namespace ServiceStack.Script
                     else if (k == QUASIQUOTE)
                     {
                         Cell d = CdrCell(cell);
-                        if (d != null && d.Cdr == null)
+                        if (d is {Cdr: null})
                         {
                             var z = QqExpand(d.Car);
                             return ExpandMacros(z, count, env);
@@ -4152,9 +4137,7 @@ namespace ServiceStack.Script
 
                     var keyString = symKey is Sym sym
                         ? sym.Name[0] == ':' ? sym.Name.Substring(1) : throw new LispEvalException("Expected Key Symbol with ':' prefix", symKey)
-                        : symKey is string s
-                            ? s
-                            : throw new LispEvalException("Expected Key Symbol or String", symKey);
+                        : symKey as string ?? throw new LispEvalException("Expected Key Symbol or String", symKey);
 
                     ReadToken();
 
@@ -4402,7 +4385,7 @@ namespace ServiceStack.Script
                 case Cell cell:
                     if (cell.Car is Sym csym && Quotes.ContainsKey(csym))
                     {
-                        if (cell.Cdr is Cell xcdr && xcdr.Cdr == null)
+                        if (cell.Cdr is Cell {Cdr: null} xcdr)
                             return Quotes[csym]
                                 + Str4(xcdr.Car, true, count, printed);
                     }
@@ -4447,8 +4430,7 @@ namespace ServiceStack.Script
         /// <returns>System.String.</returns>
         private static string StrListBody(Cell x, int count, HashSet<Cell> printed)
         {
-            if (printed == null)
-                printed = new HashSet<Cell>();
+            printed ??= new HashSet<Cell>();
             var s = new List<string>();
             object y;
             for (y = x; y is Cell cell; y = cell.Cdr)

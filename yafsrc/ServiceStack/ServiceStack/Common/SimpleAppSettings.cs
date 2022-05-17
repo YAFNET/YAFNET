@@ -29,8 +29,10 @@ public class SimpleAppSettings : IAppSettings
     /// Initializes a new instance of the <see cref="SimpleAppSettings"/> class.
     /// </summary>
     /// <param name="settings">The settings.</param>
-    public SimpleAppSettings(Dictionary<string, string> settings = null) =>
+    public SimpleAppSettings(Dictionary<string, string> settings = null)
+    {
         this.settings = settings ?? new Dictionary<string, string>();
+    }
 
     /// <summary>
     /// Gets all.
@@ -59,9 +61,7 @@ public class SimpleAppSettings : IAppSettings
     /// <param name="value">The value.</param>
     public void Set<T>(string key, T value)
     {
-        var textValue = value is string s
-                            ? s
-                            : value.ToJsv();
+        var textValue = value as string ?? value.ToJsv();
 
         settings[key] = textValue;
     }

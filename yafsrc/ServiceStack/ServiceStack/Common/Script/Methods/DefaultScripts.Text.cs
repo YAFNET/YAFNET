@@ -190,8 +190,7 @@ public partial class DefaultScripts
     /// <returns>System.String.</returns>
     public static string TextList(IEnumerable items, TextDumpOptions options)
     {
-        if (options == null)
-            options = new TextDumpOptions();
+        options ??= new TextDumpOptions();
 
         if (items is IDictionary<string, object> single)
             items = new[] { single };
@@ -272,8 +271,7 @@ public partial class DefaultScripts
     /// <returns>System.String.</returns>
     public static string TextDump(object target, TextDumpOptions options)
     {
-        if (options == null)
-            options = new TextDumpOptions();
+        options ??= new TextDumpOptions();
 
         var depth = options.Depth;
         options.Depth += 1;

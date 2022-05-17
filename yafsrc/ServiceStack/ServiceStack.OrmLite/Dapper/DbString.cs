@@ -81,7 +81,7 @@ public sealed class DbString : SqlMapper.ICustomQueryParameter
 #pragma warning disable 0618
         param.Value = SqlMapper.SanitizeParameterValue(Value);
 #pragma warning restore 0618
-        if (Length == -1 && Value != null && Value.Length <= DefaultLength)
+        if (Length == -1 && Value is {Length: <= DefaultLength})
         {
             param.Size = DefaultLength;
         }

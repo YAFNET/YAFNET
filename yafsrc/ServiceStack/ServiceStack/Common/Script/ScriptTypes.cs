@@ -26,7 +26,11 @@ public class RawString : IRawString
     /// Initializes a new instance of the <see cref="RawString"/> class.
     /// </summary>
     /// <param name="value">The value.</param>
-    public RawString(string value) => this.value = value;
+    public RawString(string value)
+    {
+        this.value = value;
+    }
+
     /// <summary>
     /// Converts to rawstring.
     /// </summary>

@@ -703,19 +703,12 @@ public static class ViewUtils
         var sb = StringBuilderCache.Allocate();
         sb.AppendLine("<style>");
 
-        foreach (var cssFile in cssFiles)
+        foreach (var file in cssFiles.Select(cssFile => !cssFile.StartsWith("/")
+                                                            ? "/css/" + cssFile + ".css"
+                                                            : cssFile).Select(virtualPath => vfs.GetFile(virtualPath.TrimStart('/'))).Where(file => file != null))
         {
-            var virtualPath = !cssFile.StartsWith("/")
-                                  ? "/css/" + cssFile + ".css"
-                                  : cssFile;
-
-            var file = vfs.GetFile(virtualPath.TrimStart('/'));
-            if (file == null)
-                continue;
-
             using var reader = file.OpenText();
-            string line;
-            while ((line = reader.ReadLine()) != null)
+            while (reader.ReadLine() is { } line)
             {
                 sb.AppendLine(line);
             }
@@ -740,19 +733,12 @@ public static class ViewUtils
         var sb = StringBuilderCache.Allocate();
         sb.AppendLine("<script>");
 
-        foreach (var jsFile in jsFiles)
+        foreach (var file in jsFiles.Select(jsFile => !jsFile.StartsWith("/")
+                                                          ? "/js/" + jsFile + ".js"
+                                                          : jsFile).Select(virtualPath => vfs.GetFile(virtualPath.TrimStart('/'))).Where(file => file != null))
         {
-            var virtualPath = !jsFile.StartsWith("/")
-                                  ? "/js/" + jsFile + ".js"
-                                  : jsFile;
-
-            var file = vfs.GetFile(virtualPath.TrimStart('/'));
-            if (file == null)
-                continue;
-
             using var reader = file.OpenText();
-            string line;
-            while ((line = reader.ReadLine()) != null)
+            while (reader.ReadLine() is { } line)
             {
                 sb.AppendLine(line);
             }
@@ -1228,13 +1214,11 @@ public static class ViewUtils
         if (arg == null)
             return TypeConstants.EmptyStringArray;
 
-        var strings = arg is IEnumerable<string> ls
-                          ? ls
-                          : arg is string s
-                              ? (IEnumerable<string>)new[] { s }
-                              : arg is IEnumerable<object> e
-                                  ? e.Map(x => x.AsString())
-                                  : throw new NotSupportedException($"{filterName} expected a collection of strings but was '{arg.GetType().Name}'");
+        var strings = arg as IEnumerable<string> ?? (arg is string s
+                                                         ? (IEnumerable<string>)new[] { s }
+                                                         : arg is IEnumerable<object> e
+                                                             ? e.Map(x => x.AsString())
+                                                             : throw new NotSupportedException($"{filterName} expected a collection of strings but was '{arg.GetType().Name}'"));
 
         return strings;
     }
@@ -1264,8 +1248,7 @@ public static class ViewUtils
         if (string.IsNullOrEmpty(errorSummaryMsg))
             return null;
 
-        if (divAttrs == null)
-            divAttrs = new Dictionary<string, object>();
+        divAttrs ??= new Dictionary<string, object>();
 
         if (!divAttrs.ContainsKey("class") && !divAttrs.ContainsKey("className"))
             divAttrs["class"] = ValidationSummaryCssClassNames;
@@ -1290,8 +1273,7 @@ public static class ViewUtils
     /// <returns>System.String.</returns>
     public static string ValidationSuccess(string message, Dictionary<string, object> divAttrs)
     {
-        if (divAttrs == null)
-            divAttrs = new Dictionary<string, object>();
+        divAttrs ??= new Dictionary<string, object>();
 
         if (!divAttrs.ContainsKey("class") && !divAttrs.ContainsKey("className"))
             divAttrs["class"] = ValidationSuccessCssClassNames;
@@ -1403,27 +1385,24 @@ public static class ViewUtils
     /// <returns>List&lt;System.String&gt;.</returns>
     public static List<string> SplitStringList(IEnumerable strings) => strings is null
                                                                            ? TypeConstants.EmptyStringList
-                                                                           : strings is List<string> strList
-                                                                               ? strList
-                                                                               : strings is IEnumerable<string> strEnum
-                                                                                   ? strEnum.ToList()
-                                                                                   : strings is IEnumerable<object> objEnum
-                                                                                       ? objEnum.Map(x => x.AsString())
-                                                                                       : strings is string strFields
-                                                                                           ? strFields.Split(',').Map(x => x.Trim())
-                                                                                           : throw new NotSupportedException($"Cannot convert '{strings.GetType().Name}' to List<string>");
+                                                                           : strings as List<string> ?? (strings switch
+                                                                                     {
+                                                                                         IEnumerable<string> strEnum => strEnum.ToList(),
+                                                                                         IEnumerable<object> objEnum => objEnum.Map(x => x.AsString()),
+                                                                                         string strFields => strFields.Split(',').Map(x => x.Trim()),
+                                                                                         _ => throw new NotSupportedException($"Cannot convert '{strings.GetType().Name}' to List<string>")
+                                                                                     });
 
     /// <summary>
     /// Converts to stringlist.
     /// </summary>
     /// <param name="strings">The strings.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
-    public static List<string> ToStringList(IEnumerable strings) => strings is List<string> l ? l
-                                                                        : strings is string s
-                                                                            ? new List<string> { s }
-                                                                            : strings is IEnumerable<string> e
-                                                                                ? new List<string>(e)
-                                                                                : strings.Map(x => x.AsString());
+    public static List<string> ToStringList(IEnumerable strings) => strings as List<string> ?? (strings is string s
+                                                                                                    ? new List<string> { s }
+                                                                                                    : strings is IEnumerable<string> e
+                                                                                                        ? new List<string>(e)
+                                                                                                        : strings.Map(x => x.AsString()));
 
     /// <summary>
     /// Forms the control.
@@ -1620,8 +1599,7 @@ public static class ViewUtils
                 throw new NotSupportedException($"<select> requires either 'values' inputOption containing a collection of Key/Value Pairs or 'html' argument containing innerHTML <option>'s");
         }
 
-        if (inputHtml == null)
-            inputHtml = HtmlScripts.htmlTag(args, tagName).AsString();
+        inputHtml ??= HtmlScripts.htmlTag(args, tagName).AsString();
 
         if (isCheck)
         {

@@ -42,12 +42,12 @@ public static class JSON
         bool isEscapedJsonString(ReadOnlySpan<char> js) =>
             js.StartsWith(@"{\") || js.StartsWith(@"[{\");
 
-        if (firstChar >= '0' && firstChar <= '9')
+        if (firstChar is >= '0' and <= '9')
         {
             try
             {
                 var longValue = MemoryProvider.Instance.ParseInt64(json);
-                return longValue >= int.MinValue && longValue <= int.MaxValue
+                return longValue is >= int.MinValue and <= int.MaxValue
                            ? (int)longValue
                            : longValue;
             }

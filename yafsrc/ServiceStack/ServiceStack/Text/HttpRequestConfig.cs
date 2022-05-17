@@ -1,4 +1,4 @@
-// ***********************************************************************
+﻿// ***********************************************************************
 // <copyright file="HttpRequestConfig.cs" company="ServiceStack, Inc.">
 //     Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // </copyright>
@@ -32,17 +32,11 @@ public class HttpRequestConfig
         Authorization = new("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes(name + ":" + value)));
     public void SetRange(long from, long? to = null) => Range = new(from, to);
     public void AddHeader(string name, string value) => Headers.Add(new(name, value));
-    public record NameValue
+    public record NameValue(string Name, string Value)
     {
-        public NameValue(string name, string value)
-        {
-            this.Name = name;
-            this.Value = value;
-        }
+        public string Name { get; } = Name;
 
-        public string Name { get; }
-
-        public string Value { get; }
+        public string Value { get; } = Value;
 
         public void Deconstruct(out string name, out string value)
         {
@@ -51,17 +45,11 @@ public class HttpRequestConfig
         }
     }
 
-    public record LongRange
+    public record LongRange(long From, long? To = null)
     {
-        public LongRange(long from, long? to = null)
-        {
-            this.From = from;
-            this.To = to;
-        }
+        public long From { get; } = From;
 
-        public long From { get; }
-
-        public long? To { get; }
+        public long? To { get; } = To;
 
         public void Deconstruct(out long from, out long? to)
         {

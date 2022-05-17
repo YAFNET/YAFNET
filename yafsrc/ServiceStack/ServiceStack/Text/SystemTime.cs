@@ -41,7 +41,7 @@ public static class SystemTime
         get
         {
             var temp = UtcDateTimeResolver;
-            return temp == null ? DateTime.UtcNow : temp();
+            return temp?.Invoke() ?? DateTime.UtcNow;
         }
     }
 }

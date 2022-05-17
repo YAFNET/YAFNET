@@ -48,15 +48,10 @@ public class DirectStreamWriter : TextWriter
     private bool needFlush;
 
     /// <summary>
-    /// The encoding
-    /// </summary>
-    private readonly Encoding encoding;
-
-    /// <summary>
     /// When overridden in a derived class, returns the character encoding in which the output is written.
     /// </summary>
     /// <value>The encoding.</value>
-    public override Encoding Encoding => encoding;
+    public override Encoding Encoding { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DirectStreamWriter"/> class.
@@ -66,7 +61,7 @@ public class DirectStreamWriter : TextWriter
     public DirectStreamWriter(Stream stream, Encoding encoding)
     {
         this.stream = stream;
-        this.encoding = encoding;
+        this.Encoding = encoding;
     }
 
     /// <summary>
@@ -91,8 +86,7 @@ public class DirectStreamWriter : TextWriter
         }
         else
         {
-            if (writer == null)
-                writer = new StreamWriter(stream, Encoding, s.Length < maxBufferLength ? s.Length : maxBufferLength);
+            writer ??= new StreamWriter(stream, Encoding, s.Length < maxBufferLength ? s.Length : maxBufferLength);
 
             writer.Write(s);
             needFlush = true;
@@ -118,8 +112,7 @@ public class DirectStreamWriter : TextWriter
         }
         else
         {
-            if (writer == null)
-                writer = new StreamWriter(stream, Encoding, optimizedBufferLength);
+            writer ??= new StreamWriter(stream, Encoding, optimizedBufferLength);
 
             writer.Write(c);
             needFlush = true;

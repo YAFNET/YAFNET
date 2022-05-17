@@ -30,10 +30,6 @@ internal static class WriteType<T, TSerializer>
     private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
-    /// The cache function
-    /// </summary>
-    private static readonly WriteObjectDelegate CacheFn;
-    /// <summary>
     /// The property writers
     /// </summary>
     internal static TypePropertyWriter[] PropertyWriters;
@@ -63,11 +59,11 @@ internal static class WriteType<T, TSerializer>
     {
         if (typeof(T) == typeof(object))
         {
-            CacheFn = WriteObjectType;
+            Write = WriteObjectType;
         }
         else
         {
-            CacheFn = Init() ? GetWriteFn() : WriteEmptyType;
+            Write = Init() ? GetWriteFn() : WriteEmptyType;
         }
 
         if (IsIncluded)
@@ -80,7 +76,7 @@ internal static class WriteType<T, TSerializer>
             WriteTypeInfo = TypeInfoWriter;
             if (!JsConfig.PreferInterfaces || !typeof(T).IsInterface)
             {
-                CacheFn = WriteAbstractProperties;
+                Write = WriteAbstractProperties;
             }
         }
     }
@@ -140,7 +136,7 @@ internal static class WriteType<T, TSerializer>
     /// Gets the write.
     /// </summary>
     /// <value>The write.</value>
-    public static WriteObjectDelegate Write => CacheFn;
+    public static WriteObjectDelegate Write { get; }
 
     /// <summary>
     /// Gets the write function.

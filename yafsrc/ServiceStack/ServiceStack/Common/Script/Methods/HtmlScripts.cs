@@ -82,8 +82,7 @@ public class HtmlScripts : ScriptMethods, IConfigureScriptContext
     /// <returns>System.String.</returns>
     public static string HtmlList(IEnumerable items, HtmlDumpOptions options)
     {
-        if (options == null)
-            options = new HtmlDumpOptions();
+        options ??= new HtmlDumpOptions();
 
         if (items is IDictionary<string, object> single)
             items = new[] { single };
@@ -199,8 +198,7 @@ public class HtmlScripts : ScriptMethods, IConfigureScriptContext
     /// <returns>System.String.</returns>
     public static string HtmlDump(object target, HtmlDumpOptions options)
     {
-        if (options == null)
-            options = new HtmlDumpOptions();
+        options ??= new HtmlDumpOptions();
 
         var depth = options.Depth;
         var childDepth = options.ChildDepth;
@@ -575,35 +573,32 @@ public class HtmlScripts : ScriptMethods, IConfigureScriptContext
     /// <exception cref="System.NotSupportedException"></exception>
     public string htmlClassList(object target)
     {
-        if (target == null)
-            return null;
-
-        if (target is string clsName)
-            return clsName;
+        switch (target)
+        {
+            case null:
+                return null;
+            case string clsName:
+                return clsName;
+        }
 
         var sb = StringBuilderCache.Allocate();
         if (target is Dictionary<string, object> flags)
         {
-            foreach (var entry in flags)
+            foreach (var entry in flags.Where(entry => entry.Value is true))
             {
-                if (entry.Value is bool b && b)
-                {
-                    if (sb.Length > 0)
-                        sb.Append(" ");
-                    sb.Append(entry.Key);
-                }
+                if (sb.Length > 0)
+                    sb.Append(" ");
+                sb.Append(entry.Key);
             }
         }
         else if (target is List<object> list)
         {
             foreach (var item in list)
             {
-                if (item is string str && str.Length > 0)
-                {
-                    if (sb.Length > 0)
-                        sb.Append(" ");
-                    sb.Append(str);
-                }
+                if (item is not string {Length: > 0} str) continue;
+                if (sb.Length > 0)
+                    sb.Append(" ");
+                sb.Append(str);
             }
         }
         else if (target != null)
@@ -637,7 +632,7 @@ public class HtmlScripts : ScriptMethods, IConfigureScriptContext
             return false;
 
         if (target is Dictionary<string, object> flags)
-            return flags.TryGetValue(name, out var oFlags) && oFlags is bool flag && flag;
+            return flags.TryGetValue(name, out var oFlags) && oFlags is true;
 
         if (target is List<object> list)
         {
@@ -802,16 +797,11 @@ public class HtmlScripts : ScriptMethods, IConfigureScriptContext
     {
         var scopedParams = attrs ?? TypeConstants.EmptyObjectDictionary;
 
-        var innerHtml = scopedParams.TryGetValue("html", out object oInnerHtml)
-                            ? oInnerHtml.AsString()
-                            : null;
-
-        if (innerHtml == null)
-        {
-            innerHtml = scopedParams.TryGetValue("text", out object text)
-                            ? text.AsString().HtmlEncode()
-                            : null;
-        }
+        var innerHtml = (scopedParams.TryGetValue("html", out object oInnerHtml)
+                             ? oInnerHtml.AsString()
+                             : null) ?? (scopedParams.TryGetValue("text", out object text)
+                                             ? text.AsString().HtmlEncode()
+                                             : null);
 
         var attrString = htmlAttrsList(attrs);
         return VoidElements.Contains(tag)

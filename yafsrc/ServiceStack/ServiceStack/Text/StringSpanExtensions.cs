@@ -571,7 +571,7 @@ public static class StringSpanExtensions
         if (dirSep == 0)
             return TypeConstants.NullStringSpan;
 
-        MemoryExtensions.TrimEnd(filePath, dirSep).SplitOnLast(dirSep, out var first, out _);
+        filePath.TrimEnd(dirSep).SplitOnLast(dirSep, out var first, out _);
         return first;
     }
 
@@ -843,7 +843,7 @@ public static class StringSpanExtensions
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Task WriteAsync(this Stream stream, ReadOnlySpan<char> value, CancellationToken token = default(CancellationToken)) =>
+    public static Task WriteAsync(this Stream stream, ReadOnlySpan<char> value, CancellationToken token = default) =>
         MemoryProvider.Instance.WriteAsync(stream, value, token);
 
     /// <summary>

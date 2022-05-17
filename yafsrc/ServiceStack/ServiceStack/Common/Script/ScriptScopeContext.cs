@@ -185,9 +185,7 @@ public static class ScriptScopeContextUtils
         requiresScope = false;
         var result = scope.PageResult;
 
-        fn = scope.GetValue(name) as Delegate;
-        if (fn == null)
-            fn = result.GetFilterInvoker(name, fnArgValuesCount, out scriptMethod);
+        fn = scope.GetValue(name) as Delegate ?? result.GetFilterInvoker(name, fnArgValuesCount, out scriptMethod);
 
         if (fn == null)
         {
@@ -297,11 +295,9 @@ public static class ScriptScopeContextUtils
         if (scopedParams == null && outputStream == null)
             return parentContext;
 
-        if (scopedParams == null)
-            scopedParams = parentContext.ScopedParams;
+        scopedParams ??= parentContext.ScopedParams;
 
-        if (outputStream == null)
-            outputStream = parentContext.OutputStream;
+        outputStream ??= parentContext.OutputStream;
 
         if (parentContext.ScopedParams.Count == 0)
             return new ScriptScopeContext(parentContext.PageResult, outputStream, scopedParams);

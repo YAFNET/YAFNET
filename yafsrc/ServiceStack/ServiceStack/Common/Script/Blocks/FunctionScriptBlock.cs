@@ -5,8 +5,6 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using ServiceStack.Text;
@@ -44,7 +42,7 @@ public class FunctionScriptBlock : ScriptBlock
     {
         // block.Argument key is unique to exact memory fragment, not string equality
         // Parse into AST once for all Page Results
-        var invokerCtx = (Tuple<string, StaticMethodInvoker>)scope.Context.CacheMemory.GetOrAdd(block.Argument, key =>
+        var invokerCtx = (Tuple<string, StaticMethodInvoker>)scope.Context.CacheMemory.GetOrAdd(block.Argument, _ =>
             {
                 var literal = block.Argument.Span.ParseVarName(out var name);
                 var strName = name.ToString();
@@ -54,7 +52,7 @@ public class FunctionScriptBlock : ScriptBlock
                 var args = TypeConstants.EmptyStringArray;
                 if (!literal.IsEmpty)
                 {
-                    literal = literal.ParseArgumentsList(out var argIdentifiers);
+                    literal.ParseArgumentsList(out var argIdentifiers);
                     args = new string[argIdentifiers.Count];
                     for (var i = 0; i < argIdentifiers.Count; i++)
                     {
@@ -65,15 +63,14 @@ public class FunctionScriptBlock : ScriptBlock
                 StaticMethodInvoker invoker = null;
 
                 // Allow recursion by initializing lazy Delegate
-                MethodInvoker LazyInvoker = (instance, paramValues) =>
-                    {
-                        if (invoker == null)
-                            throw new NotSupportedException($"Uninitialized function '{strName}'");
+                object LazyInvoker(object instance, object[] paramValues)
+                {
+                    if (invoker == null) throw new NotSupportedException($"Uninitialized function '{strName}'");
 
-                        return invoker(instance, paramValues);
-                    };
+                    return invoker(instance, paramValues);
+                }
 
-                invoker = (paramValues) =>
+                invoker = paramValues =>
                     {
                         scope.PageResult.StackDepth++;
                         try
@@ -82,7 +79,7 @@ public class FunctionScriptBlock : ScriptBlock
                             var pageResult = new PageResult(page)
                                                  {
                                                      Args = {
-                                                                    [strName] = LazyInvoker
+                                                                    [strName] = (MethodInvoker) LazyInvoker
                                                                 },
                                                      StackDepth = scope.PageResult.StackDepth
                                                  };

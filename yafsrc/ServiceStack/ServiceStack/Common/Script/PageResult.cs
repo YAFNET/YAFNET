@@ -753,7 +753,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     /// <param name="page">The page.</param>
     /// <param name="scope">The scope.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    internal async Task WritePageAsyncInternal(SharpPage page, ScriptScopeContext scope, CancellationToken token = default(CancellationToken))
+    internal async Task WritePageAsyncInternal(SharpPage page, ScriptScopeContext scope, CancellationToken token = default)
     {
         await page.Init().ConfigAwait(); //reload modified changes if needed
 
@@ -767,7 +767,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     /// <param name="scope">The scope.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public async Task WriteCodePageAsync(SharpCodePage page, ScriptScopeContext scope, CancellationToken token = default(CancellationToken))
+    public async Task WriteCodePageAsync(SharpCodePage page, ScriptScopeContext scope, CancellationToken token = default)
     {
         if (PageTransformers.Count == 0)
         {
@@ -800,7 +800,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     /// <param name="scope">The scope.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    internal Task WriteCodePageAsyncInternal(SharpCodePage page, ScriptScopeContext scope, CancellationToken token = default(CancellationToken))
+    internal Task WriteCodePageAsyncInternal(SharpCodePage page, ScriptScopeContext scope, CancellationToken token = default)
     {
         page.Scope = scope;
 
@@ -925,7 +925,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     /// <exception cref="System.NotSupportedException">Could not find FilterTransformer '{var.FilterExpressions[exprIndex].Name}' in page '{Page.VirtualPath}'</exception>
     /// <exception cref="System.Reflection.TargetInvocationException">Failed to invoke script method '{expr.GetDisplayName()}': {ex.Message}</exception>
     /// <exception cref="System.Reflection.TargetInvocationException">Failed to invoke script method '{filterName}': {useEx.Message}</exception>
-    private async Task<object> EvaluateAsync(PageVariableFragment var, ScriptScopeContext scope, CancellationToken token = default(CancellationToken))
+    private async Task<object> EvaluateAsync(PageVariableFragment var, ScriptScopeContext scope, CancellationToken token = default)
     {
         scope.ScopedParams[nameof(PageVariableFragment)] = var;
 
@@ -951,7 +951,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
                 var hasFilterAsBinding = GetFilterAsBinding(var.Binding, out ScriptMethods filter);
                 if (hasFilterAsBinding != null)
                 {
-                    value = InvokeFilter(hasFilterAsBinding, filter, new object[0], var.Binding);
+                    value = InvokeFilter(hasFilterAsBinding, filter, Array.Empty<object>(), var.Binding);
                 }
                 else
                 {
@@ -1149,8 +1149,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
                         }
                     }
 
-                    if (errorBinding == null)
-                        errorBinding = AssignExceptionsTo ?? CatchExceptionsIn ?? Context.AssignExceptionsTo;
+                    errorBinding ??= AssignExceptionsTo ?? CatchExceptionsIn ?? Context.AssignExceptionsTo;
 
                     if (!string.IsNullOrEmpty(errorBinding))
                     {
@@ -1493,7 +1492,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
                                             : argsOnly
                                                 ? null
                                                 : (invoker = GetFilterAsBinding(name, out var filter)) != null
-                                                    ? InvokeFilter(invoker, filter, new object[0], name)
+                                                    ? InvokeFilter(invoker, filter, Array.Empty<object>(), name)
                                                     : (invoker = GetContextFilterAsBinding(name, out filter)) != null
                                                         ? InvokeFilter(invoker, filter, new object[] { scope }, name)
                                                         : null;

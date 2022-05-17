@@ -608,9 +608,7 @@ public partial class DefaultScripts
     public ICollection values(object target) =>
         target is IDictionary d
             ? d.Values
-            : target is IList l
-                ? l
-                : throw new NotSupportedException($"{target.GetType().Name} is not supported");
+            : target as IList ?? throw new NotSupportedException($"{target.GetType().Name} is not supported");
 
     /// <summary>
     /// Adds the path.
@@ -851,7 +849,7 @@ public partial class DefaultScripts
     /// <param name="jsconfig">The jsconfig.</param>
     /// <returns>IRawString.</returns>
     public IRawString indentJson(object value, string jsconfig) =>
-        (value is string js ? js : json(value).ToRawString()).IndentJson().ToRawString();
+        (value as string ?? json(value).ToRawString()).IndentJson().ToRawString();
 
     //Blocks
     /// <summary>

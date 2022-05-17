@@ -118,16 +118,10 @@ public static class ScriptConfig
     /// <returns>CultureInfo.</returns>
     public static CultureInfo CreateCulture()
     {
-        var culture = DefaultCulture;
-        if (culture == null)
-        {
-            culture = CultureInfo.CurrentCulture;
-        }
-        if (Equals(culture, CultureInfo.InvariantCulture))
-        {
-            culture = (CultureInfo)culture.Clone();
-            culture.NumberFormat.CurrencySymbol = "$";
-        }
+        var culture = DefaultCulture ?? CultureInfo.CurrentCulture;
+        if (!Equals(culture, CultureInfo.InvariantCulture)) return culture;
+        culture = (CultureInfo)culture.Clone();
+        culture.NumberFormat.CurrencySymbol = "$";
         return culture;
     }
 }

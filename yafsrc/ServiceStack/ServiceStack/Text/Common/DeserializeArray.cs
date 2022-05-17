@@ -65,9 +65,9 @@ public static class DeserializeArrayWithElements<TSerializer>
         do
         {
             snapshot = ParseDelegateCache;
-            newCache = new Dictionary<Type, ParseArrayOfElementsDelegate>(ParseDelegateCache);
-            newCache[type] = parseFn;
-
+            newCache = new Dictionary<Type, ParseArrayOfElementsDelegate>(ParseDelegateCache) {
+                           [type] = parseFn
+                       };
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref ParseDelegateCache, newCache, snapshot), snapshot));
 
@@ -137,7 +137,7 @@ public static class DeserializeArrayWithElements<T, TSerializer>
                 {
                     // If we ate a separator and we are at the end of the value,
                     // it means the last element is empty => add default
-                    to.Add(default(T));
+                    to.Add(default);
                 }
             }
 

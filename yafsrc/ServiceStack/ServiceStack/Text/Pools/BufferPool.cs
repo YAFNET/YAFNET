@@ -122,7 +122,7 @@ public sealed class BufferPool
             for (var i = 0; i < Pool.Length; i++)
             {
                 var tmp = Pool[i];
-                if (tmp == null || !tmp.IsAlive)
+                if (tmp is not {IsAlive: true})
                 {
                     minIndex = 0;
                     break;

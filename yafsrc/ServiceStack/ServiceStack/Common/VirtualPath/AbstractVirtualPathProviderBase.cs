@@ -207,8 +207,7 @@ public abstract class AbstractVirtualPathProviderBase : IVirtualPathProvider
     /// <exception cref="System.NotSupportedException"></exception>
     public virtual void WriteFiles(Dictionary<string, string> textFiles)
     {
-        var vfs = this as IVirtualFiles;
-        if (vfs == null)
+        if (this is not IVirtualFiles vfs)
             throw new NotSupportedException($"{GetType().Name} does not implement IVirtualFiles");
 
         foreach (var entry in textFiles)

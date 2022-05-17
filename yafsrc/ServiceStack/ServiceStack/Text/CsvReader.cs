@@ -469,7 +469,7 @@ public class CsvReader<T>
     /// <returns>T.</returns>
     public static T ReadRow(string value)
     {
-        return value == null ? default(T) : Read(CsvReader.ParseLines(value)).FirstOrDefault();
+        return value == null ? default : Read(CsvReader.ParseLines(value)).FirstOrDefault();
     }
 
 }

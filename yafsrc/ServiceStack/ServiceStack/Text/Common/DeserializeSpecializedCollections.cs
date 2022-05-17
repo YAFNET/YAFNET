@@ -190,8 +190,7 @@ internal static class DeserializeSpecializedCollections<T, TSerializer>
         var genericType = typeof(SpecializedEnumerableElements<,>).MakeGenericType(typeof(T), elementType);
         var fi = genericType.GetPublicStaticField("ConvertFn");
 
-        var convertFn = fi.GetValue(null) as ConvertObjectDelegate;
-        if (convertFn == null) return null;
+        if (fi.GetValue(null) is not ConvertObjectDelegate convertFn) return null;
 
         var parseFn = DeserializeEnumerable<T, TSerializer>.GetParseStringSpanFn();
 

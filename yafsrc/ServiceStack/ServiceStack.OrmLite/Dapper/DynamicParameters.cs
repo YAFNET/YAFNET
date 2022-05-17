@@ -72,13 +72,11 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
         var obj = param;
         if (obj != null)
         {
-            var subDynamic = obj as DynamicParameters;
-            if (subDynamic == null)
+            if (obj is not DynamicParameters subDynamic)
             {
-                var dictionary = obj as IEnumerable<KeyValuePair<string, object>>;
-                if (dictionary == null)
+                if (obj is not IEnumerable<KeyValuePair<string, object>> dictionary)
                 {
-                    templates = templates ?? new List<object>();
+                    templates ??= new List<object>();
                     templates.Add(obj);
                 }
                 else
@@ -99,13 +97,11 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
                     }
                 }
 
-                if (subDynamic.templates != null)
+                if (subDynamic.templates == null) return;
+                templates ??= new List<object>();
+                foreach (var t in subDynamic.templates)
                 {
-                    templates = templates ?? new List<object>();
-                    foreach (var t in subDynamic.templates)
-                    {
-                        templates.Add(t);
-                    }
+                    templates.Add(t);
                 }
             }
         }
@@ -375,7 +371,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
     {
         var failMessage = "Expression must be a property/field chain off of a(n) {0} instance";
         failMessage = string.Format(failMessage, typeof(T).Name);
-        Action @throw = () => throw new InvalidOperationException(failMessage);
+        void Throw() => throw new InvalidOperationException(failMessage);
 
         // Is it even a MemberExpression?
         var lastMemberAccess = expression.Body as MemberExpression;
@@ -393,15 +389,15 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
             }
             else
             {
-                @throw();
+                Throw();
             }
         }
 
         // Does the chain consist of MemberExpressions leading to a ParameterExpression of type T?
         MemberExpression diving = lastMemberAccess;
         // Retain a list of member names and the member expressions so we can rebuild the chain.
-        List<string> names = new List<string>();
-        List<MemberExpression> chain = new List<MemberExpression>();
+        List<string> names = new();
+        List<MemberExpression> chain = new();
 
         do
         {
@@ -421,7 +417,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
                      || !(diving.Member is PropertyInfo)
                      && !(diving.Member is FieldInfo))
             {
-                @throw();
+                Throw();
             }
         }
         while (diving != null);

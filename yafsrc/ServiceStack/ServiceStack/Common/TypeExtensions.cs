@@ -522,7 +522,7 @@ public static class TypeExtensions
     public static T ConvertFromObject<T>(object value)
     {
         if (value == null)
-            return default(T);
+            return default;
 
         if (value is T variable)
             return variable;

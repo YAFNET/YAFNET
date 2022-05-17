@@ -355,7 +355,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>System.String.</returns>
     public override string GetLoadChildrenSubSelect<From>(SqlExpression<From> expr)
     {
-        return $"SELECT * FROM ({base.GetLoadChildrenSubSelect(expr)}) AS SubQuery";
+        // Workaround for: MySQL - This version of MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery
+        return expr.Rows != null
+                   ? $"SELECT * FROM ({base.GetLoadChildrenSubSelect(expr)}) AS SubQuery"
+                   : base.GetLoadChildrenSubSelect(expr);
     }
 
     /// <summary>

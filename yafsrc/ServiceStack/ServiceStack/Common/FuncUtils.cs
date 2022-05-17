@@ -49,7 +49,7 @@ public static class FuncUtils
     /// <returns>T.</returns>
     public static T TryExec<T>(Func<T> func)
     {
-        return TryExec(func, default(T));
+        return TryExec(func, default);
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ public static class FuncUtils
         {
             Log.Error(ex.Message, ex);
         }
-        return default(T);
+        return default;
     }
 
 #if !SL5 //SL5 - No Stopwatch, Net Standard 1.1 - no Thread 

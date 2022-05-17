@@ -194,10 +194,7 @@ public class MultiVirtualFiles
     /// Gets the child virtual files.
     /// </summary>
     /// <value>The child virtual files.</value>
-    public IEnumerable<IVirtualPathProvider> ChildVirtualFiles
-    {
-        get { return ChildProviders.Where(x => x is IVirtualFiles); }
-    }
+    public IEnumerable<IVirtualPathProvider> ChildVirtualFiles => ChildProviders.Where(x => x is IVirtualFiles);
 
     /// <summary>
     /// Writes the file.

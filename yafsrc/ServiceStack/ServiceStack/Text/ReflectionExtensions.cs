@@ -394,9 +394,9 @@ public static class ReflectionExtensions
         do
         {
             snapshot = ConstructorMethods;
-            newCache = new Dictionary<Type, EmptyCtorDelegate>(ConstructorMethods);
-            newCache[type] = emptyCtorFn;
-
+            newCache = new Dictionary<Type, EmptyCtorDelegate>(ConstructorMethods) {
+                           [type] = emptyCtorFn
+                       };
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref ConstructorMethods, newCache, snapshot), snapshot));
 
@@ -573,7 +573,7 @@ public static class ReflectionExtensions
     public static T CreateInstance<T>(this Type type)
     {
         if (type == null)
-            return default(T);
+            return default;
 
         var ctorFn = GetConstructorMethod(type);
         return (T)ctorFn();
@@ -602,7 +602,7 @@ public static class ReflectionExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Module GetModule(this Type type)
     {
-        return type == null ? null : type.Module;
+        return type?.Module;
     }
 
     /// <summary>

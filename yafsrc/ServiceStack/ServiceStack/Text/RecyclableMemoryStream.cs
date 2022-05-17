@@ -1625,12 +1625,12 @@ public sealed class RecyclableMemoryStream : MemoryStream
             this.CheckDisposed();
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", "value must be non-negative");
+                throw new ArgumentOutOfRangeException(nameof(value), "value must be non-negative");
             }
 
             if (value > MaxStreamLength)
             {
-                throw new ArgumentOutOfRangeException("value", "value cannot be more than " + MaxStreamLength);
+                throw new ArgumentOutOfRangeException(nameof(value), "value cannot be more than " + MaxStreamLength);
             }
 
             this.position = (int)value;
@@ -2327,11 +2327,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
         }
         else
         {
-            if (this.dirtyBuffers == null)
-            {
-                // We most likely will only ever need space for one
-                this.dirtyBuffers = new List<byte[]>(1);
-            }
+            this.dirtyBuffers ??= new List<byte[]>(1);
             this.dirtyBuffers.Add(this.largeBuffer);
         }
 

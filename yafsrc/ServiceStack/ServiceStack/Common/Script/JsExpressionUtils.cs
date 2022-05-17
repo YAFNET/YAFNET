@@ -326,9 +326,7 @@ public static class JsExpressionUtils
 
         if (literal.IsNullOrEmpty())
         {
-            expr = lhs is JsExpression jsExpr
-                       ? jsExpr
-                       : throw new SyntaxErrorException($"Expected Expression but was {lhs.DebugToken()}");
+            expr = lhs as JsExpression ?? throw new SyntaxErrorException($"Expected Expression but was {lhs.DebugToken()}");
         }
         else
         {
@@ -396,9 +394,7 @@ public static class JsExpressionUtils
             }
             else
             {
-                expr = lhs is JsExpression jsExpr
-                           ? jsExpr
-                           : throw new SyntaxErrorException($"Expected Expression but was {lhs.DebugToken()}");
+                expr = lhs as JsExpression ?? throw new SyntaxErrorException($"Expected Expression but was {lhs.DebugToken()}");
             }
         }
 

@@ -112,7 +112,7 @@ internal static class DeserializeTypeRefJsv
                 continue;
             }
 
-            if (instance == null) instance = ctorFn();
+            instance ??= ctorFn();
 
             var typeAccessor = typeAccessors.Get(propertyName, lenient);
 
@@ -143,7 +143,7 @@ internal static class DeserializeTypeRefJsv
                 }
             }
 
-            if (typeAccessor?.GetProperty != null && typeAccessor.SetProperty != null)
+            if (typeAccessor is {GetProperty: { }, SetProperty: { }})
             {
                 try
                 {

@@ -59,7 +59,7 @@ public static class TypeSerializer
     /// <returns>T.</returns>
     public static T DeserializeFromString<T>(string value)
     {
-        if (string.IsNullOrEmpty(value)) return default(T);
+        if (string.IsNullOrEmpty(value)) return default;
         return (T)JsvReader<T>.Parse(value);
     }
 
@@ -71,7 +71,7 @@ public static class TypeSerializer
     /// <returns>T.</returns>
     public static T DeserializeFromSpan<T>(ReadOnlySpan<char> value)
     {
-        if (value.IsEmpty) return default(T);
+        if (value.IsEmpty) return default;
         return (T)JsvReader<T>.Parse(value);
     }
 

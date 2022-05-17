@@ -49,12 +49,20 @@ public class JsIdentifier : JsExpression
     /// Initializes a new instance of the <see cref="JsIdentifier"/> class.
     /// </summary>
     /// <param name="name">The name.</param>
-    public JsIdentifier(string name) => Name = name;
+    public JsIdentifier(string name)
+    {
+        Name = name;
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="JsIdentifier"/> class.
     /// </summary>
     /// <param name="name">The name.</param>
-    public JsIdentifier(ReadOnlySpan<char> name) => Name = name.Value();
+    public JsIdentifier(ReadOnlySpan<char> name)
+    {
+        Name = name.Value();
+    }
+
     /// <summary>
     /// Converts to rawstring.
     /// </summary>
@@ -140,7 +148,11 @@ public class JsLiteral : JsExpression
     /// Initializes a new instance of the <see cref="JsLiteral"/> class.
     /// </summary>
     /// <param name="value">The value.</param>
-    public JsLiteral(object value) => Value = value;
+    public JsLiteral(object value)
+    {
+        Value = value;
+    }
+
     /// <summary>
     /// Converts to rawstring.
     /// </summary>
@@ -212,7 +224,11 @@ public class JsArrayExpression : JsExpression
     /// Initializes a new instance of the <see cref="JsArrayExpression"/> class.
     /// </summary>
     /// <param name="elements">The elements.</param>
-    public JsArrayExpression(params JsToken[] elements) => Elements = elements.ToArray();
+    public JsArrayExpression(params JsToken[] elements)
+    {
+        Elements = elements.ToArray();
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="JsArrayExpression"/> class.
     /// </summary>
@@ -339,7 +355,11 @@ public class JsObjectExpression : JsExpression
     /// Initializes a new instance of the <see cref="JsObjectExpression"/> class.
     /// </summary>
     /// <param name="properties">The properties.</param>
-    public JsObjectExpression(params JsProperty[] properties) => Properties = properties;
+    public JsObjectExpression(params JsProperty[] properties)
+    {
+        Properties = properties;
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="JsObjectExpression"/> class.
     /// </summary>
@@ -354,14 +374,13 @@ public class JsObjectExpression : JsExpression
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Invalid Key. Expected a Literal or Identifier but was {token.DebugToken()}</exception>
     public static string GetKey(JsToken token)
     {
-        if (token is JsLiteral literalKey)
-            return literalKey.Value.ToString();
-        if (token is JsIdentifier identifierKey)
-            return identifierKey.Name;
-        if (token is JsMemberExpression memberExpr && memberExpr.Property is JsIdentifier prop)
-            return prop.Name;
-
-        throw new SyntaxErrorException($"Invalid Key. Expected a Literal or Identifier but was {token.DebugToken()}");
+        return token switch {
+            JsLiteral literalKey => literalKey.Value.ToString(),
+            JsIdentifier identifierKey => identifierKey.Name,
+            JsMemberExpression {Property: JsIdentifier prop} => prop.Name,
+            _ => throw new SyntaxErrorException(
+                     $"Invalid Key. Expected a Literal or Identifier but was {token.DebugToken()}")
+        };
     }
 
     /// <summary>

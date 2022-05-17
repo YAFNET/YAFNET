@@ -68,7 +68,7 @@ public static class ListExtensions
     /// <returns>System.Int32.</returns>
     public static int NullableCount<T>(this List<T> list)
     {
-        return list == null ? 0 : list.Count;
+        return list?.Count ?? 0;
     }
 
     /// <summary>

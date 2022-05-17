@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DateTimeExtensions.cs" company="ServiceStack, Inc.">
 //   Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // </copyright>
@@ -104,17 +104,14 @@ public static class DateTimeExtensions
 
     public static DateTime FromUnixTimeMs(string msSince1970)
     {
-        long ms;
-        if (long.TryParse(msSince1970, out ms)) return ms.FromUnixTimeMs();
+        return long.TryParse(msSince1970, out long ms) ? ms.FromUnixTimeMs() : double.Parse(msSince1970).FromUnixTimeMs();
 
         // Do we really need to support fractional unix time ms time strings??
-        return double.Parse(msSince1970).FromUnixTimeMs();
     }
 
     public static DateTime FromUnixTimeMs(string msSince1970, TimeSpan offset)
     {
-        long ms;
-        if (long.TryParse(msSince1970, out ms)) return ms.FromUnixTimeMs(offset);
+        if (long.TryParse(msSince1970, out long ms)) return ms.FromUnixTimeMs(offset);
 
         // Do we really need to support fractional unix time ms time strings??
         return double.Parse(msSince1970).FromUnixTimeMs(offset);

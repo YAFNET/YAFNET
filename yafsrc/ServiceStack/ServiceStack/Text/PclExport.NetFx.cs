@@ -946,7 +946,7 @@ namespace ServiceStack.Text
         /// <exception cref="ArgumentNullException">target</exception>
         public static ObjectAccessor Create(object target)
         {
-            if (target == null) throw new ArgumentNullException("target");
+            if (target == null) throw new ArgumentNullException(nameof(target));
             //IDynamicMetaObjectProvider dlr = target as IDynamicMetaObjectProvider;
             //if (dlr != null) return new DynamicWrapper(dlr); // use the DLR
             return new TypeAccessorWrapper(target, TypeAccessor.Create(target.GetType()));
