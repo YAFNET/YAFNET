@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.ServiceModel.Syndication;
@@ -37,8 +35,6 @@ using YAF.Core.Services.Syndication;
 using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Constants;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Syndication feeds.

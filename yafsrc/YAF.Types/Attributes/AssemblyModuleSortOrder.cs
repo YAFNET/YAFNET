@@ -29,8 +29,6 @@ namespace YAF.Types.Attributes;
 [AttributeUsage(AttributeTargets.Assembly)]
 public class AssemblyModuleSortOrder : Attribute, IHaveSortOrder
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="AssemblyModuleSortOrder"/> class.
     /// </summary>
@@ -42,14 +40,8 @@ public class AssemblyModuleSortOrder : Attribute, IHaveSortOrder
         this.SortOrder = value;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets SortOrder.
     /// </summary>
     public int SortOrder { get; protected set; }
-
-    #endregion
 }

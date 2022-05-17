@@ -31,16 +31,10 @@ using YAF.Types.Models;
 /// </summary>
 public partial class Members : ForumPage
 {
-    #region Fields
-
     /// <summary>
     /// The user List.
     /// </summary>
     private List<PagedUser> userList;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Members" /> class.
@@ -49,10 +43,6 @@ public partial class Members : ForumPage
         : base("MEMBERS", ForumPages.Members)
     {
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Handles the Click event of the Search control.
@@ -86,10 +76,6 @@ public partial class Members : ForumPage
 
         base.OnPreRender(e);
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Gets the avatar Url for the user
@@ -609,6 +595,4 @@ public partial class Members : ForumPage
                 break;
         }
     }
-
-    #endregion
 }

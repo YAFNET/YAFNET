@@ -24,21 +24,15 @@
 
 namespace YAF.Pages.Profile;
 
-#region Using
-
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// User Page To Manage Email Subscriptions
 /// </summary>
 public partial class Subscriptions : ProfilePage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Subscriptions"/> class.
     /// </summary>
@@ -46,10 +40,6 @@ public partial class Subscriptions : ProfilePage
         : base("SUBSCRIPTIONS", ForumPages.Profile_Subscriptions)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -377,6 +367,4 @@ public partial class Subscriptions : ProfilePage
 
         this.SubscribeHolder.Visible = showSubscribe;
     }
-
-    #endregion
 }

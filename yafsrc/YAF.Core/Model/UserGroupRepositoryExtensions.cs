@@ -33,8 +33,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class UserGroupRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Gets the User Groups by User Id
     /// </summary>
@@ -227,6 +225,4 @@ public static class UserGroupRepositoryExtensions
 
         return groups?.Style;
     }
-
-    #endregion
 }

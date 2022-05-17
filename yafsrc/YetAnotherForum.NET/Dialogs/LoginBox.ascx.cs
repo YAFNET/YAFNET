@@ -24,23 +24,17 @@
 
 namespace YAF.Dialogs;
 
-#region Using
-
 using System.Net.Mail;
 
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 using YAF.Web.Controls;
 
-#endregion
-
 /// <summary>
 /// The Login Box
 /// </summary>
 public partial class LoginBox : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// The On PreRender event.
     /// </summary>
@@ -243,6 +237,4 @@ public partial class LoginBox : BaseUserControl
 
         this.Page.Response.Redirect(this.Request.RawUrl);
     }
-
-    #endregion
 }

@@ -23,15 +23,11 @@
  */
 namespace YAF.Core.ForumModules;
 
-#region Using
-
 using System;
 
 using YAF.Core.BaseModules;
 using YAF.Core.Tasks;
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// The user clean up task module.
@@ -39,8 +35,6 @@ using YAF.Types.Attributes;
 [Module("Clean Up User Task Starting Module", "Tiny Gecko", 1)]
 public class UserCleanUpTaskForumModule : BaseForumModule
 {
-    #region Public Methods
-
     /// <summary>
     /// The init.
     /// </summary>
@@ -49,10 +43,6 @@ public class UserCleanUpTaskForumModule : BaseForumModule
         // hook the page init for mail sending...
         this.PageBoardContext.AfterInit += this.Current_AfterInit;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Start Task after Initialization
@@ -67,6 +57,4 @@ public class UserCleanUpTaskForumModule : BaseForumModule
     {
         this.Get<ITaskModuleManager>().StartTask(UserCleanUpTask.TaskName, () => new UserCleanUpTask());
     }
-
-    #endregion
 }

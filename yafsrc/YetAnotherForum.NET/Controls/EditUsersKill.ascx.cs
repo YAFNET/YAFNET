@@ -26,30 +26,20 @@ using YAF.Types.Models;
 
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Core.Services.CheckForSpam;
 using YAF.Types.Models.Identity;
 
 using ListItem = ListItem;
-
-#endregion
 
 /// <summary>
 /// The edit users kill.
 /// </summary>
 public partial class EditUsersKill : BaseUserControl
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _all posts by user.
     /// </summary>
     private IOrderedEnumerable<Message> allPostsByUser;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets the User Data.
@@ -89,10 +79,6 @@ public partial class EditUsersKill : BaseUserControl
     /// The current user.
     /// </value>
     private User CurrentUser { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Kills the PageUser
@@ -340,6 +326,4 @@ public partial class EditUsersKill : BaseUserControl
                 true,
                 true));
     }
-
-    #endregion
 }

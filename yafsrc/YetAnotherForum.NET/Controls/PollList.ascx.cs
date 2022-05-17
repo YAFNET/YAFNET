@@ -24,21 +24,15 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using System.Text;
 
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// PollList Class
 /// </summary>
 public partial class PollList : BaseUserControl
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The canChange.
     /// </summary>
@@ -69,10 +63,6 @@ public partial class PollList : BaseUserControl
     /// </summary>
     private bool showResults;
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets or sets EditMessageId.
     /// </summary>
@@ -97,10 +87,6 @@ public partial class PollList : BaseUserControl
     /// Gets or sets the topic creator.
     /// </summary>
     public int TopicCreator { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Checks if a user can create poll.
@@ -646,6 +632,4 @@ public partial class PollList : BaseUserControl
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
     }
-
-    #endregion
 }

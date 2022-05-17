@@ -23,20 +23,14 @@
  */
 namespace YAF.Pages.Profile;
 
-#region Using
-
 using YAF.Types.Models.Identity;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The edit profile page
 /// </summary>
 public partial class EditProfile : ProfilePage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditProfile"/> class.
     /// </summary>
@@ -44,10 +38,6 @@ public partial class EditProfile : ProfilePage
         : base("EDIT_PROFILE", ForumPages.Profile_EditProfile)
     {
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets the current edit user.
@@ -59,10 +49,6 @@ public partial class EditProfile : ProfilePage
 
         set => this.ViewState["EditBoardUser"] = value;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Create the Page links.
@@ -90,6 +76,4 @@ public partial class EditProfile : ProfilePage
 
         this.ProfileEditor.User = this.EditBoardUser;
     }
-
-    #endregion
 }

@@ -28,8 +28,6 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface IRaiseControlLifeCycles
 {
-    #region Public Methods
-
     /// <summary>
     /// The raise init.
     /// </summary>
@@ -44,6 +42,4 @@ public interface IRaiseControlLifeCycles
     /// The raise pre render.
     /// </summary>
     void RaisePreRender();
-
-    #endregion
 }

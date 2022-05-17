@@ -28,16 +28,10 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface IReplaceRule
 {
-    #region Properties
-
     /// <summary>
     ///   Gets RuleDescription.
     /// </summary>
     string RuleDescription { get; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The replace.
@@ -51,6 +45,4 @@ public interface IReplaceRule
     /// <exception cref="NotImplementedException">
     /// </exception>
     void Replace(ref string text, IReplaceBlocks replacement);
-
-    #endregion
 }

@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(MedalID), nameof(UserID))]
 public class UserMedal : IEntity
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the user id.
     /// </summary>
@@ -71,6 +69,4 @@ public class UserMedal : IEntity
     /// </summary>
     [Required]
     public DateTime DateAwarded { get; set; }
-
-    #endregion
 }

@@ -23,33 +23,23 @@
  */
 namespace YAF.Core.BaseControls;
 
-#region Using
-
 using System;
 using System.Web.UI;
-
-#endregion
 
 /// <summary>
 /// The base user control.
 /// </summary>
 public class BaseUserControl : UserControl, IRaiseControlLifeCycles, IHaveServiceLocator, IHaveLocalization
 {
-    #region Constants and Fields
+    /// <summary>
+    /// The localization.
+    /// </summary>
+    private ILocalization localization;
 
     /// <summary>
-    /// The _localization.
+    /// The logger.
     /// </summary>
-    private ILocalization _localization;
-
-    /// <summary>
-    /// The _logger.
-    /// </summary>
-    private ILoggerService _logger;
-
-    #endregion
-
-    #region Constructors and Destructors
+    private ILoggerService logger;
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "BaseUserControl" /> class.
@@ -59,19 +49,15 @@ public class BaseUserControl : UserControl, IRaiseControlLifeCycles, IHaveServic
         this.Get<IInjectServices>().Inject(this);
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets Localization.
     /// </summary>
-    public ILocalization Localization => this._localization ??= this.Get<ILocalization>();
+    public ILocalization Localization => this.localization ??= this.Get<ILocalization>();
 
     /// <summary>
     ///   Gets or sets Logger.
     /// </summary>
-    public ILoggerService Logger => this._logger ??= this.Get<ILoggerProvider>().Create(this.GetType());
+    public ILoggerService Logger => this.logger ??= this.Get<ILoggerProvider>().Create(this.GetType());
 
     /// <summary>
     ///   Gets PageBoardContext.
@@ -82,12 +68,6 @@ public class BaseUserControl : UserControl, IRaiseControlLifeCycles, IHaveServic
     ///   Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => this.PageBoardContext.ServiceLocator;
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IRaiseControlLifeCycles
 
     /// <summary>
     /// The raise init.
@@ -112,8 +92,4 @@ public class BaseUserControl : UserControl, IRaiseControlLifeCycles, IHaveServic
     {
         this.OnPreRender(EventArgs.Empty);
     }
-
-    #endregion
-
-    #endregion
 }

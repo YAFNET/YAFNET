@@ -29,16 +29,10 @@ namespace YAF.Data.MySql;
 [ExportService(ServiceLifetimeScope.InstancePerDependency, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
 public class SetMySqlDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
 {
-    #region Public Properties
-
     /// <summary>
     ///     Gets the order.
     /// </summary>
     public int Order => 1000;
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The handle.
@@ -60,6 +54,4 @@ public class SetMySqlDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
         OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
         OrmLiteConfig.CommandTimeout = Config.SqlCommandTimeout;
     }
-
-    #endregion
 }

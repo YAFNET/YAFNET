@@ -34,8 +34,6 @@ using YAF.Types.Models;
 [ExportService(ServiceLifetimeScope.OwnedByContainer)]
 public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="BanUser"/> class.
     /// </summary>
@@ -49,10 +47,6 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
         this.ServiceLocator = serviceLocator;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///   Gets or sets ServiceLocator.
     /// </summary>
@@ -62,10 +56,6 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
     ///     Gets the order.
     /// </summary>
     public int Order => 10000;
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The handle.
@@ -105,6 +95,4 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
         // Clear Spam caches
         this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
     }
-
-    #endregion
 }

@@ -34,8 +34,6 @@ using YAF.Core.Services.Syndication;
 /// </summary>
 public static class SyndicationItemExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// The add syndication item.
     /// </summary>
@@ -181,6 +179,4 @@ public static class SyndicationItemExtensions
             userNameToShow,
             BoardContext.Current.Get<LinkBuilder>().GetUserProfileLink(userId, userNameToShow));
     }
-
-    #endregion
 }

@@ -23,24 +23,12 @@
  */
 namespace YAF.Types.Flags;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// Abstract class as a foundation for various flags implementations
 /// </summary>
 [Serializable]
 public abstract class FlagsBase
 {
-    #region Constants and Fields
-
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "FlagsBase" /> class.
     ///   Creates new instance with all bits set to false (integer 0).
@@ -85,18 +73,10 @@ public abstract class FlagsBase
         }
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets or sets integer value of flags.
     /// </summary>
     public int BitValue { get; set; }
-
-    #endregion
-
-    #region Indexers
 
     /// <summary>
     ///   Gets or sets bit at position specified by index.
@@ -109,10 +89,6 @@ public abstract class FlagsBase
 
         set => this.BitValue = SetBitFromBool(this.BitValue, index, value);
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Gets boolean indicating whether bit on bitShift position in bitValue integer is set or not.
@@ -185,6 +161,4 @@ public abstract class FlagsBase
 
         return Convert.ToInt32(Math.Sqrt(Convert.ToInt32(theEnum))) - 1;
     }
-
-    #endregion
 }

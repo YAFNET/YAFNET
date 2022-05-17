@@ -28,8 +28,6 @@ namespace YAF.Controls;
 /// </summary>
 public partial class ForumWelcome : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Handles the PreRender event
     /// </summary>
@@ -53,6 +51,4 @@ public partial class ForumWelcome : BaseUserControl
             this.LastVisitHolder.Visible = false;
         }
     }
-
-    #endregion
 }

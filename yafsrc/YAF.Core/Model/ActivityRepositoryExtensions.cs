@@ -33,8 +33,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class ActivityRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Gets the Users notifications.
     /// </summary>
@@ -155,6 +153,4 @@ public static class ActivityRepositoryExtensions
             () => new Activity { Notification = false },
             a => a.UserID == userId && a.Notification);
     }
-
-    #endregion
 }

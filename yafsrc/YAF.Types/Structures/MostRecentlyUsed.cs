@@ -23,11 +23,7 @@
  */
 namespace YAF.Types.Structures;
 
-#region Using
-
 using System.Collections.Specialized;
-
-#endregion
 
 /// <summary>
 /// The most recently used.
@@ -35,8 +31,6 @@ using System.Collections.Specialized;
 [Serializable]
 public class MostRecentlyUsed : DictionaryBase
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The link to key.
     /// </summary>
@@ -46,10 +40,6 @@ public class MostRecentlyUsed : DictionaryBase
     /// The list.
     /// </summary>
     private readonly DoubleLinkedList list = new ();
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MostRecentlyUsed"/> class.
@@ -73,10 +63,6 @@ public class MostRecentlyUsed : DictionaryBase
         this.Capacity = maxItems;
     }
 
-    #endregion
-
-    #region Delegates
-
     /// <summary>
     /// The purged from cache delegate.
     /// </summary>
@@ -88,18 +74,10 @@ public class MostRecentlyUsed : DictionaryBase
     /// </param>
     public delegate void PurgedFromCacheDelegate(object key, object value);
 
-    #endregion
-
-    #region Events
-
     /// <summary>
     ///   Event that is fired when an item falls outside of the cache
     /// </summary>
     public event PurgedFromCacheDelegate OnPurgedFromCache;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets the maximum capacity of the list
@@ -115,10 +93,6 @@ public class MostRecentlyUsed : DictionaryBase
     /// Gets Values.
     /// </summary>
     public ICollection Values => this.Dictionary.Values;
-
-    #endregion
-
-    #region Indexers
 
     /// <summary>
     /// The this.
@@ -167,10 +141,6 @@ public class MostRecentlyUsed : DictionaryBase
             }
         }
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The add.
@@ -270,10 +240,6 @@ public class MostRecentlyUsed : DictionaryBase
         return buff.ToString();
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The on insert.
     /// </summary>
@@ -316,6 +282,4 @@ public class MostRecentlyUsed : DictionaryBase
 
         this.Remove(purgeKey);
     }
-
-    #endregion
 }

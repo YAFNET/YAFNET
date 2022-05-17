@@ -29,8 +29,6 @@ namespace YAF.Types.Flags;
 [Serializable]
 public class TopicFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="TopicFlags"/> class.
     /// </summary>
@@ -83,10 +81,6 @@ public class TopicFlags : FlagsBase
     {
     }
 
-    #endregion
-
-    #region Flags Enumeration
-
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
@@ -127,10 +121,6 @@ public class TopicFlags : FlagsBase
               xxxxxxxx = 65536
                */
     }
-
-    #endregion
-
-    #region Single Flags (can be 32 of them)
 
     /// <summary>
     /// Gets or sets a value indicating whether topic is locked. Locked topics cannot be modified/deleted/replied to.
@@ -175,6 +165,4 @@ public class TopicFlags : FlagsBase
 
         set => this[this.EnumToIndex(Flags.IsQuestion)] = value;
     }
-
-    #endregion
 }

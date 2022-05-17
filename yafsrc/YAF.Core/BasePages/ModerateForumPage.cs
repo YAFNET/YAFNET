@@ -24,21 +24,15 @@
 
 namespace YAF.Core.BasePages;
 
-#region Using
-
 using System;
 
 using YAF.Types.Constants;
-
-#endregion
 
 /// <summary>
 /// The moderate forum page.
 /// </summary>
 public class ModerateForumPage : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ModerateForumPage"/> class.
     /// </summary>
@@ -62,18 +56,10 @@ public class ModerateForumPage : ForumPage
         this.Load += this.ModeratePage_Load;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets PageName.
     /// </summary>
     public override string PageName => $"moderate_{base.PageName}";
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the ModeratePage control.
@@ -88,6 +74,4 @@ public class ModerateForumPage : ForumPage
             this.Get<LinkBuilder>().AccessDenied();
         }
     }
-
-    #endregion
 }

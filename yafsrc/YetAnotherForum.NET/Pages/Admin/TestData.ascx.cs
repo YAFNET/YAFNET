@@ -25,23 +25,17 @@
 #if DEBUG
 namespace YAF.Pages.Admin
 {
-    #region Using
-
     using System.Text;
     using YAF.Types.Models.Identity;
     using YAF.Types.Models;
 
     using ListItem = ListItem;
 
-    #endregion
-
     /// <summary>
     /// The control generates test data for different data layers.
     /// </summary>
     public partial class TestData : AdminPage
     {
-        #region Constructors and Destructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TestData"/> class. 
         /// </summary>
@@ -49,10 +43,6 @@ namespace YAF.Pages.Admin
             : base("ADMIN_TESTDATA", ForumPages.Admin_TestData)
         {
         }
-
-        #endregion
-
-        #region Constants and Fields
 
         /// <summary>
         ///   The board create limit.
@@ -78,10 +68,6 @@ namespace YAF.Pages.Admin
         ///   The random GUID.
         /// </summary>
         private string randomGuid = Guid.NewGuid().ToString();
-
-        #endregion
-
-        #region Methods
 
         /// <summary>
         /// The cancel click.
@@ -877,8 +863,6 @@ namespace YAF.Pages.Admin
             // Bypass Approval if Admin or Moderator.
             return messageFlags;
         }
-
-        #endregion
     }
 }
 

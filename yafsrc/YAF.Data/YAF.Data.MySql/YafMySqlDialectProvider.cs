@@ -29,8 +29,6 @@ namespace YAF.Data.MySql;
 /// </summary>
 public class YafMySqlDialectProvider : MySqlDialectProvider
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="YafMySqlDialectProvider"/> class.
     /// </summary>
@@ -43,6 +41,4 @@ public class YafMySqlDialectProvider : MySqlDialectProvider
     /// Gets or sets the instance.
     /// </summary>
     public static new YafMySqlDialectProvider Instance { get; set; } = new ();
-
-    #endregion
 }

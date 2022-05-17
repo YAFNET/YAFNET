@@ -24,23 +24,17 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.IO;
 using Core.Services.Import;
 using YAF.Types.Models.Identity;
 
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// Admin Edit Board Page
 /// </summary>
 public partial class EditBoard : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditBoard"/> class. 
     /// </summary>
@@ -49,10 +43,6 @@ public partial class EditBoard : AdminPage
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets BoardID.
     /// </summary>
@@ -60,10 +50,6 @@ public partial class EditBoard : AdminPage
         this.Get<HttpRequestBase>().QueryString.Exists("b")
             ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("b")
             : null;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Cancel Edit/Create and return Back to the Boards Listening
@@ -380,6 +366,4 @@ public partial class EditBoard : AdminPage
 
         return newBoardId;
     }
-
-    #endregion
 }

@@ -23,19 +23,13 @@
  */
 namespace YAF.Core.Helpers;
 
-#region Using
-
 using YAF.Core.BaseModules;
-
-#endregion
 
 /// <summary>
 /// The Forum Editor helper.
 /// </summary>
 public static class ForumEditorHelper
 {
-    #region Public Methods
-
     /// <summary>
     /// Gets the current forum editor.
     /// </summary>
@@ -46,6 +40,4 @@ public static class ForumEditorHelper
     {
         return BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("4");
     }
-
-    #endregion
 }

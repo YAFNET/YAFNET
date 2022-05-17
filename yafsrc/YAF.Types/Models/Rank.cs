@@ -23,12 +23,6 @@
  */
 namespace YAF.Types.Models;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 ///     A class which represents the YAF_Rank table in the YAF Database.
 /// </summary>
@@ -37,8 +31,6 @@ namespace YAF.Types.Models;
 [UniqueConstraint(nameof(BoardID), nameof(Name))]
 public class Rank : IEntity, IHaveID, IHaveBoardID
 {
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets the Rank ID.
     /// </summary>
@@ -134,6 +126,4 @@ public class Rank : IEntity, IHaveID, IHaveBoardID
     [Required]
     [Default(0)]
     public int UsrAlbumImages { get; set; }
-
-    #endregion
 }

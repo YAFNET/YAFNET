@@ -23,19 +23,11 @@
  */
 namespace YAF.Core.Helpers;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// Helper for Figuring out the User Agent.
 /// </summary>
 public static class UserAgentHelper
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The spider contains.
     /// </summary>
@@ -57,10 +49,6 @@ public static class UserAgentHelper
             "Surfnomore", "teoma", "UK Searcher Spider", "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner",
             "WSCbot", "Yandex", "Yellopet-Spider", "YBSbot", "OceanSpiders", "MozSpider"
         };
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Validates if the user agent owner is a feed reader
@@ -213,6 +201,4 @@ public static class UserAgentHelper
                    ? SpiderContains.FirstOrDefault(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()))
                    : null;
     }
-
-    #endregion
 }

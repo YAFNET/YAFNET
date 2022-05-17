@@ -29,8 +29,6 @@ namespace YAF.Pages.Profile;
 /// </summary>
 public partial class EditSignature : ProfilePage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditSignature"/> class.
     /// </summary>
@@ -38,10 +36,6 @@ public partial class EditSignature : ProfilePage
         : base("EDIT_SIGNATURE", ForumPages.Profile_EditSignature)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -68,6 +62,4 @@ public partial class EditSignature : ProfilePage
             this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
     }
-
-    #endregion
 }

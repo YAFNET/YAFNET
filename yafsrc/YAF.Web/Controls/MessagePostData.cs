@@ -28,16 +28,10 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class MessagePostData : MessagePost
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _row.
     /// </summary>
     private Message currentMessage;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Sets the DataRow.
@@ -113,10 +107,6 @@ public class MessagePostData : MessagePost
         }
     }
 
-    #endregion
-
-    #region Public Methods
-
     /// <summary>
     /// Truncates the message.
     /// </summary>
@@ -133,10 +123,6 @@ public class MessagePostData : MessagePost
         // 0 == unlimited
         return maxPostSize == 0 || message.Length <= maxPostSize ? message : message.Truncate(maxPostSize);
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
@@ -240,6 +226,4 @@ public class MessagePostData : MessagePost
             }
         }
     }
-
-    #endregion
 }

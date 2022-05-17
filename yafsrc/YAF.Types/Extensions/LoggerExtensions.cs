@@ -31,8 +31,6 @@ using YAF.Types.Interfaces.Services;
 /// </summary>
 public static class LoggerExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The debug.
     /// </summary>
@@ -238,6 +236,4 @@ public static class LoggerExtensions
     {
         logger.Log(string.Format(format, args), EventLogTypes.Warning, exception: ex);
     }
-
-    #endregion
 }

@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.IO;
 using System.Net;
@@ -34,8 +32,6 @@ using ServiceStack.Text;
 
 using YAF.Types.Constants;
 using YAF.Types.Objects;
-
-#endregion
 
 /// <summary>
 /// The IP Info Service
@@ -53,14 +49,10 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #region Properties
-
     /// <summary>
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
 
     /// <summary>
     /// Get the User IP Locator

@@ -46,8 +46,6 @@ using Constants = YAF.Types.Constants.Constants;
 /// </summary>
 public class UpgradeService : IHaveServiceLocator
 {
-    #region Constants
-
     /// <summary>
     ///     The BBCode extensions import xml file.
     /// </summary>
@@ -57,10 +55,6 @@ public class UpgradeService : IHaveServiceLocator
     ///     The Spam Words list import xml file.
     /// </summary>
     private const string SpamWordsImport = "Install/SpamWords.xml";
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UpgradeService"/> class.
@@ -81,10 +75,6 @@ public class UpgradeService : IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets the raise event.
     /// </summary>
@@ -102,10 +92,6 @@ public class UpgradeService : IHaveServiceLocator
     ///     Gets or sets the service locator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// Initialize Or Upgrade the Database
@@ -246,10 +232,6 @@ public class UpgradeService : IHaveServiceLocator
 
         return true;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     ///    Add or Update BBCode Extensions and Spam Words
@@ -483,6 +465,4 @@ public class UpgradeService : IHaveServiceLocator
 
                 });
     }
-
-    #endregion
 }

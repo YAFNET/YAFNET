@@ -24,17 +24,13 @@
 
 namespace YAF.Pages;
 
-#region Using
 using YAF.Types.Models;
-#endregion
 
 /// <summary>
 /// the album page.
 /// </summary>
 public partial class Album : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the Album class.
     /// </summary>
@@ -42,8 +38,6 @@ public partial class Album : ForumPage
         : base("ALBUM", ForumPages.Album)
     {
     }
-
-    #endregion
 
     /// <summary>
     ///   Gets user ID of edited user.
@@ -56,8 +50,6 @@ public partial class Album : ForumPage
     /// </summary>
     protected int AlbumID =>
         this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -130,6 +122,4 @@ public partial class Album : ForumPage
             ForumPages.EditAlbumImages,
             new { a = this.AlbumID });
     }
-
-    #endregion
 }

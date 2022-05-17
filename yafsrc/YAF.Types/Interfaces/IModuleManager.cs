@@ -23,11 +23,7 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
 using System.Collections.Generic;
-
-#endregion
 
 /// <summary>
 /// The i module manager.
@@ -38,8 +34,6 @@ using System.Collections.Generic;
 public interface IModuleManager<out TModule>
     where TModule : IModuleDefinition
 {
-    #region Public Methods
-
     /// <summary>
     /// Get an instance of a module (based on it's id).
     /// </summary>
@@ -72,6 +66,4 @@ public interface IModuleManager<out TModule>
     /// <returns>
     /// </returns>
     IEnumerable<TModule> GetAll(bool getInactive);
-
-    #endregion
 }

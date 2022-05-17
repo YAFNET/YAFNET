@@ -28,12 +28,8 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface IServiceLocationParameter
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets Value.
     /// </summary>
     object Value { get; set; }
-
-    #endregion
 }

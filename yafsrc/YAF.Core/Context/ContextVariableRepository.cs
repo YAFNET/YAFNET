@@ -24,19 +24,13 @@
 
 namespace YAF.Core.Context;
 
-#region Using
-
 using YAF.Configuration.Pattern;
-
-#endregion
 
 /// <summary>
 /// Place to put helper properties for context variables inside.
 /// </summary>
 public class ContextVariableRepository
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ContextVariableRepository"/> class.
     /// </summary>
@@ -47,10 +41,6 @@ public class ContextVariableRepository
     {
         this.Vars = dictionary;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets a value indicating whether this Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
@@ -67,6 +57,4 @@ public class ContextVariableRepository
     ///   Gets Vars.
     /// </summary>
     protected TypeDictionary Vars { get; }
-
-    #endregion
 }

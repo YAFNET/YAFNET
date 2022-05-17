@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Services.Localization;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,15 +30,11 @@ using System.IO;
 using YAF.Core.Services.Startup;
 using YAF.Types.Objects;
 
-#endregion
-
 /// <summary>
 /// YAF Localizer
 /// </summary>
 public class Localizer
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The current page.
     /// </summary>
@@ -55,10 +49,6 @@ public class Localizer
     /// The localization resources.
     /// </summary>
     private LanguageResources localizationLanguageResources;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Localizer" /> class.
@@ -80,18 +70,10 @@ public class Localizer
         this.InitCulture();
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets LanguageCode.
     /// </summary>
     public CultureInfo CurrentCulture { get; private set; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The get nodes using query.
@@ -213,10 +195,6 @@ public class Localizer
         this.currentPage = page.ToUpper();
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Initializes the culture.
     /// </summary>
@@ -298,6 +276,4 @@ public class Localizer
 
         this.CurrentCulture = new CultureInfo(userLanguageCode);
     }
-
-    #endregion
 }

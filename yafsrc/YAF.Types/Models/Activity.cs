@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class Activity : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -83,6 +81,4 @@ public class Activity : IEntity, IHaveID
     /// </summary>
     [Default(typeof(bool), "0")]
     public bool Notification { get; set; }
-
-    #endregion
 }

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -33,8 +33,6 @@ using System.Linq;
 /// </summary>
 public static class DbCommandExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// Extension method for adding a parameter
     /// </summary>
@@ -96,12 +94,12 @@ public static class DbCommandExtensions
 
             switch (item)
             {
-                case Guid _:
+                case Guid:
                     p.Value = item.ToString();
                     p.DbType = DbType.String;
                     p.Size = 4000;
                     break;
-                case ExpandoObject _:
+                case ExpandoObject:
                     {
                         var d = (IDictionary<string, object>)item;
                         p.Value = d.Values.FirstOrDefault();
@@ -116,6 +114,4 @@ public static class DbCommandExtensions
 
         cmd.Parameters.Add(p);
     }
-
-    #endregion
 }

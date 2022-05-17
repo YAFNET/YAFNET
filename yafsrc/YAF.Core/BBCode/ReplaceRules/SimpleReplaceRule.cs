@@ -28,8 +28,6 @@ namespace YAF.Core.BBCode.ReplaceRules;
 /// </summary>
 public class SimpleReplaceRule : BaseReplaceRule
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The find.
     /// </summary>
@@ -39,10 +37,6 @@ public class SimpleReplaceRule : BaseReplaceRule
     ///   The replace.
     /// </summary>
     private readonly string replace;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SimpleReplaceRule"/> class.
@@ -62,18 +56,10 @@ public class SimpleReplaceRule : BaseReplaceRule
         this.RuleRank = 100;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets RuleDescription.
     /// </summary>
     public override string RuleDescription => $"Find = \"{this.find}\"";
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The replace.
@@ -104,6 +90,4 @@ public class SimpleReplaceRule : BaseReplaceRule
         }
         while (index >= 0);
     }
-
-    #endregion
 }

@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class MyMessages : ForumPageRegistered
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "MyMessages" /> class.
     /// </summary>
@@ -41,18 +39,10 @@ public partial class MyMessages : ForumPageRegistered
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets View.
     /// </summary>
     protected PmView View { get; private set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The On PreRender event.
@@ -157,6 +147,4 @@ public partial class MyMessages : ForumPageRegistered
         this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageLinks.AddLink(this.GetText("TITLE"));
     }
-
-    #endregion
 }

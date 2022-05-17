@@ -28,8 +28,6 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface INavigatablePage
 {
-    #region Properties
-
     /// <summary>
     /// Gets a value indicating whether IsDebugOnly.
     /// </summary>
@@ -44,6 +42,4 @@ public interface INavigatablePage
     ///   Gets ParentPageName.
     /// </summary>
     string ParentPageName { get; }
-
-    #endregion
 }

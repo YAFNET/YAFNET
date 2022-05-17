@@ -24,22 +24,16 @@
 
 namespace YAF.Types.Interfaces;
 
-#region Using
-
 using System.Collections.Generic;
 
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Services;
-
-#endregion
 
 /// <summary>
 /// The read track current user extensions.
 /// </summary>
 public static class IReadTrackCurrentUserExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// The get forum topic read.
     /// </summary>
@@ -112,6 +106,4 @@ public static class IReadTrackCurrentUserExtensions
 
         topicIds.ForEach(readTrackCurrentUser.SetTopicRead);
     }
-
-    #endregion
 }

@@ -26,15 +26,11 @@
 
 namespace YAF.Pages;
 
-#region Using
-
 using System.Text;
 using System.Text.RegularExpressions;
 using YAF.Types.Models;
 
 using ListItem = ListItem;
-
-#endregion
 
 /// <summary>
 /// The Post Private Message Page
@@ -48,16 +44,10 @@ public partial class PostPrivateMessage : ForumPage
         set => this.ViewState["ReplyMessage"] = value;
     }
 
-    #region Constants and Fields
-
     /// <summary>
     ///   message body editor
     /// </summary>
     private ForumEditor editor;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "PostPrivateMessage" /> class.
@@ -67,10 +57,6 @@ public partial class PostPrivateMessage : ForumPage
         : base("PMESSAGE", ForumPages.PostPrivateMessage)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
@@ -796,6 +782,4 @@ public partial class PostPrivateMessage : ForumPage
 
         return false;
     }
-
-    #endregion
 }

@@ -24,17 +24,13 @@
 
 namespace YAF.Pages.Account;
 
-#region Using
 using YAF.Types.Models;
-#endregion
 
 /// <summary>
 /// The User Account Verification Page.
 /// </summary>
 public partial class Approve : AccountPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Approve" /> class.
     /// </summary>
@@ -43,18 +39,10 @@ public partial class Approve : AccountPage
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets a value indicating whether IsProtected.
     /// </summary>
     public override bool IsProtected => false;
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Handles the Click event of the ValidateKey control.
@@ -118,10 +106,6 @@ public partial class Approve : AccountPage
         }
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
@@ -155,6 +139,4 @@ public partial class Approve : AccountPage
         this.PageLinks.AddRoot();
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
     }
-
-    #endregion
 }

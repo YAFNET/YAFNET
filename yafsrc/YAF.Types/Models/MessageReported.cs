@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class MessageReported : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -58,6 +56,4 @@ public class MessageReported : IEntity, IHaveID
     /// Gets or sets the resolved date.
     /// </summary>
     public DateTime? ResolvedDate { get; set; }
-
-    #endregion
 }

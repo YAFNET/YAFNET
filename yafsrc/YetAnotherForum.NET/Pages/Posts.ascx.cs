@@ -25,23 +25,17 @@
 
 namespace YAF.Pages;
 
-#region Using
-
 using System.Web.UI.HtmlControls;
 using YAF.Controls;
 using YAF.Types.Exceptions;
 using YAF.Web.EventsArgs;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The Posts Page.
 /// </summary>
 public partial class Posts : ForumPage
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _data bound.
     /// </summary>
@@ -57,10 +51,6 @@ public partial class Posts : ForumPage
     /// </summary>
     private Topic topic;
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Posts" /> class.
     /// </summary>
@@ -68,8 +58,6 @@ public partial class Posts : ForumPage
         : base("POSTS", ForumPages.Posts)
     {
     }
-
-    #endregion
 
     /// <summary>
     /// The delete topic_ click.

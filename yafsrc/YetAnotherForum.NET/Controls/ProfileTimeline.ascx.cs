@@ -23,20 +23,14 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Web.Controls;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The profile Timeline
 /// </summary>
 public partial class ProfileTimeline : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Gets or sets the item count.
     /// </summary>
@@ -279,6 +273,4 @@ public partial class ProfileTimeline : BaseUserControl
 
         this.DataBind();
     }
-
-    #endregion
 }

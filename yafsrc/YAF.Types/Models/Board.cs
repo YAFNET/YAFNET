@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class Board : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -44,6 +42,4 @@ public class Board : IEntity, IHaveID
     [Required]
     [StringLength(50)]
     public string Name { get; set; }
-
-    #endregion
 }

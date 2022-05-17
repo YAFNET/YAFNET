@@ -23,29 +23,19 @@
  */
 namespace YAF.Core.Services;
 
-#region Using
-
 using System.Collections.Generic;
 using System.Web.UI;
-
-#endregion
 
 /// <summary>
 /// Helper Class providing functions to register page elements.
 /// </summary>
 public class PageElementRegister
 {
-    #region Properties
-
     /// <summary>
     ///   Gets elements (using in the head or header) that are registered on the page.
     ///   Used mostly by RegisterPageElementHelper.
     /// </summary>
     public List<string> RegisteredElements { get; } = new();
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Adds a page element to the collection.
@@ -273,8 +263,6 @@ public class PageElementRegister
             scriptManager.Scripts.Add(scriptReference);
         }
     }
-
-    #endregion
 
     /// <summary>
     /// Gets the current page.

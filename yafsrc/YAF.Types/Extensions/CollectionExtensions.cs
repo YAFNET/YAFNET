@@ -31,8 +31,6 @@ using System.Linq;
 /// </summary>
 public static class CollectionExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// The add or update.
     /// </summary>
@@ -88,6 +86,4 @@ public static class CollectionExtensions
 
         dictionarySecondary.ToList().ForEach(i => dictionaryFirst.AddOrUpdate(i.Key, i.Value));
     }
-
-    #endregion
 }

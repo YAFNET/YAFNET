@@ -28,8 +28,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class UserLink : UserLabel
 {
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets a value indicating whether
     ///     Make the link target "blank" to open in a new window.
@@ -75,10 +73,6 @@ public class UserLink : UserLabel
         set => this.ViewState["Suspended"] = value;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets a value indicating whether the user has Profile View Permission
     /// </summary>
@@ -93,10 +87,6 @@ public class UserLink : UserLabel
     private bool IsHoverCardEnabled =>
         this.PageBoardContext.BoardSettings.EnableUserInfoHoverCards && this.EnableHoverCard
                                                                      && BoardContext.Current.CurrentForumPage != null;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The On PreRender event.
@@ -225,6 +215,4 @@ public class UserLink : UserLabel
 
         output.EndRender();
     }
-
-    #endregion
 }

@@ -29,8 +29,6 @@ namespace YAF.Types.Flags;
 [Serializable]
 public class ActivityFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ActivityFlags"/> class.
     /// </summary>
@@ -83,10 +81,6 @@ public class ActivityFlags : FlagsBase
     {
     }
 
-    #endregion
-
-    #region Flags Enumeration
-
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
@@ -138,10 +132,6 @@ public class ActivityFlags : FlagsBase
         /// </summary>
         WatchTopicReply = 16384
     }
-
-    #endregion
-
-    #region Single Flags (can be 32 of them)
 
     /// <summary>
     /// Gets or sets a value indicating whether created topic.
@@ -230,6 +220,4 @@ public class ActivityFlags : FlagsBase
 
         set => this[14] = value;
     }
-
-    #endregion
 }

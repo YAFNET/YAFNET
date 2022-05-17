@@ -43,14 +43,10 @@ public class Reputation : IReputation, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #region Properties
-
     /// <summary>
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
 
     /// <summary>
     /// Checks if allow reputation voting.

@@ -24,19 +24,13 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Admin Page for managing Boards
 /// </summary>
 public partial class Boards : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Boards"/> class. 
     /// </summary>
@@ -44,10 +38,6 @@ public partial class Boards : AdminPage
         : base("ADMIN_BOARDS", ForumPages.Admin_Boards)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
@@ -128,6 +118,4 @@ public partial class Boards : AdminPage
                 break;
         }
     }
-
-    #endregion
 }

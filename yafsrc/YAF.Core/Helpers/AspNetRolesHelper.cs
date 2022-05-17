@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Helpers;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 
@@ -34,8 +32,6 @@ using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 using YAF.Types.Objects;
-
-#endregion
 
 /// <summary>
 /// The role membership helper.
@@ -53,16 +49,10 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #region Properties
-
     /// <summary>
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; protected set; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The add user to role.
@@ -334,6 +324,4 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
          where !this.Get<IAspNetRolesHelper>().RoleExists(name)
          select name).ForEach(this.Get<IAspNetRolesHelper>().CreateRole);
     }
-
-    #endregion
 }

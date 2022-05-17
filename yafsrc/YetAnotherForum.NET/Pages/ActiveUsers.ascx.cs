@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class ActiveUsers : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "ActiveUsers" /> class.
     /// </summary>
@@ -40,10 +38,6 @@ public partial class ActiveUsers : ForumPage
         : base("ACTIVEUSERS", ForumPages.ActiveUsers)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -276,6 +270,4 @@ public partial class ActiveUsers : ForumPage
             row => row.IsActiveExcluded && !this.PageBoardContext.IsAdmin &&
                    this.PageBoardContext.PageUserID != row.UserID);
     }
-
-    #endregion
 }

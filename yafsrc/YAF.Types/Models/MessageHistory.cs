@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(MessageID), nameof(Edited))]
 public class MessageHistory : IEntity
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the message id.
     /// </summary>
@@ -82,6 +80,4 @@ public class MessageHistory : IEntity
     [Required]
     [Default(23)]
     public int Flags { get; set; }
-
-    #endregion
 }

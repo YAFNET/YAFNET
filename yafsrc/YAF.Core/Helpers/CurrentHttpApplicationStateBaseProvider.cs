@@ -23,27 +23,15 @@
  */
 namespace YAF.Core.Helpers;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// The current http application provider.
 /// </summary>
 public class CurrentHttpApplicationStateBaseProvider : IReadWriteProvider<HttpApplicationStateBase>
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The application state base.
     /// </summary>
     private HttpApplicationStateBase applicationStateBase;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets the Instance.
@@ -68,6 +56,4 @@ public class CurrentHttpApplicationStateBaseProvider : IReadWriteProvider<HttpAp
             this.applicationStateBase = value;
         }
     }
-
-    #endregion
 }

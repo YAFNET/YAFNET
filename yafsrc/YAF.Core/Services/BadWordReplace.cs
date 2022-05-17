@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -33,23 +31,15 @@ using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
-#endregion
-
 /// <summary>
 /// The YAF bad word replace.
 /// </summary>
 public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _options.
     /// </summary>
     private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Compiled;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BadWordReplace" /> class.
@@ -66,10 +56,6 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
         this.ObjectStore = objectStore;
         this.Logger = logger;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets the service locator.
@@ -107,12 +93,6 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
             return replaceItems;
         }
     }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IBadWordReplace
 
     /// <summary>
     /// Searches through SearchText and replaces "bad words" with "good words"
@@ -168,8 +148,4 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
 
         return strReturn;
     }
-
-    #endregion
-
-    #endregion
 }

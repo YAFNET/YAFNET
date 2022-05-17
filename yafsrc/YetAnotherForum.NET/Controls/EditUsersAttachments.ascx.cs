@@ -23,29 +23,19 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Web.Controls;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The edit users Attachments.
 /// </summary>
 public partial class EditUsersAttachments : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets user ID of edited user.
     /// </summary>
     protected int CurrentUserID =>
         this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The page_ load.
@@ -195,6 +185,4 @@ public partial class EditUsersAttachments : BaseUserControl
 
         this.DataBind();
     }
-
-    #endregion
 }

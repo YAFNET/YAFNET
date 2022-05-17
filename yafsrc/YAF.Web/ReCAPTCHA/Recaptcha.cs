@@ -24,19 +24,13 @@
 
 namespace YAF.Web.Controls;
 
-#region Using
-
 using YAF.Web.ReCAPTCHA;
-
-#endregion
 
 /// <summary>
 /// The reCAPTCHA control.
 /// </summary>
 public class RecaptchaControl : WebControl, IValidator
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The error message.
     /// </summary>
@@ -47,10 +41,6 @@ public class RecaptchaControl : WebControl, IValidator
     /// </summary>
     private RecaptchaResponse recaptchaResponse;
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="RecaptchaControl" /> class.
     /// </summary>
@@ -60,10 +50,6 @@ public class RecaptchaControl : WebControl, IValidator
         this.SecretKey = BoardContext.Current.BoardSettings.RecaptchaPrivateKey;
         this.SiteKey = BoardContext.Current.BoardSettings.RecaptchaPublicKey;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets ErrorMessage.
@@ -124,12 +110,6 @@ public class RecaptchaControl : WebControl, IValidator
     [Category("Settings")]
     public bool SkipRecaptcha { get; set; }
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IValidator
-
     /// <summary>
     /// The validate.
     /// </summary>
@@ -161,12 +141,6 @@ public class RecaptchaControl : WebControl, IValidator
             this.errorMessage = exception.Message;
         }
     }
-
-    #endregion
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
@@ -223,6 +197,4 @@ public class RecaptchaControl : WebControl, IValidator
         output.RenderBeginTag(HtmlTextWriterTag.Div);
         output.RenderEndTag();
     }
-
-    #endregion
 }

@@ -23,14 +23,10 @@
  */
 namespace YAF.Core;
 
-#region Using
-
 using Autofac;
 using Autofac.Core.Lifetime;
 
 using YAF.Core.Modules;
-
-#endregion
 
 /// <summary>
 /// Instance of the Global Container... yes, a God class. It's the best way to do it, though.
@@ -52,16 +48,10 @@ public static class GlobalContainer
         Container = container;
     }
 
-    #region Properties
-
     /// <summary>
     ///   Gets Container.
     /// </summary>
     public static IContainer Container { get; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Create Container
@@ -77,6 +67,4 @@ public static class GlobalContainer
 
         return builder.Build();
     }
-
-    #endregion
 }

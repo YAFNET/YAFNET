@@ -23,22 +23,16 @@
  */
 namespace YAF.Types.Extensions;
 
-#region Using
-
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-
-#endregion
 
 /// <summary>
 /// The string helper.
 /// </summary>
 public static class StringExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// Converts a string to an escaped JavaString string.
     /// </summary>
@@ -515,6 +509,12 @@ public static class StringExtensions
                || inputString.EndsWith("bmp", StringComparison.InvariantCultureIgnoreCase);
     }
 
+    public static bool IsTextName(this string inputString)
+    {
+        return inputString.EndsWith("txt", StringComparison.InvariantCultureIgnoreCase)
+               || inputString.EndsWith("config", StringComparison.InvariantCultureIgnoreCase);
+    }
+
     /// <summary>
     /// Converts persian Numbers to english.
     /// </summary>
@@ -560,6 +560,4 @@ public static class StringExtensions
         BitConverter.GetBytes(value.ToType<int>()).CopyTo(bytes, 0);
         return new Guid(bytes);
     }
-
-    #endregion
 }

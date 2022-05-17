@@ -28,8 +28,6 @@ namespace YAF.Pages;
 /// </summary>
 public partial class Info : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Info" /> class. 
     ///   Default constructor.
@@ -39,10 +37,6 @@ public partial class Info : ForumPage
     {
         this.PageBoardContext.Globals.IsSuspendCheckEnabled = false;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Creates page links for this page.
@@ -162,6 +156,4 @@ public partial class Info : ForumPage
         this.Continue.NavigateUrl = this.RefreshURL;
         this.Continue.Visible = this.RefreshURL != null;
     }
-
-    #endregion
 }

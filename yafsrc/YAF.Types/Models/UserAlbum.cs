@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class UserAlbum : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -61,6 +59,4 @@ public class UserAlbum : IEntity, IHaveID
     /// </summary>
     [Required]
     public DateTime Updated { get; set; }
-
-    #endregion
 }

@@ -23,20 +23,12 @@
  */
 namespace YAF.Types.Models;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 ///     A class which represents the YAF_Registry table in the YAF Database.
 /// </summary>
 [Serializable]
 public class Registry : IEntity, IHaveID
 {
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets the Registry ID.
     /// </summary>
@@ -64,6 +56,4 @@ public class Registry : IEntity, IHaveID
     [References(typeof(Board))]
     [Index]
     public int? BoardID { get; set; }
-
-    #endregion
 }

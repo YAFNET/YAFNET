@@ -23,15 +23,11 @@
  */
 namespace YAF.Modules;
 
-#region Using
-
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// Page Logo Handler Module
@@ -39,8 +35,6 @@ using YAF.Types.Attributes;
 [Module("Page Logo Handler Module", "Tiny Gecko", 1)]
 public class PageLogoHandlerForumModule : SimpleBaseForumModule
 {
-    #region Public Methods
-
     /// <summary>
     /// The init after page.
     /// </summary>
@@ -55,10 +49,6 @@ public class PageLogoHandlerForumModule : SimpleBaseForumModule
     public override void InitBeforePage()
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The forum page_ pre render.
@@ -94,6 +84,4 @@ public class PageLogoHandlerForumModule : SimpleBaseForumModule
             bannerLink.Visible = false;
         }
     }
-
-    #endregion
 }

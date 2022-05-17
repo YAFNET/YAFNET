@@ -29,9 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class vaccess_group : IEntity, IHaveBoardID
 {
-    #region Public Properties
-
-
     /// <summary>
     /// Gets or sets the board id.
     /// </summary>
@@ -57,6 +54,4 @@ public class vaccess_group : IEntity, IHaveBoardID
     public int? EditAccess { get; set; }
     public int? DeleteAccess { get; set; }
     public int? AdminGroup { get; set; }
-
-    #endregion
 }

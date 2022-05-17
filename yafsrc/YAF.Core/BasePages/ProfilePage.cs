@@ -54,12 +54,8 @@ public class ProfilePage : ForumPageRegistered
         this.IsRegisteredPage = true;
     }
 
-    #region Properties
-
     /// <summary>
     /// Gets the Page Name.
     /// </summary>
     public override string PageName => $"Profile_{base.PageName}";
-
-    #endregion
 }

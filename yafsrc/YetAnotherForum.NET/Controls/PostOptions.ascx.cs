@@ -28,8 +28,6 @@ namespace YAF.Controls;
 /// </summary>
 public partial class PostOptions : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets a value indicating whether Persistent Checked.
     /// </summary>
@@ -90,10 +88,6 @@ public partial class PostOptions : BaseUserControl
         set => this.liTopicWatch.Visible = value;
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
@@ -102,6 +96,4 @@ public partial class PostOptions : BaseUserControl
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
     }
-
-    #endregion
 }

@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(MedalID), nameof(GroupID))]
 public class GroupMedal : IEntity
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the group id.
     /// </summary>
@@ -65,6 +63,4 @@ public class GroupMedal : IEntity
     [Required]
     [Default(255)]
     public byte SortOrder { get; set; }
-
-    #endregion
 }

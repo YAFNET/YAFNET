@@ -32,8 +32,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class CategoryRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Gets the highest sort order.
     /// </summary>
@@ -182,6 +180,4 @@ public static class CategoryRepositoryExtensions
                     sortOrder++;
                 });
     }
-
-    #endregion
 }

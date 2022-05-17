@@ -24,14 +24,10 @@
 
 namespace YAF.Core.Services.Startup;
 
-#region Using
-
 using YAF.Core.Model;
 using YAF.Types.Constants;
 using YAF.Types.Interfaces.Tasks;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The startup initialize Database.
@@ -55,8 +51,6 @@ public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, 
         this.ServiceLocator = serviceLocator;
     }
 
-    #region Properties
-
     /// <summary>
     /// Gets or sets the ServiceLocator.
     /// </summary>
@@ -73,10 +67,6 @@ public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, 
     /// </summary>
     [NotNull]
     protected override string ServiceName => "YafInitializeDb_Init";
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The run service.
@@ -128,6 +118,4 @@ public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, 
                 return false;
         }
     }
-
-    #endregion
 }

@@ -31,8 +31,6 @@ using System.Text.RegularExpressions;
 /// </summary>
 public class SimpleRegexReplaceRule : BaseReplaceRule
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The replace regex.
     /// </summary>
@@ -42,10 +40,6 @@ public class SimpleRegexReplaceRule : BaseReplaceRule
     ///   The search regex.
     /// </summary>
     protected readonly Regex RegExSearch;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SimpleRegexReplaceRule"/> class.
@@ -80,18 +74,10 @@ public class SimpleRegexReplaceRule : BaseReplaceRule
         this.RegExReplace = regExReplace;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets RuleDescription.
     /// </summary>
     public override string RuleDescription => $"RegExSearch = \"{this.RegExSearch}\"";
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The replace.
@@ -127,10 +113,6 @@ public class SimpleRegexReplaceRule : BaseReplaceRule
         text = sb.ToString();
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Gets the Inner Value
     /// </summary>
@@ -144,6 +126,4 @@ public class SimpleRegexReplaceRule : BaseReplaceRule
     {
         return innerValue;
     }
-
-    #endregion
 }

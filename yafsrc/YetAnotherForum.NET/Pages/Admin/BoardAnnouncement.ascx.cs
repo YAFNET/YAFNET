@@ -29,8 +29,6 @@ namespace YAF.Pages.Admin;
 /// </summary>
 public partial class BoardAnnouncement : AdminPage
 {
-    #region Methods
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Profile.Attachments" /> class.
     /// </summary>
@@ -160,6 +158,4 @@ public partial class BoardAnnouncement : AdminPage
         this.BoardAnnouncementType.SelectedValue = boardSettings.BoardAnnouncementType;
         this.Message.Text = boardSettings.BoardAnnouncement;
     }
-
-    #endregion
 }

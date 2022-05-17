@@ -24,19 +24,13 @@
 
 namespace YAF.Dialogs;
 
-#region Using
-
 using YAF.Core.Services.Import;
-
-#endregion
 
 /// <summary>
 /// The Banned Email Import Dialog.
 /// </summary>
 public partial class BannedEmailImport : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Try to Import from selected File
     /// </summary>
@@ -81,6 +75,4 @@ public partial class BannedEmailImport : BaseUserControl
                 JavaScriptBlocks.OpenModalJs("ImportDialog"));
         }
     }
-
-    #endregion
 }

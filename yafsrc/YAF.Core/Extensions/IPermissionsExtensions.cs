@@ -23,19 +23,13 @@
  */
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using YAF.Types.Constants;
-
-#endregion
 
 /// <summary>
 /// The permissions extensions.
 /// </summary>
 public static class IPermissionsExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// Check Viewing Permissions
     /// </summary>
@@ -70,6 +64,4 @@ public static class IPermissionsExtensions
 
         permissions.HandleRequest((ViewPermissions)permission);
     }
-
-    #endregion
 }

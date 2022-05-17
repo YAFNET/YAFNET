@@ -37,8 +37,6 @@ using YAF.Types.Models.Identity;
 /// </summary>
 public class InstallService : IHaveServiceLocator
 {
-    #region Constants
-
     /// <summary>
     ///     The BBCode extensions import xml file.
     /// </summary>
@@ -48,10 +46,6 @@ public class InstallService : IHaveServiceLocator
     ///     The Spam Words list import xml file.
     /// </summary>
     private const string SpamWordsImport = "Install/SpamWords.xml";
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="InstallService"/> class.
@@ -71,10 +65,6 @@ public class InstallService : IHaveServiceLocator
         this.DbAccess = access;
         this.ServiceLocator = serviceLocator;
     }
-
-    #endregion
-
-    #region Public Properties
 
     /// <summary>
     ///     Gets a value indicating whether this instance is forum installed.
@@ -113,10 +103,6 @@ public class InstallService : IHaveServiceLocator
     ///     Gets or sets the service locator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// Initializes the forum.
@@ -236,10 +222,6 @@ public class InstallService : IHaveServiceLocator
 
         return true;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Executes the install scripts.
@@ -361,6 +343,4 @@ public class InstallService : IHaveServiceLocator
                     loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
                 });
     }
-
-    #endregion
 }

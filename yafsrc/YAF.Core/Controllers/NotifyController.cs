@@ -38,14 +38,10 @@ using YAF.Types.Objects;
 [RoutePrefix("api")]
 public class NotifyController : ApiController, IHaveServiceLocator
 {
-    #region Properties
-
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-    #endregion
 
     /// <summary>
     /// Gets the paged attachments.

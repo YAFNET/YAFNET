@@ -31,8 +31,6 @@ using System.Collections.Generic;
 [Serializable]
 public class MessageCleaned
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "MessageCleaned" /> class.
     /// </summary>
@@ -55,10 +53,6 @@ public class MessageCleaned
         this.MessageKeywords = messageKeywords;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets or sets MessageKeywords.
     /// </summary>
@@ -68,6 +62,4 @@ public class MessageCleaned
     ///   Gets or sets MessageTruncated.
     /// </summary>
     public string MessageTruncated { get; set; }
-
-    #endregion
 }

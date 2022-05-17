@@ -26,8 +26,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class vaccess_user : IEntity
 {
-    #region Public Properties
-
     [AutoIncrement]
     public int UserID { get; set; }
     public int? ForumID { get; set; }
@@ -43,6 +41,4 @@ public class vaccess_user : IEntity
     public int? EditAccess { get; set; }
     public int? DeleteAccess { get; set; }
     public int? AdminGroup { get; set; }
-
-    #endregion
 }

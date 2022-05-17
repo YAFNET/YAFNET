@@ -23,12 +23,6 @@
  */
 namespace YAF.Types.Interfaces.Events;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// Fires an event globally hookable.
 /// </summary>
@@ -37,12 +31,8 @@ namespace YAF.Types.Interfaces.Events;
 public interface IFireEvent<T> : IHandleEvent<T>
     where T : IAmEvent
 {
-    #region Public Events
-
     /// <summary>
     ///     The handle event.
     /// </summary>
     event EventHandler<EventConverterArgs<T>> HandleEvent;
-
-    #endregion
 }

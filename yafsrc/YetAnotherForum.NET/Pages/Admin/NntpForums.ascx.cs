@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class NntpForums : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="NntpForums"/> class. 
     /// </summary>
@@ -40,10 +38,6 @@ public partial class NntpForums : AdminPage
         : base("ADMIN_NNTPFORUMS", ForumPages.Admin_NntpForums)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// News the forum click.
@@ -119,6 +113,4 @@ public partial class NntpForums : AdminPage
             .NntpForumList(this.PageBoardContext.PageBoardID, null);
         this.DataBind();
     }
-
-    #endregion
 }

@@ -23,19 +23,11 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// The i read value extensions.
 /// </summary>
 public static class IReadValueExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// Gets a value with a default value...
     /// </summary>
@@ -106,6 +98,4 @@ public static class IReadValueExtensions
 
         return Equals(value, null) ? defaultValue : Convert.ToBoolean(value.ToLower());
     }
-
-    #endregion
 }

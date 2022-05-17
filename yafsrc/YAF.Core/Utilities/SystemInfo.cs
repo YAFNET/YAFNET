@@ -23,21 +23,15 @@
  */
 namespace YAF.Core.Utilities;
 
-#region Using
-
 using System;
 
 using Microsoft.Win32;
-
-#endregion
 
 /// <summary>
 /// The class gets common system info. Used in data layers other than MSSQL. Created by vzrus 2010
 /// </summary>
 public static class SystemInfo
 {
-    #region Properties
-
     /// <summary>
     /// Gets the number of memory bytes currently thought to be allocated.
     /// </summary>
@@ -90,10 +84,6 @@ public static class SystemInfo
     /// </value>
     public static string VersionString => Environment.OSVersion.VersionString;
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Checking the version using >= will enable forward compatibility.
     /// </summary>
@@ -114,6 +104,4 @@ public static class SystemInfo
                 _ => releaseKey >= 378389 ? "4.5" : "No 4.5 or later version detected"
             };
     }
-
-    #endregion
 }

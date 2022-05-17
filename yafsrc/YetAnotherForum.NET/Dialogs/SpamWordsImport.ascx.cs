@@ -24,19 +24,13 @@
 
 namespace YAF.Dialogs;
 
-#region Using
-
 using YAF.Core.Services.Import;
-
-#endregion
 
 /// <summary>
 /// The Admin Spam Words Import Dialog.
 /// </summary>
 public partial class SpamWordsImport : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Try to Import from selected File
     /// </summary>
@@ -81,6 +75,4 @@ public partial class SpamWordsImport : BaseUserControl
                 JavaScriptBlocks.OpenModalJs("ImportDialog"));
         }
     }
-
-    #endregion
 }

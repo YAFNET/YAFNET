@@ -34,8 +34,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class UserPMessageRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Mark Private Message as read.
     /// </summary>
@@ -175,6 +173,4 @@ public static class UserPMessageRepositoryExtensions
         repository.Delete(p => p.PMessageID == message.PMessageID);
         BoardContext.Current.GetRepository<PMessage>().DeleteById(message.PMessageID);
     }
-
-    #endregion
 }

@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [UniqueConstraint(nameof(FromUserID), nameof(ToUserID))]
 public class Buddy : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -76,6 +74,4 @@ public class Buddy : IEntity, IHaveID
     /// </value>
     [Required]
     public DateTime Requested { get; set; }
-
-    #endregion
 }

@@ -28,8 +28,6 @@ namespace YAF.Dialogs;
 /// </summary>
 public partial class AttachmentsUpload : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Handles the PreRender event
     /// </summary>
@@ -73,6 +71,4 @@ public partial class AttachmentsUpload : BaseUserControl
             this.UploadNodePlaceHold.Visible = false;
         }
     }
-
-    #endregion
 }

@@ -24,20 +24,14 @@
 
 namespace YAF.Pages.Moderate;
 
-#region Using
-
 using YAF.Web.Controls;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Forum Moderating Page.
 /// </summary>
 public partial class Forums : ModerateForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Forums" /> class.
     /// </summary>
@@ -45,10 +39,6 @@ public partial class Forums : ModerateForumPage
         : base("MODERATING", ForumPages.Moderate_Forums)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The On PreRender event.
@@ -349,6 +339,4 @@ public partial class Forums : ModerateForumPage
 
         return list;
     }
-
-    #endregion
 }

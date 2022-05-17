@@ -24,20 +24,14 @@
 
 namespace YAF.Core.BBCode;
 
-#region Using
-
 using System;
 using System.Text;
-
-#endregion
 
 /// <summary>
 /// The high lighter.
 /// </summary>
 public class HighLighter
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "HighLighter" /> class.
     /// </summary>
@@ -46,18 +40,10 @@ public class HighLighter
         this.ReplaceEnter = false;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets or sets a value indicating whether ReplaceEnter.
     /// </summary>
     public bool ReplaceEnter { get; set; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Colors the text.
@@ -109,6 +95,4 @@ public class HighLighter
 
         return tmpOutput.ToString();
     }
-
-    #endregion
 }

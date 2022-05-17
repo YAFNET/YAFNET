@@ -28,8 +28,6 @@ namespace YAF.Core.URLBuilder;
 /// </summary>
 public class DefaultUrlBuilder : BaseUrlBuilder
 {
-    #region Public Methods
-
     /// <summary>
     /// Builds path for calling page with parameter URL as page's escaped parameter.
     /// </summary>
@@ -60,6 +58,4 @@ public class DefaultUrlBuilder : BaseUrlBuilder
     {
         return this.BuildUrl(url);
     }
-
-    #endregion
 }

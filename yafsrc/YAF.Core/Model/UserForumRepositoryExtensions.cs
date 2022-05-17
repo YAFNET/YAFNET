@@ -34,8 +34,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class UserForumRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Deletes the specified user identifier.
     /// </summary>
@@ -148,6 +146,4 @@ public static class UserForumRepositoryExtensions
             repository.FireNew(forumId);
         }
     }
-
-    #endregion
 }

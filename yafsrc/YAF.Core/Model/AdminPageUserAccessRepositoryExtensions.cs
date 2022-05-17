@@ -32,8 +32,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class AdminPageUserAccessRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Lists all Pages
     /// </summary>
@@ -129,6 +127,4 @@ public static class AdminPageUserAccessRepositoryExtensions
 
         repository.Delete(u => u.UserID == userId && u.PageName == pageName);
     }
-
-    #endregion
 }

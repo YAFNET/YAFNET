@@ -23,20 +23,12 @@
  */
 namespace YAF.Types.Models;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 ///     A class which represents the AccessMask table
 /// </summary>
 [Serializable]
 public class AccessMask : IEntity, IHaveBoardID, IHaveID
 {
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets the access mask id.
     /// </summary>
@@ -82,6 +74,4 @@ public class AccessMask : IEntity, IHaveBoardID, IHaveID
     [Required]
     [Default(0)]
     public short SortOrder { get; set; }
-
-    #endregion
 }

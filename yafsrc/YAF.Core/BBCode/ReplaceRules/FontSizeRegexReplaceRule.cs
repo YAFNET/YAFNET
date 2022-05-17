@@ -30,8 +30,6 @@ using System.Text.RegularExpressions;
 /// </summary>
 public class FontSizeRegexReplaceRule : VariableRegexReplaceRule
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="FontSizeRegexReplaceRule"/> class.
     /// </summary>
@@ -49,10 +47,6 @@ public class FontSizeRegexReplaceRule : VariableRegexReplaceRule
     {
         this.RuleRank = 25;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Override to change default variable handling...
@@ -98,6 +92,4 @@ public class FontSizeRegexReplaceRule : VariableRegexReplaceRule
 
         return $"{sizes[size - 1]}%";
     }
-
-    #endregion
 }

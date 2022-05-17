@@ -29,8 +29,6 @@ namespace YAF.Pages.Admin;
 /// </summary>
 public partial class Version : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Version"/> class. 
     /// </summary>
@@ -38,10 +36,6 @@ public partial class Version : AdminPage
         : base("ADMIN_VERSION", ForumPages.Admin_Version)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -96,6 +90,4 @@ public partial class Version : AdminPage
         this.PageLinks.AddAdminIndex();
         this.PageLinks.AddLink(this.GetText("ADMIN_VERSION", "TITLE"), string.Empty);
     }
-
-    #endregion
 }

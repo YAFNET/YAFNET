@@ -23,21 +23,15 @@
  */
 namespace YAF.Types.Extensions;
 
-#region Using
-
 using System.Linq;
 using System.Security.Permissions;
 using System.Security.Policy;
-
-#endregion
 
 /// <summary>
 /// The type extensions.
 /// </summary>
 public static class TypeExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// The get signing key.
     /// </summary>
@@ -53,6 +47,4 @@ public static class TypeExtensions
 
         return sourceType.Assembly.Evidence.OfType<StrongName>().Select(t => t.PublicKey).FirstOrDefault();
     }
-
-    #endregion
 }

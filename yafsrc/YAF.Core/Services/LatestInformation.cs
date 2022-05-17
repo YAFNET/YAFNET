@@ -47,14 +47,10 @@ public class LatestInformation : IHaveServiceLocator, ILatestInformation
         this.ServiceLocator = serviceLocator;
     }
 
-    #region Properties
-
     /// <summary>
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
 
     /// <summary>
     /// Gets the latest version information.

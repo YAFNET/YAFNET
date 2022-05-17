@@ -23,11 +23,7 @@
  */
 namespace YAF.Types.Objects;
 
-#region Using
-
 using YAF.Types.Constants;
-
-#endregion
 
 /// <summary>
 /// The Message Notification
@@ -35,8 +31,6 @@ using YAF.Types.Constants;
 [Serializable]
 public class MessageNotification
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="MessageNotification"/> class.
     /// </summary>
@@ -67,10 +61,6 @@ public class MessageNotification
         this.Script = script;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets the message.
     /// </summary>
@@ -88,6 +78,4 @@ public class MessageNotification
     public MessageTypes MessageType { get; set; }
 
     public string Script { get; set; }
-
-    #endregion
 }

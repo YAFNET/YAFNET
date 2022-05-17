@@ -29,8 +29,6 @@ namespace YAF.Pages.Admin;
 /// </summary>
 public partial class Languages : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Languages"/> class. 
     /// </summary>
@@ -38,10 +36,6 @@ public partial class Languages : AdminPage
         : base("ADMIN_LANGUAGES", ForumPages.Admin_Languages)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
@@ -156,6 +150,4 @@ public partial class Languages : AdminPage
 
         this.DataBind();
     }
-
-    #endregion
 }

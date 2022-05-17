@@ -24,19 +24,13 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using System.Web.UI;
-
-#endregion
 
 /// <summary>
 /// Buddy List Control
 /// </summary>
 public partial class BuddyList : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     ///   The parent control of the current control. (Used in rptBuddy_ItemCommand method)
     /// </summary>
@@ -61,10 +55,6 @@ public partial class BuddyList : BaseUserControl
     /// Gets or sets the Friends Table.
     /// </summary>
     public List<BuddyUser> FriendsList { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Called when the page loads
@@ -325,6 +315,4 @@ public partial class BuddyList : BaseUserControl
         customBuddyList.Container = this.Container;
         customBuddyList.BindData();
     }
-
-    #endregion
 }

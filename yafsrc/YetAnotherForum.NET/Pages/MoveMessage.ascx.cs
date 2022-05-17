@@ -24,17 +24,13 @@
 
 namespace YAF.Pages;
 
-#region Using
 using YAF.Types.Models;
-#endregion
 
 /// <summary>
 /// Move Message Page
 /// </summary>
 public partial class MoveMessage : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "MoveMessage" /> class.
     /// </summary>
@@ -43,15 +39,11 @@ public partial class MoveMessage : ForumPage
     {
     }
 
-    #endregion
-
     /// <summary>
     /// The move message id.
     /// </summary>
     protected int MoveMessageId =>
         this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
-
-    #region Methods
 
     /// <summary>
     /// Handles the PreRender event
@@ -161,6 +153,4 @@ public partial class MoveMessage : ForumPage
     {
         this.Move.Visible = this.TopicsList.SelectedValue != string.Empty;
     }
-
-    #endregion
 }

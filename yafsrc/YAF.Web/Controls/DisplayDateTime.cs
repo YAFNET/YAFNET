@@ -28,16 +28,10 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class DisplayDateTime : BaseControl
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The ControlHtml.
     /// </summary>
     private const string ControlHtml = @"<abbr class=""timeago"" title=""{1}"" data-bs-toggle=""tooltip"" data-bs-html=""true"">{0}</abbr>";
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets DateTime.
@@ -84,10 +78,6 @@ public class DisplayDateTime : BaseControl
         }
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The render.
     /// </summary>
@@ -112,6 +102,4 @@ public class DisplayDateTime : BaseControl
 
         writer.WriteLine();
     }
-
-    #endregion
 }

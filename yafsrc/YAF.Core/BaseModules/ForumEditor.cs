@@ -24,22 +24,16 @@
 
 namespace YAF.Core.BaseModules;
 
-#region Using
-
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
 using YAF.Core.BaseControls;
-
-#endregion
 
 /// <summary>
 /// The Base ForumEditor Class
 /// </summary>
 public abstract class ForumEditor : BaseControl, IEditorModule
 {
-    #region Properties
-        
     /// <summary>
     ///   Gets a value indicating whether Active.
     /// </summary>
@@ -91,10 +85,6 @@ public abstract class ForumEditor : BaseControl, IEditorModule
     /// </value>
     public virtual bool UserCanUpload { get; set; }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The add editor control.
     /// </summary>
@@ -108,6 +98,4 @@ public abstract class ForumEditor : BaseControl, IEditorModule
         newDiv.Controls.Add(editor);
         this.Controls.Add(newDiv);
     }
-
-    #endregion
 }

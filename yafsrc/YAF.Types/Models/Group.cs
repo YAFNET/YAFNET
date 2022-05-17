@@ -31,8 +31,6 @@ namespace YAF.Types.Models;
 [UniqueConstraint(nameof(BoardID), nameof(Name))]
 public class Group : IEntity, IHaveID, IHaveBoardID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -126,6 +124,4 @@ public class Group : IEntity, IHaveID, IHaveBoardID
     [Required]
     [Default(0)]
     public int UsrAlbumImages { get; set; }
-
-    #endregion
 }

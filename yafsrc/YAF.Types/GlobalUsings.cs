@@ -1,4 +1,4 @@
-// Global using directives
+﻿// Global using directives
 
 global using System;
 global using System.Collections;
@@ -11,7 +11,6 @@ global using System.Xml.Serialization;
 global using ServiceStack.DataAnnotations;
 global using ServiceStack.OrmLite;
 
-global using YAF.Types;
 global using YAF.Types.Attributes;
 global using YAF.Types.Flags;
 global using YAF.Types.Interfaces;

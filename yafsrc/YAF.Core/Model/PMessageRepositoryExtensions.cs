@@ -13,8 +13,6 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class PMessageRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Prune All Private Messages
     /// </summary>
@@ -554,6 +552,4 @@ public static class PMessageRepositoryExtensions
 
         return messages.OrderBy(m => m.Created).ToList();
     }
-
-    #endregion
 }

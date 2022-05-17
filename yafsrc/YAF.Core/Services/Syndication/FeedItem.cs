@@ -23,31 +23,21 @@
  */
 namespace YAF.Core.Services.Syndication;
 
-#region Using
-
 using System;
 using System.ServiceModel.Syndication;
 
 using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Constants;
 
-#endregion
-
 /// <summary>
 /// Class that generates all feeds
 /// </summary>
 public class FeedItem : SyndicationFeed
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The feed categories.
     /// </summary>
     private const string FeedCategories = "YAF";
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FeedItem"/> class.
@@ -98,6 +88,4 @@ public class FeedItem : SyndicationFeed
                 BaseUrlBuilder.BaseUrl));
         this.Categories.Add(new SyndicationCategory(FeedCategories));
     }
-
-    #endregion
 }

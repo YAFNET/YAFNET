@@ -28,8 +28,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class MessageSignature : MessageBase
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the display user identifier.
     /// </summary>
@@ -53,10 +51,6 @@ public class MessageSignature : MessageBase
     /// The signature.
     /// </value>
     public string Signature { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The render.
@@ -114,6 +108,4 @@ public class MessageSignature : MessageBase
 
         this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserId, this.MessageId);
     }
-
-    #endregion
 }

@@ -24,21 +24,15 @@
 
 namespace YAF.Pages;
 
-#region Using
-
 using System.Net.Mail;
 
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Send Email from one user to the user
 /// </summary>
 public partial class Email : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Email" /> class.
     /// </summary>
@@ -47,19 +41,11 @@ public partial class Email : ForumPage
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets UserID.
     /// </summary>
     public int UserId =>
         this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -148,6 +134,4 @@ public partial class Email : ForumPage
                 MessageTypes.danger);
         }
     }
-
-    #endregion
 }

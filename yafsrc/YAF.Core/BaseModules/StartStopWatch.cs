@@ -23,11 +23,7 @@
  */
 namespace YAF.Core.BaseModules;
 
-#region Using
-
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// Stop watch start/stop
@@ -35,16 +31,10 @@ using YAF.Types.Attributes;
 [ExportService(ServiceLifetimeScope.InstancePerScope)]
 public class StartStopWatch : IHandleEvent<ForumPageInitEvent>, IHandleEvent<ForumPageUnloadEvent>
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The _stop watch.
     /// </summary>
     private readonly IStopWatch stopWatch;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StartStopWatch"/> class.
@@ -56,10 +46,6 @@ public class StartStopWatch : IHandleEvent<ForumPageInitEvent>, IHandleEvent<For
     {
         this.stopWatch = stopWatch;
     }
-
-    #endregion
-
-    #region Implementation of IHandleEvent<in ForumPageUnloadEvent>
 
     /// <summary>
     /// Gets Order.
@@ -89,6 +75,4 @@ public class StartStopWatch : IHandleEvent<ForumPageInitEvent>, IHandleEvent<For
         // stop the stop watch in case the footer did not...
         this.stopWatch.Stop();
     }
-
-    #endregion
 }

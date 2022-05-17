@@ -28,8 +28,6 @@ namespace YAF.Types.EventProxies;
 /// </summary>
 public class UpdateTopicLastPostEvent : IAmEvent
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateTopicLastPostEvent"/> class.
     /// </summary>
@@ -45,10 +43,6 @@ public class UpdateTopicLastPostEvent : IAmEvent
         this.TopicId = topicId;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets the forum id.
     /// </summary>
@@ -58,6 +52,4 @@ public class UpdateTopicLastPostEvent : IAmEvent
     /// Gets or sets the topic id.
     /// </summary>
     public int TopicId { get; set; }
-
-    #endregion
 }

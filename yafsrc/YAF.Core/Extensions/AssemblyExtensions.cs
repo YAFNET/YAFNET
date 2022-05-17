@@ -24,23 +24,17 @@
 
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 
 using YAF.Types.Attributes;
 
-#endregion
-
 /// <summary>
 ///     The assembly extensions.
 /// </summary>
 public static class AssemblyExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The find classes with attribute.
     /// </summary>
@@ -86,6 +80,4 @@ public static class AssemblyExtensions
 
         return attribute.Any() ? attribute.First().SortOrder : 9999;
     }
-
-    #endregion
 }

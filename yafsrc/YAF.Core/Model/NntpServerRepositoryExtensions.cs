@@ -23,19 +23,13 @@
  */
 namespace YAF.Core.Model;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 ///     The NntpServer repository extensions.
 /// </summary>
 public static class NntpServerRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Save Server.
     /// </summary>
@@ -105,6 +99,4 @@ public static class NntpServerRepositoryExtensions
             repository.FireNew(entity);
         }
     }
-
-    #endregion
 }

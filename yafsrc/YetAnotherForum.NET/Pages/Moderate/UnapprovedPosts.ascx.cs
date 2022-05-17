@@ -24,17 +24,13 @@
 
 namespace YAF.Pages.Moderate;
 
-#region Using
 using YAF.Types.Models;
-#endregion
 
 /// <summary>
 /// Moderating Page for Unapproved Posts.
 /// </summary>
 public partial class UnapprovedPosts : ModerateForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "UnapprovedPosts" /> class. 
     ///   Default constructor.
@@ -43,10 +39,6 @@ public partial class UnapprovedPosts : ModerateForumPage
         : base("MODERATE_FORUM", ForumPages.Moderate_UnapprovedPosts)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Creates page links for this page.
@@ -203,6 +195,4 @@ public partial class UnapprovedPosts : ModerateForumPage
 
         this.BindData();
     }
-
-    #endregion
 }

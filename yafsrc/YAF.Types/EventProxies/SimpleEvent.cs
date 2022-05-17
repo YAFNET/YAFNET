@@ -28,8 +28,6 @@ namespace YAF.Types.EventProxies;
 /// </summary>
 public class SimpleEvent : IAmEvent
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="SimpleEvent"/> class.
     /// </summary>
@@ -41,14 +39,8 @@ public class SimpleEvent : IAmEvent
         this.Message = message;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets Message.
     /// </summary>
     public string Message { get; set; }
-
-    #endregion
 }

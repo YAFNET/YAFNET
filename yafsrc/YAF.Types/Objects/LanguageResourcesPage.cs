@@ -40,8 +40,6 @@ using System.Xml.Schema;
 [XmlType(AnonymousType = true)]
 public class LanguageResourcesPage
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The name field.
     /// </summary>
@@ -51,10 +49,6 @@ public class LanguageResourcesPage
     /// The resource field.
     /// </summary>
     private List<LanguageResourcesPageResource> resourceField;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// The resource.
@@ -81,6 +75,4 @@ public class LanguageResourcesPage
 
         set => this.nameField = value;
     }
-
-    #endregion
 }

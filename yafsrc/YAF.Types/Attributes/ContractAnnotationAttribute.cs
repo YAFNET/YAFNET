@@ -81,8 +81,6 @@ namespace YAF.Types.Attributes;
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
 public sealed class ContractAnnotationAttribute : Attribute
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ContractAnnotationAttribute"/> class.
     /// </summary>
@@ -109,10 +107,6 @@ public sealed class ContractAnnotationAttribute : Attribute
         this.ForceFullStates = forceFullStates;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     /// Gets the contract.
     /// </summary>
@@ -122,6 +116,4 @@ public sealed class ContractAnnotationAttribute : Attribute
     /// Gets a value indicating whether force full states.
     /// </summary>
     public bool ForceFullStates { get; }
-
-    #endregion
 }

@@ -24,21 +24,15 @@
 
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
-
-#endregion
 
 /// <summary>
 /// The mail message extensions.
 /// </summary>
 public static class MailMessageExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Populates the specified mail message.
     /// </summary>
@@ -85,6 +79,4 @@ public static class MailMessageExtensions
                 AlternateView.CreateAlternateViewFromString(bodyHtml, Encoding.UTF8, MediaTypeNames.Text.Html));
         }
     }
-
-    #endregion
 }

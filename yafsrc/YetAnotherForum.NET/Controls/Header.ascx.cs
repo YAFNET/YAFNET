@@ -24,22 +24,16 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
 using YAF.Web.Controls;
-
-#endregion
 
 /// <summary>
 /// The Header.
 /// </summary>
 public partial class Header : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// The On PreRender event.
     /// </summary>
@@ -402,6 +396,4 @@ public partial class Header : BaseUserControl
             this.LoggedInUserPanel.Visible = true;
         }
     }
-
-    #endregion
 }

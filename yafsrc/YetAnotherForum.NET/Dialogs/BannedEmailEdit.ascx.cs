@@ -24,19 +24,13 @@
 
 namespace YAF.Dialogs;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Admin Banned Email Add/Edit Dialog.
 /// </summary>
 public partial class BannedEmailEdit : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Gets or sets the banned identifier.
     /// </summary>
@@ -132,6 +126,4 @@ public partial class BannedEmailEdit : BaseUserControl
         // go back to banned IPs administration page
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BannedEmails);
     }
-
-    #endregion
 }

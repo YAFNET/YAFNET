@@ -23,22 +23,16 @@
  */
 namespace YAF.Web.ReCAPTCHA;
 
-#region Using
-
 using System.Net;
 using System.Net.Sockets;
 
 using ServiceStack.Text;
-
-#endregion
 
 /// <summary>
 /// The reCAPTCHA validator.
 /// </summary>
 public class RecaptchaValidator
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The verify url.
     /// </summary>
@@ -48,10 +42,6 @@ public class RecaptchaValidator
     ///   The remote IP.
     /// </summary>
     private string remoteIp;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets SecretKey.
@@ -83,10 +73,6 @@ public class RecaptchaValidator
     ///   Gets or sets Response.
     /// </summary>
     public string Response { get; set; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Validates the reCAPTCHA Response
@@ -143,10 +129,6 @@ public class RecaptchaValidator
                    : new RecaptchaResponse(false, responseJson.ErrorCodes);
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The check not null.
     /// </summary>
@@ -163,6 +145,4 @@ public class RecaptchaValidator
             throw new ArgumentNullException(name);
         }
     }
-
-    #endregion
 }

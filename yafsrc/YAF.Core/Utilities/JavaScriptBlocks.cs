@@ -23,20 +23,14 @@
  */
 namespace YAF.Core.Utilities;
 
-#region Using
-
 using YAF.Core.Context.Start;
 using YAF.Types.Objects;
-
-#endregion
 
 /// <summary>
 /// Contains the Java Script Blocks
 /// </summary>
 public static class JavaScriptBlocks
 {
-    #region Properties
-
     /// <summary>
     ///   Gets the script for changing the image caption.
     /// </summary>
@@ -173,10 +167,6 @@ public static class JavaScriptBlocks
         }}).on(""select2:select"", function (e) {{
                   $(""#{hiddenId}"").val($(this).select2('data').map(x => x.text).join());
         }});";
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Java Script events for Album pages.
@@ -504,8 +494,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                           
                  }}";
     }
-
-    #endregion
 
     /// <summary>
     /// The CKEditor Load JS.

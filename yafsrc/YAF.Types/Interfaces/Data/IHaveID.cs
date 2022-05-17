@@ -28,12 +28,8 @@ namespace YAF.Types.Interfaces.Data;
 /// </summary>
 public interface IHaveID
 {
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
     int ID { get; set; }
-
-    #endregion
 }

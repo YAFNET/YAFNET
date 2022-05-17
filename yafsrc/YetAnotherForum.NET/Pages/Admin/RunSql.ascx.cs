@@ -24,22 +24,16 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using YAF.Core.Data;
 using YAF.Types.Extensions.Data;
 using YAF.Types.Interfaces.Data;
 using YAF.Web.Editors;
-
-#endregion
 
 /// <summary>
 /// The run SQL Query Page.
 /// </summary>
 public partial class RunSql : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="RunSql"/> class. 
     /// </summary>
@@ -48,15 +42,10 @@ public partial class RunSql : AdminPage
     {
     }
 
-    #endregion
-
-
     /// <summary>
     ///   The editor.
     /// </summary>
     private ForumEditor editor;
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -129,6 +118,4 @@ public partial class RunSql : AdminPage
     {
         this.DataBind();
     }
-
-    #endregion
 }

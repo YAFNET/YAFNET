@@ -23,21 +23,15 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
 using System.Xml.Serialization;
 
 using YAF.Types.Objects;
-
-#endregion
 
 /// <summary>
 /// Renders the Help Menu on the Help Pages.
 /// </summary>
 public class HelpMenu : BasePanel
 {
-    #region Methods
-
     /// <summary>
     /// The List with the Help Navigation Items
     /// </summary>
@@ -200,6 +194,4 @@ public class HelpMenu : BasePanel
 
         writer.EndRender();
     }
-
-    #endregion
 }

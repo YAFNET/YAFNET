@@ -23,19 +23,13 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
 using YAF.Types.Interfaces.Services;
-
-#endregion
 
 /// <summary>
 /// The i logger provider.
 /// </summary>
 public interface ILoggerProvider
 {
-    #region Public Methods
-
     /// <summary>
     /// The create.
     /// </summary>
@@ -45,6 +39,4 @@ public interface ILoggerProvider
     /// <returns>
     /// </returns>
     ILoggerService Create([CanBeNull] Type type);
-
-    #endregion
 }

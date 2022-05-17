@@ -23,19 +23,14 @@
  */
 namespace YAF.Pages;
 
-#region Using
-
 using YAF.Web.Controls;
 using YAF.Types.Models;
-#endregion
 
 /// <summary>
 /// The my topics page.
 /// </summary>
 public partial class MyTopics : ForumPageRegistered
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   default since date is now
     /// </summary>
@@ -45,10 +40,6 @@ public partial class MyTopics : ForumPageRegistered
     ///   default since option is "since last visit"
     /// </summary>
     private int sinceValue;
-        
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MyTopics"/> class.
@@ -57,10 +48,6 @@ public partial class MyTopics : ForumPageRegistered
         : base("MYTOPICS", ForumPages.MyTopics)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The On PreRender event.
@@ -385,6 +372,4 @@ public partial class MyTopics : ForumPageRegistered
             
         this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
     }
-
-    #endregion
 }

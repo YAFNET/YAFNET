@@ -36,8 +36,6 @@ using YAF.Types.Models;
 /// </summary>
 public class QuoteRegexReplaceRule : VariableRegexReplaceRule
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="QuoteRegexReplaceRule" /> class.
     /// </summary>
@@ -49,10 +47,6 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
     {
         this.RuleRank = 60;
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The replace.
@@ -172,10 +166,6 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
         text = sb.ToString();
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// This just overrides how the inner value is handled
     /// </summary>
@@ -187,6 +177,4 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
     {
         return innerValue;
     }
-
-    #endregion
 }

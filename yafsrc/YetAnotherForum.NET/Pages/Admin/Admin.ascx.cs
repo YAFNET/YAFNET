@@ -24,8 +24,6 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.Net.Mail;
 using FarsiLibrary.Utils;
 using YAF.Types.Extensions.Data;
@@ -34,15 +32,11 @@ using YAF.Web.Controls;
 
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The Admin Index Page.
 /// </summary>
 public partial class Admin : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Admin"/> class. 
     /// </summary>
@@ -50,10 +44,6 @@ public partial class Admin : AdminPage
         : base("ADMIN_ADMIN", ForumPages.Admin_Admin)
     {
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Loads the Board Stats for the Selected Board
@@ -155,33 +145,6 @@ public partial class Admin : AdminPage
                 this.BindData();
                 break;
         }
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// Formats the forum link.
-    /// </summary>
-    /// <param name="forumId">
-    /// The forum ID.
-    /// </param>
-    /// <param name="forumName">
-    /// Name of the forum.
-    /// </param>
-    /// <returns>
-    /// The format forum link.
-    /// </returns>
-    protected string FormatForumLink([NotNull] object forumId, [NotNull] object forumName)
-    {
-        if (forumId.ToString() == string.Empty || forumName.ToString() == string.Empty)
-        {
-            return string.Empty;
-        }
-
-        return
-            $"<a target=\"_top\" href=\"{this.Get<LinkBuilder>().GetForumLink(forumId.ToType<int>(), forumName.ToString())}\">{forumName}</a>";
     }
 
     /// <summary>
@@ -475,6 +438,4 @@ public partial class Admin : AdminPage
                    ? this.PageBoardContext.PageBoardID
                    : this.BoardStatsSelect.SelectedValue.ToType<int>();
     }
-
-    #endregion
 }

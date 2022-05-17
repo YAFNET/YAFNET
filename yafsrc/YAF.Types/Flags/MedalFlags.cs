@@ -29,8 +29,6 @@ namespace YAF.Types.Flags;
 [Serializable]
 public class MedalFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="MedalFlags"/> class.
     /// </summary>
@@ -83,10 +81,6 @@ public class MedalFlags : FlagsBase
     {
     }
 
-    #endregion
-
-    #region Flags Enumeration
-
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
@@ -135,10 +129,6 @@ public class MedalFlags : FlagsBase
                */
     }
 
-    #endregion
-
-    #region Single Flags (can be 32 of them)
-
     /// <summary>
     /// Gets or sets a value indicating whether medal message is shown.
     /// </summary>
@@ -185,10 +175,6 @@ public class MedalFlags : FlagsBase
         set => this[3] = value;
     }
 
-    #endregion
-
-    #region Operators
-
     /// <summary>
     /// The op_ implicit.
     /// </summary>
@@ -214,6 +200,4 @@ public class MedalFlags : FlagsBase
     {
         return new MedalFlags(flags);
     }
-
-    #endregion
 }

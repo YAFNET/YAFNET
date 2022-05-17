@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class NntpForum : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -82,6 +80,4 @@ public class NntpForum : IEntity, IHaveID
     /// Gets or sets the date cut off.
     /// </summary>
     public DateTime? DateCutOff { get; set; }
-
-    #endregion
 }

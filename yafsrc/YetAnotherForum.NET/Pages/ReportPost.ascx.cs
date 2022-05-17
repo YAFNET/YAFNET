@@ -24,17 +24,13 @@
 
 namespace YAF.Pages;
 
-#region Using
 using YAF.Types.Models;
-#endregion
 
 /// <summary>
 /// The form for reported post complaint text.
 /// </summary>
 public partial class ReportPost : ForumPage
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _all posts by user.
     /// </summary>
@@ -45,8 +41,6 @@ public partial class ReportPost : ForumPage
     /// </summary>
     private string topicName;
 
-    #endregion
-
     /// <summary>
     ///   Gets AllPostsByUser.
     /// </summary>
@@ -55,8 +49,6 @@ public partial class ReportPost : ForumPage
 
     protected int MessageId => this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the ReportPost class.
     /// </summary>
@@ -64,10 +56,6 @@ public partial class ReportPost : ForumPage
         : base("REPORTPOST", ForumPages.ReportPost)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Return to Post
@@ -199,6 +187,4 @@ public partial class ReportPost : ForumPage
         // Redirect to reported post
         this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new {m = this.MessageId, name = this.topicName});
     }
-
-    #endregion
 }

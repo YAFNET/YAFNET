@@ -23,19 +23,11 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// The inject services extensions.
 /// </summary>
 public static class IInjectServicesExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// Injects instance with public properties marked with Inject attribute.
     /// </summary>
@@ -52,6 +44,4 @@ public static class IInjectServicesExtensions
 
         injectServices.InjectMarked<Inject>(instance);
     }
-
-    #endregion
 }

@@ -22,20 +22,14 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using YAF.Types.Extensions.Data;
 using YAF.Types.Interfaces.Data;
-
-#endregion
 
 /// <summary>
 /// The Host Settings Page.
 /// </summary>
 public partial class HostSettings : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="HostSettings"/> class. 
     /// </summary>
@@ -43,10 +37,6 @@ public partial class HostSettings : AdminPage
         : base("ADMIN_HOSTSETTINGS", ForumPages.Admin_HostSettings)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Updates the Search Index
@@ -558,6 +548,4 @@ public partial class HostSettings : AdminPage
         this.Get<IDataCache>().Remove(key);
         this.CheckCache();
     }
-
-    #endregion
 }

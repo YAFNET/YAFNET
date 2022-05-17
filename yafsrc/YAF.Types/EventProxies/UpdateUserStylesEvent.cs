@@ -28,8 +28,6 @@ namespace YAF.Types.EventProxies;
 /// </summary>
 public class UpdateUserStylesEvent : IAmEvent
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateUserStylesEvent"/> class.
     /// </summary>
@@ -41,14 +39,8 @@ public class UpdateUserStylesEvent : IAmEvent
         this.BoardId = boardId;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets the board id.
     /// </summary>
     public int BoardId { get; set; }
-
-    #endregion
 }

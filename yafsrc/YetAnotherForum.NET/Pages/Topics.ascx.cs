@@ -24,28 +24,18 @@
 
 namespace YAF.Pages;
 
-#region Using
-
 using YAF.Web.Controls;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The topics list page
 /// </summary>
 public partial class Topics : ForumPage
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The show topic list selected.
     /// </summary>
     private int showTopicListSelected;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Topics" /> class.
@@ -55,10 +45,6 @@ public partial class Topics : ForumPage
         : base("TOPICS", ForumPages.Topics)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The On PreRender event.
@@ -477,6 +463,4 @@ public partial class Topics : ForumPage
             this.Get<IReadTrackCurrentUser>().SetForumRead(this.PageBoardContext.PageForumID);
         }
     }
-
-    #endregion
 }

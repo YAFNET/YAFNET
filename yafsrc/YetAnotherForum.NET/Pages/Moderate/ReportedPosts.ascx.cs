@@ -24,20 +24,14 @@
 
 namespace YAF.Pages.Moderate;
 
-#region Using
-
 using YAF.Web.Controls;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 ///  Moderating Page for Reported Posts.
 /// </summary>
 public partial class ReportedPosts : ModerateForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "ReportedPosts" /> class.
     ///   Default constructor.
@@ -46,10 +40,6 @@ public partial class ReportedPosts : ModerateForumPage
         : base("MODERATE_FORUM", ForumPages.Moderate_ReportedPosts)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Creates page links for this page.
@@ -204,6 +194,4 @@ public partial class ReportedPosts : ModerateForumPage
 
         this.BindData();
     }
-
-    #endregion
 }

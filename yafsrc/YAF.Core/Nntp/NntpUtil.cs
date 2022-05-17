@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Nntp;
 
-#region Using
-
 using System;
 using System.Collections;
 using System.IO;
@@ -33,15 +31,11 @@ using System.Text.RegularExpressions;
 
 using YAF.Types.Objects.Nntp;
 
-#endregion
-
 /// <summary>
 /// The NNTP utility Class.
 /// </summary>
 public static class NntpUtil
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The base 64 pem code.
     /// </summary>
@@ -57,10 +51,6 @@ public static class NntpUtil
     ///   The hex value.
     /// </summary>
     private static readonly int[] HexValue;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     ///   Initializes static members of the <see cref = "NntpUtil" /> class.
@@ -89,10 +79,6 @@ public static class NntpUtil
             base64PemConvertCode[Base64PemCode[i]] = (byte)i;
         }
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The base 64 decode.
@@ -566,6 +552,4 @@ public static class NntpUtil
 
         return length;
     }
-
-    #endregion
 }

@@ -28,12 +28,8 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface IHaveServiceLocator
 {
-    #region Properties
-
     /// <summary>
     /// Gets ServiceLocator.
     /// </summary>
     IServiceLocator ServiceLocator { get; }
-
-    #endregion
 }

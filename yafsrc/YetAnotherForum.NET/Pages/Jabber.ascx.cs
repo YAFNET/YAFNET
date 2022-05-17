@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class Jabber : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Jabber" /> class.
     /// </summary>
@@ -41,19 +39,11 @@ public partial class Jabber : ForumPage
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets UserID.
     /// </summary>
     public int UserID =>
         this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The page_ load.
@@ -119,6 +109,4 @@ public partial class Jabber : ForumPage
             this.Alert.Type = MessageTypes.info;
         }
     }
-
-    #endregion
 }

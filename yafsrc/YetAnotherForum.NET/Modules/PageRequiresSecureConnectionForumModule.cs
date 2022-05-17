@@ -23,11 +23,7 @@
  */
 namespace YAF.Modules;
 
-#region Using
-
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// The page requires secure connection module.
@@ -35,8 +31,6 @@ using YAF.Types.Attributes;
 [Module("Page Requires Secure Connection Module", "Tiny Gecko", 1)]
 public class PageRequiresSecureConnectionForumModule : SimpleBaseForumModule
 {
-    #region Public Methods
-
     /// <summary>
     /// The init forum.
     /// </summary>
@@ -44,10 +38,6 @@ public class PageRequiresSecureConnectionForumModule : SimpleBaseForumModule
     {
         this.ForumControl.Load += this.ForumControl_Load;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The forum control_ load.
@@ -69,6 +59,4 @@ public class PageRequiresSecureConnectionForumModule : SimpleBaseForumModule
         var redirectUrl = HttpContext.Current.Request.Url.ToString().Replace("http:", "https:");
         HttpContext.Current.Response.Redirect(redirectUrl, false);
     }
-
-    #endregion
 }

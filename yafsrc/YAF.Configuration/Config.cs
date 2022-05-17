@@ -24,21 +24,15 @@
 
 namespace YAF.Configuration;
 
-#region Using
-
 using System.Configuration;
 using System.Linq;
 using System.Web.Configuration;
-
-#endregion
 
 /// <summary>
 ///     Static class that access the app settings in the web.config file
 /// </summary>
 public static class Config
 {
-    #region Public Properties
-
     /// <summary>
     ///     Gets a value indicating whether AllowLoginAndLogoff.
     /// </summary>
@@ -325,8 +319,6 @@ public static class Config
     /// </value>
     public static string BannedIpRedirectUrl => GetConfigValueAsString("YAF.BannedIpRedirectUrl");
 
-    #region Legacy Membership Settings
-
     /// <summary>
     /// Gets the legacy membership hash algorithm type.
     /// </summary>
@@ -361,12 +353,6 @@ public static class Config
     /// Gets a value indicating whether legacy membership hash hex.
     /// </summary>
     public static bool LegacyMembershipHashHex => GetConfigValueAsBool("YAF.LegacyMembershipHashHex", false);
-
-    #endregion
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     ///     Gets the config value as Integer.
@@ -405,6 +391,4 @@ public static class Config
                 where key.Equals(configKey, StringComparison.CurrentCultureIgnoreCase)
                 select WebConfigurationManager.AppSettings[key]).FirstOrDefault();
     }
-
-    #endregion
 }

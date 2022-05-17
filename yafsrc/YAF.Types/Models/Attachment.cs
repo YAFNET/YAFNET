@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class Attachment : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -88,6 +86,4 @@ public class Attachment : IEntity, IHaveID
     /// </summary>
     [Ignore]
     public bool Selected { get; set; }
-
-    #endregion
 }

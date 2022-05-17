@@ -34,8 +34,6 @@ using System.Web.Configuration;
 /// </summary>
 public class ConfigHelper
 {
-    #region Fields
-
     /// <summary>
     ///     The _app settings full.
     /// </summary>
@@ -45,10 +43,6 @@ public class ConfigHelper
     ///     The _web config.
     /// </summary>
     private Configuration webConfig;
-
-    #endregion
-
-    #region Public Properties
 
     /// <summary>
     ///     Gets AppSettings.
@@ -66,10 +60,6 @@ public class ConfigHelper
     ///     Gets WebConfigFull.
     /// </summary>
     public Configuration WebConfigFull => this.webConfig ??= WebConfigurationManager.OpenWebConfiguration("~/");
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// Gets the configuration section.
@@ -193,6 +183,4 @@ public class ConfigHelper
 
         return writtenSuccessfully;
     }
-
-    #endregion
 }

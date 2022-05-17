@@ -29,8 +29,6 @@ namespace YAF.Types.Flags;
 [Serializable]
 public class PollFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PollFlags"/> class.
     /// </summary>
@@ -83,10 +81,6 @@ public class PollFlags : FlagsBase
     {
     }
 
-    #endregion
-
-    #region Flags Enumeration
-
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
@@ -113,10 +107,6 @@ public class PollFlags : FlagsBase
         /// </summary>
         AllowSkipVote = 32
     }
-
-    #endregion
-
-    #region Single Flags (can be 32 of them)
 
     /// <summary>
     /// Gets or sets a value indicating whether is closed bound.
@@ -162,10 +152,6 @@ public class PollFlags : FlagsBase
         set => this[5] = value;
     }
 
-    #endregion
-
-    #region Operators
-
     /// <summary>
     /// The op_ implicit.
     /// </summary>
@@ -191,6 +177,4 @@ public class PollFlags : FlagsBase
     {
         return new PollFlags(flags);
     }
-
-    #endregion
 }

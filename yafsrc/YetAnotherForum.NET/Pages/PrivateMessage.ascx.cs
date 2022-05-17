@@ -24,21 +24,15 @@
 
 namespace YAF.Pages;
 
-#region Using
-
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Private Message page
 /// </summary>
 public partial class PrivateMessage : ForumPageRegistered
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PrivateMessage"/> class.
     /// </summary>
@@ -46,10 +40,6 @@ public partial class PrivateMessage : ForumPageRegistered
         : base("MESSAGE", ForumPages.PrivateMessage)
     {
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets a value indicating whether IsArchived.
@@ -60,10 +50,6 @@ public partial class PrivateMessage : ForumPageRegistered
     ///   Gets or sets a value indicating whether IsOutbox.
     /// </summary>
     protected bool IsOutbox { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the ItemCommand event of the Inbox control.
@@ -252,6 +238,4 @@ public partial class PrivateMessage : ForumPageRegistered
             this.Get<LinkBuilder>().AccessDenied();
         }
     }
-
-    #endregion
 }

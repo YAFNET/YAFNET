@@ -23,21 +23,15 @@
  */
 namespace YAF.Core.BBCode;
 
-#region Using
-
 using System.Collections.Generic;
 
 using YAF.Core.BaseControls;
-
-#endregion
 
 /// <summary>
 /// The YAF BBCode control.
 /// </summary>
 public class BBCodeControl : BaseControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets CurrentMessageFlags.
     /// </summary>
@@ -58,10 +52,6 @@ public class BBCodeControl : BaseControl
     /// </summary>
     public Dictionary<string, string> Parameters { get; set; } = new();
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Gets the localized string.
     /// </summary>
@@ -80,6 +70,4 @@ public class BBCodeControl : BaseControl
                    ? this.GetText("BBCODEMODULE", tag)
                    : defaultString;
     }
-
-    #endregion
 }

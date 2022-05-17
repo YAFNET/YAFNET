@@ -30,8 +30,6 @@ namespace YAF.Types.Exceptions;
 [Serializable]
 public class NoValidDbAccessProviderFoundException : Exception
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///     Initializes a new instance of the <see cref="NoValidDbAccessProviderFoundException" /> class.
     /// </summary>
@@ -42,6 +40,4 @@ public class NoValidDbAccessProviderFoundException : Exception
         : base(message)
     {
     }
-
-    #endregion
 }

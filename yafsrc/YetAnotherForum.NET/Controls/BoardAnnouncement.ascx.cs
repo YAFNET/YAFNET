@@ -28,8 +28,6 @@ namespace YAF.Controls;
 /// </summary>
 public partial class BoardAnnouncement : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// The on pre render.
     /// </summary>
@@ -72,6 +70,4 @@ public partial class BoardAnnouncement : BaseUserControl
 
         base.OnPreRender(e);
     }
-
-    #endregion
 }

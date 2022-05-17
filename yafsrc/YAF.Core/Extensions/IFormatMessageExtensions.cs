@@ -23,19 +23,13 @@
  */
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using System;
-
-#endregion
 
 /// <summary>
 /// The i format message extensions.
 /// </summary>
 public static class IFormatMessageExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// The format message.
     /// </summary>
@@ -93,6 +87,4 @@ public static class IFormatMessageExtensions
     {
         return formatMessage.Format(messageId, message, messageFlags, targetBlankOverride, DateTime.UtcNow);
     }
-
-    #endregion
 }

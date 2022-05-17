@@ -28,12 +28,8 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface IHaveBoardID
 {
-    #region Properties
-
     /// <summary>
     /// Gets BoardId.
     /// </summary>
     int BoardID { get; }
-
-    #endregion
 }

@@ -23,21 +23,15 @@
  */
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.Net.Mail;
 using System.Threading.Tasks;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 ///     Admin Interface to send Mass email's to user groups.
 /// </summary>
 public partial class Mail : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Mail"/> class. 
     /// </summary>
@@ -45,10 +39,6 @@ public partial class Mail : AdminPage
         : base("ADMIN_MAIL", ForumPages.Admin_Mail)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -162,6 +152,4 @@ public partial class Mail : AdminPage
         this.TestBody.Text = this.GetText("TEST_BODY");
         this.TestFromEmail.Text = this.PageBoardContext.BoardSettings.ForumEmail;
     }
-
-    #endregion
 }

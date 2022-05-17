@@ -33,8 +33,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class TopicReadTrackingRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The add or update.
     /// </summary>
@@ -121,6 +119,4 @@ public static class TopicReadTrackingRepositoryExtensions
 
         return topic?.LastAccessDate;
     }
-
-    #endregion
 }

@@ -31,8 +31,6 @@ using YAF.Types.Attributes;
 [ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
 public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="LoadPageRequestInformation"/> class.
     /// </summary>
@@ -49,10 +47,6 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
         this.HttpRequestBase = httpRequestBase;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets HttpRequestBase.
     /// </summary>
@@ -67,12 +61,6 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
     ///   Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IHandleEvent<InitPageLoadEvent>
 
     /// <summary>
     /// Handles the specified @event.
@@ -110,8 +98,4 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
 
         BoardContext.Current.Vars["DontTrack"] = doNotTrack;
     }
-
-    #endregion
-
-    #endregion
 }

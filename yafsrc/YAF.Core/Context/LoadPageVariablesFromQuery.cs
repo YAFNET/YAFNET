@@ -31,8 +31,6 @@ using YAF.Types.Attributes;
 [ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
 public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="LoadPageVariablesFromQuery"/> class.
     /// </summary>
@@ -46,10 +44,6 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
         this.ServiceLocator = serviceLocator;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets Order.
     /// </summary>
@@ -59,12 +53,6 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IHandleEvent<InitPageLoadEvent>
 
     /// <summary>
     /// Handles the specified @event.
@@ -84,8 +72,4 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
             @event.PageQueryData.CategoryID = BoardContext.Current.Settings.CategoryID;
         }
     }
-
-    #endregion
-
-    #endregion
 }

@@ -23,20 +23,14 @@
  */
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using System;
 using System.Runtime.Caching;
-
-#endregion
 
 /// <summary>
 /// The MemoryCache extensions.
 /// </summary>
 public static class MemoryCacheExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// The get or set.
     /// </summary>
@@ -114,6 +108,4 @@ public static class MemoryCacheExtensions
             // NOTE : Ignore if board settings is reset!
         }
     }
-
-    #endregion
 }

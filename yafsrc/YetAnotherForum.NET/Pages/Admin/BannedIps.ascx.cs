@@ -24,20 +24,14 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.IO;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Admin Banned IP Page.
 /// </summary>
 public partial class BannedIps : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="BannedIps"/> class. 
     /// </summary>
@@ -45,10 +39,6 @@ public partial class BannedIps : AdminPage
         : base("ADMIN_BANNEDIP", ForumPages.Admin_BannedIps)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -249,6 +239,4 @@ public partial class BannedIps : AdminPage
 
         this.DataBind();
     }
-
-    #endregion
 }

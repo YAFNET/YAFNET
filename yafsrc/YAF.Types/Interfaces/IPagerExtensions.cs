@@ -31,8 +31,6 @@ using System.Linq;
 /// </summary>
 public static class IPagerExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Uses the pager to convert the list into a properly skipped and paged list.
     /// </summary>
@@ -106,6 +104,4 @@ public static class IPagerExtensions
 
         return (int)Math.Ceiling((double)pager.CurrentPageIndex * pager.PageSize);
     }
-
-    #endregion
 }

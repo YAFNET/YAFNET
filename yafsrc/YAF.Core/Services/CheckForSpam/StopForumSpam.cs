@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services.CheckForSpam;
 
-#region
-
 using System;
 using System.IO;
 using System.Net;
@@ -35,8 +33,6 @@ using ServiceStack.Text;
 
 using YAF.Types.Interfaces.CheckForSpam;
 using YAF.Types.Objects;
-
-#endregion
 
 /// <summary>
 /// Spam Checking Class for the StopForumSpam.com API

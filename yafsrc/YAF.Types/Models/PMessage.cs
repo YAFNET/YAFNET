@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class PMessage : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -87,6 +85,4 @@ public class PMessage : IEntity, IHaveID
     /// </summary>
     [Default(null)]
     public int? ReplyTo { get; set; }
-
-    #endregion
 }

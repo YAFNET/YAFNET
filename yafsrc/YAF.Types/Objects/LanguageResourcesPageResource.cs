@@ -38,8 +38,6 @@ using System.Diagnostics;
 [XmlType(AnonymousType = true)]
 public class LanguageResourcesPageResource
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The edit type field.
     /// </summary>
@@ -54,10 +52,6 @@ public class LanguageResourcesPageResource
     /// The value field.
     /// </summary>
     private string valueField;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets the value.
@@ -91,6 +85,4 @@ public class LanguageResourcesPageResource
 
         set => this.tagField = value;
     }
-
-    #endregion
 }

@@ -24,20 +24,14 @@
 
 namespace YAF.Pages;
 
-#region Using
-
 using YAF.Types.Objects;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The post message Page.
 /// </summary>
 public partial class PostMessage : ForumPage
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The forum editor.
     /// </summary>
@@ -58,10 +52,6 @@ public partial class PostMessage : ForumPage
     /// </summary>
     private Topic topic;
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PostMessage"/> class.
     /// </summary>
@@ -69,10 +59,6 @@ public partial class PostMessage : ForumPage
         : base("POSTMESSAGE", ForumPages.PostMessage)
     {
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets the PollId if the topic has a poll attached
@@ -83,10 +69,6 @@ public partial class PostMessage : ForumPage
     ///   Gets Quoted Message ID.
     /// </summary>
     protected int? QuotedMessageId => this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("q");
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Canceling Posting New Message Or editing Message.
@@ -782,6 +764,4 @@ public partial class PostMessage : ForumPage
         this.forumEditor.UserCanUpload = this.PageBoardContext.UploadAccess;
         this.UploadDialog.Visible = this.PageBoardContext.UploadAccess;
     }
-
-    #endregion
 }

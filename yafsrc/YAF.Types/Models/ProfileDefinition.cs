@@ -31,8 +31,6 @@ namespace YAF.Types.Models;
 [UniqueConstraint(nameof(ID))]
 public class ProfileDefinition : IEntity, IHaveID, IHaveBoardID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -93,6 +91,4 @@ public class ProfileDefinition : IEntity, IHaveID, IHaveBoardID
 
     [Ignore]
     public string Value { get; set; }
-
-    #endregion
 }

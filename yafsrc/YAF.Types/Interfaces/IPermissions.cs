@@ -30,8 +30,6 @@ using YAF.Types.Constants;
 /// </summary>
 public interface IPermissions
 {
-    #region Public Methods
-
     /// <summary>
     /// Check Permissions
     /// </summary>
@@ -50,6 +48,4 @@ public interface IPermissions
     /// The permission.
     /// </param>
     void HandleRequest(ViewPermissions permission);
-
-    #endregion
 }

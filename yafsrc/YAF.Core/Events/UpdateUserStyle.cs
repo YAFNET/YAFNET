@@ -33,8 +33,6 @@ using YAF.Types.Models;
 [ExportService(ServiceLifetimeScope.OwnedByContainer)]
 public class UpdateUserStyle : IHaveServiceLocator, IHandleEvent<UpdateUserStyleEvent>
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateUserStyle"/> class.
     /// </summary>
@@ -48,10 +46,6 @@ public class UpdateUserStyle : IHaveServiceLocator, IHandleEvent<UpdateUserStyle
         this.ServiceLocator = serviceLocator;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///   Gets or sets ServiceLocator.
     /// </summary>
@@ -61,10 +55,6 @@ public class UpdateUserStyle : IHaveServiceLocator, IHandleEvent<UpdateUserStyle
     ///     Gets the order.
     /// </summary>
     public int Order => 10000;
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The handle.
@@ -76,6 +66,4 @@ public class UpdateUserStyle : IHaveServiceLocator, IHandleEvent<UpdateUserStyle
     {
         this.GetRepository<User>().UpdateStyle(@event.UserId);
     }
-
-    #endregion
 }

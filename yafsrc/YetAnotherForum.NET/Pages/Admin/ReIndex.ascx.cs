@@ -24,21 +24,15 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.Text;
 using YAF.Types.Extensions.Data;
 using YAF.Types.Interfaces.Data;
-
-#endregion
 
 /// <summary>
 /// The Admin Database Maintenance Page
 /// </summary>
 public partial class ReIndex : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ReIndex"/> class. 
     /// </summary>
@@ -46,10 +40,6 @@ public partial class ReIndex : AdminPage
         : base("ADMIN_REINDEX", ForumPages.Admin_ReIndex)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -188,6 +178,4 @@ public partial class ReIndex : AdminPage
     {
         this.DataBind();
     }
-
-    #endregion
 }

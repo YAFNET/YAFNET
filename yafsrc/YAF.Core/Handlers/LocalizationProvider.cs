@@ -24,21 +24,15 @@
 
 namespace YAF.Core.Handlers;
 
-#region Using
-
 using System;
 
 using YAF.Core.Services.Localization;
-
-#endregion
 
 /// <summary>
 /// The localization handler.
 /// </summary>
 public class LocalizationProvider
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The localization is Initialized flag.
     /// </summary>
@@ -54,10 +48,6 @@ public class LocalizationProvider
     /// </summary>
     private string transPage = string.Empty;
 
-    #endregion
-
-    #region Events
-
     /// <summary>
     ///   The after initializing Event.
     /// </summary>
@@ -67,10 +57,6 @@ public class LocalizationProvider
     ///   The before initializing Event.
     /// </summary>
     public event EventHandler<EventArgs> BeforeInit;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets Localization.
@@ -118,10 +104,6 @@ public class LocalizationProvider
         }
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Set up the localization
     /// </summary>
@@ -138,6 +120,4 @@ public class LocalizationProvider
 
         this.AfterInit?.Invoke(this, EventArgs.Empty);
     }
-
-    #endregion
 }

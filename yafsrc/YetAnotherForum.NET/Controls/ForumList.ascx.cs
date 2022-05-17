@@ -24,28 +24,18 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.Objects;
 using YAF.Web.Controls;
-
-#endregion
 
 /// <summary>
 /// The Forum List Control
 /// </summary>
 public partial class ForumList : BaseUserControl
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The Data Source
     /// </summary>
     private Tuple<List<SimpleModerator>, List<ForumRead>> dataSource;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets DataSource.
@@ -63,10 +53,6 @@ public partial class ForumList : BaseUserControl
                                              : this.dataSource.Item2.Where(x => !x.ParentID.HasValue);
         }
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Provides the "Forum Link Text" for the ForumList control.
@@ -104,10 +90,6 @@ public partial class ForumList : BaseUserControl
 
         return output;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the ItemCreated event of the ForumList1 control.
@@ -366,6 +348,4 @@ public partial class ForumList : BaseUserControl
     {
         return item.RemoteURL.IsNotSet() ? $"{item.Topics:N0}" : "-";
     }
-
-    #endregion
 }

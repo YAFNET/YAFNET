@@ -31,8 +31,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(ProfileDefinitionID), nameof(UserID))]
 public class ProfileCustom : IEntity
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the profile definition id.
     /// </summary>
@@ -52,6 +50,4 @@ public class ProfileCustom : IEntity
     /// </summary>
     [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string Value { get; set; }
-
-    #endregion
 }

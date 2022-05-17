@@ -28,8 +28,6 @@ namespace YAF.Types.EventProxies;
 /// </summary>
 public class CacheItemRemovedEvent : IAmEvent
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="CacheItemRemovedEvent"/> class.
     /// </summary>
@@ -42,10 +40,6 @@ public class CacheItemRemovedEvent : IAmEvent
         this.Value = arguments.CacheItem.Value;
         this.Reason = arguments.RemovedReason;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets Key.
@@ -61,6 +55,4 @@ public class CacheItemRemovedEvent : IAmEvent
     /// Gets or sets Value.
     /// </summary>
     public object Value { get; set; }
-
-    #endregion
 }

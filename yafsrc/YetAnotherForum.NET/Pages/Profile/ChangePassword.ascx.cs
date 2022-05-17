@@ -29,8 +29,6 @@ namespace YAF.Pages.Profile;
 /// </summary>
 public partial class ChangePassword : ProfilePage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ChangePassword"/> class.
     /// </summary>
@@ -38,10 +36,6 @@ public partial class ChangePassword : ProfilePage
         : base("CHANGE_PASSWORD", ForumPages.Profile_ChangePassword)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The cancel push button_ click.
@@ -118,6 +112,4 @@ public partial class ChangePassword : ProfilePage
         this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageLinks.AddLink(this.GetText("TITLE"));
     }
-
-    #endregion
 }

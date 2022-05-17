@@ -24,21 +24,15 @@
 
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using System;
 
 using YAF.Types.Constants;
-
-#endregion
 
 /// <summary>
 /// The DateTime extensions.
 /// </summary>
 public static class IDateTimeServiceExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// Format objectDateTime according to the format enum. "[error]" if the value is invalid.
     /// </summary>
@@ -114,6 +108,4 @@ public static class IDateTimeServiceExtensions
             return "[error]";
         }
     }
-
-    #endregion
 }

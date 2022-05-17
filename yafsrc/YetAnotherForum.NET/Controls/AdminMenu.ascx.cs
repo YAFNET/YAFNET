@@ -24,23 +24,17 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
 using YAF.Web.Controls;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The Header.
 /// </summary>
 public partial class AdminMenu : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
@@ -839,6 +833,4 @@ public partial class AdminMenu : BaseUserControl
 
         this.MenuHolder.Controls.Add(listItem);
     }
-
-    #endregion
 }

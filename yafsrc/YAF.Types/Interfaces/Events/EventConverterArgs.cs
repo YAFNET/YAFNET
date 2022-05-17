@@ -23,12 +23,6 @@
  */
 namespace YAF.Types.Interfaces.Events;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// The event converter args.
 /// </summary>
@@ -37,8 +31,6 @@ namespace YAF.Types.Interfaces.Events;
 /// </typeparam>
 public class EventConverterArgs<T> : EventArgs
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EventConverterArgs{T}"/> class.
     /// </summary>
@@ -50,14 +42,8 @@ public class EventConverterArgs<T> : EventArgs
         this.EventData = eventData;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets or sets EventData.
     /// </summary>
     public T EventData { get; set; }
-
-    #endregion
 }

@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Context;
 
-#region
-
 using System;
 using System.Threading;
 
@@ -33,23 +31,15 @@ using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
 
-#endregion
-
 /// <summary>
 /// User Page Class.
 /// </summary>
 public abstract class UserPageBase
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The page
     /// </summary>
     private Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic, Message>, UserLazyData, PageQueryData> page;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets a value indicating whether the page data is loaded.
@@ -319,10 +309,6 @@ public abstract class UserPageBase
     /// </summary>
     public bool UserHasBuddies => this.PageData.Item3.UserHasBuddies;
 
-    #endregion
-
-    #region Public Methods
-
     /// <summary>
     /// Helper function to see if the Page variable is populated
     /// </summary>
@@ -334,16 +320,10 @@ public abstract class UserPageBase
         return this.PageData is null;
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Initialize the user data and page data...
     /// </summary>
     protected virtual void InitUserAndPage()
     {
     }
-
-    #endregion
 }

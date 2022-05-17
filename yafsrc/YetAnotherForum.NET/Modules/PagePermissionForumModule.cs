@@ -23,11 +23,7 @@
  */
 namespace YAF.Modules;
 
-#region Using
-
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// Module that handles page permission feature
@@ -35,16 +31,10 @@ using YAF.Types.Attributes;
 [Module("Page Permission Module", "Tiny Gecko", 1)]
 public class PagePermissionForumModule : SimpleBaseForumModule
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The permissions.
     /// </summary>
     private readonly IPermissions permissions;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PagePermissionForumModule"/> class.
@@ -57,10 +47,6 @@ public class PagePermissionForumModule : SimpleBaseForumModule
         this.permissions = permissions;
     }
 
-    #endregion
-
-    #region Public Methods
-
     /// <summary>
     /// The init after page.
     /// </summary>
@@ -68,10 +54,6 @@ public class PagePermissionForumModule : SimpleBaseForumModule
     {
         this.CurrentForumPage.Load += this.CurrentPageLoad;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The current page_ load.
@@ -103,6 +85,4 @@ public class PagePermissionForumModule : SimpleBaseForumModule
                 break;
         }
     }
-
-    #endregion
 }

@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.BasePages;
 
-#region Using
-
 using System;
 using System.Collections;
 using System.Web.UI;
@@ -36,8 +34,6 @@ using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models.Identity;
 
-#endregion
-
 /// <summary>
 /// The class that all YAF forum pages are derived from.
 /// </summary>
@@ -47,8 +43,6 @@ public abstract class ForumPage : UserControl,
                                   ILocatablePage,
                                   IHaveLocalization
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The trans page.
     /// </summary>
@@ -63,10 +57,6 @@ public abstract class ForumPage : UserControl,
     ///   The top page control.
     /// </summary>
     private Control topPageControl;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "ForumPage" /> class.
@@ -105,18 +95,10 @@ public abstract class ForumPage : UserControl,
         this.unicodeEncoder = new UnicodeEncoder();
     }
 
-    #endregion
-
-    #region Events
-
     /// <summary>
     ///   The forum page rendered.
     /// </summary>
     public event EventHandler<ForumPageRenderedArgs> ForumPageRendered;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets DataCache.
@@ -258,10 +240,6 @@ public abstract class ForumPage : UserControl,
     /// </summary>
     protected bool NoDataBase { get; set; }
 
-    #endregion
-
-    #region Public Methods
-
     /// <summary>
     /// Encodes the HTML
     /// </summary>
@@ -280,12 +258,6 @@ public abstract class ForumPage : UserControl,
     {
         this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
     }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IRaiseControlLifeCycles
 
     /// <summary>
     /// Raise init.
@@ -310,12 +282,6 @@ public abstract class ForumPage : UserControl,
     {
         this.OnPreRender(EventArgs.Empty);
     }
-
-    #endregion
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Creates the page links.
@@ -407,6 +373,4 @@ public abstract class ForumPage : UserControl,
         // release cache
         this.PageCache?.Clear();
     }
-
-    #endregion
 }

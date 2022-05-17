@@ -32,8 +32,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class BBCodeRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The save.
     /// </summary>
@@ -159,6 +157,4 @@ public static class BBCodeRepositoryExtensions
 
         return repository.DbAccess.Execute(db => db.Connection.Select(expression));
     }
-
-    #endregion
 }

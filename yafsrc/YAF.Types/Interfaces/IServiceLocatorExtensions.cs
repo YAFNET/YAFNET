@@ -23,19 +23,13 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
 using System.Collections.Generic;
-
-#endregion
 
 /// <summary>
 ///     The i service locator extensions.
 /// </summary>
 public static class IServiceLocatorExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The get.
     /// </summary>
@@ -343,6 +337,4 @@ public static class IServiceLocatorExtensions
 
         return haveLocator.ServiceLocator.TryGet(named, out instance);
     }
-
-    #endregion
 }

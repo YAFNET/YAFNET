@@ -23,19 +23,11 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// Interface to the cache system.
 /// </summary>
 public interface IDataCache : IObjectStore
 {
-    #region Public Methods
-
     /// <summary>
     /// Gets the cache value if it's in the cache or sets it if it doesn't exist or is expired.
     /// </summary>
@@ -65,6 +57,4 @@ public interface IDataCache : IObjectStore
     /// The timeout.
     /// </param>
     void Set([NotNull] string key, object value, TimeSpan timeout);
-
-    #endregion
 }

@@ -28,8 +28,6 @@ namespace YAF.Web.Editors;
 /// </summary>
 public abstract class CKEditor : TextEditor
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets Text.
     /// </summary>
@@ -45,10 +43,6 @@ public abstract class CKEditor : TextEditor
     /// </summary>
     [NotNull]
     protected string SafeID => this.TextAreaControl.ClientID.Replace("$", "_");
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the PreRender event of the Editor control.
@@ -97,6 +91,4 @@ public abstract class CKEditor : TextEditor
     /// Register the custom CKEditor java script.
     /// </summary>
     protected abstract void RegisterCKEditorCustomJS();
-
-    #endregion
 }

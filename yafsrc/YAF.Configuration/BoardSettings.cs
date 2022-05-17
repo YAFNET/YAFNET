@@ -600,8 +600,6 @@ public class BoardSettings
         set => this.Registry.SetValue("StopForumSpamApiKey", value);
     }
 
-    #region int settings
-
     /// <summary>
     /// Gets or sets the cdv version.
     /// </summary>
@@ -1174,10 +1172,6 @@ public class BoardSettings
 
         set => this.Registry.SetValue("MessageNotifcationDuration", value);
     }
-
-    #endregion
-
-    #region boolean settings
 
     /// <summary>
     /// Gets or sets a value indicating whether show the edited message.
@@ -1945,10 +1939,6 @@ public class BoardSettings
         set => this.Registry.SetValue("HoverCardOpenDelay", value);
     }
 
-    #endregion
-
-    #region string settings
-
     /// <summary>
     /// Gets or sets IPInfo page Url.
     /// </summary>
@@ -2362,8 +2352,6 @@ public class BoardSettings
 
         set => this.RegistryBoard.SetValue("DefaultCollapsiblePanelState", value);
     }
-
-    #endregion
 
     /// <summary>
     /// Gets or sets the RegistryDictionaryOverride.

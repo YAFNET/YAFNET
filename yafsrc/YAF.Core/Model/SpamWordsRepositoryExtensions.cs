@@ -30,8 +30,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class SpamWordsRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Saves changes to a word.
     /// </summary>
@@ -55,6 +53,4 @@ public static class SpamWordsRepositoryExtensions
                     SpamWord = spamWord
                 });
     }
-
-    #endregion
 }

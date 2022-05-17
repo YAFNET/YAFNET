@@ -34,8 +34,6 @@ using YAF.Types.Objects;
 /// </summary>
 public static class GroupRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The list.
     /// </summary>
@@ -215,6 +213,4 @@ public static class GroupRepositoryExtensions
 
         return groupId.Value;
     }
-
-    #endregion
 }

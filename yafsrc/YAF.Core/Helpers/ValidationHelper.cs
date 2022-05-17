@@ -24,12 +24,8 @@
 
 namespace YAF.Core.Helpers;
 
-#region Using
-
 using System;
 using System.Text.RegularExpressions;
-
-#endregion
 
 /// <summary>
 /// The validation helper.

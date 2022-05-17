@@ -28,8 +28,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class SignaturePreview : MessageBase
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets DisplayUserID.
     /// </summary>
@@ -44,10 +42,6 @@ public class SignaturePreview : MessageBase
     ///   Gets or sets Signature.
     /// </summary>
     public string Signature { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The render.
@@ -89,6 +83,4 @@ public class SignaturePreview : MessageBase
 
         this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserID, this.MessageID);
     }
-
-    #endregion
 }

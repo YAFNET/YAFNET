@@ -29,8 +29,6 @@ namespace YAF.Pages;
 /// </summary>
 public partial class MyAccount : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="MyAccount"/> class.
     /// </summary>
@@ -39,10 +37,6 @@ public partial class MyAccount : ForumPage
     {
         this.IsRegisteredPage = true;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -67,6 +61,4 @@ public partial class MyAccount : ForumPage
         this.PageLinks.AddRoot();
         this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
     }
-
-    #endregion
 }

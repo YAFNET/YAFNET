@@ -24,29 +24,19 @@
 
 namespace YAF.Pages;
 
-#region Using
-
 using YAF.Types.Objects;
 using YAF.Web.Controls;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Team Page
 /// </summary>
 public partial class Team : ForumPage
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The Moderators List
     /// </summary>
     private List<SimpleModerator> completeModsList = new ();
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Team" /> class.
@@ -55,10 +45,6 @@ public partial class Team : ForumPage
         : base("TEAM", ForumPages.Team)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Get all Admins.
@@ -369,6 +355,4 @@ public partial class Team : ForumPage
 
         this.DataBind();
     }
-
-    #endregion
 }

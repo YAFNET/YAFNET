@@ -29,8 +29,6 @@ namespace YAF.Types.Interfaces.Data;
 /// </summary>
 public interface IDbConnectionParam : IHaveID
 {
-    #region Properties
-
     /// <summary>
     ///   Gets the DefaultValue.
     /// </summary>
@@ -40,6 +38,4 @@ public interface IDbConnectionParam : IHaveID
     ///   Gets the Label.
     /// </summary>
     string Name { get; }
-
-    #endregion
 }

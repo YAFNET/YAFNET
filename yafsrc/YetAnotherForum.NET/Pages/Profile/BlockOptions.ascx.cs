@@ -24,13 +24,9 @@
 
 namespace YAF.Pages.Profile;
 
-#region Using
-
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// User Page To Manage User Block Option and handle Ignored Users
@@ -44,8 +40,6 @@ public partial class BlockOptions : ProfilePage
         : base("BLOCK_OPTIONS", ForumPages.Profile_BlockOptions)
     {
     }
-
-    #region Methods
 
     /// <summary>
     /// The Item command.
@@ -141,6 +135,4 @@ public partial class BlockOptions : ProfilePage
 
         this.DataBind();
     }
-
-    #endregion
 }

@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Nntp;
 
-#region Using
-
 using System;
 using System.Runtime.Caching;
 
@@ -32,8 +30,6 @@ using YAF.Core.Model;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Objects.Nntp;
-
-#endregion
 
 /// <summary>
 /// The on request delegate.
@@ -48,8 +44,6 @@ public delegate void OnRequestDelegate(string message);
 /// </summary>
 public class Nntp : INewsreader
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Nntp"/> class.
     /// </summary>
@@ -61,20 +55,10 @@ public class Nntp : INewsreader
         this.Logger = logger;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets Logger.
     /// </summary>
     public ILoggerService Logger { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region INewsreader
 
     /// <summary>
     /// The get nntp connection.
@@ -320,12 +304,6 @@ public class Nntp : INewsreader
         return articleCount;
     }
 
-    #endregion
-
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The replace body.
     /// </summary>
@@ -345,6 +323,4 @@ public class Nntp : INewsreader
 
         return body;
     }
-
-    #endregion
 }

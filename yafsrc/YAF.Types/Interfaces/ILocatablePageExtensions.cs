@@ -23,20 +23,14 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
 using System.Collections.Generic;
 using System.Linq;
-
-#endregion
 
 /// <summary>
 /// The locatable page extension.
 /// </summary>
 public static class ILocatablePageExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// The get page.
     /// </summary>
@@ -54,6 +48,4 @@ public static class ILocatablePageExtensions
         return
             locatablePages.FirstOrDefault(p => string.Equals(p.PageName, pageName, StringComparison.CurrentCultureIgnoreCase));
     }
-
-    #endregion
 }

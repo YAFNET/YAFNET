@@ -23,19 +23,13 @@
  */
 namespace YAF.Modules;
 
-#region Using
-
 using YAF.Web.Controls;
-
-#endregion
 
 /// <summary>
 /// The simple base forum module.
 /// </summary>
 public class SimpleBaseForumModule : BaseForumModule
 {
-    #region Properties
-
     /// <summary>
     ///   Gets CurrentForumPage.
     /// </summary>
@@ -50,10 +44,6 @@ public class SimpleBaseForumModule : BaseForumModule
     ///   Gets ForumPageType.
     /// </summary>
     public ForumPages ForumPageType => this.PageBoardContext.CurrentForumPage.PageType;
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The initialization.
@@ -86,10 +76,6 @@ public class SimpleBaseForumModule : BaseForumModule
     {
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The forum control_ after forum page load.
     /// </summary>
@@ -117,6 +103,4 @@ public class SimpleBaseForumModule : BaseForumModule
     {
         this.InitBeforePage();
     }
-
-    #endregion
 }

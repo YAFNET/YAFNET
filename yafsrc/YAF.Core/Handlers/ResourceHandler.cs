@@ -24,21 +24,15 @@
 
 namespace YAF.Core.Handlers;
 
-#region Using
-
 using System;
 using System.Net;
 using System.Web.SessionState;
-
-#endregion
 
 /// <summary>
 /// YAF Resource Handler for all kind of Stuff (Avatars, Attachments, Albums, etc.)
 /// </summary>
 public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceLocator
 {
-    #region Properties
-
     /// <summary>
     ///   Gets a value indicating whether IsReusable.
     /// </summary>
@@ -48,12 +42,6 @@ public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveService
     /// Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IHttpHandler
 
     /// <summary>
     /// The process request.
@@ -169,12 +157,6 @@ public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveService
         }
     }
 
-    #endregion
-
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Check if the eTag Code that sent from the client is match to the current eTag Code.
     ///   If so, set the status code to 'Not Modified' and stop the response.
@@ -212,6 +194,4 @@ public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveService
 
         return true;
     }
-
-    #endregion
 }

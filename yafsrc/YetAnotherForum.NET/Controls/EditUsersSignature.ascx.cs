@@ -24,23 +24,17 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Web.Controls;
 using YAF.Web.Editors;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The edit users signature.
 /// </summary>
 public partial class EditUsersSignature : BaseUserControl
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _sig.
     /// </summary>
@@ -50,10 +44,6 @@ public partial class EditUsersSignature : BaseUserControl
     ///  The signature Preview
     /// </summary>
     private SignaturePreview signaturePreview;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets a value indicating whether InModeratorMode.
@@ -128,10 +118,6 @@ public partial class EditUsersSignature : BaseUserControl
 
         set => this.ViewState["PageUser"] = value;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Binds the data.
@@ -409,6 +395,4 @@ public partial class EditUsersSignature : BaseUserControl
     {
         this.DoRedirect();
     }
-
-    #endregion
 }

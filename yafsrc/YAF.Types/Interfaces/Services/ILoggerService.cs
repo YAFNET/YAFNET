@@ -23,19 +23,13 @@
  */
 namespace YAF.Types.Interfaces.Services;
 
-#region Using
-
 using YAF.Types.Constants;
-
-#endregion
 
 /// <summary>
 ///     The logger interface
 /// </summary>
 public interface ILoggerService
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The log.
     /// </summary>
@@ -60,6 +54,4 @@ public interface ILoggerService
         int? userId = null,
         string source = null,
         Exception exception = null);
-
-    #endregion
 }

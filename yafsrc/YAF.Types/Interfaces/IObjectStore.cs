@@ -23,19 +23,13 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
 using System.Collections.Generic;
-
-#endregion
 
 /// <summary>
 /// The i object store.
 /// </summary>
 public interface IObjectStore : IReadValue<object>, IWriteValue<object>, IRemoveValue
 {
-    #region Indexers
-
     /// <summary>
     ///   The this.
     /// </summary>
@@ -43,10 +37,6 @@ public interface IObjectStore : IReadValue<object>, IWriteValue<object>, IRemove
     ///   The key.
     /// </param>
     object this[[NotNull] string key] { get; set; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Gets all the cache elements of type T as a KeyValuePair Enumerable. If T is object, all object types should be returned.
@@ -71,6 +61,4 @@ public interface IObjectStore : IReadValue<object>, IWriteValue<object>, IRemove
     /// <returns>
     /// </returns>
     T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue);
-
-    #endregion
 }

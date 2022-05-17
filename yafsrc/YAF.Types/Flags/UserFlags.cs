@@ -29,8 +29,6 @@ namespace YAF.Types.Flags;
 [Serializable]
 public class UserFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="UserFlags"/> class.
     /// </summary>
@@ -82,10 +80,6 @@ public class UserFlags : FlagsBase
         : base(bits)
     {
     }
-
-    #endregion
-
-    #region Flags Enumeration
 
     /// <summary>
     /// Use for bit comparisons
@@ -143,10 +137,6 @@ public class UserFlags : FlagsBase
              xxxxx = 512
               */
     }
-
-    #endregion
-
-    #region Single Flags (can be 32 of them)
 
     /// <summary>
     /// Gets or sets a value indicating whether the user is host administrator.
@@ -238,10 +228,6 @@ public class UserFlags : FlagsBase
         set => this[7] = value;
     }
 
-    #endregion
-
-    #region Operators
-
     /// <summary>
     /// The op_ implicit.
     /// </summary>
@@ -267,6 +253,4 @@ public class UserFlags : FlagsBase
     {
         return new UserFlags(flags);
     }
-
-    #endregion
 }

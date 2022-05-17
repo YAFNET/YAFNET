@@ -24,19 +24,13 @@
 
 namespace YAF.Pages;
 
-#region Using
-
 using System.Net.Mail;
-
-#endregion
 
 /// <summary>
 /// The Share Topic via email
 /// </summary>
 public partial class EmailTopic : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "EmailTopic" /> class.
     /// </summary>
@@ -44,10 +38,6 @@ public partial class EmailTopic : ForumPage
         : base("EMAILTOPIC", ForumPages.EmailTopic)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -130,6 +120,4 @@ public partial class EmailTopic : ForumPage
             this.PageBoardContext.Notify(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
         }
     }
-
-    #endregion
 }

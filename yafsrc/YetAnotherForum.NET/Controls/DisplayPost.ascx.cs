@@ -24,8 +24,6 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using System.Text;
 
 using YAF.Core.Context.Start;
@@ -34,23 +32,15 @@ using YAF.Types.Models;
 
 using ButtonStyle = YAF.Types.Constants.ButtonStyle;
 
-#endregion
-
 /// <summary>
 /// DisplayPost Class.
 /// </summary>
 public partial class DisplayPost : BaseUserControl
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The current Post Data for this post.
     /// </summary>
     private PostDataHelperWrapper postDataHelperWrapper;
-
-    #endregion
-
-    #region Public Properties
 
     /// <summary>
     ///   Gets or sets Current Page Index.
@@ -88,10 +78,6 @@ public partial class DisplayPost : BaseUserControl
             return this.postDataHelperWrapper;
         }
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The on pre render.
@@ -815,6 +801,4 @@ public partial class DisplayPost : BaseUserControl
 
         this.ThanksDataLiteral.Visible = true;
     }
-
-    #endregion
 }

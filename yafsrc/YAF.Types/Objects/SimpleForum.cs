@@ -23,11 +23,7 @@
  */
 namespace YAF.Types.Objects;
 
-#region Using
-
 using System.Collections.Generic;
-
-#endregion
 
 /// <summary>
 /// The simple forum.
@@ -35,16 +31,10 @@ using System.Collections.Generic;
 [Serializable]
 public class SimpleForum
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The topics.
     /// </summary>
     private List<SimpleTopic> topics = new();
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets ForumID.
@@ -65,6 +55,4 @@ public class SimpleForum
 
         set => this.topics = value;
     }
-
-    #endregion
 }

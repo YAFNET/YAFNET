@@ -29,8 +29,6 @@ namespace YAF.Pages.Admin;
 /// </summary>
 public partial class BBCode_Edit : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="BBCode_Edit"/> class. 
     /// </summary>
@@ -39,10 +37,6 @@ public partial class BBCode_Edit : AdminPage
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// The bb code id.
     /// </summary>
@@ -50,10 +44,6 @@ public partial class BBCode_Edit : AdminPage
         this.Get<HttpRequestBase>().QueryString.Exists("b")
             ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("b")
             : null;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Adds the New BB Code or saves the existing one
@@ -160,6 +150,4 @@ public partial class BBCode_Edit : AdminPage
             this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BBCodes));
         this.PageLinks.AddLink(string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit), string.Empty);
     }
-
-    #endregion
 }

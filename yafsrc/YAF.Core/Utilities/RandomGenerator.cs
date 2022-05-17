@@ -38,12 +38,8 @@
  */
 namespace YAF.Core.Utilities;
 
-#region Using
-
 using System;
 using System.Security.Cryptography;
-
-#endregion
 
 /// <summary>
 /// The random generator.

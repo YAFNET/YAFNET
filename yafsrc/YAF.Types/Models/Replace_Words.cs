@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class Replace_Words : IEntity, IHaveBoardID, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -55,6 +53,4 @@ public class Replace_Words : IEntity, IHaveBoardID, IHaveID
     /// </summary>
     [StringLength(255)]
     public string GoodWord { get; set; }
-
-    #endregion
 }

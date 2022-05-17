@@ -21,19 +21,13 @@
  */
 namespace YAF.Core.Handlers;
 
-#region Using
-
 using System;
-
-#endregion
 
 /// <summary>
 /// The theme handler.
 /// </summary>
 public class ThemeProvider
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The init theme.
     /// </summary>
@@ -44,10 +38,6 @@ public class ThemeProvider
     /// </summary>
     private ITheme theme;
 
-    #endregion
-
-    #region Events
-
     /// <summary>
     ///   The after init.
     /// </summary>
@@ -57,10 +47,6 @@ public class ThemeProvider
     ///   The before init.
     /// </summary>
     public event EventHandler<EventArgs> BeforeInit;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets Theme.
@@ -83,10 +69,6 @@ public class ThemeProvider
             this.initTheme = value != null;
         }
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Sets the theme class up for usage
@@ -128,6 +110,4 @@ public class ThemeProvider
 
         this.AfterInit?.Invoke(this, EventArgs.Empty);
     }
-
-    #endregion
 }

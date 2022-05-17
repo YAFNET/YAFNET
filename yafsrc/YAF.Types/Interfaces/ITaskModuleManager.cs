@@ -23,19 +23,13 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
 using System.Collections.Generic;
-
-#endregion
 
 /// <summary>
 /// The i task module manager.
 /// </summary>
 public interface ITaskModuleManager
 {
-    #region Properties
-
     /// <summary>
     ///   Gets TaskCount.
     /// </summary>
@@ -50,10 +44,6 @@ public interface ITaskModuleManager
     ///   Gets TaskManagerSnapshot.
     /// </summary>
     IDictionary<string, IBackgroundTask> TaskManagerSnapshot { get; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Check if a Task is Running.
@@ -113,6 +103,4 @@ public interface ITaskModuleManager
     /// The try remove task.
     /// </returns>
     bool TryRemoveTask([NotNull] string instanceName);
-
-    #endregion
 }

@@ -23,13 +23,9 @@
  */
 namespace YAF.Modules;
 
-#region Using
-
 using System.Web.UI.HtmlControls;
 using YAF.Types.Attributes;
 using YAF.Web.EventsArgs;
-
-#endregion
 
 /// <summary>
 /// Page Title Module
@@ -37,8 +33,6 @@ using YAF.Web.EventsArgs;
 [Module("Page Title Module", "Tiny Gecko", 1)]
 public class PageTitleForumModule : SimpleBaseForumModule
 {
-    #region Public Methods
-
     /// <summary>
     /// The initialization after page.
     /// </summary>
@@ -46,10 +40,6 @@ public class PageTitleForumModule : SimpleBaseForumModule
     {
         this.CurrentForumPage.Load += this.ForumPage_Load;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the ForumPage control.
@@ -81,6 +71,4 @@ public class PageTitleForumModule : SimpleBaseForumModule
 
         this.ForumControl.FirePageTitleSet(this, new ForumPageTitleArgs(forumPageTitle));
     }
-
-    #endregion
 }

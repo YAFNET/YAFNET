@@ -24,8 +24,6 @@
 
 namespace YAF.Core.BBCode;
 
-#region
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -35,8 +33,6 @@ using System.Web.UI;
 using YAF.Core.BBCode.ReplaceRules;
 using YAF.Types.Constants;
 
-#endregion
-
 /// <summary>
 /// The BBCode Class to Format Message From BB Code to HTML and Reverse.
 /// </summary>
@@ -44,16 +40,10 @@ public class BBCode : IBBCode, IHaveServiceLocator
 {
     /* Ederon : 6/16/2007 - conventions */
 
-    #region Constants and Fields
-
     /// <summary>
     ///   The _options.
     /// </summary>
     private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BBCode"/> class.
@@ -72,10 +62,6 @@ public class BBCode : IBBCode, IHaveServiceLocator
         this.ProcessReplaceRulesFactory = processReplaceRulesFactory;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets or sets ProcessReplaceRulesFactory.
     /// </summary>
@@ -85,8 +71,6 @@ public class BBCode : IBBCode, IHaveServiceLocator
     ///   Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
 
     /// <summary>
     /// Gets CustomBBCode.
@@ -101,10 +85,6 @@ public class BBCode : IBBCode, IHaveServiceLocator
                         .Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
                         .ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
                 });
-
-    #region Implemented Interfaces
-
-    #region IBBCode
 
     /// <summary>
     /// Formats the message with Custom BBCodes
@@ -1078,12 +1058,6 @@ public class BBCode : IBBCode, IHaveServiceLocator
             () => this.GetRepository<Types.Models.BBCode>().GetByBoardId());
     }
 
-    #endregion
-
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Applies Custom BBCode Rules from the BBCode table
     /// </summary>
@@ -1123,6 +1097,4 @@ public class BBCode : IBBCode, IHaveServiceLocator
                     }
                 });
     }
-
-    #endregion
 }

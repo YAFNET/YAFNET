@@ -23,20 +23,14 @@
  */
 namespace YAF.Types.Extensions;
 
-#region Using
-
 using System.ComponentModel;
 using System.Linq;
-
-#endregion
 
 /// <summary>
 ///     The object extensions.
 /// </summary>
 public static class ObjectExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Tests if an object or empty.
     /// </summary>
@@ -209,6 +203,4 @@ public static class ObjectExtensions
 
         return defaultValue;
     }
-
-    #endregion
 }

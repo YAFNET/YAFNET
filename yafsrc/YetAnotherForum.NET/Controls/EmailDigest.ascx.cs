@@ -23,8 +23,6 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using System.IO;
 
 using YAF.Core.Services.Localization;
@@ -32,15 +30,11 @@ using YAF.Core.Services.Startup;
 using YAF.Types.Objects;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The Email Digest Control.
 /// </summary>
 public partial class EmailDigest : BaseUserControl
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The forum data.
     /// </summary>
@@ -65,10 +59,6 @@ public partial class EmailDigest : BaseUserControl
     /// The show errors
     /// </summary>
     private bool? showErrors;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets ActiveTopics.
@@ -148,10 +138,6 @@ public partial class EmailDigest : BaseUserControl
         }
     }
 
-    #endregion
-
-    #region Public Methods
-
     /// <summary>
     /// Gets the localized text.
     /// </summary>
@@ -173,10 +159,6 @@ public partial class EmailDigest : BaseUserControl
 
         return this.localization.GetText("DIGEST", tag);
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Gets the message formatted and truncated.
@@ -364,6 +346,4 @@ public partial class EmailDigest : BaseUserControl
         activeTopicsRepeater.DataSource = topics;
         activeTopicsRepeater.DataBind();
     }
-
-    #endregion
 }

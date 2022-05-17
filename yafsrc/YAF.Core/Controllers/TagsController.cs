@@ -36,14 +36,10 @@ using YAF.Types.Objects;
 [RoutePrefix("api")]
 public class TagsController : ApiController, IHaveServiceLocator
 {
-    #region Properties
-
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-    #endregion
 
     /// <summary>
     /// Get all tags by Board Id

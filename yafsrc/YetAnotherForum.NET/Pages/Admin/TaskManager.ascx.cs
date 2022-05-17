@@ -29,8 +29,6 @@ namespace YAF.Pages.Admin;
 /// </summary>
 public partial class TaskManager : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="TaskManager"/> class. 
     /// </summary>
@@ -38,10 +36,6 @@ public partial class TaskManager : AdminPage
         : base("ADMIN_TASKMANAGER", ForumPages.Admin_TaskManager)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Format access mask setting color formatting.
@@ -136,6 +130,4 @@ public partial class TaskManager : AdminPage
         // refresh the display
         this.BindData();
     }
-
-    #endregion
 }

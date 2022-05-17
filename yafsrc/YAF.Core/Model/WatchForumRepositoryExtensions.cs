@@ -34,8 +34,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class WatchForumRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Add a new WatchForum
     /// </summary>
@@ -116,6 +114,4 @@ public static class WatchForumRepositoryExtensions
 
         return repository.DbAccess.Execute(db => db.Connection.SelectMulti<WatchForum, Forum>(expression));
     }
-
-    #endregion
 }

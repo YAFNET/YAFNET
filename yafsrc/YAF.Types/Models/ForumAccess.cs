@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(GroupID), nameof(ForumID))]
 public class ForumAccess : IEntity
 {
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the group id.
     /// </summary>
@@ -53,6 +51,4 @@ public class ForumAccess : IEntity
     [References(typeof(AccessMask))]
     [Required]
     public int AccessMaskID { get; set; }
-
-    #endregion
 }

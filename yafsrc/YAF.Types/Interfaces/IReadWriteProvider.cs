@@ -30,12 +30,8 @@ namespace YAF.Types.Interfaces;
 /// </typeparam>
 public interface IReadWriteProvider<T>
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the Instance.
     /// </summary>
     T Instance { get; set; }
-
-    #endregion
 }

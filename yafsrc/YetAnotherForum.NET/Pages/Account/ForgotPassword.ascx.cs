@@ -28,8 +28,6 @@ namespace YAF.Pages.Account;
 /// </summary>
 public partial class ForgotPassword : AccountPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "ForgotPassword" /> class.
     /// </summary>
@@ -38,18 +36,10 @@ public partial class ForgotPassword : AccountPage
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets a value indicating whether IsProtected.
     /// </summary>
     public override bool IsProtected => false;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -80,8 +70,6 @@ public partial class ForgotPassword : AccountPage
         this.PageLinks.AddRoot();
         this.PageLinks.AddLink(this.GetText("TITLE"));
     }
-
-    #endregion
 
     /// <summary>
     /// The forgot password click.

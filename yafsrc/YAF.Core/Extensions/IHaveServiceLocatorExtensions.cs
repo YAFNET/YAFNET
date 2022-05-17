@@ -23,21 +23,15 @@
  */
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using System.Collections.Generic;
 
 using YAF.Types.Interfaces.Tasks;
-
-#endregion
 
 /// <summary>
 /// The i have service locator extensions.
 /// </summary>
 public static class IHaveServiceLocatorExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// The run startup services.
     /// </summary>
@@ -58,6 +52,4 @@ public static class IHaveServiceLocatorExtensions
         startupServices.Where(s => !s.HasInterface<ICriticalStartupService>()).OrderByDescending(i => i.Priority)
             .ForEach(service => service.Run());
     }
-
-    #endregion
 }

@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class UserPMessage : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -77,6 +75,4 @@ public class UserPMessage : IEntity, IHaveID
     [Required]
     [Default(0)]
     public bool IsReply { get; set; }
-
-    #endregion
 }

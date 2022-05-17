@@ -23,20 +23,14 @@
  */
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using System.Collections.Generic;
 using System.Net.Mail;
-
-#endregion
 
 /// <summary>
 ///   The YAF send mail extensions.
 /// </summary>
 public static class ISendMailExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The send.
     /// </summary>
@@ -161,6 +155,4 @@ public static class ISendMailExtensions
 
         return mailMessage;
     }
-
-    #endregion
 }

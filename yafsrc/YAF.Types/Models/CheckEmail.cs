@@ -32,8 +32,6 @@ namespace YAF.Types.Models;
 [UniqueConstraint(nameof(Hash))]
 public class CheckEmail : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -67,6 +65,4 @@ public class CheckEmail : IEntity, IHaveID
     [Index]
     [StringLength(255)]
     public string Hash { get; set; }
-
-    #endregion
 }

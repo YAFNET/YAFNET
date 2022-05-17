@@ -31,16 +31,10 @@ using YAF.Types.Attributes;
 [ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
 public class LoadPageLazyUserData : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The data broker.
     /// </summary>
     private readonly DataBroker dataBroker;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LoadPageLazyUserData"/> class.
@@ -57,10 +51,6 @@ public class LoadPageLazyUserData : IHandleEvent<InitPageLoadEvent>, IHaveServic
         this.ServiceLocator = serviceLocator;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets Order.
     /// </summary>
@@ -70,12 +60,6 @@ public class LoadPageLazyUserData : IHandleEvent<InitPageLoadEvent>, IHaveServic
     ///   Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IHandleEvent<InitPageLoadEvent>
 
     /// <summary>
     /// Handles the specified @event.
@@ -91,8 +75,4 @@ public class LoadPageLazyUserData : IHandleEvent<InitPageLoadEvent>, IHaveServic
             @event.UserLazyData = activeUserLazyData;
         }
     }
-
-    #endregion
-
-    #endregion
 }

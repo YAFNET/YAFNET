@@ -29,8 +29,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class AlphaSort : BaseControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets actually selected letter.
     /// </summary>
@@ -59,10 +57,6 @@ public class AlphaSort : BaseControl
             return currentLetter;
         }
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Raises the Load event.
@@ -126,6 +120,4 @@ public class AlphaSort : BaseControl
                             });
                 });
     }
-
-    #endregion
 }

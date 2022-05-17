@@ -28,8 +28,6 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface ILocatablePage
 {
-    #region Properties
-
     /// <summary>
     /// Gets a value indicating whether is account page.
     /// </summary>
@@ -54,6 +52,4 @@ public interface ILocatablePage
     ///   Gets PageName.
     /// </summary>
     string PageName { get; }
-
-    #endregion
 }

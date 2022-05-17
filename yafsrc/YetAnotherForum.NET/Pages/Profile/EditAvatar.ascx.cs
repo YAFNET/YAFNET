@@ -29,8 +29,6 @@ namespace YAF.Pages.Profile;
 /// </summary>
 public partial class EditAvatar : ProfilePage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditAvatar"/> class.
     /// </summary>
@@ -38,10 +36,6 @@ public partial class EditAvatar : ProfilePage
         : base("EDIT_AVATAR", ForumPages.Profile_EditAvatar)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -66,6 +60,4 @@ public partial class EditAvatar : ProfilePage
         this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
     }
-
-    #endregion
 }

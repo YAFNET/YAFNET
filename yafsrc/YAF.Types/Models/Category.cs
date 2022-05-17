@@ -31,8 +31,6 @@ namespace YAF.Types.Models;
 [UniqueConstraint(nameof(BoardID), nameof(Name))]
 public class Category : IEntity, IHaveID, IHaveBoardID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -85,6 +83,4 @@ public class Category : IEntity, IHaveID, IHaveBoardID
 
         set => this.Flags = value.BitValue;
     }
-
-    #endregion
 }

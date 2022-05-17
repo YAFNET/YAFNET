@@ -23,27 +23,15 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// Replace Rules Interface
 /// </summary>
 public interface IProcessReplaceRules
 {
-    #region Properties
-
     /// <summary>
     ///   Gets a value indicating whether any rules have been added.
     /// </summary>
     bool HasRules { get; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The add rule.
@@ -62,6 +50,4 @@ public interface IProcessReplaceRules
     /// The text.
     /// </param>
     void Process([NotNull] ref string text);
-
-    #endregion
 }

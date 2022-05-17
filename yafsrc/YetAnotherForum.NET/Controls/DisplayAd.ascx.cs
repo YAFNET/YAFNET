@@ -28,8 +28,6 @@ namespace YAF.Controls;
 /// </summary>
 public partial class DisplayAd : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
@@ -42,6 +40,4 @@ public partial class DisplayAd : BaseUserControl
 
         this.AdMessage.MessageFlags = new MessageFlags { IsLocked = true, NotFormatted = true };
     }
-
-    #endregion
 }

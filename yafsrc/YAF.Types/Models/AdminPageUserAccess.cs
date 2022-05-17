@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(UserID), nameof(PageName))]
 public class AdminPageUserAccess : IEntity
 {
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the user id.
     /// </summary>
@@ -51,6 +49,4 @@ public class AdminPageUserAccess : IEntity
     /// </summary>
     [Ignore]
     public bool ReadAccess { get; set; }
-
-    #endregion
 }

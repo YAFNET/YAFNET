@@ -29,8 +29,6 @@ namespace YAF.Types.Objects;
 /// </summary>
 public class Translation
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets the localized value.
     /// </summary>
@@ -50,6 +48,4 @@ public class Translation
     ///   Gets or sets the resource value.
     /// </summary>
     public string ResourceValue { get; set; }
-
-    #endregion
 }

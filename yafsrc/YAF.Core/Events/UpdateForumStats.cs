@@ -33,8 +33,6 @@ using YAF.Types.Models;
 [ExportService(ServiceLifetimeScope.OwnedByContainer)]
 public class UpdateForumStats : IHaveServiceLocator, IHandleEvent<UpdateForumStatsEvent>
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateForumStats"/> class.
     /// </summary>
@@ -48,10 +46,6 @@ public class UpdateForumStats : IHaveServiceLocator, IHandleEvent<UpdateForumSta
         this.ServiceLocator = serviceLocator;
     }
 
-    #endregion
-        
-    #region Public Properties
-
     /// <summary>
     ///   Gets or sets ServiceLocator.
     /// </summary>
@@ -61,10 +55,6 @@ public class UpdateForumStats : IHaveServiceLocator, IHandleEvent<UpdateForumSta
     ///     Gets the order.
     /// </summary>
     public int Order => 10000;
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The handle.
@@ -77,6 +67,4 @@ public class UpdateForumStats : IHaveServiceLocator, IHandleEvent<UpdateForumSta
         this.GetRepository<Forum>().UpdateStats(@event.ForumId);
         this.GetRepository<Forum>().UpdateLastPost(@event.ForumId);
     }
-
-    #endregion
 }

@@ -37,14 +37,10 @@ using YAF.Types.Models;
 [RoutePrefix("api")]
 public class ThankYouController : ApiController, IHaveServiceLocator
 {
-    #region Properties
-
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-    #endregion
 
     /// <summary>
     /// Add Thanks to post

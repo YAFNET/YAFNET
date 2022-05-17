@@ -24,19 +24,13 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Topic Tags Control
 /// </summary>
 public partial class TopicTags : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
@@ -66,6 +60,4 @@ public partial class TopicTags : BaseUserControl
 
         this.DataBind();
     }
-
-    #endregion
 }

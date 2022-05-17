@@ -33,8 +33,6 @@ public class PostgreSQLDbAccess : DbAccessBase
     /// </summary>
     public const string ProviderTypeName = "Npgsql Data Provider";
 
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PostgreSQLDbAccess"/> class.
     /// </summary>
@@ -45,6 +43,4 @@ public class PostgreSQLDbAccess : DbAccessBase
         : base(dbProviderFactory, new PostgreSQLDbInformation())
     {
     }
-
-    #endregion
 }

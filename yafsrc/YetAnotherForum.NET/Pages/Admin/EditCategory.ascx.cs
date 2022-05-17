@@ -24,21 +24,15 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.IO;
 using YAF.Types.Objects;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Class for the Edit Category Page
 /// </summary>
 public partial class EditCategory : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditCategory"/> class. 
     /// </summary>
@@ -46,10 +40,6 @@ public partial class EditCategory : AdminPage
         : base("ADMIN_EDITCATEGORY", ForumPages.Admin_EditCategory)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Click event of the Cancel control.
@@ -230,6 +220,4 @@ public partial class EditCategory : AdminPage
 
         item.Selected = true;
     }
-
-    #endregion
 }

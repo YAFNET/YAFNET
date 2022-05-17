@@ -24,22 +24,16 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.IO;
 using System.Xml.Serialization;
 using YAF.Types.Models;
 using StringExtensions = ServiceStack.Text.StringExtensions;
-
-#endregion
 
 /// <summary>
 /// Admin Members Page.
 /// </summary>
 public partial class Users : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Users"/> class. 
     /// </summary>
@@ -47,10 +41,6 @@ public partial class Users : AdminPage
         : base("ADMIN_USERS", ForumPages.Admin_Users)
     {
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Redirects to the Create User Page
@@ -204,10 +194,6 @@ public partial class Users : AdminPage
 
         return $@"<span class=""badge bg-danger"">{this.GetText("NOT_APPROVED")}</span>";
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Registers the needed Java Scripts
@@ -502,6 +488,4 @@ public partial class Users : AdminPage
         this.Get<HttpResponseBase>().Flush();
         this.Get<HttpResponseBase>().End();
     }
-
-    #endregion
 }

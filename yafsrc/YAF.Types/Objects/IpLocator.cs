@@ -30,8 +30,6 @@ namespace YAF.Types.Objects;
 [XmlRoot(ElementName = "Response", IsNullable = false)]
 public class IpLocator
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets Status.
     /// </summary>
@@ -97,6 +95,4 @@ public class IpLocator
     /// </summary>
     [Alias("timeZone")]
     public string TimeZone { get; set; }
-
-    #endregion
 }

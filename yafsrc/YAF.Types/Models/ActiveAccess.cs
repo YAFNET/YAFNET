@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(UserID), nameof(ForumID))]
 public class ActiveAccess : IEntity, IHaveBoardID
 {
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the board id.
     /// </summary>
@@ -132,6 +130,4 @@ public class ActiveAccess : IEntity, IHaveBoardID
     /// </summary>
     [Required]
     public bool VoteAccess { get; set; }
-
-    #endregion
 }

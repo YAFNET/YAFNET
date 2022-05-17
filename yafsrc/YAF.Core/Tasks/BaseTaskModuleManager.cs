@@ -24,31 +24,21 @@
 
 namespace YAF.Core.Tasks;
 
-#region Using
-
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 using YAF.Types.Interfaces.Tasks;
 
-#endregion
-
 /// <summary>
 ///     The base task module manager.
 /// </summary>
 public abstract class BaseTaskModuleManager : ITaskModuleManager
 {
-    #region Static Fields
-
     /// <summary>
     /// The task manager.
     /// </summary>
     protected static ConcurrentDictionary<string, IBackgroundTask> taskManager = new();
-
-    #endregion
-
-    #region Public Properties
 
     /// <summary>
     ///     Gets TaskCount.
@@ -66,10 +56,6 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// </summary>
     [NotNull]
     public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot => taskManager.ToDictionary(k => k.Key, v => v.Value);
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// Check if Tasks are Running.
@@ -189,6 +175,4 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     {
         return taskManager.TryRemove(instanceName, out _);
     }
-
-    #endregion
 }

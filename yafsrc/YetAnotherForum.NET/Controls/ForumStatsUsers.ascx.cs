@@ -23,21 +23,15 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using System.Text;
 
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The forum user statistics.
 /// </summary>
 public partial class ForumStatsUsers : BaseUserControl
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ForumStatsUsers"/> class.
     /// </summary>
@@ -45,10 +39,6 @@ public partial class ForumStatsUsers : BaseUserControl
     {
         this.Load += this.ForumStatistics_Load;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The format active users.
@@ -234,6 +224,4 @@ public partial class ForumStatsUsers : BaseUserControl
             this.Logger.Log(this.PageBoardContext.PageUserID, this, $"Error in MaxUsersWhen {this.PageBoardContext.BoardSettings.MaxUsersWhen}");
         }
     }
-
-    #endregion
 }

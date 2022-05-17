@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -32,8 +30,6 @@ using System.Text.RegularExpressions;
 using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Constants;
 using YAF.Types.Objects;
-
-#endregion
 
 /// <summary>
 /// YAF FormatMessage provides functions related to formatting the post messages.
@@ -76,8 +72,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// Gets or sets ProcessReplaceRuleFactory.
     /// </summary>
     public Func<IEnumerable<bool>, IProcessReplaceRules> ProcessReplaceRuleFactory { get; set; }
-
-    #region Public Methods
 
     /// <summary>
     /// The method to detect a forbidden BBCode tag from delimited delimiter list
@@ -566,10 +560,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         return message;
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The match and perform action.
     /// </summary>
@@ -635,6 +625,4 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         return text;
     }
-
-    #endregion
 }

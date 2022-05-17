@@ -33,8 +33,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class TopicTagRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Adds Topic Tag
     /// </summary>
@@ -146,6 +144,4 @@ public static class TopicTagRepositoryExtensions
 
         return repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
     }
-
-    #endregion
 }

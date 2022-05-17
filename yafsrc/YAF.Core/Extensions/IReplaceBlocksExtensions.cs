@@ -23,20 +23,14 @@
  */
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using System.Text;
 using System.Text.RegularExpressions;
-
-#endregion
 
 /// <summary>
 /// The i replace blocks extensions.
 /// </summary>
 public static class IReplaceBlocksExtensions
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The _options.
     /// </summary>
@@ -47,10 +41,6 @@ public static class IReplaceBlocksExtensions
     /// </summary>
     private static readonly Regex _regExHtml =
         new(@"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", _options | RegexOptions.Compiled);
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Pull replacement blocks from the text
@@ -101,6 +91,4 @@ public static class IReplaceBlocksExtensions
             m = _regExHtml.Match(sb.ToString());
         }
     }
-
-    #endregion
 }

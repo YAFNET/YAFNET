@@ -29,8 +29,6 @@ namespace YAF.Configuration.Pattern;
 /// </summary>
 public class RegistryDictionaryOverride : RegistryDictionary
 {
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets a value indicating whether DefaultGetOverride.
     /// </summary>
@@ -45,10 +43,6 @@ public class RegistryDictionaryOverride : RegistryDictionary
     ///     Gets or sets OverrideDictionary.
     /// </summary>
     public RegistryDictionary OverrideDictionary { get; set; }
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     ///     The get value.
@@ -149,6 +143,4 @@ public class RegistryDictionaryOverride : RegistryDictionary
         // save new value in the base...
         base.SetValue(name, value);
     }
-
-    #endregion
 }

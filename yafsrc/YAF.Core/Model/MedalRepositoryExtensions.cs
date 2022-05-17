@@ -33,8 +33,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class MedalRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Lists users assigned to the medal
     /// </summary>
@@ -176,6 +174,4 @@ public static class MedalRepositoryExtensions
             repository.FireNew(newId);
         }
     }
-
-    #endregion
 }

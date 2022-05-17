@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(UserID), nameof(ForumID))]
 public class UserForum : IEntity
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the user id.
     /// </summary>
@@ -64,6 +62,4 @@ public class UserForum : IEntity
     /// </summary>
     [Required]
     public bool Accepted { get; set; }
-
-    #endregion
 }

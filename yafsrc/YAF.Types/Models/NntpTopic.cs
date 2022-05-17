@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class NntpTopic : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -57,6 +55,4 @@ public class NntpTopic : IEntity, IHaveID
     [References(typeof(Topic))]
     [Required]
     public int TopicID { get; set; }
-
-    #endregion
 }

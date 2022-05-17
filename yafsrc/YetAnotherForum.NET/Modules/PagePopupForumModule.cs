@@ -23,11 +23,7 @@
  */
 namespace YAF.Modules;
 
-#region Using
-
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// The Page Popup Module
@@ -35,16 +31,10 @@ using YAF.Types.Attributes;
 [Module("Page Popup Module", "Tiny Gecko", 1)]
 public class PagePopupForumModule : SimpleBaseForumModule
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _error popup.
     /// </summary>
     private PopupDialogNotification errorPopup;
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The init after page.
@@ -66,10 +56,6 @@ public class PagePopupForumModule : SimpleBaseForumModule
     {
         this.ForumControl.Init += this.ForumControl_Init;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The register load string.
@@ -145,6 +131,4 @@ public class PagePopupForumModule : SimpleBaseForumModule
         // at this point, init has already been called...
         this.AddErrorPopup();
     }
-
-    #endregion
 }

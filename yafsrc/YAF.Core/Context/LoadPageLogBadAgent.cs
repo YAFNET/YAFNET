@@ -31,8 +31,6 @@ using YAF.Types.Attributes;
 [ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
 public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="LoadPageLogBadAgent"/> class.
     /// </summary>
@@ -59,10 +57,6 @@ public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveService
         this.HttpRequestBase = httpRequestBase;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets HttpRequestBase.
     /// </summary>
@@ -82,12 +76,6 @@ public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveService
     ///   Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IHandleEvent<InitPageLoadEvent>
 
     /// <summary>
     /// Handles the specified @event.
@@ -121,8 +109,4 @@ public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveService
                 $"Unhandled UserAgent string:'{@event.UserRequestData.UserAgent}'<br />Platform:'{this.HttpRequestBase.Browser.Platform}'<br />Browser:'{this.HttpRequestBase.Browser.Browser}'");
         }
     }
-
-    #endregion
-
-    #endregion
 }

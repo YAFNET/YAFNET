@@ -23,21 +23,15 @@
  */
 namespace YAF.Core.Model;
 
-#region Using
-
 using System;
 
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 ///     The NntpTopic repository extensions.
 /// </summary>
 public static class NntpTopicRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The save message.
     /// </summary>
@@ -129,6 +123,4 @@ public static class NntpTopicRepositoryExtensions
             replyTo,
             new MessageFlags(17));
     }
-
-    #endregion
 }

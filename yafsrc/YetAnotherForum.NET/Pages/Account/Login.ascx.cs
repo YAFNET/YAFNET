@@ -24,8 +24,6 @@
 
 namespace YAF.Pages.Account;
 
-#region Using
-
 using System.Net.Mail;
 
 using YAF.Core.Identity.Owin;
@@ -35,15 +33,11 @@ using YAF.Web.Controls;
 
 using Config = YAF.Configuration.Config;
 
-#endregion
-
 /// <summary>
 /// The Forum Login Page.
 /// </summary>
 public partial class Login : AccountPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref="Login" /> class.
     /// </summary>
@@ -52,18 +46,10 @@ public partial class Login : AccountPage
     {
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///   Gets a value indicating whether IsProtected.
     /// </summary>
     public override bool IsProtected => false;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The page_ load.
@@ -331,6 +317,4 @@ public partial class Login : AccountPage
             this.Get<IAspNetUsersHelper>().SignInExternal();
         }
     }
-
-    #endregion
 }

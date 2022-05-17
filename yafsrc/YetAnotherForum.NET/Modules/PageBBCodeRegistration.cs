@@ -23,11 +23,7 @@
  */
 namespace YAF.Modules;
 
-#region Using
-
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// The page bb code registration.
@@ -35,8 +31,6 @@ using YAF.Types.Attributes;
 [Module("Page BBCode Registration Module", "Tiny Gecko", 1)]
 public class PageBBCodeRegistration : SimpleBaseForumModule
 {
-    #region Public Methods
-
     /// <summary>
     /// The init after page.
     /// </summary>
@@ -54,6 +48,4 @@ public class PageBBCodeRegistration : SimpleBaseForumModule
                 break;
         }
     }
-
-    #endregion
 }

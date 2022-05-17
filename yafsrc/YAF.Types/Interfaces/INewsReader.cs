@@ -5,8 +5,6 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface INewsreader
 {
-    #region Public Methods
-
     /// <summary>
     /// The read articles.
     /// </summary>
@@ -26,6 +24,4 @@ public interface INewsreader
     /// The <see cref="int"/>.
     /// </returns>
     int ReadArticles([NotNull] int boardId, int lastUpdate, int timeToRun, bool createUsers);
-
-    #endregion
 }

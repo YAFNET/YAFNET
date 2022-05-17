@@ -32,8 +32,6 @@ using System.Threading.Tasks;
 /// </summary>
 public interface ISearch
 {
-    #region Public Methods
-
     /// <summary>
     /// Optimizes the Search Index
     /// </summary>
@@ -154,6 +152,4 @@ public interface ISearch
     /// Returns the search results
     /// </returns>
     List<SearchMessage> SearchDefault(int forumId, string input, string fieldName = "");
-
-    #endregion
 }

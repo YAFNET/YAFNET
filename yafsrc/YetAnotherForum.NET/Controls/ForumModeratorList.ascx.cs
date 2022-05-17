@@ -23,30 +23,20 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using System.Text;
 
 using YAF.Types.Objects;
 using YAF.Web.Controls;
-
-#endregion
 
 /// <summary>
 /// The forum moderator list.
 /// </summary>
 public partial class ForumModeratorList : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets DataSource.
     /// </summary>
     public List<SimpleModerator> DataSource { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the PreRender event
@@ -100,6 +90,4 @@ public partial class ForumModeratorList : BaseUserControl
         this.ShowMods.DataContent = content.ToString().ToJsString();
         this.ShowMods.Text = $"{this.GetText("SHOW")} {this.GetText("DEFAULT", "MODERATORS")}";
     }
-
-    #endregion
 }

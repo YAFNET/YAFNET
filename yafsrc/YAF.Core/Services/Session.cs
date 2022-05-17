@@ -24,23 +24,17 @@
 
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
 using YAF.Types.Objects;
 
-#endregion
-
 /// <summary>
 /// All references to session should go into this class
 /// </summary>
 public class Session : ISession
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Session"/> class.
     /// </summary>
@@ -53,10 +47,6 @@ public class Session : ISession
 
         this.SessionState = sessionState;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets UserTopicSince.
@@ -223,12 +213,6 @@ public class Session : ISession
         set => this.SessionState["unreadtopics"] = value;
     }
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IYafSession
-
     /// <summary>
     /// Gets the last time the forum was read.
     /// </summary>
@@ -303,8 +287,4 @@ public class Session : ISession
         t[topicId] = date;
         this.TopicRead = t;
     }
-
-    #endregion
-
-    #endregion
 }

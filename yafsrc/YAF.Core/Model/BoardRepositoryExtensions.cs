@@ -33,8 +33,6 @@ using YAF.Types.Objects;
 /// </summary>
 public static class BoardRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The create.
     /// </summary>
@@ -599,6 +597,4 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
         BoardContext.Current.GetRepository<Registry>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<Board>().Delete(x => x.ID == boardId);
     }
-
-    #endregion
 }

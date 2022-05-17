@@ -24,17 +24,13 @@
 
 namespace YAF.Pages.Profile;
 
-#region Using
 using YAF.Types.Models;
-#endregion
 
 /// <summary>
 /// The edit settings page
 /// </summary>
 public partial class EditSettings : ProfilePage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditSettings"/> class.
     /// </summary>
@@ -43,15 +39,11 @@ public partial class EditSettings : ProfilePage
     {
     }
 
-    #endregion
-
     /// <summary>
     /// Sets the current edit user.
     /// </summary>
     /// <value>The user.</value>
     public User EditBoardUser => this.PageBoardContext.PageUser;
-
-    #region Methods
 
     /// <summary>
     /// Create the Page links.
@@ -77,6 +69,4 @@ public partial class EditSettings : ProfilePage
 
         this.ProfileSettings.User = this.EditBoardUser;
     }
-
-    #endregion
 }

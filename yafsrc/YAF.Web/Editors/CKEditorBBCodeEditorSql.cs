@@ -30,8 +30,6 @@ using ServiceStack.OrmLite;
 /// </summary>
 public class CKEditorBBCodeEditorSql : CKEditor
 {
-    #region Properties
-
     /// <summary>
     ///   Gets Description.
     /// </summary>
@@ -57,10 +55,6 @@ public class CKEditorBBCodeEditorSql : CKEditor
     /// The allows uploads.
     /// </summary>
     public override bool AllowsUploads => false;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The register CKEditor custom JS.
@@ -96,6 +90,4 @@ public class CKEditorBBCodeEditorSql : CKEditor
                 BoardInfo.GetURLToContent("forum.min.css"),
                 mime));
     }
-
-    #endregion
 }

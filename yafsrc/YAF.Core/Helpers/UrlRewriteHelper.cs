@@ -35,8 +35,6 @@ using YAF.Core.Utilities.StringUtils;
 /// </summary>
 public static class UrlRewriteHelper
 {
-    #region Methods
-
     /// <summary>
     /// Cleans the string for URL.
     /// </summary>
@@ -155,6 +153,4 @@ public static class UrlRewriteHelper
                 }
         }
     }
-
-    #endregion
 }

@@ -31,8 +31,6 @@ namespace YAF.Types.Models;
 [Alias("Tag")]
 public class Tag : IEntity, IHaveBoardID, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the Tag id.
     /// </summary>
@@ -52,6 +50,4 @@ public class Tag : IEntity, IHaveBoardID, IHaveID
     /// </summary>
     [Required]
     public string TagName { get; set; }
-
-    #endregion
 }

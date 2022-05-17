@@ -23,20 +23,14 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Web.Controls;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The forum statistics.
 /// </summary>
 public partial class Statistics : BaseUserControl
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Statistics" /> class.
     /// </summary>
@@ -44,10 +38,6 @@ public partial class Statistics : BaseUserControl
     {
         this.Load += this.ForumStatistics_Load;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The forum statistics_ load.
@@ -128,6 +118,4 @@ public partial class Statistics : BaseUserControl
             this.AntiSpamStatsHolder.Visible = false;
         }
     }
-
-    #endregion
 }

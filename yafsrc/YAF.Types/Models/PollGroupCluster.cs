@@ -40,8 +40,6 @@ public partial class PollGroupCluster : IEntity, IHaveID
         this.OnCreated();
     }
 
-    #region Properties
-
     [Alias("PollGroupID")]
     [AutoIncrement]
     public int ID { get; set; }
@@ -52,6 +50,4 @@ public partial class PollGroupCluster : IEntity, IHaveID
     public int Flags { get; set; }
     [Compute]
     public bool? IsBound { get; set; }
-
-    #endregion
 }

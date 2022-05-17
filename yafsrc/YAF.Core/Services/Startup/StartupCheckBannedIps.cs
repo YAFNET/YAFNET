@@ -23,22 +23,16 @@
  */
 namespace YAF.Core.Services.Startup;
 
-#region Using
-
 using System;
 
 using YAF.Types.Constants;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The YAF check for banned IPs.
 /// </summary>
 public class StartupCheckBannedIps : BaseStartupService
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="StartupCheckBannedIps" /> class.
     /// </summary>
@@ -60,10 +54,6 @@ public class StartupCheckBannedIps : BaseStartupService
         this.BannedIpRepository = bannedIpRepository;
         this.Logger = logger;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets DataCache.
@@ -100,10 +90,6 @@ public class StartupCheckBannedIps : BaseStartupService
     /// </summary>
     [NotNull]
     protected override string ServiceName => "CheckBannedIps_Init";
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The run service.
@@ -154,6 +140,4 @@ public class StartupCheckBannedIps : BaseStartupService
             return true;
         }
     }
-
-    #endregion
 }

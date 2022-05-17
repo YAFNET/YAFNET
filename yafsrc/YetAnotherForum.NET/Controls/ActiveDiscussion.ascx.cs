@@ -26,19 +26,13 @@ using YAF.Types.Models;
 
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Web.Controls;
-
-#endregion
 
 /// <summary>
 /// The active discussion.
 /// </summary>
 public partial class ActiveDiscussion : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// The latest posts_ item data bound.
     /// </summary>
@@ -221,6 +215,4 @@ public partial class ActiveDiscussion : BaseUserControl
             this.ActiveDiscussionPlaceHolder.Visible = false;
         }
     }
-
-    #endregion
 }

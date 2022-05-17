@@ -29,8 +29,6 @@ namespace YAF.Types.Flags;
 [Serializable]
 public class GroupFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="GroupFlags"/> class.
     /// </summary>
@@ -82,10 +80,6 @@ public class GroupFlags : FlagsBase
         : base(bits)
     {
     }
-
-    #endregion
-
-    #region Flags Enumeration
 
     /// <summary>
     /// Use for bit comparisons
@@ -142,10 +136,6 @@ public class GroupFlags : FlagsBase
         // xxxxx = 256,
         // xxxxx = 512
     }
-
-    #endregion
-
-    #region Single Flags (can be 32 of them)
 
     /// <summary>
     /// Gets or sets a value indicating whether group/role has administrator privileges
@@ -235,10 +225,6 @@ public class GroupFlags : FlagsBase
         set => this[7] = value;
     }
 
-    #endregion
-
-    #region Operators
-
     /// <summary>
     /// The op_ implicit.
     /// </summary>
@@ -264,6 +250,4 @@ public class GroupFlags : FlagsBase
     {
         return new GroupFlags(flags);
     }
-
-    #endregion
 }

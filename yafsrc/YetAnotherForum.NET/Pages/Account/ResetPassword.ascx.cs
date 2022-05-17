@@ -28,8 +28,6 @@ namespace YAF.Pages.Account;
 /// </summary>
 public partial class ResetPassword : AccountPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "ResetPassword" /> class.
     /// </summary>
@@ -38,18 +36,10 @@ public partial class ResetPassword : AccountPage
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets a value indicating whether IsProtected.
     /// </summary>
     public override bool IsProtected => false;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -124,6 +114,4 @@ public partial class ResetPassword : AccountPage
 
         this.PageBoardContext.Notify(result.Errors.FirstOrDefault(), MessageTypes.danger);
     }
-
-    #endregion
 }

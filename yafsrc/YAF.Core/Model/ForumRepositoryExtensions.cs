@@ -37,8 +37,6 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class ForumRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Saves a Forum or if forumId is null creates a new Forum
     /// </summary>
@@ -940,8 +938,6 @@ public static class ForumRepositoryExtensions
                              ForumLink = BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.ForumName)
                          }).ToList();
     }
-
-    #endregion
 
     /// <summary>
     /// The SortList.

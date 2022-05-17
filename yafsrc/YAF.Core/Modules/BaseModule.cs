@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Modules;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 #if DEBUG
@@ -40,23 +38,15 @@ using YAF.Core.BaseModules;
 
 using Module = Autofac.Module;
 
-#endregion
-
 /// <summary>
 /// The base module.
 /// </summary>
 public abstract class BaseModule : Module, IHaveSortOrder
 {
-    #region Static Fields
-
     /// <summary>
     ///     Gets or sets ExtensionAssemblies.
     /// </summary>
     protected static readonly Assembly[] ExtensionAssemblies;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes static members of the <see cref="BaseModule"/> class.
@@ -78,10 +68,6 @@ public abstract class BaseModule : Module, IHaveSortOrder
 #endif
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     /// Gets the sort order.
     /// </summary>
@@ -89,10 +75,6 @@ public abstract class BaseModule : Module, IHaveSortOrder
     /// The sort order.
     /// </value>
     public virtual int SortOrder => 1000;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Registers the base modules.
@@ -127,6 +109,4 @@ public abstract class BaseModule : Module, IHaveSortOrder
 
         modules.ForEach(module => builder.RegisterModule(module));
     }
-
-    #endregion
 }

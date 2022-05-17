@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class vaccessfull : IEntity
 {
-    #region Public Properties
-
     [Required]
     public int UserID { get; set; }
     public int? ForumID { get; set; }
@@ -44,6 +42,4 @@ public class vaccessfull : IEntity
     public int? EditAccess { get; set; }
     public int? DeleteAccess { get; set; }
     public int? AdminGroup { get; set; }
-
-    #endregion
 }

@@ -24,20 +24,14 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.Xml.Linq;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Replace Words Admin Page.
 /// </summary>
 public partial class ReplaceWords : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ReplaceWords"/> class. 
     /// </summary>
@@ -45,10 +39,6 @@ public partial class ReplaceWords : AdminPage
         : base("ADMIN_REPLACEWORDS", ForumPages.Admin_ReplaceWords)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
@@ -162,6 +152,4 @@ public partial class ReplaceWords : AdminPage
         this.Get<HttpResponseBase>().Flush();
         this.Get<HttpResponseBase>().End();
     }
-
-    #endregion
 }

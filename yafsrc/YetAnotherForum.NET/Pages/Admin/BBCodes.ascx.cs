@@ -23,20 +23,14 @@
  */
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.Xml.Linq;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Admin BBCode Page.
 /// </summary>
 public partial class BBCodes : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="BBCodes"/> class. 
     /// </summary>
@@ -44,10 +38,6 @@ public partial class BBCodes : AdminPage
         : base("ADMIN_BBCODE", ForumPages.Admin_BBCodes)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The get selected bb code i ds.
@@ -242,6 +232,4 @@ public partial class BBCodes : AdminPage
 
         this.DataBind();
     }
-
-    #endregion
 }

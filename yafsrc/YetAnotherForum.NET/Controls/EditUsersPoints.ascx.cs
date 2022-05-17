@@ -23,28 +23,18 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The edit users points.
 /// </summary>
 public partial class EditUsersPoints : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the current edit user.
     /// </summary>
     /// <value>The user.</value>
     public User User { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The add points_ click.
@@ -122,6 +112,4 @@ public partial class EditUsersPoints : BaseUserControl
     {
         this.ltrCurrentPoints.Text = this.txtUserPoints.Text = this.User.Points.ToString();
     }
-
-    #endregion
 }

@@ -23,22 +23,16 @@
  */
 namespace YAF.Core.Model;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 ///     The Thanks repository extensions.
 /// </summary>
 public static class ThanksRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The thanks from user.
     /// </summary>
@@ -203,6 +197,4 @@ public static class ThanksRepositoryExtensions
 
         return thankCount > 0;
     }
-
-    #endregion
 }

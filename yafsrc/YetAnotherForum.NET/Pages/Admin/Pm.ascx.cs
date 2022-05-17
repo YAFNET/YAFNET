@@ -24,17 +24,13 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
 using YAF.Types.Models;
-#endregion
 
 /// <summary>
 /// The Admin Private messages page
 /// </summary>
 public partial class Pm : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Pm"/> class. 
     /// </summary>
@@ -42,10 +38,6 @@ public partial class Pm : AdminPage
         : base("ADMIN_PM", ForumPages.Admin_Pm)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>Raises the <see cref="E:System.Web.UI.Control.Init"/> event.</summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
@@ -102,6 +94,4 @@ public partial class Pm : AdminPage
 
         this.BindData();
     }
-
-    #endregion
 }

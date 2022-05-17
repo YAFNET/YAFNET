@@ -26,8 +26,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class CollapseButton : LinkButton
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets AttachedControlID.
     /// </summary>
@@ -84,10 +82,6 @@ public class CollapseButton : LinkButton
 
         set => BoardContext.Current.Get<ISession>().PanelState[this.PanelID] = value;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The get attached control.
@@ -187,6 +181,4 @@ public class CollapseButton : LinkButton
 
         return stateValue == CollapsiblePanelState.Expanded ? "chevron-up" : "chevron-down";
     }
-
-    #endregion
 }

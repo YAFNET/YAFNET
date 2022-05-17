@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public partial class vaccess_null : IEntity
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="vaccess_user"/> class.
     /// </summary>
@@ -38,10 +36,6 @@ public partial class vaccess_null : IEntity
     {
         this.OnCreated();
     }
-
-    #endregion
-
-    #region Public Properties
 
     [Required]
     public int UserID { get; set; }
@@ -61,14 +55,8 @@ public partial class vaccess_null : IEntity
     public int? DeleteAccess { get; set; }
     public int? AdminGroup { get; set; }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The on created.
     /// </summary>
     partial void OnCreated();
-
-    #endregion
 }

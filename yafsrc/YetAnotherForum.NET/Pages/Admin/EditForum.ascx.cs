@@ -26,23 +26,17 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.IO;
 using YAF.Types.Objects;
 using YAF.Types.Models;
 
 using ListItem = ListItem;
 
-#endregion
-
 /// <summary>
 /// Administrative Page for the editing of forum properties.
 /// </summary>
 public partial class EditForum : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditForum"/> class. 
     /// </summary>
@@ -51,14 +45,10 @@ public partial class EditForum : AdminPage
     {
     }
 
-    #endregion
-
     /// <summary>
     /// The access mask list.
     /// </summary>
     private IList<AccessMask> accessMaskList;
-
-    #region Public Methods
 
     /// <summary>
     /// Handles the Change event of the Category control.
@@ -73,10 +63,6 @@ public partial class EditForum : AdminPage
     {
         this.BindParentList();
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the AccessMaskID event of the BindData control.
@@ -564,6 +550,4 @@ public partial class EditForum : AdminPage
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
     }
-
-    #endregion
 }

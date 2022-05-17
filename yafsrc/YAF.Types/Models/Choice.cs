@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class Choice : IEntity, IHaveID
 {
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -64,6 +62,4 @@ public class Choice : IEntity, IHaveID
     /// </summary>
     [StringLength(255)]
     public string ObjectPath { get; set; }
-
-    #endregion
 }

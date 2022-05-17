@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class NntpServer : IEntity, IHaveID, IHaveBoardID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -75,6 +73,4 @@ public class NntpServer : IEntity, IHaveID, IHaveBoardID
     /// </summary>
     [StringLength(50)]
     public string UserPass { get; set; }
-
-    #endregion
 }

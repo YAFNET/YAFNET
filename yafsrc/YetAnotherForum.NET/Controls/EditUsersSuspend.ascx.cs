@@ -24,13 +24,9 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The edit users suspend.
@@ -41,8 +37,6 @@ public partial class EditUsersSuspend : BaseUserControl
     /// The user.
     /// </summary>
     private User user;
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets a value indicating whether ShowHeader.
@@ -77,10 +71,6 @@ public partial class EditUsersSuspend : BaseUserControl
             return this.user = this.GetRepository<User>().GetById(this.CurrentUserID);
         }
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Gets the time until user is suspended.
@@ -289,6 +279,4 @@ public partial class EditUsersSuspend : BaseUserControl
         this.SuspendedBy.Style = suspendedByUser.UserStyle;
         this.SuspendedBy.ReplaceName = suspendedByUser.DisplayOrUserName();
     }
-
-    #endregion
 }

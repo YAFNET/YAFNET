@@ -29,16 +29,10 @@ namespace YAF.Modules;
 /// </summary>
 public class PopupDialogNotification : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets ShowModalFunction.
     /// </summary>
     public string ShowModalFunction => $"ShowPopupDialogNotification{this.ClientID}";
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The on pre render.
@@ -90,6 +84,4 @@ public class PopupDialogNotification : BaseUserControl
 
         base.OnPreRender(e);
     }
-
-    #endregion
 }

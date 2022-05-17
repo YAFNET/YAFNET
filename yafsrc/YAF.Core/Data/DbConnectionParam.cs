@@ -29,8 +29,6 @@ namespace YAF.Core.Data;
 /// </summary>
 public struct DbConnectionParam : IDbConnectionParam
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="DbConnectionParam"/> struct.
     /// </summary>
@@ -50,10 +48,6 @@ public struct DbConnectionParam : IDbConnectionParam
         this.Value = defaultValue ?? string.Empty;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets the ID.
     /// </summary>
@@ -68,6 +62,4 @@ public struct DbConnectionParam : IDbConnectionParam
     /// Gets the Default Value.
     /// </summary>
     public string Value { get; }
-
-    #endregion
 }

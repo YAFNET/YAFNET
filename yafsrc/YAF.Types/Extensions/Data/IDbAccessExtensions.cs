@@ -35,8 +35,6 @@ using System.Text.RegularExpressions;
 /// </summary>
 public static class IDbAccessExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The begin transaction.
     /// </summary>
@@ -417,6 +415,4 @@ public static class IDbAccessExtensions
 
         trans.Commit();
     }
-
-    #endregion
 }

@@ -32,8 +32,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class ReputationVoteRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The update or add Reputation Vote.
     /// </summary>
@@ -73,6 +71,4 @@ public static class ReputationVoteRepositoryExtensions
                                                      }));
         }
     }
-
-    #endregion
 }

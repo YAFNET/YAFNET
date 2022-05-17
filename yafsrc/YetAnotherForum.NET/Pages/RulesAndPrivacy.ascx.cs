@@ -29,8 +29,6 @@ namespace YAF.Pages;
 /// </summary>
 public partial class RulesAndPrivacy : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "RulesAndPrivacy" /> class.
     /// </summary>
@@ -39,18 +37,10 @@ public partial class RulesAndPrivacy : ForumPage
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets a value indicating whether IsProtected.
     /// </summary>
     public override bool IsProtected => false;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The accept_ click.
@@ -108,6 +98,4 @@ public partial class RulesAndPrivacy : ForumPage
 
         this.Footer.Visible = this.PageBoardContext.IsGuest;
     }
-
-    #endregion
 }

@@ -38,8 +38,6 @@ using YAF.Types.Objects.Model;
 [ExportService(ServiceLifetimeScope.InstancePerContext, null, typeof(IHandleEvent<InitPageLoadEvent>))]
 public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="LoadPageFromDatabase"/> class.
     /// </summary>
@@ -53,10 +51,6 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
         this.Logger = logger;
         this.DataCache = dataCache;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets the logger.
@@ -80,12 +74,6 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
     ///   Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IHandleEvent<InitPageLoadEvent>
 
     /// <summary>
     /// The handle.
@@ -142,6 +130,11 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                 throw new ApplicationException("Failed to create new user.");
             }
 
+            if (pageRow is not null && pageRow.Item1 == null)
+            {
+                pageRow = null;
+            }
+
             if (tries++ < 2)
             {
                 continue;
@@ -182,8 +175,4 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
         }
     }
-
-    #endregion
-
-    #endregion
 }

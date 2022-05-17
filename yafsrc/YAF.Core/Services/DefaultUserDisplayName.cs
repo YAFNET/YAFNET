@@ -23,21 +23,15 @@
  */
 namespace YAF.Core.Services;
 
-#region Using
-
 using System.Collections.Generic;
 
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The default user display name.
 /// </summary>
 public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="DefaultUserDisplayName"/> class.
     /// </summary>
@@ -47,20 +41,10 @@ public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets the ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IUserDisplayName
 
     /// <summary>
     /// Find user
@@ -115,8 +99,4 @@ public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
 
         return user?.DisplayOrUserName();
     }
-
-    #endregion
-
-    #endregion
 }

@@ -28,8 +28,6 @@ namespace YAF.Types.Flags;
 /// </summary>
 public class AccessFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="AccessFlags"/> class.
     /// </summary>
@@ -81,10 +79,6 @@ public class AccessFlags : FlagsBase
         : base(bits)
     {
     }
-
-    #endregion
-
-    #region Flags Enumeration
 
     /// <summary>
     /// Use for bit comparisons
@@ -153,10 +147,6 @@ public class AccessFlags : FlagsBase
           xxxxxxxx = 65536
                */
     }
-
-    #endregion
-
-    #region Single Flags (can be 32 of them)
 
     /// <summary>
     /// Gets or sets a value indicating whether the User has Forum read access.
@@ -257,10 +247,6 @@ public class AccessFlags : FlagsBase
         set => this[8] = value;
     }
 
-    #endregion
-
-    #region Operators
-
     /// <summary>
     /// The op_ implicit.
     /// </summary>
@@ -287,6 +273,4 @@ public class AccessFlags : FlagsBase
     {
         return new AccessFlags(flags);
     }
-
-    #endregion
 }

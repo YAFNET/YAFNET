@@ -27,8 +27,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class ActiveLocation : BaseControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets the Forum ID of the current location
     /// </summary>
@@ -153,10 +151,6 @@ public class ActiveLocation : BaseControl
 
         set => this.ViewState["UserID"] = value;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The render.
@@ -480,6 +474,4 @@ public class ActiveLocation : BaseControl
 
         return outString.ToString();
     }
-
-    #endregion
 }

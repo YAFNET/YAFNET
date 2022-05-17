@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(UserID), nameof(TopicID))]
 public class TopicReadTracking : IEntity
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the user id.
     /// </summary>
@@ -51,6 +49,4 @@ public class TopicReadTracking : IEntity
     /// </summary>
     [Required]
     public DateTime LastAccessDate { get; set; }
-
-    #endregion
 }

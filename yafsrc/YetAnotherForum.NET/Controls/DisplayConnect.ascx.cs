@@ -23,19 +23,13 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Web.Controls;
-
-#endregion
 
 /// <summary>
 /// Display Connect Control
 /// </summary>
 public partial class DisplayConnect : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
@@ -116,6 +110,4 @@ public partial class DisplayConnect : BaseUserControl
 
         this.ConnectHolder.Visible = false;
     }
-
-    #endregion
 }

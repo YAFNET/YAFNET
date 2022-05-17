@@ -23,19 +23,11 @@
  */
 namespace YAF.Types.Interfaces.Events;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// The event raiser interface
 /// </summary>
 public interface IRaiseEvent
 {
-    #region Public Methods
-
     /// <summary>
     /// The raise event.
     /// </summary>
@@ -56,6 +48,4 @@ public interface IRaiseEvent
     /// <param name="logExceptionAction">
     /// </param>
     void RaiseIssolated<T>(T eventObject, [CanBeNull] Action<string, Exception> logExceptionAction) where T : IAmEvent;
-
-    #endregion
 }

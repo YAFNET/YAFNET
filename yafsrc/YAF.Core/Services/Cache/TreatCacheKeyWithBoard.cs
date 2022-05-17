@@ -24,19 +24,11 @@
 
 namespace YAF.Core.Services.Cache;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// The treat cache key with board.
 /// </summary>
 public class TreatCacheKeyWithBoard : ITreatCacheKey
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="TreatCacheKeyWithBoard"/> class.
     /// </summary>
@@ -50,20 +42,10 @@ public class TreatCacheKeyWithBoard : ITreatCacheKey
         this.HaveBoardId = haveBoardId;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets HaveBoardId.
     /// </summary>
     public IHaveBoardID HaveBoardId { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region ITreatCacheKey
 
     /// <summary>
     /// The treat.
@@ -78,8 +60,4 @@ public class TreatCacheKeyWithBoard : ITreatCacheKey
     {
         return $"{key}${this.HaveBoardId.BoardID}";
     }
-
-    #endregion
-
-    #endregion
 }

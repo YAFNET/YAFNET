@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.URLBuilder;
 
-#region Using
-
 using System;
 using System.Text;
 
@@ -35,15 +33,11 @@ using YAF.Types.Constants;
 
 using Config = YAF.Configuration.Config;
 
-#endregion
-
 /// <summary>
 /// The advanced rewrite url builder.
 /// </summary>
 public class AdvancedUrlBuilder : BaseUrlBuilder
 {
-    #region Public Methods
-
     /// <summary>
     /// Build the url.
     /// </summary>
@@ -310,6 +304,4 @@ public class AdvancedUrlBuilder : BaseUrlBuilder
     {
         return this.BuildUrl(url);
     }
-
-    #endregion
 }

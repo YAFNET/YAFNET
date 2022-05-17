@@ -23,20 +23,14 @@
  */
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using YAF.Web.Controls;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Admin Manage User Attachments Page.
 /// </summary>
 public partial class Attachments : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Attachments" /> class.
     /// </summary>
@@ -44,10 +38,6 @@ public partial class Attachments : AdminPage
         : base("ADMIN_ATTACHMENTS", ForumPages.Admin_Attachments)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -208,6 +198,4 @@ public partial class Attachments : AdminPage
             this.NoInfo.Visible = true;
         }
     }
-
-    #endregion
 }

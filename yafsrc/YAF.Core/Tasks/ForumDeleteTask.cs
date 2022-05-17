@@ -36,8 +36,6 @@ using YAF.Types.Models;
 /// </summary>
 public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
 {
-    #region Properties
-
     /// <summary>
     /// The Blocking Task Names.
     /// </summary>
@@ -57,10 +55,6 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     /// Gets or sets Forum New Id.
     /// </summary>
     public int ForumNewId { get; set; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Creates the Forum Delete Task
@@ -159,6 +153,4 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
             this.Logger.Error(x, $"Error In (ID: {this.ForumId}) Delete Task");
         }
     }
-
-    #endregion
 }

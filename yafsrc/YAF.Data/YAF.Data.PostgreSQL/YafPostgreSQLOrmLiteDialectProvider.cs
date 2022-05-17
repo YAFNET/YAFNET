@@ -29,8 +29,6 @@ namespace YAF.Data.PostgreSQL;
 /// </summary>
 public class YafPostgreSQLOrmLiteDialectProvider : PostgreSqlDialectProvider
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="YafPostgreSQLOrmLiteDialectProvider"/> class.
     /// </summary>
@@ -43,6 +41,4 @@ public class YafPostgreSQLOrmLiteDialectProvider : PostgreSqlDialectProvider
     /// Gets or sets the instance.
     /// </summary>
     public static new YafPostgreSQLOrmLiteDialectProvider Instance { get; set; } = new ();
-
-    #endregion
 }

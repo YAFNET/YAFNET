@@ -23,20 +23,14 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
 using AttributeCollection = System.Web.UI.AttributeCollection;
 using ButtonStyle = YAF.Types.Constants.ButtonStyle;
-
-#endregion
 
 /// <summary>
 /// The theme button.
 /// </summary>
 public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The click event.
     /// </summary>
@@ -52,10 +46,6 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// </summary>
     private readonly LocalizedLabel localizedLabel = new();
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "ThemeButton" /> class.
     /// </summary>
@@ -64,10 +54,6 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
         this.Load += this.ThemeButtonLoad;
         this.Attributes = new AttributeCollection(this.ViewState);
     }
-
-    #endregion
-
-    #region Events
 
     public string ValidationGroup { get; set; }
 
@@ -90,10 +76,6 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
 
         remove => this.Events.RemoveHandler(CommandEvent, value);
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets a value indicating whether enabled.
@@ -414,12 +396,6 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
         set => this.ViewState["TitleNonLocalized"] = value;
     }
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IPostBackEventHandler
-
     /// <summary>
     /// The i post back event handler. raise post back event.
     /// </summary>
@@ -453,12 +429,6 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
             this.OnClick(EventArgs.Empty);
         }
     }
-
-    #endregion
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The render.
@@ -761,6 +731,4 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
             this.Controls.Add(this.localizedLabel);
         }
     }
-
-    #endregion
 }

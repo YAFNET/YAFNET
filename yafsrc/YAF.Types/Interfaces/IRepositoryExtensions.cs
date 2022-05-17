@@ -23,19 +23,13 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
 using YAF.Types.EventProxies;
-
-#endregion
 
 /// <summary>
 ///     The repository extensions.
 /// </summary>
 public static class IRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The fire deleted.
     /// </summary>
@@ -158,6 +152,4 @@ public static class IRepositoryExtensions
 
         repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Update, entity.ID, entity));
     }
-
-    #endregion
 }

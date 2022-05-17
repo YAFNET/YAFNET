@@ -23,19 +23,13 @@
  */
 namespace YAF.Types.Extensions.Data;
 
-#region Using
-
 using System.Data;
-
-#endregion
 
 /// <summary>
 /// The function session extensions.
 /// </summary>
 public static class IDbFunctionSessionExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The setup.
     /// </summary>
@@ -53,6 +47,4 @@ public static class IDbFunctionSessionExtensions
         command.Connection = dbTransaction.Connection;
         command.Transaction = dbTransaction;
     }
-
-    #endregion
 }

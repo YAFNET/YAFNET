@@ -46,8 +46,6 @@ public static class BoardInfo
     /// </summary>
     public static string ForumBaseUrl => $"{BaseUrlBuilder.BaseUrl}{BaseUrlBuilder.AppPath}";
 
-    #region Version Information
-
     /// <summary>
     /// Gets the Current YAF Application Version string
     /// </summary>
@@ -61,7 +59,7 @@ public static class BoardInfo
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public static DateTime AppVersionDate => new(2022, 05, 11, 09, 18, 00);
+    public static DateTime AppVersionDate => new(2022, 05, 17, 12, 33, 00);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -97,8 +95,6 @@ public static class BoardInfo
 
         return versionString.ToString();
     }
-
-    #endregion
 
     /// <summary>
     /// Helper function that creates the URL to the Content folder.

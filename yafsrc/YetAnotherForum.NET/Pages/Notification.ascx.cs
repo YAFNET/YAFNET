@@ -29,8 +29,6 @@ namespace YAF.Pages;
 /// </summary>
 public partial class Notification : ForumPageRegistered
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Notification"/> class.
     /// </summary>
@@ -38,10 +36,6 @@ public partial class Notification : ForumPageRegistered
         : base("NOTIFICATION", ForumPages.Notification)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Create the Page links.
@@ -53,6 +47,4 @@ public partial class Notification : ForumPageRegistered
             this.PageBoardContext.PageUser.DisplayOrUserName(),
             this.Get<LinkBuilder>().GetLink(ForumPages.Notification));
     }
-
-    #endregion
 }

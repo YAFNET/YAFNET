@@ -23,20 +23,12 @@
  */
 namespace YAF.Types.Models;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 ///     A class which represents the Thanks table in the Database.
 /// </summary>
 [Serializable]
 public class Thanks : IEntity, IHaveID
 {
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets the Thanks id.
     /// </summary>
@@ -71,6 +63,4 @@ public class Thanks : IEntity, IHaveID
     /// </summary>
     [Required]
     public DateTime ThanksDate { get; set; }
-
-    #endregion
 }

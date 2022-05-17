@@ -24,20 +24,14 @@
 
 namespace YAF.Types.Extensions;
 
-#region Using
-
 using System.Collections.Generic;
 using System.Linq;
-
-#endregion
 
 /// <summary>
 /// The enumerable extensions.
 /// </summary>
 public static class EnumerableExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     ///     Iterates through a generic list type
     /// </summary>
@@ -146,6 +140,4 @@ public static class EnumerableExtensions
 
         return !source.Any();
     }
-
-    #endregion
 }

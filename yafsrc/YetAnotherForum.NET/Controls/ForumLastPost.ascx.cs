@@ -23,27 +23,17 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Web.Controls;
-
-#endregion
 
 /// <summary>
 /// Renders the "Last Post" part of the Forum Topics
 /// </summary>
 public partial class ForumLastPost : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the data source.
     /// </summary>
     public ForumRead DataSource { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the PreRender event
@@ -159,5 +149,4 @@ public partial class ForumLastPost : BaseUserControl
             this.NoPostsPlaceHolder.Visible = true;
         }
     }
-    #endregion
 }

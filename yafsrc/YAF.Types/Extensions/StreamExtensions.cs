@@ -30,8 +30,6 @@ using System.IO;
 /// </summary>
 public static class StreamExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Converts a Stream to a String.
     /// </summary>
@@ -66,6 +64,4 @@ public static class StreamExtensions
 
         return data;
     }
-
-    #endregion
 }

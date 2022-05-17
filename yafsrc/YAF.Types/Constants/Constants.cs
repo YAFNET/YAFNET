@@ -34,8 +34,6 @@ public static class Constants
     /// </summary>
     public struct Cache
     {
-        #region Constants and Fields
-
         /// <summary>
         ///   The active discussions.
         /// </summary>
@@ -180,8 +178,6 @@ public static class Constants
         ///   Admin Page Access List.
         /// </summary>
         public const string AdminPageAccess = "AdminPageAccess{0}";
-
-        #endregion
     }
 
     /// <summary>

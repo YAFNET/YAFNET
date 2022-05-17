@@ -35,14 +35,10 @@ using YAF.Types.Objects;
 [RoutePrefix("api")]
 public class MultiQuoteController : ApiController, IHaveServiceLocator
 {
-    #region Properties
-
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-    #endregion
 
     /// <summary>
     /// Handles the multi quote Button.

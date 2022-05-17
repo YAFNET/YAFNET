@@ -28,8 +28,6 @@ namespace YAF.Core.Events;
 /// </summary>
 public class InitDatabaseProviderEvent : IAmEvent
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="InitDatabaseProviderEvent"/> class.
     /// </summary>
@@ -45,10 +43,6 @@ public class InitDatabaseProviderEvent : IAmEvent
         this.DbAccess = dbAccess;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the db access.
     /// </summary>
@@ -58,6 +52,4 @@ public class InitDatabaseProviderEvent : IAmEvent
     /// Gets or sets the provider name.
     /// </summary>
     public string ProviderName { get; set; }
-
-    #endregion
 }

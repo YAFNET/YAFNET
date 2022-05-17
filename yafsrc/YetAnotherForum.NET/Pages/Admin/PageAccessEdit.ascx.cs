@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class PageAccessEdit : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PageAccessEdit"/> class. 
     /// </summary>
@@ -41,15 +39,11 @@ public partial class PageAccessEdit : AdminPage
     {
     }
 
-    #endregion
-
     /// <summary>
     ///   Gets CurrentUserID.
     /// </summary>
     protected int CurrentUserID =>
         this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-    #region Methods
 
     /// <summary>
     /// Cancels the click.
@@ -256,6 +250,4 @@ public partial class PageAccessEdit : AdminPage
 
         this.DataBind();
     }
-
-    #endregion
 }

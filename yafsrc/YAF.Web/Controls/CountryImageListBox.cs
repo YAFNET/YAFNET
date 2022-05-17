@@ -29,8 +29,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class CountryImageListBox : DropDownList
 {
-    #region Methods
-
     /// <summary>
     /// Add Flag Images to Items
     /// </summary>
@@ -46,6 +44,4 @@ public class CountryImageListBox : DropDownList
 
         base.Render(writer);
     }
-
-    #endregion
 }

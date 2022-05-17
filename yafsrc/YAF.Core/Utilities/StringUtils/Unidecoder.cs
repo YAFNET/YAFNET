@@ -24,19 +24,13 @@ it under the same terms as Perl.
 
 namespace YAF.Core.Utilities.StringUtils;
 
-#region Using
-
 using System.Text;
-
-#endregion
 
 /// <summary>
 /// ASCII transliterations of Unicode text
 /// </summary>
 public static partial class Unidecoder
 {
-    #region Public Methods
-
     /// <summary>
     /// Transliterate an UniCode object into an ASCII string
     /// </summary>
@@ -73,6 +67,4 @@ public static partial class Unidecoder
 
         return output.ToString();
     }
-
-    #endregion
 }

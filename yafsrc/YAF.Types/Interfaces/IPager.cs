@@ -28,8 +28,6 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface IPager
 {
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets Count.
     /// </summary>
@@ -44,6 +42,4 @@ public interface IPager
     ///     Gets or sets PageSize.
     /// </summary>
     int PageSize { get; set; }
-
-    #endregion
 }

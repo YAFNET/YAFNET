@@ -28,8 +28,6 @@ namespace YAF.Types.Flags;
 /// </summary>
 public class ActiveFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ActiveFlags"/> class.
     /// </summary>
@@ -82,10 +80,6 @@ public class ActiveFlags : FlagsBase
     {
     }
 
-    #endregion
-
-    #region Flags Enumeration
-
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
@@ -117,10 +111,6 @@ public class ActiveFlags : FlagsBase
         /// </summary>
         IsCrawler = 8
     }
-
-    #endregion
-
-    #region Single Flags (can be 32 of them)
 
     /// <summary>
     /// Gets or sets a value indicating whether the user is active right now.
@@ -166,10 +156,6 @@ public class ActiveFlags : FlagsBase
         set => this[3] = value;
     }
 
-    #endregion
-
-    #region Operators
-
     /// <summary>
     /// The op_ implicit.
     /// </summary>
@@ -196,6 +182,4 @@ public class ActiveFlags : FlagsBase
     {
         return new ActiveFlags(flags);
     }
-
-    #endregion
 }

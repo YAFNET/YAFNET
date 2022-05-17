@@ -24,30 +24,20 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using System.Text;
 
 using YAF.Web.Controls;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// PollList Class
 /// </summary>
 public partial class PollChoiceList : BaseUserControl
 {
-    #region Events
-
     /// <summary>
     ///   The event bubbles info to parent control to rebind repeater.
     /// </summary>
     public event EventHandler ChoiceVoted;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets a value indicating whether user can vote
@@ -98,10 +88,6 @@ public partial class PollChoiceList : BaseUserControl
     ///   Gets or sets number of votes.
     /// </summary>
     public int Votes { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The get image height.
@@ -291,6 +277,4 @@ public partial class PollChoiceList : BaseUserControl
     {
         this.DataBind();
     }
-
-    #endregion
 }

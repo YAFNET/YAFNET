@@ -24,21 +24,15 @@
 
 namespace YAF.Dialogs;
 
-#region Using
-
 using System.Text;
 
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Admin Banned IP Add/Edit Dialog.
 /// </summary>
 public partial class BannedIpEdit : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Gets or sets the banned identifier.
     /// </summary>
@@ -190,6 +184,4 @@ public partial class BannedIpEdit : BaseUserControl
         // go back to banned IPs administration page
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BannedIps);
     }
-
-    #endregion
 }

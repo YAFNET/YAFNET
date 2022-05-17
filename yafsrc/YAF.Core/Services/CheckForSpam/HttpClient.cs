@@ -19,8 +19,6 @@
 
 namespace YAF.Core.Services.CheckForSpam;
 
-#region Using
-
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -29,15 +27,11 @@ using System.Text;
 
 using YAF.Types.Exceptions;
 
-#endregion
-
 /// <summary>
 /// Class used to make the actual HTTP requests.
 /// </summary>
 public class HttpClient
 {
-    #region Public Methods
-
     /// <summary>
     /// Gets the content of a web page.
     /// </summary>
@@ -212,6 +206,4 @@ public class HttpClient
 
         return responseText;
     }
-
-    #endregion
 }

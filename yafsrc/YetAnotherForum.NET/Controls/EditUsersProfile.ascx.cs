@@ -24,8 +24,6 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using System.Text.RegularExpressions;
 using FarsiLibrary.Utils;
 
@@ -35,15 +33,11 @@ using YAF.Types.Models.Identity;
 using YAF.Web.Controls;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The edit users profile.
 /// </summary>
 public partial class EditUsersProfile : BaseUserControl
 {
-    #region Constants and Fields
-
     private List<ProfileCustom> userProfileCustom;
 
     private IList<ProfileDefinition> profileDefinitions;
@@ -52,10 +46,6 @@ public partial class EditUsersProfile : BaseUserControl
     /// The current culture information
     /// </summary>
     private CultureInfo currentCultureInfo;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets the current Culture information.
@@ -90,10 +80,6 @@ public partial class EditUsersProfile : BaseUserControl
 
     private IList<ProfileDefinition> ProfileDefinitions =>
         this.profileDefinitions ??= this.GetRepository<ProfileDefinition>().GetByBoardId();
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Click event of the Cancel control.
@@ -715,8 +701,6 @@ public partial class EditUsersProfile : BaseUserControl
             this.RegionTr.DataBind();
         }
     }
-
-    #endregion
 
     /// <summary>
     /// Gets the culture.

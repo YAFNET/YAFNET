@@ -33,8 +33,6 @@ public class MySqlDbAccess : DbAccessBase
     /// </summary>
     public const string ProviderTypeName = "MySql.Data.MySqlClient";
 
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="MySqlDbAccess"/> class.
     /// </summary>
@@ -45,6 +43,4 @@ public class MySqlDbAccess : DbAccessBase
         : base(dbProviderFactory, new MySqlDbInformation())
     {
     }
-
-    #endregion
 }

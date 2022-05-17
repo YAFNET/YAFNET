@@ -28,8 +28,6 @@ namespace YAF.Types.Flags;
 /// </summary>
 public class CategoryFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="CategoryFlags"/> class. 
     /// </summary>
@@ -47,10 +45,6 @@ public class CategoryFlags : FlagsBase
     public CategoryFlags()
     {
     }
-
-    #endregion
-
-    #region Flags Enumeration
 
     /// <summary>
     /// Use for bit comparisons
@@ -88,10 +82,6 @@ public class CategoryFlags : FlagsBase
                */
     }
 
-    #endregion
-
-    #region Single Flags (can be 32 of them)
-
     /// <summary>
     /// Gets or sets a value indicating whether the Category is Active.
     /// </summary>
@@ -102,6 +92,4 @@ public class CategoryFlags : FlagsBase
 
         set => this[0] = value;
     }
-
-    #endregion
 }

@@ -23,15 +23,11 @@
  */
 namespace YAF.Core.ForumModules;
 
-#region Using
-
 using System;
 
 using YAF.Core.BaseModules;
 using YAF.Core.Tasks;
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// The mail sending module.
@@ -39,16 +35,10 @@ using YAF.Types.Attributes;
 [Module("Digest Send Starting Module", "Tiny Gecko", 1)]
 public class DigestSendForumModule : BaseForumModule
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _key name.
     /// </summary>
     private const string _KeyName = "DigestSendTask";
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The init.
@@ -59,10 +49,6 @@ public class DigestSendForumModule : BaseForumModule
         BoardContext.Current.AfterInit += this.Current_AfterInit;
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Handles the AfterInit event of the Current control.
     /// </summary>
@@ -72,6 +58,4 @@ public class DigestSendForumModule : BaseForumModule
     {
         this.Get<ITaskModuleManager>().StartTask(_KeyName, () => new DigestSendTask());
     }
-
-    #endregion
 }

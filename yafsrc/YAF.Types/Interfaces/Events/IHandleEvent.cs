@@ -32,16 +32,10 @@ namespace YAF.Types.Interfaces.Events;
 public interface IHandleEvent<in TEvent>
     where TEvent : IAmEvent
 {
-    #region Public Properties
-
     /// <summary>
     ///     Gets Order.
     /// </summary>
     int Order { get; }
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The handle.
@@ -50,6 +44,4 @@ public interface IHandleEvent<in TEvent>
     /// The event.
     /// </param>
     void Handle(TEvent @event);
-
-    #endregion
 }

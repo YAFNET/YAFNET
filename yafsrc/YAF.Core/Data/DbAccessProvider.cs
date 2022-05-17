@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -24,22 +24,16 @@
 
 namespace YAF.Core.Data;
 
-#region Using
-
 using Autofac.Features.Indexed;
 
 using YAF.Core.Events;
 using YAF.Types.Exceptions;
-
-#endregion
 
 /// <summary>
 ///     The Database connection provider base.
 /// </summary>
 public class DbAccessProvider : IDbAccessProvider
 {
-    #region Fields
-
     /// <summary>
     /// The database access providers.
     /// </summary>
@@ -59,10 +53,6 @@ public class DbAccessProvider : IDbAccessProvider
     /// The provider name.
     /// </summary>
     private string _providerName;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="DbAccessProvider" /> class.
@@ -98,10 +88,6 @@ public class DbAccessProvider : IDbAccessProvider
                 });
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the instance of the IDbAccess provider.
     /// </summary>
@@ -130,7 +116,7 @@ public class DbAccessProvider : IDbAccessProvider
     /// </summary>
     public string ProviderName
     {
-        get => this._providerName ?? (this._providerName = Config.ConnectionProviderName);
+        get => this._providerName ??= Config.ConnectionProviderName;
 
         set
         {
@@ -138,6 +124,4 @@ public class DbAccessProvider : IDbAccessProvider
             this._dbAccessSafe.Instance = null;
         }
     }
-
-    #endregion
 }

@@ -31,8 +31,6 @@ namespace YAF.Pages;
 /// </summary>
 public partial class PostTopic : ForumPage
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The forum editor.
     /// </summary>
@@ -43,10 +41,6 @@ public partial class PostTopic : ForumPage
     /// </summary>
     private bool spamApproved = true;
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PostTopic"/> class.
     /// </summary>
@@ -54,10 +48,6 @@ public partial class PostTopic : ForumPage
         : base("POSTTOPIC", ForumPages.PostTopic)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Canceling Posting New Message Or editing Message.
@@ -656,6 +646,4 @@ public partial class PostTopic : ForumPage
         this.forumEditor.UserCanUpload = this.PageBoardContext.UploadAccess;
         this.UploadDialog.Visible = this.PageBoardContext.UploadAccess;
     }
-
-    #endregion
 }

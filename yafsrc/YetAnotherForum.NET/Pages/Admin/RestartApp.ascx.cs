@@ -29,8 +29,6 @@ namespace YAF.Pages.Admin;
 /// </summary>
 public partial class RestartApp : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="RestartApp"/> class. 
     /// </summary>
@@ -38,10 +36,6 @@ public partial class RestartApp : AdminPage
         : base("ADMIN_RESTARTAPP", ForumPages.Admin_RestartApp)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -72,6 +66,4 @@ public partial class RestartApp : AdminPage
     {
         HttpRuntime.UnloadAppDomain();
     }
-
-    #endregion
 }

@@ -24,20 +24,14 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.Text;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Administration Page for managing medals.
 /// </summary>
 public partial class Medals : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Medals" /> class.
     ///   Default constructor.
@@ -46,10 +40,6 @@ public partial class Medals : AdminPage
         : base("ADMIN_MEDALS", ForumPages.Admin_Medals)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Creates page links for this page.
@@ -162,6 +152,4 @@ public partial class Medals : AdminPage
         // bind data to controls
         this.DataBind();
     }
-
-    #endregion
 }

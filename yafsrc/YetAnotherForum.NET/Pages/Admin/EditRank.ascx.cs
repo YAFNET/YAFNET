@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class EditRank : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditRank"/> class. 
     /// </summary>
@@ -40,10 +38,6 @@ public partial class EditRank : AdminPage
         : base("ADMIN_EDITRANK", ForumPages.Admin_EditRank)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Cancel Edit and go Back to the Admin Ranks Page.
@@ -183,6 +177,4 @@ public partial class EditRank : AdminPage
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Ranks);
     }
-
-    #endregion
 }

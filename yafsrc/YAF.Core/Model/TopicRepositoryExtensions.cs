@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Model;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -33,15 +31,11 @@ using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
-#endregion
-
 /// <summary>
 ///     The Topic repository extensions.
 /// </summary>
 public static class TopicRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Get the Topic From Message.
     /// </summary>
@@ -1634,6 +1628,4 @@ public static class TopicRepositoryExtensions
                       },
             t => t.ID == topicId);
     }
-
-    #endregion
 }

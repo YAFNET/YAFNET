@@ -34,8 +34,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class UserAlbumImageRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Gets the number of images in the album with AlbumID.
     /// </summary>
@@ -266,6 +264,4 @@ public static class UserAlbumImageRepositoryExtensions
                     Downloads = 0
                 });
     }
-
-    #endregion
 }

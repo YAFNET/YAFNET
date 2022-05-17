@@ -30,8 +30,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class AccessMaskRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The save.
     /// </summary>
@@ -70,6 +68,4 @@ public static class AccessMaskRepositoryExtensions
             repository.FireNew(newId);
         }
     }
-
-    #endregion
 }

@@ -23,19 +23,13 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
 using YAF.Types.Objects;
-
-#endregion
 
 /// <summary>
 /// Page Links Control.
 /// </summary>
 public class PageLinks : BaseControl, IAdd<PageLink>
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets LinkedPageLinkID.
     /// </summary>
@@ -57,10 +51,6 @@ public class PageLinks : BaseControl, IAdd<PageLink>
 
         set => this.ViewState["PageLinkList"] = value;
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Clear all Links
@@ -84,10 +74,6 @@ public class PageLinks : BaseControl, IAdd<PageLink>
 
         this.PageLinkList = list;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Sends server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object, which writes the content to be rendered on the client.
@@ -139,6 +125,4 @@ public class PageLinks : BaseControl, IAdd<PageLink>
 
         writer.Write(boardAnnounceControl.RenderToString());
     }
-
-    #endregion
 }

@@ -24,18 +24,13 @@
 
 namespace YAF.Dialogs;
 
-#region Using
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Move Topic Dialog.
 /// </summary>
 public partial class MoveTopic : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// The On PreRender event.
     /// </summary>
@@ -135,6 +130,4 @@ public partial class MoveTopic : BaseUserControl
             ForumPages.Topics,
             new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
     }
-
-    #endregion
 }

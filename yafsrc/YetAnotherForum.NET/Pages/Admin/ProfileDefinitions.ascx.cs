@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class ProfileDefinitions : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ProfileDefinitions"/> class. 
     /// </summary>
@@ -40,10 +38,6 @@ public partial class ProfileDefinitions : AdminPage
         : base("ADMIN_PROFILEDEFINITIONS", ForumPages.Admin_ProfileDefinitions)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Creates navigation page links on top of forum (breadcrumbs).
@@ -124,6 +118,4 @@ public partial class ProfileDefinitions : AdminPage
         this.List.DataSource = this.GetRepository<ProfileDefinition>().GetByBoardId();
         this.DataBind();
     }
-
-    #endregion
 }

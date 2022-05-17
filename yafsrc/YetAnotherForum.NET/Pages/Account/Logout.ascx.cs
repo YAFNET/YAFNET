@@ -24,21 +24,15 @@
 
 namespace YAF.Pages.Account;
 
-#region Using
-
 using System.Web.Security;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
-
-#endregion
 
 /// <summary>
 /// The Logout function
 /// </summary>
 public partial class Logout : AccountPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Logout" /> class.
     /// </summary>
@@ -47,10 +41,6 @@ public partial class Logout : AccountPage
     {
         this.PageBoardContext.Globals.IsSuspendCheckEnabled = false;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -68,6 +58,4 @@ public partial class Logout : AccountPage
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Board);
     }
-
-    #endregion
 }

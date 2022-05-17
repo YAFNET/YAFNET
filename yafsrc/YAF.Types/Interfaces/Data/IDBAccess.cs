@@ -23,21 +23,15 @@
  */
 namespace YAF.Types.Interfaces.Data;
 
-#region Using
-
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-
-#endregion
 
 /// <summary>
 ///     DBAccess Interface
 /// </summary>
 public interface IDbAccess
 {
-    #region Public Properties
-
     /// <summary>
     ///     Gets the database information
     /// </summary>
@@ -48,10 +42,6 @@ public interface IDbAccess
     /// </summary>
     /// <returns> </returns>
     DbProviderFactory DbProviderFactory { get; }
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The execute.
@@ -91,6 +81,4 @@ public interface IDbAccess
         [NotNull] string sql,
         CommandType commandType,
         [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null);
-
-    #endregion
 }

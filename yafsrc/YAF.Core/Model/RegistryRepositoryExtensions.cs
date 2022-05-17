@@ -34,8 +34,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class RegistryRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Update Max User Stats
     /// </summary>
@@ -323,6 +321,4 @@ public static class RegistryRepositoryExtensions
         repository.Delete(x => x.Name == "EnableTopicDescription".ToLower());
         repository.Delete(x => x.Name == "MaxWordLength".ToLower());
     }
-
-    #endregion
 }

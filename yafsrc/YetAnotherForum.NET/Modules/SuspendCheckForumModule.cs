@@ -23,14 +23,10 @@
  */
 namespace YAF.Modules;
 
-#region Using
-
 using YAF.Types.Attributes;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Suspend Check Forum Module
@@ -38,8 +34,6 @@ using YAF.Types.Models;
 [Module("Suspend Check Module", "Tiny Gecko", 1)]
 public class SuspendCheckForumModule : SimpleBaseForumModule
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="SuspendCheckForumModule"/> class.
     /// </summary>
@@ -50,10 +44,6 @@ public class SuspendCheckForumModule : SimpleBaseForumModule
     {
         preLoadPage.HandleEvent += this._preLoadPage_HandleEvent;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Check if the user needs to be un-suspended or redirected to the info page
@@ -91,6 +81,4 @@ public class SuspendCheckForumModule : SimpleBaseForumModule
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Suspended);
         }
     }
-
-    #endregion
 }

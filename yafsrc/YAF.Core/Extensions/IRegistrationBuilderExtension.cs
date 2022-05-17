@@ -23,20 +23,14 @@
  */
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using Autofac.Builder;
 using Autofac.Core.Lifetime;
-
-#endregion
 
 /// <summary>
 ///     The i registration builder extension.
 /// </summary>
 public static class IRegistrationBuilderExtension
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The owned by yaf context.
     /// </summary>
@@ -60,6 +54,4 @@ public static class IRegistrationBuilderExtension
 
         return builder.InstancePerMatchingLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
     }
-
-    #endregion
 }

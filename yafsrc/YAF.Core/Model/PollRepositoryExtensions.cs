@@ -24,22 +24,16 @@
 
 namespace YAF.Core.Model;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 ///     The Poll repository extensions.
 /// </summary>
 public static class PollRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Get the Poll with all Choices
     /// </summary>
@@ -215,6 +209,4 @@ public static class PollRepositoryExtensions
                     Flags = flags.BitValue
                 });
     }
-
-    #endregion
 }

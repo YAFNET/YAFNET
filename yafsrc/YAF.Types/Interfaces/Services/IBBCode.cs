@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -23,20 +23,14 @@
  */
 namespace YAF.Types.Interfaces.Services;
 
-#region Using
-
 using System.Collections.Generic;
 using System.Web.UI;
-
-#endregion
 
 /// <summary>
 /// The BBCode Interface.
 /// </summary>
 public interface IBBCode
 {
-    #region Public Methods
-
     /// <summary>
     /// Formats the message with Custom BBCodes
     /// </summary>
@@ -56,22 +50,6 @@ public interface IBBCode
     /// Returns the formatted Message.
     /// </returns>
     string FormatMessageWithCustomBBCode([NotNull] string message, [NotNull] MessageFlags flags, int? displayUserId, int? messageId);
-
-    /// <summary>
-    /// Converts a message containing BBCode to HTML appropriate for editing in a rich text editor.
-    /// </summary>
-    /// <remarks>
-    /// quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string 
-    ///   returned, as to appear in plain text in rich text editors.
-    /// </remarks>
-    /// <param name="message">
-    /// String containing the body of the message to convert
-    /// </param>
-    /// <returns>
-    /// The converted text
-    /// </returns>
-    //[Obsolete]
-    //string ConvertBBCodeToHtmlForEdit([NotNull] string message);
 
     /// <summary>
     /// Converts a message containing HTML to BBCode for editing.
@@ -177,6 +155,4 @@ public interface IBBCode
     /// </summary>
     /// <returns> Returns List with Custom BBCodes </returns>
     IEnumerable<BBCode> GetCustomBBCode();
-
-    #endregion
 }

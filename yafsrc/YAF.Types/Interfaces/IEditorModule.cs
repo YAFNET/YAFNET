@@ -28,8 +28,6 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface IEditorModule : IModuleDefinition
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets Text.
     /// </summary>
@@ -44,6 +42,4 @@ public interface IEditorModule : IModuleDefinition
     /// Gets a value indicating whether UsesHTML.
     /// </summary>
     bool UsesHTML { get; }
-
-    #endregion
 }

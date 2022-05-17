@@ -23,19 +23,13 @@
  */
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Interface for creating or editing user roles/groups.
 /// </summary>
 public partial class EditGroup : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditGroup"/> class. 
     /// </summary>
@@ -43,10 +37,6 @@ public partial class EditGroup : AdminPage
         : base("ADMIN_EDITGROUP", ForumPages.Admin_EditGroup)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Gets or sets the access masks list.
@@ -406,6 +396,4 @@ public partial class EditGroup : AdminPage
         // bind data to controls
         this.DataBind();
     }
-
-    #endregion
 }

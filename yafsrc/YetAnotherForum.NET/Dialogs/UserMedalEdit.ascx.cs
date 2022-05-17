@@ -24,19 +24,13 @@
 
 namespace YAF.Dialogs;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The User Medal Group Add/Edit Dialog.
 /// </summary>
 public partial class UserMedalEdit : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Gets or sets the banned identifier.
     /// </summary>
@@ -314,6 +308,4 @@ public partial class UserMedalEdit : BaseUserControl
         // re-bind data
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, new { medalid = this.MedalId.Value });
     }
-
-    #endregion
 }

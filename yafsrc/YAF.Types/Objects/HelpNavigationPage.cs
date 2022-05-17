@@ -29,12 +29,8 @@ namespace YAF.Types.Objects;
 /// </summary>
 public class HelpNavigationPage
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets The Help page Name
     /// </summary>
     public string HelpPage { get; set; }
-
-    #endregion
 }

@@ -23,12 +23,6 @@
  */
 namespace YAF.Core.Data;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// The basic repository.
 /// </summary>
@@ -37,8 +31,6 @@ namespace YAF.Core.Data;
 public class BasicRepository<T> : IRepository<T>
     where T : IEntity
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="BasicRepository{T}"/> class.
     /// </summary>
@@ -61,10 +53,6 @@ public class BasicRepository<T> : IRepository<T>
         this.BoardID = haveBoardId.BoardID;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets the board id.
     /// </summary>
@@ -79,6 +67,4 @@ public class BasicRepository<T> : IRepository<T>
     ///     Gets the database event.
     /// </summary>
     public IRaiseEvent DbEvent { get; }
-
-    #endregion
 }

@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Handlers;
 
-#region Using
-
 using System;
 using System.Web.SessionState;
 using System.Xml.Serialization;
@@ -36,15 +34,11 @@ using YAF.Types.Models;
 
 using SiteMap = YAF.Types.Objects.SiteMap;
 
-#endregion
-
 /// <summary>
 /// The site map handler.
 /// </summary>
 public class SiteMapHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceLocator
 {
-    #region Properties
-
     /// <summary>
     ///   Gets a value indicating whether IsReusable.
     /// </summary>
@@ -54,12 +48,6 @@ public class SiteMapHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceL
     /// Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IHttpHandler
 
     /// <summary>
     /// The process request.
@@ -100,8 +88,4 @@ public class SiteMapHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceL
 
         context.Response.End();
     }
-
-    #endregion
-
-    #endregion
 }

@@ -26,16 +26,10 @@ namespace YAF.Types.Interfaces.Services;
 /// </summary>
 public interface ITheme
 {
-    #region Properties
-
     /// <summary>
     ///   Gets the Theme.
     /// </summary>
     string ThemeFile { get; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Gets full path to the given theme file.
@@ -47,6 +41,4 @@ public interface ITheme
     /// The build theme path.
     /// </returns>
     string BuildThemePath([NotNull] string filename);
-
-    #endregion
 }

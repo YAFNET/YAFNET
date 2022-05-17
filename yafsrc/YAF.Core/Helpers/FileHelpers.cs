@@ -33,8 +33,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class FileHelpers
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Deletes an attachment from the file system. No exceptions are handled in this function.
     /// </summary>
@@ -73,6 +71,4 @@ public static class FileHelpers
 
         return true;
     }
-
-    #endregion
 }

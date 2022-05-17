@@ -32,27 +32,15 @@ using System;
 /// </summary>
 public abstract class BaseReplaceRule : IComparable, IReplaceRule
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The rule rank.
     /// </summary>
     public int RuleRank = 50;
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets RuleDescription.
     /// </summary>
     public virtual string RuleDescription => string.Empty;
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IBaseReplaceRule
 
     /// <summary>
     /// The replace.
@@ -64,10 +52,6 @@ public abstract class BaseReplaceRule : IComparable, IReplaceRule
     /// The replacement.
     /// </param>
     public abstract void Replace(ref string text, IReplaceBlocks replacement);
-
-    #endregion
-
-    #region IComparable
 
     /// <summary>
     /// The compare to.
@@ -97,8 +81,4 @@ public abstract class BaseReplaceRule : IComparable, IReplaceRule
 
         return 0;
     }
-
-    #endregion
-
-    #endregion
 }

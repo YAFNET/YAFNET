@@ -29,16 +29,10 @@ namespace YAF.Data.Sqlite;
 [ExportService(ServiceLifetimeScope.InstancePerDependency, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
 public class SetSqliteDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
 {
-    #region Public Properties
-
     /// <summary>
     ///     Gets the order.
     /// </summary>
     public int Order => 1000;
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The handle.
@@ -60,6 +54,4 @@ public class SetSqliteDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
         OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
         OrmLiteConfig.CommandTimeout = Config.SqlCommandTimeout;
     }
-
-    #endregion
 }

@@ -33,8 +33,6 @@ using System.Reflection;
 /// </summary>
 public class ModuleScanner
 {
-    #region Public Methods
-
     /// <summary>
     /// The get modules.
     /// </summary>
@@ -50,10 +48,6 @@ public class ModuleScanner
 
         return GetValidateAssemblies(files).ToList();
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The clean path.
@@ -136,6 +130,4 @@ public class ModuleScanner
             yield return assembly;
         }
     }
-
-    #endregion
 }

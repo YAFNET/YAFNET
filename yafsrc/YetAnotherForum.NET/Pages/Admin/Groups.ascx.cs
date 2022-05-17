@@ -24,20 +24,14 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.Collections.Specialized;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Primary administrator interface for groups/roles editing.
 /// </summary>
 public partial class Groups : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Groups"/> class. 
     /// </summary>
@@ -46,18 +40,10 @@ public partial class Groups : AdminPage
     {
     }
 
-    #endregion
-
-    #region Constants and Fields
-
     /// <summary>
     ///   Temporary storage of un-linked provider roles.
     /// </summary>
     private readonly StringCollection availableRoles = new();
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Format string color.
@@ -295,6 +281,4 @@ public partial class Groups : AdminPage
         // bind data to controls
         this.DataBind();
     }
-
-    #endregion
 }

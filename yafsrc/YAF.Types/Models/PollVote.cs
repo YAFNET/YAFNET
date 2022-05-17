@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class PollVote : IEntity, IHaveID
 {
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -56,6 +54,4 @@ public class PollVote : IEntity, IHaveID
     /// Gets or sets the choice id.
     /// </summary>
     public int? ChoiceID { get; set; }
-
-    #endregion
 }

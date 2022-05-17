@@ -31,8 +31,6 @@ using System.Collections.Generic;
 /// </summary>
 public class HelpNavigation
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets The Category of the Help Category
     /// </summary>
@@ -42,6 +40,4 @@ public class HelpNavigation
     ///   Gets or sets The Help pages
     /// </summary>
     public List<HelpNavigationPage> HelpPages { get; set; }
-
-    #endregion
 }

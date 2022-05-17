@@ -29,8 +29,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class ProfileMenu : BaseControl
 {
-    #region Methods
-
     /// <summary>
     /// Render the Profile Menu
     /// </summary>
@@ -311,6 +309,4 @@ public class ProfileMenu : BaseControl
             cssClass,
             icon);
     }
-
-    #endregion
 }

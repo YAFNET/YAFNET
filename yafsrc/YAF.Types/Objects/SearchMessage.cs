@@ -23,13 +23,9 @@
  */
 namespace YAF.Types.Objects;
 
-#region Using
-
 using System.Globalization;
 
 using YAF.Types.Extensions;
-
-#endregion
 
 /// <summary>
 /// The Search Message
@@ -69,8 +65,6 @@ public class SearchMessage
     public SearchMessage()
     {
     }
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets the message identifier.
@@ -209,6 +203,4 @@ public class SearchMessage
     /// The forum URL.
     /// </value>
     public string ForumUrl { get; set; }
-
-    #endregion
 }

@@ -28,8 +28,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class Pager : BaseControl, IPostBackEventHandler, IPager
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The ignore page index.
     /// </summary>
@@ -39,10 +37,6 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     ///   The page change.
     /// </summary>
     public event EventHandler PageChange;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets Count.
@@ -79,12 +73,6 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     /// </summary>
     public bool UsePostBack { get; set; } = true;
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IPostBackEventHandler
-
     /// <summary>
     /// The raise post back event.
     /// </summary>
@@ -102,12 +90,6 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
         this.ignorePageIndex = true;
         this.PageChange(this, EventArgs.Empty);
     }
-
-    #endregion
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Gets the page URL.
@@ -307,6 +289,4 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
                 Icon = "angle-double-right"
             }.RenderControl(output);
     }
-
-    #endregion
 }

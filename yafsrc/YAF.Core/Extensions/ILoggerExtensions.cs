@@ -32,8 +32,6 @@ using YAF.Types.Constants;
 /// </summary>
 public static class ILoggerExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The log.
     /// </summary>
@@ -90,6 +88,4 @@ public static class ILoggerExtensions
             sourceDescription,
             exception);
     }
-
-    #endregion
 }

@@ -28,8 +28,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class LocalizedLabel : BaseControl, ILocalizationSupport
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="LocalizedLabel"/> class.
     /// </summary>
@@ -42,10 +40,6 @@ public class LocalizedLabel : BaseControl, ILocalizationSupport
         this.Param1 = string.Empty;
         this.Param0 = string.Empty;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets a value indicating whether EnableBBCode.
@@ -77,10 +71,6 @@ public class LocalizedLabel : BaseControl, ILocalizationSupport
     /// </summary>
     public string Param2 { get; set; }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Shows the localized text string (if available)
     /// </summary>
@@ -100,6 +90,4 @@ public class LocalizedLabel : BaseControl, ILocalizationSupport
 
         writer.EndRender();
     }
-
-    #endregion
 }

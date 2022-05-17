@@ -28,8 +28,6 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface ILocalizationSupport
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets a value indicating whether EnableBBCode.
     /// </summary>
@@ -59,6 +57,4 @@ public interface ILocalizationSupport
     /// Gets or sets Parameter 2.
     /// </summary>
     string Param2 { get; set; }
-
-    #endregion
 }

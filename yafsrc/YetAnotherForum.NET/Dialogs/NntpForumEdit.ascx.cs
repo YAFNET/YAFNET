@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class NntpForumEdit : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Gets or sets the forum identifier.
     /// </summary>
@@ -170,6 +168,4 @@ public partial class NntpForumEdit : BaseUserControl
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_NntpForums);
     }
-
-    #endregion
 }

@@ -23,20 +23,14 @@
  */
 namespace YAF.Core.Context;
 
-#region Using
-
 using Autofac;
 using Autofac.Core.Lifetime;
-
-#endregion
 
 /// <summary>
 /// The board context page provider.
 /// </summary>
 internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The page yaf context name.
     /// </summary>
@@ -54,10 +48,6 @@ internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
     /// </summary>
     private static BoardContext _globalInstance;
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="BoardContextPageProvider"/> class.
     /// </summary>
@@ -72,10 +62,6 @@ internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
         this._lifetimeScope = lifetimeScope;
         this._injectServices = injectServices;
     }
-
-    #endregion
-
-    #region Public Properties
 
     /// <summary>
     /// Gets Instance.
@@ -103,10 +89,6 @@ internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
         }
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The create context instance.
     /// </summary>
@@ -122,6 +104,4 @@ internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
 
         return instance;
     }
-
-    #endregion
 }

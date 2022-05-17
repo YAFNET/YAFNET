@@ -24,23 +24,17 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.IO;
 using YAF.Types.Objects;
 using YAF.Types.Models;
 
 using ListItem = ListItem;
 
-#endregion
-
 /// <summary>
 /// The Board Settings Admin Page.
 /// </summary>
 public partial class Settings : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Settings"/> class. 
     /// </summary>
@@ -48,10 +42,6 @@ public partial class Settings : AdminPage
         : base("ADMIN_BOARDSETTINGS", ForumPages.Admin_Settings)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -293,6 +283,4 @@ public partial class Settings : AdminPage
 
         this.DigestSendEveryXHours.Text = boardSettings.DigestSendEveryXHours.ToString();
     }
-
-    #endregion
 }

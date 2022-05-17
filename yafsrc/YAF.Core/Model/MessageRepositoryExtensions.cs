@@ -36,8 +36,6 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class MessageRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Checks if the User has replied to the specific topic.
     /// </summary>
@@ -1215,8 +1213,6 @@ public static class MessageRepositoryExtensions
                 new UpdateTopicLastPostEvent(originalMessage.Item4.ID, originalMessage.Item2.TopicID));
         }
     }
-
-    #endregion
 
     /// <summary>
     /// Delete all messages recursively.

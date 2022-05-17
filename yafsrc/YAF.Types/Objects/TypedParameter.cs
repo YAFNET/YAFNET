@@ -23,19 +23,11 @@
  */
 namespace YAF.Types.Objects;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// The typed parameter.
 /// </summary>
 public class TypedParameter : IServiceLocationParameter
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="TypedParameter"/> class.
     /// </summary>
@@ -51,10 +43,6 @@ public class TypedParameter : IServiceLocationParameter
         this.Value = value;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets Type.
     /// </summary>
@@ -64,6 +52,4 @@ public class TypedParameter : IServiceLocationParameter
     /// Gets or sets Value.
     /// </summary>
     public object Value { get; set; }
-
-    #endregion
 }

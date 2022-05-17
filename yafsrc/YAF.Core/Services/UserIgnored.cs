@@ -23,31 +23,21 @@
  */
 namespace YAF.Core.Services;
 
-#region Using
-
 using System.Collections.Generic;
 
 using YAF.Core.Model;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// User Ignored Service for the current user.
 /// </summary>
 public class UserIgnored : IUserIgnored, IHaveServiceLocator
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _user ignore list.
     /// </summary>
     private List<int> _userIgnoreList;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UserIgnored"/> class.
@@ -64,10 +54,6 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets SessionStateBase.
     /// </summary>
@@ -77,12 +63,6 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
     ///     Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IUserIgnored
 
     /// <summary>
     /// The add ignored.
@@ -133,8 +113,6 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
         this.ClearIgnoreCache();
     }
 
-    #endregion
-
     /// <summary>
     ///     The user ignored list.
     /// </summary>
@@ -162,6 +140,4 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
 
         return userList;
     }
-
-    #endregion
 }

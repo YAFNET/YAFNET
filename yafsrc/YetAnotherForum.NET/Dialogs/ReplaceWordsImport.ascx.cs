@@ -24,21 +24,15 @@
 
 namespace YAF.Dialogs;
 
-#region Using
-
 using System.Data;
 
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Admin ReplaceWords Import Dialog.
 /// </summary>
 public partial class ReplaceWordsImport : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Try to Import from selected File
     /// </summary>
@@ -114,6 +108,4 @@ public partial class ReplaceWordsImport : BaseUserControl
                 JavaScriptBlocks.OpenModalJs("ImportDialog"));
         }
     }
-
-    #endregion
 }

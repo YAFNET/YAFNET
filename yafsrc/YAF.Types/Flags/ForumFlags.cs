@@ -29,8 +29,6 @@ namespace YAF.Types.Flags;
 [Serializable]
 public class ForumFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ForumFlags"/> class.
     /// </summary>
@@ -83,10 +81,6 @@ public class ForumFlags : FlagsBase
     {
     }
 
-    #endregion
-
-    #region Flags Enumeration
-
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
@@ -122,10 +116,6 @@ public class ForumFlags : FlagsBase
               xxxxx = 512
                */
     }
-
-    #endregion
-
-    #region Single Flags (can be 32 of them)
 
     /// <summary>
     /// Gets or sets a value indicating whether forum allows locked. No posting/activity can be made in locked forums.
@@ -172,10 +162,6 @@ public class ForumFlags : FlagsBase
         set => this[3] = value;
     }
 
-    #endregion
-
-    #region Operators
-
     /// <summary>
     /// The op_ implicit.
     /// </summary>
@@ -201,6 +187,4 @@ public class ForumFlags : FlagsBase
     {
         return new ForumFlags(flags);
     }
-
-    #endregion
 }

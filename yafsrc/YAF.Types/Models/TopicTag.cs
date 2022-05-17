@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(TagID), nameof(TopicID))]
 public class TopicTag : IEntity
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the tag id.
     /// </summary>
@@ -46,6 +44,4 @@ public class TopicTag : IEntity
     [Index]
     [Required]
     public int TopicID { get; set; }
-
-    #endregion
 }

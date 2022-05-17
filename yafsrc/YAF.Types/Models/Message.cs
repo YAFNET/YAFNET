@@ -132,13 +132,11 @@ public class Message : IEntity, IHaveID
         }
     }
 
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
     [AutoIncrement]
-    [AliasAttribute("MessageID")]
+    [Alias("MessageID")]
     public int ID { get; set; }
 
     /// <summary>
@@ -291,6 +289,4 @@ public class Message : IEntity, IHaveID
     /// </summary>
     [Ignore]
     public int? AnswerMessageId { get; set; }
-
-    #endregion
 }

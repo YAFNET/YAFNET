@@ -29,16 +29,10 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class ActiveUsers : BaseControl
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _active user table.
     /// </summary>
     private List<ActiveUser> activeUsers;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets list of users to display in control.
@@ -88,10 +82,6 @@ public class ActiveUsers : BaseControl
 
         set => this.ViewState["InstantId"] = value;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Raises PreRender event and prepares control for rendering by creating links to active users.
@@ -214,6 +204,4 @@ public class ActiveUsers : BaseControl
         // writes ending tag
         writer.Write(@"</ul>");
     }
-
-    #endregion
 }

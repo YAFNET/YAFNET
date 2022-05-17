@@ -23,19 +23,13 @@
  */
 namespace YAF.Core.BaseModules;
 
-#region Using
-
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// The base forum module.
 /// </summary>
 public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, IHaveLocalization
 {
-    #region Properties
-
     /// <summary>
     ///   Gets a value indicating whether Active.
     /// </summary>
@@ -72,12 +66,6 @@ public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, I
     /// </summary>
     public virtual ILocalization Localization => this.Get<ILocalization>();
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IBaseForumModule
-
     /// <summary>
     /// The initialization function.
     /// </summary>
@@ -85,10 +73,6 @@ public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, I
     {
         // do nothing... 
     }
-
-    #endregion
-
-    #region IDisposable
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -98,8 +82,4 @@ public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, I
     {
         // no default implementation
     }
-
-    #endregion
-
-    #endregion
 }

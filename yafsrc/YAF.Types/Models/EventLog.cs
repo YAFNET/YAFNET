@@ -33,8 +33,6 @@ using YAF.Types.Extensions;
 [Serializable]
 public class EventLog : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -83,6 +81,4 @@ public class EventLog : IEntity, IHaveID
 
         set => this.Type = (int)value;
     }
-
-    #endregion
 }

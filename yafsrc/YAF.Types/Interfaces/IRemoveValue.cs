@@ -28,8 +28,6 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface IRemoveValue
 {
-    #region Public Methods
-
     /// <summary>
     /// Remove a value.
     /// </summary>
@@ -37,6 +35,4 @@ public interface IRemoveValue
     /// The key.
     /// </param>
     void Remove([NotNull] string key);
-
-    #endregion
 }

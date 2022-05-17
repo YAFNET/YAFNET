@@ -39,8 +39,6 @@ using YAF.Types.Objects.Nntp;
 /// </summary>
 public class NntpConnection : IDisposable
 {
-    #region Private variables
-
     /// <summary>
     /// The password.
     /// </summary>
@@ -71,8 +69,6 @@ public class NntpConnection : IDisposable
     /// </summary>
     private string username;
 
-    #endregion
-
     /// <summary>
     /// Initializes a new instance of the <see cref="NntpConnection"/> class.
     /// </summary>
@@ -99,8 +95,6 @@ public class NntpConnection : IDisposable
     /// The on request.
     /// </summary>
     private event OnRequestDelegate onRequest;
-
-    #region Public accessors
 
     /// <summary>
     /// Gets or sets Timeout.
@@ -132,10 +126,6 @@ public class NntpConnection : IDisposable
     /// Gets Port.
     /// </summary>
     public int Port { get; private set; }
-
-    #endregion
-
-    #region Public methods
 
     /// <summary>
     /// The connect server.
@@ -286,8 +276,7 @@ public class NntpConnection : IDisposable
         }
 
         var list = new ArrayList();
-        string response;
-        while ((response = this.sr.ReadLine()) != null && response != ".")
+        while (this.sr.ReadLine() is { } response && response != ".")
         {
             var values = response.Split(' ');
             list.Add(new Newsgroup(values[0], int.Parse(values[2]), int.Parse(values[1])));
@@ -360,8 +349,7 @@ public class NntpConnection : IDisposable
         }
 
         var list = new List<Article>();
-        string response;
-        while ((response = this.sr.ReadLine()) != null && response != ".")
+        while (this.sr.ReadLine() is { } response && response != ".")
         {
             Article article = null;
 
@@ -525,8 +513,7 @@ public class NntpConnection : IDisposable
         {
             if (((NetworkStream)this.sr.BaseStream).DataAvailable)
             {
-                string response;
-                while ((response = this.sr.ReadLine()) != null && response != ".")
+                while (this.sr.ReadLine() is { } response && response != ".")
                 {
                 }
             }
@@ -549,10 +536,6 @@ public class NntpConnection : IDisposable
     {
         this.Disconnect();
     }
-
-    #endregion
-
-    #region Private methods
 
     /// <summary>
     /// The reset.
@@ -660,12 +643,11 @@ public class NntpConnection : IDisposable
     /// </returns>
     private ArticleHeader GetHeader(out MIMEPart part)
     {
-        string response;
         var header = new ArticleHeader();
         string name = null;
         header.ReferenceIds = Array.Empty<string>();
         part = null;
-        while ((response = this.sr.ReadLine()) != null && response != string.Empty)
+        while (this.sr.ReadLine() is { } response && response != string.Empty)
         {
             var m = Regex.Match(response, @"^\s+(\S+)$");
             string value;
@@ -782,12 +764,11 @@ public class NntpConnection : IDisposable
     private ArticleBody GetNormalBody(string messageId)
     {
         var buff = new char[1];
-        string response;
         var list = new ArrayList();
         var sb = new StringBuilder();
         this.sr.Read(buff, 0, 1);
 
-        while ((response = this.sr.ReadLine()) != null)
+        while (this.sr.ReadLine() is { } response)
         {
             if (buff[0] == '.')
             {
@@ -867,8 +848,7 @@ public class NntpConnection : IDisposable
         {
             if (((NetworkStream)this.sr.BaseStream).DataAvailable)
             {
-                string line;
-                while ((line = this.sr.ReadLine()) != null && line != ".")
+                while (this.sr.ReadLine() is { } line && line != ".")
                 {
                 }
             }
@@ -915,10 +895,6 @@ public class NntpConnection : IDisposable
         attachmentList.Add(attachment);
     }
 
-    #endregion
-
-    #region Nested type: Response
-
     /// <summary>
     /// The response.
     /// </summary>
@@ -958,6 +934,4 @@ public class NntpConnection : IDisposable
         /// </summary>
         public string Request { get; }
     }
-
-    #endregion
 }

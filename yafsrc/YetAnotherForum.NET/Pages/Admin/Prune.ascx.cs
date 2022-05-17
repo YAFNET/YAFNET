@@ -24,19 +24,13 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using YAF.Core.Tasks;
-
-#endregion
 
 /// <summary>
 /// The Admin Prune Topics Page
 /// </summary>
 public partial class Prune : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Prune"/> class. 
     /// </summary>
@@ -44,10 +38,6 @@ public partial class Prune : AdminPage
         : base("ADMIN_PRUNE", ForumPages.Admin_Prune)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The On PreRender event.
@@ -117,6 +107,4 @@ public partial class Prune : AdminPage
 
         this.PageBoardContext.Notify(this.GetText("ADMIN_PRUNE", "MSG_TASK"), MessageTypes.info);
     }
-
-    #endregion
 }

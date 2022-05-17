@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 
@@ -36,15 +34,11 @@ using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
 
-#endregion
-
 /// <summary>
 ///     Class used for multi-step DB operations so they can be cached, etc.
 /// </summary>
 public class DataBroker : IHaveServiceLocator
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="DataBroker"/> class.
     /// </summary>
@@ -67,10 +61,6 @@ public class DataBroker : IHaveServiceLocator
         this.DataCache = dataCache;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the board settings.
     /// </summary>
@@ -88,10 +78,6 @@ public class DataBroker : IHaveServiceLocator
     ///     Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     ///     The user lazy data.
@@ -682,10 +668,6 @@ public class DataBroker : IHaveServiceLocator
             TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardModeratorsCacheTimeout));
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The load simple topic.
     /// </summary>
@@ -722,6 +704,4 @@ public class DataBroker : IHaveServiceLocator
                        Forum = forum
                    };
     }
-
-    #endregion
 }

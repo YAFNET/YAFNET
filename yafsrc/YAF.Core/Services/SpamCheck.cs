@@ -32,8 +32,6 @@ using YAF.Types.Constants;
 /// </summary>
 public class SpamCheck : ISpamCheck, IHaveServiceLocator
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="SpamCheck"/> class.
     /// </summary>
@@ -45,16 +43,10 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets the service locator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
 
     /// <summary>
     /// Check a Post for SPAM against the internal Spam Words

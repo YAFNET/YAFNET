@@ -24,19 +24,13 @@
 
 namespace YAF.Types.Extensions;
 
-#region Using
-
 using System.Collections.Generic;
-
-#endregion
 
 /// <summary>
 /// The bit bool extensions.
 /// </summary>
 public static class BitBoolExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// Gets boolean indicating whether bit on bitShift position in bitValue integer is set or not.
     /// </summary>
@@ -130,6 +124,4 @@ public static class BitBoolExtensions
 
         return finalValue;
     }
-
-    #endregion
 }

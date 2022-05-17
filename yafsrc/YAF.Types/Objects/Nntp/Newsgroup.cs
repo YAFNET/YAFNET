@@ -92,8 +92,6 @@ public class Newsgroup : IComparable
         set => this.high = value;
     }
 
-    #region IComparable Members
-
     /// <summary>
     /// The compare to.
     /// </summary>
@@ -107,6 +105,4 @@ public class Newsgroup : IComparable
     {
         return string.Compare(this.Group, ((Newsgroup)r).Group, StringComparison.Ordinal);
     }
-
-    #endregion
 }

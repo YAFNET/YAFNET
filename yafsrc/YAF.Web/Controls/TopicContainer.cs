@@ -30,8 +30,6 @@ namespace YAF.Web.Controls;
 [ToolboxData("<{0}:TopicContainer runat=server></{0}:TopicContainer>")]
 public class TopicContainer : BaseControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets a value indicating whether AllowSelection.
     /// </summary>
@@ -69,8 +67,6 @@ public class TopicContainer : BaseControl
     ///  Gets the TopicRow.
     /// </summary>
     protected PagedTopic TopicItem { get; private set; }
-
-    #endregion
 
     /// <summary>
     /// Checks if the Topic is Hot or not

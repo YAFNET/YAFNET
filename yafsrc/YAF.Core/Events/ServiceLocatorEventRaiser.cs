@@ -23,28 +23,18 @@
  */
 namespace YAF.Core.Events;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
-
-#endregion
 
 /// <summary>
 /// The service locator event raiser.
 /// </summary>
 public class ServiceLocatorEventRaiser : IRaiseEvent
 {
-    #region Fields
-
     /// <summary>
     ///     The _service locator.
     /// </summary>
     private readonly IServiceLocator _serviceLocator;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ServiceLocatorEventRaiser"/> class.
@@ -61,18 +51,10 @@ public class ServiceLocatorEventRaiser : IRaiseEvent
         this._serviceLocator = serviceLocator;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets the logger.
     /// </summary>
     public ILoggerService Logger { get; set; }
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The event raiser.
@@ -122,10 +104,6 @@ public class ServiceLocatorEventRaiser : IRaiseEvent
                 });
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     ///     The get event handlers aggregated and ordered.
     /// </summary>
@@ -141,6 +119,4 @@ public class ServiceLocatorEventRaiser : IRaiseEvent
             .OrderBy(x => x.Order)
             .ToList();
     }
-
-    #endregion
 }

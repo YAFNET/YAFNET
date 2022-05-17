@@ -24,21 +24,15 @@
 
 namespace YAF.Web.Controls;
 
-#region Using
-
 #if DEBUG
 using System.Reflection;
 #endif
-
-#endregion
 
 /// <summary>
 /// The forum footer.
 /// </summary>
 public class Footer : BaseControl
 {
-    #region Public Properties
-
     /// <summary>
     ///   Gets or sets a value indicating whether SimpleRender.
     /// </summary>
@@ -49,10 +43,6 @@ public class Footer : BaseControl
     /// </summary>
     [NotNull]
     public Control ThisControl => this;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The render.
@@ -218,6 +208,4 @@ public class Footer : BaseControl
             "https://www.yetanotherforum.net",
             DateTime.UtcNow.Year);
     }
-
-    #endregion
 }

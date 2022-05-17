@@ -28,12 +28,8 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface IHaveLocalization
 {
-    #region Properties
-
     /// <summary>
     /// Gets Localization.
     /// </summary>
     ILocalization Localization { get; }
-
-    #endregion
 }

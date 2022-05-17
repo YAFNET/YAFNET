@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(UserID), nameof(GroupID))]
 public class UserGroup : IEntity
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the user id.
     /// </summary>
@@ -46,6 +44,4 @@ public class UserGroup : IEntity
     [References(typeof(Group))]
     [Required]
     public int GroupID { get; set; }
-
-    #endregion
 }

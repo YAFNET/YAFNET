@@ -23,27 +23,17 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
 using ServiceStack.Text;
-
-#endregion
 
 /// <summary>
 /// Makes a very simple localized label
 /// </summary>
 public class HelpLabel : BaseControl, ILocalizationSupport
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The _localized tag.
     /// </summary>
     private string localizedHelpTag = string.Empty;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets the associated control id.
@@ -110,10 +100,6 @@ public class HelpLabel : BaseControl, ILocalizationSupport
     /// </summary>
     public string ParamHelp2 { get; set; } = string.Empty;
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Shows the localized text string (if available)
     /// </summary>
@@ -178,6 +164,4 @@ public class HelpLabel : BaseControl, ILocalizationSupport
 
         writer.EndRender();
     }
-
-    #endregion
 }

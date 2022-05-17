@@ -33,8 +33,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class CheckEmailRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The list typed.
     /// </summary>
@@ -109,6 +107,4 @@ public static class CheckEmailRepositoryExtensions
 
         return mail;
     }
-
-    #endregion
 }

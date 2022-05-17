@@ -29,8 +29,6 @@ namespace YAF.Pages;
 /// </summary>
 public partial class Search : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Search" /> class.
     ///   The search page constructor.
@@ -39,10 +37,6 @@ public partial class Search : ForumPage
         : base("SEARCH", ForumPages.Search)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The On PreRender event.
@@ -159,6 +153,4 @@ public partial class Search : ForumPage
         this.PageLinks.AddRoot();
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
     }
-
-    #endregion
 }

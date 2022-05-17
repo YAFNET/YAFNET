@@ -29,8 +29,6 @@ namespace YAF.Types.Flags;
 [Serializable]
 public class PMessageFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PMessageFlags"/> class.
     /// </summary>
@@ -75,10 +73,6 @@ public class PMessageFlags : FlagsBase
     {
     }
 
-    #endregion
-
-    #region Flags Enumeration
-
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
@@ -105,10 +99,6 @@ public class PMessageFlags : FlagsBase
         /// </summary>
         IsDeleted = 8
     }
-
-    #endregion
-
-    #region Single Flags (can be 32 of them)
 
     /// <summary>
     /// Gets or sets a value indicating whether is read.
@@ -153,6 +143,4 @@ public class PMessageFlags : FlagsBase
 
         set => this[3] = value;
     }
-
-    #endregion
 }

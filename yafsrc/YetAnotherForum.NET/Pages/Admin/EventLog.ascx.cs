@@ -23,13 +23,9 @@
  */
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using FarsiLibrary.Utils;
 using YAF.Core.Utilities.StringUtils;
 using YAF.Web.Controls;
-
-#endregion
 
 /// <summary>
 /// The Admin Event Log Page.
@@ -37,8 +33,6 @@ using YAF.Web.Controls;
 public partial class EventLog : AdminPage
 {
     private readonly StackTraceBeautify beautify;
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="EventLog"/> class. 
@@ -48,10 +42,6 @@ public partial class EventLog : AdminPage
     {
         this.beautify = new StackTraceBeautify();
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Delete Selected Event Log Entry
@@ -452,6 +442,4 @@ public partial class EventLog : AdminPage
                 break;
         }
     }
-
-    #endregion
 }

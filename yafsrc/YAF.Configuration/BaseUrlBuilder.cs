@@ -23,19 +23,13 @@
  */
 namespace YAF.Configuration;
 
-#region Using
-
 using System.Web.Hosting;
-
-#endregion
 
 /// <summary>
 /// The base url builder.
 /// </summary>
 public abstract class BaseUrlBuilder : IUrlBuilder
 {
-    #region Properties
-
     /// <summary>
     /// Gets ClientFileRoot.
     /// </summary>
@@ -91,10 +85,6 @@ public abstract class BaseUrlBuilder : IUrlBuilder
         }
     }
 
-    #endregion
-
-    #region Public Methods
-
     /// <summary>
     /// Gets BaseUrl.
     /// </summary>
@@ -148,12 +138,6 @@ public abstract class BaseUrlBuilder : IUrlBuilder
         return url.ToString();
     }
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IUrlBuilder
-
     /// <summary>
     /// Builds the URL.
     /// </summary>
@@ -187,10 +171,6 @@ public abstract class BaseUrlBuilder : IUrlBuilder
         // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
         return $"{BaseUrl}{this.BuildUrl(url)}";
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Treats the base URL.
@@ -275,8 +255,4 @@ public abstract class BaseUrlBuilder : IUrlBuilder
 
         return pathBuilder.ToString();
     }
-
-    #endregion
-
-    #endregion
 }

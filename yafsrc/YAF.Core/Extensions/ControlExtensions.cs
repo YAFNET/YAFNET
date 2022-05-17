@@ -24,22 +24,16 @@
 
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using System;
 using System.Web.UI;
 
 using YAF.Core.Utilities.StringUtils;
-
-#endregion
 
 /// <summary>
 /// The control extensions.
 /// </summary>
 public static class ControlExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// Creates a Unique ID
     /// </summary>
@@ -122,6 +116,4 @@ public static class ControlExtensions
 
         return control;
     }
-
-    #endregion
 }

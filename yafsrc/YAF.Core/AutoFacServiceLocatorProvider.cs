@@ -23,8 +23,6 @@
  */
 namespace YAF.Core;
 
-#region Using
-
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -36,23 +34,15 @@ using Autofac.Core;
 using NamedParameter = YAF.Types.Objects.NamedParameter;
 using TypedParameter = YAF.Types.Objects.TypedParameter;
 
-#endregion
-
 /// <summary>
 ///     The AutoFac service locator provider.
 /// </summary>
 public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServices
 {
-    #region Constants
-
     /// <summary>
     ///     The default flags.
     /// </summary>
     private const BindingFlags DefaultFlags = BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.Instance;
-
-    #endregion
-
-    #region Static Fields
 
     /// <summary>
     ///     The _injection cache.
@@ -60,10 +50,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     private static readonly
         ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> InjectionCache =
             new();
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AutoFacServiceLocatorProvider"/> class.
@@ -78,10 +64,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
         this.Container = container;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets Container.
     /// </summary>
@@ -91,10 +73,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// Gets the tag.
     /// </summary>
     public object Tag => this.Container.Tag;
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The create scope.
@@ -309,10 +287,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
         return this.Container.TryResolveNamed(named, serviceType, out instance);
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The convert to autofac parameters.
     /// </summary>
@@ -354,6 +328,4 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
             
         return autoParams;
     }
-
-    #endregion
 }

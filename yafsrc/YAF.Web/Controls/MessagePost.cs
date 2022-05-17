@@ -28,8 +28,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class MessagePost : MessageBase
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets DisplayUserID.
     /// </summary>
@@ -102,10 +100,6 @@ public class MessagePost : MessageBase
 
         set => this.ViewState["Signature"] = value;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Highlight a Message
@@ -288,6 +282,4 @@ public class MessagePost : MessageBase
                 writer, formattedMessage, this.MessageFlags, this.DisplayUserID, this.MessageID);
         }
     }
-
-    #endregion
 }

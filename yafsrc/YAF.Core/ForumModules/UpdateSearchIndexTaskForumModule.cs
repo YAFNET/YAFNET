@@ -23,15 +23,11 @@
  */
 namespace YAF.Core.ForumModules;
 
-#region Using
-
 using System;
 
 using YAF.Core.BaseModules;
 using YAF.Core.Tasks;
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// The Update Search Index Task
@@ -40,8 +36,6 @@ using YAF.Types.Attributes;
 [Module("Update Search Index Task Forum Module", "Tiny Gecko", 1)]
 public class UpdateSearchIndexTaskForumModule : BaseForumModule
 {
-    #region Public Methods
-
     /// <summary>
     /// The init.
     /// </summary>
@@ -50,10 +44,6 @@ public class UpdateSearchIndexTaskForumModule : BaseForumModule
         // hook the page init for mail sending...
         this.PageBoardContext.AfterInit += this.CurrentAfterInit;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Currents the after initialize.
@@ -64,6 +54,4 @@ public class UpdateSearchIndexTaskForumModule : BaseForumModule
     {
         this.Get<ITaskModuleManager>().StartTask(UpdateSearchIndexTask.TaskName, () => new UpdateSearchIndexTask());
     }
-
-    #endregion
 }

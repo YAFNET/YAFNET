@@ -32,8 +32,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class UserHelper
 {
-    #region Public Methods
-
     /// <summary>
     /// Gets the user language file.
     /// </summary>
@@ -99,6 +97,4 @@ public static class UserHelper
 
         return themeFile;
     }
-
-    #endregion
 }

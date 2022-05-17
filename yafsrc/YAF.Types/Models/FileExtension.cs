@@ -31,8 +31,6 @@ namespace YAF.Types.Models;
 [Obsolete("Only used for Migration")]
 public partial class FileExtension : IEntity, IHaveID
 {
-    #region Properties
-
     [AutoIncrement]
     [Alias("ExtensionID")]
     public int ID { get; set; }
@@ -46,6 +44,4 @@ public partial class FileExtension : IEntity, IHaveID
     [Required]
     [StringLength(10)]
     public string Extension { get; set; }
-
-    #endregion
 }

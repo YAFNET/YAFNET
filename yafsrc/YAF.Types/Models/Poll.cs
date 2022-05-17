@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class Poll : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the Poll id.
     /// </summary>
@@ -79,6 +77,4 @@ public class Poll : IEntity, IHaveID
 
         set => this.Flags = value.BitValue;
     }
-
-    #endregion
 }

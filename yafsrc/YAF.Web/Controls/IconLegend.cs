@@ -23,19 +23,11 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// Icon Legend Control to Render Topic Icons
 /// </summary>
 public class IconLegend : BaseControl
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "IconLegend" /> class.
     /// </summary>
@@ -43,10 +35,6 @@ public class IconLegend : BaseControl
     {
         this.Load += this.IconLegendLoad;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>Gets the topic icon.</summary>
     /// <param name="themeImageTag">The theme image tag.</param>
@@ -154,6 +142,4 @@ public class IconLegend : BaseControl
             col.Controls.Add(descriptionText);
         }
     }
-
-    #endregion
 }

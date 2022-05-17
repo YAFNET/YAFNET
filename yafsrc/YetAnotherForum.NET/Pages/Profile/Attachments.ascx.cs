@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class Attachments : ProfilePage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Attachments" /> class.
     /// </summary>
@@ -40,10 +38,6 @@ public partial class Attachments : ProfilePage
         : base("ATTACHMENTS", ForumPages.Profile_Attachments)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The pager top_ page change.
@@ -186,6 +180,4 @@ public partial class Attachments : ProfilePage
 
         this.DataBind();
     }
-
-    #endregion
 }

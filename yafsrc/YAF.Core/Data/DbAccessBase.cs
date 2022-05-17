@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Data;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -32,15 +30,11 @@ using System.Data.Common;
 
 using YAF.Types.Extensions.Data;
 
-#endregion
-
 /// <summary>
 ///     The DB access base.
 /// </summary>
 public abstract class DbAccessBase : IDbAccess
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="DbAccessBase"/> class.
     /// </summary>
@@ -57,10 +51,6 @@ public abstract class DbAccessBase : IDbAccess
         this.DbProviderFactory = dbProviderFactory(information.ProviderName);
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets ConnectionString.
     /// </summary>
@@ -70,10 +60,6 @@ public abstract class DbAccessBase : IDbAccess
     ///     Gets or sets DbProviderFactory.
     /// </summary>
     public virtual DbProviderFactory DbProviderFactory { get; protected set; }
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The execute.
@@ -155,10 +141,6 @@ public abstract class DbAccessBase : IDbAccess
         return cmd.ReplaceCommandText();
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The map parameters.
     /// </summary>
@@ -178,6 +160,4 @@ public abstract class DbAccessBase : IDbAccess
         // add all/any parameters...
         keyValuePairs.ForEach(cmd.AddParam);
     }
-
-    #endregion
 }

@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(ReputationFromUserID), nameof(ReputationToUserID))]
 public class ReputationVote : IEntity
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the reputation from user id.
     /// </summary>
@@ -51,6 +49,4 @@ public class ReputationVote : IEntity
     /// </summary>
     [Required]
     public DateTime VoteDate { get; set; }
-
-    #endregion
 }

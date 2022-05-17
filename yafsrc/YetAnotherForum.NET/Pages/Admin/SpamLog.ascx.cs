@@ -24,20 +24,14 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using FarsiLibrary.Utils;
 using YAF.Web.Controls;
-
-#endregion
 
 /// <summary>
 /// The SPAM Event Log Page.
 /// </summary>
 public partial class SpamLog : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="SpamLog"/> class. 
     /// </summary>
@@ -45,10 +39,6 @@ public partial class SpamLog : AdminPage
         : base("ADMIN_EVENTLOG", ForumPages.Admin_SpamLog)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Delete Selected Event Log Entry
@@ -306,6 +296,4 @@ public partial class SpamLog : AdminPage
                 break;
         }
     }
-
-    #endregion
 }

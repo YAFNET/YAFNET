@@ -30,8 +30,6 @@ namespace YAF.Types.Attributes;
 [AttributeUsage(AttributeTargets.Enum)]
 public class StringValueAttribute : Attribute
 {
-    #region Constructor
-
     /// <summary>
     /// Initializes a new instance of the <see cref="StringValueAttribute"/> class. 
     /// Constructor used to init a StringValue Attribute
@@ -44,14 +42,8 @@ public class StringValueAttribute : Attribute
         this.StringValue = value;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets the string value for a value in an enum.
     /// </summary>
     public string StringValue { get; protected set; }
-
-    #endregion
 }

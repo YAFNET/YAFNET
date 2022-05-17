@@ -32,8 +32,6 @@ namespace YAF.Types.Objects;
 /// </summary>
 public class SettingsPropertyColumn
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The data type.
     /// </summary>
@@ -48,10 +46,6 @@ public class SettingsPropertyColumn
     /// The size.
     /// </summary>
     public int Size;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SettingsPropertyColumn"/> class.
@@ -79,6 +73,4 @@ public class SettingsPropertyColumn
         this.Settings = settings;
         this.Size = size;
     }
-
-    #endregion
 }

@@ -30,8 +30,6 @@ using System.Text.RegularExpressions;
 /// </summary>
 public class CodeRegexReplaceRule : SimpleRegexReplaceRule
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="CodeRegexReplaceRule"/> class.
     /// </summary>
@@ -47,10 +45,6 @@ public class CodeRegexReplaceRule : SimpleRegexReplaceRule
         // default high rank...
         this.RuleRank = 2;
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The replace.
@@ -76,10 +70,6 @@ public class CodeRegexReplaceRule : SimpleRegexReplaceRule
         }
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// This just overrides how the inner value is handled
     /// </summary>
@@ -97,6 +87,4 @@ public class CodeRegexReplaceRule : SimpleRegexReplaceRule
         innerValue = innerValue.Replace("\r\n", "<br />");
         return innerValue;
     }
-
-    #endregion
 }

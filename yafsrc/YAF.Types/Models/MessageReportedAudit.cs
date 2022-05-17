@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class MessageReportedAudit : IEntity
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the log id.
     /// </summary>
@@ -66,6 +64,4 @@ public class MessageReportedAudit : IEntity
     /// </summary>
     [StringLength(4000)]
     public string ReportText { get; set; }
-
-    #endregion
 }

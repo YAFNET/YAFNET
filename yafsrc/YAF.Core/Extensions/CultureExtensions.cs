@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -24,15 +24,11 @@
 
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using System;
 
 using FarsiLibrary.Utils;
 
 using PersianCalendar = System.Globalization.PersianCalendar;
-
-#endregion
 
 /// <summary>
 /// The culture extensions.
@@ -67,12 +63,12 @@ public static class CultureExtensions
     /// <summary>
     /// Instance of Farsi culture
     /// </summary>
-    public static CultureInfo FarsiCulture => faCulture ?? (faCulture = new CultureInfo("fa-IR"));
+    public static CultureInfo FarsiCulture => faCulture ??= new CultureInfo("fa-IR");
 
     /// <summary>
     /// Instance of Persian Culture with correct date formatting.
     /// </summary>
-    public static CultureInfo PersianCulture => internalFaCulture ?? (internalFaCulture = new PersianCultureInfo());
+    public static CultureInfo PersianCulture => internalFaCulture ??= new PersianCultureInfo();
 
     /// <summary>
     /// The is farsi culture.

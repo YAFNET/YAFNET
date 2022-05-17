@@ -23,6 +23,8 @@
  */
 namespace YAF.Web.BBCodes;
 
+using System.Net;
+
 /// <summary>
 /// The Attachment BB Code Module.
 /// </summary>
@@ -50,6 +52,7 @@ public class Attach : BBCodeControl
 
         var filename = attachment.FileName.ToLower();
         var showImage = false;
+        var showText = filename.IsTextName();
 
         // verify it's not too large to display
         // Ederon : 02/17/2009 - made it board setting
@@ -118,6 +121,23 @@ public class Attach : BBCodeControl
                     this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight);
             }
         }
+        /*else if (showText)
+        {
+            var webClient = new WebClient();
+            var url =
+                $"{this.PageBoardContext.BoardSettings.BaseUrlMask}{BoardInfo.ForumClientFileRoot}resource.ashx?a={attachment.ID}&b={this.PageBoardContext.PageBoardID}";
+            var content = webClient.DownloadString(url);
+            webClient.Dispose();
+
+            writer.Write(
+                @"<pre class=""line-numbers language-markup""><code class=""language-markup""> ");
+
+            writer.Write(
+                "<!---->{0}<!---->",
+                HttpUtility.HtmlEncode(content));
+
+            writer.Write("</code></pre>");
+        }*/
         else
         {
             // regular file attachment

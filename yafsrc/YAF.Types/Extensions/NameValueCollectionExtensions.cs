@@ -33,8 +33,6 @@ using System.Linq;
 /// </summary>
 public static class NameValueCollectionExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Gets the first value of <paramref name="paramName"/> in the collection or default (Null).
     /// </summary>
@@ -154,6 +152,4 @@ public static class NameValueCollectionExtensions
 
         return collection[paramName] != null;
     }
-
-    #endregion
 }

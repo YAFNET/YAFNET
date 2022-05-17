@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class vaccess : IEntity
 {
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the user id.
     /// </summary>
@@ -101,6 +99,4 @@ public class vaccess : IEntity
     /// Gets or sets a value indicating whether delete access.
     /// </summary>
     public int? DeleteAccess { get; set; }
-
-    #endregion
 }

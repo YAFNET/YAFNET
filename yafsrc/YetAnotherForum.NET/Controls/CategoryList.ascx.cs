@@ -23,21 +23,15 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.Objects;
 using YAF.Web.Controls;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The category list.
 /// </summary>
 public partial class CategoryList : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the page index.
     /// </summary>
@@ -57,10 +51,6 @@ public partial class CategoryList : BaseUserControl
 
         set => this.ViewState["Data"] = value;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Gets the Category Image
@@ -266,6 +256,4 @@ public partial class CategoryList : BaseUserControl
         this.Categories.DataSource = categories;
         this.Categories.DataBind();
     }
-
-    #endregion
 }

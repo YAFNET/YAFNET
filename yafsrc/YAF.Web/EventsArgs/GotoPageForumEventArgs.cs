@@ -27,8 +27,6 @@ namespace YAF.Web.EventsArgs;
 /// </summary>
 public class GotoPageForumEventArgs : EventArgs
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///     Initializes a new instance of the <see cref="GotoPageForumEventArgs" /> class.
     /// </summary>
@@ -40,14 +38,8 @@ public class GotoPageForumEventArgs : EventArgs
         this.GotoPage = gotoPage;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///     Gets or sets GotoPage.
     /// </summary>
     public int GotoPage { get; set; }
-
-    #endregion
 }

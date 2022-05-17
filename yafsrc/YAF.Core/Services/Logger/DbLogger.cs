@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Services.Logger;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,8 +31,6 @@ using YAF.Types.Attributes;
 using YAF.Types.Constants;
 
 using EventLog = YAF.Types.Models.EventLog;
-
-#endregion
 
 /// <summary>
 ///     The YAF Data Base logger.

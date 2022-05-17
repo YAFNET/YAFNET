@@ -23,19 +23,13 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The profile your account.
 /// </summary>
 public partial class ProfileYourAccount : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -91,6 +85,4 @@ public partial class ProfileYourAccount : BaseUserControl
             this.AvatarImage.Visible = false;
         }
     }
-
-    #endregion
 }

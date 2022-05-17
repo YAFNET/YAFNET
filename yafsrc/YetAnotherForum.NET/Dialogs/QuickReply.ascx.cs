@@ -23,14 +23,10 @@
  */
 namespace YAF.Dialogs;
 
-#region Using
-
 using System.Threading;
 
 using YAF.Web.Editors;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Quick Reply Dialog.
@@ -41,8 +37,6 @@ public partial class QuickReply : BaseUserControl
     ///   The _quick reply editor.
     /// </summary>
     private ForumEditor quickReplyEditor;
-
-    #region Methods
 
     /// <summary>
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
@@ -393,6 +387,4 @@ public partial class QuickReply : BaseUserControl
 
         return this.PageBoardContext.BoardSettings.EnableCaptchaForPost && !this.PageBoardContext.PageUser.UserFlags.IsCaptchaExcluded;
     }
-
-    #endregion
 }

@@ -53,8 +53,6 @@ public enum RepositoryEventType
 public class RepositoryEvent<T> : IAmEvent
     where T : class, IEntity
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="RepositoryEvent{T}"/> class. 
     /// </summary>
@@ -74,10 +72,6 @@ public class RepositoryEvent<T> : IAmEvent
         this.Entity = entity;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the entity.
     /// </summary>
@@ -92,6 +86,4 @@ public class RepositoryEvent<T> : IAmEvent
     ///     Gets or sets the repository event type.
     /// </summary>
     public RepositoryEventType RepositoryEventType { get; set; }
-
-    #endregion
 }

@@ -24,19 +24,13 @@
 
 namespace YAF.Core.BasePages;
 
-#region Using
-
 using YAF.Types.Constants;
-
-#endregion
 
 /// <summary>
 /// The account page.
 /// </summary>
 public class AccountPage : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="AccountPage"/> class.
     /// </summary>
@@ -63,14 +57,8 @@ public class AccountPage : ForumPage
         this.IsProtected = false;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets the Page Name.
     /// </summary>
     public override string PageName => $"Account_{base.PageName}";
-
-    #endregion
 }

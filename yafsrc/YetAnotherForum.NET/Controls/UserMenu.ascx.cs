@@ -24,8 +24,6 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
@@ -33,15 +31,11 @@ using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The User Menu
 /// </summary>
 public partial class UserMenu : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Raises the <see cref="E:System.Web.UI.Control.PreRender" /> event.
     /// </summary>
@@ -483,6 +477,4 @@ public partial class UserMenu : BaseUserControl
 
         this.UnreadPlaceHolder.Visible = true;
     }
-
-    #endregion
 }

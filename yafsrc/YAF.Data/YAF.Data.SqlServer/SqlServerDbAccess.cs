@@ -33,8 +33,6 @@ public class SqlServerDbAccess : DbAccessBase
     /// </summary>
     public const string ProviderTypeName = "System.Data.SqlClient";
 
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="SqlServerDbAccess"/> class.
     /// </summary>
@@ -45,6 +43,4 @@ public class SqlServerDbAccess : DbAccessBase
         : base(dbProviderFactory, new SqlServerDbInformation())
     {
     }
-
-    #endregion
 }

@@ -9,8 +9,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class IgnoreUserRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Deletes the specified user identifier.
     /// </summary>
@@ -86,6 +84,4 @@ public static class IgnoreUserRepositoryExtensions
 
         return repository.DbAccess.Execute(db => db.Connection.Select<User>(expression));
     }
-
-    #endregion
 }

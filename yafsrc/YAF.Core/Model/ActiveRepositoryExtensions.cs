@@ -33,8 +33,6 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class ActiveRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Lists the forum.
     /// </summary>
@@ -491,6 +489,4 @@ public static class ActiveRepositoryExtensions
                     return db.Connection.Delete(expression);
                 });
     }
-
-    #endregion
 }

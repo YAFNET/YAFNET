@@ -28,8 +28,6 @@ namespace YAF.Types.EventProxies;
 /// </summary>
 public class UpdateForumStatsEvent : IAmEvent
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateForumStatsEvent"/> class.
     /// </summary>
@@ -41,14 +39,8 @@ public class UpdateForumStatsEvent : IAmEvent
         this.ForumId = forumId;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets the forum id.
     /// </summary>
     public int ForumId { get; set; }
-
-    #endregion
 }

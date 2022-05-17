@@ -50,8 +50,6 @@ using BBCode = YAF.Core.BBCode.BBCode;
 /// </summary>
 public class ServicesModule : BaseModule
 {
-    #region Methods
-
     /// <summary>
     /// Loads the specified container builder.
     /// </summary>
@@ -231,6 +229,4 @@ public class ServicesModule : BaseModule
             x => x.Resolve<IComponentContext>().Resolve<IEnumerable<IStartupService>>()
                      .FirstOrDefault(t => t is StartupInitializeDb) as StartupInitializeDb).InstancePerLifetimeScope();
     }
-
-    #endregion
 }

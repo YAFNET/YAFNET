@@ -24,11 +24,7 @@
 
 namespace YAF.Dialogs;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Moderate Forum Dialog.
@@ -54,8 +50,6 @@ public partial class ModForumUser : BaseUserControl
 
         set => this.ViewState["UserId"] = value;
     }
-
-    #region Methods
 
     /// <summary>
     /// The data bind.
@@ -186,6 +180,4 @@ public partial class ModForumUser : BaseUserControl
         // redirect to forum moderation page
         this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Forums, new { f = this.PageBoardContext.PageForumID });
     }
-
-    #endregion
 }

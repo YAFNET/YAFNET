@@ -28,8 +28,6 @@ namespace YAF.Pages;
 /// </summary>
 public partial class Board : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Board" /> class.
     /// </summary>
@@ -37,10 +35,6 @@ public partial class Board : ForumPage
         : base("DEFAULT", ForumPages.Board)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -180,6 +174,4 @@ public partial class Board : ForumPage
             this.GuestUserMessage.Controls.Add(new Label { Text = this.GetText("TOOLBAR", "WELCOME_GUEST_NO") });
         }
     }
-
-    #endregion
 }

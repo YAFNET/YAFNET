@@ -31,8 +31,6 @@ using System.Text.RegularExpressions;
 /// </summary>
 public class VariableRegexReplaceRule : SimpleRegexReplaceRule
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The variable defaults.
     /// </summary>
@@ -42,10 +40,6 @@ public class VariableRegexReplaceRule : SimpleRegexReplaceRule
     ///   The variables.
     /// </summary>
     protected readonly string[] Variables;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
@@ -144,10 +138,6 @@ public class VariableRegexReplaceRule : SimpleRegexReplaceRule
         this.VariableDefaults = null;
     }
 
-    #endregion
-
-    #region Public Methods
-
     /// <summary>
     /// The replace.
     /// </summary>
@@ -214,10 +204,6 @@ public class VariableRegexReplaceRule : SimpleRegexReplaceRule
         text = sb.ToString();
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Override to change default variable handling...
     /// </summary>
@@ -249,6 +235,4 @@ public class VariableRegexReplaceRule : SimpleRegexReplaceRule
 
         return variableValue;
     }
-
-    #endregion
 }

@@ -24,8 +24,6 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.Collections.Specialized;
 using System.Drawing;
 using System.IO;
@@ -36,15 +34,11 @@ using YAF.Types.Objects;
 
 using ListItem = ListItem;
 
-#endregion
-
 /// <summary>
 /// Administrative Page for the editing of forum properties.
 /// </summary>
 public partial class EditLanguage : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditLanguage"/> class. 
     /// </summary>
@@ -52,10 +46,6 @@ public partial class EditLanguage : AdminPage
         : base("ADMIN_EDITLANGUAGE", ForumPages.Admin_EditLanguage)
     {
     }
-
-    #endregion
-
-    #region Constants and Fields
 
     /// <summary>
     ///   Indicates if Xml File is Synchronized
@@ -82,10 +72,6 @@ public partial class EditLanguage : AdminPage
     /// </summary>
     private List<Translation> translations = new ();
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///  Gets the List of attributes for Resources in destination translation file
     /// </summary>
@@ -95,10 +81,6 @@ public partial class EditLanguage : AdminPage
     ///  Gets the List of namespaces for Resources in destination translation file
     /// </summary>
     private StringDictionary ResourcesNamespaces { get; } = new ();
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Remove all Resources with the same Name and Page
@@ -140,10 +122,6 @@ public partial class EditLanguage : AdminPage
 
         args.IsValid = true;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>Raises the <see cref="E:System.Web.UI.Control.Init"/> event.</summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
@@ -522,6 +500,4 @@ public partial class EditLanguage : AdminPage
                                  check.ResourceName.Equals(lblResourceName.Text)).LocalizedValue = txtLocalized.Text;
                 });
     }
-
-    #endregion
 }

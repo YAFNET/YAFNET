@@ -23,8 +23,6 @@
  */
 namespace YAF.Pages;
 
-#region Using
-
 using System.IO;
 using System.Threading;
 using System.Web.UI.HtmlControls;
@@ -32,15 +30,11 @@ using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The Edit User Album Images Page.
 /// </summary>
 public partial class EditAlbumImages : ForumPageRegistered
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditAlbumImages"/> class.
     /// </summary>
@@ -48,10 +42,6 @@ public partial class EditAlbumImages : ForumPageRegistered
         : base("EDIT_ALBUMIMAGES", ForumPages.EditAlbumImages)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The back button click event handler.
@@ -501,6 +491,4 @@ public partial class EditAlbumImages : ForumPageRegistered
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageBoardContext.PageUserID });
     }
-
-    #endregion
 }

@@ -34,8 +34,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class ProfileCustomRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Gets all Custom Profiles by User
     /// </summary>
@@ -63,6 +61,4 @@ public static class ProfileCustomRepositoryExtensions
         return repository.DbAccess.Execute(
             db => db.Connection.SelectMulti<ProfileCustom, ProfileDefinition>(expression));
     }
-
-    #endregion
 }

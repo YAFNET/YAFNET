@@ -29,8 +29,6 @@ namespace YAF.Types;
 /// </summary>
 public static class CodeContracts
 {
-    #region Public Methods and Operators
-
     /// <summary>
     ///     Validates argument (obj) is not <see langword="null" />. Throws exception
     ///     if it is.
@@ -52,6 +50,4 @@ public static class CodeContracts
             throw new ArgumentNullException(argumentName, $"{argumentName} cannot be null");
         }
     }
-
-    #endregion
 }

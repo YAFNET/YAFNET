@@ -28,8 +28,6 @@ namespace YAF.Types.EventProxies;
 /// </summary>
 public class BanUserEvent : IAmEvent
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="BanUserEvent"/> class.
     /// </summary>
@@ -53,10 +51,6 @@ public class BanUserEvent : IAmEvent
         this.IpAddress = ipAddress;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets the user id.
     /// </summary>
@@ -76,6 +70,4 @@ public class BanUserEvent : IAmEvent
     /// Gets or sets the IP address.
     /// </summary>
     public string IpAddress { get; set; }
-
-    #endregion
 }

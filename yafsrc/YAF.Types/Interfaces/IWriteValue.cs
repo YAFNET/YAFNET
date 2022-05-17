@@ -30,8 +30,6 @@ namespace YAF.Types.Interfaces;
 /// </typeparam>
 public interface IWriteValue<in T>
 {
-    #region Public Methods
-
     /// <summary>
     /// Set a value.
     /// </summary>
@@ -42,6 +40,4 @@ public interface IWriteValue<in T>
     /// The value.
     /// </param>
     void Set(string key, T value);
-
-    #endregion
 }

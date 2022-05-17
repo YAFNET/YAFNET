@@ -28,8 +28,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class LocalizedRequiredFieldValidator : RequiredFieldValidator, ILocalizationSupport
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets a value indicating whether EnableBBCode.
     /// </summary>
@@ -77,10 +75,6 @@ public class LocalizedRequiredFieldValidator : RequiredFieldValidator, ILocaliza
     /// </summary>
     public string Param2 { get; set; }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Raises the <see cref="E:System.Web.UI.Control.Load" /> event.
     /// </summary>
@@ -93,6 +87,4 @@ public class LocalizedRequiredFieldValidator : RequiredFieldValidator, ILocaliza
         this.ErrorMessage = this.Localize(this);
         this.ToolTip = this.Localize(this);
     }
-
-    #endregion
 }

@@ -34,8 +34,6 @@ using YAF.Core.BaseControls;
 /// </summary>
 public static class LocalizationSupportExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// Localizes the specified support item.
     /// </summary>
@@ -90,6 +88,4 @@ public static class LocalizationSupportExtensions
 
         return localizedItem.Fmt(supportedItem.Param0, supportedItem.Param1, supportedItem.Param2);
     }
-
-    #endregion
 }

@@ -39,8 +39,6 @@ public class RegistryDictionary : Dictionary<string, object>
     {
     }
 
-    #region Public Methods and Operators
-
     /// <summary>
     ///     The get value.
     /// </summary>
@@ -115,6 +113,4 @@ public class RegistryDictionary : Dictionary<string, object>
 
         this[name] = stringValue;
     }
-
-    #endregion
 }

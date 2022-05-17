@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class NntpRetrieve : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="NntpRetrieve"/> class. 
     /// </summary>
@@ -40,10 +38,6 @@ public partial class NntpRetrieve : AdminPage
         : base("ADMIN_NNTPRETRIEVE", ForumPages.Admin_NntpRetrieve)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Gets the last message number
@@ -129,6 +123,4 @@ public partial class NntpRetrieve : AdminPage
             this.Footer.Visible = false;
         }
     }
-
-    #endregion
 }

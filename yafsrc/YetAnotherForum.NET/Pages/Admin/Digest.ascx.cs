@@ -23,11 +23,7 @@
  */
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.Net.Mail;
-
-#endregion
 
 /// <summary>
 /// Manage Forum Digest Sending
@@ -41,8 +37,6 @@ public partial class Digest : AdminPage
         : base("ADMIN_DIGEST", ForumPages.Admin_Digest)
     {
     }
-
-    #region Methods
 
     /// <summary>
     /// Force Sending the Current Digest
@@ -147,6 +141,4 @@ public partial class Digest : AdminPage
             this.PageBoardContext.Notify(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.danger);
         }
     }
-
-    #endregion
 }

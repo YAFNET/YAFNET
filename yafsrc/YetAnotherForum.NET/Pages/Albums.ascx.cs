@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class Albums : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the Albums class.
     /// </summary>
@@ -41,15 +39,11 @@ public partial class Albums : ForumPage
     {
     }
 
-    #endregion
-
     /// <summary>
     ///   Gets user ID of edited user.
     /// </summary>
     protected int CurrentUserID =>
         this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -96,6 +90,4 @@ public partial class Albums : ForumPage
     protected override void CreatePageLinks()
     {
     }
-
-    #endregion
 }

@@ -24,19 +24,13 @@
 
 namespace YAF.Dialogs;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Admin Replace Words Add/Edit Dialog.
 /// </summary>
 public partial class ReplaceWordsEdit : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Gets or sets the spam word identifier.
     /// </summary>
@@ -137,6 +131,4 @@ public partial class ReplaceWordsEdit : BaseUserControl
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_ReplaceWords);
     }
-
-    #endregion
 }

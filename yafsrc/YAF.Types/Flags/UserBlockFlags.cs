@@ -29,8 +29,6 @@ namespace YAF.Types.Flags;
 [Serializable]
 public class UserBlockFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="UserBlockFlags"/> class.
     /// </summary>
@@ -83,10 +81,6 @@ public class UserBlockFlags : FlagsBase
     {
     }
 
-    #endregion
-
-    #region Flags Enumeration
-
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
@@ -113,10 +107,6 @@ public class UserBlockFlags : FlagsBase
         /// </summary>
         BlockEmails = 4
     }
-
-    #endregion
-
-    #region Single Flags (can be 32 of them)
 
     /// <summary>
     /// Gets or sets a value indicating whether block PMs.
@@ -151,10 +141,6 @@ public class UserBlockFlags : FlagsBase
         set => this[2] = value;
     }
 
-    #endregion
-
-    #region Operators
-
     /// <summary>
     /// The op_ implicit.
     /// </summary>
@@ -180,6 +166,4 @@ public class UserBlockFlags : FlagsBase
     {
         return new UserBlockFlags(flags);
     }
-
-    #endregion
 }

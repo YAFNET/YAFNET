@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [CompositePrimaryKey(nameof(SessionID), nameof(BoardID))]
 public class Active : IEntity, IHaveBoardID
 {
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the board id.
     /// </summary>
@@ -123,6 +121,4 @@ public class Active : IEntity, IHaveBoardID
     [References(typeof(User))]
     [Required]
     public int UserID { get; set; }
-
-    #endregion
 }

@@ -32,8 +32,6 @@ using YAF.Types.Extensions.Data;
 /// </summary>
 public static class DbAccessV2Extensions
 {
-    #region Public Methods
-
     /// <summary>
     /// The replace command text.
     /// </summary>
@@ -88,6 +86,4 @@ public static class DbAccessV2Extensions
 
         return success;
     }
-
-    #endregion
 }

@@ -24,8 +24,6 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using System.Drawing;
 using System.IO;
 
@@ -34,23 +32,15 @@ using YAF.Types.Interfaces.Events;
 using YAF.Types.Objects;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The edit users avatar.
 /// </summary>
 public partial class EditUsersAvatar : BaseUserControl
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The current user id.
     /// </summary>
     private int currentUserId;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Cancel Editing
@@ -362,6 +352,4 @@ public partial class EditUsersAvatar : BaseUserControl
         this.AvatarImg.Attributes.CssStyle.Add("max-width", this.PageBoardContext.BoardSettings.AvatarWidth.ToString());
         this.AvatarImg.Attributes.CssStyle.Add("max-height", this.PageBoardContext.BoardSettings.AvatarHeight.ToString());
     }
-
-    #endregion
 }

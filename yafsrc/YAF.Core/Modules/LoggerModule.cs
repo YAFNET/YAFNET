@@ -24,22 +24,16 @@
 
 namespace YAF.Core.Modules;
 
-#region Using
-
 using Autofac;
 using Autofac.Core;
 
 using YAF.Core.Services.Logger;
-
-#endregion
 
 /// <summary>
 ///     The logging module.
 /// </summary>
 public class LoggingModule : BaseModule
 {
-    #region Methods
-
     /// <summary>
     ///     The load.
     /// </summary>
@@ -68,6 +62,4 @@ public class LoggingModule : BaseModule
             });
         builder.Register(c => c.Resolve<ILoggerProvider>().Create(null)).SingleInstance();
     }
-
-    #endregion
 }

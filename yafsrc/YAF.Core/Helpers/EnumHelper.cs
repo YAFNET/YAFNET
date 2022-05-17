@@ -23,23 +23,17 @@
  */
 namespace YAF.Core.Helpers;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 
 using YAF.Types.Attributes;
 
-#endregion
-
 /// <summary>
 ///     The Enumerator helper.
 /// </summary>
 public static class EnumHelper
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Converts an enumerator to a Dictionary
     /// </summary>
@@ -75,10 +69,6 @@ public static class EnumHelper
 
         return enumValArray.Cast<int>().Select(val => (T)Enum.Parse(enumType, val.ToString(CultureInfo.InvariantCulture))).ToList();
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The internal to dictionary.
@@ -120,6 +110,4 @@ public static class EnumHelper
 
         return list;
     }
-
-    #endregion
 }

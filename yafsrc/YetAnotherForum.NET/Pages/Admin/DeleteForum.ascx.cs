@@ -24,20 +24,14 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using YAF.Core.Tasks;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Administrative Page for the deleting of forum properties.
 /// </summary>
 public partial class DeleteForum : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="DeleteForum"/> class. 
     /// </summary>
@@ -45,10 +39,6 @@ public partial class DeleteForum : AdminPage
         : base("ADMIN_DELETEFORUM", ForumPages.Admin_DeleteForum)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Registers the needed Java Scripts
@@ -201,6 +191,4 @@ public partial class DeleteForum : AdminPage
             this.PageBoardContext.Notify(errorMessage, MessageTypes.danger);
         }
     }
-
-    #endregion
 }

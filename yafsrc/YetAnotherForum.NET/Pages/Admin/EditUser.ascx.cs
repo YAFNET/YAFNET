@@ -24,20 +24,14 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using YAF.Types.Models.Identity;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Admin edit user page.
 /// </summary>
 public partial class EditUser : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditUser"/> class. 
     /// </summary>
@@ -45,10 +39,6 @@ public partial class EditUser : AdminPage
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
     {
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets the current edit user.
@@ -60,10 +50,6 @@ public partial class EditUser : AdminPage
 
         set => this.ViewState["EditBoardUser"] = value;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Registers the java scripts
@@ -141,6 +127,4 @@ public partial class EditUser : AdminPage
             this.GetText("ADMIN_USERS", "TITLE"),
             this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Users));
     }
-
-    #endregion
 }

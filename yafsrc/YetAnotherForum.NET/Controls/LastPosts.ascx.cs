@@ -31,16 +31,10 @@ using YAF.Types.Models;
 /// </summary>
 public partial class LastPosts : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets TopicID.
     /// </summary>
     public int? TopicID { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -71,6 +65,4 @@ public partial class LastPosts : BaseUserControl
 
         this.repLastPosts.DataBind();
     }
-
-    #endregion
 }

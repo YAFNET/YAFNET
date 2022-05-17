@@ -24,21 +24,15 @@
 
 namespace YAF.Core.Helpers;
 
-#region Using
-
 using System;
 using System.Drawing;
 using System.IO;
-
-#endregion
 
 /// <summary>
 /// The Image Helper.
 /// </summary>
 public static class ImageHelper
 {
-    #region Public Methods
-
     /// <summary>
     /// Returns resized image stream.
     /// </summary>
@@ -77,6 +71,4 @@ public static class ImageHelper
         bitmap.Save(resized, img.RawFormat);
         return resized;
     }
-
-    #endregion
 }

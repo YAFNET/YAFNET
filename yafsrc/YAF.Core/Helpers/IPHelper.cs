@@ -23,23 +23,17 @@
  */
 namespace YAF.Core.Helpers;
 
-#region Using
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 
-#endregion
-
 /// <summary>
 ///     The IP Helper Class.
 /// </summary>
 public static class IPHelper
 {
-    #region Static Fields
-
     /// <summary>
     /// The non routable IP v4 networks.
     /// </summary>
@@ -64,10 +58,6 @@ public static class IPHelper
                                                                            "fc00::/7",
                                                                            "::ffff:0:0/96"
                                                                        };
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// Attempts to get an IPv4 from IPv6 address - falls back to IPv6, then localhost.
@@ -249,10 +239,6 @@ public static class IPHelper
         return IPAddress.Parse(ip);
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Converts to byte array.
     /// </summary>
@@ -403,6 +389,4 @@ public static class IPHelper
             bitArray[index] = fillValue;
         }
     }
-
-    #endregion
 }

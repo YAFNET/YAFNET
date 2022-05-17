@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class Ranks : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Ranks"/> class. 
     /// </summary>
@@ -40,10 +38,6 @@ public partial class Ranks : AdminPage
         : base("ADMIN_RANKS", ForumPages.Admin_Ranks)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Format string color.
@@ -194,6 +188,4 @@ public partial class Ranks : AdminPage
         this.RankList.DataSource = this.GetRepository<Rank>().GetByBoardId();
         this.DataBind();
     }
-
-    #endregion
 }

@@ -39,14 +39,10 @@ using YAF.Types.Objects;
 [RoutePrefix("api")]
 public class AlbumController : ApiController, IHaveServiceLocator
 {
-    #region Properties
-
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-    #endregion
 
     /// <summary>
     /// The change image caption.

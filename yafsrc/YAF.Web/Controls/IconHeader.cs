@@ -23,19 +23,13 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
 using ServiceStack.Text;
-
-#endregion
 
 /// <summary>
 /// Icon Header creates a header with Icon and localized header text
 /// </summary>
 public class IconHeader : BaseControl, ILocalizationSupport
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets a value indicating whether enable bb code.
     /// </summary>
@@ -93,10 +87,6 @@ public class IconHeader : BaseControl, ILocalizationSupport
     /// </summary>
     public string Param2 { get; set; } = string.Empty;
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Shows the localized text string (if available)
     /// </summary>
@@ -132,6 +122,4 @@ public class IconHeader : BaseControl, ILocalizationSupport
 
         writer.EndRender();
     }
-
-    #endregion
 }

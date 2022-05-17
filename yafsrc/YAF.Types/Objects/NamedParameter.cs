@@ -28,8 +28,6 @@ namespace YAF.Types.Objects;
 /// </summary>
 public class NamedParameter : IServiceLocationParameter
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="NamedParameter"/> class.
     /// </summary>
@@ -45,10 +43,6 @@ public class NamedParameter : IServiceLocationParameter
         this.Value = value;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets Name.
     /// </summary>
@@ -58,6 +52,4 @@ public class NamedParameter : IServiceLocationParameter
     /// Gets or sets Value.
     /// </summary>
     public object Value { get; set; }
-
-    #endregion
 }

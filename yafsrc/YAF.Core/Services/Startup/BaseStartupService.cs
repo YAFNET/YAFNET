@@ -23,19 +23,13 @@
  */
 namespace YAF.Core.Services.Startup;
 
-#region Using
-
 using System;
-
-#endregion
 
 /// <summary>
 /// The root service.
 /// </summary>
 public abstract class BaseStartupService : IStartupService
 {
-    #region Properties
-
     /// <summary>
     ///   Gets a value indicating whether Initialized.
     /// </summary>
@@ -58,12 +52,6 @@ public abstract class BaseStartupService : IStartupService
     /// </summary>
     protected abstract string ServiceName { get; }
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IStartupService
-
     /// <summary>
     /// The run.
     /// </summary>
@@ -75,12 +63,6 @@ public abstract class BaseStartupService : IStartupService
         }
     }
 
-    #endregion
-
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The run service.
     /// </summary>
@@ -88,6 +70,4 @@ public abstract class BaseStartupService : IStartupService
     /// The <see cref="bool"/>.
     /// </returns>
     protected abstract bool RunService();
-
-    #endregion
 }

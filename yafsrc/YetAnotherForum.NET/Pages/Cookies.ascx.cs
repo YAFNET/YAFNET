@@ -29,8 +29,6 @@ namespace YAF.Pages;
 /// </summary>
 public partial class Cookies : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Cookies" /> class.
     /// </summary>
@@ -39,14 +37,8 @@ public partial class Cookies : ForumPage
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets a value indicating whether IsProtected.
     /// </summary>
     public override bool IsProtected => false;
-
-    #endregion
 }

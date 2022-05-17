@@ -23,14 +23,10 @@
  */
 namespace YAF.Core.Utilities.ImageUtils;
 
-#region Using
-
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-
-#endregion
 
 /// <summary>
 /// CaptchaImage Class
@@ -38,8 +34,6 @@ using System.Drawing.Imaging;
 /// </summary>
 public class CaptchaImage : IDisposable
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The random.
     /// </summary>
@@ -49,10 +43,6 @@ public class CaptchaImage : IDisposable
     ///   The family name.
     /// </summary>
     private string familyName;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the CaptchaImage class using the
@@ -79,10 +69,6 @@ public class CaptchaImage : IDisposable
         this.GenerateImage();
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets Height.
     /// </summary>
@@ -103,12 +89,6 @@ public class CaptchaImage : IDisposable
     /// </summary>
     public int Width { get; private set; }
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IDisposable
-
     /// <summary>
     /// The i disposable. dispose.
     /// </summary>
@@ -117,12 +97,6 @@ public class CaptchaImage : IDisposable
         GC.SuppressFinalize(this);
         this.Image.Dispose();
     }
-
-    #endregion
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The generate image.
@@ -303,6 +277,4 @@ public class CaptchaImage : IDisposable
             this.familyName = FontFamily.GenericSerif.Name;
         }
     }
-
-    #endregion
 }

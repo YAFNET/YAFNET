@@ -24,27 +24,17 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The AlbumList control.
 /// </summary>
 public partial class AlbumList : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets the User ID.
     /// </summary>
     public User User { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// redirects to the add new album page.
@@ -164,6 +154,4 @@ public partial class AlbumList : BaseUserControl
         this.Albums.DataSource = albums;
         this.DataBind();
     }
-
-    #endregion
 }

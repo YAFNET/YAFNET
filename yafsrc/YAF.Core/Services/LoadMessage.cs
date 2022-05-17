@@ -23,23 +23,17 @@
  */
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 
 using YAF.Types.Constants;
 using YAF.Types.Objects;
 
-#endregion
-
 /// <summary>
 /// The load message.
 /// </summary>
 public class LoadMessage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "LoadMessage" /> class.
     /// </summary>
@@ -55,10 +49,6 @@ public class LoadMessage
 
         BoardContext.Current.Unload += this.CurrentUnload;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets LoadStringList.
@@ -84,10 +74,6 @@ public class LoadMessage
             return BoardContext.Current.Get<IDataCache>().Get("LoadStringList") as List<MessageNotification>;
         }
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Creates a message that will be returned on the next page load.
@@ -134,10 +120,6 @@ public class LoadMessage
                    : this.LoadStringList.First();
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Clear the load message...
     /// </summary>
@@ -148,6 +130,4 @@ public class LoadMessage
         // clear the load message...
         this.Clear();
     }
-
-    #endregion
 }

@@ -32,8 +32,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class BannedNameRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The save.
     /// </summary>
@@ -93,6 +91,4 @@ public static class BannedNameRepositoryExtensions
 
         return true;
     }
-
-    #endregion
 }

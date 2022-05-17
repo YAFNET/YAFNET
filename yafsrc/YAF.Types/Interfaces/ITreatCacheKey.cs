@@ -28,8 +28,6 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface ITreatCacheKey
 {
-    #region Public Methods
-
     /// <summary>
     /// The treat.
     /// </summary>
@@ -39,6 +37,4 @@ public interface ITreatCacheKey
     /// <returns>
     /// </returns>
     string Treat([NotNull] string key);
-
-    #endregion
 }

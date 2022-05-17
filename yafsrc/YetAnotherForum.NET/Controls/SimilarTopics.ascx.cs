@@ -29,8 +29,6 @@ namespace YAF.Controls;
 /// </summary>
 public partial class SimilarTopics : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
@@ -75,6 +73,4 @@ public partial class SimilarTopics : BaseUserControl
 
         this.DataBind();
     }
-
-    #endregion
 }

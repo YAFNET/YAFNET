@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.BasePages;
 
-#region Using
-
 using System;
 using System.Threading;
 using System.Web.UI;
@@ -32,15 +30,11 @@ using System.Web.UI;
 using YAF.Core.Services.Startup;
 using YAF.Types.Constants;
 
-#endregion
-
 /// <summary>
 /// Optional forum page base providing some helper functions.
 /// </summary>
 public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
 {
-    #region Properties
-
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
@@ -53,10 +47,6 @@ public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
     /// The page context.
     /// </value>
     public BoardContext PageBoardContext => BoardContext.Current;
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The initialize culture.
@@ -141,6 +131,4 @@ public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
         Thread.CurrentThread.CurrentCulture = info;
 
     }
-
-    #endregion
 }

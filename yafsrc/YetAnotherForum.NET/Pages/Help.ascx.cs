@@ -24,29 +24,19 @@
 
 namespace YAF.Pages;
 
-#region Using
-
 using System.IO;
 using System.Xml.Serialization;
 using YAF.Types.Objects;
-
-#endregion
 
 /// <summary>
 /// The Help Index.
 /// </summary>
 public partial class Help : ForumPage
 {
-    #region Constants and Fields
-
     /// <summary>
     ///  List with the Help Content
     /// </summary>
     private readonly List<HelpContent> helpContents = new();
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Help" /> class.
@@ -55,10 +45,6 @@ public partial class Help : ForumPage
         : base("HELP", ForumPages.Help)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
@@ -276,6 +262,4 @@ public partial class Help : ForumPage
                     });
         }
     }
-
-    #endregion
 }

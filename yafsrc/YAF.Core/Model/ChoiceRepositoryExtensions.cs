@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class ChoiceRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Add new Choice to the Poll
     /// </summary>
@@ -111,6 +109,4 @@ public static class ChoiceRepositoryExtensions
 
         repository.UpdateAdd(() => new Choice { Votes = 1 }, a => a.ID == choiceId);
     }
-
-    #endregion
 }

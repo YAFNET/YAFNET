@@ -31,8 +31,6 @@ using System.Text.RegularExpressions;
 /// </summary>
 public class SingleRegexReplaceRule : SimpleRegexReplaceRule
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="SingleRegexReplaceRule"/> class.
     /// </summary>
@@ -49,10 +47,6 @@ public class SingleRegexReplaceRule : SimpleRegexReplaceRule
         : base(regExSearch, regExReplace, regExOptions)
     {
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The replace.
@@ -85,6 +79,4 @@ public class SingleRegexReplaceRule : SimpleRegexReplaceRule
 
         text = sb.ToString();
     }
-
-    #endregion
 }

@@ -28,8 +28,6 @@ namespace YAF.Types.EventProxies;
 /// </summary>
 public class UpdateUserEvent : IAmEvent
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateUserEvent"/> class.
     /// </summary>
@@ -41,14 +39,8 @@ public class UpdateUserEvent : IAmEvent
         this.UserId = userId;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets UserId.
     /// </summary>
     public int UserId { get; set; }
-
-    #endregion
 }

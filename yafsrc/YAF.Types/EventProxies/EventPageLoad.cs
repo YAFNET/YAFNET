@@ -28,8 +28,6 @@ namespace YAF.Types.EventProxies;
 /// </summary>
 public class InitPageLoadEvent : IAmEvent
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="InitPageLoadEvent"/> class.
     /// </summary>
@@ -40,10 +38,6 @@ public class InitPageLoadEvent : IAmEvent
         this.UserLazyData = new UserLazyData();
         this.PageQueryData = new PageQueryData();
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets the user request data.
@@ -74,6 +68,4 @@ public class InitPageLoadEvent : IAmEvent
             this.PageLoadData,
             this.UserLazyData,
             this.PageQueryData);
-
-    #endregion
 }

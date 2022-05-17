@@ -34,8 +34,6 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class BuddyRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Adds a buddy request. (Should be approved later by "ToUserID")
     /// </summary>
@@ -250,6 +248,4 @@ public static class BuddyRepositoryExtensions
             db => db.Connection.Select<BuddyUser>(
                 $"{expression.ToSelectStatement()} UNION ALL {expression2.ToSelectStatement()}"));
     }
-
-    #endregion
 }

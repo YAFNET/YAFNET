@@ -24,19 +24,13 @@
 
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using System.Collections.Generic;
-
-#endregion
 
 /// <summary>
 ///     The module manager extensions.
 /// </summary>
 public static class IModuleManagerExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Get all active modules.
     /// </summary>
@@ -50,6 +44,4 @@ public static class IModuleManagerExtensions
 
         return moduleManager.GetAll(false);
     }
-
-    #endregion
 }

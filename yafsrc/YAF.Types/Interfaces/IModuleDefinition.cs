@@ -28,8 +28,6 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface IModuleDefinition
 {
-    #region Properties
-
     /// <summary>
     ///   Gets a value indicating whether Active.
     /// </summary>
@@ -44,6 +42,4 @@ public interface IModuleDefinition
     ///   Gets ModuleId.
     /// </summary>
     string ModuleId { get; }
-
-    #endregion
 }

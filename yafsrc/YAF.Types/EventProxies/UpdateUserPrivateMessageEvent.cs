@@ -28,8 +28,6 @@ namespace YAF.Types.EventProxies;
 /// </summary>
 public class UpdateUserPrivateMessageEvent : IAmEvent
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateUserPrivateMessageEvent"/> class.
     /// </summary>
@@ -45,10 +43,6 @@ public class UpdateUserPrivateMessageEvent : IAmEvent
         this.UserPmMessageId = userPmMessageId;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets UserId.
     /// </summary>
@@ -58,6 +52,4 @@ public class UpdateUserPrivateMessageEvent : IAmEvent
     /// Gets or sets UserPmMessageId.
     /// </summary>
     public int UserPmMessageId { get; set; }
-
-    #endregion
 }

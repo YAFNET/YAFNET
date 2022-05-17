@@ -31,8 +31,6 @@ using System.Collections.Generic;
 /// </summary>
 public static class HaveSortOrderExtensions
 {
-    #region Public Methods and Operators
-
     public static IEnumerable<T> ByOptionalSortOrder<T>(
         this IEnumerable<T> sortEnumerable,
         int defaultSortOrder = 1000)
@@ -50,6 +48,4 @@ public static class HaveSortOrderExtensions
                     return new KeyValuePair<int, T>(sortOrder, m);
                 }).OrderByDescending(m => m.Key).Select(m => m.Value);
     }
-
-    #endregion
 }

@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Tasks;
 
-#region Using
-
 using System;
 using System.Threading;
 
@@ -32,15 +30,11 @@ using YAF.Core.Model;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The Update Search Index task.
 /// </summary>
 public class UpdateSearchIndexTask : LongBackgroundTask
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "UpdateSearchIndexTask" /> class.
     /// </summary>
@@ -50,18 +44,10 @@ public class UpdateSearchIndexTask : LongBackgroundTask
         this.StartDelayMs = 30000;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets TaskName.
     /// </summary>
     public static string TaskName { get; } = "UpdateSearchIndexTask";
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The run once.
@@ -159,6 +145,4 @@ public class UpdateSearchIndexTask : LongBackgroundTask
 
         return true;
     }
-
-    #endregion
 }

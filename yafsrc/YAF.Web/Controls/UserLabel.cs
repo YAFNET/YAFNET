@@ -28,8 +28,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class UserLabel : BaseControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets CSS Class.
     /// </summary>
@@ -103,10 +101,6 @@ public class UserLabel : BaseControl
         set => this.ViewState["UserID"] = value;
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The render.
     /// </summary>
@@ -169,6 +163,4 @@ public class UserLabel : BaseControl
             output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), this.CssClass);
         }
     }
-
-    #endregion
 }

@@ -29,8 +29,6 @@ namespace YAF.Types.Objects;
 /// </summary>
 public class InternalPopMenuItem
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="InternalPopMenuItem"/> class.
     /// </summary>
@@ -58,10 +56,6 @@ public class InternalPopMenuItem
         this.Icon = icon;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets or sets Icon.
     /// </summary>
@@ -81,6 +75,4 @@ public class InternalPopMenuItem
     ///   Gets or sets PostBackArgument.
     /// </summary>
     public string PostBackArgument { get; set; }
-
-    #endregion
 }

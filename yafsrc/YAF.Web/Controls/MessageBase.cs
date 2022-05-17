@@ -23,25 +23,17 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
 using System.Text.RegularExpressions;
-
-#endregion
 
 /// <summary>
 /// The message base.
 /// </summary>
 public class MessageBase : BaseControl
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _options.
     /// </summary>
     private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled;
-
-    #endregion
 
     /// <summary>
     /// Gets CustomBBCode.
@@ -56,8 +48,6 @@ public class MessageBase : BaseControl
                         bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).ToDictionary(
                             codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
                 });
-
-    #region Methods
 
     /// <summary>
     /// The render modules in bb code.
@@ -135,6 +125,4 @@ public class MessageBase : BaseControl
 
         writer.Write(workingMessage);
     }
-
-    #endregion
 }

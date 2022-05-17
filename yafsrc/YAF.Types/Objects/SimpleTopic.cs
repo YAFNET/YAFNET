@@ -23,20 +23,12 @@
  */
 namespace YAF.Types.Objects;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// The simple topic.
 /// </summary>
 [Serializable]
 public class SimpleTopic
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets CreatedDate.
     /// </summary>
@@ -101,6 +93,4 @@ public class SimpleTopic
     /// Gets or sets TopicID.
     /// </summary>
     public int TopicID { get; set; }
-
-    #endregion
 }

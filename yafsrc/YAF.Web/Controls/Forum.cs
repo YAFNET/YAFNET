@@ -24,11 +24,7 @@
 
 namespace YAF.Web.Controls;
 
-#region Using
-
 using YAF.Core.BasePages;
-
-#endregion
 
 /// <summary>
 /// The YAF Forum Control
@@ -36,8 +32,6 @@ using YAF.Core.BasePages;
 [ToolboxData("<{0}:Forum runat=\"server\"></{0}:Forum>")]
 public class Forum : UserControl, IHaveServiceLocator
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The current forum page.
     /// </summary>
@@ -47,10 +41,6 @@ public class Forum : UserControl, IHaveServiceLocator
     ///   The page.
     /// </summary>
     private ILocatablePage page;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     ///   Initializes a new instance of the <see cref="Forum" /> class.
@@ -68,10 +58,6 @@ public class Forum : UserControl, IHaveServiceLocator
                 });
     }
 
-    #endregion
-
-    #region Public Events
-
     /// <summary>
     ///   The after forum page load.
     /// </summary>
@@ -86,10 +72,6 @@ public class Forum : UserControl, IHaveServiceLocator
     ///   The page title set.
     /// </summary>
     public event EventHandler<ForumPageTitleArgs> PageTitleSet;
-
-    #endregion
-
-    #region Public Properties
 
     /// <summary>
     ///   Gets or sets the Board ID for this instance of the forum control, overriding the value defined in app.config.
@@ -126,10 +108,6 @@ public class Forum : UserControl, IHaveServiceLocator
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
-    #endregion
-
-    #region Public Methods and Operators
-
     /// <summary>
     /// Called when the forum control sets it's Page Title
     /// </summary>
@@ -143,10 +121,6 @@ public class Forum : UserControl, IHaveServiceLocator
     {
         this.PageTitleSet?.Invoke(this, e);
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The on unload.
@@ -326,6 +300,4 @@ public class Forum : UserControl, IHaveServiceLocator
 
         return src;
     }
-
-    #endregion
 }

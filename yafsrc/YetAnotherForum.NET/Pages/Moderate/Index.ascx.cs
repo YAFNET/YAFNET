@@ -36,8 +36,6 @@ public partial class Index : ModerateForumPage
     /// </summary>
     private List<ModerateForum> forumsList;
 
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Index" /> class. 
     ///   Default constructor.
@@ -46,10 +44,6 @@ public partial class Index : ModerateForumPage
         : base("MODERATE_DEFAULT", ForumPages.Moderate_Index)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Creates page links for this page.
@@ -158,6 +152,4 @@ public partial class Index : ModerateForumPage
             this.InfoPlaceHolder.Visible = !this.CategoryList.Items.Cast<RepeaterItem>().Any(item => item.Visible);
         }
     }
-
-    #endregion
 }

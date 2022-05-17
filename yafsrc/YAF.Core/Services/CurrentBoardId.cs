@@ -23,23 +23,13 @@
  */
 namespace YAF.Core.Services;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// The current board id.
 /// </summary>
 public class CurrentBoardId : IHaveBoardID
 {
-    #region Properties
-
     /// <summary>
     ///   Gets BoardId.
     /// </summary>
     public int BoardID => BoardContext.Current.Get<ControlSettings>().BoardID;
-
-    #endregion
 }

@@ -34,8 +34,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class GroupMedalRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Lists all Groups assigned to the medal
     /// </summary>
@@ -159,6 +157,4 @@ public static class GroupMedalRepositoryExtensions
                     SortOrder = sortOrder
                 });
     }
-
-    #endregion
 }

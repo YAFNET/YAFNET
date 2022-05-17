@@ -32,8 +32,6 @@ using YAF.Types.Constants;
 [ExportService(ServiceLifetimeScope.OwnedByContainer)]
 public class NewUserClearActiveLazyEvent : IHandleEvent<NewUserRegisteredEvent>
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="NewUserClearActiveLazyEvent"/> class.
     /// </summary>
@@ -45,10 +43,6 @@ public class NewUserClearActiveLazyEvent : IHandleEvent<NewUserRegisteredEvent>
         this.DataCache = dataCache;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the data cache.
     /// </summary>
@@ -58,10 +52,6 @@ public class NewUserClearActiveLazyEvent : IHandleEvent<NewUserRegisteredEvent>
     ///     Gets the order.
     /// </summary>
     public int Order => 10000;
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The handle.
@@ -74,6 +64,4 @@ public class NewUserClearActiveLazyEvent : IHandleEvent<NewUserRegisteredEvent>
         this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
         this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
     }
-
-    #endregion
 }

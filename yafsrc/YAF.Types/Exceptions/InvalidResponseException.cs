@@ -1,4 +1,4 @@
-/* Based on "Subkismet - The Cure For Comment Spam" v1.0: http://subkismet.codeplex.com/
+﻿/* Based on "Subkismet - The Cure For Comment Spam" v1.0: http://subkismet.codeplex.com/
  * 
  * License: New BSD License
  * -------------------------------------
@@ -19,12 +19,8 @@
 
 namespace YAF.Types.Exceptions;
 
-#region Using
-
 using System.Net;
 using System.Runtime.Serialization;
-
-#endregion
 
 /// <summary>
 /// Exception thrown when a response other than 200 is returned.
@@ -36,8 +32,6 @@ using System.Runtime.Serialization;
 [Serializable]
 public sealed class InvalidResponseException : Exception
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="InvalidResponseException"/> class.
     /// </summary>
@@ -67,15 +61,9 @@ public sealed class InvalidResponseException : Exception
         this.HttpStatus = (HttpStatusCode)info.GetValue("Status", typeof(HttpStatusCode));
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets the HTTP status returned by the service.
     /// </summary>
     /// <value>The HTTP status.</value>
-    public HttpStatusCode HttpStatus { get; } = 0;
-
-    #endregion
+    public HttpStatusCode HttpStatus { get; }
 }

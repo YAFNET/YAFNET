@@ -30,8 +30,6 @@ using YAF.Types.Interfaces.Tasks;
 /// </summary>
 public class CleanUpTask : IntermittentBackgroundTask, ICriticalBackgroundTask
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="CleanUpTask"/> class.
     /// </summary>
@@ -42,18 +40,10 @@ public class CleanUpTask : IntermittentBackgroundTask, ICriticalBackgroundTask
         this.StartDelayMs = 500;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets TaskManager.
     /// </summary>
     public ITaskModuleManager TaskManager { get; set; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The run once.
@@ -88,6 +78,4 @@ public class CleanUpTask : IntermittentBackgroundTask, ICriticalBackgroundTask
                     }
                 });
     }
-
-    #endregion
 }

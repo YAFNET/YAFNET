@@ -23,14 +23,10 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models.Identity;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The edit users info
@@ -42,8 +38,6 @@ public partial class EditUsersInfo : BaseUserControl
     /// </summary>
     [NotNull]
     public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -184,6 +178,4 @@ public partial class EditUsersInfo : BaseUserControl
             this.DisabledHolder.Visible = true;
         }
     }
-
-    #endregion
 }

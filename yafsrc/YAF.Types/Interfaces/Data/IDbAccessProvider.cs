@@ -28,12 +28,8 @@ namespace YAF.Types.Interfaces.Data;
 /// </summary>
 public interface IDbAccessProvider : IReadWriteProvider<IDbAccess>
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets ProviderName.
     /// </summary>
     string ProviderName { get; set; }
-
-    #endregion
 }

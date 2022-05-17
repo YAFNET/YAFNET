@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Services.Cache;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.Runtime.Caching;
@@ -32,15 +30,11 @@ using System.Web.Caching;
 
 using YAF.Types.Constants;
 
-#endregion
-
 /// <summary>
 /// The http runtime cache -- uses HttpRuntime cache to store cache information.
 /// </summary>
 public class HttpRuntimeCache : IDataCache
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _event raiser.
     /// </summary>
@@ -55,10 +49,6 @@ public class HttpRuntimeCache : IDataCache
     ///   The _treat cache key.
     /// </summary>
     private readonly ITreatCacheKey _treatCacheKey;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="HttpRuntimeCache"></see>
@@ -86,10 +76,6 @@ public class HttpRuntimeCache : IDataCache
         this._treatCacheKey = treatCacheKey;
     }
 
-    #endregion
-
-    #region Indexers
-
     /// <summary>
     ///   The this.
     /// </summary>
@@ -102,12 +88,6 @@ public class HttpRuntimeCache : IDataCache
 
         set => this.Set(key, value);
     }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IDataCache
 
     /// <summary>
     /// The get all.
@@ -246,10 +226,6 @@ public class HttpRuntimeCache : IDataCache
         }
     }
 
-    #endregion
-
-    #region IReadValue<T>
-
     /// <summary>
     /// The get.
     /// </summary>
@@ -266,10 +242,6 @@ public class HttpRuntimeCache : IDataCache
         return MemoryCache.Default[this.CreateKey(originalKey)];
     }
 
-    #endregion
-
-    #region IRemoveValue
-
     /// <summary>
     /// The remove.
     /// </summary>
@@ -280,10 +252,6 @@ public class HttpRuntimeCache : IDataCache
     {
         MemoryCache.Default.Remove(this.CreateKey(key));
     }
-
-    #endregion
-
-    #region IWriteValue<T>
 
     /// <summary>
     /// The set.
@@ -300,12 +268,6 @@ public class HttpRuntimeCache : IDataCache
 
         MemoryCache.Default[this.CreateKey(key)] = value;
     }
-
-    #endregion
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The create key.
@@ -373,6 +335,4 @@ public class HttpRuntimeCache : IDataCache
 
         return cachedItem;
     }
-
-    #endregion
 }

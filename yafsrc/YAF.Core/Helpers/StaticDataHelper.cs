@@ -37,8 +37,6 @@ using YAF.Types.Objects;
 /// </summary>
 public static class StaticDataHelper
 {
-    #region Public Methods
-
     public static IReadOnlyCollection<ListItem> TopicListModes()
     {
         return TopicListModes(BoardContext.Current.Get<ILocalization>());
@@ -453,6 +451,4 @@ public static class StaticDataHelper
 
         return list;
     }
-
-    #endregion
 }

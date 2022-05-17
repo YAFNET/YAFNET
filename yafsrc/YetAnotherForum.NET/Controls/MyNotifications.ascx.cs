@@ -23,22 +23,16 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Web.Controls;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The profile Timeline
 /// </summary>
 public partial class MyNotifications : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Gets or sets the item count.
     /// </summary>
@@ -430,6 +424,4 @@ public partial class MyNotifications : BaseUserControl
 
         this.DataBind();
     }
-
-    #endregion
 }

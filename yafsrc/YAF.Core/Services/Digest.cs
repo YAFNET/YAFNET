@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.Net;
 using System.Net.Mail;
@@ -32,15 +30,11 @@ using System.Web.UI;
 
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The YAF digest.
 /// </summary>
 public class Digest : IDigest, IHaveServiceLocator
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Digest"/> class.
     /// </summary>
@@ -52,20 +46,10 @@ public class Digest : IDigest, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets the ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IDigest
 
     /// <summary>
     /// Gets the digest HTML.
@@ -158,8 +142,4 @@ public class Digest : IDigest, IHaveServiceLocator
             "You must have HTML Email Viewer to View.",
             digestHtml);
     }
-
-    #endregion
-
-    #endregion
 }

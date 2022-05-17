@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class GroupMedalEdit : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Gets or sets the banned identifier.
     /// </summary>
@@ -151,6 +149,4 @@ public partial class GroupMedalEdit : BaseUserControl
         // re-bind data
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, new { medalid = this.MedalId.Value });
     }
-
-    #endregion
 }

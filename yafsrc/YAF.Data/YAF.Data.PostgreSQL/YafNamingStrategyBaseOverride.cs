@@ -29,8 +29,6 @@ namespace YAF.Data.PostgreSQL;
 /// </summary>
 public class YafNamingStrategyBaseOverride : INamingStrategy
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The get column name.
     /// </summary>
@@ -107,6 +105,4 @@ public class YafNamingStrategyBaseOverride : INamingStrategy
     {
         return this.GetSchemaName(modelDef.Schema);
     }
-
-    #endregion
 }

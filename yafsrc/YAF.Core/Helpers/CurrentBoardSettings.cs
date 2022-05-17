@@ -23,21 +23,15 @@
  */
 namespace YAF.Core.Helpers;
 
-#region Using
-
 using System.Runtime.Caching;
 
 using YAF.Types.Constants;
-
-#endregion
 
 /// <summary>
 ///     The current board settings.
 /// </summary>
 public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
 {
-    #region Fields
-
     /// <summary>
     ///     The have board id.
     /// </summary>
@@ -52,10 +46,6 @@ public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
     ///     The treat cache key.
     /// </summary>
     private readonly ITreatCacheKey treatCacheKey;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CurrentBoardSettings"/> class.
@@ -82,10 +72,6 @@ public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
         this.haveBoardId = haveBoardId;
         this.treatCacheKey = treatCacheKey;
     }
-
-    #endregion
-
-    #region Public Properties
 
     /// <summary>
     ///     Gets or sets Object.
@@ -116,6 +102,4 @@ public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
     {
         MemoryCache.Default.Remove(this.treatCacheKey.Treat(Constants.Cache.BoardSettings));
     }
-
-    #endregion
 }

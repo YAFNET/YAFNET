@@ -23,22 +23,16 @@
  */
 namespace YAF.Core.Model;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 ///     The NntpForum repository extensions.
 /// </summary>
 public static class NntpForumRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The update.
     /// </summary>
@@ -166,6 +160,4 @@ public static class NntpForumRepositoryExtensions
             repository.FireNew(entity);
         }
     }
-
-    #endregion
 }

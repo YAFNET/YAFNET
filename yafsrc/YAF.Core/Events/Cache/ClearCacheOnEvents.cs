@@ -23,16 +23,12 @@
  */
 namespace YAF.Core.Events.Cache;
 
-#region Using
-
 using System;
 
 using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Structures;
-
-#endregion
 
 /// <summary>
 /// The clear cache on events.
@@ -58,8 +54,6 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
                                   IHandleEvent<RepositoryEvent<UserGroup>>,
                                   IHandleEvent<UpdateUserPrivateMessageEvent>
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ClearCacheOnEvents"/> class.
     /// </summary>
@@ -78,10 +72,6 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         this.DataCache = dataCache;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets DataCache.
     /// </summary>
@@ -97,12 +87,6 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IHandleEvent<SuccessfulUserLoginEvent>
-
     /// <summary>
     /// The handle.
     /// </summary>
@@ -116,10 +100,6 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
         this.DataCache.Remove(Constants.Cache.BoardUserStats);
     }
-
-    #endregion
-
-    #region IHandleEvent<UpdateUserEvent>
 
     /// <summary>
     /// The handle.
@@ -148,10 +128,6 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
     }
 
-    #endregion
-
-    #region IHandleEvent<UserLogoutEvent>
-
     /// <summary>
     /// The handle.
     /// </summary>
@@ -164,8 +140,6 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
         this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
     }
-
-    #endregion
 
     /// <summary>
     /// The handle.
@@ -388,6 +362,4 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         this.GetRepository<Active>().DeleteAll();
         this.GetRepository<ActiveAccess>().DeleteAll();
     }
-
-    #endregion
 }

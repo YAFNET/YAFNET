@@ -38,16 +38,10 @@ using YAF.Types.Attributes;
 /// </summary>
 public class DynamicServicesModule : BaseModule
 {
-    #region Public Properties
-
     /// <summary>
     /// The sort order.
     /// </summary>
     public override int SortOrder => 500;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The load.
@@ -144,6 +138,4 @@ public class DynamicServicesModule : BaseModule
                     }
                 });
     }
-
-    #endregion
 }

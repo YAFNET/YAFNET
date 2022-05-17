@@ -23,13 +23,9 @@
  */
 namespace YAF.Modules;
 
-#region Using
-
 using YAF.Types.Attributes;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
-
-#endregion
 
 /// <summary>
 /// Module that handles individual page security features -- needs to be expanded.
@@ -37,8 +33,6 @@ using YAF.Types.Interfaces.Events;
 [Module("Page Security Module", "Tiny Gecko", 1)]
 public class PageSecurityForumModule : SimpleBaseForumModule
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PageSecurityForumModule"/> class.
     /// </summary>
@@ -49,10 +43,6 @@ public class PageSecurityForumModule : SimpleBaseForumModule
     {
         pagePreLoad.HandleEvent += this.PagePreLoad_HandleEvent;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The page pre load_ handle event.
@@ -100,6 +90,4 @@ public class PageSecurityForumModule : SimpleBaseForumModule
             this.Get<LinkBuilder>().AccessDenied();
         }
     }
-
-    #endregion
 }

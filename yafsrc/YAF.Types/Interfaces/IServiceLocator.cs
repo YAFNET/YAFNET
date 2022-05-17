@@ -23,11 +23,7 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
 using System.Collections.Generic;
-
-#endregion
 
 /// <summary>
 /// The ScopeServiceLocator interface.
@@ -41,16 +37,10 @@ public interface IScopeServiceLocator : IServiceLocator, IDisposable
 /// </summary>
 public interface IServiceLocator : IServiceProvider
 {
-    #region Public Properties
-
     /// <summary>
     /// Gets the tag.
     /// </summary>
     object Tag { get; }
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The create scope.
@@ -146,6 +136,4 @@ public interface IServiceLocator : IServiceProvider
     /// The try get.
     /// </returns>
     bool TryGet([NotNull] Type serviceType, [NotNull] string named, [NotNull] out object instance);
-
-    #endregion
 }

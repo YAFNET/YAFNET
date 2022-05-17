@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class Spam_Words : IEntity, IHaveBoardID, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -54,6 +52,4 @@ public class Spam_Words : IEntity, IHaveBoardID, IHaveID
     /// </value>
     [StringLength(255)]
     public string SpamWord { get; set; }
-
-    #endregion
 }

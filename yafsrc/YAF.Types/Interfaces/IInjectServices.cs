@@ -23,19 +23,11 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// The interface that marks a container with support for injection into an object.
 /// </summary>
 public interface IInjectServices
 {
-    #region Public Methods
-
     /// <summary>
     /// Inject an object with services.
     /// </summary>
@@ -46,6 +38,4 @@ public interface IInjectServices
     /// the object to inject
     /// </param>
     void InjectMarked<TAttribute>([NotNull] object instance) where TAttribute : Attribute;
-
-    #endregion
 }

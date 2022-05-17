@@ -23,19 +23,13 @@
  */
 namespace YAF.Pages;
 
-#region Using
-
 using YAF.Controls;
-
-#endregion
 
 /// <summary>
 /// The user Friends Control Panel
 /// </summary>
 public partial class Friends : ForumPageRegistered
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Friends"/> class.
     /// </summary>
@@ -43,10 +37,6 @@ public partial class Friends : ForumPageRegistered
         : base("FRIENDS", ForumPages.Friends)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The On PreRender event.
@@ -115,6 +105,4 @@ public partial class Friends : ForumPageRegistered
         customBuddyList.Mode = mode;
         customBuddyList.Container = this;
     }
-
-    #endregion
 }

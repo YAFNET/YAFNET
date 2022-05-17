@@ -29,8 +29,6 @@ namespace YAF.Types.Exceptions;
 [Serializable]
 public class NoValidGuestUserForBoardException : Exception
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="NoValidGuestUserForBoardException"/> class.
     /// </summary>
@@ -41,6 +39,4 @@ public class NoValidGuestUserForBoardException : Exception
         : base(message)
     {
     }
-
-    #endregion
 }

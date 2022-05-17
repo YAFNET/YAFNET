@@ -30,8 +30,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class TagRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Adds New Tag
     /// </summary>
@@ -65,6 +63,4 @@ public static class TagRepositoryExtensions
 
         return newId;
     }
-
-    #endregion
 }

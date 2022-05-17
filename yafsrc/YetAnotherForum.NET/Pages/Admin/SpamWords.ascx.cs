@@ -24,20 +24,14 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.Xml.Linq;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Admin spam words page.
 /// </summary>
 public partial class SpamWords : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="SpamWords"/> class. 
     /// </summary>
@@ -45,10 +39,6 @@ public partial class SpamWords : AdminPage
         : base("ADMIN_SPAMWORDS", ForumPages.Admin_SpamWords)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The pager top_ page change.
@@ -263,6 +253,4 @@ public partial class SpamWords : AdminPage
                 break;
         }
     }
-
-    #endregion
 }

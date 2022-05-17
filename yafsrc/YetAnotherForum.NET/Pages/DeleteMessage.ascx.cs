@@ -23,17 +23,13 @@
  */
 namespace YAF.Pages;
 
-#region Using
 using YAF.Types.Models;
-#endregion
 
 /// <summary>
 /// The Delete Message Page.
 /// </summary>
 public partial class DeleteMessage : ForumPage
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The is moderator changed.
     /// </summary>
@@ -44,10 +40,6 @@ public partial class DeleteMessage : ForumPage
     /// </summary>
     private Tuple<Topic, Message, User, Forum> message;
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "DeleteMessage" /> class.
     /// </summary>
@@ -55,10 +47,6 @@ public partial class DeleteMessage : ForumPage
         : base("DELETEMESSAGE", ForumPages.DeleteMessage)
     {
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets a value indicating whether CanDeletePost.
@@ -101,10 +89,6 @@ public partial class DeleteMessage : ForumPage
     /// </summary>
     private bool IsUnDelete =>
         this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "undelete";
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Cancel Deleting and return to topic or forum
@@ -366,6 +350,4 @@ public partial class DeleteMessage : ForumPage
         deleteAllPosts.Checked =
             deleteAllPosts.Enabled = this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin;
     }
-
-    #endregion
 }

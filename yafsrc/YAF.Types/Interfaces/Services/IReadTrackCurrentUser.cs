@@ -24,12 +24,6 @@
 
 namespace YAF.Types.Interfaces.Services;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// Read Tracking Interface for the Current User
 /// </summary>
@@ -42,8 +36,6 @@ public interface IReadTrackCurrentUser
     /// The last read.
     /// </value>
     DateTime LastRead { get; }
-
-    #region Public Methods
 
     /// <summary>
     /// Returns the last time that the forum was read or marked as Read.
@@ -80,6 +72,4 @@ public interface IReadTrackCurrentUser
     /// The topic id to mark read.
     /// </param>
     void SetTopicRead(int topicId);
-
-    #endregion
 }

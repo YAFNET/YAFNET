@@ -28,16 +28,10 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class NotifyPopMenu : BaseControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets Control.
     /// </summary>
     public string Control { get; set; } = string.Empty;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The render.
@@ -78,6 +72,4 @@ public class NotifyPopMenu : BaseControl
 
         base.Render(writer);
     }
-
-    #endregion
 }

@@ -23,13 +23,9 @@
  */
 namespace YAF.Core.BBCode;
 
-#region Using
-
 using System.Collections.Generic;
 
 using YAF.Types.Constants;
-
-#endregion
 
 /// <summary>
 /// Gets an instance of replace rules and uses
@@ -37,8 +33,6 @@ using YAF.Types.Constants;
 /// </summary>
 public class ProcessReplaceRulesProvider : IHaveServiceLocator, IReadOnlyProvider<IProcessReplaceRules>
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The inject services.
     /// </summary>
@@ -53,10 +47,6 @@ public class ProcessReplaceRulesProvider : IHaveServiceLocator, IReadOnlyProvide
     ///   The unique flags.
     /// </summary>
     private readonly IEnumerable<bool> uniqueFlags;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ProcessReplaceRulesProvider"/> class.
@@ -85,10 +75,6 @@ public class ProcessReplaceRulesProvider : IHaveServiceLocator, IReadOnlyProvide
         this.uniqueFlags = uniqueFlags;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets the Instance of this provider.
     /// </summary>
@@ -109,6 +95,4 @@ public class ProcessReplaceRulesProvider : IHaveServiceLocator, IReadOnlyProvide
     ///   Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
 }

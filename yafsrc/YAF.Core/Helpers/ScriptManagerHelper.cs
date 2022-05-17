@@ -30,8 +30,6 @@ using System.Web.UI;
 /// </summary>
 public static class ScriptManagerHelper
 {
-    #region Public Methods
-
     /// <summary>
     /// Registers the jQuery script library.
     /// </summary>
@@ -64,6 +62,4 @@ public static class ScriptManagerHelper
                     LoadSuccessExpression = "window.jQuery"
                 });
     }
-
-    #endregion
 }

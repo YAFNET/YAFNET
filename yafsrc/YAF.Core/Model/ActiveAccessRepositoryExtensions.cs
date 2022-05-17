@@ -32,8 +32,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class ActiveAccessRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Sets the Page Access for the specified user
     /// </summary>
@@ -109,6 +107,4 @@ public static class ActiveAccessRepositoryExtensions
                     return db.Connection.Delete(expression);
                 });
     }
-
-    #endregion
 }

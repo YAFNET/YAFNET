@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class UserAlbumImage : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -81,6 +79,4 @@ public class UserAlbumImage : IEntity, IHaveID
     /// </summary>
     [Required]
     public int Downloads { get; set; }
-
-    #endregion
 }

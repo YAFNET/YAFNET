@@ -28,8 +28,6 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public static class IHaveLocalizationExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// Gets a text localization using the page and tag name.
     /// </summary>
@@ -102,6 +100,4 @@ public static class IHaveLocalizationExtensions
 
         return haveLocalization.Localization.GetTextFormatted(tag, args);
     }
-
-    #endregion
 }

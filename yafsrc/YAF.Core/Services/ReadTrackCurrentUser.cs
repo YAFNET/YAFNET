@@ -24,30 +24,20 @@
 
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 
 using YAF.Core.Model;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 ///     YAF Read Tracking Methods
 /// </summary>
 public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
 {
-    #region Fields
-
     /// <summary>
     ///     The session state.
     /// </summary>
     private readonly HttpSessionStateBase sessionState;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ReadTrackCurrentUser" /> class.
@@ -59,10 +49,6 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
         this.sessionState = sessionState;
     }
-
-    #endregion
-
-    #region Public Properties
 
     /// <summary>
     ///     Gets the last visit.
@@ -109,10 +95,6 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
         }
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets ServiceLocator.
     /// </summary>
@@ -138,10 +120,6 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
     ///   <c>true</c> if [use database read tracking]; otherwise, <c>false</c>.
     /// </value>
     protected bool UseDatabaseReadTracking => this.Get<BoardSettings>().UseReadTrackingByDatabase && !this.IsGuest;
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     ///     The get forum read.
@@ -225,10 +203,6 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
         }
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     ///     Gets the session forum read.
     /// </summary>
@@ -266,6 +240,4 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
 
         return null;
     }
-
-    #endregion
 }

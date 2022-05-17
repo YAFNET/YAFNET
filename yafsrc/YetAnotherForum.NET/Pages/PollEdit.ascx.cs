@@ -31,16 +31,10 @@ using YAF.Types.Models;
 /// </summary>
 public partial class PollEdit : ForumPage
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The topic unapproved.
     /// </summary>
     private bool topicUnapproved;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PollEdit"/> class.
@@ -51,18 +45,10 @@ public partial class PollEdit : ForumPage
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets PollID.
     /// </summary>
     protected int? PollId { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The cancel_ click.
@@ -442,6 +428,4 @@ public partial class PollEdit : ForumPage
 
         return this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber > 0;
     }
-
-    #endregion
 }

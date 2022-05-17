@@ -29,8 +29,6 @@ namespace YAF.Data.Sqlite;
 /// </summary>
 public class YafSqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProvider
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="YafSqliteOrmLiteDialectProvider"/> class.
     /// </summary>
@@ -43,6 +41,4 @@ public class YafSqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProvider
     /// Gets or sets the instance.
     /// </summary>
     public static new YafSqliteOrmLiteDialectProvider Instance { get; set; } = new ();
-
-    #endregion
 }

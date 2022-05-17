@@ -24,20 +24,14 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.Models;
 using YAF.Web.Controls;
-
-#endregion
 
 /// <summary>
 /// The AlbumImageList control.
 /// </summary>
 public partial class AlbumImageList : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the user album.
     /// </summary>
@@ -57,10 +51,6 @@ public partial class AlbumImageList : BaseUserControl
     ///   Gets or sets the _cover image id.
     /// </summary>
     private string _coverImageID { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The ItemCommand method for the cover buttons. Sets/Removes cover image.
@@ -184,6 +174,4 @@ public partial class AlbumImageList : BaseUserControl
         this.AlbumImages.DataSource = albumImageList;
         this.DataBind();
     }
-
-    #endregion
 }

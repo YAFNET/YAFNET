@@ -28,8 +28,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class OnlineStatusIcon : BaseControl
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the user identifier.
     /// </summary>
@@ -46,10 +44,6 @@ public class OnlineStatusIcon : BaseControl
     /// </value>
     [NotNull]
     public DateTime? Suspended { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The render.
@@ -108,6 +102,4 @@ public class OnlineStatusIcon : BaseControl
         writer.WriteEndTag(HtmlTextWriterTag.Span.ToString());
         writer.EndRender();
     }
-
-    #endregion
 }

@@ -23,13 +23,9 @@
  */
 namespace YAF.Core.Events;
 
-#region Using
-
 using System;
 
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// The last visit handler.
@@ -47,8 +43,6 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandl
     /// </summary>
     private readonly HttpResponseBase response;
 
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="LastVisitEventHandler"/> class.
     /// </summary>
@@ -62,10 +56,6 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandl
         this.response = responseBase;
         this.YafSession = yafSession;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets Order.
@@ -84,12 +74,6 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandl
     public void Handle(ForumPageUnloadEvent @event)
     {
     }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IHandleEvent<ForumPagePreLoadEvent>
 
     /// <summary>
     /// The handle.
@@ -137,8 +121,4 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandl
             this.response.Cookies.Add(httpCookie);
         }
     }
-
-    #endregion
-
-    #endregion
 }

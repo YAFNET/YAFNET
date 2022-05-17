@@ -23,19 +23,13 @@
  */
 namespace YAF.Web.Editors;
 
-#region Using
-
 using YAF.Core.BaseModules;
-
-#endregion
 
 /// <summary>
 /// The standard YAF text editor.
 /// </summary>
 public class TextEditor : ForumEditor
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets the Html Text Area
     /// </summary>
@@ -85,10 +79,6 @@ public class TextEditor : ForumEditor
     /// </value>
     public override bool AllowsUploads => false;
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Handles the PreRender event of the Editor control.
     /// </summary>
@@ -113,6 +103,4 @@ public class TextEditor : ForumEditor
 
         base.OnInit(e);
     }
-
-    #endregion
 }

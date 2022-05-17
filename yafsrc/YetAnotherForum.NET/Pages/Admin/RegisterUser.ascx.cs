@@ -24,20 +24,14 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
-
-#endregion
 
 /// <summary>
 /// The Admin Page for manually user registration
 /// </summary>
 public partial class RegisterUser : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="RegisterUser"/> class. 
     /// </summary>
@@ -45,10 +39,6 @@ public partial class RegisterUser : AdminPage
         : base("ADMIN_REGUSER", ForumPages.Admin_RegisterUser)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Click event of the ForumRegister control.
@@ -171,6 +161,4 @@ public partial class RegisterUser : AdminPage
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
     }
-
-    #endregion
 }

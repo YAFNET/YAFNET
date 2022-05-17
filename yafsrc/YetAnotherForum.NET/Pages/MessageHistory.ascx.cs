@@ -23,28 +23,18 @@
  */
 namespace YAF.Pages;
 
-#region Using
-
 using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Post Message History Page.
 /// </summary>
 public partial class MessageHistory : ForumPage
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   To save originalRow value.
     /// </summary>
     private Tuple<Topic, Message, User, Forum> originalMessage;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "MessageHistory" /> class.
@@ -54,8 +44,6 @@ public partial class MessageHistory : ForumPage
     {
     }
 
-    #endregion
-
     /// <summary>
     /// Gets or sets the revisions count.
     /// </summary>
@@ -63,8 +51,6 @@ public partial class MessageHistory : ForumPage
     /// The revisions count.
     /// </value>
     protected int RevisionsCount { get; set; }
-
-    #region Methods
 
     /// <summary>
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
@@ -268,6 +254,4 @@ public partial class MessageHistory : ForumPage
 
         this.DataBind();
     }
-
-    #endregion
 }

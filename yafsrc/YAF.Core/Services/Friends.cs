@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 
@@ -33,15 +31,11 @@ using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
-#endregion
-
 /// <summary>
 /// YAF Friends service
 /// </summary>
 public class Friends : IFriends, IHaveServiceLocator
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Friends"/> class.
     /// </summary>
@@ -53,20 +47,10 @@ public class Friends : IFriends, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IBuddy
 
     /// <summary>
     /// Adds a buddy request.
@@ -250,8 +234,4 @@ public class Friends : IFriends, IHaveServiceLocator
 
         return this.Get<IUserDisplayName>().GetNameById(toUserId);
     }
-
-    #endregion
-
-    #endregion
 }

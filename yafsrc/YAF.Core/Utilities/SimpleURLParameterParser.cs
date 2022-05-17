@@ -23,28 +23,18 @@
  */
 namespace YAF.Core.Utilities;
 
-#region Using
-
 using System.Collections.Specialized;
 using System.Text;
-
-#endregion
 
 /// <summary>
 /// Helps parse URLs
 /// </summary>
 public class SimpleURLParameterParser
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _url parameters.
     /// </summary>
     private readonly string urlParameters;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SimpleURLParameterParser"/> class.
@@ -57,10 +47,6 @@ public class SimpleURLParameterParser
         this.urlParameters = urlParameters;
         this.ParseURLParameters();
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets Anchor.
@@ -82,10 +68,6 @@ public class SimpleURLParameterParser
     /// </summary>
     public NameValueCollection Parameters { get; } = new();
 
-    #endregion
-
-    #region Indexers
-
     /// <summary>
     /// The this.
     /// </summary>
@@ -103,10 +85,6 @@ public class SimpleURLParameterParser
     /// </value>
     /// <param name="index">The index.</param>
     public string this[int index] => this.Parameters[index];
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Creates the query string.
@@ -137,10 +115,6 @@ public class SimpleURLParameterParser
 
         return queryBuilder.ToString();
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Parses the URL parameters.
@@ -180,6 +154,4 @@ public class SimpleURLParameterParser
                 }
             });
     }
-
-    #endregion
 }

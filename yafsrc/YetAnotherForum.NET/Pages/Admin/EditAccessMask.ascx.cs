@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class EditAccessMask : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditAccessMask"/> class. 
     /// </summary>
@@ -40,10 +38,6 @@ public partial class EditAccessMask : AdminPage
         : base("ADMIN_EDITACCESSMASKS", ForumPages.Admin_EditAccessMask)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Cancel Edit and Return Back To Access Mask List Page.
@@ -187,6 +181,4 @@ public partial class EditAccessMask : AdminPage
 
         this.DataBind();
     }
-
-    #endregion
 }

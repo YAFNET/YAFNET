@@ -33,8 +33,6 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class MessageHistoryRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Gets the List of all message changes.
     /// </summary>
@@ -147,6 +145,4 @@ public static class MessageHistoryRepositoryExtensions
                     return db.Connection.Delete(expression);
                 });
     }
-
-    #endregion
 }

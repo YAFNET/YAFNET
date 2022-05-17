@@ -34,14 +34,10 @@ using YAF.Types.Objects;
 [RoutePrefix("api")]
 public class UserController : ApiController, IHaveServiceLocator
 {
-    #region Properties
-
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-    #endregion
 
     /// <summary>
     /// Gets all found Users.

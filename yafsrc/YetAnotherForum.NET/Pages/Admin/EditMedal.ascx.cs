@@ -24,21 +24,15 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.IO;
 using YAF.Types.Objects;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Administration Page to Add/Edit Medals
 /// </summary>
 public partial class EditMedal : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "EditMedal" /> class.
     ///   Default constructor.
@@ -47,8 +41,6 @@ public partial class EditMedal : AdminPage
         : base("ADMIN_EDITMEDAL", ForumPages.Admin_EditMedal)
     {
     }
-
-    #endregion
 
     /// <summary>
     /// Gets the current medal identifier.
@@ -60,8 +52,6 @@ public partial class EditMedal : AdminPage
         this.Get<HttpRequestBase>().QueryString.Exists("medalid")
             ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int?>("medalid")
             : null;
-
-    #region Methods
 
     /// <summary>
     /// Handles click on add group button.
@@ -378,6 +368,4 @@ public partial class EditMedal : AdminPage
         // select images
         SelectImage(this.MedalImage, medal.MedalURL);
     }
-
-    #endregion
 }

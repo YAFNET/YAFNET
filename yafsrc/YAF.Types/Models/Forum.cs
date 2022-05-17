@@ -31,8 +31,6 @@ namespace YAF.Types.Models;
 [UniqueConstraint(nameof(CategoryID), nameof(Name))]
 public class Forum : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -180,6 +178,4 @@ public class Forum : IEntity, IHaveID
     /// </summary>
     [Default(typeof(bool), "0")]
     public bool IsModeratedNewTopicOnly { get; set; }
-
-    #endregion
 }

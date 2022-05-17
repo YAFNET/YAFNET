@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [UniqueConstraint(nameof(ForumID), nameof(UserID))]
 public class WatchForum : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -70,6 +68,4 @@ public class WatchForum : IEntity, IHaveID
     /// </summary>
     [Ignore]
     public bool Selected { get; set; }
-
-    #endregion
 }

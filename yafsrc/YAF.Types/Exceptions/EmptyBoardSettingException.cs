@@ -30,8 +30,6 @@ namespace YAF.Types.Exceptions;
 [Serializable]
 public class EmptyBoardSettingException : Exception
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EmptyBoardSettingException"/> class.
     /// </summary>
@@ -42,6 +40,4 @@ public class EmptyBoardSettingException : Exception
         : base(message)
     {
     }
-
-    #endregion
 }

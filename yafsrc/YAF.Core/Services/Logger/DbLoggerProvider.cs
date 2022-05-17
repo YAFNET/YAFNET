@@ -23,19 +23,13 @@
  */
 namespace YAF.Core.Services.Logger;
 
-#region Using
-
 using System;
-
-#endregion
 
 /// <summary>
 /// The yaf db logger provider.
 /// </summary>
 public class DbLoggerProvider : ILoggerProvider
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="DbLoggerProvider"/> class.
     /// </summary>
@@ -47,20 +41,10 @@ public class DbLoggerProvider : ILoggerProvider
         this.InjectServices = injectServices;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets InjectServices.
     /// </summary>
     public IInjectServices InjectServices { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region ILoggerProvider
 
     /// <summary>
     /// The create.
@@ -78,8 +62,4 @@ public class DbLoggerProvider : ILoggerProvider
 
         return logger;
     }
-
-    #endregion
-
-    #endregion
 }

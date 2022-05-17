@@ -36,8 +36,6 @@ using YAF.Types.Extensions.Data;
 /// </summary>
 public static class IRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The delete by id.
     /// </summary>
@@ -544,6 +542,4 @@ public static class IRepositoryExtensions
 
         return repository.DbAccess.Execute(db => db.Connection.Select(expression));
     }
-
-    #endregion
 }

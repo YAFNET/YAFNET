@@ -24,15 +24,11 @@
 
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
 
 using YAF.Types.Constants;
-
-#endregion
 
 /// <summary>
 ///     Functions to send email via SMTP
@@ -43,8 +39,6 @@ public class MailService : IMailService, IHaveServiceLocator
     ///     Gets the service locator.
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// Sends all MailMessages via the SMTP Client. Doesn't handle any exceptions.
@@ -81,6 +75,4 @@ public class MailService : IMailService, IHaveServiceLocator
 
         smtpClient.Dispose();
     }
-
-    #endregion
 }

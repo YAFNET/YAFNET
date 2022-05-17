@@ -29,16 +29,10 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class ForumUsers : BaseControl
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _active users.
     /// </summary>
     private readonly ActiveUsers activeUsers = new();
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "ForumUsers" /> class.
@@ -48,10 +42,6 @@ public class ForumUsers : BaseControl
         this.activeUsers.ID = this.GetUniqueID("ActiveUsers");
         this.Load += this.ForumUsersLoad;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The render.
@@ -104,6 +94,4 @@ public class ForumUsers : BaseControl
         // add it...
         this.Controls.Add(this.activeUsers);
     }
-
-    #endregion
 }

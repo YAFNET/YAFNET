@@ -23,15 +23,11 @@
  */
 namespace YAF.Core.BaseModules;
 
-#region Using
-
 using System;
 using System.Web.UI;
 
 using YAF.Core.Services.Startup;
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// The unload session module.
@@ -39,16 +35,10 @@ using YAF.Types.Attributes;
 [Module("Unload Session Module", "Tiny Gecko", 1)]
 public class UnloadSessionForumModule : BaseForumModule
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets a value indicating whether UnloadSession.
     /// </summary>
     public bool UnloadSession { get; set; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The init.
@@ -57,10 +47,6 @@ public class UnloadSessionForumModule : BaseForumModule
     {
         ((Control)this.ForumControlObj).Unload += this.UnloadSessionModule_Unload;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The unload session module_ unload.
@@ -86,6 +72,4 @@ public class UnloadSessionForumModule : BaseForumModule
             this.Get<HttpSessionStateBase>().Abandon();
         }
     }
-
-    #endregion
 }

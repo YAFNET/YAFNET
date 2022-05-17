@@ -24,8 +24,6 @@
 
 namespace YAF.Dialogs;
 
-#region Using
-
 using System.Data;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -33,15 +31,11 @@ using System.Text.RegularExpressions;
 using YAF.Types.Models.Identity;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The Admin Users Import Dialog.
 /// </summary>
 public partial class UsersImport : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Try to Import from selected File
     /// </summary>
@@ -367,6 +361,4 @@ public partial class UsersImport : BaseUserControl
 
         return importCount;
     }
-
-    #endregion
 }

@@ -23,20 +23,14 @@
  */
 namespace YAF.Types.Interfaces;
 
-#region Using
-
 using System.Collections.Generic;
 using System.Linq;
-
-#endregion
 
 /// <summary>
 /// The object store extensions.
 /// </summary>
 public static class IObjectStoreExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// The get.
     /// </summary>
@@ -172,6 +166,4 @@ public static class IObjectStoreExtensions
 
         objectStore.GetAll<object>().Where(k => whereFunc(k.Key)).ToList().ForEach(i => objectStore.Remove(i.Key));
     }
-
-    #endregion
 }

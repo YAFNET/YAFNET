@@ -22,22 +22,16 @@
 
 namespace YAF.Core.Services;
 
-#region Using
-
 using System.IO;
 using System.Web.Hosting;
 
 using ServiceStack.Text;
-
-#endregion
 
 /// <summary>
 /// The YAF theme.
 /// </summary>
 public class Theme : ITheme
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Theme"/> class.
     /// </summary>
@@ -49,18 +43,10 @@ public class Theme : ITheme
         this.ThemeFile = themeFile;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///   Gets or sets the current Theme File
     /// </summary>
     public string ThemeFile { get; set; }
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// Determines whether [is valid theme] [the specified theme].
@@ -92,8 +78,6 @@ public class Theme : ITheme
 
         return BoardInfo.GetURLToContentThemes(this.ThemeFile.CombineWith(filename));
     }
-
-    #endregion
 
     /// <summary>
     /// Gets the mapped theme file.

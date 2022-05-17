@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.Text;
 
@@ -39,8 +37,6 @@ using YAF.Types.Constants;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Objects;
-
-#endregion
 
 /// <summary>
 /// The YAF Resources
@@ -58,14 +54,10 @@ public class Resources : IResources, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #region Properties
-
     /// <summary>
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
 
     /// <summary>
     /// Gets the forum user info as JSON string for the hover cards

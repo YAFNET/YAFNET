@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [UniqueConstraint(nameof(BoardID), nameof(Mask))]
 public class BannedEmail : IEntity, IHaveID, IHaveBoardID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -70,6 +68,4 @@ public class BannedEmail : IEntity, IHaveID, IHaveBoardID
     /// </value>
     [StringLength(128)]
     public string Reason { get; set; }
-
-    #endregion
 }

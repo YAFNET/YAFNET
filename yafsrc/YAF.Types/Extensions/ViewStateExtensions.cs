@@ -23,19 +23,13 @@
  */
 namespace YAF.Types.Extensions;
 
-#region Using
-
 using System.Web.UI;
-
-#endregion
 
 /// <summary>
 /// The view state extensions.
 /// </summary>
 public static class ViewStateExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// Returns the converted type (T) if ViewState[key] != <span class="keyword"><span class="languageSpecificText"><span class="cs">null</span><span class="vb">Nothing</span><span class="cpp">nullptr</span></span></span><span class="nu">a null reference (<span class="keyword">Nothing</span> in Visual Basic)</span> or
     /// <paramref name="defaultValue" /> if it's <span class="keyword"><span class="languageSpecificText"><span class="cs">null</span><span class="vb">Nothing</span><span class="cpp">nullptr</span></span></span><span class="nu">a null reference (<span class="keyword">Nothing</span> in Visual Basic)</span>.
@@ -49,6 +43,4 @@ public static class ViewStateExtensions
     {
         return viewState[key] != null ? viewState[key].ToType<T>() : default;
     }
-
-    #endregion
 }

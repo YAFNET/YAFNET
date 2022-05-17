@@ -29,8 +29,6 @@ namespace YAF.Data.SqlServer;
 /// </summary>
 public class YafSqlServer2012OrmLiteDialectProvider : SqlServer2012OrmLiteDialectProvider
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="YafSqlServer2012OrmLiteDialectProvider"/> class.
     /// </summary>
@@ -43,6 +41,4 @@ public class YafSqlServer2012OrmLiteDialectProvider : SqlServer2012OrmLiteDialec
     /// Gets or sets the instance.
     /// </summary>
     public static new YafSqlServer2012OrmLiteDialectProvider Instance { get; set; } = new ();
-
-    #endregion
 }

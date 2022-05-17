@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Tasks;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
@@ -33,15 +31,11 @@ using System.Text.RegularExpressions;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The digest send task.
 /// </summary>
 public class DigestSendTask : LongBackgroundTask
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "DigestSendTask" /> class.
     /// </summary>
@@ -51,18 +45,10 @@ public class DigestSendTask : LongBackgroundTask
         this.StartDelayMs = 30 * 1000;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets TaskName.
     /// </summary>
     public static string TaskName { get; } = "DigestSendTask";
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The run once.
@@ -71,10 +57,6 @@ public class DigestSendTask : LongBackgroundTask
     {
         this.SendDigest();
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Determines whether is time to send digest for board.
@@ -243,6 +225,4 @@ public class DigestSendTask : LongBackgroundTask
             null,
             "Digest Send Task");
     }
-
-    #endregion
 }

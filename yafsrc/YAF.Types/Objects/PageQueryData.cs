@@ -28,8 +28,6 @@ namespace YAF.Types.Objects;
 /// </summary>
 public class PageQueryData
 {
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets the category id.
     /// </summary>
@@ -49,6 +47,4 @@ public class PageQueryData
     /// Gets or sets the message id.
     /// </summary>
     public int MessageID { get; set; }
-
-    #endregion
 }

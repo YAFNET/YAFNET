@@ -41,8 +41,6 @@ public class ImageListBox : DropDownList
     [DefaultValue(false)]
     public bool AllowClear { get; set; }
 
-    #region Methods
-
     /// <summary>
     /// Add Flag Images to Items
     /// </summary>
@@ -65,6 +63,4 @@ public class ImageListBox : DropDownList
 
         base.Render(writer);
     }
-
-    #endregion
 }

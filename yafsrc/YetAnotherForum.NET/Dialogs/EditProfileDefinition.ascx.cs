@@ -24,19 +24,13 @@
 
 namespace YAF.Dialogs;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Profile Definition Add/Edit Dialog.
 /// </summary>
 public partial class EditProfileDefinition : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Gets or sets the banned identifier.
     /// </summary>
@@ -144,6 +138,4 @@ public partial class EditProfileDefinition : BaseUserControl
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_ProfileDefinitions);
     }
-
-    #endregion
 }

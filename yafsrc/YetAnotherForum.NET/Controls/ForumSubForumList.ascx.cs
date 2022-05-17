@@ -24,19 +24,13 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using System.Collections;
-
-#endregion
 
 /// <summary>
 /// The forum sub forum list.
 /// </summary>
 public partial class ForumSubForumList : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     ///   Sets DataSource.
     /// </summary>
@@ -44,10 +38,6 @@ public partial class ForumSubForumList : BaseUserControl
     {
         set => this.SubforumList.DataSource = value;
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Provides the "Forum Link Text" for the ForumList control.
@@ -71,10 +61,6 @@ public partial class ForumSubForumList : BaseUserControl
 
         return output;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the ItemCreated event of the SubForumList control.
@@ -122,6 +108,4 @@ public partial class ForumSubForumList : BaseUserControl
     {
         return item.RemoteURL.IsNotSet() ? $"{item.Topics:N0}" : "-";
     }
-
-    #endregion
 }

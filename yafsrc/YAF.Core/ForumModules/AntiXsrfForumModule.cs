@@ -23,14 +23,10 @@
  */
 namespace YAF.Core.ForumModules;
 
-#region Using
-
 using System;
 
 using YAF.Core.BaseModules;
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// The Anti XSRF Forum Module.
@@ -54,8 +50,6 @@ public class AntiXsrfForumModule : BaseForumModule
     /// </summary>
     private string antiXsrfTokenValue;
 
-    #region Public Methods
-
     /// <summary>
     /// The init.
     /// </summary>
@@ -64,10 +58,6 @@ public class AntiXsrfForumModule : BaseForumModule
         // hook the page init for mail sending...
         this.PageBoardContext.Init += this.CurrentPageInit;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Currents the after initialize.
@@ -140,6 +130,4 @@ public class AntiXsrfForumModule : BaseForumModule
             }
         }
     }
-
-    #endregion
 }

@@ -31,8 +31,6 @@ using YAF.Types.Constants;
 /// </summary>
 public static class PmViewConverter
 {
-    #region Public Methods
-
     /// <summary>
     /// Returns a <see cref="PmView"/> based on its URL query string value.
     /// </summary>
@@ -72,6 +70,4 @@ public static class PmViewConverter
                 _ => null
             };
     }
-
-    #endregion
 }

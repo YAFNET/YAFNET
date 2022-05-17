@@ -35,8 +35,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class AttachmentRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Gets All User Attachments by Board ID as paged Result
     /// </summary>
@@ -220,6 +218,4 @@ public static class AttachmentRepositoryExtensions
 
         return newAttachmentId;
     }
-
-    #endregion
 }

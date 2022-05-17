@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class BBCode : IEntity, IHaveBoardID, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -121,6 +119,4 @@ public class BBCode : IEntity, IHaveBoardID, IHaveID
     /// </summary>
     [Required]
     public int ExecOrder { get; set; }
-
-    #endregion
 }

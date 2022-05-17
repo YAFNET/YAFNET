@@ -23,19 +23,13 @@
  */
 namespace YAF.Core.Modules;
 
-#region Using
-
 using Autofac;
-
-#endregion
 
 /// <summary>
 ///     The utilities module.
 /// </summary>
 public class UtilitiesModule : BaseModule
 {
-    #region Methods
-
     /// <summary>
     /// The load.
     /// </summary>
@@ -67,6 +61,4 @@ public class UtilitiesModule : BaseModule
         builder.Register(c => c.Resolve<HttpContextBase>().Session).As<HttpSessionStateBase>()
             .InstancePerLifetimeScope();
     }
-
-    #endregion
 }

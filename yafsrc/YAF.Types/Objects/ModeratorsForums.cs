@@ -30,8 +30,6 @@ namespace YAF.Types.Objects;
 [Serializable]
 public class ModeratorsForums
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets The Forum ID.
     /// </summary>
@@ -50,6 +48,4 @@ public class ModeratorsForums
     public int CategoryID { get; set; }
 
     public string CategoryName { get; set; }
-
-    #endregion
 }

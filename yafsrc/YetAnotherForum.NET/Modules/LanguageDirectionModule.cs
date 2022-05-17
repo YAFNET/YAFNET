@@ -23,12 +23,8 @@
  */
 namespace YAF.Modules;
 
-#region Using
-
 using System.Web.UI.HtmlControls;
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// LanguageDirection Module
@@ -44,8 +40,6 @@ public class LanguageDirectionModule : SimpleBaseForumModule
         this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
     }
 
-    #region Methods
-
     /// <summary>
     /// Handles the PreRender event of the ForumPage control.
     /// </summary>
@@ -60,6 +54,4 @@ public class LanguageDirectionModule : SimpleBaseForumModule
             body.Attributes.Add("dir", "rtl");
         }
     }
-
-    #endregion
 }

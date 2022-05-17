@@ -23,19 +23,11 @@
  */
 namespace YAF.Core.Services.Cache;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// The static lock object.
 /// </summary>
 public class StaticLockObject : IHaveLockObject
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The lock cache items.
     /// </summary>
@@ -46,10 +38,6 @@ public class StaticLockObject : IHaveLockObject
     /// </summary>
     private const int LockObjectCount = 300;
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="StaticLockObject"/> class.
     /// </summary>
@@ -57,12 +45,6 @@ public class StaticLockObject : IHaveLockObject
     {
         this.LockCacheItems = new object[LockObjectCount + 1];
     }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IReadValue<object>
 
     /// <summary>
     /// The get.
@@ -92,8 +74,4 @@ public class StaticLockObject : IHaveLockObject
         // init the lock object if it hasn't been created yet...
         return this.LockCacheItems[lockItemId] ?? (this.LockCacheItems[lockItemId] = new object());
     }
-
-    #endregion
-
-    #endregion
 }

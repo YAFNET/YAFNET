@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class PrintTopic : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "PrintTopic" /> class.
     /// </summary>
@@ -40,10 +38,6 @@ public partial class PrintTopic : ForumPage
         : base("PRINTTOPIC", ForumPages.PrintTopic)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Gets the print body.
@@ -134,6 +128,4 @@ public partial class PrintTopic : ForumPage
         this.PageLinks.AddForum(this.PageBoardContext.PageForum);
         this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
     }
-
-    #endregion
 }

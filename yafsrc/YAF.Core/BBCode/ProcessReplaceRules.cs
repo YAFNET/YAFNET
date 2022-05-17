@@ -24,20 +24,14 @@
 
 namespace YAF.Core.BBCode;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
-
-#endregion
 
 /// <summary>
 ///     Provides a way to handle layers of replacements rules
 /// </summary>
 public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
 {
-    #region Fields
-
     /// <summary>
     ///     The rules list.
     /// </summary>
@@ -53,10 +47,6 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
     /// </summary>
     private bool needSort;
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     ///     Initializes a new instance of the <see cref="ProcessReplaceRules" /> class.
     /// </summary>
@@ -64,10 +54,6 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
     {
         this.rulesList = new List<IReplaceRule>();
     }
-
-    #endregion
-
-    #region Public Properties
 
     /// <summary>
     ///     Gets a value indicating whether any rules have been added.
@@ -82,10 +68,6 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
             }
         }
     }
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     ///     Add New Rule
@@ -166,6 +148,4 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
         // reconstruct the html
         mainCollection.Reconstruct(ref text);
     }
-
-    #endregion
 }

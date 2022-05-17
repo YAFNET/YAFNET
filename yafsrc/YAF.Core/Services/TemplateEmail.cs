@@ -32,8 +32,6 @@ using System.Net.Mail;
 /// </summary>
 public class TemplateEmail : IHaveServiceLocator
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="TemplateEmail"/> class.
     /// </summary>
@@ -59,10 +57,6 @@ public class TemplateEmail : IHaveServiceLocator
         this.TemplateParams["{logo}"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///     Gets the service locator.
     /// </summary>
@@ -87,10 +81,6 @@ public class TemplateEmail : IHaveServiceLocator
     ///     Gets or sets Template Parameter
     /// </summary>
     public IDictionary<string, string> TemplateParams { get; set; } = new Dictionary<string, string>();
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// The send email.
@@ -165,10 +155,6 @@ public class TemplateEmail : IHaveServiceLocator
             textBody,
             this.ProcessHtml(textBody));
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Creates an email from a template
@@ -248,6 +234,4 @@ public class TemplateEmail : IHaveServiceLocator
 
         return localization.GetText("TEMPLATES", templateName, templateLanguageFile);
     }
-
-    #endregion
 }

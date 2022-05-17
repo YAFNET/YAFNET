@@ -35,8 +35,6 @@ using YAF.Types.Objects;
 /// </summary>
 public class ThankYou : IThankYou, IHaveServiceLocator
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ThankYou"/> class.
     /// </summary>
@@ -48,18 +46,10 @@ public class ThankYou : IThankYou, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Creates an instance of the thank you object from the current information.
@@ -219,6 +209,4 @@ public class ThankYou : IThankYou, IHaveServiceLocator
 
         return filler.ToString();
     }
-
-    #endregion
 }

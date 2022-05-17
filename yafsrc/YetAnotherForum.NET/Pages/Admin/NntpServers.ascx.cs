@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class NntpServers : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="NntpServers"/> class. 
     /// </summary>
@@ -40,10 +38,6 @@ public partial class NntpServers : AdminPage
         : base("ADMIN_NNTPSERVERS", ForumPages.Admin_NntpServers)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// News the server click.
@@ -121,6 +115,4 @@ public partial class NntpServers : AdminPage
         this.RankList.DataSource = this.GetRepository<NntpServer>().GetByBoardId();
         this.DataBind();
     }
-
-    #endregion
 }

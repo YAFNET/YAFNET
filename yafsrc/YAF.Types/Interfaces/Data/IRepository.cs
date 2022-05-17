@@ -31,8 +31,6 @@ namespace YAF.Types.Interfaces.Data;
 /// </typeparam>
 public interface IRepository<T> : IEntity, IHaveBoardID
 {
-    #region Public Properties
-
     /// <summary>
     /// Gets the DB access.
     /// </summary>
@@ -42,6 +40,4 @@ public interface IRepository<T> : IEntity, IHaveBoardID
     ///     Gets the DB event.
     /// </summary>
     IRaiseEvent DbEvent { get; }
-
-    #endregion
 }

@@ -24,31 +24,21 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models.Identity;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The edit users groups.
 /// </summary>
 public partial class EditUsersGroups : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
     [NotNull]
     public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles click on cancel button.
@@ -176,6 +166,4 @@ public partial class EditUsersGroups : BaseUserControl
         // bind data to controls
         this.DataBind();
     }
-
-    #endregion
 }

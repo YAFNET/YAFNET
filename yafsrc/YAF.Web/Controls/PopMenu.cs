@@ -23,27 +23,17 @@
  */
 namespace YAF.Web.Controls;
 
-#region Using
-
 using YAF.Types.Objects;
-
-#endregion
 
 /// <summary>
 /// PopMenu Control
 /// </summary>
 public class PopMenu : BaseControl, IPostBackEventHandler
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _items.
     /// </summary>
     private readonly List<InternalPopMenuItem> items = new();
-
-    #endregion
-
-    #region Events
 
     /// <summary>
     /// Pop Event Handler
@@ -57,18 +47,10 @@ public class PopMenu : BaseControl, IPostBackEventHandler
     /// </summary>
     public event PopEventHandler ItemClick;
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets or sets Control.
     /// </summary>
     public string ButtonId { get; set; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Attaches the specified theme button.
@@ -130,12 +112,6 @@ public class PopMenu : BaseControl, IPostBackEventHandler
         this.items.Add(new InternalPopMenuItem(description, argument, null, icon));
     }
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IPostBackEventHandler
-
     /// <summary>
     /// The raise post back event.
     /// </summary>
@@ -146,12 +122,6 @@ public class PopMenu : BaseControl, IPostBackEventHandler
     {
         this.ItemClick?.Invoke(this, new PopEventArgs(eventArgument));
     }
-
-    #endregion
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The render.
@@ -208,6 +178,4 @@ public class PopMenu : BaseControl, IPostBackEventHandler
 
         base.Render(writer);
     }
-
-    #endregion
 }

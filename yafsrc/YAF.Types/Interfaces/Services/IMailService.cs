@@ -32,8 +32,6 @@ using System.Net.Mail;
 /// </summary>
 public interface IMailService
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
     /// </summary>
@@ -41,6 +39,4 @@ public interface IMailService
     /// The messages.
     /// </param>
     void SendAll([NotNull] IEnumerable<MailMessage> messages);
-
-    #endregion
 }

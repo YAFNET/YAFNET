@@ -33,8 +33,6 @@ using YAF.Core.Utilities;
 /// </summary>
 public class ReplaceBlocksCollection : IReplaceBlocks
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The current index.
     /// </summary>
@@ -50,10 +48,6 @@ public class ReplaceBlocksCollection : IReplaceBlocks
     /// </summary>
     private const string replaceFormat = "÷ñÒ{1}êÖ{0}õæ÷";
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "ReplaceBlocksCollection" /> class.
     /// </summary>
@@ -63,18 +57,10 @@ public class ReplaceBlocksCollection : IReplaceBlocks
         this.RandomizeInstance();
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets ReplacementDictionary.
     /// </summary>
     public Dictionary<int, string> ReplacementDictionary { get; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The add replacement.
@@ -131,6 +117,4 @@ public class ReplaceBlocksCollection : IReplaceBlocks
 
         text = sb.ToString();
     }
-
-    #endregion
 }

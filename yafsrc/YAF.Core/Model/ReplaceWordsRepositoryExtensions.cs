@@ -30,8 +30,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class ReplaceWordsRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Saves changes to a word.
     /// </summary>
@@ -58,6 +56,4 @@ public static class ReplaceWordsRepositoryExtensions
                     GoodWord = goodWord
                 });
     }
-
-    #endregion
 }

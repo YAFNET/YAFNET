@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.IO;
 
@@ -35,8 +33,6 @@ using YAF.Core.Utilities;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
-
-#endregion
 
 /// <summary>
 /// Album Service for the current user.
@@ -54,16 +50,10 @@ public class Album : IAlbum, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #region Properties
-
     /// <summary>
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Deletes the specified album/image.
@@ -518,6 +508,4 @@ public class Album : IAlbum, IHaveServiceLocator
                 "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
         }
     }
-
-    #endregion
 }

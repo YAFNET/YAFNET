@@ -23,23 +23,17 @@
  */
 namespace YAF.Core.Helpers;
 
-#region Using
-
 using System;
 using System.IO;
 using System.Runtime.Caching;
 
 using YAF.Core.Utilities.ImageUtils;
 
-#endregion
-
 /// <summary>
 /// The captcha helper.
 /// </summary>
 public static class CaptchaHelper
 {
-    #region Public Methods
-
     /// <summary>
     /// Gets the Captcha Image as base64 String
     /// </summary>
@@ -134,6 +128,4 @@ public static class CaptchaHelper
 
         return string.Compare(text, captchaText, StringComparison.InvariantCultureIgnoreCase) == 0;
     }
-
-    #endregion
 }

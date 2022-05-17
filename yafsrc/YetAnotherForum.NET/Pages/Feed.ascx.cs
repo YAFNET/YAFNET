@@ -29,8 +29,6 @@ namespace YAF.Pages;
 /// </summary>
 public partial class Feed : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Feed" /> class.
     /// </summary>
@@ -38,10 +36,6 @@ public partial class Feed : ForumPage
         : base("RSSTOPIC", ForumPages.Feed)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The page_ load.
@@ -61,6 +55,4 @@ public partial class Feed : ForumPage
 
         this.Get<SyndicationFeeds>().GetFeed();
     }
-
-    #endregion
 }

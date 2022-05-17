@@ -23,23 +23,17 @@
  */
 namespace YAF.Core.Helpers;
 
-#region Using
-
 using System;
 using System.Security.Cryptography;
 using System.Text;
 
 using YAF.Types.Constants;
 
-#endregion
-
 /// <summary>
 /// The hash helper.
 /// </summary>
 public static class HashHelper
 {
-    #region Public Methods
-
     /// <summary>
     /// Creates a password buffer from salt and password ready for hashing/encrypting
     /// </summary>
@@ -156,10 +150,6 @@ public static class HashHelper
         return hashedString;
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Hashes clear bytes to given hash type
     /// </summary>
@@ -179,6 +169,4 @@ public static class HashHelper
 
         return HashAlgorithm.Create(hashAlgorithmType.GetStringValue()).ComputeHash(clearBytes);
     }
-
-    #endregion
 }

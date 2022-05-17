@@ -24,17 +24,13 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
 using YAF.Types.Models;
-#endregion
 
 /// <summary>
 /// The Admin Access Masks Page.
 /// </summary>
 public partial class AccessMasks : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="AccessMasks"/> class. 
     /// </summary>
@@ -42,10 +38,6 @@ public partial class AccessMasks : AdminPage
         : base("ADMIN_ACCESSMASKS", ForumPages.Admin_AccessMasks)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The bit set.
@@ -186,6 +178,4 @@ public partial class AccessMasks : AdminPage
         this.List.DataSource = this.GetRepository<AccessMask>().GetByBoardId();
         this.DataBind();
     }
-
-    #endregion
 }

@@ -34,8 +34,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class ForumAccessRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Assign New Role with Initial Access Mask for all forums.
     /// </summary>
@@ -209,6 +207,4 @@ public static class ForumAccessRepositoryExtensions
 
         return repository.DbAccess.Execute(db => db.Connection.SelectMulti<ForumAccess, AccessMask, Group>(expression));
     }
-
-    #endregion
 }

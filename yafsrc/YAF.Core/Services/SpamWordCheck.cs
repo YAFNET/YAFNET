@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -33,23 +31,15 @@ using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
-#endregion
-
 /// <summary>
 /// The YAF bad word replace.
 /// </summary>
 public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _options.
     /// </summary>
     private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Compiled;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SpamWordCheck" /> class.
@@ -63,10 +53,6 @@ public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
         this.ObjectStore = objectStore;
         this.Logger = logger;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets the service locator.
@@ -109,12 +95,6 @@ public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
             return spamItems;
         }
     }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region ISpamWordCheck
 
     /// <summary>
     /// Checks for spam word.
@@ -174,8 +154,4 @@ public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
         spamWord = string.Empty;
         return false;
     }
-
-    #endregion
-
-    #endregion
 }

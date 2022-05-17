@@ -31,8 +31,6 @@ using System.Text.RegularExpressions;
 [Serializable]
 public class BadWordReplaceItem
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _active lock.
     /// </summary>
@@ -42,10 +40,6 @@ public class BadWordReplaceItem
     ///   The _active.
     /// </summary>
     private bool _active = true;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BadWordReplaceItem"/> class.
@@ -74,10 +68,6 @@ public class BadWordReplaceItem
             this.BadWordRegEx = null;
         }
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets a value indicating whether Active.
@@ -124,6 +114,4 @@ public class BadWordReplaceItem
     /// Gets or sets Options.
     /// </summary>
     public RegexOptions Options { get; protected set; }
-
-    #endregion
 }

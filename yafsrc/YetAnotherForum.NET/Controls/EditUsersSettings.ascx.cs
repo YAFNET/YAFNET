@@ -24,21 +24,15 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The edit users settings.
 /// </summary>
 public partial class EditUsersSettings : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the current edit user.
     /// </summary>
@@ -54,10 +48,6 @@ public partial class EditUsersSettings : BaseUserControl
 
         set => this.ViewState["bUpdateEmail"] = value;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Click event of the Cancel control.
@@ -293,8 +283,6 @@ public partial class EditUsersSettings : BaseUserControl
             foundCultItem.Selected = true;
         }
     }
-
-    #endregion
 
     /// <summary>
     /// Gets the culture.

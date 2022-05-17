@@ -30,8 +30,6 @@ using System.Net.Mail;
 /// </summary>
 public interface IDigest
 {
-    #region Public Methods
-
     /// <summary>
     /// Gets the digest HTML.
     /// </summary>
@@ -87,6 +85,4 @@ public interface IDigest
         [NotNull] MailAddress boardAddress,
         [NotNull] string toEmail,
         [CanBeNull] string toName);
-
-    #endregion
 }

@@ -40,8 +40,6 @@ using YAF.Core.Services.Cache;
 /// </summary>
 public class GeneralModule : BaseModule
 {
-    #region Methods
-
     /// <summary>
     /// The load.
     /// </summary>
@@ -165,6 +163,4 @@ public class GeneralModule : BaseModule
         builder.RegisterAssemblyTypes(assemblies).AssignableTo<ILocatablePage>().AsImplementedInterfaces()
             .SingleInstance();
     }
-
-    #endregion
 }

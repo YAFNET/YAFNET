@@ -23,15 +23,11 @@
  */
 namespace YAF.Core.ForumModules;
 
-#region Using
-
 using System;
 
 using YAF.Core.BaseModules;
 using YAF.Core.Tasks;
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// The linked topic clean up task forum module.
@@ -39,8 +35,6 @@ using YAF.Types.Attributes;
 [Module("Linked Topic Clean Up Task Starting Module", "Tiny Gecko", 1)]
 public class LinkedTopicCleanUpTaskForumModule : BaseForumModule
 {
-    #region Public Methods
-
     /// <summary>
     /// The init.
     /// </summary>
@@ -49,10 +43,6 @@ public class LinkedTopicCleanUpTaskForumModule : BaseForumModule
         // hook the page init for mail sending...
         this.PageBoardContext.AfterInit += this.Current_AfterInit;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Start Task after Initialization
@@ -67,6 +57,4 @@ public class LinkedTopicCleanUpTaskForumModule : BaseForumModule
     {
         this.Get<ITaskModuleManager>().StartTask(LinkedTopicCleanUpTask.TaskName, () => new LinkedTopicCleanUpTask());
     }
-
-    #endregion
 }

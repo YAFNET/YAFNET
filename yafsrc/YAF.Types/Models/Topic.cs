@@ -30,8 +30,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class Topic : IEntity, IHaveID
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -197,6 +195,4 @@ public class Topic : IEntity, IHaveID
     /// </summary>
     [StringLength(255)]
     public string LastUserDisplayName { get; set; }
-
-    #endregion
 }

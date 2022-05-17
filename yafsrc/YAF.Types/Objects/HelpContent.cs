@@ -29,8 +29,6 @@ namespace YAF.Types.Objects;
 /// </summary>
 public class HelpContent
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets The Content of the Help page
     /// </summary>
@@ -45,6 +43,4 @@ public class HelpContent
     ///   Gets or sets The Title of the Help page
     /// </summary>
     public string Title { get; set; }
-
-    #endregion
 }

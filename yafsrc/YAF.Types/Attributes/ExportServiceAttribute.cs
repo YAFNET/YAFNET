@@ -65,8 +65,6 @@ public enum ServiceLifetimeScope
 [AttributeUsage(AttributeTargets.Class)]
 public class ExportServiceAttribute : Attribute
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ExportServiceAttribute"/> class.
     /// </summary>
@@ -118,10 +116,6 @@ public class ExportServiceAttribute : Attribute
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets or sets Named.
     /// </summary>
@@ -141,6 +135,4 @@ public class ExportServiceAttribute : Attribute
     /// Gets or sets Keyed
     /// </summary>
     public object Keyed { get; set; }
-
-    #endregion
 }

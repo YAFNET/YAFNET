@@ -23,11 +23,7 @@
  */
 namespace YAF.Core.Events;
 
-#region Using
-
 using System;
-
-#endregion
 
 /// <summary>
 /// The event converter.
@@ -38,27 +34,15 @@ using System;
 public class FireEvent<T> : IFireEvent<T>
     where T : IAmEvent
 {
-    #region Events
-
     /// <summary>
     /// Handle the event with this delegate
     /// </summary>
     public event EventHandler<EventConverterArgs<T>> HandleEvent;
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets Order.
     /// </summary>
     public int Order => 10000;
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IHandleEvent<T>
 
     /// <summary>
     /// The handle.
@@ -70,8 +54,4 @@ public class FireEvent<T> : IFireEvent<T>
     {
         this.HandleEvent?.Invoke(this, new EventConverterArgs<T>(@event));
     }
-
-    #endregion
-
-    #endregion
 }

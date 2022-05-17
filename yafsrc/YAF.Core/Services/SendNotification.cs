@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,15 +35,11 @@ using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
-#endregion
-
 /// <summary>
 /// The YAF Send Notification.
 /// </summary>
 public class SendNotification : ISendNotification, IHaveServiceLocator
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="SendNotification"/> class.
     /// </summary>
@@ -56,10 +50,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     {
         this.ServiceLocator = serviceLocator;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets ServiceLocator.
@@ -73,12 +63,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// The board settings.
     /// </value>
     public BoardSettings BoardSettings => this.Get<BoardSettings>();
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region ISendNotification
 
     /// <summary>
     /// Sends Notifications to Moderators that Message Needs Approval
@@ -879,8 +863,4 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
 
         verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject);
     }
-
-    #endregion
-
-    #endregion
 }

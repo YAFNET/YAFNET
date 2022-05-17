@@ -24,23 +24,17 @@
 
 namespace YAF.Pages;
 
-#region Using
-
 using System.Text;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 using YAF.Web.Controls;
 using ButtonStyle = YAF.Types.Constants.ButtonStyle;
 
-#endregion
-
 /// <summary>
 /// The User Profile Page.
 /// </summary>
 public partial class UserProfile : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "UserProfile" /> class.
     /// </summary>
@@ -49,19 +43,11 @@ public partial class UserProfile : ForumPage
     {
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets or sets UserId.
     /// </summary>
     public int UserId =>
         this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The page_ load.
@@ -605,6 +591,4 @@ public partial class UserProfile : ForumPage
         this.Stats.Text =
             $"{user.Item1.NumPosts:N0} [{this.GetTextFormatted("NUMALL", allPosts)} / {this.GetTextFormatted("NUMDAY", (double)user.Item1.NumPosts / numberDays)}]";
     }
-
-    #endregion
 }

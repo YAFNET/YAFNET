@@ -28,8 +28,6 @@ namespace YAF.Web.ReCAPTCHA;
 /// </summary>
 public class RecaptchaResponse
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The invalid solution.
     /// </summary>
@@ -46,10 +44,6 @@ public class RecaptchaResponse
     /// </summary>
     public static readonly RecaptchaResponse Valid = new(true, string.Empty);
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="RecaptchaResponse"/> class.
     /// </summary>
@@ -65,10 +59,6 @@ public class RecaptchaResponse
         this.ErrorCode = errorCode;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets ErrorCode.
     /// </summary>
@@ -78,10 +68,6 @@ public class RecaptchaResponse
     ///   Gets a value indicating whether IsValid.
     /// </summary>
     public bool IsValid { get; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
@@ -111,6 +97,4 @@ public class RecaptchaResponse
     {
         return this.IsValid.GetHashCode() ^ this.ErrorCode.GetHashCode();
     }
-
-    #endregion
 }

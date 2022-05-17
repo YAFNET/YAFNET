@@ -29,8 +29,6 @@ namespace YAF.Types.Flags;
 [Serializable]
 public class RankFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="RankFlags"/> class.
     /// </summary>
@@ -83,10 +81,6 @@ public class RankFlags : FlagsBase
     {
     }
 
-    #endregion
-
-    #region Flags Enumeration
-
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
@@ -119,10 +113,6 @@ public class RankFlags : FlagsBase
                */
     }
 
-    #endregion
-
-    #region Single Flags (can be 32 of them)
-
     /// <summary>
     /// Gets or sets a value indicating whether the rank is default starting rank of new users.
     /// </summary>
@@ -144,10 +134,6 @@ public class RankFlags : FlagsBase
 
         set => this[1] = value;
     }
-
-    #endregion
-
-    #region Operators
 
     /// <summary>
     /// The op_ implicit.
@@ -174,6 +160,4 @@ public class RankFlags : FlagsBase
     {
         return new RankFlags(flags);
     }
-
-    #endregion
 }

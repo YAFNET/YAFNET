@@ -24,23 +24,17 @@
 
 namespace YAF.Core.BasePages;
 
-#region Using
-
 using System;
 
 using YAF.Core.Model;
 using YAF.Types.Constants;
 using YAF.Types.Models;
-    
-#endregion
 
 /// <summary>
 /// Admin page with extra security. All admin pages need to be derived from this base class.
 /// </summary>
 public class AdminPage : ForumPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="AdminPage"/> class.
     /// </summary>
@@ -65,18 +59,10 @@ public class AdminPage : ForumPage
         this.Load += this.AdminPageLoad;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets the Page Name.
     /// </summary>
     public override string PageName => $"admin_{base.PageName}";
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the AdminPage control.
@@ -106,6 +92,4 @@ public class AdminPage : ForumPage
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
         }
     }
-
-    #endregion
 }

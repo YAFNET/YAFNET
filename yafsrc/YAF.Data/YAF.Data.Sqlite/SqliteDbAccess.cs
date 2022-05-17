@@ -33,8 +33,6 @@ public class SqliteDbAccess : DbAccessBase
     /// </summary>
     public const string ProviderTypeName = "System.Data.SQLite";
 
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="SqliteDbAccess"/> class.
     /// </summary>
@@ -45,6 +43,4 @@ public class SqliteDbAccess : DbAccessBase
         : base(dbProviderFactory, new SqliteDbInformation())
     {
     }
-
-    #endregion
 }

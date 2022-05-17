@@ -24,16 +24,12 @@
 
 namespace YAF.Core.Services.CheckForSpam;
 
-#region
-
 using System;
 using System.Text.RegularExpressions;
 
 using YAF.Types.Constants;
 using YAF.Types.Interfaces.CheckForSpam;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// Spam Checking Class for the Internal Spam Check

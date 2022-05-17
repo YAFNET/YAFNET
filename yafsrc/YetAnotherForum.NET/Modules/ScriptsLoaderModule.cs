@@ -24,13 +24,9 @@
 
 namespace YAF.Modules;
 
-#region Using
-
 using System.Collections.Specialized;
 using System.Web.UI;
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// Automatic JavaScript Loading Module
@@ -38,8 +34,6 @@ using YAF.Types.Attributes;
 [Module("JavaScript Loading Module", "Ingo Herbote", 1)]
 public class ScriptsLoaderModule : SimpleBaseForumModule
 {
-    #region Public Methods
-
     /// <summary>
     /// The initializes after page.
     /// </summary>
@@ -48,10 +42,6 @@ public class ScriptsLoaderModule : SimpleBaseForumModule
         this.CurrentForumPage.PreRender += this.CurrentForumPagePreRender;
         this.CurrentForumPage.Load += this.CurrentForumPageLoad;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Registers the jQuery script library.
@@ -171,6 +161,4 @@ public class ScriptsLoaderModule : SimpleBaseForumModule
                         ? $"forum-admin.min.css?v={version}"
                         : $"forum.min.css?v={version}")));
     }
-
-    #endregion
 }

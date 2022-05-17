@@ -23,20 +23,14 @@
  */
 namespace YAF.Controls;
 
-#region Using
-
 using YAF.Web.Controls;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The most active users.
 /// </summary>
 public partial class MostActiveUsers : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets DisplayNumber.
     /// </summary>
@@ -46,10 +40,6 @@ public partial class MostActiveUsers : BaseUserControl
     ///   Gets or sets Number of Days.
     /// </summary>
     public int LastNumOfDays { get; set; } = 7;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -118,6 +108,4 @@ public partial class MostActiveUsers : BaseUserControl
             this.Visible = false;
         }
     }
-
-    #endregion
 }

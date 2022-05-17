@@ -29,8 +29,6 @@ namespace YAF.Types.Models;
 [Serializable]
 public class Medal : IEntity, IHaveBoardID, IHaveID
 {
-    #region Public Properties
-
     [Required]
     public int BoardID { get; set; }
 
@@ -68,6 +66,4 @@ public class Medal : IEntity, IHaveBoardID, IHaveID
 
         set => this.Flags = value.BitValue;
     }
-
-    #endregion
 }

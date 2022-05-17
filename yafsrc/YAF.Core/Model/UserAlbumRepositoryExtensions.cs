@@ -34,8 +34,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class UserAlbumRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Lists all the albums associated with the UserID or gets all the
     ///   specifications for the specified album id.
@@ -217,6 +215,4 @@ public static class UserAlbumRepositoryExtensions
 
         return newId;
     }
-
-    #endregion
 }

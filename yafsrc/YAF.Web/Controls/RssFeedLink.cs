@@ -28,8 +28,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class RssFeedLink : BaseControl
 {
-    #region Methods
-
     /// <summary>
     /// Renders the specified output.
     /// </summary>
@@ -87,6 +85,4 @@ public class RssFeedLink : BaseControl
 
         writer.EndRender();
     }
-
-    #endregion
 }

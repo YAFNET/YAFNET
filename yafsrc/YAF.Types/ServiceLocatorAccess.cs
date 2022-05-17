@@ -28,8 +28,6 @@ namespace YAF.Types;
 /// </summary>
 public class ServiceLocatorAccess : IHaveServiceLocator
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets CurrentServiceProvider.
     /// </summary>
@@ -39,6 +37,4 @@ public class ServiceLocatorAccess : IHaveServiceLocator
     ///   Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => CurrentServiceProvider;
-
-    #endregion
 }

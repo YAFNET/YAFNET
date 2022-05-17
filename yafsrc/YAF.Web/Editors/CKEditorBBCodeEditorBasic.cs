@@ -28,8 +28,6 @@ namespace YAF.Web.Editors;
 /// </summary>
 public class CKEditorBBCodeEditorBasic : CKEditor
 {
-    #region Properties
-
     /// <summary>
     ///   Gets Description.
     /// </summary>
@@ -56,10 +54,6 @@ public class CKEditorBBCodeEditorBasic : CKEditor
     /// </summary>
     public override bool AllowsUploads => false;
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The register CKEditor custom JS.
     /// </summary>
@@ -84,6 +78,4 @@ public class CKEditorBBCodeEditorBasic : CKEditor
                 BoardInfo.GetURLToContent("forum.min.css"),
                 this.PageBoardContext.BoardSettings.EditorToolbarBasic));
     }
-
-    #endregion
 }

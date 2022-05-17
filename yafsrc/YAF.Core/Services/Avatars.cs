@@ -24,27 +24,17 @@
 
 namespace YAF.Core.Services;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The avatars.
 /// </summary>
 public class Avatars : IAvatars
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The YAF board settings.
     /// </summary>
     private readonly BoardSettings boardSettings;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Avatars"/> class.
@@ -56,10 +46,6 @@ public class Avatars : IAvatars
     {
         this.boardSettings = boardSettings;
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The get avatar url for current user.
@@ -127,6 +113,4 @@ public class Avatars : IAvatars
 
         return avatarUrl;
     }
-
-    #endregion
 }

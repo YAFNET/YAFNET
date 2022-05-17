@@ -23,15 +23,11 @@
  */
 namespace YAF.Core.Events;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 
 using YAF.Core.Tasks;
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// Initializes the Application task manager.
@@ -39,16 +35,10 @@ using YAF.Types.Attributes;
 [ExportService(ServiceLifetimeScope.Singleton)]
 public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplicationInitEvent>, IHaveServiceLocator
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The app instance.
     /// </summary>
     private HttpApplication appInstance;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AppInitTaskManager"/> class.
@@ -65,10 +55,6 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
         this.Logger = logger;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets Logger.
     /// </summary>
@@ -83,10 +69,6 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
@@ -142,12 +124,6 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
         return true;
     }
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IHandleEvent<HttpApplicationInitEvent>
-
     /// <summary>
     /// The handle.
     /// </summary>
@@ -177,8 +153,4 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
                     }
                 });
     }
-
-    #endregion
-
-    #endregion
 }

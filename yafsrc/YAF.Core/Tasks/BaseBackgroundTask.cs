@@ -52,8 +52,6 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// </summary>
     protected DateTime started;
 
-    #region Implementation of IHaveServiceLocator
-
     /// <summary>
     /// Gets or sets the ServiceLocator.
     /// </summary>
@@ -65,10 +63,6 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// </summary>
     [Inject]
     public ILoggerService Logger { get; set; }
-
-    #endregion
-
-    #region IBackgroundTask Members
 
     /// <summary>
     /// Gets or sets BoardID.
@@ -137,8 +131,6 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     {
         this.IsRunning = false;
     }
-
-    #endregion
 
     /// <summary>
     /// The run once.

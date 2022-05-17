@@ -23,17 +23,13 @@
  */
 namespace YAF.Pages.Admin;
 
-#region Using
 using YAF.Types.Models;
-#endregion
 
 /// <summary>
 /// The Admin Manage Tags Page.
 /// </summary>
 public partial class Tags : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Tags" /> class.
     /// </summary>
@@ -41,10 +37,6 @@ public partial class Tags : AdminPage
         : base("ADMIN_TAGS", ForumPages.Admin_Tags)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -167,6 +159,4 @@ public partial class Tags : AdminPage
             this.NoInfo.Visible = true;
         }
     }
-
-    #endregion
 }

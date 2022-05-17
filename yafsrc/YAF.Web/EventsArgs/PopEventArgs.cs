@@ -29,8 +29,6 @@ namespace YAF.Web.EventsArgs;
 /// </summary>
 public class PopEventArgs : EventArgs
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PopEventArgs"/> class.
     /// </summary>
@@ -42,14 +40,8 @@ public class PopEventArgs : EventArgs
         this.Item = eventArgument;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     ///   Gets Item.
     /// </summary>
     public string Item { get; }
-
-    #endregion
 }

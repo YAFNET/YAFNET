@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class NntpServerEdit : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Gets or sets the server identifier.
     /// </summary>
@@ -129,6 +127,4 @@ public partial class NntpServerEdit : BaseUserControl
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_NntpServers);
     }
-
-    #endregion
 }

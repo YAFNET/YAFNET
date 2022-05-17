@@ -31,8 +31,6 @@ namespace YAF.Pages;
 /// </summary>
 public partial class EditMessage : ForumPage
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The forum editor.
     /// </summary>
@@ -48,10 +46,6 @@ public partial class EditMessage : ForumPage
     /// </summary>
     private Tuple<Topic, Message, User, Forum> editedMessage;
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="EditMessage"/> class.
     /// </summary>
@@ -59,10 +53,6 @@ public partial class EditMessage : ForumPage
         : base("POSTMESSAGE", ForumPages.EditMessage)
     {
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets EditMessageID.
@@ -73,10 +63,6 @@ public partial class EditMessage : ForumPage
     ///   Gets or sets the PollId if the topic has a poll attached
     /// </summary>
     protected int? PollId { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Canceling Posting New Message Or editing Message.
@@ -738,6 +724,4 @@ public partial class EditMessage : ForumPage
         this.forumEditor.UserCanUpload = this.PageBoardContext.UploadAccess;
         this.UploadDialog.Visible = this.PageBoardContext.UploadAccess;
     }
-
-    #endregion
 }

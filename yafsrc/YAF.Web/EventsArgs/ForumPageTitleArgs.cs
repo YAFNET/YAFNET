@@ -29,8 +29,6 @@ namespace YAF.Web.EventsArgs;
 /// </summary>
 public class ForumPageTitleArgs : EventArgs
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ForumPageTitleArgs"/> class.
     /// </summary>
@@ -42,14 +40,8 @@ public class ForumPageTitleArgs : EventArgs
         this.Title = title;
     }
 
-    #endregion
-
-    #region Public Properties
-
     /// <summary>
     ///   Gets Title.
     /// </summary>
     public string Title { get; }
-
-    #endregion
 }

@@ -24,21 +24,15 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using YAF.Web.Controls;
 using YAF.Types.Models;
 using Forum = YAF.Types.Models.Forum;
-
-#endregion
 
 /// <summary>
 /// The Admin Manage Forums and Categories Page.
 /// </summary>
 public partial class Forums : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Forums"/> class. 
     /// </summary>
@@ -46,8 +40,6 @@ public partial class Forums : AdminPage
         : base("ADMIN_FORUMS", ForumPages.Admin_Forums)
     {
     }
-
-    #endregion
 
     /// <summary>
     /// Gets or sets the user album.
@@ -58,8 +50,6 @@ public partial class Forums : AdminPage
 
         set => this.ViewState["ListAll"] = value;
     }
-
-    #region Methods
 
     /// <summary>
     /// Handle Commands for Edit/Copy/Delete Forum
@@ -325,6 +315,4 @@ public partial class Forums : AdminPage
 
         this.DataBind();
     }
-
-    #endregion
 }

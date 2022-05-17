@@ -23,19 +23,13 @@
  */
 namespace YAF.Core.Extensions;
 
-#region Using
-
 using System;
-
-#endregion
 
 /// <summary>
 /// The i task module manager extensions.
 /// </summary>
 public static class ITaskModuleManagerExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// The start.
     /// </summary>
@@ -82,6 +76,4 @@ public static class ITaskModuleManagerExtensions
 
         return Start(taskModuleManager, () => new T { Data = data });
     }
-
-    #endregion
 }

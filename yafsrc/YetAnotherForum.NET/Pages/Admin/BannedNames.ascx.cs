@@ -24,19 +24,13 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.IO;
-
-#endregion
 
 /// <summary>
 /// The Admin Banned Names Page.
 /// </summary>
 public partial class BannedNames : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="BannedNames"/> class. 
     /// </summary>
@@ -44,10 +38,6 @@ public partial class BannedNames : AdminPage
         : base("ADMIN_BANNEDNAME", ForumPages.Admin_BannedNames)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -224,6 +214,4 @@ public partial class BannedNames : AdminPage
 
         this.DataBind();
     }
-
-    #endregion
 }

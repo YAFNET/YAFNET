@@ -23,21 +23,15 @@
  */
 namespace YAF.Core.Helpers;
 
-#region Using
-
 using System.Runtime.Caching;
 
 using YAF.Types.Constants;
-
-#endregion
 
 /// <summary>
 /// The current task module provider.
 /// </summary>
 public class CurrentTaskModuleProvider : IReadWriteProvider<ITaskModuleManager>
 {
-    #region Properties
-
     /// <summary>
     /// Gets or sets the instance.
     /// </summary>
@@ -53,6 +47,4 @@ public class CurrentTaskModuleProvider : IReadWriteProvider<ITaskModuleManager>
             MemoryCache.Default[Constants.Cache.TaskModule] = value;
         }
     }
-
-    #endregion
 }

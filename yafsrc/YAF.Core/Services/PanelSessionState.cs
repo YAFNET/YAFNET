@@ -32,8 +32,6 @@ using YAF.Types.Constants;
 /// </summary>
 public class PanelSessionState : IPanelSessionState
 {
-    #region Indexers
-
     /// <summary>
     ///   Gets panel session state.
     /// </summary>
@@ -98,10 +96,6 @@ public class PanelSessionState : IPanelSessionState
         }
     }
 
-    #endregion
-
-    #region Public Methods
-
     /// <summary>
     /// The toggle panel state.
     /// </summary>
@@ -127,6 +121,4 @@ public class PanelSessionState : IPanelSessionState
                 _ => this[panelID]
             };
     }
-
-    #endregion
 }

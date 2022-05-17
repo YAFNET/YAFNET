@@ -23,12 +23,8 @@
  */
 namespace YAF.Modules;
 
-#region Using
-
 using System.Web.UI.HtmlControls;
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// Summary description for PageRssFeedLinkModule
@@ -36,8 +32,6 @@ using YAF.Types.Attributes;
 [Module("Page Rss Feed Link Module", "Tiny Gecko", 1)]
 public class PageRssFeedLinkForumModule : SimpleBaseForumModule
 {
-    #region Public Methods
-
     /// <summary>
     /// The init after page.
     /// </summary>
@@ -45,10 +39,6 @@ public class PageRssFeedLinkForumModule : SimpleBaseForumModule
     {
         this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The forum page_ pre render.
@@ -95,6 +85,4 @@ public class PageRssFeedLinkForumModule : SimpleBaseForumModule
 
         head.Controls.Add(atomLink);
     }
-
-    #endregion
 }

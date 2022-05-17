@@ -24,19 +24,13 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
-
 using System.IO;
-
-#endregion
 
 /// <summary>
 /// The Admin Banned Emails Page.
 /// </summary>
 public partial class BannedEmails : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="BannedEmails"/> class. 
     /// </summary>
@@ -44,10 +38,6 @@ public partial class BannedEmails : AdminPage
         : base("ADMIN_BANNEDEMAIL", ForumPages.Admin_BannedEmails)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -223,6 +213,4 @@ public partial class BannedEmails : AdminPage
 
         this.DataBind();
     }
-
-    #endregion
 }

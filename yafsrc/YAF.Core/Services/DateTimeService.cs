@@ -24,29 +24,19 @@
 
 namespace YAF.Core.Services;
 
-#region Using
-
 using System;
 
 using FarsiLibrary.Utils;
-
-#endregion
 
 /// <summary>
 /// The YAF DateTime.
 /// </summary>
 public class DateTimeService : IDateTimeService, IHaveServiceLocator
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   Time zone suffix for Guests
     /// </summary>
     private readonly string timeZoneName = BoardContext.Current.Get<ILocalization>().GetText("TIMEZONES", "NAME_UTC");
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DateTimeService"/> class.
@@ -58,10 +48,6 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
     {
         this.ServiceLocator = serviceLocator;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets or sets ServiceLocator.
@@ -90,10 +76,6 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
                 0);
         }
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Formats a DateTime value into 7. february 2003
@@ -342,6 +324,4 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
     {
         return TimeZoneInfo.ConvertTimeFromUtc(dateTime, timeZone);
     }
-
-    #endregion
 }

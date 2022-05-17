@@ -23,11 +23,7 @@
  */
 namespace YAF.Modules;
 
-#region Using
-
 using YAF.Types.Attributes;
-
-#endregion
 
 /// <summary>
 /// The Page PM Popup Module
@@ -35,8 +31,6 @@ using YAF.Types.Attributes;
 [Module("Page PopUp Module", "Tiny Gecko", 1)]
 public class PagePmPopupForumModule : SimpleBaseForumModule
 {
-    #region Public Methods
-
     /// <summary>
     /// The init after page.
     /// </summary>
@@ -44,10 +38,6 @@ public class PagePmPopupForumModule : SimpleBaseForumModule
     {
         this.CurrentForumPage.Load += this.ForumPageLoad;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Displays the PM popup.
@@ -123,5 +113,3 @@ public class PagePmPopupForumModule : SimpleBaseForumModule
         this.Get<ISession>().LastPendingBuddies = this.PageBoardContext.LastPendingBuddies;
     }
 }
-
-#endregion

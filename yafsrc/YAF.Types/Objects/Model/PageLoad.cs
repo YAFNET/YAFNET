@@ -29,8 +29,6 @@ namespace YAF.Types.Objects.Model;
 /// </summary>
 public class PageLoad
 {
-    #region Public Properties
-
     /// <summary>
     /// Gets or sets a value indicating whether active update.
     /// </summary>
@@ -140,6 +138,4 @@ public class PageLoad
     /// Gets or sets the guest user id.
     /// </summary>
     public int GuestUserID { get; set; }
-
-    #endregion
 }

@@ -24,8 +24,6 @@
 
 namespace YAF.Controls;
 
-#region Using
-
 using System.ComponentModel;
 using System.IO;
 using System.Xml.Linq;
@@ -34,15 +32,11 @@ using ServiceStack.Text;
 
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 /// The pm list.
 /// </summary>
 public partial class PMList : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets the current view for the user's private messages.
     /// </summary>
@@ -62,10 +56,6 @@ public partial class PMList : BaseUserControl
 
         set => this.ViewState["View"] = value;
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Archive All messages
@@ -794,6 +784,4 @@ public partial class PMList : BaseUserControl
                 break;
         }
     }
-
-    #endregion
 }

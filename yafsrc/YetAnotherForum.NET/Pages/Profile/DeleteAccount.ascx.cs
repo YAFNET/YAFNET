@@ -24,14 +24,10 @@
 
 namespace YAF.Pages.Profile;
 
-#region Using
-
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
-
-#endregion
 
 /// <summary>
 /// User Page To Delete (deactivate) his account
@@ -45,8 +41,6 @@ public partial class DeleteAccount : ProfilePage
         : base("DELETE_ACCOUNT", ForumPages.Profile_DeleteAccount)
     {
     }
-
-    #region Methods
 
     /// <summary>
     /// Creates page links for this page.
@@ -172,6 +166,4 @@ public partial class DeleteAccount : ProfilePage
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Board);
     }
-
-    #endregion
 }

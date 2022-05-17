@@ -24,15 +24,11 @@
 
 namespace YAF.Core.Services.CheckForSpam;
 
-#region
-
 using System;
 using System.IO;
 using System.Net;
 
 using YAF.Types.Interfaces.CheckForSpam;
-
-#endregion
 
 /// <summary>
 /// Spam Checking Class for the BotScout.com API

@@ -30,14 +30,10 @@ namespace YAF.Types.Interfaces;
 /// </typeparam>
 public interface IReadOnlyProvider<out T>
 {
-    #region Public Methods
-
     /// <summary>
     /// The create.
     /// </summary>
     /// <returns>
     /// </returns>
     T Instance { get; }
-
-    #endregion
 }

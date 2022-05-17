@@ -23,11 +23,7 @@
  */
 namespace YAF.Core.BaseModules;
 
-#region Using
-
 using System.Collections.Generic;
-
-#endregion
 
 /// <summary>
 /// The standard module manager.
@@ -38,16 +34,10 @@ using System.Collections.Generic;
 public class StandardModuleManager<TModule> : IModuleManager<TModule>
     where TModule : IModuleDefinition
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The _modules.
     /// </summary>
     private readonly IList<TModule> modules;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StandardModuleManager{TModule}"/> class.
@@ -61,12 +51,6 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
 
         this.modules = modules.ToList();
     }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IModuleManager<TModule>
 
     /// <summary>
     /// Get all instances of modules available.
@@ -114,8 +98,4 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
 
         return this.modules.SingleOrDefault(e => e.ModuleId.Equals(id));
     }
-
-    #endregion
-
-    #endregion
 }

@@ -40,8 +40,6 @@ using YAF.Types.Objects;
 /// </summary>
 public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLocator
 {
-    #region Properties
-
     /// <summary>
     /// Gets a value indicating whether another request can use the <see cref="T:System.Web.IHttpHandler" /> instance.
     /// </summary>
@@ -51,8 +49,6 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
     /// Gets the ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-    #endregion
 
     /// <summary>
     /// Enables processing of HTTP Web requests by a custom HttpHandler that implements the <see cref="T:System.Web.IHttpHandler" /> interface.

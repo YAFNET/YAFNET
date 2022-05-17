@@ -28,8 +28,6 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public interface IReplaceBlocks
 {
-    #region Public Methods
-
     /// <summary>
     /// The add replacement.
     /// </summary>
@@ -51,6 +49,4 @@ public interface IReplaceBlocks
     /// The <see cref="string"/>.
     /// </returns>
     string Get(int index);
-
-    #endregion
 }

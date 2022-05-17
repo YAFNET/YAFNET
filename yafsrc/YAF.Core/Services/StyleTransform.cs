@@ -23,12 +23,6 @@
  */
 namespace YAF.Core.Services;
 
-#region Using
-
-
-
-#endregion
-
 /// <summary>
 /// Transforms the style.
 /// </summary>

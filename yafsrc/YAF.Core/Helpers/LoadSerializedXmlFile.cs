@@ -24,16 +24,12 @@
 
 namespace YAF.Core.Helpers;
 
-#region Using
-
 using System;
 using System.IO;
 using System.Runtime.Caching;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-
-#endregion
 
 /// <summary>
 /// The load serialized xml file.
@@ -43,8 +39,6 @@ using System.Xml.Serialization;
 public class LoadSerializedXmlFile<T>
     where T : class
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// The attempt load file.
     /// </summary>
@@ -104,10 +98,6 @@ public class LoadSerializedXmlFile<T>
         }
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The get encoding for xml file.
     /// </summary>
@@ -143,6 +133,4 @@ public class LoadSerializedXmlFile<T>
             return Encoding.UTF8;
         }
     }
-
-    #endregion
 }

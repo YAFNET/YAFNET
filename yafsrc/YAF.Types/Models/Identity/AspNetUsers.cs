@@ -24,13 +24,9 @@
 
 namespace YAF.Types.Models.Identity;
 
-#region Using
-
 using Microsoft.AspNet.Identity;
 
 using ServiceStack.Model;
-
-#endregion
 
 /// <summary>
 /// The asp net users.

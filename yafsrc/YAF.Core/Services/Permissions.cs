@@ -23,13 +23,9 @@
  */
 namespace YAF.Core.Services;
 
-#region Using
-
 using System.Web.Hosting;
 
 using YAF.Types.Constants;
-
-#endregion
 
 /// <summary>
 /// The permissions.
@@ -47,18 +43,10 @@ public class Permissions : IPermissions, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
-    #region Properties
-
     /// <summary>
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IPermissions
 
     /// <summary>
     /// Check Viewing Permissions
@@ -135,8 +123,4 @@ public class Permissions : IPermissions, IHaveServiceLocator
             this.Get<LinkBuilder>().AccessDenied();
         }
     }
-
-    #endregion
-
-    #endregion
 }

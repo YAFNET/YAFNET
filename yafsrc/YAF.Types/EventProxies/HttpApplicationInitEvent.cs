@@ -28,8 +28,6 @@ namespace YAF.Types.EventProxies;
 /// </summary>
 public class HttpApplicationInitEvent : IAmEvent
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="HttpApplicationInitEvent"/> class.
     /// </summary>
@@ -41,14 +39,8 @@ public class HttpApplicationInitEvent : IAmEvent
         this.HttpApplication = httpApplication;
     }
 
-    #endregion
-
-    #region Properties
-
     /// <summary>
     /// Gets or sets HttpApplication.
     /// </summary>
     public HttpApplication HttpApplication { get; set; }
-
-    #endregion
 }

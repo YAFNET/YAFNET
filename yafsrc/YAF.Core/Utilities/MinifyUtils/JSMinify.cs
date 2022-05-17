@@ -8,21 +8,15 @@
 
 namespace YAF.Core.Utilities.MinifyUtils;
 
-#region Using
-
 using System;
 using System.IO;
 using System.Text;
-
-#endregion
 
 /// <summary>
 /// JS Minify Class
 /// </summary>
 public class JSMinify
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The eof.
     /// </summary>
@@ -53,20 +47,12 @@ public class JSMinify
     /// </summary>
     private TextWriter writer;
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Prevents a default instance of the <see cref="JSMinify" /> class from being created.
     /// </summary>
     private JSMinify()
     {
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Minifies the specified input code.
@@ -92,10 +78,6 @@ public class JSMinify
 
         return outputCode.ToString();
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// action -- do something! What you do is determined by the argument: 1 Output A. Copy B to A. Get the next B. 2 Copy B to A. Get the next B. (Delete A). 3 Get the next B. (Delete B). action treats a string as a single character. Wow! action recognizes a regular expression if it is preceded by ( or , or =.
@@ -414,6 +396,4 @@ public class JSMinify
     {
         this.writer.Write((char)c);
     }
-
-    #endregion
 }

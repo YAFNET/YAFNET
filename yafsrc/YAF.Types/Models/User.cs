@@ -56,8 +56,6 @@ public class User : IEntity, IHaveBoardID, IHaveID
         }
     }
 
-    #region Properties
-
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
@@ -331,6 +329,4 @@ public class User : IEntity, IHaveBoardID, IHaveID
     [Required]
     [Default(5)]
     public int PageSize { get; set; }
-
-    #endregion
 }

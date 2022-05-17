@@ -29,8 +29,6 @@ namespace YAF.Types.Flags;
 [Serializable]
 public class MessageFlags : FlagsBase
 {
-    #region Constructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="MessageFlags"/> class.
     /// </summary>
@@ -83,8 +81,6 @@ public class MessageFlags : FlagsBase
     {
     }
 
-    #endregion
-
     // #region Operators
 
     ///// <summary>
@@ -114,7 +110,6 @@ public class MessageFlags : FlagsBase
     // }
 
     // #endregion
-    #region Flags Enumeration
 
     /// <summary>
     /// Use for bit comparisons
@@ -187,10 +182,6 @@ public class MessageFlags : FlagsBase
               xxxxxxxx = 65536
                */
     }
-
-    #endregion
-
-    #region Single Flags (can be 32 of them)
 
     /// <summary>
     /// Gets or sets a value indicating whether this message allows HTML.
@@ -321,6 +312,4 @@ public class MessageFlags : FlagsBase
 
         set => this[10] = value;
     }
-
-    #endregion
 }

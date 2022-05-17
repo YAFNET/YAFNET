@@ -23,20 +23,14 @@
  */
 namespace YAF.Types.Extensions;
 
-#region Using
-
 using System.Collections.Generic;
 using System.Linq;
-
-#endregion
 
 /// <summary>
 /// The Enumerator Extensions
 /// </summary>
 public static class EnumExtensions
 {
-    #region Public Methods
-
     /// <summary>
     /// Gets all items for an Enumerator type.
     /// </summary>
@@ -169,6 +163,4 @@ public static class EnumExtensions
     {
         return value.ToType<int>();
     }
-
-    #endregion
 }

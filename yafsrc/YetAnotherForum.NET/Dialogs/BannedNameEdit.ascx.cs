@@ -24,19 +24,13 @@
 
 namespace YAF.Dialogs;
 
-#region Using
-
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The Admin Banned Name Add/Edit Dialog.
 /// </summary>
 public partial class BannedNameEdit : BaseUserControl
 {
-    #region Methods
-
     /// <summary>
     /// Gets or sets the banned identifier.
     /// </summary>
@@ -129,6 +123,4 @@ public partial class BannedNameEdit : BaseUserControl
         // go back to banned names administration page
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BannedNames);
     }
-
-    #endregion
 }

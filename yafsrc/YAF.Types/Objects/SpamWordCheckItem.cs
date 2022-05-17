@@ -31,8 +31,6 @@ using System.Text.RegularExpressions;
 [Serializable]
 public class SpamWordCheckItem
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The _active lock.
     /// </summary>
@@ -47,10 +45,6 @@ public class SpamWordCheckItem
     ///   The _active.
     /// </summary>
     private bool _active = true;
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SpamWordCheckItem" /> class.
@@ -71,10 +65,6 @@ public class SpamWordCheckItem
             this.SpamWordRegEx = null;
         }
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets or sets a value indicating whether Active.
@@ -114,6 +104,4 @@ public class SpamWordCheckItem
     /// Gets or sets Options.
     /// </summary>
     public RegexOptions Options { get; protected set; }
-
-    #endregion
 }

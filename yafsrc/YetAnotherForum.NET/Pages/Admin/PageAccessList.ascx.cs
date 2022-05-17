@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class PageAccessList : AdminPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PageAccessList"/> class. 
     /// </summary>
@@ -40,10 +38,6 @@ public partial class PageAccessList : AdminPage
         : base("ADMIN_PAGEACCESSLIST", ForumPages.Admin_PageAccessList)
     {
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Creates navigation page links on top of forum (breadcrumbs).
@@ -102,6 +96,4 @@ public partial class PageAccessList : AdminPage
             .Where(u => !u.UserFlags.IsHostAdmin);
         this.DataBind();
     }
-
-    #endregion
 }

@@ -28,8 +28,6 @@ namespace YAF.Web.Editors;
 /// </summary>
 public class CKEditorBBCodeEditor : CKEditor
 {
-    #region Properties
-
     /// <summary>
     ///   Gets Description.
     /// </summary>
@@ -55,10 +53,6 @@ public class CKEditorBBCodeEditor : CKEditor
     /// The allows uploads.
     /// </summary>
     public override bool AllowsUploads => true;
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The register CKEditor custom JS.
@@ -93,6 +87,4 @@ public class CKEditorBBCodeEditor : CKEditor
                 toolbar,
                 this.PageBoardContext.UploadAccess));
     }
-
-    #endregion
 }

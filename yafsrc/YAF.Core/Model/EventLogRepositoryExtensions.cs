@@ -35,8 +35,6 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class EventLogRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Gets the Event Log (Paged)
     /// </summary>
@@ -181,6 +179,4 @@ public static class EventLogRepositoryExtensions
             repository.DbAccess.Execute(db => db.Connection.DeleteAll(entries));
         }
     }
-
-    #endregion
 }

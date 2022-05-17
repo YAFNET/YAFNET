@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Context;
 
-#region Using
-
 using System;
 
 using Autofac;
@@ -38,15 +36,11 @@ using YAF.Types.Models;
 
 using AspNetUsers = YAF.Types.Models.Identity.AspNetUsers;
 
-#endregion
-
 /// <summary>
 /// Context class that accessible with the same instance from all locations
 /// </summary>
 public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The context lifetime container.
     /// </summary>
@@ -67,10 +61,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// </summary>
     private PageElementRegister pageElements;
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="BoardContext"/> class. BoardContext Constructor
     /// </summary>
@@ -87,10 +77,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
         // init context...
         this.Init?.Invoke(this, EventArgs.Empty);
     }
-
-    #endregion
-
-    #region Public Events
 
     /// <summary>
     /// The after init.
@@ -111,10 +97,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// On BoardContext Unload Call
     /// </summary>
     public event EventHandler<EventArgs> Unload;
-
-    #endregion
-
-    #region Public Properties
 
     /// <summary>
     /// Gets the instance of the Forum Context
@@ -181,10 +163,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// </summary>
     public TypeDictionary Vars { get; } = new ();
 
-    #endregion
-
-    #region Public Indexers
-
     /// <summary>
     /// Returns a value from the BoardContext Global Instance Variables (Vars) collection.
     /// </summary>
@@ -197,10 +175,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
 
         set => this.Vars[varName] = value;
     }
-
-    #endregion
-
-    #region Public Methods and Operators
 
     /// <summary>
     /// Helper Function that adds a "load message" to the load message class.
@@ -224,10 +198,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
         this.Unload?.Invoke(this, EventArgs.Empty);
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// Initialize the user data and page data...
     /// </summary>
@@ -248,6 +218,4 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
 
         this.AfterInit?.Invoke(this, EventArgs.Empty);
     }
-
-    #endregion
 }

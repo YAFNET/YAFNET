@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services.Localization;
 
-#region Using
-
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -33,15 +31,11 @@ using System.Web.Hosting;
 
 using YAF.Types.Objects;
 
-#endregion
-
 /// <summary>
 /// The YAF localization.
 /// </summary>
 public class Localization : ILocalization
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The begin no parse regex.
     /// </summary>
@@ -67,10 +61,6 @@ public class Localization : ILocalization
     /// </summary>
     private Localizer localizer;
 
-    #endregion
-
-    #region Constructors and Destructors
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Localization"/> class.
     ///   Initializes a new instance of the <see cref="YAF.Core"/> class.
@@ -91,10 +81,6 @@ public class Localization : ILocalization
     {
         this.TransPage = transPage;
     }
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     ///   Gets Culture.
@@ -144,12 +130,6 @@ public class Localization : ILocalization
     ///   Gets a value indicating whether TranslationLoaded.
     /// </summary>
     public bool TranslationLoaded => this.localizer != null;
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region ILocalization
 
     /// <summary>
     /// Formats date using given formatting string and current culture.
@@ -595,12 +575,6 @@ public class Localization : ILocalization
         return this.LoadTranslation(filename);
     }
 
-    #endregion
-
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// The get localized text internal.
     /// </summary>
@@ -636,6 +610,4 @@ public class Localization : ILocalization
 
         return localizedText;
     }
-
-    #endregion
 }

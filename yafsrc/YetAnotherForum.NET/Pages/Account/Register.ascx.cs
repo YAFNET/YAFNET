@@ -24,22 +24,16 @@
 
 namespace YAF.Pages.Account;
 
-#region Using
-
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models.Identity;
 using YAF.Types.Models;
-
-#endregion
 
 /// <summary>
 /// The User Register Page.
 /// </summary>
 public partial class Register : AccountPage
 {
-    #region Constructors and Destructors
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Register" /> class.
     /// </summary>
@@ -47,10 +41,6 @@ public partial class Register : AccountPage
         : base("REGISTER", ForumPages.Account_Register)
     {
     }
-
-    #endregion
-
-    #region Properties
 
     private IList<ProfileDefinition> profileDefinitions;
 
@@ -68,10 +58,6 @@ public partial class Register : AccountPage
     private bool IsPossibleSpamBot { get; set; }
     private IList<ProfileDefinition> ProfileDefinitions =>
         this.profileDefinitions ??= this.GetRepository<ProfileDefinition>().GetByBoardId();
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The On PreRender event.
@@ -608,6 +594,4 @@ public partial class Register : AccountPage
                     });
         }
     }
-
-    #endregion
 }

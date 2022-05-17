@@ -30,16 +30,10 @@ using System.Text.RegularExpressions;
 /// </summary>
 public class SyntaxHighlighterRegexReplaceRule : SimpleRegexReplaceRule
 {
-    #region Constants and Fields
-
     /// <summary>
     ///   The syntax highlighter.
     /// </summary>
     private readonly HighLighter syntaxHighlighter = new ();
-
-    #endregion
-
-    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SyntaxHighlighterRegexReplaceRule"/> class.
@@ -56,10 +50,6 @@ public class SyntaxHighlighterRegexReplaceRule : SimpleRegexReplaceRule
         this.syntaxHighlighter.ReplaceEnter = true;
         this.RuleRank = 1;
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// The replace.
@@ -91,10 +81,6 @@ public class SyntaxHighlighterRegexReplaceRule : SimpleRegexReplaceRule
         }
     }
 
-    #endregion
-
-    #region Methods
-
     /// <summary>
     /// This just overrides how the inner value is handled
     /// </summary>
@@ -106,6 +92,4 @@ public class SyntaxHighlighterRegexReplaceRule : SimpleRegexReplaceRule
     {
         return innerValue;
     }
-
-    #endregion
 }

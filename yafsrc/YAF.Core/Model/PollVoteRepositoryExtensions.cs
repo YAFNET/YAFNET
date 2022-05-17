@@ -34,8 +34,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class PollVoteRepositoryExtensions
 {
-    #region Public Methods and Operators
-
     /// <summary>
     /// Checks for a vote in the database
     /// </summary>
@@ -115,6 +113,4 @@ public static class PollVoteRepositoryExtensions
 
         repository.FireNew(entity);
     }
-
-    #endregion
 }

@@ -31,8 +31,6 @@ namespace YAF.Types.Structures;
 [Serializable]
 public class DoubleLinkedList : IList
 {
-    #region Constants and Fields
-
     /// <summary>
     /// The head link.
     /// </summary>
@@ -47,10 +45,6 @@ public class DoubleLinkedList : IList
     /// The m_count.
     /// </summary>
     private int m_count;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets Count.
@@ -76,10 +70,6 @@ public class DoubleLinkedList : IList
     /// Gets SyncRoot.
     /// </summary>
     public object SyncRoot { get; } = new();
-
-    #endregion
-
-    #region Indexers
 
     /// <summary>
     /// The this.
@@ -124,10 +114,6 @@ public class DoubleLinkedList : IList
             }
         }
     }
-
-    #endregion
-
-    #region Public Methods
 
     /// <summary>
     /// Append the specified value to the tail of the list (not a LinkItem)
@@ -270,12 +256,6 @@ public class DoubleLinkedList : IList
         Interlocked.Decrement(ref this.m_count);
     }
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region ICollection
-
     /// <summary>
     /// The copy to.
     /// </summary>
@@ -298,10 +278,6 @@ public class DoubleLinkedList : IList
         }
     }
 
-    #endregion
-
-    #region IEnumerable
-
     /// <summary>
     /// The get enumerator.
     /// </summary>
@@ -311,10 +287,6 @@ public class DoubleLinkedList : IList
     {
         return new EnumLinkList(this);
     }
-
-    #endregion
-
-    #region IList
 
     /// <summary>
     /// The add.
@@ -540,18 +512,12 @@ public class DoubleLinkedList : IList
         Interlocked.Decrement(ref this.m_count);
     }
 
-    #endregion
-
-    #endregion
-
     /// <summary>
     /// Public class to enumerate the items in the list
     /// </summary>
     [Serializable]
     public class EnumLinkList : IEnumerator
     {
-        #region Constants and Fields
-
         /// <summary>
         /// The m_list.
         /// </summary>
@@ -561,10 +527,6 @@ public class DoubleLinkedList : IList
         /// The m_current.
         /// </summary>
         private LinkItem m_current;
-
-        #endregion
-
-        #region Constructors and Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EnumLinkList"/> class.
@@ -577,20 +539,10 @@ public class DoubleLinkedList : IList
             this.m_list = list;
         }
 
-        #endregion
-
-        #region Properties
-
         /// <summary>
         /// Gets Current.
         /// </summary>
         public object Current => this.m_current;
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IEnumerator
 
         /// <summary>
         /// The move next.
@@ -634,10 +586,6 @@ public class DoubleLinkedList : IList
         {
             this.m_current = null;
         }
-
-        #endregion
-
-        #endregion
     }
 
     /// <summary>
@@ -646,8 +594,6 @@ public class DoubleLinkedList : IList
     [Serializable]
     public class LinkItem
     {
-        #region Constants and Fields
-
         /// <summary>
         ///   Current item that this node points to (ie the value)
         /// </summary>
@@ -662,10 +608,6 @@ public class DoubleLinkedList : IList
         ///   Previous item in the list
         /// </summary>
         public LinkItem Previous;
-
-        #endregion
-
-        #region Constructors and Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LinkItem"/> class.
@@ -687,10 +629,6 @@ public class DoubleLinkedList : IList
             this.Item = item;
         }
 
-        #endregion
-
-        #region Public Methods
-
         /// <summary>
         /// The to string.
         /// </summary>
@@ -701,7 +639,5 @@ public class DoubleLinkedList : IList
         {
             return this.Item != null ? this.Item.ToString() : "null";
         }
-
-        #endregion
     }
 }

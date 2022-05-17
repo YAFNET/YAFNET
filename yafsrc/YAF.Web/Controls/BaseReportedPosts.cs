@@ -28,8 +28,6 @@ namespace YAF.Web.Controls;
 /// </summary>
 public class BaseReportedPosts : BaseUserControl
 {
-    #region Properties
-
     /// <summary>
     ///   Gets or sets MessageID.
     /// </summary>
@@ -52,10 +50,6 @@ public class BaseReportedPosts : BaseUserControl
     /// </summary>
     [CanBeNull]
     public virtual string ResolvedDate { get; set; }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// The render.
@@ -145,6 +139,4 @@ public class BaseReportedPosts : BaseUserControl
 
         writer.EndRender();
     }
-
-    #endregion
 }
