@@ -24,9 +24,7 @@
 
 namespace YAF.Pages.Admin;
 
-#region Using
 using YAF.Types.Models;
-#endregion
 
 /// <summary>
 /// The Admin Restore Topics Page
@@ -117,16 +115,22 @@ public partial class Restore : AdminPage
     /// </param>
     protected void List_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-        var commandArgs = e.CommandArgument.ToString().Split(';');
+        int? forumId = null;
+        int? topicId = null;
 
-        var topicId = commandArgs[0].ToType<int>();
-        var forumId = commandArgs[1].ToType<int>();
+        if (e.CommandArgument != null)
+        {
+            var commandArgs = e.CommandArgument.ToString().Split(';');
+
+            topicId = commandArgs[0].ToType<int>();
+            forumId = commandArgs[1].ToType<int>();
+        }
 
         switch (e.CommandName)
         {
             case "delete":
                 {
-                    this.GetRepository<Topic>().Delete(forumId, topicId, true);
+                    this.GetRepository<Topic>().Delete(forumId.Value, topicId.Value, true);
 
                     this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -142,8 +146,8 @@ public partial class Restore : AdminPage
                     if (getFirstMessage != null)
                     {
                         this.GetRepository<Message>().Delete(
-                            forumId,
-                            topicId,
+                            forumId.Value,
+                            topicId.Value,
                             getFirstMessage.ID,
                             true,
                             string.Empty,
@@ -152,7 +156,7 @@ public partial class Restore : AdminPage
                             false);
                     }
 
-                    var topic = this.GetRepository<Topic>().GetById(topicId);
+                    var topic = this.GetRepository<Topic>().GetById(topicId.Value);
 
                     var flags = topic.TopicFlags;
 
@@ -233,21 +237,28 @@ public partial class Restore : AdminPage
     /// </param>
     protected void Messages_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-        var commandArgs = e.CommandArgument.ToString().Split(';');
+        int? messageId = null;
+        int? forumId = null;
+        int? topicId = null;
 
-        var messageId = commandArgs[0].ToType<int>();
-        var forumId = commandArgs[1].ToType<int>();
-        var topicId = commandArgs[2].ToType<int>();
+        if (e.CommandArgument != null)
+        {
+            var commandArgs = e.CommandArgument.ToString().Split(';');
 
+            messageId = commandArgs[0].ToType<int>();
+            forumId = commandArgs[1].ToType<int>();
+            topicId = commandArgs[2].ToType<int>();
+        }
+        
         switch (e.CommandName)
         {
             case "delete":
                 {
                     // delete message
                     this.GetRepository<Message>().Delete(
-                        forumId,
-                        topicId,
-                        messageId,
+                        forumId.Value,
+                        topicId.Value,
+                        messageId.Value,
                         true,
                         string.Empty,
                         true,
@@ -263,9 +274,9 @@ public partial class Restore : AdminPage
             case "restore":
                 {
                     this.GetRepository<Message>().Delete(
-                        forumId,
-                        topicId,
-                        messageId,
+                        forumId.Value,
+                        topicId.Value,
+                        messageId.Value,
                         true,
                         string.Empty,
                         false,
