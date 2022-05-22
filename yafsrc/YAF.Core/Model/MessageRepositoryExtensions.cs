@@ -1249,8 +1249,6 @@ public static class MessageRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
-        var useFileTable = BoardContext.Current.BoardSettings.UseFileTable;
-
         if (deleteLinked)
         {
             // Delete replies
@@ -1269,12 +1267,6 @@ public static class MessageRepositoryExtensions
             }
         }
 
-        // If the files are actually saved in the Hard Drive
-        if (!useFileTable)
-        {
-            BoardContext.Current.GetRepository<Attachment>().DeleteByMessageId(messageId);
-        }
-
         // Ederon : erase message for good
         if (eraseMessages)
         {
@@ -1286,9 +1278,9 @@ public static class MessageRepositoryExtensions
                     BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", messageId),
                     EventLogTypes.Information);
             }
-
-            repository.Delete(messageId, isModeratorChanged, deleteReason, eraseMessages, isDeleteAction);
         }
+
+        repository.Delete(messageId, isModeratorChanged, deleteReason, eraseMessages, isDeleteAction);
 
         // Delete Message from Search Index
         if (isDeleteAction)

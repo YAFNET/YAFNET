@@ -68,15 +68,8 @@ public static class ActiveRepositoryExtensions
                                               a.UserID,
                                               UserName = b.Name,
                                               UserDisplayName = b.DisplayName,
-                                              IsActiveExcluded =
-                                                  Sql.Custom<bool>(
-                                                      $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
-                                              IsCrawler =
-                                                  Sql.Custom<bool>(
-                                                      $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&8")})"),
+                                              b.Flags,
                                               b.UserStyle,
-                                              IsGuest = Sql.Custom<bool>(
-                                                  $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
                                               b.Suspended,
                                               UserCount = Sql.Custom<int>($"({countSql})"),
                                               a.Browser
@@ -132,15 +125,8 @@ public static class ActiveRepositoryExtensions
                                               a.UserID,
                                               UserName = b.Name,
                                               UserDisplayName = b.DisplayName,
-                                              IsActiveExcluded =
-                                                  Sql.Custom<bool>(
-                                                      $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
-                                              IsCrawler =
-                                                  Sql.Custom<bool>(
-                                                      $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&8")})"),
                                               b.UserStyle,
-                                              IsGuest = Sql.Custom<bool>(
-                                                  $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
+                                              b.Flags,
                                               b.Suspended,
                                               UserCount = Sql.Custom<int>($"({countSql})"),
                                               a.Browser

@@ -133,43 +133,6 @@ public static class AttachmentRepositoryExtensions
     }
 
     /// <summary>
-    /// Deletes all Attachments by Message Id
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="messageId">
-    /// The message id.
-    /// </param>
-    public static void DeleteByMessageId(this IRepository<Attachment> repository, [NotNull] int messageId)
-    {
-        CodeContracts.VerifyNotNull(repository);
-
-        var attachments = repository.Get(a => a.MessageID == messageId);
-
-        var uploadDir = HostingEnvironment.MapPath(
-            string.Concat(BaseUrlBuilder.ServerFileRoot, BoardContext.Current.Get<BoardFolders>().Uploads));
-
-        attachments.ForEach(
-            attachment =>
-                {
-                    try
-                    {
-                        var fileName = $"{uploadDir}/{messageId}.{attachment.FileName}.yafupload";
-
-                        if (File.Exists(fileName))
-                        {
-                            File.Delete(fileName);
-                        }
-                    }
-                    catch
-                    {
-                        // error deleting that file...
-                    }
-                });
-    }
-
-    /// <summary>
     /// Increments the download counter.
     /// </summary>
     /// <param name="repository">The repository.</param>

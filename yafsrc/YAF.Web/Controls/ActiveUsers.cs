@@ -108,7 +108,7 @@ public class ActiveUsers : BaseControl
                 {
                     UserLink userLink;
 
-                    var isCrawler = user.IsCrawler;
+                    var isCrawler = user.ActiveFlags.IsCrawler;
 
                     // create new link and set its parameters
                     if (isCrawler)
@@ -151,7 +151,7 @@ public class ActiveUsers : BaseControl
                     }
 
                     // if user is guest and guest should be hidden
-                    var addControl = !(!user.IsGuest && !this.PageBoardContext.IsAdmin);
+                    var addControl = !(!user.ActiveFlags.IsGuest && !this.PageBoardContext.IsAdmin);
 
                     // we might not want to add this user link if user is marked as hidden
                     if (user.IsActiveExcluded)

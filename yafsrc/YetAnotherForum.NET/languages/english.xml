@@ -1299,7 +1299,7 @@
     <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
     <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
     <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
-    <Resouce tag="SHOW_SCROLL_HELP">If enabled automatically show Back to Top Button when scrolling down the page</Resouce>
+    <Resource tag="SHOW_SCROLL_HELP">If enabled automatically show Back to Top Button when scrolling down the page</Resource>
     <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
     <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>

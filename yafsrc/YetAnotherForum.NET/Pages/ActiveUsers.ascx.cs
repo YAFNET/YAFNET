@@ -126,7 +126,7 @@ public partial class ActiveUsers : ForumPage
         }
 
         // remove non-guest users...
-        activeUsers.RemoveAll(row => row.IsGuest == false);
+        activeUsers.RemoveAll(row => row.ActiveFlags.IsGuest == false);
     }
 
     /// <summary>

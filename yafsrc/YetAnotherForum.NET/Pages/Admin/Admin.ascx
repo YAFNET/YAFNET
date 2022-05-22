@@ -305,7 +305,7 @@
                                 <YAF:UserLabel ID="ActiveUserLink"
                                                ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ActiveUser).UserDisplayName : (Container.DataItem as ActiveUser).UserName %>"
                                                UserID="<%# (Container.DataItem as ActiveUser).UserID %>"
-                                               CrawlerName="<%# (Container.DataItem as ActiveUser).IsCrawler ? (Container.DataItem as ActiveUser).Browser : string.Empty %>"
+                                               CrawlerName="<%# (Container.DataItem as ActiveUser).ActiveFlags.IsCrawler ? (Container.DataItem as ActiveUser).Browser : string.Empty %>"
                                                Style="<%# (Container.DataItem as ActiveUser).UserStyle %>" runat="server" />
                             </div>
                             <div class="me-2">
