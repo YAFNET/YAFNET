@@ -79,7 +79,7 @@ CKEDITOR.dialog.add("attachmentsDialog",
             command.modes = { wysiwyg: 1, source: 1 };
 
             CKEDITOR.tools.insertAttachment = function(id) {
-                var dialog = CKEDITOR.dialog.getCurrent()
+                var dialog = CKEDITOR.dialog.getCurrent();
                 var currentEditor = CKEDITOR.currentInstance;
 
                 var insert = "[attach]" + id + "[/attach]";

@@ -46,8 +46,7 @@
 
 	function autoEmbedLink( editor, id ) {
 		var anchor = editor.editable().findOne( 'a[data-cke-autoembed="' + id + '"]' ),
-			lang = editor.lang.autoembed,
-			notification;
+			lang = editor.lang.autoembed;
 
 		if ( !anchor || !anchor.data( 'cke-saved-href' ) ) {
 			return;
@@ -64,19 +63,18 @@
 			// TODO Move this to a method in the widget plugin. https://dev.ckeditor.com/ticket/13408
 		var defaults = typeof widgetDef.defaults == 'function' ? widgetDef.defaults() : widgetDef.defaults,
 			element = CKEDITOR.dom.element.createFromHtml( widgetDef.template.output( defaults ) ),
-			instance,
 			wrapper = editor.widgets.wrapElement( element, widgetDef.name ),
 			temp = new CKEDITOR.dom.documentFragment( wrapper.getDocument() );
 
 		temp.append( wrapper );
-		instance = editor.widgets.initOn( element, widgetDef );
+		var instance = editor.widgets.initOn( element, widgetDef );
 
 		if ( !instance ) {
 			finalizeCreation();
 			return;
 		}
 
-		notification = editor.showNotification( lang.embeddingInProgress, 'info' );
+		var notification = editor.showNotification( lang.embeddingInProgress, 'info' );
 		instance.loadContent( href, {
 			noNotifications: true,
 			callback: function() {

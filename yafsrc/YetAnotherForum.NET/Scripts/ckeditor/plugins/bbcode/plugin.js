@@ -702,9 +702,9 @@
                                     element.name = 'img';
 
                                     if (element.attributes.href) {
-                                        element.attributes.src = element.attributes.href
+                                        element.attributes.src = element.attributes.href;
                                         element.attributes.alt = element.children[0].value;
-                                        element.attributes.title = element.children[0].value
+                                        element.attributes.title = element.children[0].value;
                                     } else {
                                         element.attributes.src = element.children[0].value;
                                     }
@@ -833,7 +833,7 @@
                                     if (alt) {
 
                                         element.children = [new CKEDITOR.htmlParser.text(alt)];
-                                        element.attributes.option = attributes.src
+                                        element.attributes.option = attributes.src;
                                     } else {
                                         element.children = [new CKEDITOR.htmlParser.text(src)];
                                     }
