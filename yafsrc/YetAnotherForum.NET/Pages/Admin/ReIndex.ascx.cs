@@ -93,6 +93,7 @@ public partial class ReIndex : AdminPage
     {
         try
         {
+            this.txtIndexStatistics.Visible = true;
             this.txtIndexStatistics.Text = this.Get<IDbAccess>().GetDatabaseFragmentationInfo();
         }
         catch (Exception ex)
@@ -116,11 +117,13 @@ public partial class ReIndex : AdminPage
                 _ => string.Empty
             };
 
-        const string result = "Done";
+        const string Result = "Done";
+
+        this.txtIndexStatistics.Text = string.Empty;
 
         var stats = this.txtIndexStatistics.Text = this.Get<IDbAccess>().ChangeRecoveryMode(recoveryMode);
 
-        this.txtIndexStatistics.Text = stats.IsSet() ? stats : result;
+        this.PageBoardContext.Notify(stats.IsSet() ? stats : Result, MessageTypes.success);
     }
 
     /// <summary>
@@ -130,15 +133,13 @@ public partial class ReIndex : AdminPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void ReindexClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-            "BlockUiFunctionJs",
-            JavaScriptBlocks.BlockUiFunctionJs("ReindexMessage"));
-
         const string Result = "Done";
 
         var stats = this.Get<IDbAccess>().ReIndexDatabase(Config.DatabaseObjectQualifier);
 
-        this.txtIndexStatistics.Text = stats.IsSet() ? stats : Result;
+        this.txtIndexStatistics.Text = string.Empty;
+
+        this.PageBoardContext.Notify(stats.IsSet() ? stats : Result, MessageTypes.success);
     }
 
     /// <summary>
@@ -155,19 +156,21 @@ public partial class ReIndex : AdminPage
 
             result.Append(this.Get<IDbAccess>().ShrinkDatabase());
 
-            result.Append(" ");
+            result.Append("&nbsp;");
 
             result.AppendLine(this.GetTextFormatted(
                 "INDEX_SHRINK",
                 this.Get<IDbAccess>().GetDatabaseSize()));
 
-            result.Append(" ");
+            result.Append("&nbsp;");
 
-            this.txtIndexStatistics.Text = result.ToString();
+            this.txtIndexStatistics.Text = string.Empty;
+
+            this.PageBoardContext.Notify(result.ToString(), MessageTypes.success);
         }
         catch (Exception error)
         {
-            this.txtIndexStatistics.Text += this.GetTextFormatted("INDEX_STATS_FAIL", error.Message);
+            this.PageBoardContext.Notify(this.GetTextFormatted("INDEX_STATS_FAIL", error.Message), MessageTypes.danger);
         }
     }
 

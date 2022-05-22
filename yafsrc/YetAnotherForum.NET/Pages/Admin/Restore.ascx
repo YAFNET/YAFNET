@@ -67,7 +67,6 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li class="list-group-item list-group-item-action">
-                            <asp:HiddenField ID="hiddenID" runat="server" Value='<%# this.Eval("Item2.ID") + ";" + this.Eval("Item1.ID") %>' />
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
                                     <%# this.Eval("Item2.TopicName") %>
@@ -178,7 +177,6 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li class="list-group-item list-group-item-action">
-                            <asp:HiddenField ID="hiddenID" runat="server" Value='<%# this.Eval("Item3.ID") + ";" + this.Eval("Item1.ID") + ";" + this.Eval("Item2.ID") %>' />
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
                                     <%# this.Eval("Item2.TopicName") %>

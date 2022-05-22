@@ -15,6 +15,7 @@
                 <asp:TextBox ID="txtIndexStatistics" runat="server"
                              Height="400px"
                              TextMode="MultiLine"
+                             Visible="False"
                     CssClass="form-control"></asp:TextBox>
                 <asp:Placeholder ID="PanelGetStats" runat="server" Visible="False">
                     <p class="card-text">
@@ -67,20 +68,6 @@
                                          TextLocalizedTag="SHRINK_BTN" />
                     </p>
                 </asp:Placeholder>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="ReindexMessage" aria-hidden="true" aria-labelledby="MessageToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REINDEX_TITLE" LocalizedPage="ADMIN_REINDEX" />
-            </div>
-            <div class="modal-body text-center">
-                <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="REINDEX_MSG" LocalizedPage="ADMIN_REINDEX" />
-                <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
             </div>
         </div>
     </div>
