@@ -168,19 +168,11 @@ public partial class Restore : AdminPage
                 break;
             case "delete_all":
                 {
-                    var topicIds = new List<(int forumId, int topicId)>();
+                    var deletedTopics = this.GetRepository<Topic>()
+                        .GetDeletedTopics(this.PageBoardContext.PageBoardID, this.Filter.Text);
 
-                    this.DeletedTopics.Items.Cast<RepeaterItem>().ForEach(item =>
-                        {
-                            var hiddenId = item.FindControlAs<HiddenField>("hiddenID");
-
-                            var args = hiddenId.Value.Split(';');
-
-                            topicIds.Add((args[1].ToType<int>(), args[0].ToType<int>()));
-                        });
-
-                    topicIds.ForEach(
-                        x => this.GetRepository<Topic>().Delete(x.forumId, x.topicId, true));
+                    deletedTopics.ForEach(
+                        x => this.GetRepository<Topic>().Delete(x.Item2.ForumID, x.Item2.ID, true));
 
                     this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -285,22 +277,14 @@ public partial class Restore : AdminPage
                 break;
             case "delete_all":
                 {
-                    var messageIds = new List<(int forumId, int topicId, int messageId)>();
+                    var messages = this.GetRepository<Message>()
+                        .GetDeletedMessages(this.PageBoardContext.PageBoardID);
 
-                    this.DeletedMessages.Items.Cast<RepeaterItem>().ForEach(item =>
-                        {
-                            var hiddenId = item.FindControlAs<HiddenField>("hiddenID");
-
-                            var args = hiddenId.Value.Split(';');
-
-                            messageIds.Add((args[1].ToType<int>(), args[2].ToType<int>(), args[0].ToType<int>()));
-                        });
-
-                    messageIds.ForEach(
+                    messages.ForEach(
                         x => this.GetRepository<Message>().Delete(
-                            x.forumId,
-                            x.topicId,
-                            x.messageId,
+                            x.Item1.ID,
+                            x.Item3.TopicID,
+                            x.Item3.ID,
                             true,
                             string.Empty,
                             true,
