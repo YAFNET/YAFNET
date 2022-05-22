@@ -1410,7 +1410,7 @@ public static class MessageRepositoryExtensions
 
             if (repository.Count(x => x.TopicID == message.TopicID && (x.Flags & 8) != 8) == 0)
             {
-                BoardContext.Current.GetRepository<Topic>().Delete(
+               BoardContext.Current.GetRepository<Topic>().Delete(
                     message.Topic.ForumID,
                     message.TopicID,
                     true);
@@ -1443,10 +1443,18 @@ public static class MessageRepositoryExtensions
                 u => u.ID == message.UserID);
         }
 
-        // -- update topic Post Count
-        BoardContext.Current.GetRepository<Topic>().UpdateAdd(
-            () => new Topic { NumPosts = -1 },
-            x => x.ID == message.TopicID);
+        try
+        {
+            // -- update topic Post Count
+            BoardContext.Current.GetRepository<Topic>().UpdateAdd(
+                () => new Topic { NumPosts = -1 },
+                x => x.ID == message.TopicID);
+        }
+        catch (Exception)
+        {
+            // Ignore if Post count is wrong
+        }
+        
     }
 
     /// <summary>
