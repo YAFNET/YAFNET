@@ -1385,9 +1385,16 @@ public static class MessageRepositoryExtensions
             BoardContext.Current.GetRepository<MessageHistory>().Delete(x => x.MessageID == messageId);
 
             // -- update message positions inside the topic
-            repository.UpdateAdd(
-                () => new Message { Position = -1 },
-                x => x.TopicID == message.TopicID && x.Posted > message.Posted && x.ID == messageId);
+            try
+            {
+                repository.UpdateAdd(
+                    () => new Message { Position = -1 },
+                    x => x.TopicID == message.TopicID && x.Posted > message.Posted && x.ID != messageId);
+            }
+            catch (Exception)
+            {
+                throw new ApplicationException($"Error while deleting Message: {messageId}");
+            }
 
             // -- update ReplyTo
             var replyMessage = repository.GetSingle(
@@ -1454,7 +1461,6 @@ public static class MessageRepositoryExtensions
         {
             // Ignore if Post count is wrong
         }
-        
     }
 
     /// <summary>
