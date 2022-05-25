@@ -999,10 +999,12 @@
       },
       {
         "@name": "ADMIN_ATTACHMENTS",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "فایلهای الصاقی کاربر"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "فایلهای الصاقی کاربر"
+          }
+        ]
       },
       {
         "@name": "ADMIN_BANNEDEMAIL",
@@ -5867,6 +5869,10 @@
           {
             "@tag": "TITLE",
             "#text": "زبان ها"
+          },
+          {
+            "@tag": "PROGRESS",
+            "#text": "Translated Resources"
           }
         ]
       },
@@ -6217,10 +6223,12 @@
       },
       {
         "@name": "ADMIN_PROFILER",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Web Profiler"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Web Profiler"
+          }
+        ]
       },
       {
         "@name": "ADMIN_PRUNE",
@@ -6658,10 +6666,12 @@
       },
       {
         "@name": "ADMIN_SPAMLOG",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "نمایش لاگ های اسپم"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "نمایش لاگ های اسپم"
+          }
+        ]
       },
       {
         "@name": "ADMIN_SPAMWORDS",
@@ -10318,10 +10328,12 @@
       },
       {
         "@name": "EDIT_SETTINGS",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Edit Settings"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Edit Settings"
+          }
+        ]
       },
       {
         "@name": "EDIT_SIGNATURE",
@@ -10988,10 +11000,12 @@
       },
       {
         "@name": "IM_AIM",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "مسنجر AOL"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "مسنجر AOL"
+          }
+        ]
       },
       {
         "@name": "IM_EMAIL",
@@ -11024,17 +11038,21 @@
       },
       {
         "@name": "IM_MSN",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "پیام رسان MSN"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "پیام رسان MSN"
+          }
+        ]
       },
       {
         "@name": "IM_SKYPE",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "برقراری تماس با اسکایپ"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "برقراری تماس با اسکایپ"
+          }
+        ]
       },
       {
         "@name": "IM_XMPP",
@@ -11059,10 +11077,12 @@
       },
       {
         "@name": "IM_YIM",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "پیام رسان یاهو"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "پیام رسان یاهو"
+          }
+        ]
       },
       {
         "@name": "INFO",
@@ -11171,10 +11191,12 @@
       },
       {
         "@name": "LANGUAGE",
-        "Resource": {
-          "@tag": "CHARSET",
-          "#text": "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        }
+        "Resource": [
+          {
+            "@tag": "CHARSET",
+            "#text": "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+          }
+        ]
       },
       {
         "@name": "LOGIN",
@@ -11840,7 +11862,8 @@
             "#text": "نام موضوع خالی است"
           },
           {
-            "@tag": "MOVE"
+            "@tag": "MOVE",
+            "#text": null
           },
           {
             "@tag": "MOVE_MESSAGE",
@@ -13254,10 +13277,12 @@
       },
       {
         "@name": "PRINTTOPIC",
-        "Resource": {
-          "@tag": "POSTEDBY",
-          "#text": "ارسال شده توسط:"
-        }
+        "Resource": [
+          {
+            "@tag": "POSTEDBY",
+            "#text": "ارسال شده توسط:"
+          }
+        ]
       },
       {
         "@name": "PROFILE",

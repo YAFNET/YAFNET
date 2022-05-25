@@ -1011,10 +1011,12 @@
       },
       {
         "@name": "ADMIN_ATTACHMENTS",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "User Attachments"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "User Attachments"
+          }
+        ]
       },
       {
         "@name": "ADMIN_BANNEDEMAIL",
@@ -6034,6 +6036,10 @@
           {
             "@tag": "TITLE",
             "#text": "Languages"
+          },
+          {
+            "@tag": "PROGRESS",
+            "#text": "Translated Resources"
           }
         ]
       },
@@ -6384,10 +6390,12 @@
       },
       {
         "@name": "ADMIN_PROFILER",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Web Profiler"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Web Profiler"
+          }
+        ]
       },
       {
         "@name": "ADMIN_PRUNE",
@@ -6825,10 +6833,12 @@
       },
       {
         "@name": "ADMIN_SPAMLOG",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Spam Event Log"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Spam Event Log"
+          }
+        ]
       },
       {
         "@name": "ADMIN_SPAMWORDS",
@@ -10513,10 +10523,12 @@
       },
       {
         "@name": "EDIT_SETTINGS",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Edit Settings"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Edit Settings"
+          }
+        ]
       },
       {
         "@name": "EDIT_SIGNATURE",
@@ -11195,10 +11207,12 @@
       },
       {
         "@name": "IM_AIM",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "AOL Instant Messenger"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "AOL Instant Messenger"
+          }
+        ]
       },
       {
         "@name": "IM_EMAIL",
@@ -11231,17 +11245,21 @@
       },
       {
         "@name": "IM_MSN",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "MSN Messenger"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "MSN Messenger"
+          }
+        ]
       },
       {
         "@name": "IM_SKYPE",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Skype(tm) Calling"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Skype(tm) Calling"
+          }
+        ]
       },
       {
         "@name": "IM_XMPP",
@@ -11266,10 +11284,12 @@
       },
       {
         "@name": "IM_YIM",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Yahoo! Messenger"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Yahoo! Messenger"
+          }
+        ]
       },
       {
         "@name": "INFO",
@@ -11378,9 +11398,12 @@
       },
       {
         "@name": "LANGUAGE",
-        "Resource": {
-          "@tag": "CHARSET"
-        }
+        "Resource": [
+          {
+            "@tag": "CHARSET",
+            "#text": null
+          }
+        ]
       },
       {
         "@name": "LOGIN",
@@ -12082,7 +12105,8 @@
             "#text": "Topic name is empty"
           },
           {
-            "@tag": "MOVE"
+            "@tag": "MOVE",
+            "#text": null
           },
           {
             "@tag": "MOVE_MESSAGE",
@@ -13518,6 +13542,10 @@
           {
             "@tag": "YIM_TITLE",
             "#text": "Contact {0} via Yahoo Instant Messenger"
+          },
+          {
+            "@tag": "TWITTER",
+            "#text": "Twitter"
           }
         ]
       },
@@ -13536,10 +13564,12 @@
       },
       {
         "@name": "PRINTTOPIC",
-        "Resource": {
-          "@tag": "POSTEDBY",
-          "#text": "Napísal"
-        }
+        "Resource": [
+          {
+            "@tag": "POSTEDBY",
+            "#text": "Napísal"
+          }
+        ]
       },
       {
         "@name": "PROFILE",

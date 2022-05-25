@@ -1011,10 +1011,12 @@
       },
       {
         "@name": "ADMIN_ATTACHMENTS",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "User Attachments"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "User Attachments"
+          }
+        ]
       },
       {
         "@name": "ADMIN_BANNEDEMAIL",
@@ -6034,6 +6036,10 @@
           {
             "@tag": "TITLE",
             "#text": "Languages"
+          },
+          {
+            "@tag": "PROGRESS",
+            "#text": "Translated Resources"
           }
         ]
       },
@@ -6384,10 +6390,12 @@
       },
       {
         "@name": "ADMIN_PROFILER",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Web Profiler"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Web Profiler"
+          }
+        ]
       },
       {
         "@name": "ADMIN_PRUNE",
@@ -6825,10 +6833,12 @@
       },
       {
         "@name": "ADMIN_SPAMLOG",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Spam Event Log"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Spam Event Log"
+          }
+        ]
       },
       {
         "@name": "ADMIN_SPAMWORDS",
@@ -8185,7 +8195,8 @@
             "#text": "Browse"
           },
           {
-            "@tag": "CAL_JQ_CULTURE"
+            "@tag": "CAL_JQ_CULTURE",
+            "#text": null
           },
           {
             "@tag": "CAL_JQ_TT",
@@ -10516,10 +10527,12 @@
       },
       {
         "@name": "EDIT_SETTINGS",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Edit Settings"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Edit Settings"
+          }
+        ]
       },
       {
         "@name": "EDIT_SIGNATURE",
@@ -11198,10 +11211,12 @@
       },
       {
         "@name": "IM_AIM",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "AOL Instant Messenger"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "AOL Instant Messenger"
+          }
+        ]
       },
       {
         "@name": "IM_EMAIL",
@@ -11234,17 +11249,21 @@
       },
       {
         "@name": "IM_MSN",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "MSN Messenger"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "MSN Messenger"
+          }
+        ]
       },
       {
         "@name": "IM_SKYPE",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Skype(tm) kõned"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Skype(tm) kõned"
+          }
+        ]
       },
       {
         "@name": "IM_XMPP",
@@ -11269,10 +11288,12 @@
       },
       {
         "@name": "IM_YIM",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Yahoo! Messenger"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Yahoo! Messenger"
+          }
+        ]
       },
       {
         "@name": "INFO",
@@ -11381,10 +11402,12 @@
       },
       {
         "@name": "LANGUAGE",
-        "Resource": {
-          "@tag": "CHARSET",
-          "#text": "#ABCDEFGHIJKLMNOPRSTUVWXYZÜÕÖÄ"
-        }
+        "Resource": [
+          {
+            "@tag": "CHARSET",
+            "#text": "#ABCDEFGHIJKLMNOPRSTUVWXYZÜÕÖÄ"
+          }
+        ]
       },
       {
         "@name": "LOGIN",
@@ -12086,7 +12109,8 @@
             "#text": "Teema nimetus on määramata"
           },
           {
-            "@tag": "MOVE"
+            "@tag": "MOVE",
+            "#text": null
           },
           {
             "@tag": "MOVE_MESSAGE",
@@ -13518,6 +13542,10 @@
           {
             "@tag": "YIM_TITLE",
             "#text": "Contact {0} via Yahoo Instant Messenger"
+          },
+          {
+            "@tag": "TWITTER",
+            "#text": "Twitter"
           }
         ]
       },
@@ -13536,16 +13564,19 @@
       },
       {
         "@name": "PRINTTOPIC",
-        "Resource": {
-          "@tag": "POSTEDBY",
-          "#text": "Postitas"
-        }
+        "Resource": [
+          {
+            "@tag": "POSTEDBY",
+            "#text": "Postitas"
+          }
+        ]
       },
       {
         "@name": "PROFILE",
         "Resource": [
           {
-            "@tag": "ABOUT"
+            "@tag": "ABOUT",
+            "#text": null
           },
           {
             "@tag": "ADMIN_USER",

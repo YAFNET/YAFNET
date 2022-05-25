@@ -1011,10 +1011,12 @@
       },
       {
         "@name": "ADMIN_ATTACHMENTS",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "User Attachments"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "User Attachments"
+          }
+        ]
       },
       {
         "@name": "ADMIN_BANNEDEMAIL",
@@ -6074,6 +6076,10 @@
           {
             "@tag": "TITLE",
             "#text": "Languages"
+          },
+          {
+            "@tag": "PROGRESS",
+            "#text": "Translated Resources"
           }
         ]
       },
@@ -6424,10 +6430,12 @@
       },
       {
         "@name": "ADMIN_PROFILER",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Web Profiler"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Web Profiler"
+          }
+        ]
       },
       {
         "@name": "ADMIN_PRUNE",
@@ -6865,10 +6873,12 @@
       },
       {
         "@name": "ADMIN_SPAMLOG",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Spam Event Log"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Spam Event Log"
+          }
+        ]
       },
       {
         "@name": "ADMIN_SPAMWORDS",
@@ -10561,10 +10571,12 @@
       },
       {
         "@name": "EDIT_SETTINGS",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Edit Settings"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Edit Settings"
+          }
+        ]
       },
       {
         "@name": "EDIT_SIGNATURE",
@@ -11243,10 +11255,12 @@
       },
       {
         "@name": "IM_AIM",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "AOL Hızlı Mesajcı"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "AOL Hızlı Mesajcı"
+          }
+        ]
       },
       {
         "@name": "IM_EMAIL",
@@ -11279,17 +11293,21 @@
       },
       {
         "@name": "IM_MSN",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "MSN"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "MSN"
+          }
+        ]
       },
       {
         "@name": "IM_SKYPE",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Skype(tm) Arama"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Skype(tm) Arama"
+          }
+        ]
       },
       {
         "@name": "IM_XMPP",
@@ -11314,10 +11332,12 @@
       },
       {
         "@name": "IM_YIM",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Yahoo! Haberci"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Yahoo! Haberci"
+          }
+        ]
       },
       {
         "@name": "INFO",
@@ -11426,10 +11446,12 @@
       },
       {
         "@name": "LANGUAGE",
-        "Resource": {
-          "@tag": "CHARSET",
-          "#text": "#ABCÇDEFGĞHIİJKLMNOÖöPQRSŞTUÜVWXYZ"
-        }
+        "Resource": [
+          {
+            "@tag": "CHARSET",
+            "#text": "#ABCÇDEFGĞHIİJKLMNOÖöPQRSŞTUÜVWXYZ"
+          }
+        ]
       },
       {
         "@name": "LOGIN",
@@ -12139,7 +12161,8 @@
             "#text": "Konu adı boş"
           },
           {
-            "@tag": "MOVE"
+            "@tag": "MOVE",
+            "#text": null
           },
           {
             "@tag": "MOVE_MESSAGE",
@@ -12989,7 +13012,8 @@
         "@name": "POSTS",
         "Resource": [
           {
-            "@tag": "AD_SIGNATURE"
+            "@tag": "AD_SIGNATURE",
+            "#text": null
           },
           {
             "@tag": "AD_USERNAME",
@@ -13570,6 +13594,10 @@
           {
             "@tag": "YIM_TITLE",
             "#text": "Contact {0} via Yahoo Instant Messenger"
+          },
+          {
+            "@tag": "TWITTER",
+            "#text": "Twitter"
           }
         ]
       },
@@ -13588,10 +13616,12 @@
       },
       {
         "@name": "PRINTTOPIC",
-        "Resource": {
-          "@tag": "POSTEDBY",
-          "#text": "Gönderen"
-        }
+        "Resource": [
+          {
+            "@tag": "POSTEDBY",
+            "#text": "Gönderen"
+          }
+        ]
       },
       {
         "@name": "PROFILE",

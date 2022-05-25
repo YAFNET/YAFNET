@@ -1096,10 +1096,12 @@
       },
       {
         "@name": "ADMIN_ATTACHMENTS",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "User Attachments"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "User Attachments"
+          }
+        ]
       },
       {
         "@name": "ADMIN_BANNEDEMAIL",
@@ -6119,6 +6121,10 @@
           {
             "@tag": "TITLE",
             "#text": "Languages"
+          },
+          {
+            "@tag": "PROGRESS",
+            "#text": "Translated Resources"
           }
         ]
       },
@@ -6469,10 +6475,12 @@
       },
       {
         "@name": "ADMIN_PROFILER",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Web Profiler"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Web Profiler"
+          }
+        ]
       },
       {
         "@name": "ADMIN_PRUNE",
@@ -6910,10 +6918,12 @@
       },
       {
         "@name": "ADMIN_SPAMLOG",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Spam Event Log"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Spam Event Log"
+          }
+        ]
       },
       {
         "@name": "ADMIN_SPAMWORDS",
@@ -10602,10 +10612,12 @@
       },
       {
         "@name": "EDIT_SETTINGS",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Edit Settings"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Edit Settings"
+          }
+        ]
       },
       {
         "@name": "EDIT_SIGNATURE",
@@ -11284,10 +11296,12 @@
       },
       {
         "@name": "IM_AIM",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "AOL מסרים מידיים"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "AOL מסרים מידיים"
+          }
+        ]
       },
       {
         "@name": "IM_EMAIL",
@@ -11320,17 +11334,21 @@
       },
       {
         "@name": "IM_MSN",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "MSN Messenger"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "MSN Messenger"
+          }
+        ]
       },
       {
         "@name": "IM_SKYPE",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "שיחת Skype(tm)"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "שיחת Skype(tm)"
+          }
+        ]
       },
       {
         "@name": "IM_XMPP",
@@ -11355,10 +11373,12 @@
       },
       {
         "@name": "IM_YIM",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Yahoo! Messenger"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Yahoo! Messenger"
+          }
+        ]
       },
       {
         "@name": "INFO",
@@ -11467,10 +11487,12 @@
       },
       {
         "@name": "LANGUAGE",
-        "Resource": {
-          "@tag": "CHARSET",
-          "#text": "#ABCDEFGHIJKLMNOPQRSTUVWXYZאבגדהוזחטיכלמנסעפצקרשת"
-        }
+        "Resource": [
+          {
+            "@tag": "CHARSET",
+            "#text": "#ABCDEFGHIJKLMNOPQRSTUVWXYZאבגדהוזחטיכלמנסעפצקרשת"
+          }
+        ]
       },
       {
         "@name": "LOGIN",
@@ -12180,7 +12202,8 @@
             "#text": "שם הדיון ריק:"
           },
           {
-            "@tag": "MOVE"
+            "@tag": "MOVE",
+            "#text": null
           },
           {
             "@tag": "MOVE_MESSAGE",
@@ -13664,6 +13687,10 @@
           {
             "@tag": "YIM_TITLE",
             "#text": "Contact {0} via Yahoo Instant Messenger"
+          },
+          {
+            "@tag": "TWITTER",
+            "#text": "Twitter"
           }
         ]
       },
@@ -13682,10 +13709,12 @@
       },
       {
         "@name": "PRINTTOPIC",
-        "Resource": {
-          "@tag": "POSTEDBY",
-          "#text": "נשלח ע\"י"
-        }
+        "Resource": [
+          {
+            "@tag": "POSTEDBY",
+            "#text": "נשלח ע\"י"
+          }
+        ]
       },
       {
         "@name": "PROFILE",
@@ -14421,12 +14450,10 @@
         "Resource": [
           {
             "@tag": "ACCOUNT_CREATED",
-            "@editType": "bbcode",
             "#text": "[center]חשבונך נוצר בהצלחה.[/center]"
           },
           {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
-            "@editType": "bbcode",
             "#text": "[center]חשבונך נוצר בהצלחה. עלייך עדיין לאשר את כתובת הדוא\"ל על מנת להתחבר. בדוק/י את חשבון הדוא\"ל להוראות אימות. [/center]"
           },
           {
@@ -14876,7 +14903,6 @@
           },
           {
             "@tag": "RULES_TEXT",
-            "@editType": "bbcode",
             "#text": "\r\n      [size=5]הבעלים והמנהלים של הפורום אינם יכולים לוודא את תקינות התוכן של כל ההודעות בפורום זה. ההודעות משקפות את ההשקפות והדעות של המחבר, אבל לא בהכרח של הבעלים או המנהלים. אם לדעתך הודעה כלשהי מוטלת בספק, אנו מעודדים אותך לדווח למנהל פורום באופן מיידי.\r\n\r\n      אתה מתחייב שלא לכתוב בפורום תכנים פוגעניים, וולגריים, מלאי שנאה, משמיצים, מאיימים, מיניים או כל תוכן אחר שעלול להפר חוק רלוונטי כלשהו. כתיבת תכנים אלו יובילו להשעיתך מהפורום באופן סופי. שים לב שכל כתובת IP מתועדת ועשויה לשמש על מנת לאכוף את חוקי הפורום או המדינה.\r\n\r\n      את/ה מסכים/ה שלבעלים ולמנהלים של פורום זה שמורה הזכות למחוק, לערוך, להעביר או לסגור כל דיון בכל זמן כפי ראות עיניהם. בתור משתמש/ת את/ה מסכים/ה שכל נתון שהזנת למעלה יאוכסן במסד הנתונים של הפורום. למרות שנתונים אלו לא יימסרו לגוף שלישי כלשהו ללא אישורך, הבעלים והמנהלים לא יוחזקו כאחראים לנסיון פריצה כלשהו שעלול להוביל לחשיפת נתונים אלו.\r\n\r\n      מערכת פורומים זו משתמש בעוגיות על מנת לאכסן נתונים על המחשב המקומי שלך. עוגיות אלו לא מכילות אף אחד מהנתונים שהזנת למעלה; הם משמשים רק על מנת לשפר את חווית הקריאה שלך. כתובת הדוא\"ל משמשת רק לאימות פרטי הרישום שלך וסיסמתך, או לשלוח לך סיסמא חדשה במידה ותשכח סיסמא זו.\r\n\r\n      את/ה מסכים/ה לא להשתמש בכלים אוטומטיים על מנת להירשם או לשלוח הודעות בפורום זה. אי ציות לכלל זה יעניק לנו את הזכות לתשאל את שרת האינטרנט שלך שוב ושוב.[/size]\r\n\r\n      [center][size=6][b]ע\"י לחיצה על \"אני מסכים/ה\" תהיה חייב להיצמד לכללי הפורום ומדיניותו שצויינו למעלה.[/b][/size][/center]\r\n    "
           },
           {

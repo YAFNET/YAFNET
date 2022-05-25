@@ -1011,10 +1011,12 @@
       },
       {
         "@name": "ADMIN_ATTACHMENTS",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "User Attachments"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "User Attachments"
+          }
+        ]
       },
       {
         "@name": "ADMIN_BANNEDEMAIL",
@@ -6014,6 +6016,10 @@
           {
             "@tag": "TITLE",
             "#text": "Sprachen"
+          },
+          {
+            "@tag": "PROGRESS",
+            "#text": "Translated Resources"
           }
         ]
       },
@@ -6364,10 +6370,12 @@
       },
       {
         "@name": "ADMIN_PROFILER",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Web Profiler"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Web Profiler"
+          }
+        ]
       },
       {
         "@name": "ADMIN_PRUNE",
@@ -6805,10 +6813,12 @@
       },
       {
         "@name": "ADMIN_SPAMLOG",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Spam Ereignisprotokoll"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Spam Ereignisprotokoll"
+          }
+        ]
       },
       {
         "@name": "ADMIN_SPAMWORDS",
@@ -10485,10 +10495,12 @@
       },
       {
         "@name": "EDIT_SETTINGS",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Edit Settings"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Edit Settings"
+          }
+        ]
       },
       {
         "@name": "EDIT_SIGNATURE",
@@ -11155,10 +11167,12 @@
       },
       {
         "@name": "IM_AIM",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "AOL-Instantmessenger"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "AOL-Instantmessenger"
+          }
+        ]
       },
       {
         "@name": "IM_EMAIL",
@@ -11191,17 +11205,21 @@
       },
       {
         "@name": "IM_MSN",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Windows Live Messenger"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Windows Live Messenger"
+          }
+        ]
       },
       {
         "@name": "IM_SKYPE",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Skype(tm) Anruf"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Skype(tm) Anruf"
+          }
+        ]
       },
       {
         "@name": "IM_XMPP",
@@ -11226,10 +11244,12 @@
       },
       {
         "@name": "IM_YIM",
-        "Resource": {
-          "@tag": "TITLE",
-          "#text": "Yahoo!-Messenger"
-        }
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Yahoo!-Messenger"
+          }
+        ]
       },
       {
         "@name": "INFO",
@@ -11338,10 +11358,12 @@
       },
       {
         "@name": "LANGUAGE",
-        "Resource": {
-          "@tag": "CHARSET",
-          "#text": "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        }
+        "Resource": [
+          {
+            "@tag": "CHARSET",
+            "#text": "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+          }
+        ]
       },
       {
         "@name": "LOGIN",
@@ -13470,10 +13492,12 @@
       },
       {
         "@name": "PRINTTOPIC",
-        "Resource": {
-          "@tag": "POSTEDBY",
-          "#text": "Geschrieben von"
-        }
+        "Resource": [
+          {
+            "@tag": "POSTEDBY",
+            "#text": "Geschrieben von"
+          }
+        ]
       },
       {
         "@name": "PROFILE",
