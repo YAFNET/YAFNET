@@ -155,7 +155,7 @@
             "#text": "{0} replied to the topic {1}"
           },
           {
-            "@tag": "WATCH_Topic_REPLY",
+            "@tag": "WATCH_TOPIC_REPLY",
             "#text": "New Reply in a Watch Topic"
           },
           {
@@ -888,7 +888,7 @@
             "#text": "De ge&iuml;nstalleerde versie van de database en de versie van Yet Another Forum.net komen niet overeen. Je moet de database updaten."
           },
           {
-            "@tag": "Administration",
+            "@tag": "ADMINISTRATION",
             "#text": "Onderhoud"
           },
           {
@@ -2370,7 +2370,7 @@
         "@name": "ADMIN_EDITCATEGORY",
         "Resource": [
           {
-            "@tag": "Active",
+            "@tag": "ACTIVE",
             "#text": "Active"
           },
           {
@@ -6210,7 +6210,7 @@
             "#text": "Haal op"
           },
           {
-            "@tag": "Retrieved",
+            "@tag": "RETRIEVED",
             "#text": "{0} artikelen opgehaald. {1:N2} artikelen per seconde."
           },
           {
@@ -7184,11 +7184,11 @@
         "@name": "ADMINMENU",
         "Resource": [
           {
-            "@tag": "admin_accessmasks",
+            "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Toegangsmaskers"
           },
           {
-            "@tag": "admin_admin",
+            "@tag": "ADMIN_ADMIN",
             "#text": "Beheerdersindex"
           },
           {
@@ -7196,95 +7196,95 @@
             "#text": "Attachments"
           },
           {
-            "@tag": "admin_bannedemail",
+            "@tag": "ADMIN_BANNEDEMAIL",
             "#text": "Banned Emails"
           },
           {
-            "@tag": "admin_bannedip",
+            "@tag": "ADMIN_BANNEDIP",
             "#text": "Geblokkeerde IPs"
           },
           {
-            "@tag": "admin_bannedname",
+            "@tag": "ADMIN_BANNEDNAME",
             "#text": "Banned Names"
           },
           {
-            "@tag": "admin_bbcode",
+            "@tag": "ADMIN_BBCODE",
             "#text": "BBCode Extensies"
           },
           {
-            "@tag": "ADMIN_BoardAnnouncement",
+            "@tag": "ADMIN_BOARDANNOUNCEMENT",
             "#text": "Board Announcement"
           },
           {
-            "@tag": "admin_boards",
+            "@tag": "ADMIN_BOARDS",
             "#text": "Boards"
           },
           {
-            "@tag": "admin_boardsettings",
+            "@tag": "ADMIN_BOARDSETTINGS",
             "#text": "Board Instellingen"
           },
           {
-            "@tag": "admin_digest",
+            "@tag": "ADMIN_DIGEST",
             "#text": "Samenvatting"
           },
           {
-            "@tag": "admin_eventlog",
+            "@tag": "ADMIN_EVENTLOG",
             "#text": "Logboek"
           },
           {
-            "@tag": "admin_extensions",
+            "@tag": "ADMIN_EXTENSIONS",
             "#text": "Bestandsextensies"
           },
           {
-            "@tag": "admin_forums",
+            "@tag": "ADMIN_FORUMS",
             "#text": "Categories & Forums"
           },
           {
-            "@tag": "admin_groups",
+            "@tag": "ADMIN_GROUPS",
             "#text": "Rollen"
           },
           {
-            "@tag": "admin_hostsettings",
+            "@tag": "ADMIN_HOSTSETTINGS",
             "#text": "Host Instellingen"
           },
           {
-            "@tag": "admin_install",
+            "@tag": "ADMIN_INSTALL",
             "#text": "Installatie"
           },
           {
-            "@tag": "admin_languages",
+            "@tag": "ADMIN_LANGUAGES",
             "#text": "Talen"
           },
           {
-            "@tag": "admin_mail",
+            "@tag": "ADMIN_MAIL",
             "#text": "E-mail"
           },
           {
-            "@tag": "admin_medals",
+            "@tag": "ADMIN_MEDALS",
             "#text": "Medailles"
           },
           {
-            "@tag": "admin_nntpforums",
+            "@tag": "ADMIN_NNTPFORUMS",
             "#text": "NNTP Forums"
           },
           {
-            "@tag": "admin_nntpretrieve",
+            "@tag": "ADMIN_NNTPRETRIEVE",
             "#text": "Haal Artikelen op"
           },
           {
-            "@tag": "admin_nntpservers",
+            "@tag": "ADMIN_NNTPSERVERS",
             "#text": "NNTP Servers"
           },
           {
-            "@tag": "admin_pageaccessedit",
+            "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Edit Admin Page Access"
           },
           {
-            "@tag": "admin_pageaccesslist",
+            "@tag": "ADMIN_PAGEACCESSLIST",
             "#text": "Admin Page Access"
           },
           {
-            "@tag": "admin_pm",
+            "@tag": "ADMIN_PM",
             "#text": "PM's"
           },
           {
@@ -7292,35 +7292,35 @@
             "#text": "Custom Profile Definitions"
           },
           {
-            "@tag": "admin_profiler",
+            "@tag": "ADMIN_PROFILER",
             "#text": "Web Profiler"
           },
           {
-            "@tag": "admin_prune",
+            "@tag": "ADMIN_PRUNE",
             "#text": "Opschonen van Topics"
           },
           {
-            "@tag": "admin_ranks",
+            "@tag": "ADMIN_RANKS",
             "#text": "Rangen"
           },
           {
-            "@tag": "admin_reindex",
+            "@tag": "ADMIN_REINDEX",
             "#text": "DB Onderhoud"
           },
           {
-            "@tag": "admin_replacewords",
+            "@tag": "ADMIN_REPLACEWORDS",
             "#text": "Vervangwoorden"
           },
           {
-            "@tag": "admin_restartapp",
+            "@tag": "ADMIN_RESTARTAPP",
             "#text": "Herstart Forum"
           },
           {
-            "@tag": "admin_restore",
+            "@tag": "ADMIN_RESTORE",
             "#text": "Restore & Delete Topics"
           },
           {
-            "@tag": "admin_runsql",
+            "@tag": "ADMIN_RUNSQL",
             "#text": "Draai SQL Query"
           },
           {
@@ -7328,7 +7328,7 @@
             "#text": "Spam Event Log"
           },
           {
-            "@tag": "admin_spamwords",
+            "@tag": "ADMIN_SPAMWORDS",
             "#text": "Spam Check Words"
           },
           {
@@ -7336,27 +7336,27 @@
             "#text": "Tags"
           },
           {
-            "@tag": "admin_taskmanager",
+            "@tag": "ADMIN_TASKMANAGER",
             "#text": "Taakbeheer"
           },
           {
-            "@tag": "admin_users",
+            "@tag": "ADMIN_USERS",
             "#text": "Gebruikers"
           },
           {
-            "@tag": "admin_version",
+            "@tag": "ADMIN_VERSION",
             "#text": "Versiecontrole"
           },
           {
-            "@tag": "Database",
+            "@tag": "DATABASE",
             "#text": "Database"
           },
           {
-            "@tag": "HostAdministration",
+            "@tag": "HOSTADMINISTRATION",
             "#text": "Host Beheer"
           },
           {
-            "@tag": "Maintenance",
+            "@tag": "MAINTENANCE",
             "#text": "Onderhoud"
           },
           {
@@ -7364,19 +7364,19 @@
             "#text": "NNTP"
           },
           {
-            "@tag": "Settings",
+            "@tag": "SETTINGS",
             "#text": "Instellingen"
           },
           {
-            "@tag": "Spam_Protection",
+            "@tag": "SPAM_PROTECTION",
             "#text": "Spam Protection"
           },
           {
-            "@tag": "Upgrade",
+            "@tag": "UPGRADE",
             "#text": "Upgrade"
           },
           {
-            "@tag": "UsersandRoles",
+            "@tag": "USERSANDROLES",
             "#text": "Gebruikers en rollen"
           }
         ]
@@ -13759,7 +13759,7 @@
             "#text": "Topic:"
           },
           {
-            "@tag": "Twitter",
+            "@tag": "TWITTER",
             "#text": "Twitter Naam:"
           },
           {
@@ -13842,7 +13842,7 @@
         ]
       },
       {
-        "@name": "Region_CH",
+        "@name": "REGION_CH",
         "Resource": [
           {
             "@tag": "RGN_CH_AG",
@@ -15291,7 +15291,7 @@
             "#text": "My Settings"
           },
           {
-            "@tag": "MYSETTINGs_TITLE",
+            "@tag": "MYSETTINGS_TITLE",
             "#text": "Edit your user details and settings."
           },
           {

@@ -155,7 +155,7 @@
             "#text": "{0} replied to the topic {1}"
           },
           {
-            "@tag": "WATCH_Topic_REPLY",
+            "@tag": "WATCH_TOPIC_REPLY",
             "#text": "New Reply in a Watch Topic"
           },
           {
@@ -888,7 +888,7 @@
             "#text": " и обновить вашу базу данных."
           },
           {
-            "@tag": "Administration",
+            "@tag": "ADMINISTRATION",
             "#text": "Администрирование"
           },
           {
@@ -2370,7 +2370,7 @@
         "@name": "ADMIN_EDITCATEGORY",
         "Resource": [
           {
-            "@tag": "Active",
+            "@tag": "ACTIVE",
             "#text": "Active"
           },
           {
@@ -6210,7 +6210,7 @@
             "#text": "Получить"
           },
           {
-            "@tag": "Retrieved",
+            "@tag": "RETRIEVED",
             "#text": "Получено {0} статей. {1:N2} статей в секунду."
           },
           {
@@ -7184,11 +7184,11 @@
         "@name": "ADMINMENU",
         "Resource": [
           {
-            "@tag": "admin_accessmasks",
+            "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Маски доступа"
           },
           {
-            "@tag": "admin_admin",
+            "@tag": "ADMIN_ADMIN",
             "#text": "Индекс админа"
           },
           {
@@ -7196,95 +7196,95 @@
             "#text": "Attachments"
           },
           {
-            "@tag": "admin_bannedemail",
+            "@tag": "ADMIN_BANNEDEMAIL",
             "#text": "Banned Emails"
           },
           {
-            "@tag": "admin_bannedip",
+            "@tag": "ADMIN_BANNEDIP",
             "#text": "Запрещённые IP"
           },
           {
-            "@tag": "admin_bannedname",
+            "@tag": "ADMIN_BANNEDNAME",
             "#text": "Banned Names"
           },
           {
-            "@tag": "admin_bbcode",
+            "@tag": "ADMIN_BBCODE",
             "#text": "BB-коды"
           },
           {
-            "@tag": "ADMIN_BoardAnnouncement",
+            "@tag": "ADMIN_BOARDANNOUNCEMENT",
             "#text": "Board Announcement"
           },
           {
-            "@tag": "admin_boards",
+            "@tag": "ADMIN_BOARDS",
             "#text": "Конференции"
           },
           {
-            "@tag": "admin_boardsettings",
+            "@tag": "ADMIN_BOARDSETTINGS",
             "#text": "Данные конференции"
           },
           {
-            "@tag": "admin_digest",
+            "@tag": "ADMIN_DIGEST",
             "#text": "Дайджест"
           },
           {
-            "@tag": "admin_eventlog",
+            "@tag": "ADMIN_EVENTLOG",
             "#text": "Журнал"
           },
           {
-            "@tag": "admin_extensions",
+            "@tag": "ADMIN_EXTENSIONS",
             "#text": "Расширения файлов"
           },
           {
-            "@tag": "admin_forums",
+            "@tag": "ADMIN_FORUMS",
             "#text": "Форумы"
           },
           {
-            "@tag": "admin_groups",
+            "@tag": "ADMIN_GROUPS",
             "#text": "Роли"
           },
           {
-            "@tag": "admin_hostsettings",
+            "@tag": "ADMIN_HOSTSETTINGS",
             "#text": "Настройки хоста"
           },
           {
-            "@tag": "admin_install",
+            "@tag": "ADMIN_INSTALL",
             "#text": "Установка"
           },
           {
-            "@tag": "admin_languages",
+            "@tag": "ADMIN_LANGUAGES",
             "#text": "Языки"
           },
           {
-            "@tag": "admin_mail",
+            "@tag": "ADMIN_MAIL",
             "#text": "Почта"
           },
           {
-            "@tag": "admin_medals",
+            "@tag": "ADMIN_MEDALS",
             "#text": "Медали"
           },
           {
-            "@tag": "admin_nntpforums",
+            "@tag": "ADMIN_NNTPFORUMS",
             "#text": "Форумы NNTP"
           },
           {
-            "@tag": "admin_nntpretrieve",
+            "@tag": "ADMIN_NNTPRETRIEVE",
             "#text": "Получить статьи"
           },
           {
-            "@tag": "admin_nntpservers",
+            "@tag": "ADMIN_NNTPSERVERS",
             "#text": "Серверы NNTP"
           },
           {
-            "@tag": "admin_pageaccessedit",
+            "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Редактирование прав доступа "
           },
           {
-            "@tag": "admin_pageaccesslist",
+            "@tag": "ADMIN_PAGEACCESSLIST",
             "#text": "Страницы администратора"
           },
           {
-            "@tag": "admin_pm",
+            "@tag": "ADMIN_PM",
             "#text": "Личные сообщения"
           },
           {
@@ -7292,35 +7292,35 @@
             "#text": "Custom Profile Definitions"
           },
           {
-            "@tag": "admin_profiler",
+            "@tag": "ADMIN_PROFILER",
             "#text": "Web Profiler"
           },
           {
-            "@tag": "admin_prune",
+            "@tag": "ADMIN_PRUNE",
             "#text": "Чистка тем"
           },
           {
-            "@tag": "admin_ranks",
+            "@tag": "ADMIN_RANKS",
             "#text": "Статусы"
           },
           {
-            "@tag": "admin_reindex",
+            "@tag": "ADMIN_REINDEX",
             "#text": "Обслуживание БД"
           },
           {
-            "@tag": "admin_replacewords",
+            "@tag": "ADMIN_REPLACEWORDS",
             "#text": "Замена слов"
           },
           {
-            "@tag": "admin_restartapp",
+            "@tag": "ADMIN_RESTARTAPP",
             "#text": "Перезапуск приложения"
           },
           {
-            "@tag": "admin_restore",
+            "@tag": "ADMIN_RESTORE",
             "#text": "Restore & Delete Topics"
           },
           {
-            "@tag": "admin_runsql",
+            "@tag": "ADMIN_RUNSQL",
             "#text": "Выполнить запрос SQL"
           },
           {
@@ -7328,7 +7328,7 @@
             "#text": "Spam Event Log"
           },
           {
-            "@tag": "admin_spamwords",
+            "@tag": "ADMIN_SPAMWORDS",
             "#text": "Spam Check Words"
           },
           {
@@ -7336,27 +7336,27 @@
             "#text": "Tags"
           },
           {
-            "@tag": "admin_taskmanager",
+            "@tag": "ADMIN_TASKMANAGER",
             "#text": "Менеджер задач"
           },
           {
-            "@tag": "admin_users",
+            "@tag": "ADMIN_USERS",
             "#text": "Пользователи"
           },
           {
-            "@tag": "admin_version",
+            "@tag": "ADMIN_VERSION",
             "#text": "Контроль версии"
           },
           {
-            "@tag": "Database",
+            "@tag": "DATABASE",
             "#text": "База данных"
           },
           {
-            "@tag": "HostAdministration",
+            "@tag": "HOSTADMINISTRATION",
             "#text": "Управление хостом"
           },
           {
-            "@tag": "Maintenance",
+            "@tag": "MAINTENANCE",
             "#text": "Обслуживание"
           },
           {
@@ -7364,19 +7364,19 @@
             "#text": "NNTP"
           },
           {
-            "@tag": "Settings",
+            "@tag": "SETTINGS",
             "#text": "Настройки"
           },
           {
-            "@tag": "Spam_Protection",
+            "@tag": "SPAM_PROTECTION",
             "#text": "Spam Protection"
           },
           {
-            "@tag": "Upgrade",
+            "@tag": "UPGRADE",
             "#text": "Обновление"
           },
           {
-            "@tag": "UsersandRoles",
+            "@tag": "USERSANDROLES",
             "#text": "Пользователи и роли"
           }
         ]
@@ -13759,7 +13759,7 @@
             "#text": "Тема:"
           },
           {
-            "@tag": "Twitter",
+            "@tag": "TWITTER",
             "#text": "Имя в Твиттере:"
           },
           {
@@ -13842,7 +13842,7 @@
         ]
       },
       {
-        "@name": "Region_CH",
+        "@name": "REGION_CH",
         "Resource": [
           {
             "@tag": "RGN_CH_AG",
@@ -15238,7 +15238,7 @@
             "#text": "My Settings"
           },
           {
-            "@tag": "MYSETTINGs_TITLE",
+            "@tag": "MYSETTINGS_TITLE",
             "#text": "Edit your user details and settings."
           },
           {

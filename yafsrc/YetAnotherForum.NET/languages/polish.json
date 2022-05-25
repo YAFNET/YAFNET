@@ -155,7 +155,7 @@
             "#text": "{0} replied to the topic {1}"
           },
           {
-            "@tag": "WATCH_Topic_REPLY",
+            "@tag": "WATCH_TOPIC_REPLY",
             "#text": "New Reply in a Watch Topic"
           },
           {
@@ -888,7 +888,7 @@
             "#text": "Zainstalowana wersja Yet Another Forum.net i wersja bazy danych nie zgadzają się. Powinieneś iść do \"Instaluj\" i zaktualizować bazę danych."
           },
           {
-            "@tag": "Administration",
+            "@tag": "ADMINISTRATION",
             "#text": "Administracja"
           },
           {
@@ -2370,7 +2370,7 @@
         "@name": "ADMIN_EDITCATEGORY",
         "Resource": [
           {
-            "@tag": "Active",
+            "@tag": "ACTIVE",
             "#text": "Active"
           },
           {
@@ -6206,7 +6206,7 @@
             "#text": "Retrieve"
           },
           {
-            "@tag": "Retrieved",
+            "@tag": "RETRIEVED",
             "#text": "Retrieved {0} articles. {1:N2} articles per second."
           },
           {
@@ -7180,11 +7180,11 @@
         "@name": "ADMINMENU",
         "Resource": [
           {
-            "@tag": "admin_accessmasks",
+            "@tag": "ADMIN_ACCESSMASKS",
             "#text": "Maski uprawnień"
           },
           {
-            "@tag": "admin_admin",
+            "@tag": "ADMIN_ADMIN",
             "#text": "Informacje"
           },
           {
@@ -7192,95 +7192,95 @@
             "#text": "Attachments"
           },
           {
-            "@tag": "admin_bannedemail",
+            "@tag": "ADMIN_BANNEDEMAIL",
             "#text": "Banned Emails"
           },
           {
-            "@tag": "admin_bannedip",
+            "@tag": "ADMIN_BANNEDIP",
             "#text": "Zbanowane adresy IP"
           },
           {
-            "@tag": "admin_bannedname",
+            "@tag": "ADMIN_BANNEDNAME",
             "#text": "Banned Names"
           },
           {
-            "@tag": "admin_bbcode",
+            "@tag": "ADMIN_BBCODE",
             "#text": "Dodatkowe BBCode"
           },
           {
-            "@tag": "ADMIN_BoardAnnouncement",
+            "@tag": "ADMIN_BOARDANNOUNCEMENT",
             "#text": "Board Announcement"
           },
           {
-            "@tag": "admin_boards",
+            "@tag": "ADMIN_BOARDS",
             "#text": "Fora"
           },
           {
-            "@tag": "admin_boardsettings",
+            "@tag": "ADMIN_BOARDSETTINGS",
             "#text": "Ustawienia Forum"
           },
           {
-            "@tag": "admin_digest",
+            "@tag": "ADMIN_DIGEST",
             "#text": "Digest"
           },
           {
-            "@tag": "admin_eventlog",
+            "@tag": "ADMIN_EVENTLOG",
             "#text": "Dziennik zdarzeń"
           },
           {
-            "@tag": "admin_extensions",
+            "@tag": "ADMIN_EXTENSIONS",
             "#text": "Rozszrzenia plików"
           },
           {
-            "@tag": "admin_forums",
+            "@tag": "ADMIN_FORUMS",
             "#text": "Działy"
           },
           {
-            "@tag": "admin_groups",
+            "@tag": "ADMIN_GROUPS",
             "#text": "Role"
           },
           {
-            "@tag": "admin_hostsettings",
+            "@tag": "ADMIN_HOSTSETTINGS",
             "#text": "Ustawienia aplikacji"
           },
           {
-            "@tag": "admin_install",
+            "@tag": "ADMIN_INSTALL",
             "#text": "Instaluj"
           },
           {
-            "@tag": "admin_languages",
+            "@tag": "ADMIN_LANGUAGES",
             "#text": "Języki"
           },
           {
-            "@tag": "admin_mail",
+            "@tag": "ADMIN_MAIL",
             "#text": "E-mail"
           },
           {
-            "@tag": "admin_medals",
+            "@tag": "ADMIN_MEDALS",
             "#text": "Medale"
           },
           {
-            "@tag": "admin_nntpforums",
+            "@tag": "ADMIN_NNTPFORUMS",
             "#text": "Fora NNTP"
           },
           {
-            "@tag": "admin_nntpretrieve",
+            "@tag": "ADMIN_NNTPRETRIEVE",
             "#text": "Pobieraj artykułu"
           },
           {
-            "@tag": "admin_nntpservers",
+            "@tag": "ADMIN_NNTPSERVERS",
             "#text": "Serwery NNTP"
           },
           {
-            "@tag": "admin_pageaccessedit",
+            "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Edytuj dostęp do panelu administracyjnego"
           },
           {
-            "@tag": "admin_pageaccesslist",
+            "@tag": "ADMIN_PAGEACCESSLIST",
             "#text": "Dostęp do panelu administracyjnego"
           },
           {
-            "@tag": "admin_pm",
+            "@tag": "ADMIN_PM",
             "#text": "Prywatne wiadomości"
           },
           {
@@ -7288,35 +7288,35 @@
             "#text": "Custom Profile Definitions"
           },
           {
-            "@tag": "admin_profiler",
+            "@tag": "ADMIN_PROFILER",
             "#text": "Web Profiler"
           },
           {
-            "@tag": "admin_prune",
+            "@tag": "ADMIN_PRUNE",
             "#text": "Czyszczenie tematów"
           },
           {
-            "@tag": "admin_ranks",
+            "@tag": "ADMIN_RANKS",
             "#text": "Rangi"
           },
           {
-            "@tag": "admin_reindex",
+            "@tag": "ADMIN_REINDEX",
             "#text": "Konserwacja bazy danych"
           },
           {
-            "@tag": "admin_replacewords",
+            "@tag": "ADMIN_REPLACEWORDS",
             "#text": "Zamiana słów"
           },
           {
-            "@tag": "admin_restartapp",
+            "@tag": "ADMIN_RESTARTAPP",
             "#text": "Restartuj aplikację"
           },
           {
-            "@tag": "admin_restore",
+            "@tag": "ADMIN_RESTORE",
             "#text": "Restore & Delete Topics"
           },
           {
-            "@tag": "admin_runsql",
+            "@tag": "ADMIN_RUNSQL",
             "#text": "Wyślij zapytanie SQL"
           },
           {
@@ -7324,7 +7324,7 @@
             "#text": "Spam Event Log"
           },
           {
-            "@tag": "admin_spamwords",
+            "@tag": "ADMIN_SPAMWORDS",
             "#text": "Spam Check Words"
           },
           {
@@ -7332,27 +7332,27 @@
             "#text": "Tags"
           },
           {
-            "@tag": "admin_taskmanager",
+            "@tag": "ADMIN_TASKMANAGER",
             "#text": "Menedżer zadań"
           },
           {
-            "@tag": "admin_users",
+            "@tag": "ADMIN_USERS",
             "#text": "Użytkownicy"
           },
           {
-            "@tag": "admin_version",
+            "@tag": "ADMIN_VERSION",
             "#text": "Sprawdź wersję"
           },
           {
-            "@tag": "Database",
+            "@tag": "DATABASE",
             "#text": "Baza danych"
           },
           {
-            "@tag": "HostAdministration",
+            "@tag": "HOSTADMINISTRATION",
             "#text": "Zarządzaj aplikacją"
           },
           {
-            "@tag": "Maintenance",
+            "@tag": "MAINTENANCE",
             "#text": "Konserwacja"
           },
           {
@@ -7360,19 +7360,19 @@
             "#text": "NNTP"
           },
           {
-            "@tag": "Settings",
+            "@tag": "SETTINGS",
             "#text": "Ustawienia"
           },
           {
-            "@tag": "Spam_Protection",
+            "@tag": "SPAM_PROTECTION",
             "#text": "Spam Protection"
           },
           {
-            "@tag": "Upgrade",
+            "@tag": "UPGRADE",
             "#text": "Aktualizacja"
           },
           {
-            "@tag": "UsersandRoles",
+            "@tag": "USERSANDROLES",
             "#text": "Użytkownicy i Role"
           }
         ]
@@ -13751,7 +13751,7 @@
             "#text": "Temat:"
           },
           {
-            "@tag": "Twitter",
+            "@tag": "TWITTER",
             "#text": "Konto na Twitterze:"
           },
           {
@@ -13834,7 +13834,7 @@
         ]
       },
       {
-        "@name": "Region_CH",
+        "@name": "REGION_CH",
         "Resource": [
           {
             "@tag": "RGN_CH_AG",
@@ -15230,7 +15230,7 @@
             "#text": "My Settings"
           },
           {
-            "@tag": "MYSETTINGs_TITLE",
+            "@tag": "MYSETTINGS_TITLE",
             "#text": "Edit your user details and settings."
           },
           {

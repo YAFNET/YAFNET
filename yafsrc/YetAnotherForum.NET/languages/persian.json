@@ -155,7 +155,7 @@
             "#text": "{0} replied to the topic {1}"
           },
           {
-            "@tag": "WATCH_Topic_REPLY",
+            "@tag": "WATCH_TOPIC_REPLY",
             "#text": "New Reply in a Watch Topic"
           },
           {
@@ -876,7 +876,7 @@
             "#text": "نسخه یاف نصب شده و نسخه دیتابیس با هم هم‌خوانی ندارند. شما باید به قسمت نصب رفته و دیتابیس خود را بروزرسانی نمایید"
           },
           {
-            "@tag": "Administration",
+            "@tag": "ADMINISTRATION",
             "#text": "مدیریت"
           },
           {
@@ -2354,7 +2354,7 @@
         "@name": "ADMIN_EDITCATEGORY",
         "Resource": [
           {
-            "@tag": "Active",
+            "@tag": "ACTIVE",
             "#text": "فعال"
           },
           {
@@ -6059,7 +6059,7 @@
             "#text": "بازیابی"
           },
           {
-            "@tag": "Retrieved",
+            "@tag": "RETRIEVED",
             "#text": "بازیابی {0} مقاله.{1:N2} مقاله در ثانیه."
           },
           {
@@ -7025,11 +7025,11 @@
         "@name": "ADMINMENU",
         "Resource": [
           {
-            "@tag": "admin_accessmasks",
+            "@tag": "ADMIN_ACCESSMASKS",
             "#text": "قالب دسترسی"
           },
           {
-            "@tag": "admin_admin",
+            "@tag": "ADMIN_ADMIN",
             "#text": "فهرست مدیر"
           },
           {
@@ -7037,95 +7037,95 @@
             "#text": "Attachments"
           },
           {
-            "@tag": "admin_bannedemail",
+            "@tag": "ADMIN_BANNEDEMAIL",
             "#text": "ایمیل های مسدود شده"
           },
           {
-            "@tag": "admin_bannedip",
+            "@tag": "ADMIN_BANNEDIP",
             "#text": "IP های مسدود شده"
           },
           {
-            "@tag": "admin_bannedname",
+            "@tag": "ADMIN_BANNEDNAME",
             "#text": "نام های مسدود شده"
           },
           {
-            "@tag": "admin_bbcode",
+            "@tag": "ADMIN_BBCODE",
             "#text": "افزونه های بی بی کد"
           },
           {
-            "@tag": "ADMIN_BoardAnnouncement",
+            "@tag": "ADMIN_BOARDANNOUNCEMENT",
             "#text": "Board Announcement"
           },
           {
-            "@tag": "admin_boards",
+            "@tag": "ADMIN_BOARDS",
             "#text": "تابلو ها"
           },
           {
-            "@tag": "admin_boardsettings",
+            "@tag": "ADMIN_BOARDSETTINGS",
             "#text": "تنظیمات تابلو"
           },
           {
-            "@tag": "admin_digest",
+            "@tag": "ADMIN_DIGEST",
             "#text": "خلاصه"
           },
           {
-            "@tag": "admin_eventlog",
+            "@tag": "ADMIN_EVENTLOG",
             "#text": "نمایشگر رویدادها"
           },
           {
-            "@tag": "admin_extensions",
+            "@tag": "ADMIN_EXTENSIONS",
             "#text": "پسوند فایل ها"
           },
           {
-            "@tag": "admin_forums",
+            "@tag": "ADMIN_FORUMS",
             "#text": "انجمن ها"
           },
           {
-            "@tag": "admin_groups",
+            "@tag": "ADMIN_GROUPS",
             "#text": "نقش ها"
           },
           {
-            "@tag": "admin_hostsettings",
+            "@tag": "ADMIN_HOSTSETTINGS",
             "#text": "تنظیمات میزبان"
           },
           {
-            "@tag": "admin_install",
+            "@tag": "ADMIN_INSTALL",
             "#text": "نصب"
           },
           {
-            "@tag": "admin_languages",
+            "@tag": "ADMIN_LANGUAGES",
             "#text": "زبان ها"
           },
           {
-            "@tag": "admin_mail",
+            "@tag": "ADMIN_MAIL",
             "#text": "نامه"
           },
           {
-            "@tag": "admin_medals",
+            "@tag": "ADMIN_MEDALS",
             "#text": "نشان ها"
           },
           {
-            "@tag": "admin_nntpforums",
+            "@tag": "ADMIN_NNTPFORUMS",
             "#text": " انجمن های NNTP"
           },
           {
-            "@tag": "admin_nntpretrieve",
+            "@tag": "ADMIN_NNTPRETRIEVE",
             "#text": "بازیابی مقالات"
           },
           {
-            "@tag": "admin_nntpservers",
+            "@tag": "ADMIN_NNTPSERVERS",
             "#text": "سرویس دهنده های NNTP"
           },
           {
-            "@tag": "admin_pageaccessedit",
+            "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "ویرایش دسترسی صفحه مدیر"
           },
           {
-            "@tag": "admin_pageaccesslist",
+            "@tag": "ADMIN_PAGEACCESSLIST",
             "#text": "دسترسی صفحه مدیر"
           },
           {
-            "@tag": "admin_pm",
+            "@tag": "ADMIN_PM",
             "#text": "پیام های خصوصی"
           },
           {
@@ -7133,35 +7133,35 @@
             "#text": "Custom Profile Definitions"
           },
           {
-            "@tag": "admin_profiler",
+            "@tag": "ADMIN_PROFILER",
             "#text": "Web Profiler"
           },
           {
-            "@tag": "admin_prune",
+            "@tag": "ADMIN_PRUNE",
             "#text": "اصلاح موضوعات"
           },
           {
-            "@tag": "admin_ranks",
+            "@tag": "ADMIN_RANKS",
             "#text": "رتبه ها"
           },
           {
-            "@tag": "admin_reindex",
+            "@tag": "ADMIN_REINDEX",
             "#text": "نگهداری پایگاه داده"
           },
           {
-            "@tag": "admin_replacewords",
+            "@tag": "ADMIN_REPLACEWORDS",
             "#text": "جایگزینی کلمات"
           },
           {
-            "@tag": "admin_restartapp",
+            "@tag": "ADMIN_RESTARTAPP",
             "#text": "شروع مجدد برنامه"
           },
           {
-            "@tag": "admin_restore",
+            "@tag": "ADMIN_RESTORE",
             "#text": "Restore & Delete Topics"
           },
           {
-            "@tag": "admin_runsql",
+            "@tag": "ADMIN_RUNSQL",
             "#text": "اجرای کوئری SQL"
           },
           {
@@ -7169,7 +7169,7 @@
             "#text": "لاگ اسپم"
           },
           {
-            "@tag": "admin_spamwords",
+            "@tag": "ADMIN_SPAMWORDS",
             "#text": "بررسی کلمات اسپم"
           },
           {
@@ -7177,27 +7177,27 @@
             "#text": "Tags"
           },
           {
-            "@tag": "admin_taskmanager",
+            "@tag": "ADMIN_TASKMANAGER",
             "#text": "مدیریت کارها"
           },
           {
-            "@tag": "admin_users",
+            "@tag": "ADMIN_USERS",
             "#text": "کاربران"
           },
           {
-            "@tag": "admin_version",
+            "@tag": "ADMIN_VERSION",
             "#text": "کنترل نسخه"
           },
           {
-            "@tag": "Database",
+            "@tag": "DATABASE",
             "#text": "پایگاه داده"
           },
           {
-            "@tag": "HostAdministration",
+            "@tag": "HOSTADMINISTRATION",
             "#text": "مدیر ارشد"
           },
           {
-            "@tag": "Maintenance",
+            "@tag": "MAINTENANCE",
             "#text": "نگهداری"
           },
           {
@@ -7205,19 +7205,19 @@
             "#text": "NNTP"
           },
           {
-            "@tag": "Settings",
+            "@tag": "SETTINGS",
             "#text": "تنظیمات"
           },
           {
-            "@tag": "Spam_Protection",
+            "@tag": "SPAM_PROTECTION",
             "#text": "محافظت از اسپم ها"
           },
           {
-            "@tag": "Upgrade",
+            "@tag": "UPGRADE",
             "#text": "بروز رسانی"
           },
           {
-            "@tag": "UsersandRoles",
+            "@tag": "USERSANDROLES",
             "#text": "کاربران و نقش ها"
           }
         ]
@@ -13524,7 +13524,7 @@
             "#text": "موضوع:"
           },
           {
-            "@tag": "Twitter",
+            "@tag": "TWITTER",
             "#text": "نام توئیتر:"
           },
           {
@@ -13587,7 +13587,7 @@
         ]
       },
       {
-        "@name": "Region_CH",
+        "@name": "REGION_CH",
         "Resource": [
           {
             "@tag": "RGN_CH_AG",
@@ -14927,7 +14927,7 @@
             "#text": "تنظیمات من"
           },
           {
-            "@tag": "MYSETTINGs_TITLE",
+            "@tag": "MYSETTINGS_TITLE",
             "#text": "Edit your user details and settings."
           },
           {
