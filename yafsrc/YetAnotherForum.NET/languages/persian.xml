@@ -83,9 +83,6 @@
     <Resource tag="ADMIN_EDITRANK">در حال ویرایش رتبه‌ها</Resource>
     <Resource tag="ADMIN_EDITUSER">در حال ویرایش کاربر</Resource>
     <Resource tag="ADMIN_EVENTLOG">در حال مشاهده/ ویرایش رویدادها</Resource>
-    <Resource tag="ADMIN_EXTENSIONS_EDIT">ویرایش افزونه‌ها</Resource>
-    <Resource tag="ADMIN_EXTENSIONS_IMPORT">در حال درون‌ریزی افزونه‌ها</Resource>
-    <Resource tag="ADMIN_EXTESIONS">در حال مشاهده‌ی افزونه‌ها</Resource>
     <Resource tag="ADMIN_FORUMS">در حال مشاهده انجمن‌ها در بخش مدیر</Resource>
     <Resource tag="ADMIN_GROUPS">در حال مشاهده گروه‌ها در بخش مدیر</Resource>
     <Resource tag="ADMIN_HOSTSETTING">در حال مشاهده / ویرایش تنظیمات کلی</Resource>
@@ -126,14 +123,14 @@
     <Resource tag="AVATAR">نمایش تصویر پروفایل</Resource>
     <Resource tag="BLOCK_OPTIONS">Edits his Ignored users and block option</Resource>
     <Resource tag="CHANGE_PASSWORD">تغییر کلمه رمز</Resource>
-    <Resource tag="COOKIES">Views the cookie policy page</Resource>
+    <Resource tag="COOKIES">مشاهده صفحه مربوط به قوانین کوکی</Resource>
     <Resource tag="CP_PROFILE_OFUSER">نمایش پروفایل کاربر</Resource>
-    <Resource tag="DELETE_ACCOUNT">User deletes his account</Resource>
+    <Resource tag="DELETE_ACCOUNT">کاربر حسابش را حذف می کند.</Resource>
     <Resource tag="DELETEMESSAGE">حذف یک پیام</Resource>
     <Resource tag="EDIT_ALBUMIMAGES">ویرایش تصاویر آلبوم</Resource>
     <Resource tag="EDIT_AVATAR">ویرایش تصویر پروفایل</Resource>
     <Resource tag="EDIT_PROFILE">ویرایش پروفایل</Resource>
-    <Resource tag="EDIT_SETTINGS">Edit the user settings</Resource>
+    <Resource tag="EDIT_SETTINGS">ویرایش تنظیمات کاربر</Resource>
     <Resource tag="EDIT_SIGNATURE">ویرایش امضا</Resource>
     <Resource tag="EMAILTOPIC">ارسال یک موضوع</Resource>
     <Resource tag="ERROR">صفحه خطا</Resource>
@@ -242,41 +239,41 @@
     <Resource tag="HEADER3">آمار برای</Resource>
     <Resource tag="MSG_MESSAGE_SEND">ایمیل تایید مجددا برای کاربر ارسال نشد</Resource>
     <Resource tag="MSG_VALID_DAYS">شما می بایست یک مقدار صحیح برای شمار روز وارد کنید</Resource>
-    <Resource tag="NEW_VERSION">A New Version is available!</Resource>
-    <Resource tag="NEW_VERSION_DOWNLOAD">Go to Downloads page</Resource>
-    <Resource tag="NUM_CATEGORIES">Number of categories:</Resource>
-    <Resource tag="NUM_FORUMS">Number of forums:</Resource>
+    <Resource tag="NEW_VERSION">نسخه جدیدی در دسترس می باشد.</Resource>
+    <Resource tag="NEW_VERSION_DOWNLOAD">به صفحه دانلود برو</Resource>
+    <Resource tag="NUM_CATEGORIES">تعداد بخشها:</Resource>
+    <Resource tag="NUM_FORUMS">تعداد انمجنها</Resource>
     <Resource tag="NUM_POSTS">تعداد ارسال ها:</Resource>
     <Resource tag="NUM_TOPICS">تعداد موضوعات:</Resource>
     <Resource tag="NUM_USERS">تعداد کاربران:</Resource>
     <Resource tag="POSTS_DAY">ارسال در روز:</Resource>
     <Resource tag="SIZE_DATABASE">حجم پایگاه داده:</Resource>
     <Resource tag="STATS_DONTCOUNT">این آمار تعداد ارسال ها و موضوعات حذف شده را به حساب نمی آورد</Resource>
-    <Resource tag="TITLE">Dashboard</Resource>
+    <Resource tag="TITLE">داشبورد</Resource>
     <Resource tag="TOPICS_DAY">موضوعات در روز:</Resource>
     <Resource tag="USERS_DAY">کاربران در روز:</Resource>
   </page>
   <page name="ADMIN_ATTACHMENTS">
-    <Resource tag="TITLE">User Attachments</Resource>
+    <Resource tag="TITLE">فایلهای الصاقی کاربر</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">افزون ایمیل جدید</Resource>
     <Resource tag="IMPORT_IPS">درون‌ریزی ایمیل (ها)</Resource>
-    <Resource tag="MASK">Mask</Resource>
+    <Resource tag="MASK">ماسک</Resource>
     <Resource tag="MSG_EXIST">The Banned Email Address Already exists!</Resource>
-    <Resource tag="MSG_REMOVEBAN_EMAIL">Email was successfully deleted</Resource>
+    <Resource tag="MSG_REMOVEBAN_EMAIL">پست الکتورنیک با موفقیت حذف شد.</Resource>
     <Resource tag="REASON">دلیل</Resource>
     <Resource tag="SINCE">از</Resource>
     <Resource tag="TITLE">ایمیل‌های مسدود شده</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL_EDIT">
-    <Resource tag="MASK">Mask:</Resource>
+    <Resource tag="MASK">ماسک</Resource>
     <Resource tag="MASK_HELP">آدرس ایمیل برای مسدود شدن. از REGX ها می توانید استفاده کنید</Resource>
     <Resource tag="NEED_MASK">You must define an Email address.</Resource>
     <Resource tag="REASON">دلیل:</Resource>
     <Resource tag="REASON_HELP">دلیل مسدود شدن ایمیل</Resource>
     <Resource tag="TITLE">افزودن/ویرایش ایمیل های مسدود شده</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned Email Address</Resource>
+    <Resource tag="TITLE_EDIT">ویرایش پست الکترونیک ممنوعه</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL_IMPORT">
     <Resource tag="HEADER">درون‌ریزی لیست ایمیل</Resource>
@@ -295,8 +292,8 @@
     <Resource tag="EXPORT">برون‌بری به فایل متنی</Resource>
     <Resource tag="IMPORT_IPS">درون‌ریزی آدرس (ها)</Resource>
     <Resource tag="MASK">قالب</Resource>
-    <Resource tag="MSG_DELETE">Delete this Banned Item?</Resource>
-    <Resource tag="MSG_EXIST">The Banned IP Already exists!</Resource>
+    <Resource tag="MSG_DELETE">این مورد حذف شود؟</Resource>
+    <Resource tag="MSG_EXIST">آی پی ممنوعه قبلاً وجود دارد!</Resource>
     <Resource tag="MSG_REMOVEBAN_IP">IP Address or Mask '{0}' was successfully deleted</Resource>
     <Resource tag="REASON">دلیل</Resource>
     <Resource tag="SINCE">از</Resource>
@@ -309,11 +306,11 @@
     <Resource tag="INVALID_VALUE">یکی از قسمت های آی پی معتبر نیست. مقدار معتبر بین 0 تا 255 است و از * به عنوان همه استفاده کنید</Resource>
     <Resource tag="MASK">قالب:</Resource>
     <Resource tag="MASK_HELP">آدرس آی پی برای ممنوعیت (می توانید از * استفاده کنید 127.0.0.*)</Resource>
-    <Resource tag="NEED_MASK">You must define an IP address.</Resource>
+    <Resource tag="NEED_MASK">باید آی پی آدرس مشخص کنید</Resource>
     <Resource tag="REASON">دلیل :</Resource>
     <Resource tag="REASON_HELP">دلیل اینکه آی پی ممنوع شده</Resource>
     <Resource tag="TITLE">افزودن/ویرایش IP های ممنوعه</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned IP Address</Resource>
+    <Resource tag="TITLE_EDIT">ویرایش آی پی ممنوع شده</Resource>
   </page>
   <page name="ADMIN_BANNEDIP_IMPORT">
     <Resource tag="HEADER">درون‌ریزی لیست آدرس IP</Resource>
@@ -323,7 +320,7 @@
     <Resource tag="IMPORT_FILE_HELP">باید یک فایل *.txt شامل آدرس های IP که هر IP در یک خط است داشته باشید</Resource>
     <Resource tag="IMPORT_NOTHING">چیزی درون‌ریزی نشد: آدرس آی پی جدیدی هنگام آپلود یافت نشد</Resource>
     <Resource tag="IMPORT_SUCESS">{0} آدرس آی پی جدید با موفقیت درون‌ریزی شد</Resource>
-    <Resource tag="NOTE">You can find a list of Spam Bot Ips on StopForumSpam.com &lt;a href="https//www.stopforumspam.com/downloads/"&gt;https//www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="NOTE">لیست آی پی های اسپم را از سایت  StopForumSpam.com &lt;a href="https//www.stopforumspam.com/downloads/"&gt;https//www.stopforumspam.com/downloads/&lt;/a&gt;, و پیدا کرده و وارد انجمن کنید.</Resource>
     <Resource tag="TITLE">درون‌ریزی‌ آدرس‌های IP</Resource>
   </page>
   <page name="ADMIN_BANNEDNAME">
@@ -339,11 +336,11 @@
   <page name="ADMIN_BANNEDNAME_EDIT">
     <Resource tag="MASK">قالب:</Resource>
     <Resource tag="MASK_HELP">نام کاربری برای مسدود شدن. می توانید از REGX ها استفاده کنید</Resource>
-    <Resource tag="NEED_MASK">You must define a User Name.</Resource>
+    <Resource tag="NEED_MASK">باید نام کاربری را مشخص کنید.</Resource>
     <Resource tag="REASON">دلیل:</Resource>
     <Resource tag="REASON_HELP">دلیل مسدود شدن این نام کاربری را وارد کنید</Resource>
     <Resource tag="TITLE">افزودن/ویرایش نام‌های مسدود شده</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned Name</Resource>
+    <Resource tag="TITLE_EDIT">ویرایش نامهای ممنوعه</Resource>
   </page>
   <page name="ADMIN_BANNEDNAME_IMPORT">
     <Resource tag="HEADER">درون‌ریزی لیست نام‌ها</Resource>
@@ -353,7 +350,7 @@
     <Resource tag="IMPORT_FILE_HELP">باید یک فایل *.txt شامل نام ها (هر نام در یک سطر) داشته باشید</Resource>
     <Resource tag="IMPORT_NOTHING">چیزی درون‌ریزی نشد: هیچ نامی در هنگام آپلود یافت نشد</Resource>
     <Resource tag="IMPORT_SUCESS">{0} new name(s) imported successfully.</Resource>
-    <Resource tag="NOTE">You can find a list of Spam Bot user names on StopForumSpam.com &lt;a href="https//www.stopforumspam.com/downloads/"&gt;https//www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="NOTE">لیست آی پی های اسپم را از سایت  StopForumSpam.com &lt;a href="https//www.stopforumspam.com/downloads/"&gt;https//www.stopforumspam.com/downloads/&lt;/a&gt;, و پیدا کرده و وارد انجمن کنید.</Resource>
     <Resource tag="TITLE">درون‌ریزی نام (ها)</Resource>
   </page>
   <page name="ADMIN_BBCODE">
@@ -385,7 +382,7 @@
     <Resource tag="HEADER1">نام و توضیحات (تمام فیلد ها اجباری است)</Resource>
     <Resource tag="HEADER2">REGEX</Resource>
     <Resource tag="HEADER3"> جاوااسکریپت و CSS (تمام فیلدها اختیاری است)</Resource>
-    <Resource tag="MSG_NAME">You must enter a name.</Resource>
+    <Resource tag="MSG_NAME">باید نامی را وارد کنید.</Resource>
     <Resource tag="MSG_NUMBER">برای ترتیب مرتب سازی می بایست عددی بین 0 تا 32767 وارد کنید.</Resource>
     <Resource tag="MSG_POSITIVE_VALUE">ترتیب مرتب سازی عددی است صحیح و مثبت بین 0 تا 32767.</Resource>
     <Resource tag="ONCLICK_JS">OnClick JS:</Resource>
@@ -399,8 +396,8 @@
     <Resource tag="TITLE">{0} افزونه های بی بی کد</Resource>
     <Resource tag="USE_MODULE">استفاده از ماژول:</Resource>
     <Resource tag="USE_MODULE_HELP">استفاده از ماژول های سمت سرور (class) بجای جایگزینی Regex?</Resource>
-    <Resource tag="USE_TOOLBAR">Use Toolbar:</Resource>
-    <Resource tag="USE_TOOLBAR_HELP">If enabled Show toolbar button in the Standard BBCode Editor</Resource>
+    <Resource tag="USE_TOOLBAR">استفاده از نوار ابزار:</Resource>
+    <Resource tag="USE_TOOLBAR_HELP">اگر فعال شود دکمه های نوار ابزار را در ویرایشگر استاندارد BBCode نشان می دهد.</Resource>
   </page>
   <page name="ADMIN_BBCODE_IMPORT">
     <Resource tag="HEADER">درون‌ریزی BBCode های سفارشی</Resource>
@@ -420,10 +417,10 @@
   </page>
   <page name="ADMIN_BOARDSETTINGS">
     <Resource tag="ANNOUNCEMENT_CURRENT">Current Announcement visible until</Resource>
-    <Resource tag="ANNOUNCEMENT_MESSAGE">Announcement Message:</Resource>
-    <Resource tag="ANNOUNCEMENT_TITLE">Board Announcement</Resource>
-    <Resource tag="ANNOUNCEMENT_TYPE">Type:</Resource>
-    <Resource tag="ANNOUNCEMENT_UNTIL">Announcement visible for...</Resource>
+    <Resource tag="ANNOUNCEMENT_MESSAGE">متن اطلاعیه:</Resource>
+    <Resource tag="ANNOUNCEMENT_TITLE">اطلاعیه</Resource>
+    <Resource tag="ANNOUNCEMENT_TYPE">نوع:</Resource>
+    <Resource tag="ANNOUNCEMENT_UNTIL">مشاهده اطلاعیه برای...</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST">ارسال نامه خلاصه شده به کاربران روزی یک  بار :</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST_HELP">الزامی : تابلو می بایست تعریف های YAF.Base UrlMask و YAF.ForceScriptName را در قسمت AppSetting در فایل Web.Config داشته باشد.</Resource>
     <Resource tag="BOARD_CDN_HOSTED">از فایل CSS , JQuery موجود در CDN گوگل استفاده شود؟</Resource>
@@ -433,7 +430,7 @@
     <Resource tag="BOARD_DEFAULT_NOTIFICATION">تنظیمات پیش‌فرض اطلاع رسانی‌ها:</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">وقتی کاربر جدیدی ساخته شد کدام تنظیمات اطلاع رسانی برای او فعال شود؟</Resource>
     <Resource tag="BOARD_DEFAULT_PANEL_STATE">Default Collapsible Panel State</Resource>
-    <Resource tag="BOARD_DEFAULT_PANEL_STATE_HELP">Show Categories Expanded or Collapsed on the Board Start page</Resource>
+    <Resource tag="BOARD_DEFAULT_PANEL_STATE_HELP">نمایش بخشها بصورت باز یا بسته شده در صفحه اول انجمن</Resource>
     <Resource tag="BOARD_DIGEST_HOURS">تعداد ساعت ها بین ارسال خلاصه‌ها</Resource>
     <Resource tag="BOARD_DIGEST_HOURS_HELP">تعداد ساعات قبل از تلاش برای ارسال دیگر. خلاصه فقط بین ساعات 12 شب تا 6 صبح ارسال می شود.</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS">ارسال خلاصه ها برای کاربر جدید "فعال" باشد؟</Resource>
@@ -444,9 +441,9 @@
     <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">فهرست آدرس های پست الکترونیک که با ؛ جدا شده اند برای ارسال اطلاعیه هنگام ثبت کاربر جدید:</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS">ارسال ایمیل به ناظران هنگام گزارش یک مطلب:</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">هنگام گزارش یک مطلب تمام ناظران مطلب از آن مطلع شوند؟</Resource>
-    <Resource tag="BOARD_LOGO">Board Logo:</Resource>
-    <Resource tag="BOARD_LOGO_HELP">Select a Board Logo or use the default YAF Board Logo, Logos will be loaded from the Folder Images/Logos.</Resource>
-    <Resource tag="BOARD_LOGO_SELECT">Select a Board logo</Resource>
+    <Resource tag="BOARD_LOGO">لوگو انجمن</Resource>
+    <Resource tag="BOARD_LOGO_HELP">انتخاب لوگو یا استفاده لوگوی پیش فرض که از پوشه Images/Logos بازخوانی می شود.</Resource>
+    <Resource tag="BOARD_LOGO_SELECT">انتخاب لوگو</Resource>
     <Resource tag="BOARD_MOBILE_THEME">قالب موبایل:</Resource>
     <Resource tag="BOARD_MOBILE_THEME_HELP">قالب موبایل برای استفاده در این تابلو.</Resource>
     <Resource tag="BOARD_NAME">نام تابلو:</Resource>
@@ -458,15 +455,15 @@
     <Resource tag="BOARD_THREADED_HELP">مجوز نمایش پشت سر هم مطالب.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">نحوه نمایش موضوعات</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">تابلو پیش فرض فاصله انتخاب موضوع را نمایش می دهد.</Resource>
-    <Resource tag="CDVVERSION">CRM Version</Resource>
-    <Resource tag="CDVVERSION_BUTTON">Increase CRM Version</Resource>
-    <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
-    <Resource tag="COLLAPSED">Collapsed</Resource>
+    <Resource tag="CDVVERSION">CRM ویرایش</Resource>
+    <Resource tag="CDVVERSION_BUTTON">افزایش نسخه CRM</Resource>
+    <Resource tag="CDVVERSION_HELP">نسخه CRM، شماره را افزایش دهید تا مرورگر تمامی فایلهای جاوا اسکریپت و CSS را مجدداً بارگذاری کند.</Resource>
+    <Resource tag="COLLAPSED">جمع شده</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">کلید حذف کپی رایت:</Resource>
-    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">خرید کلید حذف </Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">حذف نام و عنوان YAF از زیر انجمن موجود در لینک : &lt;a href="https://yetanotherforum.net/purchase.aspx"&gt;سایت YAF&lt;/a&gt;. </Resource>
-    <Resource tag="EXPANDED">Expanded</Resource>
-    <Resource tag="FORUM_DEFAULT_ACCESSMASK">New Forum Default Access mask:</Resource>
+    <Resource tag="EXPANDED">باز شده</Resource>
+    <Resource tag="FORUM_DEFAULT_ACCESSMASK">ماسک دسترسی پیش فرض انجمن جدید:</Resource>
     <Resource tag="FORUM_DEFAULT_ACCESSMASK_HELP">The Default Access Mask when creating a new Forum</Resource>
     <Resource tag="HEADER">تنظیمات فعلی تابلو</Resource>
     <Resource tag="NEED_MESSAGE">You need to enter an Announcement Message.</Resource>
@@ -494,7 +491,6 @@
     <Resource tag="TITLE">حذف انجمن</Resource>
   </page>
   <page name="ADMIN_DIGEST">
-    <Resource tag="CONFIRM_FORCE">آیا می خواهید ارسال خلاصه را الان زمان بندی کنید؟</Resource>
     <Resource tag="DIGEST_EMAIL">ایمیل:</Resource>
     <Resource tag="DIGEST_EMAIL_HELP">ارسال یک خلاصه آزمایشی.</Resource>
     <Resource tag="DIGEST_ENABLED">خلاصه فعال است:</Resource>
@@ -612,7 +608,7 @@
     <Resource tag="VERIFY_PASS_HELP">کلمه عبور را مجددا وارد نمایید</Resource>
   </page>
   <page name="ADMIN_EDITCATEGORY">
-    <Resource tag="Active">Active</Resource>
+    <Resource tag="Active">فعال</Resource>
     <Resource tag="ACTIVE_HELP">If enabled show Category (incl. Forums) in Board</Resource>
     <Resource tag="CATEGORY_IMAGE">تصویر دسته:</Resource>
     <Resource tag="CATEGORY_IMAGE_HELP">این تصویر کنار دسته نمایش داده می شود.</Resource>
@@ -701,7 +697,7 @@
     <Resource tag="IS_START_HELP">در صورت علامت زدن تمامی کابران عضو این انجمن خواهند شد.</Resource>
     <Resource tag="MSG_ALBUM_NUMBER">شما می بایست یک عدد صحیح را برای تعداد آلبوم های کاربر انتخاب کنید.</Resource>
     <Resource tag="MSG_INTEGER">شما می بایست عددی صحیح را برای اولیوت آلبوم وارد کنید.</Resource>
-    <Resource tag="MSG_NAME">You need to enter a Role name.</Resource>
+    <Resource tag="MSG_NAME">باید نام نقش را وارد کنید</Resource>
     <Resource tag="MSG_SIG_NUMBER">تعداد کاراکتر های مجاز برای امضا کاربران را وارد کنید.</Resource>
     <Resource tag="MSG_TOTAL_NUMBER">شما می بایست تعداد کل تصاویر در تمام آلبوم ها را مشخص کنید.</Resource>
     <Resource tag="MSG_VALID_NUMBER">می بایست مقدار صحیحی برای تعداد پیام های خصوصی وارد کنید. </Resource>
@@ -713,8 +709,8 @@
     <Resource tag="ROLE_NAME_HELP">نام این نقش.</Resource>
     <Resource tag="SIG_BBCODES">BBCode ها برای امضای کاربر:</Resource>
     <Resource tag="SIG_BBCODES_HELP">بی بی کدهایی که با کاما جدا شده اند در امضای کاربر در گروه مجاز می‌باشند.</Resource>
-    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
-    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the group.</Resource>
+    <Resource tag="SIG_HTML">برچسبهای HTML امضای کاربر:</Resource>
+    <Resource tag="SIG_HTML_HELP">برچسب های HTML جدا شده با کاما در امضای کاربر در گروه مجاز است.</Resource>
     <Resource tag="SIGNATURE_LENGTH">حداکثر تعداد کاراکتر در امضا کاربر:</Resource>
     <Resource tag="SIGNATURE_LENGTH_HELP">حداکثر تعداد کاراکتر مجاز برای امضا  کاربران این نقش</Resource>
     <Resource tag="STYLE">استایل</Resource>
@@ -767,11 +763,9 @@
     <Resource tag="MEDAL_USER_HELP">یک نام کاربری را وارد کرده و یا روی "جستجوی کاربران" کلیک کنید و کاربر را از لیست کاربران انتخاب کنید.</Resource>
     <Resource tag="MSG_AMBIGOUS_USER">نام کاربری مبهمی تعریف شده!</Resource>
     <Resource tag="MSG_IMAGE">تصویر نشان باید مشخص شود!</Resource>
-    <Resource tag="MSG_NAME">You must enter a medal name!</Resource>
+    <Resource tag="MSG_NAME">باید نام مدال را وارد کنید!</Resource>
     <Resource tag="MSG_SMALL_IMAGE">تصویر کوچک نشان باید مشخص شود!</Resource>
     <Resource tag="MSG_VALID_USER">لطفا کاربر معتبری را انتخاب کنید.</Resource>
-    <Resource tag="ONLY_RIBBON">فقط نمایش نوار روبان:</Resource>
-    <Resource tag="ONLY_RIBBON_HELP">اگر علامت بخورد فقط روبان در کادر کاربر نمایش داده می شود.</Resource>
     <Resource tag="OVERRIDE_MESSAGE">پیام:</Resource>
     <Resource tag="OVERRIDE_MESSAGE_HELP">پیش فرض ها در صورت تعریف باطل می شوند(اختیاری).</Resource>
     <Resource tag="OVERRIDE_ORDER">ترتیب:</Resource>
@@ -796,7 +790,7 @@
     <Resource tag="SERVER">سرور:</Resource>
     <Resource tag="SERVER_HELP">این گروه در چه سروری است.</Resource>
     <Resource tag="TITLE">افزودن/ویرایش انجمن NTP</Resource>
-    <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
+    <Resource tag="TITLE_EDIT">ویرایش انجمن NNTP</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
     <Resource tag="MSG_SERVER_ADR">آدرس سرور نامفهوم است.</Resource>
@@ -812,7 +806,7 @@
     <Resource tag="NNTP_USERNAME">نام کاربری:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">نام کاربری برای ورود به سرور.</Resource>
     <Resource tag="TITLE">افزودن/ویرایش سرور NNTP</Resource>
-    <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
+    <Resource tag="TITLE_EDIT">ویرایش سرور NNTP</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">تعداد آلبوم های مجاز:</Resource>
@@ -826,7 +820,7 @@
     <Resource tag="MIN_POSTS">حداقل ارسال‌ها:</Resource>
     <Resource tag="MIN_POSTS_HELP">حداقل ارسال ها که لازمه دریافت این رتبه است.</Resource>
     <Resource tag="MSG_RANK_INTEGER">اولویت رتبه می بایست عددی صحیح و کوچک باشد.</Resource>
-    <Resource tag="NEED_NAME">You must define a rank name.</Resource>
+    <Resource tag="NEED_NAME">باید نام رتبه را مشخص کنید!</Resource>
     <Resource tag="PRIVATE_MESSAGES">پیام خصوصی:</Resource>
     <Resource tag="PRIVATE_MESSAGES_HELP">حداکثر تعداد پیام های خصوصی مرتبط با این رتبه.</Resource>
     <Resource tag="RANK_DESC">توضیحات</Resource>
@@ -863,8 +857,8 @@
     <Resource tag="CURRENT_POINTS">امتیازات کنونی</Resource>
     <Resource tag="DELETE_ACCOUNT">حذف این حساب کاربری</Resource>
     <Resource tag="DELETE_POSTS_USER">تمام ارسال های کاربر حذف شود؟</Resource>
-    <Resource tag="DISABLED">User Disabled</Resource>
-    <Resource tag="DISABLED_HELP">User is Soft-Deleted.</Resource>
+    <Resource tag="DISABLED">کاربر غیرفعال شد.</Resource>
+    <Resource tag="DISABLED_HELP">کاربر حذف موقت (نرم) شد.</Resource>
     <Resource tag="ERROR_CONFIRM_PASS">می بایست کلمه عبور تائید شود</Resource>
     <Resource tag="ERROR_NEW_PASS">می بایست کلمه عبور جدید وارد گردد</Resource>
     <Resource tag="ERROR_NOTE_PASSRESET">خطا : سیستم عضویت "بازیابی کلمه عبور" را پشتیبانی نمی کند. گزینه "فعال سازی بازنشانی کلمه عبور" را در web.config کنترل کنید.</Resource>
@@ -884,13 +878,13 @@
     <Resource tag="KILL_USER_CONFIRM">حذف تمام ارسال ها و مسدود کردن (بصورت اختیاری) آدرس‌های IP استفاده شده توسط این کاربر</Resource>
     <Resource tag="LINK_USER_BAN">کاربر &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  توسط IP مسدود شده است</Resource>
     <Resource tag="MEMBER">عضو</Resource>
-    <Resource tag="MODERATE">Moderate all Posts</Resource>
+    <Resource tag="MODERATE">مدیریت تمامی ارسالها</Resource>
     <Resource tag="MODERATE_HELP">Moderate all Posts made by the User</Resource>
     <Resource tag="MSG_GUEST_APPROVED">کاربر میهمان باید به عنوان تایید شده علامت‌گذاری شود. در صورت تائید نشدن کاربر میهمان انجمن شما پایداری نخواهد داشت.</Resource>
     <Resource tag="MSG_PASS_CHANGED">کلمه عبور کاربر عوض شد.</Resource>
     <Resource tag="MSG_PASS_CHANGED_NOTI">کلمه عبور کاربر تغییر کرد و نامه ای هم به وی ارسال شد</Resource>
     <Resource tag="MSG_PASS_RESET">پست الکرونیک بازنشانی کلمه عبور ارسال شد.</Resource>
-    <Resource tag="MSG_USER_KILLED">کاربر {0} بصورت کلی حذف شد! (اصطلاحا کشته شد)</Resource>
+    <Resource tag="MSG_USER_KILLED">کاربر {0} بصورت کلی حذف شد!</Resource>
     <Resource tag="PASS_OPTION">گزینه:</Resource>
     <Resource tag="PASS_OPTION_CHANGE">تغییر دستی کلمه عبور و ارسال اختیاری آن به کاربر.</Resource>
     <Resource tag="PASS_OPTION_RESET">بازیابی کلمه عبور و ارسال آن به کاربر.</Resource>
@@ -900,7 +894,7 @@
     <Resource tag="REPORT_USER">گزارش این کاربر به‌عنوان روبات به StopForumSpam.com</Resource>
     <Resource tag="REPORT_USER_CONFIRM">گزارش نام کاربری، آدرس ایمیل و آدرس IP به عنوان روبات به StopForumSpam.com</Resource>
     <Resource tag="RESET_PASS">تنظیم مجدد کلمه عبور</Resource>
-    <Resource tag="SEND_EMAIL">Send User Notification?</Resource>
+    <Resource tag="SEND_EMAIL">برای کاربر پیام ارسال شود؟</Resource>
     <Resource tag="SET_POINTS">تنظیم امتیازات:</Resource>
     <Resource tag="SUSPEND_ACCOUNT_USER">معلق کردن این کاربر به مدت 5 سال</Resource>
     <Resource tag="SUSPEND_OR_DELETE_ACCOUNT">معلق کردن یا حذف این حساب کاربری?</Resource>
@@ -914,7 +908,7 @@
     <Resource tag="USER_PROFILE">پروفایل کاربر</Resource>
     <Resource tag="USER_REPUTATION">اعتبار کاربر</Resource>
     <Resource tag="USER_ROLES">نقش های کاربر</Resource>
-    <Resource tag="USER_SETTINGS">User Settings</Resource>
+    <Resource tag="USER_SETTINGS">تنظیمات کاربر</Resource>
     <Resource tag="USER_SIG">امضا کاربر</Resource>
     <Resource tag="USER_SUSPEND">تعلیق کاربر</Resource>
     <Resource tag="USERINFO_APPROVED">تایید شده:</Resource>
@@ -938,7 +932,7 @@
     <Resource tag="DELETE_ALL">حذف همه</Resource>
     <Resource tag="DELETE_ALLOWED">پاکسازی</Resource>
     <Resource tag="HIDE">مخفی کردن</Resource>
-    <Resource tag="NO_ENTRY">No Entries found</Resource>
+    <Resource tag="NO_ENTRY">ورودی پیدا نشد</Resource>
     <Resource tag="SHOW">نمایش</Resource>
     <Resource tag="SINCEDATE">تاریخ شروع</Resource>
     <Resource tag="SINCEDATE_HELP">تاریخ شروع لاگ را انتخاب کنید</Resource>
@@ -951,34 +945,6 @@
     <Resource tag="TYPES">نوع</Resource>
     <Resource tag="TYPES_HELP">برای محدود کردن لاگ به نوع خاصی انتخاب کنید</Resource>
   </page>
-  <page name="ADMIN_EXTENSIONS">
-    <Resource tag="ADD">افزودن</Resource>
-    <Resource tag="CONFIRM_DELETE">آیا این پسوند حذف شود؟</Resource>
-    <Resource tag="EXPORT">برون‌بری به XML</Resource>
-    <Resource tag="HEADER">پسوند های مجاز فایل</Resource>
-    <Resource tag="IMPORT">درون‌ریزی از XML</Resource>
-    <Resource tag="SAVE">Save Extension</Resource>
-    <Resource tag="TITLE">پسوند‌های فایل</Resource>
-  </page>
-  <page name="ADMIN_EXTENSIONS_EDIT">
-    <Resource tag="FILE_EXTENSION">پسوند فایل :</Resource>
-    <Resource tag="FILE_EXTENSION_HELP">مثال : برای فایل های گرافیکی JPEG "jpg" را وارد کنید.</Resource>
-    <Resource tag="HEADER">افزودن/ویرایش پسوندهای مجاز فایل</Resource>
-    <Resource tag="MSG_ENTER">شما باید چیزی وارد کنید.</Resource>
-    <Resource tag="MSG_REMOVE">حذف تناوب از پسوند.</Resource>
-    <Resource tag="TITLE">افزودن/ویرایش پسوند فایل</Resource>
-    <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
-  </page>
-  <page name="ADMIN_EXTENSIONS_IMPORT">
-    <Resource tag="HEADER">درون‌ریزی لیست پسوندها</Resource>
-    <Resource tag="IMPORT">درون‌ریزی لیست</Resource>
-    <Resource tag="IMPORT_FAILED">درون‌ریزی با شکست مواجه شد : {0}</Resource>
-    <Resource tag="IMPORT_FILE">فایل را برای درون‌ریزی انتخاب کنید</Resource>
-    <Resource tag="IMPORT_FILE_HELP">می بایست فایل XML.* باشد</Resource>
-    <Resource tag="IMPORT_NOTHING">چیزی درون‌ریزی نشد : پسوند جدیدی برای ورود یافت نشد.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} پسوند جدید با موفقیت وارد شد.</Resource>
-    <Resource tag="TITLE">درون‌ریزی پسوندها</Resource>
-  </page>
   <page name="ADMIN_FORUMS">
     <Resource tag="CONFIRM_DELETE">آیا مایل به حذف کامل این انجمن با تمامی موضوعات، نظرسنجی ها، ضمائم و پیام ها هستید؟</Resource>
     <Resource tag="CONFIRM_DELETE_CAT">آیا مایل به حذف این رده هستید؟</Resource>
@@ -989,10 +955,10 @@
     <Resource tag="MSG_SORTING_FORUMS">All Forums have been re-ordered.</Resource>
     <Resource tag="NEW_CATEGORY">رده جدید</Resource>
     <Resource tag="NEW_FORUM">انجمن جدید</Resource>
-    <Resource tag="SORT_CATEGORIES_ASC">Re-Order all Categories ASC</Resource>
-    <Resource tag="SORT_CATEGORIES_DESC">Re-Order all Categories DESC</Resource>
-    <Resource tag="SORT_FORUMS_ASC">Re-Order all Forums ASC</Resource>
-    <Resource tag="SORT_FORUMS_DESC">Re-Order all Forums DESC</Resource>
+    <Resource tag="SORT_CATEGORIES_ASC">چینش مجدد تمامی بخشها بصورت صعودی</Resource>
+    <Resource tag="SORT_CATEGORIES_DESC">چینش مجدد تمامی بخشها بصورت نزولی</Resource>
+    <Resource tag="SORT_FORUMS_ASC">چینش مجدد تمامی انجمنهابصورت صعودی</Resource>
+    <Resource tag="SORT_FORUMS_DESC">چینش مجدد تمامی انجمنهابصورت نزولی</Resource>
   </page>
   <page name="ADMIN_GROUPS">
     <Resource tag="ADD_ROLETOYAF">افزودن به انجمن</Resource>
@@ -1018,14 +984,14 @@
   <page name="ADMIN_HOSTSETTINGS">
     <Resource tag="ABANDON_TRACKUSR">برای کاربران "بدون پیگیری" Session حذف شود:</Resource>
     <Resource tag="ABANDON_TRACKUSR_HELP">Session را به صورت خودکار برای کاربرانی که علامت "بدون پیگیری" دارند نظیر موتورهای جستجو و بوت ها، حذف می کند.</Resource>
-    <Resource tag="ACCEPT_HTML">Accepted HTML Tags:</Resource>
-    <Resource tag="ACCEPT_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors.</Resource>
+    <Resource tag="ACCEPT_HTML">پرچسبهای مجاز HTML</Resource>
+    <Resource tag="ACCEPT_HTML_HELP">فهرست جدا شده با کاما (بدون فاصله) از برچسب های HTML که در پست هایی با استفاده از ویرایشگرهای HTML مجاز هستند.</Resource>
     <Resource tag="ACTIVE_USERTIME">زمان کاربران فعال :</Resource>
     <Resource tag="ACTIVE_USERTIME_HELP">تعداد دقایق لازم برای نمایش کاربر در لیست کاربران فعال</Resource>
-    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
-    <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
-    <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
-    <Resource tag="ALBUM_IMAGES_PER_PAGE">Album Images Per Page:</Resource>
+    <Resource tag="AKISMET_KEY_DOWN">اینجا ثبت نام کنید</Resource>
+    <Resource tag="ALBUM_IMAGE_SIZE">حداکثر اندازه فایل تصویر آلبوم</Resource>
+    <Resource tag="ALBUM_IMAGE_SIZE_HELP">حداکثر اندازه تصاویر آپلود شده.برای نامحدود خالی بگذارید.</Resource>
+    <Resource tag="ALBUM_IMAGES_PER_PAGE">تعداد تصاویر در هر صفحه:</Resource>
     <Resource tag="ALBUM_IMAGES_PER_PAGE_HELP">Number of Album Images to show per page.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">تعداد آلبوم در صفحه :</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">تعداد آلبوم ها برای نمایش در هر صفحه.</Resource>
@@ -1076,9 +1042,9 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">با انتخاب این گزینه کاربران می توانند به جای گزینه ها از تصاویر استفاده کنند.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">به کاربر مجوز به‌کارگیری ویرایشگر متنی را می دهد</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">به کاربر مجوز به‌کارگیری ویرایشگر متنی را در پروفایلشان می دهد</Resource>
-    <Resource tag="ALLOWED_EXTENSIONS">Allowed File Extensions:</Resource>
+    <Resource tag="ALLOWED_EXTENSIONS">پسوندهای مجاز فایل:</Resource>
     <Resource tag="ALLOWED_EXTENSIONS_HELP">The list of allowed File Extensions for Attachments.</Resource>
-    <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS">فروم های فرعی در لیست انجمن ها:</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">تعداد هسته ها:</Resource>
     <Resource tag="APP_CORES_HELP">تعداد هسته هایی که در حال اجرا است.</Resource>
@@ -1106,10 +1072,10 @@
     <Resource tag="BOT_CHECK_ONREGISTER_HELP">در صورت فعال شدن فعالیت اسپمرها در هنگام ثبت نام شناسایی خواهد شد. می توانید تنظیم کنید که کاربر خاطی بلاک شود و یا بصورت ساده یک ایمیل برای مدیر ارسال شود</Resource>
     <Resource tag="BOT_IPBAN_ONREGISTER">بلاک کردن خودکار آی پی ربات های تشخیص داده شده</Resource>
     <Resource tag="BOT_IPBAN_ONREGISTER_HELP">در صورتی که فعال باشد و یک ربات هنگام ثبت نام شناسایی شود و فعالیت ربات موجب خطا در ثبت نام شود. آدرس آی پی روبابت بصورت خودکار مسدود خواهد شد.</Resource>
-    <Resource tag="BOT_MESSAGE_0">Do nothing</Resource>
+    <Resource tag="BOT_MESSAGE_0">اقدامی نشود.</Resource>
     <Resource tag="BOT_MESSAGE_1">Approve User &amp; Log User &amp; Send Admin an Email</Resource>
-    <Resource tag="BOT_MESSAGE_2">Block User</Resource>
-    <Resource tag="BOTSCOUT_KEY">BotScout.com API Key:</Resource>
+    <Resource tag="BOT_MESSAGE_2">کاربر مسدود شود.</Resource>
+    <Resource tag="BOTSCOUT_KEY">BotScout.com API کلید:</Resource>
     <Resource tag="BOTSCOUT_KEY_HELP">برای استفاده از BotScout به یک  API Key نیاز دارید &lt;a href="http://botscout.com/getkey.htm"&gt;از اینجا ثبت نام کنید&lt;a&gt;.</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER">فعال سازی CAPTCHA/reCAPTCHA برای ثبت نام :</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">برای ثبت نام کاربران را ملزم به ورود CAPTCHA می کند.</Resource>
@@ -1125,7 +1091,7 @@
     <Resource tag="CHECK_FOR_BOTSPAM_HELP">فعال کردن / غیرفعال کردن بررسی روبات اسپم توسط &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, یا هر دو.</Resource>
     <Resource tag="CHECK_FOR_SPAM">سرویس اسپم را برای بررسی خودکار اسپم انتخاب کنید</Resource>
     <Resource tag="CLEAR_CACHE">پاکسازی حافظه موقت</Resource>
-    <Resource tag="COLLAPSED">Collapsed</Resource>
+    <Resource tag="COLLAPSED">بسته</Resource>
     <Resource tag="CREATE_NNTPNAMES">ساخت نام های کاربری NNTP:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">در صورت انتخاب کاربران بصورت خود کار هنگام
 دانلود پیام های یوزنت ایجاد خواهند شد. این ویژگی را فقط در محیط تست فعال کنید و  &lt;em&gt;هیچ‌گاه&lt;/em&gt; در روی سایت فعال و اصلی فعال نکنید. هدف اصلی این گزینه برای تست پرفورمنس و سرعت است</Resource>
@@ -1146,15 +1112,13 @@
     <Resource tag="DYNAMIC_METATAGS">افزودن داینامیک متاتگ ها به صفحه:</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">در صورت انتخاب متاتگ های description و keyword بصورت اتوماتیک در صفحه ی پست‌ها تولید خواهد شد</Resource>
     <Resource tag="EDITOR_BASCIC_HELP">Editor Toolbar used for Signatures ans Quick Replies.</Resource>
-    <Resource tag="EDITOR_BASIC">Editor Toolbar Basic:</Resource>
-    <Resource tag="EDITOR_FULL">Editor Toolbar Full:</Resource>
+    <Resource tag="EDITOR_BASIC">نوار ابزار ویرایشگر (ساده)</Resource>
+    <Resource tag="EDITOR_FULL">نوار ابزار ویرایشگر (کامل)</Resource>
     <Resource tag="EDITOR_FULL_HELP">Editor Toolbar used for Posting and Private Messages.</Resource>
     <Resource tag="EMAIL_VERIFICATION">الزام به تایید ایمیل:</Resource>
     <Resource tag="EMAIL_VERIFICATION_HELP">اگر علامت نداشته باشد کاربران مجبور به تایپ مجدد ایمیل خود نیستند.</Resource>
     <Resource tag="ENABLE_ABLBUMS">فعال کردن آلبوم:</Resource>
     <Resource tag="ENABLE_ABLBUMS_HELP">با انتخاب این گزینه ویژگی آلبوم فعال می شود. شما باید تعداد مجاز عکس و آلبوم را برای هر گروه یا رتبه مشخص نمایید تا این ویژگی فعال گردد</Resource>
-    <Resource tag="ENABLE_ACTIVITY">Enable Activity Stream:</Resource>
-    <Resource tag="ENABLE_ACTIVITY_HELP">If checked the user gets Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="ENABLE_BUDDYLIST">فعال کردن لیست دوستان:</Resource>
     <Resource tag="ENABLE_BUDDYLIST_HELP">در صورت انتخاب کاربران می توانند همدیگر را به عنوان دوست اضافه کنند</Resource>
     <Resource tag="ENABLE_CALENDER">فعال کردن تقویم:</Resource>
@@ -1168,14 +1132,14 @@
     <Resource tag="ENABLE_RETWEET_MSG">فعال کردن دکمه‌ی توئیت مجدد پیام</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">فعال/غیرفعال کردن دکمه توئیت مجدد، برای این‌که کاربران بتوانند پیام ها را توئیت مجدد نمایند.</Resource>
     <Resource tag="ENABLE_SSO">فعال کردن ورود یکپارچه:</Resource>
-    <Resource tag="ENABLE_SSO_HELP">If checked, users will be able to Login to an existing account via Facebook and/or Twitter. To Enable it for Facebook you need to setup YAF.FacebookAPIKey and YAF.FacebookSecretKey Values, and for Twitter YAF.TwitterConsumerKey and YAF.TwitterConsumerSecret Values in the app.config (AppSettings).</Resource>
+    <Resource tag="ENABLE_SSO_HELP">اگر علامت زده شود، کاربران می توانند از طریق فیس بوک و/یا توییتر به یک حساب موجود وارد شوند. برای فعال کردن آن برای فیس بوک، باید مقادیر YAF.FacebookAPIKey و YAF.FacebookSecretKey و برای Twitter YAF.TwitterConsumerKey و YAF.TwitterConsumerSecret مقادیر را در app.config (AppSettings) تنظیم کنید.</Resource>
     <Resource tag="ENABLE_USERREPUTATION">استفاده از سیستم اعتبار:</Resource>
     <Resource tag="ENABLE_USERREPUTATION_HELP">تنظیمی جهت فعال /غیرفعال کردن سیستم امتیاز برای کسب و یا حذف امتیازات کاربران</Resource>
     <Resource tag="EVENTLOG_MAX_DAYS">بیشترین تعداد روزها برای نگهداری لاگ</Resource>
     <Resource tag="EVENTLOG_MAX_DAYS_HELP">بیشترین تعداد روزها برای نگهداری لاگ. لاگ‌های قدیمی‌تر از این تاریخ حذف خواهند شد.</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES">بیشترین تعداد پیام‌های لاگ</Resource>
     <Resource tag="EVENTLOG_MAX_MESSAGES_HELP">بیشترین تعداد پیام‌های لاگ. پیام‌های بیشتر حذف خواهند شد.</Resource>
-    <Resource tag="EXPANDED">Expanded</Resource>
+    <Resource tag="EXPANDED">بازشده</Resource>
     <Resource tag="EXTERN_NEWWINDOW">نتایج جستجوی خارجی در پنجره ای جدید:</Resource>
     <Resource tag="EXTERN_NEWWINDOW_HELP">نتایج جستجوی خارجی در را پنجره ای جدید نمایش می دهد.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">دسترسی‌های جستجوی خارجی:</Resource>
@@ -1185,7 +1149,7 @@
     <Resource tag="FLOOT_DELAY">تاخیر میان ارسال:</Resource>
     <Resource tag="FLOOT_DELAY_HELP">تعداد ثانیه ها قبل از ارسالی دیگر را می‌توانید وارد کنید. (این تنظیم محدودیتی برای مدیران و ناظران ایجاد نمی کند)</Resource>
     <Resource tag="FORBIDDEN">ممنوعیت</Resource>
-    <Resource tag="FORCE_SEARCHINDED">Search Index Task started.</Resource>
+    <Resource tag="FORCE_SEARCHINDED">عملیات فهرست کردن جستجو شروع شد.</Resource>
     <Resource tag="FORUM_BASEURLMASK">قالب دسترسی پایه‌ی انجمن</Resource>
     <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">ویرایشگر انجمن :</Resource>
@@ -1194,7 +1158,7 @@
     <Resource tag="FORUM_EMAIL_HELP">آدرس "از" در هنگام ارسال نامه به کاربران</Resource>
     <Resource tag="HEADER_ADVERTS">تنظیمات تبلیغات</Resource>
     <Resource tag="HEADER_ALBUM">تنظیمات آلبوم</Resource>
-    <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
+    <Resource tag="HEADER_ATTACHMENTS">تنظیمات فایلهای الصاقی</Resource>
     <Resource tag="HEADER_AVATARS">تنظیمات تصویر پروفایل</Resource>
     <Resource tag="HEADER_BOTSPAM">تنظیمات اسپم ربات‌ها (بررسی کاربران)</Resource>
     <Resource tag="HEADER_CACHE">تنظیمات cache</Resource>
@@ -1211,7 +1175,7 @@
     <Resource tag="HEADER_LOGIN">تنظیمات ورود/ثبت نام</Resource>
     <Resource tag="HEADER_LOGSCOPE">دامنه‌ی لاگ</Resource>
     <Resource tag="HEADER_MESSAGE_NOTIFICATION">تنظیمات اطلاع‌رسانی پیام‌ها</Resource>
-    <Resource tag="HEADER_PASSWORD">Password Strength Settings</Resource>
+    <Resource tag="HEADER_PASSWORD">تنظیمات قدرت رمز عبور</Resource>
     <Resource tag="HEADER_PERMISSION">تنظیمات دسترسی‌ها</Resource>
     <Resource tag="HEADER_PMS">پیام شخصی</Resource>
     <Resource tag="HEADER_POLL">تنظیمات نظرسنجی</Resource>
@@ -1219,7 +1183,6 @@
     <Resource tag="HEADER_SEARCH">تنظیمات جستجو</Resource>
     <Resource tag="HEADER_SERVER_INFO">اطلاعات سرور</Resource>
     <Resource tag="HEADER_SETUP">تنظیمات میزبان</Resource>
-    <Resource tag="HEADER_SHOUT">تنظیمات کادر گفتگو</Resource>
     <Resource tag="HEADER_SPAM">تنظیمات اسپم (بررسی محتوا)</Resource>
     <Resource tag="HEADER_SYNDICATION">تنظیمات فید اجتماعی</Resource>
     <Resource tag="HOST_ADVERTS">تبلیغات</Resource>
@@ -1241,17 +1204,17 @@
     <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">حداکثر ارتفاع تصاویر کوچک شده ضمیمه</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH">حداکثر اندازه عرض کوچک سازی تصاویر ضمیمه:</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH_HELP">حداکثر اندازه عرض کوچک سازی تصاویر ضمیمه را مشخص می کند.</Resource>
-    <Resource tag="IMAGE_THUMB_HEIGHT">Thumbnail Image  Max Height:</Resource>
+    <Resource tag="IMAGE_THUMB_HEIGHT">حداکثر ارتفاع تصویر بندانگشتی:</Resource>
     <Resource tag="IMAGE_THUMB_HEIGHT_HELP">Maximum Height of the attachment and album image thumbnail.</Resource>
-    <Resource tag="IMAGE_THUMB_WIDTH">Thumbnail Image  Max Width:</Resource>
+    <Resource tag="IMAGE_THUMB_WIDTH">حداکثر عرض تصویر بندانگشتی:</Resource>
     <Resource tag="IMAGE_THUMB_WIDTH_HELP">Maximum Width of the attachment and album image thumbnail.</Resource>
     <Resource tag="IMAGES_PER_PAGE">تعداد تصاویر در صفحه:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">تعداد تصاویر برای نمایش در هر صفحه.</Resource>
-    <Resource tag="INDEX_SEARCH">Re-Index Search</Resource>
-    <Resource tag="INDEX_SEARCH_HELP">Indexes all Messages in all Forums of the current Board for the Search Engine</Resource>
+    <Resource tag="INDEX_SEARCH">شاخص سازی مجدد جستجو</Resource>
+    <Resource tag="INDEX_SEARCH_HELP">همه پیام‌ها را در تمام انجمن‌های انجمن فعلی برای موتور جستجو فهرست می‌کند</Resource>
     <Resource tag="IP_INFOSERVICE">فعال کردن سرویس اطلاعات IP:</Resource>
     <Resource tag="IP_INFOSERVICE_DATAMAPPING">IP Info Geolocation Web Service arguments mapping string:</Resource>
-    <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Maps string array or deserialized return data to properties.</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">آرایه رشته نقشه‌ها یا داده‌های غیرسریالی شده را به ویژگی‌ها برمی‌گرداند.</Resource>
     <Resource tag="IP_INFOSERVICE_HELP">با تیک زدن گزینه فهمیدن ثبت کاربران از طریق وب سرویس غیر ممکن می شود.</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL">آدرس سرویس وب XML برای اطلاعات آی پی :</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">برای دریافت جزئیات آی پی کاربران به عنوان فایل XML استفاده می شود.</Resource>
@@ -1263,20 +1226,20 @@
     <Resource tag="LASTPOSTS_FEEDS_ACCESS_HELP">محدود کردن فید ارسال برای آخرین ارسال ها.</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT">زمان timeout حافظه موقت داده های تنبل کاربر:</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
-    <Resource tag="LOG_BANNEDIP">Allow log Banned IP actions:</Resource>
-    <Resource tag="LOG_BANNEDIP_HELP">Log banned IP set and lift.</Resource>
-    <Resource tag="LOG_ERROR">Allow log Application Errors:</Resource>
+    <Resource tag="LOG_BANNEDIP">فعال سازی ثبت رخدادهای آی پی ممنوعه</Resource>
+    <Resource tag="LOG_BANNEDIP_HELP">ثبت فعال یا غیرفعال کردن دسترسی آی پی های ممنوعه</Resource>
+    <Resource tag="LOG_ERROR">فعالسازی ثبت خطاهای نرم افزار</Resource>
     <Resource tag="LOG_ERROR_HELP">Application errors will be logged.</Resource>
-    <Resource tag="LOG_INFORMATION">Allow log Application Info:</Resource>
+    <Resource tag="LOG_INFORMATION">فعالسازی ثبت فعالیتهای نرم افزار </Resource>
     <Resource tag="LOG_INFORMATION_HELP">Application info messages will be logged.</Resource>
     <Resource tag="LOG_SUSPENDEDANDCONTRA">Allow log when users suspended or unsuspended:</Resource>
     <Resource tag="LOG_SUSPENDEDANDCONTRA_HELP">Log when users are suspended or unsuspended.</Resource>
-    <Resource tag="LOG_USERDELETED">Allow log user deleting event:</Resource>
+    <Resource tag="LOG_USERDELETED">فعالسازی ثبت وقایع حذف</Resource>
     <Resource tag="LOG_USERDELETED_HELP">User deleting event will be logged.</Resource>
     <Resource tag="LOG_USERSUSPENDED">Allow log user suspended and unsuspended:</Resource>
     <Resource tag="LOG_USERSUSPENDED_HELP">Suspended and unsuspended events will be logged.</Resource>
-    <Resource tag="LOG_VIEWSTATEERROR">Log ViewState Exceptions:</Resource>
-    <Resource tag="LOG_VIEWSTATEERROR_HELP">ViewState Exceptions (mainly caused by SPAM Bots) will be logged.</Resource>
+    <Resource tag="LOG_VIEWSTATEERROR">ثبت ViewState خطاهای:</Resource>
+    <Resource tag="LOG_VIEWSTATEERROR_HELP">ViewState خطاهای (توسط SPAM Bots) ثبت خواهد شد.</Resource>
     <Resource tag="LOG_WARNING">Allow log Application Warnings:</Resource>
     <Resource tag="LOG_WARNING_HELP">Application warnings will be logged.</Resource>
     <Resource tag="LOGIN_REDIR_URL">آدرس ارجاع دیگر ورود :</Resource>
@@ -1300,42 +1263,42 @@
     <Resource tag="MESSAGE_CHANGE_HISTORY">تاریخچه بایگانی پیام ها</Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY_HELP">تعداد روزهای پیگرد تغییرات پیام.</Resource>
     <Resource tag="MESSAGE_SYSTEM">Notification System for System Messages:</Resource>
-    <Resource tag="MESSAGE_SYSTEM_HELP">You can choose Between Modal Dialog or a Top Notification Bar for System Messages.</Resource>
+    <Resource tag="MESSAGE_SYSTEM_HELP">شما می توانید برای نمایش پیامها، نجره نمایش یا نوار اعلان در قسمت بالا را انتخاب کنید.</Resource>
     <Resource tag="MOD_CACHE_TIMEOUT">انقضای حافظه موقت ناظران تابلو :</Resource>
     <Resource tag="MOD_CACHE_TIMEOUT_HELP">دقیقه</Resource>
-    <Resource tag="MODAL_DIALOG">Modal Dialog</Resource>
+    <Resource tag="MODAL_DIALOG">پنجره نمایش</Resource>
     <Resource tag="MODAL_LOGIN">از جعبه ورود استفاده کن:</Resource>
     <Resource tag="MODAL_LOGIN_HELP">در صورت علامت گذاری، کنترل ورود مانند جعبه نمایش داده می شود.</Resource>
     <Resource tag="NAME_LENGTH">حداکثر طول نام کاربری:</Resource>
     <Resource tag="NAME_LENGTH_HELP">حداکثر طول نام کاربری یا نام نمایشی.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">استفاده از برچسب "دنبال نکنید" در پیوند ها:</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS_HELP">در صورت علامت خوردن همه پیوند ها برچسب " دنبال نکنید" خواهند خورد.</Resource>
-    <Resource tag="NOTIFICATION_BAR">Notification Bar</Resource>
+    <Resource tag="NOTIFICATION_BAR">نوار اطلاعیه ها</Resource>
     <Resource tag="NOTIFICATION_DURATION">Notification Bar Display Duration:</Resource>
     <Resource tag="NOTIFICATION_DURATION_HELP">Duration (in Seconds) how long the Bar is displayed.</Resource>
     <Resource tag="NOTIFICATION_MOBILE">Use Native Message Dialogs on Mobile:</Resource>
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">انقضای حافظه موقت وضعیت کاربران بر خط:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">می توانید بر اساس فعالیت سایت خود بر حسب میلی ثانیه تنظمی کنید.</Resource>
-    <Resource tag="PASSWORD_LOWER_CASE">Require Lower Case:</Resource>
-    <Resource tag="PASSWORD_LOWER_CASE_HELP">Option to require a lower case letter ('a' - 'z') in a Password.</Resource>
-    <Resource tag="PASSWORD_MIN_LENGTH">Minimum Length:</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE">نیاز به حروف کوچک:</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE_HELP">.ضرورت وجود حروف کوچک (a تا z) در رمز عبور</Resource>
+    <Resource tag="PASSWORD_MIN_LENGTH">حداقل طول:</Resource>
     <Resource tag="PASSWORD_MIN_LENGTH_HELP">The minimum required password length.</Resource>
-    <Resource tag="PASSWORD_REQUIRE_DIGIT">Require Digit:</Resource>
-    <Resource tag="PASSWORD_REQUIRE_DIGIT_HELP">Option to require a numeric digit ('0' - '9') in a Password.</Resource>
-    <Resource tag="PASSWORD_REQUIRE_NON_LETTER">Require non Letter Or Digit:</Resource>
-    <Resource tag="PASSWORD_REQUIRE_NON_LETTER_HELP">Option to requires a non-letter or digit character in a Password.</Resource>
-    <Resource tag="PASSWORD_UPPER_CASE">Require Upper Case:</Resource>
-    <Resource tag="PASSWORD_UPPER_CASE_HELP">Option to require a upper case letter ('A' - 'Z') in a Password.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT">نیازمند عدد</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT_HELP">.ضرورت وجود کارکترهای عددی (0 تا 9) در رمز عبور</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER">نیاز به کاراکترهای غیر حرفی یا عدد:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER_HELP">.تعیین ضرورت وجود کارکترهای غیر حرفی یا عددی در رمز عبور</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE">نیاز به حروف بزرگ</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE_HELP">.ضرورت وجود حروف کوچک (A تا Z) در رمز عبور</Resource>
     <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
     <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">اندازه تصویر نظر سنجی :</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">حداکثر اندازه فایل تصویر نظر سنجی به کیلو بایت.</Resource>
-    <Resource tag="POPULAR_DAYS">Active Days to stay Hot:</Resource>
-    <Resource tag="POPULAR_DAYS_HELP">Define the Number of days the topics last post must have been posted. By Default it is set to 7 (One Week), that means a topic stays popular for one week.</Resource>
-    <Resource tag="POPULAR_REPLYS">Min. Replies to became Hot:</Resource>
+    <Resource tag="POPULAR_DAYS">روزهای فعال برای عنوان داغ:</Resource>
+    <Resource tag="POPULAR_DAYS_HELP">تعداد روزهایی را که موضوعات آخرین پست باید ارسال شده باشد را مشخص کنید. به طور پیش فرض روی 7 (یک هفته) تنظیم شده است، به این معنی که یک موضوع برای یک هفته محبوب باقی می ماند.</Resource>
+    <Resource tag="POPULAR_REPLYS">حداقل تعداد پاسخ برای داغ شدن</Resource>
     <Resource tag="POPULAR_REPLYS_HELP">The number of Replies per topic becomes popular.</Resource>
-    <Resource tag="POPULAR_VIEWS">Min. Views to became Hot:</Resource>
+    <Resource tag="POPULAR_VIEWS">حداقل تعداد مشاهده برای داغ شدن</Resource>
     <Resource tag="POPULAR_VIEWS_HELP">The number of topic views before a topic becomes popular.</Resource>
     <Resource tag="POST_AD">آگهی جداکننده ارسال:</Resource>
     <Resource tag="POST_AD_HELP">کدی را که می خواهدی پس از اولین ارسال مرتبا نمایش داده شود قرار دهید. می توانید این گزینه را خالی رها کنید.</Resource>
@@ -1367,9 +1330,9 @@
     <Resource tag="REPUTATION_MIN">Maximum Negative Reputation Value:</Resource>
     <Resource tag="REPUTATION_MIN_HELP">This Value is used to generate the Reputation Bar.</Resource>
     <Resource tag="REPUTATION_MINDOWN">Min. Value to allow Remove Reputation:</Resource>
-    <Resource tag="REPUTATION_MINDOWN_HELP">Check if the User matches minimal requirements for voting down.</Resource>
+    <Resource tag="REPUTATION_MINDOWN_HELP">بررسی اینکه آیا کاربر حداقل شرایط لازم برای رأی منفی را دارد.</Resource>
     <Resource tag="REPUTATION_MINUP">Min. Value to allow Add Reputation:</Resource>
-    <Resource tag="REPUTATION_MINUP_HELP">Check if the User matches minimal requirements for voting up.</Resource>
+    <Resource tag="REPUTATION_MINUP_HELP">بررسی اینکه آیا کاربر حداقل شرایط لازم برای رأی مثبت را دارد.</Resource>
     <Resource tag="REQUIRE_LOGIN">ورود کاربر الزامی است:</Resource>
     <Resource tag="REQUIRE_LOGIN_HELP">اگر علامت زده شود، کاربران قبل از دیدن هرگونه محتوائی مجبور به ورود هستند. و مستقیما به صفحه ورود رهنمون می شوند.</Resource>
     <Resource tag="RULES_ONREGISTER">نمایش "قوانین" قبل از ثبت نام :</Resource>
@@ -1413,8 +1376,8 @@
     <Resource tag="SHOW_DEL_MESSAGES_HELP">با انتخاب این گزینه، پیام های حذف شدهبا یادداشتی رها می شوند.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">نمایش پیام های حذف شده به همه :</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL_HELP">در صورت علامت زدن این گزینه همه کاربران پیام های حذف شده را خواهند دید. در غیر اینصورت فقط مدیران ، ناظران و صاحب پیام آنرا خواهند دید.</Resource>
-    <Resource tag="SHOW_EDIT_MESSAGE">Show Edit Message:</Resource>
-    <Resource tag="SHOW_EDIT_MESSAGE_HELP">If enabled it shows a Note in the footer of the Message if the Message was edited (incl. the Reason and Time)</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE">نمایش پیام ویرایش:</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE_HELP">در صورت فعال بودن، در صورتی که پیام ویرایش شده باشد، یک یادداشت در پاورقی پیام نشان می دهد (شامل دلیل و زمان)</Resource>
     <Resource tag="SHOW_FORUM_JUMP">نمایش کادر پرش انجمن:</Resource>
     <Resource tag="SHOW_FORUM_JUMP_HELP">نمایش یا عدم نمایش کادر پرش در میان انجمن.</Resource>
     <Resource tag="SHOW_FORUM_STATS">نمایش آمار انجمن :</Resource>
@@ -1432,28 +1395,27 @@
     <Resource tag="SHOW_MEDALS">نمایش نشان ها:</Resource>
     <Resource tag="SHOW_MEDALS_HELP">نشان های کاربر در صفحه ارسال ها نمایش داده شود.</Resource>
     <Resource tag="SHOW_MODLIST">نمایش فهرست ناظران:</Resource>
-    <Resource tag="SHOW_MODLIST_ASCOLUMN">Show Moderator List in column:</Resource>
-    <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">Shows moderator list as a separate column in a category list.</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN">نمایش فهرست مدیران در ستون:</Resource>
+    <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">فهرست مدیران را به صورت یک ستون جداگانه نشان می‌دهد.</Resource>
     <Resource tag="SHOW_MODLIST_HELP">در صورت انتخاب، ستون فهرست ناظران در لیست انجمن ها نمایش داده می شود.</Resource>
     <Resource tag="SHOW_MOVED_TOPICS">نمایش موضوعات منتقل شده:</Resource>
     <Resource tag="SHOW_MOVED_TOPICS_HELP">موضوعات منتقل شده با اشاره گری مخفی به مکان جدید رهنمون خواهند شد.</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS">نمایش ارسال های انحمن "بی-شمارش" در بحث های فعال :</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS_HELP">با تیک زدن این گزینه ، ارسال های انجمن های "بی-شمارش" در بحث های فعال نمایش داده می شود.</Resource>
     <Resource tag="SHOW_RECENT_USERS">Show Recent Users in Forum Info:</Resource>
-    <Resource tag="SHOW_RECENT_USERS_HELP">Enable to Show Recent Users within the last 24 hours in the forum info on board index page.</Resource>
+    <Resource tag="SHOW_RECENT_USERS_HELP">فعال کردن نمایش کاربران فعال در 24 ساعت گذشته در بخش اطلاعات انجمن در صفحه اصلی.</Resource>
     <Resource tag="SHOW_RELATIVE_TIME">نمایش زمان نسبی :</Resource>
     <Resource tag="SHOW_RELATIVE_TIME_HELP">در صورت علامت زدن زمان نسبی جای UTC نمایش داده خواهد شد. (مثلا دو روز قبل)</Resource>
     <Resource tag="SHOW_RENDERTIME">نمایش زمان تولید صفحه :</Resource>
     <Resource tag="SHOW_RENDERTIME_HELP">فعال یا غیر فعال کردن مدت زمان تولید صفحه در پائین ان.</Resource>
     <Resource tag="SHOW_RSS_LINKS">نمایش پیوندهای آر اس اس:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">فعال/غیرفعال کردن پیوند های RSS در انجمن.</Resource>
-    <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
-    <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
-    <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
+    <Resource tag="SHOW_SCROLL">نمایش دکمه اسکرول بازگشت به بالا</Resource>
+    <Resource tag="SHOW_SCROLL_HELP">If enabled automatically show Back to Top Button when scrolling down the page</Resource>
+    <Resource tag="SHOW_SIMILARTOPICS">نمایش عناوین مشابه:</Resource>
+    <Resource tag="SHOW_SIMILARTOPICS_HELP">عناوین مشابه یا مرتبط را در پائین عنوان نشان می دهد.</Resource>
     <Resource tag="SHOW_THANK_DATE">نمایش تاریخ تشکر کاربر:</Resource>
     <Resource tag="SHOW_THANK_DATE_HELP">قبلا حالت تشکر باید فعال باشد.</Resource>
-    <Resource tag="SHOW_TODAYS_BIRTHDAYS">Show Todays Birthdays in Forum Info:</Resource>
-    <Resource tag="SHOW_TODAYS_BIRTHDAYS_HELP">Enable to Show What members have a Birthday today.</Resource>
     <Resource tag="SHOW_UNREAD_LINKS">نمایش پیوندهای ناخوانئه:</Resource>
     <Resource tag="SHOW_UNREAD_LINKS_HELP">پیوند های نا خوانده را نمایش می دهد.</Resource>
     <Resource tag="SHOW_USER_STATUS">نمایش وضعیت آنلاین/کنارخط بودن کاربر:</Resource>
@@ -1468,52 +1430,49 @@
     <Resource tag="SHOWHELP_HELP">نمایش یا عدم نمایش پیوند راهنما در بالای صفحه.</Resource>
     <Resource tag="SHOWTEAM">نمایش صفحه گروهی:</Resource>
     <Resource tag="SHOWTEAM_HELP">فعال/غیر فعال کردن پیوند تیم در بالای صفحه.</Resource>
-    <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>
-    <Resource tag="SPAM_MESSAGE_1">Flag Message as Unapproved</Resource>
-    <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
-    <Resource tag="SPAM_MESSAGE_3">Delete &amp; Ban user</Resource>
+    <Resource tag="SPAM_MESSAGE_0">اقدامی نشود.</Resource>
+    <Resource tag="SPAM_MESSAGE_1">نشان گذاری پیام به عنوان تائید نشده</Resource>
+    <Resource tag="SPAM_MESSAGE_2">رد پیام</Resource>
+    <Resource tag="SPAM_MESSAGE_3">حذف و انسداد کاربر</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING">Handling of as SPAM Detected Messages</Resource>
-    <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message.</Resource>
+    <Resource tag="SPAM_MESSAGE_HANDLING_HELP">انتخاب کنید وقتی پیامی هرزنامه تشخیص داده شد، چه کاری انجام دهید، می‌توانید یکی از گزینه های «هیچ کاری نکنید»، «نشان گذاری به عنوان هرزنامه و یا «رد پیام» را انتخاب کنید..</Resource>
     <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>
-    <Resource tag="SPAM_SERVICE_TYP_3">Internal Spam Check Words</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_3">کلمات جهت استفاده در رویه داخلی بررسی هرزنامه</Resource>
     <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
-    <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
+    <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">اگر کاربر در یک پیام بیشتر از URL های مجاز پست کند، پیام به عنوان هرزنامه علامت گذاری می شود. این بررسی همچنین بستگی به تعداد کاربر پست‌ها دارد.</Resource>
     <Resource tag="SQL_FULLTEXT">استفاده از جستجوی تمام متنی اس کیو ال:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">استفاده از SQL FullText برای جستجو.</Resource>
-    <Resource tag="SSL_LOGIN">از SSL برای ورود استفاده کن :</Resource>
     <Resource tag="SSL_LOGIN_HELP">الزام در ورود امن برای کاربران.</Resource>
-    <Resource tag="SSL_REGISTER">از SSL برای ثبت نام استفاده کن :</Resource>
-    <Resource tag="SSL_REGISTER_HELP">الزام در ثبت نام امن برای کاربران.</Resource>
-    <Resource tag="SSL_REQUIRE">Require SSL</Resource>
+    <Resource tag="SSL_REQUIRE">نیازمند SSL</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">انقضای حافظه موقت آمار انجمن:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
-    <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API کلید:</Resource>
     <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="https//www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="STYLED_NICKS">از نیک های حالت دار استفاده کن:</Resource>
     <Resource tag="STYLED_NICKS_HELP">در صورت علامت زدن می توانید رنگ، قلم و اندازه برای نیک کاربران فعال استفاده نمائید.</Resource>
-    <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
-    <Resource tag="STYLED_TOPIC_TITLES_HELP">If checked, Mods and Admins can use colors, font size change etc. for topic titles.</Resource>
-    <Resource tag="TEMPLATE_TITLE">Page title template:</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES">استفاده از تیتر طرح دار در عناوین</Resource>
+    <Resource tag="STYLED_TOPIC_TITLES_HELP">اگر علامت زده شود، و  مدیران و ویرایشگران می‌توانند از رنگ‌ها، تغییر اندازه فونت و غیره برای عنوان‌های موضوع استفاده کنند.</Resource>
+    <Resource tag="TEMPLATE_TITLE">قالب عنوان صفحه:</Resource>
     <Resource tag="TEMPLATE_TITLE_HELP">Template for the title meta tag.</Resource>
-    <Resource tag="TEMPLATE_TITLE_PAGER">Pager page title template:</Resource>
+    <Resource tag="TEMPLATE_TITLE_PAGER">الگوی عنوان شمارنده صفحه:</Resource>
     <Resource tag="TEMPLATE_TITLE_PAGER_HELP">Template for the page title inside the page title.</Resource>
     <Resource tag="TITLE">تنظیمات میزبان</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">دسترسی خوراک موضوعات:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">محدود کردن خوراک موضوعات.</Resource>
-    <Resource tag="TOPICFEED_COUNT">Max. Topics on the Forum Feed:</Resource>
+    <Resource tag="TOPICFEED_COUNT">حداکثر موضوعات موجود در فید انجمن:</Resource>
     <Resource tag="TOPICFEED_COUNT_HELP">The maximum Amount of Topics to show on the Atom/Rss Feed.</Resource>
-    <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
-    <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
-    <Resource tag="TWOCOLUMN_BOARD">Use 2 Column Board layout</Resource>
-    <Resource tag="TWOCOLUMN_BOARD_HELP">If enabled show forums in the left column and forum discussions and Stats in the Right Column</Resource>
+    <Resource tag="TWITTER_USERNAME">نام کاربری توییتر برای ریتوییت ها:</Resource>
+    <Resource tag="TWITTER_USERNAME_HELP">نام کاربری توییتر که هنگام بازتوییت یک موضوع یا پیام ذکر می شود.</Resource>
+    <Resource tag="TWOCOLUMN_BOARD">از طرح 2 ستونی برای انجمن استفاده کنید</Resource>
+    <Resource tag="TWOCOLUMN_BOARD_HELP">اگر فعال باشد، انجمن ها را در ستون سمت چپ و بحث های انجمن و آمار را در ستون سمت راست نشان دهید</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">فعال کردن سیاهه کاربران اداره نشده:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">در صورت علامت زدن رشته های اداره نشده کاربران سیاهه می گردد.</Resource>
     <Resource tag="USE_CUSTOM_CONTEXTMENU">Use Custom Context Menus in Posts:</Resource>
     <Resource tag="USE_CUSTOM_CONTEXTMENU_HELP">If enabled use a custom context menu inside a post, otherwise browser default context menu is used</Resource>
     <Resource tag="USE_FARSI_CALENDER">Use Farsi (Shamsi) Persian Calender:</Resource>
-    <Resource tag="USE_FARSI_CALENDER_HELP">If enabled the Persian Calender all Date Times are Converted to the Persian Calender.</Resource>
+    <Resource tag="USE_FARSI_CALENDER_HELP">اگر تقویم فارسی فعال باشد، تمام زمان‌های تاریخ به تقویم فارسی تبدیل می‌شوند.</Resource>
     <Resource tag="USE_READ_TRACKING">Use User Read Tracking via Database:</Resource>
-    <Resource tag="USE_READ_TRACKING_HELP">If enabled it stores the Last Time a User Visits a Forum and Topic, to find Unread Messages. &lt;br /&gt;WARNING: This Can Increase your DB if you have a big amount of users and/or topics</Resource>
+    <Resource tag="USE_READ_TRACKING_HELP">اگر فعال باشد، آخرین باری که کاربر از یک تالار گفتمان و موضوع بازدید می کند را ذخیره می کند تا پیام های خوانده نشده را پیدا کند. &lt;br /&gt; اخطار: اگر تعداد زیادی کاربر و/یا موضوعات دارید، این می تواند حجم بانک داده شما را افزایش دهد</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE">مجوز تغییر زبان به کاربر:</Resource>
     <Resource tag="USER_CHANGE_LANGUAGE_HELP">آیا کاربران بتوانند زبان دلخواه خود را استفاده نمایند.</Resource>
     <Resource tag="USER_CHANGE_THEME">مجوز تغییر شما به کاربر:</Resource>
@@ -1527,10 +1486,10 @@
     <Resource tag="VIEWPROFILE_PERMISSION">مجوز های نمایش پروفایل :</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">اعطای مجوز بازدید از پروفایل سایر کاربران به :</Resource>
     <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
-    <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
-    <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
-    <Resource tag="WELCOME_NOTIFICATION_2">Send as private message</Resource>
-    <Resource tag="WELCOME_NOTIFICATION_HELP">If enabled you it sends a user a Welcome Mail/Private Message after successfully registration.</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_0">پیامی ارسال نشود</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_1">ایمیل اسال شود</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_2">پیام خصوصی ارسال شود</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_HELP">اگر فعال باشد، پس از ثبت نام موفقیت آمیز، یک ایمیل خوش آمدگویی/پیام خصوصی برای کاربر ارسال می کند.</Resource>
     <Resource tag="WSERVICE_TOKEN">توکن وب سرویس:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">توکن برای فراخوانی امن وب سرویس استفاده می شود. و مدام در حال تغییر است تا زمانی که شما تنظمیات میزبان را ذخیره کنید.</Resource>
   </page>
@@ -1857,8 +1816,6 @@
     <Resource tag="SUSPENDED_ONLY">فقط نمایش کاربران معلق؟</Resource>
     <Resource tag="SYNC_ALL">همسان سازی عضویت تمام گروه ها</Resource>
     <Resource tag="SYNC_FINISH">All Users are synchronized now</Resource>
-    <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
-    <Resource tag="SYNC_TITLE">Syncing Users</Resource>
     <Resource tag="TITLE">کاربران</Resource>
     <Resource tag="TWITTER_USER">کاربر توئیتر</Resource>
     <Resource tag="USER_NAME">نام کاربری</Resource>
@@ -2015,7 +1972,6 @@
   </page>
   <page name="BLOCK_OPTIONS">
     <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
-    <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
     <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
     <Resource tag="BLOCK_OPTIONS">Block Options</Resource>
     <Resource tag="BLOCK_PMS">Block Private Messages</Resource>
@@ -2315,29 +2271,28 @@
   </page>
   <page name="COOKIES">
     <Resource tag="COOKIES_TEXT">
-    Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.
+    کوکی ها فایل های متنی کوچکی هستند که توسط وب سایت هایی که بازدید می کنید در رایانه شما قرار می گیرند. آنها به طور گسترده ای برای کارکرد یا کارآمدتر کردن وب سایت ها و همچنین ارائه اطلاعات به صاحبان سایت استفاده می شوند. بسته به سطح دسترسی و اقدامات شما در سایت، کوکی‌های مبتنی بر اولویت‌های مختلفی ممکن است برای بهبود تجربه شما تنظیم شوند.
 
-    [br]
-    [b]Standard Cookies[/b][br]
-    We’re using cookies for the following purposes:
+   [br]
+    [b]کوکی‌های استاندارد[/b][br]
+    ما از کوکی ها برای اهداف زیر استفاده می کنیم:
 
-    [list]
-    [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.
-    [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.
-    [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.
-    [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..
+    [فهرست]
+    [*] کاربران مهمان: تاریخ و زمان آخرین بازدید شما ذخیره خواهد شد تا در بازدید بعدی شما مشخص شود که کدام موضوعات و پیام جدید هستند.
+    [*] ورود: پس از ورود به انجمن، یک کوکی حاوی اطلاعات کاربری رمزگذاری شده شما تنظیم می شود که برای شناسایی شما در بین بازدید از صفحه لازم است. می‌توانید با برداشتن علامت «مرا به خاطر بسپار» در فرم ورود، این کوکی را غیرفعال کنید.
+    [*] نظرسنجی: گزینه های رای شما به عنوان کوکی ذخیره می شود. به محض اینکه رای خود را در یک نظرسنجی می دهید یک کوکی ایجاد می شود.
+    [*] جلسه: در اولین بازدید از وب سایت ما، سیستم یک جلسه منحصر به فرد جدید برای شما ایجاد می کند که با استفاده از یک کوکی در رایانه شما ذخیره می شود. جلسات برای شناسایی کاربران بین دسترسی به صفحه مورد نیاز است. این یک کوکی موقت است که پس از بستن مرورگر اینترنت خود حذف می شود.
     [/list]
 
-    [b]Third Party Cookies[/b][br]
-    The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.
+    [b]کوکی‌های شخص ثالث[/b][br]
+    مالک سایت ممکن است علاوه بر کوکی‌های استاندارد بالا، کوکی‌های دیگری نیز تنظیم کند. این کوکی ها اغلب برای ردیابی استفاده از وب سایت استفاده می شوند یا توسط ارائه دهندگان خدمات جاسازی شده هنگام مشاهده محتوای جاسازی شده از ارائه دهندگانی مانند YouTube و Vimeo و غیره تنظیم می شوند.
 
     [br]
 
-    [b]How do I change my cookie settings?[/b][br]
-    Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]
-
+    [b]چگونه تنظیمات کوکی خود را تغییر دهم؟[/b][br]
+    اکثر مرورگرهای وب اجازه می دهند تا برخی از کوکی ها را از طریق تنظیمات مرورگر کنترل کنند. برای کسب اطلاعات بیشتر در مورد کوکی‌ها، از جمله نحوه مشاهده کوکی‌ها و نحوه مدیریت و حذف آنها، به [url]www.aboutcookies.org[/url] یا [url]www.allaboutcookies.org مراجعه کنید.[/url. ]
     </Resource>
-    <Resource tag="TITLE">Cookie Policy</Resource>
+    <Resource tag="TITLE">سیاست کوکی</Resource>
   </page>
   <page name="COUNTRY">
     <Resource tag="AD">آندورا</Resource>
@@ -2628,7 +2583,6 @@
     <Resource tag="RSSICONTOOLTIPFORUM">اشتراک در عناوین انجمن از طریق RSS</Resource>
     <Resource tag="SHOW_UNREAD_ONLY">فقط نمایش ارسال های خوانده نشده</Resource>
     <Resource tag="STATS">آمار و ارقام</Resource>
-    <Resource tag="STATS_BIRTHDAYS">تولدهای امروز :</Resource>
     <Resource tag="STATS_LASTMEMBER">جدیدترین کاربر</Resource>
     <Resource tag="STATS_LASTPOST">آخرین ارسال {0} بوسیله</Resource>
     <Resource tag="STATS_MEMBERS">تعداد {0:N0} کاربر ثبت نام کرده اند.</Resource>
@@ -2745,7 +2699,6 @@
     <Resource tag="FIELD_TOOLONG">طول {0} نباید بیش از {1} کاراکتر باشد.</Resource>
     <Resource tag="FORUM_SETTINGS">تنظیمات انجمن</Resource>
     <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
-    <Resource tag="GOOGLE">آدرس پروفایل گوگل شما:</Resource>
     <Resource tag="HIDEME">مخفی شدن من از لیست کاربران فعال</Resource>
     <Resource tag="HOMEPAGE">صفحه اصلی</Resource>
     <Resource tag="HOMEPAGE2">وبسایت شما (عمومی):</Resource>
@@ -2773,7 +2726,6 @@
     <Resource tag="TIMEZONE2">برای محاسبه تاریخ و زمان بر اساس موقعیت شما، منطقه زمانی شما باید تعیین شود.</Resource>
     <Resource tag="TITLE">ویرایش پروفایل</Resource>
     <Resource tag="TWITTER">نام توئیتر شما:</Resource>
-    <Resource tag="USE_MOBILE_THEME">قالب انجمن برای موبایل</Resource>
     <Resource tag="WEBLOG2">آدرس وبلاگ شما:</Resource>
     <Resource tag="WHERE">محل زندگی شما؟</Resource>
     <Resource tag="XMPP">شناسه Jabber:</Resource>
@@ -4216,12 +4168,6 @@
     </Resource>
     <Resource tag="SEARCHINGTITLE">جستجو در انجمن و مباحث</Resource>
     <Resource tag="SEARCHLONGER">کلمه کلیدی حداقل باید حاوی 3 حرف باشد.</Resource>
-    <Resource tag="SMILIESCONTENT">
-      &lt;p&gt;خندانک ها، عکس های کوچکی هستند که بیانگر حالت و احساس شما هستند. مثلا هنگامی که می خواهید نشان دهید که خوشحال، ناراحت، شوخ طبع یا خجالت زده هستید می توانید از خندانک ها استفاده نمایید. یا هنگامی که مطلبی را به عنوان شوخی مطرح کرده اید می توانید از خندانک چشمک استفاده کنید به جای آنکه بنویسید: شوخی کردم.. ..
-      &lt;/p&gt;
-      &lt;p&gt;&lt;strong&gt;چگونه خندانک را وارد پیامم بکنم؟&lt;/strong&gt;&lt;/p&gt;
-      &lt;p&gt;در صورت فعال بودن، خندانک ها در صفحه "ارسال پاسخ" و یا "مبحث جدید" قابل دسترسی هستند. برای وارد کردنشان کافی است رویشان کلیک کنید. همچنین می توانید ترکیب کاراکترهای مربوط به آن خندانک را از لیست خندانک ها، بطور دستی وارد کنید.  &lt;/p&gt;
-    </Resource>
     <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.&lt;/p&gt;
 &lt;p&gt;Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to  watch a topic?&lt;/strong&gt;&lt;/p&gt;
@@ -4346,9 +4292,7 @@
     <Resource tag="EMAIL">آدرس پست الکترونیک</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">پست الکترونیکی حاوی رمز عبور جدید شما ارسال شد.</Resource>
     <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
-    <Resource tag="FACEBOOK_LOGIN">ورود با فیسبوک</Resource>
     <Resource tag="FORUM_LOGIN">ورود به انجمن</Resource>
-    <Resource tag="GOOGLE_LOGIN">ورود با گوگل</Resource>
     <Resource tag="LOSTPASSWORD">رمز عبور را فراموش کرده ام</Resource>
     <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to you.</Resource>
     <Resource tag="PASSWORD">رمز عبور:</Resource>
@@ -4374,7 +4318,6 @@
     <Resource tag="TITLE">ورود</Resource>
     <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
     <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
-    <Resource tag="TWITTER_LOGIN">ورود با توئیتر</Resource>
     <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
     <Resource tag="USERNAME">نام کاربری یا آدرس ایمیل:</Resource>
     <Resource tag="WRONG_USERNAME_EMAIL">نام کاربری و یا آدرس پست الکترونیک اشتباه می باشد.</Resource>
@@ -4383,20 +4326,16 @@
     <Resource tag="ALL">همه</Resource>
     <Resource tag="AVATAR">تصویر پروفایل</Resource>
     <Resource tag="INVALIDPOSTSVALUE">شما مقداری نا معتبر برای تعداد ارسال ها انتخاب کرده اید.</Resource>
-    <Resource tag="JOINED">تاریخ عضویت</Resource>
     <Resource tag="JOINED_ASC">Joined asc</Resource>
     <Resource tag="JOINED_DESC">Joined desc</Resource>
-    <Resource tag="LASTVISIT">آخرین بازدید از سایت</Resource>
     <Resource tag="LASTVISIT_ASC">Last visit asc</Resource>
     <Resource tag="LASTVISIT_DESC">Last visit desc</Resource>
     <Resource tag="NUMPOSTSEQUAL">برابر</Resource>
     <Resource tag="NUMPOSTSLESSOREQUAL">کوچکتر و مساوی</Resource>
     <Resource tag="NUMPOSTSMOREOREQUAL">بزرگتر و مساوی</Resource>
     <Resource tag="PAGES">{0} صفحه:</Resource>
-    <Resource tag="POSTS">ارسال‌ها</Resource>
     <Resource tag="POSTS_ASC">Posts asc</Resource>
     <Resource tag="POSTS_DESC">Posts desc</Resource>
-    <Resource tag="RANK">رتبه</Resource>
     <Resource tag="RANK_ASC">Rank A-Z</Resource>
     <Resource tag="RANK_DESC">Rank Z-A</Resource>
     <Resource tag="SEARCH_MEMBER">نام عضو شامل :</Resource>
@@ -4405,7 +4344,6 @@
     <Resource tag="SEARCH_ROLE">نقش:</Resource>
     <Resource tag="SORT_BY">Sort by</Resource>
     <Resource tag="TITLE">اعضا</Resource>
-    <Resource tag="USERNAME">نام کاربری</Resource>
     <Resource tag="USERNAME_ASC">Name A-Z</Resource>
     <Resource tag="USERNAME_DESC">Name Z-A</Resource>
   </page>
@@ -4547,7 +4485,6 @@
     <Resource tag="MYTOPICS">موضوعاتی که شما در آن پاسخی ارسال کرده اید</Resource>
     <Resource tag="NO_POSTS">بدون ارسال</Resource>
     <Resource tag="REPLIES">پاسخ‌ها</Resource>
-    <Resource tag="RSSFEED">فید RSS</Resource>
     <Resource tag="SELECT">Select...</Resource>
     <Resource tag="SHOW_ALL">نمایش همه</Resource>
     <Resource tag="SINCE">از</Resource>
@@ -4670,9 +4607,7 @@
     <Resource tag="POLLGROUP_LIST_BOARD_HELP">Choose an existing poll as board Poll</Resource>
     <Resource tag="POLLGROUPISBOUND">رای شما زمانی شمارش خواهشد شد که در تمام نظر سنجی ها رای داده ابشید.</Resource>
     <Resource tag="POLLHEADER">ساخت یا ویرایش نظر سنجی</Resource>
-    <Resource tag="POLLIMAGE_INVALID">تصویر یا مسیر آن برای {0} نا معتبر است</Resource>
     <Resource tag="POLLIMAGE_TEXT">مسیر تصویر:</Resource>
-    <Resource tag="POLLIMAGE_TOOBIG">سایز فایل تصویری شما {0} کیلو بایت است، که نباید بیشتر از {1} کیلو بایت باشد. مسیر تصویر : {2}</Resource>
     <Resource tag="POLLOPTIONSHIDDEN_GUEST">میهمان ها نمی توانند گزینه های نظر سنجی و یا نتایج را ببینند. ثبت نام کنید یا وارد شودی.</Resource>
     <Resource tag="POLLQUESTION">سوالات نظر سنجی:</Resource>
     <Resource tag="POLLRESULTSHIDDEN">شما قبل از رای دادن نمی توانید نتایج را ببینید.</Resource>
@@ -4742,7 +4677,6 @@
     <Resource tag="CONFIRM_DELETEMESSAGE">آیا این پیغام حذف شود؟</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">آیا این موضوع حذف شود؟</Resource>
     <Resource tag="CONFIRM_REPORTPOST">آیا از گزارش این ارسال به عنوان توهین مطمئن هستید؟</Resource>
-    <Resource tag="DIGG_TOPIC">Digg این موضوع</Resource>
     <Resource tag="EDIT_REASON">دلیل ویرایش</Resource>
     <Resource tag="EDIT_REASON_NA">مشخص نشده است</Resource>
     <Resource tag="EDITED">ویرایش شد</Resource>
@@ -4952,12 +4886,7 @@
     <Resource tag="ACCOUNT_NOT_APPROVED">حساب کاربری شما هنوز توسط مدیر مورد تائید قرار نگرفته است.شما تا زمان مورد تائید قرار گرفتن نمی توانید رمز عبور خود را بازگردانی کنید.</Resource>
     <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">حساب کاربری شما بدلیل عدم تائید پست الکترونیک از جانب شما مورد تائید قرار نگرفته است.پست الکترونیک جدیدی به آدرس {0} ارسال شد.لطفاً تائید بفرمائید. </Resource>
     <Resource tag="GENERAL_FAILURE">تلاش برای بازیابی رمز عبور شما موفقیت آمیز نبود.</Resource>
-    <Resource tag="IDENTITY_CONFIRMATION_TITLE">تائید هویت برای بازیابی رمز عبور</Resource>
     <Resource tag="PAGE1_INSTRUCTIONS">نام کاربری خود را به منظور دریافت رمز عبور وارد کنید:</Resource>
-    <Resource tag="PAGE2_INSTRUCTIONS">سوالهای زیر را به منظور دریافت رمز عبور پاسخ دهید:</Resource>
-    <Resource tag="PASSWORD_SENT">رمز عبور به پست الکترونیک شما ارسال شد.</Resource>
-    <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">بازیابی رمز عبور برای انجمن {0}</Resource>
-    <Resource tag="QUESTION_FAILURE">پاسخ شما قابل تائید نمی باشد.دوباره تلاش کنید.</Resource>
     <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">رمز عبور را فراموش کرده ام</Resource>
     <Resource tag="USERNAME_FAILURE">نام کاربری شما پیدا نشد.</Resource>
@@ -5423,16 +5352,6 @@
 
      {forumname} at {forumlink}
    </Resource>
-    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER">
-      Hello!
-
-      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):
-
-      User Name: {user}
-      User Email: {email}
-
-      Administration Link: {adminlink}
-    </Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_TEXT">
       Hello!
 
@@ -5442,15 +5361,6 @@
       User Email: {email}
 
       Administration Link: {adminlink}
-    </Resource>
-    <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
-      سلام {user}.
-
-شما با موفقیت در  {forumname} از طریق لاگین فیسبوک وارد شدید:
-      نام کاربری: {user}
-      رمزعبور خودکار: {pass}
-      پست الکترونیکی کاربر: {email} (لطفا ایمیل خود را تغییر ندهید در غیر این صورت نمی توانید از طریق فیسبوک لاگین کنید)
-
     </Resource>
     <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT">
       Hello {user}.
@@ -5463,28 +5373,14 @@
       User Email: {email} (Please don't change your email, or you are unable to login with Facebook)
 
     </Resource>
-    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
-      Hello {user}.
+    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER_TEXT">سلام {کاربر}.
 
-      You have been successfully registered on the {forumname} forum using Google Login:
+      شما با موفقیت در انجمن {forumname} با استفاده از گوگل ثبت نام کردید:
 
-      User Name: {user}
-      Auto Generated Password: {pass}
+      نام کاربری: {user}
+    رمز عبور خودکار: {pass}
 
-      User Email: {email} (Please don't change your email, or you are unable to login with Google)
-
-    </Resource>
-    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER_TEXT">
-      Hello {user}.
-
-      You have been successfully registered on the {forumname} forum using Google Login:
-
-      User Name: {user}
-    Auto Generated Password: {pass}
-
-      User Email: {email} (Please don't change your email, or you are unable to login with Google)
-
-    </Resource>
+      ایمیل کاربر: {email} (لطفا ایمیل خود را تغییر ندهید، یا امکان ورود با گوگل را نخواهید داشت)</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
       Hello {user}.
 
@@ -5506,17 +5402,6 @@
 
       Administration Link: {adminlink}
     </Resource>
-    <Resource tag="NOTIFICATION_ON_REGISTER">
-      Hello {user}.
-
-      You have been successfully Registred on the {forumname} forum:
-
-      User Name: {user}
-      Auto Generated Password: {pass}
-
-      User Email: {email}
-
-    </Resource>
     <Resource tag="NOTIFICATION_ON_REGISTER_TEXT">
     Hello {user}.
 
@@ -5528,16 +5413,6 @@
     User Email: {email}
 
   </Resource>
-    <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER">
-      Hello {user},
-
-      The suspension of your forum account has ended or was lifted.
-
-      Thanks!
-      The {forumname} Team
-      {forumlink}
-
-    </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER_TEXT">
     Hello {user},
 
@@ -5548,20 +5423,6 @@
     {forumlink}
 
   </Resource>
-    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER">
-      Hello {user},
-
-      Your forum account on the {forumname} forum has been temporarily suspended.
-
-      This suspension is due to end on {suspendedUntil}.
-
-      For the following Reason: '{suspendReason}'
-
-      Thanks!
-      The {forumname} Team
-      {forumlink}
-
-    </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_TEXT">
     Hello {user},
 
@@ -5587,13 +5448,6 @@
       User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)
 
     </Resource>
-    <Resource tag="NOTIFICATION_ON_USER_REGISTER">
-      سلام!
-      کاربر جدیدی در انجمن {forumname} ثبت نام کرده است :
-      نام کاربری: {user}
-      پست الکترونیک: {email}
-      پیوند مدیریت : {adminlink}
-    </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_TEXT">
       Hello!
 
@@ -5603,23 +5457,6 @@
       User Email: {email}
 
       Administration Link: {adminlink}
-    </Resource>
-    <Resource tag="NOTIFICATION_ON_WELCOME_USER">
-      Hello {user},
-
-      You have been successfully registered on the {forumname} forum. You're all ready to go!
-
-      Before posting, consider other ways of finding information:
-
-      - Use the help pages to find out how the forum works
-      - Try the Forum Search, often times your questions are already been answered
-      - Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.
-      Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.
-
-      Thanks!
-      The {forumname} Team
-      {forumlink}
-
     </Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER_TEXT">
     Hello {user},
@@ -5638,18 +5475,6 @@
     {forumlink}
 
   </Resource>
-    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT">
-     Hello {user},
-
-     Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
-
-     {roles}
-
-     Thanks!
-     The {forumname} Team
-     {forumlink}
-
-   </Resource>
     <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_TEXT">
      Hello {user},
 
@@ -5657,18 +5482,6 @@
 
      {roles}
 
-
-     Thanks!
-     The {forumname} Team
-     {forumlink}
-
-   </Resource>
-    <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT">
-     Hello {user},
-
-     Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
-
-     {roles}
 
      Thanks!
      The {forumname} Team
@@ -5768,17 +5581,15 @@
     <Resource tag="MEMBERS">اعضا</Resource>
     <Resource tag="MEMBERS_TITLE">باز کردن صفحه لیست کاربران</Resource>
     <Resource tag="MODERATE">مدیریت</Resource>
-    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
+    <Resource tag="MODERATE_NEW">({0} نیازمند بررسی)</Resource>
     <Resource tag="MODERATE_TITLE">نمایش صفحه مدیر زمانی که می توانید موضوعات گزارش شده و تائید نشده را ببینید</Resource>
-    <Resource tag="MYACTIVITY">My Activity</Resource>
-    <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">آلبوم‌های من</Resource>
     <Resource tag="MYALBUMS_TITLE">نمایش صفحه آلبوم ها برای نمایش تمام آلبوم ها</Resource>
-    <Resource tag="MYNOTIFY">My Notifications</Resource>
+    <Resource tag="MYNOTIFY">اطلاعیه های من</Resource>
     <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">پروفایل من</Resource>
     <Resource tag="MYPROFILE_TITLE">نمایش کنترل پنل کاربر</Resource>
-    <Resource tag="MYSETTINGS">My Settings</Resource>
+    <Resource tag="MYSETTINGS">تنظیمات من</Resource>
     <Resource tag="MYSETTINGs_TITLE">Edit your user details and settings.</Resource>
     <Resource tag="MYTOPICS">موضوعات من</Resource>
     <Resource tag="MYTOPICS_TITLE">نمایش موضوعات فعال و مورد علاقه</Resource>
