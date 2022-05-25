@@ -1445,6 +1445,7 @@
     <Resource tag="SHOW_RSS_LINKS">Показывать ссылки RSS:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">Разрешить ссылки RSS. Вы также должны установить разрешения для каждой ленты</Resource>
     <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
+    <Resource tag="SHOW_SCROLL_HELP">If enabled automatically show Back to Top Button when scrolling down the page</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Показывать дату, когда пользователя сказали «Спасибо»:</Resource>
@@ -4651,7 +4652,7 @@ Spoiler Content
     <Resource tag="WAIT">Вы не можете оставить следующее сообщение в течение последующих {0:N0} секунд.</Resource>
   </page>
   <page name="POSTS">
-    <Resource tag="AD_SIGNATURE" />
+    <Resource tag="AD_SIGNATURE">Ads</Resource>
     <Resource tag="AD_USERNAME">Реклама</Resource>
     <Resource tag="AIM">AIM</Resource>
     <Resource tag="AIM_TITLE">Общаться с {0} при помощи пейджера AOL</Resource>

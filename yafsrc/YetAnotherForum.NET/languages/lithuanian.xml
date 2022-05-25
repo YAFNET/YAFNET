@@ -1449,6 +1449,7 @@
     <Resource tag="SHOW_RSS_LINKS">Show RSS Links:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">Enable or disable display of RSS links throughout the forum.</Resource>
     <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
+    <Resource tag="SHOW_SCROLL_HELP">If enabled automatically show Back to Top Button when scrolling down the page</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Show The Date on Which Users Have Thanked Posts:</Resource>
@@ -4803,7 +4804,7 @@ Spoiler Content
     <Resource tag="WAIT">Jūs negalite rašyti į kitą {0:N0} sekundžių. </Resource>
   </page>
   <page name="POSTS">
-    <Resource tag="AD_SIGNATURE" />
+    <Resource tag="AD_SIGNATURE">Ads</Resource>
     <Resource tag="AD_USERNAME">Rėmėjai </Resource>
     <Resource tag="AIM">AIM</Resource>
     <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messenger</Resource>

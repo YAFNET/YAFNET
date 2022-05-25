@@ -4661,7 +4661,7 @@
     <Resource tag="WAIT">تا {0:N0} ثانیه دیگر مجاز به ارسال مجدد نمی باشید</Resource>
   </page>
   <page name="POSTS">
-    <Resource tag="AD_SIGNATURE" />
+    <Resource tag="AD_SIGNATURE">Ads</Resource>
     <Resource tag="AD_USERNAME">اسپانسر</Resource>
     <Resource tag="AIM">AIM</Resource>
     <Resource tag="AIM_TITLE">تماس با {0} از طریق مسنجر AOL</Resource>

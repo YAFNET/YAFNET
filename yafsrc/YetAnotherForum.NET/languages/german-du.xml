@@ -1444,6 +1444,7 @@
     <Resource tag="SHOW_RSS_LINKS">RSS Links Anzeigen:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">Aktivieren oder deaktivieren Anzeige von RSS-Links im Forum.</Resource>
     <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
+    <Resource tag="SHOW_SCROLL_HELP">If enabled automatically show Back to Top Button when scrolling down the page</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Das Datum, an dem der Benutzer sich bedankt hat:</Resource>
@@ -4618,7 +4619,7 @@ Spoiler Content
     <Resource tag="WAIT">Du kannst in den nächsten {0:N0} Sekunden nicht posten.</Resource>
   </page>
   <page name="POSTS">
-    <Resource tag="AD_SIGNATURE" />
+    <Resource tag="AD_SIGNATURE">Ads</Resource>
     <Resource tag="AD_USERNAME">Sponsor</Resource>
     <Resource tag="AIM">AIM</Resource>
     <Resource tag="AIM_TITLE">{0} via AOL Instant Messenger kontaktieren</Resource>

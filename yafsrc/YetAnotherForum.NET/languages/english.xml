@@ -4459,8 +4459,7 @@
     <Resource tag="TAGS">Tags:</Resource>
   </page>
   <page name="POSTS">
-    <Resource tag="AD_SIGNATURE">
-    </Resource>
+    <Resource tag="AD_SIGNATURE">Ads</Resource>
     <Resource tag="AD_USERNAME">Sponsor</Resource>
     <Resource tag="AIM">AIM</Resource>
     <Resource tag="AIM_TITLE">Contact {0} via AOL Instant Messenger</Resource>

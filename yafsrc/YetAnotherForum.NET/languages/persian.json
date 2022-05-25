@@ -12658,7 +12658,8 @@
         "@name": "POSTS",
         "Resource": [
           {
-            "@tag": "AD_SIGNATURE"
+            "@tag": "AD_SIGNATURE",
+            "#text": "Ads"
           },
           {
             "@tag": "AD_USERNAME",
