@@ -286,11 +286,11 @@ public partial class EditForum : AdminPage
     {
         var list = (DropDownList)sender;
 
-        try
+        if (list.Items.FindByValue(list.Attributes["value"]) != null)
         {
             list.Items.FindByValue(list.Attributes["value"]).Selected = true;
         }
-        catch (Exception)
+        else
         {
             // Load default from board settings
             var item = list.Items.FindByValue(this.PageBoardContext.BoardSettings.ForumDefaultAccessMask.ToString());
@@ -309,6 +309,7 @@ public partial class EditForum : AdminPage
                     item.Selected = true;
                 }
             }
+
         }
     }
 
