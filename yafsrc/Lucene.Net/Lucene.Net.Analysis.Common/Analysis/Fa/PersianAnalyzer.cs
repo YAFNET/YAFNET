@@ -80,6 +80,8 @@ namespace YAF.Lucene.Net.Analysis.Fa
             }
         }
 
+        private readonly CharArraySet stemExclusionSet;
+
         /// <summary>
         /// Builds an analyzer with the default stop words:
         /// <see cref="DEFAULT_STOPWORD_FILE"/>.
@@ -97,8 +99,25 @@ namespace YAF.Lucene.Net.Analysis.Fa
         /// <param name="stopwords">
         ///          a stopword set </param>
         public PersianAnalyzer(LuceneVersion matchVersion, CharArraySet stopwords)
+              : this(matchVersion, stopwords, CharArraySet.EMPTY_SET)
+        {
+        }
+
+        /// <summary>
+        /// Builds an analyzer with the given stop word. If a none-empty stem exclusion set is
+        /// provided this analyzer will add a <see cref="SetKeywordMarkerFilter"/> before
+        /// <see cref="PersianStemFilter"/>.
+        /// </summary>
+        /// <param name="matchVersion">
+        ///          lucene compatibility version </param>
+        /// <param name="stopwords">
+        ///          a stopword set </param>
+        /// <param name="stemExclusionSet">
+        ///          a set of terms not to be stemmed </param>
+        public PersianAnalyzer(LuceneVersion matchVersion, CharArraySet stopwords, CharArraySet stemExclusionSet)
               : base(matchVersion, stopwords)
         {
+            this.stemExclusionSet = CharArraySet.UnmodifiableSet(CharArraySet.Copy(matchVersion, stemExclusionSet));
         }
 
         /// <summary>
@@ -133,7 +152,12 @@ namespace YAF.Lucene.Net.Analysis.Fa
              * the order here is important: the stopword list is normalized with the
              * above!
              */
-            return new TokenStreamComponents(source, new StopFilter(m_matchVersion, result, m_stopwords));
+            result = new StopFilter(m_matchVersion, result, m_stopwords);
+            if (stemExclusionSet.Count > 0)
+            {
+                result = new SetKeywordMarkerFilter(result, stemExclusionSet);
+            }
+            return new TokenStreamComponents(source, new PersianStemFilter(result));
         }
 
         /// <summary>
