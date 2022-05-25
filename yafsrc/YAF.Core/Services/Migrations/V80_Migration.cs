@@ -268,6 +268,8 @@ namespace YAF.Core.Services.Migrations
 
                 dbCommand.Connection.AddCompositePrimaryKey<Active>(x => x.SessionID, x => x.BoardID);
             }
+
+            repository.DeleteAll();
         }
 
         private void UpgradeTable(IRepository<ActiveAccess> repository, IDbAccess dbAccess, IDbCommand dbCommand)
