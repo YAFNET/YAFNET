@@ -329,18 +329,6 @@
             "#text": "Views/edits event log"
           },
           {
-            "@tag": "ADMIN_EXTENSIONS_EDIT",
-            "#text": "Edits extensions"
-          },
-          {
-            "@tag": "ADMIN_EXTENSIONS_IMPORT",
-            "#text": "Imports extensions"
-          },
-          {
-            "@tag": "ADMIN_EXTESIONS",
-            "#text": "View extensions"
-          },
-          {
             "@tag": "ADMIN_FORUMS",
             "#text": "Views forums in admin section"
           },
@@ -1910,10 +1898,6 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
-            "@tag": "CONFIRM_FORCE",
-            "#text": "Are you sure you want to schedule a digest send right now?"
-          },
-          {
             "@tag": "DIGEST_EMAIL",
             "#text": "Email:"
           },
@@ -3418,10 +3402,6 @@
             "#text": "IP Addresses:"
           },
           {
-            "@tag": "IP_ADRESSES",
-            "#text": "IP Addresses:"
-          },
-          {
             "@tag": "KILL_USER",
             "#text": "Kill User"
           },
@@ -3701,109 +3681,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EXTENSIONS",
-        "Resource": [
-          {
-            "@tag": "ADD",
-            "#text": "Add"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Delete this Extension?"
-          },
-          {
-            "@tag": "EXPORT",
-            "#text": "Export to XML"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "Allowed File Extensions"
-          },
-          {
-            "@tag": "IMPORT",
-            "#text": "Import from XML"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Save Extension"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "File Extensions"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EXTENSIONS_EDIT",
-        "Resource": [
-          {
-            "@tag": "FILE_EXTENSION",
-            "#text": "File Extension:"
-          },
-          {
-            "@tag": "FILE_EXTENSION_HELP",
-            "#text": "Example: Enter \"jpg\" for a JPEG graphic file."
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "Add/Edit Allowed File Extensions"
-          },
-          {
-            "@tag": "MSG_ENTER",
-            "#text": "You must enter something."
-          },
-          {
-            "@tag": "MSG_REMOVE",
-            "#text": "Remove the period in the extension."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit File Extensions"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Edit File Extension"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EXTENSIONS_IMPORT",
-        "Resource": [
-          {
-            "@tag": "HEADER",
-            "#text": "Import Extension List"
-          },
-          {
-            "@tag": "IMPORT",
-            "#text": "Import List"
-          },
-          {
-            "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import: {0}"
-          },
-          {
-            "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
-          },
-          {
-            "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.xml file"
-          },
-          {
-            "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new extension was found in the upload."
-          },
-          {
-            "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new extension(s) imported successfully."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Import Extensions"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
@@ -3821,14 +3698,6 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Are you sure? this step is irreversible!"
-          },
-          {
-            "@tag": "DELETE_MSG",
-            "#text": "Please do not navigate away from this page while the deletion is in progress..."
-          },
-          {
-            "@tag": "DELETE_TITLE",
-            "#text": "Deleting Forum"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -4495,14 +4364,6 @@
           {
             "@tag": "ENABLE_ABLBUMS_HELP",
             "#text": "If checked, album feature is enabled. You should set allowed number of images and albums for each group and/or rank too, to enable the feature."
-          },
-          {
-            "@tag": "ENABLE_ACTIVITY",
-            "#text": "Enable Activity Stream:"
-          },
-          {
-            "@tag": "ENABLE_ACTIVITY_HELP",
-            "#text": "If checked the user gets Notifications for Mentions, Quotes and Thanks."
           },
           {
             "@tag": "ENABLE_BUDDYLIST",
@@ -5693,14 +5554,6 @@
             "#text": "If checked users can see on which date posts have been thanked. (Thanks Mod must be enabled first.)"
           },
           {
-            "@tag": "SHOW_TODAYS_BIRTHDAYS",
-            "#text": "Show Todays Birthdays in Forum Info:"
-          },
-          {
-            "@tag": "SHOW_TODAYS_BIRTHDAYS_HELP",
-            "#text": "Enable to Show What members have a Birthday today."
-          },
-          {
             "@tag": "SHOW_UNREAD_LINKS",
             "#text": "Show Unread Links:"
           },
@@ -5805,20 +5658,8 @@
             "#text": "Toggle use of FULLTEXT SQL Server support on searches."
           },
           {
-            "@tag": "SSL_LOGIN",
-            "#text": "Use SSL while logging in:"
-          },
-          {
             "@tag": "SSL_LOGIN_HELP",
             "#text": "Enforce a secure connection for users to log in."
-          },
-          {
-            "@tag": "SSL_REGISTER",
-            "#text": "Use SSL while registering:"
-          },
-          {
-            "@tag": "SSL_REGISTER_HELP",
-            "#text": "Enforce a secure connection for users to register."
           },
           {
             "@tag": "SSL_REQUIRE",
@@ -7117,14 +6958,6 @@
             "#text": "All Users are synchronized now"
           },
           {
-            "@tag": "SYNC_MSG",
-            "#text": "Please do not navigate away from this page while the sync is in progress..."
-          },
-          {
-            "@tag": "SYNC_TITLE",
-            "#text": "Syncing Users"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Users"
           },
@@ -7517,10 +7350,6 @@
           {
             "@tag": "DROP_HERE",
             "#text": "Drop file(s) here"
-          },
-          {
-            "@tag": "ERROR_TOOBIG",
-            "#text": "Et voi ladata näin isoa tiedostoa."
           },
           {
             "@tag": "FILEERROR",
@@ -9794,10 +9623,6 @@
             "#text": "Alphabet filter"
           },
           {
-            "@tag": "ALPHABET_FILTER_BY",
-            "#text": "Filter list by letter {0}."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPACTIVE",
             "#text": "Subscribe to active topics via Atom."
           },
@@ -9940,10 +9765,6 @@
           {
             "@tag": "STATS",
             "#text": "Tilastotietoa"
-          },
-          {
-            "@tag": "STATS_BIRTHDAYS",
-            "#text": "Today's Birthdays: "
           },
           {
             "@tag": "STATS_LASTMEMBER",
@@ -10500,10 +10321,6 @@
             "#text": "Your Twitter Name:"
           },
           {
-            "@tag": "USE_MOBILE_THEME",
-            "#text": "Use Mobile Forum Theme:"
-          },
-          {
             "@tag": "WEBLOG2",
             "#text": "Blogisi:"
           },
@@ -10629,10 +10446,6 @@
           {
             "@tag": "TO",
             "#text": "Sähköpostiosoite:"
-          },
-          {
-            "@tag": "VALID_EMAIL",
-            "#text": "The Email address you have entered is invalid."
           }
         ]
       },
@@ -11473,16 +11286,8 @@
             "#text": "You have been locked out because of to many failed log in attempts."
           },
           {
-            "@tag": "FACEBOOK_LOGIN",
-            "#text": "Login with Facebook"
-          },
-          {
             "@tag": "FORUM_LOGIN",
             "#text": "Kirjaudu"
-          },
-          {
-            "@tag": "GOOGLE_LOGIN",
-            "#text": "Login with Google"
           },
           {
             "@tag": "LOSTPASSWORD",
@@ -11585,10 +11390,6 @@
             "#text": "Your {0} Forum Account Information: Username \"{1}\" Password \"{2}\""
           },
           {
-            "@tag": "TWITTER_LOGIN",
-            "#text": "Login with Twitter"
-          },
-          {
             "@tag": "UPDATE_EMAIL",
             "#text": "Please Update Your E-Mail Adress now!"
           },
@@ -11618,20 +11419,12 @@
             "#text": "You've entered an invalid value for number of posts."
           },
           {
-            "@tag": "JOINED",
-            "#text": "Liittynyt"
-          },
-          {
             "@tag": "JOINED_ASC",
             "#text": "Joined asc"
           },
           {
             "@tag": "JOINED_DESC",
             "#text": "Joined desc"
-          },
-          {
-            "@tag": "LASTVISIT",
-            "#text": "Last visit"
           },
           {
             "@tag": "LASTVISIT_ASC",
@@ -11658,20 +11451,12 @@
             "#text": "{0} sivua:"
           },
           {
-            "@tag": "POSTS",
-            "#text": "Viestejä"
-          },
-          {
             "@tag": "POSTS_ASC",
             "#text": "Posts asc"
           },
           {
             "@tag": "POSTS_DESC",
             "#text": "Posts desc"
-          },
-          {
-            "@tag": "RANK",
-            "#text": "Taso"
           },
           {
             "@tag": "RANK_ASC",
@@ -11704,10 +11489,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rekisteröityneet käyttäjät"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Käyttäjätunnus"
           },
           {
             "@tag": "USERNAME_ASC",
@@ -11778,10 +11559,6 @@
           {
             "@tag": "GOMODERATE",
             "#text": "Continue moderate"
-          },
-          {
-            "@tag": "HISTORYSTART",
-            "#text": "History editions"
           },
           {
             "@tag": "MESSAGE_EDITEDAT",
@@ -12251,10 +12028,6 @@
             "#text": "Replies"
           },
           {
-            "@tag": "RSSFEED",
-            "#text": "Rss Feed"
-          },
-          {
             "@tag": "SELECT",
             "#text": "Select..."
           },
@@ -12566,20 +12339,12 @@
             "#text": "Do you really want to remove the poll completely?"
           },
           {
-            "@tag": "ASK_POLLGROUP_DELETE",
-            "#text": "Do you really want to remove the poll group?"
-          },
-          {
             "@tag": "ASK_POLLGROUP_DETACH",
             "#text": "Do you really want to detach the poll group?"
           },
           {
             "@tag": "ASK_POLLROUP_DELETE_ALL",
             "#text": "Do you really want to remove the poll group completely?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_EVR",
-            "#text": "Do you really want to remove the poll group from every place?"
           },
           {
             "@tag": "ASK_POLLROUP_DETACH_EVR",
@@ -12730,16 +12495,8 @@
             "#text": "Create Or Edit Poll"
           },
           {
-            "@tag": "POLLIMAGE_INVALID",
-            "#text": "The image or its path is invalid for {0}."
-          },
-          {
             "@tag": "POLLIMAGE_TEXT",
             "#text": "Image path:"
-          },
-          {
-            "@tag": "POLLIMAGE_TOOBIG",
-            "#text": "Your image file size is {0} KB, it  should not be more than  {1}  KB.  Image path: {2}. "
           },
           {
             "@tag": "POLLOPTIONSHIDDEN_GUEST",
@@ -12774,16 +12531,8 @@
             "#text": "Remove Poll Completely"
           },
           {
-            "@tag": "REMOVEPOLLGROUP",
-            "#text": "Remove Group"
-          },
-          {
             "@tag": "REMOVEPOLLGROUP_ALL",
             "#text": "Remove Group Completely"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_EVERYWHERE",
-            "#text": "Remove Group Everywhere"
           }
         ]
       },
@@ -12943,10 +12692,6 @@
             "#text": "Attach files to this post?"
           },
           {
-            "@tag": "TOPICNAME_TOOLONG",
-            "#text": "Maximal tolic name length should not be more than {0} characters. Use abbreviations."
-          },
-          {
             "@tag": "TOPICWATCH",
             "#text": "Watch this topic and receive notifications of activity via e-mail?"
           },
@@ -13022,10 +12767,6 @@
           {
             "@tag": "CONFIRM_REPORTPOST",
             "#text": "Are you sure you want to report this post as abusive?"
-          },
-          {
-            "@tag": "DIGG_TOPIC",
-            "#text": "Digg this Topic"
           },
           {
             "@tag": "EDIT_REASON",
@@ -13856,28 +13597,8 @@
             "#text": "Attempt to retrieve your password was not successful."
           },
           {
-            "@tag": "IDENTITY_CONFIRMATION_TITLE",
-            "#text": "Password Retrieval Identity Confirmation"
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Enter your User Name to retrieve your password:"
-          },
-          {
-            "@tag": "PAGE2_INSTRUCTIONS",
-            "#text": "Answer the following question to receive your password:"
-          },
-          {
-            "@tag": "PASSWORD_SENT",
-            "#text": "Your password has been sent to your e-mail address on file."
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
-          },
-          {
-            "@tag": "QUESTION_FAILURE",
-            "#text": "Your answer could not be verified. Please try again."
           },
           {
             "@tag": "SUCCESS",
@@ -14434,14 +14155,6 @@
           {
             "@tag": "PASSWORD_NOTMATCH",
             "#text": "Password and Confirm Password do not match!"
-          },
-          {
-            "@tag": "PASSWORD_REQUIREMENTS_TITLE",
-            "#text": "Password Requirements"
-          },
-          {
-            "@tag": "PASSWORD_REQUIREMENTS_WARN",
-            "#text": "{0} min length. {1} minimum non-alphanumeric characters ($#@!)."
           },
           {
             "@tag": "PASSWORD_STRONGER",
@@ -15017,24 +14730,12 @@
             "#text": "\r\n     {message}\r\n\r\n     {forumname} at {forumlink}\r\n   "
           },
           {
-            "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER",
-            "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
-          },
-          {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_TEXT",
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
           },
           {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with facebook)\r\n\r\n    "
-          },
-          {
             "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
             "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
@@ -15057,24 +14758,12 @@
             "#text": "\r\n      A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked:\r\n\r\n      Administration Link: {adminlink}\r\n   "
           },
           {
-            "@tag": "NOTIFICATION_ON_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email}\r\n\r\n    "
-          },
-          {
             "@tag": "NOTIFICATION_ON_REGISTER_TEXT",
             "#text": "\r\n    Hello {user}.\r\n\r\n    You have been successfully registered on the {forumname} forum:\r\n\r\n    User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n    User Email: {email}\r\n\r\n  "
           },
           {
-            "@tag": "NOTIFICATION_ON_SUSPENDING_ENDED_USER",
-            "#text": "\r\n    Hello {user},\r\n\r\n    The suspension of your forum account has ended or was lifted.\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
             "@tag": "NOTIFICATION_ON_SUSPENDING_ENDED_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    The suspension of your forum account has ended or was lifted.\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_SUSPENDING_USER",
-            "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
           },
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
@@ -15085,32 +14774,16 @@
             "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
-            "@tag": "NOTIFICATION_ON_USER_REGISTER",
-            "#text": "\r\n    Hello!\r\n\r\n    A new user has registered on the {forumname} forum:\r\n\r\n    User Name: {user}\r\n    User Email: {email}\r\n\r\n    Administration Link: {adminlink}\r\n  "
-          },
-          {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum:\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_WELCOME_USER",
-            "#text": "\r\n    Hello {user},\r\n\r\n    You have been successfully registered on the {forumname} forum. You're all ready to go!\r\n\r\n    Before posting, consider other ways of finding information:\r\n\r\n    - Use the help pages to find out how the forum works\r\n    - Try the Forum Search, often times your questions are already been answered\r\n    - Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.\r\n    Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
           },
           {
             "@tag": "NOTIFICATION_ON_WELCOME_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    You have been successfully registered on the {forumname} forum. You're all ready to go!\r\n\r\n    Before posting, consider other ways of finding information:\r\n\r\n    - Use the help pages to find out how the forum works\r\n    - Try the Forum Search, often times your questions are already been answered\r\n    - Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.\r\n    Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
           },
           {
-            "@tag": "NOTIFICATION_ROLE_ASSIGNMENT",
-            "#text": "\r\n     Hello {user},\r\n\r\n     Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):\r\n\r\n     {roles}\r\n\r\n     Thanks!\r\n     The {forumname} Team\r\n     {forumlink}\r\n\r\n   "
-          },
-          {
             "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_TEXT",
             "#text": "\r\n     Hello {user},\r\n\r\n     Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):\r\n\r\n     {roles}\r\n\r\n\r\n     Thanks!\r\n     The {forumname} Team\r\n     {forumlink}\r\n\r\n   "
-          },
-          {
-            "@tag": "NOTIFICATION_ROLE_UNASSIGNMENT",
-            "#text": "\r\n     Hello {user},\r\n\r\n     Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):\r\n\r\n     {roles}\r\n\r\n     Thanks!\r\n     The {forumname} Team\r\n     {forumlink}\r\n\r\n   "
           },
           {
             "@tag": "NOTIFICATION_ROLE_UNASSIGNMENT_TEXT",
@@ -15252,14 +14925,6 @@
           {
             "@tag": "MODERATE_TITLE",
             "#text": "Shows the Moderate Page where you can view unapproved and reported Posts.."
-          },
-          {
-            "@tag": "MYACTIVITY",
-            "#text": "My Activity"
-          },
-          {
-            "@tag": "MYACTIVITY_TITLE",
-            "#text": "Shows your activity and Received Thanks, Mentions and Quotes."
           },
           {
             "@tag": "MYALBUMS",
