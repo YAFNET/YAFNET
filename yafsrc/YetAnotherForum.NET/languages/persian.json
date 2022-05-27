@@ -2785,10 +2785,6 @@
         "@name": "ADMIN_EDITLANGUAGE",
         "Resource": [
           {
-            "@tag": "AUTO_SYNC",
-            "#text": "ترجمه های از قلم افتاده به صورت خودکار یکسان سازی و بروز رسانی می شوند."
-          },
-          {
             "@tag": "HEADER",
             "#text": "ترجمه زبان - <em> صفحه منبع جاری :"
           },
@@ -2815,6 +2811,14 @@
           {
             "@tag": "TITLE",
             "#text": "مترجم زبان"
+          },
+          {
+            "@tag": "NEED_TRANSLATION",
+            "#text": "Needs Translation."
+          },
+          {
+            "@tag": "SAVED_FILE",
+            "#text": "The language file has been updated and saved!"
           }
         ]
       },

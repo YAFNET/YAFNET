@@ -2785,10 +2785,6 @@
         "@name": "ADMIN_EDITLANGUAGE",
         "Resource": [
           {
-            "@tag": "AUTO_SYNC",
-            "#text": "Los recursos de traducción desaparecidos son actualizados y sincronizados automáticamente."
-          },
-          {
             "@tag": "HEADER",
             "#text": "Traducción de idiomas - Página actual de recursos: "
           },
@@ -2815,6 +2811,14 @@
           {
             "@tag": "TITLE",
             "#text": "Traductor de idiomas"
+          },
+          {
+            "@tag": "NEED_TRANSLATION",
+            "#text": "Needs Translation."
+          },
+          {
+            "@tag": "SAVED_FILE",
+            "#text": "The language file has been updated and saved!"
           }
         ]
       },

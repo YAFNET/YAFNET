@@ -2785,10 +2785,6 @@
         "@name": "ADMIN_EDITLANGUAGE",
         "Resource": [
           {
-            "@tag": "AUTO_SYNC",
-            "#text": "Отсутствующие значения для ресурсов будут автоматически добавлены и обновлены."
-          },
-          {
             "@tag": "HEADER",
             "#text": "Локализация - <em>Текущая страница ресурса: "
           },
@@ -2815,6 +2811,14 @@
           {
             "@tag": "TITLE",
             "#text": "Страница переводчика"
+          },
+          {
+            "@tag": "NEED_TRANSLATION",
+            "#text": "Needs Translation."
+          },
+          {
+            "@tag": "SAVED_FILE",
+            "#text": "The language file has been updated and saved!"
           }
         ]
       },
