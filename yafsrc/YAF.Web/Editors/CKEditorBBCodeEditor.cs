@@ -67,6 +67,12 @@ public class CKEditorBBCodeEditor : CKEditor
             toolbar = toolbar.Replace(", \"albumsbrowser\"", string.Empty);
         }
 
+        if (!this.PageBoardContext.UploadAccess)
+        {
+            // remove attachments
+            toolbar = toolbar.Replace(", \"attachments\"", string.Empty);
+        }
+
         var language = BoardContext.Current.PageUser.Culture.IsSet()
                            ? BoardContext.Current.PageUser.Culture.Substring(0, 2)
                            : this.PageBoardContext.BoardSettings.Culture.Substring(0, 2);
@@ -77,7 +83,7 @@ public class CKEditorBBCodeEditor : CKEditor
         }
 
         BoardContext.Current.PageElements.RegisterJsBlock(
-            "ckeditorinitbbcode",
+            nameof(JavaScriptBlocks.CKEditorLoadJs),
             JavaScriptBlocks.CKEditorLoadJs(
                 this.TextAreaControl.ClientID,
                 language,

@@ -273,6 +273,8 @@ public partial class PostPrivateMessage : ForumPage
             this.RedirectNoAccess();
         }
 
+        this.HandleUploadControls();
+
         // this needs to be done just once, not during post-backs
         if (this.IsPostBack)
         {
@@ -781,5 +783,14 @@ public partial class PostPrivateMessage : ForumPage
             MessageTypes.danger);
 
         return false;
+    }
+
+    /// <summary>
+    /// Handles the upload controls.
+    /// </summary>
+    private void HandleUploadControls()
+    {
+        this.editor.UserCanUpload = this.PageBoardContext.UploadAccess;
+        this.UploadDialog.Visible = this.PageBoardContext.UploadAccess;
     }
 }

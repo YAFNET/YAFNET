@@ -24,7 +24,6 @@
 namespace YAF.Core.Utilities;
 
 using YAF.Core.Context.Start;
-using YAF.Types.Objects;
 
 /// <summary>
 /// Contains the Java Script Blocks
@@ -543,7 +542,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
         return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
-                          extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,attachments,quote,codemirror,textselection"",
+                          extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,{(uploadAllowed ? "attachments," : "")}quote,codemirror,textselection"",
                           removePlugins: 'bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
                           toolbar: [{toolbar}],
                           entities_greek: false,
