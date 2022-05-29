@@ -1,11 +1,11 @@
-﻿{
+{
   "name": "yetanotherforum-net",
   "version": "3.1.5",
   "private": true,
   "devDependencies": {
     "@lodder/grunt-postcss": "^3.1.1",
     "autoprefixer": "^10.4.4",
-    "grunt": "~1.5.4",
+    "grunt": "~1.5.3",
     "grunt-contrib-cssmin": "*",
     "grunt-contrib-sass": "*",
     "grunt-contrib-uglify": "^5.0.1",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
     "bootbox": "^5.5.3",
+    "flag-icons": "^6.4.4",
     "jquery": "^3.6.0",
     "long-press-event": "^2.4.4",
     "prismjs": "^1.28.0"

@@ -432,7 +432,7 @@ public partial class UserProfile : ForumPage
         {
             this.CountryTR.Visible = true;
             this.CountryLabel.Text =
-                $"<span class=\"flag-icon flag-icon-{user.Item2.Profile_Country.Trim().ToLower()}\"></span>&nbsp;{this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", user.Item2.Profile_Country.Trim())))}";
+                $"<span class=\"fi fi-{user.Item2.Profile_Country.Trim().ToLower()}\"></span>&nbsp;{this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", user.Item2.Profile_Country.Trim())))}";
         }
 
         if (user.Item2.Profile_Region.IsSet())

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -40,7 +40,7 @@ public class CountryImageListBox : DropDownList
         this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
             item => item.Attributes.Add(
                 "data-content",
-                $"<span class=\"select2-image-select-icon\"><span class=\"flag-icon flag-icon-{item.Value.ToLower()} me-1\" /></span>{item.Text}</span>"));
+                $"<span class=\"select2-image-select-icon\"><span class=\"fi fi-{item.Value.ToLower()} me-1\" /></span>{item.Text}</span>"));
 
         base.Render(writer);
     }
