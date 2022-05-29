@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -25,6 +25,7 @@ namespace YAF.Types.Interfaces;
 
 using System.Collections.Generic;
 using System.Globalization;
+using YAF.Types.Objects.Language;
 
 /// <summary>
 /// The Localization interface.
@@ -102,8 +103,8 @@ public interface ILocalization
     /// <returns>
     /// The Nodes
     /// </returns>
-    IEnumerable<LanguageResourcesPageResource> GetNodesUsingQuery(
-        string page, Func<LanguageResourcesPageResource, bool> predicate);
+    IEnumerable<Resource> GetNodesUsingQuery(
+        string page, Func<Resource, bool> predicate);
 
     /// <summary>
     /// The get country nodes using query.
@@ -117,8 +118,8 @@ public interface ILocalization
     /// <returns>
     /// The Nodes
     /// </returns>
-    IEnumerable<LanguageResourcesPageResource> GetCountryNodesUsingQuery(
-        string page, Func<LanguageResourcesPageResource, bool> predicate);
+    IEnumerable<Resource> GetCountryNodesUsingQuery(
+        string page, Func<Resource, bool> predicate);
 
     /// <summary>
     /// The get region nodes using query.
@@ -132,8 +133,8 @@ public interface ILocalization
     /// <returns>
     /// The Nodes
     /// </returns>
-    IEnumerable<LanguageResourcesPageResource> GetRegionNodesUsingQuery(
-        string page, Func<LanguageResourcesPageResource, bool> predicate);
+    IEnumerable<Resource> GetRegionNodesUsingQuery(
+        string page, Func<Resource, bool> predicate);
 
     /// <summary>
     /// Gets the Text
@@ -248,4 +249,12 @@ public interface ILocalization
     /// The <see cref="CultureInfo"/>.
     /// </returns>
     CultureInfo LoadTranslation();
+
+    /// <summary>
+    /// Loads the Language file from json
+    /// </summary>
+    /// <returns>
+    /// Returns the Language Resource
+    /// </returns>
+    LanguageResource LoadLanguageFile([NotNull]string fileName);
 }

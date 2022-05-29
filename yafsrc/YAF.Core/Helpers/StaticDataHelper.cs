@@ -24,13 +24,15 @@
 
 namespace YAF.Core.Helpers;
 
+using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml;
 
 using YAF.Types.Constants;
 using YAF.Types.Objects;
+using YAF.Types.Objects.Language;
 
 /// <summary>
 /// The static data helper.
@@ -114,8 +116,8 @@ public static class StaticDataHelper
 
         countriesList.Add(item);
 
-        var countries = localization.GetRegionNodesUsingQuery("COUNTRY", x => x.tag.StartsWith(string.Empty))
-            .OrderBy(c => c.Value).ToList();
+        var countries = localization.GetRegionNodesUsingQuery("COUNTRY", x => x.Tag.StartsWith(string.Empty))
+            .OrderBy(c => c.Text).ToList();
 
         // vzrus: a temporary hack - it returns all tags if the page is not found
         if (countries.Count > 2000)
@@ -123,7 +125,7 @@ public static class StaticDataHelper
             return countriesList;
         }
 
-        countries.ForEach(node => countriesList.Add(new ListItem(node.Value, node.tag)));
+        countries.ForEach(node => countriesList.Add(new ListItem(node.Text, node.Tag)));
 
         return countriesList;
     }
@@ -141,10 +143,10 @@ public static class StaticDataHelper
         var list = new List<ListItem> { new(null, null) };
 
         var countries = localization
-            .GetCountryNodesUsingQuery("REGION", x => x.tag.StartsWith($"RGN_{culture}_")).ToList();
+            .GetCountryNodesUsingQuery("REGION", x => x.Tag.StartsWith($"RGN_{culture}_")).ToList();
 
         countries.ForEach(
-            node => list.Add(new ListItem(node.Value, node.tag.Replace($"RGN_{culture}_", string.Empty))));
+            node => list.Add(new ListItem(node.Text, node.Tag.Replace($"RGN_{culture}_", string.Empty))));
 
         return list;
     }
@@ -162,6 +164,73 @@ public static class StaticDataHelper
     }
 
     /// <summary>
+    /// Gets all Language Files
+    /// </summary>
+    /// <returns>
+    /// Returns a List with all Language Files
+    /// </returns>
+    public static IReadOnlyCollection<Culture> LanguageFiles()
+    {
+        var list = new List<Culture>();
+
+        // Get all language files info
+        var dir = new DirectoryInfo(
+            BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
+        var files = dir.GetFiles("*.json");
+
+        var resources = new List<LanguageResource>();
+
+        var tagsCount = 0;
+
+        files.ForEach(file =>
+        {
+            var languageResource = BoardContext.Current.Get<ILocalization>().LoadLanguageFile(file.FullName);
+
+            if (file.Name == "english.json")
+            {
+                tagsCount = languageResource.Resources.Page.Sum(page => page.Resource.Count);
+            }
+
+            resources.Add(languageResource);
+
+            list.Add(new Culture
+                         {
+                             CultureTag = languageResource.Resources.Code,
+                             CultureFile = file.Name,
+                             CultureEnglishName = languageResource.Resources.Language
+                         });
+        });
+
+        var sourceResources = resources.FirstOrDefault(x => x.Resources.Code == "en");
+
+        resources.ForEach(
+            resource =>
+            {
+                var countTranslated = sourceResources.Resources.Page.Sum(
+                    sourcePage => (from sourceResource in sourcePage.Resource
+                                   let translatePage =
+                                       resource.Resources.Page.FirstOrDefault(p => p.Name == sourcePage.Name)
+                                   let translateResource =
+                                       translatePage.Resource.FirstOrDefault(r => r.Tag == sourceResource.Tag)
+                                   where !string.Equals(
+                                             sourceResource.Text,
+                                             translateResource.Text,
+                                             StringComparison.InvariantCultureIgnoreCase)
+                                   select sourceResource).Count());
+
+                if (resource.Resources.Language == "English")
+                {
+                    countTranslated = tagsCount;
+                }
+
+                list.First(x => x.CultureTag == resource.Resources.Code).TranslatedPercentage = countTranslated * 100 / tagsCount;
+
+            });
+
+        return list;
+    }
+
+    /// <summary>
     /// The cultures IetfLangTags (4-letter).
     /// </summary>
     /// <returns>
@@ -174,55 +243,39 @@ public static class StaticDataHelper
         // Get all language files info
         var dir = new DirectoryInfo(
             BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
-        var files = dir.GetFiles("*.xml");
+        var files = dir.GetFiles("*.json");
 
         // Create an array with tags
-        var tags = new string[2, files.Length];
+        var tags = new Dictionary<string, string>();
 
         // Extract available language tags into the array
-        for (var i = 0; i < files.Length; i++)
+        files.ForEach(file =>
         {
-            var doc = new XmlDocument();
+            using var fileContent = File.OpenText(file.FullName);
+            using var reader = new JsonTextReader(fileContent);
+            var serializer = new JsonSerializer();
+            var json = serializer.Deserialize<LanguageResource>(reader);
 
-            doc.Load(files[i].FullName);
-            tags[0, i] = files[i].Name;
-            var attr = doc.DocumentElement.Attributes["code"];
-
-            if (attr != null)
-            {
-                tags[1, i] = attr.Value.Trim();
-            }
-            else
-            {
-                tags[1, i] = "en-US";
-            }
-        }
+            tags.Add(file.Name, json.Resources.Code.IsSet() ? json.Resources.Code : "en-US");
+        });
 
         var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
         cultures.ForEach(
             ci =>
-                {
-                    for (var j = 0; j < files.Length; j++)
-                    {
-                        if (ci.IsNeutralCulture || !tags[1, j].ToLower().Substring(0, 2)
-                                .Contains(ci.TwoLetterISOLanguageName.ToLower()))
-                        {
-                            continue;
-                        }
-
-                        var item = new Culture
-                                       {
+            {
+                list.AddRange(
+                    from tag in tags
+                    where !ci.IsNeutralCulture && tag.Value.ToLower().Substring(0, 2)
+                              .Contains(ci.TwoLetterISOLanguageName.ToLower())
+                    select new Culture {
                                            CultureTag = ci.IetfLanguageTag,
-                                           CultureFile = tags[0, j],
+                                           CultureFile = tag.Key,
                                            CultureEnglishName = ci.EnglishName,
                                            CultureNativeName = ci.NativeName,
                                            CultureDisplayName = ci.DisplayName
-                                       };
-
-                        list.Add(item);
-                    }
-                });
+                                       });
+            });
 
         return list;
     }
@@ -240,53 +293,40 @@ public static class StaticDataHelper
         // Get all language files info
         var dir = new DirectoryInfo(
             BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
-        var files = dir.GetFiles("*.xml");
+        var files = dir.GetFiles("*.json");
 
         // Create an array with tags
-        var tags = new string[2, files.Length];
+        var tags = new Dictionary<string, string>();
 
         // Extract available language tags into the array
-        for (var i = 0; i < files.Length; i++)
+        files.ForEach(file =>
         {
-            var doc = new XmlDocument();
-            doc.Load(files[i].FullName);
-            tags[0, i] = files[i].Name;
-            var attr = doc.DocumentElement.Attributes["code"];
-            if (attr != null)
-            {
-                tags[1, i] = attr.Value.Trim();
-            }
-            else
-            {
-                tags[1, i] = "en-US";
-            }
-        }
+            using var fileContent = File.OpenText(file.FullName);
+            using var reader = new JsonTextReader(fileContent);
+            var serializer = new JsonSerializer();
+            var json = serializer.Deserialize<LanguageResource>(reader);
 
-        var cultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
+            tags.Add(file.Name, json.Resources.Code.IsSet() ? json.Resources.Code : "en-US");
+        });
+
+        var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
         cultures.ForEach(
             ci =>
-                {
-                    for (var j = 0; j < files.Length; j++)
-                    {
-                        if (!tags[1, j].ToLower().Substring(0, 2)
-                                .Contains(ci.TwoLetterISOLanguageName.ToLower()))
-                        {
-                            continue;
-                        }
-
-                        var item = new Culture
-                                       {
-                                           CultureTag = ci.IetfLanguageTag,
-                                           CultureFile = tags[0, j],
-                                           CultureEnglishName = ci.EnglishName,
-                                           CultureNativeName = ci.NativeName,
-                                           CultureDisplayName = ci.DisplayName
-                                       };
-
-                        list.Add(item);
-                    }
-                });
+            {
+                list.AddRange(
+                    from tag in tags
+                    where tag.Value.ToLower().Substring(0, 2)
+                              .Contains(ci.TwoLetterISOLanguageName.ToLower())
+                    select new Culture
+                           {
+                               CultureTag = ci.IetfLanguageTag,
+                               CultureFile = tag.Key,
+                               CultureEnglishName = ci.EnglishName,
+                               CultureNativeName = ci.NativeName,
+                               CultureDisplayName = ci.DisplayName
+                           });
+            });
 
         return list;
     }
@@ -319,9 +359,8 @@ public static class StaticDataHelper
 
         try
         {
-            var doc = new XmlDocument();
-            doc.Load(files[0].FullName);
-            rawTag = doc.DocumentElement.Attributes["code"].Value.Trim();
+            var resource = BoardContext.Current.Get<ILocalization>().LoadLanguageFile(files[0].FullName);
+            rawTag = resource.Resources.Code;
         }
         catch (Exception)
         {

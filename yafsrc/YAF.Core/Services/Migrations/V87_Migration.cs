@@ -48,6 +48,8 @@ namespace YAF.Core.Services.Migrations
                 dbCommand =>
                 {
                     this.UpgradeTable(this.GetRepository<Forum>());
+                    this.UpgradeTable(this.GetRepository<Registry>());
+                    this.UpgradeTable(this.GetRepository<User>());
 
                     ///////////////////////////////////////////////////////////
 
@@ -60,6 +62,36 @@ namespace YAF.Core.Services.Migrations
         private void UpgradeTable(IRepository<Forum> repository)
         {
             repository.UpdateOnly(() => new Forum {RemoteURL = null}, f => f.RemoteURL == "");
+        }
+
+        /// <summary>Upgrades the Registry table.</summary>
+        /// <param name="repository">The repository.</param>
+        private void UpgradeTable(IRepository<Registry> repository)
+        {
+            var entries = repository.Get(x => x.Value.Contains(".xml") && x.Name == "language");
+
+            entries.ForEach(
+                item =>
+                {
+                    item.Value = item.Value.Replace(".xml", ".json");
+
+                    repository.Update(item);
+                });
+        }
+
+        /// <summary>Upgrades the Registry table.</summary>
+        /// <param name="repository">The repository.</param>
+        private void UpgradeTable(IRepository<User> repository)
+        {
+            var entries = repository.Get(x => x.LanguageFile.Contains(".xml"));
+
+            entries.ForEach(
+                item =>
+                {
+                    item.LanguageFile = item.LanguageFile.Replace(".xml", ".json");
+
+                    repository.Update(item);
+                });
         }
 
         public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;

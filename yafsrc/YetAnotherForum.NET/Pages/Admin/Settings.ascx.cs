@@ -79,7 +79,7 @@ public partial class Settings : AdminPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        var languageFile = "english.xml";
+        var languageFile = "english.json";
 
         var cultures = StaticDataHelper.Cultures()
             .Where(c => c.CultureTag.Equals(this.Culture.SelectedValue)).ToList();

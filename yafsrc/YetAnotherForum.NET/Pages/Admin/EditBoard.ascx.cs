@@ -89,7 +89,7 @@ public partial class EditBoard : AdminPage
     {
         int newBoardId;
         var cult = StaticDataHelper.Cultures();
-        var langFile = "english.xml";
+        var langFile = "english.json";
 
         cult.Where(c => c.CultureTag == this.Culture.SelectedValue)
             .ForEach(c => langFile = c.CultureFile);

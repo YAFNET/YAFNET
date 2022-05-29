@@ -30,9 +30,9 @@ namespace YAF.Types.Objects;
 public class Translation
 {
     /// <summary>
-    ///   Gets or sets the localized value.
+    ///   Gets or sets the translated text.
     /// </summary>
-    public string LocalizedValue { get; set; }
+    public string LocalizedResourceText { get; set; }
 
     /// <summary>
     ///   Gets or sets the page name.
@@ -45,7 +45,7 @@ public class Translation
     public string ResourceName { get; set; }
 
     /// <summary>
-    ///   Gets or sets the resource value.
+    ///   Gets or sets the original (english) resource Text.
     /// </summary>
-    public string ResourceValue { get; set; }
+    public string OriginalResourceText { get; set; }
 }

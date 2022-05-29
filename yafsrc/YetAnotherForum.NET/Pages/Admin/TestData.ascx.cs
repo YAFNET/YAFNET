@@ -330,7 +330,7 @@ namespace YAF.Pages.Admin
                     boardName,
                     this.PageBoardContext.BoardSettings.ForumEmail,
                     "en-US",
-                    "english.xml",
+                    "english.json",
                     this.PageBoardContext.PageUser.Name,
                     this.PageBoardContext.PageUser.Email,
                     this.PageBoardContext.PageUser.ProviderUserKey,

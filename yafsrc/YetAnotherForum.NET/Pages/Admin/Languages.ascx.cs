@@ -144,7 +144,7 @@ public partial class Languages : AdminPage
         var baseSize = this.PageSize.SelectedValue.ToType<int>();
         this.PagerTop.PageSize = baseSize;
 
-        var cultures = StaticDataHelper.Cultures().ToList().GetPaged(this.PagerTop);
+        var cultures = StaticDataHelper.LanguageFiles().ToList().GetPaged(this.PagerTop);
 
         this.List.DataSource = cultures;
 

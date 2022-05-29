@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -23,12 +23,14 @@
  */
 namespace YAF.Core.Services.Localization;
 
+using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 
 using YAF.Core.Services.Startup;
-using YAF.Types.Objects;
+using YAF.Types.Objects.Language;
 
 /// <summary>
 /// YAF Localizer
@@ -48,7 +50,7 @@ public class Localizer
     /// <summary>
     /// The localization resources.
     /// </summary>
-    private LanguageResources localizationLanguageResources;
+    private LanguageResource localizationLanguageResources;
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Localizer" /> class.
@@ -65,7 +67,7 @@ public class Localizer
     /// </param>
     public Localizer(string fileName)
     {
-        this.fileName = fileName;
+        this.fileName = fileName.Replace(".xml", ".json");
         this.LoadFile();
         this.InitCulture();
     }
@@ -84,15 +86,15 @@ public class Localizer
     /// <returns>
     /// The Nodes.
     /// </returns>
-    public IEnumerable<LanguageResourcesPageResource> GetNodesUsingQuery(
-        Func<LanguageResourcesPageResource, bool> predicate)
+    public IEnumerable<Resource> GetNodesUsingQuery(
+        Func<Resource, bool> predicate)
     {
         var pagePointer =
-            this.localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpper().Equals(this.currentPage));
+            this.localizationLanguageResources.Resources.Page.FirstOrDefault(p => p.Name.ToUpper().Equals(this.currentPage));
 
         return pagePointer != null
                    ? pagePointer.Resource.Where(predicate)
-                   : this.localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
+                   : this.localizationLanguageResources.Resources.Page.SelectMany(p => p.Resource).Where(predicate);
     }
 
     /// <summary>
@@ -104,15 +106,15 @@ public class Localizer
     /// <returns>
     /// The Nodes.
     /// </returns>
-    public IEnumerable<LanguageResourcesPageResource> GetCountryNodesUsingQuery(
-        Func<LanguageResourcesPageResource, bool> predicate)
+    public IEnumerable<Resource> GetCountryNodesUsingQuery(
+        Func<Resource, bool> predicate)
     {
         var pagePointer =
-            this.localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpper().Equals(this.currentPage));
+            this.localizationLanguageResources.Resources.Page.FirstOrDefault(p => p.Name.ToUpper().Equals(this.currentPage));
 
         return pagePointer != null
                    ? pagePointer.Resource.Where(predicate)
-                   : this.localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
+                   : this.localizationLanguageResources.Resources.Page.SelectMany(p => p.Resource).Where(predicate);
     }
 
     /// <summary>
@@ -128,21 +130,21 @@ public class Localizer
         tag = tag.ToUpper();
 
         var pagePointer =
-            this.localizationLanguageResources.page.FirstOrDefault(p => p.name.Equals(this.currentPage));
+            this.localizationLanguageResources.Resources.Page.FirstOrDefault(p => p.Name.Equals(this.currentPage));
 
-        LanguageResourcesPageResource pageResource = null;
+        Resource pageResource = null;
 
         if (pagePointer != null)
         {
-            pageResource = pagePointer.Resource.FirstOrDefault(r => r.tag.Equals(tag));
+            pageResource = pagePointer.Resource.FirstOrDefault(r => r.Tag.Equals(tag));
         }
 
-        pageResource ??= this.localizationLanguageResources.page.SelectMany(p => p.Resource)
-            .FirstOrDefault(r => r.tag.Equals(tag));
+        pageResource ??= this.localizationLanguageResources.Resources.Page.SelectMany(p => p.Resource)
+            .FirstOrDefault(r => r.Tag.Equals(tag));
 
-        if (pageResource != null && pageResource.Value.IsSet())
+        if (pageResource != null && pageResource.Text.IsSet())
         {
-            localizedText = pageResource.Value;
+            localizedText = pageResource.Text;
         }
     }
 
@@ -255,23 +257,17 @@ public class Localizer
             throw new ApplicationException($"Invalid language file {this.fileName}");
         }
 
-        this.localizationLanguageResources = new LoadSerializedXmlFile<LanguageResources>().FromFile(
-            this.fileName,
-            $"LOCALIZATIONFILE{this.fileName}",
-            r =>
-                {
-                    // transform the page and tag name ToUpper...
-                    r.page.ForEach(p => p.name = p.name.ToUpper());
-                    r.page.ForEach(p => p.Resource.ForEach(i => i.tag = i.tag.ToUpper()));
-                });
+        var json = BoardContext.Current.Get<ILocalization>().LoadLanguageFile(this.fileName);
 
-        var userLanguageCode = this.localizationLanguageResources.code.IsSet()
-                                   ? this.localizationLanguageResources.code.Trim()
+        this.localizationLanguageResources = json;
+
+        var userLanguageCode = this.localizationLanguageResources.Resources.Code.IsSet()
+                                   ? this.localizationLanguageResources.Resources.Code.Trim()
                                    : "en-US";
 
         if (userLanguageCode.Length > 5)
         {
-            userLanguageCode = this.localizationLanguageResources.code.Trim().Substring(0, 2);
+            userLanguageCode = this.localizationLanguageResources.Resources.Code.Trim().Substring(0, 2);
         }
 
         this.CurrentCulture = new CultureInfo(userLanguageCode);

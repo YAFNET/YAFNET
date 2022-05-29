@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,40 +22,20 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects;
+namespace YAF.Types.Objects.Language;
 
-/// <summary>
-/// The culture.
-/// </summary>
-public class Culture
+using Newtonsoft.Json;
+
+using System.Collections.Generic;
+
+public class Resources
 {
-    /// <summary>
-    /// Gets or sets the culture tag.
-    /// </summary>
-    public string CultureTag { get; set; }
+    [JsonProperty("@language")]
+    public string Language { get; set; }
 
-    /// <summary>
-    /// Gets or sets the culture file.
-    /// </summary>
-    public string CultureFile { get; set; }
+    [JsonProperty("@code")]
+    public string Code { get; set; }
 
-    /// <summary>
-    /// Gets or sets the culture english name.
-    /// </summary>
-    public string CultureEnglishName { get; set; }
-
-    /// <summary>
-    /// Gets or sets the culture native name.
-    /// </summary>
-    public string CultureNativeName { get; set; }
-
-    /// <summary>
-    /// Gets or sets the culture display name.
-    /// </summary>
-    public string CultureDisplayName { get; set; }
-
-    /// <summary>
-    /// Gets or sets the translated percentage.
-    /// </summary>
-    public int TranslatedPercentage { get; set; }
+    [JsonProperty("page")]
+    public List<Page> Page { get; set; }
 }

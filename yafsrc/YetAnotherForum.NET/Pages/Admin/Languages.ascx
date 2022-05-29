@@ -1,4 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Languages" Codebehind="Languages.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Objects" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -38,7 +40,7 @@
                 <li class="list-group-item list-group-item-action list-group-item-menu">
                     <div class="d-flex w-100 justify-content-between text-break">
                         <h5 class="mb-1">
-                            <%# this.Eval("CultureEnglishName")%> - <%# this.Eval("CultureNativeName")%>
+                            <%# this.Eval("CultureEnglishName")%>
                         </h5>
                         <small class="d-none d-md-block">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="CULTURE_TAG" LocalizedPage="ADMIN_LANGUAGES" />:
@@ -46,6 +48,14 @@
                                 <%# this.Eval("CultureTag")%>
                             </span>
                         </small>
+                    </div>
+                    <strong><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PROGRESS" LocalizedPage="ADMIN_LANGUAGES" />:</strong>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                             style="width: <%# this.Eval("TranslatedPercentage")%>%;"
+                             aria-valuenow="<%# this.Eval("TranslatedPercentage")%>" aria-valuemin="0" aria-valuemax="100">
+                            <%# this.Eval("TranslatedPercentage")%>%
+                        </div>
                     </div>
                     <p><strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="FILENAME" />:</strong>
                         <%# this.Eval("CultureFile")%>

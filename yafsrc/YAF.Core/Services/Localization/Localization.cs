@@ -24,12 +24,14 @@
 
 namespace YAF.Core.Services.Localization;
 
+using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Web.Hosting;
-
-using YAF.Types.Objects;
+using YAF.Types.Objects.Language;
 
 /// <summary>
 /// The YAF localization.
@@ -184,9 +186,9 @@ public class Localization : ILocalization
     /// <returns>
     /// The Nodes
     /// </returns>
-    public IEnumerable<LanguageResourcesPageResource> GetNodesUsingQuery(
+    public IEnumerable<Resource> GetNodesUsingQuery(
         [NotNull] string page,
-        [NotNull] Func<LanguageResourcesPageResource, bool> predicate)
+        [NotNull] Func<Resource, bool> predicate)
     {
         this.LoadTranslation();
 
@@ -206,9 +208,9 @@ public class Localization : ILocalization
     /// <returns>
     /// The Nodes
     /// </returns>
-    public IEnumerable<LanguageResourcesPageResource> GetCountryNodesUsingQuery(
+    public IEnumerable<Resource> GetCountryNodesUsingQuery(
         [NotNull] string page,
-        [NotNull] Func<LanguageResourcesPageResource, bool> predicate)
+        [NotNull] Func<Resource, bool> predicate)
     {
         this.LoadTranslation();
 
@@ -228,9 +230,9 @@ public class Localization : ILocalization
     /// <returns>
     /// The Nodes
     /// </returns>
-    public IEnumerable<LanguageResourcesPageResource> GetRegionNodesUsingQuery(
+    public IEnumerable<Resource> GetRegionNodesUsingQuery(
         [NotNull] string page,
-        [NotNull] Func<LanguageResourcesPageResource, bool> predicate)
+        [NotNull] Func<Resource, bool> predicate)
     {
         this.LoadTranslation();
 
@@ -302,7 +304,7 @@ public class Localization : ILocalization
 
                 if (filename.IsNotSet())
                 {
-                    filename = "english.xml";
+                    filename = "english.json";
                 }
 
                 BoardContext.Current.Get<IDataCache>().Remove($"Localizer.{filename}");
@@ -397,7 +399,7 @@ public class Localization : ILocalization
 
                 if (filename == string.Empty)
                 {
-                    filename = "english.xml";
+                    filename = "english.json";
                 }
 
                 BoardContext.Current.Get<IDataCache>().Remove($"Localizer.{filename}");
@@ -503,7 +505,7 @@ public class Localization : ILocalization
         }
 
         // If not using default language load that too
-        if (fileName.ToLower() != "english.xml")
+        if (fileName.ToLower() != "english.json")
         {
 #if !DEBUG
                 if (this.defaultLocale == null &&
@@ -518,7 +520,7 @@ public class Localization : ILocalization
                 this.defaultLocale =
                     new Localizer(
                         HostingEnvironment.MapPath(
-                            $"{BoardInfo.ForumServerFileRoot}languages/english.xml"));
+                            $"{BoardInfo.ForumServerFileRoot}languages/english.json"));
 #if !DEBUG
                     BoardContext.Current.Get<IDataCache>().Set("DefaultLocale",this.defaultLocale);
 #endif
@@ -570,9 +572,25 @@ public class Localization : ILocalization
                            : BoardContext.Current.PageUser.LanguageFile;
         }
 
-        filename ??= "english.xml";
+        filename ??= "english.json";
 
         return this.LoadTranslation(filename);
+    }
+
+    /// <summary>
+    /// Loads the Language file from json
+    /// </summary>
+    /// <returns>
+    /// Returns the Language Resource
+    /// </returns>
+    public LanguageResource LoadLanguageFile([NotNull] string fileName)
+    {
+        using var file = File.OpenText(fileName.Replace(".xml", ".json"));
+        using var reader = new JsonTextReader(file);
+        var serializer = new JsonSerializer();
+        var languageResource = serializer.Deserialize<LanguageResource>(reader);
+
+        return languageResource;
     }
 
     /// <summary>

@@ -244,7 +244,7 @@ public class BoardSettings
     /// </summary>
     public string Language
     {
-        get => this.RegistryBoard.GetValue("Language", "english.xml");
+        get => this.RegistryBoard.GetValue("Language", "english.json");
 
         set => this.RegistryBoard.SetValue("Language", value);
     }

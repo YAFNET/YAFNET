@@ -55,7 +55,7 @@ public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveService
         {
             // defaults
             var previewCropped = false;
-            var localizationFile = "english.xml";
+            var localizationFile = "english.json";
 
             if (context.Session["imagePreviewCropped"] is bool)
             {

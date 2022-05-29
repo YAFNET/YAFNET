@@ -24,12 +24,10 @@
 
 namespace YAF.Pages.Admin;
 
-using System.Collections.Specialized;
-using System.Drawing;
+using Newtonsoft.Json;
+
 using System.IO;
-using System.Text;
-using System.Xml;
-using System.Xml.XPath;
+
 using YAF.Types.Objects;
 
 using ListItem = ListItem;
@@ -48,19 +46,14 @@ public partial class EditLanguage : AdminPage
     }
 
     /// <summary>
-    ///   Indicates if Xml File is Synchronized
-    /// </summary>
-    private bool update;
-
-    /// <summary>
     ///   Physical Path to The languages folder
     /// </summary>
     private string langPath;
 
     /// <summary>
-    ///   Xml File Name of Current Language
+    ///   File Name of Current Language
     /// </summary>
-    private string xmlFile;
+    private string languageFile;
 
     /// <summary>
     /// The current page name.
@@ -70,40 +63,7 @@ public partial class EditLanguage : AdminPage
     /// <summary>
     ///   The translations.
     /// </summary>
-    private List<Translation> translations = new ();
-
-    /// <summary>
-    ///  Gets the List of attributes for Resources in destination translation file
-    /// </summary>
-    private StringDictionary ResourcesAttributes { get; } = new ();
-
-    /// <summary>
-    ///  Gets the List of namespaces for Resources in destination translation file
-    /// </summary>
-    private StringDictionary ResourcesNamespaces { get; } = new ();
-
-    /// <summary>
-    /// Remove all Resources with the same Name and Page
-    /// </summary>
-    /// <typeparam name="T">The typed parameter</typeparam>
-    /// <param name="list">The list.</param>
-    /// <returns>
-    /// The Cleaned List
-    /// </returns>
-    [NotNull]
-    public static List<T> RemoveDuplicateSections<T>([NotNull] List<T> list)
-        where T : Translation
-    {
-        var finalList = new List<T>();
-
-        finalList.AddRange(
-            list.Where(
-                item1 => finalList.Find(
-                             check => check.PageName.Equals(item1.PageName) &&
-                                      check.ResourceName.Equals(item1.ResourceName)) == null));
-
-        return finalList;
-    }
+    private readonly List<Translation> translations = new();
 
     /// <summary>
     /// Compare source and destination values on focus lost and indicate (guess) whether text is translated or not
@@ -112,23 +72,15 @@ public partial class EditLanguage : AdminPage
     /// <param name="args">The <see cref="System.Web.UI.WebControls.ServerValidateEventArgs"/> instance containing the event data.</param>
     public void LocalizedTextCheck([NotNull] object sender, [NotNull] ServerValidateEventArgs args)
     {
-        var textBox = this.grdLocals.Items.Cast<DataGridItem>()
+        var textBox = this.Locals.Items.Cast<DataGridItem>()
             .Select(item => item.FindControlAs<TextBox>("txtLocalized"))
             .FirstOrDefault(tbx => args.Value.Equals(tbx.Text));
 
-        textBox.ForeColor = textBox.Text.Equals(textBox.ToolTip, StringComparison.OrdinalIgnoreCase)
-                                ? Color.Red
-                                : Color.Black;
+        textBox.CssClass = textBox.Text.Equals(textBox.ToolTip, StringComparison.OrdinalIgnoreCase)
+                                ? "form-control is-invalid"
+                                : "form-control is-valid";
 
         args.IsValid = true;
-    }
-
-    /// <summary>Raises the <see cref="E:System.Web.UI.Control.Init"/> event.</summary>
-    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
-    {
-        this.InitializeComponent();
-        base.OnInit(e);
     }
 
     /// <summary>
@@ -151,13 +103,13 @@ public partial class EditLanguage : AdminPage
 
         if (this.Get<HttpRequestBase>().QueryString.Exists("x"))
         {
-            this.xmlFile = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x");
+            this.languageFile = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x");
 
-            this.dDLPages.Items.Clear();
+            this.Pages.Items.Clear();
 
             this.PopulateTranslations(
-                Path.Combine(this.langPath, "english.xml"),
-                Path.Combine(this.langPath, this.xmlFile));
+                Path.Combine(this.langPath, "english.json"),
+                Path.Combine(this.langPath, this.languageFile));
         }
 
         if (this.IsPostBack)
@@ -165,27 +117,14 @@ public partial class EditLanguage : AdminPage
             return;
         }
 
-        this.dDLPages.Items.FindByText("DEFAULT").Selected = true;
+        this.Pages.Items.FindByText("DEFAULT").Selected = true;
 
         this.pageName = "DEFAULT";
 
         this.IconHeader.Text = $"{this.GetText("ADMIN_EDITLANGUAGE", "HEADER")} {this.pageName}";
 
-        if (this.update)
-        {
-            this.Info.Visible = true;
-
-            this.lblInfo.Text = this.GetText("ADMIN_EDITLANGUAGE", "AUTO_SYNC");
-
-            this.SaveLanguageFile();
-        }
-        else
-        {
-            this.Info.Visible = false;
-        }
-
-        this.grdLocals.DataSource = this.translations.FindAll(check => check.PageName.Equals("DEFAULT"));
-        this.grdLocals.DataBind();
+        this.Locals.DataSource = this.translations.FindAll(check => check.PageName.Equals("DEFAULT"));
+        this.Locals.DataBind();
     }
 
     /// <summary>
@@ -207,7 +146,7 @@ public partial class EditLanguage : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.DataGridItemEventArgs"/> instance containing the event data.</param>
-    private static void GrdLocalsItemDataBound([NotNull] object sender, [NotNull] DataGridItemEventArgs e)
+    protected void LocalsItemDataBound([NotNull] object sender, [NotNull] DataGridItemEventArgs e)
     {
         if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
         {
@@ -228,10 +167,9 @@ public partial class EditLanguage : AdminPage
             txtLocalized.Height = Unit.Pixel(80);
         }
 
-        if (txtLocalized.Text.Equals(txtResource.Text, StringComparison.OrdinalIgnoreCase))
-        {
-            txtLocalized.ForeColor = Color.Red;
-        }
+        txtLocalized.CssClass = txtLocalized.Text.Equals(txtResource.Text, StringComparison.OrdinalIgnoreCase)
+                                    ? "form-control is-invalid"
+                                    : "form-control is-valid";
     }
 
     /// <summary>
@@ -239,31 +177,151 @@ public partial class EditLanguage : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Languages);
     }
 
     /// <summary>
+    /// Load Selected Page Resources
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void LoadPageLocalizationClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.pageName = this.Pages.SelectedValue;
+
+        this.IconHeader.Text = $"{this.GetText("ADMIN_EDITLANGUAGE", "HEADER")} {this.pageName}";
+
+        this.Locals.DataSource =
+            this.translations.FindAll(check => check.PageName.Equals(this.Pages.SelectedValue));
+        this.Locals.DataBind();
+    }
+
+    /// <summary>
+    /// Save the Updated Xml File
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.UpdateLocalizedValues();
+
+        this.SaveLanguageFile();
+
+        this.PageBoardContext.Notify(this.GetText("ADMIN_EDITLANGUAGE", "SAVED_FILE"), MessageTypes.success);
+    }
+
+    /// <summary>
+    /// Save the Updated Xml File.
+    /// </summary>
+    private void SaveLanguageFile()
+    {
+        var translationResource = this.Get<ILocalization>().LoadLanguageFile(Path.Combine(this.langPath, this.languageFile));
+
+        this.pageName = this.Pages.SelectedValue;
+        var pageTranslations = this.translations.Where(x => x.PageName == this.pageName);
+
+        translationResource.Resources.Page.First(x => x.Name == this.pageName).Resource.ForEach(
+            resource =>
+            {
+                resource.Text = pageTranslations.First(x => x.ResourceName == resource.Tag).LocalizedResourceText;
+            });
+
+        var serializer = new JsonSerializer { Formatting = Formatting.Indented };
+
+        using var sw = new StreamWriter(Path.Combine(this.langPath, this.languageFile));
+        using JsonWriter writer = new JsonTextWriter(sw);
+        serializer.Serialize(writer, translationResource);
+
+        HttpRuntime.UnloadAppDomain();
+    }
+
+    /// <summary>
+    /// Update Localized Values in the Generics List
+    /// </summary>
+    private void UpdateLocalizedValues()
+    {
+        this.Locals.Items.Cast<DataGridItem>().ForEach(
+            item =>
+                {
+                    var txtLocalized = item.FindControlAs<TextBox>("txtLocalized");
+                    var txtResource = item.FindControlAs<TextBox>("txtResource");
+
+                    var lblResourceName = item.FindControlAs<Label>("lblResourceName");
+
+                    this.translations.Find(
+                        check => check.PageName.Equals(this.Pages.SelectedValue) &&
+                                 check.ResourceName.Equals(lblResourceName.Text)).LocalizedResourceText = txtLocalized.Text;
+
+                    txtLocalized.CssClass = txtLocalized.Text.Equals(txtResource.Text, StringComparison.OrdinalIgnoreCase)
+                                                ? "form-control is-invalid"
+                                                : "form-control is-valid";
+                });
+    }
+
+    /// <summary>
+    /// Wraps creation of translation controls.
+    /// </summary>
+    /// <param name="sourceFile">The source file.</param>
+    /// <param name="translationFile">The DST file.</param>
+    private void PopulateTranslations([NotNull] string sourceFile, [NotNull] string translationFile)
+    {
+        try
+        {
+            var sourceResource = this.Get<ILocalization>().LoadLanguageFile(sourceFile);
+            var translationResource = this.Get<ILocalization>().LoadLanguageFile(translationFile);
+
+            sourceResource.Resources.Page.ForEach(
+                page =>
+                {
+                    var translationPage = translationResource.Resources.Page.Find(
+                        p => p.Name.Equals(page.Name, StringComparison.OrdinalIgnoreCase));
+
+                    this.CreatePageResourceHeader(page.Name);
+
+                    var pageResources = page.Resource;
+
+                    pageResources.ForEach(
+                        resource =>
+                        {
+                            var translationResourceText = translationPage.Resource.Find(
+                                r => r.Tag.Equals(resource.Tag, StringComparison.OrdinalIgnoreCase));
+
+                            this.CreatePageResourceControl(
+                                page.Name,
+                                resource.Tag,
+                                resource.Text,
+                                translationResourceText.Text);
+                        });
+                });
+        }
+        catch (Exception exception)
+        {
+            this.Logger.Log(null, this, $"Error loading files. {exception.Message}");
+        }
+    }
+
+    /// <summary>
     /// Creates controls for column 1 (Resource tag) and column 2 (Resource value).
     /// </summary>
-    /// <param name="name">Name of the page.</param>
+    /// <param name="page">Name of the page.</param>
     /// <param name="resourceName">Name of the resource.</param>
-    /// <param name="srcResourceValue">The SRC resource value.</param>
-    /// <param name="dstResourceValue">The DST resource value.</param>
+    /// <param name="originalResourceText">The original (english) resource text.</param>
+    /// <param name="translationResourceText">The translation resource text.</param>
     private void CreatePageResourceControl(
-        [NotNull] string name,
+        [NotNull] string page,
         [NotNull] string resourceName,
-        [NotNull] string srcResourceValue,
-        [NotNull] string dstResourceValue)
+        [NotNull] string originalResourceText,
+        [NotNull] string translationResourceText)
     {
         var translation = new Translation
-                              {
-                                  PageName = name,
-                                  ResourceName = resourceName,
-                                  ResourceValue = srcResourceValue,
-                                  LocalizedValue = dstResourceValue
-                              };
+        {
+            PageName = page,
+            ResourceName = resourceName,
+            OriginalResourceText = originalResourceText,
+            LocalizedResourceText = translationResourceText
+        };
 
         this.translations.Add(translation);
     }
@@ -274,230 +332,6 @@ public partial class EditLanguage : AdminPage
     /// <param name="name">Name of the page.</param>
     private void CreatePageResourceHeader([NotNull] string name)
     {
-        this.dDLPages.Items.Add(new ListItem(name, name));
-    }
-
-    /// <summary>
-    /// The initialize component.
-    /// </summary>
-    private void InitializeComponent()
-    {
-        this.btnLoadPageLocalization.Click += this.LoadPageLocalization;
-        this.btnCancel.Click += this.CancelClick;
-        this.btnSave.Click += this.SaveClick;
-
-        this.grdLocals.ItemDataBound += GrdLocalsItemDataBound;
-    }
-
-    /// <summary>
-    /// Load Selected Page Resources
-    /// </summary>
-    /// <param name="sender">The sender.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void LoadPageLocalization([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        this.pageName = this.dDLPages.SelectedValue;
-
-        this.IconHeader.Text = $"{this.GetText("ADMIN_EDITLANGUAGE", "HEADER")} {this.pageName}";
-
-        this.grdLocals.DataSource =
-            this.translations.FindAll(check => check.PageName.Equals(this.dDLPages.SelectedValue));
-        this.grdLocals.DataBind();
-    }
-
-    /// <summary>
-    /// Wraps creation of translation controls.
-    /// </summary>
-    /// <param name="srcFile">The SRC file.</param>
-    /// <param name="dstFile">The DST file.</param>
-    private void PopulateTranslations([NotNull] string srcFile, [NotNull] string dstFile)
-    {
-        this.update = false;
-
-        try
-        {
-            var docSrc = new XmlDocument();
-            var docDst = new XmlDocument();
-
-            docSrc.Load(srcFile);
-            docDst.Load(dstFile);
-
-            var navSrc = docSrc.DocumentElement.CreateNavigator();
-            var navDst = docDst.DocumentElement.CreateNavigator();
-
-            this.ResourcesNamespaces.Clear();
-            if (navDst.MoveToFirstNamespace())
-            {
-                do
-                {
-                    this.ResourcesNamespaces.Add(navDst.Name, navDst.Value);
-                }
-                while (navDst.MoveToNextNamespace());
-            }
-
-            navDst.MoveToRoot();
-            navDst.MoveToFirstChild();
-
-            this.ResourcesAttributes.Clear();
-            if (navDst.MoveToFirstAttribute())
-            {
-                do
-                {
-                    this.ResourcesAttributes.Add(navDst.Name, navDst.Value);
-                }
-                while (navDst.MoveToNextAttribute());
-            }
-
-            navDst.MoveToRoot();
-            navDst.MoveToFirstChild();
-
-            navSrc.Select("page").Cast<XPathNavigator>().ForEach(
-                pageItemNavigator =>
-                    {
-                        // int pageResourceCount = 0;
-                        var pageNameAttributeValue = pageItemNavigator.GetAttribute("name", string.Empty);
-
-                        this.CreatePageResourceHeader(pageNameAttributeValue);
-
-                        var resourceItemCollection = pageItemNavigator.Select("Resource");
-
-                        resourceItemCollection.Cast<XPathNavigator>().ForEach(
-                            resourceItem =>
-                                {
-                                    var resourceTagAttributeValue = resourceItem.GetAttribute("tag", string.Empty);
-
-                                    var iteratorSe = navDst.Select(
-                                        $"/Resources/page[@name=\"{pageNameAttributeValue}\"]/Resource[@tag=\"{resourceTagAttributeValue}\"]");
-
-                                    if (iteratorSe.Count <= 0)
-                                    {
-                                        // pageResourceCount++;
-
-                                        // Generate Missing Languages
-                                        this.CreatePageResourceControl(
-                                            pageNameAttributeValue,
-                                            resourceTagAttributeValue,
-                                            resourceItem.Value,
-                                            resourceItem.Value);
-
-                                        this.update = true;
-                                    }
-
-                                    while (iteratorSe.MoveNext())
-                                    {
-                                        // pageResourceCount++;
-                                        if (!iteratorSe.Current.Value.Equals(
-                                                resourceItem.Value,
-                                                StringComparison.OrdinalIgnoreCase))
-                                        {
-                                        }
-
-                                        this.CreatePageResourceControl(
-                                            pageNameAttributeValue,
-                                            resourceTagAttributeValue,
-                                            resourceItem.Value,
-                                            iteratorSe.Current.Value);
-                                    }
-                                });
-                    });
-        }
-        catch (Exception exception)
-        {
-            this.Logger.Log(null, this, $"Error loading files. {exception.Message}");
-        }
-    }
-
-    /// <summary>
-    /// Save the Updated Xml File
-    /// </summary>
-    /// <param name="sender">The sender.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        this.UpdateLocalizedValues();
-
-        this.SaveLanguageFile();
-    }
-
-    /// <summary>
-    /// Save the Updated Xml File.
-    /// </summary>
-    private void SaveLanguageFile()
-    {
-        this.translations = RemoveDuplicateSections(this.translations);
-
-        var settings = new XmlWriterSettings
-                           {
-                               Encoding = Encoding.UTF8, OmitXmlDeclaration = false, Indent = true, IndentChars = " "
-                           };
-
-        var xw = XmlWriter.Create(Path.Combine(this.langPath, this.xmlFile), settings);
-        xw.WriteStartDocument();
-
-        // <Resources>
-        xw.WriteStartElement("Resources");
-
-        this.ResourcesNamespaces.Keys.Cast<string>().ForEach(
-            key => xw.WriteAttributeString("xmlns", key, null, this.ResourcesNamespaces[key]));
-
-        this.ResourcesAttributes.Keys.Cast<string>()
-            .ForEach(key => xw.WriteAttributeString(key, this.ResourcesAttributes[key]));
-
-        var currentPageName = string.Empty;
-
-        this.translations.OrderBy(t => t.PageName).ThenBy(t => t.ResourceName).ForEach(
-            trans =>
-                {
-                    // <page></page>
-                    if (!trans.PageName.Equals(currentPageName, StringComparison.OrdinalIgnoreCase))
-                    {
-                        if (currentPageName.IsSet())
-                        {
-                            xw.WriteFullEndElement();
-                        }
-
-                        currentPageName = trans.PageName;
-
-                        xw.WriteStartElement("page");
-                        xw.WriteAttributeString("name", currentPageName);
-                    }
-
-                    xw.WriteStartElement("Resource");
-                    xw.WriteAttributeString("tag", trans.ResourceName);
-                    xw.WriteString(trans.LocalizedValue);
-                    xw.WriteFullEndElement();
-                });
-
-        // final </page>
-        if (currentPageName.IsSet())
-        {
-            xw.WriteFullEndElement();
-        }
-
-        // </Resources>
-        xw.WriteFullEndElement();
-
-        xw.WriteEndDocument();
-        xw.Close();
-
-        HttpRuntime.UnloadAppDomain();
-    }
-
-    /// <summary>
-    /// Update Localized Values in the Generics List
-    /// </summary>
-    private void UpdateLocalizedValues()
-    {
-        this.grdLocals.Items.Cast<DataGridItem>().ForEach(
-            item =>
-                {
-                    var txtLocalized = item.FindControlAs<TextBox>("txtLocalized");
-
-                    var lblResourceName = item.FindControlAs<Label>("lblResourceName");
-
-                    this.translations.Find(
-                        check => check.PageName.Equals(this.dDLPages.SelectedValue) &&
-                                 check.ResourceName.Equals(lblResourceName.Text)).LocalizedValue = txtLocalized.Text;
-                });
+        this.Pages.Items.Add(new ListItem(name, name));
     }
 }

@@ -159,7 +159,7 @@ public class InstallService : IHaveServiceLocator
         var languageFromCulture = cult
             .FirstOrDefault(c => c.CultureTag == culture);
 
-        var langFile = languageFromCulture != null ? languageFromCulture.CultureFile : "english.xml";
+        var langFile = languageFromCulture != null ? languageFromCulture.CultureFile : "english.json";
 
         // -- initialize required 'registry' settings
         this.GetRepository<Registry>().Save("applicationid", applicationId.ToString());

@@ -96,15 +96,6 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.CheckBox EraseMessage;
 
         /// <summary>
-        /// DeleteUndelete-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton DeleteUndelete;
-
-        /// <summary>
         /// Delete-Steuerelement.
         /// </summary>
         /// <remarks>
@@ -112,6 +103,15 @@ namespace YAF.Pages
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Delete;
+
+        /// <summary>
+        /// Restore-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton Restore;
 
         /// <summary>
         /// Cancel-Steuerelement.

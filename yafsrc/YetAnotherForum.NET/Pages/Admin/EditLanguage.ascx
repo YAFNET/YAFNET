@@ -13,27 +13,24 @@
             </div>
             <div class="card-body">
                 <div class="mb-3">
-                    <asp:Label runat="server" AssociatedControlID="dDLPages">
+                    <asp:Label runat="server" AssociatedControlID="Pages">
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                                             LocalizedTag="SELECT_PAGE" 
                                             LocalizedPage="ADMIN_EDITLANGUAGE" />
                     </asp:Label>
-                    <asp:DropDownList runat="server" id="dDLPages" CssClass="form-select"></asp:DropDownList>
+                    <asp:DropDownList runat="server" id="Pages" CssClass="form-select"></asp:DropDownList>
                 </div>
                 <div class="mb-3">
-                    <YAF:ThemeButton runat="server" id="btnLoadPageLocalization" 
+                    <YAF:ThemeButton runat="server" id="LoadPageLocalization"
+                                     OnClick="LoadPageLocalizationClick"
                                      Type="Primary" 
                                      Icon="share" 
                                      TextLocalizedTag="LOAD_PAGE" TextLocalizedPage="ADMIN_EDITLANGUAGE" />
                 </div>
-                <YAF:Alert ID="Info" runat="server" Type="danger">
-                    <YAF:Icon runat="server" 
-                              IconName="info-circle" />
-                    <asp:Label runat="server" id="lblInfo"></asp:Label>
-                </YAF:Alert>
                 <hr />
                 <div class="table-responsive">
-                <asp:DataGrid id="grdLocals" runat="server" 
+                <asp:DataGrid id="Locals" runat="server"
+                              OnItemDataBound="LocalsItemDataBound"
                               CssClass="table table-striped"
                               GridLines="None"
                               AutoGenerateColumns="False"
@@ -58,7 +55,7 @@
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:TextBox id="txtResource" runat="server" 
-                                             Text='<%# this.Eval("ResourceValue") %>' 
+                                             Text='<%# this.Eval("OriginalResourceText") %>' 
                                              TextMode="MultiLine" 
                                              Rows="3" 
                                              Enabled="false" 
@@ -74,12 +71,15 @@
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:TextBox id="txtLocalized" runat="server" 
-                                             Text='<%# this.Eval("LocalizedValue") %>' 
+                                             Text='<%# this.Eval("LocalizedResourceText") %>' 
                                              TextMode="MultiLine" 
                                              Rows="3" 
-                                             ToolTip='<%# this.Eval("ResourceValue") %>' 
+                                             ToolTip='<%# this.Eval("OriginalResourceText") %>' 
                                              CssClass="form-control">
                                 </asp:TextBox>
+                                <div class="invalid-feedback">
+                                    <YAF:LocalizedLabel runat="server" LocalizedTag="NEED_TRANSLATION"></YAF:LocalizedLabel>
+                                </div>
                                 <asp:CustomValidator runat="server" id="custTextLocalized" 
                                                      ControlToValidate="txtLocalized" 
                                                      OnServerValidate="LocalizedTextCheck">
@@ -91,14 +91,16 @@
                     </div>
             </div>
             <div class="card-footer text-center">
-                <YAF:ThemeButton runat="server" id="btnSave"
+                <YAF:ThemeButton runat="server" id="Save"
                                  CssClass="me-1"
+                                 OnClick="SaveClick"
                                  Type="Primary"
                                  Icon="save" 
                                  TextLocalizedTag="SAVE" />
-                <YAF:ThemeButton runat="server" id="btnCancel"
+                <YAF:ThemeButton runat="server" id="Cancel"
                                  Type="Secondary" 
-                                 Icon="times" 
+                                 Icon="times"
+                                 OnClick="CancelClick"
                                  TextLocalizedTag="CANCEL" />
             </div>
         </div>

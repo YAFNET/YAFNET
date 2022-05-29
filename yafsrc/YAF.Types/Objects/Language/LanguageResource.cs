@@ -22,40 +22,12 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects;
+namespace YAF.Types.Objects.Language;
 
-/// <summary>
-/// The culture.
-/// </summary>
-public class Culture
+using Newtonsoft.Json;
+
+[JsonObject]
+public class LanguageResource
 {
-    /// <summary>
-    /// Gets or sets the culture tag.
-    /// </summary>
-    public string CultureTag { get; set; }
-
-    /// <summary>
-    /// Gets or sets the culture file.
-    /// </summary>
-    public string CultureFile { get; set; }
-
-    /// <summary>
-    /// Gets or sets the culture english name.
-    /// </summary>
-    public string CultureEnglishName { get; set; }
-
-    /// <summary>
-    /// Gets or sets the culture native name.
-    /// </summary>
-    public string CultureNativeName { get; set; }
-
-    /// <summary>
-    /// Gets or sets the culture display name.
-    /// </summary>
-    public string CultureDisplayName { get; set; }
-
-    /// <summary>
-    /// Gets or sets the translated percentage.
-    /// </summary>
-    public int TranslatedPercentage { get; set; }
+    public Resources Resources { get; set; }
 }
