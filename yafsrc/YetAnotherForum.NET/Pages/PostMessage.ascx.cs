@@ -80,7 +80,7 @@ public partial class PostMessage : ForumPage
         // reply to existing topic or editing of existing topic
         this.Get<LinkBuilder>().Redirect(
             ForumPages.Posts,
-            new {t = this.PageBoardContext.PageTopicID, this.PageBoardContext.PageTopic.TopicName });
+            new {t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
     }
 
     /// <summary>
