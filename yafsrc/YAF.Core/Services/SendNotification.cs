@@ -713,7 +713,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
             && this.BoardSettings.SendWelcomeNotificationAfterRegister.Equals(2))
         {
             var hostUser = this.GetRepository<User>()
-                .Get(u => u.BoardID == BoardContext.Current.PageBoardID && u.UserFlags.IsHostAdmin)
+                .Get(u => u.BoardID == BoardContext.Current.PageBoardID && (u.Flags & 1) == 1)
                 .FirstOrDefault();
 
             if (hostUser != null)
