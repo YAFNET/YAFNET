@@ -360,7 +360,7 @@ public static class TemplateFilterUtils
     public static string AssertExpression(this ScriptScopeContext scope, string filterName, object expression)
     {
         if (expression is not string literal)
-            throw new NotSupportedException($"'{filterName}' in '{scope.PageResult.VirtualPath}' requires a string Expression but received a '{expression?.GetType()?.Name}' instead");
+            throw new NotSupportedException($"'{filterName}' in '{scope.PageResult.VirtualPath}' requires a string Expression but received a '{expression?.GetType().Name}' instead");
         return literal;
     }
 

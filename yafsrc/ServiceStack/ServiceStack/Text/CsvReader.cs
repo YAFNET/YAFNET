@@ -170,7 +170,9 @@ public class CsvReader
                         valueChar = value[i];
                     }
                     else
+                    {
                         return value.Substring(tokenStartPos, i - tokenStartPos);
+                    }
 
                     break;
                 }
@@ -205,7 +207,9 @@ public class CsvReader
                 valueChar = value[i];
             }
             else
+            {
                 return value.Substring(tokenStartPos, i - tokenStartPos);
+            }
         }
 
         //if value starts with MapStartChar, check MapEndChar to terminate

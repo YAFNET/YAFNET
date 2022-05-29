@@ -172,7 +172,10 @@ namespace ServiceStack.Script
                     }
                 }
             }
-            else return false;
+            else
+            {
+                return false;
+            }
 
             return true;
         }
@@ -641,7 +644,7 @@ namespace ServiceStack.Script
                 : DynamicNumber.IsNumber(a.GetType())
                     ? DynamicNumber.CompareTo(a, b)
                     : a is IComparable c
-                        ? (int)c.CompareTo(b)
+                        ? c.CompareTo(b)
                         : throw new LispEvalException("not IComparable", a);
         }
 
@@ -1396,7 +1399,7 @@ namespace ServiceStack.Script
             /// <summary>
             /// The env
             /// </summary>
-            public readonly Cell Env;
+            private readonly Cell Env;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Closure"/> class.
@@ -2151,7 +2154,7 @@ namespace ServiceStack.Script
                 if (path.StartsWith("index:") || path.StartsWith("gist:") || isUrl)
                 {
                     if (!AllowLoadingRemoteScripts)
-                        throw new NotSupportedException($"Lisp.AllowLoadingRemoteScripts has been disabled");
+                        throw new NotSupportedException("Lisp.AllowLoadingRemoteScripts has been disabled");
                     scope.Context.AssertProtectedMethods();
 
                     if (isUrl)
@@ -2251,7 +2254,7 @@ namespace ServiceStack.Script
                     var scope = I.AssertScope();
                     var args = EvalArgs(a[0] as Cell, I);
                     if (args[0] is not string fnName)
-                        throw new LispEvalException($"F requires a string Function Reference", args[0]);
+                        throw new LispEvalException("F requires a string Function Reference", args[0]);
 
                     var fnArgs = new List<object>();
                     for (var i = 1; i < args.Length; i++)
@@ -2266,7 +2269,7 @@ namespace ServiceStack.Script
                     var scope = I.AssertScope();
                     var args = EvalArgs(a[0] as Cell, I);
                     if (args[0] is not string fnName)
-                        throw new LispEvalException($"C requires a string Constructor Reference", args[0]);
+                        throw new LispEvalException("C requires a string Constructor Reference", args[0]);
 
                     var fn = scope.Context.AssertProtectedMethods().C(fnName);
                     var fnArgs = new List<object>();
@@ -2591,7 +2594,9 @@ namespace ServiceStack.Script
                 {
                     var oNeedle = a[0];
                     if (oNeedle is string needle)
+                    {
                         return a[1].ToString().Replace(needle, "");
+                    }
                     else if (a[1] is Cell c)
                     {
                         var j = c;
@@ -2722,7 +2727,7 @@ namespace ServiceStack.Script
                     return null;
                 }
 
-                IEnumerable enumerableArg(object[] a) => a.Length > 0 && a[0] is Cell cell ? (IEnumerable)cell : a;
+                IEnumerable enumerableArg(object[] a) => a.Length > 0 && a[0] is Cell cell ? cell : a;
 
                 Def("print", -1, (I, a) =>
                 {
@@ -4128,9 +4133,13 @@ namespace ServiceStack.Script
             private Cell ParseMapBody()
             {
                 if (Token == EOF)
+                {
                     throw new FormatException("unexpected EOF");
+                }
                 else if (Token == RIGHT_BRACE)
+                {
                     return null;
+                }
                 else
                 {
                     var symKey = ParseExpression();
@@ -4165,9 +4174,13 @@ namespace ServiceStack.Script
             private Cell ParseDataListBody()
             {
                 if (Token == EOF)
+                {
                     throw new FormatException("unexpected EOF");
+                }
                 else if (Token == RIGHT_BRACKET)
+                {
                     return null;
+                }
                 else
                 {
                     var e1 = ParseExpression();
@@ -4204,9 +4217,13 @@ namespace ServiceStack.Script
             private Cell ParseListBody()
             {
                 if (Token == EOF)
+                {
                     throw new FormatException("unexpected EOF");
+                }
                 else if (Token == RIGHT_PAREN)
+                {
                     return null;
+                }
                 else
                 {
                     var e1 = ParseExpression();
@@ -4491,15 +4508,15 @@ namespace ServiceStack.Script
                         var sb = new StringBuilder();
 
                         var line = Console.ReadLine();
-                        if (line == "clear")
+                        switch (line)
                         {
-                            Console.Clear();
-                            continue;
-                        }
-                        if (line == "quit" || line == "exit")
-                        {
-                            Console.WriteLine($"Goodbye.\n\n");
-                            return;
+                            case "clear":
+                                Console.Clear();
+                                continue;
+                            case "quit":
+                            case "exit":
+                                Console.WriteLine("Goodbye.\n\n");
+                                return;
                         }
 
                         sb.AppendLine(line);

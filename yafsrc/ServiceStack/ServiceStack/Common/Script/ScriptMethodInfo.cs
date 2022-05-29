@@ -50,7 +50,7 @@ public class ScriptMethodInfo
     /// Gets the type of the return.
     /// </summary>
     /// <value>The type of the return.</value>
-    public string ReturnType => methodInfo.ReturnType?.Name;
+    public string ReturnType => methodInfo.ReturnType.Name;
     /// <summary>
     /// Gets the parameter count.
     /// </summary>
@@ -136,7 +136,7 @@ public class ScriptMethodInfo
                               ? $"{Name}"
                               : ParamCount == 1
                                   ? $"|> {Name}"
-                                  : $"|> {Name}(" + string.Join(", ", RemainingParams) + $")";
+                                  : $"|> {Name}(" + string.Join(", ", RemainingParams) + ")";
 
     /// <summary>
     /// Gets the script signature.

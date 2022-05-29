@@ -18,6 +18,8 @@ using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite;
 
+using ServiceStack.Common;
+
 /// <summary>
 /// Class OrmLiteWriteCommandExtensions.
 /// </summary>

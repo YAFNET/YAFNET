@@ -102,7 +102,7 @@ public partial class DefaultScripts
     /// </summary>
     /// <param name="scope">The scope.</param>
     /// <returns>System.Object.</returns>
-    public object endIfError(ScriptScopeContext scope) => scope.PageResult.LastFilterError != null ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object endIfError(ScriptScopeContext scope) => scope.PageResult.LastFilterError != null ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ends if error.
     /// </summary>
@@ -116,7 +116,7 @@ public partial class DefaultScripts
     /// </summary>
     /// <param name="scope">The scope.</param>
     /// <returns>System.Object.</returns>
-    public object ifNoError(ScriptScopeContext scope) => scope.PageResult.LastFilterError != null ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object ifNoError(ScriptScopeContext scope) => scope.PageResult.LastFilterError != null ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ifs the no error.
     /// </summary>
@@ -150,7 +150,7 @@ public partial class DefaultScripts
     /// </summary>
     /// <param name="scope">The scope.</param>
     /// <returns>System.Object.</returns>
-    public object ifDebug(ScriptScopeContext scope) => scope.Context.DebugMode ? (object)IgnoreResult.Value : StopExecution.Value;
+    public object ifDebug(ScriptScopeContext scope) => scope.Context.DebugMode ? IgnoreResult.Value : StopExecution.Value;
     /// <summary>
     /// Debugs the mode.
     /// </summary>
@@ -641,7 +641,7 @@ public partial class DefaultScripts
     /// <param name="scope">The scope.</param>
     /// <param name="message">The message.</param>
     /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
-    public async Task<object> @throwAsync(ScriptScopeContext scope, string message)
+    public async Task<object> throwAsync(ScriptScopeContext scope, string message)
     {
         await Task.Yield();
         return new Exception(message).InStopFilter(scope, null);
@@ -654,7 +654,7 @@ public partial class DefaultScripts
     /// <param name="message">The message.</param>
     /// <param name="options">The options.</param>
     /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
-    public async Task<object> @throwAsync(ScriptScopeContext scope, string message, object options)
+    public async Task<object> throwAsync(ScriptScopeContext scope, string message, object options)
     {
         await Task.Yield();
         return new Exception(message).InStopFilter(scope, options);

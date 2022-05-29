@@ -6,20 +6,17 @@
 // ***********************************************************************
 using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using ServiceStack.DataAnnotations;
 using ServiceStack.IO;
-using ServiceStack.Script;
 using ServiceStack.Text;
 
 namespace ServiceStack.Script;
@@ -249,7 +246,10 @@ public class ProtectedScripts : ScriptMethods
                     $"Could not resolve ambiguous constructor {typeQualifiedName(type)}({argTypesList})");
             }
         }
-        else targetCtor = ctors[0];
+        else
+        {
+            targetCtor = ctors[0];
+        }
 
         return targetCtor;
     }
@@ -304,7 +304,7 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="typeName">Name of the type.</param>
     /// <returns>System.String.</returns>
     public static string TypeNotFoundErrorMessage(string typeName) => $"Could not resolve Type '{typeName}'. " +
-                                                                      $"Use ScriptContext.ScriptAssemblies or ScriptContext.AllowScriptingOfAllTypes + ScriptNamespaces to increase Type resolution";
+                                                                      "Use ScriptContext.ScriptAssemblies or ScriptContext.AllowScriptingOfAllTypes + ScriptNamespaces to increase Type resolution";
 
     /// <summary>
     /// Asserts the type of.
@@ -727,7 +727,10 @@ public class ProtectedScripts : ScriptMethods
                         $"Could not resolve ambiguous method {typeQualifiedName(type)}.{name}({argTypesList})");
                 }
             }
-            else targetMethod = methods[0];
+            else
+            {
+                targetMethod = methods[0];
+            }
         }
 
         if (targetMethod.IsGenericMethod)
@@ -755,7 +758,7 @@ public class ProtectedScripts : ScriptMethods
     {
         if (qualifiedConstructorName.IndexOf('(') == -1)
             throw new NotSupportedException($"Invalid Constructor Name '{qualifiedConstructorName}', " +
-                                            $"format: <type>(<arg-types>), e.g. Uri(String), see: https://sharpscript.net/docs/script-net");
+                                            "format: <type>(<arg-types>), e.g. Uri(String), see: https://sharpscript.net/docs/script-net");
 
         var name = qualifiedConstructorName;
 
@@ -814,7 +817,7 @@ public class ProtectedScripts : ScriptMethods
     {
         if (qualifiedMethodName.IndexOf('.') == -1)
             throw new NotSupportedException($"Invalid Function Name '{qualifiedMethodName}', " +
-                                            $"format: <type>.<method>(<arg-types>), e.g. Console.WriteLine(string), see: https://sharpscript.net/docs/script-net");
+                                            "format: <type>.<method>(<arg-types>), e.g. Console.WriteLine(string), see: https://sharpscript.net/docs/script-net");
 
         var invoker = (Delegate)Context.Cache.GetOrAdd(nameof(Function) + ":" + qualifiedMethodName, k =>
             ResolveFunction(qualifiedMethodName));
@@ -839,7 +842,7 @@ public class ProtectedScripts : ScriptMethods
     {
         if (qualifiedMethodName.IndexOf('.') == -1)
             throw new NotSupportedException($"Invalid Function Name '{qualifiedMethodName}', " +
-                                            $"format: <type>.<method>(<arg-types>), e.g. Console.WriteLine(string), see: https://sharpscript.net/docs/script-net");
+                                            "format: <type>.<method>(<arg-types>), e.g. Console.WriteLine(string), see: https://sharpscript.net/docs/script-net");
 
         var key = nameof(Function) + ":" + qualifiedMethodName + argTypesString(args);
         var invoker = (Delegate)Context.Cache.GetOrAdd(key, k =>
@@ -867,7 +870,7 @@ public class ProtectedScripts : ScriptMethods
         var lastGenericPos = name.LastIndexOf('>');
         var lastSepPos = name.LastIndexOf('.');
 
-        int pos = -1;
+        int pos;
         if (lastSepPos > lastGenericPos)
         {
             pos = lastSepPos;
@@ -885,7 +888,7 @@ public class ProtectedScripts : ScriptMethods
 
         if (pos == -1)
             throw new NotSupportedException($"Could not parse Function Name '{name}', " +
-                                            $"format: <type>.<method>(<arg-types>), e.g. Console.WriteLine(string)");
+                                            "format: <type>.<method>(<arg-types>), e.g. Console.WriteLine(string)");
 
 
         var typeName = name.Substring(0, pos);
@@ -972,7 +975,7 @@ public class ProtectedScripts : ScriptMethods
     /// <returns>IVirtualFile.</returns>
     public IVirtualFile ResolveFile(IVirtualPathProvider virtualFiles, string fromVirtualPath, string virtualPath)
     {
-        IVirtualFile file = null;
+        IVirtualFile file;
 
         var pathMapKey = nameof(ResolveFile) + ">" + fromVirtualPath;
         var pathMapping = Context.GetPathMapping(pathMapKey, virtualPath);
@@ -1911,7 +1914,7 @@ public class ProtectedScripts : ScriptMethods
             var expireAt = DateTime.UtcNow.Add(expireIn);
 
             var bytes = ms.ToArray();
-            Context.ExpiringCache[cacheKey] = cacheEntry = Tuple.Create(expireAt, (object)bytes);
+            Context.ExpiringCache[cacheKey] = Tuple.Create(expireAt, (object)bytes);
             await scope.OutputStream.WriteAsync(bytes);
         }
     }
@@ -2093,19 +2096,12 @@ public class ProtectedScripts : ScriptMethods
     /// <exception cref="System.NotSupportedException">cacheClear</exception>
     public object cacheClear(ScriptScopeContext scope, object cacheNames)
     {
-        IEnumerable<string> caches;
-        if (cacheNames is string strName)
-        {
-            caches = strName.EqualsIgnoreCase("all")
-                         ? AllCacheNames
-                         : new[] { strName };
-        }
-        else if (cacheNames is IEnumerable<string> nameList)
-        {
-            caches = nameList;
-        }
-        else throw new NotSupportedException(nameof(cacheClear) +
-                                             " expects a cache name or list of cache names but received: " + (cacheNames.GetType()?.Name ?? "null"));
+        IEnumerable<string> caches = cacheNames switch {
+            string strName => strName.EqualsIgnoreCase("all") ? AllCacheNames : new[] {strName},
+            IEnumerable<string> nameList => nameList,
+            _ => throw new NotSupportedException(
+                     $"{nameof(cacheClear)} expects a cache name or list of cache names but received: {cacheNames.GetType().Name}")
+        };
 
         int entriesRemoved = 0;
         foreach (var cacheName in caches)

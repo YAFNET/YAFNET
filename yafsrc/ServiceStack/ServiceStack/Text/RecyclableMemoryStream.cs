@@ -15,7 +15,7 @@ using System.Threading;
 
 namespace ServiceStack.Text; //Internalize to avoid conflicts
 
-using System.Diagnostics.Tracing;
+
 
 /// <summary>
 /// Class MemoryStreamFactory.
@@ -1363,7 +1363,6 @@ public sealed class RecyclableMemoryStream : MemoryStream
     /// <value>The dispose stack.</value>
     internal string DisposeStack { get; private set; }
 
-    #region Constructors
     /// <summary>
     /// Allocate a new RecyclableMemoryStream object.
     /// </summary>
@@ -1452,9 +1451,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
         RecyclableMemoryStreamManager.Events.Writer.MemoryStreamCreated(this.id, this.tag, requestedSize);
         this.memoryManager.ReportStreamCreated();
     }
-    #endregion
 
-    #region Dispose and Finalize
     /// <summary>
     /// The finalizer will be called when a stream is not disposed properly.
     /// </summary>
@@ -1548,9 +1545,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     {
         this.Dispose(true);
     }
-    #endregion
 
-    #region MemoryStream overrides
     /// <summary>
     /// Gets or sets the capacity
     /// </summary>
@@ -2132,9 +2127,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
         }
 
     }
-    #endregion
 
-    #region Helper Methods
     /// <summary>
     /// Sets the disposed.
     /// </summary>
@@ -2333,5 +2326,4 @@ public sealed class RecyclableMemoryStream : MemoryStream
 
         this.largeBuffer = null;
     }
-    #endregion
 }

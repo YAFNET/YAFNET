@@ -468,8 +468,8 @@ public class JsvStringSerializer : IStringSerializer
     /// <typeparam name="TFrom">The type of the t from.</typeparam>
     /// <param name="from">From.</param>
     /// <returns>System.String.</returns>
-    public string SerializeToString<TFrom>(TFrom @from)
+    public string SerializeToString<TFrom>(TFrom from)
     {
-        return TypeSerializer.SerializeToString(@from);
+        return TypeSerializer.SerializeToString(from);
     }
 }

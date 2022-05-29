@@ -374,7 +374,10 @@ public sealed class DefaultMemory : MemoryProvider
                                     state = ParseState.TrailingWhite;
                                 }
                                 else if (allowThousands && c == ',') { }
-                                else return false;
+                                else
+                                {
+                                    return false;
+                                }
 
                                 break;
                             }
@@ -396,17 +399,19 @@ public sealed class DefaultMemory : MemoryProvider
                             return false;
                         state = ParseState.TrailingWhite;
                     }
-                    else switch (c)
+                    else
                     {
-                        case 'e':
-                        case 'E':
+                        switch (c)
+                        {
+                            case 'e':
+                            case 'E':
                             {
                                 if (noIntegerPart && scale == 0)
                                     return false;
                                 state = ParseState.Exponent;
                                 break;
                             }
-                        case >= '0' and <= '9':
+                            case >= '0' and <= '9':
                             {
                                 if (isLargeNumber)
                                 {
@@ -428,8 +433,9 @@ public sealed class DefaultMemory : MemoryProvider
                                 scale++;
                                 break;
                             }
-                        default:
-                            return false;
+                            default:
+                                return false;
+                        }
                     }
 
                     break;
@@ -496,7 +502,10 @@ public sealed class DefaultMemory : MemoryProvider
                         //set i to end of string, because ParseInt16 eats number and all trailing whites
                         i = end;
                     }
-                    else return false;
+                    else
+                    {
+                        return false;
+                    }
 
                     break;
                 case ParseState.TrailingWhite:
@@ -1276,7 +1285,10 @@ internal static class SignedInteger<T> where T : struct, IComparable<T>, IEquata
                     {
                         state = ParseState.TrailingWhite;
                     }
-                    else throw new FormatException(MemoryProvider.BadFormat);
+                    else
+                    {
+                        throw new FormatException(MemoryProvider.BadFormat);
+                    }
 
                     break;
                 case ParseState.TrailingWhite:
@@ -1462,7 +1474,10 @@ internal static class UnsignedInteger<T> where T : struct, IComparable<T>, IEqua
                     {
                         state = ParseState.TrailingWhite;
                     }
-                    else throw new FormatException(MemoryProvider.BadFormat);
+                    else
+                    {
+                        throw new FormatException(MemoryProvider.BadFormat);
+                    }
 
                     break;
                 case ParseState.TrailingWhite:

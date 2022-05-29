@@ -557,27 +557,27 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object endIfNotNull(object target) => !isNull(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object endIfNotNull(object target) => !isNull(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ends if not null.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object endIfNotNull(object ignoreTarget, object target) => !isNull(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object endIfNotNull(object ignoreTarget, object target) => !isNull(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ends if exists.
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object endIfExists(object target) => !isNull(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object endIfExists(object target) => !isNull(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ends if exists.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object endIfExists(object ignoreTarget, object target) => !isNull(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object endIfExists(object ignoreTarget, object target) => !isNull(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ends if empty.
     /// </summary>
@@ -596,46 +596,46 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object endIfNotEmpty(object target) => !isEmpty(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object endIfNotEmpty(object target) => !isEmpty(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ends if not empty.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object endIfNotEmpty(object ignoreTarget, object target) => !isEmpty(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object endIfNotEmpty(object ignoreTarget, object target) => !isEmpty(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ends if falsy.
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object endIfFalsy(object target) => isFalsy(target) ? (object)StopExecution.Value : target;
+    public object endIfFalsy(object target) => isFalsy(target) ? StopExecution.Value : target;
     /// <summary>
     /// Ends if falsy.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object endIfFalsy(object ignoreTarget, object target) => isFalsy(target) ? (object)StopExecution.Value : target;
+    public object endIfFalsy(object ignoreTarget, object target) => isFalsy(target) ? StopExecution.Value : target;
     /// <summary>
     /// Ends if truthy.
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object endIfTruthy(object target) => !isFalsy(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object endIfTruthy(object target) => !isFalsy(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ends if truthy.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object endIfTruthy(object ignoreTarget, object target) => !isFalsy(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object endIfTruthy(object ignoreTarget, object target) => !isFalsy(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ends if.
     /// </summary>
     /// <param name="test">The test.</param>
     /// <returns>System.Object.</returns>
-    public object endIf(object test) => isTrue(test) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object endIf(object test) => isTrue(test) ? StopExecution.Value : IgnoreResult.Value;
 
     /// <summary>
     /// Ends if.
@@ -697,41 +697,41 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="test">if set to <c>true</c> [test].</param>
     /// <returns>System.Object.</returns>
-    public object ifEnd(bool test) => test ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object ifEnd(bool test) => test ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ifs the end.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="test">if set to <c>true</c> [test].</param>
     /// <returns>System.Object.</returns>
-    public object ifEnd(object ignoreTarget, bool test) => test ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object ifEnd(object ignoreTarget, bool test) => test ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ifs the not end.
     /// </summary>
     /// <param name="test">if set to <c>true</c> [test].</param>
     /// <returns>System.Object.</returns>
-    public object ifNotEnd(bool test) => !test ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object ifNotEnd(bool test) => !test ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ifs the not end.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="test">if set to <c>true</c> [test].</param>
     /// <returns>System.Object.</returns>
-    public object ifNotEnd(object ignoreTarget, bool test) => !test ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object ifNotEnd(object ignoreTarget, bool test) => !test ? StopExecution.Value : IgnoreResult.Value;
 
     /// <summary>
     /// Onlies if null.
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIfNull(object target) => !isNull(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object onlyIfNull(object target) => !isNull(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Onlies if null.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIfNull(object ignoreTarget, object target) => !isNull(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object onlyIfNull(object ignoreTarget, object target) => !isNull(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Onlies if not null.
     /// </summary>
@@ -750,72 +750,72 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIfExists(object target) => isNull(target) ? (object)StopExecution.Value : target;
+    public object onlyIfExists(object target) => isNull(target) ? StopExecution.Value : target;
     /// <summary>
     /// Onlies if exists.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIfExists(object ignoreTarget, object target) => isNull(target) ? (object)StopExecution.Value : target;
+    public object onlyIfExists(object ignoreTarget, object target) => isNull(target) ? StopExecution.Value : target;
     /// <summary>
     /// Onlies if empty.
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIfEmpty(object target) => !isEmpty(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object onlyIfEmpty(object target) => !isEmpty(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Onlies if empty.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIfEmpty(object ignoreTarget, object target) => !isEmpty(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object onlyIfEmpty(object ignoreTarget, object target) => !isEmpty(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Onlies if not empty.
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIfNotEmpty(object target) => isEmpty(target) ? (object)StopExecution.Value : target;
+    public object onlyIfNotEmpty(object target) => isEmpty(target) ? StopExecution.Value : target;
     /// <summary>
     /// Onlies if not empty.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIfNotEmpty(object ignoreTarget, object target) => isEmpty(target) ? (object)StopExecution.Value : target;
+    public object onlyIfNotEmpty(object ignoreTarget, object target) => isEmpty(target) ? StopExecution.Value : target;
     /// <summary>
     /// Onlies if falsy.
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIfFalsy(object target) => !isFalsy(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object onlyIfFalsy(object target) => !isFalsy(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Onlies if falsy.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIfFalsy(object ignoreTarget, object target) => !isFalsy(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object onlyIfFalsy(object ignoreTarget, object target) => !isFalsy(target) ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Onlies if truthy.
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIfTruthy(object target) => isFalsy(target) ? (object)StopExecution.Value : target;
+    public object onlyIfTruthy(object target) => isFalsy(target) ? StopExecution.Value : target;
     /// <summary>
     /// Onlies if truthy.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIfTruthy(object ignoreTarget, object target) => isFalsy(target) ? (object)StopExecution.Value : target;
+    public object onlyIfTruthy(object ignoreTarget, object target) => isFalsy(target) ? StopExecution.Value : target;
     /// <summary>
     /// Onlies if.
     /// </summary>
     /// <param name="test">The test.</param>
     /// <returns>System.Object.</returns>
-    public object onlyIf(object test) => !isTrue(test) ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object onlyIf(object test) => !isTrue(test) ? StopExecution.Value : IgnoreResult.Value;
 
     /// <summary>
     /// Onlies if.
@@ -890,27 +890,27 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="test">if set to <c>true</c> [test].</param>
     /// <returns>System.Object.</returns>
-    public object ifOnly(bool test) => !test ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object ifOnly(bool test) => !test ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ifs the only.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="test">if set to <c>true</c> [test].</param>
     /// <returns>System.Object.</returns>
-    public object ifOnly(object ignoreTarget, bool test) => !test ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object ifOnly(object ignoreTarget, bool test) => !test ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ifs the not only.
     /// </summary>
     /// <param name="test">if set to <c>true</c> [test].</param>
     /// <returns>System.Object.</returns>
-    public object ifNotOnly(bool test) => test ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object ifNotOnly(bool test) => test ? StopExecution.Value : IgnoreResult.Value;
     /// <summary>
     /// Ifs the not only.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="test">if set to <c>true</c> [test].</param>
     /// <returns>System.Object.</returns>
-    public object ifNotOnly(object ignoreTarget, bool test) => test ? (object)StopExecution.Value : IgnoreResult.Value;
+    public object ifNotOnly(object ignoreTarget, bool test) => test ? StopExecution.Value : IgnoreResult.Value;
 
 
     /// <summary>
@@ -918,27 +918,27 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="test">The test.</param>
     /// <returns>System.Object.</returns>
-    public object ifDo(object test) => isTrue(test) ? (object)IgnoreResult.Value : StopExecution.Value;
+    public object ifDo(object test) => isTrue(test) ? IgnoreResult.Value : StopExecution.Value;
     /// <summary>
     /// Ifs the do.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="test">The test.</param>
     /// <returns>System.Object.</returns>
-    public object ifDo(object ignoreTarget, object test) => isTrue(test) ? (object)IgnoreResult.Value : StopExecution.Value;
+    public object ifDo(object ignoreTarget, object test) => isTrue(test) ? IgnoreResult.Value : StopExecution.Value;
     /// <summary>
     /// Does if.
     /// </summary>
     /// <param name="test">The test.</param>
     /// <returns>System.Object.</returns>
-    public object doIf(object test) => isTrue(test) ? (object)IgnoreResult.Value : StopExecution.Value;
+    public object doIf(object test) => isTrue(test) ? IgnoreResult.Value : StopExecution.Value;
     /// <summary>
     /// Does if.
     /// </summary>
     /// <param name="ignoreTarget">The ignore target.</param>
     /// <param name="test">The test.</param>
     /// <returns>System.Object.</returns>
-    public object doIf(object ignoreTarget, object test) => isTrue(test) ? (object)IgnoreResult.Value : StopExecution.Value;
+    public object doIf(object ignoreTarget, object test) => isTrue(test) ? IgnoreResult.Value : StopExecution.Value;
 
     /// <summary>
     /// Ifs the use.
@@ -960,7 +960,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="test">The test.</param>
     /// <param name="useValue">The use value.</param>
     /// <returns>System.Object.</returns>
-    public object ifShowRaw(object test, object useValue) => isTrue(test) ? (object)raw(useValue) : StopExecution.Value;
+    public object ifShowRaw(object test, object useValue) => isTrue(test) ? raw(useValue) : StopExecution.Value;
 
     /// <summary>
     /// Uses if.
@@ -1129,7 +1129,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns><c>true</c> if the specified target is integer; otherwise, <c>false</c>.</returns>
-    public bool isInteger(object target) => target?.GetType()?.IsIntegerType() == true;
+    public bool isInteger(object target) => target?.GetType().IsIntegerType() == true;
     /// <summary>
     /// Determines whether the specified target is double.
     /// </summary>
@@ -1215,7 +1215,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <param name="typeName">Name of the type.</param>
     /// <returns><c>true</c> if the specified target is type; otherwise, <c>false</c>.</returns>
-    public bool isType(object target, string typeName) => typeName.EqualsIgnoreCase(target?.GetType()?.Name);
+    public bool isType(object target, string typeName) => typeName.EqualsIgnoreCase(target?.GetType().Name);
     /// <summary>
     /// Determines whether the specified target is number.
     /// </summary>
@@ -1461,7 +1461,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
 
         if (target is IComparable c)
         {
-            return target.GetType() == other?.GetType()
+            return target.GetType() == other.GetType()
                        ? fn(c.CompareTo(other))
                        : fn(c.CompareTo(other.ConvertTo(target.GetType())));
         }
@@ -1672,7 +1672,10 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
                 }
                 args[varName] = to;
             }
-            else throw new NotSupportedException(nameof(addToStart) + " can only add to an IEnumerable not a " + collection.GetType().Name);
+            else
+            {
+                throw new NotSupportedException(nameof(addToStart) + " can only add to an IEnumerable not a " + collection.GetType().Name);
+            }
         }
         else
         {
@@ -1744,7 +1747,10 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
                 }
                 args[varName] = to;
             }
-            else throw new NotSupportedException(filterName + " can only add to an IEnumerable not a " + collection.GetType().Name);
+            else
+            {
+                throw new NotSupportedException(filterName + " can only add to an IEnumerable not a " + collection.GetType().Name);
+            }
         }
         else
         {
@@ -1856,7 +1862,11 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
                 }
             }
         }
-        else return false;
+        else
+        {
+            return false;
+        }
+
         return true;
     }
 
@@ -2537,7 +2547,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         if (scopedParams.TryGetValue("type", out object oType))
         {
             if (oType is string typeName)
-                return items.Where(x => x?.GetType()?.Name == typeName);
+                return items.Where(x => x?.GetType().Name == typeName);
             if (oType is Type type)
                 return items.Where(x => x?.GetType() == type);
         }
@@ -3068,43 +3078,42 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
 
         var stringKeys = removeKeys?.OfType<string>().ToArray();
         if (stringKeys.IsEmpty())
-            stringKeys = null;
-
-        if (target is IDictionary d)
-            return removeKeyFromDictionary(d, removeKeys);
-
-        if (target is IEnumerable e)
         {
-            object first = null;
-            foreach (var item in e)
-            {
-                if (item == null)
-                    continue;
+        }
 
-                first = item;
+        switch (target)
+        {
+            case IDictionary d:
+                return removeKeyFromDictionary(d, removeKeys);
+            case IEnumerable e:
+            {
+                object first = e.Cast<object>().FirstOrDefault(item => item != null);
+                if (first == null)
+                    return target;
+
+                var itemType = first.GetType();
+                var props = TypeProperties.Get(itemType);
+
+                if (first is not IDictionary)
+                    throw new NotSupportedException(nameof(remove) + " removes keys from a IDictionary or [IDictionary]");
+
+                foreach (var item in e)
+                {
+                    switch (item)
+                    {
+                        case null:
+                            continue;
+                        case IDictionary ed:
+                            removeKeyFromDictionary(ed, removeKeys);
+                            break;
+                    }
+                }
+
                 break;
             }
-            if (first == null)
-                return target;
-
-            var itemType = first.GetType();
-            var props = TypeProperties.Get(itemType);
-
-            if (first is not IDictionary)
+            default:
                 throw new NotSupportedException(nameof(remove) + " removes keys from a IDictionary or [IDictionary]");
-
-            foreach (var item in e)
-            {
-                if (item == null)
-                    continue;
-
-                if (item is IDictionary ed)
-                {
-                    removeKeyFromDictionary(ed, removeKeys);
-                }
-            }
         }
-        else throw new NotSupportedException(nameof(remove) + " removes keys from a IDictionary or [IDictionary]");
 
         return target;
     }

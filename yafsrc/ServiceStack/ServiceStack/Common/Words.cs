@@ -27,8 +27,6 @@ public static class Words
     private static readonly ArrayList singulars = new();
     private static readonly ArrayList uncountables = new();
 
-    #region Default Rules
-
     static Words()
     {
         AddPlural("$", "s");
@@ -90,10 +88,6 @@ public static class Words
         AddUncountable("sheep");
     }
 
-    #endregion
-
-    #region Rule inner class
-
     private class Rule
     {
         private readonly Regex regex;
@@ -115,8 +109,6 @@ public static class Words
             return regex.Replace(word, replacement);
         }
     }
-
-    #endregion
 
     /// <summary>
     /// Return the plural of a word.

@@ -716,8 +716,8 @@ public class JsArrowFunctionExpression : JsExpression
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Body missing in Arrow Function Expression</exception>
     public JsArrowFunctionExpression(JsIdentifier[] @params, JsToken body)
     {
-        Params = @params ?? throw new SyntaxErrorException($"Params missing in Arrow Function Expression");
-        Body = body ?? throw new SyntaxErrorException($"Body missing in Arrow Function Expression");
+        Params = @params ?? throw new SyntaxErrorException("Params missing in Arrow Function Expression");
+        Body = body ?? throw new SyntaxErrorException("Body missing in Arrow Function Expression");
     }
 
     /// <summary>

@@ -172,7 +172,7 @@ namespace ServiceStack.Text
                 propertyInfo.PropertyType.IsValueType ? OpCodes.Unbox_Any : OpCodes.Castclass,
                 propertyInfo.PropertyType);
 
-            gen.EmitCall(mi.IsFinal ? OpCodes.Call : OpCodes.Callvirt, mi, (Type[])null);
+            gen.EmitCall(mi.IsFinal ? OpCodes.Call : OpCodes.Callvirt, mi, null);
 
             gen.Emit(OpCodes.Ret);
 

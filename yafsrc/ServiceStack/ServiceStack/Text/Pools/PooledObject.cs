@@ -61,7 +61,6 @@ public struct PooledObject<T> : IDisposable where T : class
         }
     }
 
-    #region factory
     /// <summary>
     /// Creates the specified pool.
     /// </summary>
@@ -127,9 +126,7 @@ public struct PooledObject<T> : IDisposable where T : class
     {
         return new PooledObject<List<TItem>>(pool, Allocator, Releaser);
     }
-    #endregion
 
-    #region allocators and releasers
     /// <summary>
     /// Allocators the specified pool.
     /// </summary>
@@ -261,5 +258,4 @@ public struct PooledObject<T> : IDisposable where T : class
     {
         pool.ClearAndFree(obj);
     }
-    #endregion
 }

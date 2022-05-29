@@ -19,7 +19,7 @@ public class IndexFieldsCacheKey
     /// <summary>
     /// The hash code
     /// </summary>
-    int hashCode;
+    readonly int hashCode;
 
     /// <summary>
     /// Gets the model definition.

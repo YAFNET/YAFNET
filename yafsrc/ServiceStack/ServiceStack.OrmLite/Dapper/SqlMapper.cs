@@ -1249,8 +1249,10 @@ namespace ServiceStack.OrmLite.Dapper
         {
             switch (row)
             {  // get the standard exception from the runtime
-                case Row.Single: ErrTwoRows.Single(); break;
-                case Row.SingleOrDefault: ErrTwoRows.SingleOrDefault(); break;
+                case Row.Single: ErrTwoRows.Single();
+                    break;
+                case Row.SingleOrDefault: ErrTwoRows.SingleOrDefault();
+                    break;
                 default: throw new InvalidOperationException();
             }
         }

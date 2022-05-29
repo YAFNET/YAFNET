@@ -47,8 +47,6 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         this.StringSerializer = new JsvStringSerializer();
     }
 
-    #region ADO.NET supported types
-
     /* ADO.NET UNDERSTOOD DATA TYPES:
                 COUNTER	DbType.Int64
                 AUTOINCREMENT	DbType.Int64
@@ -97,7 +95,6 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 SMALLDATE	DbType.DateTime
                 SMALLDATETIME	DbType.DateTime
              */
-    #endregion
 
     /// <summary>
     /// Initializes the column type map.

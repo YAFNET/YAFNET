@@ -377,8 +377,8 @@ public class JsonStringSerializer : IStringSerializer
     /// <typeparam name="TFrom">The type of the t from.</typeparam>
     /// <param name="from">From.</param>
     /// <returns>System.String.</returns>
-    public string SerializeToString<TFrom>(TFrom @from)
+    public string SerializeToString<TFrom>(TFrom from)
     {
-        return JsonSerializer.SerializeToString(@from);
+        return JsonSerializer.SerializeToString(from);
     }
 }

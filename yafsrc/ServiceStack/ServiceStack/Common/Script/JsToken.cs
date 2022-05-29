@@ -667,7 +667,7 @@ public static class JsTokenUtils
         if (literal.IsNullOrEmpty())
             return default;
 
-        var i = 0;
+        int i;
         literal = literal.AdvancePastWhitespace();
 
         var firstChar = literal[0];
@@ -929,8 +929,11 @@ public static class JsTokenUtils
                 literal = literal.Advance(1);
             }
         }
-        else throw new SyntaxErrorException(
-            $"Expected '(' but was instead '{literal.DebugFirstChar()}', near: {literal.DebugLiteral()}");
+        else
+        {
+            throw new SyntaxErrorException(
+                $"Expected '(' but was instead '{literal.DebugFirstChar()}', near: {literal.DebugLiteral()}");
+        }
 
         return literal;
     }

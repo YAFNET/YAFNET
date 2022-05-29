@@ -31,7 +31,7 @@ class Link<TKey, TValue> where TKey : class
     {
         while (link != null)
         {
-            if ((object)key == (object)link.Key)
+            if (key == link.Key)
             {
                 value = link.Value;
                 return true;

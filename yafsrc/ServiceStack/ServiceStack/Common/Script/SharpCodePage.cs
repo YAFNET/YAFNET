@@ -145,7 +145,7 @@ public abstract class SharpCodePage : IDisposable
 
             var pageAttr = type.FirstAttribute<PageAttribute>();
             VirtualPath = pageAttr.VirtualPath;
-            Layout ??= pageAttr?.Layout;
+            Layout ??= pageAttr.Layout;
 
             LayoutPage = Pages.ResolveLayoutPage(this, Layout);
 

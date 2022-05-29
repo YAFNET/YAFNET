@@ -147,7 +147,7 @@ namespace ServiceStack.Text
             }
             catch (Exception ex)
             {
-                throw new SerializationException($"Error serializing object of type {@from.GetType().FullName}", ex);
+                throw new SerializationException($"Error serializing object of type {from.GetType().FullName}", ex);
             }
         }
 

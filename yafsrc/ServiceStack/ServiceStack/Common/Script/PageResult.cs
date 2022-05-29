@@ -9,10 +9,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using ServiceStack.Logging;
+
 using ServiceStack.Text;
 using ServiceStack.Web;
 
@@ -661,7 +660,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     /// <param name="page">The page.</param>
     /// <returns>Task.</returns>
     private Task InitIfNewPage(SharpPage page) => page != Page
-                                                      ? (Task)page.Init()
+                                                      ? page.Init()
                                                       : TypeConstants.EmptyTask;
 
     /// <summary>
@@ -843,13 +842,15 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     public async Task WriteVarAsync(ScriptScopeContext scope, PageVariableFragment var, CancellationToken token)
     {
         if (var.Binding != null)
-            stackTrace.Push($"Expression (binding): " + var.Binding);
+            stackTrace.Push($"Expression (binding): {var.Binding}");
         else if (var.InitialExpression?.Name != null)
-            stackTrace.Push("Expression (filter): " + var.InitialExpression.Name);
+            stackTrace.Push($"Expression (filter): {var.InitialExpression.Name}");
         else if (var.InitialValue != null)
-            stackTrace.Push($"Expression ({var.InitialValue.GetType().Name}): " + toDebugString(var.InitialValue).SubstringWithEllipsis(0, 200));
+            stackTrace.Push(
+                $"Expression ({var.InitialValue.GetType().Name}): {toDebugString(var.InitialValue).SubstringWithEllipsis(0, 200)}");
         else
-            stackTrace.Push($"{var.Expression.GetType().Name}: " + var.Expression.ToRawString().SubstringWithEllipsis(0, 200));
+            stackTrace.Push(
+                $"{var.Expression.GetType().Name}: {var.Expression.ToRawString().SubstringWithEllipsis(0, 200)}");
 
         var value = await EvaluateAsync(var, scope, token).ConfigAwait();
         if (value != IgnoreResult.Value)
@@ -1473,7 +1474,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
             throw new ArgumentNullException(nameof(name));
 
         MethodInvoker invoker;
-        var ret = true;
+        const bool ret = true;
 
         value = scope.ScopedParams != null && scope.ScopedParams.TryGetValue(name, out object obj)
                     ? obj

@@ -1,10 +1,10 @@
-// ***********************************************************************
+﻿// ***********************************************************************
 // <copyright file="SharpPagesExtensions.cs" company="ServiceStack, Inc.">
 //     Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-using System.IO;
+
 using System.Threading.Tasks;
 using ServiceStack.Text;
 using ServiceStack.Web;

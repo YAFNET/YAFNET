@@ -571,7 +571,7 @@ public static class DateTimeSerializer
     public static TimeSpan? ParseNullableTimeSpan(string dateTimeStr)
     {
         return string.IsNullOrEmpty(dateTimeStr)
-                   ? (TimeSpan?)null
+                   ? null
                    : ParseTimeSpan(dateTimeStr);
     }
 

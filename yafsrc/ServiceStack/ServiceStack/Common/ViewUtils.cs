@@ -1215,7 +1215,7 @@ public static class ViewUtils
             return TypeConstants.EmptyStringArray;
 
         var strings = arg as IEnumerable<string> ?? (arg is string s
-                                                         ? (IEnumerable<string>)new[] { s }
+                                                         ? new[] { s }
                                                          : arg is IEnumerable<object> e
                                                              ? e.Map(x => x.AsString())
                                                              : throw new NotSupportedException($"{filterName} expected a collection of strings but was '{arg.GetType().Name}'"));
@@ -1559,7 +1559,10 @@ public static class ViewUtils
                 }
                 inputHtml = StringBuilderCacheAlt.ReturnAndFree(sbInput);
             }
-            else throw new NotSupportedException($"input type=radio requires 'values' inputOption containing a collection of Key/Value Pairs");
+            else
+            {
+                throw new NotSupportedException("input type=radio requires 'values' inputOption containing a collection of Key/Value Pairs");
+            }
         }
         else if (type == "checkbox")
         {
@@ -1596,7 +1599,7 @@ public static class ViewUtils
                     new Dictionary<string, object> { { "selected", formValue ?? value } });
             }
             else if (!args.ContainsKey("html"))
-                throw new NotSupportedException($"<select> requires either 'values' inputOption containing a collection of Key/Value Pairs or 'html' argument containing innerHTML <option>'s");
+                throw new NotSupportedException("<select> requires either 'values' inputOption containing a collection of Key/Value Pairs or 'html' argument containing innerHTML <option>'s");
         }
 
         inputHtml ??= HtmlScripts.htmlTag(args, tagName).AsString();
@@ -1701,7 +1704,7 @@ public static class ViewUtils
                      : name == "web"
                          ? webVfs
                          : name == "filesystem"
-                             ? (IVirtualPathProvider)webVfs.GetFileSystemVirtualFiles()
+                             ? webVfs.GetFileSystemVirtualFiles()
                              : name == "memory"
                                  ? webVfs.GetMemoryVirtualFiles()
                                  : throw new NotSupportedException($"Unknown Virtual File System provider '{name}' used in '{filterName}'. Valid providers: web,content,filesystem,memory");
@@ -1755,7 +1758,10 @@ public static class ViewUtils
 
                 yield return file;
             }
-            else throw new NotSupportedException($"Could not find resource at virtual path '{source}' in '{filterName}'");
+            else
+            {
+                throw new NotSupportedException($"Could not find resource at virtual path '{source}' in '{filterName}'");
+            }
         }
     }
 

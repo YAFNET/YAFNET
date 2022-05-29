@@ -130,7 +130,10 @@ public sealed class ScriptTemplate : ScriptLanguage
             var block = scope.PageResult.GetBlock(blockFragment.Name);
             await block.WriteAsync(scope, blockFragment, token).ConfigAwait();
         }
-        else return false;
+        else
+        {
+            return false;
+        }
 
         return true;
     }
@@ -428,7 +431,7 @@ public static class ScriptTemplateUtils
         {
             pos = literal.IndexOf("{{", pos);
             if (pos == -1)
-                throw new SyntaxErrorException($"End block for 'else' not found.");
+                throw new SyntaxErrorException("End block for 'else' not found.");
 
             var c = literal.SafeGetChar(pos + 2);
             if (c == '#')
@@ -462,7 +465,7 @@ public static class ScriptTemplateUtils
 
                     var endExprPos = literal.IndexOf("}}", pos);
                     if (endExprPos == -1)
-                        throw new SyntaxErrorException($"End expression for 'else' not found.");
+                        throw new SyntaxErrorException("End expression for 'else' not found.");
 
                     var exprStartPos = pos + 2 + 4; //= {{else...
 
@@ -713,7 +716,7 @@ public static class ScriptTemplateUtils
                 {
                     var lastExpr = varFragment.FilterExpressions?.LastOrDefault();
                     var filterName = lastExpr?.Name ??
-                                     varFragment?.InitialExpression?.Name ?? varFragment.Binding;
+                                     varFragment.InitialExpression?.Name ?? varFragment.Binding;
                     if (filterName != null && context.RemoveNewLineAfterFiltersNamed.Contains(filterName)
                         || expr is JsVariableDeclaration)
                     {

@@ -48,7 +48,7 @@ internal static class WriteDictionary<TSerializer>
         /// <summary>
         /// The key type
         /// </summary>
-        internal Type KeyType;
+        internal readonly Type KeyType;
         /// <summary>
         /// The value type
         /// </summary>

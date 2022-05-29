@@ -100,7 +100,7 @@ public static class AutoMappingUtils
     /// <param name="defaultValue">The default value.</param>
     /// <returns>T.</returns>
     public static T ConvertTo<T>(this object from, T defaultValue) =>
-        from == null || @from is ""
+        from == null || from is ""
             ? defaultValue
             : from.ConvertTo<T>();
 
@@ -203,7 +203,7 @@ public static class AutoMappingUtils
         if (mi != null)
             return mi.Invoke(null, new[] { from });
 
-        switch (@from)
+        switch (from)
         {
             case string str:
                 return TypeSerializer.DeserializeFromString(str, toType);
@@ -220,7 +220,7 @@ public static class AutoMappingUtils
             return listResult;
         }
 
-        switch (@from)
+        switch (from)
         {
             case IEnumerable<KeyValuePair<string, object>> objDict:
                 return objDict.FromObjectDictionary(toType);
@@ -229,7 +229,7 @@ public static class AutoMappingUtils
             default:
                 {
                     var to = toType.CreateInstance();
-                    return to.PopulateWith(@from);
+                    return to.PopulateWith(from);
                 }
         }
     }
@@ -293,7 +293,7 @@ public static class AutoMappingUtils
         {
             var toString = toType == typeof(string);
             if (toType == typeof(char) && s != null)
-                return s.Length > 0 ? (object)s[0] : null;
+                return s.Length > 0 ? s[0] : null;
             if (toString && from is char c)
                 return c.ToString();
             if (toType == typeof(TimeSpan) && from is long ticks)
@@ -855,7 +855,7 @@ public static class AutoMappingUtils
                 var attributes = propertyInfo.GetCustomAttributes(attributeType, true);
                 foreach (var attribute in attributes)
                 {
-                    yield return new KeyValuePair<PropertyInfo, T>(propertyInfo, (T)(object)attribute);
+                    yield return new KeyValuePair<PropertyInfo, T>(propertyInfo, (T)attribute);
                 }
             }
         }
@@ -1136,10 +1136,10 @@ public class AssignmentEntry
     /// <param name="name">The name.</param>
     /// <param name="from">From.</param>
     /// <param name="to">To.</param>
-    public AssignmentEntry(string name, AssignmentMember @from, AssignmentMember to)
+    public AssignmentEntry(string name, AssignmentMember from, AssignmentMember to)
     {
         Name = name;
-        From = @from;
+        From = from;
         To = to;
 
         GetValueFn = From.CreateGetter();

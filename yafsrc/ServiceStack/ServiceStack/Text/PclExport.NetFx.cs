@@ -785,8 +785,8 @@ namespace ServiceStack.Text
         {
             using var deflateStream = new System.IO.Compression.DeflateStream(stream, System.IO.Compression.CompressionMode.Compress);
             using var xw = new System.Xml.XmlTextWriter(deflateStream, Encoding.UTF8);
-            var serializer = new DataContractSerializer(@from.GetType());
-            serializer.WriteObject(xw, @from);
+            var serializer = new DataContractSerializer(from.GetType());
+            serializer.WriteObject(xw, from);
             xw.Flush();
         }
 

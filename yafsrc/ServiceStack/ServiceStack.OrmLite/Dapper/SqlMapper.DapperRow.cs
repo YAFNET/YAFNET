@@ -165,8 +165,6 @@ public static partial class SqlMapper
             return GetEnumerator();
         }
 
-        #region Implementation of ICollection<KeyValuePair<string,object>>
-
         /// <summary>
         /// Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1" />.
         /// </summary>
@@ -225,9 +223,6 @@ public static partial class SqlMapper
         /// </summary>
         /// <value><c>true</c> if this instance is read only; otherwise, <c>false</c>.</value>
         bool ICollection<KeyValuePair<string, object>>.IsReadOnly => false;
-        #endregion
-
-        #region Implementation of IDictionary<string,object>
 
         /// <summary>
         /// Determines whether the <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the specified key.
@@ -357,12 +352,6 @@ public static partial class SqlMapper
             get { return this.Select(kv => kv.Value).ToArray(); }
         }
 
-        #endregion
-
-
-        #region Implementation of IReadOnlyDictionary<string,object>
-
-
         /// <summary>
         /// Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
         /// </summary>
@@ -413,7 +402,5 @@ public static partial class SqlMapper
         {
             get { return this.Select(kv => kv.Value); }
         }
-
-        #endregion
     }
 }

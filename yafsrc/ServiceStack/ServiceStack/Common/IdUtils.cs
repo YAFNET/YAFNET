@@ -8,7 +8,6 @@ using System;
 using System.Linq;
 using System.Reflection;
 using ServiceStack.Model;
-using ServiceStack.Reflection;
 using ServiceStack.Text;
 
 namespace ServiceStack;

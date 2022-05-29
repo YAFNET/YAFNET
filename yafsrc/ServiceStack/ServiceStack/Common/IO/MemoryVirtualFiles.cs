@@ -703,7 +703,7 @@ public class InMemoryVirtualFile : AbstractVirtualFileBase
     public override object GetContents()
     {
         return TextContents != null
-                   ? (object)TextContents.AsMemory()
+                   ? TextContents.AsMemory()
                    : ByteContents != null ? new ReadOnlyMemory<byte>(ByteContents) : null;
     }
 

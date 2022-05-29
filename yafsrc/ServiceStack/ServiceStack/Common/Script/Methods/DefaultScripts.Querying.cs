@@ -8,7 +8,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ServiceStack.Script;
 using ServiceStack.Text;
 
 namespace ServiceStack.Script;
@@ -100,7 +99,7 @@ public partial class DefaultScripts
             }
             return false;
         }
-        throw new NotSupportedException($"'{nameof(contains)}' requires a string or IEnumerable but received a '{target.GetType()?.Name}' instead");
+        throw new NotSupportedException($"'{nameof(contains)}' requires a string or IEnumerable but received a '{target.GetType().Name}' instead");
     }
 
     /// <summary>
@@ -540,7 +539,7 @@ public partial class DefaultScripts
             }
             else
             {
-                scopedParams = scope.GetParamsWithItemBindingOnly(nameof(@let), null, scopeBindings, out itemBinding);
+                scopedParams = scope.GetParamsWithItemBindingOnly(nameof(let), null, scopeBindings, out itemBinding);
             }
 
             var to = new List<ScopeVars>();
@@ -606,7 +605,7 @@ public partial class DefaultScripts
             return to;
         }
         if (target != null)
-            throw new NotSupportedException($"'{nameof(let)}' in '{scope.Page.VirtualPath}' requires an IEnumerable but received a '{target.GetType()?.Name}' instead");
+            throw new NotSupportedException($"'{nameof(let)}' in '{scope.Page.VirtualPath}' requires an IEnumerable but received a '{target.GetType().Name}' instead");
 
         return null;
     }
@@ -1049,16 +1048,14 @@ public partial class DefaultScripts
     /// <param name="scopedParams">The scoped parameters.</param>
     /// <returns>IComparer&lt;System.Object&gt;.</returns>
     /// <exception cref="System.NotSupportedException">'{filterName}' in '{scope.Page.VirtualPath}' expects a IComparer but received a '{oComparer.GetType()?.Name}' instead</exception>
-    private static IComparer<object> GetComparer(string filterName, ScriptScopeContext scope, Dictionary<string, object> scopedParams)
+    private static IComparer<object> GetComparer(string filterName, ScriptScopeContext scope, IReadOnlyDictionary<string, object> scopedParams)
     {
         var comparer = (IComparer<object>)Comparer<object>.Default;
-        if (scopedParams.TryGetValue(ScriptConstants.Comparer, out object oComparer))
-        {
-            if (oComparer is not IComparer nonGenericComparer)
-                throw new NotSupportedException(
-                    $"'{filterName}' in '{scope.Page.VirtualPath}' expects a IComparer but received a '{oComparer.GetType()?.Name}' instead");
-            comparer = new ComparerWrapper(nonGenericComparer);
-        }
+        if (!scopedParams.TryGetValue(ScriptConstants.Comparer, out object oComparer)) return comparer;
+        if (oComparer is not IComparer nonGenericComparer)
+            throw new NotSupportedException(
+                $"'{filterName}' in '{scope.Page.VirtualPath}' expects a IComparer but received a '{oComparer.GetType().Name}' instead");
+        comparer = new ComparerWrapper(nonGenericComparer);
         return comparer;
     }
 
@@ -1099,7 +1096,7 @@ public partial class DefaultScripts
     public static IEnumerable<object> thenByInternal(string filterName, ScriptScopeContext scope, object target, object expression, object scopeOptions)
     {
         if (target is not IOrderedEnumerable<object> items)
-            throw new NotSupportedException($"'{filterName}' in '{scope.Page.VirtualPath}' requires an IOrderedEnumerable but received a '{target?.GetType()?.Name}' instead");
+            throw new NotSupportedException($"'{filterName}' in '{scope.Page.VirtualPath}' requires an IOrderedEnumerable but received a '{target?.GetType().Name}' instead");
 
         var expr = scope.AssertExpression(filterName, expression, scopeOptions, out var itemBinding);
 
@@ -1157,7 +1154,7 @@ public partial class DefaultScripts
             {
                 if (oComparer is not IEqualityComparer nonGenericComparer)
                     throw new NotSupportedException(
-                        $"'{nameof(groupBy)}' in '{scope.Page.VirtualPath}' expects a IEqualityComparer but received a '{oComparer.GetType()?.Name}' instead");
+                        $"'{nameof(groupBy)}' in '{scope.Page.VirtualPath}' expects a IEqualityComparer but received a '{oComparer.GetType().Name}' instead");
                 comparer = new EqualityComparerWrapper(nonGenericComparer);
             }
         }
@@ -1175,7 +1172,10 @@ public partial class DefaultScripts
                 mapBinding = arrowExpr.Params[0].Name;
                 mapExpr = arrowExpr.Body;
             }
-            else throw new NotSupportedException($"map expression in '{nameof(groupBy)}' must be a string or arrow expression");
+            else
+            {
+                throw new NotSupportedException($"map expression in '{nameof(groupBy)}' must be a string or arrow expression");
+            }
 
             scope = scope.Clone();
             var result = items.GroupBy(

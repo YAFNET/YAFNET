@@ -46,10 +46,8 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <exception cref="System.ArgumentNullException">connection</exception>
     private void Init(DbConnection connection, IDbProfiler profiler, bool autoDisposeConnection)
     {
-        if (connection == null) throw new ArgumentNullException(nameof(connection));
-
         AutoDisposeConnection = autoDisposeConnection;
-        _conn = connection;
+        _conn = connection ?? throw new ArgumentNullException(nameof(connection));
         _conn.StateChange += StateChangeHandler;
 
         if (profiler != null)

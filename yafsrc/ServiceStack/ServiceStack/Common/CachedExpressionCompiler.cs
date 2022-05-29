@@ -109,7 +109,7 @@ namespace ServiceStack.ExpressionUtil
         /// Gets the method.
         /// </summary>
         /// <value>The method.</value>
-        public MethodInfo Method { get; private set; }
+        public MethodInfo Method { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
@@ -467,14 +467,14 @@ namespace ServiceStack.ExpressionUtil
         /// Gets the type of the node.
         /// </summary>
         /// <value>The type of the node.</value>
-        public ExpressionType NodeType { get; private set; }
+        public ExpressionType NodeType { get; }
 
         // the CLR type resulting from this expression, e.g. int, string, etc.
         /// <summary>
         /// Gets the type.
         /// </summary>
         /// <value>The type.</value>
-        public Type Type { get; private set; }
+        public Type Type { get; }
 
         /// <summary>
         /// Adds to hash code combiner.
@@ -514,7 +514,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode()
         {
-            HashCodeCombiner combiner = new HashCodeCombiner();
+            HashCodeCombiner combiner = new();
             AddToHashCodeCombiner(combiner);
             return combiner.CombinedHash;
         }
@@ -579,7 +579,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode()
         {
-            HashCodeCombiner combiner = new HashCodeCombiner();
+            HashCodeCombiner combiner = new();
             Elements.ForEach(combiner.AddFingerprint);
 
             return combiner.CombinedHash;
@@ -641,7 +641,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>ExpressionFingerprintChain.</returns>
         public static ExpressionFingerprintChain GetFingerprintChain(Expression expr, out List<object> capturedConstants)
         {
-            FingerprintingExpressionVisitor visitor = new FingerprintingExpressionVisitor();
+            FingerprintingExpressionVisitor visitor = new();
             visitor.Visit(expr);
 
             if (visitor._gaveUp)
@@ -1246,7 +1246,7 @@ namespace ServiceStack.ExpressionUtil
         /// Gets the indexer.
         /// </summary>
         /// <value>The indexer.</value>
-        public PropertyInfo Indexer { get; private set; }
+        public PropertyInfo Indexer { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
@@ -1344,7 +1344,7 @@ namespace ServiceStack.ExpressionUtil
         /// Gets the member.
         /// </summary>
         /// <value>The member.</value>
-        public MemberInfo Member { get; private set; }
+        public MemberInfo Member { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
@@ -1405,7 +1405,7 @@ namespace ServiceStack.ExpressionUtil
         /// Gets the method.
         /// </summary>
         /// <value>The method.</value>
-        public MethodInfo Method { get; private set; }
+        public MethodInfo Method { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
@@ -1463,7 +1463,7 @@ namespace ServiceStack.ExpressionUtil
         /// Gets the index of the parameter.
         /// </summary>
         /// <value>The index of the parameter.</value>
-        public int ParameterIndex { get; private set; }
+        public int ParameterIndex { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
@@ -1521,7 +1521,7 @@ namespace ServiceStack.ExpressionUtil
         /// Gets the type operand.
         /// </summary>
         /// <value>The type operand.</value>
-        public Type TypeOperand { get; private set; }
+        public Type TypeOperand { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
@@ -1531,7 +1531,7 @@ namespace ServiceStack.ExpressionUtil
         public override bool Equals(object obj)
         {
             return obj is TypeBinaryExpressionFingerprint other
-                   && Equals(this.TypeOperand, other.TypeOperand)
+                   && this.TypeOperand == other.TypeOperand
                    && this.Equals(other);
         }
 
@@ -1582,7 +1582,7 @@ namespace ServiceStack.ExpressionUtil
         /// Gets the method.
         /// </summary>
         /// <value>The method.</value>
-        public MethodInfo Method { get; private set; }
+        public MethodInfo Method { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.

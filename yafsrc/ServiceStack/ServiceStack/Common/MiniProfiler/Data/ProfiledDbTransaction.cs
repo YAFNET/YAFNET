@@ -40,13 +40,8 @@ public class ProfiledDbTransaction : DbTransaction, IHasDbTransaction
     /// <exception cref="System.ArgumentNullException">connection</exception>
     public ProfiledDbTransaction(DbTransaction transaction, ProfiledConnection connection)
     {
-        if (transaction == null)
-            throw new ArgumentNullException(nameof(transaction));
-        if (connection == null)
-            throw new ArgumentNullException(nameof(connection));
-
-        this.trans = transaction;
-        this.db = connection;
+        this.trans = transaction ?? throw new ArgumentNullException(nameof(transaction));
+        this.db = connection ?? throw new ArgumentNullException(nameof(connection));
     }
 
     /// <summary>

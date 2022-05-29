@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ServiceStack.Script;
+
 using ServiceStack.Text;
 
 namespace ServiceStack.Script;
@@ -370,13 +370,11 @@ public class HtmlScripts : ScriptMethods, IConfigureScriptContext
         if (target.GetType().IsNumericType() || target is bool)
             return target.ToString();
 
-        if (target is DateTime d)
-            return defaults?.dateFormat(d) ?? d.ToString(defaults.GetDefaultCulture());
-
-        if (target is TimeSpan t)
-            return defaults?.timeFormat(t) ?? t.ToString();
-
-        return (target.ToString() ?? "").HtmlEncode();
+        return target switch {
+            DateTime d => defaults?.dateFormat(d) ?? d.ToString(defaults.GetDefaultCulture()),
+            TimeSpan t => defaults?.timeFormat(t) ?? t.ToString(),
+            _ => (target.ToString()).HtmlEncode()
+        };
     }
 
     /// <summary>

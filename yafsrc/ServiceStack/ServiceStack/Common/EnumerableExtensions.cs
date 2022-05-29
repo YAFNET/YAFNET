@@ -304,17 +304,9 @@ public static class EnumerableExtensions
     /// <param name="converter">The converter.</param>
     /// <returns>List&lt;To&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static List<To> Map<To>(this System.Collections.IEnumerable items, Func<object, To> converter)
+    public static List<To> Map<To>(this IEnumerable items, Func<object, To> converter)
     {
-        if (items == null)
-            return new List<To>();
-
-        var list = new List<To>();
-        foreach (var item in items)
-        {
-            list.Add(converter(item));
-        }
-        return list;
+        return items == null ? new List<To>() : (from object item in items select converter(item)).ToList();
     }
 
     /// <summary>

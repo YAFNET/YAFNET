@@ -32,7 +32,7 @@ public static class AttributeExtensions
         if (componentDescAttr != null)
             return componentDescAttr.Description;
 
-        var ssDescAttr = type.FirstAttribute<ServiceStack.DataAnnotations.DescriptionAttribute>();
+        var ssDescAttr = type.FirstAttribute<DataAnnotations.DescriptionAttribute>();
         return ssDescAttr?.Description;
     }
 
@@ -51,7 +51,7 @@ public static class AttributeExtensions
         if (componentDescAttr != null)
             return componentDescAttr.Description;
 
-        var ssDescAttr = mi.FirstAttribute<ServiceStack.DataAnnotations.DescriptionAttribute>();
+        var ssDescAttr = mi.FirstAttribute<DataAnnotations.DescriptionAttribute>();
         return ssDescAttr?.Description;
     }
 
@@ -66,7 +66,7 @@ public static class AttributeExtensions
         if (componentDescAttr != null)
             return componentDescAttr.Description;
 
-        var ssDescAttr = pi.FirstAttribute<ServiceStack.DataAnnotations.DescriptionAttribute>();
+        var ssDescAttr = pi.FirstAttribute<DataAnnotations.DescriptionAttribute>();
         return ssDescAttr?.Description;
     }
 }

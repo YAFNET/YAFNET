@@ -438,7 +438,7 @@ public partial class SharpPages : ISharpPages
                     }
                 }
             }
-            else if (filter?.Name != null && Context.FileFilterNames.Contains(filter?.Name))
+            else if (filter?.Name != null && Context.FileFilterNames.Contains(filter.Name))
             {
                 if (fragment.InitialValue is string filePath)
                 {

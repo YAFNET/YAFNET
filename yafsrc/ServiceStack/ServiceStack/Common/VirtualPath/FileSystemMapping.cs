@@ -32,7 +32,7 @@ public class FileSystemMapping : AbstractVirtualPathProviderBase
     /// Gets the alias.
     /// </summary>
     /// <value>The alias.</value>
-    public string Alias { get; private set; }
+    public string Alias { get; }
 
     /// <summary>
     /// Gets the root directory.

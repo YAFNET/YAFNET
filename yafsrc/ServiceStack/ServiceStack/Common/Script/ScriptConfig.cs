@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using ServiceStack.IO;
+
 using ServiceStack.Text;
 
 namespace ServiceStack.Script;

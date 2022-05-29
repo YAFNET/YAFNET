@@ -103,7 +103,7 @@ public static class DeserializeBuiltin<T>
             {
                 case TypeCode.Boolean:
                     return value => value.IsNullOrEmpty()
-                                        ? (bool?)null
+                                        ? null
                                         : value.ParseBoolean();
                 case TypeCode.SByte:
                     return SignedInteger<sbyte>.ParseNullableObject;
@@ -123,21 +123,21 @@ public static class DeserializeBuiltin<T>
                     return UnsignedInteger<ulong>.ParseNullableObject;
 
                 case TypeCode.Single:
-                    return value => value.IsNullOrEmpty() ? (float?)null : value.ParseFloat();
+                    return value => value.IsNullOrEmpty() ? null : value.ParseFloat();
                 case TypeCode.Double:
-                    return value => value.IsNullOrEmpty() ? (double?)null : value.ParseDouble();
+                    return value => value.IsNullOrEmpty() ? null : value.ParseDouble();
                 case TypeCode.Decimal:
-                    return value => value.IsNullOrEmpty() ? (decimal?)null : value.ParseDecimal();
+                    return value => value.IsNullOrEmpty() ? null : value.ParseDecimal();
                 case TypeCode.DateTime:
                     return value => DateTimeSerializer.ParseShortestNullableXsdDateTime(value.ToString());
                 case TypeCode.Char:
-                    return value => value.IsEmpty ? (char?)null : value.Length == 1 ? value[0] : JsonTypeSerializer.Unescape(value)[0];
+                    return value => value.IsEmpty ? null : value.Length == 1 ? value[0] : JsonTypeSerializer.Unescape(value)[0];
             }
 
             if (typeof(T) == typeof(TimeSpan?))
                 return value => DateTimeSerializer.ParseNullableTimeSpan(value.ToString());
             if (typeof(T) == typeof(Guid?))
-                return value => value.IsNullOrEmpty() ? (Guid?)null : value.ParseGuid();
+                return value => value.IsNullOrEmpty() ? null : value.ParseGuid();
             if (typeof(T) == typeof(DateTimeOffset?))
                 return value => DateTimeSerializer.ParseNullableDateTimeOffset(value.ToString());
 #if NET6_0

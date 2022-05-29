@@ -636,7 +636,7 @@ public static class StringSpanExtensions
             {
                 char ch = value[start];
                 int index = 0;
-                while (index < trimChars.Count && (int)trimChars[index] != (int)ch)
+                while (index < trimChars.Count && trimChars[index] != ch)
                     ++index;
                 if (index == trimChars.Count)
                     break;
@@ -648,7 +648,7 @@ public static class StringSpanExtensions
             {
                 char ch = value[end];
                 int index = 0;
-                while (index < trimChars.Count && (int)trimChars[index] != (int)ch)
+                while (index < trimChars.Count && trimChars[index] != ch)
                     ++index;
                 if (index == trimChars.Count)
                     break;
@@ -909,7 +909,7 @@ public static class StringSpanExtensions
         var to = new List<string>();
         if (from != null)
         {
-            to.AddRange(@from.Select(item => item.ToString()));
+            to.AddRange(from.Select(item => item.ToString()));
         }
         return to;
     }

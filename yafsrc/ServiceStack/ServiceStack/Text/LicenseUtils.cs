@@ -617,7 +617,10 @@ public static class LicenseUtils
             if (key == null)
                 throw new LicenseException("Open Source License Key is invalid.");
         }
-        else throw new NotSupportedException("Not a free License Key");
+        else
+        {
+            throw new NotSupportedException("Not a free License Key");
+        }
 
         var releaseDate = Env.GetReleaseDate();
         if (releaseDate > key.Expiry)

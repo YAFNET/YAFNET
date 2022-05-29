@@ -333,7 +333,7 @@ public partial class DefaultScripts
 
                         s.AppendLine(writeCaption != null
                                          ? $"| {writeCaption.PadRight(keySize + valuesSize + 2, ' ')} ||"
-                                         : $"|||");
+                                         : "|||");
                         s.AppendLine(writeCaption != null
                                          ? $"|-{"".PadRight(keySize, '-')}-|-{"".PadRight(valuesSize, '-')}-|"
                                          : "|-|-|");
@@ -370,7 +370,7 @@ public partial class DefaultScripts
 
                             sb.AppendLine(writeCaption != null
                                               ? $"| {writeCaption.PadRight(valuesSize)} |"
-                                              : $"||");
+                                              : "||");
                             sb.AppendLine(writeCaption != null
                                               ? $"|-{"".PadRight(valuesSize, '-')}-|"
                                               : "|-|");
@@ -417,7 +417,7 @@ public partial class DefaultScripts
 
                                 sb.AppendLine(writeCaption != null
                                                   ? $"| {writeCaption.PadRight(valuesSize, ' ')} |"
-                                                  : $"||");
+                                                  : "||");
                                 sb.AppendLine(writeCaption != null ? $"|-{"".PadRight(valuesSize, '-')}-|" : "|-|");
 
                                 foreach (var value in values)
@@ -549,26 +549,27 @@ public partial class DefaultScripts
         if (target == null || target.ToString() == string.Empty)
             return string.Empty;
 
-        if (target is string s)
-            return s;
-
-        if (target is decimal dec)
+        switch (target)
         {
-            var isMoney = dec == Math.Floor(dec * 100);
-            if (isMoney)
-                return defaults?.currency(dec) ?? dec.ToString(defaults.GetDefaultCulture());
+            case string s:
+                return s;
+            case decimal dec:
+            {
+                var isMoney = dec == Math.Floor(dec * 100);
+                if (isMoney)
+                    return defaults?.currency(dec) ?? dec.ToString(defaults.GetDefaultCulture());
+                break;
+            }
         }
 
         if (target.GetType().IsNumericType() || target is bool)
             return target.ToString();
 
-        if (target is DateTime d)
-            return defaults?.dateFormat(d) ?? d.ToString(defaults.GetDefaultCulture());
-
-        if (target is TimeSpan t)
-            return defaults?.timeFormat(t) ?? t.ToString();
-
-        return target.ToString() ?? "";
+        return target switch {
+            DateTime d => defaults?.dateFormat(d) ?? d.ToString(defaults.GetDefaultCulture()),
+            TimeSpan t => defaults?.timeFormat(t) ?? t.ToString(),
+            _ => target.ToString()
+        };
     }
 
     /// <summary>

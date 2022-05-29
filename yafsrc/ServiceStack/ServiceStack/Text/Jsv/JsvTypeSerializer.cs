@@ -400,10 +400,16 @@ public struct JsvTypeSerializer
         var floatVal = (float)floatValue;
         var cultureInfo = JsState.IsCsv ? CsvConfig.RealNumberCultureInfo : null;
 
-        if (Equals(floatVal, float.MaxValue) || Equals(floatVal, float.MinValue))
-            writer.Write(floatVal.ToString("r", cultureInfo ?? CultureInfo.InvariantCulture));
-        else
-            writer.Write(floatVal.ToString("r", cultureInfo ?? CultureInfo.InvariantCulture));
+        switch (floatVal)
+        {
+            case float.MaxValue:
+            case float.MinValue:
+                writer.Write(floatVal.ToString("r", cultureInfo ?? CultureInfo.InvariantCulture));
+                break;
+            default:
+                writer.Write(floatVal.ToString("r", cultureInfo ?? CultureInfo.InvariantCulture));
+                break;
+        }
     }
 
     /// <summary>

@@ -40,8 +40,8 @@ public class JsUnaryExpression : JsExpression
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Argument missing in Unary Expression</exception>
     public JsUnaryExpression(JsUnaryOperator @operator, JsToken argument)
     {
-        Operator = @operator ?? throw new SyntaxErrorException($"Operator missing in Unary Expression");
-        Argument = argument ?? throw new SyntaxErrorException($"Argument missing in Unary Expression");
+        Operator = @operator ?? throw new SyntaxErrorException("Operator missing in Unary Expression");
+        Argument = argument ?? throw new SyntaxErrorException("Argument missing in Unary Expression");
     }
 
     /// <summary>

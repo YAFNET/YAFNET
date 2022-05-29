@@ -132,7 +132,10 @@ public sealed class ScriptCode : ScriptLanguage
         {
             await page.WritePageFragmentAsync(scope, pageFragmentStatement.Block, token).ConfigAwait();
         }
-        else return false;
+        else
+        {
+            return false;
+        }
 
         return true;
     }
@@ -432,7 +435,6 @@ public static class ScriptCodeUtils
                 // multi-line start
                 var CRLF = code.Span.SafeCharEquals(cursorPos - 2, '\r') ? 2 : 1;
                 startExpressionPos = cursorPos - lineLength - CRLF + leftIndent + delim;
-                continue;
             }
             else
             {
@@ -705,7 +707,7 @@ public static class ScriptCodeUtils
             }
         }
 
-        throw new SyntaxErrorException($"End 'else' statement not found.");
+        throw new SyntaxErrorException("End 'else' statement not found.");
     }
 
     /// <summary>

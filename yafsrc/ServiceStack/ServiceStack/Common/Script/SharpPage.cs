@@ -84,7 +84,7 @@ public class SharpPage
     /// Gets a value indicating whether this instance is immutable.
     /// </summary>
     /// <value><c>true</c> if this instance is immutable; otherwise, <c>false</c>.</value>
-    public bool IsImmutable { get; private set; }
+    public bool IsImmutable { get; }
 
     /// <summary>
     /// Gets the context.

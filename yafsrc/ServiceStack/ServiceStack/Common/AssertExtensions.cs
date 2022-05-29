@@ -4,11 +4,12 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
+namespace ServiceStack.Common;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-namespace ServiceStack;
 
 /// <summary>
 /// Class AssertExtensions.

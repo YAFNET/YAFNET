@@ -295,7 +295,10 @@ public partial class DefaultScripts
                 token.Evaluate(scope);
             }
         }
-        else throw new NotSupportedException("Can only use forEach on Lists or Dictionaries");
+        else
+        {
+            throw new NotSupportedException("Can only use forEach on Lists or Dictionaries");
+        }
 
         return IgnoreResult.Value;
     }

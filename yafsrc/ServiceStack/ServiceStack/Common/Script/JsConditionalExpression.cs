@@ -45,9 +45,9 @@ public class JsConditionalExpression : JsExpression
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Alternate Expression missing in Conditional Expression</exception>
     public JsConditionalExpression(JsToken test, JsToken consequent, JsToken alternate)
     {
-        Test = test ?? throw new SyntaxErrorException($"Test Expression missing in Conditional Expression");
-        Consequent = consequent ?? throw new SyntaxErrorException($"Consequent Expression missing in Conditional Expression");
-        Alternate = alternate ?? throw new SyntaxErrorException($"Alternate Expression missing in Conditional Expression");
+        Test = test ?? throw new SyntaxErrorException("Test Expression missing in Conditional Expression");
+        Consequent = consequent ?? throw new SyntaxErrorException("Consequent Expression missing in Conditional Expression");
+        Alternate = alternate ?? throw new SyntaxErrorException("Alternate Expression missing in Conditional Expression");
     }
 
     /// <summary>

@@ -11,7 +11,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using ServiceStack.Script;
+
 using ServiceStack.Text;
 using ServiceStack.Text.Common;
 using ServiceStack.Web;
@@ -107,7 +107,7 @@ public partial class DefaultScripts
     /// </summary>
     /// <param name="scope">The scope.</param>
     /// <returns>System.Object.</returns>
-    public object ifHttpGet(ScriptScopeContext scope) => isHttpGet(scope) ? (object)IgnoreResult.Value : StopExecution.Value;
+    public object ifHttpGet(ScriptScopeContext scope) => isHttpGet(scope) ? IgnoreResult.Value : StopExecution.Value;
     /// <summary>
     /// Ifs the HTTP post.
     /// </summary>
@@ -120,7 +120,7 @@ public partial class DefaultScripts
     /// </summary>
     /// <param name="scope">The scope.</param>
     /// <returns>System.Object.</returns>
-    public object ifHttpPost(ScriptScopeContext scope) => isHttpPost(scope) ? (object)IgnoreResult.Value : StopExecution.Value;
+    public object ifHttpPost(ScriptScopeContext scope) => isHttpPost(scope) ? IgnoreResult.Value : StopExecution.Value;
     /// <summary>
     /// Ifs the HTTP put.
     /// </summary>
@@ -133,7 +133,7 @@ public partial class DefaultScripts
     /// </summary>
     /// <param name="scope">The scope.</param>
     /// <returns>System.Object.</returns>
-    public object ifHttpPut(ScriptScopeContext scope) => isHttpPut(scope) ? (object)IgnoreResult.Value : StopExecution.Value;
+    public object ifHttpPut(ScriptScopeContext scope) => isHttpPut(scope) ? IgnoreResult.Value : StopExecution.Value;
     /// <summary>
     /// Ifs the HTTP delete.
     /// </summary>
@@ -146,7 +146,7 @@ public partial class DefaultScripts
     /// </summary>
     /// <param name="scope">The scope.</param>
     /// <returns>System.Object.</returns>
-    public object ifHttpDelete(ScriptScopeContext scope) => isHttpDelete(scope) ? (object)IgnoreResult.Value : StopExecution.Value;
+    public object ifHttpDelete(ScriptScopeContext scope) => isHttpDelete(scope) ? IgnoreResult.Value : StopExecution.Value;
     /// <summary>
     /// Ifs the HTTP patch.
     /// </summary>
@@ -159,7 +159,7 @@ public partial class DefaultScripts
     /// </summary>
     /// <param name="scope">The scope.</param>
     /// <returns>System.Object.</returns>
-    public object ifHttpPatch(ScriptScopeContext scope) => isHttpPatch(scope) ? (object)IgnoreResult.Value : StopExecution.Value;
+    public object ifHttpPatch(ScriptScopeContext scope) => isHttpPatch(scope) ? IgnoreResult.Value : StopExecution.Value;
 
     /// <summary>
     /// Imports the request parameters.
@@ -485,7 +485,10 @@ public partial class DefaultScripts
                     return true;
             }
         }
-        else throw new ArgumentException(nameof(target));
+        else
+        {
+            throw new ArgumentException(nameof(target));
+        }
 
         return false;
     }

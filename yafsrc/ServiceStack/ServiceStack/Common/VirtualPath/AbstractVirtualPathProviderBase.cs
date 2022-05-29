@@ -261,22 +261,34 @@ public abstract class AbstractVirtualPathProviderBase : IVirtualPathProvider
         var vfs = AssertVirtualFiles();
 
         if (contents is IVirtualFile vfile)
+        {
             WriteFile(path, vfile.GetContents());
+        }
         else if (contents is string textContents)
+        {
             vfs.WriteFile(path, textContents);
+        }
         else if (contents is ReadOnlyMemory<char> romChars)
+        {
             WriteFile(path, romChars);
+        }
         else if (contents is byte[] binaryContents)
         {
             using var ms = MemoryStreamFactory.GetStream(binaryContents);
             vfs.WriteFile(path, ms);
         }
         else if (contents is ReadOnlyMemory<byte> romBytes)
+        {
             WriteFile(path, romBytes);
+        }
         else if (contents is Stream stream)
+        {
             vfs.WriteFile(path, stream);
+        }
         else
+        {
             throw CreateContentNotSupportedException(contents);
+        }
     }
 
     /// <summary>
@@ -314,22 +326,34 @@ public abstract class AbstractVirtualPathProviderBase : IVirtualPathProvider
             return;
 
         if (contents is IVirtualFile vfile)
+        {
             AppendFile(path, vfile.GetContents());
+        }
         else if (contents is string textContents)
+        {
             vfs.AppendFile(path, textContents);
+        }
         else if (contents is ReadOnlyMemory<char> romChars)
+        {
             AppendFile(path, romChars);
+        }
         else if (contents is byte[] binaryContents)
         {
             using var ms = MemoryStreamFactory.GetStream(binaryContents);
             vfs.AppendFile(path, ms);
         }
         else if (contents is ReadOnlyMemory<byte> romBytes)
+        {
             AppendFile(path, romBytes);
+        }
         else if (contents is Stream stream)
+        {
             vfs.AppendFile(path, stream);
+        }
         else
+        {
             throw CreateContentNotSupportedException(contents);
+        }
     }
 
     /// <summary>

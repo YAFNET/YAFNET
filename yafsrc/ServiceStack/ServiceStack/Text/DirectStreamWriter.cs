@@ -99,7 +99,7 @@ public class DirectStreamWriter : TextWriter
     /// <param name="c">The c.</param>
     public override void Write(char c)
     {
-        if ((int)c < 128)
+        if (c < 128)
         {
             if (needFlush)
             {

@@ -26,9 +26,9 @@ public class JsBinaryExpression : JsExpression
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Right Expression missing in Binary Expression</exception>
     public JsBinaryExpression(JsToken left, JsBinaryOperator @operator, JsToken right)
     {
-        Left = left ?? throw new SyntaxErrorException($"Left Expression missing in Binary Expression");
-        Operator = @operator ?? throw new SyntaxErrorException($"Operator missing in Binary Expression");
-        Right = right ?? throw new SyntaxErrorException($"Right Expression missing in Binary Expression");
+        Left = left ?? throw new SyntaxErrorException("Left Expression missing in Binary Expression");
+        Operator = @operator ?? throw new SyntaxErrorException("Operator missing in Binary Expression");
+        Right = right ?? throw new SyntaxErrorException("Right Expression missing in Binary Expression");
     }
 
     /// <summary>

@@ -466,7 +466,9 @@ public struct JsonTypeSerializer
     public void WriteFloat(TextWriter writer, object floatValue)
     {
         if (floatValue == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
         {
             var floatVal = (float)floatValue;
@@ -485,7 +487,9 @@ public struct JsonTypeSerializer
     public void WriteDouble(TextWriter writer, object doubleValue)
     {
         if (doubleValue == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
         {
             var doubleVal = (double)doubleValue;
@@ -1129,8 +1133,11 @@ public struct JsonTypeSerializer
 
             for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
         }
-        else if (Env.StrictMode) throw new Exception(
-            $"Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'");
+        else if (Env.StrictMode)
+        {
+            throw new Exception(
+                $"Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'");
+        }
 
         return success;
     }

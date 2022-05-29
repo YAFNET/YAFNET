@@ -7,7 +7,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+
 using ServiceStack.Text;
 
 namespace ServiceStack.Script;
@@ -230,8 +230,7 @@ public class JsCallExpression : JsExpression
                 }
             }
 
-            object argFn = null;
-            argFn = ResolveDelegate(scope, name);
+            object argFn = ResolveDelegate(scope, name);
 
             if (argFn is Delegate fn)
             {
@@ -309,7 +308,9 @@ public class JsCallExpression : JsExpression
                 return Callee.Evaluate(scope);
         }
         else
+        {
             return scope.GetArgument(name);
+        }
 
         return null;
     }

@@ -583,7 +583,7 @@ public abstract class ScriptHtmlBlock : ScriptBlock
         {
             if (htmlAttrs.TryGetValue("if", out var oIf))
             {
-                if (Script.DefaultScripts.isFalsy(oIf))
+                if (DefaultScripts.isFalsy(oIf))
                     return;
                 htmlAttrs.Remove("if");
             }
@@ -651,7 +651,7 @@ public abstract class ScriptHtmlBlock : ScriptBlock
 
                         if (where != null)
                         {
-                            var result = await @where.EvaluateToBoolAsync(itemScope);
+                            var result = await where.EvaluateToBoolAsync(itemScope);
                             if (!result)
                                 continue;
                         }

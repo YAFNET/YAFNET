@@ -125,7 +125,7 @@ internal static class JsonReader<T>
     /// </summary>
     /// <returns>ParseStringDelegate.</returns>
     public static ParseStringDelegate GetParseFn() => ReadFn != null
-                                                          ? (ParseStringDelegate)(v => ReadFn(v.AsSpan()))
+                                                          ? v => ReadFn(v.AsSpan())
                                                           : Parse;
 
     /// <summary>

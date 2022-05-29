@@ -52,6 +52,7 @@ public static class ScriptPreprocessors
                     processed.AppendLine(codeOnly);
                     continue;
                 }
+
                 if (inMultiLineBlock)
                 {
                     if (codeOnly.EndsWith("}}"))

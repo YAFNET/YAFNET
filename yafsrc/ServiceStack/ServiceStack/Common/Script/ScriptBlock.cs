@@ -7,7 +7,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using ServiceStack.Script;
+
 using ServiceStack.Text;
 
 namespace ServiceStack.Script;
