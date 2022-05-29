@@ -1370,7 +1370,7 @@ public static class TopicRepositoryExtensions
                 x => BoardContext.Current.GetRepository<Message>().Delete(
                     forumId,
                     topicId,
-                    x.ID,
+                    x,
                     false,
                     string.Empty,
                     true,

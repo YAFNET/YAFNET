@@ -333,7 +333,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             x => this.GetRepository<Message>().Delete(
                 x.Topic.ForumID,
                 x.TopicID,
-                x.ID,
+                x,
                 true,
                 string.Empty,
                 true,

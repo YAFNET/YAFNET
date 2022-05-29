@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -175,11 +175,13 @@ public partial class UnapprovedPosts : ModerateForumPage
                 var topicId = commandArgs[1].ToType<int>();
                 var messageId = commandArgs[0].ToType<int>();
 
+                var message = this.GetRepository<Message>().GetById(messageId);
+
                 // delete message
                 this.GetRepository<Message>().Delete(
                     this.PageBoardContext.PageForumID,
                     topicId,
-                    messageId,
+                    message,
                     true,
                     string.Empty,
                     true,

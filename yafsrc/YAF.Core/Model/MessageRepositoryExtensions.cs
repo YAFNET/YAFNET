@@ -575,8 +575,8 @@ public static class MessageRepositoryExtensions
     /// <param name="topicId">
     /// The topic Id.
     /// </param>
-    /// <param name="messageId">
-    /// The message Id.
+    /// <param name="message">
+    /// The message.
     /// </param>
     /// <param name="isModeratorChanged">
     /// The is moderator changed.
@@ -584,39 +584,45 @@ public static class MessageRepositoryExtensions
     /// <param name="deleteReason">
     /// The delete reason.
     /// </param>
-    /// <param name="isDeleteAction">
-    /// The is delete action.
-    /// </param>
     /// <param name="deleteLinked">
     /// The delete linked.
+    /// </param>
+    /// <param name="eraseMessage">
+    /// Delete Message from Db, only set IsDeleted flag
+    /// </param>
+    /// <param name="isTopicDeleteAction">
+    /// Indicator if we delete the entire topic
     /// </param>
     public static void Delete(
         this IRepository<Message> repository,
         [NotNull] int forumId,
         [NotNull] int topicId,
-        [NotNull] int messageId,
+        [NotNull] Message message,
         [NotNull] bool isModeratorChanged,
         [NotNull] string deleteReason,
-        [NotNull] bool isDeleteAction,
-        [NotNull] bool deleteLinked)
+        [NotNull] bool deleteLinked,
+        [NotNull] bool eraseMessage,
+        bool isTopicDeleteAction = false)
     {
         CodeContracts.VerifyNotNull(repository);
 
-        repository.Delete(
+        repository.DeleteRecursively(
             forumId,
             topicId,
-            messageId,
+            message,
             isModeratorChanged,
             deleteReason,
-            isDeleteAction,
             deleteLinked,
-            true);
+            eraseMessage,
+            isTopicDeleteAction);
 
-        repository.FireDeleted(messageId);
+        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(forumId, topicId));
+
+        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
     }
 
     /// <summary>
-    /// Delete Message(s)
+    /// Restore Message(s)
     /// </summary>
     /// <param name="repository">
     /// The repository.
@@ -627,44 +633,21 @@ public static class MessageRepositoryExtensions
     /// <param name="topicId">
     /// The topic Id.
     /// </param>
-    /// <param name="messageId">
-    /// The message Id.
+    /// <param name="message">
+    /// The message.
     /// </param>
-    /// <param name="isModeratorChanged">
-    /// The is moderator changed.
-    /// </param>
-    /// <param name="deleteReason">
-    /// The delete reason.
-    /// </param>
-    /// <param name="isDeleteAction">
-    /// The is delete action.
-    /// </param>
-    /// <param name="deleteLinked">
-    /// The delete linked.
-    /// </param>
-    /// <param name="eraseMessage">
-    /// The erase message.
-    /// </param>
-    public static void Delete(
+    public static void Restore(
         this IRepository<Message> repository,
         [NotNull] int forumId,
         [NotNull] int topicId,
-        [NotNull] int messageId,
-        [NotNull] bool isModeratorChanged,
-        [NotNull] string deleteReason,
-        [NotNull] bool isDeleteAction,
-        [NotNull] bool deleteLinked,
-        [NotNull] bool eraseMessage)
+        [NotNull] Message message)
     {
         CodeContracts.VerifyNotNull(repository);
 
-        repository.DeleteRecursively(
-            messageId,
-            isModeratorChanged,
-            deleteReason,
-            isDeleteAction,
-            deleteLinked,
-            eraseMessage);
+        repository.RestoreRecursively(
+            forumId,
+            topicId,
+            message);
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(forumId, topicId));
 
@@ -1220,8 +1203,14 @@ public static class MessageRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="messageId">
-    /// The message id.
+    /// <param name="forumId">
+    /// The forum Id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    /// <param name="message">
+    /// The message.
     /// </param>
     /// <param name="isModeratorChanged">
     /// The is moderator changed.
@@ -1229,41 +1218,45 @@ public static class MessageRepositoryExtensions
     /// <param name="deleteReason">
     /// The delete reason.
     /// </param>
-    /// <param name="isDeleteAction">
-    /// The is delete action.
-    /// </param>
     /// <param name="deleteLinked">
     /// The delete linked.
     /// </param>
     /// <param name="eraseMessages">
-    /// The erase messages.
+    /// Delete Message from Db, only set IsDeleted flag
+    /// </param>
+    /// <param name="isTopicDeleteAction">
+    /// Indicator if we delete the entire topic
     /// </param>
     private static void DeleteRecursively(
         this IRepository<Message> repository,
-        [NotNull] int messageId,
+        [NotNull] int forumId,
+        [NotNull] int topicId,
+        [NotNull] Message message,
         [NotNull] bool isModeratorChanged,
         [NotNull] string deleteReason,
-        [NotNull] bool isDeleteAction,
         [NotNull] bool deleteLinked,
-        [NotNull] bool eraseMessages)
+        [NotNull] bool eraseMessages,
+        bool isTopicDeleteAction)
     {
         CodeContracts.VerifyNotNull(repository);
 
         if (deleteLinked)
         {
             // Delete replies
-            var replies = repository.Get(m => m.ReplyTo == messageId).Select(x => x.ID).ToList();
+            var replies = repository.Get(m => m.ReplyTo == message.ID).ToList();
 
             if (replies.Any())
             {
                 replies.ForEach(
-                    replyId => repository.DeleteRecursively(
-                        replyId,
+                    reply => repository.DeleteRecursively(
+                        forumId,
+                        topicId,
+                        reply,
                         isModeratorChanged,
                         deleteReason,
-                        isDeleteAction,
                         true,
-                        eraseMessages));
+                        eraseMessages,
+                        isTopicDeleteAction));
             }
         }
 
@@ -1275,18 +1268,58 @@ public static class MessageRepositoryExtensions
                 BoardContext.Current.Get<ILoggerService>().Log(
                     BoardContext.Current.PageUserID,
                     "YAF",
-                    BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", messageId),
+                    BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", message.ID),
                     EventLogTypes.Information);
             }
         }
 
-        repository.Delete(messageId, isModeratorChanged, deleteReason, eraseMessages, isDeleteAction);
+        repository.DeleteInternal(
+            forumId,
+            topicId,
+            message,
+            isModeratorChanged,
+            deleteReason,
+            eraseMessages,
+            isTopicDeleteAction);
 
         // Delete Message from Search Index
-        if (isDeleteAction)
+        BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(message.ID);
+    }
+
+    /// <summary>
+    /// Restore all messages recursively.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum Id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    private static void RestoreRecursively(
+        this IRepository<Message> repository,
+        [NotNull] int forumId,
+        [NotNull] int topicId,
+        [NotNull] Message message)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        // Restore replies
+        var replies = repository.Get(m => m.ReplyTo == message.ID).ToList();
+
+        if (replies.Any())
         {
-            BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(messageId);
+            replies.ForEach(reply => repository.RestoreRecursively(forumId, topicId, reply));
         }
+
+        repository.RestoreInternal(forumId,
+            topicId,
+            message);
     }
 
     /// <summary>
@@ -1321,8 +1354,14 @@ public static class MessageRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="messageId">
-    /// The message id.
+    /// <param name="forumId">
+    /// The forum Id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    /// <param name="message">
+    /// The message.
     /// </param>
     /// <param name="isModeratorChanged">
     /// The is Moderator Changed.
@@ -1331,23 +1370,22 @@ public static class MessageRepositoryExtensions
     /// The delete Reason.
     /// </param>
     /// <param name="eraseMessage">
-    /// The erase Message.
+    /// Delete Message from Db, only set IsDeleted flag
     /// </param>
-    /// <param name="isDeleteAction">
-    /// The is Delete Action.
+    /// <param name="isTopicDeleteAction">
+    /// Indicator if we delete the entire topic
     /// </param>
-    private static void Delete(
+    private static void DeleteInternal(
         this IRepository<Message> repository,
-        [NotNull] int messageId,
+        [NotNull] int forumId,
+        [NotNull] int topicId,
+        [NotNull] Message message,
         [NotNull] bool isModeratorChanged,
         [NotNull] string deleteReason,
         [NotNull] bool eraseMessage,
-        [NotNull] bool isDeleteAction)
+        bool isTopicDeleteAction)
     {
         CodeContracts.VerifyNotNull(repository);
-
-        // -- Find TopicID and ForumID
-        var message = repository.GetMessage(messageId);
 
         // -- Update LastMessageID in Topic
         BoardContext.Current.GetRepository<Topic>().UpdateOnly(
@@ -1360,7 +1398,7 @@ public static class MessageRepositoryExtensions
                           LastUserDisplayName = null,
                           LastMessageFlags = null
                       },
-            x => x.LastMessageID == messageId);
+            x => x.LastMessageID == message.ID);
 
         // -- Update LastMessageID in Forum
         BoardContext.Current.GetRepository<Forum>().UpdateOnly(
@@ -1372,54 +1410,57 @@ public static class MessageRepositoryExtensions
                           LastUserName = null,
                           LastUserDisplayName = null
                       },
-            x => x.LastMessageID == messageId);
+            x => x.LastMessageID == message.ID);
 
         // -- should it be physically deleter or not?
         if (eraseMessage)
         {
-            BoardContext.Current.GetRepository<Attachment>().Delete(x => x.MessageID == messageId);
-            BoardContext.Current.GetRepository<Activity>().Delete(x => x.MessageID == messageId);
-            BoardContext.Current.GetRepository<MessageReportedAudit>().Delete(x => x.MessageID == messageId);
-            BoardContext.Current.GetRepository<MessageReported>().Delete(x => x.ID == messageId);
-            BoardContext.Current.GetRepository<Thanks>().Delete(x => x.MessageID == messageId);
-            BoardContext.Current.GetRepository<MessageHistory>().Delete(x => x.MessageID == messageId);
+            BoardContext.Current.GetRepository<Attachment>().Delete(x => x.MessageID == message.ID);
+            BoardContext.Current.GetRepository<Activity>().Delete(x => x.MessageID == message.ID);
+            BoardContext.Current.GetRepository<MessageReportedAudit>().Delete(x => x.MessageID == message.ID);
+            BoardContext.Current.GetRepository<MessageReported>().Delete(x => x.ID == message.ID);
+            BoardContext.Current.GetRepository<Thanks>().Delete(x => x.MessageID == message.ID);
+            BoardContext.Current.GetRepository<MessageHistory>().Delete(x => x.MessageID == message.ID);
 
             // -- update message positions inside the topic
-            try
+            if (!isTopicDeleteAction)
             {
-                repository.UpdateAdd(
-                    () => new Message { Position = -1 },
-                    x => x.TopicID == message.TopicID && x.Posted > message.Posted && x.ID != messageId);
-            }
-            catch (Exception)
-            {
-                throw new ApplicationException($"Error while deleting Message: {messageId}");
+                try
+                {
+                    repository.UpdateAdd(
+                        () => new Message { Position = -1 },
+                        x => x.TopicID == topicId && x.Posted > message.Posted && x.ID != message.ID);
+                }
+                catch (Exception)
+                {
+                    // ignore
+                }
             }
 
             // -- update ReplyTo
             var replyMessage = repository.GetSingle(
-                x => x.TopicID == message.TopicID && x.Position == 0 && x.ID != messageId);
+                x => x.TopicID == topicId && x.Position == 0 && x.ID != message.ID);
 
             if (replyMessage != null)
             {
                 repository.UpdateOnly(
                     () => new Message { ReplyTo = replyMessage.ID },
-                    x => x.TopicID == message.TopicID && x.ID == messageId);
+                    x => x.TopicID == topicId && x.ID == message.ID);
 
                 // -- fix Reply To if equal with MessageID
                 repository.UpdateOnly(
                     () => new Message { ReplyTo = null },
-                    x => x.TopicID == message.TopicID && x.ID == replyMessage.ID);
+                    x => x.TopicID == topicId && x.ID == replyMessage.ID);
             }
 
             // -- finally delete the message we want to delete
-            repository.DeleteById(messageId);
+            repository.DeleteById(message.ID);
 
-            if (repository.Count(x => x.TopicID == message.TopicID && (x.Flags & 8) != 8) == 0)
+            if (repository.Count(x => x.TopicID == topicId && (x.Flags & 8) != 8) == 0)
             {
                BoardContext.Current.GetRepository<Topic>().Delete(
-                    message.Topic.ForumID,
-                    message.TopicID,
+                    forumId,
+                    topicId,
                     true);
             }
         }
@@ -1427,7 +1468,7 @@ public static class MessageRepositoryExtensions
         {
             var flags = message.MessageFlags;
 
-            flags.IsDeleted = isDeleteAction;
+            flags.IsDeleted = true;
 
             // -- "Delete" it only by setting deleted flag message
             repository.UpdateOnly(
@@ -1435,12 +1476,75 @@ public static class MessageRepositoryExtensions
                           {
                               IsModeratorChanged = isModeratorChanged, DeleteReason = deleteReason, Flags = flags.BitValue
                           },
-                x => x.TopicID == message.TopicID && x.ID == messageId);
+                x => x.TopicID == topicId && x.ID == message.ID);
         }
 
         // -- update user post count
         if (!BoardContext.Current.GetRepository<Forum>()
-                .Exists(f => f.ID == message.Topic.ForumID && (f.Flags & 4) != 4))
+                .Exists(f => f.ID == forumId && (f.Flags & 4) != 4))
+        {
+            var postCount = repository.Count(
+                x => x.UserID == message.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16).ToType<int>();
+
+            BoardContext.Current.GetRepository<User>().UpdateOnly(
+                () => new User { NumPosts = postCount },
+                u => u.ID == message.UserID);
+        }
+
+        try
+        {
+            // -- update topic Post Count
+            if (!isTopicDeleteAction)
+            {
+                BoardContext.Current.GetRepository<Topic>().UpdateAdd(
+                    () => new Topic {NumPosts = -1},
+                    x => x.ID == topicId);
+            }
+        }
+        catch (Exception)
+        {
+            // Ignore if Post count is wrong
+        }
+    }
+
+    /// <summary>
+    /// Execute the actual message delete.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum Id.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    private static void RestoreInternal(
+        this IRepository<Message> repository,
+        [NotNull] int forumId,
+        [NotNull] int topicId,
+        [NotNull] Message message)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var flags = message.MessageFlags;
+
+        flags.IsDeleted = false;
+
+        // -- "Delete" it only by setting deleted flag message
+        repository.UpdateOnly(
+            () => new Message
+                  {
+                      IsModeratorChanged = false, DeleteReason = null, Flags = flags.BitValue
+                  },
+            x => x.TopicID == topicId && x.ID == message.ID);
+
+        // -- update user post count
+        if (!BoardContext.Current.GetRepository<Forum>()
+                .Exists(f => f.ID == forumId && (f.Flags & 4) != 4))
         {
             var postCount = repository.Count(
                 x => x.UserID == message.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16).ToType<int>();
@@ -1454,8 +1558,8 @@ public static class MessageRepositoryExtensions
         {
             // -- update topic Post Count
             BoardContext.Current.GetRepository<Topic>().UpdateAdd(
-                () => new Topic { NumPosts = -1 },
-                x => x.ID == message.TopicID);
+                () => new Topic { NumPosts = 1},
+                x => x.ID == topicId);
         }
         catch (Exception)
         {

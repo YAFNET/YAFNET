@@ -319,10 +319,9 @@ public partial class EditUsersKill : BaseUserControl
             x => this.GetRepository<Message>().Delete(
                 x.Topic.ForumID,
                 x.Topic.ID,
-                x.ID,
+                x,
                 true,
                 string.Empty,
-                true,
                 true,
                 true));
     }

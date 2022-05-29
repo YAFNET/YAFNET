@@ -149,10 +149,9 @@ public partial class DeleteAccount : ProfilePage
                         x => this.GetRepository<Message>().Delete(
                             x.Topic.ForumID,
                             x.TopicID,
-                            x.ID,
+                            x,
                             true,
                             string.Empty,
-                            true,
                             true,
                             false));
 

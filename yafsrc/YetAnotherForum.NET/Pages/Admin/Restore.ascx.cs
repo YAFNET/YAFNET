@@ -139,15 +139,10 @@ public partial class Restore : AdminPage
 
                     if (getFirstMessage != null)
                     {
-                        this.GetRepository<Message>().Delete(
+                        this.GetRepository<Message>().Restore(
                             forumId.Value,
                             topicId.Value,
-                            getFirstMessage.ID,
-                            true,
-                            string.Empty,
-                            false,
-                            true,
-                            false);
+                            getFirstMessage);
                     }
 
                     var topic = this.GetRepository<Topic>().GetById(topicId.Value);
@@ -226,6 +221,7 @@ public partial class Restore : AdminPage
         int? messageId = null;
         int? forumId = null;
         int? topicId = null;
+        Message message = null;
 
         if (e.CommandArgument != null)
         {
@@ -234,6 +230,8 @@ public partial class Restore : AdminPage
             messageId = commandArgs[0].ToType<int>();
             forumId = commandArgs[1].ToType<int>();
             topicId = commandArgs[2].ToType<int>();
+
+            message = this.GetRepository<Message>().GetById(messageId.Value);
         }
         
         switch (e.CommandName)
@@ -244,10 +242,9 @@ public partial class Restore : AdminPage
                     this.GetRepository<Message>().Delete(
                         forumId.Value,
                         topicId.Value,
-                        messageId.Value,
+                        message,
                         true,
                         string.Empty,
-                        true,
                         true,
                         true);
 
@@ -259,15 +256,10 @@ public partial class Restore : AdminPage
                 break;
             case "restore":
                 {
-                    this.GetRepository<Message>().Delete(
+                    this.GetRepository<Message>().Restore(
                         forumId.Value,
                         topicId.Value,
-                        messageId.Value,
-                        true,
-                        string.Empty,
-                        false,
-                        true,
-                        false);
+                        message);
 
                     this.PageBoardContext.Notify(this.GetText("MSG_RESTORED"), MessageTypes.success);
 
@@ -284,10 +276,9 @@ public partial class Restore : AdminPage
                         x => this.GetRepository<Message>().Delete(
                             x.Item1.ID,
                             x.Item3.TopicID,
-                            x.Item3.ID,
+                            x.Item3,
                             true,
                             string.Empty,
-                            true,
                             true,
                             true));
 

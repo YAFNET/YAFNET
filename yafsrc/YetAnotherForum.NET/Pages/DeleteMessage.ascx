@@ -64,18 +64,23 @@
                 </form>
             </div>
             <div class="card-footer text-center">
-                <YAF:ThemeButton ID="DeleteUndelete" runat="server" 
-                                 OnClick="ToggleDelete_Click"
+                <YAF:ThemeButton ID="Delete" runat="server" 
+                                 OnClick="DeleteClick"
                                  CausesValidation="True"
+                                 TextLocalizedTag="DELETE"
+                                 TitleLocalizedTag="DELETE_TT"
                                  DataToggle="tooltip"
                                  Type="Danger"
                                  Visible="False"
                                  Icon="trash"/>
-                <YAF:ThemeButton ID="Delete" runat="server" 
-                                 OnClick="ToggleDeleteStatus_Click"
+                <YAF:ThemeButton ID="Restore" runat="server" 
+                                 OnClick="RestoreClick"
                                  CausesValidation="True"
-                                 Type="Danger"
-                                 Icon="trash"/>
+                                 TextLocalizedTag="UNDELETE"
+                                 TitleLocalizedTag="UNDELETE_TT"
+                                 Type="Warning"
+                                 Visible="False"
+                                 Icon="trash-arrow-up"/>
                 <YAF:ThemeButton ID="Cancel" runat="server" 
                                  OnClick="Cancel_Click"
                                  TextLocalizedTag="CANCEL"

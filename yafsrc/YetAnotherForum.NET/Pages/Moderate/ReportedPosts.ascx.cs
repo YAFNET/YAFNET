@@ -50,7 +50,9 @@ public partial class ReportedPosts : ModerateForumPage
         this.PageLinks.AddRoot();
 
         // moderation index
-        this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Index));
+        this.PageLinks.AddLink(
+            this.GetText("MODERATE_DEFAULT", "TITLE"),
+            this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Index));
 
         // current page
         this.PageLinks.AddLink(this.PageBoardContext.PageForum.Name);
@@ -106,11 +108,10 @@ public partial class ReportedPosts : ModerateForumPage
 
         messagePostData.MessageID = message.MessageID;
 
-        messagePostData.CurrentMessage = new Message
-                                             {
-                                                 MessageFlags = new MessageFlags(message.Flags),
-                                                 MessageText = message.OriginalMessage
-                                             };
+        messagePostData.CurrentMessage = new Message {
+                                                         MessageFlags = new MessageFlags(message.Flags),
+                                                         MessageText = message.OriginalMessage
+                                                     };
     }
 
     /// <summary>
@@ -140,6 +141,8 @@ public partial class ReportedPosts : ModerateForumPage
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
     private void List_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
     {
+        Message message;
+
         // which command are we handling
         switch (e.CommandName.ToLower())
         {
@@ -150,11 +153,13 @@ public partial class ReportedPosts : ModerateForumPage
                 var topicId = commandArgs[1].ToType<int>();
                 var messageId = commandArgs[0].ToType<int>();
 
+                message = this.GetRepository<Message>().GetById(messageId);
+
                 // delete message
                 this.GetRepository<Message>().Delete(
                     this.PageBoardContext.PageForumID,
                     topicId,
-                    messageId,
+                    message,
                     true,
                     string.Empty,
                     true,
@@ -168,11 +173,14 @@ public partial class ReportedPosts : ModerateForumPage
                 // go to the message
                 this.Get<LinkBuilder>().Redirect(
                     ForumPages.Posts,
-                    new { m = e.CommandArgument, name = this.GetRepository<Topic>().GetNameFromMessage(e.CommandArgument.ToType<int>()) });
+                    new {
+                            m = e.CommandArgument,
+                            name = this.GetRepository<Topic>().GetNameFromMessage(e.CommandArgument.ToType<int>())
+                        });
                 break;
             case "copyover":
 
-                var message = this.GetRepository<Message>().GetById(e.CommandArgument.ToType<int>());
+                message = this.GetRepository<Message>().GetById(e.CommandArgument.ToType<int>());
 
                 // update message text
                 this.GetRepository<MessageReported>().ReportCopyOver(message);
@@ -180,12 +188,16 @@ public partial class ReportedPosts : ModerateForumPage
             case "viewhistory":
 
                 // go to history page
-                this.Get<LinkBuilder>().Redirect(ForumPages.MessageHistory, new { f = this.PageBoardContext.PageForumID, m = e.CommandArgument });
+                this.Get<LinkBuilder>().Redirect(
+                    ForumPages.MessageHistory,
+                    new {f = this.PageBoardContext.PageForumID, m = e.CommandArgument});
                 break;
             case "resolved":
 
                 // mark message as resolved
-                this.GetRepository<Message>().ReportResolve(e.CommandArgument.ToType<int>(), this.PageBoardContext.PageUserID);
+                this.GetRepository<Message>().ReportResolve(
+                    e.CommandArgument.ToType<int>(),
+                    this.PageBoardContext.PageUserID);
 
                 // tell user message was flagged as resolved
                 this.PageBoardContext.LoadMessage.AddSession(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);
