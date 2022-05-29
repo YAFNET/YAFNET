@@ -152,7 +152,7 @@ public static class Config
 
     /// <summary>
     ///     Gets a value indicating whether Is Url Rewriting enabled? -- default is "true".
-    /// </summary>
+    /// </summary> 
     public static bool EnableURLRewriting => GetConfigValueAsBool("YAF.EnableUrlRewriting", true);
 
     /// <summary>

@@ -149,6 +149,9 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -2099,10 +2102,10 @@
     <Content Include="Images\Logos\YAFLogo.svg" />
     <Content Include="Install\mssql\upgrade\identity\upgrade.sql" />
     <Content Include="Install\SpamWords.xml" />
-    <Content Include="languages\arabic.xml">
+    <Content Include="languages\arabic.json">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="languages\estonian.xml" />
+    <Content Include="languages\estonian.json" />
     <Content Include="Pages\Account\ResetPassword.ascx" />
     <Content Include="Pages\Admin\Attachments.ascx" />
     <Content Include="Pages\Admin\Tags.ascx" />
@@ -2125,36 +2128,36 @@
     <Content Include="Install\default.aspx">
       <SubType>Form</SubType>
     </Content>
-    <Content Include="languages\china.xml">
+    <Content Include="languages\china.json">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="languages\czech.xml" />
-    <Content Include="languages\danish.xml" />
-    <Content Include="languages\dutch.xml" />
-    <Content Include="languages\english.xml">
+    <Content Include="languages\czech.json" />
+    <Content Include="languages\danish.json" />
+    <Content Include="languages\dutch.json" />
+    <Content Include="languages\english.json">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="languages\finnish.xml" />
-    <Content Include="languages\french.xml" />
-    <Content Include="languages\german-du.xml">
+    <Content Include="languages\finnish.json" />
+    <Content Include="languages\french.json" />
+    <Content Include="languages\german-du.json">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="languages\hebrew.xml" />
-    <Content Include="languages\italian.xml" />
-    <Content Include="languages\lithuanian.xml" />
-    <Content Include="languages\norwegian.xml" />
-    <Content Include="languages\persian.xml" />
-    <Content Include="languages\polish.xml" />
-    <Content Include="languages\portugues.xml" />
-    <Content Include="languages\romanian.xml" />
-    <Content Include="languages\russian.xml">
+    <Content Include="languages\hebrew.json" />
+    <Content Include="languages\italian.json" />
+    <Content Include="languages\lithuanian.json" />
+    <Content Include="languages\norwegian.json" />
+    <Content Include="languages\persian.json" />
+    <Content Include="languages\polish.json" />
+    <Content Include="languages\portugues.json" />
+    <Content Include="languages\romanian.json" />
+    <Content Include="languages\russian.json">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="languages\slovak.xml" />
-    <Content Include="languages\spanish.xml" />
-    <Content Include="languages\swedish.xml" />
-    <Content Include="languages\turkish.xml" />
-    <Content Include="languages\vietnam.xml" />
+    <Content Include="languages\slovak.json" />
+    <Content Include="languages\spanish.json" />
+    <Content Include="languages\swedish.json" />
+    <Content Include="languages\turkish.json" />
+    <Content Include="languages\vietnam.json" />
     <Content Include="Pages\ActiveUsers.ascx" />
     <Content Include="Pages\Admin\AccessMasks.ascx" />
     <Content Include="Pages\Admin\Admin.ascx" />
