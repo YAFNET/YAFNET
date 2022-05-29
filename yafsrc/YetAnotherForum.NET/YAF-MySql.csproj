@@ -1187,6 +1187,24 @@
     <Content Include="Content\favicons\favicon.ico" />
     <Content Include="Content\favicons\mstile-150x150.png" />
     <Content Include="Content\favicons\safari-pinned-tab.svg" />
+    <Content Include="Content\flags\1x1\ac.svg" />
+    <Content Include="Content\flags\1x1\cefta.svg" />
+    <Content Include="Content\flags\1x1\cp.svg" />
+    <Content Include="Content\flags\1x1\dg.svg" />
+    <Content Include="Content\flags\1x1\ea.svg" />
+    <Content Include="Content\flags\1x1\es-ga.svg" />
+    <Content Include="Content\flags\1x1\ic.svg" />
+    <Content Include="Content\flags\1x1\ta.svg" />
+    <Content Include="Content\flags\1x1\xx.svg" />
+    <Content Include="Content\flags\4x3\ac.svg" />
+    <Content Include="Content\flags\4x3\cefta.svg" />
+    <Content Include="Content\flags\4x3\cp.svg" />
+    <Content Include="Content\flags\4x3\dg.svg" />
+    <Content Include="Content\flags\4x3\ea.svg" />
+    <Content Include="Content\flags\4x3\es-ga.svg" />
+    <Content Include="Content\flags\4x3\ic.svg" />
+    <Content Include="Content\flags\4x3\ta.svg" />
+    <Content Include="Content\flags\4x3\xx.svg" />
     <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
     <Content Include="Content\jquery.fileupload.comb.min.css" />
     <Content Include="Content\bootstrap\helpers\_stacks.scss" />
@@ -1197,6 +1215,10 @@
     <Content Include="Content\bootstrap\_placeholders.scss" />
     <Content Include="Content\fontawesome\_functions.scss" />
     <Content Include="Content\fontawesome\_sizing.scss" />
+    <Content Include="Content\flag-icons\_flag-icons-base.scss" />
+    <Content Include="Content\flag-icons\_flag-icons-list.scss" />
+    <Content Include="Content\flag-icons\flag-icons.scss" />
+    <Content Include="Content\flags\LICENSE.md" />
     <None Include="Content\jquery.netStack.scss" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
@@ -1903,9 +1925,6 @@
     <Content Include="Content\bootstrap\_utilities.scss" />
     <Content Include="Content\bootstrap\_variables.scss" />
     <Content Include="Content\bootstrap\vendor\_rfs.scss" />
-    <Content Include="Content\flag-icons\flag-icon.scss" />
-    <Content Include="Content\flag-icons\_flag-icon-base.scss" />
-    <Content Include="Content\flag-icons\_flag-icon-list.scss" />
     <Content Include="Content\flag-icons\_variables.scss" />
     <Content Include="Content\fontawesome\brands.scss" />
     <Content Include="Content\fontawesome\fontawesome.scss" />
@@ -3685,7 +3704,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
