@@ -2801,6 +2801,10 @@
             "#text": "Localized Resource"
           },
           {
+            "@tag": "NEED_TRANSLATION",
+            "#text": "Needs Translation."
+          },
+          {
             "@tag": "ORIGINAL_RESOURCE",
             "#text": "Original Resource"
           },
@@ -2809,20 +2813,16 @@
             "#text": "Resource Name"
           },
           {
+            "@tag": "SAVED_FILE",
+            "#text": "The language file has been updated and saved!"
+          },
+          {
             "@tag": "SELECT_PAGE",
             "#text": "Select a Page:"
           },
           {
             "@tag": "TITLE",
             "#text": "Language Translator"
-          },
-          {
-            "@tag": "NEED_TRANSLATION",
-            "#text": "Needs Translation."
-          },
-          {
-            "@tag": "SAVED_FILE",
-            "#text": "The language file has been updated and saved!"
           }
         ]
       },
@@ -5879,12 +5879,12 @@
             "#text": "Language Native Name"
           },
           {
-            "@tag": "TITLE",
-            "#text": "Languages"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Translated Resources"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Languages"
           }
         ]
       },
@@ -11886,10 +11886,6 @@
             "#text": "Konu adı boş"
           },
           {
-            "@tag": "MOVE",
-            "#text": null
-          },
-          {
             "@tag": "MOVE_MESSAGE",
             "#text": "Mesajı Taşı"
           },
@@ -13193,6 +13189,10 @@
             "#text": "Twitter"
           },
           {
+            "@tag": "TWITTER",
+            "#text": "Twitter"
+          },
+          {
             "@tag": "TWITTER_TITLE",
             "#text": "Visit {0}'s Twitter Profile"
           },
@@ -13283,10 +13283,6 @@
           {
             "@tag": "YIM_TITLE",
             "#text": "Contact {0} via Yahoo Instant Messenger"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
           }
         ]
       },

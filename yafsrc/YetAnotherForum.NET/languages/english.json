@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "English",
     "@code": "en",
@@ -12085,10 +12085,6 @@
           {
             "@tag": "EMPTY_TOPIC",
             "#text": "Topic name is empty"
-          },
-          {
-            "@tag": "MOVE",
-            "#text": null
           },
           {
             "@tag": "MOVE_MESSAGE",

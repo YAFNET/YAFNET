@@ -2797,6 +2797,10 @@
             "#text": "Localized Resource"
           },
           {
+            "@tag": "NEED_TRANSLATION",
+            "#text": "Needs Translation."
+          },
+          {
             "@tag": "ORIGINAL_RESOURCE",
             "#text": "Original Resource"
           },
@@ -2805,20 +2809,16 @@
             "#text": "Resource Name"
           },
           {
+            "@tag": "SAVED_FILE",
+            "#text": "The language file has been updated and saved!"
+          },
+          {
             "@tag": "SELECT_PAGE",
             "#text": "Select a Page:"
           },
           {
             "@tag": "TITLE",
             "#text": "Language Translator"
-          },
-          {
-            "@tag": "NEED_TRANSLATION",
-            "#text": "Needs Translation."
-          },
-          {
-            "@tag": "SAVED_FILE",
-            "#text": "The language file has been updated and saved!"
           }
         ]
       },
@@ -5871,12 +5871,12 @@
             "#text": "Language Native Name"
           },
           {
-            "@tag": "TITLE",
-            "#text": "Languages"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Translated Resources"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Languages"
           }
         ]
       },
@@ -11870,10 +11870,6 @@
             "#text": "L'oggetto della discussione è vuoto"
           },
           {
-            "@tag": "MOVE",
-            "#text": "Sposta"
-          },
-          {
             "@tag": "MOVE_MESSAGE",
             "#text": "Sposta il messaggio"
           },
@@ -14939,6 +14935,10 @@
             "#text": "Personalizza dettagli utente."
           },
           {
+            "@tag": "MYSETTINGS_TITLE",
+            "#text": "Edit your user details and settings."
+          },
+          {
             "@tag": "MYTOPICS",
             "#text": "Le mie discussioni"
           },
@@ -15001,10 +15001,6 @@
           {
             "@tag": "WELCOME_GUEST_NO",
             "#text": "Benvenuto ospite! <strong>Non</strong> puoi accedere né registrarti."
-          },
-          {
-            "@tag": "MYSETTINGS_TITLE",
-            "#text": "Edit your user details and settings."
           }
         ]
       },

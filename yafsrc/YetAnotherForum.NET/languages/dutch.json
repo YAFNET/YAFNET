@@ -2797,6 +2797,10 @@
             "#text": "Lokaal Onderdeel"
           },
           {
+            "@tag": "NEED_TRANSLATION",
+            "#text": "Needs Translation."
+          },
+          {
             "@tag": "ORIGINAL_RESOURCE",
             "#text": "Origineel Onderdeel"
           },
@@ -2805,20 +2809,16 @@
             "#text": "Naam onderdeel"
           },
           {
+            "@tag": "SAVED_FILE",
+            "#text": "The language file has been updated and saved!"
+          },
+          {
             "@tag": "SELECT_PAGE",
             "#text": "Selecteer een Onderdeel:"
           },
           {
             "@tag": "TITLE",
             "#text": "Vertalingen"
-          },
-          {
-            "@tag": "NEED_TRANSLATION",
-            "#text": "Needs Translation."
-          },
-          {
-            "@tag": "SAVED_FILE",
-            "#text": "The language file has been updated and saved!"
           }
         ]
       },
@@ -5871,12 +5871,12 @@
             "#text": "Lokale Taalnaam"
           },
           {
-            "@tag": "TITLE",
-            "#text": "Talen"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Translated Resources"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Talen"
           }
         ]
       },
@@ -11868,10 +11868,6 @@
           {
             "@tag": "EMPTY_TOPIC",
             "#text": "Naam topic is leeg"
-          },
-          {
-            "@tag": "MOVE",
-            "#text": null
           },
           {
             "@tag": "MOVE_MESSAGE",

@@ -24,23 +24,23 @@
           },
           {
             "@tag": "CREATED_REPLY",
-            "#text": "Replied to a Post"
+            "#text": "تم الرد على وظيفة"
           },
           {
             "@tag": "CREATED_REPLY_MSG",
-            "#text": "Added an Reply to the Topic {0}"
+            "#text": "تمت إضافة رد على الموضوع {0}"
           },
           {
             "@tag": "CREATED_TOPIC",
-            "#text": "Created a new Topic"
+            "#text": "إنشاء موضوع جديد"
           },
           {
             "@tag": "CREATED_TOPIC_MSG",
-            "#text": "Created a new Topic {0}"
+            "#text": "إنشاء موضوع جديد {0}"
           },
           {
             "@tag": "DELETE_ACCOUNT",
-            "#text": "Delete Account"
+            "#text": "حذف الحساب"
           },
           {
             "@tag": "EDIT_AVATAR",
@@ -52,7 +52,7 @@
           },
           {
             "@tag": "EDIT_SETTINGS",
-            "#text": "Edit Settings"
+            "#text": "تحرير الإعدادات"
           },
           {
             "@tag": "EDIT_SIGNATURE",
@@ -60,11 +60,11 @@
           },
           {
             "@tag": "GIVEN_THANKS",
-            "#text": "Given Thanks to a Post"
+            "#text": "بفضل بفضل وظيفة"
           },
           {
             "@tag": "GIVEN_THANKS_MSG",
-            "#text": "Given Thanks to {0} in the Topic {1}"
+            "#text": "الشكر لـ {0} في الموضوع {1}"
           },
           {
             "@tag": "GROUPS",
@@ -76,7 +76,7 @@
           },
           {
             "@tag": "ITEMS",
-            "#text": "Show Items"
+            "#text": "إظهار العناصر"
           },
           {
             "@tag": "JOINED",
@@ -100,11 +100,11 @@
           },
           {
             "@tag": "RECEIVED_THANKS",
-            "#text": "Received a Thanks to a Post"
+            "#text": "تلقى الشكر على وظيفة"
           },
           {
             "@tag": "RECEIVED_THANKS_MSG",
-            "#text": "Has Received a Thanks from {0} in the Topic {1}"
+            "#text": "تلقى شكرًا من {0} في الموضوع {1}"
           },
           {
             "@tag": "SENTITEMS",
@@ -120,7 +120,7 @@
           },
           {
             "@tag": "UNREAD_ONLY",
-            "#text": "Show only unread Activity"
+            "#text": "إظهار النشاط غير المقروء فقط"
           },
           {
             "@tag": "VIEW_PROFILE",
@@ -128,35 +128,35 @@
           },
           {
             "@tag": "WAS_MENTIONED",
-            "#text": "Was Mentioned"
+            "#text": "كان مذكورا"
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
-            "#text": "Was Mentioned by {0} in the Topic {1}"
+            "#text": "تمت الإشارة إليه بواسطة {0} في الموضوع {1}"
           },
           {
             "@tag": "WAS_QUOTED",
-            "#text": "Was Quoted"
+            "#text": "اقتبس"
           },
           {
             "@tag": "WAS_QUOTED_MSG",
-            "#text": "Was Quoted by {0} in the Topic {1}"
+            "#text": "تم الاقتباس بواسطة {0} في الموضوع {1}"
           },
           {
             "@tag": "WATCH_FORUM_MSG",
-            "#text": "{0} Created the new topic {1}"
+            "#text": "{0} إنشاء الموضوع الجديد {1}"
           },
           {
             "@tag": "WATCH_FORUM_REPLY",
-            "#text": "New Topic in a Watch Forum"
+            "#text": "موضوع جديد في منتدى المشاهدة"
           },
           {
             "@tag": "WATCH_TOPIC_MSG",
-            "#text": "{0} replied to the topic {1}"
+            "#text": "رد {0} على الموضوع {1}"
           },
           {
             "@tag": "WATCH_TOPIC_REPLY",
-            "#text": "New Reply in a Watch Topic"
+            "#text": "رد جديد في موضوع المشاهدة"
           },
           {
             "@tag": "YOUR_ACCOUNT",
@@ -168,7 +168,7 @@
           },
           {
             "@tag": "YOUR_NOTIFIY",
-            "#text": "Your Notifications"
+            "#text": "التنبيهات الواردة"
           },
           {
             "@tag": "YOUR_USERDISPLAYNAME",
@@ -11864,10 +11864,6 @@
           {
             "@tag": "EMPTY_TOPIC",
             "#text": "اسم الموضوع فارغ"
-          },
-          {
-            "@tag": "MOVE",
-            "#text": "نقل"
           },
           {
             "@tag": "MOVE_MESSAGE",

@@ -2797,6 +2797,10 @@
             "#text": "Lokalisierte Ressource"
           },
           {
+            "@tag": "NEED_TRANSLATION",
+            "#text": "Needs Translation."
+          },
+          {
             "@tag": "ORIGINAL_RESOURCE",
             "#text": "Originale Ressource"
           },
@@ -2805,20 +2809,16 @@
             "#text": "Ressource Name"
           },
           {
+            "@tag": "SAVED_FILE",
+            "#text": "The language file has been updated and saved!"
+          },
+          {
             "@tag": "SELECT_PAGE",
             "#text": "Wählen Sie eine Seite:"
           },
           {
             "@tag": "TITLE",
             "#text": "Sprachübersetzer"
-          },
-          {
-            "@tag": "NEED_TRANSLATION",
-            "#text": "Needs Translation."
-          },
-          {
-            "@tag": "SAVED_FILE",
-            "#text": "The language file has been updated and saved!"
           }
         ]
       },
@@ -5871,12 +5871,12 @@
             "#text": "Nativer Sprachname"
           },
           {
-            "@tag": "TITLE",
-            "#text": "Sprachen"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Translated Resources"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Sprachen"
           }
         ]
       },
@@ -11868,10 +11868,6 @@
           {
             "@tag": "EMPTY_TOPIC",
             "#text": "Der Name des Themas ist leer"
-          },
-          {
-            "@tag": "MOVE",
-            "#text": "Beitrag verschieben"
           },
           {
             "@tag": "MOVE_MESSAGE",

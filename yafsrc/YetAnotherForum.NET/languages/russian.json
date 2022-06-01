@@ -2797,6 +2797,10 @@
             "#text": "Локализованное значение"
           },
           {
+            "@tag": "NEED_TRANSLATION",
+            "#text": "Needs Translation."
+          },
+          {
             "@tag": "ORIGINAL_RESOURCE",
             "#text": "Первоначальное значение"
           },
@@ -2805,20 +2809,16 @@
             "#text": "Название ресурса"
           },
           {
+            "@tag": "SAVED_FILE",
+            "#text": "The language file has been updated and saved!"
+          },
+          {
             "@tag": "SELECT_PAGE",
             "#text": "Выберите страницу:"
           },
           {
             "@tag": "TITLE",
             "#text": "Страница переводчика"
-          },
-          {
-            "@tag": "NEED_TRANSLATION",
-            "#text": "Needs Translation."
-          },
-          {
-            "@tag": "SAVED_FILE",
-            "#text": "The language file has been updated and saved!"
           }
         ]
       },
@@ -5871,12 +5871,12 @@
             "#text": "Родное название языка"
           },
           {
-            "@tag": "TITLE",
-            "#text": "Языки"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Translated Resources"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Языки"
           }
         ]
       },
@@ -11868,10 +11868,6 @@
           {
             "@tag": "EMPTY_TOPIC",
             "#text": "Отсутствует название темы"
-          },
-          {
-            "@tag": "MOVE",
-            "#text": null
           },
           {
             "@tag": "MOVE_MESSAGE",

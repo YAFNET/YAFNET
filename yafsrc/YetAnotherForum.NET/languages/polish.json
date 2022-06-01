@@ -2797,6 +2797,10 @@
             "#text": "Wartość przetłumaczona"
           },
           {
+            "@tag": "NEED_TRANSLATION",
+            "#text": "Needs Translation."
+          },
+          {
             "@tag": "ORIGINAL_RESOURCE",
             "#text": "Domyślna wartość"
           },
@@ -2805,20 +2809,16 @@
             "#text": "Nazwa zmiennej"
           },
           {
+            "@tag": "SAVED_FILE",
+            "#text": "The language file has been updated and saved!"
+          },
+          {
             "@tag": "SELECT_PAGE",
             "#text": "Wybierz stronę:"
           },
           {
             "@tag": "TITLE",
             "#text": "Tłumaczenie"
-          },
-          {
-            "@tag": "NEED_TRANSLATION",
-            "#text": "Needs Translation."
-          },
-          {
-            "@tag": "SAVED_FILE",
-            "#text": "The language file has been updated and saved!"
           }
         ]
       },
@@ -5871,12 +5871,12 @@
             "#text": "Natywna nazwa języka"
           },
           {
-            "@tag": "TITLE",
-            "#text": "Języki"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Translated Resources"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Języki"
           }
         ]
       },
@@ -11872,10 +11872,6 @@
           {
             "@tag": "EMPTY_TOPIC",
             "#text": "Nazwa tematu jest pusta"
-          },
-          {
-            "@tag": "MOVE",
-            "#text": null
           },
           {
             "@tag": "MOVE_MESSAGE",

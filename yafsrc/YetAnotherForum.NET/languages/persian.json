@@ -2797,6 +2797,10 @@
             "#text": "متن بومی شده"
           },
           {
+            "@tag": "NEED_TRANSLATION",
+            "#text": "Needs Translation."
+          },
+          {
             "@tag": "ORIGINAL_RESOURCE",
             "#text": "متن اصلی"
           },
@@ -2805,20 +2809,16 @@
             "#text": "نام منبع"
           },
           {
+            "@tag": "SAVED_FILE",
+            "#text": "The language file has been updated and saved!"
+          },
+          {
             "@tag": "SELECT_PAGE",
             "#text": "یک صفحه را انتخاب کنید :"
           },
           {
             "@tag": "TITLE",
             "#text": "مترجم زبان"
-          },
-          {
-            "@tag": "NEED_TRANSLATION",
-            "#text": "Needs Translation."
-          },
-          {
-            "@tag": "SAVED_FILE",
-            "#text": "The language file has been updated and saved!"
           }
         ]
       },
@@ -5871,12 +5871,12 @@
             "#text": "نام بومی زبان"
           },
           {
-            "@tag": "TITLE",
-            "#text": "زبان ها"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Translated Resources"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "زبان ها"
           }
         ]
       },
@@ -11864,10 +11864,6 @@
           {
             "@tag": "EMPTY_TOPIC",
             "#text": "نام موضوع خالی است"
-          },
-          {
-            "@tag": "MOVE",
-            "#text": null
           },
           {
             "@tag": "MOVE_MESSAGE",
