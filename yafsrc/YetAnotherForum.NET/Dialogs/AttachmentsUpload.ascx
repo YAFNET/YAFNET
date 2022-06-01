@@ -27,12 +27,12 @@
                           <div class="alert alert-danger" role="alert" style="display: none">
                               <%= this.Get<ILocalization>().GetText("ATTACHMENTS", "COMPLETE_WARNING") %>
                           </div>
-                          <div>
-                              <span class="btn btn-success fileinput-button">
+                          <div class="d-grid gap-2">
+                              <span class="btn btn-success fileinput-button m-1">
                                   <i class="fa fa-plus fa-fw"></i>&nbsp;<YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
                                   <input type="file" name="files[]" multiple>
                               </span>
-                              <button type="submit" class="btn btn-primary start">
+                              <button type="submit" class="btn btn-primary start m-1">
                                   <i class="fa fa-upload fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText("ATTACHMENTS", "START_UPLOADS") %>
                               </button>
                               <span class="fileupload-process"></span>

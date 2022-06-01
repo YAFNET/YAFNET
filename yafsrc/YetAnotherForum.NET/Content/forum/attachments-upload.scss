@@ -5,6 +5,7 @@
     padding: 0 5px 0 5px;
 }
 .AttachmentList {
+    list-style: none;
     padding: 0px 5px 4px 5px;
     margin: -5px 0px 26px 0px;
 
@@ -38,7 +39,6 @@
 
 .OpenUploadDialog {
     margin-top: -25px;
-    padding-left: 80px;
 }
 
 #dropzone {
