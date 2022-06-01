@@ -60,13 +60,13 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
 
         /// <summary>
-        /// TopicsList-Steuerelement.
+        /// TopicListSelected-Steuerelement.
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList TopicsList;
+        protected global::System.Web.UI.WebControls.HiddenField TopicListSelected;
 
         /// <summary>
         /// Move-Steuerelement.

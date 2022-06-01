@@ -66,7 +66,10 @@ public partial class MoveMessage : ForumPage
 
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.SelectTopicsLoadJs),
-            JavaScriptBlocks.SelectTopicsLoadJs(this.TopicsList.ClientID, this.ForumListSelected.ClientID));
+            JavaScriptBlocks.SelectTopicsLoadJs(
+                "TopicList",
+                this.ForumListSelected.ClientID,
+                this.TopicListSelected.ClientID));
     }
 
     /// <summary>
@@ -105,13 +108,23 @@ public partial class MoveMessage : ForumPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Move_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (this.TopicsList.SelectedValue.ToType<int>() != this.PageBoardContext.PageTopicID)
+        var moveTopicId = this.TopicListSelected.Value.ToType<int>();
+
+        if (moveTopicId == 0 || moveTopicId == this.PageBoardContext.PageMessage.ID)
         {
-            this.GetRepository<Message>().Move(
-                this.MoveMessageId,
-                this.TopicsList.SelectedValue.ToType<int>(),
-                true);
+            this.PageBoardContext.Notify(this.GetText("MOVE_TITLE"), MessageTypes.warning);
+            
+            return;
         }
+        
+        this.GetRepository<Message>().Move(
+            this.MoveMessageId,
+            moveTopicId,
+            true);
+
+        var topic = this.GetRepository<Topic>().GetById(moveTopicId);
+
+        this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { m = this.MoveMessageId, name = topic.TopicName });
 
         this.Get<LinkBuilder>().Redirect(
             ForumPages.Topics,
@@ -142,15 +155,5 @@ public partial class MoveMessage : ForumPage
         this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
 
         this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
-    }
-
-    /// <summary>
-    /// Handles the SelectedIndexChanged event of the TopicsList control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void TopicsList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        this.Move.Visible = this.TopicsList.SelectedValue != string.Empty;
     }
 }

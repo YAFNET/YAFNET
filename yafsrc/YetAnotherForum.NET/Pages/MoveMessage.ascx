@@ -28,12 +28,12 @@
 
                 </div>
                 <div class="mb-3">
-                    <asp:Label runat="server" AssociatedControlID="TopicsList">
+                    <label for="TopicList">
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                             LocalizedTag="select_topic_moveto" />
-                    </asp:Label>
-                    <asp:DropDownList ID="TopicsList" runat="server" 
-                                      OnSelectedIndexChanged="TopicsList_SelectedIndexChanged" />
+                    </label>
+                    <select id="TopicList"></select>
+                    <asp:HiddenField runat="server" ID="TopicListSelected" Value="0" />
                 </div>
             </div>
             <div class="card-footer text-center">

@@ -921,11 +921,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <param name="forumDropDownId">
     /// The forum drop down identifier.
     /// </param>
+    /// <param name="selectedHiddenId">
+    /// The topic selected Hidden Id.
+    /// </param>
     /// <returns>
     /// Returns the select2 topics load JS.
     /// </returns>
     [NotNull]
-    public static string SelectTopicsLoadJs([NotNull] string topicsId, [NotNull] string forumDropDownId)
+    public static string SelectTopicsLoadJs([NotNull] string topicsId, [NotNull] string forumDropDownId, [NotNull] string selectedHiddenId)
     {
         return $@"{Config.JQueryAlias}('#{topicsId}').select2({{
             ajax: {{
@@ -936,7 +939,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 data: function(params) {{
                       var query = {{
                           ForumId : {Config.JQueryAlias}('#{forumDropDownId}').val(),
-                          UserId: 0,
+                          TopicId: {BoardContext.Current.PageTopicID},
                           PageSize: 0,
                           Page : params.page || 0,
                           SearchTerm : params.term || ''
@@ -968,7 +971,13 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             theme: 'bootstrap-5',
             cache: true,
             {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
-        }});";
+        }}).on('select2:select', function(e){{
+                   if (e.params.data.Total) {{ 
+                                                 {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.Results[0].children[0].id);
+                                             }} else {{
+                                                 {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.id);
+                                             }}
+            }});";
     }
 
     /// <summary>

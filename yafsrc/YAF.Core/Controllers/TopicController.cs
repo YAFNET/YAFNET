@@ -68,6 +68,8 @@ public class TopicController : ApiController, IHaveServiceLocator
                 () => this.GetRepository<Topic>().Get(t => t.ForumID == searchTopic.ForumId),
                 TimeSpan.FromMinutes(5));
 
+            topics.RemoveAll(t => t.ID == searchTopic.TopicId);
+
             var topicsList = topics
                 .Where(topic => topic.TopicName.ToLower().Contains(searchTopic.SearchTerm.ToLower()))
                 .Select(
@@ -89,6 +91,8 @@ public class TopicController : ApiController, IHaveServiceLocator
                 searchTopic.Page,
                 15,
                 false);
+
+            topics.RemoveAll(t => t.TopicID == searchTopic.TopicId);
 
             var topicsList = (from PagedTopic topic in topics
                               select new SelectOptions

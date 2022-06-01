@@ -35,6 +35,11 @@ public class SearchTopic
     public int ForumId { get; set; }
 
     /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    public int TopicId { get; set; }
+
+    /// <summary>
     /// Gets or sets the page size.
     /// </summary>
     public int PageSize { get; set; }
