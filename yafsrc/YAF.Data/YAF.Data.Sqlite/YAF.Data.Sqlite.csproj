@@ -29,6 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.4.0" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.115.5" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.116" />
   </ItemGroup>
 </Project>
