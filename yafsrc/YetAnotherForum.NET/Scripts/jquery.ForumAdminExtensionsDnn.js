@@ -10078,7 +10078,11 @@ Prism.languages.vba = Prism.languages["visual-basic"];
             cancelable: true,
             detail: {
                 clientX: originalEvent.clientX,
-                clientY: originalEvent.clientY
+                clientY: originalEvent.clientY,
+                offsetX: originalEvent.offsetX,
+                offsetY: originalEvent.offsetY,
+                pageX: originalEvent.pageX,
+                pageY: originalEvent.pageY
             },
             clientX: originalEvent.clientX,
             clientY: originalEvent.clientY,
@@ -10547,8 +10551,8 @@ jQuery(document).ready(function() {
                 contextMenu.css({
                     display: "block"
                 }).addClass("show").offset({
-                    left: e.detail.clientX,
-                    top: e.detail.clientY
+                    left: e.detail.pageX,
+                    top: e.detail.pageY
                 });
             });
         }

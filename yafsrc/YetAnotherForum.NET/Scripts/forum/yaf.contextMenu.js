@@ -12,69 +12,70 @@
             var el = $(this)[0];
 
             // listen for the long-press event
-            el.addEventListener('long-press', function (e) {
+            el.addEventListener('long-press',
+                function(e) {
 
-                // stop the event from bubbling up
-                e.preventDefault();
+                    // stop the event from bubbling up
+                    e.preventDefault();
 
-                if (isMessageContext) {
-                    var selectedText = getSelectedMessageText();
+                    if (isMessageContext) {
+                        var selectedText = getSelectedMessageText();
 
-                    if (selectedText.length) {
-                        var searchItem = contextMenu.find(".item-search");
+                        if (selectedText.length) {
+                            var searchItem = contextMenu.find(".item-search");
 
-                        if (searchItem.length) {
-                            searchItem.remove();
-                        }
+                            if (searchItem.length) {
+                                searchItem.remove();
+                            }
 
-                        var selectedItem = contextMenu.find(".item-selected-quoting");
+                            var selectedItem = contextMenu.find(".item-selected-quoting");
 
-                        if (selectedItem.length) {
-                            selectedItem.remove();
-                        }
+                            if (selectedItem.length) {
+                                selectedItem.remove();
+                            }
 
-                        var selectedDivider = contextMenu.find(".selected-divider");
+                            var selectedDivider = contextMenu.find(".selected-divider");
 
-                        if (selectedDivider.length) {
-                            selectedDivider.remove();
-                        }
+                            if (selectedDivider.length) {
+                                selectedDivider.remove();
+                            }
 
-                        if (contextMenu.data("url")) {
-                            contextMenu.prepend('<a href="javascript:goToURL(\'' +
-                                messageID +
-                                "','" +
+                            if (contextMenu.data("url")) {
+                                contextMenu.prepend('<a href="javascript:goToURL(\'' +
+                                    messageID +
+                                    "','" +
+                                    selectedText +
+                                    "','" +
+                                    contextMenu.data("url") +
+                                    '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' +
+                                    contextMenu.data("quote") +
+                                    "</a>");
+                            }
+
+                            contextMenu.prepend(
+                                '<a href="javascript:copyToClipBoard(\'' +
                                 selectedText +
-                                "','" +
-                                contextMenu.data("url") +
-                                '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' +
-                                contextMenu.data("quote") +
+                                '\')" class="dropdown-item item-search"><i class="fas fa-clipboard fa-fw"></i>&nbsp;' +
+                                contextMenu.data("copy") +
                                 "</a>");
+
+                            contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
+
+                            contextMenu.prepend(
+                                '<a href="javascript:searchText(\'' +
+                                selectedText +
+                                '\')" class="dropdown-item item-search"><i class="fas fa-search fa-fw"></i>&nbsp;' +
+                                contextMenu.data("search") +
+                                ' "' +
+                                selectedText +
+                                '"</a>');
                         }
-
-                        contextMenu.prepend(
-                            '<a href="javascript:copyToClipBoard(\'' +
-                            selectedText +
-                            '\')" class="dropdown-item item-search"><i class="fas fa-clipboard fa-fw"></i>&nbsp;' +
-                            contextMenu.data("copy") +
-                            "</a>");
-
-                        contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
-
-                        contextMenu.prepend(
-                            '<a href="javascript:searchText(\'' +
-                            selectedText +
-                            '\')" class="dropdown-item item-search"><i class="fas fa-search fa-fw"></i>&nbsp;' +
-                            contextMenu.data("search") +
-                            ' "' +
-                            selectedText +
-                            '"</a>');
                     }
-                }
 
-                contextMenu.css({
-                    display: "block"
-                }).addClass("show").offset({ left: e.detail.clientX, top: e.detail.clientY });
-            });
+                    contextMenu.css({
+                        display: "block"
+                    }).addClass("show").offset({ left: e.detail.pageX, top: e.detail.pageY });
+                });
         }
 
         $(this).on("contextmenu", function (e) {

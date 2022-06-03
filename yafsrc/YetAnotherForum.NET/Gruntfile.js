@@ -317,6 +317,15 @@ module.exports = function(grunt) {
                     "Content/Themes/cerulean/bootstrap-forum.min.css": "Content/Themes/cerulean/bootstrap-forum.css"
                 }
             }
+        },
+        devUpdate: {
+            main: {
+                options: {
+                    reportUpdated: true,
+                    updateType: "force",
+                    semver: false
+                }
+            }
         }
     });
 
@@ -325,10 +334,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("@lodder/grunt-postcss");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
+    grunt.loadNpmTasks("grunt-dev-update");
 
     grunt.registerTask("default",
         [
-            "uglify", "sass", "postcss", "cssmin"
+            "uglify", "sass", "postcss", "cssmin", "devUpdate"
         ]);
 
     grunt.registerTask("js",
