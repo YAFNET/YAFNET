@@ -58,4 +58,8 @@ public class Culture
     /// Gets or sets the translated percentage.
     /// </summary>
     public int TranslatedPercentage { get; set; }
+
+    public int TranslatedCount { get; set; }
+
+    public int TagsCount { get; set; }
 }

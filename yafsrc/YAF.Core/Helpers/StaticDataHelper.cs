@@ -223,7 +223,11 @@ public static class StaticDataHelper
                     countTranslated = tagsCount;
                 }
 
-                list.First(x => x.CultureTag == resource.Resources.Code).TranslatedPercentage = countTranslated * 100 / tagsCount;
+                var resourceFile = list.First(x => x.CultureTag == resource.Resources.Code);
+
+                resourceFile.TranslatedPercentage = countTranslated * 100 / tagsCount;
+                resourceFile.TranslatedCount = countTranslated;
+                resourceFile.TagsCount = tagsCount;
 
             });
 
