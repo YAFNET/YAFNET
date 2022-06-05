@@ -293,7 +293,7 @@ public partial class PostPrivateMessage : ForumPage
             // to the given message id "p"
             var isQuoting = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q") == "1";
 
-            var isReport = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("report") == "1";
+            var isReport = this.Get<HttpRequestBase>().QueryString.Exists("report");
 
             // get quoted message
             this.ReplyMessage =
@@ -525,6 +525,11 @@ public partial class PostPrivateMessage : ForumPage
         if (this.ReplyMessage?.ReplyTo != null)
         {
             replyTo = this.ReplyMessage.ReplyTo;
+        }
+
+        if (this.Get<HttpRequestBase>().QueryString.Exists("report"))
+        {
+            replyTo = null;
         }
 
         // recipient was set in dropdown

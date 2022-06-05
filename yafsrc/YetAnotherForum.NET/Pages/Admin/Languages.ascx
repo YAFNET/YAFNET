@@ -1,7 +1,4 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Languages" Codebehind="Languages.ascx.cs" %>
-<%@ Import Namespace="YAF.Types.Objects" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
-
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -54,7 +51,7 @@
                         <div class="progress-bar" role="progressbar"
                              style="width: <%# this.Eval("TranslatedPercentage")%>%;"
                              aria-valuenow="<%# this.Eval("TranslatedPercentage")%>" aria-valuemin="0" aria-valuemax="100">
-                            <%# this.Eval("TranslatedPercentage")%>%
+                            <%# this.Eval("TranslatedPercentage")%>% - (<%# this.Eval("TranslatedCount")%> of <%# this.Eval("TagsCount")%>)
                         </div>
                     </div>
                     <p><strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="FILENAME" />:</strong>
