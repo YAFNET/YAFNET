@@ -1156,7 +1156,7 @@ public static class MessageRepositoryExtensions
         {
             BoardContext.Current.GetRepository<Topic>().UpdateOnly(
                 () => new Topic { Priority = priority.Value },
-                t => t.ID == originalMessage.Item2.ID);
+                t => t.ID == originalMessage.Item2.TopicID);
         }
 
         if (subject.IsSet())
