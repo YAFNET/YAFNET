@@ -44,7 +44,7 @@
                                         <YAF:UserLink ID="NameLink" runat="server"
                                                       Suspended="<%# (Container.DataItem as ActiveUser).Suspended %>"
                                                       ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ActiveUser).UserDisplayName : (Container.DataItem as ActiveUser).UserName %>"
-                                                      CrawlerName="<%# (Container.DataItem as ActiveUser).IsCrawler ? (Container.DataItem as ActiveUser).Browser : string.Empty %>"
+                                                      CrawlerName="<%# (Container.DataItem as ActiveUser).ActiveFlags.IsCrawler ? (Container.DataItem as ActiveUser).Browser : string.Empty %>"
                                                       UserID="<%# (Container.DataItem as ActiveUser).UserID %>"
                                                       Style="<%# (Container.DataItem as ActiveUser).UserStyle %>"
                                                       PostfixText='<%# (Container.DataItem as ActiveUser).IsActiveExcluded ? new Icon{IconName = "user-secret"}.RenderToString() : "" %>'/>
