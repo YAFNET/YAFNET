@@ -33,7 +33,7 @@ using YAF.Types.Models;
 public static class BannedEmailRepositoryExtensions
 {
     /// <summary>
-    /// The save.
+    /// Save or Update Banned Email
     /// </summary>
     /// <param name="repository">
     /// The repository. 
@@ -64,15 +64,10 @@ public static class BannedEmailRepositoryExtensions
 
         if (id.HasValue)
         {
-            repository.Upsert(
-                new BannedEmail
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = id.Value,
-                        Mask = mask,
-                        Reason = reason,
-                        Since = DateTime.Now
-                    });
+            repository.UpdateOnly(
+                () => new BannedEmail { Mask = mask, Reason = reason },
+                b => b.ID == id.Value && b.BoardID == repository.BoardID);
+
             return true;
         }
 

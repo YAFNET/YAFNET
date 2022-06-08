@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -33,7 +33,7 @@ using YAF.Types.Models;
 public static class BannedIpRepositoryExtensions
 {
     /// <summary>
-    /// The save.
+    /// Save or Update Banned IP
     /// </summary>
     /// <param name="repository">
     /// The repository. 
@@ -68,16 +68,9 @@ public static class BannedIpRepositoryExtensions
 
         if (id.HasValue)
         {
-            repository.Upsert(
-                new BannedIP
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = id.Value,
-                        Mask = mask,
-                        Reason = reason,
-                        UserID = userId,
-                        Since = DateTime.Now
-                    });
+            repository.UpdateOnly(
+                () => new BannedIP {Mask = mask, Reason = reason, UserID = userId,},
+                b => b.ID == id.Value && b.BoardID == repository.BoardID);
 
             return true;
         }
@@ -87,7 +80,7 @@ public static class BannedIpRepositoryExtensions
             return false;
         }
 
-        var newId = repository.Upsert(
+        var newId = repository.Insert(
             new BannedIP
                 {
                     BoardID = boardId ?? repository.BoardID,

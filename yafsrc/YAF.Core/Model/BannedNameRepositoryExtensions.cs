@@ -33,7 +33,7 @@ using YAF.Types.Models;
 public static class BannedNameRepositoryExtensions
 {
     /// <summary>
-    /// The save.
+    /// Save or Update Banned Name
     /// </summary>
     /// <param name="repository">
     /// The repository. 
@@ -64,11 +64,9 @@ public static class BannedNameRepositoryExtensions
 
         if (id.HasValue)
         {
-            repository.Update(
-                new BannedName
-                    {
-                        BoardID = boardId ?? repository.BoardID, Mask = mask, Reason = reason, Since = DateTime.Now
-                    });
+            repository.UpdateOnly(
+                () => new BannedName { Mask = mask, Reason = reason },
+                b => b.ID == id.Value && b.BoardID == repository.BoardID);
 
             repository.FireUpdated(id.Value);
 
