@@ -3532,7 +3532,7 @@
           },
           {
             "@tag": "PMS",
-            "#text": "PMs"
+            "#text": "Private Messages"
           },
           {
             "@tag": "PROVIDER_ROLES",
@@ -4565,7 +4565,7 @@
           },
           {
             "@tag": "MAX_POST_CHARS",
-            "#text": "Max Report Post Chars:"
+            "#text": "Max Report Post Length:"
           },
           {
             "@tag": "MAX_POST_CHARS_HELP",
@@ -6334,7 +6334,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Reindex DB"
+            "#text": "Database Maintenance"
           }
         ]
       },
