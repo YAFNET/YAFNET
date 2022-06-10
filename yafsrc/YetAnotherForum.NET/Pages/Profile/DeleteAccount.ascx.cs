@@ -129,18 +129,18 @@ public partial class DeleteAccount : ProfilePage
             case "delete":
                 {
                     // (Soft) Delete User
-                    var yafUser = this.PageBoardContext.PageUser;
+                    var userFlags = this.PageBoardContext.PageUser.UserFlags;
 
-                    yafUser.UserFlags.IsDeleted = true;
-                    yafUser.UserFlags.IsApproved = false;
+                    userFlags.IsDeleted = true;
+                    userFlags.IsApproved = false;
 
                     this.GetRepository<User>().UpdateOnly(
-                        () => new User { Flags = yafUser.UserFlags.BitValue },
+                        () => new User { Flags = userFlags.BitValue },
                         u => u.ID == this.PageBoardContext.PageUserID);
 
                     this.GetRepository<AspNetUsers>().UpdateOnly(
                         () => new AspNetUsers { IsApproved = false },
-                        u => u.Id == yafUser.ProviderUserKey);
+                        u => u.Id == this.PageBoardContext.PageUser.ProviderUserKey);
 
                     // delete posts...
                     var messages = this.GetRepository<Message>().GetAllUserMessages(this.PageBoardContext.PageUserID);
