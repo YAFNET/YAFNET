@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "Estonian",
     "@code": "et-EE",
@@ -8,7 +8,7 @@
         "Resource": [
           {
             "@tag": "ACTIVITY",
-            "#text": "Your Activity"
+            "#text": "Teie tegevus"
           },
           {
             "@tag": "ARCHIVE",
@@ -24,23 +24,23 @@
           },
           {
             "@tag": "CREATED_REPLY",
-            "#text": "Replied to a Post"
+            "#text": "Vastas postitusele"
           },
           {
             "@tag": "CREATED_REPLY_MSG",
-            "#text": "Added an Reply to the Topic {0}"
+            "#text": "Lisas vastuse teemale {0}"
           },
           {
             "@tag": "CREATED_TOPIC",
-            "#text": "Created a new Topic"
+            "#text": "Loonud uue teema"
           },
           {
             "@tag": "CREATED_TOPIC_MSG",
-            "#text": "Created a new Topic {0}"
+            "#text": "Lõi uue teema {0}"
           },
           {
             "@tag": "DELETE_ACCOUNT",
-            "#text": "Delete Account"
+            "#text": "Kustuta konto"
           },
           {
             "@tag": "EDIT_AVATAR",
@@ -52,7 +52,7 @@
           },
           {
             "@tag": "EDIT_SETTINGS",
-            "#text": "Edit Settings"
+            "#text": "Redigeeri sätteid"
           },
           {
             "@tag": "EDIT_SIGNATURE",
@@ -60,11 +60,11 @@
           },
           {
             "@tag": "GIVEN_THANKS",
-            "#text": "Given Thanks to a Post"
+            "#text": "Tänu postitusele"
           },
           {
             "@tag": "GIVEN_THANKS_MSG",
-            "#text": "Given Thanks to {0} in the Topic {1}"
+            "#text": "Täname kasutajat {0} teemas {1}"
           },
           {
             "@tag": "GROUPS",
@@ -76,7 +76,7 @@
           },
           {
             "@tag": "ITEMS",
-            "#text": "Show Items"
+            "#text": "Kuva üksused"
           },
           {
             "@tag": "JOINED",
@@ -100,11 +100,11 @@
           },
           {
             "@tag": "RECEIVED_THANKS",
-            "#text": "Received a Thanks to a Post"
+            "#text": "Saanud tänu postitusele"
           },
           {
             "@tag": "RECEIVED_THANKS_MSG",
-            "#text": "Has Received a Thanks from {0} in the Topic {1}"
+            "#text": "on saanud tänu kasutajalt {0} teemal {1}"
           },
           {
             "@tag": "SENTITEMS",
@@ -120,7 +120,7 @@
           },
           {
             "@tag": "UNREAD_ONLY",
-            "#text": "Show only unread Activity"
+            "#text": "Kuva ainult lugemata tegevus"
           },
           {
             "@tag": "VIEW_PROFILE",
@@ -128,35 +128,35 @@
           },
           {
             "@tag": "WAS_MENTIONED",
-            "#text": "Was Mentioned"
+            "#text": "Mainiti ära"
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
-            "#text": "Was Mentioned by {0} in the Topic {1}"
+            "#text": "{0} mainis teemas {1}"
           },
           {
             "@tag": "WAS_QUOTED",
-            "#text": "Was Quoted"
+            "#text": "Tsiteeriti"
           },
           {
             "@tag": "WAS_QUOTED_MSG",
-            "#text": "Was Quoted by {0} in the Topic {1}"
+            "#text": "Tsiteeris {0} teemas {1}"
           },
           {
             "@tag": "WATCH_FORUM_MSG",
-            "#text": "{0} Created the new topic {1}"
+            "#text": "{0} lõi uue teema {1}"
           },
           {
             "@tag": "WATCH_FORUM_REPLY",
-            "#text": "New Topic in a Watch Forum"
+            "#text": "Uus teema vaatamisfoorumis"
           },
           {
             "@tag": "WATCH_TOPIC_MSG",
-            "#text": "{0} replied to the topic {1}"
+            "#text": "{0} vastas teemale {1}"
           },
           {
             "@tag": "WATCH_TOPIC_REPLY",
-            "#text": "New Reply in a Watch Topic"
+            "#text": "Uus vastus vaatamise teemas"
           },
           {
             "@tag": "YOUR_ACCOUNT",
@@ -168,7 +168,7 @@
           },
           {
             "@tag": "YOUR_NOTIFIY",
-            "#text": "Your Notifications"
+            "#text": "Teie teated"
           },
           {
             "@tag": "YOUR_USERDISPLAYNAME",
@@ -185,15 +185,15 @@
         "Resource": [
           {
             "@tag": "CONFIRM_PASSWORD",
-            "#text": "Confirm New Password"
+            "#text": "Kinnita Uus salasõna"
           },
           {
             "@tag": "INVALID_MATCH",
-            "#text": "The Password and Confirmation Password must match."
+            "#text": "Parool ja kinnitusparool peavad ühtima."
           },
           {
             "@tag": "PASSWORD",
-            "#text": "Enter New Password"
+            "#text": "Sisestage uus parool"
           },
           {
             "@tag": "TITLE",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
-            "#text": "Views banned Emails list"
+            "#text": "Vaatab keelatud meilide loendit"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL_EDIT",
-            "#text": "Edits banned Emails"
+            "#text": "Keelatud e-kirjade muudatused"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL_IMPORT",
-            "#text": "Imports banned Emails"
+            "#text": "Import keelatud e-kirjad"
           },
           {
             "@tag": "ADMIN_BANNEDIP",
@@ -242,19 +242,19 @@
           },
           {
             "@tag": "ADMIN_BANNEDIP_IMPORT",
-            "#text": "Imports banned ips"
+            "#text": "Import keelatud ips"
           },
           {
             "@tag": "ADMIN_BANNEDNAME",
-            "#text": "Views banned Names list"
+            "#text": "Vaatamised keelatud Nimeloendit"
           },
           {
             "@tag": "ADMIN_BANNEDNAME_EDIT",
-            "#text": "Edits banned Names"
+            "#text": "Keelatud nimede muudatused"
           },
           {
             "@tag": "ADMIN_BANNEDNAME_IMPORT",
-            "#text": "Imports banned Names"
+            "#text": "Import keelatud Nimed"
           },
           {
             "@tag": "ADMIN_BBCODE",
@@ -278,7 +278,7 @@
           },
           {
             "@tag": "ADMIN_DELETEFORUM",
-            "#text": "Delete forums"
+            "#text": "Kustuta foorumid"
           },
           {
             "@tag": "ADMIN_EDITACCESSMASK",
@@ -310,11 +310,11 @@
           },
           {
             "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "Edits NNTP Forum"
+            "#text": "Redigeerib NNTP foorumit"
           },
           {
             "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "Edits NNTP Server"
+            "#text": "Redigeerib NNTP-serverit"
           },
           {
             "@tag": "ADMIN_EDITRANK",
@@ -370,7 +370,7 @@
           },
           {
             "@tag": "ADMIN_PROFILEDEFINITIONS",
-            "#text": "Views the Custom Profile Definitions"
+            "#text": "Kuvab kohandatud profiilide määratlusi"
           },
           {
             "@tag": "ADMIN_PRUNE",
@@ -410,19 +410,19 @@
           },
           {
             "@tag": "ADMIN_SPAMLOG",
-            "#text": "Views/edits the spam log"
+            "#text": "Vaatab/muudab rämpsposti logi"
           },
           {
             "@tag": "ADMIN_SPAMWORDS",
-            "#text": "Views spam words list"
+            "#text": "Vaatab rämpspostisõnade loendit"
           },
           {
             "@tag": "ADMIN_SPAMWORDS_EDIT",
-            "#text": "Edits spam words list"
+            "#text": "Redigeerib rämpspostisõnade loendit"
           },
           {
             "@tag": "ADMIN_SPAMWORDS_IMPORT",
-            "#text": "Imports spam words"
+            "#text": "Impordib rämpspostisõnu"
           },
           {
             "@tag": "ADMIN_TASKMANAGER",
@@ -434,7 +434,7 @@
           },
           {
             "@tag": "ADMIN_USERS_IMPORT",
-            "#text": "Imports users"
+            "#text": "Impordib kasutajaid"
           },
           {
             "@tag": "ADMIN_VERSION",
@@ -482,7 +482,7 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Edits his Ignored users and block option"
+            "#text": "Redigeerib oma ignoreeritud kasutajate ja blokeerimise valikut"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -490,7 +490,7 @@
           },
           {
             "@tag": "COOKIES",
-            "#text": "Views the cookie policy page"
+            "#text": "Vaatab küpsiste poliitika lehte"
           },
           {
             "@tag": "CP_PROFILE_OFUSER",
@@ -498,7 +498,7 @@
           },
           {
             "@tag": "DELETE_ACCOUNT",
-            "#text": "User deletes his account"
+            "#text": "Kasutaja kustutab oma konto"
           },
           {
             "@tag": "DELETEMESSAGE",
@@ -518,7 +518,7 @@
           },
           {
             "@tag": "EDIT_SETTINGS",
-            "#text": "Edit the user settings"
+            "#text": "Muutke kasutaja seadeid"
           },
           {
             "@tag": "EDIT_SIGNATURE",
@@ -710,7 +710,7 @@
           },
           {
             "@tag": "TEAM",
-            "#text": "Views team page"
+            "#text": "Vaatab meeskonna lehte"
           },
           {
             "@tag": "TOPICINFORUM",
@@ -772,67 +772,67 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete this access mask?"
+            "#text": "Kas kustutada see juurdepääsumask?"
           },
           {
             "@tag": "DELETE",
-            "#text": "Delete"
+            "#text": "Kustuta"
           },
           {
             "@tag": "DOWNLOAD",
-            "#text": "Download"
+            "#text": "Lae alla"
           },
           {
             "@tag": "EDIT",
-            "#text": "Edit"
+            "#text": "Muuda"
           },
           {
             "@tag": "MODERATOR",
-            "#text": "Moderate"
+            "#text": "Mõõdukas"
           },
           {
             "@tag": "MSG_NOT_DELETE",
-            "#text": "You cannot delete this access mask because it is in use."
+            "#text": "Te ei saa seda juurdepääsumaski kustutada, kuna see on kasutusel."
           },
           {
             "@tag": "NAME",
-            "#text": "Name"
+            "#text": "Nimi"
           },
           {
             "@tag": "NEW_MASK",
-            "#text": "New Access Mask"
+            "#text": "Uus juurdepääsumask"
           },
           {
             "@tag": "POLL",
-            "#text": "Poll"
+            "#text": "Küsitlus"
           },
           {
             "@tag": "POST",
-            "#text": "Post"
+            "#text": "Postita"
           },
           {
             "@tag": "PRIORITY",
-            "#text": "Priority"
+            "#text": "Prioriteet"
           },
           {
             "@tag": "READ",
-            "#text": "Read"
+            "#text": "Lugege"
           },
           {
             "@tag": "REPLY",
-            "#text": "Reply"
+            "#text": "Vasta"
           },
           {
             "@tag": "TITLE",
-            "#text": "Access Masks"
+            "#text": "Juurdepääsu maskid"
           },
           {
             "@tag": "UPLOAD",
-            "#text": "Upload"
+            "#text": "Laadi üles"
           },
           {
             "@tag": "VOTE",
-            "#text": "Vote"
+            "#text": "hääletada"
           }
         ]
       },
@@ -849,27 +849,27 @@
           },
           {
             "@tag": "ADMIN_EMAIL",
-            "#text": "E-Mail"
+            "#text": "E-post"
           },
           {
             "@tag": "ADMIN_IPADRESS",
-            "#text": "IP Address"
+            "#text": "IP-aadress"
           },
           {
             "@tag": "ADMIN_JOINED",
-            "#text": "Joined"
+            "#text": "Liitunud"
           },
           {
             "@tag": "ADMIN_LOCATION",
-            "#text": "Board Location"
+            "#text": "Juhatuse asukoht"
           },
           {
             "@tag": "ADMIN_NAME",
-            "#text": "Name"
+            "#text": "Nimi"
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
-            "#text": "Resend Email Verification"
+            "#text": "Saada e-posti kinnitus uuesti"
           },
           {
             "@tag": "ADMIN_UPGRADE",
@@ -877,123 +877,123 @@
           },
           {
             "@tag": "ADMINISTRATION",
-            "#text": "Administration"
+            "#text": "Administreerimine"
           },
           {
             "@tag": "ALL_BOARDS",
-            "#text": " - All Boards - "
+            "#text": "- Kõik lauad -"
           },
           {
             "@tag": "APROVE_ALL",
-            "#text": "Approve All"
+            "#text": "Kinnita kõik"
           },
           {
             "@tag": "BOARD_LOCATION",
-            "#text": "Board Location"
+            "#text": "Juhatuse asukoht"
           },
           {
             "@tag": "BOARD_STARTED",
-            "#text": "Board started:"
+            "#text": "Juhatus alustas:"
           },
           {
             "@tag": "CONFIRM_APROVE",
-            "#text": "Approve this User?"
+            "#text": "Kas kinnitada see kasutaja?"
           },
           {
             "@tag": "CONFIRM_APROVE_ALL",
-            "#text": "Approve all Users?"
+            "#text": "Kas kinnitada kõik kasutajad?"
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete this User?"
+            "#text": "Kas kustutada see kasutaja?"
           },
           {
             "@tag": "CONFIRM_DELETE_ALL",
-            "#text": "Delete all unapproved Users more than the specified number of days old?"
+            "#text": "Kas kustutada kõik kinnitamata kasutajad, kes on rohkem kui määratud arv päevi vanad?"
           },
           {
             "@tag": "DAYS_AGO",
-            "#text": "{0:d} ({1:N0} days ago)"
+            "#text": "{0:d} ({1:N0} päeva tagasi)"
           },
           {
             "@tag": "DELETE_ALL",
-            "#text": "Delete All More Than Days Old:"
+            "#text": "Kustuta kõik rohkem kui päevad vanad:"
           },
           {
             "@tag": "ERROR_DATABASESIZE",
-            "#text": "Unable to fetch DB Size"
+            "#text": "DB suurust ei saa tuua"
           },
           {
             "@tag": "HEADER1",
-            "#text": "Who is Online"
+            "#text": "Kes on võrgus"
           },
           {
             "@tag": "HEADER2",
-            "#text": "Unverified Users"
+            "#text": "Kontrollimata kasutajad"
           },
           {
             "@tag": "HEADER3",
-            "#text": "Statistics for"
+            "#text": "Statistika jaoks"
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
-            "#text": "Verification Mail was send again to the User."
+            "#text": "Kasutajale saadeti uuesti kinnituskiri."
           },
           {
             "@tag": "MSG_VALID_DAYS",
-            "#text": "You should enter a valid integer value for days."
+            "#text": "Peaksite sisestama päevade jaoks kehtiva täisarvu väärtuse."
           },
           {
             "@tag": "NEW_VERSION",
-            "#text": "A New Version is available!"
+            "#text": "Uus versioon on saadaval!"
           },
           {
             "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "Go to Downloads page"
+            "#text": "Minge lehele Allalaadimised"
           },
           {
             "@tag": "NUM_CATEGORIES",
-            "#text": "Number of categories:"
+            "#text": "Kategooriate arv:"
           },
           {
             "@tag": "NUM_FORUMS",
-            "#text": "Number of forums:"
+            "#text": "Foorumite arv:"
           },
           {
             "@tag": "NUM_POSTS",
-            "#text": "Number of posts:"
+            "#text": "Postituste arv:"
           },
           {
             "@tag": "NUM_TOPICS",
-            "#text": "Number of topics:"
+            "#text": "Teemade arv:"
           },
           {
             "@tag": "NUM_USERS",
-            "#text": "Number of users:"
+            "#text": "Kasutajate arv:"
           },
           {
             "@tag": "POSTS_DAY",
-            "#text": "Posts per day:"
+            "#text": "Postitused päevas:"
           },
           {
             "@tag": "SIZE_DATABASE",
-            "#text": "Size of database:"
+            "#text": "Andmebaasi suurus:"
           },
           {
             "@tag": "STATS_DONTCOUNT",
-            "#text": "These statistics don't count deleted topics and posts."
+            "#text": "See statistika ei arvesta kustutatud teemasid ja postitusi."
           },
           {
             "@tag": "TITLE",
-            "#text": "Dashboard"
+            "#text": "Armatuurlaud"
           },
           {
             "@tag": "TOPICS_DAY",
-            "#text": "Topics per day:"
+            "#text": "Teemad päevas:"
           },
           {
             "@tag": "USERS_DAY",
-            "#text": "Users per day:"
+            "#text": "Kasutajad päevas:"
           }
         ]
       },
@@ -1002,7 +1002,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "User Attachments"
+            "#text": "Kasutaja manused"
           }
         ]
       },
@@ -1011,11 +1011,11 @@
         "Resource": [
           {
             "@tag": "ADD_IP",
-            "#text": "Add New Email"
+            "#text": "Lisa uus e-kiri"
           },
           {
             "@tag": "IMPORT_IPS",
-            "#text": "Import Email(s)"
+            "#text": "Impordi meilid"
           },
           {
             "@tag": "MASK",
@@ -1023,23 +1023,23 @@
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned Email Address Already exists!"
+            "#text": "Keelatud meiliaadress on juba olemas!"
           },
           {
             "@tag": "MSG_REMOVEBAN_EMAIL",
-            "#text": "Email was successfully deleted"
+            "#text": "Meili kustutamine õnnestus"
           },
           {
             "@tag": "REASON",
-            "#text": "Reason"
+            "#text": "Põhjus"
           },
           {
             "@tag": "SINCE",
-            "#text": "Since"
+            "#text": "Alates"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned Email Addresses"
+            "#text": "Keelatud meiliaadressid"
           }
         ]
       },
@@ -1052,19 +1052,19 @@
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The Email address to ban. You can use Regular Expressions."
+            "#text": "Keelatav e-posti aadress. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define an Email address."
+            "#text": "Peate määratlema e-posti aadressi."
           },
           {
             "@tag": "REASON",
-            "#text": "Reason:"
+            "#text": "Põhjus:"
           },
           {
             "@tag": "REASON_HELP",
-            "#text": "The reason why the email address was banned."
+            "#text": "Põhjus, miks meiliaadress keelati."
           },
           {
             "@tag": "TITLE",
@@ -1072,7 +1072,7 @@
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned Email Address"
+            "#text": "Muuda keelatud e-posti aadressi"
           }
         ]
       },
@@ -1081,39 +1081,39 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import Email Addresses List"
+            "#text": "Importige e-posti aadresside loend"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Impordi loend"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Importimine ebaõnnestus! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Valige Impordi fail:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing an Email Address on each line"
+            "#text": "Peab olema *.txt-fail, mis sisaldab igal real e-posti aadressi"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new email address was found in the upload."
+            "#text": "Midagi ei imporditud: üleslaadimisel ei leitud uut e-posti aadressi."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new email address(es) imported successfully."
+            "#text": "{0} uue e-posti aadressi importimine õnnestus."
           },
           {
             "@tag": "NOTE",
-            "#text": "You can find a list of Spam Bot Email Addresses on StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, that can be imported here."
+            "#text": "Rämpspostirobotite e-posti aadresside loendi leiate saidilt StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, mis "
           },
           {
             "@tag": "TITLE",
-            "#text": "Import Email Addresses"
+            "#text": "Importige meiliaadressid"
           }
         ]
       },
@@ -1122,19 +1122,19 @@
         "Resource": [
           {
             "@tag": "ADD_IP",
-            "#text": "Add New Address"
+            "#text": "Lisa uus aadress"
           },
           {
             "@tag": "BAN_BY",
-            "#text": "Banned By"
+            "#text": "Keelatud"
           },
           {
             "@tag": "EXPORT",
-            "#text": "Export to Text File"
+            "#text": "Ekspordi tekstifaili"
           },
           {
             "@tag": "IMPORT_IPS",
-            "#text": "Import Address(es)"
+            "#text": "Impordi aadress(id)"
           },
           {
             "@tag": "MASK",
@@ -1142,27 +1142,27 @@
           },
           {
             "@tag": "MSG_DELETE",
-            "#text": "Delete this Banned Item?"
+            "#text": "Kas kustutada see keelatud üksus?"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned IP Already exists!"
+            "#text": "Keelatud IP on juba olemas!"
           },
           {
             "@tag": "MSG_REMOVEBAN_IP",
-            "#text": "IP Address or Mask '{0}' was successfully deleted"
+            "#text": "IP-aadressi või maski '{0}' kustutamine õnnestus"
           },
           {
             "@tag": "REASON",
-            "#text": "Reason"
+            "#text": "Põhjus"
           },
           {
             "@tag": "SINCE",
-            "#text": "Since"
+            "#text": "Alates"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned IP Addresses"
+            "#text": "Keelatud IP-aadressid"
           }
         ]
       },
@@ -1171,19 +1171,19 @@
         "Resource": [
           {
             "@tag": "INVALID_ADRESS",
-            "#text": "Invalid IP address."
+            "#text": "Vigane IP-aadress."
           },
           {
             "@tag": "INVALID_LESS",
-            "#text": "\"{0}\" is not a valid IP section value (must be less then 255)."
+            "#text": "„{0}” ei ole kehtiv IP-jaotuse väärtus (peab olema väiksem kui 255)."
           },
           {
             "@tag": "INVALID_SECTION",
-            "#text": "\"{0}\" is not a valid IP section value."
+            "#text": "\"{0}\" ei ole kehtiv IP-jaotuse väärtus."
           },
           {
             "@tag": "INVALID_VALUE",
-            "#text": "One of the IP section does not have a value. Valid values are 0-255 or \"*\" for a wildcard."
+            "#text": "Ühel IP jaotisel pole väärtust. "
           },
           {
             "@tag": "MASK",
@@ -1191,19 +1191,19 @@
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The ip address to ban. You can use wild cards (127.0.0.*)."
+            "#text": "Keelatav IP-aadress. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define an IP address."
+            "#text": "Peate määrama IP-aadressi."
           },
           {
             "@tag": "REASON",
-            "#text": "Reason:"
+            "#text": "Põhjus:"
           },
           {
             "@tag": "REASON_HELP",
-            "#text": "The reason why the ip was banned."
+            "#text": "Põhjus, miks ip ära keelati."
           },
           {
             "@tag": "TITLE",
@@ -1211,7 +1211,7 @@
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned IP Address"
+            "#text": "Muuda keelatud IP-aadressi"
           }
         ]
       },
@@ -1220,39 +1220,39 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import IP Addresses List"
+            "#text": "Importige IP-aadresside loend"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Impordi loend"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Importimine ebaõnnestus! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Valige Impordi fail:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing an Ip Address on each line"
+            "#text": "Peab olema *.txt-fail, mis sisaldab igal real IP-aadressi"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new ip address was found in the upload."
+            "#text": "Midagi ei imporditud: üleslaadimisel ei leitud uut IP-aadressi."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new ip address(es) imported successfully."
+            "#text": "{0} uus IP-aadress imporditi edukalt."
           },
           {
             "@tag": "NOTE",
-            "#text": "You can find a list of Spam Bot Ips on StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, that can be imported here."
+            "#text": "Rämpspostirobotite IP-de loendi leiate saidilt StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, mis võib olla "
           },
           {
             "@tag": "TITLE",
-            "#text": "Import IP Addresses"
+            "#text": "IP-aadresside importimine"
           }
         ]
       },
@@ -1261,11 +1261,11 @@
         "Resource": [
           {
             "@tag": "ADD_IP",
-            "#text": "Add New User Name"
+            "#text": "Lisa uus kasutajanimi"
           },
           {
             "@tag": "IMPORT_IPS",
-            "#text": "Import Name(s)"
+            "#text": "Impordi nimi/nimed"
           },
           {
             "@tag": "MASK",
@@ -1273,23 +1273,23 @@
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned Name Already exists!"
+            "#text": "Keelatud nimi on juba olemas!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The user name was successfully deleted"
+            "#text": "Kasutajanimi kustutati edukalt"
           },
           {
             "@tag": "REASON",
-            "#text": "Reason"
+            "#text": "Põhjus"
           },
           {
             "@tag": "SINCE",
-            "#text": "Since"
+            "#text": "Alates"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned Names"
+            "#text": "Keelatud nimed"
           }
         ]
       },
@@ -1302,19 +1302,19 @@
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Name to ban. You can use Regular Expressions."
+            "#text": "Keelatav kasutajanimi. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Name."
+            "#text": "Peate määratlema kasutajanime."
           },
           {
             "@tag": "REASON",
-            "#text": "Reason:"
+            "#text": "Põhjus:"
           },
           {
             "@tag": "REASON_HELP",
-            "#text": "The reason why the user name was banned."
+            "#text": "Põhjus, miks kasutajanimi keelati."
           },
           {
             "@tag": "TITLE",
@@ -1322,7 +1322,7 @@
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned Name"
+            "#text": "Muuda keelatud nime"
           }
         ]
       },
@@ -1331,39 +1331,39 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import Names List"
+            "#text": "Impordi nimede loend"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Impordi loend"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Importimine ebaõnnestus! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Valige Impordi fail:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one Name on each line"
+            "#text": "Peab olema *.txt-fail, mis sisaldab igal real ühte nime"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new name was found in the upload."
+            "#text": "Midagi ei imporditud: üleslaadimisel ei leitud uut nime."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new name(s) imported successfully."
+            "#text": "{0} uue nime importimine õnnestus."
           },
           {
             "@tag": "NOTE",
-            "#text": "You can find a list of Spam Bot user names on StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, that can be imported here."
+            "#text": "Rämpspostirobotite kasutajanimede loendi leiate saidilt StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, mis "
           },
           {
             "@tag": "TITLE",
-            "#text": "Import Name(s)"
+            "#text": "Impordi nimi/nimed"
           }
         ]
       },
@@ -1372,35 +1372,35 @@
         "Resource": [
           {
             "@tag": "ADD",
-            "#text": "Add new BBCode"
+            "#text": "Lisa uus BBCode"
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete this YafBBCode Extension?"
+            "#text": "Kas kustutada see YafBBCode'i laiendus?"
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "Description"
+            "#text": "Kirjeldus"
           },
           {
             "@tag": "EXPORT",
-            "#text": "Export Selected to XML"
+            "#text": "Ekspordi valitud XML-i"
           },
           {
             "@tag": "HEADER",
-            "#text": "BBCode Extensions"
+            "#text": "BBCode laiendused"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
-            "#text": "Nothing selected to export."
+            "#text": "Midagi pole eksportimiseks valitud."
           },
           {
             "@tag": "NAME",
-            "#text": "Name"
+            "#text": "Nimi"
           },
           {
             "@tag": "TITLE",
-            "#text": "YafBBCode Extensions"
+            "#text": "YafBBCode'i laiendused"
           }
         ]
       },
@@ -1409,87 +1409,87 @@
         "Resource": [
           {
             "@tag": "BBCODE_DESC",
-            "#text": "Description:"
+            "#text": "Kirjeldus:"
           },
           {
             "@tag": "BBCODE_DESC_HELP",
-            "#text": "Required Description of this extension to the user."
+            "#text": "Nõutav selle laienduse kirjeldus kasutajale."
           },
           {
             "@tag": "BBCODE_NAME",
-            "#text": "Name:"
+            "#text": "Nimi:"
           },
           {
             "@tag": "BBCODE_NAME_HELP",
-            "#text": "Required Simple name of this extension."
+            "#text": "Nõutav Selle laienduse lihtnimi."
           },
           {
             "@tag": "CLASS_NAME",
-            "#text": "Module Class Name:"
+            "#text": "Mooduli klassi nimi:"
           },
           {
             "@tag": "CLASS_NAME_HELP",
-            "#text": "Full class name including namespace."
+            "#text": "Klassi täisnimi, sealhulgas nimeruum."
           },
           {
             "@tag": "DISPLAY_CSS",
-            "#text": "Display CSS:"
+            "#text": "Kuva CSS:"
           },
           {
             "@tag": "DISPLAY_CSS_HELP",
-            "#text": "CSS to help display this extension. Just enter CSS into this field. style tag will be added automatically."
+            "#text": "CSS-i, mis aitab selle laienduse kuvada. "
           },
           {
             "@tag": "DISPLAY_JS",
-            "#text": "Display JS:"
+            "#text": "Kuva JS:"
           },
           {
             "@tag": "DISPLAY_JS_HELP",
-            "#text": "JS code used to help with the extension display. Just enter javascript into this field. script tag will be added automatically."
+            "#text": "JS-kood, mida kasutatakse laienduse kuvamisel. "
           },
           {
             "@tag": "EDIT_JS",
-            "#text": "Edit JS:"
+            "#text": "Redigeeri JS-i:"
           },
           {
             "@tag": "EDIT_JS_HELP",
-            "#text": "JS code used to modify the text editor. Use \"{{editorid}}\" (without quotes) to have the text editor ID replaced in the code. Just enter javascript into this field. script tag will be added automatically."
+            "#text": "JS-kood, mida kasutatakse tekstiredaktori muutmiseks. "
           },
           {
             "@tag": "EXEC_ORDER",
-            "#text": "Exec Order:"
+            "#text": "Täitke tellimus:"
           },
           {
             "@tag": "EXEC_ORDER_HELP",
-            "#text": "Required Number representing in which order the extensions are executed. Lowest executed first."
+            "#text": "Nõutav number, mis näitab laiendite täitmise järjekorda. "
           },
           {
             "@tag": "HEADER",
-            "#text": "Add/Edit BBCode Extension"
+            "#text": "Lisa/redigeeri BBCode'i laiendust"
           },
           {
             "@tag": "HEADER1",
-            "#text": "Name & Description (all fields are required)"
+            "#text": "Nimi ja kirjeldus (kõik väljad on kohustuslikud)"
           },
           {
             "@tag": "HEADER2",
-            "#text": "Regular Expression"
+            "#text": "Regulaaravaldis"
           },
           {
             "@tag": "HEADER3",
-            "#text": "Javascript & CSS (all fields are optional)"
+            "#text": "Javascript ja CSS (kõik väljad on valikulised)"
           },
           {
             "@tag": "MSG_NAME",
-            "#text": "You must enter a name."
+            "#text": "Peate sisestama nime."
           },
           {
             "@tag": "MSG_NUMBER",
-            "#text": "You must enter an number value from 0 to 32767 for sort order."
+            "#text": "Sorteerimisjärjekorra jaoks peate sisestama numbri väärtuse vahemikus 0 kuni 32767."
           },
           {
             "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "The sort order value should be a positive integer from 0 to 32767."
+            "#text": "Sorteerimisjärjestuse väärtus peaks olema positiivne täisarv vahemikus 0 kuni 32767."
           },
           {
             "@tag": "ONCLICK_JS",
@@ -1497,51 +1497,51 @@
           },
           {
             "@tag": "ONCLICK_JS_HELP",
-            "#text": "JS code called when this BBCode extension is clicked client-side. Just enter javascript into this field. script tags will be added automatically."
+            "#text": "JS-kood kutsutakse välja, kui sellel BBCode'i laiendusel klõpsatakse kliendi poolel. "
           },
           {
             "@tag": "REPLACE_REGEX",
-            "#text": "Replace RegEx:"
+            "#text": "Asenda regEx:"
           },
           {
             "@tag": "REPLACE_REGEX_HELP",
-            "#text": "Required Regular expression for replacement of the search BBCode."
+            "#text": "Nõutav Regulaaravaldis otsingu BBCode asendamiseks."
           },
           {
             "@tag": "REPLACE_VARIABLES",
-            "#text": "Replace Variables:"
+            "#text": "Asenda muutujad:"
           },
           {
             "@tag": "REPLACE_VARIABLES_HELP",
-            "#text": "Optional field. Separate variables with semi-colon; no other punctuation or spaces allowed."
+            "#text": "Valikuline väli. "
           },
           {
             "@tag": "SEARCH_REGEX",
-            "#text": "Search RegEx:"
+            "#text": "Otsingu regEx:"
           },
           {
             "@tag": "SEARCH_REGEX_HELP",
-            "#text": "Required Regular expression to find this BBCode. BBCode is always surrounded with []. This expression system is not designed for plain text searching (use the word replace for that)."
+            "#text": "Nõutav Regulaaravaldis selle BBC-koodi leidmiseks. "
           },
           {
             "@tag": "TITLE",
-            "#text": "{0} YafBBCode Extensions"
+            "#text": "{0} YafBBCode'i laiendused"
           },
           {
             "@tag": "USE_MODULE",
-            "#text": "Use Module:"
+            "#text": "Kasuta moodulit:"
           },
           {
             "@tag": "USE_MODULE_HELP",
-            "#text": "Use server-side module (class) instead of replace regex?"
+            "#text": "Kas kasutada regexi asendamise asemel serveripoolset moodulit (klassi)?"
           },
           {
             "@tag": "USE_TOOLBAR",
-            "#text": "Use Toolbar:"
+            "#text": "Kasutage tööriistariba:"
           },
           {
             "@tag": "USE_TOOLBAR_HELP",
-            "#text": "If enabled Show toolbar button in the Standard BBCode Editor"
+            "#text": "Kui see on lubatud, kuvab standardse BBCode redaktori tööriistariba nupu"
           }
         ]
       },
@@ -1550,23 +1550,23 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import Custom BBCode"
+            "#text": "Importige kohandatud BBCode"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import: {0}"
+            "#text": "Importimine ebaõnnestus: {0}"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new custom bbcode was found in the upload."
+            "#text": "Midagi ei imporditud: üleslaadimisel ei leitud uut kohandatud bb-koodi."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new custom bbcode(s) imported successfully."
+            "#text": "{0} uus kohandatud bb-kood imporditi edukalt."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import Custom YafBBCode"
+            "#text": "Importige kohandatud YafBBCode"
           }
         ]
       },
@@ -1575,15 +1575,15 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete this board?"
+            "#text": "Kas kustutada see tahvel?"
           },
           {
             "@tag": "DELETE",
-            "#text": "Delete"
+            "#text": "Kustuta"
           },
           {
             "@tag": "EDIT",
-            "#text": "Edit"
+            "#text": "Muuda"
           },
           {
             "@tag": "ID",
@@ -1591,15 +1591,15 @@
           },
           {
             "@tag": "NAME",
-            "#text": "Name"
+            "#text": "Nimi"
           },
           {
             "@tag": "NEW_BOARD",
-            "#text": "New Board"
+            "#text": "Uus juhatus"
           },
           {
             "@tag": "TITLE",
-            "#text": "Boards"
+            "#text": "Lauad"
           }
         ]
       },
@@ -1608,23 +1608,23 @@
         "Resource": [
           {
             "@tag": "ANNOUNCEMENT_CURRENT",
-            "#text": "Current Announcement visible until"
+            "#text": "Praegune teadaanne nähtav kuni"
           },
           {
             "@tag": "ANNOUNCEMENT_MESSAGE",
-            "#text": "Announcement Message:"
+            "#text": "Teadaanne:"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
-            "#text": "Board Announcement"
+            "#text": "Juhatuse teadaanne"
           },
           {
             "@tag": "ANNOUNCEMENT_TYPE",
-            "#text": "Type:"
+            "#text": "Tüüp:"
           },
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
-            "#text": "Announcement visible for..."
+            "#text": "Teadaanne on nähtav ..."
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -1635,156 +1635,148 @@
             "#text": "Reqired: board must have \"YAF.BaseUrlMask\" and \"YAF.ForceScriptName\" AppSettings defined in your web.config for digest to work."
           },
           {
-            "@tag": "BOARD_CDN_HOSTED",
-            "#text": "Use Google Hosted CDN jQuery UI CSS File?"
-          },
-          {
-            "@tag": "BOARD_CDN_HOSTED_HELP",
-            "#text": "You can use the Google Hosted CSS Files, or instead use internal."
-          },
-          {
             "@tag": "BOARD_CULTURE",
-            "#text": "Culture:"
+            "#text": "Kultuur:"
           },
           {
             "@tag": "BOARD_CULTURE_HELP",
-            "#text": "The default culture & language for this forum."
+            "#text": "Selle foorumi vaikekultuur ja keel."
           },
           {
             "@tag": "BOARD_DEFAULT_NOTIFICATION",
-            "#text": "Default Notification Setting:"
+            "#text": "Teavituse vaikeseade:"
           },
           {
             "@tag": "BOARD_DEFAULT_NOTIFICATION_HELP",
-            "#text": "When a new user account is created, what notification setting does it default to?"
+            "#text": "Kui uus kasutajakonto luuakse, siis milline teavitusseade on selle vaikeseadeks?"
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
-            "#text": "Default Collapsible Panel State"
+            "#text": "Kokkupandava paneeli vaikeolek"
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE_HELP",
-            "#text": "Show Categories Expanded or Collapsed on the Board Start page"
+            "#text": "Kuva tahvli avalehel laiendatud või ahendatud kategooriad"
           },
           {
             "@tag": "BOARD_DIGEST_HOURS",
-            "#text": "Hours Between Digest Sending:"
+            "#text": "Tunnid kokkuvõtte saatmise vahel:"
           },
           {
             "@tag": "BOARD_DIGEST_HOURS_HELP",
-            "#text": "Number of hours before attempting to send another digest. Digest only attempts sending between 12:00 and 6:00am."
+            "#text": "Tundide arv enne uue kokkuvõtte saatmist. "
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS",
-            "#text": "Default Send Digest \"On\" for New Users?"
+            "#text": "Kas uute kasutajate jaoks vaikimisi saatmise kokkuvõte \"Sees\"?"
           },
           {
             "@tag": "BOARD_DIGEST_NEWUSERS_HELP",
-            "#text": "When a new user account is created, default send digest to true?"
+            "#text": "Kas uue kasutajakonto loomisel saadab vaikimisi kokkuvõtte väärtuseks Tõene?"
           },
           {
             "@tag": "BOARD_EMAIL_MODS",
-            "#text": "Email Moderators On New Moderated Post:"
+            "#text": "Meili moderaatorid uue modereeritud postituse kohta:"
           },
           {
             "@tag": "BOARD_EMAIL_MODS_HELP",
-            "#text": "Should all the moderators of a forum be notified if a new post that needs approval is created?"
+            "#text": "Kas uue kinnitust vajava postituse loomisest peaks teavitama kõiki foorumi moderaatoreid?"
           },
           {
             "@tag": "BOARD_EMAIL_ONREGISTER",
-            "#text": "Send Email Notification On User Register to Emails:"
+            "#text": "Saada meiliteatis kasutajaregistrist e-kirjadele:"
           },
           {
             "@tag": "BOARD_EMAIL_ONREGISTER_HELP",
-            "#text": "Semi-colon (;) separated list of emails to send a notification to on user registration."
+            "#text": "Semikooloniga (;) eraldatud e-kirjade loend, millele kasutaja registreerimisel teatis saata."
           },
           {
             "@tag": "BOARD_EMAIL_REPORTMODS",
-            "#text": "Email Moderators On a Reported Post:"
+            "#text": "Saada moderaatoritele teatatud postituse kohta:"
           },
           {
             "@tag": "BOARD_EMAIL_REPORTMODS_HELP",
-            "#text": "Should all the moderators of a forum be notified if someone reported a post?"
+            "#text": "Kas kõiki foorumi moderaatoreid tuleks teavitada, kui keegi postitusest teatab?"
           },
           {
             "@tag": "BOARD_LOGO",
-            "#text": "Board Logo:"
+            "#text": "Tahvli logo:"
           },
           {
             "@tag": "BOARD_LOGO_HELP",
-            "#text": "Select a Board Logo or use the default YAF Board Logo, Logos will be loaded from the Folder Images/Logos."
+            "#text": "Valige tahvli logo või kasutage YAF-i tahvli vaikimisi logo, logod laaditakse kaustapiltide/logode hulgast."
           },
           {
             "@tag": "BOARD_LOGO_SELECT",
-            "#text": "Select a Board logo"
+            "#text": "Valige juhatuse logo"
           },
           {
             "@tag": "BOARD_MOBILE_THEME",
-            "#text": "Mobile Theme:"
+            "#text": "Mobiili teema:"
           },
           {
             "@tag": "BOARD_MOBILE_THEME_HELP",
-            "#text": "The mobile theme to use on this board."
+            "#text": "Sellel tahvlil kasutatav mobiiliteema."
           },
           {
             "@tag": "BOARD_NAME",
-            "#text": "Board Name:"
+            "#text": "Juhatuse nimi:"
           },
           {
             "@tag": "BOARD_NAME_HELP",
-            "#text": "The name of the board."
+            "#text": "Juhatuse nimi."
           },
           {
             "@tag": "BOARD_SETUP",
-            "#text": "Board Setup"
+            "#text": "Tahvli seadistamine"
           },
           {
             "@tag": "BOARD_THEME",
-            "#text": "Theme:"
+            "#text": "Teema:"
           },
           {
             "@tag": "BOARD_THEME_HELP",
-            "#text": "The theme to use on this board."
+            "#text": "Sellel tahvlil kasutatav teema."
           },
           {
             "@tag": "BOARD_THREADED",
-            "#text": "Allow Threaded:"
+            "#text": "Luba lõime:"
           },
           {
             "@tag": "BOARD_THREADED_HELP",
-            "#text": "Allow threaded view for posts."
+            "#text": "Luba postituste lõimevaade."
           },
           {
             "@tag": "BOARD_TOPIC_DEFAULT",
-            "#text": "Show Topic Default:"
+            "#text": "Näita teema vaikeseadet:"
           },
           {
             "@tag": "BOARD_TOPIC_DEFAULT_HELP",
-            "#text": "The default board show topic interval selection."
+            "#text": "Vaikimisi tahvel näitab teemade intervalli valikut."
           },
           {
             "@tag": "CDVVERSION",
-            "#text": "CRM Version"
+            "#text": "CRM-i versioon"
           },
           {
             "@tag": "CDVVERSION_BUTTON",
-            "#text": "Increase CRM Version"
+            "#text": "Suurendage CRM-i versiooni"
           },
           {
             "@tag": "CDVVERSION_HELP",
-            "#text": "CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files"
+            "#text": "CRM-i versioon, suurendage arvu, et sundida brauseri uuesti laadima kõik Java skripti- ja CSS-failid"
           },
           {
             "@tag": "COLLAPSED",
-            "#text": "Collapsed"
+            "#text": "Varises kokku"
           },
           {
             "@tag": "COPYRIGHT_REMOVAL_KEY",
-            "#text": "Copyright Removal Key:"
+            "#text": "Autoriõiguse eemaldamise võti:"
           },
           {
             "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "Purchase Removal Key"
+            "#text": "Ostu eemaldamise võti"
           },
           {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
@@ -1792,27 +1784,27 @@
           },
           {
             "@tag": "EXPANDED",
-            "#text": "Expanded"
+            "#text": "Laiendatud"
           },
           {
             "@tag": "FORUM_DEFAULT_ACCESSMASK",
-            "#text": "New Forum Default Access mask:"
+            "#text": "Uus foorumi vaikepääsumask:"
           },
           {
             "@tag": "FORUM_DEFAULT_ACCESSMASK_HELP",
-            "#text": "The Default Access Mask when creating a new Forum"
+            "#text": "Vaikimisi juurdepääsumask uue foorumi loomisel"
           },
           {
             "@tag": "HEADER",
-            "#text": "Current Board Settings"
+            "#text": "Praegused tahvli seaded"
           },
           {
             "@tag": "NEED_MESSAGE",
-            "#text": "You need to enter an Announcement Message."
+            "#text": "Peate sisestama teadaande."
           },
           {
             "@tag": "TITLE",
-            "#text": "Board Settings"
+            "#text": "Tahvli seaded"
           }
         ]
       },
@@ -1821,31 +1813,31 @@
         "Resource": [
           {
             "@tag": "CANCEL",
-            "#text": "Cancel"
+            "#text": "Tühista"
           },
           {
             "@tag": "CLEAR",
-            "#text": "Clear"
+            "#text": "Selge"
           },
           {
             "@tag": "DISABLED",
-            "#text": "Disabled"
+            "#text": "Keelatud"
           },
           {
             "@tag": "NO",
-            "#text": "No"
+            "#text": "Ei"
           },
           {
             "@tag": "SAVE",
-            "#text": "Save"
+            "#text": "Salvesta"
           },
           {
             "@tag": "TABLE_RESPONSIVE",
-            "#text": "Swipe Table to the left to Reveal More Data"
+            "#text": "Rohkemate andmete kuvamiseks pühkige tabel vasakule"
           },
           {
             "@tag": "YES",
-            "#text": "Yes"
+            "#text": "Jah"
           }
         ]
       },
@@ -1854,43 +1846,43 @@
         "Resource": [
           {
             "@tag": "DELETE_FORUM",
-            "#text": "Delete Forum"
+            "#text": "Kustuta foorum"
           },
           {
             "@tag": "DELETE_MOVE_TITLE",
-            "#text": "Deleting Forum and Moving Topics"
+            "#text": "Foorumi kustutamine ja teemade teisaldamine"
           },
           {
             "@tag": "DELETE_MSG",
-            "#text": "Please do not navigate away from this page while the deletion is in progress..."
+            "#text": "Palun ärge navigeerige sellelt lehelt kustutamise ajal..."
           },
           {
             "@tag": "DELETE_TITLE",
-            "#text": "Deleting Forum"
+            "#text": "Foorumi kustutamine"
           },
           {
             "@tag": "HEADER1",
-            "#text": "Delete the forum:"
+            "#text": "Kustuta foorum:"
           },
           {
             "@tag": "MOVE_TOPICS",
-            "#text": "Move all Topics, before Deleting?"
+            "#text": "Kas teisaldada kõik teemad enne kustutamist?"
           },
           {
             "@tag": "MOVE_TOPICS_HELP",
-            "#text": "Move all Topics inside the Forum to a Forum selected Bellow."
+            "#text": "Teisalda kõik foorumis olevad teemad allpool valitud foorumisse."
           },
           {
             "@tag": "NEW_FORUM",
-            "#text": "New Forum:"
+            "#text": "Uus foorum:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
-            "#text": "Select the new Forum for the Topics."
+            "#text": "Valige teemade jaoks uus foorum."
           },
           {
             "@tag": "TITLE",
-            "#text": "Delete Forum"
+            "#text": "Kustuta foorum"
           }
         ]
       },
@@ -1899,47 +1891,47 @@
         "Resource": [
           {
             "@tag": "DIGEST_EMAIL",
-            "#text": "Email:"
+            "#text": "E-post:"
           },
           {
             "@tag": "DIGEST_EMAIL_HELP",
-            "#text": "Send a test digest to the email."
+            "#text": "Saatke meilile testkokkuvõte."
           },
           {
             "@tag": "DIGEST_ENABLED",
-            "#text": "Digest Enabled:"
+            "#text": "Kokkuvõte on lubatud:"
           },
           {
             "@tag": "DIGEST_ENABLED_HELP",
-            "#text": "Change in your Board Settings."
+            "#text": "Muutke oma tahvli seadeid."
           },
           {
             "@tag": "DIGEST_GENERATE",
-            "#text": "Digest:"
+            "#text": "Seedimine:"
           },
           {
             "@tag": "DIGEST_GENERATE_HELP",
-            "#text": "Generate Digest for this admin account and currently selected theme. (May not actually look like this rendered in an email client.)"
+            "#text": "Loo selle administraatorikonto ja praegu valitud teema kokkuvõte. "
           },
           {
             "@tag": "DIGEST_LAST",
-            "#text": "Last Digest Send:"
+            "#text": "Viimane kokkuvõtte saatmine:"
           },
           {
             "@tag": "DIGEST_LAST_HELP",
-            "#text": "The last time (based on server time) the digest task was run.>"
+            "#text": "Viimane kord (serveri aja põhjal) käivitati kokkuvõtteülesanne.>"
           },
           {
             "@tag": "DIGEST_METHOD",
-            "#text": "Send Method:"
+            "#text": "Saatmisviis:"
           },
           {
             "@tag": "DIGEST_METHOD_HELP",
-            "#text": "Type of System Send to Test."
+            "#text": "Süsteemi tüüp Saada testimiseks."
           },
           {
             "@tag": "DIGEST_NEVER",
-            "#text": "Never"
+            "#text": "Mitte kunagi"
           },
           {
             "@tag": "FORCE_SEND",
@@ -1947,39 +1939,39 @@
           },
           {
             "@tag": "GENERATE_DIGEST",
-            "#text": "Generate Digest"
+            "#text": "Loo kokkuvõte"
           },
           {
             "@tag": "HEADER2",
-            "#text": "View Current Digest"
+            "#text": "Kuva praegune kokkuvõte"
           },
           {
             "@tag": "HEADER3",
-            "#text": "Send Test Digest"
+            "#text": "Testi kokkuvõtte saatmine"
           },
           {
             "@tag": "MSG_FORCE_SEND",
-            "#text": "Digest Send Scheduled for Immediate Sending"
+            "#text": "Lühikokkuvõte saatmine on kavandatud koheseks saatmiseks"
           },
           {
             "@tag": "MSG_SEND_ERR",
-            "#text": "Exception Getting Digest: {0}"
+            "#text": "Erandi kokkuvõte: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
-            "#text": "Sent via {0} successfully."
+            "#text": "Saadeti {0} kaudu edukalt."
           },
           {
             "@tag": "MSG_VALID_MAIL",
-            "#text": "Please enter a valid email address to send a test."
+            "#text": "Testi saatmiseks sisestage kehtiv e-posti aadress."
           },
           {
             "@tag": "SEND_TEST",
-            "#text": "Send Test"
+            "#text": "Saada test"
           },
           {
             "@tag": "TITLE",
-            "#text": "Digest"
+            "#text": "Seedida"
           }
         ]
       },
@@ -1988,79 +1980,79 @@
         "Resource": [
           {
             "@tag": "DATA_TYPE",
-            "#text": "Data Type"
+            "#text": "Andmetüüp"
           },
           {
             "@tag": "DATA_TYPE_HELP",
-            "#text": "Select an Data Type for the Profile Definition."
+            "#text": "Valige profiili definitsiooni jaoks andmetüüp."
           },
           {
             "@tag": "DEFAULT",
-            "#text": "Default Value"
+            "#text": "Vaikeväärtus"
           },
           {
             "@tag": "DEFAULT_HELP",
-            "#text": "Define a Default Value, would be needed if required is set."
+            "#text": "Määratlege vaikeväärtus, mida oleks vaja, kui nõutav on määratud."
           },
           {
             "@tag": "LENGTH",
-            "#text": "Length"
+            "#text": "Pikkus"
           },
           {
             "@tag": "LENGTH_HELP",
-            "#text": "Maximum Length of the Field"
+            "#text": "Välja maksimaalne pikkus"
           },
           {
             "@tag": "NAME",
-            "#text": "Name"
+            "#text": "Nimi"
           },
           {
             "@tag": "NAME_HELP",
-            "#text": "Will be used as Profile Name/Label"
+            "#text": "Kasutatakse profiilinime/sildina"
           },
           {
             "@tag": "NEED_LENGTH",
-            "#text": "Maximum Length Value with Minimum 1 is required"
+            "#text": "Nõutav on maksimaalne pikkus ja minimaalne 1"
           },
           {
             "@tag": "NEED_NAME",
-            "#text": "You must define a name"
+            "#text": "Peate määrama nime"
           },
           {
             "@tag": "REQUIRED",
-            "#text": "Required"
+            "#text": "Nõutud"
           },
           {
             "@tag": "REQUIRED_HELP",
-            "#text": "Define if the field should be required or not"
+            "#text": "Määrake, kas väli on kohustuslik või mitte"
           },
           {
             "@tag": "SAVE_NEW",
-            "#text": "Save New"
+            "#text": "Salvesta uus"
           },
           {
             "@tag": "SHOW_REGISTER",
-            "#text": "Show on Register Page"
+            "#text": "Kuva registreerimislehel"
           },
           {
             "@tag": "SHOW_REGISTER_HELP",
-            "#text": "Show on User Register Page"
+            "#text": "Kuva kasutajaregistri lehel"
           },
           {
             "@tag": "SHOW_USERINFO",
-            "#text": "Show in User Info"
+            "#text": "Kuva kasutajateabes"
           },
           {
             "@tag": "SHOW_USERINFO_HELP",
-            "#text": "Show in User Info inside Post Header"
+            "#text": "Kuva kasutajateabes postituse päises"
           },
           {
             "@tag": "TITLE",
-            "#text": "Add New Profile Definition"
+            "#text": "Lisa uus profiili definitsioon"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Profile Definition"
+            "#text": "Redigeeri profiili definitsiooni"
           }
         ]
       },
@@ -2069,47 +2061,47 @@
         "Resource": [
           {
             "@tag": "ACCESS",
-            "#text": "Access"
+            "#text": "Juurdepääs"
           },
           {
             "@tag": "DELETE_ACCESS",
-            "#text": "Delete Access"
+            "#text": "Kustuta juurdepääs"
           },
           {
             "@tag": "DELETE_ACCESS_HELP",
-            "#text": "Allows Users to Delete their own Posts"
+            "#text": "Võimaldab kasutajatel oma postitusi kustutada"
           },
           {
             "@tag": "DOWNLOAD_ACCESS",
-            "#text": "Download Access"
+            "#text": "Laadige alla juurdepääs"
           },
           {
             "@tag": "DOWNLOAD_ACCESS_HELP",
-            "#text": "Allows Users to Download Attachments in Posts."
+            "#text": "Võimaldab kasutajatel postituste manuseid alla laadida."
           },
           {
             "@tag": "EDIT_ACCESS",
-            "#text": "Edit Access"
+            "#text": "Muuda juurdepääsu"
           },
           {
             "@tag": "EDIT_ACCESS_HELP",
-            "#text": "Allows Users to Edit their own Posts."
+            "#text": "Võimaldab kasutajatel ise oma postitusi muuta."
           },
           {
             "@tag": "MASK_NAME",
-            "#text": "Name:"
+            "#text": "Nimi:"
           },
           {
             "@tag": "MASK_NAME_HELP",
-            "#text": "Name of this access mask."
+            "#text": "Selle juurdepääsumaski nimi."
           },
           {
             "@tag": "MASK_ORDER",
-            "#text": "Order:"
+            "#text": "Telli:"
           },
           {
             "@tag": "MASK_ORDER_HELP",
-            "#text": "Sort order for this access mask."
+            "#text": "Selle juurdepääsumaski sortimisjärjekord."
           },
           {
             "@tag": "MODERATOR_ACCESS",
@@ -2117,39 +2109,39 @@
           },
           {
             "@tag": "MODERATOR_ACCESS_HELP",
-            "#text": "Allows Users to Edit/Delete all Posts and Topics in a Forum."
+            "#text": "Võimaldab kasutajatel muuta/kustutada kõiki foorumi postitusi ja teemasid."
           },
           {
             "@tag": "MSG_MASK_NAME",
-            "#text": "You must enter a name for the Access Mask."
+            "#text": "Peate sisestama juurdepääsumaski nime."
           },
           {
             "@tag": "MSG_NUMBER_SORT",
-            "#text": "You must enter a number value from 0 to 32767 for sort order."
+            "#text": "Sorteerimisjärjestuse jaoks peate sisestama numbri väärtuse vahemikus 0 kuni 32767."
           },
           {
             "@tag": "MSG_POSITIVE_SORT",
-            "#text": "The Sort Order value should be a positive integer from 0 to 32767."
+            "#text": "Sorteerimisjärjestuse väärtus peaks olema positiivne täisarv vahemikus 0 kuni 32767."
           },
           {
             "@tag": "POLL_ACCESS",
-            "#text": "Poll Access"
+            "#text": "Küsitluse juurdepääs"
           },
           {
             "@tag": "POLL_ACCESS_HELP",
-            "#text": "Allows Users to Create Polls in Topics."
+            "#text": "Võimaldab kasutajatel teemades küsitlusi luua."
           },
           {
             "@tag": "POST_ACCESS",
-            "#text": "Post Access"
+            "#text": "Juurdepääs postitusele"
           },
           {
             "@tag": "POST_ACCESS_HELP",
-            "#text": "Allows Users to Post New Topics in a Forum."
+            "#text": "Võimaldab kasutajatel postitada foorumisse uusi teemasid."
           },
           {
             "@tag": "PRIORITY_ACCESS",
-            "#text": "Priority Access"
+            "#text": "Prioriteetne juurdepääs"
           },
           {
             "@tag": "PRIORITY_ACCESS_HELP",
@@ -2157,39 +2149,39 @@
           },
           {
             "@tag": "READ_ACCESS",
-            "#text": "Read Access"
+            "#text": "Lugemisjuurdepääs"
           },
           {
             "@tag": "READ_ACCESS_HELP",
-            "#text": "Allows Users to Read Topics and Messages in a Forum."
+            "#text": "Võimaldab kasutajatel lugeda foorumi teemasid ja sõnumeid."
           },
           {
             "@tag": "REPLY_ACCESS",
-            "#text": "Reply Access"
+            "#text": "Vastuse juurdepääs"
           },
           {
             "@tag": "REPLY_ACCESS_HELP",
-            "#text": "Allows Users to Reply to existing Topics in a Forum."
+            "#text": "Võimaldab kasutajatel vastata foorumis olemasolevatele teemadele."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add/Edit Access Masks"
+            "#text": "Lisa/redigeeri juurdepääsumaske"
           },
           {
             "@tag": "UPLOAD_ACCESS",
-            "#text": "Upload Access"
+            "#text": "Juurdepääs üleslaadimiseks"
           },
           {
             "@tag": "UPLOAD_ACCESS_HELP",
-            "#text": "Allows Users to Upload Attachments in Posts."
+            "#text": "Võimaldab kasutajatel postituste manuseid üles laadida."
           },
           {
             "@tag": "VOTE_ACCESS",
-            "#text": "Vote Access"
+            "#text": "Hääle juurdepääs"
           },
           {
             "@tag": "VOTE_ACCESS_HELP",
-            "#text": "Allows Users to Vote in Polls."
+            "#text": "Võimaldab kasutajatel hääletada küsitlustes."
           }
         ]
       },
@@ -2198,155 +2190,155 @@
         "Resource": [
           {
             "@tag": "ADMIN_USER",
-            "#text": "Create New Superuser (Host Admin):"
+            "#text": "Loo uus superkasutaja (hostiadministraator):"
           },
           {
             "@tag": "ADMIN_USER_HELP",
-            "#text": "Only required when creating a board using a new & different membership application name."
+            "#text": "Nõutav ainult juhatuse loomisel, kasutades uut ja erinevat liikmetaotluse nime."
           },
           {
             "@tag": "CULTURE",
-            "#text": "Culture:"
+            "#text": "Kultuur:"
           },
           {
             "@tag": "CULTURE_HELP",
-            "#text": "The Culture of the board."
+            "#text": "Juhatuse kultuur."
           },
           {
             "@tag": "HEADER2",
-            "#text": "New Superuser Information"
+            "#text": "Uus superkasutaja teave"
           },
           {
             "@tag": "MEMBSHIP_APP_NAME",
-            "#text": "Membership Application Name:"
+            "#text": "Liikmetaotluse nimi:"
           },
           {
             "@tag": "MEMBSHIP_APP_NAME_HELP",
-            "#text": "Application name required for provider, blank will use ApplicationName in web.config."
+            "#text": "Pakkuja jaoks on nõutav rakenduse nimi, tühi kasutab failis web.config ApplicationName."
           },
           {
             "@tag": "MSG_EMAIL_ADMIN",
-            "#text": "You must enter the email address of the host admin."
+            "#text": "Peate sisestama hosti administraatori e-posti aadressi."
           },
           {
             "@tag": "MSG_NAME_ADMIN",
-            "#text": "You must enter the name of the host admin user."
+            "#text": "Peate sisestama hosti administraatori kasutaja nime."
           },
           {
             "@tag": "MSG_NAME_BOARD",
-            "#text": "You must enter a name for the board."
+            "#text": "Peate sisestama tahvlile nime."
           },
           {
             "@tag": "MSG_PASS_ADMIN",
-            "#text": "You must enter a password for the host admin user."
+            "#text": "Peate sisestama hosti administraatori kasutaja parooli."
           },
           {
             "@tag": "MSG_PASS_MATCH",
-            "#text": "The passwords don't match."
+            "#text": "Paroolid ei ühti."
           },
           {
             "@tag": "NAME",
-            "#text": "Name:"
+            "#text": "Nimi:"
           },
           {
             "@tag": "NAME_HELP",
-            "#text": "The name of the board."
+            "#text": "Juhatuse nimi."
           },
           {
             "@tag": "SECURITY_ANSWER",
-            "#text": "Security Answer:"
+            "#text": "Turvavastus:"
           },
           {
             "@tag": "SECURITY_ANSWER_HELP",
-            "#text": "The answer to the security question."
+            "#text": "Vastus turvaküsimusele."
           },
           {
             "@tag": "SECURITY_QUESTION",
-            "#text": "Security Question:"
+            "#text": "Turvaküsimus:"
           },
           {
             "@tag": "SECURITY_QUESTION_HELP",
-            "#text": "The question you will be asked when you need to retrieve your lost password."
+            "#text": "Küsimus, mis esitatakse teile, kui teil on vaja kaotatud parool taastada."
           },
           {
             "@tag": "STATUS_DUP_EMAIL",
-            "#text": "A username for that e-mail address already exists. Please enter a different e-mail address."
+            "#text": "Selle e-posti aadressi kasutajanimi on juba olemas. "
           },
           {
             "@tag": "STATUS_DUP_NAME",
-            "#text": "Username already exists. Please enter a different user name."
+            "#text": "Kasutajanimi on juba olemas. "
           },
           {
             "@tag": "STATUS_INVAL_ANSWER",
-            "#text": "The password retrieval answer provided is invalid. Please check the value and try again."
+            "#text": "Parooli otsimise vastus on kehtetu. "
           },
           {
             "@tag": "STATUS_INVAL_MAIL",
-            "#text": "The e-mail address provided is invalid. Please check the value and try again."
+            "#text": "Esitatud e-posti aadress on kehtetu. "
           },
           {
             "@tag": "STATUS_INVAL_NAME",
-            "#text": "The user name provided is invalid. Please check the value and try again."
+            "#text": "Esitatud kasutajanimi on kehtetu. "
           },
           {
             "@tag": "STATUS_INVAL_PASS",
-            "#text": "The password provided is invalid. Please enter a valid password value."
+            "#text": "Esitatud parool on kehtetu. "
           },
           {
             "@tag": "STATUS_INVAL_QUESTION",
-            "#text": "The password retrieval question provided is invalid. Please check the value and try again."
+            "#text": "Esitatud parooli otsimise küsimus on kehtetu. "
           },
           {
             "@tag": "STATUS_PROVIDER_ERR",
-            "#text": "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator."
+            "#text": "Autentimise pakkuja tagastas veateate. "
           },
           {
             "@tag": "STATUS_USR_REJECTED",
-            "#text": "The user creation request has been cancelled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
+            "#text": "Kasutaja loomise taotlus on tühistatud. "
           },
           {
             "@tag": "THREADED",
-            "#text": "Allow Threaded:"
+            "#text": "Luba lõime:"
           },
           {
             "@tag": "THREADED_HELP",
-            "#text": "Allow threaded view for posts."
+            "#text": "Luba postituste lõimevaade."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add/Edit Board"
+            "#text": "Lisa/redigeeri tahvel"
           },
           {
             "@tag": "USER_MAIL",
-            "#text": "User Email:"
+            "#text": "Kasutaja e-post:"
           },
           {
             "@tag": "USER_MAIL_HELP",
-            "#text": "Email address for the host admin."
+            "#text": "Hostiadministraatori e-posti aadress."
           },
           {
             "@tag": "USER_NAME",
-            "#text": "User Name:"
+            "#text": "Kasutajanimi:"
           },
           {
             "@tag": "USER_NAME_HELP",
-            "#text": "This will be the host admin for the board."
+            "#text": "Sellest saab juhatuse administraator."
           },
           {
             "@tag": "USER_PASS",
-            "#text": "Password:"
+            "#text": "Parool:"
           },
           {
             "@tag": "USER_PASS_HELP",
-            "#text": "Enter password for administrator here."
+            "#text": "Sisesta siia administraatori parool."
           },
           {
             "@tag": "VERIFY_PASS",
-            "#text": "Verify Password:"
+            "#text": "Kinnita parool:"
           },
           {
             "@tag": "VERIFY_PASS_HELP",
-            "#text": "Verify the password."
+            "#text": "Kinnitage parool."
           }
         ]
       },
@@ -2355,59 +2347,59 @@
         "Resource": [
           {
             "@tag": "ACTIVE",
-            "#text": "Active"
+            "#text": "Aktiivne"
           },
           {
             "@tag": "ACTIVE_HELP",
-            "#text": "If enabled show Category (incl. Forums) in Board"
+            "#text": "Kui see on lubatud, kuva kategooria (sh foorumid) juhatuses"
           },
           {
             "@tag": "CATEGORY_IMAGE",
-            "#text": "Category Image:"
+            "#text": "Kategooria pilt:"
           },
           {
             "@tag": "CATEGORY_IMAGE_HELP",
-            "#text": "This image will be shown next to this category."
+            "#text": "Seda pilti näidatakse selle kategooria kõrval."
           },
           {
             "@tag": "CATEGORY_NAME",
-            "#text": "Category Name:"
+            "#text": "Kategooria nimi:"
           },
           {
             "@tag": "CATEGORY_NAME_HELP",
-            "#text": "Name of this category."
+            "#text": "Selle kategooria nimi."
           },
           {
             "@tag": "HEADER",
-            "#text": "Edit Category:"
+            "#text": "Muuda kategooriat:"
           },
           {
             "@tag": "MSG_CATEGORY_EXISTS",
-            "#text": "A Category with such a name already exists."
+            "#text": "Sellise nimega kategooria on juba olemas."
           },
           {
             "@tag": "MSG_NUMBER",
-            "#text": "Invalid value entered for sort order: must enter a number."
+            "#text": "Sorteerimisjärjekorra jaoks sisestatud vale väärtus: tuleb sisestada number."
           },
           {
             "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "The Sort Order value should be a positive integer from 0 to 32767."
+            "#text": "Sorteerimisjärjestuse väärtus peaks olema positiivne täisarv vahemikus 0 kuni 32767."
           },
           {
             "@tag": "MSG_VALUE",
-            "#text": "Must enter a value for the category name field."
+            "#text": "Kategooria nime väljale tuleb sisestada väärtus."
           },
           {
             "@tag": "SORT_ORDER",
-            "#text": "Sort Order:"
+            "#text": "Sorteerimisjärjekord:"
           },
           {
             "@tag": "SORT_ORDER_HELP",
-            "#text": "Order the display of this category. Number, lower first."
+            "#text": "Telli selle kategooria kuva. "
           },
           {
             "@tag": "TITLE",
-            "#text": "Add/Edit Category"
+            "#text": "Lisa/muuda kategooriat"
           }
         ]
       },
@@ -2416,79 +2408,79 @@
         "Resource": [
           {
             "@tag": "ACCESS_MASK",
-            "#text": "Access Mask"
+            "#text": "Juurdepääsumask"
           },
           {
             "@tag": "CATEGORY",
-            "#text": "Category:"
+            "#text": "Kategooria:"
           },
           {
             "@tag": "CATEGORY_HELP",
-            "#text": "What category to put the forum under."
+            "#text": "Millise kategooria alla foorum panna."
           },
           {
             "@tag": "CHOOSE_THEME",
-            "#text": "Choose a theme"
+            "#text": "Valige teema"
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "Description:"
+            "#text": "Kirjeldus:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "A description of the forum."
+            "#text": "Foorumi kirjeldus."
           },
           {
             "@tag": "FORUM_IMAGE",
-            "#text": "Forum Image:"
+            "#text": "Foorumi pilt:"
           },
           {
             "@tag": "FORUM_IMAGE_HELP",
-            "#text": "This image will be shown next to this forum, if empty default image for the forum is used."
+            "#text": "Seda pilti näidatakse selle foorumi kõrval, kui kasutatakse tühja foorumi vaikepilti."
           },
           {
             "@tag": "GROUP",
-            "#text": "Group"
+            "#text": "Grupp"
           },
           {
             "@tag": "HEADER1",
-            "#text": "Edit Forum:"
+            "#text": "Muuda foorumit:"
           },
           {
             "@tag": "HEADER2",
-            "#text": "Access Masks"
+            "#text": "Juurdepääsu maskid"
           },
           {
             "@tag": "HIDE_NOACESS",
-            "#text": "Hide if no access:"
+            "#text": "Peida, kui juurdepääs puudub:"
           },
           {
             "@tag": "HIDE_NOACESS_HELP",
-            "#text": "Means that the forum will be hidden when the user don't have read access to it."
+            "#text": "Tähendab, et foorum peidetakse, kui kasutajal pole sellele lugemisõigust."
           },
           {
             "@tag": "INITAL_MASK",
-            "#text": "Initial Access Mask:"
+            "#text": "Esialgne juurdepääsumask:"
           },
           {
             "@tag": "INITAL_MASK_HELP",
-            "#text": "The initial access mask for all forums."
+            "#text": "Kõigi foorumite esialgne juurdepääsumask."
           },
           {
             "@tag": "LOCKED",
-            "#text": "Locked:"
+            "#text": "Lukustatud:"
           },
           {
             "@tag": "LOCKED_HELP",
-            "#text": "If the forum is locked, no one can post or reply in this forum."
+            "#text": "Kui foorum on lukus, ei saa keegi sellesse foorumisse postitada ega vastata."
           },
           {
             "@tag": "MODERATE_ALL_POSTS",
-            "#text": "Moderate all Posts"
+            "#text": "Modereeri kõiki postitusi"
           },
           {
             "@tag": "MODERATED_COUNT",
-            "#text": "Moderate all Posts or only until a User reaches x amount of Posts"
+            "#text": "Modereerige kõiki postitusi või ainult seni, kuni kasutaja jõuab x postituste arvuni"
           },
           {
             "@tag": "MODERATED_COUNT_HELP",
@@ -2496,15 +2488,15 @@
           },
           {
             "@tag": "MODERATED_NEWTOPIC_ONLY",
-            "#text": "Moderate only new Topics but not Replies?"
+            "#text": "Kas modereerida ainult uusi teemasid, kuid mitte vastuseid?"
           },
           {
             "@tag": "MODERATED_NEWTOPIC_ONLY_HELP",
-            "#text": "If checked only Messages of new Topics are checked but not Replies to existing Topics, otherwise all Messages needs moderation."
+            "#text": "Märkimisel märgitakse ainult uute teemade sõnumid, kuid mitte vastused olemasolevatele teemadele, vastasel juhul vajavad kõik sõnumid modereerimist."
           },
           {
             "@tag": "MSG_CATEGORY",
-            "#text": "You must select a category for the forum."
+            "#text": "Peate valima foorumi kategooria."
           },
           {
             "@tag": "MSG_CATEGORY",
@@ -2512,79 +2504,79 @@
           },
           {
             "@tag": "MSG_CHILD_PARENT",
-            "#text": "The chosen forum cannot be child forum as it's a parent."
+            "#text": "Valitud foorum ei saa olla lapse foorum, kuna see on lapsevanem."
           },
           {
             "@tag": "MSG_DESCRIPTION",
-            "#text": "You must enter a description for the forum."
+            "#text": "Peate sisestama foorumi kirjelduse."
           },
           {
             "@tag": "MSG_FORUMNAME_EXISTS",
-            "#text": "A forum with such a name already exists."
+            "#text": "Sellise nimega foorum on juba olemas."
           },
           {
             "@tag": "MSG_INITAL_MASK",
-            "#text": "You must select an initial access mask for the forum."
+            "#text": "Peate valima foorumi algse juurdepääsumaski."
           },
           {
             "@tag": "MSG_INVALID_URL",
-            "#text": "Your entered an invalid Url address."
+            "#text": "Sisestasite vale URL-aadressi."
           },
           {
             "@tag": "MSG_NAME_FORUM",
-            "#text": "You must enter a name for the forum."
+            "#text": "Peate sisestama foorumi nime."
           },
           {
             "@tag": "MSG_PARENT_SELF",
-            "#text": "Forum cannot be parent of itself."
+            "#text": "Foorum ei saa olla iseenda ema."
           },
           {
             "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "The sort order value should be a positive integer from 0 to 32767."
+            "#text": "Sorteerimisjärjestuse väärtus peaks olema positiivne täisarv vahemikus 0 kuni 32767."
           },
           {
             "@tag": "MSG_VALUE",
-            "#text": "You must enter a value for sort order."
+            "#text": "Peate sisestama sortimisjärjestuse väärtuse."
           },
           {
             "@tag": "NAME",
-            "#text": "Name:"
+            "#text": "Nimi:"
           },
           {
             "@tag": "NAME_HELP",
-            "#text": "The name of the forum."
+            "#text": "Foorumi nimi."
           },
           {
             "@tag": "NO_POSTSCOUNT",
-            "#text": "No posts count:"
+            "#text": "Postitusi ei loeta:"
           },
           {
             "@tag": "NO_POSTSCOUNT_HELP",
-            "#text": "If this is checked, posts in this forum will not count in the ladder system/forum statistics."
+            "#text": "Kui see on märgitud, ei lähe selle foorumi postitused redelisüsteemi/foorumi statistikasse arvesse."
           },
           {
             "@tag": "PARENT_FORUM",
-            "#text": "Parent Forum:"
+            "#text": "Lapsevanema foorum:"
           },
           {
             "@tag": "PARENT_FORUM_HELP",
-            "#text": "Will make this forum a sub forum of another forum."
+            "#text": "Teeb sellest foorumist mõne teise foorumi alamfoorumi."
           },
           {
             "@tag": "PRE_MODERATED",
-            "#text": "Pre-moderated:"
+            "#text": "Eelmodereeritud:"
           },
           {
             "@tag": "PRE_MODERATED_HELP",
-            "#text": "If the forum is moderated, posts have to be approved by a moderator."
+            "#text": "Kui foorum on modereeritud, peab moderaator postitused heaks kiitma."
           },
           {
             "@tag": "REMOTE_URL",
-            "#text": "Remote URL:"
+            "#text": "Kaug-URL:"
           },
           {
             "@tag": "REMOTE_URL_HELP",
-            "#text": "Enter a url here, and instead of going to the forum you will be taken to this url instead."
+            "#text": "Sisestage siia URL ja foorumisse mineku asemel suunatakse teid sellele URL-ile."
           },
           {
             "@tag": "SORT_ORDER",
@@ -2592,27 +2584,27 @@
           },
           {
             "@tag": "SORT_ORDER_HELP",
-            "#text": "Sort order under this category."
+            "#text": "Sorteeri selle kategooria alla."
           },
           {
             "@tag": "STYLES",
-            "#text": "Styles:"
+            "#text": "Stiilid:"
           },
           {
             "@tag": "STYLES_HELP",
-            "#text": "Styles string to customize Forum Name. Leave it empty."
+            "#text": "Stiilide string foorumi nime kohandamiseks. "
           },
           {
             "@tag": "THEME",
-            "#text": "Theme:"
+            "#text": "Teema:"
           },
           {
             "@tag": "THEME_HELP",
-            "#text": "Choose a theme for this forum if its to differ from the standard Board theme."
+            "#text": "Valige selle foorumi teema, kui see erineb tavalisest tahvliteemast."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add/Edit Forum"
+            "#text": "Lisa/muuda foorumit"
           }
         ]
       },
@@ -2621,167 +2613,167 @@
         "Resource": [
           {
             "@tag": "ALBUM_NUMBER",
-            "#text": "User Albums Number:"
+            "#text": "Kasutaja albumite number:"
           },
           {
             "@tag": "ALBUM_NUMBER_HELP",
-            "#text": "Integer value for a user allowed albums number."
+            "#text": "Kasutaja lubatud albumite numbri täisarv."
           },
           {
             "@tag": "BOARD",
-            "#text": "Board:"
+            "#text": "Juhatus:"
           },
           {
             "@tag": "CATEGORY",
-            "#text": "Category:"
+            "#text": "Kategooria:"
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "Description:"
+            "#text": "Kirjeldus:"
           },
           {
             "@tag": "DESCRIPTION_HELP",
-            "#text": "Enter here a role description."
+            "#text": "Sisestage siia rolli kirjeldus."
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "Foorum"
           },
           {
             "@tag": "FORUM_MOD",
-            "#text": "Is Forum Moderator:"
+            "#text": "Kas foorumi moderaator:"
           },
           {
             "@tag": "FORUM_MOD_HELP",
-            "#text": "When this is checked, members of this role will have some admin access rights in YAF."
+            "#text": "Kui see on märgitud, on selle rolli liikmetel YAF-is teatud administraatori juurdepääsuõigused."
           },
           {
             "@tag": "HEADER",
-            "#text": "Access"
+            "#text": "Juurdepääs"
           },
           {
             "@tag": "IMAGES_NUMBER",
-            "#text": "Album Images Number:"
+            "#text": "Albumi piltide number:"
           },
           {
             "@tag": "IMAGES_NUMBER_HELP",
-            "#text": "Integer value for a user allowed images per album."
+            "#text": "Kasutaja lubatud piltide täisarv albumi kohta."
           },
           {
             "@tag": "INITIAL_MASK",
-            "#text": "Initial Access Mask:"
+            "#text": "Esialgne juurdepääsumask:"
           },
           {
             "@tag": "INITIAL_MASK_HELP",
-            "#text": "The initial access mask for all forums."
+            "#text": "Kõigi foorumite esialgne juurdepääsumask."
           },
           {
             "@tag": "IS_ADMIN",
-            "#text": "Is Admin:"
+            "#text": "Kas administraator:"
           },
           {
             "@tag": "IS_ADMIN_HELP",
-            "#text": "Means that users in this role are admins in YAF."
+            "#text": "Tähendab, et selles rollis olevad kasutajad on YAF-is administraatorid."
           },
           {
             "@tag": "IS_GUEST",
-            "#text": "Is Guest::"
+            "#text": "On külaline::"
           },
           {
             "@tag": "IS_GUEST_HELP",
-            "#text": "This flag is internal and makes the role unavailable to .NET membership. Never assign this role to any users except the (1) guest user. If you do flag this role as IsGuest, the guest user must a member of it. Never use this flag in conjunction with any other flags."
+            "#text": "See lipp on sisemine ja muudab rolli .NET-i liikmesuse jaoks kättesaamatuks. "
           },
           {
             "@tag": "IS_START",
-            "#text": "Is Start:"
+            "#text": "Algus on:"
           },
           {
             "@tag": "IS_START_HELP",
-            "#text": "If this is checked, all new users will be a member of this role. <br /><span style=\"color:red\">[b]Warning:[/b] at least one Group need to have this Check box enabled or new users wont be able to register.[/b]</span>"
+            "#text": "Kui see on märgitud, on kõik uued kasutajad selle rolli liikmed. "
           },
           {
             "@tag": "MSG_ALBUM_NUMBER",
-            "#text": "You should enter integer value for the number of user albums."
+            "#text": "Peaksite sisestama kasutajaalbumite arvu täisarvu."
           },
           {
             "@tag": "MSG_INTEGER",
-            "#text": "You should enter integer value for priority."
+            "#text": "Prioriteediks peaksite sisestama täisarvu."
           },
           {
             "@tag": "MSG_NAME",
-            "#text": "You need to enter a Role name."
+            "#text": "Peate sisestama rolli nime."
           },
           {
             "@tag": "MSG_SIG_NUMBER",
-            "#text": "You should enter integer value for the number of chars in user signature."
+            "#text": "Peaksite sisestama kasutaja allkirjas olevate tähemärkide arvu täisarvu."
           },
           {
             "@tag": "MSG_TOTAL_NUMBER",
-            "#text": "You should enter integer value for the total number of images in all albums."
+            "#text": "Peaksite sisestama kõigi albumite piltide koguarvu täisarvu."
           },
           {
             "@tag": "MSG_VALID_NUMBER",
-            "#text": "You should enter integer value for pmessage number."
+            "#text": "Peaksite sisestama psõnumi numbri täisarvu."
           },
           {
             "@tag": "PMMESSAGES",
-            "#text": "PMessages:"
+            "#text": "PSõnumid:"
           },
           {
             "@tag": "PMMESSAGES_HELP",
-            "#text": "Max. Private Messages allowed to Group members."
+            "#text": "Max "
           },
           {
             "@tag": "PRIORITY",
-            "#text": "Priority:"
+            "#text": "Prioriteet:"
           },
           {
             "@tag": "PRIORITY_HELP",
-            "#text": "Enter here priority for different tasks."
+            "#text": "Sisestage siia erinevate ülesannete prioriteet."
           },
           {
             "@tag": "ROLE_NAME",
-            "#text": "Name:"
+            "#text": "Nimi:"
           },
           {
             "@tag": "ROLE_NAME_HELP",
-            "#text": "Name of this role."
+            "#text": "Selle rolli nimi."
           },
           {
             "@tag": "SIG_BBCODES",
-            "#text": "User signature BBCodes:"
+            "#text": "Kasutaja signatuur BBCodes:"
           },
           {
             "@tag": "SIG_BBCODES_HELP",
-            "#text": "Comma separated BBCodes allowed in a user signature in the role."
+            "#text": "Komaga eraldatud BBC-koodid, mis on rollis kasutaja signatuuris lubatud."
           },
           {
             "@tag": "SIG_HTML",
-            "#text": "User signature HTML tags:"
+            "#text": "Kasutaja allkirja HTML-sildid:"
           },
           {
             "@tag": "SIG_HTML_HELP",
-            "#text": "Comma separated HTML tags allowed in a user signature in the group."
+            "#text": "Komaga eraldatud HTML-märgendid on rühmas kasutaja signatuuris lubatud."
           },
           {
             "@tag": "SIGNATURE_LENGTH",
-            "#text": "Max number of chars in a user signature:"
+            "#text": "Maksimaalne märkide arv kasutaja allkirjas:"
           },
           {
             "@tag": "SIGNATURE_LENGTH_HELP",
-            "#text": "Max number of chars in a user signature in the role."
+            "#text": "Maksimaalne märkide arv rollis olevas kasutaja allkirjas."
           },
           {
             "@tag": "STYLE",
-            "#text": "Style:"
+            "#text": "Stiil:"
           },
           {
             "@tag": "STYLE_HELP",
-            "#text": "Enter here a combined style string for colored nicks."
+            "#text": "Sisestage siia kombineeritud stiili string värviliste hüüdnimede jaoks."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add/Edit Role"
+            "#text": "Lisa/redigeeri rolli"
           }
         ]
       },
@@ -2790,39 +2782,39 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Language Translation - <em>Current Resource Page : "
+            "#text": "Keeletõlge – <em>praegune ressursi leht :"
           },
           {
             "@tag": "LOAD_PAGE",
-            "#text": "Load Page Localization"
+            "#text": "Laadige lehe lokaliseerimine"
           },
           {
             "@tag": "LOCALIZED_RESOURCE",
-            "#text": "Localized Resource"
+            "#text": "Lokaliseeritud ressurss"
           },
           {
             "@tag": "NEED_TRANSLATION",
-            "#text": "Needs Translation."
+            "#text": "Vajab tõlget."
           },
           {
             "@tag": "ORIGINAL_RESOURCE",
-            "#text": "Original Resource"
+            "#text": "Algallikas"
           },
           {
             "@tag": "RESOURCE_NAME",
-            "#text": "Resource Name"
+            "#text": "Ressursi nimi"
           },
           {
             "@tag": "SAVED_FILE",
-            "#text": "The language file has been updated and saved!"
+            "#text": "Keelefail on uuendatud ja salvestatud!"
           },
           {
             "@tag": "SELECT_PAGE",
-            "#text": "Select a Page:"
+            "#text": "Valige leht:"
           },
           {
             "@tag": "TITLE",
-            "#text": "Language Translator"
+            "#text": "Keeletõlkija"
           }
         ]
       },
@@ -2831,95 +2823,95 @@
         "Resource": [
           {
             "@tag": "ADD_GROUP",
-            "#text": "Add Group"
+            "#text": "Lisa rühm"
           },
           {
             "@tag": "ADD_TOGROUP",
-            "#text": "Add Medal to a Group"
+            "#text": "Medali lisamine rühma"
           },
           {
             "@tag": "ADD_TOUSER",
-            "#text": "Add Medal to a User"
+            "#text": "Medali lisamine kasutajale"
           },
           {
             "@tag": "ADD_USER",
-            "#text": "Add User"
+            "#text": "Lisa kasutaja"
           },
           {
             "@tag": "ALLOW_HIDING",
-            "#text": "Allow Hiding:"
+            "#text": "Luba peitmine:"
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Means that users will be allowed/disallowed to hide this medal."
+            "#text": "Tähendab, et kasutajatel lubatakse/keelatakse seda medalit peita."
           },
           {
             "@tag": "ALLOW_REORDER",
-            "#text": "Allow Re-Ordering:"
+            "#text": "Luba uuesti tellida:"
           },
           {
             "@tag": "ALLOW_REORDER_HELP",
-            "#text": "Means that users will be allowed/disallowed to change order of this medal."
+            "#text": "Tähendab, et kasutajatel on lubatud/keelatud selle medali järjekorda muuta."
           },
           {
             "@tag": "ALLOW_RIBBON",
-            "#text": "Allow Ribbon Bar:"
+            "#text": "Luba lindiriba:"
           },
           {
             "@tag": "ALLOW_RIBBON_HELP",
-            "#text": "Means that ribbon bar display of this medal will be allowed/disallowed."
+            "#text": "Tähendab, et selle medali lintriba näitamine on lubatud/keelatud."
           },
           {
             "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Remove medal from this group?"
+            "#text": "Kas eemaldada medal sellest grupist?"
           },
           {
             "@tag": "CONFIRM_REMOVE_USER",
-            "#text": "Remove medal from this user?"
+            "#text": "Kas eemaldada sellelt kasutajalt medal?"
           },
           {
             "@tag": "DATE_AWARDED",
-            "#text": "Date Awarded"
+            "#text": "Autasustamise kuupäev"
           },
           {
             "@tag": "EDIT_MEDAL_GROUP",
-            "#text": "Edit Medal of a Group"
+            "#text": "Redigeeri rühma medalit"
           },
           {
             "@tag": "EDIT_MEDAL_USER",
-            "#text": "Edit Medal of a User"
+            "#text": "Redigeeri kasutaja medalit"
           },
           {
             "@tag": "HEADER2",
-            "#text": "Medal Group Holders"
+            "#text": "Medalirühma omanikud"
           },
           {
             "@tag": "HEADER3",
-            "#text": "Individual Medal Holders"
+            "#text": "Individuaalsed medaliomanikud"
           },
           {
             "@tag": "HIDE",
-            "#text": "Hide:"
+            "#text": "Peida:"
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "If checked, medal is not displayed in user box."
+            "#text": "Märkimisel medalit kasutajakastis ei kuvata."
           },
           {
             "@tag": "MEDAL_CATEGORY",
-            "#text": "Category:"
+            "#text": "Kategooria:"
           },
           {
             "@tag": "MEDAL_CATEGORY_HELP",
-            "#text": "Medal's category."
+            "#text": "Medali kategooria."
           },
           {
             "@tag": "MEDAL_DESC",
-            "#text": "Description:"
+            "#text": "Kirjeldus:"
           },
           {
             "@tag": "MEDAL_DESC_HELP",
-            "#text": "Description of medal."
+            "#text": "Medali kirjeldus."
           },
           {
             "@tag": "MEDAL_GROUP",
@@ -8610,7 +8602,7 @@
         "Resource": [
           {
             "@tag": "COOKIES_TEXT",
-            "#text": "\r\n    Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.\r\n\r\n    [br]\r\n    [b]Standard Cookies[/b][br]\r\n    We’re using cookies for the following purposes:\r\n\r\n    [list]\r\n    [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.\r\n    [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.\r\n    [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.\r\n    [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..\r\n    [/list]\r\n\r\n    [b]Third Party Cookies[/b][br]\r\n    The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.\r\n\r\n    [br]\r\n\r\n    [b]How do I change my cookie settings?[/b][br]\r\n    Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]\r\n\r\n    "
+            "#text": "\r\n  Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.\r\n\r\n    [br]\r\n    [b]Standard Cookies[/b][br]\r\n    We’re using cookies for the following purposes:\r\n\r\n    [list]\r\n    [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.\r\n    [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.\r\n    [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.\r\n    [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..\r\n    [/list]\r\n\r\n    [b]Third Party Cookies[/b][br]\r\n    The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.\r\n\r\n    [br]\r\n\r\n    [b]How do I change my cookie settings?[/b][br]\r\n    Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]\r\n\r\n    "
           },
           {
             "@tag": "TITLE",

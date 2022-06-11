@@ -1635,14 +1635,6 @@
             "#text": "الزامی : تابلو می بایست تعریف های YAF.Base UrlMask و YAF.ForceScriptName را در قسمت AppSetting در فایل Web.Config داشته باشد."
           },
           {
-            "@tag": "BOARD_CDN_HOSTED",
-            "#text": "از فایل CSS , JQuery موجود در CDN گوگل استفاده شود؟"
-          },
-          {
-            "@tag": "BOARD_CDN_HOSTED_HELP",
-            "#text": "می توانید از فایل های CSS موجود روی سرورهای گوگل استفاده کنید و یا به‌جای آن از CSS های داخلی استفاده نمائید."
-          },
-          {
             "@tag": "BOARD_CULTURE",
             "#text": "فرهنگ:"
           },

@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "German",
     "@code": "de",
@@ -1633,14 +1633,6 @@
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
             "#text": "Erforderlich: Board muss die Werte \"YAF.BaseUrl Mask\" und \"YAF.Force ScriptName\" in den AppSettings definiert in Ihrer web.config, haben damit die Zusammenfassung (Digest) funktioniert."
-          },
-          {
-            "@tag": "BOARD_CDN_HOSTED",
-            "#text": "Google Hosted CDN jQuery UI CSS Datei verwenden?"
-          },
-          {
-            "@tag": "BOARD_CDN_HOSTED_HELP",
-            "#text": "Sie können die von Google gehosteten CSS-Dateien verwenden oder die internen."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -8602,7 +8594,7 @@
         "Resource": [
           {
             "@tag": "COOKIES_TEXT",
-            "#text": "\r\n    Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.\r\n\r\n    [br]\r\n    [b]Standard Cookies[/b][br]\r\n    We’re using cookies for the following purposes:\r\n\r\n    [list]\r\n    [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.\r\n    [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.\r\n    [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.\r\n    [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..\r\n    [/list]\r\n\r\n    [b]Third Party Cookies[/b][br]\r\n    The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.\r\n\r\n    [br]\r\n\r\n    [b]How do I change my cookie settings?[/b][br]\r\n    Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]\r\n\r\n    "
+            "#text": "\r\n  Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.\r\n\r\n    [br]\r\n    [b]Standard Cookies[/b][br]\r\n    We’re using cookies for the following purposes:\r\n\r\n    [list]\r\n    [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.\r\n    [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.\r\n    [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.\r\n    [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..\r\n    [/list]\r\n\r\n    [b]Third Party Cookies[/b][br]\r\n    The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.\r\n\r\n    [br]\r\n\r\n    [b]How do I change my cookie settings?[/b][br]\r\n    Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]\r\n\r\n    "
           },
           {
             "@tag": "TITLE",

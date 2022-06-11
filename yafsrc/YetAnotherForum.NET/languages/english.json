@@ -1441,14 +1441,6 @@
             "#text": "NOTE: board must have \"YAF.BaseUrlMask\" and \"YAF.ForceScriptName\" AppSettings defined in your web.config for digest to function."
           },
           {
-            "@tag": "BOARD_CDN_HOSTED",
-            "#text": "Use Google Hosted CDN jQuery UI CSS File?"
-          },
-          {
-            "@tag": "BOARD_CDN_HOSTED_HELP",
-            "#text": "You can use the Google Hosted CSS Files, or instead use internal."
-          },
-          {
             "@tag": "BOARD_CULTURE",
             "#text": "Culture:"
           },

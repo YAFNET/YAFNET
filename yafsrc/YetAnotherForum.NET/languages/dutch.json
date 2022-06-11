@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "Dutch",
     "@code": "nl",
@@ -1633,14 +1633,6 @@
           {
             "@tag": "BOARD_ALLOW_DIGEST_HELP",
             "#text": "NB: het board moet \"YAF.BaseUrlMask\" en \"YAF.ForceScriptName\" AppSettings hebben in je web.config om Samenvattingen te laten werken."
-          },
-          {
-            "@tag": "BOARD_CDN_HOSTED",
-            "#text": "Gebruik CDN jQuery UI CSS bestand gehost door Google?"
-          },
-          {
-            "@tag": "BOARD_CDN_HOSTED_HELP",
-            "#text": "Je kunt de Google Hosted CSS bestanden gebruiken, of lokale."
           },
           {
             "@tag": "BOARD_CULTURE",
@@ -8419,10 +8411,10 @@
             "@tag": "SAVE",
             "#text": "Opslaan"
           },
-          {
-            "@tag": "SELECT_LOCALE_JS",
-            "#text": "taal:  {\r\n              "
-          },
+            {
+                "@tag": "SELECT_LOCALE_JS",
+                "#text": "\r\n      language:  {\r\n              errorLoading: function() {\r\n                    return \"The results could not be loaded.\"\r\n                },\r\n                inputTooLong: function(e) {\r\n                    var t = e.input.length - e.maximum,\r\n                        n = \"Please delete \" + t + \" character\";\r\n                    return t != 1 && (n += \"s\"), n\r\n                },\r\n                inputTooShort: function(e) {\r\n                    var t = e.minimum - e.input.length,\r\n                        n = \"Please enter \" + t + \" or more characters\";\r\n                    return n\r\n                },\r\n                loadingMore: function() {\r\n                    return \"Loading more results…\"\r\n                },\r\n                maximumSelected: function(e) {\r\n                    var t = \"You can only select \" + e.maximum + \" item\";\r\n                    return e.maximum != 1 && (t += \"s\"), t\r\n                },\r\n                noResults: function() {\r\n                    return \"No results found\"\r\n                },\r\n                searching: function() {\r\n                    return \"Searching…\"\r\n                }\r\n          }\r\n  "
+            },
           {
             "@tag": "SELECTED_COPY",
             "#text": "Geselecteerde tekst kopiëren"
@@ -8600,10 +8592,10 @@
       {
         "@name": "COOKIES",
         "Resource": [
-          {
-            "@tag": "COOKIES_TEXT",
-            "#text": "Cookies zijn kleine tekstbestanden die op uw computer worden geplaatst door websites die u bezoekt. "
-          },
+            {
+                "@tag": "COOKIES_TEXT",
+                "#text": "\r\n   Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.\r\n\r\n    [br]\r\n    [b]Standard Cookies[/b][br]\r\n    We’re using cookies for the following purposes:\r\n\r\n    [list]\r\n    [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.\r\n    [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.\r\n    [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.\r\n    [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..\r\n    [/list]\r\n\r\n    [b]Third Party Cookies[/b][br]\r\n    The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.\r\n\r\n    [br]\r\n\r\n    [b]How do I change my cookie settings?[/b][br]\r\n    Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]\r\n\r\n    "
+            },
           {
             "@tag": "TITLE",
             "#text": "Cookie beleid"
@@ -14693,102 +14685,102 @@
       {
         "@name": "TEMPLATES",
         "Resource": [
-          {
-            "@tag": "CHANGEEMAIL_TEXT",
-            "#text": "Hallo {user},\r\n\r\nJe verzoek om je e-mail te wijzigen naar {newemail} is bijna voltooid!\r\n\r\nJe hoeft alleen nog maar te bevestigen door op de volgende link te klikken:\r\n\r\n{link}\r\n\r\nEn geef de volgende sleutel in:\r\n\r\n{key}\r\n\r\nAls je je e-mail niet wilde wijzigen, dan kun je deze mail negeren.\r\n\r\n{forumname} op {forumlink}\r\n"
-          },
-          {
-            "@tag": "EMAILTOPIC",
-            "#text": "Hallo!\r\n\r\n{user} dacht, dat je het volgende wel interessant zou vinden:\r\n\r\n{link}\r\n"
-          },
-          {
-            "@tag": "EMAILTOPIC_TEXT",
-            "#text": "{bericht}\r\n\r\n     "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_TEXT",
-            "#text": "Hallo!\r\n\r\n      "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "Hallo {gebruiker}.\r\n\r\n      "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "Hallo {gebruiker}.\r\n\r\n      "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",
-            "#text": "Hallo {gebruiker}.\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT",
-            "#text": "\t\tEen nieuw bericht dat goedgekeurd moet worden is geplaatst op het {forumname} forum:\r\n\r\n    Beheerlink: {adminlink}\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT",
-            "#text": "\r\n      Er is een bericht gerapporteed door {reporter} met de volgende reden: {reason}\r\n\r\nHet bericht was gepost op het  {forumname} forum.\r\n\r\n      Beheerlink: {adminlink}\r\n   "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT",
-            "#text": "\r\n      A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked:\r\n\r\n      Administration Link: {adminlink}\r\n   "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_REGISTER_TEXT",
-            "#text": "Hallo {gebruiker}.\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_SUSPENDING_ENDED_USER_TEXT",
-            "#text": "Hallo {gebruiker},\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
-            "#text": "Hallo {gebruiker},\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "      Je bent met succes geregistreerd op het {forumname} forum via Twitter:\r\n\r\n      Gebruikersnaam: {user}\r\n    Automatisch gemaakt wachtwoord: {pass}\r\n      E-mail: {email} (Wijzig aub je e-mail in je echte e-mailadres, zodat je e-mails kunt ontvangen)"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",
-            "#text": "Hallo!\r\n\r\n      "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_WELCOME_USER_TEXT",
-            "#text": "Hallo {gebruiker},\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_TEXT",
-            "#text": "Hallo {gebruiker},\r\n\r\n     "
-          },
-          {
-            "@tag": "NOTIFICATION_ROLE_UNASSIGNMENT_TEXT",
-            "#text": "Hallo {gebruiker},\r\n\r\n     "
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_ADMIN_TEXT",
-            "#text": "Hallo {gebruikersnaam},\r\n\r\n     "
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_TEXT",
-            "#text": "\r\n      Hello {username},\r\n\r\n      You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\n      A new password has been generated for you on {forumname} at {forumlink}.\r\n\r\n      Please return to the site and login using the following information:\r\n\r\n      User Name: {username}\r\n      Password: {password}\r\n    "
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "Je hebt een nieuw privébericht ontvangen van {fromuser} over {subject} op {forumname}.\r\n\r\nOm dit bericht te lezen, gebruik de volgende link:\r\n\r\n{link}\r\n"
-          },
-          {
-            "@tag": "RESET_PASS_TEXT",
-            "#text": "Je hebt gevraagd om je wachtwoord voor {forumname} opnieuw in te stellen.\r\n\r\n     "
-          },
-          {
-            "@tag": "TOPICPOST_TEXT",
-            "#text": "\r\n      Er is een nieuw bericht geplaatst in het {topic} topic op {forumname}.\r\n\r\n      Om dit topic te lezen, gebruik de volgende link:\r\n\r\n      {link}\r\n\r\n      You can manage your subscriptions here:\r\n\r\n      {subscriptionlink}\r\n    "
-          },
-          {
-            "@tag": "VERIFYEMAIL_TEXT",
-            "#text": "Om je te registreren op {forumname}, moet je e-mailadres gecontroleerd worden.\r\n\r\nOm je e-mail te controleren, gebruik dan de volgende link:\r\n\r\n{link}\r\n\r\nGebruik vervolgens de volgende sleutel:\r\n\r\n{key}\r\n\r\nBezoek {forumname} op {forumlink}\r\n"
-          }
+            {
+                "@tag": "CHANGEEMAIL_TEXT",
+                "#text": "\r\nHello {user},\r\n\r\nYour request to change your email address to {newemail} is almost complete!\r\n\r\nJust confirm the change by clicking this link:\r\n\r\n{link}\r\n\r\nAnd enter approval key:\r\n\r\n{key}\r\n\r\nIf you did not request a change to your email address please simply ignore this email.\r\n\r\n{forumname} at {forumlink}\r\n"
+            },
+            {
+                "@tag": "EMAILTOPIC_TEXT",
+                "#text": "\r\n     {message}\r\n\r\n     {forumname} at {forumlink}\r\n   "
+            },
+            {
+                "@tag": "EMAILTOPIC",
+                "#text": "\r\nHello!\r\n\r\n{user} thought you might be interested in reading this:\r\n\r\n{link}\r\n"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
+                "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
+            },
+            {
+                "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
+                "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
+            },
+            {
+                "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",
+                "#text": "\r\n    Hello {user}.\r\n\r\n    Congratulations you have been awarded with the {medalname} on the {forumname} forum.\r\n  "
+            },
+            {
+                "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT",
+                "#text": "\r\n      A new message that needs to be approved has been posted in the {forumname} forum\r\n\r\n      Administration Link: {adminlink}\r\n   "
+            },
+            {
+                "@tag": "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT",
+                "#text": "\r\n      A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked\r\n\r\n      Administration Link: {adminlink}\r\n   "
+            },
+            {
+                "@tag": "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT",
+                "#text": "\r\n      A message was reported by {reporter} for the following reason: {reason}\r\n\r\nThe Message was posted in the {forumname} forum.\r\n\r\n      Administration Link: {adminlink}\r\n   "
+            },
+            {
+                "@tag": "NOTIFICATION_ON_REGISTER_TEXT",
+                "#text": "\r\n    Hello {user}.\r\n\r\n    You have been successfully registered on the {forumname} forum:\r\n\r\n    User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n    User Email: {email}\r\n\r\n  "
+            },
+            {
+                "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
+                "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n      Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email address to your real one in order to Receive E-Mails)\r\n\r\n    "
+            },
+            {
+                "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_TEXT",
+                "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
+            },
+            {
+                "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",
+                "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum:\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
+            },
+            {
+                "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
+                "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
+            },
+            {
+                "@tag": "NOTIFICATION_ON_SUSPENDING_ENDED_USER_TEXT",
+                "#text": "\r\n    Hello {user},\r\n\r\n    The suspension of your forum account has ended or was lifted.\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
+            },
+            {
+                "@tag": "NOTIFICATION_ON_WELCOME_USER_TEXT",
+                "#text": "\r\n    Hello {user},\r\n\r\n    You have been successfully registered on the {forumname} forum. You're all ready to go!\r\n\r\n    Before posting, consider other ways of finding information:\r\n\r\n    - Use the help pages to find out how the forum works\r\n    - Try the Forum Search, often times your questions are already been answered\r\n    - Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.\r\n    Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
+            },
+            {
+                "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_TEXT",
+                "#text": "\r\n     Hello {user},\r\n\r\n     Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):\r\n\r\n     {roles}\r\n\r\n\r\n     Thanks!\r\n     The {forumname} Team\r\n     {forumlink}\r\n\r\n   "
+            },
+            {
+                "@tag": "NOTIFICATION_ROLE_UNASSIGNMENT_TEXT",
+                "#text": "\r\n     Hello {user},\r\n\r\n     Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):\r\n\r\n     {roles}\r\n\r\n\r\n     Thanks!\r\n     The {forumname} Team\r\n     {forumlink}\r\n\r\n   "
+            },
+            {
+                "@tag": "PASSWORDRETRIEVAL_TEXT",
+                "#text": "\r\nHello {username},\r\n\r\nYou or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\nA new password has been generated for you on {forumname} at {forumlink}.\r\n\r\nPlease return to the site and login using the following information:\r\n\r\nUser Name: {username}\r\nPassword: {password}\r\n"
+            },
+            {
+                "@tag": "PASSWORDRETRIEVAL_ADMIN_TEXT",
+                "#text": "\r\n     Hello {username},\r\n\r\n     Your password has been resetted for the {forumname}, and new password has been generated for you at {forumlink}.\r\n\r\n     Please return to the site and login using the following information:\r\n\r\n     User Name: {username}\r\n     Password: {password}\r\n   "
+            },
+            {
+                "@tag": "PMNOTIFICATION_TEXT",
+                "#text": "\r\nA new Private Message from {fromuser} about {subject} was send to you at {forumname}.\r\n\r\nTo read the message, open the following link in your browser:\r\n\r\n{link}\r\n"
+            },
+            {
+                "@tag": "TOPICPOST_TEXT",
+                "#text": "\r\nThere's a new post in topic \"{topic}\" at {forumname}:\r\n\r\nBy {postedby}:\r\n\"{bodytruncated}\"\r\n\r\nTo read more, click or copy and paste the following link into your browser:\r\n\r\n{link}\r\n\r\nYou can manage your subscriptions here:\r\n\r\n{subscriptionlink}\r\n"
+            },
+            {
+                "@tag": "RESET_PASS_TEXT",
+                "#text": "\r\n     You have requested to reset your password for {forumname}.\r\n\r\n     Please open the following link in your web browser:\r\n\r\n     {link}\r\n   "
+            },
+            {
+                "@tag": "VERIFYEMAIL_TEXT",
+                "#text": "\r\nYou have requested to join {forumname}, but before you can join your email address must be verified.\r\n\r\nTo verify your email address open the following link in your web browser:\r\n\r\n{link}\r\n\r\nYour approval key is:\r\n\r\n{key}\r\n\r\nVisit {forumname} at {forumlink}\r\n"
+            }
         ]
       },
       {
@@ -15089,7 +15081,7 @@
           },
           {
             "@tag": "NO_TOPICS",
-            "#text": "The Forum currently has no Topics"
+            "#text": "Het forum heeft momenteel geen onderwerpen"
           },
           {
             "@tag": "OK_TT",
@@ -15105,7 +15097,7 @@
           },
           {
             "@tag": "RSSFEED",
-            "#text": "RSS Feed"
+            "#text": "RSS-feed"
           },
           {
             "@tag": "SEARCH_FORUM",
@@ -15137,7 +15129,7 @@
           },
           {
             "@tag": "USER_AVATAR",
-            "#text": "{0}'s Avatar"
+            "#text": "Avatar van {0}"
           },
           {
             "@tag": "VIEWS",
