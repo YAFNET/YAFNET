@@ -1,6 +1,24 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.6
+* Upgraded to CKEditor 4.19.0
+* [FIXED] Migrating attachments from old dbs
+* [FIXED #729] show duplicate topics
+* [FIXED #740] delete all messages/topics
+* [FIXED] soft message delete
+* [FIXED] sending welcome message
+* [FIXED #747] moving message
+* [FIXED] mobile context menu
+* [FIXED] report pm
+* [FIXED] saving banned name
+* [FIXED] user delete user account
+* bug fixes
+
+# YetAnotherForum.NET v3.1.5
+* [NEW] Added a Setting to enable/disable Custom Context Menu in Posts
+* bug fixes
+
 # YetAnotherForum.NET v3.1.5
 * bug fixes
 
