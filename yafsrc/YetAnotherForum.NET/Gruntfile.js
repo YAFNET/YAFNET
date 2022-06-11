@@ -323,7 +323,11 @@ module.exports = function(grunt) {
                 options: {
                     reportUpdated: true,
                     updateType: "force",
-                    semver: false
+                    semver: false,
+					 packages: {
+                    devDependencies: true, //only check for devDependencies
+                    dependencies: true
+                }
                 }
             }
         }
@@ -338,7 +342,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask("default",
         [
-            "uglify", "sass", "postcss", "cssmin", "devUpdate"
+           "devUpdate", "uglify", "sass", "postcss", "cssmin"
         ]);
 
     grunt.registerTask("js",

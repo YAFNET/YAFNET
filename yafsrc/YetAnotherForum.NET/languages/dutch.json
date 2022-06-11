@@ -9511,7 +9511,7 @@
           },
           {
             "@tag": "UZ",
-            "#text": "Uzbekistan"
+            "#text": "Oezbekistan"
           },
           {
             "@tag": "VA",
@@ -9640,15 +9640,15 @@
           },
           {
             "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "The requested user could not be found."
+            "#text": "De gevraagde gebruiker kon niet worden gevonden."
           },
           {
             "@tag": "ERROR_HOVERCARD",
-            "#text": "Sorry, no data found or something went wrong."
+            "#text": "Sorry, geen gegevens gevonden of er is iets misgegaan."
           },
           {
             "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Invalid username or you have exceeded Twitter request limit.<br/><small>Please note, Twitter only allows 150 requests per hour.</small>."
+            "#text": "Ongeldige gebruikersnaam of je hebt de Twitter-verzoeklimiet overschreden.<br/><small>Let op, Twitter staat slechts 150 verzoeken per uur toe.</small>."
           },
           {
             "@tag": "FORUM",
@@ -9684,15 +9684,15 @@
           },
           {
             "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "Loading Facebook Info ..."
+            "#text": "Facebook-info laden..."
           },
           {
             "@tag": "LOADING_HOVERCARD",
-            "#text": "Loading User Info ..."
+            "#text": "Gebruikersinfo laden..."
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Loading Twitter Info ..."
+            "#text": "Twitter-info wordt geladen..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -9708,7 +9708,7 @@
           },
           {
             "@tag": "MARKALL_MESSAGE",
-            "#text": "All forums has been marked as read"
+            "#text": "Alle forums zijn gemarkeerd als gelezen"
           },
           {
             "@tag": "MODERATORS",
@@ -9716,7 +9716,7 @@
           },
           {
             "@tag": "MOST_ACTIVE",
-            "#text": "Most Active Users in the last {0} Days"
+            "#text": "Meest actieve gebruikers in de afgelopen {0} dagen"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -9780,23 +9780,23 @@
           },
           {
             "@tag": "STATS_SPAM",
-            "#text": "Anti Spam Statistics"
+            "#text": "Anti-spamstatistieken"
           },
           {
             "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} Spammers Permanently Banned"
+            "#text": "{0} Spammers permanent verbannen"
           },
           {
             "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} Spammers Denied Registration"
+            "#text": "{0} Spammers hebben registratie geweigerd"
           },
           {
             "@tag": "STATS_SPAM_REPORTED",
-            "#text": "{0} Spammers submitted to StopForumSpam.com"
+            "#text": "{0} Spammers ingediend bij StopForumSpam.com"
           },
           {
             "@tag": "TOPICS",
-            "#text": "Topics"
+            "#text": "Onderwerpen"
           },
           {
             "@tag": "UNREAD0",
@@ -9820,11 +9820,11 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Watch all forums"
+            "#text": "Bekijk alle forums"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
-            "#text": "Watch all forums and get Email Notifications when a new Topic is created"
+            "#text": "Bekijk alle forums en ontvang e-mailmeldingen wanneer een nieuw onderwerp wordt gemaakt"
           }
         ]
       },
@@ -9833,31 +9833,31 @@
         "Resource": [
           {
             "@tag": "CONFIRM",
-            "#text": "Are you absolutely sure you want to do this?"
+            "#text": "Weet je absoluut zeker dat je dit wilt doen?"
           },
           {
             "@tag": "OPTION_DELETE_TEXT",
-            "#text": "This will delete your account permanently! All your content will be deleted. After that your account can not be restored"
+            "#text": "Hiermee wordt je account definitief verwijderd! "
           },
           {
             "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Delete your Account (permanently)"
+            "#text": "Verwijder uw account (permanent)"
           },
           {
             "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "If you just want to take a break from the Forum, then this will suspend your account for 30 days. Your content is still visible"
+            "#text": "Als je even een pauze wilt nemen van het Forum, dan wordt je account 30 dagen opgeschort. "
           },
           {
             "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Suspend your Account for 30 days"
+            "#text": "Uw account 30 dagen opschorten"
           },
           {
             "@tag": "OPTIONS_TITLE",
-            "#text": "You have the option to..."
+            "#text": "Je hebt de optie om..."
           },
           {
             "@tag": "TITLE",
-            "#text": "Delete Your {0} Account"
+            "#text": "Verwijder uw {0}-account"
           }
         ]
       },
@@ -9870,7 +9870,7 @@
           },
           {
             "@tag": "DELETE_ALL",
-            "#text": "Delete All Posts?"
+            "#text": "Alle berichten verwijderen?"
           },
           {
             "@tag": "DELETE_REASON",
@@ -9894,7 +9894,7 @@
           },
           {
             "@tag": "NEED_REASON",
-            "#text": "You need to enter a Reason why the message is deleted."
+            "#text": "U moet een Reden invoeren waarom het bericht is verwijderd."
           },
           {
             "@tag": "POSTED",
@@ -10000,7 +10000,7 @@
           },
           {
             "@tag": "IMAGES",
-            "#text": "Album Image(s)"
+            "#text": "Albumafbeelding(en)"
           },
           {
             "@tag": "IMAGES_COUNT_LIMIT",
@@ -10012,11 +10012,11 @@
           },
           {
             "@tag": "NEED_TITLE",
-            "#text": "You need to specify a title."
+            "#text": "U moet een titel opgeven."
           },
           {
             "@tag": "SELECT_FILE",
-            "#text": "Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload."
+            "#text": "Selecteer een afbeeldingsbestand ('.jpg', '.gif', '.png' of '.bmp') dat u wilt uploaden."
           },
           {
             "@tag": "TITLE",
@@ -10024,7 +10024,7 @@
           },
           {
             "@tag": "TITLE_NEW",
-            "#text": "Create New Album"
+            "#text": "Nieuw album maken"
           }
         ]
       },
@@ -10118,7 +10118,7 @@
           },
           {
             "@tag": "ACTIVITY",
-            "#text": "Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks."
+            "#text": "Schakel activiteitenstroom in (indien aangevinkt krijg je meldingen voor vermeldingen, citaten en bedankt."
           },
           {
             "@tag": "AIM",
@@ -10138,7 +10138,7 @@
           },
           {
             "@tag": "BAD_GOOGLE",
-            "#text": "You have entered an illegal value as Google Profile URL."
+            "#text": "U heeft een ongeldige waarde ingevoerd als Google-profiel-URL."
           },
           {
             "@tag": "BAD_HOME",
@@ -10198,7 +10198,7 @@
           },
           {
             "@tag": "FIELD_TOOLONG",
-            "#text": "{0} length cannot be more than {1} characters."
+            "#text": "{0} lengte mag niet meer zijn dan {1} tekens."
           },
           {
             "@tag": "FORUM_SETTINGS",
@@ -10206,7 +10206,7 @@
           },
           {
             "@tag": "GET_LOCATION",
-            "#text": "Get Location from IP Address"
+            "#text": "Locatie ophalen van IP-adres"
           },
           {
             "@tag": "HIDEME",
@@ -10234,7 +10234,7 @@
           },
           {
             "@tag": "METAWEBLOG_API_ID",
-            "#text": "MetaWeblog API ID:"
+            "#text": "MetaWeblog API-ID:"
           },
           {
             "@tag": "METAWEBLOG_API_ID_INSTRUCTIONS",
@@ -10242,7 +10242,7 @@
           },
           {
             "@tag": "METAWEBLOG_API_URL",
-            "#text": "MetaWeblog API URL:"
+            "#text": "MetaWeblog API-URL:"
           },
           {
             "@tag": "METAWEBLOG_API_USERNAME",
@@ -10258,11 +10258,11 @@
           },
           {
             "@tag": "NEED_CUSTOM",
-            "#text": "{0} is required"
+            "#text": "{0} is vereist"
           },
           {
             "@tag": "OTHER",
-            "#text": "Other"
+            "#text": "Ander"
           },
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
@@ -10286,7 +10286,7 @@
           },
           {
             "@tag": "SELECT_PAGESIZE",
-            "#text": "Standard Page Size:"
+            "#text": "Standaard paginaformaat:"
           },
           {
             "@tag": "SELECT_TEXTEDITOR",
@@ -10339,7 +10339,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Edit Settings"
+            "#text": "Instellingen bewerken"
           }
         ]
       },
@@ -10421,11 +10421,11 @@
           },
           {
             "@tag": "NEED_MESSAGE",
-            "#text": "You must enter a Message."
+            "#text": "U moet een bericht invoeren."
           },
           {
             "@tag": "NEED_SUBJECT",
-            "#text": "You must enter an email subject."
+            "#text": "U moet een e-mailonderwerp invoeren."
           },
           {
             "@tag": "SEND",
@@ -10450,19 +10450,19 @@
         "Resource": [
           {
             "@tag": "ERROR",
-            "#text": "Error"
+            "#text": "Fout"
           },
           {
             "@tag": "INFORMATION",
-            "#text": "Information"
+            "#text": "Informatie"
           },
           {
             "@tag": "SQLERROR",
-            "#text": "Sql Script Error"
+            "#text": "SQL-scriptfout"
           },
           {
             "@tag": "WARNING",
-            "#text": "Warning"
+            "#text": "Waarschuwing"
           }
         ]
       },
@@ -10507,11 +10507,11 @@
           },
           {
             "@tag": "INFO_NO",
-            "#text": "You don't have any friends yet"
+            "#text": "Je hebt nog geen vrienden"
           },
           {
             "@tag": "INFO_PENDING",
-            "#text": "You don't have any pending requests"
+            "#text": "U heeft geen lopende verzoeken"
           },
           {
             "@tag": "NOTIFICATION_APPROVEALL",
@@ -10564,7 +10564,7 @@
           },
           {
             "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
+            "#text": "Androgyn"
           },
           {
             "@tag": "BIGENDER",
@@ -10572,19 +10572,19 @@
           },
           {
             "@tag": "CISGENDER",
-            "#text": "Cisgender"
+            "#text": "cisgender"
           },
           {
             "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
+            "#text": "Vrouw naar Man"
           },
           {
             "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
+            "#text": "Geslachtsvloeistof"
           },
           {
             "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
+            "#text": "Geslacht niet-conform"
           },
           {
             "@tag": "GENDERQUEER",
@@ -10592,15 +10592,15 @@
           },
           {
             "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
+            "#text": "Gendervragen"
           },
           {
             "@tag": "INTERSEX",
-            "#text": "Intersex"
+            "#text": "Intersekse"
           },
           {
             "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
+            "#text": "Man naar Vrouw"
           },
           {
             "@tag": "MAN",
@@ -10608,11 +10608,11 @@
           },
           {
             "@tag": "NONBINARY",
-            "#text": "Non-binary"
+            "#text": "niet-binair"
           },
           {
             "@tag": "OTHER",
-            "#text": "Other"
+            "#text": "Ander"
           },
           {
             "@tag": "PANGENDER",
@@ -10620,11 +10620,11 @@
           },
           {
             "@tag": "TRANS",
-            "#text": "Trrans"
+            "#text": "Trans"
           },
           {
             "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
+            "#text": "transvrouwelijk"
           },
           {
             "@tag": "TRANSGENDER",
@@ -10632,27 +10632,27 @@
           },
           {
             "@tag": "TRANSMAN",
-            "#text": "Transgender Man"
+            "#text": "transgender man"
           },
           {
             "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
+            "#text": "transmannelijk"
           },
           {
             "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
+            "#text": "transseksueel"
           },
           {
             "@tag": "TRANSWOMAN",
-            "#text": "Transgender Woman"
+            "#text": "Transgender vrouw"
           },
           {
             "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
+            "#text": "Twee-Geest"
           },
           {
             "@tag": "WOMAN",
-            "#text": "Woman"
+            "#text": "Vrouw"
           }
         ]
       },
@@ -10881,7 +10881,7 @@
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "RSS & Atom Feeds"
+            "#text": "RSS- en Atom-feeds"
           },
           {
             "@tag": "SEARCHFOR",
@@ -10917,7 +10917,7 @@
           },
           {
             "@tag": "SUBTITLE",
-            "#text": "Forum Help"
+            "#text": "Forumhulp"
           },
           {
             "@tag": "THANKSCONTENT",
@@ -10937,7 +10937,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "YetAnotherForum.NET Help"
+            "#text": "YetAnotherForum.NET Hulp"
           },
           {
             "@tag": "WELCOME",
@@ -10966,7 +10966,7 @@
           },
           {
             "@tag": "HOT_NO_NEW_POSTS",
-            "#text": "Hot Topic"
+            "#text": "Heet onderwerp"
           },
           {
             "@tag": "MOVED",
@@ -10990,7 +10990,7 @@
           },
           {
             "@tag": "POLL",
-            "#text": "Poll"
+            "#text": "opiniepeiling"
           },
           {
             "@tag": "POLL_NEW",
@@ -10998,7 +10998,7 @@
           },
           {
             "@tag": "STICKY",
-            "#text": "Sticky"
+            "#text": "Kleverig"
           },
           {
             "@tag": "STICKY_NEW",
@@ -11040,7 +11040,7 @@
           },
           {
             "@tag": "TITLE2",
-            "#text": "Send E-mail to {0}"
+            "#text": "E-mail sturen naar {0}"
           }
         ]
       },
@@ -11079,7 +11079,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "XMPP Messenger"
+            "#text": "XMPP-messenger"
           }
         ]
       },
@@ -11088,7 +11088,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Yahoo! Messenger"
+            "#text": "Yahoo! "
           }
         ]
       },
@@ -11129,7 +11129,7 @@
           },
           {
             "@tag": "HOSTADMINPERMISSIONSREQUIRED",
-            "#text": "To access the area your board's Host Admin should set some extra permissions for you."
+            "#text": "Om toegang te krijgen tot het gebied moet de hostbeheerder van je board wat extra rechten voor je instellen."
           },
           {
             "@tag": "INVALID",
@@ -11149,7 +11149,7 @@
           },
           {
             "@tag": "SUSPENDED_REASON",
-            "#text": "<br /><br />For the following Reason: \"{0}\"."
+            "#text": "<br /><br />Om de volgende reden: \"{0}\"."
           },
           {
             "@tag": "TITLE_ACCESSDENIED",
@@ -11177,7 +11177,7 @@
           },
           {
             "@tag": "TITLE_HOSTADMINPERMISSIONSREQUIRED",
-            "#text": "Host Admin permissions required!"
+            "#text": "Hostbeheerdersrechten vereist!"
           },
           {
             "@tag": "TITLE_INVALID",
@@ -11202,7 +11202,7 @@
         "Resource": [
           {
             "@tag": "CHARSET",
-            "#text": "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            "#text": "#ABCDEFGHIJKLMNOPQRSTU VWXYZ"
           }
         ]
       },
@@ -11211,39 +11211,39 @@
         "Resource": [
           {
             "@tag": "ACCOUNT_NOT_APPROVED",
-            "#text": "Your account is not approved yet because you have not validated your email. Please verify so you can login."
+            "#text": "Je account is nog niet goedgekeurd omdat je je e-mail niet hebt gevalideerd. "
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "Login or Register with {0}"
+            "#text": "Log in of registreer met {0}"
           },
           {
             "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}"
+            "#text": "Verbind een bestaande forums-account met uw {0}-account. U moet eerst inloggen via de forums. "
           },
           {
             "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>The Facebook email address must match the forum user email address to connect the user.</strong>"
+            "#text": "<strong>Het Facebook-e-mailadres moet overeenkomen met het e-mailadres van de forumgebruiker om verbinding te maken met de gebruiker.</strong>"
           },
           {
             "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>The Google email address must match the forum user email address to connect the user.</strong>"
+            "#text": "<strong>Het e-mailadres van Google moet overeenkomen met het e-mailadres van de forumgebruiker om verbinding te maken met de gebruiker.</strong>"
           },
           {
             "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Login or Register with {0} or connect an existing User Account with {0}."
+            "#text": "Log in of registreer met {0} of verbind een bestaand gebruikersaccount met {0}."
           },
           {
             "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>The Twitter user name must match the forum user name to connect the user.</strong>"
+            "#text": "<strong>De Twitter-gebruikersnaam moet overeenkomen met de forumgebruikersnaam om de gebruiker te verbinden.</strong>"
           },
           {
             "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Login with an user Account that is connected with {0}. Or if no account is found a new account will be automatically created in the forums."
+            "#text": "Log in met een gebruikersaccount dat is verbonden met {0}. "
           },
           {
             "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Could not get access_token!"
+            "#text": "Kan access_token niet ophalen!"
           },
           {
             "@tag": "AUTO",
@@ -11255,11 +11255,11 @@
           },
           {
             "@tag": "CAPS_LOCK",
-            "#text": "Caps Lock is on"
+            "#text": "Caps Lock staat aan"
           },
           {
             "@tag": "CONNECT_VIA",
-            "#text": "Or Connect via"
+            "#text": "Of maak verbinding via"
           },
           {
             "@tag": "EMAIL",
@@ -11271,7 +11271,7 @@
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
-            "#text": "You have been locked out because of to many failed log in attempts."
+            "#text": "U bent buitengesloten vanwege te veel mislukte inlogpogingen."
           },
           {
             "@tag": "FORUM_LOGIN",
@@ -11283,7 +11283,7 @@
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
-            "#text": "Verification Mail was send again to you."
+            "#text": "Verificatiemail is opnieuw naar u verzonden."
           },
           {
             "@tag": "PASSWORD",
@@ -11303,7 +11303,7 @@
           },
           {
             "@tag": "REGISTER_INSTEAD",
-            "#text": "Register Instead as new User"
+            "#text": "In plaats daarvan registreren als nieuwe gebruiker"
           },
           {
             "@tag": "SENDPASSWORD",
@@ -11319,15 +11319,15 @@
           },
           {
             "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "The Facebook Login failed, User does not exists, or the account is not connected."
+            "#text": "De Facebook-aanmelding is mislukt, de gebruiker bestaat niet of het account is niet verbonden."
           },
           {
             "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "The Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead."
+            "#text": "De Facebook-aanmelding is mislukt, er bestaat al een gebruikersaccount met hetzelfde e-mailadres als de Facebook-account. Probeer in plaats daarvan uw forumaccount te verbinden."
           },
           {
             "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "The Facebook Login failed, because the user does not provide a email address for the account."
+            "#text": "De Facebook-aanmelding is mislukt, omdat de gebruiker geen e-mailadres voor het account opgeeft."
           },
           {
             "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
@@ -11335,15 +11335,15 @@
           },
           {
             "@tag": "SSO_FAILED",
-            "#text": "New Registrations are disabled."
+            "#text": "Nieuwe registraties zijn uitgeschakeld."
           },
           {
             "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "The Google Login failed, User does not exists, or the account is not connected."
+            "#text": "De Google Login is mislukt, de gebruiker bestaat niet of het account is niet gekoppeld."
           },
           {
             "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "The Google Login failed, an user account with the same email address as the Google account already exists, please try to connect you your forum account instead."
+            "#text": "Het inloggen bij Google is mislukt, er bestaat al een gebruikersaccount met hetzelfde e-mailadres als het Google-account. Probeer in plaats daarvan uw forumaccount te koppelen."
           },
           {
             "@tag": "SSO_GOOGLENAME_NOTMATCH",
@@ -11359,11 +11359,11 @@
           },
           {
             "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "The Twitter Login failed, an user account with the same user name as the Twitter account already exists, please try to connect you your forum account instead."
+            "#text": "De Twitter-login is mislukt, er bestaat al een gebruikersaccount met dezelfde gebruikersnaam als het Twitter-account. Probeer in plaats daarvan uw forumaccount te koppelen."
           },
           {
             "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "The Twitter User Name must match the Forum Username!"
+            "#text": "De Twitter-gebruikersnaam moet overeenkomen met de forumgebruikersnaam!"
           },
           {
             "@tag": "TITLE",
@@ -11408,19 +11408,19 @@
           },
           {
             "@tag": "JOINED_ASC",
-            "#text": "Joined asc"
+            "#text": "lid geworden van asc"
           },
           {
             "@tag": "JOINED_DESC",
-            "#text": "Joined desc"
+            "#text": "Aangesloten beschrijving"
           },
           {
             "@tag": "LASTVISIT_ASC",
-            "#text": "Last visit asc"
+            "#text": "Laatste bezoek asc"
           },
           {
             "@tag": "LASTVISIT_DESC",
-            "#text": "Last visit desc"
+            "#text": "Laatste bezoek beschrijving"
           },
           {
             "@tag": "NUMPOSTSEQUAL",
@@ -11440,19 +11440,19 @@
           },
           {
             "@tag": "POSTS_ASC",
-            "#text": "Posts asc"
+            "#text": "Berichten asc"
           },
           {
             "@tag": "POSTS_DESC",
-            "#text": "Posts desc"
+            "#text": "Berichten beschrijving"
           },
           {
             "@tag": "RANK_ASC",
-            "#text": "Rank A-Z"
+            "#text": "Rang A-Z"
           },
           {
             "@tag": "RANK_DESC",
-            "#text": "Rank Z-A"
+            "#text": "Rang Z-A"
           },
           {
             "@tag": "SEARCH_MEMBER",
@@ -11472,7 +11472,7 @@
           },
           {
             "@tag": "SORT_BY",
-            "#text": "Sort by"
+            "#text": "Sorteer op"
           },
           {
             "@tag": "TITLE",
@@ -11480,11 +11480,11 @@
           },
           {
             "@tag": "USERNAME_ASC",
-            "#text": "Name A-Z"
+            "#text": "Naam A-Z"
           },
           {
             "@tag": "USERNAME_DESC",
-            "#text": "Name Z-A"
+            "#text": "Naam Z-A"
           }
         ]
       },
@@ -11518,11 +11518,11 @@
           },
           {
             "@tag": "COMPARE_VERSIONS",
-            "#text": "Compare versions"
+            "#text": "Vergelijk versies"
           },
           {
             "@tag": "CONFIRM_RESTORE",
-            "#text": "Are you really want to restore that Message version?"
+            "#text": "Wilt u echt die berichtversie herstellen?"
           },
           {
             "@tag": "CURRENTMESSAGE",
@@ -11538,7 +11538,7 @@
           },
           {
             "@tag": "EDITEDBY_MOD",
-            "#text": "Edited By an Moderator"
+            "#text": "Bewerkt door een moderator"
           },
           {
             "@tag": "EDITEREASON",
@@ -11550,23 +11550,23 @@
           },
           {
             "@tag": "MESSAGE_EDITEDAT",
-            "#text": "Message Edited at "
+            "#text": "Bericht bewerkt om"
           },
           {
             "@tag": "MESSAGE_RESTORED",
-            "#text": "Message was successfully restored!"
+            "#text": "Bericht is succesvol hersteld!"
           },
           {
             "@tag": "NEW",
-            "#text": "New"
+            "#text": "Nieuw"
           },
           {
             "@tag": "NOTHING_SELECTED",
-            "#text": "Nothing selected"
+            "#text": "Niets geselecteerd"
           },
           {
             "@tag": "OLD",
-            "#text": "Old"
+            "#text": "Oud"
           },
           {
             "@tag": "ORIGINALMESSAGE",
@@ -11578,23 +11578,23 @@
           },
           {
             "@tag": "RESTORE_MESSAGE",
-            "#text": "Restore Version"
+            "#text": "Versie herstellen"
           },
           {
             "@tag": "SELECT_BOTH",
-            "#text": "Please select one old and one new Message"
+            "#text": "Selecteer een oud en een nieuw bericht"
           },
           {
             "@tag": "SELECT_DIFFERENT",
-            "#text": "You must select two different versions to make a valid comparison."
+            "#text": "U moet twee verschillende versies selecteren om een ​​geldige vergelijking te maken."
           },
           {
             "@tag": "SELECT_TWO",
-            "#text": "Only 2 Versions can be selected vor comparing!"
+            "#text": "Er kunnen slechts 2 versies worden geselecteerd om te vergelijken!"
           },
           {
             "@tag": "TEXT_CHANGES",
-            "#text": "Text Changes"
+            "#text": "Tekstwijzigingen"
           },
           {
             "@tag": "TITLE",
@@ -11688,11 +11688,11 @@
           },
           {
             "@tag": "MOVE_TO_DIFFERENT",
-            "#text": "The forum you want to move the topic(s) must be different then the current forum."
+            "#text": "Het forum waarvan u de onderwerp(en) wilt verplaatsen, moet anders zijn dan het huidige forum."
           },
           {
             "@tag": "MOVED",
-            "#text": "Topic(s) Moved"
+            "#text": "Onderwerp(en) verplaatst"
           },
           {
             "@tag": "NO_POSTS",
@@ -11728,7 +11728,7 @@
           },
           {
             "@tag": "TOPICS",
-            "#text": "Topics"
+            "#text": "Onderwerpen"
           },
           {
             "@tag": "USER",
@@ -11822,7 +11822,7 @@
           },
           {
             "@tag": "REPORTED_TIMES",
-            "#text": "{0} Reports"
+            "#text": "{0} Rapporten"
           },
           {
             "@tag": "REPORTEDBY",
@@ -11850,7 +11850,7 @@
           },
           {
             "@tag": "TOPIC",
-            "#text": "Topic:"
+            "#text": "Onderwerp:"
           },
           {
             "@tag": "UNAPPROVED",
@@ -11937,7 +11937,7 @@
           },
           {
             "@tag": "ATOMFEED",
-            "#text": "Atom Feed"
+            "#text": "Atoomvoeding"
           },
           {
             "@tag": "BY",
@@ -12013,7 +12013,7 @@
           },
           {
             "@tag": "SELECT",
-            "#text": "Select..."
+            "#text": "Selecteer..."
           },
           {
             "@tag": "SHOW_ALL",
@@ -12025,11 +12025,11 @@
           },
           {
             "@tag": "TOPIC_STARTER",
-            "#text": "Topic Starter"
+            "#text": "Onderwerp starter"
           },
           {
             "@tag": "TOPICS",
-            "#text": "Topics"
+            "#text": "Onderwerpen"
           },
           {
             "@tag": "UNANSWEREDTOPICS",
@@ -12045,7 +12045,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Watch Topics"
+            "#text": "Onderwerpen bekijken"
           }
         ]
       },
@@ -12082,11 +12082,11 @@
           },
           {
             "@tag": "DATE_ASC",
-            "#text": "Date asc"
+            "#text": "Datum asc"
           },
           {
             "@tag": "DATE_DESC",
-            "#text": "Date desc"
+            "#text": "Datumbeschrijving"
           },
           {
             "@tag": "DELETEALL",
@@ -12114,11 +12114,11 @@
           },
           {
             "@tag": "FROM_ASC",
-            "#text": "From A-Z"
+            "#text": "Van A-Z"
           },
           {
             "@tag": "FROM_DESC",
-            "#text": "From Z-A"
+            "#text": "Van Z-A"
           },
           {
             "@tag": "INBOX",
@@ -12130,7 +12130,7 @@
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Markeer als gelezen"
           },
           {
             "@tag": "MSG_ARCHIVED",
@@ -12178,11 +12178,11 @@
           },
           {
             "@tag": "SUBJECT_ASC",
-            "#text": "Subject A-Z"
+            "#text": "Onderwerp A-Z"
           },
           {
             "@tag": "SUBJECT_DESC",
-            "#text": "Subject Z-A"
+            "#text": "Onderwerp Z-A"
           },
           {
             "@tag": "TITLE",
@@ -12194,11 +12194,11 @@
           },
           {
             "@tag": "TO_ASC",
-            "#text": "To A-Z"
+            "#text": "Naar A-Z"
           },
           {
             "@tag": "TO_DESC",
-            "#text": "To Z-A"
+            "#text": "Naar Z-A"
           }
         ]
       },
@@ -12207,7 +12207,7 @@
         "Resource": [
           {
             "@tag": "ALLBUDDIES",
-            "#text": "All Friends"
+            "#text": "Alle vrienden"
           },
           {
             "@tag": "ALLUSERS",
@@ -12275,11 +12275,11 @@
           },
           {
             "@tag": "REPORT_BODY",
-            "#text": "I would like to Report the Message:\r\n\r\n  {0}\r\n\r\n  for the following Reason..."
+            "#text": "Ik wil het bericht melden:\r\n\r\n  "
           },
           {
             "@tag": "REPORT_SUBJECT",
-            "#text": "Report a Private Message from User: {0}"
+            "#text": "Een privébericht van gebruiker melden: {0}"
           },
           {
             "@tag": "REPORTED_SUBJECT",
@@ -12460,11 +12460,11 @@
           },
           {
             "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "Board Poll:"
+            "#text": "Raadspeiling:"
           },
           {
             "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "Choose an existing poll as board Poll"
+            "#text": "Kies een bestaande poll als board Poll"
           },
           {
             "@tag": "POLLGROUPISBOUND",
@@ -12529,11 +12529,11 @@
           },
           {
             "@tag": "BLOG_PASSWORD",
-            "#text": "Blog Password:"
+            "#text": "Blogwachtwoord:"
           },
           {
             "@tag": "BLOG_POST",
-            "#text": "Post to blog?"
+            "#text": "Op blog plaatsen?"
           },
           {
             "@tag": "CANCEL_TITLE",
@@ -12637,11 +12637,11 @@
           },
           {
             "@tag": "STATUS",
-            "#text": "Status:"
+            "#text": "Toestand:"
           },
           {
             "@tag": "STICKY",
-            "#text": "Sticky"
+            "#text": "Kleverig"
           },
           {
             "@tag": "SUBJECT",
@@ -12686,7 +12686,7 @@
         "Resource": [
           {
             "@tag": "AD_SIGNATURE",
-            "#text": "Ads"
+            "#text": "Advertenties"
           },
           {
             "@tag": "AD_USERNAME",
@@ -12694,7 +12694,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "DOEL"
           },
           {
             "@tag": "AIM_TITLE",
@@ -12702,7 +12702,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "Atom Feed"
+            "#text": "Atoomvoeding"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -12714,7 +12714,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOG"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12810,7 +12810,7 @@
           },
           {
             "@tag": "GO_TO_ANSWER",
-            "#text": "Go to the topic answer"
+            "#text": "Ga naar het onderwerp antwoord"
           },
           {
             "@tag": "GROUPS",
@@ -12870,7 +12870,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "ip"
+            "#text": "IK P"
           },
           {
             "@tag": "JOINED",
@@ -12878,7 +12878,7 @@
           },
           {
             "@tag": "LINKBACK_TOPIC",
-            "#text": "LinkBack Topic URL"
+            "#text": "LinkBack-onderwerp-URL"
           },
           {
             "@tag": "LINKBACK_TOPIC_PROMT",
@@ -12890,35 +12890,35 @@
           },
           {
             "@tag": "MANAGE_POST",
-            "#text": "Manage Message"
+            "#text": "Bericht beheren"
           },
           {
             "@tag": "MANAGE_TOPIC",
-            "#text": "Manage Topic"
+            "#text": "Onderwerp beheren"
           },
           {
             "@tag": "MARK_ANSWER",
-            "#text": "Mark As Answer"
+            "#text": "Markeer als antwoord"
           },
           {
             "@tag": "MARK_ANSWER_REMOVE",
-            "#text": "Remove As Answer"
+            "#text": "Verwijderen als antwoord"
           },
           {
             "@tag": "MARK_ANSWER_REMOVE_TITLE",
-            "#text": "Unmark this Message as answer"
+            "#text": "Markeer dit bericht als antwoord"
           },
           {
             "@tag": "MARK_ANSWER_TITLE",
-            "#text": "Mark this Message as answer"
+            "#text": "Markeer dit bericht als antwoord"
           },
           {
             "@tag": "MESSAGE_ANSWER",
-            "#text": "Answer"
+            "#text": "Antwoorden"
           },
           {
             "@tag": "MESSAGE_ANSWER_HELP",
-            "#text": "Marked as answer"
+            "#text": "Gemarkeerd als antwoord"
           },
           {
             "@tag": "MESSAGEDELETED_MOD",
@@ -13006,7 +13006,7 @@
           },
           {
             "@tag": "QUOTE_SELECTED",
-            "#text": "Quote Selected Message"
+            "#text": "Geselecteerd bericht citeren"
           },
           {
             "@tag": "RANK",
@@ -13050,7 +13050,7 @@
           },
           {
             "@tag": "RSSTOPIC",
-            "#text": "RSS Feed"
+            "#text": "RSS-feed"
           },
           {
             "@tag": "SHARE",
@@ -13062,7 +13062,7 @@
           },
           {
             "@tag": "SIMILAR_TOPICS",
-            "#text": "Similar Topics"
+            "#text": "Vergelijkbare onderwerpen"
           },
           {
             "@tag": "SKYPE",
@@ -13142,7 +13142,7 @@
           },
           {
             "@tag": "TOOLS",
-            "#text": "Tools"
+            "#text": "Hulpmiddelen"
           },
           {
             "@tag": "TOP",
@@ -13150,11 +13150,11 @@
           },
           {
             "@tag": "TOPIC_STARTER",
-            "#text": "Topic Starter"
+            "#text": "Onderwerp starter"
           },
           {
             "@tag": "TOPIC_STARTER_HELP",
-            "#text": "Indicates that this user has started this topic"
+            "#text": "Geeft aan dat deze gebruiker dit onderwerp is gestart"
           },
           {
             "@tag": "TOPICBROWSERS",
@@ -13271,11 +13271,11 @@
         "Resource": [
           {
             "@tag": "MESSAGE",
-            "#text": "Message:"
+            "#text": "Bericht:"
           },
           {
             "@tag": "TAGS",
-            "#text": "Tags:"
+            "#text": "Trefwoorden:"
           }
         ]
       },
@@ -13333,7 +13333,7 @@
           },
           {
             "@tag": "EMAIL",
-            "#text": "E-mail:"
+            "#text": "E-mailadres:"
           },
           {
             "@tag": "ENDS",
@@ -13357,7 +13357,7 @@
           },
           {
             "@tag": "FORUM_ACCESS",
-            "#text": "Forum Access"
+            "#text": "Forumtoegang"
           },
           {
             "@tag": "GENDER",
@@ -13365,7 +13365,7 @@
           },
           {
             "@tag": "GOOGLE",
-            "#text": "Google+ Profile:"
+            "#text": "Google+ profiel:"
           },
           {
             "@tag": "GROUPS",
@@ -13413,7 +13413,7 @@
           },
           {
             "@tag": "MONTH",
-            "#text": "month"
+            "#text": "maand"
           },
           {
             "@tag": "MSN",
@@ -13473,11 +13473,11 @@
           },
           {
             "@tag": "SKYPE",
-            "#text": "Skype(tm) ID:"
+            "#text": "Skype(tm)-ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",
-            "#text": "Social Media"
+            "#text": "Sociale media"
           },
           {
             "@tag": "STATISTICS",
@@ -13489,23 +13489,23 @@
           },
           {
             "@tag": "SUSPEND_BY",
-            "#text": "Suspended By:"
+            "#text": "Opgeschort door:"
           },
           {
             "@tag": "SUSPEND_CURRENT",
-            "#text": "Current Suspension"
+            "#text": "Huidige schorsing"
           },
           {
             "@tag": "SUSPEND_INFO",
-            "#text": "The Suspension is based on the Users current Date and Time which is Now: {0}."
+            "#text": "De opschorting is gebaseerd op de huidige datum en tijd van de gebruiker, namelijk nu: {0}."
           },
           {
             "@tag": "SUSPEND_NEW",
-            "#text": "New Suspension"
+            "#text": "Nieuwe ophanging"
           },
           {
             "@tag": "SUSPEND_REASON",
-            "#text": "Suspend Reason:"
+            "#text": "Opschorten Reden:"
           },
           {
             "@tag": "SUSPEND_USER",
@@ -13525,7 +13525,7 @@
           },
           {
             "@tag": "TOPIC",
-            "#text": "Topic:"
+            "#text": "Onderwerp:"
           },
           {
             "@tag": "TWITTER",
@@ -13549,7 +13549,7 @@
           },
           {
             "@tag": "YEARS",
-            "#text": "Year(s)"
+            "#text": "jaar (jaren)"
           },
           {
             "@tag": "YIM",
@@ -13578,7 +13578,7 @@
           },
           {
             "@tag": "SUCCESS",
-            "#text": "An email with the Reset Link was send to your email address!"
+            "#text": "Er is een e-mail met de Reset-link naar uw e-mailadres gestuurd!"
           },
           {
             "@tag": "TITLE",
@@ -13599,11 +13599,11 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell Inner-Rhodes"
+            "#text": "Appenzell Inner-Rhodos"
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "Appenzell Buiten-Rhodos"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -13611,11 +13611,11 @@
           },
           {
             "@tag": "RGN_CH_BL",
-            "#text": "Basel District"
+            "#text": "Bazel District"
           },
           {
             "@tag": "RGN_CH_BS",
-            "#text": "Basel"
+            "#text": "Bazel"
           },
           {
             "@tag": "RGN_CH_FR",
@@ -13623,7 +13623,7 @@
           },
           {
             "@tag": "RGN_CH_GE",
-            "#text": "Geneva"
+            "#text": "Genève"
           },
           {
             "@tag": "RGN_CH_GL",
@@ -13631,7 +13631,7 @@
           },
           {
             "@tag": "RGN_CH_GR",
-            "#text": "Grisons"
+            "#text": "Graubünden"
           },
           {
             "@tag": "RGN_CH_JU",
@@ -13639,7 +13639,7 @@
           },
           {
             "@tag": "RGN_CH_LU",
-            "#text": "Lucerne"
+            "#text": "Luzern"
           },
           {
             "@tag": "RGN_CH_NE",
@@ -13675,7 +13675,7 @@
           },
           {
             "@tag": "RGN_CH_TI",
-            "#text": "Ticino"
+            "#text": "Tessin"
           },
           {
             "@tag": "RGN_CH_UR",
@@ -13687,7 +13687,7 @@
           },
           {
             "@tag": "RGN_CH_VS",
-            "#text": "Valais"
+            "#text": "Wallis"
           },
           {
             "@tag": "RGN_CH_ZG",
@@ -13695,7 +13695,7 @@
           },
           {
             "@tag": "RGN_CH_ZH",
-            "#text": "Zurich"
+            "#text": "Zürich"
           }
         ]
       },
@@ -13704,7 +13704,7 @@
         "Resource": [
           {
             "@tag": "RGN_DE_BA",
-            "#text": "Bavaria"
+            "#text": "Beieren"
           },
           {
             "@tag": "RGN_DE_BB",
@@ -13712,7 +13712,7 @@
           },
           {
             "@tag": "RGN_DE_BER",
-            "#text": "Berlin"
+            "#text": "Berlijn"
           },
           {
             "@tag": "RGN_DE_BRE",
@@ -13736,19 +13736,19 @@
           },
           {
             "@tag": "RGN_DE_NI",
-            "#text": "Lower Saxony"
+            "#text": "Nedersaksen"
           },
           {
             "@tag": "RGN_DE_NRW",
-            "#text": "North Rhine-Westphalia"
+            "#text": "Noordrijn-Westfalen"
           },
           {
             "@tag": "RGN_DE_RP",
-            "#text": "Rhineland-Palatinate"
+            "#text": "Rijnland-Palts"
           },
           {
             "@tag": "RGN_DE_SA",
-            "#text": "Saxony-Anhalt"
+            "#text": "Saksen-Anhalt"
           },
           {
             "@tag": "RGN_DE_SAA",
@@ -13756,15 +13756,15 @@
           },
           {
             "@tag": "RGN_DE_SACH",
-            "#text": "Saxony"
+            "#text": "Saksen"
           },
           {
             "@tag": "RGN_DE_SW",
-            "#text": "Schleswig-Holstein"
+            "#text": "Sleeswijk-Holstein"
           },
           {
             "@tag": "RGN_DE_TH",
-            "#text": "Thuringia"
+            "#text": "Thüringen"
           }
         ]
       },
@@ -13785,7 +13785,7 @@
           },
           {
             "@tag": "RGN_US_AS",
-            "#text": "American Samoa"
+            "#text": "Amerikaans Samoa"
           },
           {
             "@tag": "RGN_US_AZ",
@@ -13793,7 +13793,7 @@
           },
           {
             "@tag": "RGN_US_CA",
-            "#text": "California"
+            "#text": "Californië"
           },
           {
             "@tag": "RGN_US_CO",
@@ -13817,7 +13817,7 @@
           },
           {
             "@tag": "RGN_US_GA",
-            "#text": "Georgia"
+            "#text": "Georgië"
           },
           {
             "@tag": "RGN_US_GU",
@@ -13881,7 +13881,7 @@
           },
           {
             "@tag": "RGN_US_MP",
-            "#text": "Northern Mariana Islands"
+            "#text": "noordelijke Mariana eilanden"
           },
           {
             "@tag": "RGN_US_MS",
@@ -13893,11 +13893,11 @@
           },
           {
             "@tag": "RGN_US_NC",
-            "#text": "North Carolina"
+            "#text": "Noord Carolina"
           },
           {
             "@tag": "RGN_US_ND",
-            "#text": "North Dakota"
+            "#text": "Noord-Dakota"
           },
           {
             "@tag": "RGN_US_NE",
@@ -13949,11 +13949,11 @@
           },
           {
             "@tag": "RGN_US_SC",
-            "#text": "South Carolina"
+            "#text": "zuid Carolina"
           },
           {
             "@tag": "RGN_US_SD",
-            "#text": "South Dakota"
+            "#text": "zuid Dakota"
           },
           {
             "@tag": "RGN_US_TN",
@@ -13973,7 +13973,7 @@
           },
           {
             "@tag": "RGN_US_VI",
-            "#text": "Virgin Islands"
+            "#text": "maagden Eilanden"
           },
           {
             "@tag": "RGN_US_VT",
@@ -14030,7 +14030,7 @@
           },
           {
             "@tag": "BOT_MESSAGE",
-            "#text": "Sorry Spammers are not allowed in the Forum!"
+            "#text": "Sorry Spammers zijn niet toegestaan ​​op het Forum!"
           },
           {
             "@tag": "CONFIRM_PASSWORD",
@@ -14086,7 +14086,7 @@
           },
           {
             "@tag": "LOGIN_INSTEAD",
-            "#text": "Already Signed Up? Click Sign In to login your account."
+            "#text": "Al aangemeld? "
           },
           {
             "@tag": "NEED_ANSWER",
@@ -14122,23 +14122,23 @@
           },
           {
             "@tag": "PASSWORD_GOOD",
-            "#text": "Good Password!"
+            "#text": "Goed wachtwoord!"
           },
           {
             "@tag": "PASSWORD_MIN",
-            "#text": "Password must be {0} characters long."
+            "#text": "Wachtwoord moet {0} tekens lang zijn."
           },
           {
             "@tag": "PASSWORD_NOTMATCH",
-            "#text": "Password and Confirm Password do not match!"
+            "#text": "Wachtwoord en Bevestig wachtwoord komen niet overeen!"
           },
           {
             "@tag": "PASSWORD_STRONGER",
-            "#text": "Make your password stronger with more capital letters, more numbers and special characters!"
+            "#text": "Maak uw wachtwoord sterker met meer hoofdletters, meer cijfers en speciale tekens!"
           },
           {
             "@tag": "PASSWORD_WEAK",
-            "#text": "Weak Password, try using numbers and capital letters."
+            "#text": "Zwak wachtwoord, probeer cijfers en hoofdletters te gebruiken."
           },
           {
             "@tag": "PREFERENCES",
@@ -14162,11 +14162,11 @@
           },
           {
             "@tag": "REGISTER_AUTH",
-            "#text": "Register with {0}"
+            "#text": "Registreer bij {0}"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
-            "#text": "Reset Password for {0} Forum"
+            "#text": "Wachtwoord opnieuw instellen voor {0} Forum"
           },
           {
             "@tag": "RETYPE_PASSWORD",
@@ -14194,7 +14194,7 @@
           },
           {
             "@tag": "TITLE2",
-            "#text": "Register a new account"
+            "#text": "Maak een nieuw account aan"
           },
           {
             "@tag": "USERNAME",
@@ -14215,11 +14215,11 @@
         "Resource": [
           {
             "@tag": "D",
-            "#text": "a day"
+            "#text": "een dag"
           },
           {
             "@tag": "DD",
-            "#text": "{0} days"
+            "#text": "{0} dagen"
           },
           {
             "@tag": "FUTURE",
@@ -14227,51 +14227,51 @@
           },
           {
             "@tag": "H",
-            "#text": "an hour"
+            "#text": "een uur"
           },
           {
             "@tag": "HH",
-            "#text": "{0} hours"
+            "#text": "{0} uur"
           },
           {
             "@tag": "M",
-            "#text": "a minute"
+            "#text": "een minuut"
           },
           {
             "@tag": "MM",
-            "#text": "{0} minutes"
+            "#text": "{0} minuten"
           },
           {
             "@tag": "MO",
-            "#text": "a month"
+            "#text": "een maand"
           },
           {
             "@tag": "MOMO",
-            "#text": "{0} months"
+            "#text": "{0} maanden"
           },
           {
             "@tag": "NOW",
-            "#text": "Right now"
+            "#text": "Direct"
           },
           {
             "@tag": "PAST",
-            "#text": "{0} ago"
+            "#text": "{0} geleden"
           },
           {
             "@tag": "S",
-            "#text": "a few seconds"
+            "#text": "een paar seconden"
           },
           {
             "@tag": "SS",
-            "#text": "{0} seconds"
+            "#text": "{0} seconden"
           },
           {
             "@tag": "Y",
-            "#text": "a year"
+            "#text": "een jaar"
           },
           {
             "@tag": "YY",
-            "#text": "{0} years"
+            "#text": "{0} jaar"
           }
         ]
       },
@@ -14296,11 +14296,11 @@
           },
           {
             "@tag": "MSG_REPORTED",
-            "#text": "Message was Reported!"
+            "#text": "Bericht is gemeld!"
           },
           {
             "@tag": "NEED_REASON",
-            "#text": "You need to provide a Report Reason."
+            "#text": "U moet een reden voor het rapporteren opgeven."
           },
           {
             "@tag": "POSTEDBY",
@@ -14476,7 +14476,7 @@
           },
           {
             "@tag": "KEYWORDS",
-            "#text": "Keyword(s)"
+            "#text": "trefwoord(en)"
           },
           {
             "@tag": "LOADING_SEARCH",
@@ -14500,7 +14500,7 @@
           },
           {
             "@tag": "POST_AND_TITLE",
-            "#text": "Search Entire Posts"
+            "#text": "Doorzoek hele berichten"
           },
           {
             "@tag": "POSTED",
@@ -14544,19 +14544,19 @@
           },
           {
             "@tag": "SEARCH_IN",
-            "#text": "Search in Forum(s)"
+            "#text": "Zoeken in Forum(s)"
           },
           {
             "@tag": "SEARCH_OPTIONS",
-            "#text": "Search Options"
+            "#text": "Zoek opties"
           },
           {
             "@tag": "SEARCH_RESULTS",
-            "#text": "Search Results per Page"
+            "#text": "Zoekresultaten per pagina"
           },
           {
             "@tag": "SEARCH_TITLEORBOTH",
-            "#text": "Search entire Posts or Titles only"
+            "#text": "Zoek alleen in volledige berichten of titels"
           },
           {
             "@tag": "TITLE",
@@ -14564,11 +14564,11 @@
           },
           {
             "@tag": "TITLE_ONLY",
-            "#text": "Search Titles Only"
+            "#text": "Alleen titels zoeken"
           },
           {
             "@tag": "TOPIC",
-            "#text": "Topic:"
+            "#text": "Onderwerp:"
           }
         ]
       },
@@ -14621,7 +14621,7 @@
           },
           {
             "@tag": "TOPIC",
-            "#text": "Topic"
+            "#text": "Onderwerp"
           },
           {
             "@tag": "TOPICS",
@@ -14670,7 +14670,7 @@
           },
           {
             "@tag": "GO",
-            "#text": "Go"
+            "#text": "Gaan"
           },
           {
             "@tag": "MODS",
@@ -14703,23 +14703,23 @@
           },
           {
             "@tag": "EMAILTOPIC_TEXT",
-            "#text": "\r\n     {message}\r\n\r\n     {forumname} at {forumlink}\r\n   "
+            "#text": "{bericht}\r\n\r\n     "
           },
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_TEXT",
-            "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
+            "#text": "Hallo!\r\n\r\n      "
           },
           {
             "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
+            "#text": "Hallo {gebruiker}.\r\n\r\n      "
           },
           {
             "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
+            "#text": "Hallo {gebruiker}.\r\n\r\n      "
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",
-            "#text": "\r\n    Hello {user}.\r\n\r\n    Congratulations you have been awarded with the {medalname} on the {forumname} forum.\r\n  "
+            "#text": "Hallo {gebruiker}.\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT",
@@ -14735,15 +14735,15 @@
           },
           {
             "@tag": "NOTIFICATION_ON_REGISTER_TEXT",
-            "#text": "\r\n    Hello {user}.\r\n\r\n    You have been successfully registered on the {forumname} forum:\r\n\r\n    User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n    User Email: {email}\r\n\r\n  "
+            "#text": "Hallo {gebruiker}.\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_ENDED_USER_TEXT",
-            "#text": "\r\n    Hello {user},\r\n\r\n    The suspension of your forum account has ended or was lifted.\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
+            "#text": "Hallo {gebruiker},\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
-            "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
+            "#text": "Hallo {gebruiker},\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
@@ -14751,23 +14751,23 @@
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",
-            "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum:\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
+            "#text": "Hallo!\r\n\r\n      "
           },
           {
             "@tag": "NOTIFICATION_ON_WELCOME_USER_TEXT",
-            "#text": "\r\n    Hello {user},\r\n\r\n    You have been successfully registered on the {forumname} forum. You're all ready to go!\r\n\r\n    Before posting, consider other ways of finding information:\r\n\r\n    - Use the help pages to find out how the forum works\r\n    - Try the Forum Search, often times your questions are already been answered\r\n    - Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.\r\n    Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
+            "#text": "Hallo {gebruiker},\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_TEXT",
-            "#text": "\r\n     Hello {user},\r\n\r\n     Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):\r\n\r\n     {roles}\r\n\r\n\r\n     Thanks!\r\n     The {forumname} Team\r\n     {forumlink}\r\n\r\n   "
+            "#text": "Hallo {gebruiker},\r\n\r\n     "
           },
           {
             "@tag": "NOTIFICATION_ROLE_UNASSIGNMENT_TEXT",
-            "#text": "\r\n     Hello {user},\r\n\r\n     Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):\r\n\r\n     {roles}\r\n\r\n\r\n     Thanks!\r\n     The {forumname} Team\r\n     {forumlink}\r\n\r\n   "
+            "#text": "Hallo {gebruiker},\r\n\r\n     "
           },
           {
             "@tag": "PASSWORDRETRIEVAL_ADMIN_TEXT",
-            "#text": "\r\n     Hello {username},\r\n\r\n     Your password has been resetted for the {forumname}, and new password has been generated for you at {forumlink}.\r\n\r\n     Please return to the site and login using the following information:\r\n\r\n     User Name: {username}\r\n     Password: {password}\r\n   "
+            "#text": "Hallo {gebruikersnaam},\r\n\r\n     "
           },
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
@@ -14779,7 +14779,7 @@
           },
           {
             "@tag": "RESET_PASS_TEXT",
-            "#text": "\r\n     You have requested to reset your password for {forumname}.\r\n\r\n     Please open the following link in your web browser:\r\n\r\n     {link}\r\n   "
+            "#text": "Je hebt gevraagd om je wachtwoord voor {forumname} opnieuw in te stellen.\r\n\r\n     "
           },
           {
             "@tag": "TOPICPOST_TEXT",
@@ -14832,7 +14832,7 @@
           },
           {
             "@tag": "HELP",
-            "#text": "Help"
+            "#text": "Helpen"
           },
           {
             "@tag": "HELP_TITLE",
@@ -14840,7 +14840,7 @@
           },
           {
             "@tag": "HOST",
-            "#text": "Host"
+            "#text": "Gastheer"
           },
           {
             "@tag": "HOST_TITLE",
@@ -14864,7 +14864,7 @@
           },
           {
             "@tag": "LOGIN_CONNECT",
-            "#text": "Login to your {0} forum account"
+            "#text": "Log in op je {0} forumaccount"
           },
           {
             "@tag": "LOGIN_TITLE",
@@ -14896,7 +14896,7 @@
           },
           {
             "@tag": "MODERATE_NEW",
-            "#text": "({0} Need Moderating)"
+            "#text": "({0} Moderatie nodig)"
           },
           {
             "@tag": "MODERATE_TITLE",
@@ -14912,11 +14912,11 @@
           },
           {
             "@tag": "MYNOTIFY",
-            "#text": "My Notifications"
+            "#text": "mijn notificaties"
           },
           {
             "@tag": "MYNOTIFY_TITLE",
-            "#text": "Shows your unread Received Thanks, Mentions and Quotes."
+            "#text": "Toont uw ongelezen ontvangen bedankjes, vermeldingen en citaten."
           },
           {
             "@tag": "MYPROFILE",
@@ -14928,11 +14928,11 @@
           },
           {
             "@tag": "MYSETTINGS",
-            "#text": "My Settings"
+            "#text": "Mijn instellingen"
           },
           {
             "@tag": "MYSETTINGS_TITLE",
-            "#text": "Edit your user details and settings."
+            "#text": "Bewerk uw gebruikersgegevens en instellingen."
           },
           {
             "@tag": "MYTOPICS",
@@ -14952,7 +14952,7 @@
           },
           {
             "@tag": "REGISTER_CONNECT",
-            "#text": "or Register a new forum account"
+            "#text": "of Registreer een nieuw forumaccount"
           },
           {
             "@tag": "REGISTER_TITLE",
@@ -14988,7 +14988,7 @@
           },
           {
             "@tag": "WELCOME_GUEST_CONNECT",
-            "#text": "Wanna join the discussion?! "
+            "#text": "Meedoen aan de discussie?!"
           },
           {
             "@tag": "WELCOME_GUEST_FULL",
@@ -15009,7 +15009,7 @@
           },
           {
             "@tag": "ATOMFEED",
-            "#text": "Atom Feed"
+            "#text": "Atoomvoeding"
           },
           {
             "@tag": "BY",
