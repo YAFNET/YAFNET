@@ -1,4 +1,4 @@
-﻿{
+{
   "Resources": {
     "@language": "Hebrew",
     "@code": "he",
@@ -5238,38 +5238,6 @@
             "#text": "Save Settings"
           },
           {
-            "@tag": "SEARCH_ENGINE1",
-            "#text": "Search Engine 1:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE1_HELP",
-            "#text": "Enter here a search engine pattern."
-          },
-          {
-            "@tag": "SEARCH_ENGINE1_PARAM",
-            "#text": "Parameters For Search Engine 1:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE1_PARAM_HELP",
-            "#text": "Enter here a search engine parameters."
-          },
-          {
-            "@tag": "SEARCH_ENGINE2",
-            "#text": "Search Engine 2:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE2_HELP",
-            "#text": "Enter here a search engine pattern."
-          },
-          {
-            "@tag": "SEARCH_ENGINE2_PARAM",
-            "#text": "Parameters For Search Engine 2:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE2_PARAM_HELP",
-            "#text": "Enter here a search engine parameters."
-          },
-          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Search Text Maximum Length:"
           },
@@ -10237,30 +10205,6 @@
             "#text": "שירות מסרים מיידיים"
           },
           {
-            "@tag": "METAWEBLOG_API_ID",
-            "#text": "MetaWeblog API ID:"
-          },
-          {
-            "@tag": "METAWEBLOG_API_ID_INSTRUCTIONS",
-            "#text": "(הגדרה ש[b]אולי[/b] תהיה דרושה לבלוגים מסוימים (אבל SubText לא צריך אותה). אם אינך בטוח/ה, נסה/י בלעדיה קודם.)"
-          },
-          {
-            "@tag": "METAWEBLOG_API_URL",
-            "#text": "MetaWeblog API URL:"
-          },
-          {
-            "@tag": "METAWEBLOG_API_USERNAME",
-            "#text": "MetaWeblog API Username:"
-          },
-          {
-            "@tag": "METAWEBLOG_TITLE",
-            "#text": "שלח אל MetaWeblog (הגדרות API)"
-          },
-          {
-            "@tag": "MSN",
-            "#text": "Your Windows Live-ID (MSN) Name:"
-          },
-          {
             "@tag": "NEED_CUSTOM",
             "#text": "{0} is required"
           },
@@ -12957,14 +12901,6 @@
             "#text": "ההודעה נמחקה ע\"י משתמש."
           },
           {
-            "@tag": "MSN",
-            "#text": "MSN"
-          },
-          {
-            "@tag": "MSN_TITLE",
-            "#text": "Contact {0} via MSN"
-          },
-          {
             "@tag": "NEXTTOPIC",
             "#text": "הדיון הבא"
           },
@@ -13446,10 +13382,6 @@
           {
             "@tag": "MONTH",
             "#text": "month"
-          },
-          {
-            "@tag": "MSN",
-            "#text": "MSN Messenger:"
           },
           {
             "@tag": "NUMALL",

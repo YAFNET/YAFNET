@@ -1,4 +1,4 @@
-﻿{
+{
   "Resources": {
     "@language": "Norwegian",
     "@code": "nb-NO",
@@ -5238,38 +5238,6 @@
             "#text": "Save Settings"
           },
           {
-            "@tag": "SEARCH_ENGINE1",
-            "#text": "Search Engine 1:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE1_HELP",
-            "#text": "Enter here a search engine pattern."
-          },
-          {
-            "@tag": "SEARCH_ENGINE1_PARAM",
-            "#text": "Parameters For Search Engine 1:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE1_PARAM_HELP",
-            "#text": "Enter here a search engine parameters."
-          },
-          {
-            "@tag": "SEARCH_ENGINE2",
-            "#text": "Search Engine 2:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE2_HELP",
-            "#text": "Enter here a search engine pattern."
-          },
-          {
-            "@tag": "SEARCH_ENGINE2_PARAM",
-            "#text": "Parameters For Search Engine 2:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE2_PARAM_HELP",
-            "#text": "Enter here a search engine parameters."
-          },
-          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Search Text Maximum Length:"
           },
@@ -10233,30 +10201,6 @@
             "#text": "Lynmeldingstjenester"
           },
           {
-            "@tag": "METAWEBLOG_API_ID",
-            "#text": "MetaWeblog API ID:"
-          },
-          {
-            "@tag": "METAWEBLOG_API_ID_INSTRUCTIONS",
-            "#text": "(Optional setting that [b]may[/b] be required for some blogs (but SubText does not need it). If not sure, try without first.)"
-          },
-          {
-            "@tag": "METAWEBLOG_API_URL",
-            "#text": "MetaWeblog API URL:"
-          },
-          {
-            "@tag": "METAWEBLOG_API_USERNAME",
-            "#text": "MetaWeblog API Username:"
-          },
-          {
-            "@tag": "METAWEBLOG_TITLE",
-            "#text": "Post to MetaWeblog (API Settings)"
-          },
-          {
-            "@tag": "MSN",
-            "#text": "Your Windows Live-ID (MSN) Name:"
-          },
-          {
             "@tag": "NEED_CUSTOM",
             "#text": "{0} is required"
           },
@@ -12941,14 +12885,6 @@
             "#text": "Message was deleted by User."
           },
           {
-            "@tag": "MSN",
-            "#text": "MSN"
-          },
-          {
-            "@tag": "MSN_TITLE",
-            "#text": "Contact {0} via MSN"
-          },
-          {
             "@tag": "NEXTTOPIC",
             "#text": "Neste emne"
           },
@@ -13430,10 +13366,6 @@
           {
             "@tag": "MONTH",
             "#text": "month"
-          },
-          {
-            "@tag": "MSN",
-            "#text": "MSN Messenger:"
           },
           {
             "@tag": "NUMALL",

@@ -5230,38 +5230,6 @@
             "#text": "ذخیره تنظیمات"
           },
           {
-            "@tag": "SEARCH_ENGINE1",
-            "#text": "موتور جستجوی 1:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE1_HELP",
-            "#text": "الگوی موتور جستجو را وارد کنید."
-          },
-          {
-            "@tag": "SEARCH_ENGINE1_PARAM",
-            "#text": "پارامترهای موتور جستجوی 1 :"
-          },
-          {
-            "@tag": "SEARCH_ENGINE1_PARAM_HELP",
-            "#text": "در اینجا پارامتر های موتور جستجو را وارد کنید."
-          },
-          {
-            "@tag": "SEARCH_ENGINE2",
-            "#text": "موتور جستجوی 2:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE2_HELP",
-            "#text": "الگوی موتور جستجو را وارد کنید."
-          },
-          {
-            "@tag": "SEARCH_ENGINE2_PARAM",
-            "#text": "پارامترهای موتور جستجوی 2 :"
-          },
-          {
-            "@tag": "SEARCH_ENGINE2_PARAM_HELP",
-            "#text": "در اینجا پارامتر های موتور جستجو را وارد کنید."
-          },
-          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "حداکثر طول متن جستجو :"
           },
@@ -10221,30 +10189,6 @@
             "#text": "سرویس‌های پیام رسان"
           },
           {
-            "@tag": "METAWEBLOG_API_ID",
-            "#text": "MetaWeblog API شناسه:"
-          },
-          {
-            "@tag": "METAWEBLOG_API_ID_INSTRUCTIONS",
-            "#text": "(تنظیمات انتخابی که ممکن است برای بعضی بلاگها مورد نیاز باشد ( SubText به این تنظیمات نیازی ندارد ).اگر مطمئن نیستید بدون اولی امتحان کنید."
-          },
-          {
-            "@tag": "METAWEBLOG_API_URL",
-            "#text": "MetaWeblog API آدرس:"
-          },
-          {
-            "@tag": "METAWEBLOG_API_USERNAME",
-            "#text": "MetaWeblog API نام کاربری:"
-          },
-          {
-            "@tag": "METAWEBLOG_TITLE",
-            "#text": "ارسال به MetaWeblog (API تنظیمات)"
-          },
-          {
-            "@tag": "MSN",
-            "#text": "شناسه MSN شما:"
-          },
-          {
             "@tag": "NEED_CUSTOM",
             "#text": "{0} is required"
           },
@@ -12917,14 +12861,6 @@
             "#text": "پیغام بوسیله کاربر حذف شده است."
           },
           {
-            "@tag": "MSN",
-            "#text": "MSN"
-          },
-          {
-            "@tag": "MSN_TITLE",
-            "#text": "تماس با {0} از طریق MSN"
-          },
-          {
             "@tag": "NEXTTOPIC",
             "#text": "موضوع بعدی"
           },
@@ -13402,10 +13338,6 @@
           {
             "@tag": "MONTH",
             "#text": "month"
-          },
-          {
-            "@tag": "MSN",
-            "#text": "مسنجر MSN:"
           },
           {
             "@tag": "NUMALL",

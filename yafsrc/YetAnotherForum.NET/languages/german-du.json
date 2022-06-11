@@ -1,4 +1,4 @@
-﻿{
+{
   "Resources": {
     "@language": "German",
     "@code": "de",
@@ -8,7 +8,7 @@
         "Resource": [
           {
             "@tag": "ACTIVITY",
-            "#text": "Your Activity"
+            "#text": "Deine Aktivität"
           },
           {
             "@tag": "ARCHIVE",
@@ -24,23 +24,23 @@
           },
           {
             "@tag": "CREATED_REPLY",
-            "#text": "Replied to a Post"
+            "#text": "Auf einen Beitrag geantwortet"
           },
           {
             "@tag": "CREATED_REPLY_MSG",
-            "#text": "Added an Reply to the Topic {0}"
+            "#text": "Eine Antwort zum Thema {0} hinzugefügt"
           },
           {
             "@tag": "CREATED_TOPIC",
-            "#text": "Created a new Topic"
+            "#text": "Ein neues Thema erstellt"
           },
           {
             "@tag": "CREATED_TOPIC_MSG",
-            "#text": "Created a new Topic {0}"
+            "#text": "Ein neues Thema erstellt {0}"
           },
           {
             "@tag": "DELETE_ACCOUNT",
-            "#text": "Delete Account"
+            "#text": "Konto löschen"
           },
           {
             "@tag": "EDIT_AVATAR",
@@ -52,7 +52,7 @@
           },
           {
             "@tag": "EDIT_SETTINGS",
-            "#text": "Edit Settings"
+            "#text": "Einstellungen bearbeiten"
           },
           {
             "@tag": "EDIT_SIGNATURE",
@@ -60,11 +60,11 @@
           },
           {
             "@tag": "GIVEN_THANKS",
-            "#text": "Given Thanks to a Post"
+            "#text": "Dank einer Post gegeben"
           },
           {
             "@tag": "GIVEN_THANKS_MSG",
-            "#text": "Given Thanks to {0} in the Topic {1}"
+            "#text": "Gegeben Dank {0} im Thema {1}"
           },
           {
             "@tag": "GROUPS",
@@ -76,7 +76,7 @@
           },
           {
             "@tag": "ITEMS",
-            "#text": "Show Items"
+            "#text": "Artikel anzeigen"
           },
           {
             "@tag": "JOINED",
@@ -100,11 +100,11 @@
           },
           {
             "@tag": "RECEIVED_THANKS",
-            "#text": "Received a Thanks to a Post"
+            "#text": "Dank an eine Post erhalten"
           },
           {
             "@tag": "RECEIVED_THANKS_MSG",
-            "#text": "Has Received a Thanks from {0} in the Topic {1}"
+            "#text": "Hat einen Dank von {0} im Thema {1} erhalten"
           },
           {
             "@tag": "SENTITEMS",
@@ -120,7 +120,7 @@
           },
           {
             "@tag": "UNREAD_ONLY",
-            "#text": "Show only unread Activity"
+            "#text": "Nur ungelesene Aktivitäten anzeigen"
           },
           {
             "@tag": "VIEW_PROFILE",
@@ -128,35 +128,35 @@
           },
           {
             "@tag": "WAS_MENTIONED",
-            "#text": "Was Mentioned"
+            "#text": "Erwähnt wurde"
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
-            "#text": "Was Mentioned by {0} in the Topic {1}"
+            "#text": "Wurde von {0} im Thema {1} erwähnt"
           },
           {
             "@tag": "WAS_QUOTED",
-            "#text": "Was Quoted"
+            "#text": "Wurde zitiert"
           },
           {
             "@tag": "WAS_QUOTED_MSG",
-            "#text": "Was Quoted by {0} in the Topic {1}"
+            "#text": "Wurde zitiert von {0} in dem Thema {1}"
           },
           {
             "@tag": "WATCH_FORUM_MSG",
-            "#text": "{0} Created the new topic {1}"
+            "#text": "{0} Erstellt das neue Thema {1}"
           },
           {
             "@tag": "WATCH_FORUM_REPLY",
-            "#text": "New Topic in a Watch Forum"
+            "#text": "Neues Thema in einem Uhrenforum"
           },
           {
             "@tag": "WATCH_TOPIC_MSG",
-            "#text": "{0} replied to the topic {1}"
+            "#text": "{0} antwortete auf das Thema {1}"
           },
           {
             "@tag": "WATCH_TOPIC_REPLY",
-            "#text": "New Reply in a Watch Topic"
+            "#text": "Neue Antwort in einem Uhrenthema"
           },
           {
             "@tag": "YOUR_ACCOUNT",
@@ -168,7 +168,7 @@
           },
           {
             "@tag": "YOUR_NOTIFIY",
-            "#text": "Your Notifications"
+            "#text": "Ihre Benachrichtigungen"
           },
           {
             "@tag": "YOUR_USERDISPLAYNAME",
@@ -185,15 +185,15 @@
         "Resource": [
           {
             "@tag": "CONFIRM_PASSWORD",
-            "#text": "Confirm New Password"
+            "#text": "Neues Passwort bestätigen"
           },
           {
             "@tag": "INVALID_MATCH",
-            "#text": "The Password and Confirmation Password must match."
+            "#text": "Das Passwort und das Bestätigungspasswort müssen übereinstimmen."
           },
           {
             "@tag": "PASSWORD",
-            "#text": "Enter New Password"
+            "#text": "Neues Passwort eingeben"
           },
           {
             "@tag": "TITLE",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
-            "#text": "Views banned Emails list"
+            "#text": "Ansichten verbotene Emails Liste"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL_EDIT",
-            "#text": "Edits banned Emails"
+            "#text": "Verbotene E-Mails bearbeiten"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL_IMPORT",
-            "#text": "Imports banned Emails"
+            "#text": "Verbotene Importe von E-Mails"
           },
           {
             "@tag": "ADMIN_BANNEDIP",
@@ -246,15 +246,15 @@
           },
           {
             "@tag": "ADMIN_BANNEDNAME",
-            "#text": "Views banned Names list"
+            "#text": "Ansichten verbotene Namen Liste"
           },
           {
             "@tag": "ADMIN_BANNEDNAME_EDIT",
-            "#text": "Edits banned Names"
+            "#text": "Bearbeitungsverbote Namen"
           },
           {
             "@tag": "ADMIN_BANNEDNAME_IMPORT",
-            "#text": "Imports banned Names"
+            "#text": "Einfuhren verbotene Namen"
           },
           {
             "@tag": "ADMIN_BBCODE",
@@ -370,7 +370,7 @@
           },
           {
             "@tag": "ADMIN_PROFILEDEFINITIONS",
-            "#text": "Views the Custom Profile Definitions"
+            "#text": "Ansichten der benutzerdefinierten Profildefinitionen"
           },
           {
             "@tag": "ADMIN_PRUNE",
@@ -410,19 +410,19 @@
           },
           {
             "@tag": "ADMIN_SPAMLOG",
-            "#text": "Views/edits the spam log"
+            "#text": "Anzeigen/Bearbeiten des Spam-Protokolls"
           },
           {
             "@tag": "ADMIN_SPAMWORDS",
-            "#text": "Views spam words list"
+            "#text": "Ansichten Spam-Wortliste"
           },
           {
             "@tag": "ADMIN_SPAMWORDS_EDIT",
-            "#text": "Edits spam words list"
+            "#text": "Bearbeitet die Liste der Spam-Wörter"
           },
           {
             "@tag": "ADMIN_SPAMWORDS_IMPORT",
-            "#text": "Imports spam words"
+            "#text": "Importiert Spam-Wörter"
           },
           {
             "@tag": "ADMIN_TASKMANAGER",
@@ -482,7 +482,7 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Edits his Ignored users and block option"
+            "#text": "Bearbeitet seine Option Ignorierte Benutzer und blockieren"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -490,7 +490,7 @@
           },
           {
             "@tag": "COOKIES",
-            "#text": "Views the cookie policy page"
+            "#text": "Zeigt die Seite mit den Cookie-Richtlinien an"
           },
           {
             "@tag": "CP_PROFILE_OFUSER",
@@ -498,7 +498,7 @@
           },
           {
             "@tag": "DELETE_ACCOUNT",
-            "#text": "User deletes his account"
+            "#text": "Benutzer löscht sein Konto"
           },
           {
             "@tag": "DELETEMESSAGE",
@@ -518,7 +518,7 @@
           },
           {
             "@tag": "EDIT_SETTINGS",
-            "#text": "Edit the user settings"
+            "#text": "Bearbeiten Sie die Benutzereinstellungen"
           },
           {
             "@tag": "EDIT_SIGNATURE",
@@ -869,7 +869,7 @@
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
-            "#text": "Resend Email Verification"
+            "#text": "E-Mail-Bestätigung erneut senden"
           },
           {
             "@tag": "ADMIN_UPGRADE",
@@ -937,7 +937,7 @@
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
-            "#text": "Verification Mail was send again to the User."
+            "#text": "Die Verifizierungsmail wurde erneut an den Benutzer gesendet."
           },
           {
             "@tag": "MSG_VALID_DAYS",
@@ -945,19 +945,19 @@
           },
           {
             "@tag": "NEW_VERSION",
-            "#text": "A New Version is available!"
+            "#text": "Eine neue Version ist verfügbar!"
           },
           {
             "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "Go to Downloads page"
+            "#text": "Zur Seite Downloads gehen"
           },
           {
             "@tag": "NUM_CATEGORIES",
-            "#text": "Number of categories:"
+            "#text": "Anzahl der Kategorien:"
           },
           {
             "@tag": "NUM_FORUMS",
-            "#text": "Number of forums:"
+            "#text": "Anzahl der Foren:"
           },
           {
             "@tag": "NUM_POSTS",
@@ -1002,7 +1002,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "User Attachments"
+            "#text": "Benutzer-Anhänge"
           }
         ]
       },
@@ -1011,35 +1011,35 @@
         "Resource": [
           {
             "@tag": "ADD_IP",
-            "#text": "Add New Email"
+            "#text": "Neue E-Mail hinzufügen"
           },
           {
             "@tag": "IMPORT_IPS",
-            "#text": "Import Email(s)"
+            "#text": "E-Mail(s) importieren"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Maske"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned Email Address Already exists!"
+            "#text": "Die verbotene E-Mail-Adresse existiert bereits!"
           },
           {
             "@tag": "MSG_REMOVEBAN_EMAIL",
-            "#text": "Email was successfully deleted"
+            "#text": "E-Mail wurde erfolgreich gelöscht"
           },
           {
             "@tag": "REASON",
-            "#text": "Reason"
+            "#text": "Grund"
           },
           {
             "@tag": "SINCE",
-            "#text": "Since"
+            "#text": "Seit"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned Email Addresses"
+            "#text": "Verbotene E-Mail-Adressen"
           }
         ]
       },
@@ -1048,23 +1048,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Mask:"
+            "#text": "Maske:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The Email address to ban. You can use Regular Expressions."
+            "#text": "Die zu sperrende E-Mail-Adresse. Sie können reguläre Ausdrücke verwenden."
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define an Email address."
+            "#text": "Sie müssen eine E-Mail-Adresse angeben."
           },
           {
             "@tag": "REASON",
-            "#text": "Reason:"
+            "#text": "Der Grund:"
           },
           {
             "@tag": "REASON_HELP",
-            "#text": "The reason why the email address was banned."
+            "#text": "Der Grund, warum die E-Mail-Adresse gesperrt wurde."
           },
           {
             "@tag": "TITLE",
@@ -1072,7 +1072,7 @@
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned Email Address"
+            "#text": "Verbotene E-Mail Adresse bearbeiten"
           }
         ]
       },
@@ -1081,39 +1081,39 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import Email Addresses List"
+            "#text": "E-Mail-Adressenliste importieren"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Liste importieren"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Der Import ist fehlgeschlagen! Ungültiges Upload-Format angegeben: {0}"
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Wählen Sie Datei importieren:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing an Email Address on each line"
+            "#text": "Muss eine *.txt-Datei sein, die in jeder Zeile eine E-Mail-Adresse enthält"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new email address was found in the upload."
+            "#text": "Nichts importiert: Es wurde keine neue E-Mail-Adresse beim Hochladen gefunden."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new email address(es) imported successfully."
+            "#text": "{0} neue E-Mail Adresse(n) erfolgreich importiert."
           },
           {
             "@tag": "NOTE",
-            "#text": "You can find a list of Spam Bot Email Addresses on StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, that can be imported here."
+            "#text": "Auf StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a> finden Sie eine Liste von Spam-Bot-E-Mail-Adressen, die Sie hier importieren können."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import Email Addresses"
+            "#text": "E-Mail-Adressen importieren"
           }
         ]
       },
@@ -1130,7 +1130,7 @@
           },
           {
             "@tag": "EXPORT",
-            "#text": "Export to Text File"
+            "#text": "In Textdatei exportieren"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1142,15 +1142,15 @@
           },
           {
             "@tag": "MSG_DELETE",
-            "#text": "Delete this Banned Item?"
+            "#text": "Diesen verbotenen Artikel löschen?"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned IP Already exists!"
+            "#text": "Die gesperrte IP existiert bereits!"
           },
           {
             "@tag": "MSG_REMOVEBAN_IP",
-            "#text": "IP Address or Mask '{0}' was successfully deleted"
+            "#text": "IP-Adresse oder Maske '{0}' wurde erfolgreich gelöscht"
           },
           {
             "@tag": "REASON",
@@ -1195,7 +1195,7 @@
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define an IP address."
+            "#text": "Sie müssen eine IP-Adresse festlegen."
           },
           {
             "@tag": "REASON",
@@ -1211,7 +1211,7 @@
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned IP Address"
+            "#text": "Gesperrte IP-Adresse bearbeiten"
           }
         ]
       },
@@ -1248,7 +1248,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "You can find a list of Spam Bot Ips on StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, that can be imported here."
+            "#text": "Sie finden eine Liste von Spam Bot Ips auf StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, die hier importiert werden kann."
           },
           {
             "@tag": "TITLE",
@@ -1261,35 +1261,35 @@
         "Resource": [
           {
             "@tag": "ADD_IP",
-            "#text": "Add New User Name"
+            "#text": "Neuen Benutzernamen hinzufügen"
           },
           {
             "@tag": "IMPORT_IPS",
-            "#text": "Import Name(s)"
+            "#text": "Name(n) der Einfuhr"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Maske"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned Name Already exists!"
+            "#text": "Der verbotene Name existiert bereits!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The user name was successfully deleted"
+            "#text": "Der Nutzername wurde erfolgreich gelöscht"
           },
           {
             "@tag": "REASON",
-            "#text": "Reason"
+            "#text": "Grund"
           },
           {
             "@tag": "SINCE",
-            "#text": "Since"
+            "#text": "Seit"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned Names"
+            "#text": "Verbotene Namen"
           }
         ]
       },
@@ -1298,23 +1298,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Mask:"
+            "#text": "Maske:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Name to ban. You can use Regular Expressions."
+            "#text": "Den zu sperrenden Benutzernamen. Sie können reguläre Ausdrücke verwenden."
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Name."
+            "#text": "Sie müssen einen Benutzernamen festlegen."
           },
           {
             "@tag": "REASON",
-            "#text": "Reason:"
+            "#text": "Der Grund:"
           },
           {
             "@tag": "REASON_HELP",
-            "#text": "The reason why the user name was banned."
+            "#text": "Der Grund für die Sperrung des Benutzernamens."
           },
           {
             "@tag": "TITLE",
@@ -1322,7 +1322,7 @@
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned Name"
+            "#text": "Verbotenen Namen bearbeiten"
           }
         ]
       },
@@ -1331,39 +1331,39 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import Names List"
+            "#text": "Liste der Namen importieren"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Liste importieren"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Der Import ist fehlgeschlagen! Ungültiges Upload-Format angegeben: {0}"
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Wählen Sie Datei importieren:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one Name on each line"
+            "#text": "Muss eine *.txt-Datei sein, die in jeder Zeile einen Namen enthält"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new name was found in the upload."
+            "#text": "Nichts importiert: Es wurde kein neuer Name beim Hochladen gefunden."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new name(s) imported successfully."
+            "#text": "{0} neue(r) Name(n) erfolgreich importiert."
           },
           {
             "@tag": "NOTE",
-            "#text": "You can find a list of Spam Bot user names on StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, that can be imported here."
+            "#text": "Auf StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a> finden Sie eine Liste von Spam-Bot-Benutzernamen, die Sie hier importieren können."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import Name(s)"
+            "#text": "Name(n) der Einfuhr"
           }
         ]
       },
@@ -1481,7 +1481,7 @@
           },
           {
             "@tag": "MSG_NAME",
-            "#text": "You must enter a name."
+            "#text": "Sie müssen einen Namen eingeben."
           },
           {
             "@tag": "MSG_NUMBER",
@@ -1537,11 +1537,11 @@
           },
           {
             "@tag": "USE_TOOLBAR",
-            "#text": "Use Toolbar:"
+            "#text": "Symbolleiste verwenden:"
           },
           {
             "@tag": "USE_TOOLBAR_HELP",
-            "#text": "If enabled Show toolbar button in the Standard BBCode Editor"
+            "#text": "Wenn aktiviert Symbolleisten-Schaltfläche im Standard-BBCode-Editor anzeigen"
           }
         ]
       },
@@ -1599,7 +1599,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Boards"
+            "#text": "Bretter"
           }
         ]
       },
@@ -1608,23 +1608,23 @@
         "Resource": [
           {
             "@tag": "ANNOUNCEMENT_CURRENT",
-            "#text": "Current Announcement visible until"
+            "#text": "Aktuelle Ankündigung sichtbar bis"
           },
           {
             "@tag": "ANNOUNCEMENT_MESSAGE",
-            "#text": "Announcement Message:"
+            "#text": "Ankündigungsnachricht:"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
-            "#text": "Board Announcement"
+            "#text": "Board-Ankündigung"
           },
           {
             "@tag": "ANNOUNCEMENT_TYPE",
-            "#text": "Type:"
+            "#text": "Art:"
           },
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
-            "#text": "Announcement visible for..."
+            "#text": "Ankündigung sichtbar für..."
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -1652,11 +1652,11 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
-            "#text": "Default Collapsible Panel State"
+            "#text": "Standardzustand des klappbaren Bereichs"
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE_HELP",
-            "#text": "Show Categories Expanded or Collapsed on the Board Start page"
+            "#text": "Kategorien auf der Board-Startseite erweitert oder eingeklappt anzeigen"
           },
           {
             "@tag": "BOARD_DIGEST_HOURS",
@@ -1700,15 +1700,15 @@
           },
           {
             "@tag": "BOARD_LOGO",
-            "#text": "Board Logo:"
+            "#text": "Logo des Vorstands:"
           },
           {
             "@tag": "BOARD_LOGO_HELP",
-            "#text": "Select a Board Logo or use the default YAF Board Logo, Logos will be loaded from the Folder Images/Logos."
+            "#text": "Wählen Sie ein Vorstandslogo oder verwenden Sie das standardmäßige YAF-Vorstandslogo. Die Logos werden aus dem Ordner Bilder/Logos geladen."
           },
           {
             "@tag": "BOARD_LOGO_SELECT",
-            "#text": "Select a Board logo"
+            "#text": "Wählen Sie ein Vorstandslogo"
           },
           {
             "@tag": "BOARD_MOBILE_THEME",
@@ -1756,19 +1756,19 @@
           },
           {
             "@tag": "CDVVERSION",
-            "#text": "CRM Version"
+            "#text": "CRM-Version"
           },
           {
             "@tag": "CDVVERSION_BUTTON",
-            "#text": "Increase CRM Version"
+            "#text": "CRM-Version erhöhen"
           },
           {
             "@tag": "CDVVERSION_HELP",
-            "#text": "CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files"
+            "#text": "CRM Version, Nummer erhöhen, um ein Neuladen aller Java Script und CSS Dateien im Browser zu erzwingen"
           },
           {
             "@tag": "COLLAPSED",
-            "#text": "Collapsed"
+            "#text": "Zusammengeklappt"
           },
           {
             "@tag": "COPYRIGHT_REMOVAL_KEY",
@@ -1776,7 +1776,7 @@
           },
           {
             "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "Purchase Removal Key"
+            "#text": "Schlüssel zum Entfernen kaufen"
           },
           {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
@@ -1784,15 +1784,15 @@
           },
           {
             "@tag": "EXPANDED",
-            "#text": "Expanded"
+            "#text": "Erweitert"
           },
           {
             "@tag": "FORUM_DEFAULT_ACCESSMASK",
-            "#text": "New Forum Default Access mask:"
+            "#text": "Neues Forum Standard-Zugangsmaske:"
           },
           {
             "@tag": "FORUM_DEFAULT_ACCESSMASK_HELP",
-            "#text": "The Default Access Mask when creating a new Forum"
+            "#text": "Die Standard-Zugriffsmaske beim Erstellen eines neuen Forums"
           },
           {
             "@tag": "HEADER",
@@ -1800,7 +1800,7 @@
           },
           {
             "@tag": "NEED_MESSAGE",
-            "#text": "You need to enter an Announcement Message."
+            "#text": "Sie müssen eine Ankündigungsnachricht eingeben."
           },
           {
             "@tag": "TITLE",
@@ -1833,7 +1833,7 @@
           },
           {
             "@tag": "TABLE_RESPONSIVE",
-            "#text": "Swipe Table to the left to Reveal More Data"
+            "#text": "Wischen Sie die Tabelle nach links, um weitere Daten zu erhalten"
           },
           {
             "@tag": "YES",
@@ -1980,27 +1980,27 @@
         "Resource": [
           {
             "@tag": "DATA_TYPE",
-            "#text": "Data Type"
+            "#text": "Datenart"
           },
           {
             "@tag": "DATA_TYPE_HELP",
-            "#text": "Select an Data Type for the Profile Definition."
+            "#text": "Wählen Sie einen Datentyp für die Profildefinition aus."
           },
           {
             "@tag": "DEFAULT",
-            "#text": "Default Value"
+            "#text": "Standardwert"
           },
           {
             "@tag": "DEFAULT_HELP",
-            "#text": "Define a Default Value, would be needed if required is set."
+            "#text": "Definieren Sie einen Standardwert, der benötigt wird, wenn \"erforderlich\" eingestellt ist."
           },
           {
             "@tag": "LENGTH",
-            "#text": "Length"
+            "#text": "Länge"
           },
           {
             "@tag": "LENGTH_HELP",
-            "#text": "Maximum Length of the Field"
+            "#text": "Maximale Länge des Feldes"
           },
           {
             "@tag": "NAME",
@@ -2008,51 +2008,51 @@
           },
           {
             "@tag": "NAME_HELP",
-            "#text": "Will be used as Profile Name/Label"
+            "#text": "Wird als Profilname/Label verwendet"
           },
           {
             "@tag": "NEED_LENGTH",
-            "#text": "Maximum Length Value with Minimum 1 is required"
+            "#text": "Maximale Länge Wert mit Minimum 1 ist erforderlich"
           },
           {
             "@tag": "NEED_NAME",
-            "#text": "You must define a name"
+            "#text": "Sie müssen einen Namen definieren"
           },
           {
             "@tag": "REQUIRED",
-            "#text": "Required"
+            "#text": "Erforderlich"
           },
           {
             "@tag": "REQUIRED_HELP",
-            "#text": "Define if the field should be required or not"
+            "#text": "Definieren Sie, ob das Feld erforderlich sein soll oder nicht"
           },
           {
             "@tag": "SAVE_NEW",
-            "#text": "Save New"
+            "#text": "Neu speichern"
           },
           {
             "@tag": "SHOW_REGISTER",
-            "#text": "Show on Register Page"
+            "#text": "Auf der Registerseite anzeigen"
           },
           {
             "@tag": "SHOW_REGISTER_HELP",
-            "#text": "Show on User Register Page"
+            "#text": "Auf der Seite Benutzerregistrierung anzeigen"
           },
           {
             "@tag": "SHOW_USERINFO",
-            "#text": "Show in User Info"
+            "#text": "In den Benutzerinformationen anzeigen"
           },
           {
             "@tag": "SHOW_USERINFO_HELP",
-            "#text": "Show in User Info inside Post Header"
+            "#text": "In den Benutzerinformationen in der Kopfzeile des Beitrags anzeigen"
           },
           {
             "@tag": "TITLE",
-            "#text": "Add New Profile Definition"
+            "#text": "Neue Profildefinition hinzufügen"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Profile Definition"
+            "#text": "Profildefinition bearbeiten"
           }
         ]
       },
@@ -2065,27 +2065,27 @@
           },
           {
             "@tag": "DELETE_ACCESS",
-            "#text": "Delete Access"
+            "#text": "Zugang löschen"
           },
           {
             "@tag": "DELETE_ACCESS_HELP",
-            "#text": "Allows Users to Delete their own Posts"
+            "#text": "Erlaubt Benutzern, ihre eigenen Beiträge zu löschen"
           },
           {
             "@tag": "DOWNLOAD_ACCESS",
-            "#text": "Download Access"
+            "#text": "Zugang herunterladen"
           },
           {
             "@tag": "DOWNLOAD_ACCESS_HELP",
-            "#text": "Allows Users to Download Attachments in Posts."
+            "#text": "Ermöglicht Benutzern das Herunterladen von Anhängen in Beiträgen."
           },
           {
             "@tag": "EDIT_ACCESS",
-            "#text": "Edit Access"
+            "#text": "Zugang bearbeiten"
           },
           {
             "@tag": "EDIT_ACCESS_HELP",
-            "#text": "Allows Users to Edit their own Posts."
+            "#text": "Erlaubt Benutzern, ihre eigenen Beiträge zu bearbeiten."
           },
           {
             "@tag": "MASK_NAME",
@@ -2109,7 +2109,7 @@
           },
           {
             "@tag": "MODERATOR_ACCESS_HELP",
-            "#text": "Allows Users to Edit/Delete all Posts and Topics in a Forum."
+            "#text": "Ermöglicht Benutzern das Bearbeiten/Löschen aller Beiträge und Themen in einem Forum."
           },
           {
             "@tag": "MSG_MASK_NAME",
@@ -2125,23 +2125,23 @@
           },
           {
             "@tag": "POLL_ACCESS",
-            "#text": "Poll Access"
+            "#text": "Zugang zur Umfrage"
           },
           {
             "@tag": "POLL_ACCESS_HELP",
-            "#text": "Allows Users to Create Polls in Topics."
+            "#text": "Erlaubt Benutzern, Umfragen in Themen zu erstellen."
           },
           {
             "@tag": "POST_ACCESS",
-            "#text": "Post Access"
+            "#text": "Post-Zugang"
           },
           {
             "@tag": "POST_ACCESS_HELP",
-            "#text": "Allows Users to Post New Topics in a Forum."
+            "#text": "Erlaubt Benutzern, neue Themen in einem Forum zu veröffentlichen."
           },
           {
             "@tag": "PRIORITY_ACCESS",
-            "#text": "Priority Access"
+            "#text": "Vorrangiger Zugang"
           },
           {
             "@tag": "PRIORITY_ACCESS_HELP",
@@ -2149,19 +2149,19 @@
           },
           {
             "@tag": "READ_ACCESS",
-            "#text": "Read Access"
+            "#text": "Zugang lesen"
           },
           {
             "@tag": "READ_ACCESS_HELP",
-            "#text": "Allows Users to Read Topics and Messages in a Forum."
+            "#text": "Ermöglicht es Benutzern, Themen und Nachrichten in einem Forum zu lesen."
           },
           {
             "@tag": "REPLY_ACCESS",
-            "#text": "Reply Access"
+            "#text": "Antwort Zugang"
           },
           {
             "@tag": "REPLY_ACCESS_HELP",
-            "#text": "Allows Users to Reply to existing Topics in a Forum."
+            "#text": "Ermöglicht es Benutzern, auf bestehende Themen in einem Forum zu antworten."
           },
           {
             "@tag": "TITLE",
@@ -2169,19 +2169,19 @@
           },
           {
             "@tag": "UPLOAD_ACCESS",
-            "#text": "Upload Access"
+            "#text": "Upload Zugang"
           },
           {
             "@tag": "UPLOAD_ACCESS_HELP",
-            "#text": "Allows Users to Upload Attachments in Posts."
+            "#text": "Ermöglicht Benutzern das Hochladen von Anhängen in Beiträgen."
           },
           {
             "@tag": "VOTE_ACCESS",
-            "#text": "Vote Access"
+            "#text": "Zugang zu Abstimmungen"
           },
           {
             "@tag": "VOTE_ACCESS_HELP",
-            "#text": "Allows Users to Vote in Polls."
+            "#text": "Erlaubt Benutzern, an Umfragen teilzunehmen."
           }
         ]
       },
@@ -2347,11 +2347,11 @@
         "Resource": [
           {
             "@tag": "ACTIVE",
-            "#text": "Active"
+            "#text": "Aktiv"
           },
           {
             "@tag": "ACTIVE_HELP",
-            "#text": "If enabled show Category (incl. Forums) in Board"
+            "#text": "Wenn aktiviert, Kategorie (inkl. Foren) im Board anzeigen"
           },
           {
             "@tag": "CATEGORY_IMAGE",
@@ -2375,7 +2375,7 @@
           },
           {
             "@tag": "MSG_CATEGORY_EXISTS",
-            "#text": "A Category with such a name already exists."
+            "#text": "Eine Kategorie mit einem solchen Namen existiert bereits."
           },
           {
             "@tag": "MSG_NUMBER",
@@ -2476,11 +2476,11 @@
           },
           {
             "@tag": "MODERATE_ALL_POSTS",
-            "#text": "Moderate all Posts"
+            "#text": "Alle Beiträge moderieren"
           },
           {
             "@tag": "MODERATED_COUNT",
-            "#text": "Moderate all Posts or only until a User reaches x amount of Posts"
+            "#text": "Alle Beiträge moderieren oder nur so lange, bis ein Benutzer eine bestimmte Anzahl von Beiträgen erreicht hat"
           },
           {
             "@tag": "MODERATED_COUNT_HELP",
@@ -2488,11 +2488,11 @@
           },
           {
             "@tag": "MODERATED_NEWTOPIC_ONLY",
-            "#text": "Moderate only new Topics but not Replies?"
+            "#text": "Nur neue Themen moderieren, aber keine Antworten?"
           },
           {
             "@tag": "MODERATED_NEWTOPIC_ONLY_HELP",
-            "#text": "If checked only Messages of new Topics are checked but not Replies to existing Topics, otherwise all Messages needs moderation."
+            "#text": "Wenn diese Option aktiviert ist, werden nur die Nachrichten neuer Themen geprüft, nicht aber die Antworten auf bestehende Themen, andernfalls müssen alle Nachrichten moderiert werden."
           },
           {
             "@tag": "MSG_CATEGORY",
@@ -2617,7 +2617,7 @@
           },
           {
             "@tag": "BOARD",
-            "#text": "Board:"
+            "#text": "Vorstand:"
           },
           {
             "@tag": "CATEGORY",
@@ -2697,7 +2697,7 @@
           },
           {
             "@tag": "MSG_NAME",
-            "#text": "You need to enter a Role name."
+            "#text": "Sie müssen einen Rollennamen eingeben."
           },
           {
             "@tag": "MSG_SIG_NUMBER",
@@ -2745,11 +2745,11 @@
           },
           {
             "@tag": "SIG_HTML",
-            "#text": "User signature HTML tags:"
+            "#text": "Benutzer-Signatur HTML-Tags:"
           },
           {
             "@tag": "SIG_HTML_HELP",
-            "#text": "Comma separated HTML tags allowed in a user signature in the group."
+            "#text": "Durch Kommata getrennte HTML-Tags, die in einer Benutzersignatur in der Gruppe erlaubt sind."
           },
           {
             "@tag": "SIGNATURE_LENGTH",
@@ -2790,7 +2790,7 @@
           },
           {
             "@tag": "NEED_TRANSLATION",
-            "#text": "Needs Translation."
+            "#text": "Benötigt Übersetzung."
           },
           {
             "@tag": "ORIGINAL_RESOURCE",
@@ -2802,7 +2802,7 @@
           },
           {
             "@tag": "SAVED_FILE",
-            "#text": "The language file has been updated and saved!"
+            "#text": "Die Sprachdatei wurde aktualisiert und gespeichert!"
           },
           {
             "@tag": "SELECT_PAGE",
@@ -2959,7 +2959,7 @@
           },
           {
             "@tag": "MSG_NAME",
-            "#text": "You must enter a medal name!"
+            "#text": "Sie müssen einen Medaillennamen eingeben!"
           },
           {
             "@tag": "MSG_SMALL_IMAGE",
@@ -2991,7 +2991,7 @@
           },
           {
             "@tag": "SELECT_IMAGE_HELP",
-            "#text": "Medal will be shown in User Profile"
+            "#text": "Die Medaille wird im Benutzerprofil angezeigt"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3064,7 +3064,7 @@
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit NNTP Forum"
+            "#text": "NNTP-Forum bearbeiten"
           }
         ]
       },
@@ -3105,7 +3105,7 @@
           },
           {
             "@tag": "NNTP_PORT",
-            "#text": "Port:"
+            "#text": "Hafen:"
           },
           {
             "@tag": "NNTP_PORT_HELP",
@@ -3125,7 +3125,7 @@
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit NNTP Server"
+            "#text": "NNTP-Server bearbeiten"
           }
         ]
       },
@@ -3178,7 +3178,7 @@
           },
           {
             "@tag": "NEED_NAME",
-            "#text": "You must define a rank name."
+            "#text": "Sie müssen einen Rangnamen definieren."
           },
           {
             "@tag": "PRIVATE_MESSAGES",
@@ -3263,7 +3263,7 @@
           },
           {
             "@tag": "BAN_EMAIL_OFUSER",
-            "#text": "Ban Email Addresses of User?"
+            "#text": "E-Mail-Adressen von Benutzern sperren?"
           },
           {
             "@tag": "BAN_IP_OFUSER",
@@ -3271,7 +3271,7 @@
           },
           {
             "@tag": "BAN_NAME_OFUSER",
-            "#text": "Ban User Name of User?"
+            "#text": "Benutzer verbieten Name des Benutzers?"
           },
           {
             "@tag": "BOT_REPORTED",
@@ -3323,11 +3323,11 @@
           },
           {
             "@tag": "DISABLED",
-            "#text": "User Disabled"
+            "#text": "Benutzer Deaktiviert"
           },
           {
             "@tag": "DISABLED_HELP",
-            "#text": "User is Soft-Deleted."
+            "#text": "Benutzer wird softgelöscht."
           },
           {
             "@tag": "ERROR_CONFIRM_PASS",
@@ -3363,7 +3363,7 @@
           },
           {
             "@tag": "HEAD_KILL_USER",
-            "#text": "Kill User and Ban"
+            "#text": "Benutzer töten und sperren"
           },
           {
             "@tag": "HEAD_USER_CHANGEPASS",
@@ -3387,7 +3387,7 @@
           },
           {
             "@tag": "IP_ADDRESSES",
-            "#text": "IP Addresses:"
+            "#text": "IP-Adressen:"
           },
           {
             "@tag": "KILL_USER",
@@ -3407,11 +3407,11 @@
           },
           {
             "@tag": "MODERATE",
-            "#text": "Moderate all Posts"
+            "#text": "Alle Beiträge moderieren"
           },
           {
             "@tag": "MODERATE_HELP",
-            "#text": "Moderate all Posts made by the User"
+            "#text": "Alle Beiträge des Benutzers moderieren"
           },
           {
             "@tag": "MSG_GUEST_APPROVED",
@@ -3471,7 +3471,7 @@
           },
           {
             "@tag": "SEND_EMAIL",
-            "#text": "Send User Notification?"
+            "#text": "Benutzerbenachrichtigung senden?"
           },
           {
             "@tag": "SET_POINTS",
@@ -3479,11 +3479,11 @@
           },
           {
             "@tag": "SUSPEND_ACCOUNT_USER",
-            "#text": "Suspend this account for 5 years"
+            "#text": "Dieses Konto für 5 Jahre sperren"
           },
           {
             "@tag": "SUSPEND_OR_DELETE_ACCOUNT",
-            "#text": "Suspend or Delete this Account?"
+            "#text": "Dieses Konto sperren oder löschen?"
           },
           {
             "@tag": "TITLE",
@@ -3507,7 +3507,7 @@
           },
           {
             "@tag": "USER_KILL",
-            "#text": "User Kill & Ban"
+            "#text": "Benutzer löschen und sperren"
           },
           {
             "@tag": "USER_PASS",
@@ -3527,7 +3527,7 @@
           },
           {
             "@tag": "USER_SETTINGS",
-            "#text": "User Settings"
+            "#text": "Benutzereinstellungen"
           },
           {
             "@tag": "USER_SIG",
@@ -3620,7 +3620,7 @@
           },
           {
             "@tag": "NO_ENTRY",
-            "#text": "No Entries found"
+            "#text": "Keine Einträge gefunden"
           },
           {
             "@tag": "SHOW",
@@ -3685,7 +3685,7 @@
           },
           {
             "@tag": "CONFIRM_SORTING",
-            "#text": "Are you sure? this step is irreversible!"
+            "#text": "Sind Sie sicher? Dieser Schritt ist unumkehrbar!"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3693,11 +3693,11 @@
           },
           {
             "@tag": "MSG_SORTING_CATEGORIES",
-            "#text": "All Categories have been re-ordered."
+            "#text": "Alle Kategorien sind neu geordnet worden."
           },
           {
             "@tag": "MSG_SORTING_FORUMS",
-            "#text": "All Forums have been re-ordered."
+            "#text": "Alle Foren sind neu geordnet worden."
           },
           {
             "@tag": "NEW_CATEGORY",
@@ -3709,19 +3709,19 @@
           },
           {
             "@tag": "SORT_CATEGORIES_ASC",
-            "#text": "Re-Order all Categories ASC"
+            "#text": "Alle Kategorien neu sortieren ASC"
           },
           {
             "@tag": "SORT_CATEGORIES_DESC",
-            "#text": "Re-Order all Categories DESC"
+            "#text": "Alle Kategorien neu sortieren DESC"
           },
           {
             "@tag": "SORT_FORUMS_ASC",
-            "#text": "Re-Order all Forums ASC"
+            "#text": "Alle Foren neu sortieren ASC"
           },
           {
             "@tag": "SORT_FORUMS_DESC",
-            "#text": "Re-Order all Forums DESC"
+            "#text": "Alle Foren neu sortieren DESC"
           }
         ]
       },
@@ -3819,11 +3819,11 @@
           },
           {
             "@tag": "ACCEPT_HTML",
-            "#text": "Accepted HTML Tags:"
+            "#text": "Akzeptierte HTML-Tags:"
           },
           {
             "@tag": "ACCEPT_HTML_HELP",
-            "#text": "Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors."
+            "#text": "Durch Kommata getrennte Liste (ohne Leerzeichen) von HTML-Tags, die in Beiträgen mit HTML-Editoren zulässig sind."
           },
           {
             "@tag": "ACTIVE_USERTIME",
@@ -3835,23 +3835,23 @@
           },
           {
             "@tag": "AKISMET_KEY_DOWN",
-            "#text": "Sign Up here"
+            "#text": "Hier anmelden"
           },
           {
             "@tag": "ALBUM_IMAGE_SIZE",
-            "#text": "Max Album Image File Size"
+            "#text": "Maximale Dateigröße für Albumbilder"
           },
           {
             "@tag": "ALBUM_IMAGE_SIZE_HELP",
-            "#text": "Maximum size of uploaded album image files. Leave empty for no limit."
+            "#text": "Maximale Größe der hochgeladenen Album-Bilddateien. Leer lassen für keine Begrenzung."
           },
           {
             "@tag": "ALBUM_IMAGES_PER_PAGE",
-            "#text": "Album Images Per Page:"
+            "#text": "Albumbilder pro Seite:"
           },
           {
             "@tag": "ALBUM_IMAGES_PER_PAGE_HELP",
-            "#text": "Number of Album Images to show per page."
+            "#text": "Anzahl der Albumbilder, die pro Seite angezeigt werden sollen."
           },
           {
             "@tag": "ALBUMS_PER_PAGE",
@@ -4051,19 +4051,19 @@
           },
           {
             "@tag": "ALLOWED_EXTENSIONS",
-            "#text": "Allowed File Extensions:"
+            "#text": "Erlaubte Dateierweiterungen:"
           },
           {
             "@tag": "ALLOWED_EXTENSIONS_HELP",
-            "#text": "The list of allowed File Extensions for Attachments."
+            "#text": "Die Liste der zulässigen Dateierweiterungen für Anhänge."
           },
           {
             "@tag": "AMOUNT_OF_SUBFORUMS",
-            "#text": "Sub Forums In Forums List:"
+            "#text": "Unterforen in der Forenliste:"
           },
           {
             "@tag": "AMOUNT_OF_SUBFORUMS_HELP",
-            "#text": "The amount of Sub Forums In Forums List."
+            "#text": "Die Anzahl der Unterforen in der Forenliste."
           },
           {
             "@tag": "APP_CORES",
@@ -4091,7 +4091,7 @@
           },
           {
             "@tag": "APP_RUNTIME",
-            "#text": ".NET Runtime Version:"
+            "#text": ".NET-Laufzeitversion:"
           },
           {
             "@tag": "APP_RUNTIME_HELP",
@@ -4163,11 +4163,11 @@
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER",
-            "#text": "Automatically Ban Ip Address of Detected Bot:"
+            "#text": "Automatische Sperrung der Ip-Adresse des erkannten Bot:"
           },
           {
             "@tag": "BOT_IPBAN_ONREGISTER_HELP",
-            "#text": "If enabled and a Bot is detected during registration, and if bot handling is set to reject Registration, the IP Address of the Bot is automatically banned."
+            "#text": "Wenn diese Funktion aktiviert ist und während der Registrierung ein Bot erkannt wird und die Bot-Behandlung auf \"Registrierung ablehnen\" eingestellt ist, wird die IP-Adresse des Bots automatisch gesperrt."
           },
           {
             "@tag": "BOT_MESSAGE_0",
@@ -4215,19 +4215,19 @@
           },
           {
             "@tag": "CDN_JQUERY",
-            "#text": "Use Google Hosted CDN jQuery Script File?"
+            "#text": "Google Hosted CDN jQuery Script File verwenden?"
           },
           {
             "@tag": "CDN_JQUERY_HELP",
-            "#text": "You can use the Google Hosted Script File, or instead use internal."
+            "#text": "Sie können die von Google gehostete Skriptdatei oder stattdessen die interne Datei verwenden."
           },
           {
             "@tag": "CDN_SCRIPTMANAGER",
-            "#text": "Use CDN Hosted Script Manager JS Files?"
+            "#text": "Verwenden Sie CDN Hosted Script Manager JS-Dateien?"
           },
           {
             "@tag": "CDN_SCRIPTMANAGER_HELP",
-            "#text": "You can use the CDN Hosted Script Files, or instead use internal."
+            "#text": "Sie können die im CDN gehosteten Skriptdateien verwenden oder stattdessen interne Dateien verwenden."
           },
           {
             "@tag": "CHECK_FOR_BOTSPAM",
@@ -4323,19 +4323,19 @@
           },
           {
             "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Editor Toolbar used for Signatures ans Quick Replies."
+            "#text": "Editor-Symbolleiste für Signaturen und Schnellantworten."
           },
           {
             "@tag": "EDITOR_BASIC",
-            "#text": "Editor Toolbar Basic:"
+            "#text": "Editor-Symbolleiste Basic:"
           },
           {
             "@tag": "EDITOR_FULL",
-            "#text": "Editor Toolbar Full:"
+            "#text": "Editor-Symbolleiste voll:"
           },
           {
             "@tag": "EDITOR_FULL_HELP",
-            "#text": "Editor Toolbar used for Posting and Private Messages."
+            "#text": "Editor-Symbolleiste für Postings und private Nachrichten."
           },
           {
             "@tag": "EMAIL_VERIFICATION",
@@ -4475,15 +4475,15 @@
           },
           {
             "@tag": "FORCE_SEARCHINDED",
-            "#text": "Search Index Task started."
+            "#text": "Suchindexaufgabe gestartet."
           },
           {
             "@tag": "FORUM_BASEURLMASK",
-            "#text": "Forum Base URL Mask:"
+            "#text": "Forum Base URL Maske:"
           },
           {
             "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "The full forward-facing url to this forum."
+            "#text": "Die vollständige, nach vorne gerichtete Url zu diesem Forum."
           },
           {
             "@tag": "FORUM_EDITOR",
@@ -4511,7 +4511,7 @@
           },
           {
             "@tag": "HEADER_ATTACHMENTS",
-            "#text": "Attachments Settings"
+            "#text": "Einstellungen für Anhänge"
           },
           {
             "@tag": "HEADER_AVATARS",
@@ -4531,7 +4531,7 @@
           },
           {
             "@tag": "HEADER_CDN",
-            "#text": "Scripts CDN Settings"
+            "#text": "Skripte CDN-Einstellungen"
           },
           {
             "@tag": "HEADER_DISPLAY",
@@ -4579,7 +4579,7 @@
           },
           {
             "@tag": "HEADER_PASSWORD",
-            "#text": "Password Strength Settings"
+            "#text": "Einstellungen zur Passwortstärke"
           },
           {
             "@tag": "HEADER_PERMISSION",
@@ -4603,7 +4603,7 @@
           },
           {
             "@tag": "HEADER_SERVER_INFO",
-            "#text": "Server Info"
+            "#text": "Server-Informationen"
           },
           {
             "@tag": "HEADER_SETUP",
@@ -4663,11 +4663,11 @@
           },
           {
             "@tag": "IGNORE_SPAMCHECK_COUNT",
-            "#text": "User Post Count to be ignored from Spam Check:"
+            "#text": "Anzahl der Benutzerbeiträge, die von der Spam-Prüfung ignoriert werden sollen:"
           },
           {
             "@tag": "IGNORE_SPAMCHECK_COUNT_HELP",
-            "#text": "The amount of posts a user has to have to be ignored by the spam checking."
+            "#text": "Die Anzahl der Beiträge, die ein Benutzer haben muss, um von der Spamprüfung ignoriert zu werden."
           },
           {
             "@tag": "IMAGE_ATTACH_RESIZE",
@@ -4695,19 +4695,19 @@
           },
           {
             "@tag": "IMAGE_THUMB_HEIGHT",
-            "#text": "Thumbnail Image  Max Height:"
+            "#text": "Thumbnail Image Max Height:"
           },
           {
             "@tag": "IMAGE_THUMB_HEIGHT_HELP",
-            "#text": "Maximum Height of the attachment and album image thumbnail."
+            "#text": "Maximale Höhe der Miniaturansicht des Anhangs und des Albumbildes."
           },
           {
             "@tag": "IMAGE_THUMB_WIDTH",
-            "#text": "Thumbnail Image  Max Width:"
+            "#text": "Thumbnail Image Max Width:"
           },
           {
             "@tag": "IMAGE_THUMB_WIDTH_HELP",
-            "#text": "Maximum Width of the attachment and album image thumbnail."
+            "#text": "Maximale Breite der Miniaturansicht des Anhangs und des Albumbildes."
           },
           {
             "@tag": "IMAGES_PER_PAGE",
@@ -4719,11 +4719,11 @@
           },
           {
             "@tag": "INDEX_SEARCH",
-            "#text": "Re-Index Search"
+            "#text": "Re-Index Suche"
           },
           {
             "@tag": "INDEX_SEARCH_HELP",
-            "#text": "Indexes all Messages in all Forums of the current Board for the Search Engine"
+            "#text": "Indiziert alle Beiträge in allen Foren des aktuellen Boards für die Suchmaschine"
           },
           {
             "@tag": "IP_INFOSERVICE",
@@ -4795,7 +4795,7 @@
           },
           {
             "@tag": "LOG_ERROR_HELP",
-            "#text": "Application errors will be logged."
+            "#text": "Anwendungsfehler werden protokolliert."
           },
           {
             "@tag": "LOG_INFORMATION",
@@ -4803,7 +4803,7 @@
           },
           {
             "@tag": "LOG_INFORMATION_HELP",
-            "#text": "Application info messages will be logged."
+            "#text": "Anwendungsinformationsmeldungen werden protokolliert."
           },
           {
             "@tag": "LOG_SUSPENDEDANDCONTRA",
@@ -4819,7 +4819,7 @@
           },
           {
             "@tag": "LOG_USERDELETED_HELP",
-            "#text": "User deleting event will be logged."
+            "#text": "Das Löschen eines Benutzers wird protokolliert."
           },
           {
             "@tag": "LOG_USERSUSPENDED",
@@ -4831,19 +4831,19 @@
           },
           {
             "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Log ViewState Exceptions:"
+            "#text": "Log ViewState-Ausnahmen:"
           },
           {
             "@tag": "LOG_VIEWSTATEERROR_HELP",
-            "#text": "ViewState Exceptions (mainly caused by SPAM Bots) will be logged."
+            "#text": "ViewState-Ausnahmen (hauptsächlich verursacht durch SPAM-Bots) werden protokolliert."
           },
           {
             "@tag": "LOG_WARNING",
-            "#text": "Allow log Application Warnings:"
+            "#text": "Protokollierung von Anwendungswarnungen zulassen:"
           },
           {
             "@tag": "LOG_WARNING_HELP",
-            "#text": "Application warnings will be logged."
+            "#text": "Anwendungswarnungen werden protokolliert."
           },
           {
             "@tag": "LOGIN_REDIR_URL",
@@ -4999,47 +4999,47 @@
           },
           {
             "@tag": "PASSWORD_LOWER_CASE",
-            "#text": "Require Lower Case:"
+            "#text": "Kleinschreibung erforderlich:"
           },
           {
             "@tag": "PASSWORD_LOWER_CASE_HELP",
-            "#text": "Option to require a lower case letter ('a' - 'z') in a Password."
+            "#text": "Option, um einen Kleinbuchstaben ('a' - 'z') in einem Passwort zu verlangen."
           },
           {
             "@tag": "PASSWORD_MIN_LENGTH",
-            "#text": "Minimum Length:"
+            "#text": "Mindestlänge:"
           },
           {
             "@tag": "PASSWORD_MIN_LENGTH_HELP",
-            "#text": "The minimum required password length."
+            "#text": "Die erforderliche Mindestlänge des Passworts."
           },
           {
             "@tag": "PASSWORD_REQUIRE_DIGIT",
-            "#text": "Require Digit:"
+            "#text": "Erforderliche Ziffer:"
           },
           {
             "@tag": "PASSWORD_REQUIRE_DIGIT_HELP",
-            "#text": "Option to require a numeric digit ('0' - '9') in a Password."
+            "#text": "Option, um eine numerische Ziffer ('0' - '9') in einem Passwort zu verlangen."
           },
           {
             "@tag": "PASSWORD_REQUIRE_NON_LETTER",
-            "#text": "Require non Letter Or Digit:"
+            "#text": "Erfordert keinen Buchstaben oder keine Ziffer:"
           },
           {
             "@tag": "PASSWORD_REQUIRE_NON_LETTER_HELP",
-            "#text": "Option to requires a non-letter or digit character in a Password."
+            "#text": "Option, um ein Nicht-Buchstaben- oder Ziffernzeichen in einem Passwort zu verlangen."
           },
           {
             "@tag": "PASSWORD_UPPER_CASE",
-            "#text": "Require Upper Case:"
+            "#text": "Großbuchstaben sind erforderlich:"
           },
           {
             "@tag": "PASSWORD_UPPER_CASE_HELP",
-            "#text": "Option to require a upper case letter ('A' - 'Z') in a Password."
+            "#text": "Option, um einen Großbuchstaben ('A' - 'Z') in einem Passwort zu verlangen."
           },
           {
             "@tag": "PM_ATTACHMENTS",
-            "#text": "Allow attachments in Private Messages"
+            "#text": "Anhänge in privaten Nachrichten zulassen"
           },
           {
             "@tag": "PM_ATTACHMENTS_HELP",
@@ -5175,27 +5175,27 @@
           },
           {
             "@tag": "REPUTATION_ALLOWNEGATIVE_HELP",
-            "#text": "If allowed Users can get Negative Reputation Numbers."
+            "#text": "Wenn erlaubt, können Benutzer negative Rufnummern erhalten."
           },
           {
             "@tag": "REPUTATION_MAX",
-            "#text": "Maximum Positive Reputation Value:"
+            "#text": "Maximaler positiver Reputationswert:"
           },
           {
             "@tag": "REPUTATION_MAX_HELP",
-            "#text": "This Value is used to generate the Reputation Bar."
+            "#text": "Dieser Wert wird verwendet, um die Reputationsleiste zu erstellen."
           },
           {
             "@tag": "REPUTATION_MIN",
-            "#text": "Maximum Negative Reputation Value:"
+            "#text": "Maximaler negativer Reputationswert:"
           },
           {
             "@tag": "REPUTATION_MIN_HELP",
-            "#text": "This Value is used to generate the Reputation Bar."
+            "#text": "Dieser Wert wird verwendet, um die Reputationsleiste zu erstellen."
           },
           {
             "@tag": "REPUTATION_MINDOWN",
-            "#text": "Min. Value to allow Remove Reputation:"
+            "#text": "Min. Wert zuzulassen Reputation entfernen:"
           },
           {
             "@tag": "REPUTATION_MINDOWN_HELP",
@@ -5203,7 +5203,7 @@
           },
           {
             "@tag": "REPUTATION_MINUP",
-            "#text": "Min. Value to allow Add Reputation:"
+            "#text": "Min. Wert, um Reputation hinzufügen zu können:"
           },
           {
             "@tag": "REPUTATION_MINUP_HELP",
@@ -5228,38 +5228,6 @@
           {
             "@tag": "SAVE_SETTINGS",
             "#text": "Einstellungen Speichern"
-          },
-          {
-            "@tag": "SEARCH_ENGINE1",
-            "#text": "Suchmaschine 1:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE1_HELP",
-            "#text": "Geben Sie hier die Suchmaschinen Muster ein."
-          },
-          {
-            "@tag": "SEARCH_ENGINE1_PARAM",
-            "#text": "Parameter für Suchmaschine 1:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE1_PARAM_HELP",
-            "#text": "Geben Sie hier die Suchmaschinen Parameter ein."
-          },
-          {
-            "@tag": "SEARCH_ENGINE2",
-            "#text": "Suchmaschine 2:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE2_HELP",
-            "#text": "Geben Sie hier die Suchmaschinen Muster ein."
-          },
-          {
-            "@tag": "SEARCH_ENGINE2_PARAM",
-            "#text": "Parameter für Suchmaschine 2:"
-          },
-          {
-            "@tag": "SEARCH_ENGINE2_PARAM_HELP",
-            "#text": "Geben Sie hier die Suchmaschinen Parameter ein."
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5359,11 +5327,11 @@
           },
           {
             "@tag": "SHOW_COOKIECONSET",
-            "#text": "Show Cookie Consent Popup message"
+            "#text": "Popup-Meldung zur Cookie-Zustimmung anzeigen"
           },
           {
             "@tag": "SHOW_COOKIECONSET_HELP",
-            "#text": "When enabled show the Cookie Accept Popup message."
+            "#text": "Wenn diese Option aktiviert ist, wird die Popup-Meldung \"Cookie akzeptieren\" angezeigt."
           },
           {
             "@tag": "SHOW_DEL_MESSAGES",
@@ -5383,11 +5351,11 @@
           },
           {
             "@tag": "SHOW_EDIT_MESSAGE",
-            "#text": "Show Edit Message:"
+            "#text": "Nachricht bearbeiten anzeigen:"
           },
           {
             "@tag": "SHOW_EDIT_MESSAGE_HELP",
-            "#text": "If enabled it shows a Note in the footer of the Message if the Message was edited (incl. the Reason and Time)"
+            "#text": "Wenn diese Option aktiviert ist, wird in der Fußzeile der Nachricht ein Hinweis angezeigt, wenn die Nachricht bearbeitet wurde (einschließlich Grund und Uhrzeit)."
           },
           {
             "@tag": "SHOW_FORUM_JUMP",
@@ -5519,19 +5487,19 @@
           },
           {
             "@tag": "SHOW_SCROLL",
-            "#text": "Show Scroll Back to Top Button"
+            "#text": "Zurück zum Anfang blättern Schaltfläche anzeigen"
           },
           {
             "@tag": "SHOW_SCROLL_HELP",
-            "#text": "If enabled automatically show Back to Top Button when scrolling down the page"
+            "#text": "Wenn diese Option aktiviert ist, wird beim Herunterscrollen der Seite automatisch die Schaltfläche Zurück zum Anfang angezeigt."
           },
           {
             "@tag": "SHOW_SIMILARTOPICS",
-            "#text": "Show Similar Topics:"
+            "#text": "Ähnliche Themen anzeigen:"
           },
           {
             "@tag": "SHOW_SIMILARTOPICS_HELP",
-            "#text": "Should similar topics to be displayed at the bottom of a topic."
+            "#text": "Sollten ähnliche Themen am Ende eines Themas angezeigt werden."
           },
           {
             "@tag": "SHOW_THANK_DATE",
@@ -5599,19 +5567,19 @@
           },
           {
             "@tag": "SPAM_MESSAGE_0",
-            "#text": "Do nothing"
+            "#text": "Nichts tun"
           },
           {
             "@tag": "SPAM_MESSAGE_1",
-            "#text": "Flag Message as Unapproved"
+            "#text": "Nachricht als nicht genehmigt kennzeichnen"
           },
           {
             "@tag": "SPAM_MESSAGE_2",
-            "#text": "Reject Message"
+            "#text": "Nachricht ablehnen"
           },
           {
             "@tag": "SPAM_MESSAGE_3",
-            "#text": "Delete & Ban user"
+            "#text": "Benutzer löschen und sperren"
           },
           {
             "@tag": "SPAM_MESSAGE_HANDLING",
@@ -5627,15 +5595,15 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
-            "#text": "Internal Spam Check Words"
+            "#text": "Interne Spam-Check-Wörter"
           },
           {
             "@tag": "SPAMCHECK_ALLOWED_URLS",
-            "#text": "Allowed Number of URLs before flagged as SPAM:"
+            "#text": "Erlaubte Anzahl von URLs, bevor sie als SPAM gekennzeichnet werden:"
           },
           {
             "@tag": "SPAMCHECK_ALLOWED_URLS_HELP",
-            "#text": "If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have."
+            "#text": "Wenn der Benutzer in einer Nachricht mehr als die erlaubten URLs einträgt, wird die Nachricht als Spam gekennzeichnet. Diese Prüfung hängt auch davon ab, wie viele Benutzer die Beiträge haben."
           },
           {
             "@tag": "SQL_FULLTEXT",
@@ -5651,7 +5619,7 @@
           },
           {
             "@tag": "SSL_REQUIRE",
-            "#text": "Require SSL"
+            "#text": "SSL voraussetzen"
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
@@ -5663,7 +5631,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY",
-            "#text": "StopForumSpam.com API Key:"
+            "#text": "StopForumSpam.com API-Schlüssel:"
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
@@ -5687,19 +5655,19 @@
           },
           {
             "@tag": "TEMPLATE_TITLE",
-            "#text": "Page title template:"
+            "#text": "Vorlage für den Seitentitel:"
           },
           {
             "@tag": "TEMPLATE_TITLE_HELP",
-            "#text": "Template for the title meta tag."
+            "#text": "Vorlage für den Titel-Meta-Tag."
           },
           {
             "@tag": "TEMPLATE_TITLE_PAGER",
-            "#text": "Pager page title template:"
+            "#text": "Pager-Seitentitel-Vorlage:"
           },
           {
             "@tag": "TEMPLATE_TITLE_PAGER_HELP",
-            "#text": "Template for the page title inside the page title."
+            "#text": "Vorlage für den Seitentitel innerhalb des Seitentitels."
           },
           {
             "@tag": "TITLE",
@@ -5731,11 +5699,11 @@
           },
           {
             "@tag": "TWOCOLUMN_BOARD",
-            "#text": "Use 2 Column Board layout"
+            "#text": "Verwenden Sie ein 2-spaltiges Board-Layout"
           },
           {
             "@tag": "TWOCOLUMN_BOARD_HELP",
-            "#text": "If enabled show forums in the left column and forum discussions and Stats in the Right Column"
+            "#text": "Wenn aktiviert, werden die Foren in der linken Spalte und die Forumsdiskussionen und Statistiken in der rechten Spalte angezeigt."
           },
           {
             "@tag": "UNHANDLED_USERAGENT_LOG",
@@ -5747,11 +5715,11 @@
           },
           {
             "@tag": "USE_CUSTOM_CONTEXTMENU",
-            "#text": "Use Custom Context Menus in Posts:"
+            "#text": "Benutzerdefinierte Kontextmenüs in Beiträgen verwenden:"
           },
           {
             "@tag": "USE_CUSTOM_CONTEXTMENU_HELP",
-            "#text": "If enabled use a custom context menu inside a post, otherwise browser default context menu is used"
+            "#text": "Wenn aktiviert, wird ein benutzerdefiniertes Kontextmenü innerhalb eines Beitrags verwendet, andernfalls wird das Standard-Kontextmenü des Browsers verwendet"
           },
           {
             "@tag": "USE_FARSI_CALENDER",
@@ -5819,23 +5787,23 @@
           },
           {
             "@tag": "WELCOME_NOTIFICATION",
-            "#text": "Send User Welcome Notification:"
+            "#text": "Benutzerbegrüßungsbenachrichtigung senden:"
           },
           {
             "@tag": "WELCOME_NOTIFICATION_0",
-            "#text": "Send No Message"
+            "#text": "Keine Nachricht senden"
           },
           {
             "@tag": "WELCOME_NOTIFICATION_1",
-            "#text": "Send as e-mail"
+            "#text": "Als E-Mail versenden"
           },
           {
             "@tag": "WELCOME_NOTIFICATION_2",
-            "#text": "Send as private message"
+            "#text": "Als private Nachricht senden"
           },
           {
             "@tag": "WELCOME_NOTIFICATION_HELP",
-            "#text": "If enabled you it sends a user a Welcome Mail/Private Message after successfully registration."
+            "#text": "Wenn Sie diese Funktion aktivieren, wird einem Benutzer nach erfolgreicher Registrierung eine Willkommens-Mail/Private Nachricht geschickt."
           },
           {
             "@tag": "WSERVICE_TOKEN",
@@ -5864,7 +5832,7 @@
           },
           {
             "@tag": "PROGRESS",
-            "#text": "Translated Resources"
+            "#text": "Übersetzte Ressourcen"
           },
           {
             "@tag": "TITLE",
@@ -5885,11 +5853,11 @@
           },
           {
             "@tag": "FROM_MAIL",
-            "#text": "From Mail Address:"
+            "#text": "Von der Postadresse:"
           },
           {
             "@tag": "FROM_MAIL_HELP",
-            "#text": "Enter the From Mail Address"
+            "#text": "Geben Sie die Absender-E-Mail-Adresse ein"
           },
           {
             "@tag": "HEADER",
@@ -5921,15 +5889,15 @@
           },
           {
             "@tag": "TEST_BODY",
-            "#text": "The email sending appears to be working from your YAF installation."
+            "#text": "Der E-Mail-Versand scheint von Ihrer YAF-Installation aus zu funktionieren."
           },
           {
             "@tag": "TEST_SUBJECT",
-            "#text": "Test Email From Yet Another Forum.NET"
+            "#text": "Test-E-Mail von einem anderen Forum.NET"
           },
           {
             "@tag": "TEST_SUCCESS",
-            "#text": "Mail Sent. Verify it's received at your entered email address."
+            "#text": "Mail gesendet. Vergewissern Sie sich, dass die E-Mail an der eingegebenen Adresse eingegangen ist."
           },
           {
             "@tag": "TITLE",
@@ -5937,11 +5905,11 @@
           },
           {
             "@tag": "TO_MAIL",
-            "#text": "To Mail Address:"
+            "#text": "An die Postadresse:"
           },
           {
             "@tag": "TO_MAIL_HELP",
-            "#text": "Enter the Email Address where the test email should be send"
+            "#text": "Geben Sie die E-Mail-Adresse ein, an die die Test-E-Mail gesendet werden soll."
           }
         ]
       },
@@ -5962,11 +5930,11 @@
           },
           {
             "@tag": "MOVE_DOWN",
-            "#text": "Move Down"
+            "#text": "Nach unten bewegen"
           },
           {
             "@tag": "MOVE_UP",
-            "#text": "Move Up"
+            "#text": "Aufsteigen"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -6011,7 +5979,7 @@
           },
           {
             "@tag": "SAVE",
-            "#text": "Save Forum"
+            "#text": "Forum speichern"
           },
           {
             "@tag": "SERVER",
@@ -6048,7 +6016,7 @@
           },
           {
             "@tag": "NO_GROUPS",
-            "#text": "No Groups ready for retrieval"
+            "#text": "Keine Gruppen zum Abruf bereit"
           },
           {
             "@tag": "RETRIEVE",
@@ -6093,7 +6061,7 @@
           },
           {
             "@tag": "SAVE_SERVER",
-            "#text": "Save Server"
+            "#text": "Server speichern"
           },
           {
             "@tag": "TITLE",
@@ -6151,7 +6119,7 @@
         "Resource": [
           {
             "@tag": "BOARDNAME",
-            "#text": "Board Name"
+            "#text": "Name der Tafel"
           },
           {
             "@tag": "EDIT",
@@ -6205,15 +6173,15 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete Definition?"
+            "#text": "Definition löschen?"
           },
           {
             "@tag": "NEW_DEF",
-            "#text": "Add New Definition"
+            "#text": "Neue Definition hinzufügen"
           },
           {
             "@tag": "TITLE",
-            "#text": "Custom Profile Definitions"
+            "#text": "Benutzerdefinierte Profildefinitionen"
           }
         ]
       },
@@ -6222,7 +6190,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Web Profiler"
+            "#text": "Web-Profiler"
           }
         ]
       },
@@ -6231,7 +6199,7 @@
         "Resource": [
           {
             "@tag": "ALL_CATEGORIES",
-            "#text": "All Categories"
+            "#text": "Alle Kategorien"
           },
           {
             "@tag": "ALL_FORUMS",
@@ -6279,7 +6247,7 @@
           },
           {
             "@tag": "RESTORE_TOPIC",
-            "#text": "Restore Topic"
+            "#text": "Thema wiederherstellen"
           },
           {
             "@tag": "TITLE",
@@ -6287,7 +6255,7 @@
           },
           {
             "@tag": "TITLE_HELP",
-            "#text": "Option to delete All Topics that are not marked as persistent."
+            "#text": "Option zum Löschen aller Themen, die nicht als persistent gekennzeichnet sind."
           }
         ]
       },
@@ -6426,11 +6394,11 @@
           },
           {
             "@tag": "REINDEX_MSG",
-            "#text": "Please do not navigate away from this page..."
+            "#text": "Bitte navigieren Sie nicht von dieser Seite weg..."
           },
           {
             "@tag": "REINDEX_TITLE",
-            "#text": "Updating Tables"
+            "#text": "Tabellen aktualisieren"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6524,7 +6492,7 @@
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Word Replace"
+            "#text": "Word bearbeiten Ersetzen"
           }
         ]
       },
@@ -6587,47 +6555,47 @@
         "Resource": [
           {
             "@tag": "DELETE_ALL_ZERO",
-            "#text": "Delete all with 0 Posts"
+            "#text": "Alle mit 0 Beiträgen löschen"
           },
           {
             "@tag": "FILTER",
-            "#text": "Search by Topic Name"
+            "#text": "Suche nach Themennamen"
           },
           {
             "@tag": "FILTER_HELP",
-            "#text": "Filter list by Topic Name"
+            "#text": "Liste nach Themennamen filtern"
           },
           {
             "@tag": "MSG_DELETED",
-            "#text": "Topics deleted"
+            "#text": "Gelöschte Themen"
           },
           {
             "@tag": "MSG_RESTORED",
-            "#text": "Topic restored"
+            "#text": "Thema wiederhergestellt"
           },
           {
             "@tag": "RESTORE_MESSAGE",
-            "#text": "Restore Message"
+            "#text": "Nachricht wiederherstellen"
           },
           {
             "@tag": "SEARCH",
-            "#text": "Reload"
+            "#text": "Neu laden"
           },
           {
             "@tag": "TITLE",
-            "#text": "Restore & Delete Topics"
+            "#text": "Themen wiederherstellen und löschen"
           },
           {
             "@tag": "TITLE_HELP",
-            "#text": "Option to restore topics that are flagged as deleted topics, or to permanently delete them from the database."
+            "#text": "Option zum Wiederherstellen von Themen, die als gelöscht gekennzeichnet sind, oder zum endgültigen Löschen aus der Datenbank."
           },
           {
             "@tag": "TITLE_MESSAGE",
-            "#text": "Restore & Delete Messages"
+            "#text": "Nachrichten wiederherstellen und löschen"
           },
           {
             "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "Option to restore Messages that are flagged as deleted messages, or to permanently delete them from the database."
+            "#text": "Option zum Wiederherstellen von Nachrichten, die als gelöscht gekennzeichnet sind, oder zum endgültigen Löschen aus der Datenbank."
           }
         ]
       },
@@ -6640,7 +6608,7 @@
           },
           {
             "@tag": "NEED_QUERY",
-            "#text": "You need to enter a Query."
+            "#text": "Sie müssen eine Abfrage eingeben."
           },
           {
             "@tag": "RUN_QUERY",
@@ -6678,31 +6646,31 @@
           },
           {
             "@tag": "EXPORT",
-            "#text": "Export to XML"
+            "#text": "Exportieren nach XML"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import from XML"
+            "#text": "Import aus XML"
           },
           {
             "@tag": "MSG_DELETE",
-            "#text": "Delete this Word?"
+            "#text": "Dieses Wort löschen?"
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Note: </strong> The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'."
+            "#text": "<strong>Hinweis: </strong> Die Spam-Wörter werden für die interne SPAM-Erkennung verwendet, während der Registrierung wird die Homepage, die der Benutzer im Benutzerprofil eingibt, mit den Spam-Wörtern abgeglichen. Auch wenn ein Benutzer einen neuen Beitrag im Forum verfasst, wird dieser mit den Spam-Wörtern abgeglichen, wenn in den Host-Einstellungen 'SPAM-Dienst für automatische SPAM-Prüfung auswählen' auf 'Interne Spam-Prüfwörter' eingestellt ist."
           },
           {
             "@tag": "SAVE",
-            "#text": "Save Word"
+            "#text": "Wort speichern"
           },
           {
             "@tag": "SPAM",
-            "#text": "\"Spam\" Word (Find) Expression"
+            "#text": "\"Spam\"-Wort (Suchausdruck)"
           },
           {
             "@tag": "TITLE",
-            "#text": "Spam Check Words"
+            "#text": "Spam-Check-Wörter"
           }
         ]
       },
@@ -6711,15 +6679,15 @@
         "Resource": [
           {
             "@tag": "MSG_REGEX_SPAM",
-            "#text": "The Regular expression statement you have entered is invalid."
+            "#text": "Der von Ihnen eingegebene reguläre Ausdruck ist ungültig."
           },
           {
             "@tag": "NEED_SPAM",
-            "#text": "You must define a Spam word."
+            "#text": "Sie müssen ein Spam-Wort definieren."
           },
           {
             "@tag": "SPAM",
-            "#text": "\"Spam\" Word (Find) Expression:"
+            "#text": "\"Spam\"-Wort (Suche) Ausdruck:"
           },
           {
             "@tag": "SPAM_HELP",
@@ -6727,11 +6695,11 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Add New Spam Word"
+            "#text": "Neues Spam-Wort hinzufügen"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Spam Word"
+            "#text": "Spam-Wort bearbeiten"
           }
         ]
       },
@@ -6740,35 +6708,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import Spam Word List"
+            "#text": "Spam-Wortliste importieren"
           },
           {
             "@tag": "MSG_IMPORTED",
-            "#text": "{0} new spam word(s) were imported successfully."
+            "#text": "{0} neue(s) Spamwort(e) wurden erfolgreich importiert."
           },
           {
             "@tag": "MSG_IMPORTED_FAILED",
-            "#text": "Failed to import: Import file format is different than expected."
+            "#text": "Der Import ist fehlgeschlagen: Das Format der Importdatei ist anders als erwartet."
           },
           {
             "@tag": "MSG_IMPORTED_FAILEDX",
-            "#text": "Failed to import: {0}"
+            "#text": "Der Import ist fehlgeschlagen: {0}"
           },
           {
             "@tag": "MSG_NOTHING",
-            "#text": "Nothing imported: no new spam words were found in the upload."
+            "#text": "Nichts importiert: Es wurden keine neuen Spam-Wörter im Upload gefunden."
           },
           {
             "@tag": "SELECT_IMPORT",
-            "#text": "Select Import File:"
+            "#text": "Wählen Sie Datei importieren:"
           },
           {
             "@tag": "SELECT_IMPORT_HELP",
-            "#text": "(Must be *.xml file)"
+            "#text": "(Muss eine *.xml-Datei sein)"
           },
           {
             "@tag": "TITLE",
-            "#text": "Import Spam Words"
+            "#text": "Spam-Wörter importieren"
           }
         ]
       },
@@ -6777,15 +6745,15 @@
         "Resource": [
           {
             "@tag": "SHOW_TOPICS",
-            "#text": "Show Topic(s)"
+            "#text": "Thema(s) anzeigen"
           },
           {
             "@tag": "TITLE",
-            "#text": "Topic Tags"
+            "#text": "Themen-Tags"
           },
           {
             "@tag": "USAGES",
-            "#text": "Usages:"
+            "#text": "Verwendungen:"
           }
         ]
       },
@@ -6859,11 +6827,11 @@
           },
           {
             "@tag": "FILTER_BY_GROUP",
-            "#text": "Filter by Group..."
+            "#text": "Nach Gruppe filtern..."
           },
           {
             "@tag": "FILTER_BY_RANK",
-            "#text": "Filter by Rank..."
+            "#text": "Nach Rang filtern..."
           },
           {
             "@tag": "FILTER_DROPDOWN",
@@ -6871,7 +6839,7 @@
           },
           {
             "@tag": "FILTER_NO",
-            "#text": "[No Filter]"
+            "#text": "[Kein Filter]"
           },
           {
             "@tag": "HEADER",
@@ -6887,11 +6855,11 @@
           },
           {
             "@tag": "LOCK_INACTIVE",
-            "#text": "Lock inactive accounts"
+            "#text": "Inaktive Konten sperren"
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Lock inactive accounts older then x years. This will not delete there content (like posted messages)"
+            "#text": "Sperren Sie inaktive Konten, die älter als x Jahre sind. Dadurch werden die Inhalte (wie gepostete Nachrichten) nicht gelöscht."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6915,7 +6883,7 @@
           },
           {
             "@tag": "NOT_APPROVED",
-            "#text": "Not Approved"
+            "#text": "Nicht genehmigt"
           },
           {
             "@tag": "POSTS",
@@ -6935,7 +6903,7 @@
           },
           {
             "@tag": "SUSPENDED_ONLY",
-            "#text": "Show only suspended users?"
+            "#text": "Nur gesperrte Benutzer anzeigen?"
           },
           {
             "@tag": "SYNC_ALL",
@@ -6943,7 +6911,7 @@
           },
           {
             "@tag": "SYNC_FINISH",
-            "#text": "All Users are synchronized now"
+            "#text": "Alle Benutzer sind jetzt synchronisiert"
           },
           {
             "@tag": "TITLE",
@@ -7013,7 +6981,7 @@
           },
           {
             "@tag": "UPGRADE_VERSION",
-            "#text": "Download Upgrade Package"
+            "#text": "Upgrade-Paket herunterladen"
           }
         ]
       },
@@ -7030,7 +6998,7 @@
           },
           {
             "@tag": "ADMIN_ATTACHMENTS",
-            "#text": "Attachments"
+            "#text": "Anhänge"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -7050,11 +7018,11 @@
           },
           {
             "@tag": "ADMIN_BOARDANNOUNCEMENT",
-            "#text": "Board Announcement"
+            "#text": "Board-Ankündigung"
           },
           {
             "@tag": "ADMIN_BOARDS",
-            "#text": "Boards"
+            "#text": "Bretter"
           },
           {
             "@tag": "ADMIN_BOARDSETTINGS",
@@ -7062,7 +7030,7 @@
           },
           {
             "@tag": "ADMIN_DIGEST",
-            "#text": "Digest"
+            "#text": "Auszug"
           },
           {
             "@tag": "ADMIN_EVENTLOG",
@@ -7126,11 +7094,11 @@
           },
           {
             "@tag": "ADMIN_PROFILEDEFINITIONS",
-            "#text": "Custom Profile Definitions"
+            "#text": "Benutzerdefinierte Profildefinitionen"
           },
           {
             "@tag": "ADMIN_PROFILER",
-            "#text": "Web Profiler"
+            "#text": "Web-Profiler"
           },
           {
             "@tag": "ADMIN_PRUNE",
@@ -7154,7 +7122,7 @@
           },
           {
             "@tag": "ADMIN_RESTORE",
-            "#text": "Restore & Delete Topics"
+            "#text": "Themen wiederherstellen und löschen"
           },
           {
             "@tag": "ADMIN_RUNSQL",
@@ -7231,7 +7199,7 @@
           },
           {
             "@tag": "ALBUM_IMAGE_CHANGE_CAPTION2",
-            "#text": "Change Caption"
+            "#text": "Beschriftung ändern"
           },
           {
             "@tag": "ALBUM_IMAGES_NUMBER",
@@ -7301,7 +7269,7 @@
         "Resource": [
           {
             "@tag": "ADD_FILES",
-            "#text": "Add file(s)..."
+            "#text": "Datei(en) hinzufügen..."
           },
           {
             "@tag": "ALLOWED_EXTENSIONS",
@@ -7313,15 +7281,15 @@
           },
           {
             "@tag": "COMPLETE_WARNING",
-            "#text": "Please wait until all Upload(s) are completed and the Dialog closes itself!"
+            "#text": "Bitte warten Sie, bis alle Uploads abgeschlossen sind und sich der Dialog von selbst schließt!"
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "Anhang(e) löschen?"
           },
           {
             "@tag": "CURRENT_UPLOADS",
-            "#text": "Current Attachment Uploads:"
+            "#text": "Aktuelle Attachment-Uploads:"
           },
           {
             "@tag": "DELETE",
@@ -7329,7 +7297,7 @@
           },
           {
             "@tag": "DELETED",
-            "#text": "{0} Attachment(s) deleted!"
+            "#text": "{0} Anlage(n) gelöscht!"
           },
           {
             "@tag": "DISALLOWED_EXTENSIONS",
@@ -7337,7 +7305,7 @@
           },
           {
             "@tag": "DROP_HERE",
-            "#text": "Drop file(s) here"
+            "#text": "Datei(en) hier ablegen"
           },
           {
             "@tag": "FILEERROR",
@@ -7349,7 +7317,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "You don't have any attachments yet, to add one click on the <strong>Upload New File(s)</strong> button"
+            "#text": "Sie haben noch keine Anhänge. Um einen hinzuzufügen, klicken Sie auf die Schaltfläche <strong>Neue Datei(en)</strong> hochladen"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7361,7 +7329,7 @@
           },
           {
             "@tag": "START_UPLOADS",
-            "#text": "Start upload(s)"
+            "#text": "Start Upload(s)"
           },
           {
             "@tag": "TITLE",
@@ -7373,7 +7341,7 @@
           },
           {
             "@tag": "UPLOAD_NEW",
-            "#text": "Upload New File(s)"
+            "#text": "Neue Datei(en) hochladen"
           },
           {
             "@tag": "UPLOAD_NOTE",
@@ -7419,11 +7387,11 @@
           },
           {
             "@tag": "ATTACH_DESCRIPTION",
-            "#text": "Enter a Attachment ID"
+            "#text": "Geben Sie eine Attachment-ID ein"
           },
           {
             "@tag": "ATTACH_NO",
-            "#text": "You have insufficient rights to see the content."
+            "#text": "Sie haben keine ausreichenden Rechte, um den Inhalt zu sehen."
           },
           {
             "@tag": "DAILYMOTION_DESCRIPTION",
@@ -7431,7 +7399,7 @@
           },
           {
             "@tag": "FACEBOOK_DESCRIPTION",
-            "#text": "Enter the Url of the post or the Embed Code of the Post you want to embed"
+            "#text": "Geben Sie die Url des Beitrags oder den Einbettungscode des Beitrags ein, den Sie einbetten möchten."
           },
           {
             "@tag": "GOOGLEMAPS_DESCRIPTION",
@@ -7491,7 +7459,7 @@
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
-            "#text": "Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/"
+            "#text": "Geben Sie hier die URL eines Instagram-Posts ein, z. B.: https://www.instagram.com/p/BS2kMaZl2XO/"
           },
           {
             "@tag": "SPOILERMOD_DESCRIPTION",
@@ -7528,7 +7496,7 @@
         "Resource": [
           {
             "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Friend Requests"
+            "#text": "Freundschaftsanfragen blockieren"
           },
           {
             "@tag": "BLOCK_BUDDYS",
@@ -7536,35 +7504,35 @@
           },
           {
             "@tag": "BLOCK_EMAILS",
-            "#text": "Block E-Mails"
+            "#text": "E-Mails blockieren"
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Block Options"
+            "#text": "Optionen blockieren"
           },
           {
             "@tag": "BLOCK_PMS",
-            "#text": "Block Private Messages"
+            "#text": "Private Nachrichten blockieren"
           },
           {
             "@tag": "IGNORED_USERS",
-            "#text": "Ignored User List"
+            "#text": "Ignorierte Benutzerliste"
           },
           {
             "@tag": "NOTE_BLOCK",
-            "#text": "Admins and Users in the Friend List will be excluded from the Blocking!"
+            "#text": "Admins und Benutzer in der Freundesliste werden von der Sperrung ausgeschlossen!"
           },
           {
             "@tag": "NOTE_USERS",
-            "#text": "Posts of Ignored Users will be hidden. This does not include Quoted Posts"
+            "#text": "Beiträge von ignorierten Benutzern werden ausgeblendet. Dies gilt nicht für zitierte Beiträge"
           },
           {
             "@tag": "SELECT_OPTIONS",
-            "#text": "Options to Block other Users from Contacting you..."
+            "#text": "Optionen zum Blockieren der Kontaktaufnahme durch andere Benutzer..."
           },
           {
             "@tag": "TITLE",
-            "#text": "User Block Options & Ignored Users"
+            "#text": "Optionen für Benutzersperren und ignorierte Benutzer"
           }
         ]
       },
@@ -7654,11 +7622,11 @@
           },
           {
             "@tag": "BUTTON_DELETE_UNDELETE",
-            "#text": "Delete from DB"
+            "#text": "Aus DB löschen"
           },
           {
             "@tag": "BUTTON_DELETE_UNDELETE_TT",
-            "#text": "Delete this post from the Database"
+            "#text": "Diesen Beitrag aus der Datenbank löschen"
           },
           {
             "@tag": "BUTTON_DELETEALBUM",
@@ -7666,11 +7634,11 @@
           },
           {
             "@tag": "BUTTON_DELETEATTACHMENT",
-            "#text": "Delete Attachment(s)"
+            "#text": "Anlage(n) löschen"
           },
           {
             "@tag": "BUTTON_DELETEATTACHMENT_TT",
-            "#text": "Delete selected attachment(s)s"
+            "#text": "Ausgewählte(n) Anhang(e) löschen"
           },
           {
             "@tag": "BUTTON_DELETETOPIC",
@@ -7859,7 +7827,7 @@
           },
           {
             "@tag": "EMPTY_PASSWORD",
-            "#text": "Please Enter your Current Password"
+            "#text": "Bitte geben Sie Ihr aktuelles Passwort ein"
           },
           {
             "@tag": "EMPTY_QUESTION",
@@ -7907,27 +7875,27 @@
           },
           {
             "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "New Security Answer:"
+            "#text": "Neue Sicherheit Antwort:"
           },
           {
             "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "Current Password:"
+            "#text": "Aktuelles Passwort:"
           },
           {
             "@tag": "SECURITY_CHANGED",
-            "#text": "Password Question and Answer changed."
+            "#text": "Passwort Frage und Antwort geändert."
           },
           {
             "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "Change failed. Please re-enter your values and try again."
+            "#text": "Änderung fehlgeschlagen. Bitte geben Sie Ihre Werte erneut ein und versuchen Sie es erneut."
           },
           {
             "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "New Security Question:"
+            "#text": "Neue Sicherheitsfrage:"
           },
           {
             "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "Old Security Question:"
+            "#text": "Alte Sicherheitsfrage:"
           },
           {
             "@tag": "TITLE",
@@ -7935,7 +7903,7 @@
           },
           {
             "@tag": "TITLE_SECURITY",
-            "#text": "Change Security Question and Answer"
+            "#text": "Frage und Antwort zur Sicherheit ändern"
           }
         ]
       },
@@ -7969,7 +7937,7 @@
           },
           {
             "@tag": "ATTACH_BBCODE",
-            "#text": "Insert an existing Attachment or upload a new File..."
+            "#text": "Einfügen eines bestehenden Anhangs oder Hochladen einer neuen Datei..."
           },
           {
             "@tag": "BACK",
@@ -8009,7 +7977,7 @@
           },
           {
             "@tag": "BROWSE",
-            "#text": "Browse"
+            "#text": "Durchsuchen Sie"
           },
           {
             "@tag": "CAL_JQ_TT",
@@ -8089,19 +8057,19 @@
           },
           {
             "@tag": "COOKIE",
-            "#text": "The {0} uses cookies. By continuing to browse this site, you are agreeing to our use of cookies."
+            "#text": "Die {0} verwendet Cookies. Wenn Sie auf dieser Seite weitersurfen, erklären Sie sich mit der Verwendung von Cookies einverstanden."
           },
           {
             "@tag": "COOKIE_AGREE",
-            "#text": "Close"
+            "#text": "Schließen Sie"
           },
           {
             "@tag": "COOKIE_DETAILS",
-            "#text": "More Details"
+            "#text": "Mehr Details"
           },
           {
             "@tag": "COOKIE_HEADER",
-            "#text": "Important Information:"
+            "#text": "Wichtige Informationen:"
           },
           {
             "@tag": "COPY",
@@ -8117,11 +8085,11 @@
           },
           {
             "@tag": "DELETED_MESSAGE",
-            "#text": "Message with ID: {0} Deleted"
+            "#text": "Nachricht mit ID: {0} Gelöscht"
           },
           {
             "@tag": "DELETED_TOPIC",
-            "#text": "Topic with ID: {0} Deleted"
+            "#text": "Thema mit ID: {0} Gelöscht"
           },
           {
             "@tag": "DISALLOWED",
@@ -8141,27 +8109,27 @@
           },
           {
             "@tag": "ENTRIES_10",
-            "#text": "10 Entries"
+            "#text": "10 Eintragungen"
           },
           {
             "@tag": "ENTRIES_15",
-            "#text": "15 Entries"
+            "#text": "15 Eintragungen"
           },
           {
             "@tag": "ENTRIES_20",
-            "#text": "20 Entries"
+            "#text": "20 Einträge"
           },
           {
             "@tag": "ENTRIES_25",
-            "#text": "25 Entries"
+            "#text": "25 Einträge"
           },
           {
             "@tag": "ENTRIES_5",
-            "#text": "5 Entries"
+            "#text": "5 Eintragungen"
           },
           {
             "@tag": "ENTRIES_50",
-            "#text": "50 Entries"
+            "#text": "50 Einträge"
           },
           {
             "@tag": "EXTERNALUSER",
@@ -8205,11 +8173,11 @@
           },
           {
             "@tag": "FORUM_JUMP_PLACEHOLDER",
-            "#text": "Select a Forum to Go to..."
+            "#text": "Wählen Sie ein Forum aus, zu dem Sie gehen möchten..."
           },
           {
             "@tag": "FORUMS_SHOWN",
-            "#text": "{0} of {1} Forums shown"
+            "#text": "{0} von {1} Foren gezeigt"
           },
           {
             "@tag": "GENERATED",
@@ -8257,11 +8225,11 @@
           },
           {
             "@tag": "IN_FORUM",
-            "#text": "in Forum: {0}"
+            "#text": "im Forum: {0}"
           },
           {
             "@tag": "LOAD_MORE",
-            "#text": "Show More Categories & Forums..."
+            "#text": "Mehr Kategorien & Foren anzeigen..."
           },
           {
             "@tag": "LOADING",
@@ -8269,7 +8237,7 @@
           },
           {
             "@tag": "MANAGE",
-            "#text": "Manage"
+            "#text": "Verwalten Sie"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8277,7 +8245,7 @@
           },
           {
             "@tag": "MENU",
-            "#text": "Menu"
+            "#text": "Menü"
           },
           {
             "@tag": "MESSAGE",
@@ -8313,7 +8281,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Note:"
+            "#text": "Anmerkung:"
           },
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
@@ -8333,7 +8301,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL",
-            "#text": "New SPAM Message on {0} Forum needs to be checked"
+            "#text": "Neue SPAM-Nachricht im {0} Forum muss überprüft werden"
           },
           {
             "@tag": "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT",
@@ -8341,7 +8309,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
-            "#text": "Suspension of your {0} Forum Account"
+            "#text": "Suspendierung Ihres {0} Forum-Kontos"
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
@@ -8349,11 +8317,11 @@
           },
           {
             "@tag": "NOTIFICATION_ON_WELCOME_USER_SUBJECT",
-            "#text": "Welcome to the {0} Forum"
+            "#text": "Willkommen im {0} Forum"
           },
           {
             "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
-            "#text": "{0} Forum Account Update"
+            "#text": "{0} Forum Konto Update"
           },
           {
             "@tag": "OK",
@@ -8365,7 +8333,7 @@
           },
           {
             "@tag": "PAGE",
-            "#text": "Page"
+            "#text": "Seite"
           },
           {
             "@tag": "PAGES",
@@ -8381,7 +8349,7 @@
           },
           {
             "@tag": "POWERED_BY",
-            "#text": "Powered by"
+            "#text": "Angetrieben durch"
           },
           {
             "@tag": "PRIORITY",
@@ -8389,7 +8357,7 @@
           },
           {
             "@tag": "PRIVACY_POLICY",
-            "#text": "Privacy Policy"
+            "#text": "Datenschutzbestimmungen"
           },
           {
             "@tag": "READ",
@@ -8417,15 +8385,15 @@
           },
           {
             "@tag": "SELECTED_COPY",
-            "#text": "Copy Selected Text"
+            "#text": "Ausgewählten Text kopieren"
           },
           {
             "@tag": "SELECTED_QUOTE",
-            "#text": "Quote Selected Text"
+            "#text": "Ausgewählten Text zitieren"
           },
           {
             "@tag": "SELECTED_SEARCH",
-            "#text": "Search Google for ..."
+            "#text": "Suche mit Google nach ..."
           },
           {
             "@tag": "SHOWHIDE",
@@ -8501,7 +8469,7 @@
           },
           {
             "@tag": "TT_SAVE",
-            "#text": "Save Message Draft"
+            "#text": "Entwurf einer Nachricht speichern"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8509,11 +8477,11 @@
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
-            "#text": "You have {0} unread Mentions, would you like to go to the newest one?"
+            "#text": "Sie haben {0} ungelesene Erwähnungen, möchten Sie zur neuesten Erwähnung wechseln?"
           },
           {
             "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "Somebody Mentioned you in a Topic"
+            "#text": "Jemand hat Sie in einem Thema erwähnt"
           },
           {
             "@tag": "UNREAD_MSG",
@@ -8529,19 +8497,19 @@
           },
           {
             "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "You have {0} unread quoted Posts, would you like to go to the newest one?"
+            "#text": "Sie haben {0} ungelesene zitierte Beiträge, möchten Sie zum neuesten Beitrag wechseln?"
           },
           {
             "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "Somebody Quoted you in a Topic"
+            "#text": "Jemand hat Sie in einem Thema zitiert"
           },
           {
             "@tag": "UNREAD_THANKS_MSG",
-            "#text": "You have {0} unread received Thanks, would you like to go to the newest one?"
+            "#text": "Sie haben {0} ungelesene Nachrichten erhalten Danke, möchten Sie die neueste Nachricht sehen?"
           },
           {
             "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "Somebody Thanked you for a Message"
+            "#text": "Jemand hat Ihnen für eine Nachricht gedankt"
           },
           {
             "@tag": "UPDATE",
@@ -8598,7 +8566,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Cookie Policy"
+            "#text": "Cookie-Richtlinie"
           }
         ]
       },
@@ -8611,7 +8579,7 @@
           },
           {
             "@tag": "AE",
-            "#text": "United Arab Emirates"
+            "#text": "Vereinigte Arabische Emirate"
           },
           {
             "@tag": "AF",
@@ -8619,7 +8587,7 @@
           },
           {
             "@tag": "AG",
-            "#text": "Antigua and Barbuda"
+            "#text": "Antigua und Barbuda"
           },
           {
             "@tag": "AI",
@@ -8627,15 +8595,15 @@
           },
           {
             "@tag": "AL",
-            "#text": "Albania"
+            "#text": "Albanien"
           },
           {
             "@tag": "AM",
-            "#text": "Armenia"
+            "#text": "Armenien"
           },
           {
             "@tag": "AN",
-            "#text": "Netherlands Antilles"
+            "#text": "Niederländische Antillen"
           },
           {
             "@tag": "AO",
@@ -8643,23 +8611,23 @@
           },
           {
             "@tag": "AQ",
-            "#text": "Antarctica"
+            "#text": "Antarktis"
           },
           {
             "@tag": "AR",
-            "#text": "Argentina"
+            "#text": "Argentinien"
           },
           {
             "@tag": "AS",
-            "#text": "American Samoa"
+            "#text": "Amerikanisch-Samoa"
           },
           {
             "@tag": "AT",
-            "#text": "Austria"
+            "#text": "Österreich"
           },
           {
             "@tag": "AU",
-            "#text": "Australia"
+            "#text": "Australien"
           },
           {
             "@tag": "AW",
@@ -8667,11 +8635,11 @@
           },
           {
             "@tag": "AZ",
-            "#text": "Azerbaijan"
+            "#text": "Aserbaidschan"
           },
           {
             "@tag": "BA",
-            "#text": "Bosnia and Herzegovina"
+            "#text": "Bosnien und Herzegowina"
           },
           {
             "@tag": "BB",
@@ -8679,11 +8647,11 @@
           },
           {
             "@tag": "BD",
-            "#text": "Bangladesh"
+            "#text": "Bangladesch"
           },
           {
             "@tag": "BE",
-            "#text": "Belgium"
+            "#text": "Belgien"
           },
           {
             "@tag": "BF",
@@ -8691,7 +8659,7 @@
           },
           {
             "@tag": "BG",
-            "#text": "Bulgaria"
+            "#text": "Bulgarien"
           },
           {
             "@tag": "BH",
@@ -8715,11 +8683,11 @@
           },
           {
             "@tag": "BO",
-            "#text": "Bolivia"
+            "#text": "Bolivien"
           },
           {
             "@tag": "BR",
-            "#text": "Brazil"
+            "#text": "Brasilien"
           },
           {
             "@tag": "BS",
@@ -8731,7 +8699,7 @@
           },
           {
             "@tag": "BV",
-            "#text": "Bouvet Island"
+            "#text": "Bouvetinsel"
           },
           {
             "@tag": "BW",
@@ -8739,7 +8707,7 @@
           },
           {
             "@tag": "BY",
-            "#text": "Belarus"
+            "#text": "Weißrussland"
           },
           {
             "@tag": "BZ",
@@ -8747,35 +8715,35 @@
           },
           {
             "@tag": "CA",
-            "#text": "Canada"
+            "#text": "Kanada"
           },
           {
             "@tag": "CC",
-            "#text": "Cocos (Keeling) Islands"
+            "#text": "Cocos (Keeling) Inseln"
           },
           {
             "@tag": "CD",
-            "#text": "Congo, The DRC"
+            "#text": "Kongo, die DRC"
           },
           {
             "@tag": "CF",
-            "#text": "Central African Republic"
+            "#text": "Zentralafrikanische Republik"
           },
           {
             "@tag": "CG",
-            "#text": "Congo"
+            "#text": "Kongo"
           },
           {
             "@tag": "CH",
-            "#text": "Switzerland"
+            "#text": "Schweiz"
           },
           {
             "@tag": "CI",
-            "#text": "Cote d'Ivoire"
+            "#text": "Côte d'Ivoire"
           },
           {
             "@tag": "CK",
-            "#text": "Cook Islands"
+            "#text": "Cookinseln"
           },
           {
             "@tag": "CL",
@@ -8783,7 +8751,7 @@
           },
           {
             "@tag": "CM",
-            "#text": "Cameroon"
+            "#text": "Kamerun"
           },
           {
             "@tag": "CN",
@@ -8791,7 +8759,7 @@
           },
           {
             "@tag": "CO",
-            "#text": "Colombia"
+            "#text": "Kolumbien"
           },
           {
             "@tag": "CR",
@@ -8799,35 +8767,35 @@
           },
           {
             "@tag": "CU",
-            "#text": "Cuba"
+            "#text": "Kuba"
           },
           {
             "@tag": "CV",
-            "#text": "Cape Verde"
+            "#text": "Kap Verde"
           },
           {
             "@tag": "CX",
-            "#text": "Christmas Island"
+            "#text": "Weihnachtsinsel"
           },
           {
             "@tag": "CY",
-            "#text": "Cyprus"
+            "#text": "Zypern"
           },
           {
             "@tag": "CZ",
-            "#text": "Czech Republic"
+            "#text": "Tschechische Republik"
           },
           {
             "@tag": "DE",
-            "#text": "Germany"
+            "#text": "Deutschland"
           },
           {
             "@tag": "DJ",
-            "#text": "Djibouti"
+            "#text": "Dschibuti"
           },
           {
             "@tag": "DK",
-            "#text": "Denmark"
+            "#text": "Dänemark"
           },
           {
             "@tag": "DM",
@@ -8835,11 +8803,11 @@
           },
           {
             "@tag": "DO",
-            "#text": "Dominican Republic"
+            "#text": "Dominikanische Republik"
           },
           {
             "@tag": "DZ",
-            "#text": "Algeria"
+            "#text": "Algerien"
           },
           {
             "@tag": "EC",
@@ -8847,15 +8815,15 @@
           },
           {
             "@tag": "EE",
-            "#text": "Estonia"
+            "#text": "Estland"
           },
           {
             "@tag": "EG",
-            "#text": "Egypt"
+            "#text": "Ägypten"
           },
           {
             "@tag": "EH",
-            "#text": "Western Sahara"
+            "#text": "Westsahara"
           },
           {
             "@tag": "ER",
@@ -8863,47 +8831,47 @@
           },
           {
             "@tag": "ES",
-            "#text": "Spain"
+            "#text": "Spanien"
           },
           {
             "@tag": "ET",
-            "#text": "Ethiopia"
+            "#text": "Äthiopien"
           },
           {
             "@tag": "FI",
-            "#text": "Finland"
+            "#text": "Finnland"
           },
           {
             "@tag": "FJ",
-            "#text": "Fiji"
+            "#text": "Fidschi"
           },
           {
             "@tag": "FK",
-            "#text": "Falkland Islands (Malvinas)"
+            "#text": "Falklandinseln (Malwinen)"
           },
           {
             "@tag": "FM",
-            "#text": "Micronesia, Federated States Of"
+            "#text": "Mikronesien, Föderierte Staaten von"
           },
           {
             "@tag": "FO",
-            "#text": "Faroe Islands"
+            "#text": "Färöer Inseln"
           },
           {
             "@tag": "FR",
-            "#text": "France"
+            "#text": "Frankreich"
           },
           {
             "@tag": "FX",
-            "#text": "France, Metropolitan"
+            "#text": "Frankreich, Metropolregion"
           },
           {
             "@tag": "GA",
-            "#text": "Gabon"
+            "#text": "Gabun"
           },
           {
             "@tag": "GB",
-            "#text": "United Kingdom"
+            "#text": "Vereinigtes Königreich"
           },
           {
             "@tag": "GD",
@@ -8911,11 +8879,11 @@
           },
           {
             "@tag": "GE",
-            "#text": "Georgia"
+            "#text": "Georgien"
           },
           {
             "@tag": "GF",
-            "#text": "French Guyana"
+            "#text": "Französisch-Guayana"
           },
           {
             "@tag": "GH",
@@ -8927,7 +8895,7 @@
           },
           {
             "@tag": "GL",
-            "#text": "Greenland"
+            "#text": "Grönland"
           },
           {
             "@tag": "GM",
@@ -8943,15 +8911,15 @@
           },
           {
             "@tag": "GQ",
-            "#text": "Equatorial Guinea"
+            "#text": "Äquatorialguinea"
           },
           {
             "@tag": "GR",
-            "#text": "Greece"
+            "#text": "Griechenland"
           },
           {
             "@tag": "GS",
-            "#text": "South Georgia And South S.S."
+            "#text": "Südgeorgien und Südsudan"
           },
           {
             "@tag": "GT",
@@ -8971,11 +8939,11 @@
           },
           {
             "@tag": "HK",
-            "#text": "Hong Kong"
+            "#text": "Hongkong"
           },
           {
             "@tag": "HM",
-            "#text": "Heard and Mc Donald Islands"
+            "#text": "Heard- und Mc Donald-Inseln"
           },
           {
             "@tag": "HN",
@@ -8983,7 +8951,7 @@
           },
           {
             "@tag": "HR",
-            "#text": "Croatia"
+            "#text": "Kroatien"
           },
           {
             "@tag": "HT",
@@ -8991,15 +8959,15 @@
           },
           {
             "@tag": "HU",
-            "#text": "Hungary"
+            "#text": "Ungarn"
           },
           {
             "@tag": "ID",
-            "#text": "Indonesia"
+            "#text": "Indonesien"
           },
           {
             "@tag": "IE",
-            "#text": "Ireland"
+            "#text": "Irland"
           },
           {
             "@tag": "IL",
@@ -9007,35 +8975,35 @@
           },
           {
             "@tag": "IN",
-            "#text": "India"
+            "#text": "Indien"
           },
           {
             "@tag": "IO",
-            "#text": "British Indian Ocean Territory"
+            "#text": "Britisches Territorium im Indischen Ozean"
           },
           {
             "@tag": "IQ",
-            "#text": "Iraq"
+            "#text": "Irak"
           },
           {
             "@tag": "IR",
-            "#text": "Iran (Islamic Republic Of)"
+            "#text": "Iran (Islamische Republik)"
           },
           {
             "@tag": "IS",
-            "#text": "Iceland"
+            "#text": "Island"
           },
           {
             "@tag": "IT",
-            "#text": "Italy"
+            "#text": "Italien"
           },
           {
             "@tag": "JM",
-            "#text": "Jamaica"
+            "#text": "Jamaika"
           },
           {
             "@tag": "JO",
-            "#text": "Jordan"
+            "#text": "Jordanien"
           },
           {
             "@tag": "JP",
@@ -9043,15 +9011,15 @@
           },
           {
             "@tag": "KE",
-            "#text": "Kenya"
+            "#text": "Kenia"
           },
           {
             "@tag": "KG",
-            "#text": "Kyrgyzstan"
+            "#text": "Kirgisistan"
           },
           {
             "@tag": "KH",
-            "#text": "Cambodja"
+            "#text": "Kambodscha"
           },
           {
             "@tag": "KI",
@@ -9059,11 +9027,11 @@
           },
           {
             "@tag": "KM",
-            "#text": "Comoros"
+            "#text": "Komoren"
           },
           {
             "@tag": "KN",
-            "#text": "Saint Kitts And Nevis"
+            "#text": "St. Kitts und Nevis"
           },
           {
             "@tag": "KP",
@@ -9071,15 +9039,15 @@
           },
           {
             "@tag": "KR",
-            "#text": "Korea, Republic Of"
+            "#text": "Korea, Republik"
           },
           {
             "@tag": "KY",
-            "#text": "Cayman Islands"
+            "#text": "Kaimaninseln"
           },
           {
             "@tag": "KZ",
-            "#text": "Kazakhstan"
+            "#text": "Kasachstan"
           },
           {
             "@tag": "LA",
@@ -9087,11 +9055,11 @@
           },
           {
             "@tag": "LB",
-            "#text": "Lebanon"
+            "#text": "Libanon"
           },
           {
             "@tag": "LC",
-            "#text": "Saint Lucia"
+            "#text": "St. Lucia"
           },
           {
             "@tag": "LI",
@@ -9111,23 +9079,23 @@
           },
           {
             "@tag": "LT",
-            "#text": "Lithuania"
+            "#text": "Litauen"
           },
           {
             "@tag": "LU",
-            "#text": "Luxembourg"
+            "#text": "Luxemburg"
           },
           {
             "@tag": "LV",
-            "#text": "Latvia"
+            "#text": "Lettland"
           },
           {
             "@tag": "LY",
-            "#text": "Libyan Arab Jamahiriya"
+            "#text": "Libysch-Arabische Dschamahirija"
           },
           {
             "@tag": "MA",
-            "#text": "Morocco"
+            "#text": "Marokko"
           },
           {
             "@tag": "MC",
@@ -9135,7 +9103,7 @@
           },
           {
             "@tag": "MD",
-            "#text": "Moldova, Republic Of"
+            "#text": "Moldawien, Republik"
           },
           {
             "@tag": "ME",
@@ -9143,15 +9111,15 @@
           },
           {
             "@tag": "MG",
-            "#text": "Madagascar"
+            "#text": "Madagaskar"
           },
           {
             "@tag": "MH",
-            "#text": "Marshall Islands"
+            "#text": "Marshallinseln"
           },
           {
             "@tag": "MK",
-            "#text": "Macedonia"
+            "#text": "Mazedonien"
           },
           {
             "@tag": "ML",
@@ -9159,11 +9127,11 @@
           },
           {
             "@tag": "MM",
-            "#text": "Myanmar (Burma)"
+            "#text": "Myanmar (Birma)"
           },
           {
             "@tag": "MN",
-            "#text": "Mongolia"
+            "#text": "Mongolei"
           },
           {
             "@tag": "MO",
@@ -9171,7 +9139,7 @@
           },
           {
             "@tag": "MP",
-            "#text": "Northern Mariana Islands"
+            "#text": "Nördliche Marianen"
           },
           {
             "@tag": "MQ",
@@ -9179,7 +9147,7 @@
           },
           {
             "@tag": "MR",
-            "#text": "Mauretania"
+            "#text": "Mauretanien"
           },
           {
             "@tag": "MS",
@@ -9195,7 +9163,7 @@
           },
           {
             "@tag": "MV",
-            "#text": "Maldives"
+            "#text": "Malediven"
           },
           {
             "@tag": "MW",
@@ -9203,7 +9171,7 @@
           },
           {
             "@tag": "MX",
-            "#text": "Mexico"
+            "#text": "Mexiko"
           },
           {
             "@tag": "MY",
@@ -9211,7 +9179,7 @@
           },
           {
             "@tag": "MZ",
-            "#text": "Mozambique"
+            "#text": "Mosambik"
           },
           {
             "@tag": "NA",
@@ -9219,7 +9187,7 @@
           },
           {
             "@tag": "NC",
-            "#text": "New Caledonia"
+            "#text": "Neukaledonien"
           },
           {
             "@tag": "NE",
@@ -9227,7 +9195,7 @@
           },
           {
             "@tag": "NF",
-            "#text": "Norfolk Islan"
+            "#text": "Norfolkinsel"
           },
           {
             "@tag": "NG",
@@ -9239,11 +9207,11 @@
           },
           {
             "@tag": "NL",
-            "#text": "Netherlands"
+            "#text": "Niederlande"
           },
           {
             "@tag": "NO",
-            "#text": "Norway"
+            "#text": "Norwegen"
           },
           {
             "@tag": "NP",
@@ -9259,7 +9227,7 @@
           },
           {
             "@tag": "NZ",
-            "#text": "New Zealand"
+            "#text": "Neuseeland"
           },
           {
             "@tag": "OM",
@@ -9275,15 +9243,15 @@
           },
           {
             "@tag": "PF",
-            "#text": "French Polynesia"
+            "#text": "Französisch-Polynesien"
           },
           {
             "@tag": "PG",
-            "#text": "Papua New Guinea"
+            "#text": "Papua-Neuguinea"
           },
           {
             "@tag": "PH",
-            "#text": "Philippines"
+            "#text": "Philippinen"
           },
           {
             "@tag": "PK",
@@ -9291,11 +9259,11 @@
           },
           {
             "@tag": "PL",
-            "#text": "Poland"
+            "#text": "Polen"
           },
           {
             "@tag": "PM",
-            "#text": "St. Pierre And Miquelon"
+            "#text": "St. Pierre und Miquelon"
           },
           {
             "@tag": "PN",
@@ -9319,35 +9287,35 @@
           },
           {
             "@tag": "QA",
-            "#text": "Qatar"
+            "#text": "Katar"
           },
           {
             "@tag": "RE",
-            "#text": "Reunion"
+            "#text": "Wiedersehen"
           },
           {
             "@tag": "RO",
-            "#text": "Romania"
+            "#text": "Rumänien"
           },
           {
             "@tag": "RU",
-            "#text": "Russian Federation"
+            "#text": "Russische Föderation"
           },
           {
             "@tag": "RW",
-            "#text": "Rwanda"
+            "#text": "Ruanda"
           },
           {
             "@tag": "SA",
-            "#text": "Saudi Arabia"
+            "#text": "Saudi-Arabien"
           },
           {
             "@tag": "SB",
-            "#text": "Solomon Islands"
+            "#text": "Salomoninseln"
           },
           {
             "@tag": "SC",
-            "#text": "Seychelles"
+            "#text": "Seychellen"
           },
           {
             "@tag": "SD",
@@ -9355,11 +9323,11 @@
           },
           {
             "@tag": "SE",
-            "#text": "Sweden"
+            "#text": "Schweden"
           },
           {
             "@tag": "SG",
-            "#text": "Singapore"
+            "#text": "Singapur"
           },
           {
             "@tag": "SH",
@@ -9367,15 +9335,15 @@
           },
           {
             "@tag": "SI",
-            "#text": "Slovenia"
+            "#text": "Slowenien"
           },
           {
             "@tag": "SJ",
-            "#text": "Svalbard And Jan Mayen Islands"
+            "#text": "Svalbard und Jan Mayen Inseln"
           },
           {
             "@tag": "SK",
-            "#text": "Slovakia"
+            "#text": "Slowakei"
           },
           {
             "@tag": "SL",
@@ -9395,15 +9363,15 @@
           },
           {
             "@tag": "SP",
-            "#text": "Serbia"
+            "#text": "Serbien"
           },
           {
             "@tag": "SR",
-            "#text": "Suriname"
+            "#text": "Surinam"
           },
           {
             "@tag": "ST",
-            "#text": "Sao Tome And Principe"
+            "#text": "Sao Tome und Principe"
           },
           {
             "@tag": "SV",
@@ -9411,15 +9379,15 @@
           },
           {
             "@tag": "SY",
-            "#text": "Syrian Arab Republic"
+            "#text": "Arabische Republik Syrien"
           },
           {
             "@tag": "SZ",
-            "#text": "Swaziland"
+            "#text": "Swasiland"
           },
           {
             "@tag": "TC",
-            "#text": "Turks And Caicos Islands"
+            "#text": "Turks- und Caicosinseln"
           },
           {
             "@tag": "TD",
@@ -9427,7 +9395,7 @@
           },
           {
             "@tag": "TF",
-            "#text": "French Southern Territories"
+            "#text": "Französische Süd-Territorien"
           },
           {
             "@tag": "TG",
@@ -9439,7 +9407,7 @@
           },
           {
             "@tag": "TJ",
-            "#text": "Tajikistan"
+            "#text": "Tadschikistan"
           },
           {
             "@tag": "TK",
@@ -9451,7 +9419,7 @@
           },
           {
             "@tag": "TN",
-            "#text": "Tunisia"
+            "#text": "Tunesien"
           },
           {
             "@tag": "TO",
@@ -9459,15 +9427,15 @@
           },
           {
             "@tag": "TP",
-            "#text": "East Timor"
+            "#text": "Osttimor"
           },
           {
             "@tag": "TR",
-            "#text": "Turkey"
+            "#text": "Türkei"
           },
           {
             "@tag": "TT",
-            "#text": "Trinidad And Tobago"
+            "#text": "Trinidad und Tobago"
           },
           {
             "@tag": "TV",
@@ -9475,11 +9443,11 @@
           },
           {
             "@tag": "TW",
-            "#text": "Taiwan, Province Of China"
+            "#text": "Taiwan, Provinz China"
           },
           {
             "@tag": "TZ",
-            "#text": "Tanzania, United Republic Of"
+            "#text": "Tansania, Vereinigte Republik"
           },
           {
             "@tag": "UA",
@@ -9495,7 +9463,7 @@
           },
           {
             "@tag": "US",
-            "#text": "United States"
+            "#text": "Vereinigte Staaten"
           },
           {
             "@tag": "UY",
@@ -9503,15 +9471,15 @@
           },
           {
             "@tag": "UZ",
-            "#text": "Uzbekistan"
+            "#text": "Usbekistan"
           },
           {
             "@tag": "VA",
-            "#text": "Holy See (Vatican City State)"
+            "#text": "Heiliger Stuhl (Staat Vatikanstadt)"
           },
           {
             "@tag": "VC",
-            "#text": "Saint Vincent And The Grenadines"
+            "#text": "St. Vincent und die Grenadinen"
           },
           {
             "@tag": "VE",
@@ -9519,15 +9487,15 @@
           },
           {
             "@tag": "VG",
-            "#text": "Virgin Islands (British)"
+            "#text": "Jungferninseln (Britisch)"
           },
           {
             "@tag": "VI",
-            "#text": "Virgin Islands (U.S.)"
+            "#text": "Jungferninseln (U.S.)"
           },
           {
             "@tag": "VN",
-            "#text": "Viet Nam"
+            "#text": "Vietnam"
           },
           {
             "@tag": "VU",
@@ -9535,7 +9503,7 @@
           },
           {
             "@tag": "WF",
-            "#text": "Wallis And Futuna Islands"
+            "#text": "Wallis und Futuna Inseln"
           },
           {
             "@tag": "WS",
@@ -9543,7 +9511,7 @@
           },
           {
             "@tag": "YE",
-            "#text": "Yemen"
+            "#text": "Jemen"
           },
           {
             "@tag": "YT",
@@ -9551,15 +9519,15 @@
           },
           {
             "@tag": "ZA",
-            "#text": "South Africa"
+            "#text": "Südafrika"
           },
           {
             "@tag": "ZM",
-            "#text": "Zambia"
+            "#text": "Sambia"
           },
           {
             "@tag": "ZW",
-            "#text": "Zimbabwe"
+            "#text": "Simbabwe"
           }
         ]
       },
@@ -9608,7 +9576,7 @@
           },
           {
             "@tag": "ALPHABET_FILTER",
-            "#text": "Alphabet Filter"
+            "#text": "Alphabetischer Filter"
           },
           {
             "@tag": "ATOMICONTOOLTIPACTIVE",
@@ -9700,7 +9668,7 @@
           },
           {
             "@tag": "MARKALL_MESSAGE",
-            "#text": "All forums has been marked as read"
+            "#text": "Alle Foren wurden als gelesen markiert"
           },
           {
             "@tag": "MODERATORS",
@@ -9708,7 +9676,7 @@
           },
           {
             "@tag": "MOST_ACTIVE",
-            "#text": "Most Active Users in the last {0} Days"
+            "#text": "Aktivste Benutzer in den letzten {0} Tagen"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -9772,19 +9740,19 @@
           },
           {
             "@tag": "STATS_SPAM",
-            "#text": "Anti Spam Statistics"
+            "#text": "Anti-Spam-Statistiken"
           },
           {
             "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} Spammers Permanently Banned"
+            "#text": "{0} Dauerhaft gesperrte Spammer"
           },
           {
             "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} Spammers Denied Registration"
+            "#text": "{0} Spammer verweigern Registrierung"
           },
           {
             "@tag": "STATS_SPAM_REPORTED",
-            "#text": "{0} Spammers submitted to StopForumSpam.com"
+            "#text": "{0} Spammer an StopForumSpam.com gemeldet"
           },
           {
             "@tag": "TOPICS",
@@ -9812,11 +9780,11 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Watch all forums"
+            "#text": "Alle Foren beobachten"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
-            "#text": "Watch all forums and get Email Notifications when a new Topic is created"
+            "#text": "Überwachen Sie alle Foren und lassen Sie sich per E-Mail benachrichtigen, wenn ein neues Thema erstellt wird."
           }
         ]
       },
@@ -9825,31 +9793,31 @@
         "Resource": [
           {
             "@tag": "CONFIRM",
-            "#text": "Are you absolutely sure you want to do this?"
+            "#text": "Sind Sie absolut sicher, dass Sie das tun wollen?"
           },
           {
             "@tag": "OPTION_DELETE_TEXT",
-            "#text": "This will delete your account permanently! All your content will be deleted. After that your account can not be restored"
+            "#text": "Dadurch wird Ihr Konto endgültig gelöscht! Alle Ihre Inhalte werden gelöscht. Danach kann Ihr Konto nicht mehr wiederhergestellt werden"
           },
           {
             "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Delete your Account (permanently)"
+            "#text": "Löschen Sie Ihr Konto (dauerhaft)"
           },
           {
             "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "If you just want to take a break from the Forum, then this will suspend your account for 30 days. Your content is still visible"
+            "#text": "Wenn Sie nur eine Pause vom Forum machen wollen, wird Ihr Konto für 30 Tage gesperrt. Ihr Inhalt ist weiterhin sichtbar"
           },
           {
             "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Suspend your Account for 30 days"
+            "#text": "Sperren Sie Ihr Konto für 30 Tage"
           },
           {
             "@tag": "OPTIONS_TITLE",
-            "#text": "You have the option to..."
+            "#text": "Sie haben die Möglichkeit,..."
           },
           {
             "@tag": "TITLE",
-            "#text": "Delete Your {0} Account"
+            "#text": "Ihr {0} Konto löschen"
           }
         ]
       },
@@ -9862,7 +9830,7 @@
           },
           {
             "@tag": "DELETE_ALL",
-            "#text": "Delete All Posts?"
+            "#text": "Alle Beiträge löschen?"
           },
           {
             "@tag": "DELETE_REASON",
@@ -9886,7 +9854,7 @@
           },
           {
             "@tag": "NEED_REASON",
-            "#text": "You need to enter a Reason why the message is deleted."
+            "#text": "Sie müssen einen Grund angeben, warum die Nachricht gelöscht wird."
           },
           {
             "@tag": "POSTED",
@@ -9992,7 +9960,7 @@
           },
           {
             "@tag": "IMAGES",
-            "#text": "Album Image(s)"
+            "#text": "Albumbild(er)"
           },
           {
             "@tag": "IMAGES_COUNT_LIMIT",
@@ -10004,11 +9972,11 @@
           },
           {
             "@tag": "NEED_TITLE",
-            "#text": "You need to specify a title."
+            "#text": "Sie müssen einen Titel angeben."
           },
           {
             "@tag": "SELECT_FILE",
-            "#text": "Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload."
+            "#text": "Wählen Sie eine Bilddatei ('.jpg', '.gif', '.png' oder '.bmp'), die Sie hochladen möchten."
           },
           {
             "@tag": "TITLE",
@@ -10016,7 +9984,7 @@
           },
           {
             "@tag": "TITLE_NEW",
-            "#text": "Create New Album"
+            "#text": "Neues Album erstellen"
           }
         ]
       },
@@ -10110,7 +10078,7 @@
           },
           {
             "@tag": "ACTIVITY",
-            "#text": "Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks."
+            "#text": "Aktivitätsstrom aktivieren (Wenn diese Option aktiviert ist, erhalten Sie Benachrichtigungen für Erwähnungen, Zitate und Danksagungen."
           },
           {
             "@tag": "AIM",
@@ -10198,7 +10166,7 @@
           },
           {
             "@tag": "GET_LOCATION",
-            "#text": "Get Location from IP Address"
+            "#text": "Standort von IP-Adresse abrufen"
           },
           {
             "@tag": "HIDEME",
@@ -10225,36 +10193,12 @@
             "#text": "Messenger"
           },
           {
-            "@tag": "METAWEBLOG_API_ID",
-            "#text": "MetaWeblog API-ID:"
-          },
-          {
-            "@tag": "METAWEBLOG_API_ID_INSTRUCTIONS",
-            "#text": "Zusätzliche Parameter, die für einige Blog-APIs benötigt werden [b]könnten[/b]. Wenn Sie unsicher sind einfach leer lassen."
-          },
-          {
-            "@tag": "METAWEBLOG_API_URL",
-            "#text": "MetaWeblog API-URL:"
-          },
-          {
-            "@tag": "METAWEBLOG_API_USERNAME",
-            "#text": "MetaWeblog API Benutzername:"
-          },
-          {
-            "@tag": "METAWEBLOG_TITLE",
-            "#text": "Post nach MetaWeblog (API Einstellungen)"
-          },
-          {
-            "@tag": "MSN",
-            "#text": "Windows Live-ID (MSN) Name:"
-          },
-          {
             "@tag": "NEED_CUSTOM",
-            "#text": "{0} is required"
+            "#text": "{0} ist erforderlich"
           },
           {
             "@tag": "OTHER",
-            "#text": "Other"
+            "#text": "Andere"
           },
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
@@ -10278,7 +10222,7 @@
           },
           {
             "@tag": "SELECT_PAGESIZE",
-            "#text": "Standard Page Size:"
+            "#text": "Standard-Seitengröße:"
           },
           {
             "@tag": "SELECT_TEXTEDITOR",
@@ -10331,7 +10275,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Edit Settings"
+            "#text": "Einstellungen bearbeiten"
           }
         ]
       },
@@ -10413,11 +10357,11 @@
           },
           {
             "@tag": "NEED_MESSAGE",
-            "#text": "You must enter a Message."
+            "#text": "Sie müssen eine Nachricht eingeben."
           },
           {
             "@tag": "NEED_SUBJECT",
-            "#text": "You must enter an email subject."
+            "#text": "Sie müssen einen E-Mail-Betreff eingeben."
           },
           {
             "@tag": "SEND",
@@ -10446,7 +10390,7 @@
           },
           {
             "@tag": "INFORMATION",
-            "#text": "Information"
+            "#text": "Informationen"
           },
           {
             "@tag": "SQLERROR",
@@ -10499,11 +10443,11 @@
           },
           {
             "@tag": "INFO_NO",
-            "#text": "You don't have any friends yet"
+            "#text": "Sie haben noch keine Freunde"
           },
           {
             "@tag": "INFO_PENDING",
-            "#text": "You don't have any pending requests"
+            "#text": "Sie haben keine ausstehenden Anfragen"
           },
           {
             "@tag": "NOTIFICATION_APPROVEALL",
@@ -10568,11 +10512,11 @@
           },
           {
             "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
+            "#text": "Von Frau zu Mann"
           },
           {
             "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
+            "#text": "Geschlecht fließend"
           },
           {
             "@tag": "GENDERNONCONFORMING",
@@ -10584,7 +10528,7 @@
           },
           {
             "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
+            "#text": "Fragen zum Geschlecht"
           },
           {
             "@tag": "INTERSEX",
@@ -10592,19 +10536,19 @@
           },
           {
             "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
+            "#text": "Von Mann zu Frau"
           },
           {
             "@tag": "MAN",
-            "#text": "Man"
+            "#text": "Mann"
           },
           {
             "@tag": "NONBINARY",
-            "#text": "Non-binary"
+            "#text": "Nicht-binär"
           },
           {
             "@tag": "OTHER",
-            "#text": "Other"
+            "#text": "Andere"
           },
           {
             "@tag": "PANGENDER",
@@ -10616,7 +10560,7 @@
           },
           {
             "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
+            "#text": "Transfeminin"
           },
           {
             "@tag": "TRANSGENDER",
@@ -10624,27 +10568,27 @@
           },
           {
             "@tag": "TRANSMAN",
-            "#text": "Transgender Man"
+            "#text": "Transgender Mann"
           },
           {
             "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
+            "#text": "Transmaskulin"
           },
           {
             "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
+            "#text": "Transsexuelle"
           },
           {
             "@tag": "TRANSWOMAN",
-            "#text": "Transgender Woman"
+            "#text": "Transgender-Frau"
           },
           {
             "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
+            "#text": "Zwei-Geist"
           },
           {
             "@tag": "WOMAN",
-            "#text": "Woman"
+            "#text": "Frau"
           }
         ]
       },
@@ -11032,7 +10976,7 @@
           },
           {
             "@tag": "TITLE2",
-            "#text": "Send E-mail to {0}"
+            "#text": "E-Mail senden an {0}"
           }
         ]
       },
@@ -11141,7 +11085,7 @@
           },
           {
             "@tag": "SUSPENDED_REASON",
-            "#text": "<br /><br />For the following Reason: \"{0}\"."
+            "#text": "<br /><br />Aus folgendem Grund: \"{0}\"."
           },
           {
             "@tag": "TITLE_ACCESSDENIED",
@@ -11157,11 +11101,11 @@
           },
           {
             "@tag": "TITLE_ECMAVERSION",
-            "#text": "JavaScript Version"
+            "#text": "JavaScript-Version"
           },
           {
             "@tag": "TITLE_EXCEPTION",
-            "#text": "Information"
+            "#text": "Informationen"
           },
           {
             "@tag": "TITLE_FAILURE",
@@ -11177,7 +11121,7 @@
           },
           {
             "@tag": "TITLE_MODERATED",
-            "#text": "Information"
+            "#text": "Informationen"
           },
           {
             "@tag": "TITLE_REGISTRATION",
@@ -11203,7 +11147,7 @@
         "Resource": [
           {
             "@tag": "ACCOUNT_NOT_APPROVED",
-            "#text": "Your account is not approved yet because you have not validated your email. Please verify so you can login."
+            "#text": "Ihr Konto ist noch nicht genehmigt, weil Sie Ihre E-Mail nicht bestätigt haben. Bitte bestätigen Sie, damit Sie sich anmelden können."
           },
           {
             "@tag": "AUTH_CONNECT",
@@ -11247,11 +11191,11 @@
           },
           {
             "@tag": "CAPS_LOCK",
-            "#text": "Caps Lock is on"
+            "#text": "Feststelltaste ist eingeschaltet"
           },
           {
             "@tag": "CONNECT_VIA",
-            "#text": "Or Connect via"
+            "#text": "Oder verbinden Sie sich über"
           },
           {
             "@tag": "EMAIL",
@@ -11263,7 +11207,7 @@
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
-            "#text": "You have been locked out because of to many failed log in attempts."
+            "#text": "Sie wurden wegen zu vieler fehlgeschlagener Anmeldeversuche ausgesperrt."
           },
           {
             "@tag": "FORUM_LOGIN",
@@ -11275,7 +11219,7 @@
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
-            "#text": "Verification Mail was send again to you."
+            "#text": "Verifizierungsmail wurde erneut an Sie gesendet."
           },
           {
             "@tag": "PASSWORD",
@@ -11315,11 +11259,11 @@
           },
           {
             "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "The Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead."
+            "#text": "Der Facebook-Login ist fehlgeschlagen, ein Benutzerkonto mit der gleichen E-Mail-Adresse wie das Facebook-Konto existiert bereits, bitte versuchen Sie stattdessen, sich mit Ihrem Forumskonto zu verbinden."
           },
           {
             "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "The Facebook Login failed, because the user does not provide a email address for the account."
+            "#text": "Der Facebook-Login ist fehlgeschlagen, da der Benutzer keine E-Mail-Adresse für das Konto angegeben hat."
           },
           {
             "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
@@ -11335,7 +11279,7 @@
           },
           {
             "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "The Google Login failed, an user account with the same email address as the Google account already exists, please try to connect you your forum account instead."
+            "#text": "Der Google-Login ist fehlgeschlagen, ein Benutzerkonto mit der gleichen E-Mail-Adresse wie das Google-Konto existiert bereits, bitte versuchen Sie stattdessen, sich mit Ihrem Forumskonto zu verbinden."
           },
           {
             "@tag": "SSO_GOOGLENAME_NOTMATCH",
@@ -11351,7 +11295,7 @@
           },
           {
             "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "The Twitter Login failed, an user account with the same user name as the Twitter account already exists, please try to connect you your forum account instead."
+            "#text": "Der Twitter-Login ist fehlgeschlagen, ein Benutzerkonto mit demselben Benutzernamen wie das Twitter-Konto existiert bereits, bitte versuchen Sie stattdessen, sich mit Ihrem Forumskonto zu verbinden."
           },
           {
             "@tag": "SSO_TWITTERNAME_NOTMATCH",
@@ -11400,19 +11344,19 @@
           },
           {
             "@tag": "JOINED_ASC",
-            "#text": "Joined asc"
+            "#text": "Verbunden mit asc"
           },
           {
             "@tag": "JOINED_DESC",
-            "#text": "Joined desc"
+            "#text": "Verbundener Abstieg"
           },
           {
             "@tag": "LASTVISIT_ASC",
-            "#text": "Last visit asc"
+            "#text": "Letzter Besuch asc"
           },
           {
             "@tag": "LASTVISIT_DESC",
-            "#text": "Last visit desc"
+            "#text": "Letzter Besuch absteigend"
           },
           {
             "@tag": "NUMPOSTSEQUAL",
@@ -11432,19 +11376,19 @@
           },
           {
             "@tag": "POSTS_ASC",
-            "#text": "Posts asc"
+            "#text": "Beiträge asc"
           },
           {
             "@tag": "POSTS_DESC",
-            "#text": "Posts desc"
+            "#text": "Pfosten absteigend"
           },
           {
             "@tag": "RANK_ASC",
-            "#text": "Rank A-Z"
+            "#text": "Rang A-Z"
           },
           {
             "@tag": "RANK_DESC",
-            "#text": "Rank Z-A"
+            "#text": "Rang Z-A"
           },
           {
             "@tag": "SEARCH_MEMBER",
@@ -11456,7 +11400,7 @@
           },
           {
             "@tag": "SEARCH_RANK",
-            "#text": "Rank:"
+            "#text": "Rang:"
           },
           {
             "@tag": "SEARCH_ROLE",
@@ -11464,7 +11408,7 @@
           },
           {
             "@tag": "SORT_BY",
-            "#text": "Sort by"
+            "#text": "Sortieren nach"
           },
           {
             "@tag": "TITLE",
@@ -11514,7 +11458,7 @@
           },
           {
             "@tag": "CONFIRM_RESTORE",
-            "#text": "Are you really want to restore that Message version?"
+            "#text": "Wollen Sie die Message-Version wirklich wiederherstellen?"
           },
           {
             "@tag": "CURRENTMESSAGE",
@@ -11538,7 +11482,7 @@
           },
           {
             "@tag": "GOMODERATE",
-            "#text": "Continue moderate"
+            "#text": "Weiter moderat"
           },
           {
             "@tag": "MESSAGE_EDITEDAT",
@@ -11546,7 +11490,7 @@
           },
           {
             "@tag": "MESSAGE_RESTORED",
-            "#text": "Message was successfully restored!"
+            "#text": "Die Nachricht wurde erfolgreich wiederhergestellt!"
           },
           {
             "@tag": "NEW",
@@ -11574,7 +11518,7 @@
           },
           {
             "@tag": "SELECT_BOTH",
-            "#text": "Please select one old and one new Message"
+            "#text": "Bitte wählen Sie eine alte und eine neue Nachricht"
           },
           {
             "@tag": "SELECT_DIFFERENT",
@@ -11582,7 +11526,7 @@
           },
           {
             "@tag": "SELECT_TWO",
-            "#text": "Only 2 Versions can be selected vor comparing!"
+            "#text": "Es können nur 2 Versionen zum Vergleich ausgewählt werden!"
           },
           {
             "@tag": "TEXT_CHANGES",
@@ -11680,11 +11624,11 @@
           },
           {
             "@tag": "MOVE_TO_DIFFERENT",
-            "#text": "The forum you want to move the topic(s) must be different then the current forum."
+            "#text": "Das Forum, in das Sie das/die Thema(s) verschieben möchten, muss ein anderes sein als das aktuelle Forum."
           },
           {
             "@tag": "MOVED",
-            "#text": "Topic(s) Moved"
+            "#text": "Thema(n) verschoben"
           },
           {
             "@tag": "NO_POSTS",
@@ -11814,7 +11758,7 @@
           },
           {
             "@tag": "REPORTED_TIMES",
-            "#text": "{0} Reports"
+            "#text": "{0} Berichte"
           },
           {
             "@tag": "REPORTEDBY",
@@ -11929,7 +11873,7 @@
           },
           {
             "@tag": "ATOMFEED",
-            "#text": "Atom Feed"
+            "#text": "Atom-Feed"
           },
           {
             "@tag": "BY",
@@ -12005,7 +11949,7 @@
           },
           {
             "@tag": "SELECT",
-            "#text": "Select..."
+            "#text": "Wählen Sie..."
           },
           {
             "@tag": "SHOW_ALL",
@@ -12037,7 +11981,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Watch Topics"
+            "#text": "Themen beobachten"
           }
         ]
       },
@@ -12074,11 +12018,11 @@
           },
           {
             "@tag": "DATE_ASC",
-            "#text": "Date asc"
+            "#text": "Datum aufsteigen"
           },
           {
             "@tag": "DATE_DESC",
-            "#text": "Date desc"
+            "#text": "Datum absteigend"
           },
           {
             "@tag": "DELETEALL",
@@ -12106,11 +12050,11 @@
           },
           {
             "@tag": "FROM_ASC",
-            "#text": "From A-Z"
+            "#text": "Von A-Z"
           },
           {
             "@tag": "FROM_DESC",
-            "#text": "From Z-A"
+            "#text": "Von Z-A"
           },
           {
             "@tag": "INBOX",
@@ -12122,7 +12066,7 @@
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Als gelesen markieren"
           },
           {
             "@tag": "MSG_ARCHIVED",
@@ -12170,11 +12114,11 @@
           },
           {
             "@tag": "SUBJECT_ASC",
-            "#text": "Subject A-Z"
+            "#text": "Thema A-Z"
           },
           {
             "@tag": "SUBJECT_DESC",
-            "#text": "Subject Z-A"
+            "#text": "Thema Z-A"
           },
           {
             "@tag": "TITLE",
@@ -12186,11 +12130,11 @@
           },
           {
             "@tag": "TO_ASC",
-            "#text": "To A-Z"
+            "#text": "Zu A-Z"
           },
           {
             "@tag": "TO_DESC",
-            "#text": "To Z-A"
+            "#text": "Zu Z-A"
           }
         ]
       },
@@ -12267,11 +12211,11 @@
           },
           {
             "@tag": "REPORT_BODY",
-            "#text": "I would like to Report the Message:\r\n\r\n  {0}\r\n\r\n  for the following Reason..."
+            "#text": "Ich möchte die Nachricht melden:\r\n\r\n  {0}\r\n\r\n  aus folgendem Grund..."
           },
           {
             "@tag": "REPORT_SUBJECT",
-            "#text": "Report a Private Message from User: {0}"
+            "#text": "Eine private Nachricht von Benutzer: {0} melden"
           },
           {
             "@tag": "REPORTED_SUBJECT",
@@ -12452,11 +12396,11 @@
           },
           {
             "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "Board Poll:"
+            "#text": "Vorstandsumfrage:"
           },
           {
             "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "Choose an existing poll as board Poll"
+            "#text": "Wählen Sie eine bestehende Umfrage als Vorstandsumfrage"
           },
           {
             "@tag": "POLLGROUPISBOUND",
@@ -12521,11 +12465,11 @@
           },
           {
             "@tag": "BLOG_PASSWORD",
-            "#text": "Blog Password:"
+            "#text": "Blog-Passwort:"
           },
           {
             "@tag": "BLOG_POST",
-            "#text": "Post to blog?"
+            "#text": "In einem Blog veröffentlichen?"
           },
           {
             "@tag": "CANCEL_TITLE",
@@ -12678,11 +12622,11 @@
         "Resource": [
           {
             "@tag": "AD_SIGNATURE",
-            "#text": "Ads"
+            "#text": "Anzeigen"
           },
           {
             "@tag": "AD_USERNAME",
-            "#text": "Sponsor"
+            "#text": "Förderer"
           },
           {
             "@tag": "AIM",
@@ -12694,7 +12638,7 @@
           },
           {
             "@tag": "ATOMTOPIC",
-            "#text": "Atom Feed"
+            "#text": "Atom-Feed"
           },
           {
             "@tag": "ATTACHMENTINFO",
@@ -12706,7 +12650,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOG"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12802,7 +12746,7 @@
           },
           {
             "@tag": "GO_TO_ANSWER",
-            "#text": "Go to the topic answer"
+            "#text": "Weiter zum Thema Antwort"
           },
           {
             "@tag": "GROUPS",
@@ -12810,7 +12754,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "www"
+            "#text": "WWW"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12882,35 +12826,35 @@
           },
           {
             "@tag": "MANAGE_POST",
-            "#text": "Manage Message"
+            "#text": "Nachricht verwalten"
           },
           {
             "@tag": "MANAGE_TOPIC",
-            "#text": "Manage Topic"
+            "#text": "Thema verwalten"
           },
           {
             "@tag": "MARK_ANSWER",
-            "#text": "Mark As Answer"
+            "#text": "Als Antwort markieren"
           },
           {
             "@tag": "MARK_ANSWER_REMOVE",
-            "#text": "Remove As Answer"
+            "#text": "Als Antwort entfernen"
           },
           {
             "@tag": "MARK_ANSWER_REMOVE_TITLE",
-            "#text": "Unmark this Message as answer"
+            "#text": "Markierung dieser Nachricht als Antwort aufheben"
           },
           {
             "@tag": "MARK_ANSWER_TITLE",
-            "#text": "Mark this Message as answer"
+            "#text": "Diese Nachricht als Antwort markieren"
           },
           {
             "@tag": "MESSAGE_ANSWER",
-            "#text": "Answer"
+            "#text": "Antwort"
           },
           {
             "@tag": "MESSAGE_ANSWER_HELP",
-            "#text": "Marked as answer"
+            "#text": "Markiert als Antwort"
           },
           {
             "@tag": "MESSAGEDELETED_MOD",
@@ -12919,14 +12863,6 @@
           {
             "@tag": "MESSAGEDELETED_USER",
             "#text": "Beitrag wurde vom Benutzer gelöscht."
-          },
-          {
-            "@tag": "MSN",
-            "#text": "MSN"
-          },
-          {
-            "@tag": "MSN_TITLE",
-            "#text": " {0} via MSN kontaktieren"
           },
           {
             "@tag": "NEXTTOPIC",
@@ -12998,7 +12934,7 @@
           },
           {
             "@tag": "QUOTE_SELECTED",
-            "#text": "Quote Selected Message"
+            "#text": "Zitat Ausgewählte Nachricht"
           },
           {
             "@tag": "RANK",
@@ -13094,7 +13030,7 @@
           },
           {
             "@tag": "THREADED",
-            "#text": "Threaded"
+            "#text": "Mit Gewinde"
           },
           {
             "@tag": "TIP_DELETE_TOPIC",
@@ -13134,7 +13070,7 @@
           },
           {
             "@tag": "TOOLS",
-            "#text": "Tools"
+            "#text": "Werkzeuge"
           },
           {
             "@tag": "TOP",
@@ -13142,11 +13078,11 @@
           },
           {
             "@tag": "TOPIC_STARTER",
-            "#text": "Topic Starter"
+            "#text": "Thema Starter"
           },
           {
             "@tag": "TOPIC_STARTER_HELP",
-            "#text": "Indicates that this user has started this topic"
+            "#text": "Zeigt an, dass dieser Benutzer dieses Thema gestartet hat"
           },
           {
             "@tag": "TOPICBROWSERS",
@@ -13263,7 +13199,7 @@
         "Resource": [
           {
             "@tag": "MESSAGE",
-            "#text": "Message:"
+            "#text": "Nachricht:"
           },
           {
             "@tag": "TAGS",
@@ -13349,7 +13285,7 @@
           },
           {
             "@tag": "FORUM_ACCESS",
-            "#text": "Forum Access"
+            "#text": "Zugang zum Forum"
           },
           {
             "@tag": "GENDER",
@@ -13405,11 +13341,7 @@
           },
           {
             "@tag": "MONTH",
-            "#text": "month"
-          },
-          {
-            "@tag": "MSN",
-            "#text": "MSN-Messenger:"
+            "#text": "Monat"
           },
           {
             "@tag": "NUMALL",
@@ -13469,7 +13401,7 @@
           },
           {
             "@tag": "SOCIAL_MEDIA",
-            "#text": "Social Media"
+            "#text": "Soziale Medien"
           },
           {
             "@tag": "STATISTICS",
@@ -13481,23 +13413,23 @@
           },
           {
             "@tag": "SUSPEND_BY",
-            "#text": "Suspended By:"
+            "#text": "Suspendiert von:"
           },
           {
             "@tag": "SUSPEND_CURRENT",
-            "#text": "Current Suspension"
+            "#text": "Aktuelle Aussetzung"
           },
           {
             "@tag": "SUSPEND_INFO",
-            "#text": "The Suspension is based on the Users current Date and Time which is Now: {0}."
+            "#text": "Die Aussetzung basiert auf dem aktuellen Datum und der aktuellen Uhrzeit des Benutzers, die jetzt ist: {0}."
           },
           {
             "@tag": "SUSPEND_NEW",
-            "#text": "New Suspension"
+            "#text": "Neue Aufhängung"
           },
           {
             "@tag": "SUSPEND_REASON",
-            "#text": "Suspend Reason:"
+            "#text": "Grund für die Aussetzung:"
           },
           {
             "@tag": "SUSPEND_USER",
@@ -13541,7 +13473,7 @@
           },
           {
             "@tag": "YEARS",
-            "#text": "Year(s)"
+            "#text": "Jahr(e)"
           },
           {
             "@tag": "YIM",
@@ -13570,7 +13502,7 @@
           },
           {
             "@tag": "SUCCESS",
-            "#text": "An email with the Reset Link was send to your email address!"
+            "#text": "Eine E-Mail mit dem Reset-Link wurde an Ihre E-Mail-Adresse gesendet!"
           },
           {
             "@tag": "TITLE",
@@ -13777,7 +13709,7 @@
           },
           {
             "@tag": "RGN_US_AS",
-            "#text": "American Samoa"
+            "#text": "Amerikanisch-Samoa"
           },
           {
             "@tag": "RGN_US_AZ",
@@ -13785,7 +13717,7 @@
           },
           {
             "@tag": "RGN_US_CA",
-            "#text": "California"
+            "#text": "Kalifornien"
           },
           {
             "@tag": "RGN_US_CO",
@@ -13809,7 +13741,7 @@
           },
           {
             "@tag": "RGN_US_GA",
-            "#text": "Georgia"
+            "#text": "Georgien"
           },
           {
             "@tag": "RGN_US_GU",
@@ -13873,7 +13805,7 @@
           },
           {
             "@tag": "RGN_US_MP",
-            "#text": "Northern Mariana Islands"
+            "#text": "Nördliche Marianen"
           },
           {
             "@tag": "RGN_US_MS",
@@ -13889,7 +13821,7 @@
           },
           {
             "@tag": "RGN_US_ND",
-            "#text": "North Dakota"
+            "#text": "Nord Dakota"
           },
           {
             "@tag": "RGN_US_NE",
@@ -13965,7 +13897,7 @@
           },
           {
             "@tag": "RGN_US_VI",
-            "#text": "Virgin Islands"
+            "#text": "Jungferninseln"
           },
           {
             "@tag": "RGN_US_VT",
@@ -14114,23 +14046,23 @@
           },
           {
             "@tag": "PASSWORD_GOOD",
-            "#text": "Good Password!"
+            "#text": "Gutes Passwort!"
           },
           {
             "@tag": "PASSWORD_MIN",
-            "#text": "Password must be {0} characters long."
+            "#text": "Das Passwort muss {0} Zeichen lang sein."
           },
           {
             "@tag": "PASSWORD_NOTMATCH",
-            "#text": "Password and Confirm Password do not match!"
+            "#text": "Kennwort und Bestätigungskennwort stimmen nicht überein!"
           },
           {
             "@tag": "PASSWORD_STRONGER",
-            "#text": "Make your password stronger with more capital letters, more numbers and special characters!"
+            "#text": "Machen Sie Ihr Passwort stärker mit mehr Großbuchstaben, mehr Zahlen und Sonderzeichen!"
           },
           {
             "@tag": "PASSWORD_WEAK",
-            "#text": "Weak Password, try using numbers and capital letters."
+            "#text": "Schwaches Passwort, versuchen Sie es mit Zahlen und Großbuchstaben."
           },
           {
             "@tag": "PREFERENCES",
@@ -14158,7 +14090,7 @@
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
-            "#text": "Reset Password for {0} Forum"
+            "#text": "Passwort zurücksetzen für {0} Forum"
           },
           {
             "@tag": "RETYPE_PASSWORD",
@@ -14207,11 +14139,11 @@
         "Resource": [
           {
             "@tag": "D",
-            "#text": "a day"
+            "#text": "ein Tag"
           },
           {
             "@tag": "DD",
-            "#text": "{0} days"
+            "#text": "{0} Tage"
           },
           {
             "@tag": "FUTURE",
@@ -14219,51 +14151,51 @@
           },
           {
             "@tag": "H",
-            "#text": "an hour"
+            "#text": "eine Stunde"
           },
           {
             "@tag": "HH",
-            "#text": "{0} hours"
+            "#text": "{0} Stunden"
           },
           {
             "@tag": "M",
-            "#text": "a minute"
+            "#text": "eine Minute"
           },
           {
             "@tag": "MM",
-            "#text": "{0} minutes"
+            "#text": "{0} Minuten"
           },
           {
             "@tag": "MO",
-            "#text": "a month"
+            "#text": "einen Monat"
           },
           {
             "@tag": "MOMO",
-            "#text": "{0} months"
+            "#text": "{0} Monate"
           },
           {
             "@tag": "NOW",
-            "#text": "Right now"
+            "#text": "Gerade jetzt"
           },
           {
             "@tag": "PAST",
-            "#text": "{0} ago"
+            "#text": "vor {0}"
           },
           {
             "@tag": "S",
-            "#text": "a few seconds"
+            "#text": "ein paar Sekunden"
           },
           {
             "@tag": "SS",
-            "#text": "{0} seconds"
+            "#text": "{0} Sekunden"
           },
           {
             "@tag": "Y",
-            "#text": "a year"
+            "#text": "ein Jahr"
           },
           {
             "@tag": "YY",
-            "#text": "{0} years"
+            "#text": "{0} Jahre"
           }
         ]
       },
@@ -14288,11 +14220,11 @@
           },
           {
             "@tag": "MSG_REPORTED",
-            "#text": "Message was Reported!"
+            "#text": "Die Nachricht wurde gemeldet!"
           },
           {
             "@tag": "NEED_REASON",
-            "#text": "You need to provide a Report Reason."
+            "#text": "Sie müssen einen Grund für den Bericht angeben."
           },
           {
             "@tag": "POSTEDBY",
@@ -14548,7 +14480,7 @@
           },
           {
             "@tag": "SEARCH_TITLEORBOTH",
-            "#text": "Search entire Posts or Titles only"
+            "#text": "Nur ganze Beiträge oder Titel durchsuchen"
           },
           {
             "@tag": "TITLE",
@@ -14662,7 +14594,7 @@
           },
           {
             "@tag": "GO",
-            "#text": "GO"
+            "#text": "Weiter"
           },
           {
             "@tag": "MODS",
@@ -14832,7 +14764,7 @@
           },
           {
             "@tag": "HOST",
-            "#text": "Host"
+            "#text": "Gastgeber"
           },
           {
             "@tag": "HOST_TITLE",
@@ -14856,7 +14788,7 @@
           },
           {
             "@tag": "LOGIN_CONNECT",
-            "#text": "Login to your {0} forum account"
+            "#text": "Melden Sie sich bei Ihrem {0} Forumskonto an"
           },
           {
             "@tag": "LOGIN_TITLE",
@@ -14888,7 +14820,7 @@
           },
           {
             "@tag": "MODERATE_NEW",
-            "#text": "({0} Need Moderating)"
+            "#text": "({0} Moderationsbedarf)"
           },
           {
             "@tag": "MODERATE_TITLE",
@@ -14904,11 +14836,11 @@
           },
           {
             "@tag": "MYNOTIFY",
-            "#text": "My Notifications"
+            "#text": "Meine Benachrichtigungen"
           },
           {
             "@tag": "MYNOTIFY_TITLE",
-            "#text": "Shows your unread Received Thanks, Mentions and Quotes."
+            "#text": "Zeigt Ihre ungelesenen erhaltenen Danksagungen, Erwähnungen und Zitate an."
           },
           {
             "@tag": "MYPROFILE",
@@ -14920,11 +14852,11 @@
           },
           {
             "@tag": "MYSETTINGS",
-            "#text": "My Settings"
+            "#text": "Meine Einstellungen"
           },
           {
             "@tag": "MYSETTINGS_TITLE",
-            "#text": "Edit your user details and settings."
+            "#text": "Bearbeiten Sie Ihre Benutzerdetails und Einstellungen."
           },
           {
             "@tag": "MYTOPICS",
@@ -14944,7 +14876,7 @@
           },
           {
             "@tag": "REGISTER_CONNECT",
-            "#text": "or Register a new forum account"
+            "#text": "oder Registrieren Sie ein neues Forumskonto"
           },
           {
             "@tag": "REGISTER_TITLE",
@@ -14980,7 +14912,7 @@
           },
           {
             "@tag": "WELCOME_GUEST_CONNECT",
-            "#text": "Wanna join the discussion?! "
+            "#text": "Wollen Sie mitdiskutieren?!"
           },
           {
             "@tag": "WELCOME_GUEST_FULL",
@@ -15081,7 +15013,7 @@
           },
           {
             "@tag": "NO_TOPICS",
-            "#text": "The Forum currently has no Topics"
+            "#text": "Das Forum hat derzeit keine Themen"
           },
           {
             "@tag": "OK_TT",
@@ -15129,7 +15061,7 @@
           },
           {
             "@tag": "USER_AVATAR",
-            "#text": "{0}'s Avatar"
+            "#text": "Avatar von {0}"
           },
           {
             "@tag": "VIEWS",
