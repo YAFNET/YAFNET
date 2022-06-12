@@ -1,4 +1,9 @@
-﻿/// <binding />
+﻿/**
+ * Build process for YetAnotherForum.NET
+ *
+ * Don't know where to start?
+ * Try: http://24ways.org/2013/grunt-is-not-weird-and-hard/
+ */
 module.exports = function(grunt) {
 
     // CONFIGURATION
@@ -324,10 +329,10 @@ module.exports = function(grunt) {
                     reportUpdated: true,
                     updateType: "force",
                     semver: false,
-					 packages: {
-                    devDependencies: true, //only check for devDependencies
-                    dependencies: true
-                }
+                    packages: {
+                        devDependencies: true, //only check for devDependencies
+                        dependencies: true
+                    }
                 }
             }
         }

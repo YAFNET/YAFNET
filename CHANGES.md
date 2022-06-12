@@ -2,6 +2,8 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v3.1.6
+* [NEW] Converted language files from xml to json
+* [NEW] Auto translated language files via DeepL api and Google translate api
 * Upgraded to CKEditor 4.19.0
 * [FIXED] Migrating attachments from old dbs
 * [FIXED #729] show duplicate topics
