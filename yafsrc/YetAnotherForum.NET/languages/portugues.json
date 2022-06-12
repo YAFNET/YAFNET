@@ -849,7 +849,7 @@
           },
           {
             "@tag": "ADMIN_EMAIL",
-            "#text": "E-Mail"
+            "#text": "O email"
           },
           {
             "@tag": "ADMIN_IPADRESS",
@@ -1587,7 +1587,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "EU IRIA"
           },
           {
             "@tag": "NAME",
@@ -1891,7 +1891,7 @@
         "Resource": [
           {
             "@tag": "DIGEST_EMAIL",
-            "#text": "Email:"
+            "#text": "E-mail:"
           },
           {
             "@tag": "DIGEST_EMAIL_HELP",
@@ -1899,7 +1899,7 @@
           },
           {
             "@tag": "DIGEST_ENABLED",
-            "#text": "Digest Enabled:"
+            "#text": "Digestão ativada:"
           },
           {
             "@tag": "DIGEST_ENABLED_HELP",
@@ -1971,7 +1971,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Digest"
+            "#text": "Digerir"
           }
         ]
       },
@@ -2580,7 +2580,7 @@
           },
           {
             "@tag": "SORT_ORDER",
-            "#text": "SortOrder:"
+            "#text": "Ordem de classificação:"
           },
           {
             "@tag": "SORT_ORDER_HELP",
@@ -2923,7 +2923,7 @@
           },
           {
             "@tag": "MEDAL_IMAGE",
-            "#text": "Medal Image:"
+            "#text": "Imagem da medalha:"
           },
           {
             "@tag": "MEDAL_IMAGE_HELP",
@@ -3346,10 +3346,6 @@
             "#text": "É necessário introduzir nova palavra-passe"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Erro: O actual Provedor de Membros não suporta a função \"Repor Senha\". Verifique que \"EnablePasswordReset\" é \"verdadeiro\" nas definições de configuração do seu fornecedor no web.config."
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "A palavra-chave de confirmação não corresponde"
           },
@@ -3483,7 +3479,7 @@
           },
           {
             "@tag": "SET_POINTS",
-            "#text": "Set Points:"
+            "#text": "Defina pontos:"
           },
           {
             "@tag": "SUSPEND_ACCOUNT_USER",
@@ -4335,7 +4331,7 @@
           },
           {
             "@tag": "EDITOR_BASIC",
-            "#text": "Editor Toolbar Basic:"
+            "#text": "Barra de Ferramentas do Editor Básico:"
           },
           {
             "@tag": "EDITOR_FULL",
@@ -4531,7 +4527,7 @@
           },
           {
             "@tag": "HEADER_CACHE",
-            "#text": "Cache Settings"
+            "#text": "Configurações de cache"
           },
           {
             "@tag": "HEADER_CAPTCHA",
@@ -5599,7 +5595,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "BlogSpam.NET API"
+            "#text": "API BlogSpam.NET"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -6620,7 +6616,7 @@
           },
           {
             "@tag": "RUN_QUERY",
-            "#text": "Run Query"
+            "#text": "Executar consulta"
           },
           {
             "@tag": "RUN_TRANSCATION",
@@ -6811,7 +6807,7 @@
           },
           {
             "@tag": "EMAIL",
-            "#text": "Email"
+            "#text": "E-mail"
           },
           {
             "@tag": "EMAIL_CONTAINS",
@@ -6915,7 +6911,7 @@
           },
           {
             "@tag": "SYNC_ALL",
-            "#text": "Sync All Membership Users"
+            "#text": "Sincronizar todos os usuários da associação"
           },
           {
             "@tag": "SYNC_FINISH",
@@ -7038,7 +7034,7 @@
           },
           {
             "@tag": "ADMIN_DIGEST",
-            "#text": "Digest"
+            "#text": "Digerir"
           },
           {
             "@tag": "ADMIN_EVENTLOG",
@@ -7666,7 +7662,7 @@
           },
           {
             "@tag": "BUTTON_EDITALBUMIMAGES",
-            "#text": "Upload/Delete Images"
+            "#text": "Carregar/Excluir Imagens"
           },
           {
             "@tag": "BUTTON_LOCKTOPIC",
@@ -7702,7 +7698,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "Multi-Quote"
+            "#text": "Citação múltipla"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -7754,7 +7750,7 @@
           },
           {
             "@tag": "BUTTON_RETWEET",
-            "#text": "Retweet"
+            "#text": "Retweetar"
           },
           {
             "@tag": "BUTTON_RETWEET_TT",
@@ -7790,7 +7786,7 @@
           },
           {
             "@tag": "BUTTON_UNDELETE",
-            "#text": "Undelete"
+            "#text": "Recuperar"
           },
           {
             "@tag": "BUTTON_UNDELETE_TT",
@@ -8253,7 +8249,7 @@
           },
           {
             "@tag": "MENU",
-            "#text": "Menu"
+            "#text": "Cardápio"
           },
           {
             "@tag": "MESSAGE",
@@ -8389,7 +8385,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      língua:  {\r\n              errorLoading: function() {\r\n                    devolver \"Os resultados não puderam ser carregados\".\r\n                },\r\n                inputTooLong: função(e) {\r\n                    var t = e.input.length - e.maximum,\r\n                        n = \"Por favor apagar \" + t + \" carácter\";\r\n                    devolver t != 1 && (n += \"s\"), n\r\n                },\r\n                inputTooShort: função(e) {\r\n                    var t = e.minimum - e.input.length,\r\n                        n = \"Por favor introduza \" + t + \" ou mais caracteres\";\r\n                    devolver n\r\n                },\r\n                carregamentoMais: função() {\r\n                    retornar \"Carregando mais resultados...\"\r\n                },\r\n                máximoSelecionado: função(e) {\r\n                    var t = \"Só pode seleccionar \" + e.maximum + \" item\";\r\n                    devolver e.maximum != 1 && (t += \"s\"), t\r\n                },\r\n                noResultados: função() {\r\n                    devolver \"Não foram encontrados resultados\".\r\n                },\r\n                pesquisa: função() {\r\n                    retornar \"Pesquisar...\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { errorLoading:function(){return\"Os resultados não puderam ser carregados.\"},inputTooLong:function(e){var r=e.input.length-e.maximum,n=\"Por favor apague \"+r+\" \";return n+=1!=r?\"caracteres\":\"caractere\"},inputTooShort:function(e){return\"Introduza \"+(e.minimum-e.input.length)+\" ou mais caracteres\"},loadingMore:function(){return\"A carregar mais resultados…\"},maximumSelected:function(e){var r=\"Apenas pode seleccionar \"+e.maximum+\" \";return r+=1!=e.maximum?\"itens\":\"item\"},noResults:function(){return\"Sem resultados\"},searching:function(){return\"A procurar…\"},removeAllItems:function(){return\"Remover todos os itens\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -8799,7 +8795,7 @@
           },
           {
             "@tag": "DJ",
-            "#text": "Djibouti"
+            "#text": "Djibuti"
           },
           {
             "@tag": "DK",
@@ -8883,7 +8879,7 @@
           },
           {
             "@tag": "GD",
-            "#text": "Grenada"
+            "#text": "Granada"
           },
           {
             "@tag": "GE",
@@ -9027,7 +9023,7 @@
           },
           {
             "@tag": "KH",
-            "#text": "Cambodja"
+            "#text": "Camboja"
           },
           {
             "@tag": "KI",
@@ -9071,7 +9067,7 @@
           },
           {
             "@tag": "LI",
-            "#text": "Liechtenstein"
+            "#text": "Listenstaine"
           },
           {
             "@tag": "LK",
@@ -9083,7 +9079,7 @@
           },
           {
             "@tag": "LS",
-            "#text": "Lesotho"
+            "#text": "Lesoto"
           },
           {
             "@tag": "LT",
@@ -9295,7 +9291,7 @@
           },
           {
             "@tag": "QA",
-            "#text": "Qatar"
+            "#text": "Catar"
           },
           {
             "@tag": "RE",
@@ -9323,7 +9319,7 @@
           },
           {
             "@tag": "SC",
-            "#text": "Seychelles"
+            "#text": "Seicheles"
           },
           {
             "@tag": "SD",
@@ -9359,7 +9355,7 @@
           },
           {
             "@tag": "SM",
-            "#text": "San Marino"
+            "#text": "São Marinho"
           },
           {
             "@tag": "SN",
@@ -9407,7 +9403,7 @@
           },
           {
             "@tag": "TG",
-            "#text": "Togo"
+            "#text": "Ir"
           },
           {
             "@tag": "TH",
@@ -9419,7 +9415,7 @@
           },
           {
             "@tag": "TK",
-            "#text": "Tokelau"
+            "#text": "Toquelau"
           },
           {
             "@tag": "TM",
@@ -9523,7 +9519,7 @@
           },
           {
             "@tag": "YT",
-            "#text": "Mayotte"
+            "#text": "Maiote"
           },
           {
             "@tag": "ZA",
@@ -9756,7 +9752,7 @@
           },
           {
             "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} Spammers Denied Registration"
+            "#text": "{0} Registro negado de spammers"
           },
           {
             "@tag": "STATS_SPAM_REPORTED",
@@ -9882,7 +9878,7 @@
           },
           {
             "@tag": "UNDELETE",
-            "#text": "Undelete"
+            "#text": "Recuperar"
           },
           {
             "@tag": "UNDELETE_REASON",
@@ -10508,15 +10504,15 @@
           },
           {
             "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
+            "#text": "Andrógino"
           },
           {
             "@tag": "BIGENDER",
-            "#text": "Bigender"
+            "#text": "Bigênero"
           },
           {
             "@tag": "CISGENDER",
-            "#text": "Cisgender"
+            "#text": "Cisgênero"
           },
           {
             "@tag": "FEMALETOMALE",
@@ -10540,7 +10536,7 @@
           },
           {
             "@tag": "INTERSEX",
-            "#text": "Intersex"
+            "#text": "Intersexo"
           },
           {
             "@tag": "MALETOFEMALE",
@@ -10560,11 +10556,11 @@
           },
           {
             "@tag": "PANGENDER",
-            "#text": "Pangender"
+            "#text": "Pangênero"
           },
           {
             "@tag": "TRANS",
-            "#text": "Trrans"
+            "#text": "Trans"
           },
           {
             "@tag": "TRANSFEMININE",
@@ -10584,7 +10580,7 @@
           },
           {
             "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
+            "#text": "Transexual"
           },
           {
             "@tag": "TRANSWOMAN",
@@ -11031,7 +11027,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "XMPP Messenger"
+            "#text": "Mensageiro XMPP"
           }
         ]
       },
@@ -11040,7 +11036,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Yahoo! Messenger"
+            "#text": "Yahoo! Mensageiro"
           }
         ]
       },
@@ -11154,7 +11150,7 @@
         "Resource": [
           {
             "@tag": "CHARSET",
-            "#text": "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            "#text": "#A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
           }
         ]
       },
@@ -11392,7 +11388,7 @@
           },
           {
             "@tag": "POSTS_ASC",
-            "#text": "Posts asc"
+            "#text": "Postagens asc"
           },
           {
             "@tag": "POSTS_DESC",
@@ -12730,7 +12726,7 @@
           },
           {
             "@tag": "EMAIL",
-            "#text": "Email"
+            "#text": "E-mail"
           },
           {
             "@tag": "EMAIL_TITLE",
@@ -13543,7 +13539,7 @@
         "Resource": [
           {
             "@tag": "RGN_CH_AG",
-            "#text": "Aargau"
+            "#text": "Argóvia"
           },
           {
             "@tag": "RGN_CH_AI",
@@ -13567,7 +13563,7 @@
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "Friburgo"
           },
           {
             "@tag": "RGN_CH_GE",
@@ -13579,7 +13575,7 @@
           },
           {
             "@tag": "RGN_CH_GR",
-            "#text": "Grisons"
+            "#text": "Grisões"
           },
           {
             "@tag": "RGN_CH_JU",
@@ -13603,7 +13599,7 @@
           },
           {
             "@tag": "RGN_CH_SG",
-            "#text": "St. Gallen"
+            "#text": "São Galo"
           },
           {
             "@tag": "RGN_CH_SH",
@@ -13672,7 +13668,7 @@
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesse"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13680,7 +13676,7 @@
           },
           {
             "@tag": "RGN_DE_MV",
-            "#text": "Mecklenburg-Vorpommern"
+            "#text": "Mecklemburgo-Vorpommern"
           },
           {
             "@tag": "RGN_DE_NI",
@@ -13692,7 +13688,7 @@
           },
           {
             "@tag": "RGN_DE_RP",
-            "#text": "Rhineland-Palatinate"
+            "#text": "Renânia-Palatinado"
           },
           {
             "@tag": "RGN_DE_SA",
@@ -13700,7 +13696,7 @@
           },
           {
             "@tag": "RGN_DE_SAA",
-            "#text": "Saarland"
+            "#text": "Sarre"
           },
           {
             "@tag": "RGN_DE_SACH",
@@ -13773,7 +13769,7 @@
           },
           {
             "@tag": "RGN_US_HI",
-            "#text": "Hawaii"
+            "#text": "Havaí"
           },
           {
             "@tag": "RGN_US_IA",
@@ -13801,7 +13797,7 @@
           },
           {
             "@tag": "RGN_US_LA",
-            "#text": "Louisiana"
+            "#text": "Luisiana"
           },
           {
             "@tag": "RGN_US_MA",
@@ -13833,7 +13829,7 @@
           },
           {
             "@tag": "RGN_US_MS",
-            "#text": "Mississippi"
+            "#text": "Mississipi"
           },
           {
             "@tag": "RGN_US_MT",
@@ -13853,7 +13849,7 @@
           },
           {
             "@tag": "RGN_US_NH",
-            "#text": "New Hampshire"
+            "#text": "Nova Hampshire"
           },
           {
             "@tag": "RGN_US_NJ",
@@ -13881,11 +13877,11 @@
           },
           {
             "@tag": "RGN_US_OR",
-            "#text": "Oregon"
+            "#text": "Óregon"
           },
           {
             "@tag": "RGN_US_PA",
-            "#text": "Pennsylvania"
+            "#text": "Pensilvânia"
           },
           {
             "@tag": "RGN_US_PR",
@@ -13913,7 +13909,7 @@
           },
           {
             "@tag": "RGN_US_UT",
-            "#text": "Utah"
+            "#text": "Utá"
           },
           {
             "@tag": "RGN_US_VA",
@@ -14285,7 +14281,7 @@
           },
           {
             "@tag": "FRIENDLY",
-            "#text": "Friendly"
+            "#text": "Amigáveis"
           },
           {
             "@tag": "HONORED",
@@ -14358,7 +14354,7 @@
           },
           {
             "@tag": "OUTDENT",
-            "#text": "Outdent"
+            "#text": "Reentrância"
           },
           {
             "@tag": "RIGHT",
@@ -15085,7 +15081,7 @@
           },
           {
             "@tag": "USER_AVATAR",
-            "#text": "{0}'s Avatar"
+            "#text": "Avatar de {0}"
           },
           {
             "@tag": "VIEWS",

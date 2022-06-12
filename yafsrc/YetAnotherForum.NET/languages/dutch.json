@@ -3338,10 +3338,6 @@
             "#text": "Je moet een nieuw wachtwoord ingeven"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Fout: De huidige Membership Provider ondersteunt niet de \"Wachtwoord Reset\" optie. Controleer of \"EnablePasswordReset\" \"aan\" staat in je provider configuratie in web.config."
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "De wachtwoorden komen niet overeen"
           },
@@ -3758,7 +3754,7 @@
           },
           {
             "@tag": "IS_MOD",
-            "#text": "Is Moderator"
+            "#text": "Is moderator"
           },
           {
             "@tag": "IS_START",
@@ -4627,7 +4623,7 @@
           },
           {
             "@tag": "HOST_CACHE",
-            "#text": "Cache"
+            "#text": "cache"
           },
           {
             "@tag": "HOST_DISPLAY",
@@ -6272,7 +6268,7 @@
           },
           {
             "@tag": "IS_LADDER",
-            "#text": "Is Ladder"
+            "#text": "Is ladder"
           },
           {
             "@tag": "IS_START",
@@ -8381,7 +8377,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      taal:  {\r\n              errorLoading: functie() {\r\n                    return \"De resultaten konden niet worden geladen.\"\r\n                },\r\n                inputTooLong: function(e) {\r\n                    var t = e.input.length - e.maximum,\r\n                        n = \"Verwijder a.u.b. \" + t + \" teken\";\r\n                    return t != 1 && (n += \"s\"), n\r\n                },\r\n                inputTooShort: function(e) {\r\n                    var t = e.minimum - e.input.length,\r\n                        n = \"Voer \" + t + \" of meer tekens in\";\r\n                    geef n terug\r\n                },\r\n                loadingMore: function() {\r\n                    return \"Meer resultaten laden...\"\r\n                },\r\n                maximumSelected: function(e) {\r\n                    var t = \"U kunt alleen \" + e.maximum + \" item selecteren;\r\n                    return e.maximum !.= 1 && (t += \"s\"), t\r\n                },\r\n                noResults: function() {\r\n                    return \"Geen resultaten gevonden\"\r\n                },\r\n                zoeken: functie() {\r\n                    return \"Zoeken...\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { errorLoading:function(){return\"De resultaten konden niet worden geladen.\"},inputTooLong:function(e){return\"Gelieve \"+(e.input.length-e.maximum)+\" karakters te verwijderen\"},inputTooShort:function(e){return\"Gelieve \"+(e.minimum-e.input.length)+\" of meer karakters in te voeren\"},loadingMore:function(){return\"Meer resultaten laden…\"},maximumSelected:function(e){var n=1==e.maximum?\"kan\":\"kunnen\",r=\"Er \"+n+\" maar \"+e.maximum+\" item\";return 1!=e.maximum&&(r+=\"s\"),r+=\" worden geselecteerd\"},noResults:function(){return\"Geen resultaten gevonden…\"},searching:function(){return\"Zoeken…\"},removeAllItems:function(){return\"Verwijder alle items\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -9035,7 +9031,7 @@
           },
           {
             "@tag": "KP",
-            "#text": "Korea, D.P.R.O."
+            "#text": "Korea, DPRO"
           },
           {
             "@tag": "KR",
@@ -9135,7 +9131,7 @@
           },
           {
             "@tag": "MO",
-            "#text": "Macau"
+            "#text": "Macao"
           },
           {
             "@tag": "MP",
@@ -10508,7 +10504,7 @@
           },
           {
             "@tag": "CISGENDER",
-            "#text": "Cisgender"
+            "#text": "cisgender"
           },
           {
             "@tag": "FEMALETOMALE",
@@ -10568,7 +10564,7 @@
           },
           {
             "@tag": "TRANSMAN",
-            "#text": "Transgender Man"
+            "#text": "transgender man"
           },
           {
             "@tag": "TRANSMASCULINE",

@@ -1907,7 +1907,7 @@
           },
           {
             "@tag": "DIGEST_GENERATE",
-            "#text": "Digest:"
+            "#text": "súhrn:"
           },
           {
             "@tag": "DIGEST_GENERATE_HELP",
@@ -2580,7 +2580,7 @@
           },
           {
             "@tag": "SORT_ORDER",
-            "#text": "SortOrder:"
+            "#text": "ZoradiťPoradie:"
           },
           {
             "@tag": "SORT_ORDER_HELP",
@@ -3346,10 +3346,6 @@
             "#text": "Musíte zadať nové heslo"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Chyba: Aktuálny poskytovateľ členstva nepodporuje funkciu \"Obnovenie hesla\". Skontrolujte, či je v konfiguračných nastaveniach poskytovateľa vo web.config nastavená hodnota \"EnablePasswordReset\" na \"true\"."
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "Potvrdzovacie heslo sa nezhoduje"
           },
@@ -3754,7 +3750,7 @@
           },
           {
             "@tag": "HEADER",
-            "#text": "YetAnotherForum Roles"
+            "#text": "Úlohy YetAnotherForum"
           },
           {
             "@tag": "IS_ADMIN",
@@ -5143,7 +5139,7 @@
           },
           {
             "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "reCAPTCHA Site Key:"
+            "#text": "Kľúč webu reCAPTCHA:"
           },
           {
             "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
@@ -8193,7 +8189,7 @@
           },
           {
             "@tag": "GO",
-            "#text": "GO"
+            "#text": "Ísť"
           },
           {
             "@tag": "GOTOFIRSTPAGE_TT",
@@ -8389,7 +8385,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      language:  {\r\n                errorLoading: function() {\r\n                    return \"The results could not be loaded.\"\r\n                },\r\n                inputTooLong: function(e) {\r\n                    var t = e.input.length - e.maximum,\r\n                        n = \"Please delete \" + t + \" character\";\r\n                    return t != 1 && (n += \"s\"), n\r\n                },\r\n                inputTooShort: function(e) {\r\n                    var t = e.minimum - e.input.length,\r\n                        n = \"Please enter \" + t + \" or more characters\";\r\n                    return n\r\n                },\r\n                loadingMore: function() {\r\n                    return \"Loading more results…\"\r\n                },\r\n                maximumSelected: function(e) {\r\n                    var t = \"You can only select \" + e.maximum + \" item\";\r\n                    return e.maximum != 1 && (t += \"s\"), t\r\n                },\r\n                noResults: function() {\r\n                    return \"No results found\"\r\n                },\r\n                searching: function() {\r\n                    return \"Searching…\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { var e={2:function(e){return e?\"dva\":\"dve\"},3:function(){return\"tri\"},4:function(){return\"štyri\"}};return{errorLoading:function(){return\"Výsledky sa nepodarilo načítať.\"},inputTooLong:function(n){var t=n.input.length-n.maximum;return 1==t?\"Prosím, zadajte o jeden znak menej\":t>=2&&t<=4?\"Prosím, zadajte o \"+e[t](!0)+\" znaky menej\":\"Prosím, zadajte o \"+t+\" znakov menej\"},inputTooShort:function(n){var t=n.minimum-n.input.length;return 1==t?\"Prosím, zadajte ešte jeden znak\":t<=4?\"Prosím, zadajte ešte ďalšie \"+e[t](!0)+\" znaky\":\"Prosím, zadajte ešte ďalších \"+t+\" znakov\"},loadingMore:function(){return\"Načítanie ďalších výsledkov…\"},maximumSelected:function(n){return 1==n.maximum?\"Môžete zvoliť len jednu položku\":n.maximum>=2&&n.maximum<=4?\"Môžete zvoliť najviac \"+e[n.maximum](!1)+\" položky\":\"Môžete zvoliť najviac \"+n.maximum+\" položiek\"},noResults:function(){return\"Nenašli sa žiadne položky\"},searching:function(){return\"Vyhľadávanie…\"},removeAllItems:function(){return\"Odstráňte všetky položky\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -8887,7 +8883,7 @@
           },
           {
             "@tag": "GE",
-            "#text": "Georgia"
+            "#text": "Gruzínsko"
           },
           {
             "@tag": "GF",
@@ -8931,7 +8927,7 @@
           },
           {
             "@tag": "GT",
-            "#text": "Guatemala"
+            "#text": "Guatemale"
           },
           {
             "@tag": "GU",
@@ -9107,7 +9103,7 @@
           },
           {
             "@tag": "MC",
-            "#text": "Monaco"
+            "#text": "Monako"
           },
           {
             "@tag": "MD",
@@ -9155,7 +9151,7 @@
           },
           {
             "@tag": "MR",
-            "#text": "Mauretania"
+            "#text": "Mauretánia"
           },
           {
             "@tag": "MS",
@@ -9399,7 +9395,7 @@
           },
           {
             "@tag": "TD",
-            "#text": "Chad"
+            "#text": "Čad"
           },
           {
             "@tag": "TF",
@@ -9407,7 +9403,7 @@
           },
           {
             "@tag": "TG",
-            "#text": "Togo"
+            "#text": "Ísť"
           },
           {
             "@tag": "TH",
@@ -9968,7 +9964,7 @@
           },
           {
             "@tag": "IMAGES",
-            "#text": "Album Image(s)"
+            "#text": "Obrázok albumu"
           },
           {
             "@tag": "IMAGES_COUNT_LIMIT",
@@ -10592,7 +10588,7 @@
           },
           {
             "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
+            "#text": "Dvojduch"
           },
           {
             "@tag": "WOMAN",
@@ -10833,7 +10829,7 @@
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "RSS & Atom Feeds"
+            "#text": "RSS a Atom kanály"
           },
           {
             "@tag": "SEARCHFOR",
@@ -12902,7 +12898,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "PM"
+            "#text": "POPOLUDNIE"
           },
           {
             "@tag": "PM_TITLE",
@@ -13547,11 +13543,11 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell Inner-Rhodes"
+            "#text": "Appenzell Vnútorný Rodos"
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "Appenzell Vonkajší Rodos"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -13603,7 +13599,7 @@
           },
           {
             "@tag": "RGN_CH_SG",
-            "#text": "St. Gallen"
+            "#text": "Gallen"
           },
           {
             "@tag": "RGN_CH_SH",
@@ -13656,7 +13652,7 @@
           },
           {
             "@tag": "RGN_DE_BB",
-            "#text": "Brandenburg"
+            "#text": "Brandenbursko"
           },
           {
             "@tag": "RGN_DE_BER",
@@ -13765,7 +13761,7 @@
           },
           {
             "@tag": "RGN_US_GA",
-            "#text": "Georgia"
+            "#text": "Gruzínsko"
           },
           {
             "@tag": "RGN_US_GU",
@@ -13893,7 +13889,7 @@
           },
           {
             "@tag": "RGN_US_RI",
-            "#text": "Rhode Island"
+            "#text": "ostrov Rhode"
           },
           {
             "@tag": "RGN_US_SC",
@@ -14281,11 +14277,11 @@
         "Resource": [
           {
             "@tag": "EXALTED",
-            "#text": "Exalted"
+            "#text": "Vznešený"
           },
           {
             "@tag": "FRIENDLY",
-            "#text": "Friendly"
+            "#text": "Priateľský"
           },
           {
             "@tag": "HONORED",
@@ -14358,7 +14354,7 @@
           },
           {
             "@tag": "OUTDENT",
-            "#text": "Outdent"
+            "#text": "Predsadiť"
           },
           {
             "@tag": "RIGHT",
@@ -15053,7 +15049,7 @@
           },
           {
             "@tag": "RSSFEED",
-            "#text": "Rss Feed"
+            "#text": "RSS zdroj"
           },
           {
             "@tag": "SEARCH_FORUM",

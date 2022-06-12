@@ -1457,7 +1457,7 @@
           },
           {
             "@tag": "EXEC_ORDER",
-            "#text": "Exec Order:"
+            "#text": "Suorita tilaus:"
           },
           {
             "@tag": "EXEC_ORDER_HELP",
@@ -1907,7 +1907,7 @@
           },
           {
             "@tag": "DIGEST_GENERATE",
-            "#text": "Digest:"
+            "#text": "Sulattaa:"
           },
           {
             "@tag": "DIGEST_GENERATE_HELP",
@@ -1971,7 +1971,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Digest"
+            "#text": "Sulattaa"
           }
         ]
       },
@@ -2133,7 +2133,7 @@
           },
           {
             "@tag": "POST_ACCESS",
-            "#text": "Post Access"
+            "#text": "Viestipääsy"
           },
           {
             "@tag": "POST_ACCESS_HELP",
@@ -2580,7 +2580,7 @@
           },
           {
             "@tag": "SORT_ORDER",
-            "#text": "SortOrder:"
+            "#text": "Lajittelujärjestys:"
           },
           {
             "@tag": "SORT_ORDER_HELP",
@@ -2717,7 +2717,7 @@
           },
           {
             "@tag": "PMMESSAGES",
-            "#text": "PMessages:"
+            "#text": "PViestit:"
           },
           {
             "@tag": "PMMESSAGES_HELP",
@@ -3206,7 +3206,7 @@
           },
           {
             "@tag": "RANK_IMAGE",
-            "#text": "Rank Image:"
+            "#text": "Sijoituskuva:"
           },
           {
             "@tag": "RANK_IMAGE_HELP",
@@ -3346,10 +3346,6 @@
             "#text": "Täytyy syöttää uusi salasana"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Virhe: Salasanan palautus -toimintoa ei tue nykyinen jäsenpalveluntarjoaja. Tarkista, että \"EnablePasswordReset\" on \"true\" palveluntarjoajan määritysasetuksissa web.config-tiedostossa."
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "Vahvistussalasana ei täsmää"
           },
@@ -3399,7 +3395,7 @@
           },
           {
             "@tag": "KILL_USER",
-            "#text": "Kill User"
+            "#text": "Tapa käyttäjä"
           },
           {
             "@tag": "KILL_USER_CONFIRM",
@@ -4099,7 +4095,7 @@
           },
           {
             "@tag": "APP_RUNTIME",
-            "#text": ".NET Runtime Version:"
+            "#text": ".NET Runtime -versio:"
           },
           {
             "@tag": "APP_RUNTIME_HELP",
@@ -4267,7 +4263,7 @@
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
-            "#text": "Crop Image Attachment Preview:"
+            "#text": "Rajaa kuvan liitteen esikatselu:"
           },
           {
             "@tag": "CROP_IMAGE_ATTACH_HELP",
@@ -4855,7 +4851,7 @@
           },
           {
             "@tag": "LOGIN_REDIR_URL",
-            "#text": "Custom Login Redirect Url:"
+            "#text": "Mukautettu kirjautumisen uudelleenohjaus-URL-osoite:"
           },
           {
             "@tag": "LOGIN_REDIR_URL_HELP",
@@ -5111,7 +5107,7 @@
           },
           {
             "@tag": "POSTS_FEEDS_ACCESS",
-            "#text": "Posts Feeds Access:"
+            "#text": "Viestisyötteiden käyttöoikeus:"
           },
           {
             "@tag": "POSTS_FEEDS_ACCESS_HELP",
@@ -5143,7 +5139,7 @@
           },
           {
             "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "reCAPTCHA Site Key:"
+            "#text": "reCAPTCHA-sivustoavain:"
           },
           {
             "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
@@ -5203,7 +5199,7 @@
           },
           {
             "@tag": "REPUTATION_MINDOWN",
-            "#text": "Min. Value to allow Remove Reputation:"
+            "#text": "Min. "
           },
           {
             "@tag": "REPUTATION_MINDOWN_HELP",
@@ -5715,7 +5711,7 @@
           },
           {
             "@tag": "UNHANDLED_USERAGENT_LOG",
-            "#text": "Enable Unhandled UserAgent Log:"
+            "#text": "Ota käyttöön käsittelemätön käyttäjäagenttiloki:"
           },
           {
             "@tag": "UNHANDLED_USERAGENT_LOG_HELP",
@@ -5763,7 +5759,7 @@
           },
           {
             "@tag": "USRSTATS_CACHE_TIMEOUT",
-            "#text": "Board User Statistics Cache Timeout:"
+            "#text": "Boardin käyttäjätilastojen välimuistin aikakatkaisu:"
           },
           {
             "@tag": "USRSTATS_CACHE_TIMEOUT_HELP",
@@ -5815,7 +5811,7 @@
           },
           {
             "@tag": "WSERVICE_TOKEN",
-            "#text": "Web Service Token:"
+            "#text": "Verkkopalvelutunnus:"
           },
           {
             "@tag": "WSERVICE_TOKEN_HELP",
@@ -5881,7 +5877,7 @@
           },
           {
             "@tag": "MAIL_TO",
-            "#text": "To:"
+            "#text": "Vastaanottaja:"
           },
           {
             "@tag": "MSG_QUEUED",
@@ -6219,7 +6215,7 @@
           },
           {
             "@tag": "MSG_TASK",
-            "#text": "Prune Task Scheduled"
+            "#text": "Leikkaa tehtävä ajoitettu"
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6786,7 +6782,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Task Manger"
+            "#text": "Tehtävämies"
           }
         ]
       },
@@ -7002,7 +6998,7 @@
           },
           {
             "@tag": "ADMIN_ADMIN",
-            "#text": "Admin Index"
+            "#text": "Järjestelmänvalvojan hakemisto"
           },
           {
             "@tag": "ADMIN_ATTACHMENTS",
@@ -7038,7 +7034,7 @@
           },
           {
             "@tag": "ADMIN_DIGEST",
-            "#text": "Digest"
+            "#text": "Sulattaa"
           },
           {
             "@tag": "ADMIN_EVENTLOG",
@@ -7702,7 +7698,7 @@
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE",
-            "#text": "Multi-Quote"
+            "#text": "Monilainaus"
           },
           {
             "@tag": "BUTTON_MULTI_QUOTE_TT",
@@ -7726,7 +7722,7 @@
           },
           {
             "@tag": "BUTTON_POSTREPLY",
-            "#text": "Post Reply"
+            "#text": "Lähetä vastaus"
           },
           {
             "@tag": "BUTTON_POSTREPLY_TT",
@@ -8193,7 +8189,7 @@
           },
           {
             "@tag": "GO",
-            "#text": "GO"
+            "#text": "MENNÄ"
           },
           {
             "@tag": "GOTOFIRSTPAGE_TT",
@@ -8389,7 +8385,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      language:  {\r\n                inputTooLong: function(e) {\r\n                    var t = e.input.length - e.maximum;\r\n                    return \"Ole hyvä ja anna \" + t + \" merkkiä vähemmän\"\r\n                },\r\n                inputTooShort: function(e) {\r\n                    var t = e.minimum - e.input.length;\r\n                    return \"Ole hyvä ja anna \" + t + \" merkkiä lisää\"\r\n                },\r\n                loadingMore: function() {\r\n                    return \"Ladataan lisää tuloksia…\"\r\n                },\r\n                maximumSelection: function(e) {\r\n                    return \"Voit valita ainoastaan \" + e.maximum + \" kpl\"\r\n                },\r\n                noResults: function() {\r\n                    return \"Ei tuloksia\"\r\n                },\r\n                searching: function() {\r\n                    return \"Searching…\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { errorLoading:function(){return\"Tuloksia ei saatu ladattua.\"},inputTooLong:function(n){return\"Ole hyvä ja anna \"+(n.input.length-n.maximum)+\" merkkiä vähemmän\"},inputTooShort:function(n){return\"Ole hyvä ja anna \"+(n.minimum-n.input.length)+\" merkkiä lisää\"},loadingMore:function(){return\"Ladataan lisää tuloksia…\"},maximumSelected:function(n){return\"Voit valita ainoastaan \"+n.maximum+\" kpl\"},noResults:function(){return\"Ei tuloksia\"},searching:function(){return\"Haetaan…\"},removeAllItems:function(){return\"Poista kaikki kohteet\"}} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -9011,7 +9007,7 @@
           },
           {
             "@tag": "JO",
-            "#text": "Jordan"
+            "#text": "Jordania"
           },
           {
             "@tag": "JP",
@@ -9027,7 +9023,7 @@
           },
           {
             "@tag": "KH",
-            "#text": "Cambodja"
+            "#text": "Kambodža"
           },
           {
             "@tag": "KI",
@@ -9043,7 +9039,7 @@
           },
           {
             "@tag": "KP",
-            "#text": "Korea, D.P.R.O."
+            "#text": "Korea, DPRO"
           },
           {
             "@tag": "KR",
@@ -9339,7 +9335,7 @@
           },
           {
             "@tag": "SH",
-            "#text": "St. Helena"
+            "#text": "Pyhä Helena"
           },
           {
             "@tag": "SI",
@@ -9399,7 +9395,7 @@
           },
           {
             "@tag": "TD",
-            "#text": "Chad"
+            "#text": "Tšad"
           },
           {
             "@tag": "TF",
@@ -9407,7 +9403,7 @@
           },
           {
             "@tag": "TG",
-            "#text": "Togo"
+            "#text": "Mennä"
           },
           {
             "@tag": "TH",
@@ -9850,7 +9846,7 @@
           },
           {
             "@tag": "FROM",
-            "#text": "From:"
+            "#text": "Lähettäjä:"
           },
           {
             "@tag": "LAST10",
@@ -10001,7 +9997,7 @@
         "Resource": [
           {
             "@tag": "AVATAR",
-            "#text": "Avatar"
+            "#text": "hahmo"
           },
           {
             "@tag": "AVATARCURRENT",
@@ -10009,7 +10005,7 @@
           },
           {
             "@tag": "AVATARDELETE",
-            "#text": "Clear Avatar"
+            "#text": "Tyhjennä Avatar"
           },
           {
             "@tag": "AVATARNEW",
@@ -10564,7 +10560,7 @@
           },
           {
             "@tag": "TRANS",
-            "#text": "Trrans"
+            "#text": "Trans"
           },
           {
             "@tag": "TRANSFEMININE",
@@ -10918,7 +10914,7 @@
           },
           {
             "@tag": "HOT_NO_NEW_POSTS",
-            "#text": "Hot Topic"
+            "#text": "Kuuma aihe"
           },
           {
             "@tag": "MOVED",
@@ -11040,7 +11036,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Yahoo! Messenger"
+            "#text": "Yahoo! "
           }
         ]
       },
@@ -11352,7 +11348,7 @@
           },
           {
             "@tag": "AVATAR",
-            "#text": "Avatar"
+            "#text": "hahmo"
           },
           {
             "@tag": "INVALIDPOSTSVALUE",
@@ -11364,7 +11360,7 @@
           },
           {
             "@tag": "JOINED_DESC",
-            "#text": "Joined desc"
+            "#text": "Liittyi kuvaukseen"
           },
           {
             "@tag": "LASTVISIT_ASC",
@@ -11392,11 +11388,11 @@
           },
           {
             "@tag": "POSTS_ASC",
-            "#text": "Posts asc"
+            "#text": "Viestit asc"
           },
           {
             "@tag": "POSTS_DESC",
-            "#text": "Posts desc"
+            "#text": "Viestien kuvaus"
           },
           {
             "@tag": "RANK_ASC",
@@ -12235,7 +12231,7 @@
           },
           {
             "@tag": "REPORTED_SUBJECT",
-            "#text": "Re: Reply to you post report."
+            "#text": "Re: Vastaa raporttiisi."
           },
           {
             "@tag": "SAVE",
@@ -12918,7 +12914,7 @@
           },
           {
             "@tag": "POST_REPLY",
-            "#text": "Post Reply"
+            "#text": "Lähetä vastaus"
           },
           {
             "@tag": "POSTED",
@@ -13070,7 +13066,7 @@
           },
           {
             "@tag": "TIP_REPLY_TOPIC",
-            "#text": "Post Reply"
+            "#text": "Lähetä vastaus"
           },
           {
             "@tag": "TIP_UNLOCK_TOPIC",
@@ -13118,7 +13114,7 @@
           },
           {
             "@tag": "TWITTER",
-            "#text": "Twitter"
+            "#text": "Viserrys"
           },
           {
             "@tag": "TWITTER",
@@ -13261,7 +13257,7 @@
           },
           {
             "@tag": "AVATAR",
-            "#text": "Avatar"
+            "#text": "hahmo"
           },
           {
             "@tag": "BIRTHDAY",
@@ -13547,7 +13543,7 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell Inner-Rhodes"
+            "#text": "Appenzellin sisä-Rhodes"
           },
           {
             "@tag": "RGN_CH_AR",
@@ -13587,7 +13583,7 @@
           },
           {
             "@tag": "RGN_CH_LU",
-            "#text": "Lucerne"
+            "#text": "Luzerni"
           },
           {
             "@tag": "RGN_CH_NE",
@@ -13857,11 +13853,11 @@
           },
           {
             "@tag": "RGN_US_NJ",
-            "#text": "New Jersey"
+            "#text": "New Jerseyssä"
           },
           {
             "@tag": "RGN_US_NM",
-            "#text": "New Mexico"
+            "#text": "Uusi Meksiko"
           },
           {
             "@tag": "RGN_US_NV",
@@ -14301,7 +14297,7 @@
           },
           {
             "@tag": "VALUE_0",
-            "#text": "Hated"
+            "#text": "Vihaan"
           },
           {
             "@tag": "VALUE_20",

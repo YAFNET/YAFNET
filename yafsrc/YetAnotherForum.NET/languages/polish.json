@@ -24,7 +24,7 @@
           },
           {
             "@tag": "CREATED_REPLY",
-            "#text": "Replied to a Post"
+            "#text": "Odpowiedziano na post"
           },
           {
             "@tag": "CREATED_REPLY_MSG",
@@ -1015,7 +1015,7 @@
           },
           {
             "@tag": "IMPORT_IPS",
-            "#text": "Import Email(s)"
+            "#text": "Importuj e-maile"
           },
           {
             "@tag": "MASK",
@@ -1907,7 +1907,7 @@
           },
           {
             "@tag": "DIGEST_GENERATE",
-            "#text": "Digest:"
+            "#text": "Strawić:"
           },
           {
             "@tag": "DIGEST_GENERATE_HELP",
@@ -1971,7 +1971,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Digest"
+            "#text": "strawić"
           }
         ]
       },
@@ -2432,7 +2432,7 @@
           },
           {
             "@tag": "FORUM_IMAGE",
-            "#text": "Forum Image:"
+            "#text": "Obraz forum:"
           },
           {
             "@tag": "FORUM_IMAGE_HELP",
@@ -2576,7 +2576,7 @@
           },
           {
             "@tag": "SORT_ORDER",
-            "#text": "SortOrder:"
+            "#text": "Kolejność sortowania:"
           },
           {
             "@tag": "SORT_ORDER_HELP",
@@ -2649,7 +2649,7 @@
           },
           {
             "@tag": "IMAGES_NUMBER",
-            "#text": "Album Images Number:"
+            "#text": "Numer obrazów albumu:"
           },
           {
             "@tag": "IMAGES_NUMBER_HELP",
@@ -2713,7 +2713,7 @@
           },
           {
             "@tag": "PMMESSAGES",
-            "#text": "PMessages:"
+            "#text": "PMWiadomości:"
           },
           {
             "@tag": "PMMESSAGES_HELP",
@@ -2919,7 +2919,7 @@
           },
           {
             "@tag": "MEDAL_IMAGE",
-            "#text": "Medal Image:"
+            "#text": "Obraz medalu:"
           },
           {
             "@tag": "MEDAL_IMAGE_HELP",
@@ -3142,7 +3142,7 @@
           },
           {
             "@tag": "IMAGES_NUMBER",
-            "#text": "Album Images Number:"
+            "#text": "Numer obrazów albumu:"
           },
           {
             "@tag": "IMAGES_NUMBER_HELP",
@@ -3336,10 +3336,6 @@
           {
             "@tag": "ERROR_NEW_PASS",
             "#text": "Musi wprowadzić nowe hasło"
-          },
-          {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Błąd: Obecny dostawca usług członkowskich nie obsługuje funkcji \"Resetowanie hasła\". Sprawdź, czy opcja \"EnablePasswordReset\" ma wartość \"true\" w ustawieniach konfiguracji dostawcy w pliku web.config."
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -3543,7 +3539,7 @@
           },
           {
             "@tag": "USERINFO_DISPLAYNAME",
-            "#text": "Display Name:"
+            "#text": "Wyświetlana nazwa:"
           },
           {
             "@tag": "USERINFO_DISPLAYNAME_HELP",
@@ -3571,7 +3567,7 @@
           },
           {
             "@tag": "USERINFO_HOST",
-            "#text": "Host Admin:"
+            "#text": "Administrator hosta:"
           },
           {
             "@tag": "USERINFO_HOST_HELP",
@@ -3875,7 +3871,7 @@
           },
           {
             "@tag": "ALLOW_DISPLAY_COUNTRY",
-            "#text": "Allow Display Country:"
+            "#text": "Zezwól na kraj wyświetlania:"
           },
           {
             "@tag": "ALLOW_DISPLAY_COUNTRY_HELP",
@@ -3883,7 +3879,7 @@
           },
           {
             "@tag": "ALLOW_DISPLAY_GENDER",
-            "#text": "Allow Display Gender:"
+            "#text": "Zezwalaj na płeć w sieci reklamowej:"
           },
           {
             "@tag": "ALLOW_DISPLAY_GENDER_HELP",
@@ -4091,7 +4087,7 @@
           },
           {
             "@tag": "APP_RUNTIME",
-            "#text": ".NET Runtime Version:"
+            "#text": "Wersja środowiska wykonawczego .NET:"
           },
           {
             "@tag": "APP_RUNTIME_HELP",
@@ -4471,7 +4467,7 @@
           },
           {
             "@tag": "FORBIDDEN",
-            "#text": "Forbidden"
+            "#text": "Zabroniony"
           },
           {
             "@tag": "FORCE_SEARCHINDED",
@@ -4767,7 +4763,7 @@
           },
           {
             "@tag": "LASTPOSTS_FEEDS_ACCESS",
-            "#text": "Post Latest Feeds Access:"
+            "#text": "Dostęp do najnowszych kanałów:"
           },
           {
             "@tag": "LASTPOSTS_FEEDS_ACCESS_HELP",
@@ -4895,11 +4891,11 @@
           },
           {
             "@tag": "MAX_POST_CHARS",
-            "#text": "Max Report Post Length:"
+            "#text": "Maksymalna długość posta w raporcie:"
           },
           {
             "@tag": "MAX_POST_CHARS_HELP",
-            "#text": "Max Allowed Report Post length."
+            "#text": "Maksymalna dozwolona długość posta raportu."
           },
           {
             "@tag": "MAX_POST_SIZE",
@@ -4935,7 +4931,7 @@
           },
           {
             "@tag": "MOD_CACHE_TIMEOUT",
-            "#text": "Board Moderators Cache Timeout:"
+            "#text": "Limit czasu pamięci podręcznej moderatorów forum:"
           },
           {
             "@tag": "MOD_CACHE_TIMEOUT_HELP",
@@ -4991,7 +4987,7 @@
           },
           {
             "@tag": "ONLINE_STATUS_TIMEOUT",
-            "#text": "Online User Status Cache Timeout:"
+            "#text": "Limit czasu pamięci podręcznej stanu użytkownika online:"
           },
           {
             "@tag": "ONLINE_STATUS_TIMEOUT_HELP",
@@ -5103,7 +5099,7 @@
           },
           {
             "@tag": "POSTS_FEEDS_ACCESS",
-            "#text": "Posts Feeds Access:"
+            "#text": "Dostęp do kanałów postów:"
           },
           {
             "@tag": "POSTS_FEEDS_ACCESS_HELP",
@@ -5111,7 +5107,7 @@
           },
           {
             "@tag": "POSTS_PER_PAGE",
-            "#text": "Posts Per Page:"
+            "#text": "Posty na stronę:"
           },
           {
             "@tag": "POSTS_PER_PAGE_HELP",
@@ -5135,7 +5131,7 @@
           },
           {
             "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "reCAPTCHA Site Key:"
+            "#text": "Klucz witryny reCAPTCHA:"
           },
           {
             "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
@@ -5155,7 +5151,7 @@
           },
           {
             "@tag": "REPLACE_CACHE_TIMEOUT",
-            "#text": "Replace Rules Cache Timeout:"
+            "#text": "Zastąp limit czasu pamięci podręcznej reguł:"
           },
           {
             "@tag": "REPLACE_CACHE_TIMEOUT_HELP",
@@ -5263,7 +5259,7 @@
           },
           {
             "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "First Post \"Title\" Cache Timeout:"
+            "#text": "Limit czasu pamięci podręcznej pierwszego wpisu „Tytuł”:"
           },
           {
             "@tag": "SEO_CACHE_TIMEOUT_HELP",
@@ -5271,7 +5267,7 @@
           },
           {
             "@tag": "SERVER_VERSION",
-            "#text": "SQL Server Version:"
+            "#text": "Wersja serwera SQL:"
           },
           {
             "@tag": "SERVER_VERSION_HELP",
@@ -5623,7 +5619,7 @@
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
-            "#text": "Forum Statistics Cache Timeout:"
+            "#text": "Limit czasu pamięci podręcznej statystyk forum:"
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT_HELP",
@@ -5631,7 +5627,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY",
-            "#text": "StopForumSpam.com API Key:"
+            "#text": "Klucz API StopForumSpam.com:"
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
@@ -6190,7 +6186,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Web Profiler"
+            "#text": "Profiler internetowy"
           }
         ]
       },
@@ -6325,7 +6321,7 @@
           },
           {
             "@tag": "MSG_ERROR_CREATE",
-            "#text": "Membership Error Creating User: {0}"
+            "#text": "Błąd członkostwa podczas tworzenia użytkownika: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -7030,7 +7026,7 @@
           },
           {
             "@tag": "ADMIN_DIGEST",
-            "#text": "Digest"
+            "#text": "strawić"
           },
           {
             "@tag": "ADMIN_EVENTLOG",
@@ -7098,7 +7094,7 @@
           },
           {
             "@tag": "ADMIN_PROFILER",
-            "#text": "Web Profiler"
+            "#text": "Profiler internetowy"
           },
           {
             "@tag": "ADMIN_PRUNE",
@@ -7746,7 +7742,7 @@
           },
           {
             "@tag": "BUTTON_RETWEET",
-            "#text": "Retweet"
+            "#text": "Prześlij dalej"
           },
           {
             "@tag": "BUTTON_RETWEET_TT",
@@ -7875,7 +7871,7 @@
           },
           {
             "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "New Security Answer:"
+            "#text": "Nowa odpowiedź dotycząca bezpieczeństwa:"
           },
           {
             "@tag": "SECURITY_ANSWER_OLD",
@@ -8345,7 +8341,7 @@
           },
           {
             "@tag": "POST",
-            "#text": "Post"
+            "#text": "Poczta"
           },
           {
             "@tag": "POWERED_BY",
@@ -8381,7 +8377,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      język:  {\r\n              errorLoading: function() {\r\n                    return \"Wyniki nie mogły zostać załadowane.\"\r\n                },\r\n                inputTooLong: function(e) {\r\n                    var t = e.input.length - e.maximum,\r\n                        n = \"Proszę usunąć \" + t + \" znak\";\r\n                    return t != 1 && (n += \"s\"), n\r\n                },\r\n                inputTooShort: function(e) {\r\n                    var t = e.minimum - e.input.length,\r\n                        n = \"Proszę wprowadzić \" + t + \" lub więcej znaków\";\r\n                    return n\r\n                },\r\n                loadingMore: function() {\r\n                    return \"Ładowanie większej ilości wyników...\"\r\n                },\r\n                maximumSelected: function(e) {\r\n                    var t = \"Możesz wybrać tylko \" + e.maximum + \" element\";\r\n                    return e.maximum != 1 && (t += \"s\"), t\r\n                },\r\n                noResults: function() {\r\n                    return \"Nie znaleziono żadnych wyników\"\r\n                },\r\n                search: function() {\r\n                    return \"Wyszukiwanie...\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { var n=[\"znak\",\"znaki\",\"znaków\"],e=[\"element\",\"elementy\",\"elementów\"],r=function(n,e){return 1===n?e[0]:n>1&&n<=4?e[1]:n>=5?e[2]:void 0};return{errorLoading:function(){return\"Nie można załadować wyników.\"},inputTooLong:function(e){var t=e.input.length-e.maximum;return\"Usuń \"+t+\" \"+r(t,n)},inputTooShort:function(e){var t=e.minimum-e.input.length;return\"Podaj przynajmniej \"+t+\" \"+r(t,n)},loadingMore:function(){return\"Trwa ładowanie…\"},maximumSelected:function(n){return\"Możesz zaznaczyć tylko \"+n.maximum+\" \"+r(n.maximum,e)},noResults:function(){return\"Brak wyników\"},searching:function(){return\"Trwa wyszukiwanie…\"},removeAllItems:function(){return\"Usuń wszystkie przedmioty\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -8393,7 +8389,7 @@
           },
           {
             "@tag": "SELECTED_SEARCH",
-            "#text": "Search Google for ..."
+            "#text": "Wyszukaj w Google..."
           },
           {
             "@tag": "SHOWHIDE",
@@ -9039,7 +9035,7 @@
           },
           {
             "@tag": "KP",
-            "#text": "Korea, D.P.R.O."
+            "#text": "Korea, DPRO"
           },
           {
             "@tag": "KR",
@@ -9063,7 +9059,7 @@
           },
           {
             "@tag": "LC",
-            "#text": "Saint Lucia"
+            "#text": "święta Lucia"
           },
           {
             "@tag": "LI",
@@ -9079,7 +9075,7 @@
           },
           {
             "@tag": "LS",
-            "#text": "Lesotho"
+            "#text": "Lesoto"
           },
           {
             "@tag": "LT",
@@ -9363,7 +9359,7 @@
           },
           {
             "@tag": "SO",
-            "#text": "Somalia"
+            "#text": "Somali"
           },
           {
             "@tag": "SP",
@@ -9403,7 +9399,7 @@
           },
           {
             "@tag": "TG",
-            "#text": "Togo"
+            "#text": "Iść"
           },
           {
             "@tag": "TH",
@@ -10500,15 +10496,15 @@
         "Resource": [
           {
             "@tag": "AGENDER",
-            "#text": "Agender"
+            "#text": "Agenda"
           },
           {
             "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
+            "#text": "Obojnak"
           },
           {
             "@tag": "BIGENDER",
-            "#text": "Bigender"
+            "#text": "Większy"
           },
           {
             "@tag": "CISGENDER",
@@ -10536,7 +10532,7 @@
           },
           {
             "@tag": "INTERSEX",
-            "#text": "Intersex"
+            "#text": "Interpłciowy"
           },
           {
             "@tag": "MALETOFEMALE",
@@ -10560,7 +10556,7 @@
           },
           {
             "@tag": "TRANS",
-            "#text": "Trrans"
+            "#text": "Tran"
           },
           {
             "@tag": "TRANSFEMININE",
@@ -10568,7 +10564,7 @@
           },
           {
             "@tag": "TRANSGENDER",
-            "#text": "Transgender"
+            "#text": "Transpłciowy"
           },
           {
             "@tag": "TRANSMAN",
@@ -10576,7 +10572,7 @@
           },
           {
             "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
+            "#text": "Transmęski"
           },
           {
             "@tag": "TRANSSEXUAL",
@@ -10588,7 +10584,7 @@
           },
           {
             "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
+            "#text": "Dwóch Duchów"
           },
           {
             "@tag": "WOMAN",
@@ -10989,7 +10985,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "MSN Messenger"
+            "#text": "Komunikator MSN"
           }
         ]
       },
@@ -11028,7 +11024,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Yahoo! Messenger"
+            "#text": "Wieśniak! Posłaniec"
           }
         ]
       },
@@ -12634,7 +12630,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "CEL"
           },
           {
             "@tag": "AIM_TITLE",
@@ -13102,7 +13098,7 @@
           },
           {
             "@tag": "TWITTER",
-            "#text": "Twitter"
+            "#text": "Świergot"
           },
           {
             "@tag": "TWITTER_TITLE",
@@ -13190,7 +13186,7 @@
           },
           {
             "@tag": "YIM",
-            "#text": "YAHOO"
+            "#text": "WIEŚNIAK"
           },
           {
             "@tag": "YIM_TITLE",
@@ -13207,7 +13203,7 @@
           },
           {
             "@tag": "TAGS",
-            "#text": "Tags:"
+            "#text": "Tagi:"
           }
         ]
       },
@@ -13401,7 +13397,7 @@
           },
           {
             "@tag": "SKYPE",
-            "#text": "Skype(tm) ID:"
+            "#text": "Identyfikator Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",
@@ -13523,7 +13519,7 @@
         "Resource": [
           {
             "@tag": "RGN_CH_AG",
-            "#text": "Aargau"
+            "#text": "Argowia"
           },
           {
             "@tag": "RGN_CH_AI",
@@ -13531,7 +13527,7 @@
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "Appenzell Outer Rodos"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -13547,7 +13543,7 @@
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "Fryburg"
           },
           {
             "@tag": "RGN_CH_GE",
@@ -13563,7 +13559,7 @@
           },
           {
             "@tag": "RGN_CH_JU",
-            "#text": "Jura"
+            "#text": "jura"
           },
           {
             "@tag": "RGN_CH_LU",
@@ -13587,7 +13583,7 @@
           },
           {
             "@tag": "RGN_CH_SH",
-            "#text": "Schaffhausen"
+            "#text": "Szafuza"
           },
           {
             "@tag": "RGN_CH_SO",
@@ -13599,7 +13595,7 @@
           },
           {
             "@tag": "RGN_CH_TG",
-            "#text": "Thurgau"
+            "#text": "Turgowia"
           },
           {
             "@tag": "RGN_CH_TI",
@@ -13644,7 +13640,7 @@
           },
           {
             "@tag": "RGN_DE_BRE",
-            "#text": "Bremen"
+            "#text": "Brema"
           },
           {
             "@tag": "RGN_DE_BW",
@@ -13652,7 +13648,7 @@
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesja"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13680,7 +13676,7 @@
           },
           {
             "@tag": "RGN_DE_SAA",
-            "#text": "Saarland"
+            "#text": "Kraj Saary"
           },
           {
             "@tag": "RGN_DE_SACH",
@@ -13745,7 +13741,7 @@
           },
           {
             "@tag": "RGN_US_GA",
-            "#text": "Georgia"
+            "#text": "Gruzja"
           },
           {
             "@tag": "RGN_US_GU",
@@ -13869,7 +13865,7 @@
           },
           {
             "@tag": "RGN_US_PR",
-            "#text": "Puerto Rico"
+            "#text": "Portoryko"
           },
           {
             "@tag": "RGN_US_RI",
@@ -13897,7 +13893,7 @@
           },
           {
             "@tag": "RGN_US_VA",
-            "#text": "Virginia"
+            "#text": "Wirginia"
           },
           {
             "@tag": "RGN_US_VI",
@@ -13909,7 +13905,7 @@
           },
           {
             "@tag": "RGN_US_WA",
-            "#text": "Washington"
+            "#text": "Waszyngton"
           },
           {
             "@tag": "RGN_US_WI",
@@ -14314,7 +14310,7 @@
           },
           {
             "@tag": "INDENT",
-            "#text": "Indent"
+            "#text": "Akapit"
           },
           {
             "@tag": "ITALIC",

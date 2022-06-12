@@ -8,7 +8,7 @@
         "Resource": [
           {
             "@tag": "ACTIVITY",
-            "#text": "Your Activity"
+            "#text": "فعالیت شما"
           },
           {
             "@tag": "ARCHIVE",
@@ -24,23 +24,23 @@
           },
           {
             "@tag": "CREATED_REPLY",
-            "#text": "Replied to a Post"
+            "#text": "به یک پست پاسخ داد"
           },
           {
             "@tag": "CREATED_REPLY_MSG",
-            "#text": "Added an Reply to the Topic {0}"
+            "#text": "پاسخی به موضوع اضافه کرد {0}"
           },
           {
             "@tag": "CREATED_TOPIC",
-            "#text": "Created a new Topic"
+            "#text": "یک موضوع جدید ایجاد کرد"
           },
           {
             "@tag": "CREATED_TOPIC_MSG",
-            "#text": "Created a new Topic {0}"
+            "#text": "یک موضوع جدید ایجاد کرد {0}"
           },
           {
             "@tag": "DELETE_ACCOUNT",
-            "#text": "Delete Account"
+            "#text": "حذف حساب کاربری"
           },
           {
             "@tag": "EDIT_AVATAR",
@@ -52,7 +52,7 @@
           },
           {
             "@tag": "EDIT_SETTINGS",
-            "#text": "Edit Settings"
+            "#text": "ویرایش تنظیمات"
           },
           {
             "@tag": "EDIT_SIGNATURE",
@@ -60,11 +60,11 @@
           },
           {
             "@tag": "GIVEN_THANKS",
-            "#text": "Given Thanks to a Post"
+            "#text": "با تشکر از یک پست"
           },
           {
             "@tag": "GIVEN_THANKS_MSG",
-            "#text": "Given Thanks to {0} in the Topic {1}"
+            "#text": "با تشکر از {0} در موضوع {1}"
           },
           {
             "@tag": "GROUPS",
@@ -76,7 +76,7 @@
           },
           {
             "@tag": "ITEMS",
-            "#text": "Show Items"
+            "#text": "نمایش موارد"
           },
           {
             "@tag": "JOINED",
@@ -100,11 +100,11 @@
           },
           {
             "@tag": "RECEIVED_THANKS",
-            "#text": "Received a Thanks to a Post"
+            "#text": "یک تشکر از یک پست دریافت کرد"
           },
           {
             "@tag": "RECEIVED_THANKS_MSG",
-            "#text": "Has Received a Thanks from {0} in the Topic {1}"
+            "#text": "یک تشکر از {0} در موضوع {1} دریافت کرده است"
           },
           {
             "@tag": "SENTITEMS",
@@ -120,7 +120,7 @@
           },
           {
             "@tag": "UNREAD_ONLY",
-            "#text": "Show only unread Activity"
+            "#text": "فقط فعالیت خوانده نشده را نشان دهید"
           },
           {
             "@tag": "VIEW_PROFILE",
@@ -128,35 +128,35 @@
           },
           {
             "@tag": "WAS_MENTIONED",
-            "#text": "Was Mentioned"
+            "#text": "ذکر شد"
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
-            "#text": "Was Mentioned by {0} in the Topic {1}"
+            "#text": "توسط {0} در موضوع {1} ذکر شد"
           },
           {
             "@tag": "WAS_QUOTED",
-            "#text": "Was Quoted"
+            "#text": "نقل شد"
           },
           {
             "@tag": "WAS_QUOTED_MSG",
-            "#text": "Was Quoted by {0} in the Topic {1}"
+            "#text": "توسط {0} در موضوع {1} نقل شده است"
           },
           {
             "@tag": "WATCH_FORUM_MSG",
-            "#text": "{0} Created the new topic {1}"
+            "#text": "{0} موضوع جدید را ایجاد کرد {1}"
           },
           {
             "@tag": "WATCH_FORUM_REPLY",
-            "#text": "New Topic in a Watch Forum"
+            "#text": "موضوع جدید در انجمن تماشا"
           },
           {
             "@tag": "WATCH_TOPIC_MSG",
-            "#text": "{0} replied to the topic {1}"
+            "#text": "{0} به موضوع {1} پاسخ داد"
           },
           {
             "@tag": "WATCH_TOPIC_REPLY",
-            "#text": "New Reply in a Watch Topic"
+            "#text": "پاسخ جدید در موضوع تماشا"
           },
           {
             "@tag": "YOUR_ACCOUNT",
@@ -168,7 +168,7 @@
           },
           {
             "@tag": "YOUR_NOTIFIY",
-            "#text": "Your Notifications"
+            "#text": "اطلاعیه های شما"
           },
           {
             "@tag": "YOUR_USERDISPLAYNAME",
@@ -185,15 +185,15 @@
         "Resource": [
           {
             "@tag": "CONFIRM_PASSWORD",
-            "#text": "Confirm New Password"
+            "#text": "رمز عبور جدید را تأیید کنید"
           },
           {
             "@tag": "INVALID_MATCH",
-            "#text": "The Password and Confirmation Password must match."
+            "#text": "رمز عبور و رمز عبور تأیید باید مطابقت داشته باشند."
           },
           {
             "@tag": "PASSWORD",
-            "#text": "Enter New Password"
+            "#text": "رمز عبور جدید را وارد کنید"
           },
           {
             "@tag": "TITLE",
@@ -370,7 +370,7 @@
           },
           {
             "@tag": "ADMIN_PROFILEDEFINITIONS",
-            "#text": "Views the Custom Profile Definitions"
+            "#text": "تعاریف نمایه سفارشی را مشاهده می کند"
           },
           {
             "@tag": "ADMIN_PRUNE",
@@ -482,7 +482,7 @@
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Edits his Ignored users and block option"
+            "#text": "گزینه کاربران نادیده گرفته شده و مسدود کردن خود را ویرایش می کند"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -1023,7 +1023,7 @@
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned Email Address Already exists!"
+            "#text": "آدرس ایمیل ممنوعه از قبل وجود دارد!"
           },
           {
             "@tag": "MSG_REMOVEBAN_EMAIL",
@@ -1056,7 +1056,7 @@
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define an Email address."
+            "#text": "شما باید یک آدرس ایمیل تعریف کنید."
           },
           {
             "@tag": "REASON",
@@ -1150,7 +1150,7 @@
           },
           {
             "@tag": "MSG_REMOVEBAN_IP",
-            "#text": "IP Address or Mask '{0}' was successfully deleted"
+            "#text": "آدرس IP یا ماسک &quot;{0}&quot; با موفقیت حذف شد"
           },
           {
             "@tag": "REASON",
@@ -1273,11 +1273,11 @@
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned Name Already exists!"
+            "#text": "نام ممنوعه از قبل وجود دارد!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The user name was successfully deleted"
+            "#text": "نام کاربری با موفقیت حذف شد"
           },
           {
             "@tag": "REASON",
@@ -1355,7 +1355,7 @@
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new name(s) imported successfully."
+            "#text": "{0} نام(های) جدید با موفقیت وارد شد."
           },
           {
             "@tag": "NOTE",
@@ -1608,7 +1608,7 @@
         "Resource": [
           {
             "@tag": "ANNOUNCEMENT_CURRENT",
-            "#text": "Current Announcement visible until"
+            "#text": "اطلاعیه فعلی قابل مشاهده تا"
           },
           {
             "@tag": "ANNOUNCEMENT_MESSAGE",
@@ -1652,7 +1652,7 @@
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
-            "#text": "Default Collapsible Panel State"
+            "#text": "وضعیت پنل تاشو پیش‌فرض"
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE_HELP",
@@ -1792,7 +1792,7 @@
           },
           {
             "@tag": "FORUM_DEFAULT_ACCESSMASK_HELP",
-            "#text": "The Default Access Mask when creating a new Forum"
+            "#text": "ماسک دسترسی پیش فرض هنگام ایجاد یک انجمن جدید"
           },
           {
             "@tag": "HEADER",
@@ -1800,7 +1800,7 @@
           },
           {
             "@tag": "NEED_MESSAGE",
-            "#text": "You need to enter an Announcement Message."
+            "#text": "شما باید یک پیام اعلان وارد کنید."
           },
           {
             "@tag": "TITLE",
@@ -1833,7 +1833,7 @@
           },
           {
             "@tag": "TABLE_RESPONSIVE",
-            "#text": "Swipe Table to the left to Reveal More Data"
+            "#text": "برای نمایش داده های بیشتر، جدول را به سمت چپ بکشید"
           },
           {
             "@tag": "YES",
@@ -1980,79 +1980,79 @@
         "Resource": [
           {
             "@tag": "DATA_TYPE",
-            "#text": "Data Type"
+            "#text": "نوع داده"
           },
           {
             "@tag": "DATA_TYPE_HELP",
-            "#text": "Select an Data Type for the Profile Definition."
+            "#text": "یک نوع داده برای تعریف پروفایل انتخاب کنید."
           },
           {
             "@tag": "DEFAULT",
-            "#text": "Default Value"
+            "#text": "مقدار پیش فرض"
           },
           {
             "@tag": "DEFAULT_HELP",
-            "#text": "Define a Default Value, would be needed if required is set."
+            "#text": "یک مقدار پیش فرض را تعریف کنید، در صورت تنظیم مورد نیاز است."
           },
           {
             "@tag": "LENGTH",
-            "#text": "Length"
+            "#text": "طول"
           },
           {
             "@tag": "LENGTH_HELP",
-            "#text": "Maximum Length of the Field"
+            "#text": "حداکثر طول میدان"
           },
           {
             "@tag": "NAME",
-            "#text": "Name"
+            "#text": "نام"
           },
           {
             "@tag": "NAME_HELP",
-            "#text": "Will be used as Profile Name/Label"
+            "#text": "به عنوان نام/برچسب نمایه استفاده خواهد شد"
           },
           {
             "@tag": "NEED_LENGTH",
-            "#text": "Maximum Length Value with Minimum 1 is required"
+            "#text": "حداکثر مقدار طول با حداقل 1 مورد نیاز است"
           },
           {
             "@tag": "NEED_NAME",
-            "#text": "You must define a name"
+            "#text": "شما باید یک نام تعریف کنید"
           },
           {
             "@tag": "REQUIRED",
-            "#text": "Required"
+            "#text": "ضروری"
           },
           {
             "@tag": "REQUIRED_HELP",
-            "#text": "Define if the field should be required or not"
+            "#text": "مشخص کنید که آیا فیلد باید مورد نیاز باشد یا خیر"
           },
           {
             "@tag": "SAVE_NEW",
-            "#text": "Save New"
+            "#text": "ذخیره جدید"
           },
           {
             "@tag": "SHOW_REGISTER",
-            "#text": "Show on Register Page"
+            "#text": "نمایش در صفحه ثبت نام"
           },
           {
             "@tag": "SHOW_REGISTER_HELP",
-            "#text": "Show on User Register Page"
+            "#text": "نمایش در صفحه ثبت نام کاربر"
           },
           {
             "@tag": "SHOW_USERINFO",
-            "#text": "Show in User Info"
+            "#text": "نمایش در اطلاعات کاربر"
           },
           {
             "@tag": "SHOW_USERINFO_HELP",
-            "#text": "Show in User Info inside Post Header"
+            "#text": "نمایش در اطلاعات کاربر در سربرگ پست"
           },
           {
             "@tag": "TITLE",
-            "#text": "Add New Profile Definition"
+            "#text": "افزودن تعریف نمایه جدید"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Profile Definition"
+            "#text": "ویرایش تعریف نمایه"
           }
         ]
       },
@@ -2351,7 +2351,7 @@
           },
           {
             "@tag": "ACTIVE_HELP",
-            "#text": "If enabled show Category (incl. Forums) in Board"
+            "#text": "در صورت فعال بودن، دسته (از جمله انجمن ها) را در هیئت مدیره نشان دهید"
           },
           {
             "@tag": "CATEGORY_IMAGE",
@@ -2375,7 +2375,7 @@
           },
           {
             "@tag": "MSG_CATEGORY_EXISTS",
-            "#text": "A Category with such a name already exists."
+            "#text": "یک دسته با چنین نامی از قبل وجود دارد."
           },
           {
             "@tag": "MSG_NUMBER",
@@ -2790,7 +2790,7 @@
           },
           {
             "@tag": "NEED_TRANSLATION",
-            "#text": "Needs Translation."
+            "#text": "نیاز به ترجمه دارد."
           },
           {
             "@tag": "ORIGINAL_RESOURCE",
@@ -2802,7 +2802,7 @@
           },
           {
             "@tag": "SAVED_FILE",
-            "#text": "The language file has been updated and saved!"
+            "#text": "فایل زبان آپدیت و ذخیره شد!"
           },
           {
             "@tag": "SELECT_PAGE",
@@ -2991,7 +2991,7 @@
           },
           {
             "@tag": "SELECT_IMAGE_HELP",
-            "#text": "Medal will be shown in User Profile"
+            "#text": "مدال در نمایه کاربر نشان داده خواهد شد"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3338,10 +3338,6 @@
             "#text": "می بایست کلمه عبور جدید وارد گردد"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "خطا : سیستم عضویت \"بازیابی کلمه عبور\" را پشتیبانی نمی کند. گزینه \"فعال سازی بازنشانی کلمه عبور\" را در web.config کنترل کنید."
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "کلمه عبور و تکرار کلمه عبور هم‌خوانی ندارند"
           },
@@ -3411,7 +3407,7 @@
           },
           {
             "@tag": "MODERATE_HELP",
-            "#text": "Moderate all Posts made by the User"
+            "#text": "نظارت بر تمام پست های ارسال شده توسط کاربر"
           },
           {
             "@tag": "MSG_GUEST_APPROVED",
@@ -3685,7 +3681,7 @@
           },
           {
             "@tag": "CONFIRM_SORTING",
-            "#text": "Are you sure? this step is irreversible!"
+            "#text": "مطمئنی؟ این مرحله غیر قابل برگشت است!"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3693,11 +3689,11 @@
           },
           {
             "@tag": "MSG_SORTING_CATEGORIES",
-            "#text": "All Categories have been re-ordered."
+            "#text": "تمامی دسته ها مجددا سفارش داده شده اند."
           },
           {
             "@tag": "MSG_SORTING_FORUMS",
-            "#text": "All Forums have been re-ordered."
+            "#text": "همه انجمن ها دوباره سفارش داده شده اند."
           },
           {
             "@tag": "NEW_CATEGORY",
@@ -3851,7 +3847,7 @@
           },
           {
             "@tag": "ALBUM_IMAGES_PER_PAGE_HELP",
-            "#text": "Number of Album Images to show per page."
+            "#text": "تعداد تصاویر آلبوم برای نمایش در هر صفحه."
           },
           {
             "@tag": "ALBUMS_PER_PAGE",
@@ -4055,7 +4051,7 @@
           },
           {
             "@tag": "ALLOWED_EXTENSIONS_HELP",
-            "#text": "The list of allowed File Extensions for Attachments."
+            "#text": "فهرست پسوندهای فایل مجاز برای پیوست‌ها."
           },
           {
             "@tag": "AMOUNT_OF_SUBFORUMS",
@@ -4063,7 +4059,7 @@
           },
           {
             "@tag": "AMOUNT_OF_SUBFORUMS_HELP",
-            "#text": "The amount of Sub Forums In Forums List."
+            "#text": "تعداد فروم های فرعی در فهرست انجمن ها."
           },
           {
             "@tag": "APP_CORES",
@@ -4143,15 +4139,15 @@
           },
           {
             "@tag": "BOT_CHECK_2",
-            "#text": "BotScout.com (Needs Registration)"
+            "#text": "BotScout.com (نیاز به ثبت نام دارد)"
           },
           {
             "@tag": "BOT_CHECK_3",
-            "#text": "StopForumSpam.com & BotScout.com (Needs Registration)"
+            "#text": "StopForumSpam.com &amp; BotScout.com (نیاز به ثبت نام دارد)"
           },
           {
             "@tag": "BOT_CHECK_4",
-            "#text": "StopForumSpam.com or BotScout.com (Needs Registration)"
+            "#text": "StopForumSpam.com یا BotScout.com (نیاز به ثبت نام دارد)"
           },
           {
             "@tag": "BOT_CHECK_ONREGISTER",
@@ -4175,7 +4171,7 @@
           },
           {
             "@tag": "BOT_MESSAGE_1",
-            "#text": "Approve User & Log User & Send Admin an Email"
+            "#text": "تأیید کاربر و ورود کاربر و ارسال ایمیل به مدیر"
           },
           {
             "@tag": "BOT_MESSAGE_2",
@@ -4323,7 +4319,7 @@
           },
           {
             "@tag": "EDITOR_BASCIC_HELP",
-            "#text": "Editor Toolbar used for Signatures ans Quick Replies."
+            "#text": "نوار ابزار ویرایشگر برای امضاها و پاسخ‌های سریع استفاده می‌شود."
           },
           {
             "@tag": "EDITOR_BASIC",
@@ -4335,7 +4331,7 @@
           },
           {
             "@tag": "EDITOR_FULL_HELP",
-            "#text": "Editor Toolbar used for Posting and Private Messages."
+            "#text": "نوار ابزار ویرایشگر برای ارسال و پیام های خصوصی استفاده می شود."
           },
           {
             "@tag": "EMAIL_VERIFICATION",
@@ -4483,7 +4479,7 @@
           },
           {
             "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "The full forward-facing url to this forum."
+            "#text": "آدرس اینترنتی کامل رو به جلو به این انجمن."
           },
           {
             "@tag": "FORUM_EDITOR",
@@ -4699,7 +4695,7 @@
           },
           {
             "@tag": "IMAGE_THUMB_HEIGHT_HELP",
-            "#text": "Maximum Height of the attachment and album image thumbnail."
+            "#text": "حداکثر ارتفاع پیوست و تصویر کوچک تصویر آلبوم."
           },
           {
             "@tag": "IMAGE_THUMB_WIDTH",
@@ -4707,7 +4703,7 @@
           },
           {
             "@tag": "IMAGE_THUMB_WIDTH_HELP",
-            "#text": "Maximum Width of the attachment and album image thumbnail."
+            "#text": "حداکثر عرض پیوست و تصویر کوچک تصویر آلبوم."
           },
           {
             "@tag": "IMAGES_PER_PAGE",
@@ -4731,7 +4727,7 @@
           },
           {
             "@tag": "IP_INFOSERVICE_DATAMAPPING",
-            "#text": "IP Info Geolocation Web Service arguments mapping string:"
+            "#text": "رشته نقشه برداری آرگومان های سرویس وب اطلاعات موقعیت جغرافیایی IP:"
           },
           {
             "@tag": "IP_INFOSERVICE_DATAMAPPING_HELP",
@@ -4795,7 +4791,7 @@
           },
           {
             "@tag": "LOG_ERROR_HELP",
-            "#text": "Application errors will be logged."
+            "#text": "خطاهای برنامه ثبت خواهد شد."
           },
           {
             "@tag": "LOG_INFORMATION",
@@ -4803,7 +4799,7 @@
           },
           {
             "@tag": "LOG_INFORMATION_HELP",
-            "#text": "Application info messages will be logged."
+            "#text": "پیام های اطلاعات برنامه ثبت می شود."
           },
           {
             "@tag": "LOG_SUSPENDEDANDCONTRA",
@@ -4819,7 +4815,7 @@
           },
           {
             "@tag": "LOG_USERDELETED_HELP",
-            "#text": "User deleting event will be logged."
+            "#text": "رویداد حذف کاربر ثبت خواهد شد."
           },
           {
             "@tag": "LOG_USERSUSPENDED",
@@ -4839,11 +4835,11 @@
           },
           {
             "@tag": "LOG_WARNING",
-            "#text": "Allow log Application Warnings:"
+            "#text": "هشدارهای برنامه لاگ مجاز:"
           },
           {
             "@tag": "LOG_WARNING_HELP",
-            "#text": "Application warnings will be logged."
+            "#text": "هشدارهای برنامه ثبت خواهد شد."
           },
           {
             "@tag": "LOGIN_REDIR_URL",
@@ -4927,7 +4923,7 @@
           },
           {
             "@tag": "MESSAGE_SYSTEM",
-            "#text": "Notification System for System Messages:"
+            "#text": "سیستم اطلاع رسانی برای پیام های سیستم:"
           },
           {
             "@tag": "MESSAGE_SYSTEM_HELP",
@@ -4975,15 +4971,15 @@
           },
           {
             "@tag": "NOTIFICATION_DURATION",
-            "#text": "Notification Bar Display Duration:"
+            "#text": "مدت زمان نمایش نوار اعلان:"
           },
           {
             "@tag": "NOTIFICATION_DURATION_HELP",
-            "#text": "Duration (in Seconds) how long the Bar is displayed."
+            "#text": "مدت زمان (بر حسب ثانیه) مدت زمانی که نوار نمایش داده می شود."
           },
           {
             "@tag": "NOTIFICATION_MOBILE",
-            "#text": "Use Native Message Dialogs on Mobile:"
+            "#text": "از دیالوگ های پیام بومی در تلفن همراه استفاده کنید:"
           },
           {
             "@tag": "NOTIFICATION_MOBILE_HELP",
@@ -5011,7 +5007,7 @@
           },
           {
             "@tag": "PASSWORD_MIN_LENGTH_HELP",
-            "#text": "The minimum required password length."
+            "#text": "حداقل طول رمز عبور مورد نیاز"
           },
           {
             "@tag": "PASSWORD_REQUIRE_DIGIT",
@@ -5039,7 +5035,7 @@
           },
           {
             "@tag": "PM_ATTACHMENTS",
-            "#text": "Allow attachments in Private Messages"
+            "#text": "پیوست‌ها را در پیام‌های خصوصی مجاز کنید"
           },
           {
             "@tag": "PM_ATTACHMENTS_HELP",
@@ -5067,7 +5063,7 @@
           },
           {
             "@tag": "POPULAR_REPLYS_HELP",
-            "#text": "The number of Replies per topic becomes popular."
+            "#text": "تعداد پاسخ ها در هر موضوع محبوب می شود."
           },
           {
             "@tag": "POPULAR_VIEWS",
@@ -5075,7 +5071,7 @@
           },
           {
             "@tag": "POPULAR_VIEWS_HELP",
-            "#text": "The number of topic views before a topic becomes popular."
+            "#text": "تعداد بازدید از موضوع قبل از محبوب شدن یک موضوع."
           },
           {
             "@tag": "POST_AD",
@@ -5183,19 +5179,19 @@
           },
           {
             "@tag": "REPUTATION_MAX_HELP",
-            "#text": "This Value is used to generate the Reputation Bar."
+            "#text": "این مقدار برای تولید نوار شهرت استفاده می شود."
           },
           {
             "@tag": "REPUTATION_MIN",
-            "#text": "Maximum Negative Reputation Value:"
+            "#text": "حداکثر ارزش اعتبار منفی:"
           },
           {
             "@tag": "REPUTATION_MIN_HELP",
-            "#text": "This Value is used to generate the Reputation Bar."
+            "#text": "این مقدار برای تولید نوار شهرت استفاده می شود."
           },
           {
             "@tag": "REPUTATION_MINDOWN",
-            "#text": "Min. Value to allow Remove Reputation:"
+            "#text": "حداقل مقدار مجاز برای حذف شهرت:"
           },
           {
             "@tag": "REPUTATION_MINDOWN_HELP",
@@ -5203,7 +5199,7 @@
           },
           {
             "@tag": "REPUTATION_MINUP",
-            "#text": "Min. Value to allow Add Reputation:"
+            "#text": "حداقل ارزش اجازه افزودن شهرت:"
           },
           {
             "@tag": "REPUTATION_MINUP_HELP",
@@ -5327,11 +5323,11 @@
           },
           {
             "@tag": "SHOW_COOKIECONSET",
-            "#text": "Show Cookie Consent Popup message"
+            "#text": "نمایش پیام بازشو رضایت کوکی"
           },
           {
             "@tag": "SHOW_COOKIECONSET_HELP",
-            "#text": "When enabled show the Cookie Accept Popup message."
+            "#text": "وقتی فعال است، پیام بازشو Cookie Accept را نشان دهید."
           },
           {
             "@tag": "SHOW_DEL_MESSAGES",
@@ -5455,7 +5451,7 @@
           },
           {
             "@tag": "SHOW_RECENT_USERS",
-            "#text": "Show Recent Users in Forum Info:"
+            "#text": "نمایش کاربران اخیر در اطلاعات انجمن:"
           },
           {
             "@tag": "SHOW_RECENT_USERS_HELP",
@@ -5491,7 +5487,7 @@
           },
           {
             "@tag": "SHOW_SCROLL_HELP",
-            "#text": "If enabled automatically show Back to Top Button when scrolling down the page"
+            "#text": "در صورت فعال بودن، هنگام پایین رفتن صفحه، به طور خودکار دکمه بازگشت به بالا را نشان می دهد"
           },
           {
             "@tag": "SHOW_SIMILARTOPICS",
@@ -5583,7 +5579,7 @@
           },
           {
             "@tag": "SPAM_MESSAGE_HANDLING",
-            "#text": "Handling of as SPAM Detected Messages"
+            "#text": "مدیریت پیام های شناسایی شده به عنوان هرزنامه"
           },
           {
             "@tag": "SPAM_MESSAGE_HANDLING_HELP",
@@ -5599,7 +5595,7 @@
           },
           {
             "@tag": "SPAMCHECK_ALLOWED_URLS",
-            "#text": "Allowed Number of URLs before flagged as SPAM:"
+            "#text": "تعداد مجاز نشانی‌های اینترنتی قبل از پرچم‌گذاری به‌عنوان هرزنامه:"
           },
           {
             "@tag": "SPAMCHECK_ALLOWED_URLS_HELP",
@@ -5659,7 +5655,7 @@
           },
           {
             "@tag": "TEMPLATE_TITLE_HELP",
-            "#text": "Template for the title meta tag."
+            "#text": "الگوی متا تگ عنوان."
           },
           {
             "@tag": "TEMPLATE_TITLE_PAGER",
@@ -5667,7 +5663,7 @@
           },
           {
             "@tag": "TEMPLATE_TITLE_PAGER_HELP",
-            "#text": "Template for the page title inside the page title."
+            "#text": "الگوی عنوان صفحه در داخل عنوان صفحه."
           },
           {
             "@tag": "TITLE",
@@ -5687,7 +5683,7 @@
           },
           {
             "@tag": "TOPICFEED_COUNT_HELP",
-            "#text": "The maximum Amount of Topics to show on the Atom/Rss Feed."
+            "#text": "حداکثر تعداد موضوعات برای نمایش در فید Atom/Rss."
           },
           {
             "@tag": "TWITTER_USERNAME",
@@ -5715,15 +5711,15 @@
           },
           {
             "@tag": "USE_CUSTOM_CONTEXTMENU",
-            "#text": "Use Custom Context Menus in Posts:"
+            "#text": "از منوهای زمینه سفارشی در پست ها استفاده کنید:"
           },
           {
             "@tag": "USE_CUSTOM_CONTEXTMENU_HELP",
-            "#text": "If enabled use a custom context menu inside a post, otherwise browser default context menu is used"
+            "#text": "در صورت فعال بودن از یک منوی زمینه سفارشی در داخل یک پست استفاده کنید، در غیر این صورت از منوی زمینه پیش فرض مرورگر استفاده می شود"
           },
           {
             "@tag": "USE_FARSI_CALENDER",
-            "#text": "Use Farsi (Shamsi) Persian Calender:"
+            "#text": "از تقویم فارسی فارسی (شمسی) استفاده کنید:"
           },
           {
             "@tag": "USE_FARSI_CALENDER_HELP",
@@ -5731,7 +5727,7 @@
           },
           {
             "@tag": "USE_READ_TRACKING",
-            "#text": "Use User Read Tracking via Database:"
+            "#text": "از ردیابی خواندن کاربر از طریق پایگاه داده استفاده کنید:"
           },
           {
             "@tag": "USE_READ_TRACKING_HELP",
@@ -5787,7 +5783,7 @@
           },
           {
             "@tag": "WELCOME_NOTIFICATION",
-            "#text": "Send User Welcome Notification:"
+            "#text": "ارسال اعلان خوش آمدگویی به کاربر:"
           },
           {
             "@tag": "WELCOME_NOTIFICATION_0",
@@ -5832,7 +5828,7 @@
           },
           {
             "@tag": "PROGRESS",
-            "#text": "Translated Resources"
+            "#text": "منابع ترجمه شده"
           },
           {
             "@tag": "TITLE",
@@ -5853,11 +5849,11 @@
           },
           {
             "@tag": "FROM_MAIL",
-            "#text": "From Mail Address:"
+            "#text": "از آدرس پستی:"
           },
           {
             "@tag": "FROM_MAIL_HELP",
-            "#text": "Enter the From Mail Address"
+            "#text": "آدرس From Mail را وارد کنید"
           },
           {
             "@tag": "HEADER",
@@ -5889,15 +5885,15 @@
           },
           {
             "@tag": "TEST_BODY",
-            "#text": "The email sending appears to be working from your YAF installation."
+            "#text": "به نظر می رسد ارسال ایمیل از نصب YAF شما کار می کند."
           },
           {
             "@tag": "TEST_SUBJECT",
-            "#text": "Test Email From Yet Another Forum.NET"
+            "#text": "تست ایمیل از Yet Another Forum.NET"
           },
           {
             "@tag": "TEST_SUCCESS",
-            "#text": "Mail Sent. Verify it's received at your entered email address."
+            "#text": "پیام فرستاده شد. بررسی کنید که در آدرس ایمیل وارد شده شما دریافت شده است."
           },
           {
             "@tag": "TITLE",
@@ -5905,11 +5901,11 @@
           },
           {
             "@tag": "TO_MAIL",
-            "#text": "To Mail Address:"
+            "#text": "به آدرس پستی:"
           },
           {
             "@tag": "TO_MAIL_HELP",
-            "#text": "Enter the Email Address where the test email should be send"
+            "#text": "آدرس ایمیلی که باید ایمیل آزمایشی در آن ارسال شود را وارد کنید"
           }
         ]
       },
@@ -5930,11 +5926,11 @@
           },
           {
             "@tag": "MOVE_DOWN",
-            "#text": "Move Down"
+            "#text": "حرکت به پایین"
           },
           {
             "@tag": "MOVE_UP",
-            "#text": "Move Up"
+            "#text": "حرکت به بالا"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -5979,7 +5975,7 @@
           },
           {
             "@tag": "SAVE",
-            "#text": "Save Forum"
+            "#text": "ذخیره انجمن"
           },
           {
             "@tag": "SERVER",
@@ -6016,7 +6012,7 @@
           },
           {
             "@tag": "NO_GROUPS",
-            "#text": "No Groups ready for retrieval"
+            "#text": "هیچ گروهی برای بازیابی آماده نیست"
           },
           {
             "@tag": "RETRIEVE",
@@ -6061,7 +6057,7 @@
           },
           {
             "@tag": "SAVE_SERVER",
-            "#text": "Save Server"
+            "#text": "ذخیره سرور"
           },
           {
             "@tag": "TITLE",
@@ -6173,15 +6169,15 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete Definition?"
+            "#text": "تعریف حذف شود؟"
           },
           {
             "@tag": "NEW_DEF",
-            "#text": "Add New Definition"
+            "#text": "تعریف جدید اضافه کنید"
           },
           {
             "@tag": "TITLE",
-            "#text": "Custom Profile Definitions"
+            "#text": "تعاریف پروفایل سفارشی"
           }
         ]
       },
@@ -6190,7 +6186,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Web Profiler"
+            "#text": "نمایه وب"
           }
         ]
       },
@@ -6199,7 +6195,7 @@
         "Resource": [
           {
             "@tag": "ALL_CATEGORIES",
-            "#text": "All Categories"
+            "#text": "همه دسته بندی ها"
           },
           {
             "@tag": "ALL_FORUMS",
@@ -6247,7 +6243,7 @@
           },
           {
             "@tag": "RESTORE_TOPIC",
-            "#text": "Restore Topic"
+            "#text": "بازیابی موضوع"
           },
           {
             "@tag": "TITLE",
@@ -6255,7 +6251,7 @@
           },
           {
             "@tag": "TITLE_HELP",
-            "#text": "Option to delete All Topics that are not marked as persistent."
+            "#text": "گزینه ای برای حذف همه موضوعاتی که به عنوان ثابت علامت گذاری نشده اند."
           }
         ]
       },
@@ -6394,11 +6390,11 @@
           },
           {
             "@tag": "REINDEX_MSG",
-            "#text": "Please do not navigate away from this page..."
+            "#text": "لطفا از این صفحه دور نشوید..."
           },
           {
             "@tag": "REINDEX_TITLE",
-            "#text": "Updating Tables"
+            "#text": "به روز رسانی جداول"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6492,7 +6488,7 @@
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Word Replace"
+            "#text": "ویرایش کلمه جایگزین"
           }
         ]
       },
@@ -6555,47 +6551,47 @@
         "Resource": [
           {
             "@tag": "DELETE_ALL_ZERO",
-            "#text": "Delete all with 0 Posts"
+            "#text": "همه را با 0 پست حذف کنید"
           },
           {
             "@tag": "FILTER",
-            "#text": "Search by Topic Name"
+            "#text": "جستجو بر اساس نام موضوع"
           },
           {
             "@tag": "FILTER_HELP",
-            "#text": "Filter list by Topic Name"
+            "#text": "لیست را بر اساس نام موضوع فیلتر کنید"
           },
           {
             "@tag": "MSG_DELETED",
-            "#text": "Topics deleted"
+            "#text": "موضوعات حذف شد"
           },
           {
             "@tag": "MSG_RESTORED",
-            "#text": "Topic restored"
+            "#text": "موضوع بازیابی شد"
           },
           {
             "@tag": "RESTORE_MESSAGE",
-            "#text": "Restore Message"
+            "#text": "بازیابی پیام"
           },
           {
             "@tag": "SEARCH",
-            "#text": "Reload"
+            "#text": "بارگذاری مجدد"
           },
           {
             "@tag": "TITLE",
-            "#text": "Restore & Delete Topics"
+            "#text": "بازیابی و حذف موضوعات"
           },
           {
             "@tag": "TITLE_HELP",
-            "#text": "Option to restore topics that are flagged as deleted topics, or to permanently delete them from the database."
+            "#text": "گزینه ای برای بازیابی موضوعاتی که به عنوان موضوعات حذف شده پرچم گذاری شده اند یا حذف دائمی آنها از پایگاه داده."
           },
           {
             "@tag": "TITLE_MESSAGE",
-            "#text": "Restore & Delete Messages"
+            "#text": "بازیابی و حذف پیام ها"
           },
           {
             "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "Option to restore Messages that are flagged as deleted messages, or to permanently delete them from the database."
+            "#text": "گزینه ای برای بازیابی پیام هایی که به عنوان پیام های حذف شده پرچم گذاری شده اند، یا حذف دائمی آنها از پایگاه داده."
           }
         ]
       },
@@ -6608,7 +6604,7 @@
           },
           {
             "@tag": "NEED_QUERY",
-            "#text": "You need to enter a Query."
+            "#text": "شما باید یک Query وارد کنید."
           },
           {
             "@tag": "RUN_QUERY",
@@ -6646,31 +6642,31 @@
           },
           {
             "@tag": "EXPORT",
-            "#text": "Export to XML"
+            "#text": "صادرات به XML"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import from XML"
+            "#text": "واردات از XML"
           },
           {
             "@tag": "MSG_DELETE",
-            "#text": "Delete this Word?"
+            "#text": "این کلمه حذف شود؟"
           },
           {
             "@tag": "NOTE",
-            "#text": "<strong>Note: </strong> The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'."
+            "#text": "<strong>توجه:</strong> کلمات هرزنامه برای تشخیص هرزنامه داخلی استفاده می شود، در هنگام ثبت نام صفحه اصلی که کاربر در نمایه کاربر وارد می کند در مقابل کلمات هرزنامه بررسی می شود. همچنین اگر کاربر پیام جدیدی را در انجمن ارسال کند، در صورتی که &quot;یک سرویس هرزنامه برای بررسی خودکار هرزنامه را انتخاب کنید&quot; در تنظیمات میزبان روی &quot;کلمات بررسی هرزنامه داخلی&quot; تنظیم شده باشد، در مقابل کلمات هرزنامه بررسی می شود."
           },
           {
             "@tag": "SAVE",
-            "#text": "Save Word"
+            "#text": "ذخیره Word"
           },
           {
             "@tag": "SPAM",
-            "#text": "\"Spam\" Word (Find) Expression"
+            "#text": "عبارت &quot;هرزنامه&quot; کلمه (یافتن)."
           },
           {
             "@tag": "TITLE",
-            "#text": "Spam Check Words"
+            "#text": "کلمات چک اسپم"
           }
         ]
       },
@@ -6679,15 +6675,15 @@
         "Resource": [
           {
             "@tag": "MSG_REGEX_SPAM",
-            "#text": "The Regular expression statement you have entered is invalid."
+            "#text": "عبارت Regular عبارتی که وارد کرده اید نامعتبر است."
           },
           {
             "@tag": "NEED_SPAM",
-            "#text": "You must define a Spam word."
+            "#text": "باید کلمه Spam را تعریف کنید."
           },
           {
             "@tag": "SPAM",
-            "#text": "\"Spam\" Word (Find) Expression:"
+            "#text": "عبارت &quot;هرزنامه&quot; کلمه (یافتن):"
           },
           {
             "@tag": "SPAM_HELP",
@@ -6695,11 +6691,11 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Add New Spam Word"
+            "#text": "کلمه هرزنامه جدید اضافه کنید"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Spam Word"
+            "#text": "کلمه هرزنامه را ویرایش کنید"
           }
         ]
       },
@@ -6708,23 +6704,23 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import Spam Word List"
+            "#text": "فهرست کلمات هرزنامه را وارد کنید"
           },
           {
             "@tag": "MSG_IMPORTED",
-            "#text": "{0} new spam word(s) were imported successfully."
+            "#text": "{0} کلمه(های) هرزنامه جدید با موفقیت وارد شد."
           },
           {
             "@tag": "MSG_IMPORTED_FAILED",
-            "#text": "Failed to import: Import file format is different than expected."
+            "#text": "وارد کردن انجام نشد: فرمت فایل وارداتی با آنچه انتظار می رفت متفاوت است."
           },
           {
             "@tag": "MSG_IMPORTED_FAILEDX",
-            "#text": "Failed to import: {0}"
+            "#text": "وارد کردن ناموفق بود: {0}"
           },
           {
             "@tag": "MSG_NOTHING",
-            "#text": "Nothing imported: no new spam words were found in the upload."
+            "#text": "چیزی وارد نشده است: هیچ کلمه هرزنامه جدیدی در آپلود یافت نشد."
           },
           {
             "@tag": "SELECT_IMPORT",
@@ -6732,11 +6728,11 @@
           },
           {
             "@tag": "SELECT_IMPORT_HELP",
-            "#text": "(Must be *.xml file)"
+            "#text": "(فایل *.xml باید باشد)"
           },
           {
             "@tag": "TITLE",
-            "#text": "Import Spam Words"
+            "#text": "وارد کردن کلمات هرزنامه"
           }
         ]
       },
@@ -6745,15 +6741,15 @@
         "Resource": [
           {
             "@tag": "SHOW_TOPICS",
-            "#text": "Show Topic(s)"
+            "#text": "نمایش موضوع(های)"
           },
           {
             "@tag": "TITLE",
-            "#text": "Topic Tags"
+            "#text": "برچسب های موضوع"
           },
           {
             "@tag": "USAGES",
-            "#text": "Usages:"
+            "#text": "موارد استفاده:"
           }
         ]
       },
@@ -6835,7 +6831,7 @@
           },
           {
             "@tag": "FILTER_DROPDOWN",
-            "#text": "Filter"
+            "#text": "فیلتر کنید"
           },
           {
             "@tag": "FILTER_NO",
@@ -6855,11 +6851,11 @@
           },
           {
             "@tag": "LOCK_INACTIVE",
-            "#text": "Lock inactive accounts"
+            "#text": "حساب های غیرفعال را قفل کنید"
           },
           {
             "@tag": "LOCK_INACTIVE_HELP",
-            "#text": "Lock inactive accounts older then x years. This will not delete there content (like posted messages)"
+            "#text": "حساب‌های غیرفعال قدیمی‌تر از x سال را قفل کنید. با این کار محتوای آنجا حذف نمی شود (مانند پیام های ارسال شده)"
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6883,7 +6879,7 @@
           },
           {
             "@tag": "NOT_APPROVED",
-            "#text": "Not Approved"
+            "#text": "مورد تایید نیست"
           },
           {
             "@tag": "POSTS",
@@ -6911,7 +6907,7 @@
           },
           {
             "@tag": "SYNC_FINISH",
-            "#text": "All Users are synchronized now"
+            "#text": "همه کاربران در حال حاضر همگام شده اند"
           },
           {
             "@tag": "TITLE",
@@ -6981,7 +6977,7 @@
           },
           {
             "@tag": "UPGRADE_VERSION",
-            "#text": "Download Upgrade Package"
+            "#text": "دانلود بسته ارتقا"
           }
         ]
       },
@@ -6998,7 +6994,7 @@
           },
           {
             "@tag": "ADMIN_ATTACHMENTS",
-            "#text": "Attachments"
+            "#text": "پیوست ها"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -7018,7 +7014,7 @@
           },
           {
             "@tag": "ADMIN_BOARDANNOUNCEMENT",
-            "#text": "Board Announcement"
+            "#text": "اطلاعیه هیئت مدیره"
           },
           {
             "@tag": "ADMIN_BOARDS",
@@ -7094,11 +7090,11 @@
           },
           {
             "@tag": "ADMIN_PROFILEDEFINITIONS",
-            "#text": "Custom Profile Definitions"
+            "#text": "تعاریف پروفایل سفارشی"
           },
           {
             "@tag": "ADMIN_PROFILER",
-            "#text": "Web Profiler"
+            "#text": "نمایه وب"
           },
           {
             "@tag": "ADMIN_PRUNE",
@@ -7122,7 +7118,7 @@
           },
           {
             "@tag": "ADMIN_RESTORE",
-            "#text": "Restore & Delete Topics"
+            "#text": "بازیابی و حذف موضوعات"
           },
           {
             "@tag": "ADMIN_RUNSQL",
@@ -7138,7 +7134,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "Tags"
+            "#text": "برچسب ها"
           },
           {
             "@tag": "ADMIN_TASKMANAGER",
@@ -7199,7 +7195,7 @@
           },
           {
             "@tag": "ALBUM_IMAGE_CHANGE_CAPTION2",
-            "#text": "Change Caption"
+            "#text": "تغییر عنوان"
           },
           {
             "@tag": "ALBUM_IMAGES_NUMBER",
@@ -7285,7 +7281,7 @@
           },
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Delete attachment(s)?"
+            "#text": "پیوست(های) حذف شود؟"
           },
           {
             "@tag": "CURRENT_UPLOADS",
@@ -7297,7 +7293,7 @@
           },
           {
             "@tag": "DELETED",
-            "#text": "{0} Attachment(s) deleted!"
+            "#text": "{0} پیوست(های) حذف شد!"
           },
           {
             "@tag": "DISALLOWED_EXTENSIONS",
@@ -7317,7 +7313,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "You don't have any attachments yet, to add one click on the <strong>Upload New File(s)</strong> button"
+            "#text": "شما هنوز هیچ پیوستی ندارید، برای اضافه کردن یک کلیک روی دکمه <strong>آپلود فایل(های) جدید</strong>"
           },
           {
             "@tag": "SELECT_FILE",
@@ -7391,7 +7387,7 @@
           },
           {
             "@tag": "ATTACH_NO",
-            "#text": "You have insufficient rights to see the content."
+            "#text": "شما حقوق کافی برای دیدن محتوا ندارید."
           },
           {
             "@tag": "DAILYMOTION_DESCRIPTION",
@@ -7399,7 +7395,7 @@
           },
           {
             "@tag": "FACEBOOK_DESCRIPTION",
-            "#text": "Enter the Url of the post or the Embed Code of the Post you want to embed"
+            "#text": "آدرس پست یا کد جاسازی پستی را که می خواهید جاسازی کنید وارد کنید"
           },
           {
             "@tag": "GOOGLEMAPS_DESCRIPTION",
@@ -7459,7 +7455,7 @@
           },
           {
             "@tag": "INSTAGRAM_DESCRIPTION",
-            "#text": "Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/"
+            "#text": "آدرس پست اینستاگرام را در اینجا قرار دهید، به عنوان مثال: https://www.instagram.com/p/BS2kMaZl2XO/"
           },
           {
             "@tag": "SPOILERMOD_DESCRIPTION",
@@ -7496,39 +7492,39 @@
         "Resource": [
           {
             "@tag": "BLOCK_BUDDYS",
-            "#text": "Block Friend Requests"
+            "#text": "مسدود کردن درخواست های دوست"
           },
           {
             "@tag": "BLOCK_EMAILS",
-            "#text": "Block E-Mails"
+            "#text": "مسدود کردن ایمیل ها"
           },
           {
             "@tag": "BLOCK_OPTIONS",
-            "#text": "Block Options"
+            "#text": "مسدود کردن گزینه ها"
           },
           {
             "@tag": "BLOCK_PMS",
-            "#text": "Block Private Messages"
+            "#text": "مسدود کردن پیام های خصوصی"
           },
           {
             "@tag": "IGNORED_USERS",
-            "#text": "Ignored User List"
+            "#text": "فهرست کاربران نادیده گرفته شده"
           },
           {
             "@tag": "NOTE_BLOCK",
-            "#text": "Admins and Users in the Friend List will be excluded from the Blocking!"
+            "#text": "مدیران و کاربران در لیست دوستان از مسدود کردن حذف خواهند شد!"
           },
           {
             "@tag": "NOTE_USERS",
-            "#text": "Posts of Ignored Users will be hidden. This does not include Quoted Posts"
+            "#text": "پست های کاربران نادیده گرفته شده پنهان خواهد شد. این شامل پست های نقل شده نمی شود"
           },
           {
             "@tag": "SELECT_OPTIONS",
-            "#text": "Options to Block other Users from Contacting you..."
+            "#text": "گزینه هایی برای مسدود کردن سایر کاربران از تماس با شما..."
           },
           {
             "@tag": "TITLE",
-            "#text": "User Block Options & Ignored Users"
+            "#text": "گزینه های بلوک کاربر و کاربران نادیده گرفته شده"
           }
         ]
       },
@@ -7618,11 +7614,11 @@
           },
           {
             "@tag": "BUTTON_DELETE_UNDELETE",
-            "#text": "Delete from DB"
+            "#text": "حذف از DB"
           },
           {
             "@tag": "BUTTON_DELETE_UNDELETE_TT",
-            "#text": "Delete this post from the Database"
+            "#text": "این پست را از پایگاه داده حذف کنید"
           },
           {
             "@tag": "BUTTON_DELETEALBUM",
@@ -7823,7 +7819,7 @@
           },
           {
             "@tag": "EMPTY_PASSWORD",
-            "#text": "Please Enter your Current Password"
+            "#text": "لطفا رمز عبور فعلی خود را وارد کنید"
           },
           {
             "@tag": "EMPTY_QUESTION",
@@ -7871,27 +7867,27 @@
           },
           {
             "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "New Security Answer:"
+            "#text": "پاسخ امنیتی جدید:"
           },
           {
             "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "Current Password:"
+            "#text": "رمز عبور فعلی:"
           },
           {
             "@tag": "SECURITY_CHANGED",
-            "#text": "Password Question and Answer changed."
+            "#text": "پرسش و پاسخ رمز عبور تغییر کرد."
           },
           {
             "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "Change failed. Please re-enter your values and try again."
+            "#text": "تغییر ناموفق بود. لطفاً مقادیر خود را دوباره وارد کنید و دوباره امتحان کنید."
           },
           {
             "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "New Security Question:"
+            "#text": "سوال امنیتی جدید:"
           },
           {
             "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "Old Security Question:"
+            "#text": "سوال امنیتی قدیمی:"
           },
           {
             "@tag": "TITLE",
@@ -7899,7 +7895,7 @@
           },
           {
             "@tag": "TITLE_SECURITY",
-            "#text": "Change Security Question and Answer"
+            "#text": "سوال و پاسخ امنیتی را تغییر دهید"
           }
         ]
       },
@@ -7973,7 +7969,7 @@
           },
           {
             "@tag": "BROWSE",
-            "#text": "Browse"
+            "#text": "مرور کردن"
           },
           {
             "@tag": "CAL_JQ_TT",
@@ -8045,7 +8041,7 @@
           },
           {
             "@tag": "COMMON_WORDS",
-            "#text": "out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your"
+            "#text": "خارج، لطفاً، یک، قادر، در مورد، در سراسر، بعد از، تقریباً، همچنین، من، در میان، یک، و، هر یک، همانطور که، در، باشد، زیرا، بوده است، اما، توسط، نمی تواند، می‌توانست، عزیزم، انجام می‌دهد، انجام می‌دهد، یا می‌توانست، انجام دهد، یا انجام می‌دهد. در، در، این است، آن، فقط، حداقل، اجازه دهید، به احتمال زیاد، ممکن است، من، ممکن است، بیشتر، باید، من، نه، نه، نه، نه، خاموش، اغلب، فقط روشن، یا، دیگری، خود ما، نه، گفت، می گوید، می گوید، او باید، از آنجایی که، برخی، از آن، آنها، آنها، سپس، آنجا، اینها، آنها، این، به، همینطور، ما، میخواهیم، بودیم، ما، چه بودیم، کی، کجا، که، در حالی که، چه کسی، چه کسی، چرا، با، با این حال، شما، خودتان"
           },
           {
             "@tag": "CONTINUE",
@@ -8053,19 +8049,19 @@
           },
           {
             "@tag": "COOKIE",
-            "#text": "The {0} uses cookies. By continuing to browse this site, you are agreeing to our use of cookies."
+            "#text": "{0} از کوکی ها استفاده می کند. با ادامه مرور این سایت، با استفاده ما از کوکی ها موافقت می کنید."
           },
           {
             "@tag": "COOKIE_AGREE",
-            "#text": "Close"
+            "#text": "نزدیک"
           },
           {
             "@tag": "COOKIE_DETAILS",
-            "#text": "More Details"
+            "#text": "جزئیات بیشتر"
           },
           {
             "@tag": "COOKIE_HEADER",
-            "#text": "Important Information:"
+            "#text": "اطلاعات مهم:"
           },
           {
             "@tag": "COPY",
@@ -8081,11 +8077,11 @@
           },
           {
             "@tag": "DELETED_MESSAGE",
-            "#text": "Message with ID: {0} Deleted"
+            "#text": "پیام با شناسه: {0} حذف شد"
           },
           {
             "@tag": "DELETED_TOPIC",
-            "#text": "Topic with ID: {0} Deleted"
+            "#text": "موضوع با شناسه: {0} حذف شد"
           },
           {
             "@tag": "DISALLOWED",
@@ -8105,27 +8101,27 @@
           },
           {
             "@tag": "ENTRIES_10",
-            "#text": "10 Entries"
+            "#text": "10 ورودی"
           },
           {
             "@tag": "ENTRIES_15",
-            "#text": "15 Entries"
+            "#text": "15 ورودی"
           },
           {
             "@tag": "ENTRIES_20",
-            "#text": "20 Entries"
+            "#text": "20 ورودی"
           },
           {
             "@tag": "ENTRIES_25",
-            "#text": "25 Entries"
+            "#text": "25 ورودی"
           },
           {
             "@tag": "ENTRIES_5",
-            "#text": "5 Entries"
+            "#text": "5 ورودی"
           },
           {
             "@tag": "ENTRIES_50",
-            "#text": "50 Entries"
+            "#text": "50 ورودی"
           },
           {
             "@tag": "EXTERNALUSER",
@@ -8149,19 +8145,19 @@
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "d"
+            "#text": "د"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "F"
+            "#text": "اف"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "G"
+            "#text": "جی"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T"
+            "#text": "تی"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -8169,11 +8165,11 @@
           },
           {
             "@tag": "FORUM_JUMP_PLACEHOLDER",
-            "#text": "Select a Forum to Go to..."
+            "#text": "یک انجمن را برای رفتن به آن انتخاب کنید..."
           },
           {
             "@tag": "FORUMS_SHOWN",
-            "#text": "{0} of {1} Forums shown"
+            "#text": "{0} از {1} انجمن نشان داده شده است"
           },
           {
             "@tag": "GENERATED",
@@ -8221,11 +8217,11 @@
           },
           {
             "@tag": "IN_FORUM",
-            "#text": "in Forum: {0}"
+            "#text": "در انجمن: {0}"
           },
           {
             "@tag": "LOAD_MORE",
-            "#text": "Show More Categories & Forums..."
+            "#text": "نمایش دسته ها و انجمن های بیشتر..."
           },
           {
             "@tag": "LOADING",
@@ -8233,7 +8229,7 @@
           },
           {
             "@tag": "MANAGE",
-            "#text": "Manage"
+            "#text": "مدیریت کنید"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8241,7 +8237,7 @@
           },
           {
             "@tag": "MENU",
-            "#text": "Menu"
+            "#text": "منو"
           },
           {
             "@tag": "MESSAGE",
@@ -8277,7 +8273,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Note:"
+            "#text": "توجه داشته باشید:"
           },
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
@@ -8285,7 +8281,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "you have been awarded on the {0} Forum"
+            "#text": "شما در انجمن {0} جایزه دریافت کرده اید"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
@@ -8305,7 +8301,7 @@
           },
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
-            "#text": "Suspension of your {0} Forum Account"
+            "#text": "تعلیق حساب انجمن {0} شما"
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
@@ -8317,7 +8313,7 @@
           },
           {
             "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
-            "#text": "{0} Forum Account Update"
+            "#text": "{0} به‌روزرسانی حساب انجمن"
           },
           {
             "@tag": "OK",
@@ -8329,7 +8325,7 @@
           },
           {
             "@tag": "PAGE",
-            "#text": "Page"
+            "#text": "صفحه"
           },
           {
             "@tag": "PAGES",
@@ -8353,7 +8349,7 @@
           },
           {
             "@tag": "PRIVACY_POLICY",
-            "#text": "Privacy Policy"
+            "#text": "سیاست حفظ حریم خصوصی"
           },
           {
             "@tag": "READ",
@@ -8377,19 +8373,19 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      language:  {\r\n      errorLoading: function() {\r\n      return \"The results could not be loaded.\"\r\n      },\r\n      inputTooLong: function(e) {\r\n      var t = e.input.length - e.maximum,\r\n      n = \"Please delete \" + t + \" character\";\r\n      return t != 1 && (n += \"s\"), n\r\n      },\r\n      inputTooShort: function(e) {\r\n      var t = e.minimum - e.input.length,\r\n      n = \"Please enter \" + t + \" or more characters\";\r\n      return n\r\n      },\r\n      loadingMore: function() {\r\n      return \"Loading more results…\"\r\n      },\r\n      maximumSelected: function(e) {\r\n      var t = \"You can only select \" + e.maximum + \" item\";\r\n      return e.maximum != 1 && (t += \"s\"), t\r\n      },\r\n      noResults: function() {\r\n      return \"No results found\"\r\n      },\r\n      searching: function() {\r\n      return \"Searching…\"\r\n      }\r\n      }\r\n    "
+            "#text": "language:  { errorLoading:function(){return\"امکان بارگذاری نتایج وجود ندارد.\"},inputTooLong:function(n){return\"لطفاً \"+(n.input.length-n.maximum)+\" کاراکتر را حذف نمایید\"},inputTooShort:function(n){return\"لطفاً تعداد \"+(n.minimum-n.input.length)+\" کاراکتر یا بیشتر وارد نمایید\"},loadingMore:function(){return\"در حال بارگذاری نتایج بیشتر...\"},maximumSelected:function(n){return\"شما تنها می‌توانید \"+n.maximum+\" آیتم را انتخاب نمایید\"},noResults:function(){return\"هیچ نتیجه‌ای یافت نشد\"},searching:function(){return\"در حال جستجو...\"},removeAllItems:function(){return\"همه موارد را حذف کنید\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
-            "#text": "Copy Selected Text"
+            "#text": "متن انتخاب شده را کپی کنید"
           },
           {
             "@tag": "SELECTED_QUOTE",
-            "#text": "Quote Selected Text"
+            "#text": "نقل قول متن انتخاب شده"
           },
           {
             "@tag": "SELECTED_SEARCH",
-            "#text": "Search Google for ..."
+            "#text": "جستجو در گوگل برای ..."
           },
           {
             "@tag": "SHOWHIDE",
@@ -8437,7 +8433,7 @@
           },
           {
             "@tag": "TT_HIGHLIGHT",
-            "#text": "Highlight"
+            "#text": "برجسته"
           },
           {
             "@tag": "TT_IMAGE",
@@ -8465,7 +8461,7 @@
           },
           {
             "@tag": "TT_SAVE",
-            "#text": "Save Message Draft"
+            "#text": "ذخیره پیش نویس پیام"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8473,11 +8469,11 @@
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
-            "#text": "You have {0} unread Mentions, would you like to go to the newest one?"
+            "#text": "شما {0} نام خوانده نشده دارید، آیا می خواهید به جدیدترین آنها بروید؟"
           },
           {
             "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "Somebody Mentioned you in a Topic"
+            "#text": "کسی از شما در یک موضوع نام برده است"
           },
           {
             "@tag": "UNREAD_MSG",
@@ -8493,19 +8489,19 @@
           },
           {
             "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "You have {0} unread quoted Posts, would you like to go to the newest one?"
+            "#text": "شما {0} پست نقل قول خوانده نشده دارید، آیا می خواهید به جدیدترین پست بروید؟"
           },
           {
             "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "Somebody Quoted you in a Topic"
+            "#text": "کسی از شما در یک موضوع نقل قول کرده است"
           },
           {
             "@tag": "UNREAD_THANKS_MSG",
-            "#text": "You have {0} unread received Thanks, would you like to go to the newest one?"
+            "#text": "شما {0} خوانده نشده دریافت کرده اید با تشکر، آیا می خواهید به جدیدترین آنها بروید؟"
           },
           {
             "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "Somebody Thanked you for a Message"
+            "#text": "کسی از شما برای یک پیام تشکر کرد"
           },
           {
             "@tag": "UPDATE",
@@ -9664,7 +9660,7 @@
           },
           {
             "@tag": "MARKALL_MESSAGE",
-            "#text": "All forums has been marked as read"
+            "#text": "همه انجمن ها به عنوان خوانده شده علامت گذاری شده اند"
           },
           {
             "@tag": "MODERATORS",
@@ -9672,7 +9668,7 @@
           },
           {
             "@tag": "MOST_ACTIVE",
-            "#text": "Most Active Users in the last {0} Days"
+            "#text": "فعال ترین کاربران در {0} روز گذشته"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -9736,19 +9732,19 @@
           },
           {
             "@tag": "STATS_SPAM",
-            "#text": "Anti Spam Statistics"
+            "#text": "آمار ضد هرزنامه"
           },
           {
             "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} Spammers Permanently Banned"
+            "#text": "{0} هرزنامه‌ها برای همیشه ممنوع شدند"
           },
           {
             "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} Spammers Denied Registration"
+            "#text": "{0} هرزنامه‌ها ثبت نام را رد کردند"
           },
           {
             "@tag": "STATS_SPAM_REPORTED",
-            "#text": "{0} Spammers submitted to StopForumSpam.com"
+            "#text": "{0} هرزنامه‌ها به StopForumSpam.com ارسال شدند"
           },
           {
             "@tag": "TOPICS",
@@ -9776,11 +9772,11 @@
           },
           {
             "@tag": "WATCHFORUM_ALL",
-            "#text": "Watch all forums"
+            "#text": "همه انجمن ها را تماشا کنید"
           },
           {
             "@tag": "WATCHFORUM_ALL_HELP",
-            "#text": "Watch all forums and get Email Notifications when a new Topic is created"
+            "#text": "همه انجمن ها را تماشا کنید و هنگام ایجاد یک موضوع جدید، اعلان های ایمیل را دریافت کنید"
           }
         ]
       },
@@ -9789,31 +9785,31 @@
         "Resource": [
           {
             "@tag": "CONFIRM",
-            "#text": "Are you absolutely sure you want to do this?"
+            "#text": "آیا کاملاً مطمئن هستید که می خواهید این کار را انجام دهید؟"
           },
           {
             "@tag": "OPTION_DELETE_TEXT",
-            "#text": "This will delete your account permanently! All your content will be deleted. After that your account can not be restored"
+            "#text": "با این کار حساب شما برای همیشه حذف می شود! تمام مطالب شما حذف خواهد شد. پس از آن حساب شما قابل بازیابی نیست"
           },
           {
             "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Delete your Account (permanently)"
+            "#text": "حذف حساب خود (به طور دائم)"
           },
           {
             "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "If you just want to take a break from the Forum, then this will suspend your account for 30 days. Your content is still visible"
+            "#text": "اگر فقط می خواهید از تالار گفتگو فاصله بگیرید، این کار حساب شما را به مدت 30 روز معلق می کند. محتوای شما همچنان قابل مشاهده است"
           },
           {
             "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Suspend your Account for 30 days"
+            "#text": "حساب خود را به مدت 30 روز معلق کنید"
           },
           {
             "@tag": "OPTIONS_TITLE",
-            "#text": "You have the option to..."
+            "#text": "شما این اختیار را دارید که ..."
           },
           {
             "@tag": "TITLE",
-            "#text": "Delete Your {0} Account"
+            "#text": "حساب {0} خود را حذف کنید"
           }
         ]
       },
@@ -9826,7 +9822,7 @@
           },
           {
             "@tag": "DELETE_ALL",
-            "#text": "Delete All Posts?"
+            "#text": "همه پست ها حذف شود؟"
           },
           {
             "@tag": "DELETE_REASON",
@@ -9850,7 +9846,7 @@
           },
           {
             "@tag": "NEED_REASON",
-            "#text": "You need to enter a Reason why the message is deleted."
+            "#text": "شما باید یک دلیل برای حذف پیام وارد کنید."
           },
           {
             "@tag": "POSTED",
@@ -9956,7 +9952,7 @@
           },
           {
             "@tag": "IMAGES",
-            "#text": "Album Image(s)"
+            "#text": "تصویر(های) آلبوم"
           },
           {
             "@tag": "IMAGES_COUNT_LIMIT",
@@ -9968,7 +9964,7 @@
           },
           {
             "@tag": "NEED_TITLE",
-            "#text": "You need to specify a title."
+            "#text": "باید عنوانی را مشخص کنید."
           },
           {
             "@tag": "SELECT_FILE",
@@ -9980,7 +9976,7 @@
           },
           {
             "@tag": "TITLE_NEW",
-            "#text": "Create New Album"
+            "#text": "ایجاد آلبوم جدید"
           }
         ]
       },
@@ -10074,7 +10070,7 @@
           },
           {
             "@tag": "ACTIVITY",
-            "#text": "Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks."
+            "#text": "Activity Stream را فعال کنید (در صورت علامت زدن، اعلان هایی برای ذکر، نقل قول و تشکر دریافت می کنید."
           },
           {
             "@tag": "AIM",
@@ -10162,7 +10158,7 @@
           },
           {
             "@tag": "GET_LOCATION",
-            "#text": "Get Location from IP Address"
+            "#text": "دریافت موقعیت مکانی از آدرس IP"
           },
           {
             "@tag": "HIDEME",
@@ -10190,11 +10186,11 @@
           },
           {
             "@tag": "NEED_CUSTOM",
-            "#text": "{0} is required"
+            "#text": "{0} مورد نیاز است"
           },
           {
             "@tag": "OTHER",
-            "#text": "Other"
+            "#text": "دیگر"
           },
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
@@ -10218,7 +10214,7 @@
           },
           {
             "@tag": "SELECT_PAGESIZE",
-            "#text": "Standard Page Size:"
+            "#text": "اندازه صفحه استاندارد:"
           },
           {
             "@tag": "SELECT_TEXTEDITOR",
@@ -10271,7 +10267,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Edit Settings"
+            "#text": "ویرایش تنظیمات"
           }
         ]
       },
@@ -10353,11 +10349,11 @@
           },
           {
             "@tag": "NEED_MESSAGE",
-            "#text": "You must enter a Message."
+            "#text": "شما باید یک پیام وارد کنید."
           },
           {
             "@tag": "NEED_SUBJECT",
-            "#text": "You must enter an email subject."
+            "#text": "باید موضوع ایمیل را وارد کنید."
           },
           {
             "@tag": "SEND",
@@ -10439,11 +10435,11 @@
           },
           {
             "@tag": "INFO_NO",
-            "#text": "You don't have any friends yet"
+            "#text": "شما هنوز هیچ دوستی ندارید"
           },
           {
             "@tag": "INFO_PENDING",
-            "#text": "You don't have any pending requests"
+            "#text": "هیچ درخواست معلقی ندارید"
           },
           {
             "@tag": "NOTIFICATION_APPROVEALL",
@@ -10492,11 +10488,11 @@
         "Resource": [
           {
             "@tag": "AGENDER",
-            "#text": "Agender"
+            "#text": "عامل"
           },
           {
             "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
+            "#text": "آندروژن"
           },
           {
             "@tag": "BIGENDER",
@@ -10504,87 +10500,87 @@
           },
           {
             "@tag": "CISGENDER",
-            "#text": "Cisgender"
+            "#text": "سیسجندر"
           },
           {
             "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
+            "#text": "زن به مرد"
           },
           {
             "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
+            "#text": "مایع جنسی"
           },
           {
             "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
+            "#text": "جنسیت ناسازگار"
           },
           {
             "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
+            "#text": "جندرکویر"
           },
           {
             "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
+            "#text": "پرسش از جنسیت"
           },
           {
             "@tag": "INTERSEX",
-            "#text": "Intersex"
+            "#text": "اینترسکس"
           },
           {
             "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
+            "#text": "مرد به زن"
           },
           {
             "@tag": "MAN",
-            "#text": "Man"
+            "#text": "مرد"
           },
           {
             "@tag": "NONBINARY",
-            "#text": "Non-binary"
+            "#text": "غیر باینری"
           },
           {
             "@tag": "OTHER",
-            "#text": "Other"
+            "#text": "دیگر"
           },
           {
             "@tag": "PANGENDER",
-            "#text": "Pangender"
+            "#text": "پانگندر"
           },
           {
             "@tag": "TRANS",
-            "#text": "Trrans"
+            "#text": "ترنس"
           },
           {
             "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
+            "#text": "ترانس زنانه"
           },
           {
             "@tag": "TRANSGENDER",
-            "#text": "Transgender"
+            "#text": "تغییر جنسیت"
           },
           {
             "@tag": "TRANSMAN",
-            "#text": "Transgender Man"
+            "#text": "مرد ترنسجندر"
           },
           {
             "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
+            "#text": "فرامردانه"
           },
           {
             "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
+            "#text": "ترنس سکشوال"
           },
           {
             "@tag": "TRANSWOMAN",
-            "#text": "Transgender Woman"
+            "#text": "زن ترنسجندر"
           },
           {
             "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
+            "#text": "دو روح"
           },
           {
             "@tag": "WOMAN",
-            "#text": "Woman"
+            "#text": "زن"
           }
         ]
       },
@@ -10972,7 +10968,7 @@
           },
           {
             "@tag": "TITLE2",
-            "#text": "Send E-mail to {0}"
+            "#text": "ارسال ایمیل به {0}"
           }
         ]
       },
@@ -11143,7 +11139,7 @@
         "Resource": [
           {
             "@tag": "ACCOUNT_NOT_APPROVED",
-            "#text": "Your account is not approved yet because you have not validated your email. Please verify so you can login."
+            "#text": "حساب شما هنوز تایید نشده است زیرا ایمیل خود را تایید نکرده اید. لطفا تایید کنید تا بتوانید وارد شوید."
           },
           {
             "@tag": "AUTH_CONNECT",
@@ -11151,31 +11147,31 @@
           },
           {
             "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}"
+            "#text": "یک حساب انجمن موجود را به حساب {0} خود متصل کنید. ابتدا باید از طریق انجمن وارد شوید. {1}"
           },
           {
             "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>The Facebook email address must match the forum user email address to connect the user.</strong>"
+            "#text": "<strong>آدرس ایمیل فیس بوک باید با آدرس ایمیل کاربر تالار گفتمان مطابقت داشته باشد تا کاربر ارتباط برقرار کند.</strong>"
           },
           {
             "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>The Google email address must match the forum user email address to connect the user.</strong>"
+            "#text": "<strong>آدرس ایمیل Google باید با آدرس ایمیل کاربر انجمن مطابقت داشته باشد تا کاربر را متصل کند.</strong>"
           },
           {
             "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Login or Register with {0} or connect an existing User Account with {0}."
+            "#text": "با {0} وارد یا ثبت نام کنید یا یک حساب کاربری موجود را با {0} متصل کنید."
           },
           {
             "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>The Twitter user name must match the forum user name to connect the user.</strong>"
+            "#text": "<strong>برای اتصال کاربر، نام کاربری توییتر باید با نام کاربری انجمن مطابقت داشته باشد.</strong>"
           },
           {
             "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Login with an user Account that is connected with {0}. Or if no account is found a new account will be automatically created in the forums."
+            "#text": "با یک حساب کاربری که با {0} مرتبط است وارد شوید. یا اگر حسابی پیدا نشد یک حساب کاربری جدید به طور خودکار در انجمن ها ایجاد می شود."
           },
           {
             "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Could not get access_token!"
+            "#text": "دسترسی_token دریافت نشد!"
           },
           {
             "@tag": "AUTO",
@@ -11187,11 +11183,11 @@
           },
           {
             "@tag": "CAPS_LOCK",
-            "#text": "Caps Lock is on"
+            "#text": "Caps Lock روشن است"
           },
           {
             "@tag": "CONNECT_VIA",
-            "#text": "Or Connect via"
+            "#text": "یا اتصال از طریق"
           },
           {
             "@tag": "EMAIL",
@@ -11203,7 +11199,7 @@
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
-            "#text": "You have been locked out because of to many failed log in attempts."
+            "#text": "شما به دلیل تلاش های ناموفق بسیاری برای ورود قفل شده اید."
           },
           {
             "@tag": "FORUM_LOGIN",
@@ -11215,7 +11211,7 @@
           },
           {
             "@tag": "MSG_MESSAGE_SEND",
-            "#text": "Verification Mail was send again to you."
+            "#text": "نامه تأیید دوباره برای شما ارسال شد."
           },
           {
             "@tag": "PASSWORD",
@@ -11243,23 +11239,23 @@
           },
           {
             "@tag": "SSO_DEACTIVATED",
-            "#text": "Single Sign On is currently deactivated by the Administrator!"
+            "#text": "Single Sign On در حال حاضر توسط مدیر غیرفعال شده است!"
           },
           {
             "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Single Sign On is deactivated for that User, you need to activate it in your Profile Settings to use that feature."
+            "#text": "Single Sign On برای آن کاربر غیرفعال است، برای استفاده از آن ویژگی باید آن را در تنظیمات نمایه خود فعال کنید."
           },
           {
             "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "The Facebook Login failed, User does not exists, or the account is not connected."
+            "#text": "ورود فیس بوک انجام نشد، کاربر وجود ندارد، یا حساب متصل نیست."
           },
           {
             "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "The Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead."
+            "#text": "ورود فیس بوک ناموفق بود، یک حساب کاربری با همان آدرس ایمیل حساب فیس بوک از قبل وجود دارد، لطفاً سعی کنید به جای آن حساب انجمن خود را به شما متصل کنید."
           },
           {
             "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "The Facebook Login failed, because the user does not provide a email address for the account."
+            "#text": "ورود فیس بوک ناموفق بود، زیرا کاربر یک آدرس ایمیل برای حساب ارائه نمی دهد."
           },
           {
             "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
@@ -11271,11 +11267,11 @@
           },
           {
             "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "The Google Login failed, User does not exists, or the account is not connected."
+            "#text": "ورود به سیستم Google انجام نشد، کاربر وجود ندارد، یا حساب متصل نیست."
           },
           {
             "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "The Google Login failed, an user account with the same email address as the Google account already exists, please try to connect you your forum account instead."
+            "#text": "ورود به سیستم Google ناموفق بود، یک حساب کاربری با آدرس ایمیل یکسان با حساب Google از قبل وجود دارد، لطفاً سعی کنید به جای آن حساب انجمن خود را به شما متصل کنید."
           },
           {
             "@tag": "SSO_GOOGLENAME_NOTMATCH",
@@ -11291,11 +11287,11 @@
           },
           {
             "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "The Twitter Login failed, an user account with the same user name as the Twitter account already exists, please try to connect you your forum account instead."
+            "#text": "ورود توییتر انجام نشد، یک حساب کاربری با نام کاربری مشابه حساب توییتر از قبل وجود دارد، لطفاً سعی کنید به جای آن حساب انجمن خود را به شما متصل کنید."
           },
           {
             "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "The Twitter User Name must match the Forum Username!"
+            "#text": "نام کاربری توییتر باید با نام کاربری انجمن مطابقت داشته باشد!"
           },
           {
             "@tag": "TITLE",
@@ -11303,11 +11299,11 @@
           },
           {
             "@tag": "TWITTER_DM",
-            "#text": "You have received further Information to your new Account as Private Message on the Forum."
+            "#text": "شما اطلاعات بیشتری را برای حساب جدید خود به عنوان پیام خصوصی در انجمن دریافت کرده اید."
           },
           {
             "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Your {0} Forum Account Information: Username \"{1}\" Password \"{2}\""
+            "#text": "اطلاعات حساب انجمن {0} شما: نام کاربری &quot;{1}&quot; رمز عبور &quot;{2}&quot;"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11340,19 +11336,19 @@
           },
           {
             "@tag": "JOINED_ASC",
-            "#text": "Joined asc"
+            "#text": "پیوست"
           },
           {
             "@tag": "JOINED_DESC",
-            "#text": "Joined desc"
+            "#text": "به توصیف پیوست"
           },
           {
             "@tag": "LASTVISIT_ASC",
-            "#text": "Last visit asc"
+            "#text": "آخرین بازدید صعودی"
           },
           {
             "@tag": "LASTVISIT_DESC",
-            "#text": "Last visit desc"
+            "#text": "آخرین بازدید توصیفی"
           },
           {
             "@tag": "NUMPOSTSEQUAL",
@@ -11372,19 +11368,19 @@
           },
           {
             "@tag": "POSTS_ASC",
-            "#text": "Posts asc"
+            "#text": "ارسال ها صعودی"
           },
           {
             "@tag": "POSTS_DESC",
-            "#text": "Posts desc"
+            "#text": "توصیف پست ها"
           },
           {
             "@tag": "RANK_ASC",
-            "#text": "Rank A-Z"
+            "#text": "رتبه AZ"
           },
           {
             "@tag": "RANK_DESC",
-            "#text": "Rank Z-A"
+            "#text": "رتبه ZA"
           },
           {
             "@tag": "SEARCH_MEMBER",
@@ -11404,7 +11400,7 @@
           },
           {
             "@tag": "SORT_BY",
-            "#text": "Sort by"
+            "#text": "مرتب سازی بر اساس"
           },
           {
             "@tag": "TITLE",
@@ -11412,11 +11408,11 @@
           },
           {
             "@tag": "USERNAME_ASC",
-            "#text": "Name A-Z"
+            "#text": "نام AZ"
           },
           {
             "@tag": "USERNAME_DESC",
-            "#text": "Name Z-A"
+            "#text": "نام ZA"
           }
         ]
       },
@@ -11478,7 +11474,7 @@
           },
           {
             "@tag": "GOMODERATE",
-            "#text": "Continue moderate"
+            "#text": "معتدل ادامه دهید"
           },
           {
             "@tag": "MESSAGE_EDITEDAT",
@@ -11522,7 +11518,7 @@
           },
           {
             "@tag": "SELECT_TWO",
-            "#text": "Only 2 Versions can be selected vor comparing!"
+            "#text": "فقط 2 نسخه را می توان برای مقایسه انتخاب کرد!"
           },
           {
             "@tag": "TEXT_CHANGES",
@@ -11620,11 +11616,11 @@
           },
           {
             "@tag": "MOVE_TO_DIFFERENT",
-            "#text": "The forum you want to move the topic(s) must be different then the current forum."
+            "#text": "انجمنی که می خواهید موضوع(های) را جابه جا کنید باید با انجمن فعلی متفاوت باشد."
           },
           {
             "@tag": "MOVED",
-            "#text": "Topic(s) Moved"
+            "#text": "موضوع(های) منتقل شد"
           },
           {
             "@tag": "NO_POSTS",
@@ -11754,7 +11750,7 @@
           },
           {
             "@tag": "REPORTED_TIMES",
-            "#text": "{0} Reports"
+            "#text": "{0} گزارش‌ها"
           },
           {
             "@tag": "REPORTEDBY",
@@ -11945,7 +11941,7 @@
           },
           {
             "@tag": "SELECT",
-            "#text": "Select..."
+            "#text": "انتخاب کنید..."
           },
           {
             "@tag": "SHOW_ALL",
@@ -11977,7 +11973,7 @@
           },
           {
             "@tag": "WATCHTOPICS",
-            "#text": "Watch Topics"
+            "#text": "تماشای موضوعات"
           }
         ]
       },
@@ -12014,11 +12010,11 @@
           },
           {
             "@tag": "DATE_ASC",
-            "#text": "Date asc"
+            "#text": "تاریخ صعودی"
           },
           {
             "@tag": "DATE_DESC",
-            "#text": "Date desc"
+            "#text": "تاریخ توصیف"
           },
           {
             "@tag": "DELETEALL",
@@ -12046,11 +12042,11 @@
           },
           {
             "@tag": "FROM_ASC",
-            "#text": "From A-Z"
+            "#text": "از AZ"
           },
           {
             "@tag": "FROM_DESC",
-            "#text": "From Z-A"
+            "#text": "از ZA"
           },
           {
             "@tag": "INBOX",
@@ -12062,7 +12058,7 @@
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "به عنوان خوانده شده علامت بزن"
           },
           {
             "@tag": "MSG_ARCHIVED",
@@ -12110,11 +12106,11 @@
           },
           {
             "@tag": "SUBJECT_ASC",
-            "#text": "Subject A-Z"
+            "#text": "موضوع AZ"
           },
           {
             "@tag": "SUBJECT_DESC",
-            "#text": "Subject Z-A"
+            "#text": "موضوع ZA"
           },
           {
             "@tag": "TITLE",
@@ -12126,11 +12122,11 @@
           },
           {
             "@tag": "TO_ASC",
-            "#text": "To A-Z"
+            "#text": "به AZ"
           },
           {
             "@tag": "TO_DESC",
-            "#text": "To Z-A"
+            "#text": "به ZA"
           }
         ]
       },
@@ -12207,11 +12203,11 @@
           },
           {
             "@tag": "REPORT_BODY",
-            "#text": "I would like to Report the Message:\r\n\r\n  {0}\r\n\r\n  for the following Reason..."
+            "#text": "من می خواهم پیام را گزارش کنم: {0} به دلیل زیر ..."
           },
           {
             "@tag": "REPORT_SUBJECT",
-            "#text": "Report a Private Message from User: {0}"
+            "#text": "گزارش یک پیام خصوصی از کاربر: {0}"
           },
           {
             "@tag": "REPORTED_SUBJECT",
@@ -12392,11 +12388,11 @@
           },
           {
             "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "Board Poll:"
+            "#text": "نظرسنجی هیئت مدیره:"
           },
           {
             "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "Choose an existing poll as board Poll"
+            "#text": "یک نظرسنجی موجود را به عنوان نظرسنجی هیئت مدیره انتخاب کنید"
           },
           {
             "@tag": "POLLGROUPISBOUND",
@@ -12461,11 +12457,11 @@
           },
           {
             "@tag": "BLOG_PASSWORD",
-            "#text": "Blog Password:"
+            "#text": "رمز وبلاگ:"
           },
           {
             "@tag": "BLOG_POST",
-            "#text": "Post to blog?"
+            "#text": "ارسال به وبلاگ؟"
           },
           {
             "@tag": "CANCEL_TITLE",
@@ -12618,7 +12614,7 @@
         "Resource": [
           {
             "@tag": "AD_SIGNATURE",
-            "#text": "Ads"
+            "#text": "تبلیغات"
           },
           {
             "@tag": "AD_USERNAME",
@@ -12626,7 +12622,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "هدف"
           },
           {
             "@tag": "AIM_TITLE",
@@ -12742,7 +12738,7 @@
           },
           {
             "@tag": "GO_TO_ANSWER",
-            "#text": "Go to the topic answer"
+            "#text": "برو به پاسخ تاپیک"
           },
           {
             "@tag": "GROUPS",
@@ -12822,35 +12818,35 @@
           },
           {
             "@tag": "MANAGE_POST",
-            "#text": "Manage Message"
+            "#text": "مدیریت پیام"
           },
           {
             "@tag": "MANAGE_TOPIC",
-            "#text": "Manage Topic"
+            "#text": "موضوع را مدیریت کنید"
           },
           {
             "@tag": "MARK_ANSWER",
-            "#text": "Mark As Answer"
+            "#text": "علامت گذاری به عنوان پاسخ"
           },
           {
             "@tag": "MARK_ANSWER_REMOVE",
-            "#text": "Remove As Answer"
+            "#text": "به عنوان پاسخ حذف کنید"
           },
           {
             "@tag": "MARK_ANSWER_REMOVE_TITLE",
-            "#text": "Unmark this Message as answer"
+            "#text": "علامت این پیام را به عنوان پاسخ بردارید"
           },
           {
             "@tag": "MARK_ANSWER_TITLE",
-            "#text": "Mark this Message as answer"
+            "#text": "این پیام را به عنوان پاسخ علامت گذاری کنید"
           },
           {
             "@tag": "MESSAGE_ANSWER",
-            "#text": "Answer"
+            "#text": "پاسخ"
           },
           {
             "@tag": "MESSAGE_ANSWER_HELP",
-            "#text": "Marked as answer"
+            "#text": "به عنوان پاسخ علامت گذاری شده است"
           },
           {
             "@tag": "MESSAGEDELETED_MOD",
@@ -12974,7 +12970,7 @@
           },
           {
             "@tag": "RSSTOPIC",
-            "#text": "RSS Feed"
+            "#text": "فید RSS"
           },
           {
             "@tag": "SHARE",
@@ -13066,7 +13062,7 @@
           },
           {
             "@tag": "TOOLS",
-            "#text": "Tools"
+            "#text": "ابزار"
           },
           {
             "@tag": "TOP",
@@ -13074,11 +13070,11 @@
           },
           {
             "@tag": "TOPIC_STARTER",
-            "#text": "Topic Starter"
+            "#text": "شروع کننده موضوع"
           },
           {
             "@tag": "TOPIC_STARTER_HELP",
-            "#text": "Indicates that this user has started this topic"
+            "#text": "نشان می دهد که این کاربر این موضوع را شروع کرده است"
           },
           {
             "@tag": "TOPICBROWSERS",
@@ -13195,11 +13191,11 @@
         "Resource": [
           {
             "@tag": "MESSAGE",
-            "#text": "Message:"
+            "#text": "پیام:"
           },
           {
             "@tag": "TAGS",
-            "#text": "Tags:"
+            "#text": "برچسب ها:"
           }
         ]
       },
@@ -13281,7 +13277,7 @@
           },
           {
             "@tag": "FORUM_ACCESS",
-            "#text": "Forum Access"
+            "#text": "دسترسی به انجمن"
           },
           {
             "@tag": "GENDER",
@@ -13289,7 +13285,7 @@
           },
           {
             "@tag": "GOOGLE",
-            "#text": "Google+ Profile:"
+            "#text": "نمایه +Google:"
           },
           {
             "@tag": "GROUPS",
@@ -13337,7 +13333,7 @@
           },
           {
             "@tag": "MONTH",
-            "#text": "month"
+            "#text": "ماه"
           },
           {
             "@tag": "NUMALL",
@@ -13397,7 +13393,7 @@
           },
           {
             "@tag": "SOCIAL_MEDIA",
-            "#text": "Social Media"
+            "#text": "رسانه های اجتماعی"
           },
           {
             "@tag": "STATISTICS",
@@ -13469,7 +13465,7 @@
           },
           {
             "@tag": "YEARS",
-            "#text": "Year(s)"
+            "#text": "سال ها)"
           },
           {
             "@tag": "YIM",
@@ -13498,7 +13494,7 @@
           },
           {
             "@tag": "SUCCESS",
-            "#text": "An email with the Reset Link was send to your email address!"
+            "#text": "یک ایمیل با پیوند بازنشانی به آدرس ایمیل شما ارسال شد!"
           },
           {
             "@tag": "TITLE",
@@ -13515,7 +13511,7 @@
         "Resource": [
           {
             "@tag": "RGN_CH_AG",
-            "#text": "Aargau"
+            "#text": "آرگاو"
           },
           {
             "@tag": "RGN_CH_AI",
@@ -13523,99 +13519,99 @@
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "آپنزل اوتر رودز"
           },
           {
             "@tag": "RGN_CH_BE",
-            "#text": "Bern"
+            "#text": "برن"
           },
           {
             "@tag": "RGN_CH_BL",
-            "#text": "Basel District"
+            "#text": "ناحیه بازل"
           },
           {
             "@tag": "RGN_CH_BS",
-            "#text": "Basel"
+            "#text": "بازل"
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "فریبورگ"
           },
           {
             "@tag": "RGN_CH_GE",
-            "#text": "Geneva"
+            "#text": "ژنو"
           },
           {
             "@tag": "RGN_CH_GL",
-            "#text": "Glarus"
+            "#text": "گلاروس"
           },
           {
             "@tag": "RGN_CH_GR",
-            "#text": "Grisons"
+            "#text": "گریسونز"
           },
           {
             "@tag": "RGN_CH_JU",
-            "#text": "Jura"
+            "#text": "جورا"
           },
           {
             "@tag": "RGN_CH_LU",
-            "#text": "Lucerne"
+            "#text": "لوسرن"
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "نوشاتل"
           },
           {
             "@tag": "RGN_CH_NW",
-            "#text": "Nidwalden"
+            "#text": "نیدوالدن"
           },
           {
             "@tag": "RGN_CH_OW",
-            "#text": "Obwalden"
+            "#text": "اووالدن"
           },
           {
             "@tag": "RGN_CH_SG",
-            "#text": "St. Gallen"
+            "#text": "سنت گالن"
           },
           {
             "@tag": "RGN_CH_SH",
-            "#text": "Schaffhausen"
+            "#text": "شافهاوزن"
           },
           {
             "@tag": "RGN_CH_SO",
-            "#text": "Solothurn"
+            "#text": "سولوتورن"
           },
           {
             "@tag": "RGN_CH_SZ",
-            "#text": "Schwyz"
+            "#text": "شویز"
           },
           {
             "@tag": "RGN_CH_TG",
-            "#text": "Thurgau"
+            "#text": "تورگائو"
           },
           {
             "@tag": "RGN_CH_TI",
-            "#text": "Ticino"
+            "#text": "تیچینو"
           },
           {
             "@tag": "RGN_CH_UR",
-            "#text": "Uri"
+            "#text": "اوری"
           },
           {
             "@tag": "RGN_CH_VD",
-            "#text": "Vaud"
+            "#text": "وود"
           },
           {
             "@tag": "RGN_CH_VS",
-            "#text": "Valais"
+            "#text": "والیس"
           },
           {
             "@tag": "RGN_CH_ZG",
-            "#text": "Zug"
+            "#text": "زوگ"
           },
           {
             "@tag": "RGN_CH_ZH",
-            "#text": "Zurich"
+            "#text": "زوریخ"
           }
         ]
       },
@@ -13624,67 +13620,67 @@
         "Resource": [
           {
             "@tag": "RGN_DE_BA",
-            "#text": "Bavaria"
+            "#text": "بایرن"
           },
           {
             "@tag": "RGN_DE_BB",
-            "#text": "Brandenburg"
+            "#text": "براندنبورگ"
           },
           {
             "@tag": "RGN_DE_BER",
-            "#text": "Berlin"
+            "#text": "برلین"
           },
           {
             "@tag": "RGN_DE_BRE",
-            "#text": "Bremen"
+            "#text": "برمن"
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "بادن-وورتمبرگ"
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "هسن"
           },
           {
             "@tag": "RGN_DE_HH",
-            "#text": "Hamburg"
+            "#text": "هامبورگ"
           },
           {
             "@tag": "RGN_DE_MV",
-            "#text": "Mecklenburg-Vorpommern"
+            "#text": "مکلنبورگ-فورپومرن"
           },
           {
             "@tag": "RGN_DE_NI",
-            "#text": "Lower Saxony"
+            "#text": "نیدرزاکسن"
           },
           {
             "@tag": "RGN_DE_NRW",
-            "#text": "North Rhine-Westphalia"
+            "#text": "نوردراین-وستفالن"
           },
           {
             "@tag": "RGN_DE_RP",
-            "#text": "Rhineland-Palatinate"
+            "#text": "راینلاند-فالتز"
           },
           {
             "@tag": "RGN_DE_SA",
-            "#text": "Saxony-Anhalt"
+            "#text": "زاکسن-آنهالت"
           },
           {
             "@tag": "RGN_DE_SAA",
-            "#text": "Saarland"
+            "#text": "زارلند"
           },
           {
             "@tag": "RGN_DE_SACH",
-            "#text": "Saxony"
+            "#text": "ساکسونی"
           },
           {
             "@tag": "RGN_DE_SW",
-            "#text": "Schleswig-Holstein"
+            "#text": "شلسویگ-هولشتاین"
           },
           {
             "@tag": "RGN_DE_TH",
-            "#text": "Thuringia"
+            "#text": "تورینگن"
           }
         ]
       },
@@ -13693,227 +13689,227 @@
         "Resource": [
           {
             "@tag": "RGN_US_AK",
-            "#text": "Alaska"
+            "#text": "آلاسکا"
           },
           {
             "@tag": "RGN_US_AL",
-            "#text": "Alabama"
+            "#text": "آلاباما"
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "آرکانزاس"
           },
           {
             "@tag": "RGN_US_AS",
-            "#text": "American Samoa"
+            "#text": "ساموآی آمریکایی"
           },
           {
             "@tag": "RGN_US_AZ",
-            "#text": "Arizona"
+            "#text": "آریزونا"
           },
           {
             "@tag": "RGN_US_CA",
-            "#text": "California"
+            "#text": "کالیفرنیا"
           },
           {
             "@tag": "RGN_US_CO",
-            "#text": "Colorado"
+            "#text": "کلرادو"
           },
           {
             "@tag": "RGN_US_CT",
-            "#text": "Connecticut"
+            "#text": "کانکتیکات"
           },
           {
             "@tag": "RGN_US_DC",
-            "#text": "District of Columbia"
+            "#text": "منطقه کلمبیا"
           },
           {
             "@tag": "RGN_US_DE",
-            "#text": "Delaware"
+            "#text": "دلاور"
           },
           {
             "@tag": "RGN_US_FL",
-            "#text": "Florida"
+            "#text": "فلوریدا"
           },
           {
             "@tag": "RGN_US_GA",
-            "#text": "Georgia"
+            "#text": "گرجستان"
           },
           {
             "@tag": "RGN_US_GU",
-            "#text": "Guam"
+            "#text": "گوام"
           },
           {
             "@tag": "RGN_US_HI",
-            "#text": "Hawaii"
+            "#text": "هاوایی"
           },
           {
             "@tag": "RGN_US_IA",
-            "#text": "Iowa"
+            "#text": "آیووا"
           },
           {
             "@tag": "RGN_US_ID",
-            "#text": "Idaho"
+            "#text": "آیداهو"
           },
           {
             "@tag": "RGN_US_IL",
-            "#text": "Illinois"
+            "#text": "ایلینوی"
           },
           {
             "@tag": "RGN_US_IN",
-            "#text": "Indiana"
+            "#text": "ایندیانا"
           },
           {
             "@tag": "RGN_US_KS",
-            "#text": "Kansas"
+            "#text": "کانزاس"
           },
           {
             "@tag": "RGN_US_KY",
-            "#text": "Kentucky"
+            "#text": "کنتاکی"
           },
           {
             "@tag": "RGN_US_LA",
-            "#text": "Louisiana"
+            "#text": "لوئیزیانا"
           },
           {
             "@tag": "RGN_US_MA",
-            "#text": "Massachusetts"
+            "#text": "ماساچوست"
           },
           {
             "@tag": "RGN_US_MD",
-            "#text": "Maryland"
+            "#text": "مریلند"
           },
           {
             "@tag": "RGN_US_ME",
-            "#text": "Maine"
+            "#text": "مین"
           },
           {
             "@tag": "RGN_US_MI",
-            "#text": "Michigan"
+            "#text": "میشیگان"
           },
           {
             "@tag": "RGN_US_MN",
-            "#text": "Minnesota"
+            "#text": "مینه سوتا"
           },
           {
             "@tag": "RGN_US_MO",
-            "#text": "Missouri"
+            "#text": "میسوری"
           },
           {
             "@tag": "RGN_US_MP",
-            "#text": "Northern Mariana Islands"
+            "#text": "جزایر ماریانای شمالی"
           },
           {
             "@tag": "RGN_US_MS",
-            "#text": "Mississippi"
+            "#text": "می سی سی پی"
           },
           {
             "@tag": "RGN_US_MT",
-            "#text": "Montana"
+            "#text": "مونتانا"
           },
           {
             "@tag": "RGN_US_NC",
-            "#text": "North Carolina"
+            "#text": "کارولینای شمالی"
           },
           {
             "@tag": "RGN_US_ND",
-            "#text": "North Dakota"
+            "#text": "داکوتای شمالی"
           },
           {
             "@tag": "RGN_US_NE",
-            "#text": "Nebraska"
+            "#text": "نبراسکا"
           },
           {
             "@tag": "RGN_US_NH",
-            "#text": "New Hampshire"
+            "#text": "نیوهمپشایر"
           },
           {
             "@tag": "RGN_US_NJ",
-            "#text": "New Jersey"
+            "#text": "نیوجرسی"
           },
           {
             "@tag": "RGN_US_NM",
-            "#text": "New Mexico"
+            "#text": "نیومکزیکو"
           },
           {
             "@tag": "RGN_US_NV",
-            "#text": "Nevada"
+            "#text": "نوادا"
           },
           {
             "@tag": "RGN_US_NY",
-            "#text": "New York"
+            "#text": "نیویورک"
           },
           {
             "@tag": "RGN_US_OH",
-            "#text": "Ohio"
+            "#text": "اوهایو"
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "اوکلاهما"
           },
           {
             "@tag": "RGN_US_OR",
-            "#text": "Oregon"
+            "#text": "اورگان"
           },
           {
             "@tag": "RGN_US_PA",
-            "#text": "Pennsylvania"
+            "#text": "پنسیلوانیا"
           },
           {
             "@tag": "RGN_US_PR",
-            "#text": "Puerto Rico"
+            "#text": "پورتوریکو"
           },
           {
             "@tag": "RGN_US_RI",
-            "#text": "Rhode Island"
+            "#text": "رود آیلند"
           },
           {
             "@tag": "RGN_US_SC",
-            "#text": "South Carolina"
+            "#text": "کارولینای جنوبی"
           },
           {
             "@tag": "RGN_US_SD",
-            "#text": "South Dakota"
+            "#text": "داکوتای جنوبی"
           },
           {
             "@tag": "RGN_US_TN",
-            "#text": "Tennessee"
+            "#text": "تنسی"
           },
           {
             "@tag": "RGN_US_TX",
-            "#text": "Texas"
+            "#text": "تگزاس"
           },
           {
             "@tag": "RGN_US_UT",
-            "#text": "Utah"
+            "#text": "یوتا"
           },
           {
             "@tag": "RGN_US_VA",
-            "#text": "Virginia"
+            "#text": "ویرجینیا"
           },
           {
             "@tag": "RGN_US_VI",
-            "#text": "Virgin Islands"
+            "#text": "جزایر ویرجین"
           },
           {
             "@tag": "RGN_US_VT",
-            "#text": "Vermont"
+            "#text": "ورمونت"
           },
           {
             "@tag": "RGN_US_WA",
-            "#text": "Washington"
+            "#text": "واشنگتن"
           },
           {
             "@tag": "RGN_US_WI",
-            "#text": "Wisconsin"
+            "#text": "ویسکانسین"
           },
           {
             "@tag": "RGN_US_WV",
-            "#text": "West Virginia"
+            "#text": "ویرجینیای غربی"
           },
           {
             "@tag": "RGN_US_WY",
-            "#text": "Wyoming"
+            "#text": "وایومینگ"
           }
         ]
       },
@@ -14086,7 +14082,7 @@
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
-            "#text": "Reset Password for {0} Forum"
+            "#text": "بازنشانی رمز عبور برای انجمن {0}"
           },
           {
             "@tag": "RETYPE_PASSWORD",
@@ -14135,63 +14131,63 @@
         "Resource": [
           {
             "@tag": "D",
-            "#text": "a day"
+            "#text": "یک روز"
           },
           {
             "@tag": "DD",
-            "#text": "{0} days"
+            "#text": "{0} روز"
           },
           {
             "@tag": "FUTURE",
-            "#text": "in {0}"
+            "#text": "در {0}"
           },
           {
             "@tag": "H",
-            "#text": "an hour"
+            "#text": "یک ساعت"
           },
           {
             "@tag": "HH",
-            "#text": "{0} hours"
+            "#text": "{0} ساعت"
           },
           {
             "@tag": "M",
-            "#text": "a minute"
+            "#text": "یک دقیقه"
           },
           {
             "@tag": "MM",
-            "#text": "{0} minutes"
+            "#text": "{0} دقیقه"
           },
           {
             "@tag": "MO",
-            "#text": "a month"
+            "#text": "یک ماه"
           },
           {
             "@tag": "MOMO",
-            "#text": "{0} months"
+            "#text": "{0} ماه"
           },
           {
             "@tag": "NOW",
-            "#text": "Right now"
+            "#text": "همین الان"
           },
           {
             "@tag": "PAST",
-            "#text": "{0} ago"
+            "#text": "{0} پیش"
           },
           {
             "@tag": "S",
-            "#text": "a few seconds"
+            "#text": "چند ثانیه"
           },
           {
             "@tag": "SS",
-            "#text": "{0} seconds"
+            "#text": "{0} ثانیه"
           },
           {
             "@tag": "Y",
-            "#text": "a year"
+            "#text": "یک سال"
           },
           {
             "@tag": "YY",
-            "#text": "{0} years"
+            "#text": "{0} سال"
           }
         ]
       },
@@ -14216,11 +14212,11 @@
           },
           {
             "@tag": "MSG_REPORTED",
-            "#text": "Message was Reported!"
+            "#text": "پیام گزارش شد!"
           },
           {
             "@tag": "NEED_REASON",
-            "#text": "You need to provide a Report Reason."
+            "#text": "شما باید یک دلیل گزارش ارائه دهید."
           },
           {
             "@tag": "POSTEDBY",
@@ -14784,7 +14780,7 @@
           },
           {
             "@tag": "LOGIN_CONNECT",
-            "#text": "Login to your {0} forum account"
+            "#text": "به حساب انجمن {0} خود وارد شوید"
           },
           {
             "@tag": "LOGIN_TITLE",
@@ -14836,7 +14832,7 @@
           },
           {
             "@tag": "MYNOTIFY_TITLE",
-            "#text": "Shows your unread Received Thanks, Mentions and Quotes."
+            "#text": "تشکر، ذکر و نقل قول های دریافتی خوانده نشده شما را نشان می دهد."
           },
           {
             "@tag": "MYPROFILE",
@@ -14852,7 +14848,7 @@
           },
           {
             "@tag": "MYSETTINGS_TITLE",
-            "#text": "Edit your user details and settings."
+            "#text": "جزئیات و تنظیمات کاربر خود را ویرایش کنید."
           },
           {
             "@tag": "MYTOPICS",
@@ -15009,7 +15005,7 @@
           },
           {
             "@tag": "NO_TOPICS",
-            "#text": "The Forum currently has no Topics"
+            "#text": "انجمن در حال حاضر هیچ موضوعی ندارد"
           },
           {
             "@tag": "OK_TT",

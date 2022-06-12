@@ -1493,7 +1493,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "OnClick JS:"
+            "#text": "Онклик JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -1587,7 +1587,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "Я БЫ"
           },
           {
             "@tag": "NAME",
@@ -3338,10 +3338,6 @@
             "#text": "Нужно ввести новый пароль"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Ошибка: Текущий провайдер Membership не поддерживает функцию сброса пароля. Проверьте, что опция \"EnablePasswordReset\" имеет значение \"true\" в секции конфигурации провайдера в web.config."
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "Подтверждение и пароль не совпадают"
           },
@@ -4091,7 +4087,7 @@
           },
           {
             "@tag": "APP_RUNTIME",
-            "#text": ".NET Runtime Version:"
+            "#text": "Версия среды выполнения .NET:"
           },
           {
             "@tag": "APP_RUNTIME_HELP",
@@ -7875,7 +7871,7 @@
           },
           {
             "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "New Security Answer:"
+            "#text": "Новый ответ безопасности:"
           },
           {
             "@tag": "SECURITY_ANSWER_OLD",
@@ -8149,23 +8145,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "D"
+            "#text": "Д"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "d"
+            "#text": "г"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "F"
+            "#text": "Ф"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "G"
+            "#text": "грамм"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T"
+            "#text": "Т"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -8381,7 +8377,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      language:  {\r\n                errorLoading: function() {\r\n                    return \"The results could not be loaded.\"\r\n                },\r\n                inputTooLong: function(t) {\r\n                    var n = t.input.length - t.maximum,\r\n                        r = \"Пожалуйста, введите на \" + n + \" символ\";\r\n                    return r += e(n, \"\", \"a\", \"ов\"), r += \" меньше\", r\r\n                },\r\n                inputTooShort: function(t) {\r\n                    var n = t.minimum - t.input.length,\r\n                        r = \"Пожалуйста, введите еще хотя бы \" + n + \" символ\";\r\n                    return r += e(overChars, \"\", \"a\", \"ов\"), r\r\n                },\r\n                loadingMore: function() {\r\n                    return \"Загрузка данных…\"\r\n                },\r\n                maximumSelected: function(t) {\r\n                    var n = \"Вы можете выбрать не более \" + t.maximum + \" элемент\";\r\n                    return n += e(overChars, \"\", \"a\", \"ов\"), n\r\n                },\r\n                noResults: function() {\r\n                    return \"Совпадений не найдено\"\r\n                },\r\n                searching: function() {\r\n                    return \"Поиск…\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { function n(n,e,r,u){return n%10<5&&n%10>0&&n%100<5||n%100>20?n%10>1?r:e:u}return{errorLoading:function(){return\"Невозможно загрузить результаты\"},inputTooLong:function(e){var r=e.input.length-e.maximum,u=\"Пожалуйста, введите на \"+r+\" символ\";return u+=n(r,\"\",\"a\",\"ов\"),u+=\" меньше\"},inputTooShort:function(e){var r=e.minimum-e.input.length,u=\"Пожалуйста, введите ещё хотя бы \"+r+\" символ\";return u+=n(r,\"\",\"a\",\"ов\")},loadingMore:function(){return\"Загрузка данных…\"},maximumSelected:function(e){var r=\"Вы можете выбрать не более \"+e.maximum+\" элемент\";return r+=n(e.maximum,\"\",\"a\",\"ов\")},noResults:function(){return\"Совпадений не найдено\"},searching:function(){return\"Поиск…\"},removeAllItems:function(){return\"Удалить все элементы\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -9644,7 +9640,7 @@
           },
           {
             "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "Loading Facebook Info ..."
+            "#text": "Загрузка информации Facebook..."
           },
           {
             "@tag": "LOADING_HOVERCARD",
@@ -9652,7 +9648,7 @@
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Loading Twitter Info ..."
+            "#text": "Загрузка информации о Твиттере..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10508,7 +10504,7 @@
           },
           {
             "@tag": "CISGENDER",
-            "#text": "Cisgender"
+            "#text": "цисгендер"
           },
           {
             "@tag": "FEMALETOMALE",
@@ -10524,7 +10520,7 @@
           },
           {
             "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
+            "#text": "Гендерквир"
           },
           {
             "@tag": "GENDERQUESTIONING",
@@ -10556,7 +10552,7 @@
           },
           {
             "@tag": "TRANS",
-            "#text": "Trrans"
+            "#text": "Транс"
           },
           {
             "@tag": "TRANSFEMININE",
@@ -11376,7 +11372,7 @@
           },
           {
             "@tag": "POSTS_ASC",
-            "#text": "Posts asc"
+            "#text": "Сообщения по возрастанию"
           },
           {
             "@tag": "POSTS_DESC",
@@ -12630,7 +12626,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "ЦЕЛЬ"
           },
           {
             "@tag": "AIM_TITLE",
@@ -12726,7 +12722,7 @@
           },
           {
             "@tag": "FACEBOOK",
-            "#text": "Facebook"
+            "#text": "Фейсбук"
           },
           {
             "@tag": "FACEBOOK_SHARE_TOPIC",
@@ -12994,7 +12990,7 @@
           },
           {
             "@tag": "SKYPE",
-            "#text": "SKYPE"
+            "#text": "СКАЙП"
           },
           {
             "@tag": "SKYPE_TITLE",
@@ -13098,7 +13094,7 @@
           },
           {
             "@tag": "TWITTER",
-            "#text": "Twitter"
+            "#text": "Твиттер"
           },
           {
             "@tag": "TWITTER_TITLE",
@@ -13186,7 +13182,7 @@
           },
           {
             "@tag": "YIM",
-            "#text": "YAHOO"
+            "#text": "ЯХУ"
           },
           {
             "@tag": "YIM_TITLE",
@@ -13397,7 +13393,7 @@
           },
           {
             "@tag": "SKYPE",
-            "#text": "Skype(tm) ID:"
+            "#text": "Идентификатор Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",
@@ -14334,7 +14330,7 @@
           },
           {
             "@tag": "OUTDENT",
-            "#text": "Outdent"
+            "#text": "Выступающий"
           },
           {
             "@tag": "RIGHT",

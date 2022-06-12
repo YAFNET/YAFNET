@@ -849,7 +849,7 @@
           },
           {
             "@tag": "ADMIN_EMAIL",
-            "#text": "E-Mail"
+            "#text": "Email"
           },
           {
             "@tag": "ADMIN_IPADRESS",
@@ -985,7 +985,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Dashboard"
+            "#text": "Armaturenbrett"
           },
           {
             "@tag": "TOPICS_DAY",
@@ -1587,7 +1587,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "ICH WÜRDE"
           },
           {
             "@tag": "NAME",
@@ -3338,10 +3338,6 @@
             "#text": "Muss Neues Passwort eingeben"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Fehler: der Aktuelle Membership Provider erlaubt nicht das Wiederherstellen eines Passwortes. Überprüfen Sie ob die \"EnablePasswordReset\" Einstellung auf \"true\" gesetzt ist in der web.config."
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "Bestätigungs Passwort stimmt nicht überein"
           },
@@ -3435,7 +3431,7 @@
           },
           {
             "@tag": "PASS_OPTION",
-            "#text": "Option:"
+            "#text": "Möglichkeit:"
           },
           {
             "@tag": "PASS_OPTION_CHANGE",
@@ -5591,7 +5587,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "BlogSpam.NET API"
+            "#text": "BlogSpam.NET-API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -7138,7 +7134,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "Tags"
+            "#text": "Stichworte"
           },
           {
             "@tag": "ADMIN_TASKMANAGER",
@@ -7178,7 +7174,7 @@
           },
           {
             "@tag": "UPGRADE",
-            "#text": "Upgrade"
+            "#text": "Aktualisierung"
           },
           {
             "@tag": "USERSANDROLES",
@@ -7329,7 +7325,7 @@
           },
           {
             "@tag": "START_UPLOADS",
-            "#text": "Start Upload(s)"
+            "#text": "Upload(s) starten"
           },
           {
             "@tag": "TITLE",
@@ -7746,7 +7742,7 @@
           },
           {
             "@tag": "BUTTON_RETWEET",
-            "#text": "Retweet"
+            "#text": "Retweeten"
           },
           {
             "@tag": "BUTTON_RETWEET_TT",
@@ -8265,7 +8261,7 @@
           },
           {
             "@tag": "MODERATOR",
-            "#text": "Moderator"
+            "#text": "Moderation"
           },
           {
             "@tag": "NAME",
@@ -8381,7 +8377,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      language:  {\r\n      inputTooLong: function(e) {\r\n      var t = e.input.length - e.maximum;\r\n      return \"Bitte \" + t + \" Zeichen weniger eingeben\"\r\n      },\r\n      inputTooShort: function(e) {\r\n      var t = e.minimum - e.input.length;\r\n      return \"Bitte \" + t + \" Zeichen mehr eingeben\"\r\n      },\r\n      loadingMore: function() {\r\n      return \"Lade mehr Ergebnisse…\"\r\n      },\r\n      maximumSelected: function(e) {\r\n      var t = \"Sie können nur \" + e.maximum + \" Eintr\";\r\n      return e.maximum === 1 ? t += \"ag\" : t += \"äge\", t += \" auswählen\", t\r\n      },\r\n      noResults: function() {\r\n      return \"Keine Übereinstimmungen gefunden\"\r\n      },\r\n      searching: function() {\r\n      return \"Suche…\"\r\n      }\r\n      }\r\n    "
+            "#text": "language:  { errorLoading:function(){return\"Die Ergebnisse konnten nicht geladen werden.\"},inputTooLong:function(e){return\"Bitte \"+(e.input.length-e.maximum)+\" Zeichen weniger eingeben\"},inputTooShort:function(e){return\"Bitte \"+(e.minimum-e.input.length)+\" Zeichen mehr eingeben\"},loadingMore:function(){return\"Lade mehr Ergebnisse…\"},maximumSelected:function(e){var n=\"Sie können nur \"+e.maximum+\" Element\";return 1!=e.maximum&&(n+=\"e\"),n+=\" auswählen\"},noResults:function(){return\"Keine Übereinstimmungen gefunden\"},searching:function(){return\"Suche…\"},removeAllItems:function(){return\"Entferne alle Elemente\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -8583,7 +8579,7 @@
           },
           {
             "@tag": "AF",
-            "#text": "Afganistan"
+            "#text": "Afghanistan"
           },
           {
             "@tag": "AG",
@@ -8663,7 +8659,7 @@
           },
           {
             "@tag": "BH",
-            "#text": "Bahrain"
+            "#text": "Bahrein"
           },
           {
             "@tag": "BI",
@@ -8675,7 +8671,7 @@
           },
           {
             "@tag": "BM",
-            "#text": "Bermuda"
+            "#text": "Bermudas"
           },
           {
             "@tag": "BN",
@@ -8799,7 +8795,7 @@
           },
           {
             "@tag": "DM",
-            "#text": "Dominica"
+            "#text": "Dominika"
           },
           {
             "@tag": "DO",
@@ -9035,7 +9031,7 @@
           },
           {
             "@tag": "KP",
-            "#text": "Korea, D.P.R.O."
+            "#text": "Korea, DPRO"
           },
           {
             "@tag": "KR",
@@ -9391,7 +9387,7 @@
           },
           {
             "@tag": "TD",
-            "#text": "Chad"
+            "#text": "Tschad"
           },
           {
             "@tag": "TF",
@@ -9399,7 +9395,7 @@
           },
           {
             "@tag": "TG",
-            "#text": "Togo"
+            "#text": "Gehen"
           },
           {
             "@tag": "TH",
@@ -9459,7 +9455,7 @@
           },
           {
             "@tag": "UM",
-            "#text": "U.S. Minor Islands"
+            "#text": "US-Kleininseln"
           },
           {
             "@tag": "US",
@@ -9993,7 +9989,7 @@
         "Resource": [
           {
             "@tag": "AVATAR",
-            "#text": "Avatar"
+            "#text": "Benutzerbild"
           },
           {
             "@tag": "AVATARCURRENT",
@@ -10500,7 +10496,7 @@
           },
           {
             "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
+            "#text": "Androgyn"
           },
           {
             "@tag": "BIGENDER",
@@ -10520,7 +10516,7 @@
           },
           {
             "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
+            "#text": "Nicht geschlechtsspezifisch"
           },
           {
             "@tag": "GENDERQUEER",
@@ -10532,7 +10528,7 @@
           },
           {
             "@tag": "INTERSEX",
-            "#text": "Intersex"
+            "#text": "Intersexuell"
           },
           {
             "@tag": "MALETOFEMALE",
@@ -10556,7 +10552,7 @@
           },
           {
             "@tag": "TRANS",
-            "#text": "Trrans"
+            "#text": "Trans"
           },
           {
             "@tag": "TRANSFEMININE",
@@ -11336,7 +11332,7 @@
           },
           {
             "@tag": "AVATAR",
-            "#text": "Avatar"
+            "#text": "Benutzerbild"
           },
           {
             "@tag": "INVALIDPOSTSVALUE",
@@ -11416,11 +11412,11 @@
           },
           {
             "@tag": "USERNAME_ASC",
-            "#text": "Name A-Z"
+            "#text": "Benennen Sie AZ"
           },
           {
             "@tag": "USERNAME_DESC",
-            "#text": "Name Z-A"
+            "#text": "Name ZA"
           }
         ]
       },
@@ -12630,7 +12626,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "ZIEL"
           },
           {
             "@tag": "AIM_TITLE",
@@ -12994,7 +12990,7 @@
           },
           {
             "@tag": "SKYPE",
-            "#text": "SKYPE"
+            "#text": "Skype"
           },
           {
             "@tag": "SKYPE_TITLE",
@@ -13186,7 +13182,7 @@
           },
           {
             "@tag": "YIM",
-            "#text": "YAHOO"
+            "#text": "JAHOO"
           },
           {
             "@tag": "YIM_TITLE",
@@ -13203,7 +13199,7 @@
           },
           {
             "@tag": "TAGS",
-            "#text": "Tags:"
+            "#text": "Stichworte:"
           }
         ]
       },
@@ -13237,7 +13233,7 @@
           },
           {
             "@tag": "AVATAR",
-            "#text": "Avatar"
+            "#text": "Benutzerbild"
           },
           {
             "@tag": "BIRTHDAY",
@@ -13261,7 +13257,7 @@
           },
           {
             "@tag": "EMAIL",
-            "#text": "E-Mail:"
+            "#text": "Email:"
           },
           {
             "@tag": "ENDS",
@@ -13337,7 +13333,7 @@
           },
           {
             "@tag": "MODERATION",
-            "#text": "Moderation"
+            "#text": "Mäßigung"
           },
           {
             "@tag": "MONTH",
@@ -13579,7 +13575,7 @@
           },
           {
             "@tag": "RGN_CH_SG",
-            "#text": "St. Gallen"
+            "#text": "St Gallen"
           },
           {
             "@tag": "RGN_CH_SH",
@@ -13644,7 +13640,7 @@
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "Badenwürttemberg"
           },
           {
             "@tag": "RGN_DE_HE",
@@ -13729,7 +13725,7 @@
           },
           {
             "@tag": "RGN_US_DC",
-            "#text": "District of Columbia"
+            "#text": "Distrikt Columbia"
           },
           {
             "@tag": "RGN_US_DE",
@@ -13837,7 +13833,7 @@
           },
           {
             "@tag": "RGN_US_NM",
-            "#text": "New Mexico"
+            "#text": "New-Mexiko"
           },
           {
             "@tag": "RGN_US_NV",
@@ -13877,7 +13873,7 @@
           },
           {
             "@tag": "RGN_US_SD",
-            "#text": "South Dakota"
+            "#text": "Süddakota"
           },
           {
             "@tag": "RGN_US_TN",
@@ -14896,7 +14892,7 @@
           },
           {
             "@tag": "TEAM",
-            "#text": "Team"
+            "#text": "Mannschaft"
           },
           {
             "@tag": "TEAM_TITLE",

@@ -2326,7 +2326,7 @@
           },
           {
             "@tag": "USER_PASS",
-            "#text": "Password:"
+            "#text": "Parola d&#39;ordine:"
           },
           {
             "@tag": "USER_PASS_HELP",
@@ -2713,7 +2713,7 @@
           },
           {
             "@tag": "PMMESSAGES",
-            "#text": "PMessages:"
+            "#text": "PMessaggi:"
           },
           {
             "@tag": "PMMESSAGES_HELP",
@@ -3097,7 +3097,7 @@
           },
           {
             "@tag": "NNTP_PASSWORD",
-            "#text": "Password:"
+            "#text": "Parola d&#39;ordine:"
           },
           {
             "@tag": "NNTP_PASSWORD_HELP",
@@ -3338,10 +3338,6 @@
             "#text": "Deve inserire una nuova password"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Errore: L'attuale Membership Provider non supporta la funzione \"Reset password\". Verificare che \"EnablePasswordReset\" sia \"true\" nelle impostazioni di configurazione del provider in web.config."
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "La password di conferma non corrisponde"
           },
@@ -3571,7 +3567,7 @@
           },
           {
             "@tag": "USERINFO_HOST",
-            "#text": "Host Admin:"
+            "#text": "Amministratore host:"
           },
           {
             "@tag": "USERINFO_HOST_HELP",
@@ -4627,11 +4623,11 @@
           },
           {
             "@tag": "HOST_CACHE",
-            "#text": "Cache"
+            "#text": "cache"
           },
           {
             "@tag": "HOST_DISPLAY",
-            "#text": "Display"
+            "#text": "Schermo"
           },
           {
             "@tag": "HOST_EDITORS",
@@ -5983,7 +5979,7 @@
           },
           {
             "@tag": "SERVER",
-            "#text": "Server"
+            "#text": "server"
           },
           {
             "@tag": "TITLE",
@@ -7154,7 +7150,7 @@
           },
           {
             "@tag": "DATABASE",
-            "#text": "Database"
+            "#text": "Banca dati"
           },
           {
             "@tag": "HOSTADMINISTRATION",
@@ -7746,7 +7742,7 @@
           },
           {
             "@tag": "BUTTON_RETWEET",
-            "#text": "Retweet"
+            "#text": "Ritwittare"
           },
           {
             "@tag": "BUTTON_RETWEET_TT",
@@ -8245,7 +8241,7 @@
           },
           {
             "@tag": "MENU",
-            "#text": "Menu"
+            "#text": "Menù"
           },
           {
             "@tag": "MESSAGE",
@@ -8381,7 +8377,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      lingua:  {\r\n              errorLoading: function() {\r\n                    return \"Non è stato possibile caricare i risultati\".\r\n                },\r\n                inputTooLong: function(e) {\r\n                    var t = e.input.length - e.maximum,\r\n                        n = \"Cancellare \" + t + \" carattere\";\r\n                    return t != 1 && (n += \"s\"), n\r\n                },\r\n                inputTooShort: function(e) {\r\n                    var t = e.minimum - e.input.length,\r\n                        n = \"Inserire \" + t + \" o più caratteri\";\r\n                    return n\r\n                },\r\n                loadingMore: function() {\r\n                    return \"Caricamento di altri risultati...\"\r\n                },\r\n                massimoSelezionato: function(e) {\r\n                    var t = \"È possibile selezionare solo \" + e.maximum + \" item\";\r\n                    return e.maximum != 1 && (t += \"s\"), t\r\n                },\r\n                noResults: function() {\r\n                    return \"Nessun risultato trovato\"\r\n                },\r\n                ricerca: function() {\r\n                    return \"Ricerca...\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { errorLoading:function(){return\"I risultati non possono essere caricati.\"},inputTooLong:function(e){var n=e.input.length-e.maximum,t=\"Per favore cancella \"+n+\" caratter\";return t+=1!==n?\"i\":\"e\"},inputTooShort:function(e){return\"Per favore inserisci \"+(e.minimum-e.input.length)+\" o più caratteri\"},loadingMore:function(){return\"Caricando più risultati…\"},maximumSelected:function(e){var n=\"Puoi selezionare solo \"+e.maximum+\" element\";return 1!==e.maximum?n+=\"i\":n+=\"o\",n},noResults:function(){return\"Nessun risultato trovato\"},searching:function(){return\"Sto cercando…\"},removeAllItems:function(){return\"Rimuovi tutti gli oggetti\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -8583,7 +8579,7 @@
           },
           {
             "@tag": "AF",
-            "#text": "Afganistan"
+            "#text": "afganistan"
           },
           {
             "@tag": "AG",
@@ -8663,7 +8659,7 @@
           },
           {
             "@tag": "BH",
-            "#text": "Bahrain"
+            "#text": "Bahrein"
           },
           {
             "@tag": "BI",
@@ -8875,7 +8871,7 @@
           },
           {
             "@tag": "GD",
-            "#text": "Grenada"
+            "#text": "Granata"
           },
           {
             "@tag": "GE",
@@ -8931,7 +8927,7 @@
           },
           {
             "@tag": "GW",
-            "#text": "Guinea-Bissau"
+            "#text": "Guinea Bissau"
           },
           {
             "@tag": "GY",
@@ -9011,7 +9007,7 @@
           },
           {
             "@tag": "KE",
-            "#text": "Kenya"
+            "#text": "Kenia"
           },
           {
             "@tag": "KG",
@@ -9019,7 +9015,7 @@
           },
           {
             "@tag": "KH",
-            "#text": "Cambodja"
+            "#text": "Cambogia"
           },
           {
             "@tag": "KI",
@@ -9075,7 +9071,7 @@
           },
           {
             "@tag": "LS",
-            "#text": "Lesotho"
+            "#text": "Lesoto"
           },
           {
             "@tag": "LT",
@@ -9147,7 +9143,7 @@
           },
           {
             "@tag": "MR",
-            "#text": "Mauretania"
+            "#text": "Mauritania"
           },
           {
             "@tag": "MS",
@@ -9159,7 +9155,7 @@
           },
           {
             "@tag": "MU",
-            "#text": "Mauritius"
+            "#text": "Maurizio"
           },
           {
             "@tag": "MV",
@@ -9195,7 +9191,7 @@
           },
           {
             "@tag": "NF",
-            "#text": "Norfolk Islan"
+            "#text": "Norfolk Island"
           },
           {
             "@tag": "NG",
@@ -9399,7 +9395,7 @@
           },
           {
             "@tag": "TG",
-            "#text": "Togo"
+            "#text": "Andare"
           },
           {
             "@tag": "TH",
@@ -9439,7 +9435,7 @@
           },
           {
             "@tag": "TV",
-            "#text": "Tuvalu"
+            "#text": "Tuvalù"
           },
           {
             "@tag": "TW",
@@ -10556,7 +10552,7 @@
           },
           {
             "@tag": "TRANS",
-            "#text": "Trrans"
+            "#text": "Tran"
           },
           {
             "@tag": "TRANSFEMININE",
@@ -10572,7 +10568,7 @@
           },
           {
             "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
+            "#text": "Transmaschile"
           },
           {
             "@tag": "TRANSSEXUAL",
@@ -11024,7 +11020,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Yahoo! Messenger"
+            "#text": "Yahoo! Messaggero"
           }
         ]
       },
@@ -12630,7 +12626,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "SCOPO"
           },
           {
             "@tag": "AIM_TITLE",
@@ -13465,7 +13461,7 @@
           },
           {
             "@tag": "WEBSITE",
-            "#text": "Home page:"
+            "#text": "Pagina iniziale:"
           },
           {
             "@tag": "XMPP",
@@ -13615,7 +13611,7 @@
           },
           {
             "@tag": "RGN_CH_ZG",
-            "#text": "Zug"
+            "#text": "Zugo"
           },
           {
             "@tag": "RGN_CH_ZH",
@@ -14042,7 +14038,7 @@
           },
           {
             "@tag": "PASSWORD",
-            "#text": "Password"
+            "#text": "Parola d&#39;ordine"
           },
           {
             "@tag": "PASSWORD_GOOD",
@@ -14147,7 +14143,7 @@
           },
           {
             "@tag": "FUTURE",
-            "#text": "in {0}"
+            "#text": "tra {0}"
           },
           {
             "@tag": "H",
@@ -14728,7 +14724,7 @@
           },
           {
             "@tag": "ADMIN",
-            "#text": "Admin"
+            "#text": "amministratore"
           },
           {
             "@tag": "ADMIN_TITLE",

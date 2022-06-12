@@ -262,7 +262,7 @@
           },
           {
             "@tag": "ADMIN_BBCODE_EDIT",
-            "#text": "Edits BBCodes"
+            "#text": "Modifie les BBCodes"
           },
           {
             "@tag": "ADMIN_BBCODE_IMPORT",
@@ -294,7 +294,7 @@
           },
           {
             "@tag": "ADMIN_EDITFORUM",
-            "#text": "Edits forums"
+            "#text": "Modifications des forums"
           },
           {
             "@tag": "ADMIN_EDITGROUP",
@@ -310,7 +310,7 @@
           },
           {
             "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "Edits NNTP Forum"
+            "#text": "Modifications du forum NNTP"
           },
           {
             "@tag": "ADMIN_EDITNNTPSERVER",
@@ -832,7 +832,7 @@
           },
           {
             "@tag": "VOTE",
-            "#text": "Vote"
+            "#text": "Voter"
           }
         ]
       },
@@ -1380,7 +1380,7 @@
           },
           {
             "@tag": "DESCRIPTION",
-            "#text": "Description"
+            "#text": "La description"
           },
           {
             "@tag": "EXPORT",
@@ -1587,7 +1587,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "IDENTIFIANT"
           },
           {
             "@tag": "NAME",
@@ -1935,7 +1935,7 @@
           },
           {
             "@tag": "FORCE_SEND",
-            "#text": "Force Digest Send"
+            "#text": "Forcer l&#39;envoi du résumé"
           },
           {
             "@tag": "GENERATE_DIGEST",
@@ -1971,7 +1971,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Digest"
+            "#text": "Digérer"
           }
         ]
       },
@@ -2028,7 +2028,7 @@
           },
           {
             "@tag": "SAVE_NEW",
-            "#text": "Save New"
+            "#text": "Enregistrer nouveau"
           },
           {
             "@tag": "SHOW_REGISTER",
@@ -3346,10 +3346,6 @@
             "#text": "Doit entrer un nouveau mot de passe"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Erreur : Le fournisseur d'adhésion actuel ne prend pas en charge la fonction \"Password Reset\". Vérifiez que \"EnablePasswordReset\" est \"true\" dans les paramètres de configuration de votre fournisseur dans le web.config."
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "Le mot de passe de confirmation ne correspond pas"
           },
@@ -3664,11 +3660,11 @@
           },
           {
             "@tag": "TYPE",
-            "#text": "Type"
+            "#text": "Taper"
           },
           {
             "@tag": "TYPES",
-            "#text": "Type"
+            "#text": "Taper"
           },
           {
             "@tag": "TYPES_HELP",
@@ -3806,7 +3802,7 @@
           },
           {
             "@tag": "UNLINKABLE",
-            "#text": "Unlinkable"
+            "#text": "Non associable"
           },
           {
             "@tag": "UNLINKED",
@@ -4655,7 +4651,7 @@
           },
           {
             "@tag": "HOST_PERMISSION",
-            "#text": "Permission"
+            "#text": "Autorisation"
           },
           {
             "@tag": "HOST_SEARCH",
@@ -5987,7 +5983,7 @@
           },
           {
             "@tag": "SAVE",
-            "#text": "Save Forum"
+            "#text": "Enregistrer le forum"
           },
           {
             "@tag": "SERVER",
@@ -6094,7 +6090,7 @@
           },
           {
             "@tag": "GRANTALL",
-            "#text": "Grant All"
+            "#text": "Tout accorder"
           },
           {
             "@tag": "HEADER",
@@ -6198,7 +6194,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Web Profiler"
+            "#text": "Profileur Web"
           }
         ]
       },
@@ -6280,7 +6276,7 @@
           },
           {
             "@tag": "IS_LADDER",
-            "#text": "Is Ladder"
+            "#text": "Est une échelle"
           },
           {
             "@tag": "IS_START",
@@ -7038,7 +7034,7 @@
           },
           {
             "@tag": "ADMIN_DIGEST",
-            "#text": "Digest"
+            "#text": "Digérer"
           },
           {
             "@tag": "ADMIN_EVENTLOG",
@@ -7106,7 +7102,7 @@
           },
           {
             "@tag": "ADMIN_PROFILER",
-            "#text": "Web Profiler"
+            "#text": "Profileur Web"
           },
           {
             "@tag": "ADMIN_PRUNE",
@@ -7146,7 +7142,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "Tags"
+            "#text": "Mots clés"
           },
           {
             "@tag": "ADMIN_TASKMANAGER",
@@ -7170,7 +7166,7 @@
           },
           {
             "@tag": "MAINTENANCE",
-            "#text": "Maintenance"
+            "#text": "Entretien"
           },
           {
             "@tag": "NNTP",
@@ -8157,11 +8153,11 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "D"
+            "#text": "ré"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "d"
+            "#text": "ré"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
@@ -8169,11 +8165,11 @@
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "G"
+            "#text": "g"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T"
+            "#text": "J"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -8193,7 +8189,7 @@
           },
           {
             "@tag": "GO",
-            "#text": "GO"
+            "#text": "ALLER"
           },
           {
             "@tag": "GOTOFIRSTPAGE_TT",
@@ -8333,7 +8329,7 @@
           },
           {
             "@tag": "OK",
-            "#text": "OK"
+            "#text": "D&#39;ACCORD"
           },
           {
             "@tag": "OR",
@@ -8345,7 +8341,7 @@
           },
           {
             "@tag": "PAGES",
-            "#text": "Pages"
+            "#text": "pages"
           },
           {
             "@tag": "PM_NOTIFICATION_SUBJECT",
@@ -8389,7 +8385,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      language:  {\r\n                inputTooLong: function(e) {\r\n                    var t = e.input.length - e.maximum,\r\n                        n = 'Supprimez \" + n + \" caractère';\r\n                    return t !== 1 && (n += \"s\"), n\r\n                },\r\n                inputTooShort: function(e) {\r\n                    var t = e.minimum - e.input.length,\r\n                        n = 'Saisissez \" + n + \" caractère';\r\n                    return overChars !== 1 && (n += \"s\"), n\r\n                },\r\n                loadingMore: function() {\r\n                    return \"Chargement de résultats supplémentaires…\"\r\n                },\r\n                maximumSelection: function(e) {\r\n                    var t = \"Vous pouvez seulement sélectionner \" + e.maximum + \" élément\";\r\n                    return e.maximum !== 1 && (t += \"s\"), t\r\n                },\r\n                noResults: function() {\r\n                    return \"Aucun résultat trouvé\"\r\n                },\r\n                searching: function() {\r\n                    return \"Recherche en cours…\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { errorLoading:function(){return\"Les résultats ne peuvent pas être chargés.\"},inputTooLong:function(e){var n=e.input.length-e.maximum;return\"Supprimez \"+n+\" caractère\"+(n>1?\"s\":\"\")},inputTooShort:function(e){var n=e.minimum-e.input.length;return\"Saisissez au moins \"+n+\" caractère\"+(n>1?\"s\":\"\")},loadingMore:function(){return\"Chargement de résultats supplémentaires…\"},maximumSelected:function(e){return\"Vous pouvez seulement sélectionner \"+e.maximum+\" élément\"+(e.maximum>1?\"s\":\"\")},noResults:function(){return\"Aucun résultat trouvé\"},searching:function(){return\"Recherche en cours…\"},removeAllItems:function(){return\"Supprimer tous les éléments\"},removeItem:function(){return\"Supprimer l'élément\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -8557,7 +8553,7 @@
           },
           {
             "@tag": "VOTE",
-            "#text": "Vote"
+            "#text": "Voter"
           },
           {
             "@tag": "YES",
@@ -8591,7 +8587,7 @@
           },
           {
             "@tag": "AF",
-            "#text": "Afganistan"
+            "#text": "Afghanistan"
           },
           {
             "@tag": "AG",
@@ -8655,7 +8651,7 @@
           },
           {
             "@tag": "BD",
-            "#text": "Bangladesh"
+            "#text": "Bengladesh"
           },
           {
             "@tag": "BE",
@@ -8711,7 +8707,7 @@
           },
           {
             "@tag": "BW",
-            "#text": "Botswana"
+            "#text": "Bostwana"
           },
           {
             "@tag": "BY",
@@ -8719,7 +8715,7 @@
           },
           {
             "@tag": "BZ",
-            "#text": "Belize"
+            "#text": "Bélize"
           },
           {
             "@tag": "CA",
@@ -9027,7 +9023,7 @@
           },
           {
             "@tag": "KH",
-            "#text": "Cambodja"
+            "#text": "Cambodge"
           },
           {
             "@tag": "KI",
@@ -9079,7 +9075,7 @@
           },
           {
             "@tag": "LR",
-            "#text": "Liberia"
+            "#text": "Libéria"
           },
           {
             "@tag": "LS",
@@ -9155,7 +9151,7 @@
           },
           {
             "@tag": "MR",
-            "#text": "Mauretania"
+            "#text": "Mauritanie"
           },
           {
             "@tag": "MS",
@@ -9231,7 +9227,7 @@
           },
           {
             "@tag": "NU",
-            "#text": "Niue"
+            "#text": "Niué"
           },
           {
             "@tag": "NZ",
@@ -9283,11 +9279,11 @@
           },
           {
             "@tag": "PT",
-            "#text": "Portugal"
+            "#text": "le Portugal"
           },
           {
             "@tag": "PW",
-            "#text": "Palau"
+            "#text": "Palaos"
           },
           {
             "@tag": "PY",
@@ -9323,7 +9319,7 @@
           },
           {
             "@tag": "SC",
-            "#text": "Seychelles"
+            "#text": "les Seychelles"
           },
           {
             "@tag": "SD",
@@ -9383,7 +9379,7 @@
           },
           {
             "@tag": "SV",
-            "#text": "El Salvador"
+            "#text": "Le Salvador"
           },
           {
             "@tag": "SY",
@@ -9399,7 +9395,7 @@
           },
           {
             "@tag": "TD",
-            "#text": "Chad"
+            "#text": "Tchad"
           },
           {
             "@tag": "TF",
@@ -9407,7 +9403,7 @@
           },
           {
             "@tag": "TG",
-            "#text": "Togo"
+            "#text": "Aller"
           },
           {
             "@tag": "TH",
@@ -9419,7 +9415,7 @@
           },
           {
             "@tag": "TK",
-            "#text": "Tokelau"
+            "#text": "Tokélaou"
           },
           {
             "@tag": "TM",
@@ -9503,7 +9499,7 @@
           },
           {
             "@tag": "VN",
-            "#text": "Viet Nam"
+            "#text": "Vietnam"
           },
           {
             "@tag": "VU",
@@ -10398,7 +10394,7 @@
           },
           {
             "@tag": "INFORMATION",
-            "#text": "Information"
+            "#text": "Informations"
           },
           {
             "@tag": "SQLERROR",
@@ -10504,7 +10500,7 @@
         "Resource": [
           {
             "@tag": "AGENDER",
-            "#text": "Agender"
+            "#text": "Ordre"
           },
           {
             "@tag": "ANDROGYNE",
@@ -10512,7 +10508,7 @@
           },
           {
             "@tag": "BIGENDER",
-            "#text": "Bigender"
+            "#text": "Bigenre"
           },
           {
             "@tag": "CISGENDER",
@@ -10532,7 +10528,7 @@
           },
           {
             "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
+            "#text": "Genre queer"
           },
           {
             "@tag": "GENDERQUESTIONING",
@@ -10560,7 +10556,7 @@
           },
           {
             "@tag": "PANGENDER",
-            "#text": "Pangender"
+            "#text": "Pangenre"
           },
           {
             "@tag": "TRANS",
@@ -10568,7 +10564,7 @@
           },
           {
             "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
+            "#text": "Transféminin"
           },
           {
             "@tag": "TRANSGENDER",
@@ -10592,7 +10588,7 @@
           },
           {
             "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
+            "#text": "Bispirituel"
           },
           {
             "@tag": "WOMAN",
@@ -10673,7 +10669,7 @@
           },
           {
             "@tag": "INDEX",
-            "#text": "Index"
+            "#text": "Indice"
           },
           {
             "@tag": "MAILSETTINGSCONTENT",
@@ -10733,7 +10729,7 @@
           },
           {
             "@tag": "NAVIGATION",
-            "#text": "Navigation"
+            "#text": "La navigation"
           },
           {
             "@tag": "NEWPOSTSCONTENT",
@@ -10963,7 +10959,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
+            "#text": "Messagerie instantanée AOL"
           }
         ]
       },
@@ -11121,7 +11117,7 @@
           },
           {
             "@tag": "TITLE_EXCEPTION",
-            "#text": "Information"
+            "#text": "Informations"
           },
           {
             "@tag": "TITLE_FAILURE",
@@ -11137,7 +11133,7 @@
           },
           {
             "@tag": "TITLE_MODERATED",
-            "#text": "Information"
+            "#text": "Informations"
           },
           {
             "@tag": "TITLE_REGISTRATION",
@@ -11392,7 +11388,7 @@
           },
           {
             "@tag": "POSTS_ASC",
-            "#text": "Posts asc"
+            "#text": "Messages ascendants"
           },
           {
             "@tag": "POSTS_DESC",
@@ -12034,11 +12030,11 @@
           },
           {
             "@tag": "DATE_ASC",
-            "#text": "Date asc"
+            "#text": "Date ascendante"
           },
           {
             "@tag": "DATE_DESC",
-            "#text": "Date desc"
+            "#text": "Description de la date"
           },
           {
             "@tag": "DELETEALL",
@@ -12646,11 +12642,11 @@
           },
           {
             "@tag": "AD_USERNAME",
-            "#text": "Sponsor"
+            "#text": "Parrainer"
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "OBJECTIF"
           },
           {
             "@tag": "AIM_TITLE",
@@ -12894,7 +12890,7 @@
           },
           {
             "@tag": "OPTIONS",
-            "#text": "Options"
+            "#text": "Choix"
           },
           {
             "@tag": "OPTIONS_TOOLTIP",
@@ -13575,7 +13571,7 @@
           },
           {
             "@tag": "RGN_CH_GL",
-            "#text": "Glarus"
+            "#text": "Glaris"
           },
           {
             "@tag": "RGN_CH_GR",
@@ -13587,7 +13583,7 @@
           },
           {
             "@tag": "RGN_CH_LU",
-            "#text": "Lucerne"
+            "#text": "Luzerne"
           },
           {
             "@tag": "RGN_CH_NE",
@@ -13603,11 +13599,11 @@
           },
           {
             "@tag": "RGN_CH_SG",
-            "#text": "St. Gallen"
+            "#text": "Saint-Gall"
           },
           {
             "@tag": "RGN_CH_SH",
-            "#text": "Schaffhausen"
+            "#text": "Schaffhouse"
           },
           {
             "@tag": "RGN_CH_SO",
@@ -13623,7 +13619,7 @@
           },
           {
             "@tag": "RGN_CH_TI",
-            "#text": "Ticino"
+            "#text": "Tessin"
           },
           {
             "@tag": "RGN_CH_UR",
@@ -13639,7 +13635,7 @@
           },
           {
             "@tag": "RGN_CH_ZG",
-            "#text": "Zug"
+            "#text": "Zoug"
           },
           {
             "@tag": "RGN_CH_ZH",
@@ -13668,11 +13664,11 @@
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "Bade-Wurtemberg"
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesse"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13680,7 +13676,7 @@
           },
           {
             "@tag": "RGN_DE_MV",
-            "#text": "Mecklenburg-Vorpommern"
+            "#text": "Mecklembourg-Poméranie-Occidentale"
           },
           {
             "@tag": "RGN_DE_NI",
@@ -13917,7 +13913,7 @@
           },
           {
             "@tag": "RGN_US_VA",
-            "#text": "Virginia"
+            "#text": "Virginie"
           },
           {
             "@tag": "RGN_US_VI",
@@ -14285,7 +14281,7 @@
           },
           {
             "@tag": "FRIENDLY",
-            "#text": "Friendly"
+            "#text": "Amical"
           },
           {
             "@tag": "HONORED",
@@ -14297,7 +14293,7 @@
           },
           {
             "@tag": "UNFRIENDLY",
-            "#text": "Unfriendly"
+            "#text": "Hostile"
           },
           {
             "@tag": "VALUE_0",
@@ -14752,7 +14748,7 @@
           },
           {
             "@tag": "ADMIN",
-            "#text": "Admin"
+            "#text": "Administrateur"
           },
           {
             "@tag": "ADMIN_TITLE",

@@ -1971,7 +1971,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Digest"
+            "#text": "Suvirškinti"
           }
         ]
       },
@@ -2580,7 +2580,7 @@
           },
           {
             "@tag": "SORT_ORDER",
-            "#text": "SortOrder:"
+            "#text": "Rikiuoti:"
           },
           {
             "@tag": "SORT_ORDER_HELP",
@@ -2717,7 +2717,7 @@
           },
           {
             "@tag": "PMMESSAGES",
-            "#text": "PMessages:"
+            "#text": "PŽinutės:"
           },
           {
             "@tag": "PMMESSAGES_HELP",
@@ -3344,10 +3344,6 @@
           {
             "@tag": "ERROR_NEW_PASS",
             "#text": "Turi įvesti naują slaptažodį"
-          },
-          {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Klaida: Dabartinis narystės teikėjas nepalaiko funkcijos \"Slaptažodžio atstatymas\". Patikrinkite, ar \"EnablePasswordReset\" (įgalinti slaptažodžio atkūrimą) yra \"true\" jūsų teikėjo konfigūracijos nustatymuose web.config."
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -6198,7 +6194,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Web Profiler"
+            "#text": "Žiniatinklio profiliavimo priemonė"
           }
         ]
       },
@@ -7038,7 +7034,7 @@
           },
           {
             "@tag": "ADMIN_DIGEST",
-            "#text": "Digest"
+            "#text": "Suvirškinti"
           },
           {
             "@tag": "ADMIN_EVENTLOG",
@@ -7106,7 +7102,7 @@
           },
           {
             "@tag": "ADMIN_PROFILER",
-            "#text": "Web Profiler"
+            "#text": "Žiniatinklio profiliavimo priemonė"
           },
           {
             "@tag": "ADMIN_PRUNE",
@@ -8193,7 +8189,7 @@
           },
           {
             "@tag": "GO",
-            "#text": "GO"
+            "#text": "EIK"
           },
           {
             "@tag": "GOTOFIRSTPAGE_TT",
@@ -8357,7 +8353,7 @@
           },
           {
             "@tag": "POWERED_BY",
-            "#text": "Powered by"
+            "#text": "Maitinamas"
           },
           {
             "@tag": "PRIORITY",
@@ -8389,7 +8385,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      language:  {\r\n                inputTooLong: function(t) {\r\n                    var n = t.input.length - t.maximum,\r\n                        r = \"Pašalinkite \" + remainingChars + \" simbol\";\r\n                    return r += e(remainingChars, \"ių\", \"ius\", \"į\"), r\r\n                },\r\n                inputTooShort: function(t) {\r\n                    var n = t.minimum - t.input.length,\r\n                        r = \"Įrašykite dar \" + n + \" simbol\";\r\n                    return r += e(n, \"ių\", \"ius\", \"į\"), r\r\n                },\r\n                loadingMore: function() {\r\n                    return \"Kraunama daugiau rezultatų…\"\r\n                },\r\n                maximumSelection: function(t) {\r\n                    var n = \"Jūs galite pasirinkti tik \" + t.maximum + \" element\";\r\n                    return n += e(t.maximum, \"ų\", \"us\", \"ą\"), n\r\n                },\r\n                noResults: function() {\r\n                    return \"Atitikmenų nerasta\"\r\n                },\r\n                searching: function() {\r\n                    return \"Ieškoma…\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { inputTooLong:function(e){var i=e.input.length-e.maximum,t=\"Pašalinkite \"+i+\" simbol\";return t+=n(i,\"į\",\"ius\",\"ių\")},inputTooShort:function(e){var i=e.minimum-e.input.length,t=\"Įrašykite dar \"+i+\" simbol\";return t+=n(i,\"į\",\"ius\",\"ių\")},loadingMore:function(){return\"Kraunama daugiau rezultatų…\"},maximumSelected:function(e){var i=\"Jūs galite pasirinkti tik \"+e.maximum+\" element\";return i+=n(e.maximum,\"ą\",\"us\",\"ų\")},noResults:function(){return\"Atitikmenų nerasta\"},searching:function(){return\"Ieškoma…\"},removeAllItems:function(){return\"Pašalinti visus elementus\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -9011,7 +9007,7 @@
           },
           {
             "@tag": "JO",
-            "#text": "Jordan"
+            "#text": "Jordanas"
           },
           {
             "@tag": "JP",
@@ -9131,7 +9127,7 @@
           },
           {
             "@tag": "ML",
-            "#text": "Mali"
+            "#text": "Malis"
           },
           {
             "@tag": "MM",
@@ -9155,11 +9151,11 @@
           },
           {
             "@tag": "MR",
-            "#text": "Mauretania"
+            "#text": "Mauretanija"
           },
           {
             "@tag": "MS",
-            "#text": "Montserrat"
+            "#text": "Montserratas"
           },
           {
             "@tag": "MT",
@@ -9399,7 +9395,7 @@
           },
           {
             "@tag": "TD",
-            "#text": "Chad"
+            "#text": "Čadas"
           },
           {
             "@tag": "TF",
@@ -9407,7 +9403,7 @@
           },
           {
             "@tag": "TG",
-            "#text": "Togo"
+            "#text": "Eiti"
           },
           {
             "@tag": "TH",
@@ -9660,7 +9656,7 @@
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Loading Twitter Info ..."
+            "#text": "Įkeliama Twitter informacija..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10512,7 +10508,7 @@
           },
           {
             "@tag": "BIGENDER",
-            "#text": "Bigender"
+            "#text": "Bigenderis"
           },
           {
             "@tag": "CISGENDER",
@@ -10564,7 +10560,7 @@
           },
           {
             "@tag": "TRANS",
-            "#text": "Trrans"
+            "#text": "Trans"
           },
           {
             "@tag": "TRANSFEMININE",
@@ -11392,11 +11388,11 @@
           },
           {
             "@tag": "POSTS_ASC",
-            "#text": "Posts asc"
+            "#text": "Įrašai asc"
           },
           {
             "@tag": "POSTS_DESC",
-            "#text": "Posts desc"
+            "#text": "Įrašų aprašas"
           },
           {
             "@tag": "RANK_ASC",
@@ -12650,7 +12646,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "TIKSLAS"
           },
           {
             "@tag": "AIM_TITLE",
@@ -13543,11 +13539,11 @@
         "Resource": [
           {
             "@tag": "RGN_CH_AG",
-            "#text": "Aargau"
+            "#text": "Argau"
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell Inner-Rhodes"
+            "#text": "Apenzell Vidinis Rodas"
           },
           {
             "@tag": "RGN_CH_AR",
@@ -14171,7 +14167,7 @@
           },
           {
             "@tag": "FUTURE",
-            "#text": "in {0}"
+            "#text": "{0}"
           },
           {
             "@tag": "H",
@@ -15085,7 +15081,7 @@
           },
           {
             "@tag": "USER_AVATAR",
-            "#text": "{0}'s Avatar"
+            "#text": "{0} avataras"
           },
           {
             "@tag": "VIEWS",

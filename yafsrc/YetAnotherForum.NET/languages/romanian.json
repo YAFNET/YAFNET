@@ -1748,7 +1748,7 @@
           },
           {
             "@tag": "BOARD_TOPIC_DEFAULT",
-            "#text": "Show Topic Default:"
+            "#text": "Afișați subiectul prestabilit:"
           },
           {
             "@tag": "BOARD_TOPIC_DEFAULT_HELP",
@@ -1891,7 +1891,7 @@
         "Resource": [
           {
             "@tag": "DIGEST_EMAIL",
-            "#text": "Email:"
+            "#text": "E-mail:"
           },
           {
             "@tag": "DIGEST_EMAIL_HELP",
@@ -1907,7 +1907,7 @@
           },
           {
             "@tag": "DIGEST_GENERATE",
-            "#text": "Digest:"
+            "#text": "Digera:"
           },
           {
             "@tag": "DIGEST_GENERATE_HELP",
@@ -1971,7 +1971,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Digest"
+            "#text": "Digera"
           }
         ]
       },
@@ -2580,7 +2580,7 @@
           },
           {
             "@tag": "SORT_ORDER",
-            "#text": "SortOrder:"
+            "#text": "Ordinea de sortare:"
           },
           {
             "@tag": "SORT_ORDER_HELP",
@@ -2637,7 +2637,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "forum"
           },
           {
             "@tag": "FORUM_MOD",
@@ -2717,7 +2717,7 @@
           },
           {
             "@tag": "PMMESSAGES",
-            "#text": "PMessages:"
+            "#text": "Mesaje PM:"
           },
           {
             "@tag": "PMMESSAGES_HELP",
@@ -3346,10 +3346,6 @@
             "#text": "Trebuie să introduceți o nouă parolă"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Eroare: Furnizorul actual de abonamente nu acceptă funcția \"Resetare parolă\". Verificați dacă \"EnablePasswordReset\" este \"true\" în setările de configurare ale furnizorului dvs. din web.config."
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "Parola de confirmare nu se potrivește"
           },
@@ -3883,7 +3879,7 @@
           },
           {
             "@tag": "ALLOW_DISPLAY_COUNTRY",
-            "#text": "Allow Display Country:"
+            "#text": "Permiteți țara de afișare:"
           },
           {
             "@tag": "ALLOW_DISPLAY_COUNTRY_HELP",
@@ -4099,7 +4095,7 @@
           },
           {
             "@tag": "APP_RUNTIME",
-            "#text": ".NET Runtime Version:"
+            "#text": "Versiunea .NET Runtime:"
           },
           {
             "@tag": "APP_RUNTIME_HELP",
@@ -4191,7 +4187,7 @@
           },
           {
             "@tag": "BOTSCOUT_KEY",
-            "#text": "BotScout.com API Key:"
+            "#text": "Cheia API BotScout.com:"
           },
           {
             "@tag": "BOTSCOUT_KEY_HELP",
@@ -4267,7 +4263,7 @@
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
-            "#text": "Crop Image Attachment Preview:"
+            "#text": "Decupați imaginea atașată Previzualizare:"
           },
           {
             "@tag": "CROP_IMAGE_ATTACH_HELP",
@@ -4299,7 +4295,7 @@
           },
           {
             "@tag": "DISCUSSIONS_CACHE_TIMEOUT",
-            "#text": "Active Discussions Cache Timeout:"
+            "#text": "Timeout cache pentru discuții active:"
           },
           {
             "@tag": "DISCUSSIONS_CACHE_TIMEOUT_HELP",
@@ -4335,11 +4331,11 @@
           },
           {
             "@tag": "EDITOR_BASIC",
-            "#text": "Editor Toolbar Basic:"
+            "#text": "Editor Bara de instrumente de bază:"
           },
           {
             "@tag": "EDITOR_FULL",
-            "#text": "Editor Toolbar Full:"
+            "#text": "Bara de instrumente Editor completă:"
           },
           {
             "@tag": "EDITOR_FULL_HELP",
@@ -4503,7 +4499,7 @@
           },
           {
             "@tag": "FORUM_EMAIL",
-            "#text": "Forum Email:"
+            "#text": "E-mail forum:"
           },
           {
             "@tag": "FORUM_EMAIL_HELP",
@@ -4751,7 +4747,7 @@
           },
           {
             "@tag": "IP_INFOSERVICE_XMLURL",
-            "#text": "IP Info XML Web Service URL:"
+            "#text": "Adresa URL a serviciului web XML Informații IP:"
           },
           {
             "@tag": "IP_INFOSERVICE_XMLURL_HELP",
@@ -4783,7 +4779,7 @@
           },
           {
             "@tag": "LAZY_CACHE_TIMEOUT",
-            "#text": "User Lazy Data Cache Timeout:"
+            "#text": "Timp de expirare a memoriei cache a datelor pentru utilizator:"
           },
           {
             "@tag": "LAZY_CACHE_TIMEOUT_HELP",
@@ -4999,7 +4995,7 @@
           },
           {
             "@tag": "ONLINE_STATUS_TIMEOUT",
-            "#text": "Online User Status Cache Timeout:"
+            "#text": "Timeout cache pentru starea utilizatorului online:"
           },
           {
             "@tag": "ONLINE_STATUS_TIMEOUT_HELP",
@@ -5135,7 +5131,7 @@
           },
           {
             "@tag": "RECAPTCHA_PRIVATE_KEY",
-            "#text": "ReCAPTCHA Secret Key:"
+            "#text": "Cheie secretă reCAPTCHA:"
           },
           {
             "@tag": "RECAPTCHA_PRIVATE_KEY_HELP",
@@ -5143,7 +5139,7 @@
           },
           {
             "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "ReCAPTCHA Site Key:"
+            "#text": "Cheia site-ului reCAPTCHA:"
           },
           {
             "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
@@ -5203,7 +5199,7 @@
           },
           {
             "@tag": "REPUTATION_MINDOWN",
-            "#text": "Min. Value to allow Remove Reputation:"
+            "#text": "Min. Valoare pentru a permite Eliminarea reputației:"
           },
           {
             "@tag": "REPUTATION_MINDOWN_HELP",
@@ -5599,7 +5595,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "BlogSpam.NET API"
+            "#text": "API-ul BlogSpam.NET"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5631,7 +5627,7 @@
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
-            "#text": "Forum Statistics Cache Timeout:"
+            "#text": "Timeout cache pentru statistici forum:"
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT_HELP",
@@ -5909,7 +5905,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Mail"
+            "#text": "Poștă"
           },
           {
             "@tag": "TO_MAIL",
@@ -5975,7 +5971,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "forum"
           },
           {
             "@tag": "GROUP",
@@ -6044,7 +6040,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "NNTP Retrieve"
+            "#text": "Preluare NNTP"
           }
         ]
       },
@@ -6786,7 +6782,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Task Manger"
+            "#text": "Manager de sarcini"
           }
         ]
       },
@@ -6811,7 +6807,7 @@
           },
           {
             "@tag": "EMAIL",
-            "#text": "Email"
+            "#text": "E-mail"
           },
           {
             "@tag": "EMAIL_CONTAINS",
@@ -7038,7 +7034,7 @@
           },
           {
             "@tag": "ADMIN_DIGEST",
-            "#text": "Digest"
+            "#text": "Digera"
           },
           {
             "@tag": "ADMIN_EVENTLOG",
@@ -7070,7 +7066,7 @@
           },
           {
             "@tag": "ADMIN_MAIL",
-            "#text": "Mail"
+            "#text": "Poștă"
           },
           {
             "@tag": "ADMIN_MEDALS",
@@ -8333,7 +8329,7 @@
           },
           {
             "@tag": "OK",
-            "#text": "OK"
+            "#text": "O.K"
           },
           {
             "@tag": "OR",
@@ -8389,7 +8385,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      language:  {\r\n                inputTooLong: function(e) {\r\n                    var t = e.input.length - e.maximum,\r\n                        n = \"Vă rugăm să introduceți mai puțin de \" + t;\r\n                    return n += \" caracter\", n !== 1 && (n += \"e\"), n\r\n    },\r\n    inputTooShort: function(e) {\r\n    var t = e.minimum - e.input.length,\r\n    n = \"Vă rugăm să introduceți incă \" + t;\r\n    return n += \" caracter\", n !== 1 && (n += \"e\"), n\r\n    },\r\n    loadingMore: function() {\r\n    return \"Se încarcă…\"\r\n    },\r\n    maximumSelection: function(e) {\r\n    var t = \"Aveți voie să selectați cel mult \" + e.maximum;\r\n    return t += \" element\", t !== 1 && (t += \"e\"), t\r\n                },\r\n                noResults: function() {\r\n                    return \"Nu a fost găsit nimic\"\r\n                },\r\n                searching: function() {\r\n                    return \"Căutare…\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { errorLoading:function(){return\"Rezultatele nu au putut fi incărcate.\"},inputTooLong:function(e){var t=e.input.length-e.maximum,n=\"Vă rugăm să ștergeți\"+t+\" caracter\";return 1!==t&&(n+=\"e\"),n},inputTooShort:function(e){return\"Vă rugăm să introduceți \"+(e.minimum-e.input.length)+\" sau mai multe caractere\"},loadingMore:function(){return\"Se încarcă mai multe rezultate…\"},maximumSelected:function(e){var t=\"Aveți voie să selectați cel mult \"+e.maximum;return t+=\" element\",1!==e.maximum&&(t+=\"e\"),t},noResults:function(){return\"Nu au fost găsite rezultate\"},searching:function(){return\"Căutare…\"},removeAllItems:function(){return\"Eliminați toate elementele\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -8429,7 +8425,7 @@
           },
           {
             "@tag": "TT_BOLD",
-            "#text": "Bold"
+            "#text": "Îndrăzneţ"
           },
           {
             "@tag": "TT_CODE",
@@ -8461,7 +8457,7 @@
           },
           {
             "@tag": "TT_ITALIC",
-            "#text": "Italic"
+            "#text": "Cursiv"
           },
           {
             "@tag": "TT_LISTORDERED",
@@ -8683,7 +8679,7 @@
           },
           {
             "@tag": "BM",
-            "#text": "Bermuda"
+            "#text": "Bermude"
           },
           {
             "@tag": "BN",
@@ -8715,7 +8711,7 @@
           },
           {
             "@tag": "BY",
-            "#text": "Belarus"
+            "#text": "Bielorusia"
           },
           {
             "@tag": "BZ",
@@ -9011,7 +9007,7 @@
           },
           {
             "@tag": "JO",
-            "#text": "Jordan"
+            "#text": "Iordania"
           },
           {
             "@tag": "JP",
@@ -9027,7 +9023,7 @@
           },
           {
             "@tag": "KH",
-            "#text": "Cambodja"
+            "#text": "Cambodgia"
           },
           {
             "@tag": "KI",
@@ -9399,7 +9395,7 @@
           },
           {
             "@tag": "TD",
-            "#text": "Chad"
+            "#text": "Ciad"
           },
           {
             "@tag": "TF",
@@ -9407,7 +9403,7 @@
           },
           {
             "@tag": "TG",
-            "#text": "Togo"
+            "#text": "A merge"
           },
           {
             "@tag": "TH",
@@ -9620,7 +9616,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "forum"
           },
           {
             "@tag": "GO_LAST_POST",
@@ -9882,7 +9878,7 @@
           },
           {
             "@tag": "UNDELETE",
-            "#text": "Undelete"
+            "#text": "Anulați ștergerea"
           },
           {
             "@tag": "UNDELETE_REASON",
@@ -10033,7 +10029,7 @@
           },
           {
             "@tag": "NOAVATAR",
-            "#text": "[ No Avatar ]"
+            "#text": "[Fără avatar]"
           },
           {
             "@tag": "NOTE_LOCAL",
@@ -10516,7 +10512,7 @@
           },
           {
             "@tag": "CISGENDER",
-            "#text": "Cisgender"
+            "#text": "Cisgen"
           },
           {
             "@tag": "FEMALETOMALE",
@@ -10564,7 +10560,7 @@
           },
           {
             "@tag": "TRANS",
-            "#text": "Trrans"
+            "#text": "Trans"
           },
           {
             "@tag": "TRANSFEMININE",
@@ -10576,7 +10572,7 @@
           },
           {
             "@tag": "TRANSMAN",
-            "#text": "Transgender Man"
+            "#text": "Bărbat transgender"
           },
           {
             "@tag": "TRANSMASCULINE",
@@ -10918,7 +10914,7 @@
           },
           {
             "@tag": "HOT_NO_NEW_POSTS",
-            "#text": "Hot Topic"
+            "#text": "Subiect fierbinte"
           },
           {
             "@tag": "MOVED",
@@ -11040,7 +11036,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Yahoo! Messenger"
+            "#text": "Yahoo! Mesager"
           }
         ]
       },
@@ -11392,11 +11388,11 @@
           },
           {
             "@tag": "POSTS_ASC",
-            "#text": "Posts asc"
+            "#text": "Postări asc"
           },
           {
             "@tag": "POSTS_DESC",
-            "#text": "Posts desc"
+            "#text": "Postări desc"
           },
           {
             "@tag": "RANK_ASC",
@@ -11701,7 +11697,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "forum"
           },
           {
             "@tag": "REPORTED",
@@ -11977,7 +11973,7 @@
           },
           {
             "@tag": "TOPIC_STARTER",
-            "#text": "Topic Starter"
+            "#text": "Începător de subiect"
           },
           {
             "@tag": "TOPICS",
@@ -12650,7 +12646,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "SCOP"
           },
           {
             "@tag": "AIM_TITLE",
@@ -12730,7 +12726,7 @@
           },
           {
             "@tag": "EMAIL",
-            "#text": "Email"
+            "#text": "E-mail"
           },
           {
             "@tag": "EMAIL_TITLE",
@@ -12902,7 +12898,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "PM"
+            "#text": "P.M"
           },
           {
             "@tag": "PM_TITLE",
@@ -13098,7 +13094,7 @@
           },
           {
             "@tag": "TOPIC_STARTER",
-            "#text": "Topic Starter"
+            "#text": "Începător de subiect"
           },
           {
             "@tag": "TOPIC_STARTER_HELP",
@@ -13118,7 +13114,7 @@
           },
           {
             "@tag": "TWITTER",
-            "#text": "Twitter"
+            "#text": "Stare de nervozitate"
           },
           {
             "@tag": "TWITTER",
@@ -13227,7 +13223,7 @@
           },
           {
             "@tag": "TAGS",
-            "#text": "Tags:"
+            "#text": "Etichete:"
           }
         ]
       },
@@ -13253,7 +13249,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM-Name:"
+            "#text": "AIM-Nume:"
           },
           {
             "@tag": "ALBUMS",
@@ -13547,11 +13543,11 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell Inner-Rhodes"
+            "#text": "Appenzell Inner-Rhodos"
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "Appenzell Outer-Rhodos"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -13712,7 +13708,7 @@
           },
           {
             "@tag": "RGN_DE_TH",
-            "#text": "Thuringia"
+            "#text": "Turingia"
           }
         ]
       },
@@ -13893,7 +13889,7 @@
           },
           {
             "@tag": "RGN_US_RI",
-            "#text": "Rhode Island"
+            "#text": "insula Rhode"
           },
           {
             "@tag": "RGN_US_SC",
@@ -14314,7 +14310,7 @@
         "Resource": [
           {
             "@tag": "BOLD",
-            "#text": "Bold"
+            "#text": "Îndrăzneţ"
           },
           {
             "@tag": "CENTER",
@@ -14338,7 +14334,7 @@
           },
           {
             "@tag": "ITALIC",
-            "#text": "Italic"
+            "#text": "Cursiv"
           },
           {
             "@tag": "LEFT",
@@ -14533,7 +14529,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "forum"
           },
           {
             "@tag": "FORUMS",
@@ -14973,7 +14969,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "forum"
           },
           {
             "@tag": "FORUMUSERS",
@@ -15053,7 +15049,7 @@
           },
           {
             "@tag": "RSSFEED",
-            "#text": "Rss Feed"
+            "#text": "RSS Feed"
           },
           {
             "@tag": "SEARCH_FORUM",

@@ -1493,7 +1493,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "OnClick JS:"
+            "#text": "Al hacer clic en JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -1587,7 +1587,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "IDENTIFICACIÓN"
           },
           {
             "@tag": "NAME",
@@ -3338,10 +3338,6 @@
             "#text": "Debes introducir una nueva contraseña"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Error: El actual proveedor de afiliación no soporta la función de \"reseteo de contraseña\". Verifica que \"EnablePasswordReset\" es \"true\" en tu configuración del proveedor en el web.config."
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "La confirmación de contraseña no coincide"
           },
@@ -3794,7 +3790,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Roles"
+            "#text": "roles"
           },
           {
             "@tag": "UNLINKABLE",
@@ -7046,7 +7042,7 @@
           },
           {
             "@tag": "ADMIN_GROUPS",
-            "#text": "Roles"
+            "#text": "roles"
           },
           {
             "@tag": "ADMIN_HOSTSETTINGS",
@@ -8161,7 +8157,7 @@
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "G"
+            "#text": "GRAMO"
           },
           {
             "@tag": "FORMAT_TIME",
@@ -8381,7 +8377,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      language:  {\r\n      errorLoading: function() {\r\n      return \"La carga falló\"\r\n      },\r\n      inputTooLong: function(e) {\r\n      var t = e.input.length - e.maximum,\r\n      n = \"Por favor, elimine \" + t + \" car\";\r\n      return t == 1 ? n += \"ácter\" : n += \"acteres\", n\r\n      },\r\n      inputTooShort: function(e) {\r\n      var t = e.minimum - e.input.length,\r\n      n = \"Por favor, introduzca \" + remainingChars + \" car\";\r\n      return remainingChars == 1 ? n += \"ácter\" : n += \"acteres\", n\r\n      },\r\n      loadingMore: function() {\r\n      return \"Cargando más resultados…\"\r\n      },\r\n      maximumSelection: function(e) {\r\n      var t = \"Sólo puede seleccionar \" + e.maximum + \" elemento\";\r\n      return e.maximum != 1 && (t += \"s\"), t\r\n      },\r\n      noResults: function() {\r\n      return \"No se encontraron resultados\"\r\n      },\r\n      searching: function() {\r\n      return \"Buscando…\"\r\n      }\r\n      }\r\n    "
+            "#text": "language:  { errorLoading:function(){return\"No se pudieron cargar los resultados\"},inputTooLong:function(e){var n=e.input.length-e.maximum,r=\"Por favor, elimine \"+n+\" car\";return r+=1==n?\"ácter\":\"acteres\"},inputTooShort:function(e){var n=e.minimum-e.input.length,r=\"Por favor, introduzca \"+n+\" car\";return r+=1==n?\"ácter\":\"acteres\"},loadingMore:function(){return\"Cargando más resultados…\"},maximumSelected:function(e){var n=\"Sólo puede seleccionar \"+e.maximum+\" elemento\";return 1!=e.maximum&&(n+=\"s\"),n},noResults:function(){return\"No se encontraron resultados\"},searching:function(){return\"Buscando…\"},removeAllItems:function(){return\"Eliminar todos los elementos\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -8607,7 +8603,7 @@
           },
           {
             "@tag": "AO",
-            "#text": "Angola"
+            "#text": "angola"
           },
           {
             "@tag": "AQ",
@@ -8643,11 +8639,11 @@
           },
           {
             "@tag": "BB",
-            "#text": "Barbados"
+            "#text": "barbados"
           },
           {
             "@tag": "BD",
-            "#text": "Bangladesh"
+            "#text": "bangladesh"
           },
           {
             "@tag": "BE",
@@ -8691,7 +8687,7 @@
           },
           {
             "@tag": "BS",
-            "#text": "Bahamas"
+            "#text": "bahamas"
           },
           {
             "@tag": "BT",
@@ -8703,7 +8699,7 @@
           },
           {
             "@tag": "BW",
-            "#text": "Botswana"
+            "#text": "Botsuana"
           },
           {
             "@tag": "BY",
@@ -8755,7 +8751,7 @@
           },
           {
             "@tag": "CN",
-            "#text": "China"
+            "#text": "Porcelana"
           },
           {
             "@tag": "CO",
@@ -8843,7 +8839,7 @@
           },
           {
             "@tag": "FJ",
-            "#text": "Fiji"
+            "#text": "Fiyi"
           },
           {
             "@tag": "FK",
@@ -8983,7 +8979,7 @@
           },
           {
             "@tag": "IQ",
-            "#text": "Iraq"
+            "#text": "Irak"
           },
           {
             "@tag": "IR",
@@ -9107,7 +9103,7 @@
           },
           {
             "@tag": "ME",
-            "#text": "Montenegro"
+            "#text": "montenegro"
           },
           {
             "@tag": "MG",
@@ -9119,11 +9115,11 @@
           },
           {
             "@tag": "MK",
-            "#text": "Macedonia"
+            "#text": "macedonia"
           },
           {
             "@tag": "ML",
-            "#text": "Mali"
+            "#text": "Malí"
           },
           {
             "@tag": "MM",
@@ -9167,7 +9163,7 @@
           },
           {
             "@tag": "MW",
-            "#text": "Malawi"
+            "#text": "Malaui"
           },
           {
             "@tag": "MX",
@@ -9267,7 +9263,7 @@
           },
           {
             "@tag": "PN",
-            "#text": "Pitcairn"
+            "#text": "pitcairn"
           },
           {
             "@tag": "PR",
@@ -9279,7 +9275,7 @@
           },
           {
             "@tag": "PW",
-            "#text": "Palau"
+            "#text": "palaos"
           },
           {
             "@tag": "PY",
@@ -9287,7 +9283,7 @@
           },
           {
             "@tag": "QA",
-            "#text": "Qatar"
+            "#text": "Katar"
           },
           {
             "@tag": "RE",
@@ -9399,7 +9395,7 @@
           },
           {
             "@tag": "TG",
-            "#text": "Togo"
+            "#text": "Para llevar"
           },
           {
             "@tag": "TH",
@@ -9423,7 +9419,7 @@
           },
           {
             "@tag": "TO",
-            "#text": "Tonga"
+            "#text": "tonga"
           },
           {
             "@tag": "TP",
@@ -9507,7 +9503,7 @@
           },
           {
             "@tag": "WS",
-            "#text": "Samoa"
+            "#text": "samoa"
           },
           {
             "@tag": "YE",
@@ -10496,7 +10492,7 @@
         "Resource": [
           {
             "@tag": "AGENDER",
-            "#text": "Agender"
+            "#text": "Agénero"
           },
           {
             "@tag": "ANDROGYNE",
@@ -10504,7 +10500,7 @@
           },
           {
             "@tag": "BIGENDER",
-            "#text": "Bigender"
+            "#text": "Bigénero"
           },
           {
             "@tag": "CISGENDER",
@@ -10524,7 +10520,7 @@
           },
           {
             "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
+            "#text": "género queer"
           },
           {
             "@tag": "GENDERQUESTIONING",
@@ -10552,11 +10548,11 @@
           },
           {
             "@tag": "PANGENDER",
-            "#text": "Pangender"
+            "#text": "Pangénero"
           },
           {
             "@tag": "TRANS",
-            "#text": "Trrans"
+            "#text": "trans"
           },
           {
             "@tag": "TRANSFEMININE",
@@ -10947,7 +10943,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
+            "#text": "Mensajería instantánea de AOL"
           }
         ]
       },
@@ -11024,7 +11020,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Yahoo! Messenger"
+            "#text": "yahoo! Mensajero"
           }
         ]
       },
@@ -12630,7 +12626,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "APUNTAR"
           },
           {
             "@tag": "AIM_TITLE",
@@ -13098,7 +13094,7 @@
           },
           {
             "@tag": "TWITTER",
-            "#text": "Twitter"
+            "#text": "Gorjeo"
           },
           {
             "@tag": "TWITTER_TITLE",
@@ -13523,11 +13519,11 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell Inner-Rhodes"
+            "#text": "Appenzell Rodas Interiores"
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "Appenzell Rodas Exteriores"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -13551,7 +13547,7 @@
           },
           {
             "@tag": "RGN_CH_GL",
-            "#text": "Glarus"
+            "#text": "Glaris"
           },
           {
             "@tag": "RGN_CH_GR",
@@ -13595,15 +13591,15 @@
           },
           {
             "@tag": "RGN_CH_TG",
-            "#text": "Thurgau"
+            "#text": "Turgovia"
           },
           {
             "@tag": "RGN_CH_TI",
-            "#text": "Ticino"
+            "#text": "Tesino"
           },
           {
             "@tag": "RGN_CH_UR",
-            "#text": "Uri"
+            "#text": "uri"
           },
           {
             "@tag": "RGN_CH_VD",
@@ -13644,11 +13640,11 @@
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "Baden-Wurtemberg"
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesse"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13676,7 +13672,7 @@
           },
           {
             "@tag": "RGN_DE_SAA",
-            "#text": "Saarland"
+            "#text": "Sarre"
           },
           {
             "@tag": "RGN_DE_SACH",
@@ -13801,7 +13797,7 @@
           },
           {
             "@tag": "RGN_US_MO",
-            "#text": "Missouri"
+            "#text": "Misuri"
           },
           {
             "@tag": "RGN_US_MP",
@@ -13809,7 +13805,7 @@
           },
           {
             "@tag": "RGN_US_MS",
-            "#text": "Mississippi"
+            "#text": "Misisipí"
           },
           {
             "@tag": "RGN_US_MT",
@@ -13861,7 +13857,7 @@
           },
           {
             "@tag": "RGN_US_PA",
-            "#text": "Pennsylvania"
+            "#text": "Pensilvania"
           },
           {
             "@tag": "RGN_US_PR",
@@ -13881,7 +13877,7 @@
           },
           {
             "@tag": "RGN_US_TN",
-            "#text": "Tennessee"
+            "#text": "Tennesse"
           },
           {
             "@tag": "RGN_US_TX",
@@ -14310,7 +14306,7 @@
           },
           {
             "@tag": "INDENT",
-            "#text": "Indent"
+            "#text": "Sangrar"
           },
           {
             "@tag": "ITALIC",
@@ -14334,7 +14330,7 @@
           },
           {
             "@tag": "OUTDENT",
-            "#text": "Outdent"
+            "#text": "anular la sangría"
           },
           {
             "@tag": "RIGHT",

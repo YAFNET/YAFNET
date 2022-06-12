@@ -3346,10 +3346,6 @@
             "#text": "Skal indtaste ny adgangskode"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Fejl: Nuværende medlemsudbyder understøtter ikke funktionen \"Nulstilling af adgangskode\". "
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "Bekræftelsesadgangskoden stemmer ikke overens"
           },
@@ -4503,7 +4499,7 @@
           },
           {
             "@tag": "FORUM_EMAIL",
-            "#text": "Forum Email:"
+            "#text": "Forum email:"
           },
           {
             "@tag": "FORUM_EMAIL_HELP",
@@ -8389,7 +8385,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      language:  {\r\n                 errorLoading: function() {\r\n                    return \"The results could not be loaded.\"\r\n                },\r\n                inputTooLong: function(e) {\r\n                    var t = e.input.length - e.maximum,\r\n                        n = \"Angiv venligst \" + t + \" tegn mindre\";\r\n                    return n\r\n                },\r\n                inputTooShort: function(e) {\r\n                    var t = e.minimum - e.input.length,\r\n                        n = \"Angiv venligst \" + t + \" tegn mere\";\r\n                    return n\r\n                },\r\n                loadingMore: function() {\r\n                    return \"Indlæser flere resultater…\"\r\n                },\r\n                maximumSelected: function(e) {\r\n                    var t = \"Du kan kun vælge \" + e.maximum + \" emne\";\r\n                    return e.maximum != 1 && (t += \"r\"), t\r\n                },\r\n                noResults: function() {\r\n                    return \"Ingen resultater fundet\"\r\n                },\r\n                searching: function() {\r\n                    return \"Søger…\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { errorLoading:function(){return\"Resultaterne kunne ikke indlæses.\"},inputTooLong:function(e){return\"Angiv venligst \"+(e.input.length-e.maximum)+\" tegn mindre\"},inputTooShort:function(e){return\"Angiv venligst \"+(e.minimum-e.input.length)+\" tegn mere\"},loadingMore:function(){return\"Indlæser flere resultater…\"},maximumSelected:function(e){var n=\"Du kan kun vælge \"+e.maximum+\" emne\";return 1!=e.maximum&&(n+=\"r\"),n},noResults:function(){return\"Ingen resultater fundet\"},searching:function(){return\"Søger…\"},removeAllItems:function(){return\"Fjern alle elementer\"} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -9043,7 +9039,7 @@
           },
           {
             "@tag": "KP",
-            "#text": "Korea, D.P.R.O."
+            "#text": "Korea, DPRO"
           },
           {
             "@tag": "KR",

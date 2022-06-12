@@ -3338,10 +3338,6 @@
             "#text": "يجب إدخال كلمة مرور جديدة"
           },
           {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "خطأ: موفر العضوية الحالي لا يدعم وظيفة \"إعادة تعيين كلمة المرور\". "
-          },
-          {
             "@tag": "ERROR_PASS_NOTMATCH",
             "#text": "تأكيد كلمة المرور لا يتطابق"
           },
@@ -8377,7 +8373,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      language:  {\r\n              errorLoading: function() {\r\n                    return \"The results could not be loaded.\"\r\n                },\r\n                inputTooLong: function(e) {\r\n                    var t = e.input.length - e.maximum,\r\n                        n = \"Please delete \" + t + \" character\";\r\n                    return t != 1 && (n += \"s\"), n\r\n                },\r\n                inputTooShort: function(e) {\r\n                    var t = e.minimum - e.input.length,\r\n                        n = \"Please enter \" + t + \" or more characters\";\r\n                    return n\r\n                },\r\n                loadingMore: function() {\r\n                    return \"Loading more results…\"\r\n                },\r\n                maximumSelected: function(e) {\r\n                    var t = \"You can only select \" + e.maximum + \" item\";\r\n                    return e.maximum != 1 && (t += \"s\"), t\r\n                },\r\n                noResults: function() {\r\n                    return \"No results found\"\r\n                },\r\n                searching: function() {\r\n                    return \"Searching…\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { errorLoading:function(){return\"لا يمكن تحميل النتائج\"},inputTooLong:function(n){return\"الرجاء حذف \"+(n.input.length-n.maximum)+\" عناصر\"},inputTooShort:function(n){return\"الرجاء إضافة \"+(n.minimum-n.input.length)+\" عناصر\"},loadingMore:function(){return\"جاري تحميل نتائج إضافية...\"},maximumSelected:function(n){return\"تستطيع إختيار \"+n.maximum+\" بنود فقط\"},noResults:function(){return\"لم يتم العثور على أي نتائج\"},searching:function(){return\"جاري البحث…\"},removeAllItems:function(){return\"قم بإزالة كل العناصر\"}} }"
           },
           {
             "@tag": "SELECTED_COPY",

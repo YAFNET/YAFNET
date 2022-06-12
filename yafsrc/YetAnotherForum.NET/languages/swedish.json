@@ -877,7 +877,7 @@
           },
           {
             "@tag": "ADMINISTRATION",
-            "#text": "Administration"
+            "#text": "Administrering"
           },
           {
             "@tag": "ALL_BOARDS",
@@ -2717,7 +2717,7 @@
           },
           {
             "@tag": "PMMESSAGES",
-            "#text": "PMessages:"
+            "#text": "Meddelanden:"
           },
           {
             "@tag": "PMMESSAGES_HELP",
@@ -3113,7 +3113,7 @@
           },
           {
             "@tag": "NNTP_PORT",
-            "#text": "Port:"
+            "#text": "Hamn:"
           },
           {
             "@tag": "NNTP_PORT_HELP",
@@ -3206,7 +3206,7 @@
           },
           {
             "@tag": "RANK_IMAGE",
-            "#text": "Rank Image:"
+            "#text": "Rank bild:"
           },
           {
             "@tag": "RANK_IMAGE_HELP",
@@ -3344,10 +3344,6 @@
           {
             "@tag": "ERROR_NEW_PASS",
             "#text": "Måste ange ett nytt lösenord"
-          },
-          {
-            "@tag": "ERROR_NOTE_PASSRESET",
-            "#text": "Fel: Den aktuella medlemsleverantören stöder inte funktionen \"Återställning av lösenord\". Kontrollera att \"EnablePasswordReset\" är \"true\" i konfigurationsinställningarna för leverantören i web.config."
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -5279,7 +5275,7 @@
           },
           {
             "@tag": "SERVER_VERSION",
-            "#text": "SQL Server Version:"
+            "#text": "SQL Server-version:"
           },
           {
             "@tag": "SERVER_VERSION_HELP",
@@ -6102,7 +6098,7 @@
           },
           {
             "@tag": "PAGE",
-            "#text": "Real Page"
+            "#text": "Verklig sida"
           },
           {
             "@tag": "REVOKEALL",
@@ -6198,7 +6194,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Web Profiler"
+            "#text": "Webbprofilerare"
           }
         ]
       },
@@ -6843,7 +6839,7 @@
           },
           {
             "@tag": "FILTER_DROPDOWN",
-            "#text": "Filter"
+            "#text": "Filtrera"
           },
           {
             "@tag": "FILTER_NO",
@@ -7106,7 +7102,7 @@
           },
           {
             "@tag": "ADMIN_PROFILER",
-            "#text": "Web Profiler"
+            "#text": "Webbprofilerare"
           },
           {
             "@tag": "ADMIN_PRUNE",
@@ -8193,7 +8189,7 @@
           },
           {
             "@tag": "GO",
-            "#text": "GO"
+            "#text": "GÅ"
           },
           {
             "@tag": "GOTOFIRSTPAGE_TT",
@@ -8389,7 +8385,7 @@
           },
           {
             "@tag": "SELECT_LOCALE_JS",
-            "#text": "\r\n      språk:  {\r\n              errorLoading: function() {\r\n                    return \"Resultaten kunde inte laddas.\"\r\n                },\r\n                inputTooLong: function(e) {\r\n                    var t = e.input.length - e.maximum,\r\n                        n = \"Ta bort \" + t + \" tecken\";\r\n                    return t != 1 && (n += \"s\"), n\r\n                },\r\n                inputTooShort: function(e) {\r\n                    var t = e.minimum - e.input.length,\r\n                        n = \"Ange \" + t + \" eller fler tecken\";\r\n                    returnera n\r\n                },\r\n                loadingMore: function() {\r\n                    return \"Laddar fler resultat...\"\r\n                },\r\n                maximumSelected: function(e) {\r\n                    var t = \"Du kan bara välja \" + e.maximum + \" objekt\";\r\n                    return e.maximum !.= 1 && (t += \"s\"), t\r\n                },\r\n                noResults: function() {\r\n                    return \"Inga resultat hittades\"\r\n                },\r\n                searching: function() {\r\n                    return \"Sökning...\"\r\n                }\r\n          }\r\n  "
+            "#text": "language:  { errorLoading:function(){return\"Resultat kunde inte laddas.\"},inputTooLong:function(n){return\"Vänligen sudda ut \"+(n.input.length-n.maximum)+\" tecken\"},inputTooShort:function(n){return\"Vänligen skriv in \"+(n.minimum-n.input.length)+\" eller fler tecken\"},loadingMore:function(){return\"Laddar fler resultat…\"},maximumSelected:function(n){return\"Du kan max välja \"+n.maximum+\" element\"},noResults:function(){return\"Inga träffar\"},searching:function(){return\"Söker…\"},removeAllItems:function(){return\"Ta bort alla objekt\"}} }"
           },
           {
             "@tag": "SELECTED_COPY",
@@ -9043,7 +9039,7 @@
           },
           {
             "@tag": "KP",
-            "#text": "Korea, D.P.R.O."
+            "#text": "Korea, DPRO"
           },
           {
             "@tag": "KR",
@@ -9155,7 +9151,7 @@
           },
           {
             "@tag": "MR",
-            "#text": "Mauretania"
+            "#text": "Mauretanien"
           },
           {
             "@tag": "MS",
@@ -9239,7 +9235,7 @@
           },
           {
             "@tag": "OM",
-            "#text": "Oman"
+            "#text": "oman"
           },
           {
             "@tag": "PA",
@@ -9339,7 +9335,7 @@
           },
           {
             "@tag": "SH",
-            "#text": "St. Helena"
+            "#text": "S:t Helena"
           },
           {
             "@tag": "SI",
@@ -9399,7 +9395,7 @@
           },
           {
             "@tag": "TD",
-            "#text": "Chad"
+            "#text": "Tchad"
           },
           {
             "@tag": "TF",
@@ -10402,7 +10398,7 @@
           },
           {
             "@tag": "SQLERROR",
-            "#text": "Sql Script Error"
+            "#text": "SQL-skriptfel"
           },
           {
             "@tag": "WARNING",
@@ -10508,7 +10504,7 @@
           },
           {
             "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
+            "#text": "Androgyn"
           },
           {
             "@tag": "BIGENDER",
@@ -10572,7 +10568,7 @@
           },
           {
             "@tag": "TRANSGENDER",
-            "#text": "Transgender"
+            "#text": "Transpersoner"
           },
           {
             "@tag": "TRANSMAN",
@@ -11001,7 +10997,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "MSN Messenger"
+            "#text": "MSN meddelande"
           }
         ]
       },
@@ -11040,7 +11036,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Yahoo! Messenger"
+            "#text": "Yahoo! budbärare"
           }
         ]
       },
@@ -12074,7 +12070,7 @@
           },
           {
             "@tag": "INBOX",
-            "#text": "Inbox"
+            "#text": "Inkorg"
           },
           {
             "@tag": "MARK_ALL_ASREAD",
@@ -12541,7 +12537,7 @@
           },
           {
             "@tag": "NORMAL",
-            "#text": "Normal"
+            "#text": "Vanligt"
           },
           {
             "@tag": "PERSISTENCY",
@@ -12650,7 +12646,7 @@
           },
           {
             "@tag": "AIM",
-            "#text": "AIM"
+            "#text": "SYFTE"
           },
           {
             "@tag": "AIM_TITLE",
@@ -12890,7 +12886,7 @@
           },
           {
             "@tag": "NORMAL",
-            "#text": "Normal"
+            "#text": "Vanligt"
           },
           {
             "@tag": "OPTIONS",
@@ -13361,7 +13357,7 @@
           },
           {
             "@tag": "MODERATION",
-            "#text": "Moderation"
+            "#text": "Måtta"
           },
           {
             "@tag": "MONTH",
@@ -13547,11 +13543,11 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell Inner-Rhodes"
+            "#text": "Appenzell Inre Rhodos"
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "Appenzell Yttre Rhodos"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -13579,7 +13575,7 @@
           },
           {
             "@tag": "RGN_CH_GR",
-            "#text": "Grisons"
+            "#text": "Graubünden"
           },
           {
             "@tag": "RGN_CH_JU",
@@ -13587,7 +13583,7 @@
           },
           {
             "@tag": "RGN_CH_LU",
-            "#text": "Lucerne"
+            "#text": "Lusern"
           },
           {
             "@tag": "RGN_CH_NE",
@@ -13603,7 +13599,7 @@
           },
           {
             "@tag": "RGN_CH_SG",
-            "#text": "St. Gallen"
+            "#text": "S:t Gallen"
           },
           {
             "@tag": "RGN_CH_SH",
@@ -13841,11 +13837,11 @@
           },
           {
             "@tag": "RGN_US_NC",
-            "#text": "North Carolina"
+            "#text": "norra Carolina"
           },
           {
             "@tag": "RGN_US_ND",
-            "#text": "North Dakota"
+            "#text": "norra Dakota"
           },
           {
             "@tag": "RGN_US_NE",
@@ -13937,7 +13933,7 @@
           },
           {
             "@tag": "RGN_US_WV",
-            "#text": "West Virginia"
+            "#text": "västra Virginia"
           },
           {
             "@tag": "RGN_US_WY",
@@ -14350,7 +14346,7 @@
           },
           {
             "@tag": "NORMAL",
-            "#text": "Normal"
+            "#text": "Vanligt"
           },
           {
             "@tag": "ORDERED",
@@ -14752,7 +14748,7 @@
           },
           {
             "@tag": "ADMIN",
-            "#text": "Admin"
+            "#text": "Administration"
           },
           {
             "@tag": "ADMIN_TITLE",
