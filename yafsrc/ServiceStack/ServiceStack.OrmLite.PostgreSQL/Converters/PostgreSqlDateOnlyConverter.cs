@@ -9,10 +9,6 @@
 namespace ServiceStack.OrmLite.PostgreSQL.Converters
 {
     using System;
-    using ServiceStack.OrmLite.Converters;
-
-    using ServiceStack.OrmLite.Converters;
-    using ServiceStack.Text;
 
     public class PostgreSqlDateOnlyConverter : PostgreSqlDateTimeConverter
     {
