@@ -759,7 +759,7 @@ public sealed class DefaultMemory : MemoryProvider
     {
         var fromPool = false;
 
-        if (!(stream is MemoryStream ms))
+        if (stream is not MemoryStream ms)
         {
             fromPool = true;
 

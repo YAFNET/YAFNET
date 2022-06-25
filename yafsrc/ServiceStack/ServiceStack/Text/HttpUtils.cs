@@ -309,8 +309,8 @@ public static partial class HttpUtils
 
     public static string GetResponseBody(this Exception ex)
     {
-        if (!(ex is WebException webEx) || webEx.Response == null
-                                        || webEx.Status != WebExceptionStatus.ProtocolError)
+        if (ex is not WebException webEx || webEx.Response == null
+                                         || webEx.Status != WebExceptionStatus.ProtocolError)
             return null;
 
         var errorResponse = (HttpWebResponse) webEx.Response;
@@ -320,8 +320,8 @@ public static partial class HttpUtils
 
     public static async Task<string> GetResponseBodyAsync(this Exception ex, CancellationToken token = default)
     {
-        if (!(ex is WebException webEx) || webEx.Response == null
-                                        || webEx.Status != WebExceptionStatus.ProtocolError)
+        if (ex is not WebException webEx || webEx.Response == null
+                                         || webEx.Status != WebExceptionStatus.ProtocolError)
             return null;
 
         var errorResponse = (HttpWebResponse) webEx.Response;

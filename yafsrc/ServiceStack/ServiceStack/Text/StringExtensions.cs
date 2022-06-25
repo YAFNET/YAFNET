@@ -541,16 +541,6 @@ public static class StringExtensions
         return TypeSerializer.DeserializeFromSpan<T>(jsv);
     }
 
-    public static string ToJson<T>(this T obj, Action<Config> configure)
-    {
-        var config = new Config();
-        configure(config);
-        using (JsConfig.With(config))
-        {
-            return ToJson(obj);
-        }
-    }
-
     /// <summary>
     /// Converts to json.
     /// </summary>
