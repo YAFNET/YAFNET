@@ -946,6 +946,14 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return $"-- {text}";
     }
 
+    public virtual void InitConnection(IDbConnection dbConn)
+    {
+        if (dbConn is OrmLiteConnection ormLiteConn)
+            ormLiteConn.ConnectionId = Guid.NewGuid();
+
+        OnOpenConnection?.Invoke(dbConn);
+    }
+
     /// <summary>
     /// Gets the row version select column.
     /// </summary>

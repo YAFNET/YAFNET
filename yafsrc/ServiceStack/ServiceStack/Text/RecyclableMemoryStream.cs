@@ -13,7 +13,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
-namespace ServiceStack.Text; //Internalize to avoid conflicts
+namespace ServiceStack.Text;
+
+using System.Diagnostics.Tracing; //Internalize to avoid conflicts
 
 
 

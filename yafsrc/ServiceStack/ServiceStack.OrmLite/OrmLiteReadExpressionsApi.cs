@@ -356,7 +356,7 @@ public static class OrmLiteReadExpressionsApi
     /// <returns>IDbTransaction.</returns>
     public static IDbTransaction OpenTransaction(this IDbConnection dbConn)
     {
-        return new OrmLiteTransaction(dbConn, dbConn.BeginTransaction());
+        return OrmLiteTransaction.Create(dbConn);
     }
 
     /// <summary>
@@ -366,7 +366,7 @@ public static class OrmLiteReadExpressionsApi
     /// <returns>IDbTransaction.</returns>
     public static IDbTransaction OpenTransactionIfNotExists(this IDbConnection dbConn)
     {
-        return !dbConn.InTransaction() ? new OrmLiteTransaction(dbConn, dbConn.BeginTransaction()) : null;
+        return !dbConn.InTransaction() ? OrmLiteTransaction.Create(dbConn) : null;
     }
 
     /// <summary>
@@ -377,7 +377,7 @@ public static class OrmLiteReadExpressionsApi
     /// <returns>IDbTransaction.</returns>
     public static IDbTransaction OpenTransaction(this IDbConnection dbConn, IsolationLevel isolationLevel)
     {
-        return new OrmLiteTransaction(dbConn, dbConn.BeginTransaction(isolationLevel));
+        return OrmLiteTransaction.Create(dbConn, isolationLevel);
     }
 
     /// <summary>
@@ -391,7 +391,7 @@ public static class OrmLiteReadExpressionsApi
         IsolationLevel isolationLevel)
     {
         return !dbConn.InTransaction()
-                   ? new OrmLiteTransaction(dbConn, dbConn.BeginTransaction(isolationLevel))
+                   ? OrmLiteTransaction.Create(dbConn, isolationLevel)
                    : null;
     }
 

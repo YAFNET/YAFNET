@@ -35,6 +35,18 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// </summary>
     private readonly IDbConnection db;
 
+    public static OrmLiteTransaction Create(IDbConnection db, IsolationLevel? isolationLevel = null)
+    {
+        var dbTrans = isolationLevel != null
+                          ? db.BeginTransaction(isolationLevel.Value)
+                          : db.BeginTransaction();
+
+        Diagnostics.OrmLite.WriteTransactionOpen(dbTrans.IsolationLevel, db);
+        var trans = new OrmLiteTransaction(db, dbTrans);
+
+        return trans;
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="OrmLiteTransaction"/> class.
     /// </summary>
@@ -83,7 +95,30 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// </summary>
     public void Commit()
     {
-        Transaction.Commit();
+        var isolationLevel = Transaction.IsolationLevel;
+        var id = Diagnostics.OrmLite.WriteTransactionCommitBefore(isolationLevel, db);
+        Exception e = null;
+
+        try
+        {
+            Transaction.Commit();
+        }
+        catch (Exception ex)
+        {
+            e = ex;
+            throw;
+        }
+        finally
+        {
+            if (e != null)
+            {
+                Diagnostics.OrmLite.WriteTransactionCommitError(id, isolationLevel, db, e);
+            }
+            else
+            {
+                Diagnostics.OrmLite.WriteTransactionCommitAfter(id, isolationLevel, db);
+            }
+        }
     }
 
     /// <summary>
@@ -91,7 +126,30 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// </summary>
     public void Rollback()
     {
-        Transaction.Rollback();
+        var isolationLevel = Transaction.IsolationLevel;
+        var id = Diagnostics.OrmLite.WriteTransactionRollbackBefore(isolationLevel, db, null);
+        Exception e = null;
+
+        try
+        {
+            Transaction.Rollback();
+        }
+        catch (Exception ex)
+        {
+            e = ex;
+            throw;
+        }
+        finally
+        {
+            if (e != null)
+            {
+                Diagnostics.OrmLite.WriteTransactionRollbackError(id, isolationLevel, db, null, e);
+            }
+            else
+            {
+                Diagnostics.OrmLite.WriteTransactionRollbackAfter(id, isolationLevel, db, null);
+            }
+        }
     }
 
     /// <summary>

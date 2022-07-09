@@ -9,6 +9,8 @@ using ServiceStack.Data;
 
 namespace ServiceStack.OrmLite;
 
+using System;
+
 /// <summary>
 /// Class OrmLiteCommand.
 /// Implements the <see cref="System.Data.IDbCommand" />
@@ -51,6 +53,8 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
         this.dbCmd = dbCmd;
         this.DialectProvider = dbConn.GetDialectProvider();
     }
+
+    public Guid ConnectionId => dbConn.ConnectionId;
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

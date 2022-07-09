@@ -13,6 +13,8 @@ using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite;
 
+using System;
+
 /// <summary>
 /// Wrapper IDbConnection class to allow for connection sharing, mocking, etc.
 /// </summary>
@@ -53,6 +55,7 @@ public class OrmLiteConnection
     /// </summary>
     /// <value>The command timeout.</value>
     public int? CommandTimeout { get; set; }
+    public Guid ConnectionId { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OrmLiteConnection"/> class.
@@ -88,10 +91,7 @@ public class OrmLiteConnection
     /// <returns>An object representing the new transaction.</returns>
     public IDbTransaction BeginTransaction()
     {
-        if (Factory.AlwaysReturnTransaction != null)
-            return Factory.AlwaysReturnTransaction;
-
-        return DbConnection.BeginTransaction();
+        return Factory.AlwaysReturnTransaction ?? DbConnection.BeginTransaction();
     }
 
     /// <summary>
@@ -101,10 +101,7 @@ public class OrmLiteConnection
     /// <returns>IDbTransaction.</returns>
     public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
     {
-        if (Factory.AlwaysReturnTransaction != null)
-            return Factory.AlwaysReturnTransaction;
-
-        return DbConnection.BeginTransaction(isolationLevel);
+        return Factory.AlwaysReturnTransaction ?? DbConnection.BeginTransaction(isolationLevel);
     }
 
     /// <summary>
@@ -112,7 +109,29 @@ public class OrmLiteConnection
     /// </summary>
     public void Close()
     {
-        DbConnection.Close();
+        var id = Diagnostics.OrmLite.WriteConnectionCloseBefore(DbConnection);
+        var connectionId = DbConnection.GetConnectionId();
+        Exception e = null;
+        try
+        {
+            DbConnection.Close();
+        }
+        catch (Exception ex)
+        {
+            e = ex;
+            throw;
+        }
+        finally
+        {
+            if (e != null)
+            {
+                Diagnostics.OrmLite.WriteConnectionCloseError(id, connectionId, DbConnection, e);
+            }
+            else
+            {
+                Diagnostics.OrmLite.WriteConnectionCloseAfter(id, connectionId, DbConnection);
+            }
+        }
     }
 
     /// <summary>
@@ -146,14 +165,38 @@ public class OrmLiteConnection
         if (DbConnection.State == ConnectionState.Broken)
             DbConnection.Close();
 
-        if (DbConnection.State == ConnectionState.Closed)
+        if (DbConnection.State != ConnectionState.Closed)
+        {
+            return;
+        }
+
+        var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(DbConnection);
+        Exception e = null;
+
+        try
         {
             DbConnection.Open();
             //so the internal connection is wrapped for example by miniprofiler
             if (Factory.ConnectionFilter != null)
                 dbConnection = Factory.ConnectionFilter(dbConnection);
 
-            DialectProvider.OnOpenConnection?.Invoke(dbConnection);
+            DialectProvider.InitConnection(dbConnection);
+        }
+        catch (Exception ex)
+        {
+            e = ex;
+            throw;
+        }
+        finally
+        {
+            if (e != null)
+            {
+                Diagnostics.OrmLite.WriteConnectionOpenError(id, DbConnection, e);
+            }
+            else
+            {
+                Diagnostics.OrmLite.WriteConnectionOpenAfter(id, DbConnection);
+            }
         }
     }
 
@@ -169,12 +212,34 @@ public class OrmLiteConnection
 
         if (DbConnection.State == ConnectionState.Closed)
         {
-            await DialectProvider.OpenAsync(DbConnection, token).ConfigAwait();
-            //so the internal connection is wrapped for example by miniprofiler
-            if (Factory.ConnectionFilter != null)
-                dbConnection = Factory.ConnectionFilter(dbConnection);
+            var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(DbConnection);
+            Exception e = null;
 
-            DialectProvider.OnOpenConnection?.Invoke(dbConnection);
+            try
+            {
+                await DialectProvider.OpenAsync(DbConnection, token).ConfigAwait();
+                //so the internal connection is wrapped for example by miniprofiler
+                if (Factory.ConnectionFilter != null)
+                    dbConnection = Factory.ConnectionFilter(dbConnection);
+
+                DialectProvider.InitConnection(dbConnection);
+            }
+            catch (Exception ex)
+            {
+                e = ex;
+                throw;
+            }
+            finally
+            {
+                if (e != null)
+                {
+                    Diagnostics.OrmLite.WriteConnectionOpenError(id, DbConnection, e);
+                }
+                else
+                {
+                    Diagnostics.OrmLite.WriteConnectionOpenAfter(id, DbConnection);
+                }
+            }
         }
     }
 
@@ -250,7 +315,7 @@ public static class OrmLiteConnectionUtils
     /// <param name="db">The database.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public static bool InTransaction(this IDbConnection db) =>
-        db is IHasDbTransaction setDb && setDb.DbTransaction != null;
+        db is IHasDbTransaction { DbTransaction: { } };
 
     /// <summary>
     /// Gets the transaction.

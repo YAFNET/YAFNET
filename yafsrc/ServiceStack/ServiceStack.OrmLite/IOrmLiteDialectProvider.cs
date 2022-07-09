@@ -29,6 +29,8 @@ public interface IOrmLiteDialectProvider
     /// <param name="converter">The converter.</param>
     void RegisterConverter<T>(IOrmLiteConverter converter);
 
+    void InitConnection(IDbConnection dbConn);
+
     /// <summary>
     /// Invoked when a DB Connection is opened
     /// </summary>

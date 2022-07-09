@@ -161,6 +161,8 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
     public virtual T Exec<T>(IDbConnection dbConn, Func<IDbCommand, T> filter)
     {
         var dbCmd = this.CreateCommand(dbConn);
+        var id = Diagnostics.OrmLite.WriteCommandBefore(dbCmd);
+        Exception e = null;
 
         try
         {
@@ -170,11 +172,21 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
         }
         catch (Exception ex)
         {
+            e = ex;
             OrmLiteConfig.ExceptionFilter?.Invoke(dbCmd, ex);
             throw;
         }
         finally
         {
+            if (e != null)
+            {
+                Diagnostics.OrmLite.WriteCommandError(id, dbCmd, e);
+            }
+            else
+            {
+                Diagnostics.OrmLite.WriteCommandAfter(id, dbCmd);
+            }
+
             this.DisposeCommand(dbCmd, dbConn);
         }
     }
@@ -205,17 +217,30 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
     public virtual void Exec(IDbConnection dbConn, Action<IDbCommand> filter)
     {
         var dbCmd = this.CreateCommand(dbConn);
+        var id = Diagnostics.OrmLite.WriteCommandBefore(dbCmd);
+        Exception e = null;
+
         try
         {
             filter(dbCmd);
         }
         catch (Exception ex)
         {
+            e = ex;
             OrmLiteConfig.ExceptionFilter?.Invoke(dbCmd, ex);
             throw;
         }
         finally
         {
+            if (e != null)
+            {
+                Diagnostics.OrmLite.WriteCommandError(id, dbCmd, e);
+            }
+            else
+            {
+                Diagnostics.OrmLite.WriteCommandAfter(id, dbCmd);
+            }
+
             this.DisposeCommand(dbCmd, dbConn);
         }
     }
@@ -230,6 +255,8 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
     public virtual async Task<T> Exec<T>(IDbConnection dbConn, Func<IDbCommand, Task<T>> filter)
     {
         var dbCmd = this.CreateCommand(dbConn);
+        var id = Diagnostics.OrmLite.WriteCommandBefore(dbCmd);
+        Exception e = null;
 
         try
         {
@@ -237,12 +264,21 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
         }
         catch (Exception ex)
         {
-            var useEx = ex.UnwrapIfSingleException();
-            OrmLiteConfig.ExceptionFilter?.Invoke(dbCmd, useEx);
-            throw useEx;
+            e = ex.UnwrapIfSingleException();
+            OrmLiteConfig.ExceptionFilter?.Invoke(dbCmd, e);
+            throw e;
         }
         finally
         {
+            if (e != null)
+            {
+                Diagnostics.OrmLite.WriteCommandError(id, dbCmd, e);
+            }
+            else
+            {
+                Diagnostics.OrmLite.WriteCommandAfter(id, dbCmd);
+            }
+
             this.DisposeCommand(dbCmd, dbConn);
         }
     }
@@ -267,6 +303,8 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
     public virtual async Task Exec(IDbConnection dbConn, Func<IDbCommand, Task> filter)
     {
         var dbCmd = this.CreateCommand(dbConn);
+        var id = Diagnostics.OrmLite.WriteCommandBefore(dbCmd);
+        Exception e = null;
 
         try
         {
@@ -274,12 +312,21 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
         }
         catch (Exception ex)
         {
-            var useEx = ex.UnwrapIfSingleException();
-            OrmLiteConfig.ExceptionFilter?.Invoke(dbCmd, useEx);
-            throw useEx;
+            e = ex.UnwrapIfSingleException();
+            OrmLiteConfig.ExceptionFilter?.Invoke(dbCmd, e);
+            throw e;
         }
         finally
         {
+            if (e != null)
+            {
+                Diagnostics.OrmLite.WriteCommandError(id, dbCmd, e);
+            }
+            else
+            {
+                Diagnostics.OrmLite.WriteCommandAfter(id, dbCmd);
+            }
+
             this.DisposeCommand(dbCmd, dbConn);
         }
     }
@@ -294,6 +341,7 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
     public virtual IEnumerable<T> ExecLazy<T>(IDbConnection dbConn, Func<IDbCommand, IEnumerable<T>> filter)
     {
         var dbCmd = this.CreateCommand(dbConn);
+        var id = Diagnostics.OrmLite.WriteCommandBefore(dbCmd);
         try
         {
             var results = filter(dbCmd);
@@ -305,6 +353,7 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
         }
         finally
         {
+            Diagnostics.OrmLite.WriteCommandAfter(id, dbCmd);
             this.DisposeCommand(dbCmd, dbConn);
         }
     }

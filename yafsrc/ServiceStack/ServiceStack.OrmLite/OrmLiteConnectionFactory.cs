@@ -578,6 +578,12 @@ public static class OrmLiteConnectionFactoryExtensions
                    : dbTrans;
     }
 
+    public static Guid GetConnectionId(this IDbConnection db) =>
+        db is OrmLiteConnection conn ? conn.ConnectionId : Guid.Empty;
+
+    public static Guid GetConnectionId(this IDbCommand dbCmd) =>
+        dbCmd is OrmLiteCommand cmd ? cmd.ConnectionId : Guid.Empty;
+
     /// <summary>
     /// Registers the connection.
     /// </summary>
