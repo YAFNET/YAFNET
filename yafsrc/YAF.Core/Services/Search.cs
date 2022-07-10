@@ -235,7 +235,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task AddSearchIndexAsync(IEnumerable<SearchMessage> messageList)
+    public Task AddSearchIndexAsync(IEnumerable<SearchMessage> messageList)
     {
         try
         {
@@ -245,6 +245,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         {
             this.Optimize();
         }
+
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -590,7 +592,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    private async Task UpdateSearchIndexItemAsync(SearchMessage message, bool dispose = false)
+    private Task UpdateSearchIndexItemAsync(SearchMessage message, bool dispose = false)
     {
         try
         {
@@ -644,6 +646,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 this.Optimize();
             }
         }
+
+        return Task.CompletedTask;
     }
 
     /// <summary>

@@ -137,16 +137,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
             exceptionDescription = exception.ToString();
         }
 
-        string userIp;
-
-        try
-        {
-            userIp = HttpContext.Current.Request.GetUserRealIPAddress();
-        }
-        catch (Exception)
-        {
-            userIp = string.Empty;
-        }
+        var userIp = HttpContext.Current != null ? HttpContext.Current.Request.GetUserRealIPAddress() : string.Empty;
 
         var formattedDescription = HttpContext.Current != null
                                        ? $"{message} (User-IP: {userIp} | URL:'{HttpContext.Current.Request.Url}')\r\n{exceptionDescription}"

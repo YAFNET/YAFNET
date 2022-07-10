@@ -99,7 +99,7 @@ public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveService
             }
             else if (context.Request.QueryString.Exists("i"))
             {
-                var etagCodeCode = $@"""{context.Request.QueryString.GetFirstOrDefault("i")}""";
+                var etagCodeCode = $"{context.Request.QueryString.GetFirstOrDefault("i")}";
 
                 if (!CheckETagCode(context, etagCodeCode))
                 {
@@ -109,7 +109,7 @@ public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveService
             else if (context.Request.QueryString.Exists("p"))
             {
                 var etagCodeCode =
-                    $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
+                    $"{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}";
 
                 if (!CheckETagCode(context, etagCodeCode))
                 {
@@ -119,7 +119,7 @@ public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveService
             else if (context.Request.QueryString.Exists("cover") && context.Request.QueryString.Exists("album"))
             {
                 var etagCode =
-                    $@"""{context.Request.QueryString.GetFirstOrDefault("cover")}{localizationFile.GetHashCode()}""";
+                    $"{context.Request.QueryString.GetFirstOrDefault("cover")}{localizationFile.GetHashCode()}";
 
                 if (!CheckETagCode(context, etagCode))
                 {
@@ -131,7 +131,7 @@ public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveService
             {
                 // album image preview
                 var etagCode =
-                    $@"""{context.Request.QueryString.GetFirstOrDefault("imgprv")}{localizationFile.GetHashCode()}""";
+                    $"{context.Request.QueryString.GetFirstOrDefault("imgprv")}{localizationFile.GetHashCode()}";
 
                 if (!CheckETagCode(context, etagCode))
                 {
@@ -140,7 +140,7 @@ public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveService
             }
             else if (context.Request.QueryString.Exists("image"))
             {
-                var etagCode = $@"""{context.Request.QueryString.GetFirstOrDefault("image")}""";
+                var etagCode = $"{context.Request.QueryString.GetFirstOrDefault("image")}";
 
                 if (!CheckETagCode(context, etagCode))
                 {
