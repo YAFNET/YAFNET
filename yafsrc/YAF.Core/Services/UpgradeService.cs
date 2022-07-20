@@ -223,11 +223,10 @@ public class UpgradeService : IHaveServiceLocator
 
         this.Get<ILoggerService>().Info($"YAF.NET Upgraded to Version {BoardInfo.AppVersionName}");
 
-        if (BoardContext.Current.IsAdmin){
-
+        if (BoardContext.Current is {IsAdmin: true}){
             BoardContext.Current.Notify(
-            $"YAF.NET Upgraded to Version {BoardInfo.AppVersionName}",
-            MessageTypes.success);
+                $"YAF.NET Upgraded to Version {BoardInfo.AppVersionName}",
+                MessageTypes.success);
         }
 
         return true;
@@ -270,8 +269,6 @@ public class UpgradeService : IHaveServiceLocator
                     loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
                 });
     }
-
-
 
     /// <summary>
     /// The execute script.

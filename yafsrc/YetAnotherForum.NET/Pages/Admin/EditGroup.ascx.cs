@@ -254,9 +254,9 @@ public partial class EditGroup : AdminPage
         if (roleId.HasValue)
         {
             // get the current role name in the DB
-            var groups = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID);
+            var group = this.GetRepository<Group>().GetById(roleId.Value);
 
-            groups.ForEach(group => oldRoleName = group.Name);
+            oldRoleName = group.Name;
         }
 
         var groupFlags = new GroupFlags {

@@ -235,6 +235,7 @@
                                          Visible='<%#!((GroupFlags)this.Eval("GroupFlags")).IsGuest%>'
                                          CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
                                          ReturnConfirmText='<%# this.GetText("ADMIN_GROUPGS", "CONFIRM_DELETE") %>'
+                                         Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>"
                                          TitleLocalizedTag="DELETE"
                                          Icon="trash"
                                          TextLocalizedTag="DELETE">
