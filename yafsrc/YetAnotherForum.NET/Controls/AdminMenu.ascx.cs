@@ -420,8 +420,8 @@ public partial class AdminMenu : BaseUserControl
         list.Attributes.Add("class", "dropdown-menu dropdown-submenu");
 
         // Admin ProfileDefinitions
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
-                x => x.PageName == "Admin_ProfileDefinitions"))
+        if ((this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+                x => x.PageName == "Admin_ProfileDefinitions")) && !Config.IsDotNetNuke)
         {
             RenderMenuItem(
                 list,
