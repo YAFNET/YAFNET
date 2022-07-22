@@ -2140,7 +2140,7 @@
     <Content Include="Dialogs\SpamWordsImport.ascx" />
     <Content Include="Images\Categories\categoryImageSample.gif" />
     <Content Include="Images\Forums\forumImageSample.gif" />
-    <Content Include="Install\BBCodeExtensions.json">
+    <Content Include="Install\BBCodeExtensions.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Install\default.aspx">
