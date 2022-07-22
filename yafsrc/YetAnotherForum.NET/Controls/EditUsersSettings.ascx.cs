@@ -123,6 +123,8 @@ public partial class EditUsersSettings : BaseUserControl
                 return;
             }
 
+            userFromEmail = this.Get<IAspNetUsersHelper>().GetUser(this.User.ProviderUserKey);
+
             try
             {
                 this.Get<IAspNetUsersHelper>().UpdateEmail(userFromEmail, this.Email.Text.Trim());
