@@ -58,7 +58,7 @@ public static class Env
         }
 
         var platform = (int)Environment.OSVersion.Platform;
-        IsUnix = platform == 4 || platform == 6 || platform == 128;
+        IsUnix = platform is 4 or 6 or 128;
 
         if (File.Exists(@"/System/Library/CoreServices/SystemVersion.plist"))
             IsOSX = true;
@@ -130,7 +130,7 @@ public static class Env
     /// <summary>
     /// The service stack version
     /// </summary>
-    public static decimal ServiceStackVersion = 6.11m;
+    public static decimal ServiceStackVersion = 6.21m;
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is linux.

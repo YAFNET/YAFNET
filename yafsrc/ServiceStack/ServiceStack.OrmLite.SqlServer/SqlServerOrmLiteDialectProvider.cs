@@ -1658,6 +1658,14 @@ namespace ServiceStack.OrmLite.SqlServer
 
 #endif
 
+        public override void InitConnection(IDbConnection dbConn)
+        {
+            if (dbConn is OrmLiteConnection ormLiteConn && dbConn.ToDbConnection() is SqlConnection sqlConn)
+                ormLiteConn.ConnectionId = sqlConn.ClientConnectionId;
+
+            OnOpenConnection?.Invoke(dbConn);
+        }
+
         /// <summary>
         /// Gets the UTC date function.
         /// </summary>

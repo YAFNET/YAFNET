@@ -331,7 +331,7 @@ public class DataBroker : IHaveServiceLocator
 
                 // -- update active access
                 // -- ensure that access right are in place
-                accessList.ForEach(
+                accessList.DistinctBy(x => x.ForumID).ForEach(
                     access => activeList.Add(
                         new ActiveAccess
                             {
