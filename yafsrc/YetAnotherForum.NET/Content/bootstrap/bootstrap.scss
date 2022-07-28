@@ -1,14 +1,12 @@
-﻿/*!
- * Bootstrap v5.1.3 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors
- * Copyright 2011-2021 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+@import "mixins/banner";
+@include bsBanner("");
+
 
 // scss-docs-start import-stack
 // Configuration
 @import "functions";
 @import "variables";
+@import "maps";
 @import "mixins";
 @import "utilities";
 
@@ -51,24 +49,3 @@
 // Utilities
 @import "utilities/api";
 // scss-docs-end import-stack
-
-.form-check-custom input {
-    @extend .form-check-input;
-}
-
-.form-check-custom label {
-    @extend .form-check-label
-}
-
-.aspNetDisabled input {
-    @extend .form-check-input;
-}
-
-.aspNetDisabled label {
-    @extend .form-check-label
-}
-
-.form-check-inline li {
-    @extend .form-check-inline;
-    margin-right: 2rem;
-}
