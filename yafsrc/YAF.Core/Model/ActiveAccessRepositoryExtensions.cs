@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -24,6 +24,7 @@
 namespace YAF.Core.Model;
 
 using System;
+using System.Collections.Generic;
 
 using YAF.Types.Models;
 
@@ -49,33 +50,47 @@ public static class ActiveAccessRepositoryExtensions
     /// </param>
     public static void InsertPageAccess(
         this IRepository<ActiveAccess> repository,
-        [CanBeNull] int? boardId,
+        [CanBeNull] int boardId,
         [NotNull] int userId,
         [NotNull] bool isGuest)
     {
         CodeContracts.VerifyNotNull(repository);
 
-        repository.DbAccess.Execute(db =>
-            {
-                var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
+        if (repository.Exists(a => a.UserID == userId))
+        {
+            return;
+        }
 
-                var dateTimeUtc = expression.DialectProvider.Variables["{SYSTEM_UTC}"];
+        var accessList = BoardContext.Current.GetRepository<vaccess>().Get(x => x.UserID == userId)
+            .DistinctBy(a => new {a.UserID, a.ForumID});
 
-                // -- update active access
-                // -- ensure that access right are in place
-                return db.Connection.ExecuteSql(
-                    $@" if not exists (select top 1 UserID from {expression.Table<ActiveAccess>()} where UserID = {userId} )
-                                  begin
-                                    insert into {expression.Table<ActiveAccess>()} (
-                                           UserID,BoardID,ForumID,IsAdmin,IsForumModerator,IsModerator,IsGuestX,LastActive,
-                                           ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess 
-                                     )
-                                    select
-                                           UserID,{boardId},ForumID,IsAdmin,IsForumModerator,IsModerator,{expression.DialectProvider.GetQuotedValue(isGuest, typeof(bool))},{dateTimeUtc},
-                                           ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess
-                                    from {expression.Table<vaccess>()} where UserID = {userId}
-                                  end");
-            });
+        var activeList = new List<ActiveAccess>();
+
+        // -- update active access
+        // -- ensure that access right are in place
+        accessList.ForEach(
+            access => activeList.Add(
+                new ActiveAccess {
+                                     UserID = userId,
+                                     BoardID = boardId,
+                                     ForumID = access.ForumID,
+                                     IsAdmin = access.IsAdmin > 0,
+                                     IsForumModerator = access.IsForumModerator > 0,
+                                     IsModerator = access.IsModerator > 0,
+                                     IsGuestX = isGuest,
+                                     LastActive = DateTime.UtcNow,
+                                     ReadAccess = access.ReadAccess > 0,
+                                     PostAccess = access.PostAccess > 0,
+                                     ReplyAccess = access.ReplyAccess > 0,
+                                     PriorityAccess = access.PriorityAccess > 0,
+                                     PollAccess = access.PollAccess > 0,
+                                     VoteAccess = access.VoteAccess > 0,
+                                     ModeratorAccess = access.ModeratorAccess > 0,
+                                     EditAccess = access.EditAccess > 0,
+                                     DeleteAccess = access.DeleteAccess > 0
+                                 }));
+
+        repository.InsertAll(activeList);
     }
 
     /// <summary>
