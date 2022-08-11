@@ -12,7 +12,7 @@
             var el = $(this)[0];
 
             // listen for the long-press event
-            el.addEventListener('long-press',
+            el.addEventListener("long-press",
                 function(e) {
 
                     // stop the event from bubbling up

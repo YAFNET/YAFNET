@@ -1185,24 +1185,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox AlbumsPerPage;
 
         /// <summary>
-        /// HelpLabel36-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel36;
-
-        /// <summary>
-        /// AlbumImagesPerPage-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AlbumImagesPerPage;
-
-        /// <summary>
         /// HelpLabel21-Steuerelement.
         /// </summary>
         /// <remarks>

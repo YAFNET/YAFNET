@@ -24,8 +24,6 @@
 
 namespace YAF.Install;
 
-#region Using
-
 using System.Configuration;
 using System.Security.Permissions;
 using System.Web.UI;
@@ -35,15 +33,11 @@ using YAF.Types.Interfaces.Data;
 using YAF.Types.Models.Identity;
 using YAF.Types.Models;
 
-#endregion
-
 /// <summary>
 ///     The Install Page.
 /// </summary>
 public partial class _default : BasePage, IHaveServiceLocator
 {
-    #region Fields
-
     /// <summary>
     ///     The _config.
     /// </summary>
@@ -53,10 +47,6 @@ public partial class _default : BasePage, IHaveServiceLocator
     ///     The _load message.
     /// </summary>
     private string loadMessage = string.Empty;
-
-    #endregion
-
-    #region Public Properties
 
     /// <summary>
     ///     Gets the install service.
@@ -72,10 +62,6 @@ public partial class _default : BasePage, IHaveServiceLocator
     ///     Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
-    #endregion
-
-    #region Properties
 
     /// <summary>
     /// Gets the database access.
@@ -116,10 +102,6 @@ public partial class _default : BasePage, IHaveServiceLocator
             }
         }
     }
-
-    #endregion
-
-    #region Methods
 
     /// <summary>
     /// Handles the Initialize event of the Page control.
@@ -528,7 +510,6 @@ public partial class _default : BasePage, IHaveServiceLocator
             return false;
         }
 
-        AspNetUsers user;
         var applicationId = Guid.NewGuid();
 
         if (this.UserName.Text.IsNotSet())
@@ -559,15 +540,14 @@ public partial class _default : BasePage, IHaveServiceLocator
         BoardContext.Current.BoardSettings ??= new BoardSettings();
 
         // create the admin user...
-        user = new AspNetUsers
-               {
-                   Id = Guid.NewGuid().ToString(),
-                   ApplicationId = applicationId,
-                   UserName = this.UserName.Text,
-                   LoweredUserName = this.UserName.Text,
-                   Email = this.AdminEmail.Text,
-                   IsApproved = true
-               };
+        AspNetUsers user = new() {
+                                     Id = Guid.NewGuid().ToString(),
+                                     ApplicationId = applicationId,
+                                     UserName = this.UserName.Text,
+                                     LoweredUserName = this.UserName.Text,
+                                     Email = this.AdminEmail.Text,
+                                     IsApproved = true
+                                 };
 
         var result = this.Get<IAspNetUsersHelper>().Create(user, this.Password1.Text);
 
@@ -811,6 +791,4 @@ public partial class _default : BasePage, IHaveServiceLocator
             this.lblPermissionUpload,
             DirectoryHasWritePermission(this.Server.MapPath(this.Get<BoardFolders>().Uploads)) ? 2 : 0);
     }
-
-    #endregion
 }

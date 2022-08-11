@@ -1,6 +1,10 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.7
+* Upgraded to Bootstrap 5.2.0
+* Bug fixes
+
 # YetAnotherForum.NET v3.1.6
 * [NEW] Converted language files from xml to json
 * [NEW] Auto translated language files via DeepL api and Google translate api

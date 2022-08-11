@@ -10190,11 +10190,7 @@ Prism.languages.vba = Prism.languages["visual-basic"];
             cancelable: true,
             detail: {
                 clientX: originalEvent.clientX,
-                clientY: originalEvent.clientY,
-                offsetX: originalEvent.offsetX,
-                offsetY: originalEvent.offsetY,
-                pageX: originalEvent.pageX,
-                pageY: originalEvent.pageY
+                clientY: originalEvent.clientY
             },
             clientX: originalEvent.clientX,
             clientY: originalEvent.clientY,

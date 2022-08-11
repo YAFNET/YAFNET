@@ -152,8 +152,16 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
         }
         while (pageRow is null && userKey != null);
 
+        if (pageRow is null)
+        {
+            this.Logger.Info($"Unable to find the Guest User, or user data with ID: {userKey}");
+
+            throw new ApplicationException("Unable to find the Guest User!");
+        }
+
         // add all loaded page data into our data dictionary...
-        @event.PageLoadData = pageRow ?? throw new ApplicationException("Unable to find the Guest User!");
+        @event.PageLoadData = pageRow;
+
 
         // update Query Data
         @event.PageQueryData.CategoryID = pageRow.Item3?.ID ?? 0;
