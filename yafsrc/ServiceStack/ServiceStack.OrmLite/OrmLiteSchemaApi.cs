@@ -4,6 +4,9 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
+using System.Collections.Generic;
+
 namespace ServiceStack.OrmLite;
 
 using System;
@@ -395,5 +398,21 @@ public static class OrmLiteSchemaApi
     public static void DropTable<T>(this IDbConnection dbConn)
     {
         dbConn.Exec(dbCmd => dbCmd.DropTable<T>());
+    }
+
+    /// <summary>
+    /// Get a list of available user schemas for this connection 
+    /// </summary>
+    public static List<string> GetSchemas(this IDbConnection dbConn)
+    {
+        return dbConn.Exec(dbCmd => dbConn.GetDialectProvider().GetSchemas(dbCmd));
+    }
+
+    /// <summary>
+    /// Get available user Schemas and their tables for this connection 
+    /// </summary>
+    public static Dictionary<string, List<string>> GetSchemaTables(this IDbConnection dbConn)
+    {
+        return dbConn.Exec(dbCmd => dbConn.GetDialectProvider().GetSchemaTables(dbCmd));
     }
 }

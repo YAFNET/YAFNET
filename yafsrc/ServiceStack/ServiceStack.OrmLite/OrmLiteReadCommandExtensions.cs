@@ -900,7 +900,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> SqlColumn<T>(this IDbCommand dbCmd, string sql, object anonType = null)
+    public static List<T> SqlColumn<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql).CommandText = sql;
         return dbCmd.ConvertToList<T>();
@@ -1332,7 +1332,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>Dictionary&lt;K, List&lt;V&gt;&gt;.</returns>
-    internal static Dictionary<K, List<V>> Lookup<K, V>(this IDbCommand dbCmd, string sql, object anonType = null)
+    public static Dictionary<K, List<V>> Lookup<K, V>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         return dbCmd.SetParameters(anonType.ToObjectDictionary(), false, sql: ref sql).Lookup<K, V>(sql);
     }

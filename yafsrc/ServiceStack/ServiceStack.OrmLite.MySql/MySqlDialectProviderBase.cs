@@ -692,6 +692,19 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         return sql;
     }
 
+    public override List<string> GetSchemas(IDbCommand dbCmd)
+    {
+        var sql = "SELECT DISTINCT TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'performance_schema', 'sys', 'mysql')";
+        return dbCmd.SqlColumn<string>(sql);
+    }
+
+    public override Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd)
+    {
+        // schema is prefixed to table name
+        return true;
+        var sql = "SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'performance_schema', 'sys', 'mysql')";
+        return dbCmd.Lookup<string, string>(sql);
+    }
     /// <summary>
     /// Doeses the schema exist.
     /// </summary>

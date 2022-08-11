@@ -889,7 +889,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
     protected virtual void ApplyTags(StringBuilder sqlBuilder, ISet<string> tags)
     {
-        if (tags != null && tags.Count > 0)
+        if (tags is {Count: > 0})
         {
             foreach (var tag in tags)
             {
@@ -2057,6 +2057,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="schemaName">Name of the schema.</param>
     /// <returns>System.String.</returns>
     public abstract string ToCreateSchemaStatement(string schemaName);
+
+    public virtual List<string> GetSchemas(IDbCommand dbCmd) => new() { "default" };
+
+    public virtual Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd) => new();
 
     /// <summary>
     /// Doeses the schema exist.

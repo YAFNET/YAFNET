@@ -543,7 +543,7 @@ internal static class ReadExpressionCommandExtensions
     /// <returns>DataTable.</returns>
     internal static DataTable GetSchemaTable(this IDbCommand dbCmd, string sql)
     {
-        using var reader = dbCmd.ExecReader(sql, CommandBehavior.KeyInfo); //KeyInfo required for npgsql
+        using var reader = dbCmd.ExecReader(sql, CommandBehavior.KeyInfo);
         return reader.GetSchemaTable();
     }
 

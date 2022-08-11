@@ -646,6 +646,9 @@ public interface IOrmLiteDialectProvider
     /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
     Task<List<string>> SequenceListAsync(Type tableType, CancellationToken token = default);
 
+    List<string> GetSchemas(IDbCommand dbCmd);
+    Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd);
+
     /// <summary>
     /// Doeses the schema exist.
     /// </summary>
@@ -881,6 +884,7 @@ public interface IOrmLiteDialectProvider
     /// <summary>
     /// Gets the drop primary key constraint.
     /// </summary>
+    /// <param name="database"></param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
