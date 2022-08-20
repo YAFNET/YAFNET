@@ -191,7 +191,7 @@ namespace ServiceStack.Logging
         /// <param name="exception">The exception.</param>
         public void Info(object message, Exception exception)
         {
-            Log(INFO + message, exception);
+            Log(message, exception);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace ServiceStack.Logging
         /// <param name="message">The message.</param>
         public void Info(object message)
         {
-            Log(INFO + message);
+            Log(message);
         }
 
         /// <summary>
@@ -210,7 +210,7 @@ namespace ServiceStack.Logging
         /// <param name="args">The args.</param>
         public void InfoFormat(string format, params object[] args)
         {
-            LogFormat(INFO + format, args);
+            LogFormat(format, args);
         }
 
         /// <summary>

@@ -2840,6 +2840,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             $"ALTER TABLE {this.GetQuotedTableName(modelType.GetModelDefinition())} CHANGE COLUMN {this.GetQuotedColumnName(oldColumnName)} {column};";
     }
 
+    public virtual string ToRenameColumnStatement(Type modelType, string oldColumnName, string newColumnName)
+    {
+        return $"ALTER TABLE {GetQuotedTableName(modelType.GetModelDefinition())} RENAME COLUMN {GetQuotedColumnName(oldColumnName)} TO {GetQuotedColumnName(newColumnName)};";
+    }
+
     /// <summary>
     /// Converts to add foreign key statement.
     /// </summary>

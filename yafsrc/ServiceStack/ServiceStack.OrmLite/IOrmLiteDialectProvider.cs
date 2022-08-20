@@ -938,6 +938,9 @@ public interface IOrmLiteDialectProvider
     /// <param name="oldColumnName">Old name of the column.</param>
     /// <returns>System.String.</returns>
     string ToChangeColumnNameStatement(Type modelType, FieldDefinition fieldDef, string oldColumnName);
+
+    string ToRenameColumnStatement(Type modelType, string oldColumnName, string newColumnName);
+
     /// <summary>
     /// Converts to addforeignkeystatement.
     /// </summary>

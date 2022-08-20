@@ -415,4 +415,14 @@ public static class OrmLiteSchemaApi
     {
         return dbConn.Exec(dbCmd => dbConn.GetDialectProvider().GetSchemaTables(dbCmd));
     }
+
+    /// <summary>
+    /// Alter tables by adding properties for missing columns and removing properties annotated with [RemoveColumn]
+    /// </summary>
+    public static void Migrate<T>(this IDbConnection dbConn) => dbConn.Migrate(typeof(T));
+
+    /// <summary>
+    /// Apply schema changes by Migrate in reverse to revert changes
+    /// </summary>
+    public static void Revert<T>(this IDbConnection dbConn) => dbConn.Revert(typeof(T));
 }

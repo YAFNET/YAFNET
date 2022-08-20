@@ -5,6 +5,9 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+using ServiceStack.DataAnnotations;
+using System.Linq;
+
 namespace ServiceStack.OrmLite;
 
 using System;
@@ -215,6 +218,26 @@ public static class OrmLiteSchemaModifyApi
         string oldColumnName)
     {
         var command = dbConn.GetDialectProvider().ToChangeColumnNameStatement(modelType, fieldDef, oldColumnName);
+        dbConn.ExecuteSql(command);
+    }
+
+    public static void RenameColumn<T>(this IDbConnection dbConn,
+        Expression<Func<T, object>> field,
+        string oldColumnName)
+    {
+        var modelDef = ModelDefinition<T>.Definition;
+        var fieldDef = modelDef.GetFieldDefinition(field);
+        dbConn.RenameColumn(typeof(T), dbConn.GetNamingStrategy().GetColumnName(fieldDef.FieldName), oldColumnName);
+    }
+
+    public static void RenameColumn<T>(this IDbConnection dbConn, string oldColumnName, string newColumnName) =>
+        dbConn.RenameColumn(typeof(T), oldColumnName, newColumnName);
+    public static void RenameColumn(this IDbConnection dbConn, Type modelType, string oldColumnName, string newColumnName)
+    {
+        var dialect = dbConn.Dialect();
+        var command = dialect.ToRenameColumnStatement(modelType,
+            dialect.NamingStrategy.GetColumnName(oldColumnName),
+            dialect.NamingStrategy.GetColumnName(newColumnName));
         dbConn.ExecuteSql(command);
     }
 
@@ -523,5 +546,66 @@ public static class OrmLiteSchemaModifyApi
         var command = provider.GetDropFunction(dbConn.Database, functionName);
 
         dbConn.ExecuteSql(command);
+    }
+
+    /// <summary>
+    /// Alter tables by adding properties for missing columns and removing properties annotated with [RemoveColumn]
+    /// </summary>
+    public static void Migrate(this IDbConnection dbConn, Type modelType)
+    {
+        var modelDef = modelType.GetModelDefinition();
+        foreach (var fieldDef in modelDef.FieldDefinitions)
+        {
+            var attrs = fieldDef.PropertyInfo.AllAttributes().Where(x => x is AlterColumnAttribute).ToList();
+            if (attrs.Count > 1)
+                throw new Exception($"Only 1 AlterColumnAttribute allowed on {modelType.Name}.{fieldDef.Name}");
+
+            var attr = attrs.FirstOrDefault();
+
+            switch (attr)
+            {
+                case RemoveColumnAttribute:
+                    dbConn.DropColumn(modelType, fieldDef.FieldName);
+                    break;
+                case RenameColumnAttribute renameAttr:
+                    dbConn.RenameColumn(modelType, renameAttr.From, fieldDef.FieldName);
+                    break;
+                case AddColumnAttribute or null:
+                    dbConn.AddColumn(modelType, fieldDef);
+                    break;
+                default:
+                    throw new Exception($"Unsupported AlterColumnAttribute '{attr.GetType().Name}' on {modelType.Name}.{fieldDef.Name}");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Apply schema changes by Migrate in reverse to revert changes
+    /// </summary>
+    public static void Revert(this IDbConnection dbConn, Type modelType)
+    {
+        var modelDef = modelType.GetModelDefinition();
+        foreach (var fieldDef in modelDef.FieldDefinitions)
+        {
+            var attrs = fieldDef.PropertyInfo.AllAttributes().Where(x => x is AlterColumnAttribute).ToList();
+            if (attrs.Count > 1)
+                throw new Exception($"Only 1 AlterColumnAttribute allowed on {modelType.Name}.{fieldDef.Name}");
+
+            var attr = attrs.FirstOrDefault();
+            switch (attr)
+            {
+                case AddColumnAttribute or null:
+                    dbConn.DropColumn(modelType, fieldDef.FieldName);
+                    break;
+                case RenameColumnAttribute renameAttr:
+                    dbConn.RenameColumn(modelType, fieldDef.FieldName, renameAttr.From);
+                    break;
+                case RemoveColumnAttribute:
+                    dbConn.AddColumn(modelType, fieldDef);
+                    break;
+                default:
+                    throw new Exception($"Unsupported AlterColumnAttribute '{attr.GetType().Name}' on {modelType.Name}.{fieldDef.Name}");
+            }
+        }
     }
 }
