@@ -324,6 +324,8 @@ public partial class Admin : AdminPage
             this.PagerTop.CurrentPageIndex,
             this.PagerTop.PageSize);
 
+        this.PagerTop.Count = activeUsers.Any() ?  activeUsers.First().UserCount : 0;
+
         this.ActiveList.DataSource = activeUsers;
         this.ActiveList.DataBind();
     }
@@ -417,11 +419,10 @@ public partial class Admin : AdminPage
 
         this.PagerUnverified.PageSize = this.PageSizeUnverified.SelectedValue.ToType<int>();
 
-        var unverifiedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageBoardContext.PageBoardID)
-            .GetPaged(this.PagerUnverified);
+        var unverifiedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageBoardContext.PageBoardID);
 
         // bind list
-        this.UserList.DataSource = unverifiedUsers;
+        this.UserList.DataSource = unverifiedUsers.GetPaged(this.PagerUnverified);
         this.UserList.DataBind();
     }
 

@@ -205,7 +205,10 @@ public partial class ActiveUsers : ForumPage
             return;
         }
 
-        this.UserList.DataSource = activeUsers.GetPaged(this.PagerTop);
+        this.UserList.DataSource = activeUsers;
+
+        this.PagerTop.Count = activeUsers.Any() ? activeUsers.First().UserCount : 0;
+
         this.DataBind();
     }
 
@@ -228,8 +231,8 @@ public partial class ActiveUsers : ForumPage
             showGuests,
             showCrawlers,
             this.PageBoardContext.BoardSettings.ActiveListTime,
-            0,
-            5000);
+            this.PagerTop.CurrentPageIndex,
+            this.PagerTop.PageSize);
 
         return activeUsers;
     }

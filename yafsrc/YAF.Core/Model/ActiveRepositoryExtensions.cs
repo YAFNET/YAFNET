@@ -330,6 +330,10 @@ public static class ActiveRepositoryExtensions
                         }
                     }
 
+                    var countExpression = expression;
+                    var countSql = countExpression.Select(Sql.Count($"{countExpression.Column<Active>(x => x.UserID, true)}"))
+                        .ToSelectStatement();
+
                     expression.OrderByDescending<Active>(a => a.LastActive).Page(pageIndex + 1, pageSize);
 
                     var forumExpression = db.Connection.From<Forum>(db.Connection.TableAlias("f"));
@@ -366,7 +370,7 @@ public static class ActiveRepositoryExtensions
                                                         $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(user => user.Flags, true)}&16")})"),
                                                 u.UserStyle,
                                                 u.Suspended,
-                                                UserCount = 1,
+                                                UserCount = Sql.Custom<int>($"({countSql})"),
                                                 a.Login,
                                                 a.LastActive,
                                                 a.Location,
