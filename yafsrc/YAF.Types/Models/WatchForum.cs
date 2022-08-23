@@ -45,6 +45,12 @@ public class WatchForum : IEntity, IHaveID
     public int ForumID { get; set; }
 
     /// <summary>
+    /// The Referenced Forum
+    /// </summary>
+    [Reference]
+    public Forum Forum { get; set; }
+
+    /// <summary>
     /// Gets or sets the user id.
     /// </summary>
     [References(typeof(User))]

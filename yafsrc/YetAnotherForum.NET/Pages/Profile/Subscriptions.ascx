@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile.Subscriptions" CodeBehind="Subscriptions.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile.Subscriptions" CodeBehind="Subscriptions.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Core.Services" %>
@@ -96,10 +96,10 @@
                                 <ItemTemplate>
                                     <li class="list-group-item list-group-item-action">
                                         <asp:CheckBox ID="unsubf" runat="server" CssClass="form-check d-inline-block" Text="&nbsp;" />
-                                        <asp:Label ID="tfid" runat="server" Text='<%# this.Eval("Item1.ID") %>'
+                                        <asp:Label ID="tfid" runat="server" Text='<%# this.Eval("ID") %>'
                                                Visible="false" />
-                                        <a href="<%# this.Get<LinkBuilder>().GetForumLink(this.Eval("Item1.ForumID").ToType<int>(), this.Eval("Item2.Name").ToString())%>">
-                                                <%# this.HtmlEncode(this.Eval("Item2.Name"))%></a>
+                                        <a href="<%# this.Get<LinkBuilder>().GetForumLink(this.Eval("ForumID").ToType<int>(), this.Eval("Forum.Name").ToString())%>">
+                                                <%# this.HtmlEncode(this.Eval("Forum.Name"))%></a>
                                     </li>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -166,10 +166,10 @@
                                     <li class="list-group-item list-group-item-action">
                                         <asp:CheckBox ID="unsubx" runat="server" CssClass="form-check d-inline-block" Text="&nbsp;">
                                         </asp:CheckBox>
-                                        <asp:Label ID="ttid" runat="server" Text='<%# this.Eval("Item1.ID") %>'
+                                        <asp:Label ID="ttid" runat="server" Text='<%# this.Eval("ID") %>'
                                                Visible="false" />
-                                            <a href="<%# this.Get<LinkBuilder>().GetTopicLink(this.Eval("Item1.TopicID").ToType<int>(), this.Eval("Item2.TopicName").ToString())%>">
-                                                <%# this.HtmlEncode(this.Eval("Item2.TopicName"))%></a>
+                                            <a href="<%# this.Get<LinkBuilder>().GetTopicLink(this.Eval("TopicID").ToType<int>(), this.Eval("Topic.TopicName").ToString())%>">
+                                                <%# this.HtmlEncode(this.Eval("Topic.TopicName"))%></a>
                                     </li>
                                 </ItemTemplate>
                             </asp:Repeater>

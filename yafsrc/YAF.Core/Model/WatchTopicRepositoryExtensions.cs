@@ -93,7 +93,7 @@ public static class WatchTopicRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<Tuple<WatchTopic, Topic>> List(
+    public static List<WatchTopic> List(
         this IRepository<WatchTopic> repository,
         [NotNull] int userId,
         [NotNull] int pageIndex = 0,
@@ -103,9 +103,9 @@ public static class WatchTopicRepositoryExtensions
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
 
-        expression.Join<Topic>((a, b) => b.ID == a.TopicID).Where<WatchTopic>(b => b.UserID == userId)
+        expression.Where<WatchTopic>(b => b.UserID == userId)
             .OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<WatchTopic, Topic>(expression));
+        return repository.DbAccess.Execute(db => db.Connection.LoadSelect(expression));
     }
 }

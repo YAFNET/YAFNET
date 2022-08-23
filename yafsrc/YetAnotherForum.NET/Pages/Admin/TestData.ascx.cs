@@ -351,7 +351,7 @@ namespace YAF.Pages.Admin
         /// </returns>
         private string CreateCategories()
         {
-            const string NoCategories = "0 categories";
+            const string noCategories = "0 categories";
 
             var numForums = this.CategoriesForumsNumber.Text.ToType<int>();
             var numTopics = this.CategoriesTopicsNumber.Text.ToType<int>();
@@ -360,24 +360,24 @@ namespace YAF.Pages.Admin
 
             if (numForums < 0)
             {
-                return NoCategories;
+                return noCategories;
             }
 
             if (numTopics < 0)
             {
-                return NoCategories;
+                return noCategories;
             }
 
             if (numMessages < 0)
             {
-                return NoCategories;
+                return noCategories;
             }
 
 
             switch (numCategories)
             {
                 case <= 0:
-                    return NoCategories;
+                    return noCategories;
                 case > CategoryCreateLimit:
                     numCategories = CategoryCreateLimit;
                     break;
@@ -444,9 +444,9 @@ namespace YAF.Pages.Admin
         private int CreateForums()
         {
             int? parentId = null;
-            if (int.TryParse(this.ForumsParent.Text.Trim(), out var parentIDInt))
+            if (int.TryParse(this.ForumsParent.Text.Trim(), out var parentIdInt))
             {
-                parentId = parentIDInt;
+                parentId = parentIdInt;
             }
 
             var numTopics = this.ForumsTopicsNumber.Text.ToType<int>();
@@ -666,7 +666,7 @@ namespace YAF.Pages.Admin
 
             int posts;
 
-            const int ReplyTo = -1;
+            const int replyTo = -1;
 
             for (posts = 0; posts < numMessages; posts++)
             {
@@ -680,7 +680,7 @@ namespace YAF.Pages.Admin
                     this.PageBoardContext.PageUser.Name,
                     this.Request.GetUserRealIPAddress(),
                     DateTime.UtcNow,
-                    ReplyTo,
+                    replyTo,
                     this.GetMessageFlags());
             }
 

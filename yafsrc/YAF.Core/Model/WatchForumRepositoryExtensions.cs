@@ -99,7 +99,7 @@ public static class WatchForumRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<Tuple<WatchForum, Forum>> List(
+    public static List<WatchForum> List(
         this IRepository<WatchForum> repository,
         [NotNull] int userId,
         [NotNull] int pageIndex = 0,
@@ -112,6 +112,6 @@ public static class WatchForumRepositoryExtensions
         expression.Join<Forum>((a, b) => b.ID == a.ForumID).Where<WatchForum>(b => b.UserID == userId)
             .OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<WatchForum, Forum>(expression));
+        return repository.DbAccess.Execute(db => db.Connection.LoadSelect(expression));
     }
 }

@@ -46,6 +46,12 @@ public class WatchTopic : IEntity, IHaveID
     public int TopicID { get; set; }
 
     /// <summary>
+    /// The Referenced Topic
+    /// </summary>
+    [Reference]
+    public Topic Topic { get; set; }
+
+    /// <summary>
     /// Gets or sets the user id.
     /// </summary>
     [References(typeof(User))]
