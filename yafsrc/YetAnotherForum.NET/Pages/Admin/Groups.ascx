@@ -214,7 +214,7 @@
                                          Size="Small"
                                          Visible='<%#!((GroupFlags)this.Eval("GroupFlags")).IsGuest%>'
                                          CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_GROUPGS", "CONFIRM_DELETE") %>'
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_GROUPS", "CONFIRM_DELETE") %>'
                                          TitleLocalizedTag="DELETE"
                                          Icon="trash"
                                          TextLocalizedTag="DELETE">
@@ -232,10 +232,9 @@
                         <YAF:ThemeButton ID="ThemeButton2" runat="server"
                                          Type="None"
                                          CssClass="dropdown-item"
-                                         Visible='<%#!((GroupFlags)this.Eval("GroupFlags")).IsGuest%>'
+                                         Visible='<%#!((GroupFlags)this.Eval("GroupFlags")).IsGuest && !YAF.Configuration.Config.IsDotNetNuke %>'
                                          CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_GROUPGS", "CONFIRM_DELETE") %>'
-                                         Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>"
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_GROUPS", "CONFIRM_DELETE") %>'
                                          TitleLocalizedTag="DELETE"
                                          Icon="trash"
                                          TextLocalizedTag="DELETE">
