@@ -102,7 +102,7 @@ public partial class CategoryList : BaseUserControl
             forum =>
                 {
                     if (!watchForums.Any(
-                            w => w.Item1.ForumID == forum.ForumID && w.Item1.UserID == this.PageBoardContext.PageUserID))
+                            w => w.ForumID == forum.ForumID && w.UserID == this.PageBoardContext.PageUserID))
                     {
                         this.GetRepository<WatchForum>().Add(this.PageBoardContext.PageUserID, forum.ForumID);
                     }
