@@ -429,6 +429,8 @@ public class UpgradeService : IHaveServiceLocator
                             {
                                 updatedMessage.AppendFormat(" [ATTACH]{0}[/Attach] ", attach.ID);
 
+                                attach.UserID = message.UserID;
+
                                 // Rename filename
                                 if (attach.FileData == null)
                                 {
@@ -436,7 +438,7 @@ public class UpgradeService : IHaveServiceLocator
                                         $"{Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads)}/{attach.MessageID}.{attach.FileName}.yafupload");
 
                                     var newFilePath = this.Get<HttpRequestBase>().MapPath(
-                                        $"{Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads)}/u{message.UserID}.{attach.FileName}.yafupload");
+                                        $"{Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads)}/u{message.UserID}-{attach.ID}.{attach.FileName}.yafupload");
 
                                     try
                                     {
@@ -445,12 +447,10 @@ public class UpgradeService : IHaveServiceLocator
                                     catch (Exception ex)
                                     {
                                         this.Get<ILoggerService>().Log(null, this, ex);
-                                        //this.GetRepository<Attachment>().DeleteById(attach.ID);
                                     }
                                 }
 
                                 attach.MessageID = 0;
-                                attach.UserID = message.UserID;
 
                                 this.GetRepository<Attachment>().Update(attach);
                             });
