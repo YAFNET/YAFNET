@@ -44,11 +44,6 @@ public abstract class ForumPage : UserControl,
                                   IHaveLocalization
 {
     /// <summary>
-    ///   The trans page.
-    /// </summary>
-    private readonly string transPage;
-
-    /// <summary>
     /// The Unicode Encoder
     /// </summary>
     private readonly UnicodeEncoder unicodeEncoder;
@@ -86,7 +81,7 @@ public abstract class ForumPage : UserControl,
         this.PageCache = new Hashtable();
 
         this.PageType = pageType;
-        this.transPage = transPage;
+        this.TranslationPage = transPage;
         this.Init += this.ForumPage_Init;
         this.Load += this.ForumPage_Load;
         this.Unload += this.ForumPage_Unload;
@@ -172,6 +167,12 @@ public abstract class ForumPage : UserControl,
     /// </summary>
     [NotNull]
     public virtual string PageName => this.GetType().Name.Replace("aspx", string.Empty);
+
+    /// <summary>
+    /// Gets or sets the translation page.
+    /// </summary>
+    /// <value>The translation page.</value>
+    public string TranslationPage { get; set; }
 
     /// <summary>
     /// Gets or sets the page type.
@@ -327,7 +328,7 @@ public abstract class ForumPage : UserControl,
         }
 
         // set the current translation page...
-        this.Get<LocalizationProvider>().TranslationPage = this.transPage;
+        this.Get<LocalizationProvider>().TranslationPage = this.TranslationPage;
 
         // fire pre-load event...
         this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());

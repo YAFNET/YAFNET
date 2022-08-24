@@ -64,7 +64,7 @@ public class IconHeader : BaseControl, ILocalizationSupport
     /// Gets or sets LocalizedPage.
     /// </summary>
     public string LocalizedPage { get; set; } = BoardContext.Current.CurrentForumPage != null
-                                                    ? BoardContext.Current.CurrentForumPage.PageName.ToUpper()
+                                                    ? BoardContext.Current.CurrentForumPage.TranslationPage
                                                     : "DEFAULT";
 
     /// <summary>
