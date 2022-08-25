@@ -31,15 +31,22 @@ using YAF.Types.Models;
 /// </summary>
 public partial class UserMedalEdit : BaseUserControl
 {
+    public string MedalName
+    {
+        get => this.ViewState["MedalName"].ToString();
+
+        set => this.ViewState["MedalName"] = value;
+    }
+
     /// <summary>
     /// Gets or sets the banned identifier.
     /// </summary>
     /// <value>
     /// The banned identifier.
     /// </value>
-    public int? MedalId
+    public int MedalId
     {
-        get => this.ViewState["MedalId"].ToType<int?>();
+        get => this.ViewState["MedalId"].ToType<int>();
 
         set => this.ViewState["MedalId"] = value;
     }
@@ -55,11 +62,6 @@ public partial class UserMedalEdit : BaseUserControl
     }
 
     /// <summary>
-    /// Gets or sets the name.
-    /// </summary>
-    public string Name { get; set; }
-
-    /// <summary>
     /// Binds the data.
     /// </summary>
     /// <param name="userId">
@@ -68,7 +70,7 @@ public partial class UserMedalEdit : BaseUserControl
     /// <param name="medalId">
     /// The medal identifier.
     /// </param>
-    public void BindData(int? userId, int? medalId)
+    public void BindData(int? userId, int medalId)
     {
         this.MedalId = medalId;
         this.UserId = userId;
@@ -95,7 +97,7 @@ public partial class UserMedalEdit : BaseUserControl
         {
             // Edit
             // load user-medal to the controls
-            var row = this.GetRepository<UserMedal>().List(this.UserId, this.MedalId.Value).FirstOrDefault();
+            var row = this.GetRepository<UserMedal>().List(this.UserId, this.MedalId).FirstOrDefault();
 
             // tweak it for editing
             this.UserMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_USER");
@@ -108,13 +110,16 @@ public partial class UserMedalEdit : BaseUserControl
             this.UserMessage.Text = row.Item2.Message.IsSet() ? row.Item2.Message : row.Item1.Message;
             this.UserSortOrder.Text = row.Item2.SortOrder.ToString();
             this.UserHide.Checked = row.Item2.Hide;
-            this.Name = row.Item1.Name;
+            this.MedalName = row.Item1.Name;
 
-            this.UserMedalEditTitle.Text = this.Name;
+            this.UserMedalEditTitle.Text = this.MedalName;
         }
         else
         {
-            // Add
+            var medal = this.GetRepository<Medal>().GetById(this.MedalId);
+
+            this.MedalName = medal.Name;
+
             // set title
             this.UserMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "ADD_TOUSER");
         }
@@ -178,7 +183,7 @@ public partial class UserMedalEdit : BaseUserControl
         // try to find users by user name
         var users = this.GetRepository<User>().Get(
             u => u.BoardID == this.PageBoardContext.PageBoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
-                 u.Name.Contains(this.UserName.Text) || u.DisplayName.Contains(this.UserName.Text));
+                 (u.Name.Contains(this.UserName.Text) || u.DisplayName.Contains(this.UserName.Text)));
 
         if (!users.Any())
         {
@@ -281,7 +286,7 @@ public partial class UserMedalEdit : BaseUserControl
             // save user, if there is no message specified, pass null
             this.GetRepository<UserMedal>().Save(
                 this.UserID.Text.ToType<int>(),
-                this.MedalId.Value,
+                this.MedalId,
                 this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
                 this.UserHide.Checked,
                 this.UserSortOrder.Text.ToType<byte>());
@@ -290,7 +295,7 @@ public partial class UserMedalEdit : BaseUserControl
         {
             this.GetRepository<UserMedal>().SaveNew(
                 this.UserID.Text.ToType<int>(),
-                this.MedalId.Value,
+                this.MedalId,
                 this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
                 this.UserHide.Checked,
                 this.UserSortOrder.Text.ToType<byte>());
@@ -298,7 +303,7 @@ public partial class UserMedalEdit : BaseUserControl
 
         if (this.PageBoardContext.BoardSettings.EmailUserOnMedalAward)
         {
-            this.Get<ISendNotification>().ToUserWithNewMedal(this.UserID.Text.ToType<int>(), this.Name);
+            this.Get<ISendNotification>().ToUserWithNewMedal(this.UserID.Text.ToType<int>(), this.MedalName);
         }
 
         // clear cache...
@@ -306,6 +311,6 @@ public partial class UserMedalEdit : BaseUserControl
         this.Get<IDataCache>().Remove(string.Format(Constants.Cache.UserMedals, this.UserId));
 
         // re-bind data
-        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, new { medalid = this.MedalId.Value });
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, new { medalid = this.MedalId });
     }
 }

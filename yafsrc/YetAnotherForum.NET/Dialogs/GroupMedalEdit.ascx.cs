@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -37,9 +37,9 @@ public partial class GroupMedalEdit : BaseUserControl
     /// <value>
     /// The banned identifier.
     /// </value>
-    public int? MedalId
+    public int MedalId
     {
-        get => this.ViewState["MedalId"].ToType<int?>();
+        get => this.ViewState["MedalId"].ToType<int>();
 
         set => this.ViewState["MedalId"] = value;
     }
@@ -63,7 +63,7 @@ public partial class GroupMedalEdit : BaseUserControl
     /// <param name="medalId">
     /// The medal identifier.
     /// </param>
-    public void BindData(int? groupId, int? medalId)
+    public void BindData(int? groupId, int medalId)
     {
         this.MedalId = medalId;
         this.GroupId = groupId;
@@ -93,7 +93,7 @@ public partial class GroupMedalEdit : BaseUserControl
         {
             // Edit
             // load group-medal to the controls
-            var row = this.GetRepository<GroupMedal>().List(this.GroupId.Value, this.MedalId.Value).FirstOrDefault();
+            var row = this.GetRepository<GroupMedal>().List(this.GroupId.Value, this.MedalId).FirstOrDefault();
 
             // tweak it for editing
             this.GroupMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_GROUP");
@@ -131,7 +131,7 @@ public partial class GroupMedalEdit : BaseUserControl
             // save group, if there is no message specified, pass null
             this.GetRepository<GroupMedal>().Save(
                 this.GroupId.Value,
-                this.MedalId.Value,
+                this.MedalId,
                 this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
                 this.GroupHide.Checked,
                 this.GroupSortOrder.Text.ToType<byte>());
@@ -140,13 +140,13 @@ public partial class GroupMedalEdit : BaseUserControl
         {
             this.GetRepository<GroupMedal>().SaveNew(
                 this.AvailableGroupList.SelectedValue.ToType<int>(),
-                this.MedalId.Value,
+                this.MedalId,
                 this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
                 this.GroupHide.Checked,
                 this.GroupSortOrder.Text.ToType<byte>());
         }
 
         // re-bind data
-        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, new { medalid = this.MedalId.Value });
+        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, new { medalid = this.MedalId });
     }
 }

@@ -312,6 +312,6 @@
     </div>
 
 
-<modal:GroupEdit ID="GroupEditDialog" runat="server" />
-<modal:UserEdit ID="UserEditDialog" runat="server" />
+<modal:GroupEdit ID="GroupEditDialog" runat="server" Visible="False" />
+<modal:UserEdit ID="UserEditDialog" runat="server" Visible="False"  />
 </asp:PlaceHolder>

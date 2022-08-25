@@ -63,7 +63,8 @@ public partial class EditMedal : AdminPage
     /// </remarks>
     protected void AddGroupClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        this.GroupEditDialog.BindData(null, this.CurrentMedalId);
+        this.GroupEditDialog.Visible = true;
+        this.GroupEditDialog.BindData(null, this.CurrentMedalId.Value);
 
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "openModalJs",
@@ -80,7 +81,8 @@ public partial class EditMedal : AdminPage
     /// </remarks>
     protected void AddUserClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        this.UserEditDialog.BindData(null, this.CurrentMedalId);
+        this.UserEditDialog.Visible = true;
+        this.UserEditDialog.BindData(null, this.CurrentMedalId.Value);
 
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "openModalJs",
@@ -166,7 +168,8 @@ public partial class EditMedal : AdminPage
         switch (e.CommandName)
         {
             case "edit":
-                this.GroupEditDialog.BindData(e.CommandArgument.ToType<int>(), this.CurrentMedalId);
+                this.GroupEditDialog.Visible = true;
+                this.GroupEditDialog.BindData(e.CommandArgument.ToType<int>(), this.CurrentMedalId.Value);
 
                 this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
@@ -192,16 +195,16 @@ public partial class EditMedal : AdminPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.FormValidatorJs),
             JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
 
-        // this needs to be done just once, not during post-backs
-        if (!this.IsPostBack)
-        {
-            // bind data
-            this.BindData();
-        }
+        this.BindData();
     }
 
     /// <summary>
@@ -256,7 +259,8 @@ public partial class EditMedal : AdminPage
         switch (e.CommandName)
         {
             case "edit":
-                this.UserEditDialog.BindData(e.CommandArgument.ToType<int>(), this.CurrentMedalId);
+                this.UserEditDialog.Visible = true;
+                this.UserEditDialog.BindData(e.CommandArgument.ToType<int>(), this.CurrentMedalId.Value);
 
                 this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
