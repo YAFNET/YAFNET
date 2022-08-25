@@ -182,9 +182,9 @@ public static class Config
     public static string FacebookSecretKey => GetConfigValueAsString("YAF.FacebookSecretKey");
 
     /// <summary>
-    ///     Gets a value indicating whether Used for Url Rewriting -- default is null -- used to define what the forum file name is for URLs.
+    ///     Gets a value indicating whether Used for Url Rewriting -- default is "default.aspx" -- used to define what the forum file name is for URLs.
     /// </summary>
-    public static string ForceScriptName => GetConfigValueAsString("YAF.ForceScriptName");
+    public static string ForceScriptName => GetConfigValueAsString("YAF.ForceScriptName") ?? "default.aspx";
 
     /// <summary>
     ///     Gets a value indicating whether IsAnyPortal.
@@ -263,7 +263,7 @@ public static class Config
                                                ?? string.Empty;
 
     /// <summary>
-    /// The j query version.
+    /// The jQuery version.
     /// </summary>
     public static string JQueryVersion => GetConfigValueAsString("YAF.JQueryVersion")
                                           ?? "3.6.0";

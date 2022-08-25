@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -63,11 +63,6 @@ public class AdvancedUrlBuilder : BaseUrlBuilder
         {
             return newUrl.ToString();
         }
-
-        // TODO : is this needed?!
-        /*const string gsr = "getsearchresults";
-        scriptName = scriptName.Replace(gsr, scriptFile);
-        newUrl = newUrl.Replace(gsr, scriptFile);*/
 
         if (scriptName.EndsWith(scriptFile))
         {

@@ -772,14 +772,14 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                        TopicUrl =
                            this.Get<LinkBuilder>().GetTopicLink(
                                doc.Get("TopicId").ToType<int>(),
-                               topic.IsSet() ? topic : doc.Get("Topic")),
+                              doc.Get("Topic")),
                        MessageUrl =
                            this.Get<LinkBuilder>().GetLink(
                                ForumPages.Posts,
                                new
                                    {
                                        m = doc.Get("MessageId").ToType<int>(),
-                                       name = topic.IsSet() ? topic : doc.Get("Topic")
+                                       name = doc.Get("Topic")
                                    }),
                        ForumUrl =
                            this.Get<LinkBuilder>().GetForumLink(
