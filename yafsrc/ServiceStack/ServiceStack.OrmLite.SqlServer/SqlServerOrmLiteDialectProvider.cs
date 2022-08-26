@@ -25,6 +25,7 @@ using ApplicationException = System.InvalidOperationException;
 
 namespace ServiceStack.OrmLite.SqlServer
 {
+    using System.Data.Common;
     using System.Text;
 
     /// <summary>
@@ -789,34 +790,11 @@ namespace ServiceStack.OrmLite.SqlServer
 
             return StringBuilderCache.ReturnAndFree(sb);
         }
+        public override string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
+            $"ALTER TABLE {GetQuotedTableName(table, schema)} ADD {GetColumnDefinition(fieldDef)};";
 
-        /// <summary>
-        /// Converts to addcolumnstatement.
-        /// </summary>
-        /// <param name="modelType">Type of the model.</param>
-        /// <param name="fieldDef">The field definition.</param>
-        /// <returns>System.String.</returns>
-        public override string ToAddColumnStatement(Type modelType, FieldDefinition fieldDef)
-        {
-            var column = this.GetColumnDefinition(fieldDef);
-            var modelName = this.GetQuotedTableName(GetModel(modelType));
-
-            return $"ALTER TABLE {modelName} ADD {column};";
-        }
-
-        /// <summary>
-        /// Converts to altercolumnstatement.
-        /// </summary>
-        /// <param name="modelType">Type of the model.</param>
-        /// <param name="fieldDef">The field definition.</param>
-        /// <returns>System.String.</returns>
-        public override string ToAlterColumnStatement(Type modelType, FieldDefinition fieldDef)
-        {
-            var column = this.GetColumnDefinition(fieldDef);
-            var modelName = this.GetQuotedTableName(GetModel(modelType));
-
-            return $"ALTER TABLE {modelName} ALTER COLUMN {column};";
-        }
+        public override string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
+            $"ALTER TABLE {GetQuotedTableName(table, schema)} ALTER COLUMN {GetColumnDefinition(fieldDef)};";
 
         /// <summary>
         /// Converts to changecolumnnamestatement.
@@ -825,16 +803,20 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="fieldDef">The field definition.</param>
         /// <param name="oldColumnName">Old name of the column.</param>
         /// <returns>System.String.</returns>
-        public override string ToChangeColumnNameStatement(
-            Type modelType,
-            FieldDefinition fieldDef,
-            string oldColumnName)
+        public override string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn)
         {
-            var modelName = this.NamingStrategy.GetTableName(GetModel(modelType));
-            var objectName = $"{modelName}.{oldColumnName}";
+            var modelName = NamingStrategy.GetTableName(table);
+            var objectName = $"{modelName}.{oldColumn}";
 
             return
                 $"EXEC sp_rename {this.GetQuotedValue(objectName)}, {this.GetQuotedValue(fieldDef.FieldName)}, {this.GetQuotedValue("COLUMN")};";
+        }
+
+        public override string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn)
+        {
+            var modelName = NamingStrategy.GetTableName(table);
+            var objectName = $"{modelName}.{GetQuotedColumnName(oldColumn)}";
+            return $"EXEC sp_rename {GetQuotedValue(objectName)}, {GetQuotedColumnName(newColumn)}, 'COLUMN';";
         }
 
         /// <summary>
@@ -1523,21 +1505,21 @@ namespace ServiceStack.OrmLite.SqlServer
         /// </summary>
         /// <param name="db">The database.</param>
         /// <returns>SqlConnection.</returns>
-        protected SqlConnection Unwrap(IDbConnection db) => (SqlConnection)db.ToDbConnection();
+        protected DbConnection Unwrap(IDbConnection db) => (DbConnection)db.ToDbConnection();
 
         /// <summary>
         /// Unwraps the specified command.
         /// </summary>
         /// <param name="cmd">The command.</param>
         /// <returns>SqlCommand.</returns>
-        protected SqlCommand Unwrap(IDbCommand cmd) => (SqlCommand)cmd.ToDbCommand();
+        protected DbCommand Unwrap(IDbCommand cmd) => (DbCommand)cmd.ToDbCommand();
 
         /// <summary>
         /// Unwraps the specified reader.
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <returns>SqlDataReader.</returns>
-        protected SqlDataReader Unwrap(IDataReader reader) => (SqlDataReader)reader;
+        protected DbDataReader Unwrap(IDataReader reader) => (DbDataReader)reader;
 
 #if ASYNC
         /// <summary>

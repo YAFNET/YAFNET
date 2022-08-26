@@ -147,6 +147,18 @@ internal static class WriteExpressionCommandExtensions
         return cmd.ExecNonQuery();
     }
 
+    internal static int UpdateOnly<T>(this IDbCommand dbCmd,
+                                      Expression<Func<T>> updateFields,
+                                      SqlExpression<T> q,
+                                      Action<IDbCommand> commandFilter = null)
+    {
+        OrmLiteUtils.AssertNotAnonType<T>();
+
+        var cmd = dbCmd.InitUpdateOnly(updateFields, q);
+        commandFilter?.Invoke(cmd);
+        return cmd.ExecNonQuery();
+    }
+
     /// <summary>
     /// Initializes the update only.
     /// </summary>

@@ -748,9 +748,9 @@ public interface IOrmLiteDialectProvider
     /// Doeses the sequence exist.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
-    /// <param name="sequenceName">Name of the sequence.</param>
+    /// <param name="sequence">Name of the sequence.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    bool DoesSequenceExist(IDbCommand dbCmd, string sequenceName);
+    bool DoesSequenceExist(IDbCommand dbCmd, string sequence);
     /// <summary>
     /// Doeses the sequence exist asynchronous.
     /// </summary>
@@ -759,14 +759,6 @@ public interface IOrmLiteDialectProvider
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;System.Boolean&gt;.</returns>
     Task<bool> DoesSequenceExistAsync(IDbCommand dbCmd, string sequenceName, CancellationToken token = default);
-
-    /// <summary>
-    /// Drops the column.
-    /// </summary>
-    /// <param name="db">The database.</param>
-    /// <param name="modelType">Type of the model.</param>
-    /// <param name="columnName">Name of the column.</param>
-    void DropColumn(IDbConnection db, Type modelType, string columnName);
 
     /// <summary>
     /// Froms the database row version.
@@ -916,30 +908,11 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string GetDropForeignKeyConstraints(ModelDefinition modelDef);
 
-    /// <summary>
-    /// Converts to addcolumnstatement.
-    /// </summary>
-    /// <param name="modelType">Type of the model.</param>
-    /// <param name="fieldDef">The field definition.</param>
-    /// <returns>System.String.</returns>
-    string ToAddColumnStatement(Type modelType, FieldDefinition fieldDef);
-    /// <summary>
-    /// Converts to altercolumnstatement.
-    /// </summary>
-    /// <param name="modelType">Type of the model.</param>
-    /// <param name="fieldDef">The field definition.</param>
-    /// <returns>System.String.</returns>
-    string ToAlterColumnStatement(Type modelType, FieldDefinition fieldDef);
-    /// <summary>
-    /// Converts to changecolumnnamestatement.
-    /// </summary>
-    /// <param name="modelType">Type of the model.</param>
-    /// <param name="fieldDef">The field definition.</param>
-    /// <param name="oldColumnName">Old name of the column.</param>
-    /// <returns>System.String.</returns>
-    string ToChangeColumnNameStatement(Type modelType, FieldDefinition fieldDef, string oldColumnName);
-
-    string ToRenameColumnStatement(Type modelType, string oldColumnName, string newColumnName);
+    string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef);
+    string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef);
+    string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn);
+    string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn);
+    string ToDropColumnStatement(string schema, string table, string column);
 
     /// <summary>
     /// Converts to addforeignkeystatement.
@@ -965,8 +938,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="indexName">Name of the index.</param>
     /// <param name="unique">if set to <c>true</c> [unique].</param>
     /// <returns>System.String.</returns>
-    string ToCreateIndexStatement<T>(Expression<Func<T, object>> field,
-                                     string indexName = null, bool unique = false);
+    string ToCreateIndexStatement<T>(Expression<Func<T, object>> field, string indexName = null, bool unique = false);
 
     //Async
     /// <summary>

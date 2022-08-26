@@ -34,12 +34,12 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// Doeses the sequence exist.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
-    /// <param name="sequenceName">Name of the sequence.</param>
+    /// <param name="sequence">Name of the sequence.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public override bool DoesSequenceExist(IDbCommand dbCmd, string sequenceName)
+    public override bool DoesSequenceExist(IDbCommand dbCmd, string sequence)
     {
         var sql = "SELECT CASE WHEN EXISTS (SELECT 1 FROM sys.sequences WHERE object_id=object_id({0})) THEN 1 ELSE 0 END"
-            .SqlFmt(this, sequenceName);
+            .SqlFmt(this, sequence);
 
         var result = dbCmd.ExecLongScalar(sql);
 

@@ -5,6 +5,8 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+using System.Data.Common;
+
 namespace ServiceStack.OrmLite.PostgreSQL;
 
 using System;
@@ -946,10 +948,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="modelType">Type of the model.</param>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    public override string ToAlterColumnStatement(Type modelType, FieldDefinition fieldDef)
+    public override string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef)
     {
         var columnDefinition = GetColumnDefinition(fieldDef);
-        var modelName = GetQuotedTableName(GetModel(modelType));
+        var modelName = GetQuotedTableName(table, schema);
 
         var parts = columnDefinition.SplitOnFirst(' ');
         var columnName = parts[0];
@@ -1201,6 +1203,19 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
         SetParameterValues<T>(cmd, obj);
     }
+    public override string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn)
+    {
+        //var column = GetColumnDefinition(fieldDef);
+        var columnType = GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        var newColumnName = NamingStrategy.GetColumnName(fieldDef.FieldName);
+
+        var sql = $"ALTER TABLE {GetQuotedTableName(table, schema)} " +
+                  $"ALTER COLUMN {GetQuotedColumnName(oldColumn)} TYPE {columnType}";
+        sql += newColumnName != oldColumn
+                   ? $", RENAME COLUMN {GetQuotedColumnName(oldColumn)} TO {GetQuotedColumnName(newColumnName)};"
+                   : ";";
+        return sql;
+    }
 
     /// <summary>
     /// SQLs the conflict.
@@ -1253,30 +1268,21 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>NpgsqlConnection.</returns>
-    protected NpgsqlConnection Unwrap(IDbConnection db)
-    {
-        return (NpgsqlConnection)db.ToDbConnection();
-    }
+    protected DbConnection Unwrap(IDbConnection db) => (DbConnection)db.ToDbConnection();
 
     /// <summary>
     /// Unwraps the specified command.
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <returns>NpgsqlCommand.</returns>
-    protected NpgsqlCommand Unwrap(IDbCommand cmd)
-    {
-        return (NpgsqlCommand)cmd.ToDbCommand();
-    }
+    protected DbCommand Unwrap(IDbCommand cmd) => (DbCommand)cmd.ToDbCommand();
 
     /// <summary>
     /// Unwraps the specified reader.
     /// </summary>
     /// <param name="reader">The reader.</param>
     /// <returns>NpgsqlDataReader.</returns>
-    protected NpgsqlDataReader Unwrap(IDataReader reader)
-    {
-        return (NpgsqlDataReader)reader;
-    }
+    protected DbDataReader Unwrap(IDataReader reader) => (DbDataReader)reader;
 
 #if ASYNC
     /// <summary>

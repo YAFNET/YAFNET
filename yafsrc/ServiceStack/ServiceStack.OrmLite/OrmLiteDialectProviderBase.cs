@@ -2446,10 +2446,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// Doeses the sequence exist.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
-    /// <param name="sequenceName">Name of the sequence.</param>
+    /// <param name="sequence">Name of the sequence.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     /// <exception cref="System.NotImplementedException"></exception>
-    public virtual bool DoesSequenceExist(IDbCommand dbCmd, string sequenceName)
+    public virtual bool DoesSequenceExist(IDbCommand dbCmd, string sequence)
     {
         throw new NotImplementedException();
     }
@@ -2619,20 +2619,14 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="objWithProperties">The object with properties.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToExecuteProcedureStatement(object objWithProperties)
-    {
-        return null;
-    }
+    public virtual string ToExecuteProcedureStatement(object objWithProperties) => null;
 
     /// <summary>
     /// Gets the model.
     /// </summary>
     /// <param name="modelType">Type of the model.</param>
     /// <returns>ModelDefinition.</returns>
-    protected static ModelDefinition GetModel(Type modelType)
-    {
-        return modelType.GetModelDefinition();
-    }
+    protected static ModelDefinition GetModel(Type modelType) => modelType.GetModelDefinition();
 
     /// <summary>
     /// SQLs the expression.
@@ -2789,61 +2783,23 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return null;
     }
 
-    /// <summary>
-    /// Gets the drop foreign key constraints.
-    /// </summary>
-    /// <param name="modelDef">The model definition.</param>
-    /// <returns>System.String.</returns>
-    public virtual string GetDropForeignKeyConstraints(ModelDefinition modelDef)
-    {
-        return null;
-    }
-
-    /// <summary>
-    /// Converts to add column statement.
-    /// </summary>
-    /// <param name="modelType">Type of the model.</param>
-    /// <param name="fieldDef">The field definition.</param>
-    /// <returns>System.String.</returns>
-    public virtual string ToAddColumnStatement(Type modelType, FieldDefinition fieldDef)
-    {
-        var column = this.GetColumnDefinition(fieldDef);
-        return $"ALTER TABLE {this.GetQuotedTableName(modelType.GetModelDefinition())} ADD COLUMN {column};";
-    }
+    public virtual string GetDropForeignKeyConstraints(ModelDefinition modelDef) => null;
 
     /// <summary>
     /// Converts to alter column statement.
     /// </summary>
-    /// <param name="modelType">Type of the model.</param>
-    /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToAlterColumnStatement(Type modelType, FieldDefinition fieldDef)
-    {
-        var column = this.GetColumnDefinition(fieldDef);
-        return $"ALTER TABLE {this.GetQuotedTableName(modelType.GetModelDefinition())} MODIFY COLUMN {column};";
-    }
+    public virtual string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
+        $"ALTER TABLE {GetQuotedTableName(table, schema)} ADD COLUMN {GetColumnDefinition(fieldDef)};";
 
-    /// <summary>
-    /// Converts to change column name statement.
-    /// </summary>
-    /// <param name="modelType">Type of the model.</param>
-    /// <param name="fieldDef">The field definition.</param>
-    /// <param name="oldColumnName">Old name of the column.</param>
-    /// <returns>System.String.</returns>
-    public virtual string ToChangeColumnNameStatement(
-        Type modelType,
-        FieldDefinition fieldDef,
-        string oldColumnName)
-    {
-        var column = this.GetColumnDefinition(fieldDef);
-        return
-            $"ALTER TABLE {this.GetQuotedTableName(modelType.GetModelDefinition())} CHANGE COLUMN {this.GetQuotedColumnName(oldColumnName)} {column};";
-    }
+    public virtual string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
+        $"ALTER TABLE {GetQuotedTableName(table, schema)} MODIFY COLUMN {GetColumnDefinition(fieldDef)};";
 
-    public virtual string ToRenameColumnStatement(Type modelType, string oldColumnName, string newColumnName)
-    {
-        return $"ALTER TABLE {GetQuotedTableName(modelType.GetModelDefinition())} RENAME COLUMN {GetQuotedColumnName(oldColumnName)} TO {GetQuotedColumnName(newColumnName)};";
-    }
+    public virtual string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn) =>
+        $"ALTER TABLE {GetQuotedTableName(table, schema)} CHANGE COLUMN {GetQuotedColumnName(oldColumn)} {GetColumnDefinition(fieldDef)};";
+
+    public virtual string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn) =>
+        $"ALTER TABLE {GetQuotedTableName(table, schema)} RENAME COLUMN {GetQuotedColumnName(oldColumn)} TO {GetQuotedColumnName(newColumn)};";
 
     /// <summary>
     /// Converts to add foreign key statement.
@@ -3010,40 +2966,14 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="innerSql">The inner SQL.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToRowCountStatement(string innerSql)
-    {
-        return $"SELECT COUNT(*) FROM ({innerSql}) AS COUNT";
-    }
+    public virtual string ToRowCountStatement(string innerSql) =>
+        $"SELECT COUNT(*) FROM ({innerSql}) AS COUNT";
 
     /// <summary>
     /// Drops the column.
     /// </summary>
-    /// <param name="db">The database.</param>
-    /// <param name="modelType">Type of the model.</param>
-    /// <param name="columnName">Name of the column.</param>
-    public virtual void DropColumn(IDbConnection db, Type modelType, string columnName)
-    {
-        var provider = db.GetDialectProvider();
-        var command = this.ToDropColumnStatement(modelType, columnName, provider);
-
-        db.ExecuteSql(command);
-    }
-
-    /// <summary>
-    /// Converts to dropcolumnstatement.
-    /// </summary>
-    /// <param name="modelType">Type of the model.</param>
-    /// <param name="columnName">Name of the column.</param>
-    /// <param name="provider">The provider.</param>
-    /// <returns>System.String.</returns>
-    protected virtual string ToDropColumnStatement(
-        Type modelType,
-        string columnName,
-        IOrmLiteDialectProvider provider)
-    {
-        return $"ALTER TABLE {provider.GetQuotedTableName(modelType.GetModelDefinition())} " +
-               $"DROP COLUMN {provider.GetQuotedColumnName(columnName)};";
-    }
+    public virtual string ToDropColumnStatement(string schema, string table, string column) =>
+        $"ALTER TABLE {GetQuotedTableName(table, schema)} DROP COLUMN {GetQuotedColumnName(column)};";
 
     /// <summary>
     /// Converts to tablenamesstatement.
