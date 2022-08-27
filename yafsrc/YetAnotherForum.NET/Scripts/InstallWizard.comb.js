@@ -61,7 +61,7 @@
         }
         return typeof obj === "object" || typeof obj === "function" ? class2type[toString.call(obj)] || "object" : typeof obj;
     }
-    var version = "3.6.0", jQuery = function(selector, context) {
+    var version = "3.6.1", jQuery = function(selector, context) {
         return new jQuery.fn.init(selector, context);
     };
     jQuery.fn = jQuery.prototype = {
@@ -3017,8 +3017,8 @@
                 leverageNative(this, type);
                 return true;
             },
-            _default: function() {
-                return true;
+            _default: function(event) {
+                return dataPriv.get(event.target, type);
             },
             delegateType: delegateType
         };
@@ -3075,7 +3075,7 @@
             });
         }
     });
-    var rnoInnerhtml = /<script|<style|<link/i, rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i, rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
+    var rnoInnerhtml = /<script|<style|<link/i, rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i, rcleanScript = /^\s*<!\[CDATA\[|\]\]>\s*$/g;
     function manipulationTarget(elem, content) {
         if (nodeName(elem, "table") && nodeName(content.nodeType !== 11 ? content : content.firstChild, "tr")) {
             return jQuery(elem).children("tbody")[0] || elem;
@@ -3364,6 +3364,7 @@
         };
     });
     var rnumnonpx = new RegExp("^(" + pnum + ")(?!px)[a-z%]+$", "i");
+    var rcustomProp = /^--/;
     var getStyles = function(elem) {
         var view = elem.ownerDocument.defaultView;
         if (!view || !view.opener) {
@@ -3384,6 +3385,8 @@
         return ret;
     };
     var rboxStyle = new RegExp(cssExpand.join("|"), "i");
+    var whitespace = "[\\x20\\t\\r\\n\\f]";
+    var rtrimCSS = new RegExp("^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g");
     (function() {
         function computeStyleTests() {
             if (!div) {
@@ -3455,10 +3458,13 @@
         });
     })();
     function curCSS(elem, name, computed) {
-        var width, minWidth, maxWidth, ret, style = elem.style;
+        var width, minWidth, maxWidth, ret, isCustomProp = rcustomProp.test(name), style = elem.style;
         computed = computed || getStyles(elem);
         if (computed) {
             ret = computed.getPropertyValue(name) || computed[name];
+            if (isCustomProp) {
+                ret = ret.replace(rtrimCSS, "$1");
+            }
             if (ret === "" && !isAttached(elem)) {
                 ret = jQuery.style(elem, name);
             }
@@ -3506,7 +3512,7 @@
         }
         return vendorProps[name] = vendorPropName(name) || name;
     }
-    var rdisplayswap = /^(none|table(?!-c[ea]).+)/, rcustomProp = /^--/, cssShow = {
+    var rdisplayswap = /^(none|table(?!-c[ea]).+)/, cssShow = {
         position: "absolute",
         visibility: "hidden",
         display: "block"
@@ -4468,35 +4474,35 @@
     }
     jQuery.fn.extend({
         addClass: function(value) {
-            var classes, elem, cur, curValue, clazz, j, finalValue, i = 0;
+            var classNames, cur, curValue, className, i, finalValue;
             if (isFunction(value)) {
                 return this.each(function(j) {
                     jQuery(this).addClass(value.call(this, j, getClass(this)));
                 });
             }
-            classes = classesToArray(value);
-            if (classes.length) {
-                while (elem = this[i++]) {
-                    curValue = getClass(elem);
-                    cur = elem.nodeType === 1 && " " + stripAndCollapse(curValue) + " ";
+            classNames = classesToArray(value);
+            if (classNames.length) {
+                return this.each(function() {
+                    curValue = getClass(this);
+                    cur = this.nodeType === 1 && " " + stripAndCollapse(curValue) + " ";
                     if (cur) {
-                        j = 0;
-                        while (clazz = classes[j++]) {
-                            if (cur.indexOf(" " + clazz + " ") < 0) {
-                                cur += clazz + " ";
+                        for (i = 0; i < classNames.length; i++) {
+                            className = classNames[i];
+                            if (cur.indexOf(" " + className + " ") < 0) {
+                                cur += className + " ";
                             }
                         }
                         finalValue = stripAndCollapse(cur);
                         if (curValue !== finalValue) {
-                            elem.setAttribute("class", finalValue);
+                            this.setAttribute("class", finalValue);
                         }
                     }
-                }
+                });
             }
             return this;
         },
         removeClass: function(value) {
-            var classes, elem, cur, curValue, clazz, j, finalValue, i = 0;
+            var classNames, cur, curValue, className, i, finalValue;
             if (isFunction(value)) {
                 return this.each(function(j) {
                     jQuery(this).removeClass(value.call(this, j, getClass(this)));
@@ -4505,44 +4511,43 @@
             if (!arguments.length) {
                 return this.attr("class", "");
             }
-            classes = classesToArray(value);
-            if (classes.length) {
-                while (elem = this[i++]) {
-                    curValue = getClass(elem);
-                    cur = elem.nodeType === 1 && " " + stripAndCollapse(curValue) + " ";
+            classNames = classesToArray(value);
+            if (classNames.length) {
+                return this.each(function() {
+                    curValue = getClass(this);
+                    cur = this.nodeType === 1 && " " + stripAndCollapse(curValue) + " ";
                     if (cur) {
-                        j = 0;
-                        while (clazz = classes[j++]) {
-                            while (cur.indexOf(" " + clazz + " ") > -1) {
-                                cur = cur.replace(" " + clazz + " ", " ");
+                        for (i = 0; i < classNames.length; i++) {
+                            className = classNames[i];
+                            while (cur.indexOf(" " + className + " ") > -1) {
+                                cur = cur.replace(" " + className + " ", " ");
                             }
                         }
                         finalValue = stripAndCollapse(cur);
                         if (curValue !== finalValue) {
-                            elem.setAttribute("class", finalValue);
+                            this.setAttribute("class", finalValue);
                         }
                     }
-                }
+                });
             }
             return this;
         },
         toggleClass: function(value, stateVal) {
-            var type = typeof value, isValidValue = type === "string" || Array.isArray(value);
-            if (typeof stateVal === "boolean" && isValidValue) {
-                return stateVal ? this.addClass(value) : this.removeClass(value);
-            }
+            var classNames, className, i, self, type = typeof value, isValidValue = type === "string" || Array.isArray(value);
             if (isFunction(value)) {
                 return this.each(function(i) {
                     jQuery(this).toggleClass(value.call(this, i, getClass(this), stateVal), stateVal);
                 });
             }
+            if (typeof stateVal === "boolean" && isValidValue) {
+                return stateVal ? this.addClass(value) : this.removeClass(value);
+            }
+            classNames = classesToArray(value);
             return this.each(function() {
-                var className, i, self, classNames;
                 if (isValidValue) {
-                    i = 0;
                     self = jQuery(this);
-                    classNames = classesToArray(value);
-                    while (className = classNames[i++]) {
+                    for (i = 0; i < classNames.length; i++) {
+                        className = classNames[i];
                         if (self.hasClass(className)) {
                             self.removeClass(className);
                         } else {
@@ -5852,7 +5857,7 @@
             return arguments.length > 0 ? this.on(name, null, data, fn) : this.trigger(name);
         };
     });
-    var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+    var rtrim = /^[\s\uFEFF\xA0]+|([^\s\uFEFF\xA0])[\s\uFEFF\xA0]+$/g;
     jQuery.proxy = function(fn, context) {
         var tmp, args, proxy;
         if (typeof context === "string") {
@@ -5890,7 +5895,7 @@
         return (type === "number" || type === "string") && !isNaN(obj - parseFloat(obj));
     };
     jQuery.trim = function(text) {
-        return text == null ? "" : (text + "").replace(rtrim, "");
+        return text == null ? "" : (text + "").replace(rtrim, "$1");
     };
     if (typeof define === "function" && define.amd) {
         define("jquery", [], function() {
