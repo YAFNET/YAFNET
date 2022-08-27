@@ -2872,12 +2872,12 @@
     <Content Include="Scripts\InstallWizard.comb.min.js">
       <DependentUpon>InstallWizard.comb.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-3.6.0.js" />
-    <Content Include="Scripts\jquery-3.6.0.min.js">
-      <DependentUpon>jquery-3.6.0.js</DependentUpon>
+    <Content Include="Scripts\jquery-3.6.1.js" />
+    <Content Include="Scripts\jquery-3.6.1.min.js">
+      <DependentUpon>jquery-3.6.1.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-3.6.0.min.map">
-      <DependentUpon>jquery-3.6.0.min.js</DependentUpon>
+    <Content Include="Scripts\jquery-3.6.1.min.map">
+      <DependentUpon>jquery-3.6.1.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
     <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.js" />
@@ -3455,9 +3455,6 @@
     <Content Include="Content\webfonts\fa-v4compatibility.woff2" />
     <None Include="package.json" />
     <Content Include="Resources\mimeTypes.json" />
-    <None Include="Scripts\jquery-3.6.0.intellisense.js">
-      <DependentUpon>jquery-3.6.0.js</DependentUpon>
-    </None>
     <None Include="web.config">
       <SubType>Designer</SubType>
     </None>

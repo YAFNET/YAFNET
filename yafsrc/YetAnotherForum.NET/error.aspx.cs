@@ -22,57 +22,48 @@
  * under the License.
  */
 
-namespace YAF
+namespace YAF;
+
+using System.Web.UI;
+
+/// <summary>
+/// Custom Error Page
+/// </summary>
+public partial class Error : Page
 {
-    #region Using
-
-    using System.Web.UI;
-
-    #endregion
-
     /// <summary>
-    /// Custom Error Page
+    /// Handles the Load event of the Page control.
     /// </summary>
-    public partial class Error : Page
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Methods
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        if (this.IsPostBack)
         {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            // show error message if one was provided...
-            if (this.Session["StartupException"] != null)
-            {
-                this.ErrorMessage.Text = this.Server.HtmlEncode(this.Session["StartupException"].ToString());
-
-                this.Session["StartupException"] = null;
-            }
-            else if (this.Application["Exception"] != null)
-            {
-                this.ErrorDescriptionHolder.Visible = true;
-
-                this.ErrorMessage.Text = this.Server.HtmlEncode(this.Application["ExceptionMessage"].ToString());
-                this.ErrorDescription.Text = this.Server.HtmlEncode(this.Application["Exception"].ToString());
-
-                this.Session["Exception"] = null;
-                this.Session["ExceptionMessage"] = null;
-            }
-            else
-            {
-                this.ErrorMessage.Text =
-                    "There has been a serious error loading the forum. No further information is available.";
-            }
+            return;
         }
 
-        #endregion
+        // show error message if one was provided...
+        if (this.Session["StartupException"] != null)
+        {
+            this.ErrorMessage.Text = this.Server.HtmlEncode(this.Session["StartupException"].ToString());
+
+            this.Session["StartupException"] = null;
+        }
+        else if (this.Application["Exception"] != null)
+        {
+            this.ErrorDescriptionHolder.Visible = true;
+
+            this.ErrorMessage.Text = this.Server.HtmlEncode(this.Application["ExceptionMessage"].ToString());
+            this.ErrorDescription.Text = this.Server.HtmlEncode(this.Application["Exception"].ToString());
+
+            this.Session["Exception"] = null;
+            this.Session["ExceptionMessage"] = null;
+        }
+        else
+        {
+            this.ErrorMessage.Text =
+                "There has been a serious error loading the forum. No further information is available.";
+        }
     }
 }
