@@ -11,10 +11,10 @@
         "grunt-contrib-uglify": "^5.2.2",
         "grunt-dev-update": "^2.3.0",
         "postcss": "^8.4.16",
-        "sass": "^1.54.5"
+        "sass": "^1.54.8"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^6.1.2",
+        "@fortawesome/fontawesome-free": "^6.2.0",
         "bootbox": "^5.5.3",
         "flag-icons": "^6.6.6",
         "jquery": "^3.6.1",
