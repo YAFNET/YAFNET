@@ -559,7 +559,10 @@ public static class OrmLiteSchemaModifyApi
     public static void Migrate(this IDbConnection dbConn, Type modelType)
     {
         var modelDef = modelType.GetModelDefinition();
-        foreach (var fieldDef in modelDef.FieldDefinitions)
+        var migrateFieldDefinitions = modelDef.FieldDefinitions.Map(x => x.Clone(f => {
+            f.IsPrimaryKey = false;
+        }));
+        foreach (var fieldDef in migrateFieldDefinitions)
         {
             var attrs = fieldDef.PropertyInfo.AllAttributes().Where(x => x is AlterColumnAttribute).ToList();
             if (attrs.Count > 1)

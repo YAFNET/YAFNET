@@ -173,7 +173,7 @@ public class Migrator
                 Name = nextRun.Name,
                 Description = AppTasks.GetDesc(nextRun),
                 CreatedDate = DateTime.UtcNow,
-                ConnectionString = ((OrmLiteConnectionFactory)DbFactory).ConnectionString,
+                ConnectionString = OrmLiteUtils.MaskPassword(((OrmLiteConnectionFactory)DbFactory).ConnectionString),
                 NamedConnection = nextRun.FirstAttribute<NamedConnectionAttribute>()?.Name,
             };
             var id = db.Insert(migration, selectIdentity: true);
@@ -236,7 +236,7 @@ public class Migrator
         Log.Info(StringBuilderCache.ReturnAndFree(sb));
     }
 
-    public static List<Type> GetAllMigrationTypes(Assembly[] migrationAssemblies)
+    public static List<Type> GetAllMigrationTypes(params Assembly[] migrationAssemblies)
     {
         var remainingMigrations = migrationAssemblies
             .SelectMany(x => x.GetTypes().Where(x => x.IsInstanceOf(typeof(MigrationBase)) && !x.IsAbstract))

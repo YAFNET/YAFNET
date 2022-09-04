@@ -1597,4 +1597,9 @@ public static class OrmLiteUtils
         }
         return StringBuilderCache.ReturnAndFree(sb);
     }
+
+    public static Regex RegexPassword = new("(Password|Pwd)=([^;,]+(,\\d+)?)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    public static string MaskPassword(string connectionString) => connectionString != null
+                                                                      ? RegexPassword.Replace(connectionString, "$1=***")
+                                                                      : null;
 }

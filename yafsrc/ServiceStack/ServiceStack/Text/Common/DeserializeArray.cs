@@ -21,8 +21,7 @@ public static class DeserializeArrayWithElements<TSerializer>
     /// <summary>
     /// The parse delegate cache
     /// </summary>
-    private static Dictionary<Type, ParseArrayOfElementsDelegate> ParseDelegateCache
-        = new();
+    private static Dictionary<Type, ParseArrayOfElementsDelegate> ParseDelegateCache = new();
 
     /// <summary>
     /// Delegate ParseArrayOfElementsDelegate

@@ -65,15 +65,14 @@ public class AppTasks
         Instance.Tasks[taskName] = appTask;
     }
 
-    public static void Run(Action? onExit = null)
+    public static int? RanAsTask()
     {
-        var tasks = Instance.Tasks;
-        if (tasks.Count > 0)
+        var argsMap = Environment.GetCommandLineArgs().Select(a => a.Split('='))
+            .ToDictionary(a => a[0].TrimPrefixes("/", "--"), a => a.Length == 2 ? a[1] : null);
+        if (argsMap.TryGetValue(nameof(AppTasks), out var appTasksStr))
         {
-            var argsMap = Environment.GetCommandLineArgs().Select(a => a.Split('='))
-                .ToDictionary(a => a[0].TrimPrefixes("/", "--"), a => a.Length == 2 ? a[1] : null);
-
-            if (argsMap.TryGetValue(nameof(AppTasks), out var appTasksStr))
+            var tasks = Instance.Tasks;
+            if (tasks.Count > 0)
             {
                 var appTasks = appTasksStr.Split(';');
                 for (var i = 0; i < appTasks.Length; i++)
@@ -101,17 +100,29 @@ public class AppTasks
                         exitCode = i + 1; // return 1-based index of AppTask that failed
                         Instance.Log.Error($"Failed to run AppTask '{appTask}'", e);
                     }
-                    finally
-                    {
-                        onExit?.Invoke();
-                        Environment.Exit(exitCode);
-                        // Trying to Stop Application before app.Run() throws Unhandled exception. System.OperationCanceledException
-                        // var appLifetime = ApplicationServices.Resolve<IHostApplicationLifetime>();
-                        // Environment.ExitCode = exitCode;
-                        // appLifetime.StopApplication();
-                    }
+                    return exitCode;
                 }
             }
+            else
+            {
+                Instance.Log.Info("No AppTasks to run, exiting...");
+            }
+            return 0;
+        }
+        return null;
+    }
+
+    public static void Run(Action? onExit = null)
+    {
+        var exitCode = RanAsTask();
+        if (exitCode != null)
+        {
+            onExit?.Invoke();
+            Environment.Exit(exitCode.Value);
+            // Trying to Stop Application before app.Run() throws Unhandled exception. System.OperationCanceledException
+            // var appLifetime = ApplicationServices.Resolve<IHostApplicationLifetime>();
+            // Environment.ExitCode = exitCode;
+            // appLifetime.StopApplication();
         }
     }
 
