@@ -145,7 +145,6 @@ public partial class DeleteMessage : ForumPage
         this.EraseMessage.Checked = false;
         this.EraseMessage.Text = this.GetText("erasemessage");
         this.EraseRow.Visible = false;
-        this.DeleteReasonRow.Visible = false;
         this.LinkedPosts.Visible = false;
 
         // delete message...
@@ -180,7 +179,6 @@ public partial class DeleteMessage : ForumPage
         }
 
         this.Subject.Text = this.PageBoardContext.PageTopic.TopicName;
-        this.DeleteReasonRow.Visible = true;
         this.ReasonEditor.Text = this.PageBoardContext.PageMessage.DeleteReason;
 
         // populate the message preview with the message data-row...
@@ -231,7 +229,7 @@ public partial class DeleteMessage : ForumPage
         {
             try
             {
-                var deleteAllPosts = this.LinkedPosts.Controls[0].Controls[1].ToType<CheckBox>();
+                var deleteAllPosts = this.LinkedPosts.Controls[0].Controls[3].ToType<CheckBox>();
                 deleteAllLinked = deleteAllPosts.Checked;
             }
             catch (Exception)
