@@ -680,8 +680,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// Sends the user welcome notification.
     /// </summary>
     /// <param name="user">The user.</param>
-    /// <param name="userId">The user identifier.</param>
-    public void SendUserWelcomeNotification([NotNull] AspNetUsers user, [NotNull] int userId)
+    public void SendUserWelcomeNotification([NotNull] User user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -698,7 +697,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                              {
                                  TemplateParams =
                                      {
-                                         ["{user}"] = user.UserName
+                                         ["{user}"] = user.DisplayOrUserName()
                                      }
                              };
 
@@ -720,7 +719,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
             {
                 BoardContext.Current.GetRepository<PMessage>().SendMessage(
                     hostUser.ID,
-                    userId,
+                    user.ID,
                     subject,
                     emailBody,
                     messageFlags.BitValue,
@@ -729,7 +728,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         }
         else
         {
-            notifyUser.SendEmail(new MailAddress(user.Email, user.UserName), subject);
+            notifyUser.SendEmail(new MailAddress(user.Email, user.DisplayOrUserName()), subject);
         }
     }
 

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -146,8 +146,7 @@ public interface ISendNotification
     /// Sends the user welcome notification.
     /// </summary>
     /// <param name="user">The user.</param>
-    /// <param name="userId">The user identifier.</param>
-    void SendUserWelcomeNotification([NotNull] AspNetUsers user, int userId);
+    void SendUserWelcomeNotification([NotNull] User user);
 
     /// <summary>
     /// Sends the verification email.

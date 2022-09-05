@@ -449,6 +449,9 @@ public static class UserRepositoryExtensions
         userFlags.IsApproved = true;
 
         repository.UpdateOnly(() => new User { Flags = userFlags.BitValue }, u => u.ID == user.ID);
+
+        // Send welcome mail/pm to user
+        BoardContext.Current.Get<ISendNotification>().SendUserWelcomeNotification(user);
     }
 
     /// <summary>
