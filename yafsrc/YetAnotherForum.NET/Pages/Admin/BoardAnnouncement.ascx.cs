@@ -120,8 +120,8 @@ public partial class BoardAnnouncement : AdminPage
         var boardSettings = this.PageBoardContext.BoardSettings;
 
         boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
-        boardSettings.BoardAnnouncement = this.Message.Text;
-        boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
+        boardSettings.BoardAnnouncement = null;
+        boardSettings.BoardAnnouncementType = "info";
 
         // save the settings to the database
         this.Get<BoardSettingsService>().SaveRegistry(boardSettings);
