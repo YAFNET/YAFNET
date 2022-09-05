@@ -13,12 +13,6 @@
               ShowButtons="true" />
 
 <div class="row">
-    <div class="col-xl-12">
-        <h2></h2>
-    </div>
-</div>
-
-<div class="row">
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">

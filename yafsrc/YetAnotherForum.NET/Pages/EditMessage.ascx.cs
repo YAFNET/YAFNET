@@ -187,13 +187,12 @@ public partial class EditMessage : ForumPage
             this.Get<LinkBuilder>().AccessDenied();
         }
 
-        if (this.Get<HttpRequestBase>()["t"] == null && this.Get<HttpRequestBase>()["m"] == null
-                                                     && !this.PageBoardContext.ForumPostAccess)
+        if (this.Get<HttpRequestBase>()["m"] == null)
         {
             this.Get<LinkBuilder>().AccessDenied();
         }
 
-        if (this.Get<HttpRequestBase>()["t"] != null && !this.PageBoardContext.ForumReplyAccess)
+        if (!this.PageBoardContext.ForumPostAccess && !this.PageBoardContext.ForumReplyAccess)
         {
             this.Get<LinkBuilder>().AccessDenied();
         }

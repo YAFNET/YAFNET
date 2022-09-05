@@ -84,11 +84,6 @@ public partial class PollList : BaseUserControl
     public int TopicId { get; set; }
 
     /// <summary>
-    /// Gets or sets the topic creator.
-    /// </summary>
-    public int TopicCreator { get; set; }
-
-    /// <summary>
     /// Checks if a user can create poll.
     /// </summary>
     /// <returns>
@@ -180,23 +175,6 @@ public partial class PollList : BaseUserControl
         var attrs = mimeType.ToString().Split('!')[1].Split(';');
 
         return attrs[1].ToType<int>();
-    }
-
-    /// <summary>
-    /// Gets the poll is closed.
-    /// </summary>
-    /// <returns>
-    /// The get poll is closed.
-    /// </returns>
-    protected string GetPollIsClosed()
-    {
-        var strPollClosed = string.Empty;
-        if (this.IsPollClosed())
-        {
-            strPollClosed = this.GetText("POLL_CLOSED");
-        }
-
-        return strPollClosed;
     }
 
     /// <summary>
@@ -523,7 +501,7 @@ public partial class PollList : BaseUserControl
         // if topic id > 0 it can be every member
         if (this.TopicId > 0)
         {
-            return this.TopicCreator == this.PageBoardContext.PageUserID || this.PageBoardContext.IsAdmin ||
+            return this.PageBoardContext.PageTopic.UserID == this.PageBoardContext.PageUserID || this.PageBoardContext.IsAdmin ||
                    this.PageBoardContext.ForumModeratorAccess;
         }
 
