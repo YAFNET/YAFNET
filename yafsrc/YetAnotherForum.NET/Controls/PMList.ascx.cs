@@ -171,7 +171,7 @@ public partial class PMList : BaseUserControl
             case PmView.Outbox:
                 {
                     var messages = this.GetRepository<PMessage>().Get(
-                        p => p.FromUserID == this.PageBoardContext.PageUserID && p.PMessageFlags.IsInOutbox && p.PMessageFlags.IsArchived == false);
+                        p => p.FromUserID == this.PageBoardContext.PageUserID && (p.Flags & 2) == 2 && (p.Flags & 4) != 4);
 
                     messages.ForEach(
                         item =>
