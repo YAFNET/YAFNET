@@ -130,15 +130,15 @@ public partial class EditLanguage : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddAdminIndex();
 
-        this.PageLinks.AddLink(
+        this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_LANGUAGES", "TITLE"),
             this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Languages));
-        this.PageLinks.AddLink(this.GetText("ADMIN_EDITLANGUAGE", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITLANGUAGE", "TITLE"), string.Empty);
     }
 
     /// <summary>

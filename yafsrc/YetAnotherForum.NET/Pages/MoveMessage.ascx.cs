@@ -147,13 +147,13 @@ public partial class MoveMessage : ForumPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
-        this.PageLinks.AddForum(this.PageBoardContext.PageForum);
-        this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+        this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
+        this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
 
-        this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
     }
 }

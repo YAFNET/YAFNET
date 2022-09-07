@@ -59,11 +59,11 @@ public partial class BoardAnnouncement : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddLink(this.PageBoardContext.BoardSettings.Name, this.Get<LinkBuilder>().GetLink(ForumPages.Board));
-        this.PageLinks.AddAdminIndex();
-        this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.BoardSettings.Name, this.Get<LinkBuilder>().GetLink(ForumPages.Board));
+        this.PageBoardContext.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_TITLE"), string.Empty);
     }
 
     /// <summary>

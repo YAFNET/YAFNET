@@ -106,10 +106,10 @@ public partial class MessageHistory : ForumPage
             return;
         }
 
-        this.PageLinks.AddForum(this.originalMessage.Item4);
-        this.PageLinks.AddTopic(this.originalMessage.Item1.TopicName, this.originalMessage.Item1.ID);
+        this.PageBoardContext.PageLinks.AddForum(this.originalMessage.Item4);
+        this.PageBoardContext.PageLinks.AddTopic(this.originalMessage.Item1.TopicName, this.originalMessage.Item1.ID);
 
-        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
         this.BindData();
     }
@@ -117,9 +117,9 @@ public partial class MessageHistory : ForumPage
     /// <summary>
     /// The create page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
     }
 
     /// <summary>

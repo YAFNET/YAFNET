@@ -29,7 +29,6 @@ using System.IO;
 
 using YAF.Core.Model;
 using YAF.Core.Utilities;
-using YAF.Types.Constants;
 using YAF.Types.Models;
 
 /// <summary>

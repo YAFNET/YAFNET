@@ -75,8 +75,8 @@ public partial class Help : ForumPage
             return;
         }
 
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddLink(
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddLink(
             this.GetText("SUBTITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Help));
 
         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
@@ -88,7 +88,7 @@ public partial class Help : ForumPage
                 faqPage = "SEARCHHELP";
             }
 
-            this.PageLinks.AddLink(
+            this.PageBoardContext.PageLinks.AddLink(
                 this.GetText(
                     "HELP_INDEX",
                     $"{faqPage}TITLE"),
@@ -98,7 +98,7 @@ public partial class Help : ForumPage
         }
         else
         {
-            this.PageLinks.AddLink(this.GetText("HELP_INDEX", "SEARCHHELPTITLE"), string.Empty);
+            this.PageBoardContext.PageLinks.AddLink(this.GetText("HELP_INDEX", "SEARCHHELPTITLE"), string.Empty);
 
             // Load Index and Search
             this.SearchHolder.Visible = true;
@@ -111,7 +111,7 @@ public partial class Help : ForumPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
     }
 

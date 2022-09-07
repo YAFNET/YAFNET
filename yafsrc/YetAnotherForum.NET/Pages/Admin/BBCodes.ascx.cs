@@ -88,11 +88,11 @@ public partial class BBCodes : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddAdminIndex();
-        this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), string.Empty);
     }
 
     /// <summary>

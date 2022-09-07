@@ -227,14 +227,14 @@ public partial class EditBoard : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddAdminIndex();
-        this.PageLinks.AddLink(
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_BOARDS", "TITLE"),
             this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditBoard));
-        this.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
     }
 
     /// <summary>

@@ -225,10 +225,10 @@ public partial class Register : AccountPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddLink(this.GetText("TITLE"));
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"));
     }
 
     protected void CustomProfile_OnItemDataBound(object sender, RepeaterItemEventArgs e)

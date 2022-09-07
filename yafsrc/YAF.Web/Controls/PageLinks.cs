@@ -28,82 +28,22 @@ using YAF.Types.Objects;
 /// <summary>
 /// Page Links Control.
 /// </summary>
-public class PageLinks : BaseControl, IAdd<PageLink>
+public class PageLinks : BaseControl
 {
-    /// <summary>
-    ///   Gets or sets LinkedPageLinkID.
-    /// </summary>
-    [CanBeNull]
-    public string LinkedPageLinkID
-    {
-        get => this.ViewState["LinkedPageLinkID"].ToType<string>();
-
-        set => this.ViewState["LinkedPageLinkID"] = value;
-    }
-
-    /// <summary>
-    ///   Gets or sets PageLink List
-    /// </summary>
-    [CanBeNull]
-    public List<PageLink> PageLinkList
-    {
-        get => this.ViewState["PageLinkList"] as List<PageLink>;
-
-        set => this.ViewState["PageLinkList"] = value;
-    }
-
-    /// <summary>
-    /// Clear all Links
-    /// </summary>
-    public void Clear()
-    {
-        this.PageLinkList = null;
-    }
-
-    /// <summary>
-    /// Adds the specified item.
-    /// </summary>
-    /// <param name="item">The item.</param>
-    public void Add([NotNull] PageLink item)
-    {
-        CodeContracts.VerifyNotNull(item);
-
-        var list = this.PageLinkList ?? new List<PageLink>();
-
-        list.Add(item);
-
-        this.PageLinkList = list;
-    }
-
     /// <summary>
     /// Sends server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object, which writes the content to be rendered on the client.
     /// </summary>
     /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the server control content.</param>
     protected override void Render([NotNull] HtmlTextWriter writer)
     {
-        List<PageLink> linkedPageList = null;
+        List<PageLink> linkedPageList = this.PageBoardContext.PageLinks;
 
-        if (this.LinkedPageLinkID.IsSet())
-        {
-            // attempt to get access to the other control...
-            if (this.Parent.FindControl(this.LinkedPageLinkID) is PageLinks parentControl)
-            {
-                // use the other data stream...
-                linkedPageList = parentControl.PageLinkList;
-            }
-        }
-        else
-        {
-            // use the data table from this control...
-            linkedPageList = this.PageLinkList;
-        }
-
-        if (linkedPageList == null || !linkedPageList.Any())
+        if (linkedPageList.NullOrEmpty())
         {
             return;
         }
 
-        writer.Write("<nav aria-label=\"breadcrump\"><ol class=\"breadcrumb\">");
+        writer.Write("<nav aria-label=\"breadcrumb\"><ol class=\"breadcrumb\">");
 
         linkedPageList.ForEach(
             link =>

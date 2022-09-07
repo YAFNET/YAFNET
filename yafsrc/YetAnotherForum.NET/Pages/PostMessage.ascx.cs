@@ -266,10 +266,10 @@ public partial class PostMessage : ForumPage
                 this.tr_captcha2.Visible = true;
             }
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+            this.PageBoardContext.PageLinks.AddRoot();
+            this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
 
-            this.PageLinks.AddForum(this.PageBoardContext.PageForum);
+            this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
 
             // check if it's a reply to a topic...
             this.InitReplyToTopic();
@@ -685,12 +685,12 @@ public partial class PostMessage : ForumPage
         }
 
         // add topic link...
-        this.PageLinks.AddTopic(this.topic.TopicName, this.PageBoardContext.PageTopicID);
+        this.PageBoardContext.PageLinks.AddTopic(this.topic.TopicName, this.PageBoardContext.PageTopicID);
 
         this.Title.Text = this.GetText("reply");
 
         // add "reply" text...
-        this.PageLinks.AddLink(this.GetText("reply"));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("reply"));
     }
 
     /// <summary>

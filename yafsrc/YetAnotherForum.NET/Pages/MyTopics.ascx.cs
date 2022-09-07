@@ -167,11 +167,11 @@ public partial class MyTopics : ForumPageRegistered
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
-        this.PageLinks.AddLink(this.GetText("MEMBERTITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("MEMBERTITLE"), string.Empty);
     }
 
     /// <summary>

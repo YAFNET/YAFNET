@@ -120,12 +120,12 @@ public partial class PrintTopic : ForumPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
 
-        this.PageLinks.AddForum(this.PageBoardContext.PageForum);
-        this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
+        this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
+        this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
     }
 }

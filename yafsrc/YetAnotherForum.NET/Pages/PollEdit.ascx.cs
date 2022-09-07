@@ -142,9 +142,9 @@ public partial class PollEdit : ForumPage
     /// <summary>
     /// Adds page links to the page
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
     }
 
     /// <summary>
@@ -352,9 +352,9 @@ public partial class PollEdit : ForumPage
 
         if (this.Get<HttpRequestBase>().QueryString.Exists("t"))
         {
-            this.PageLinks.AddForum(this.PageBoardContext.PageForum);
+            this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
 
-            this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopic.ID);
+            this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopic.ID);
         }
 
         // Check if the user has the page access and variables are correct.
@@ -368,7 +368,7 @@ public partial class PollEdit : ForumPage
                 this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p"));
             this.InitPollUI(this.PollId);
 
-            this.PageLinks.AddLink(this.GetText("POLLEDIT", "EDITPOLL"), string.Empty);
+            this.PageBoardContext.PageLinks.AddLink(this.GetText("POLLEDIT", "EDITPOLL"), string.Empty);
 
             this.Header.LocalizedTag = "EDITPOLL";
         }
@@ -377,7 +377,7 @@ public partial class PollEdit : ForumPage
             // new poll
             this.InitPollUI(null);
 
-            this.PageLinks.AddLink(this.GetText("POLLEDIT", "CREATEPOLL"), string.Empty);
+            this.PageBoardContext.PageLinks.AddLink(this.GetText("POLLEDIT", "CREATEPOLL"), string.Empty);
 
             this.Header.LocalizedTag = "CREATEPOLL";
         }

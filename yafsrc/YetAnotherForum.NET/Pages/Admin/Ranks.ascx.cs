@@ -149,12 +149,12 @@ public partial class Ranks : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddAdminIndex();
 
-        this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"));
     }
 
     /// <summary>

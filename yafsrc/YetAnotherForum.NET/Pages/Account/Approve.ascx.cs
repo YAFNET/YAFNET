@@ -131,9 +131,9 @@ public partial class Approve : AccountPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
     }
 }

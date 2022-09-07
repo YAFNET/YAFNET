@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -75,10 +75,9 @@ public partial class Albums : ForumPage
             this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.PageLinks.Clear();
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddUser(this.CurrentUserID, user.DisplayOrUserName());
-        this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddUser(this.CurrentUserID, user.DisplayOrUserName());
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
 
         // Initialize the Album List control.
         this.AlbumList1.User = user;
@@ -87,7 +86,7 @@ public partial class Albums : ForumPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
     }
 }

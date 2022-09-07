@@ -85,9 +85,9 @@ public static class ForumPageExtensions
 
                     break;
                 default:
-                    var pageLinks = page.FindControlAs<PageLinks>("PageLinks");
+                    var pageLinks = BoardContext.Current.PageLinks;
 
-                    var activePageLink = pageLinks?.PageLinkList?.FirstOrDefault(link => link.URL.IsNotSet());
+                    var activePageLink = pageLinks?.FirstOrDefault(link => link.URL.IsNotSet());
 
                     if (activePageLink != null)
                     {
@@ -100,9 +100,9 @@ public static class ForumPageExtensions
         }
         else
         {
-            var pageLinks = page.FindControlAs<PageLinks>("PageLinks");
+            var pageLinks = BoardContext.Current.PageLinks;
 
-            var activePageLink = pageLinks?.PageLinkList?.FirstOrDefault(link => link.URL.IsNotSet());
+            var activePageLink = pageLinks?.FirstOrDefault(link => link.URL.IsNotSet());
 
             if (activePageLink != null)
             {

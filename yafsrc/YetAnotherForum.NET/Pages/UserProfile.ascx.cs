@@ -147,14 +147,13 @@ public partial class UserProfile : ForumPage
     /// </param>
     private void AddPageLinks([NotNull] string userDisplayName)
     {
-        this.PageLinks.Clear();
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddLink(
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddLink(
             this.GetText("MEMBERS"),
             this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.MembersListViewPermissions)
                 ? this.Get<LinkBuilder>().GetLink(ForumPages.Members)
                 : null);
-        this.PageLinks.AddLink(userDisplayName, string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(userDisplayName, string.Empty);
     }
 
     /// <summary>

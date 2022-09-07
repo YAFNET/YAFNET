@@ -37,6 +37,7 @@ using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries;
 using YAF.Lucene.Net.QueryParsers.Classic;
+using YAF.Lucene.Net.QueryParsers.ComplexPhrase;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Search.Highlight;
 using YAF.Lucene.Net.Store;
@@ -44,6 +45,7 @@ using YAF.Lucene.Net.Util;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
+using static YAF.Lucene.Net.Util.Fst.Builder;
 
 /// <summary>
 /// The YAF Search Functions
@@ -378,7 +380,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         var parser = new QueryParser(MatchVersion, "Message", this.standardAnalyzer);
         var query = ParseQuery(input, parser);
 
-        return searcher.Search(query, 1000).TotalHits;
+        return searcher.Search(query, null, 1000).TotalHits;
     }
 
     /// <summary>

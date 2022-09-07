@@ -85,20 +85,20 @@ public partial class EditGroup : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         // forum index
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
         // admin index
-        this.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddAdminIndex();
 
-        this.PageLinks.AddLink(
+        this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_GROUPS", "TITLE"),
             this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Groups));
 
         // current page label (no link)
-        this.PageLinks.AddLink(this.GetText("ADMIN_EDITGROUP", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITGROUP", "TITLE"), string.Empty);
     }
 
     /// <summary>

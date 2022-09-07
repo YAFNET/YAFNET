@@ -65,10 +65,10 @@ public partial class ForgotPassword : AccountPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddLink(this.GetText("TITLE"));
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"));
     }
 
     /// <summary>

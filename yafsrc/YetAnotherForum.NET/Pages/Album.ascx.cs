@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -74,11 +74,10 @@ public partial class Album : ForumPage
         var album = this.GetRepository<UserAlbum>().GetById(this.AlbumID);
 
         // Generate the page links.
-        this.PageLinks.Clear();
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddUser(this.CurrentUserID, displayName);
-        this.PageLinks.AddLink(this.GetText("ALBUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Albums, new { u = this.CurrentUserID }));
-        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddUser(this.CurrentUserID, displayName);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ALBUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Albums, new { u = this.CurrentUserID }));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
         // Set the title text.
         this.LocalizedLabel1.Param0 = this.Server.HtmlEncode(displayName);
@@ -95,7 +94,7 @@ public partial class Album : ForumPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
     }
 

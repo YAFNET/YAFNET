@@ -135,17 +135,17 @@ public partial class RegisterUser : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddAdminIndex();
 
-        this.PageLinks.AddLink(
+        this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_USERS", "TITLE"),
             this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Users));
 
         // current page label (no link)
-        this.PageLinks.AddLink(this.GetText("ADMIN_REGUSER", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_REGUSER", "TITLE"), string.Empty);
     }
 
     /// <summary>

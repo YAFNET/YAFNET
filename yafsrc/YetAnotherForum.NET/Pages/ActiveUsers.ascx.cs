@@ -79,12 +79,12 @@ public partial class ActiveUsers : ForumPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         // forum index
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
-        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
     }
 
     /// <summary>

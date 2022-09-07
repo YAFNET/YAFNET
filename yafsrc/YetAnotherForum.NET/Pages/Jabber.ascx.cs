@@ -80,11 +80,11 @@ public partial class Jabber : ForumPage
             this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddUser(
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddUser(
             this.UserID,
             userHe.DisplayOrUserName());
-        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
         if (this.UserID == this.PageBoardContext.PageUserID)
         {

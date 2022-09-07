@@ -297,15 +297,15 @@ public partial class PostTopic : ForumPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
 
-        this.PageLinks.AddForum(this.PageBoardContext.PageForum);
+        this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
 
         // add the "New Topic" page link last...
-        this.PageLinks.AddLink(this.GetText("NEWTOPIC"));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("NEWTOPIC"));
     }
 
     /// <summary>

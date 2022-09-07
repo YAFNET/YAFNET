@@ -59,16 +59,16 @@ public partial class PageAccessEdit : AdminPage
     /// <summary>
     /// Creates navigation page links on top of forum (breadcrumbs).
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         // beard index
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
         // administration index
-        this.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddAdminIndex();
 
         // current page label (no link)
-        this.PageLinks.AddLink(this.GetText("ADMIN_PAGEACCESSEDIT", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_PAGEACCESSEDIT", "TITLE"), string.Empty);
     }
 
     /// <summary>

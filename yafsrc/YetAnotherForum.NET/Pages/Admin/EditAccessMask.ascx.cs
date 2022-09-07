@@ -53,20 +53,20 @@ public partial class EditAccessMask : AdminPage
     /// <summary>
     /// Creates navigation page links on top of forum (breadcrumbs).
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         // beard index
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
         // administration index
-        this.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddAdminIndex();
 
-        this.PageLinks.AddLink(
+        this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_ACCESSMASKS", "TITLE"),
             this.Get<LinkBuilder>().GetLink(ForumPages.Admin_AccessMasks));
 
         // current page label (no link)
-        this.PageLinks.AddLink(this.GetText("ADMIN_EDITACCESSMASKS", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITACCESSMASKS", "TITLE"), string.Empty);
     }
 
     /// <summary>

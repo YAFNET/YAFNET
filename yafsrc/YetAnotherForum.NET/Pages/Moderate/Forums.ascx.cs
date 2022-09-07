@@ -270,13 +270,13 @@ public partial class Forums : ModerateForumPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
 
-        this.PageLinks.AddForum(this.PageBoardContext.PageForum);
-        this.PageLinks.AddLink(this.GetText("MODERATE", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("MODERATE", "TITLE"), string.Empty);
     }
 
     /// <summary>

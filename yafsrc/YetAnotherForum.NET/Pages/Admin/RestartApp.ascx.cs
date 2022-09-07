@@ -50,9 +50,9 @@ public partial class RestartApp : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot()
+        this.PageBoardContext.PageLinks.AddRoot()
             .AddAdminIndex()
             .AddLink(this.GetText("ADMIN_RESTARTAPP", "TITLE"));
     }

@@ -67,16 +67,16 @@ public partial class Board : ForumPage
     /// <summary>
     /// The create page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
         if (this.PageBoardContext.PageCategoryID == 0)
         {
             return;
         }
 
-        this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+        this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
     }
 
     /// <summary>

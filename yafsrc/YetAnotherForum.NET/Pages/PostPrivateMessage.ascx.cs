@@ -176,21 +176,21 @@ public partial class PostPrivateMessage : ForumPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         // forum index
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
         // users control panel
-        this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
 
         // private messages
-        this.PageLinks.AddLink(
+        this.PageBoardContext.PageLinks.AddLink(
             this.GetText(ForumPages.MyMessages.ToString(), "TITLE"),
             this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages));
 
         // post new message
-        this.PageLinks.AddLink(this.GetText("TITLE"));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"));
     }
 
     /// <summary>

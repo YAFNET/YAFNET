@@ -284,10 +284,10 @@ public partial class EditMessage : ForumPage
                 this.tr_captcha2.Visible = true;
             }
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+            this.PageBoardContext.PageLinks.AddRoot();
+            this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
 
-            this.PageLinks.AddForum(this.PageBoardContext.PageForum);
+            this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
 
             // editing a message...
             this.InitEditedPost(this.editedMessage);
@@ -628,10 +628,10 @@ public partial class EditMessage : ForumPage
         this.PostReply.TextLocalizedPage = "COMMON";
 
         // add topic link...
-        this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
+        this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
 
         // editing..
-        this.PageLinks.AddLink(this.GetText("EDIT"));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("EDIT"));
 
         this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(this.PageBoardContext.PageTopic.TopicName);
         this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(this.PageBoardContext.PageTopic.Description);

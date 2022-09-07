@@ -105,13 +105,13 @@ public partial class Attachments : ProfilePage
     /// <summary>
     /// The create page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         var displayName = this.PageBoardContext.PageUser.DisplayOrUserName();
-        this.PageLinks.Clear();
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddUser(this.PageBoardContext.PageUserID, displayName);
-        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddUser(this.PageBoardContext.PageUserID, displayName);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
     }
 
     /// <summary>

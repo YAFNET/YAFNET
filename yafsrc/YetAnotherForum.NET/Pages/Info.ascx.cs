@@ -41,13 +41,13 @@ public partial class Info : ForumPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         // forum index
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
         // information title text
-        this.PageLinks.AddLink(this.Title.Text);
+        this.PageBoardContext.PageLinks.AddLink(this.Title.Text);
     }
 
     /// <summary>

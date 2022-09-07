@@ -73,12 +73,12 @@ public partial class RulesAndPrivacy : ForumPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
         // current page label (no link)
-        this.PageLinks.AddLink(this.GetText("TITLE"));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"));
     }
 
     /// <summary>

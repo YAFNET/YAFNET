@@ -44,18 +44,18 @@ public partial class ReportedPosts : ModerateForumPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         // forum index
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
         // moderation index
-        this.PageLinks.AddLink(
+        this.PageBoardContext.PageLinks.AddLink(
             this.GetText("MODERATE_DEFAULT", "TITLE"),
             this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Index));
 
         // current page
-        this.PageLinks.AddLink(this.PageBoardContext.PageForum.Name);
+        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageForum.Name);
     }
 
     /// <summary>

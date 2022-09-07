@@ -187,12 +187,12 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
+            this.PageBoardContext.PageLinks.AddRoot();
+            this.PageBoardContext.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
                 this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin));
 
-            this.PageLinks.AddLink("TEST DATA GENERATOR", string.Empty);
+            this.PageBoardContext.PageLinks.AddLink("TEST DATA GENERATOR", string.Empty);
 
             var categories = this.GetRepository<Category>().List();
 

@@ -128,9 +128,9 @@ public partial class SpamWords : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot().AddAdminIndex()
+        this.PageBoardContext.PageLinks.AddRoot().AddAdminIndex()
             .AddLink(this.GetText("ADMIN_SPAMWORDS", "TITLE"));
     }
 

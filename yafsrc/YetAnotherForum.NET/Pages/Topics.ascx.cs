@@ -246,12 +246,12 @@ public partial class Topics : ForumPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
 
-        this.PageLinks.AddForum(this.PageBoardContext.PageForum, true);
+        this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum, true);
     }
 
     /// <summary>

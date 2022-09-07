@@ -212,17 +212,17 @@ public partial class EditAlbumImages : ForumPageRegistered
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         var displayName = this.PageBoardContext.PageUser.DisplayOrUserName();
 
         // Add the page links.
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddUser(this.PageBoardContext.PageUserID, displayName);
-        this.PageLinks.AddLink(
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddUser(this.PageBoardContext.PageUserID, displayName);
+        this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ALBUMS"),
             this.Get<LinkBuilder>().GetLink(ForumPages.Albums, new { u = this.PageBoardContext.PageUserID }));
-        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
     }
 
     /// <summary>

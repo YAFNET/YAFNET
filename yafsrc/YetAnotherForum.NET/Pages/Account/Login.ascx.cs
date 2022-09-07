@@ -95,10 +95,10 @@ public partial class Login : AccountPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddLink(this.GetText("title"));
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("title"));
     }
 
     /// <summary>

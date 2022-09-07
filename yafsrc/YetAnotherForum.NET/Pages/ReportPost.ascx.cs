@@ -173,10 +173,10 @@ public partial class ReportPost : ForumPage
     /// <summary>
     /// The create page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         // Get Forum Link
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
     }
 
     /// <summary>

@@ -287,7 +287,7 @@ public abstract class ForumPage : UserControl,
     /// <summary>
     /// Creates the page links.
     /// </summary>
-    protected virtual void CreatePageLinks()
+    public virtual void CreatePageLinks()
     {
         // Page link creation goes to this method (overloads in descendant classes)
     }

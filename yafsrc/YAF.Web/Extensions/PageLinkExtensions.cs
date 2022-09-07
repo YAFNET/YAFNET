@@ -39,12 +39,12 @@ public static class PageLinkExtensions
     /// </summary>
     /// <param name="pageLinks">The page links.</param>
     /// <returns>returns the Page links including the root</returns>
-    public static PageLinks AddRoot(this PageLinks pageLinks)
+    public static List<PageLink> AddRoot(this List<PageLink> pageLinks)
     {
         CodeContracts.VerifyNotNull(pageLinks);
 
         pageLinks.AddLink(
-            pageLinks.PageBoardContext.BoardSettings.Name,
+            BoardContext.Current.BoardSettings.Name,
             BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Board));
 
         return pageLinks;
@@ -59,12 +59,12 @@ public static class PageLinkExtensions
     /// <returns>
     /// The <see cref="PageLinks"/>.
     /// </returns>
-    public static PageLinks AddAdminIndex(this PageLinks pageLinks)
+    public static List<PageLink> AddAdminIndex(this List<PageLink> pageLinks)
     {
         CodeContracts.VerifyNotNull(pageLinks);
 
         pageLinks.AddLink(
-            pageLinks.GetText("ADMIN_ADMIN", "Administration"),
+            BoardContext.Current.Get<ILocalization>().GetText("ADMIN_ADMIN", "Administration"),
             BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin));
 
         return pageLinks;
@@ -85,7 +85,7 @@ public static class PageLinkExtensions
     /// <returns>
     /// The <see cref="PageLinks"/>.
     /// </returns>
-    public static PageLinks AddUser(this PageLinks pageLinks, [NotNull] int userId, [NotNull] string name)
+    public static List<PageLink> AddUser(this List<PageLink> pageLinks, [NotNull] int userId, [NotNull] string name)
     {
         CodeContracts.VerifyNotNull(pageLinks);
         CodeContracts.VerifyNotNull(name);
@@ -110,7 +110,7 @@ public static class PageLinkExtensions
     /// <returns>
     /// The <see cref="PageLinks"/>.
     /// </returns>
-    public static PageLinks AddTopic(this PageLinks pageLinks, [NotNull] string topicName, [NotNull] int topicId)
+    public static List<PageLink> AddTopic(this List<PageLink> pageLinks, [NotNull] string topicName, [NotNull] int topicId)
     {
         CodeContracts.VerifyNotNull(pageLinks);
 
@@ -131,8 +131,8 @@ public static class PageLinkExtensions
     /// <returns>
     /// Returns the Page links including the Category
     /// </returns>
-    public static PageLinks AddCategory(
-        this PageLinks pageLinks,
+    public static List<PageLink> AddCategory(
+        this List<PageLink> pageLinks,
         [NotNull] Category category)
     {
         CodeContracts.VerifyNotNull(pageLinks);
@@ -160,7 +160,7 @@ public static class PageLinkExtensions
     /// <returns>
     /// Returns the page links
     /// </returns>
-    public static PageLinks AddForum(this PageLinks pageLinks, Forum forum, bool noForumLink = false)
+    public static List<PageLink> AddForum(this List<PageLink> pageLinks, Forum forum, bool noForumLink = false)
     {
         CodeContracts.VerifyNotNull(pageLinks);
 
@@ -197,7 +197,7 @@ public static class PageLinkExtensions
     /// <param name="title">The title.</param>
     /// <param name="url">The URL.</param>
     /// <returns>Returns the page links</returns>
-    public static PageLinks AddLink(this PageLinks pageLinks, [NotNull] string title, [CanBeNull] string url = "")
+    public static List<PageLink> AddLink(this List<PageLink> pageLinks, [NotNull] string title, [CanBeNull] string url = "")
     {
         CodeContracts.VerifyNotNull(pageLinks);
         CodeContracts.VerifyNotNull(title);

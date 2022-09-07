@@ -25,6 +25,7 @@
 namespace YAF.Core.Context;
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 using YAF.Types.Models;
@@ -308,6 +309,8 @@ public abstract class UserPageBase
     ///   Gets a value indicating whether a user has buddies
     /// </summary>
     public bool UserHasBuddies => this.PageData.Item3.UserHasBuddies;
+
+    public List<PageLink> PageLinks { get; set; }
 
     /// <summary>
     /// Helper function to see if the Page variable is populated

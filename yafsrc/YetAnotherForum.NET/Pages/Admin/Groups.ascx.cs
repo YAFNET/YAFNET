@@ -92,16 +92,16 @@ public partial class Groups : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         // forum index
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
         // admin index
-        this.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddAdminIndex();
 
         // roles
-        this.PageLinks.AddLink(this.GetText("ADMIN_GROUPS", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_GROUPS", "TITLE"), string.Empty);
     }
 
     /// <summary>

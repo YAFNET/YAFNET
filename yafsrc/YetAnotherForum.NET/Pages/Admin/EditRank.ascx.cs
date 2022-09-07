@@ -97,15 +97,15 @@ public partial class EditRank : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddAdminIndex();
 
-        this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Ranks));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Ranks));
 
         // current page label (no link)
-        this.PageLinks.AddLink(this.GetText("ADMIN_EDITRANK", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITRANK", "TITLE"), string.Empty);
     }
 
     /// <summary>

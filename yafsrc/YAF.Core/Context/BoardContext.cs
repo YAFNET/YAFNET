@@ -28,11 +28,14 @@ using System;
 
 using Autofac;
 
+using System.Collections.Generic;
+
 using YAF.Configuration.Pattern;
 using YAF.Core.BasePages;
 using YAF.Types.Constants;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 using AspNetUsers = YAF.Types.Models.Identity.AspNetUsers;
 
@@ -207,6 +210,8 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
         {
             return;
         }
+
+        this.PageLinks = new List<PageLink>();
 
         this.BeforeInit?.Invoke(this, EventArgs.Empty);
 

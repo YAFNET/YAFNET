@@ -44,16 +44,16 @@ public partial class Medals : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         // forum index
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
         // administration index
-        this.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddAdminIndex();
 
         // current page label (no link)
-        this.PageLinks.AddLink(this.GetText("ADMIN_MEDALS", "TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_MEDALS", "TITLE"), string.Empty);
     }
 
     /// <summary>

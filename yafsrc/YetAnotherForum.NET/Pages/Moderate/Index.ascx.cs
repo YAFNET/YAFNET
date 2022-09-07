@@ -48,13 +48,13 @@ public partial class Index : ModerateForumPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         // forum index
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
         // moderation index
-        this.PageLinks.AddLink(this.GetText("TITLE"));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"));
     }
 
     /// <summary>

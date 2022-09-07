@@ -224,12 +224,12 @@ public partial class Admin : AdminPage
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         // forum index
-        this.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddRoot();
 
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
     }
 
     /// <summary>

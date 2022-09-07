@@ -139,15 +139,15 @@ public partial class BBCode_Edit : AdminPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
         var strAddEdit = this.BBCodeID == null ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
 
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddAdminIndex();
-        this.PageLinks.AddLink(
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddAdminIndex();
+        this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_BBCODE", "TITLE"),
             this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BBCodes));
-        this.PageLinks.AddLink(string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit), string.Empty);
     }
 }

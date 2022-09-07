@@ -111,10 +111,10 @@ public partial class PrivateMessage : ForumPageRegistered
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
-        this.PageLinks.AddRoot();
-        this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
     }
 
     /// <summary>
@@ -139,20 +139,20 @@ public partial class PrivateMessage : ForumPageRegistered
             // get the return link to the pm listing
             if (this.IsOutbox)
             {
-                this.PageLinks.AddLink(
+                this.PageBoardContext.PageLinks.AddLink(
                     this.GetText("SENTITEMS"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { v = "out" }));
             }
             else if (this.IsArchived)
             {
-                this.PageLinks.AddLink(this.GetText("ARCHIVE"), this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { v = "arch" }));
+                this.PageBoardContext.PageLinks.AddLink(this.GetText("ARCHIVE"), this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { v = "arch" }));
             }
             else
             {
-                this.PageLinks.AddLink(this.GetText("INBOX"), this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages));
+                this.PageBoardContext.PageLinks.AddLink(this.GetText("INBOX"), this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages));
             }
 
-            this.PageLinks.AddLink(message.Subject);
+            this.PageBoardContext.PageLinks.AddLink(message.Subject);
             this.MessageTitle.Text = message.Subject;
 
             this.Inbox.DataSource = messages;

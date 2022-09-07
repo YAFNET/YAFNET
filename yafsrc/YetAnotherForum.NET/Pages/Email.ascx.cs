@@ -83,9 +83,9 @@ public partial class Email : ForumPage
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddUser(this.UserId, user.DisplayOrUserName());
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+            this.PageBoardContext.PageLinks.AddRoot();
+            this.PageBoardContext.PageLinks.AddUser(this.UserId, user.DisplayOrUserName());
+            this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             this.LocalizedLabel6.Param0 = user.DisplayOrUserName();
             this.IconHeader.Param0 = user.DisplayOrUserName();
@@ -95,7 +95,7 @@ public partial class Email : ForumPage
     /// <summary>
     /// Create the Page links.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void CreatePageLinks()
     {
     }
 

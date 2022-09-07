@@ -163,7 +163,7 @@ public partial class Members : ForumPage
         this.ViewState["SortNumPostsField"] = 0;
         this.ViewState["SortLastVisitField"] = 0;
 
-        this.PageLinks.AddRoot().AddLink(this.GetText("TITLE"));
+        this.PageBoardContext.PageLinks.AddRoot().AddLink(this.GetText("TITLE"));
 
         this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"));
         this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"));
