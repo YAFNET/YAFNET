@@ -303,10 +303,9 @@ public partial class MyTopics : ForumPageRegistered
             return;
         }
 
-        this.TopicList.Items.Cast<RepeaterItem>()
-            .Where(item => item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
+        this.TopicList.DataSource.ToType<List<PagedTopic>>()
             .ForEach(
-                item => this.Get<IReadTrackCurrentUser>().SetTopicRead(item.DataItem.ToType<PagedTopic>().TopicID));
+                item => this.Get<IReadTrackCurrentUser>().SetTopicRead(item.TopicID));
 
         // Rebind
         this.BindData();
