@@ -64,6 +64,7 @@ public partial class EditUsersAvatar : BaseUserControl
 
         // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
+
         this.BindData();
     }
 
@@ -239,8 +240,6 @@ public partial class EditUsersAvatar : BaseUserControl
                     $"{this.GetTextFormatted("WARN_BIGFILE", avatarSize)} {this.GetTextFormatted("WARN_FILESIZE", this.File.PostedFile.ContentLength)}",
                     MessageTypes.warning);
             }
-
-            this.BindData();
         }
         catch (Exception exception)
         {
@@ -261,9 +260,7 @@ public partial class EditUsersAvatar : BaseUserControl
     /// </summary>
     private void BindData()
     {
-        var user = this.PageBoardContext.CurrentForumPage.IsAdminPage
-                       ? this.GetRepository<User>().GetById(this.currentUserId)
-                       : this.PageBoardContext.PageUser;
+        var user = this.GetRepository<User>().GetById(this.currentUserId);
 
         this.DeleteAvatar.Visible = false;
         this.NoAvatar.Visible = false;
@@ -279,8 +276,6 @@ public partial class EditUsersAvatar : BaseUserControl
                               {
                                   new(this.GetText("OURAVATAR"), "")
                               };
-
-            //this.GetText("OURAVATAR")
 
             var dir = new DirectoryInfo(
                 this.Get<HttpRequestBase>()
@@ -325,7 +320,7 @@ public partial class EditUsersAvatar : BaseUserControl
                     showNoAvatar = true;
                 }
 
-                this.AvatarImg.ImageUrl = user.Avatar;
+                this.AvatarImg.ImageUrl = $"{user.Avatar}?v={DateTime.Now.Ticks}";
 
                 item.Selected = true;
 
@@ -333,7 +328,7 @@ public partial class EditUsersAvatar : BaseUserControl
             }
             else
             {
-                this.AvatarImg.ImageUrl = user.Avatar;
+                this.AvatarImg.ImageUrl = $"{user.Avatar}?v={DateTime.Now.Ticks}";
                 this.DeleteAvatar.Visible = true;
             }
         }
