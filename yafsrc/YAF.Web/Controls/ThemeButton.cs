@@ -501,14 +501,16 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
 
         if (this.DataToggle.IsSet() && this.DataToggle is "dropdown" or "popover")
         {
-            this.NavigateUrl = "#";
+            // this.NavigateUrl = "#";
         }
-
-        writer.WriteAttribute(
-            "href",
-            this.NavigateUrl.IsSet()
-                ? this.NavigateUrl.Replace("&", "&amp;")
-                : this.Page.ClientScript.GetPostBackClientHyperlink(this, string.Empty));
+        else
+        {
+            writer.WriteAttribute(
+                "href",
+                this.NavigateUrl.IsSet()
+                    ? this.NavigateUrl.Replace("&", "&amp;")
+                    : this.Page.ClientScript.GetPostBackClientHyperlink(this, string.Empty));
+        }
 
         // handle additional attributes (if any)
         if (this.Attributes.Count > 0)
