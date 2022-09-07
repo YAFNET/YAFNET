@@ -16,7 +16,7 @@
             </asp:Label>
         </asp:PlaceHolder>
     </YAF:Themebutton>
-    <div class="dropdown-menu" aria-labelledby="userDropdown">
+    <div class="dropdown-menu dropend" aria-labelledby="userDropdown">
         <asp:PlaceHolder id="MyProfile" runat="server"></asp:PlaceHolder>
         <a href="#" data-bs-toggle="dropdown"
                class="dropdown-item dropdown-submenu dropdown-toggle<%= this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Profile_EditProfile ||
