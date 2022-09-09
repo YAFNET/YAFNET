@@ -178,9 +178,11 @@ public class Resources : IResources, IHaveServiceLocator
                 return;
             }
 
-            // TODO : Cache list
-            var customBbCode = this.GetRepository<BBCode>().GetByBoardId()
-                .Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(e => e.Name).ToList();
+            var customBbCode = this.Get<IDataCache>().GetOrSet(
+                Constants.Cache.CustomBBCode,
+                () => this.GetRepository<BBCode>().GetByBoardId());
+
+            var list = customBbCode.Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(e => e.Name).ToList();
 
             context.Response.Clear();
 
@@ -191,7 +193,7 @@ public class Resources : IResources, IHaveServiceLocator
                 TimeSpan.FromSeconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
             context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
-            context.Response.Write(customBbCode.ToJson());
+            context.Response.Write(list.ToJson());
 
             HttpContext.Current.ApplicationInstance.CompleteRequest();
         }
