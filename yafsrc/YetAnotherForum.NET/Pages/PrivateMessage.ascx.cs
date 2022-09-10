@@ -130,7 +130,7 @@ public partial class PrivateMessage : ForumPageRegistered
         if (!messages.NullOrEmpty())
         {
             messages.ForEach(
-                m => this.GetRepository<UserPMessage>().MarkAsRead(m.PMessageID, new PMessageFlags(m.UserPMFlags)));
+                m => this.GetRepository<UserPMessage>().MarkAsRead(m.PMessageID, new PMessageFlags(m.Flags)));
 
             var message = messages.FirstOrDefault();
 

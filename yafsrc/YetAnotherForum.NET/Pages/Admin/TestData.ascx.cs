@@ -622,7 +622,7 @@ namespace YAF.Pages.Admin
             }
 
             this.GetRepository<UserPMessage>().Get(m => m.UserID == toUser.ID).ForEach(
-                x => this.GetRepository<UserPMessage>().MarkAsRead(x.PMessageID, new PMessageFlags(x.Flags)));
+                x => this.GetRepository<UserPMessage>().MarkAsRead(x));
 
             // Clearing cache with old permissions data...
             this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, toUser.ID));

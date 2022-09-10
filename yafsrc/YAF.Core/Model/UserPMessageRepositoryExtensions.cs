@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Model;
 
+using System;
 using System.Collections.Generic;
 
 using YAF.Types.Constants;
@@ -64,6 +65,33 @@ public static class UserPMessageRepositoryExtensions
     }
 
     /// <summary>
+     /// Mark Private Message as read.
+     /// </summary>
+     /// <param name="repository">
+     /// The repository.
+     /// </param>
+     /// <param name="message">
+     /// The message.
+     /// </param>
+    public static void MarkAsRead(
+        this IRepository<UserPMessage> repository,
+        [NotNull] UserPMessage message)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var flags = message.PMessageFlags;
+
+        if (flags.IsRead)
+        {
+            return;
+        }
+
+        flags.IsRead = true;
+
+        repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, m => m.PMessageID == message.ID);
+    }
+
+    /// <summary>
     /// archive message.
     /// </summary>
     /// <param name="repository">
@@ -87,32 +115,33 @@ public static class UserPMessageRepositoryExtensions
         repository.UpdateOnly(() => new UserPMessage { Flags = messageFlags.BitValue }, m => m.ID == messageId);
     }
 
-    /// <summary>
-    /// Get Messages by To User Id
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="view">
-    /// The view.
-    /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<UserPMessage> List(
         this IRepository<UserPMessage> repository,
         [NotNull] int userId,
         [NotNull] PmView view)
     {
-        CodeContracts.VerifyNotNull(repository);
+        switch (view)
+        {
+            case PmView.Outbox:
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
 
-        return view == PmView.Archive
-                   ? repository.Get(p => p.UserID == userId && (p.Flags & 1) != 1 && (p.Flags & 4) == 4)
-                   : repository.Get(
-                       p => p.UserID == userId && (p.Flags & 1) != 1 && (p.Flags & 8) != 8 && (p.Flags & 4) != 4);
+                expression.Join<PMessage>((a, b) => a.PMessageID == b.ID)
+                    .Where<UserPMessage, PMessage>((a, b) => b.FromUserID == userId && (a.Flags & 2) == 2 && (a.Flags & 4) != 4);
+
+                return repository.DbAccess.Execute(db => db.Connection.Select(expression));
+            }
+            case PmView.Inbox:
+            {
+               return repository.Get(
+                    p => p.UserID == userId && (p.Flags & 8) != 8 && (p.Flags & 4) != 4);
+            }
+            case PmView.Archive:
+                return repository.Get(
+                     p => p.UserID == userId && (p.Flags & 4) == 4);
+            default:
+                throw new ArgumentOutOfRangeException(nameof(view), view, null);
+        }
     }
 
     /// <summary>
@@ -136,36 +165,38 @@ public static class UserPMessageRepositoryExtensions
 
         var message = repository.GetById(userPmMessageId);
 
+        Delete(repository, message, deleteFromOutbox);
+    }
+
+    /// <summary>
+    /// Deletes the Private Message
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="message">
+    /// The user Pm Message.
+    /// </param>
+    /// <param name="deleteFromOutbox">
+    /// The delete From Outbox.
+    /// </param>
+    public static void Delete(
+        this IRepository<UserPMessage> repository,
+        [NotNull] UserPMessage message,
+        [NotNull] bool deleteFromOutbox)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
         var flags = message.PMessageFlags;
 
-        /*if (deleteFromOutbox && message.PMessageFlags.IsInOutbox)
-        {
-            // -- remove IsInOutbox bit which will remove it from the senders outbox
-            flags.IsInOutbox = false;
-
-            repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == userPmMessageId);
-        }
-        else
-        {
-            if (message.PMessageFlags.IsInOutbox && message.PMessageFlags.IsArchived && !message.PMessageFlags.IsDeleted)
-            {
-                // -- The message is in archive but still is in sender outbox
-                flags.IsInOutbox = false;
-                flags.IsArchived = false;
-                flags.IsDeleted = true;
-
-                repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == userPmMessageId);
-            }
-        }*/
-
         flags.IsInOutbox = false;
-        flags.IsArchived = false;
+        flags.IsArchived = deleteFromOutbox;
         flags.IsDeleted = true;
 
-        repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == userPmMessageId);
+        repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == message.ID);
 
         // -- see if there are no longer references to this PM.
-        if (!repository.Exists(p => p.ID == userPmMessageId && (p.Flags & 2) != 2 && (p.Flags & 8) == 8))
+        if (!repository.Exists(p => p.ID == message.ID && (p.Flags & 2) != 2 && (p.Flags & 8) == 8))
         {
             return;
         }

@@ -152,17 +152,16 @@ public partial class PMList : BaseUserControl
     {
         long itemCount = 0;
 
+        var messages = this.GetRepository<UserPMessage>().List(this.PageBoardContext.PageUserID, View);
+
         switch (this.View)
         {
             case PmView.Inbox:
                 {
-                    var messages = this.GetRepository<UserPMessage>().Get(
-                        p => p.UserID == this.PageBoardContext.PageUserID && (p.Flags & 8) != 8 && (p.Flags & 4) != 4);
-
-                    messages.ForEach(
+                   messages.ForEach(
                         item =>
                             {
-                                this.GetRepository<UserPMessage>().Delete(item.ID, false);
+                                this.GetRepository<UserPMessage>().Delete(item, false);
 
                                 itemCount++;
                             });
@@ -170,9 +169,6 @@ public partial class PMList : BaseUserControl
                 }
             case PmView.Outbox:
                 {
-                    var messages = this.GetRepository<PMessage>().Get(
-                        p => p.FromUserID == this.PageBoardContext.PageUserID && (p.Flags & 2) == 2 && (p.Flags & 4) != 4);
-
                     messages.ForEach(
                         item =>
                             {
@@ -184,9 +180,6 @@ public partial class PMList : BaseUserControl
                 }
             case PmView.Archive:
                 {
-                    var messages = this.GetRepository<UserPMessage>().Get(
-                        p => p.UserID == this.PageBoardContext.PageUserID && (p.Flags & 4) == 4);
-
                     messages.ForEach(
                         item =>
                             {
@@ -374,7 +367,7 @@ public partial class PMList : BaseUserControl
         messages.ForEach(
             item =>
                 {
-                    this.GetRepository<UserPMessage>().MarkAsRead(item.ID, new PMessageFlags(item.Flags));
+                    this.GetRepository<UserPMessage>().MarkAsRead(item);
 
                     // Clearing cache with old permissions data...
                     this.ClearCache();
