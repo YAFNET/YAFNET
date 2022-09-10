@@ -441,9 +441,19 @@ public static class PMessageRepositoryExtensions
                     return db.Connection.Select<PagedPm>(expression);
                 });
 
-        return includeReplies
-                   ? repository.GetReplies(messages).OrderBy(m => m.Created).ToList()
-                   : messages.OrderBy(m => m.Created).ToList();
+        if (!includeReplies)
+        {
+            return messages.OrderBy(m => m.Created).ToList();
+        }
+
+        try
+        {
+            return repository.GetReplies(messages).OrderBy(m => m.Created).ToList();
+        }
+        catch (Exception)
+        {
+            return messages.OrderBy(m => m.Created).ToList();
+        }
     }
 
     /// <summary>
