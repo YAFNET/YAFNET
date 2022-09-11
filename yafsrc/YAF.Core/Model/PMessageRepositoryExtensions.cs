@@ -7,6 +7,7 @@ using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
+using static YAF.Lucene.Net.Util.Fst.Util;
 
 /// <summary>
 /// The PMessage Repository Extensions
@@ -437,22 +438,12 @@ public static class PMessageRepositoryExtensions
 
         if (messages.NullOrEmpty())
         {
-            return null;
+            return new List<PagedPm>();
         }
 
-        if (!includeReplies)
-        {
-            return messages.OrderBy(m => m.Created).ToList();
-        }
-
-        try
-        {
-            return repository.GetReplies(messages).OrderBy(m => m.Created).ToList();
-        }
-        catch (Exception)
-        {
-            return messages.OrderBy(m => m.Created).ToList();
-        }
+        return !includeReplies
+                   ? messages.OrderBy(m => m.Created).ToList()
+                   : repository.GetReplies(messages).OrderBy(m => m.Created).ToList();
     }
 
     /// <summary>
