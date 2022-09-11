@@ -253,6 +253,8 @@ public partial class EditUsersAvatar : BaseUserControl
             // image is probably invalid...
             this.PageBoardContext.Notify(this.GetText("EDIT_AVATAR", "INVALID_FILE"), MessageTypes.danger);
         }
+
+        this.BindData();
     }
 
     /// <summary>
