@@ -47,7 +47,6 @@ public static class PmViewConverter
             {
                 "out" => PmView.Outbox,
                 "in" => PmView.Inbox,
-                "arch" => PmView.Archive,
                 _ => PmView.Inbox
             };
     }
@@ -66,7 +65,6 @@ public static class PmViewConverter
             {
                 PmView.Outbox => "out",
                 PmView.Inbox => "in",
-                PmView.Archive => "arch",
                 _ => null
             };
     }

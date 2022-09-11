@@ -91,30 +91,6 @@ public static class UserPMessageRepositoryExtensions
         repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, m => m.PMessageID == message.ID);
     }
 
-    /// <summary>
-    /// archive message.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="messageId">
-    /// The message Id.
-    /// </param>
-    /// <param name="messageFlags">
-    /// The message Flags.
-    /// </param>
-    public static void Archive(
-        this IRepository<UserPMessage> repository,
-        [NotNull] int messageId,
-        [NotNull] PMessageFlags messageFlags)
-    {
-        CodeContracts.VerifyNotNull(repository);
-
-        messageFlags.IsArchived = true;
-
-        repository.UpdateOnly(() => new UserPMessage { Flags = messageFlags.BitValue }, m => m.ID == messageId);
-    }
-
     public static List<UserPMessage> List(
         this IRepository<UserPMessage> repository,
         [NotNull] int userId,
@@ -127,18 +103,15 @@ public static class UserPMessageRepositoryExtensions
                 var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
 
                 expression.Join<PMessage>((a, b) => a.PMessageID == b.ID)
-                    .Where<UserPMessage, PMessage>((a, b) => b.FromUserID == userId && (a.Flags & 2) == 2 && (a.Flags & 4) != 4);
+                    .Where<UserPMessage, PMessage>((a, b) => b.FromUserID == userId && (a.Flags & 2) == 2);
 
                 return repository.DbAccess.Execute(db => db.Connection.Select(expression));
             }
             case PmView.Inbox:
             {
                return repository.Get(
-                    p => p.UserID == userId && (p.Flags & 8) != 8 && (p.Flags & 4) != 4);
+                    p => p.UserID == userId && (p.Flags & 8) != 8);
             }
-            case PmView.Archive:
-                return repository.Get(
-                     p => p.UserID == userId && (p.Flags & 4) == 4);
             default:
                 throw new ArgumentOutOfRangeException(nameof(view), view, null);
         }
@@ -190,7 +163,6 @@ public static class UserPMessageRepositoryExtensions
         var flags = message.PMessageFlags;
 
         flags.IsInOutbox = false;
-        flags.IsArchived = deleteFromOutbox;
         flags.IsDeleted = true;
 
         repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == message.ID);

@@ -108,8 +108,7 @@ public static class PMessageRepositoryExtensions
         var countOutBoxExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
 
         countOutBoxExpression.Join<PMessage>((a, b) => a.PMessageID == b.ID).Where<UserPMessage, PMessage>(
-            (a, b) => (a.Flags & 2) == 2 && (a.Flags & 8) != 8 && (a.Flags & 4) != 4 &&
-                      b.FromUserID == userId);
+            (a, b) => (a.Flags & 2) == 2 && (a.Flags & 8) != 8 && b.FromUserID == userId);
 
         var numberOut = repository.DbAccess.Execute(db => db.Connection.Count(countOutBoxExpression)).ToType<int>();
 
@@ -117,7 +116,7 @@ public static class PMessageRepositoryExtensions
         var countInBoxExpression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();
 
         countInBoxExpression.Join<UserPMessage>((a, b) => b.PMessageID == a.ID).Where<PMessage, UserPMessage>(
-            (a, b) => (b.Flags & 8) != 8 && (b.Flags & 4) != 4 && b.UserID == userId);
+            (a, b) => (b.Flags & 8) != 8 && b.UserID == userId);
 
         var numberIn = repository.DbAccess.Execute(db => db.Connection.Count(countInBoxExpression)).ToType<int>();
 
@@ -201,7 +200,7 @@ public static class PMessageRepositoryExtensions
         {
             // Get all board users
             var users = BoardContext.Current.GetRepository<User>().Get(
-                u => u.BoardID == repository.BoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4);
+                u => u.BoardID == repository.BoardID && (u.Flags & 2) == 2);
 
             users.ForEach(
                 u => BoardContext.Current.GetRepository<UserPMessage>().Insert(
@@ -262,14 +261,11 @@ public static class PMessageRepositoryExtensions
                     {
                         case PmView.Inbox:
                             expression.Where<UserPMessage>(
-                                b => b.UserID == userId && (b.Flags & 4) != 4 && (b.Flags & 8) != 8);
+                                b => b.UserID == userId && (b.Flags & 8) != 8);
                             break;
                         case PmView.Outbox:
                             expression.Where<PMessage, UserPMessage>(
-                                (a, b) => a.FromUserID == userId && (b.Flags & 4) != 4 && (b.Flags & 2) == 2);
-                            break;
-                        case PmView.Archive:
-                            expression.Where<UserPMessage>(b => b.UserID == userId && (b.Flags & 4) == 4);
+                                (a, b) => a.FromUserID == userId && (b.Flags & 2) == 2);
                             break;
                     }
 
@@ -353,7 +349,6 @@ public static class PMessageRepositoryExtensions
                                                 IsRead = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&1")})"),
                                                 b.IsReply,
                                                 IsInOutbox = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&2")})"),
-                                                IsArchived = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&4")})"),
                                                 IsDeleted = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&8")})")
                                             });
 
@@ -434,7 +429,6 @@ public static class PMessageRepositoryExtensions
                                                     IsRead = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&1")})"),
                                                     b.IsReply,
                                                     IsInOutbox = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&2")})"),
-                                                    IsArchived = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&4")})"),
                                                     IsDeleted = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&8")})")
                                                 });
 
@@ -553,7 +547,6 @@ public static class PMessageRepositoryExtensions
                                                     a.Flags,
                                                     b.IsReply,
                                                     IsInOutbox = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&2")})"),
-                                                    IsArchived = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&4")})"),
                                                     IsDeleted = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&8")})")
                                                 });
 

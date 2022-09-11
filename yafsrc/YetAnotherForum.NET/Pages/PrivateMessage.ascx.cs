@@ -42,11 +42,6 @@ public partial class PrivateMessage : ForumPageRegistered
     }
 
     /// <summary>
-    ///   Gets or sets a value indicating whether IsArchived.
-    /// </summary>
-    protected bool IsArchived { get; set; }
-
-    /// <summary>
     ///   Gets or sets a value indicating whether IsOutbox.
     /// </summary>
     protected bool IsOutbox { get; set; }
@@ -134,7 +129,7 @@ public partial class PrivateMessage : ForumPageRegistered
 
             var message = messages.FirstOrDefault();
 
-            this.SetMessageView(message.FromUserID, message.ToUserID, message.IsInOutbox, message.IsArchived);
+            this.SetMessageView(message.FromUserID, message.ToUserID, message.IsInOutbox);
 
             // get the return link to the pm listing
             if (this.IsOutbox)
@@ -142,10 +137,6 @@ public partial class PrivateMessage : ForumPageRegistered
                 this.PageBoardContext.PageLinks.AddLink(
                     this.GetText("SENTITEMS"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { v = "out" }));
-            }
-            else if (this.IsArchived)
-            {
-                this.PageBoardContext.PageLinks.AddLink(this.GetText("ARCHIVE"), this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { v = "arch" }));
             }
             else
             {
@@ -184,14 +175,10 @@ public partial class PrivateMessage : ForumPageRegistered
     /// <param name="messageIsInOutbox">
     /// Indicating whether the message is in the sender's outbox
     /// </param>
-    /// <param name="messageIsArchived">
-    /// The message Is Archived.
-    /// </param>
     private void SetMessageView(
         [NotNull] int fromUserId,
         [NotNull] int toUserId,
-        bool messageIsInOutbox,
-        bool messageIsArchived)
+        bool messageIsInOutbox)
     {
         var isCurrentUserFrom = fromUserId.Equals(this.PageBoardContext.PageUserID);
         var isCurrentUserTo = toUserId.Equals(this.PageBoardContext.PageUserID);
@@ -201,16 +188,11 @@ public partial class PrivateMessage : ForumPageRegistered
         {
             // it is... handle the view based on the query string passed
             this.IsOutbox = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v") == "out";
-            this.IsArchived = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v") == "arch";
 
             // see if the message got deleted, if so, redirect to their outbox/archive
             if (this.IsOutbox && !messageIsInOutbox)
             {
                 this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, new { v = "out" });
-            }
-            else if (this.IsArchived && !messageIsArchived)
-            {
-                this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, new { v = "arch" });
             }
         }
         else if (isCurrentUserFrom)
@@ -230,7 +212,6 @@ public partial class PrivateMessage : ForumPageRegistered
         else if (isCurrentUserTo)
         {
             // get the status for the receiver
-            this.IsArchived = messageIsArchived;
             this.IsOutbox = false;
         }
         else

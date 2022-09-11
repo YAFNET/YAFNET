@@ -130,24 +130,6 @@
                                  Icon="eye"/>
             </div>
             <div class="btn-group me-2 mb-1" role="group">
-                <YAF:ThemeButton runat="server" ID="ArchiveSelected" 
-                                 Size="Small"
-                                 TextLocalizedTag="ARCHIVESELECTED" 
-                                 TitleLocalizedTag="ARCHIVESELECTED" 
-                                 DataToggle="tooltip"
-                                 OnClick="ArchiveSelected_Click"
-                                 Type="Secondary"
-                                 Icon="archive" />
-                <YAF:ThemeButton runat="server" ID="ArchiveAll" 
-                                 Size="Small"
-                                 TextLocalizedTag="ARCHIVEALL" 
-                                 TitleLocalizedTag="ARCHIVEALL" 
-                                 DataToggle="tooltip"
-                                 ReturnConfirmText='<%#this.GetText("CONFIRM_ARCHIVEALL") %>'
-                                 OnClick="ArchiveAll_Click"
-                                 Type="Secondary" Icon="archive" />
-            </div>
-            <div class="btn-group me-2 mb-1" role="group">
                 <YAF:ThemeButton runat="server" ID="ExportSelected" 
                                  Size="Small"
                                  TextLocalizedTag="EXPORTSELECTED" 

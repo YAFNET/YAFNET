@@ -37,10 +37,5 @@ public enum PmView
     /// <summary>
     ///   The outbox.
     /// </summary>
-    Outbox = 1,
-
-    /// <summary>
-    ///   The archive.
-    /// </summary>
-    Archive = 2
+    Outbox = 1
 }

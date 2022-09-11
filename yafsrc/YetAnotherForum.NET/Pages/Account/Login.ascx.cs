@@ -62,7 +62,8 @@ public partial class Login : AccountPage
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (this.Get<HttpRequestBase>().QueryString.Exists("auth"))
+        if (this.Get<HttpRequestBase>().QueryString.Exists("auth")
+            && this.PageBoardContext.BoardSettings.AllowSingleSignOn)
         {
             this.HandleExternalLogin();
         }

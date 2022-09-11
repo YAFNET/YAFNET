@@ -93,7 +93,7 @@ public partial class MyMessages : ForumPageRegistered
 
         if (count != null)
         {
-            this.InfoInbox.Text = this.InfoArchive.Text = this.InfoOutbox.Text = this.GetPMessageText(
+            this.InfoInbox.Text = this.InfoOutbox.Text = this.GetPMessageText(
                                                               "PMLIMIT_ALL",
                                                               count.NumberTotal,
                                                               count.InboxCount,

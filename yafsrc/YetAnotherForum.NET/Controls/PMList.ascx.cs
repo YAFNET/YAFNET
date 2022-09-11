@@ -58,68 +58,6 @@ public partial class PMList : BaseUserControl
     }
 
     /// <summary>
-    /// Archive All messages
-    /// </summary>
-    /// <param name="source">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void ArchiveAll_Click([NotNull] object source, [NotNull] EventArgs e)
-    {
-        long archivedCount = 0;
-        var messages = this.GetRepository<UserPMessage>().Get(
-            p => p.UserID == this.PageBoardContext.PageUserID && (p.Flags & 8) != 8 && (p.Flags & 4) != 4);
-
-        messages.ForEach(
-            item =>
-                {
-                    this.GetRepository<UserPMessage>().Archive(item.ID, new PMessageFlags(item.Flags));
-                    archivedCount++;
-                });
-
-        this.ClearCache();
-
-        this.PageBoardContext.LoadMessage.AddSession(
-            this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
-            MessageTypes.success);
-
-        this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, new { v = PmViewConverter.ToQueryStringParam(this.View) });
-    }
-
-    /// <summary>
-    /// The archive selected_ click.
-    /// </summary>
-    /// <param name="source">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void ArchiveSelected_Click([NotNull] object source, [NotNull] EventArgs e)
-    {
-        long archivedCount = 0;
-
-        this.Messages.Items.Cast<RepeaterItem>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
-            .ForEach(
-                item =>
-                    {
-                        var messageId = item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>();
-
-                        var message = this.GetRepository<UserPMessage>().GetById(messageId);
-
-                        this.GetRepository<UserPMessage>().Archive(message.ID, new PMessageFlags(message.Flags));
-
-                        archivedCount++;
-                    });
-
-        this.ClearCache();
-
-        this.PageBoardContext.LoadMessage.AddSession(
-            archivedCount == 1
-                ? this.GetText("MSG_ARCHIVED")
-                : this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
-            MessageTypes.success);
-
-        this.Get<LinkBuilder>().Redirect(
-            ForumPages.MyMessages,
-            new { v = PmViewConverter.ToQueryStringParam(this.View) });
-    }
-
-    /// <summary>
     /// Sort By Date
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -150,8 +88,6 @@ public partial class PMList : BaseUserControl
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     protected void DeleteAll_Click([NotNull] object source, [NotNull] EventArgs e)
     {
-        long itemCount = 0;
-
         var messages = this.GetRepository<UserPMessage>().List(this.PageBoardContext.PageUserID, View);
 
         switch (this.View)
@@ -162,8 +98,6 @@ public partial class PMList : BaseUserControl
                         item =>
                             {
                                 this.GetRepository<UserPMessage>().Delete(item, false);
-
-                                itemCount++;
                             });
                     break;
                 }
@@ -172,20 +106,7 @@ public partial class PMList : BaseUserControl
                     messages.ForEach(
                         item =>
                             {
-                                this.GetRepository<UserPMessage>().Delete(item.ID, true);
-
-                                itemCount++;
-                            });
-                    break;
-                }
-            case PmView.Archive:
-                {
-                    messages.ForEach(
-                        item =>
-                            {
-                                this.GetRepository<UserPMessage>().Delete(item.ID, false);
-
-                                itemCount++;
+                               this.GetRepository<UserPMessage>().Delete(item.ID, true);
                             });
                     break;
                 }
@@ -194,7 +115,7 @@ public partial class PMList : BaseUserControl
         this.ClearCache();
 
         this.PageBoardContext.LoadMessage.AddSession(
-            this.GetTextFormatted("msgdeleted2", itemCount),
+            this.GetTextFormatted("msgdeleted2", ""),
             MessageTypes.success);
 
 
@@ -425,7 +346,6 @@ public partial class PMList : BaseUserControl
             {
                 PmView.Inbox => this.GetText("PM", "INBOX"),
                 PmView.Outbox => this.GetText("PM", "SENTITEMS"),
-                PmView.Archive => this.GetText("PM", "ARCHIV"),
                 _ => this.GetText("PM", "INBOX")
             };
     }
@@ -507,25 +427,13 @@ public partial class PMList : BaseUserControl
                     {
                         case PmView.Inbox:
                             {
-                                if (!item.IsArchived)
-                                {
-                                    messageList.Add(item);
-                                }
+                                messageList.Add(item);
                             }
 
                             break;
                         case PmView.Outbox:
                             {
                                 if (item.IsInOutbox)
-                                {
-                                    messageList.Add(item);
-                                }
-                            }
-
-                            break;
-                        case PmView.Archive:
-                            {
-                                if (item.IsArchived)
                                 {
                                     messageList.Add(item);
                                 }

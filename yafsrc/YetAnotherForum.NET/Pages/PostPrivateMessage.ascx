@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PostPrivateMessage" Codebehind="PostPrivateMessage.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PostPrivateMessage" Codebehind="PostPrivateMessage.ascx.cs" %>
 
 <%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../Dialogs/AttachmentsUpload.ascx" %>
 
@@ -32,8 +32,7 @@
                         <YAF:MessagePost ID="PreviewMessagePost" runat="server" />
                     </div>
                 </asp:PlaceHolder>
-                <asp:PlaceHolder id="ToRow" runat="server">
-                    <div class="mb-3">
+                <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="To">
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                 LocalizedTag="to" />
@@ -78,7 +77,6 @@
                             <asp:Label ID="MultiReceiverInfo" runat="server" />
                         </YAF:Alert>
                     </div>
-                </asp:PlaceHolder>
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="PmSubjectTextBox">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
