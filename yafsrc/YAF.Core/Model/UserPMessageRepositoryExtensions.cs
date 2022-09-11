@@ -110,7 +110,7 @@ public static class UserPMessageRepositoryExtensions
             case PmView.Inbox:
             {
                return repository.Get(
-                    p => p.UserID == userId && (p.Flags & 8) != 8);
+                    p => p.UserID == userId && (p.Flags & 8) != 8 && (p.Flags & 2) != 2);
             }
             default:
                 throw new ArgumentOutOfRangeException(nameof(view), view, null);
@@ -126,7 +126,7 @@ public static class UserPMessageRepositoryExtensions
     /// <param name="userPmMessageId">
     /// The user Pm Message Id.
     /// </param>
-    public static int Delete(
+    public static long Delete(
         this IRepository<UserPMessage> repository,
         [NotNull] int userPmMessageId)
     {

@@ -92,27 +92,11 @@ public partial class PMList : BaseUserControl
 
         var deleteCount = 0;
 
-        switch (this.View)
-        {
-            case PmView.Inbox:
-                {
-                   messages.ForEach(
-                        item =>
-                            {
-                                deleteCount = this.GetRepository<UserPMessage>().Delete(item);
-                            });
-                    break;
-                }
-            case PmView.Outbox:
-                {
-                    messages.ForEach(
-                        item =>
-                            {
-                                deleteCount = this.GetRepository<UserPMessage>().Delete(item);
-                            });
-                    break;
-                }
-        }
+        messages.ForEach(
+            item =>
+            {
+                deleteCount += this.GetRepository<UserPMessage>().Delete(item);
+            });
 
         this.ClearCache();
 
