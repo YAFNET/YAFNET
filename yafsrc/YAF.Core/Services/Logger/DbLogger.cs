@@ -23,6 +23,9 @@
  */
 namespace YAF.Core.Services.Logger;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -130,18 +133,27 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
             return;
         }
 
-        var exceptionDescription = string.Empty;
-
-        if (exception != null)
-        {
-            exceptionDescription = exception.ToString();
-        }
-
         var userIp = HttpContext.Current != null ? HttpContext.Current.Request.GetUserRealIPAddress() : string.Empty;
 
-        var formattedDescription = HttpContext.Current != null
-                                       ? $"{message} (User-IP: {userIp} | URL:'{HttpContext.Current.Request.Url}')\r\n{exceptionDescription}"
-                                       : $"{message}\r\n{exceptionDescription}";
+
+        var values = new JObject
+                     {
+                         ["Message"] = message,
+                         ["UserIP"] = userIp,
+                         ["Url"] = HttpContext.Current.Request.Url,
+                         ["ExceptionMessage"] = exception?.Message,
+                         ["ExceptionStackTrace"] = exception?.StackTrace,
+                         ["ExceptionSource"] = exception?.Source
+                     };
+
+        var formattedDescription = JsonConvert.SerializeObject(
+            values,
+            new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                DefaultValueHandling = DefaultValueHandling.Ignore,
+                Formatting = Formatting.None
+            });
 
         if (source.IsNotSet())
         {

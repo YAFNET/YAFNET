@@ -24,6 +24,7 @@
 namespace YAF.Pages.Admin;
 
 using FarsiLibrary.Utils;
+using Newtonsoft.Json;
 using YAF.Core.Utilities.StringUtils;
 using YAF.Web.Controls;
 
@@ -160,7 +161,25 @@ public partial class EventLog : AdminPage
 
     protected string FormatStackTrace(string input)
     {
-        return this.beautify.Beautify(this.HtmlEncode(input));
+        try
+        {
+            dynamic json = JsonConvert.DeserializeObject(input);
+
+            try
+            {
+                return @$"<h6 class=""card-subtitle"">{json.Message}</h6><span class=""badge bg-info me-2""><i class=""fa-solid fa-desktop""></i> {json.UserIP}</span>
+                         <span class=""badge bg-secondary me-2""><i class=""fa-solid fa-globe""></i> {json.Url}</span><span class=""badge text-bg-light""><i class=""fa-solid fa-code""></i> {json.ExceptionSource}</span><div>{json.ExceptionMessage}</div>
+                         <div>{this.beautify.Beautify(this.HtmlEncode(json.ExceptionStackTrace.ToString()))}</div>";
+            }
+            catch (Exception)
+            {
+                return this.beautify.Beautify(this.HtmlEncode(input));
+            }
+        }
+        catch (JsonReaderException)
+        {
+            return this.beautify.Beautify(this.HtmlEncode(input));
+        }
     }
 
     /// <summary>
