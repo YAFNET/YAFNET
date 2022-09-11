@@ -200,7 +200,7 @@ public static class PMessageRepositoryExtensions
         {
             // Get all board users
             var users = BoardContext.Current.GetRepository<User>().Get(
-                u => u.BoardID == repository.BoardID && (u.Flags & 2) == 2);
+                u => u.BoardID == repository.BoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4);
 
             users.ForEach(
                 u => BoardContext.Current.GetRepository<UserPMessage>().Insert(
