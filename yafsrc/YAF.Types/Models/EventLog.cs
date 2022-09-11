@@ -77,8 +77,11 @@ public class EventLog : IEntity, IHaveID
     [Ignore]
     public EventLogTypes EventType
     {
-        get => this.Type.ToType<EventLogTypes>();
+        get => this.Type.ToEnum<EventLogTypes>();
 
-        set => this.Type = (int)value;
+        set => this.Type = value.ToInt();
     }
+
+    [Ignore]
+    public Exception Exception { get; set; }
 }

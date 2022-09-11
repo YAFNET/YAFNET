@@ -129,7 +129,7 @@ public static class UserPMessageRepositoryExtensions
     /// <param name="deleteFromOutbox">
     /// The delete From Outbox.
     /// </param>
-    public static void Delete(
+    public static int Delete(
         this IRepository<UserPMessage> repository,
         [NotNull] int userPmMessageId,
         [NotNull] bool deleteFromOutbox)
@@ -138,7 +138,7 @@ public static class UserPMessageRepositoryExtensions
 
         var message = repository.GetById(userPmMessageId);
 
-        Delete(repository, message, deleteFromOutbox);
+        return Delete(repository, message, deleteFromOutbox);
     }
 
     /// <summary>
@@ -153,7 +153,7 @@ public static class UserPMessageRepositoryExtensions
     /// <param name="deleteFromOutbox">
     /// The delete From Outbox.
     /// </param>
-    public static void Delete(
+    public static int Delete(
         this IRepository<UserPMessage> repository,
         [NotNull] UserPMessage message,
         [NotNull] bool deleteFromOutbox)
@@ -170,10 +170,12 @@ public static class UserPMessageRepositoryExtensions
         // -- see if there are no longer references to this PM.
         if (!repository.Exists(p => p.ID == message.ID && (p.Flags & 2) != 2 && (p.Flags & 8) == 8))
         {
-            return;
+            return 0;
         }
 
-        repository.Delete(p => p.PMessageID == message.PMessageID);
+        var deleteCount = repository.Delete(p => p.PMessageID == message.PMessageID);
         BoardContext.Current.GetRepository<PMessage>().DeleteById(message.PMessageID);
+
+        return deleteCount;
     }
 }

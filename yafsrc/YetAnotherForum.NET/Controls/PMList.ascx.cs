@@ -90,6 +90,8 @@ public partial class PMList : BaseUserControl
     {
         var messages = this.GetRepository<UserPMessage>().List(this.PageBoardContext.PageUserID, View);
 
+        var deleteCount = 0;
+
         switch (this.View)
         {
             case PmView.Inbox:
@@ -97,7 +99,7 @@ public partial class PMList : BaseUserControl
                    messages.ForEach(
                         item =>
                             {
-                                this.GetRepository<UserPMessage>().Delete(item, false);
+                                deleteCount = this.GetRepository<UserPMessage>().Delete(item, false);
                             });
                     break;
                 }
@@ -106,7 +108,7 @@ public partial class PMList : BaseUserControl
                     messages.ForEach(
                         item =>
                             {
-                               this.GetRepository<UserPMessage>().Delete(item.ID, true);
+                                deleteCount = this.GetRepository<UserPMessage>().Delete(item, true);
                             });
                     break;
                 }
@@ -115,7 +117,7 @@ public partial class PMList : BaseUserControl
         this.ClearCache();
 
         this.PageBoardContext.LoadMessage.AddSession(
-            this.GetTextFormatted("msgdeleted2", ""),
+            this.GetTextFormatted("msgdeleted2", deleteCount),
             MessageTypes.success);
 
 
@@ -143,11 +145,9 @@ public partial class PMList : BaseUserControl
         selectedMessages.ForEach(
             item =>
                 {
-                    this.GetRepository<UserPMessage>().Delete(
+                    itemCount = this.GetRepository<UserPMessage>().Delete(
                         item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>(),
                         this.View == PmView.Outbox);
-
-                    itemCount++;
                 });
 
         this.ClearCache();
