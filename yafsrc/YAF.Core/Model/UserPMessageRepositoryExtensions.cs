@@ -126,19 +126,15 @@ public static class UserPMessageRepositoryExtensions
     /// <param name="userPmMessageId">
     /// The user Pm Message Id.
     /// </param>
-    /// <param name="deleteFromOutbox">
-    /// The delete From Outbox.
-    /// </param>
     public static int Delete(
         this IRepository<UserPMessage> repository,
-        [NotNull] int userPmMessageId,
-        [NotNull] bool deleteFromOutbox)
+        [NotNull] int userPmMessageId)
     {
         CodeContracts.VerifyNotNull(repository);
 
         var message = repository.GetById(userPmMessageId);
 
-        return Delete(repository, message, deleteFromOutbox);
+        return Delete(repository, message);
     }
 
     /// <summary>
@@ -150,13 +146,9 @@ public static class UserPMessageRepositoryExtensions
     /// <param name="message">
     /// The user Pm Message.
     /// </param>
-    /// <param name="deleteFromOutbox">
-    /// The delete From Outbox.
-    /// </param>
     public static int Delete(
         this IRepository<UserPMessage> repository,
-        [NotNull] UserPMessage message,
-        [NotNull] bool deleteFromOutbox)
+        [NotNull] UserPMessage message)
     {
         CodeContracts.VerifyNotNull(repository);
 

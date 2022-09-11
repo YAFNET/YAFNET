@@ -99,7 +99,7 @@ public partial class PMList : BaseUserControl
                    messages.ForEach(
                         item =>
                             {
-                                deleteCount = this.GetRepository<UserPMessage>().Delete(item, false);
+                                deleteCount = this.GetRepository<UserPMessage>().Delete(item);
                             });
                     break;
                 }
@@ -108,7 +108,7 @@ public partial class PMList : BaseUserControl
                     messages.ForEach(
                         item =>
                             {
-                                deleteCount = this.GetRepository<UserPMessage>().Delete(item, true);
+                                deleteCount = this.GetRepository<UserPMessage>().Delete(item);
                             });
                     break;
                 }
@@ -146,8 +146,7 @@ public partial class PMList : BaseUserControl
             item =>
                 {
                     itemCount = this.GetRepository<UserPMessage>().Delete(
-                        item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>(),
-                        this.View == PmView.Outbox);
+                        item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>());
                 });
 
         this.ClearCache();

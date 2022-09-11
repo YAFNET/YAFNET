@@ -378,7 +378,7 @@ public static class PMessageRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="userPMessageID">
+    /// <param name="userPMessageId">
     /// The user Private Message ID.
     /// </param>
     /// <param name="includeReplies">
@@ -389,7 +389,7 @@ public static class PMessageRepositoryExtensions
     /// </returns>
     public static List<PagedPm> List(
         this IRepository<PMessage> repository,
-        [NotNull] int userPMessageID,
+        [NotNull] int userPMessageId,
         [NotNull] bool includeReplies)
     {
         CodeContracts.VerifyNotNull(repository);
@@ -402,7 +402,7 @@ public static class PMessageRepositoryExtensions
                     expression.Join<UserPMessage>((a, b) => a.ID == b.PMessageID)
                         .Join<UserPMessage, User>((b, c) => b.UserID == Sql.TableAlias(c.ID, "c"), db.Connection.TableAlias("c"))
                         .Join<User>((a, d) => a.FromUserID == Sql.TableAlias(d.ID, "d"), db.Connection.TableAlias("d"))
-                        .Where<UserPMessage>(b => b.ID == userPMessageID).OrderBy<PMessage>(a => a.Created)
+                        .Where<UserPMessage>(b => b.ID == userPMessageId).OrderBy<PMessage>(a => a.Created)
                         .Select<PMessage, UserPMessage, User, User>(
                             (a, b, c, d) => new
                                                 {
@@ -435,6 +435,11 @@ public static class PMessageRepositoryExtensions
                     return db.Connection.Select<PagedPm>(expression);
                 });
 
+        if (messages.NullOrEmpty())
+        {
+            return null;
+        }
+
         if (!includeReplies)
         {
             return messages.OrderBy(m => m.Created).ToList();
@@ -465,7 +470,7 @@ public static class PMessageRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
-        if (!messages.Any())
+        if (!messages.NullOrEmpty())
         {
             return messages;
         }
