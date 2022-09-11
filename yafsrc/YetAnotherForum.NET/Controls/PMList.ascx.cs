@@ -95,13 +95,13 @@ public partial class PMList : BaseUserControl
         messages.ForEach(
             item =>
             {
-                deleteCount += this.GetRepository<UserPMessage>().Delete(item);
+                deleteCount += this.GetRepository<UserPMessage>().Delete(item, this.View == PmView.Outbox);
             });
 
         this.ClearCache();
 
         this.PageBoardContext.LoadMessage.AddSession(
-            this.GetTextFormatted("msgdeleted2", deleteCount),
+            this.GetTextFormatted("msgdeleted2", this.View == PmView.Outbox ? deleteCount : messages.Count),
             MessageTypes.success);
 
 

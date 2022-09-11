@@ -7,7 +7,6 @@ using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
-using static YAF.Lucene.Net.Util.Fst.Util;
 
 /// <summary>
 /// The PMessage Repository Extensions

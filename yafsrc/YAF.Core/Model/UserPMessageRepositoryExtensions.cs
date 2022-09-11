@@ -109,8 +109,12 @@ public static class UserPMessageRepositoryExtensions
             }
             case PmView.Inbox:
             {
-               return repository.Get(
-                    p => p.UserID == userId && (p.Flags & 8) != 8 && (p.Flags & 2) != 2);
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
+
+                expression.Join<PMessage>((a, b) => a.PMessageID == b.ID)
+                    .Where<UserPMessage, PMessage>((a, b) => a.UserID == userId && (b.Flags & 8) != 8);
+
+                return repository.DbAccess.Execute(db => db.Connection.Select(expression));
             }
             default:
                 throw new ArgumentOutOfRangeException(nameof(view), view, null);
@@ -134,7 +138,7 @@ public static class UserPMessageRepositoryExtensions
 
         var message = repository.GetById(userPmMessageId);
 
-        return Delete(repository, message);
+        return Delete(repository, message, message.PMessageFlags.IsInOutbox);
     }
 
     /// <summary>
@@ -146,27 +150,39 @@ public static class UserPMessageRepositoryExtensions
     /// <param name="message">
     /// The user Pm Message.
     /// </param>
+    /// <param name="deleteFromOutbox">
+    /// Delete From Outbox?
+    /// </param>
     public static int Delete(
         this IRepository<UserPMessage> repository,
-        [NotNull] UserPMessage message)
+        [NotNull] UserPMessage message,
+        bool deleteFromOutbox)
     {
         CodeContracts.VerifyNotNull(repository);
 
         var flags = message.PMessageFlags;
 
-        flags.IsInOutbox = false;
         flags.IsDeleted = true;
 
-        repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == message.ID);
-
-        // -- see if there are no longer references to this PM.
-        if (!repository.Exists(p => p.ID == message.ID && (p.Flags & 2) != 2 && (p.Flags & 8) == 8))
+        if (deleteFromOutbox && message.PMessageFlags.IsInOutbox)
         {
-            return 0;
+            flags.IsInOutbox = false;
+
+            // -- remove IsInOutbox bit which will remove it from the senders outbox
+            repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == message.ID);
         }
 
-        var deleteCount = repository.Delete(p => p.PMessageID == message.PMessageID);
-        BoardContext.Current.GetRepository<PMessage>().DeleteById(message.PMessageID);
+        // -- set is deleted...
+        repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == message.ID);
+
+        var deleteCount = 0;
+
+        // -- see if there are no longer references to this PM.
+        if (repository.Exists(p => p.ID == message.ID && (p.Flags & 2) != 2 && (p.Flags & 8) == 8))
+        {
+            deleteCount = repository.Delete(p => p.PMessageID == message.PMessageID);
+            BoardContext.Current.GetRepository<PMessage>().DeleteById(message.PMessageID);
+        }
 
         return deleteCount;
     }

@@ -225,7 +225,11 @@ public class Twitter : IAuthBase, IHaveServiceLocator
 
         var messageFlags = new MessageFlags { IsHtml = false, IsBBCode = true };
 
+        var hostUser = this.GetRepository<User>()
+            .Get(u => u.BoardID == BoardContext.Current.PageBoardID && (u.Flags & 1) == 1)
+            .FirstOrDefault();
+
         // Send Message also as DM to Twitter.
-        this.GetRepository<PMessage>().SendMessage(2, userId, subject, emailBody, messageFlags.BitValue, -1);
+        this.GetRepository<PMessage>().SendMessage(hostUser.ID, userId, subject, emailBody, messageFlags.BitValue, -1);
     }
 }
