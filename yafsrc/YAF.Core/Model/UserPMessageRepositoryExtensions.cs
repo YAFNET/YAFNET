@@ -130,15 +130,19 @@ public static class UserPMessageRepositoryExtensions
     /// <param name="userPmMessageId">
     /// The user Pm Message Id.
     /// </param>
+    /// <param name="deleteFromOutbox">
+    /// Delete From Outbox?
+    /// </param>
     public static long Delete(
         this IRepository<UserPMessage> repository,
-        [NotNull] int userPmMessageId)
+        [NotNull] int userPmMessageId,
+        bool deleteFromOutbox)
     {
         CodeContracts.VerifyNotNull(repository);
 
         var message = repository.GetById(userPmMessageId);
 
-        return Delete(repository, message, message.PMessageFlags.IsInOutbox);
+        return Delete(repository, message, deleteFromOutbox);
     }
 
     /// <summary>

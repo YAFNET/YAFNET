@@ -101,7 +101,7 @@ public partial class PMList : BaseUserControl
         this.ClearCache();
 
         this.PageBoardContext.LoadMessage.AddSession(
-            this.GetTextFormatted("msgdeleted2", this.View == PmView.Outbox ? deleteCount : messages.Count),
+            this.GetTextFormatted("msgdeleted2", this.View == PmView.Outbox ? deleteCount : " "),
             MessageTypes.success);
 
 
@@ -130,7 +130,7 @@ public partial class PMList : BaseUserControl
             item =>
                 {
                     itemCount = this.GetRepository<UserPMessage>().Delete(
-                        item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>());
+                        item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>(), this.View == PmView.Outbox);
                 });
 
         this.ClearCache();

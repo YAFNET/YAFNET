@@ -24,7 +24,9 @@
 
 namespace YAF.Pages;
 
+using System.ComponentModel;
 using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Data;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 
@@ -56,7 +58,9 @@ public partial class PrivateMessage : ForumPageRegistered
         switch (e.CommandName)
         {
             case "delete":
-                this.GetRepository<UserPMessage>().Delete(e.CommandArgument.ToType<int>());
+                
+                var message = this.GetRepository<UserPMessage>().GetById(e.CommandArgument.ToType<int>());
+                this.GetRepository<UserPMessage>().Delete(message, message.UserID != this.PageBoardContext.PageUserID);
 
                 this.BindData();
                 this.PageBoardContext.Notify(this.GetText("msg_deleted"), MessageTypes.success);
