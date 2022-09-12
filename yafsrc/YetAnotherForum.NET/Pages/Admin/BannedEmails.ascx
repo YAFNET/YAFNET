@@ -106,7 +106,7 @@
                                          Size="Small"
                                          CommandName="delete" CommandArgument='<%# this.Eval("ID") %>'
                                          TextLocalizedTag="DELETE"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
+                                         ReturnConfirmTag="MSG_DELETE"
                                          TitleLocalizedTag="DELETE"
                                          Icon="trash" runat="server">
                         </YAF:ThemeButton>
@@ -126,7 +126,7 @@
                                      CssClass="dropdown-item"
                                      CommandName="delete" CommandArgument='<%# this.Eval("ID") %>'
                                      TextLocalizedTag="DELETE"
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
+                                     ReturnConfirmTag="MSG_DELETE"
                                      TitleLocalizedTag="DELETE"
                                      Icon="trash" runat="server">
                     </YAF:ThemeButton>

@@ -64,7 +64,7 @@
                                              Type="Danger"
                                              Size="Small"
                                              CommandName="delete" CommandArgument="<%# ((Tag)Container.DataItem).ID %>"
-                                             ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
+                                             ReturnConfirmTag="CONFIRM_DELETE"
                                              Icon="trash"
                                              TextLocalizedTag="DELETE">
                             </YAF:ThemeButton>

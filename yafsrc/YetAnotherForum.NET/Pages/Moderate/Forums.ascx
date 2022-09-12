@@ -46,7 +46,7 @@
                                  Size="Small"
                                  Icon="edit"></YAF:ThemeButton>
                 <YAF:ThemeButton ID="ThemeButtonRemove" runat="server"
-                                 ReturnConfirmText='<%# this.GetText("moderate", "confirm_delete_user") %>'
+                                 ReturnConfirmTag="confirm_delete_user"
                                  CommandName="remove" CommandArgument='<%# this.Eval("Item1.ID") %>' 
                                  TitleLocalizedTag="REMOVE" 
                                  Size="Small"
@@ -158,7 +158,7 @@
                 <!-- End of Move Topic Button -->
                 <YAF:ThemeButton ID="DeleteTopic" runat="server"
                                  TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT"
-                                 ReturnConfirmText='<%# this.GetText("moderate", "confirm_delete") %>'
+                                 ReturnConfirmTag="confirm_delete"
                                  OnClick="DeleteTopics_Click"
                                  Type="Danger"
                                  Icon="trash" />

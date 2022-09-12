@@ -125,7 +125,7 @@
                                              Type="Danger"
                                              Size="Small"
                                              CommandName="delete" CommandArgument="<%# ((PagedEventLog)Container.DataItem).ID %>"
-                                             ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
+                                             ReturnConfirmTag="CONFIRM_REMOVE_USER"
                                              Icon="trash"
                                              TextLocalizedTag="DELETE">
                             </YAF:ThemeButton>
@@ -136,7 +136,7 @@
                                          Type="None"
                                          CssClass="dropdown-item"
                                          CommandName="delete" CommandArgument="<%# ((PagedEventLog)Container.DataItem).ID %>"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
+                                         ReturnConfirmTag="CONFIRM_REMOVE_USER"
                                          Icon="trash"
                                          TextLocalizedTag="DELETE">
                         </YAF:ThemeButton>
@@ -147,7 +147,7 @@
                                          Icon="trash"
                                          OnClick="DeleteAllClick"
                                          TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="DELETE_ALLOWED"
-                                         ReturnConfirmText='<%#this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL") %>'>
+                                         ReturnConfirmTag="CONFIRM_DELETE_ALL">
                         </YAF:ThemeButton>
                     </div>
 
@@ -178,7 +178,7 @@
                                  Icon="trash"
                                  OnClick="DeleteAllClick"
                                  TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="DELETE_ALLOWED"
-                                 ReturnConfirmText='<%#this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL") %>'>
+                                 ReturnConfirmTag="CONFIRM_DELETE_ALL">
                 </YAF:ThemeButton>
             </asp:Panel>
         </div>

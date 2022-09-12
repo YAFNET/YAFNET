@@ -53,7 +53,7 @@
                                          CommandArgument='<%# this.Eval( "ID") %>'
                                          TitleLocalizedTag="DELETE"
                                          Icon="trash"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE") %>'>
+                                         ReturnConfirmTag="MSG_DELETE">
                         </YAF:ThemeButton>
                     </div>
                 </small>
@@ -75,7 +75,7 @@
                                      CommandArgument='<%# this.Eval( "ID") %>'
                                      TitleLocalizedTag="DELETE"
                                      Icon="trash"
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE") %>'>
+                                     ReturnConfirmTag="MSG_DELETE">
                     </YAF:ThemeButton>
                     <div class="dropdown-divider"></div>
                     <YAF:ThemeButton runat="server"

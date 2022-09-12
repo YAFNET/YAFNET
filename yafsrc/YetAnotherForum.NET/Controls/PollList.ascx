@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="PollList.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="PollList.ascx.cs"
     Inherits="YAF.Controls.PollList" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Register TagPrefix="YAF" TagName="PollChoiceList" Src="PollChoiceList.ascx" %>
@@ -51,7 +51,7 @@
                                                  Visible="false" 
                                                  Size="Small"
                                                  TextLocalizedTag="REMOVEPOLL"
-                                                 ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLL_DELETE")  %>'
+                                                 ReturnConfirmTag="ASK_POLL_DELETE"
                                                  Type="Danger"
                                                  Icon="trash"/>
                             </div>

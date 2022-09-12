@@ -40,7 +40,7 @@
                              TextLocalizedTag="DELETE"
                              Icon="trash"
                              Type="Danger"
-                             ReturnConfirmText='<%#this.GetText("ATTACHMENTS", "CONFIRM_DELETE") %>'>
+                             ReturnConfirmTag="CONFIRM_DELETE">
             </YAF:ThemeButton>
 
         </li>
@@ -51,7 +51,7 @@
 </asp:Repeater>
 <YAF:ThemeButton ID="DeleteAttachment2" runat="server"
                  TextLocalizedTag="BUTTON_DELETEATTACHMENT" TitleLocalizedTag="BUTTON_DELETEATTACHMENT_TT"
-                 ReturnConfirmText='<%#this.GetText("ATTACHMENTS", "CONFIRM_DELETE") %>'
+                 ReturnConfirmTag="CONFIRM_DELETE"
                  OnClick="DeleteAttachments_Click"
                  Icon="trash"
                  Type="Danger"

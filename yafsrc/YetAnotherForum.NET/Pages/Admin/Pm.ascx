@@ -61,7 +61,7 @@
                 <div class="card-footer text-center">
                     <YAF:ThemeButton ID="commit" Type="Primary" runat="server"
                         Icon="trash" TextLocalizedTag="DELETE" TextLocalizedPage="COMMON"
-                        ReturnConfirmText='<%# this.GetText("ADMIN_PM", "CONFIRM_DELETE") %>'>
+                        ReturnConfirmTag="CONFIRM_DELETE">
                     </YAF:ThemeButton>
                 </div>
             </div>

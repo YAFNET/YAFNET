@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.NntpForums"
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.NntpForums"
     CodeBehind="NntpForums.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/NntpForumEdit.ascx" %>
@@ -62,7 +62,7 @@
                                              CommandArgument='<%# this.Eval("Item1.ID") %>'
                                              Icon="trash" 
                                              TextLocalizedTag="DELETE"
-                                             ReturnConfirmText='<%# this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM") %>'>
+                                             ReturnConfirmTag="DELETE_FORUM">
                             </YAF:ThemeButton>
                         </div>
                     </small>
@@ -82,7 +82,7 @@
                                          CommandArgument='<%# this.Eval("Item1.ID") %>'
                                          Icon="trash" 
                                          TextLocalizedTag="DELETE"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM") %>'>
+                                         ReturnConfirmTag="DELETE_FORUM">
                         </YAF:ThemeButton>
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="NewForum" runat="server" 

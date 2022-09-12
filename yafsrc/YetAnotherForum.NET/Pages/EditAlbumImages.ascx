@@ -59,7 +59,7 @@
                             <%# this.Eval( "FileName") %>
                             (<%# (int)this.Eval("Bytes") / 1024%> Kb)
                             <YAF:ThemeButton ID="ImageDelete" runat="server"
-                                             ReturnConfirmText='<%# this.GetText("ASK_DELETEIMAGE") %>'
+                                             ReturnConfirmTag="ASK_DELETEIMAGE"
                                              CommandName="delete"
                                              CommandArgument='<%# this.Eval( "ID") %>'
                                              TextLocalizedTag="DELETE"
@@ -99,7 +99,7 @@
             <div class="card-footer text-center">
                 <YAF:ThemeButton runat="server" ID="Delete" OnClick="DeleteAlbum_Click"
                                  TextLocalizedTag="Button_DeleteAlbum"
-                                 ReturnConfirmText='<%# this.GetText("ASK_DELETEALBUM") %>'
+                                 ReturnConfirmTag="ASK_DELETEALBUM"
                                  Type="Danger"
                                  Icon="trash"/>
                 <YAF:ThemeButton runat="server" ID="Back" OnClick="Back_Click"

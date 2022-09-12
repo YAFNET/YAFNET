@@ -101,7 +101,7 @@
                         <YAF:ThemeButton ID="ThemeButtonDelete"
                                          Type="Danger" Size="Small"
                                          CommandName="delete" CommandArgument='<%# this.Eval("ID") %>'
-                                         TextLocalizedTag="DELETE" ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
+                                         TextLocalizedTag="DELETE" ReturnConfirmTag="MSG_DELETE"
                                          TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
                     </div>
                 </small>
@@ -117,7 +117,7 @@
                                      Type="None"
                                      CssClass="dropdown-item"
                                      CommandName="delete" CommandArgument='<%# this.Eval("ID") %>'
-                                     TextLocalizedTag="DELETE" ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
+                                     TextLocalizedTag="DELETE" ReturnConfirmTag="MSG_DELETE"
                                      TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
                     <div class="dropdown-divider"></div>
                     <YAF:ThemeButton runat="server"

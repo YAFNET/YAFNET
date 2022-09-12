@@ -259,7 +259,7 @@
                                                          Icon="edit">
                                         </YAF:ThemeButton>
                                         <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
-                                                         ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>'
+                                                         ReturnConfirmTag="CONFIRM_DELETE"
                                                          Type="Danger"
                                                          Size="Small"
                                                          CommandName="delete"
@@ -282,7 +282,7 @@
                                                      Icon="edit">
                                     </YAF:ThemeButton>
                                     <YAF:ThemeButton ID="ThemeButton2" runat="server"
-                                                     ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>'
+                                                     ReturnConfirmTag="CONFIRM_DELETE"
                                                      Type="None"
                                                      CssClass="dropdown-item"
                                                      CommandName="delete"

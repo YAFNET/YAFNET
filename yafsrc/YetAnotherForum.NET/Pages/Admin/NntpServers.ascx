@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.NntpServers"
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.NntpServers"
     CodeBehind="NntpServers.ascx.cs" %>
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/NntpServerEdit.ascx" %>
 
@@ -48,7 +48,7 @@
                                              CommandArgument='<%# this.Eval( "ID") %>'
                                              Icon="trash" 
                                              TextLocalizedTag="DELETE"
-                                             ReturnConfirmText='<%#  this.GetText("ADMIN_NNTPSERVERS", "DELETE_SERVER") %>'>
+                                             ReturnConfirmTag="DELETE_SERVER">
                             </YAF:ThemeButton>
                         </div>
                     </small>
@@ -68,7 +68,7 @@
                                          CommandArgument='<%# this.Eval( "ID") %>'
                                          Icon="trash" 
                                          TextLocalizedTag="DELETE"
-                                         ReturnConfirmText='<%#  this.GetText("ADMIN_NNTPSERVERS", "DELETE_SERVER") %>'>
+                                         ReturnConfirmTag="DELETE_SERVER">
                         </YAF:ThemeButton>
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="NewServer" runat="server" 

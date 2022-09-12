@@ -154,7 +154,7 @@
                                          TitleLocalizedTag="REMOVE"
                                          Icon="trash"
                                          TextLocalizedTag="REMOVE"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_USER") %>'>
+                                         ReturnConfirmTag="CONFIRM_REMOVE_USER">
                         </YAF:ThemeButton>
                     </div>
                 </small>
@@ -176,7 +176,7 @@
                                          TitleLocalizedTag="REMOVE"
                                          Icon="trash"
                                          TextLocalizedTag="REMOVE"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_USER") %>'>
+                                         ReturnConfirmTag="CONFIRM_REMOVE_USER">
                         </YAF:ThemeButton>
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton runat="server"

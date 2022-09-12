@@ -56,7 +56,7 @@
             <asp:PlaceHolder ID="pnlRemove" runat="server" Visible="false">
                 <YAF:ThemeButton ID="lnkRemove" runat="server"
                                  TextLocalizedTag="REMOVEBUDDY"
-                                 ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_REMOVE") %>'
+                                 ReturnConfirmTag="NOTIFICATION_REMOVE"
                                  CommandName="remove" CommandArgument="<%# (Container.DataItem as BuddyUser).UserID %>"
                                  Size="Small"
                                  Type="Danger"
@@ -77,7 +77,7 @@
                                  Icon="check"/>
                 <YAF:ThemeButton runat="server"
                                  Size="Small"
-                                 ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_DENY") %>'
+                                 ReturnConfirmTag="NOTIFICATION_DENY"
                                  CommandName="deny" CommandArgument="<%# (Container.DataItem as BuddyUser).FromUserID %>"
                                  TextLocalizedTag="DENY"
                                  Type="Danger"
@@ -98,19 +98,19 @@
             </div>
             <asp:Panel CssClass="card-footer" runat="server" ID="Footer" Visible="False">
                 <YAF:ThemeButton ID="Button1" runat="server"
-                                 ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_APPROVEALL") %>'
+                                 ReturnConfirmTag="NOTIFICATION_APPROVEALL"
                                  CommandName="approveall"
                                  TextLocalizedTag="APPROVE_ALL"
                                  Type="Secondary"
                                  Icon="check-double"/>
                 <YAF:ThemeButton ID="Button3" runat="server"
-                                 ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_APPROVEALLADD") %>'
+                                 ReturnConfirmTag="NOTIFICATION_APPROVEALLADD"
                                  CommandName="approveaddall"
                                  TextLocalizedTag="APPROVE_ADD_ALL"
                                  Type="Secondary"
                                  Icon="check-double"/>
                 <YAF:ThemeButton ID="Button2" runat="server"
-                                 ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_REMOVE_OLD_UNAPPROVED")%>'
+                                 ReturnConfirmTag="NOTIFICATION_REMOVE_OLD_UNAPPROVED"
                                  CommandName="denyall"
                                  TextLocalizedTag="DENY_ALL"
                                  Type="Secondary"

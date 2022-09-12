@@ -97,7 +97,7 @@
         <div class="mb-3 col-md-6">
             <YAF:ThemeButton runat="server" ID="ApproveUser" 
                              Type="Secondary"
-                             ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
+                             ReturnConfirmTag="CONFIRM_APPROVE"
                              Icon="check"
                              OnClick="ApproveUserClick"
                              TextLocalizedTag="ADMIN_APPROVE"></YAF:ThemeButton>

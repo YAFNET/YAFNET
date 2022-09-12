@@ -92,7 +92,7 @@
                         <YAF:ThemeButton ID="DeleteBtn" runat="server"
                                          TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="DELETE"
                                          CommandName="Delete" CommandArgument='<%# string.Format("{0};{1}", (Container.DataItem as ReportedMessage).MessageID,  (Container.DataItem as ReportedMessage).TopicID) %>'
-                                         ReturnConfirmText='<%# this.GetText("ASK_DELETE") %>'
+                                         ReturnConfirmTag="ASK_DELETE"
                                          Icon="trash"
                                          Type="Danger"/>
                         <YAF:ThemeButton ID="ResolveBtn" runat="server"

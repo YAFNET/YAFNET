@@ -216,23 +216,6 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
         set => this.ViewState["IconColor"] = value;
     }
 
-    /// <summary>
-    /// Gets or sets the return confirm text.
-    /// </summary>
-    /// <value>
-    /// The return confirm text.
-    /// </value>
-    [CanBeNull]
-    public string ReturnConfirmText
-    {
-        get =>
-            this.ViewState["ReturnConfirmText"] != null
-                ? this.ViewState["ReturnConfirmText"] as string
-                : string.Empty;
-
-        set => this.ViewState["ReturnConfirmText"] = value;
-    }
-
     [CanBeNull]
     public string ReturnConfirmTag
     {
@@ -546,14 +529,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
         }
 
         // Write Confirm Dialog
-        if (this.ReturnConfirmText.IsSet())
-        {
-            this.DataToggle = "confirm";
-            writer.WriteAttribute("data-title", this.ReturnConfirmText);
-            writer.WriteAttribute("data-yes", this.GetText("YES"));
-            writer.WriteAttribute("data-no", this.GetText("NO"));
-        }
-        else if (this.ReturnConfirmTag.IsSet())
+        if (this.ReturnConfirmTag.IsSet())
         {
             this.DataToggle = "confirm";
             writer.WriteAttribute("data-title", this.GetText(this.ReturnConfirmTag));

@@ -131,7 +131,7 @@
                                              TitleLocalizedTag="DELETE"
                                              Icon="trash"
                                              TextLocalizedTag="DELETE"
-                                             ReturnConfirmText='<%# this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE") %>'>
+                                             ReturnConfirmTag="CONFIRM_DELETE">
                             </YAF:ThemeButton>
                         </div>
 
@@ -153,7 +153,7 @@
                                              TitleLocalizedTag="DELETE"
                                              Icon="trash"
                                              TextLocalizedTag="DELETE"
-                                             ReturnConfirmText='<%# this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE") %>'>
+                                             ReturnConfirmTag="CONFIRM_DELETE">
                             </YAF:ThemeButton>
                             <div class="dropdown-divider"></div>
                             <YAF:ThemeButton ID="New" runat="server"

@@ -54,7 +54,7 @@
                                  Type="None"
                                  CssClass="dropdown-item"
                                  OnClick="DeleteTopic_Click"
-                                 ReturnConfirmText='<%# this.GetText("confirm_deletetopic") %>'
+                                 ReturnConfirmTag="confirm_deletetopic"
                                  TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT"
                                  Icon="trash" />
             </div>
@@ -195,7 +195,7 @@
                                  Type="None"
                                  CssClass="dropdown-item"
                                  OnClick="DeleteTopic_Click"
-                                 ReturnConfirmText='<%# this.GetText("confirm_deletetopic") %>'
+                                 ReturnConfirmTag="confirm_deletetopic"
                                  TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT"
                                  Icon="trash" />
             </div>

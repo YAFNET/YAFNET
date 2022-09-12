@@ -81,6 +81,6 @@
                      OnClick="Kill_OnClick"
                      Icon="ban" 
                      TextLocalizedPage="ADMIN_EDITUSER" TextLocalizedTag="HEAD_KILL_USER"
-                     ReturnConfirmText='<%# this.GetText("ADMIN_EDITUSER", "KILL_USER_CONFIRM") %>'>
+                     ReturnConfirmTag="KILL_USER_CONFIRM">
     </YAF:ThemeButton>
 </div>

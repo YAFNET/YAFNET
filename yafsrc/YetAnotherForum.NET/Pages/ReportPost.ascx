@@ -75,7 +75,7 @@
                                  TextLocalizedTag="SEND" TitleLocalizedTag="SEND_TITLE"
                                  CausesValidation="True"
                                  OnClick="ReportClick"
-                                 Icon="paper-plane" ReturnConfirmText='<%#this.GetText("CONFIRM_REPORTPOST") %>'/>
+                                 Icon="paper-plane" ReturnConfirmTag="CONFIRM_REPORTPOST"/>
                 <YAF:ThemeButton ID="btnCancel" runat="server"
                                  TextLocalizedTag="CANCEL" TitleLocalizedTag="CANCEL_TITLE"
                                  OnClick="CancelClick"

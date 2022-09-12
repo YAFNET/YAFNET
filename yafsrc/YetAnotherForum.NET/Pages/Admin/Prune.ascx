@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Prune" CodeBehind="Prune.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Prune" CodeBehind="Prune.ascx.cs" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -54,7 +54,7 @@
                     OnClick="CommitClick"
                     Icon="trash"
                     TextLocalizedTag="PRUNE_START"
-                    ReturnConfirmText='<%# this.GetText("ADMIN_PRUNE", "CONFIRM_PRUNE") %>'>
+                    ReturnConfirmTag="CONFIRM_PRUNE">
                 </YAF:ThemeButton>
             </div>
         </div>

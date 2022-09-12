@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.BBCodes" Codebehind="BBCodes.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.BBCodes" Codebehind="BBCodes.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
@@ -68,7 +68,7 @@
                                                          TitleLocalizedTag="DELETE"
                                                          Icon="trash"
                                                          TextLocalizedTag="DELETE"
-                                                         ReturnConfirmText='<%# this.GetText("ADMIN_BBCODE", "CONFIRM_DELETE") %>'  runat="server">
+                                                         ReturnConfirmTag="CONFIRM_DELETE"  runat="server">
                                         </YAF:ThemeButton>
                                     </div>
                                 </small>
@@ -89,7 +89,7 @@
                                                      TitleLocalizedTag="DELETE"
                                                      Icon="trash"
                                                      TextLocalizedTag="DELETE"
-                                                     ReturnConfirmText='<%# this.GetText("ADMIN_BBCODE", "CONFIRM_DELETE") %>'  runat="server">
+                                                     ReturnConfirmTag="CONFIRM_DELETE"  runat="server">
                                     </YAF:ThemeButton>
                                     <div class="dropdown-divider"></div>
                                     <YAF:ThemeButton runat="server" 

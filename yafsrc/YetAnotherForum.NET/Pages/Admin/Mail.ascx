@@ -57,7 +57,7 @@
                                      Type="Primary"
                                      Icon="paper-plane"
                                      TextLocalizedTag="SEND_MAIL" TextLocalizedPage="ADMIN_MAIL"
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_MAIL", "CONFIRM_SEND") %>' />
+                                     ReturnConfirmTag="CONFIRM_SEND" />
                 </div>
             </div>
         </div>

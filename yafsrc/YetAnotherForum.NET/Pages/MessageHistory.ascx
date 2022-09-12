@@ -79,7 +79,7 @@
                                                      TitleLocalizedTag="RESTORE_MESSAGE" 
                                                      TextLocalizedTag="RESTORE_MESSAGE"
                                                      Visible="<%# (this.PageBoardContext.IsAdmin || this.PageBoardContext.IsModeratorInAnyForum) && !Container.ItemIndex.Equals(this.RevisionsCount-1) %>"
-                                                     ReturnConfirmText='<%# this.GetText("MESSAGEHISTORY", "CONFIRM_RESTORE") %>'
+                                                     ReturnConfirmTag="CONFIRM_RESTORE"
                                                      Type="Secondary" 
                                                      Size="Small" 
                                                      Icon="undo">

@@ -109,7 +109,7 @@
                                                          CommandName="delete" CommandArgument="<%# (Container.DataItem as PagedPm).UserPMessageID %>"
                                                          DataToggle="tooltip"
                                                          TextLocalizedTag="BUTTON_DELETE" TitleLocalizedTag="BUTTON_DELETE_TT"
-                                                         ReturnConfirmText='<%# this.GetText("confirm_deletemessage") %>'
+                                                         ReturnConfirmTag="confirm_deletemessage"
                                                          CssClass="mb-1"
                                                          Type="Danger"
                                                          Icon="trash"/>

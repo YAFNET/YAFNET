@@ -26,7 +26,7 @@
                                  Type="Danger"
                                  Icon="trash"
                                  TextLocalizedTag="AVATARDELETE"
-                                 ReturnConfirmText='<%# this.GetText("EDIT_AVATAR", "AVATARDELETE") %>'
+                                 ReturnConfirmTag="AVATARDELETE"
                                  Visible="false"
                                  OnClick="DeleteAvatar_Click" />
                 <hr />

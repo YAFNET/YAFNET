@@ -30,14 +30,14 @@
                                                       CssClass="dropdown-item"
                                                       Icon="arrow-down-a-z"
                                                       OnClick="SortCategoriesAscending"
-                                                      ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_SORTING") %>'
+                                                      ReturnConfirmTag="CONFIRM_SORTING"
                                                       Type="None"
                                                       TextLocalizedTag="SORT_CATEGORIES_ASC"/>
                                     <YAF:ThemeButton ID="SortCategoriesDesc" runat="server"
                                                      CssClass="dropdown-item"
                                                      Icon="arrow-down-z-a"
                                                      OnClick="SortCategoriesDescending"
-                                                     ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_SORTING") %>'
+                                                     ReturnConfirmTag="CONFIRM_SORTING"
                                                      Type="None"
                                                      TextLocalizedTag="SORT_CATEGORIES_DESC"/>
                                     <div class="dropdown-divider"></div>
@@ -45,14 +45,14 @@
                                                      CssClass="dropdown-item"
                                                      Icon="arrow-down-a-z"
                                                      OnClick="SortForumsAscending"
-                                                     ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_SORTING") %>'
+                                                     ReturnConfirmTag="CONFIRM_SORTING"
                                                      Type="None"
                                                      TextLocalizedTag="SORT_FORUMS_ASC"/>
                                     <YAF:ThemeButton ID="SortForumsDesc" runat="server"
                                                      CssClass="dropdown-item"
                                                      Icon="arrow-down-z-a"
                                                      OnClick="SortForumsDescending"
-                                                     ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_SORTING") %>'
+                                                     ReturnConfirmTag="CONFIRM_SORTING"
                                                      Type="None"
                                                      TextLocalizedTag="SORT_FORUMS_DESC"/>
                                 </div>
@@ -89,7 +89,7 @@
                         <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
                                          Type="Danger"
                                          Size="Small"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT") %>'
+                                         ReturnConfirmTag="CONFIRM_DELETE_CAT"
                                          CommandName="delete" CommandArgument="<%# ((Category)Container.DataItem).ID %>"
                                          TitleLocalizedTag="DELETE"
                                          Icon="trash"
@@ -107,7 +107,7 @@
                         <YAF:ThemeButton ID="ThemeButton2" runat="server"
                                          Type="None"
                                          CssClass="dropdown-item"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT") %>'
+                                         ReturnConfirmTag="CONFIRM_DELETE_CAT"
                                          CommandName="delete" CommandArgument="<%# ((Category)Container.DataItem).ID %>"
                                          TitleLocalizedTag="DELETE"
                                          Icon="trash"

@@ -60,7 +60,7 @@
                                                      TitleLocalizedTag="DELETE"
                                                      Icon="trash"
                                                      TextLocalizedTag="DELETE"
-                                                     ReturnConfirmText='<%# this.GetText("ADMIN_MEDALS", "CONFIRM_DELETE") %>'
+                                                     ReturnConfirmTag="CONFIRM_DELETE"
                                                      runat="server"/>
                                 </div>
                             </small>
@@ -83,7 +83,7 @@
                                                      TitleLocalizedTag="DELETE"
                                                      Icon="trash"
                                                      TextLocalizedTag="DELETE"
-                                                     ReturnConfirmText='<%# this.GetText("ADMIN_MEDALS", "CONFIRM_DELETE") %>'
+                                                     ReturnConfirmTag="CONFIRM_DELETE"
                                                      runat="server">
                                     </YAF:ThemeButton>
                                     <div class="dropdown-divider"></div>
