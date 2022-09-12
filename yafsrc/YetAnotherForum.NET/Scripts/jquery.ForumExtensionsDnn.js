@@ -8002,7 +8002,10 @@ Prism.languages.markup = {
                     punctuation: [ {
                         pattern: /^=/,
                         alias: "attr-equals"
-                    }, /"|'/ ]
+                    }, {
+                        pattern: /^(\s*)["']|["']$/,
+                        lookbehind: true
+                    } ]
                 }
             },
             punctuation: /\/?>/,
@@ -8108,7 +8111,7 @@ Prism.languages.rss = Prism.languages.xml;
     Prism.languages.css = {
         comment: /\/\*[\s\S]*?\*\//,
         atrule: {
-            pattern: /@[\w-](?:[^;{\s]|\s+(?![\s{]))*(?:;|(?=\s*\{))/,
+            pattern: RegExp("@[\\w-](?:" + /[^;{\s"']|\s+(?!\s)/.source + "|" + string.source + ")*?" + /(?:;|(?=\s*\{))/.source),
             inside: {
                 rule: /^@[\w-]+/,
                 "selector-function-argument": {
@@ -8671,7 +8674,7 @@ Prism.languages.insertBefore("aspnet", Prism.languages.javascript ? "script" : "
             lookbehind: true
         },
         "assign-left": {
-            pattern: /(^|[\s;|&]|[<>]\()\w+(?=\+?=)/,
+            pattern: /(^|[\s;|&]|[<>]\()\w+(?:\.\w+)*(?=\+?=)/,
             inside: {
                 environment: {
                     pattern: RegExp("(^|[\\s;|&]|[<>]\\()" + envVars),
@@ -8679,6 +8682,11 @@ Prism.languages.insertBefore("aspnet", Prism.languages.javascript ? "script" : "
                     alias: "constant"
                 }
             },
+            alias: "variable",
+            lookbehind: true
+        },
+        parameter: {
+            pattern: /(^|\s)-{1,2}(?:\w+:[+-]?)?\w+(?:\.\w+)*(?=[=\s]|$)/,
             alias: "variable",
             lookbehind: true
         },
@@ -8716,7 +8724,7 @@ Prism.languages.insertBefore("aspnet", Prism.languages.javascript ? "script" : "
         },
         variable: insideString.variable,
         function: {
-            pattern: /(^|[\s;|&]|[<>]\()(?:add|apropos|apt|apt-cache|apt-get|aptitude|aspell|automysqlbackup|awk|basename|bash|bc|bconsole|bg|bzip2|cal|cat|cfdisk|chgrp|chkconfig|chmod|chown|chroot|cksum|clear|cmp|column|comm|composer|cp|cron|crontab|csplit|curl|cut|date|dc|dd|ddrescue|debootstrap|df|diff|diff3|dig|dir|dircolors|dirname|dirs|dmesg|docker|docker-compose|du|egrep|eject|env|ethtool|expand|expect|expr|fdformat|fdisk|fg|fgrep|file|find|fmt|fold|format|free|fsck|ftp|fuser|gawk|git|gparted|grep|groupadd|groupdel|groupmod|groups|grub-mkconfig|gzip|halt|head|hg|history|host|hostname|htop|iconv|id|ifconfig|ifdown|ifup|import|install|ip|jobs|join|kill|killall|less|link|ln|locate|logname|logrotate|look|lpc|lpr|lprint|lprintd|lprintq|lprm|ls|lsof|lynx|make|man|mc|mdadm|mkconfig|mkdir|mke2fs|mkfifo|mkfs|mkisofs|mknod|mkswap|mmv|more|most|mount|mtools|mtr|mutt|mv|nano|nc|netstat|nice|nl|node|nohup|notify-send|npm|nslookup|op|open|parted|passwd|paste|pathchk|ping|pkill|pnpm|podman|podman-compose|popd|pr|printcap|printenv|ps|pushd|pv|quota|quotacheck|quotactl|ram|rar|rcp|reboot|remsync|rename|renice|rev|rm|rmdir|rpm|rsync|scp|screen|sdiff|sed|sendmail|seq|service|sftp|sh|shellcheck|shuf|shutdown|sleep|slocate|sort|split|ssh|stat|strace|su|sudo|sum|suspend|swapon|sync|tac|tail|tar|tee|time|timeout|top|touch|tr|traceroute|tsort|tty|umount|uname|unexpand|uniq|units|unrar|unshar|unzip|update-grub|uptime|useradd|userdel|usermod|users|uudecode|uuencode|v|vcpkg|vdir|vi|vim|virsh|vmstat|wait|watch|wc|wget|whereis|which|who|whoami|write|xargs|xdg-open|yarn|yes|zenity|zip|zsh|zypper)(?=$|[)\s;|&])/,
+            pattern: /(^|[\s;|&]|[<>]\()(?:add|apropos|apt|apt-cache|apt-get|aptitude|aspell|automysqlbackup|awk|basename|bash|bc|bconsole|bg|bzip2|cal|cargo|cat|cfdisk|chgrp|chkconfig|chmod|chown|chroot|cksum|clear|cmp|column|comm|composer|cp|cron|crontab|csplit|curl|cut|date|dc|dd|ddrescue|debootstrap|df|diff|diff3|dig|dir|dircolors|dirname|dirs|dmesg|docker|docker-compose|du|egrep|eject|env|ethtool|expand|expect|expr|fdformat|fdisk|fg|fgrep|file|find|fmt|fold|format|free|fsck|ftp|fuser|gawk|git|gparted|grep|groupadd|groupdel|groupmod|groups|grub-mkconfig|gzip|halt|head|hg|history|host|hostname|htop|iconv|id|ifconfig|ifdown|ifup|import|install|ip|java|jobs|join|kill|killall|less|link|ln|locate|logname|logrotate|look|lpc|lpr|lprint|lprintd|lprintq|lprm|ls|lsof|lynx|make|man|mc|mdadm|mkconfig|mkdir|mke2fs|mkfifo|mkfs|mkisofs|mknod|mkswap|mmv|more|most|mount|mtools|mtr|mutt|mv|nano|nc|netstat|nice|nl|node|nohup|notify-send|npm|nslookup|op|open|parted|passwd|paste|pathchk|ping|pkill|pnpm|podman|podman-compose|popd|pr|printcap|printenv|ps|pushd|pv|quota|quotacheck|quotactl|ram|rar|rcp|reboot|remsync|rename|renice|rev|rm|rmdir|rpm|rsync|scp|screen|sdiff|sed|sendmail|seq|service|sftp|sh|shellcheck|shuf|shutdown|sleep|slocate|sort|split|ssh|stat|strace|su|sudo|sum|suspend|swapon|sync|sysctl|tac|tail|tar|tee|time|timeout|top|touch|tr|traceroute|tsort|tty|umount|uname|unexpand|uniq|units|unrar|unshar|unzip|update-grub|uptime|useradd|userdel|usermod|users|uudecode|uuencode|v|vcpkg|vdir|vi|vim|virsh|vmstat|wait|watch|wc|wget|whereis|which|who|whoami|write|xargs|xdg-open|yarn|yes|zenity|zip|zsh|zypper)(?=$|[)\s;|&])/,
             lookbehind: true
         },
         keyword: {
@@ -8752,11 +8760,12 @@ Prism.languages.insertBefore("aspnet", Prism.languages.javascript ? "script" : "
         }
     };
     commandAfterHeredoc.inside = Prism.languages.bash;
-    var toBeCopied = [ "comment", "function-name", "for-or-select", "assign-left", "string", "environment", "function", "keyword", "builtin", "boolean", "file-descriptor", "operator", "punctuation", "number" ];
+    var toBeCopied = [ "comment", "function-name", "for-or-select", "assign-left", "parameter", "string", "environment", "function", "keyword", "builtin", "boolean", "file-descriptor", "operator", "punctuation", "number" ];
     var inside = insideString.variable[1].inside;
     for (var i = 0; i < toBeCopied.length; i++) {
         inside[toBeCopied[i]] = Prism.languages.bash[toBeCopied[i]];
     }
+    Prism.languages.sh = Prism.languages.bash;
     Prism.languages.shell = Prism.languages.bash;
 })(Prism);
 
@@ -8996,7 +9005,7 @@ delete Prism.languages.c["boolean"];
             alias: "color"
         },
         color: [ {
-            pattern: /(^|[^\w-])(?:AliceBlue|AntiqueWhite|Aqua|Aquamarine|Azure|Beige|Bisque|Black|BlanchedAlmond|Blue|BlueViolet|Brown|BurlyWood|CadetBlue|Chartreuse|Chocolate|Coral|CornflowerBlue|Cornsilk|Crimson|Cyan|DarkBlue|DarkCyan|DarkGoldenRod|DarkGr[ae]y|DarkGreen|DarkKhaki|DarkMagenta|DarkOliveGreen|DarkOrange|DarkOrchid|DarkRed|DarkSalmon|DarkSeaGreen|DarkSlateBlue|DarkSlateGr[ae]y|DarkTurquoise|DarkViolet|DeepPink|DeepSkyBlue|DimGr[ae]y|DodgerBlue|FireBrick|FloralWhite|ForestGreen|Fuchsia|Gainsboro|GhostWhite|Gold|GoldenRod|Gr[ae]y|Green|GreenYellow|HoneyDew|HotPink|IndianRed|Indigo|Ivory|Khaki|Lavender|LavenderBlush|LawnGreen|LemonChiffon|LightBlue|LightCoral|LightCyan|LightGoldenRodYellow|LightGr[ae]y|LightGreen|LightPink|LightSalmon|LightSeaGreen|LightSkyBlue|LightSlateGr[ae]y|LightSteelBlue|LightYellow|Lime|LimeGreen|Linen|Magenta|Maroon|MediumAquaMarine|MediumBlue|MediumOrchid|MediumPurple|MediumSeaGreen|MediumSlateBlue|MediumSpringGreen|MediumTurquoise|MediumVioletRed|MidnightBlue|MintCream|MistyRose|Moccasin|NavajoWhite|Navy|OldLace|Olive|OliveDrab|Orange|OrangeRed|Orchid|PaleGoldenRod|PaleGreen|PaleTurquoise|PaleVioletRed|PapayaWhip|PeachPuff|Peru|Pink|Plum|PowderBlue|Purple|Red|RosyBrown|RoyalBlue|SaddleBrown|Salmon|SandyBrown|SeaGreen|SeaShell|Sienna|Silver|SkyBlue|SlateBlue|SlateGr[ae]y|Snow|SpringGreen|SteelBlue|Tan|Teal|Thistle|Tomato|Transparent|Turquoise|Violet|Wheat|White|WhiteSmoke|Yellow|YellowGreen)(?![\w-])/i,
+            pattern: /(^|[^\w-])(?:AliceBlue|AntiqueWhite|Aqua|Aquamarine|Azure|Beige|Bisque|Black|BlanchedAlmond|Blue|BlueViolet|Brown|BurlyWood|CadetBlue|Chartreuse|Chocolate|Coral|CornflowerBlue|Cornsilk|Crimson|Cyan|DarkBlue|DarkCyan|DarkGoldenRod|DarkGr[ae]y|DarkGreen|DarkKhaki|DarkMagenta|DarkOliveGreen|DarkOrange|DarkOrchid|DarkRed|DarkSalmon|DarkSeaGreen|DarkSlateBlue|DarkSlateGr[ae]y|DarkTurquoise|DarkViolet|DeepPink|DeepSkyBlue|DimGr[ae]y|DodgerBlue|FireBrick|FloralWhite|ForestGreen|Fuchsia|Gainsboro|GhostWhite|Gold|GoldenRod|Gr[ae]y|Green|GreenYellow|HoneyDew|HotPink|IndianRed|Indigo|Ivory|Khaki|Lavender|LavenderBlush|LawnGreen|LemonChiffon|LightBlue|LightCoral|LightCyan|LightGoldenRodYellow|LightGr[ae]y|LightGreen|LightPink|LightSalmon|LightSeaGreen|LightSkyBlue|LightSlateGr[ae]y|LightSteelBlue|LightYellow|Lime|LimeGreen|Linen|Magenta|Maroon|MediumAquaMarine|MediumBlue|MediumOrchid|MediumPurple|MediumSeaGreen|MediumSlateBlue|MediumSpringGreen|MediumTurquoise|MediumVioletRed|MidnightBlue|MintCream|MistyRose|Moccasin|NavajoWhite|Navy|OldLace|Olive|OliveDrab|Orange|OrangeRed|Orchid|PaleGoldenRod|PaleGreen|PaleTurquoise|PaleVioletRed|PapayaWhip|PeachPuff|Peru|Pink|Plum|PowderBlue|Purple|RebeccaPurple|Red|RosyBrown|RoyalBlue|SaddleBrown|Salmon|SandyBrown|SeaGreen|SeaShell|Sienna|Silver|SkyBlue|SlateBlue|SlateGr[ae]y|Snow|SpringGreen|SteelBlue|Tan|Teal|Thistle|Tomato|Transparent|Turquoise|Violet|Wheat|White|WhiteSmoke|Yellow|YellowGreen)(?![\w-])/i,
             lookbehind: true
         }, {
             pattern: /\b(?:hsl|rgb)\(\s*\d{1,3}\s*,\s*\d{1,3}%?\s*,\s*\d{1,3}%?\s*\)\B|\b(?:hsl|rgb)a\(\s*\d{1,3}\s*,\s*\d{1,3}%?\s*,\s*\d{1,3}%?\s*,\s*(?:0|0?\.\d+|1)\s*\)\B/i,
@@ -9068,7 +9077,8 @@ Prism.languages.git = {
         operator: {
             pattern: /(^|[^.])(?:<<=?|>>>?=?|->|--|\+\+|&&|\|\||::|[?:~]|[-+*/%&|^!=<>]=?)/m,
             lookbehind: true
-        }
+        },
+        constant: /\b[A-Z][A-Z_\d]+\b/
     });
     Prism.languages.insertBefore("java", "string", {
         "triple-quoted-string": {
@@ -9349,6 +9359,7 @@ Prism.languages.vba = Prism.languages["visual-basic"];
     }
     var LINE_NUMBERS_CLASS = "line-numbers";
     var LINKABLE_LINE_NUMBERS_CLASS = "linkable-line-numbers";
+    var NEW_LINE_EXP = /\n(?!$)/g;
     function $$(selector, container) {
         return Array.prototype.slice.call((container || document).querySelectorAll(selector));
     }
@@ -9407,11 +9418,17 @@ Prism.languages.vba = Prism.languages["visual-basic"];
             var codeElement = pre.querySelector("code");
             var parentElement = hasLineNumbers ? pre : codeElement || pre;
             var mutateActions = [];
+            var lineBreakMatch = codeElement.textContent.match(NEW_LINE_EXP);
+            var numberOfLines = lineBreakMatch ? lineBreakMatch.length + 1 : 1;
             var codePreOffset = !codeElement || parentElement == codeElement ? 0 : getContentBoxTopOffset(pre, codeElement);
             ranges.forEach(function(currentRange) {
                 var range = currentRange.split("-");
                 var start = +range[0];
                 var end = +range[1] || start;
+                end = Math.min(numberOfLines + offset, end);
+                if (end < start) {
+                    return;
+                }
                 var line = pre.querySelector('.line-highlight[data-range="' + currentRange + '"]') || document.createElement("div");
                 mutateActions.push(function() {
                     line.setAttribute("aria-hidden", "true");
@@ -9780,6 +9797,17 @@ Prism.languages.vba = Prism.languages["visual-basic"];
         }
         return str.length + res;
     }
+    var settingsConfig = {
+        "remove-trailing": "boolean",
+        "remove-indent": "boolean",
+        "left-trim": "boolean",
+        "right-trim": "boolean",
+        "break-lines": "number",
+        indent: "number",
+        "remove-initial-line-feed": "boolean",
+        "tabs-to-spaces": "number",
+        "spaces-to-tabs": "number"
+    };
     NormalizeWhitespace.prototype = {
         setDefaults: function(defaults) {
             this.defaults = assign(this.defaults, defaults);
@@ -9876,6 +9904,22 @@ Prism.languages.vba = Prism.languages["visual-basic"];
         var pre = env.element.parentNode;
         if (!env.code || !pre || pre.nodeName.toLowerCase() !== "pre") {
             return;
+        }
+        if (env.settings == null) {
+            env.settings = {};
+        }
+        for (var key in settingsConfig) {
+            if (Object.hasOwnProperty.call(settingsConfig, key)) {
+                var settingType = settingsConfig[key];
+                if (pre.hasAttribute("data-" + key)) {
+                    try {
+                        var value = JSON.parse(pre.getAttribute("data-" + key) || "true");
+                        if (typeof value === settingType) {
+                            env.settings[key] = value;
+                        }
+                    } catch (_error) {}
+                }
+            }
         }
         var children = pre.childNodes;
         var before = "";
@@ -10770,11 +10814,11 @@ $(document).ready(function() {
         e.stopPropagation();
     });
     $("input[type='number']").each(function() {
-        if ($(this).hasClass("form-pager")) {
-            var holder = $(this).closest(".mb-3");
+        if ($(this).hasClass("form-control-days")) {
+            var holder = $(this);
             $(this).TouchSpin({
                 min: holder.data("min"),
-                max: holder.data("max")
+                max: 2147483647
             });
         } else {
             $(this).TouchSpin({

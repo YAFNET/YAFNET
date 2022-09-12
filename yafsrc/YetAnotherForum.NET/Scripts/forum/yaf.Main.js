@@ -24,12 +24,12 @@ $(document).ready(function () {
     // Numeric Spinner Inputs
     $("input[type='number']").each(function () {
 
-        if ($(this).hasClass("form-pager")) {
-            var holder = $(this).closest(".mb-3");
+        if ($(this).hasClass("form-control-days")) {
+            var holder = $(this);
 
             $(this).TouchSpin({
                 min: holder.data("min"),
-                max: holder.data("max")
+                max: 2147483647
             });
         } else {
             $(this).TouchSpin({

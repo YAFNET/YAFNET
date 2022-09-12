@@ -29,8 +29,9 @@
                             </asp:Label>
                             <div class="input-group">
                                 <asp:TextBox runat="server" ID="Days1"
-                                             CssClass="form-control"
-                                             TextMode="Number" />
+                                             CssClass="form-control form-control-days"
+                                             TextMode="Number"
+                                             data-min="1"  />
                                 <div class="input-group-text">
                                     <YAF:LocalizedLabel runat="server"
                                                         LocalizedTag="DAYS"></YAF:LocalizedLabel>
@@ -46,8 +47,9 @@
                             </asp:Label>
                             <div class="input-group">
                                 <asp:TextBox runat="server" ID="Days2"
-                                             CssClass="form-control"
-                                             TextMode="Number" />
+                                             CssClass="form-control form-control-days"
+                                             TextMode="Number"
+                                             data-min="1" />
                                 <div class="input-group-text">
                                     <YAF:LocalizedLabel runat="server"
                                                         LocalizedTag="DAYS"></YAF:LocalizedLabel>
