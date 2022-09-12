@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile.DeleteAccount" CodeBehind="DeleteAccount.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile.DeleteAccount" CodeBehind="DeleteAccount.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -32,6 +32,7 @@
                                              OnClick="DeleteUserClick"
                                              CssClass="me-2"
                                              TextLocalizedTag="CONTINUE"
+                                             ReturnConfirmTag="CONFIRM"
                                              Type="Danger"
                                              Icon="user-alt-slash"/>
                             <YAF:ThemeButton ID="Cancel" runat="server"

@@ -84,8 +84,6 @@ public partial class DeleteAccount : ProfilePage
         this.Options.SelectedIndex = 0;
 
         this.Cancel.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount);
-
-        this.DeleteUser.ReturnConfirmText = this.GetText("CONFIRM");
     }
 
     /// <summary>

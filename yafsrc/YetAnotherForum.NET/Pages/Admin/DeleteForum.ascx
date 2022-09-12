@@ -32,7 +32,7 @@
                     <YAF:ThemeButton ID="Delete" runat="server"
                                      CssClass="btn btn-danger"
                                      Icon="trash"
-                                     TextLocalizedTag="DELETE_FORUM" TextLocalizedPage="ADMIN_DELETEFORUM">
+                                     TextLocalizedTag="DELETE_FORUM" TextLocalizedPage="ADMIN_DELETEFORUM" ReturnConfirmTag="CONFIRM_DELETE">
                     </YAF:ThemeButton>
                     <YAF:ThemeButton ID="Cancel" runat="server"
                                      Type="Secondary"

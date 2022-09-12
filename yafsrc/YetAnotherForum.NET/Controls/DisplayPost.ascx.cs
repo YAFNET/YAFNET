@@ -662,9 +662,7 @@ public partial class DisplayPost : BaseUserControl
                                                  TextLocalizedPage = "BUDDY",
                                                  TextLocalizedTag = "REMOVEBUDDY",
                                                  CssClass = "dropdown-item",
-                                                 ReturnConfirmText = this.GetText(
-                                                     "FRIENDS",
-                                                     "NOTIFICATION_REMOVE")
+                                                 ReturnConfirmTag = "NOTIFICATION_REMOVE"
                                              };
 
                 removeFriendButton.Click += (_, _) =>

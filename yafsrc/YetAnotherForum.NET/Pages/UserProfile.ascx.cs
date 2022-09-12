@@ -253,7 +253,7 @@ public partial class UserProfile : ForumPage
             this.lnkBuddy.TextLocalizedPage = "PAGE";
             this.lnkBuddy.Type = ButtonStyle.Warning;
             this.lnkBuddy.CommandArgument = "removebuddy";
-            this.lnkBuddy.ReturnConfirmText = this.GetText("FRIENDS", "NOTIFICATION_REMOVE");
+            this.lnkBuddy.ReturnConfirmTag = "NOTIFICATION_REMOVE";
         }
         else if (this.Get<IFriends>().IsBuddy(user.Item1.ID, false))
         {

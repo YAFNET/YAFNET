@@ -67,8 +67,6 @@ public partial class DeleteForum : AdminPage
         this.Delete.Click += this.SaveClick;
         this.Cancel.Click += this.Cancel_Click;
 
-        this.Delete.ReturnConfirmText = this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE");
-
         base.OnInit(e);
     }
 
