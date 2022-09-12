@@ -471,7 +471,7 @@ public partial class Posts : ForumPage
 
         this.Get<LinkBuilder>().Redirect(
             ForumPages.Posts,
-            new { t = this.PageBoardContext.PageTopicID, name = previousTopic.TopicName });
+            new { t = previousTopic.ID, name = previousTopic.TopicName });
     }
 
     /// <summary>
