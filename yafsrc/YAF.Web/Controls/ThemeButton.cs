@@ -233,6 +233,17 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
         set => this.ViewState["ReturnConfirmText"] = value;
     }
 
+    [CanBeNull]
+    public string ReturnConfirmTag
+    {
+        get =>
+            this.ViewState["ReturnConfirmTag"] != null
+                ? this.ViewState["ReturnConfirmTag"] as string
+                : string.Empty;
+
+        set => this.ViewState["ReturnConfirmTag"] = value;
+    }
+
     /// <summary>
     /// Gets or sets the data target.
     /// </summary>
@@ -539,6 +550,13 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
         {
             this.DataToggle = "confirm";
             writer.WriteAttribute("data-title", this.ReturnConfirmText);
+            writer.WriteAttribute("data-yes", this.GetText("YES"));
+            writer.WriteAttribute("data-no", this.GetText("NO"));
+        }
+        else if (this.ReturnConfirmTag.IsSet())
+        {
+            this.DataToggle = "confirm";
+            writer.WriteAttribute("data-title", this.GetText(this.ReturnConfirmTag));
             writer.WriteAttribute("data-yes", this.GetText("YES"));
             writer.WriteAttribute("data-no", this.GetText("NO"));
         }

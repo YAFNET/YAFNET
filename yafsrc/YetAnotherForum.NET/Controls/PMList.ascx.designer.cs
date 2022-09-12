@@ -114,13 +114,13 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.Repeater Messages;
 
         /// <summary>
-        /// upPanExport-Steuerelement.
+        /// Tools-Steuerelement.
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upPanExport;
+        protected global::System.Web.UI.WebControls.PlaceHolder Tools;
 
         /// <summary>
         /// MarkAsRead-Steuerelement.

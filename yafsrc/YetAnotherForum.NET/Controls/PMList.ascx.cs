@@ -439,6 +439,8 @@ public partial class PMList : BaseUserControl
         this.SortFromAsc.Text = this.GetText(this.View == PmView.Outbox ? "TO_ASC" : "FROM_ASC");
         this.SortFromDesc.Text = this.GetText(this.View == PmView.Outbox ? "TO_DESC" : "FROM_DESC");
 
+        this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
+
         var messages = this.GetRepository<PMessage>().List(
             this.PageBoardContext.PageUserID,
             this.View,
@@ -457,7 +459,7 @@ public partial class PMList : BaseUserControl
             this.NoMessage.Visible = false;
 
             this.Sort.Visible = true;
-            this.upPanExport.Visible = true;
+            this.Tools.Visible = true;
         }
         else
         {
@@ -467,10 +469,8 @@ public partial class PMList : BaseUserControl
             this.NoMessage.Visible = true;
 
             this.Sort.Visible = false;
-            this.upPanExport.Visible = false;
+            this.Tools.Visible = false;
         }
-
-        this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
         this.Messages.DataSource = messagesPaged;
         this.Messages.DataBind();
