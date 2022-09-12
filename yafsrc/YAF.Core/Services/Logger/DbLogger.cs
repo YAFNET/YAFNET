@@ -140,7 +140,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
                      {
                          ["Message"] = message,
                          ["UserIP"] = userIp,
-                         ["Url"] = HttpContext.Current.Request.Url,
+                         ["Url"] = HttpContext.Current != null ? HttpContext.Current.Request.Url : "",
                          ["ExceptionMessage"] = exception?.Message,
                          ["ExceptionStackTrace"] = exception?.StackTrace,
                          ["ExceptionSource"] = exception?.Source
