@@ -90,18 +90,16 @@ public partial class PMList : BaseUserControl
     {
         var messages = this.GetRepository<UserPMessage>().List(this.PageBoardContext.PageUserID, View);
 
-        var deleteCount = 0;
-
         messages.ForEach(
             item =>
             {
-                deleteCount += this.GetRepository<UserPMessage>().Delete(item, this.View == PmView.Outbox);
+                this.GetRepository<UserPMessage>().Delete(item, this.View == PmView.Outbox);
             });
 
         this.ClearCache();
 
         this.PageBoardContext.LoadMessage.AddSession(
-            this.GetTextFormatted("msgdeleted2", this.View == PmView.Outbox ? deleteCount : " "),
+            this.GetTextFormatted("msgdeleted2", this.PagerTop.Count),
             MessageTypes.success);
 
 

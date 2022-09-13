@@ -98,7 +98,6 @@ public partial class MyMessages : ForumPageRegistered
                                                               count.NumberTotal,
                                                               count.InboxCount,
                                                               count.OutBoxCount,
-                                                              count.ArchivedCount,
                                                               count.Allowed);
         }
     }
@@ -110,7 +109,6 @@ public partial class MyMessages : ForumPageRegistered
     /// <param name="total">The total.</param>
     /// <param name="inbox">The inbox.</param>
     /// <param name="outbox">The outbox.</param>
-    /// <param name="archive">The archive.</param>
     /// <param name="limit">The limit.</param>
     /// <returns>Returns the Message Text</returns>
     protected string GetPMessageText(
@@ -118,7 +116,6 @@ public partial class MyMessages : ForumPageRegistered
         [NotNull] int total,
         [NotNull] int inbox,
         [NotNull] int outbox,
-        [NotNull] int archive,
         [NotNull] int limit)
     {
         decimal percentage = 0;
@@ -130,12 +127,12 @@ public partial class MyMessages : ForumPageRegistered
 
         if (!this.PageBoardContext.IsAdmin)
         {
-            return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, limit, percentage));
+            return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, limit, percentage));
         }
 
         percentage = 0;
 
-        return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, "\u221E", percentage));
+        return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, "\u221E", percentage));
     }
 
     /// <summary>

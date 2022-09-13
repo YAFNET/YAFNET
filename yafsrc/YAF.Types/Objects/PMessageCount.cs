@@ -29,6 +29,5 @@ public class PMessageCount
     public int InboxCount { get; set; }
     public int OutBoxCount { get; set; }
     public int NumberTotal { get; set; }
-    public int ArchivedCount { get; set; }
     public int Allowed { get; set; }
 }

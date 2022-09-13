@@ -120,21 +120,13 @@ public static class PMessageRepositoryExtensions
 
         var numberIn = repository.DbAccess.Execute(db => db.Connection.Count(countInBoxExpression)).ToType<int>();
 
-        var countArchivedExpression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();
-
-        countArchivedExpression.Join<UserPMessage>((a, b) => b.PMessageID == a.ID).Where<PMessage, UserPMessage>(
-            (a, b) => (b.Flags & 8) != 8 && (b.Flags & 4) == 4 && b.UserID == userId);
-
-        var numberArchived = repository.DbAccess.Execute(db => db.Connection.Count(countArchivedExpression)).ToType<int>();
-
         var count = new PMessageCount
-                        {
-                            InboxCount = numberIn,
-                            OutBoxCount = numberOut,
-                            NumberTotal = numberIn + numberOut + numberArchived,
-                            ArchivedCount = numberArchived,
-                            Allowed = numberAllowed
-                        };
+                    {
+                        InboxCount = numberIn,
+                        OutBoxCount = numberOut,
+                        NumberTotal = numberIn + numberOut,
+                        Allowed = numberAllowed
+                    };
 
         return count;
     }
@@ -193,8 +185,8 @@ public static class PMessageRepositoryExtensions
         }
 
         var userPMFlags = new PMessageFlags {
-                                                    IsInOutbox = true
-                                                };
+                                                IsInOutbox = true
+                                            };
 
         if (toUserId == 0)
         {
