@@ -192,7 +192,7 @@ public static class PMessageRepositoryExtensions
         {
             // Get all board users
             var users = BoardContext.Current.GetRepository<User>().Get(
-                u => u.BoardID == repository.BoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4);
+                u => u.BoardID == repository.BoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 && u.ID != fromUserId);
 
             users.ForEach(
                 u => BoardContext.Current.GetRepository<UserPMessage>().Insert(
@@ -257,7 +257,7 @@ public static class PMessageRepositoryExtensions
                             break;
                         case PmView.Outbox:
                             expression.Where<PMessage, UserPMessage>(
-                                (a, b) => a.FromUserID == userId && (b.Flags & 2) == 2);
+                                (a, b) => a.FromUserID == userId && (b.Flags & 2) == 2 && (b.Flags & 8) != 8);
                             break;
                     }
 
