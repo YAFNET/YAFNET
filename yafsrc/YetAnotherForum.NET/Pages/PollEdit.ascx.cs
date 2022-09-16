@@ -188,25 +188,28 @@ public partial class PollEdit : ForumPage
             this.ChoiceRepeater.Items.Cast<RepeaterItem>().ForEach(
                 item =>
                     {
-                        var choiceId = item.FindControlAs<HiddenField>("PollChoiceID").Value;
+                        var choiceId = item.FindControlAs<HiddenField>("PollChoiceID").Value.ToType<int>();
 
                         var choiceName = item.FindControlAs<TextBox>("PollChoice").Text.Trim();
                         var choiceObjectPath = item.FindControlAs<TextBox>("ObjectPath").Text.Trim();
 
-                        if (choiceId.IsNotSet() && choiceName.IsSet())
+                        if (choiceId == 0 && choiceName.IsSet())
                         {
                             // add choice
                             this.GetRepository<Choice>().AddChoice(this.PollId.Value, choiceName, choiceObjectPath);
                         }
-                        else if (choiceId.IsSet() && choiceName.IsSet())
+                        else
                         {
-                            // update choice
-                            this.GetRepository<Choice>().UpdateChoice(choiceId.ToType<int>(), choiceName, choiceObjectPath);
-                        }
-                        else if (choiceId.IsSet() && choiceName.IsNotSet())
-                        {
-                            // remove choice
-                            this.GetRepository<Choice>().DeleteById(choiceId.ToType<int>());
+                            if (choiceName.IsSet())
+                            {
+                                // update choice
+                                this.GetRepository<Choice>().UpdateChoice(choiceId, choiceName, choiceObjectPath);
+                            }
+                            else if (choiceName.IsNotSet())
+                            {
+                                // remove choice
+                                this.GetRepository<Choice>().DeleteById(choiceId);
+                            }
                         }
                     });
 
@@ -294,7 +297,7 @@ public partial class PollEdit : ForumPage
             {
                 for (var i = 0; i <= count; i++)
                 {
-                    var choice = new Choice { ID = i };
+                    var choice = new Choice { ID = 0 };
 
                     choices.Add(choice);
                 }
@@ -318,7 +321,7 @@ public partial class PollEdit : ForumPage
             var dummyRowsCount = this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber - 1;
             for (var i = 0; i <= dummyRowsCount; i++)
             {
-                var choice = new Choice { ID = i };
+                var choice = new Choice { ID = 0 };
 
                 choices.Add(choice);
             }
