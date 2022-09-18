@@ -68,6 +68,7 @@
             <YAF:ThemeButton ID="CreatePoll" runat="server"
                              TextLocalizedTag="CREATEPOLL"
                              Icon="poll-h"
+                             CssClass="mb-3"
                              Type="Secondary"/>
         </div>
     </div>

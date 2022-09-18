@@ -9,8 +9,7 @@
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
-<YAF:PollList ID="PollList" runat="server"
-              ShowButtons="true" />
+<YAF:PollList ID="PollList" runat="server" />
 
 <div class="row">
     <div class="col">

@@ -90,21 +90,6 @@ public partial class PollChoiceList : BaseUserControl
     public int Votes { get; set; }
 
     /// <summary>
-    /// The get image height.
-    /// </summary>
-    /// <param name="mimeType">
-    /// The mime type.
-    /// </param>
-    /// <returns>
-    /// Returns image height.
-    /// </returns>
-    protected int GetImageHeight([NotNull] object mimeType)
-    {
-        var attrs = mimeType.ToString().Split('!')[1].Split(';');
-        return attrs[1].ToType<int>();
-    }
-
-    /// <summary>
     /// The Page_Load event.
     /// </summary>
     /// <param name="sender">
@@ -224,6 +209,15 @@ public partial class PollChoiceList : BaseUserControl
 
         voteButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
         voteButton.Visible = true;
+
+        // override if multi vote
+        if (this.DataSource.First().Item1.PollFlags.AllowMultipleChoice)
+        {
+            if (this.UserPollVotes.All(v => choice.Item2.ID != v.ChoiceID))
+            {
+                voteButton.Enabled = true;
+            }
+        }
 
         // Poll Choice image
         var choiceImage = item.FindControlRecursiveAs<Image>("ChoiceImage");

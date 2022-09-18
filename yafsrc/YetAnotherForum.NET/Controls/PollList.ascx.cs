@@ -164,20 +164,6 @@ public partial class PollList : BaseUserControl
     }
 
     /// <summary>
-    /// Gets the height of the image.
-    /// </summary>
-    /// <param name="mimeType">The mime type.</param>
-    /// <returns>
-    /// The get image height.
-    /// </returns>
-    protected int GetImageHeight([NotNull] object mimeType)
-    {
-        var attrs = mimeType.ToString().Split('!')[1].Split(';');
-
-        return attrs[1].ToType<int>();
-    }
-
-    /// <summary>
     /// Determines whether [is poll closed] [the specified poll id].
     /// </summary>
     /// <returns>
@@ -341,7 +327,7 @@ public partial class PollList : BaseUserControl
 
             var pollChoiceList = this.PollChoiceList1;
 
-            var isNotVoted = this.userPollVotes.Any();
+            var isNotVoted = !this.userPollVotes.Any();
 
             pollChoiceList.UserPollVotes = this.userPollVotes;
 

@@ -205,7 +205,7 @@ public partial class PollEdit : ForumPage
                                 // update choice
                                 this.GetRepository<Choice>().UpdateChoice(choiceId, choiceName, choiceObjectPath);
                             }
-                            else if (choiceName.IsNotSet())
+                            else
                             {
                                 // remove choice
                                 this.GetRepository<Choice>().DeleteById(choiceId);
