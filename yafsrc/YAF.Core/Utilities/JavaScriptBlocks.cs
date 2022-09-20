@@ -1232,14 +1232,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string ForumIconLegendPopoverJs([NotNull] string content, [NotNull] string cssClass)
     {
-        return $@"var popoverTriggerIconList = [].slice.call(document.querySelectorAll('.{cssClass}'));
+        return $@"Sys.Application.add_load(function(){{var popoverTriggerIconList = [].slice.call(document.querySelectorAll('.{cssClass}'));
                       var popoverIconList = popoverTriggerIconList.map(function(popoverTriggerEl) {{
                            return new bootstrap.Popover(popoverTriggerEl,{{
                            html: true,
                            content: ""{content}"",
                            trigger: ""focus""
                            }});
-                    }});";
+                    }});}});";
     }
 
     /// <summary>
@@ -1260,12 +1260,15 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string TopicLinkPopoverJs([NotNull] string title, [NotNull] string cssClass, [NotNull] string trigger)
     {
-        return $@"{Config.JQueryAlias}(document).ready(function() {{
-                     {Config.JQueryAlias}('{cssClass}').popover({{
+        return $@"Sys.Application.add_load(function(){{
+                      var popoverTriggerModsList = [].slice.call(document.querySelectorAll('{cssClass}'));
+                      var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {{
+                           return new bootstrap.Popover(popoverTriggerEl,{{
                            title: '{title}',
                            html: true,
                            trigger: '{trigger}',
                            template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body""></div></div>'
+                           }});
                 }});
                 }});";
     }
@@ -1282,7 +1285,8 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string ForumModsPopoverJs([NotNull] string title)
     {
-        return $@"var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
+        return $@"Sys.Application.add_load(function(){{
+                      var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
                       var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {{
                            return new bootstrap.Popover(popoverTriggerEl,{{
                            title: '{title}',
@@ -1290,7 +1294,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                            trigger: 'focus',
                            template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'
                            }});
-                }});";
+                }});
+
+       }});";
     }
 
     /// <summary>
