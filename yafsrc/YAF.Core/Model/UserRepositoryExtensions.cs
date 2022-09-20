@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 using YAF.Types.Models;
 using YAF.Types.Objects;

@@ -103,7 +103,7 @@ public static class UserPMessageRepositoryExtensions
                 var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
 
                 expression.Join<PMessage>((a, b) => a.PMessageID == b.ID)
-                    .Where<UserPMessage, PMessage>((a, b) => b.FromUserID == userId && (a.Flags & 2) == 2);
+                    .Where<UserPMessage, PMessage>((a, b) => b.FromUserID == userId && (a.Flags & 2) == 2 && (a.Flags & 8) != 8);
 
                 return repository.DbAccess.Execute(db => db.Connection.Select(expression));
             }

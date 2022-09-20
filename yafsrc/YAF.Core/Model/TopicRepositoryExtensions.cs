@@ -1273,10 +1273,20 @@ public static class TopicRepositoryExtensions
         var topics = repository.DbAccess.Execute(
             db =>
                 {
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>()
-                        .Join<Forum>((t, f) => f.ID == t.ForumID).Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
-                        .Where<Topic, Forum, Category>(
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
+
+                    expression.Join<Forum>((t, f) => f.ID == t.ForumID).Join<Forum, Category>((f, c) => c.ID == f.CategoryID);
+
+                    if (forumId == 0)
+                    {
+                        expression.Where<Topic, Forum, Category>(
+                            (t, f, c) => c.BoardID == boardId && (c.Flags & 1) == 1 && t.Priority == 0);
+                    }
+                    else
+                    {
+                        expression.Where<Topic, Forum, Category>(
                             (t, f, c) => c.BoardID == boardId && (c.Flags & 1) == 1 && f.ID == forumId && t.Priority == 0);
+                    }
 
                     expression.And(
                         $@"({expression.Column<Topic>(x => x.Flags, true)} & 512) = 0
