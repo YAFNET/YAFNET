@@ -83,7 +83,7 @@
                                             LocalizedTag="subject" />
                     </asp:Label>
                     <asp:TextBox ID="PmSubjectTextBox" runat="server" 
-                                 CssClass="form-control" />
+                                 CssClass="form-control" MaxLength="100" />
                 </div>
                 <div class="mb-3">
                     <asp:Label runat="server">
