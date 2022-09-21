@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.TaskManager"
     CodeBehind="TaskManager.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="YAF.Core.Extensions" %>
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
@@ -16,7 +15,7 @@
                                     Param0="<%# this.Get<ITaskModuleManager>().TaskCount.ToString() %>"></YAF:IconHeader>
                     </div>
                 <div class="card-body">
-        <asp:Repeater ID="taskRepeater" runat="server" OnItemCommand="TaskRepeaterItemCommand">
+        <asp:Repeater ID="taskRepeater" runat="server">
             <HeaderTemplate>
                 <ul class="list-group">
             </HeaderTemplate>
