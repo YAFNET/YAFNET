@@ -225,16 +225,23 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </param>
     public void LockInactiveAccounts(DateTime createdCutoff)
     {
-        var allUsers = this.Get<IAspNetUsersHelper>().GetAllUsers();
+        var allUsers = this.GetRepository<User>().GetByBoardId();
 
         // iterate through each one...
-        allUsers.Where(user => !user.IsApproved && user.LastActivityDate < createdCutoff).ForEach(
-            user =>
+        allUsers.Where(user => (user.Flags & 4) != 4 && (user.Flags & 2) == 2 && user.LastVisit < createdCutoff)
+            .ForEach(
+                user =>
                 {
-                    // Set user to un-approve...
-                    user.IsApproved = false;
+                    var flags = user.UserFlags;
 
-                    this.Get<AspNetUsersManager>().Update(user);
+                    // Set user to un-approve...
+                    flags.IsApproved = false;
+
+                    this.GetRepository<User>().UpdateOnly(
+                        () => new User {
+                                           Flags = flags.BitValue
+                                       },
+                        u => u.ID == user.ID);
                 });
     }
 
