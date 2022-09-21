@@ -426,7 +426,6 @@
                                          CommandArgument='<%# this.Eval("ID") %>'
                                          Type="None"
                                          CssClass="dropdown-item"
-                                         ReturnConfirmTag="CONFIRM_APPROVE"
                                          Icon="check"
                                          TextLocalizedTag="ADMIN_APPROVE">
                         </YAF:ThemeButton>
@@ -435,7 +434,7 @@
                                          CommandArgument='<%# this.Eval("ID") %>'
                                          Type="None"
                                          CssClass="dropdown-item"
-                                         ReturnConfirmTag="CONFIRM_APPROVE"
+                                         ReturnConfirmTag="CONFIRM_DELETE"
                                          Icon="trash"
                                          TextLocalizedTag="ADMIN_DELETE">
                         </YAF:ThemeButton>
