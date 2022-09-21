@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -110,24 +110,5 @@ public partial class TaskManager : AdminPage
         this.PageBoardContext.PageLinks.AddAdminIndex();
 
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_TASKMANAGER", "TITLE"), string.Empty);
-    }
-
-    /// <summary>
-    /// Called on a command in the task repeater.
-    /// </summary>
-    /// <param name="source">The source of the event.</param>
-    /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void TaskRepeaterItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-    {
-        if (!e.CommandName.Equals("stop"))
-        {
-            return;
-        }
-
-        // attempt to stop a task...
-        this.Get<ITaskModuleManager>().StopTask(e.CommandArgument.ToString());
-
-        // refresh the display
-        this.BindData();
     }
 }

@@ -43,28 +43,6 @@
                         <asp:Label ID="Label2" runat="server" 
                                    CssClass='<%# this.GetItemColor(this.Eval("Value.IsRunning").ToType<bool>()) %>'><%# this.GetItemName(this.Eval("Value.IsRunning").ToType<bool>())%></asp:Label>
                     </p>
-                    <asp:PlaceHolder ID="StopTaskHolder" runat="server" 
-                                     Visible="<%# ((KeyValuePair<string, IBackgroundTask>)Container.DataItem).Value.IsStoppable() %>">
-                        <small>
-                            <YAF:ThemeButton ID="stop" runat="server"
-                                             CommandName="stop" 
-                                             CommandArgument='<%# this.Eval("Key") %>'
-                                             TextLocalizedTag="STOP_TASK" TextLocalizedPage="ADMIN_TASKMANAGER"
-                                             Icon="hand-paper" 
-                                             Type="Danger" 
-                                             Size="Small">
-                            </YAF:ThemeButton>
-                            <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                                <YAF:ThemeButton ID="ThemeButton1" runat="server"
-                                                 CommandName="stop" 
-                                                 CommandArgument='<%# this.Eval("Key") %>'
-                                                 TextLocalizedTag="STOP_TASK" TextLocalizedPage="ADMIN_TASKMANAGER"
-                                                 Icon="hand-paper" 
-                                                 Type="None"
-                                                 CssClass="dropdown-item" />
-                            </div>
-                        </small>
-                    </asp:PlaceHolder>
                 </li>
             </ItemTemplate>
         </asp:Repeater>

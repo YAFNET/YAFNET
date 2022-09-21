@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -26,7 +26,7 @@ namespace YAF.Types.Interfaces;
 using System.Collections.Generic;
 
 /// <summary>
-/// The i task module manager.
+/// The task module manager Interface.
 /// </summary>
 public interface ITaskModuleManager
 {
@@ -71,26 +71,16 @@ public interface ITaskModuleManager
     /// <param name="instanceName">
     /// Unique name of this task
     /// </param>
-    /// <param name="start">
+    /// <param name="startTask">
     /// Task to run
     /// </param>
     bool StartTask([NotNull] string instanceName, Func<IBackgroundTask> startTask);
 
     /// <summary>
-    /// The stop task.
+    /// Tries the get task.
     /// </summary>
-    /// <param name="instanceName">
-    /// The instance name.
-    /// </param>
-    void StopTask([NotNull] string instanceName);
-
-    /// <summary>
-    /// Attempt to get the instance of the task.
-    /// </summary>
-    /// <param name="instanceName">
-    /// </param>
-    /// <returns>
-    /// </returns>
+    /// <param name="instanceName">Name of the instance.</param>
+    /// <param name="task">The task.</param>
     bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task);
 
     /// <summary>

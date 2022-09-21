@@ -28,8 +28,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-using YAF.Types.Interfaces.Tasks;
-
 /// <summary>
 ///     The base task module manager.
 /// </summary>
@@ -109,30 +107,6 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// The <see cref="bool"/>.
     /// </returns>
     public abstract bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> startTask);
-
-    /// <summary>
-    /// Stops a task from running if it's not critical
-    /// </summary>
-    /// <param name="instanceName">
-    /// The instance Name.
-    /// </param>
-    public virtual void StopTask([NotNull] string instanceName)
-    {
-        if (!this.TryGetTask(instanceName, out var task))
-        {
-            return;
-        }
-
-        if (task == null || !task.IsRunning || task is ICriticalBackgroundTask)
-        {
-            return;
-        }
-
-        if (this.TryRemoveTask(instanceName))
-        {
-            task.Dispose();
-        }
-    }
 
     /// <summary>
     /// Check if a task exists in the task manager. May not be running.
