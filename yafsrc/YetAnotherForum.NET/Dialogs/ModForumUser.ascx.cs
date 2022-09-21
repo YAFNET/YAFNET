@@ -132,7 +132,7 @@ public partial class ModForumUser : BaseUserControl
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.SelectUsersLoadJs),
             JavaScriptBlocks.SelectUsersLoadJs(
-                this.ToList.ClientID,
+                "ToList",
                 this.FindUsers.ClientID,
                 this.UserName.ClientID));
     }

@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ModForumUser.ascx.cs" Inherits="YAF.Dialogs.ModForumUser" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ModForumUser.ascx.cs" Inherits="YAF.Dialogs.ModForumUser" %>
 
 
 <div class="modal fade" id="ModForumUserDialog" tabindex="-1" role="dialog" aria-labelledby="Moderate Forum User Dialog" aria-hidden="true">
@@ -26,7 +26,7 @@
                                      Icon="search" />
                 </div>
                 <div class="mb-3">
-                    <asp:DropDownList runat="server" ID="ToList" style="display:none" />
+                    <select ID="ToList" style="display:none"></select>
                 </div>
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="AccessMaskID">
