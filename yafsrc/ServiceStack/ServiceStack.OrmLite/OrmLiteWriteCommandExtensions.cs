@@ -1404,7 +1404,9 @@ public static class OrmLiteWriteCommandExtensions
     {
         var modelDef = typeof(T).GetModelDefinition();
         var id = modelDef.GetPrimaryKey(obj);
-        var existingRow = id != null ? dbCmd.SingleById<T>(id) : default;
+        var existingRow = id != null && !id.Equals(id.GetType().GetDefaultValue())
+                              ? dbCmd.SingleById<T>(id)
+                              : default;
 
         if (Equals(existingRow, default(T)))
         {
@@ -1464,8 +1466,7 @@ public static class OrmLiteWriteCommandExtensions
 
         IDbTransaction dbTrans = null;
 
-        if (dbCmd.Transaction == null)
-            dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
+        dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
         try
         {
