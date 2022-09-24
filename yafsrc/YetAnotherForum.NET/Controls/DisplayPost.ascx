@@ -63,7 +63,7 @@
                                     </li>
                                 </asp:PlaceHolder>
                                 <asp:PlaceHolder runat="server" ID="UserReputation"
-                                                 Visible="<%#this.PageBoardContext.BoardSettings.DisplayPoints && !this.DataSource.IsGuest %>">
+                                                 Visible="<%#this.PageBoardContext.BoardSettings.EnableUserReputation && !this.DataSource.IsGuest %>">
                                     <li class="list-inline-item d-none d-md-inline-block" style="width:150px">
                                         <%# this.Get<IReputation>().GenerateReputationBar(this.DataSource.Points, this.PostData.UserId) %>
                                     </li>

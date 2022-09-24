@@ -347,6 +347,7 @@ public partial class PollList : BaseUserControl
             }
 
             pollChoiceList.PollId = this.poll.ID;
+            pollChoiceList.IsLocked = this.PageBoardContext.PageTopic.TopicFlags.IsLocked;
             pollChoiceList.Votes = this.pollAndChoices.Sum(x => x.Item2.Votes);
 
             // returns number of day to run - null if poll has no expiration date

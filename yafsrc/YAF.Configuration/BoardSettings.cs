@@ -1584,16 +1584,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether Display Reputation Points.
-    /// </summary>
-    public bool DisplayPoints
-    {
-        get => this.Registry.GetValue("DisplayPoints", false);
-
-        set => this.Registry.SetValue("DisplayPoints", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether ShowQuickAnswer.
     /// </summary>
     public bool ShowQuickAnswer

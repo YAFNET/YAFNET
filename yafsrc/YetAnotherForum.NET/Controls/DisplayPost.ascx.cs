@@ -164,7 +164,6 @@ public partial class DisplayPost : BaseUserControl
             this.ContextMenu.Visible = false;
         }
 
-        this.Quote.Text = this.GetText("BUTTON_QUOTE_TT");
         this.Quote.IconMobileOnly = true;
 
         this.ReplyFooter.Text = this.GetText("REPLY");
@@ -213,10 +212,6 @@ public partial class DisplayPost : BaseUserControl
         {
             this.ManageDropPlaceHolder.Visible = false;
         }
-
-        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-            "asynchCallFailedJs",
-            "function CallFailed(res){console.log(res);  }");
 
         this.FormatThanksRow();
 
@@ -283,7 +278,6 @@ public partial class DisplayPost : BaseUserControl
         }
 
         if (this.ReportPost.Visible == false && this.MarkAsAnswer.Visible == false
-                                             && this.ReportPost.Visible == false
                                              && this.ManageDropPlaceHolder.Visible == false)
         {
             this.ToolsHolder.Visible = false;
