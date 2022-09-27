@@ -598,7 +598,7 @@ public static class ForumRepositoryExtensions
 
         if (repository.Exists(f => f.ParentID == forumId))
         {
-            return false;
+            repository.UpdateOnly(() => new Forum {ParentID = null}, f => f.ParentID == forumId);
         }
 
         repository.UpdateOnly(() => new Forum { LastMessageID = null, LastTopicID = null }, f => f.ID == forumId);
@@ -655,7 +655,7 @@ public static class ForumRepositoryExtensions
 
         if (repository.Exists(f => f.ParentID == oldForumId))
         {
-            return false;
+            repository.UpdateOnly(() => new Forum { ParentID = null }, f => f.ParentID == oldForumId);
         }
 
         BoardContext.Current.GetRepository<Forum>().UpdateOnly(
