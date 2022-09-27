@@ -467,9 +467,6 @@ public partial class PostMessage : ForumPage
 
         var isApproved = newMessage.MessageFlags.IsApproved;
 
-        // vzrus the poll access controls are enabled and this is a new topic - we add the variables
-        var attachPollParameter = this.PageBoardContext.ForumPollAccess && this.PostOptions1.PollOptionVisible;
-
         // Create notification emails
         if (isApproved)
         {
@@ -517,16 +514,7 @@ public partial class PostMessage : ForumPage
                     this.forumEditor.Text);
             }
 
-            if (!attachPollParameter || !this.PostOptions1.PollChecked)
-            {
-                // regular redirect...
-                this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new{m = newMessage.ID, name = this.PageBoardContext.PageTopic.TopicName });
-            }
-            else
-            {
-                // poll edit redirect...
-                this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, new {t = this.PageBoardContext.PageTopicID });
-            }
+            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { m = newMessage.ID, name = this.PageBoardContext.PageTopic.TopicName });
         }
         else
         {
@@ -541,12 +529,6 @@ public partial class PostMessage : ForumPage
                         isPossibleSpamMessage);
             }
 
-            // 't' variable is required only for poll and this is a attach poll token for attachments page
-            if (!this.PostOptions1.PollChecked)
-            {
-                attachPollParameter = false;
-            }
-
             // Tell user that his message will have to be approved by a moderator
             var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
 
@@ -555,16 +537,7 @@ public partial class PostMessage : ForumPage
                 url = this.Get<LinkBuilder>().GetTopicLink(this.PageBoardContext.PageTopicID, this.PageBoardContext.PageTopic.TopicName);
             }
 
-            if (!attachPollParameter)
-            {
-                this.Get<LinkBuilder>().Redirect(ForumPages.Info, new {i = 1, url = this.Server.UrlEncode(url) });
-            }
-            else
-            {
-                this.Get<LinkBuilder>().Redirect(
-                    ForumPages.PollEdit,
-                    new {ra = 1, t = this.PageBoardContext.PageTopicID, f = this.PageBoardContext.PageForumID});
-            }
+            this.Get<LinkBuilder>().Redirect(ForumPages.Info, new { i = 1, url = this.Server.UrlEncode(url) });
         }
     }
 

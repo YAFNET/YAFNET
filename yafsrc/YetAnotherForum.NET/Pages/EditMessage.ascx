@@ -32,31 +32,27 @@
                         </YAF:Alert>
                     </asp:PlaceHolder>
                 </asp:PlaceHolder>
-                <asp:PlaceHolder ID="SubjectRow" runat="server">
-                    <div class="mb-3">
-                        <asp:Label runat="server" AssociatedControlID="TopicSubjectTextBox">
-                            <YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" LocalizedTag="subject" />
-                        </asp:Label>
-                        <asp:TextBox ID="TopicSubjectTextBox" runat="server"
-                            CssClass="form-control"
-                            MaxLength="100"
-                            autocomplete="off" />
-                    </div>
-                    <div id="SearchResultsPlaceholder"
-                        data-url="<%=BoardInfo.ForumClientFileRoot %>">
-                    </div>
-                </asp:PlaceHolder>
-                <asp:PlaceHolder ID="DescriptionRow" Visible="false" runat="server">
-                    <div class="mb-3">
-                        <asp:Label runat="server" AssociatedControlID="TopicDescriptionTextBox">
-                            <YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" LocalizedTag="description" />
-                        </asp:Label>
-                        <asp:TextBox ID="TopicDescriptionTextBox" runat="server"
-                            CssClass="form-control"
-                            MaxLength="100"
-                            autocomplete="off" />
-                    </div>
-                </asp:PlaceHolder>
+                <div class="mb-3">
+                    <asp:Label runat="server" AssociatedControlID="TopicSubjectTextBox">
+                        <YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" LocalizedTag="subject" />
+                    </asp:Label>
+                    <asp:TextBox ID="TopicSubjectTextBox" runat="server"
+                                 CssClass="form-control"
+                                 MaxLength="100"
+                                 autocomplete="off" />
+                </div>
+                <div id="SearchResultsPlaceholder"
+                     data-url="<%=BoardInfo.ForumClientFileRoot %>">
+                </div>
+                <div class="mb-3">
+                    <asp:Label runat="server" AssociatedControlID="TopicDescriptionTextBox">
+                        <YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" LocalizedTag="description" />
+                    </asp:Label>
+                    <asp:TextBox ID="TopicDescriptionTextBox" runat="server"
+                                 CssClass="form-control"
+                                 MaxLength="100"
+                                 autocomplete="off" />
+                </div>
                 <asp:PlaceHolder ID="FromRow" runat="server" Visible="False">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="From">
@@ -81,15 +77,13 @@
                         <asp:TextBox ID="TopicStylesTextBox" runat="server" CssClass="form-control" />
                     </div>
                 </asp:PlaceHolder>
-                <asp:PlaceHolder ID="TagsHolder" runat="server" Visible="True">
-                    <div class="mb-3">
-                        <asp:Label runat="server" AssociatedControlID="TagsValue">
-                            <YAF:LocalizedLabel runat="server" LocalizedTag="TAGS" />
-                        </asp:Label>
-                        <select id="Tags" multiple="multiple" class="form-control"></select>
-                        <asp:HiddenField runat="server" ID="TagsValue"/>
-                    </div>
-                </asp:PlaceHolder>
+                <div class="mb-3">
+                    <asp:Label runat="server" AssociatedControlID="TagsValue">
+                        <YAF:LocalizedLabel runat="server" LocalizedTag="TAGS" />
+                    </asp:Label>
+                    <select id="Tags" multiple="multiple" class="form-control"></select>
+                    <asp:HiddenField runat="server" ID="TagsValue"/>
+                </div>
                 <div class="mb-3">
                     <asp:Label runat="server">
                         <YAF:LocalizedLabel runat="server" LocalizedTag="message" />

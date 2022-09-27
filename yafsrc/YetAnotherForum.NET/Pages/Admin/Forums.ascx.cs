@@ -67,7 +67,7 @@ public partial class Forums : AdminPage
                 this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditForum, new { copy = e.CommandArgument });
                 break;
             case "delete":
-                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_DeleteForum, new { fa = e.CommandArgument });
+                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_DeleteForum, new { f = e.CommandArgument });
                 break;
         }
     }

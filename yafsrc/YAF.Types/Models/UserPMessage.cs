@@ -51,6 +51,9 @@ public class UserPMessage : IEntity, IHaveID
     [Required]
     public int PMessageID { get; set; }
 
+    [Reference]
+    public PMessage PMessage { get; set; }
+
     /// <summary>
     /// Gets or sets the flags.
     /// </summary>

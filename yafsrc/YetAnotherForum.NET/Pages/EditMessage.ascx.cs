@@ -111,7 +111,7 @@ public partial class EditMessage : ForumPage
             return false;
         }
 
-        if (this.SubjectRow.Visible && this.TopicSubjectTextBox.Text.IsNotSet())
+        if (this.TopicSubjectTextBox.Text.IsNotSet())
         {
             this.PageBoardContext.Notify(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
             return false;
@@ -297,7 +297,7 @@ public partial class EditMessage : ForumPage
             if (this.PageBoardContext.IsGuest)
             {
                 this.From.Text = this.PageBoardContext.PageUser.DisplayOrUserName();
-                this.FromRow.Visible = false;
+                this.FromRow.Visible = true;
             }
         }
 
@@ -378,12 +378,9 @@ public partial class EditMessage : ForumPage
             this.PageBoardContext.PageUserID);
 
         // Update Topic Tags?!
-        if (this.TagsHolder.Visible)
-        {
-            this.GetRepository<TopicTag>().Delete(x => x.TopicID == this.PageBoardContext.PageTopicID);
+        this.GetRepository<TopicTag>().Delete(x => x.TopicID == this.PageBoardContext.PageTopicID);
 
-            this.GetRepository<TopicTag>().AddTagsToTopic(this.TagsValue.Value, this.PageBoardContext.PageTopicID);
-        }
+        this.GetRepository<TopicTag>().AddTagsToTopic(this.TagsValue.Value, this.PageBoardContext.PageTopicID);
 
         this.UpdateWatchTopic(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
 
@@ -475,22 +472,11 @@ public partial class EditMessage : ForumPage
 
         var messageId = editMessage.Item2.ID;
 
-        // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
-        var attachPollParameter = this.PageBoardContext.ForumPollAccess && this.PostOptions1.PollOptionVisible;
-
         // Create notification emails
         if (isApproved)
         {
-            if (!attachPollParameter || !this.PostOptions1.PollChecked)
-            {
-                // regular redirect...
-                this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new {m = messageId, name = this.PageBoardContext.PageTopic.TopicName });
-            }
-            else
-            {
-                // poll edit redirect...
-                this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, new { t = this.PageBoardContext.PageTopicID });
-            }
+            // regular redirect...
+            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { m = messageId, name = this.PageBoardContext.PageTopic.TopicName });
         }
         else
         {
@@ -505,12 +491,6 @@ public partial class EditMessage : ForumPage
                         isPossibleSpamMessage);
             }
 
-            // 't' variable is required only for poll and this is a attach poll token for attachments page
-            if (!this.PostOptions1.PollChecked)
-            {
-                attachPollParameter = false;
-            }
-
             // Tell user that his message will have to be approved by a moderator
             var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
 
@@ -519,16 +499,7 @@ public partial class EditMessage : ForumPage
                 url = this.Get<LinkBuilder>().GetTopicLink(this.PageBoardContext.PageTopicID, this.PageBoardContext.PageTopic.TopicName);
             }
 
-            if (!attachPollParameter)
-            {
-                this.Get<LinkBuilder>().Redirect(ForumPages.Info, new { i = 1, url = this.Server.UrlEncode(url) });
-            }
-            else
-            {
-                this.Get<LinkBuilder>().Redirect(
-                    ForumPages.PollEdit,
-                    new { ra = 1, t = this.PageBoardContext.PageTopicID, f = this.PageBoardContext.PageForumID });
-            }
+            this.Get<LinkBuilder>().Redirect(ForumPages.Info, new { i = 1, url = this.Server.UrlEncode(url) });
         }
     }
 

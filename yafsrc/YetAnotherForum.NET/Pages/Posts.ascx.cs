@@ -42,11 +42,6 @@ public partial class Posts : ForumPage
     private bool dataBound;
 
     /// <summary>
-    ///   The forum flags.
-    /// </summary>
-    private ForumFlags forumFlags;
-
-    /// <summary>
     ///   The _topic.
     /// </summary>
     private Topic topic;
@@ -223,7 +218,7 @@ public partial class Posts : ForumPage
                 "fa fa-link");
             this.ShareMenu.AddPostBackItem("retweet", this.GetText("RETWEET_TOPIC"), "fab fa-twitter");
 
-            var facebookUrl = $"http://www.facebook.com/plugins/like.php?href={this.Server.UrlEncode(topicUrl)}";
+            var facebookUrl = $"https://www.facebook.com/plugins/like.php?href={this.Server.UrlEncode(topicUrl)}";
 
             this.ShareMenu.AddClientScriptItem(
                 this.GetText("FACEBOOK_TOPIC"),
@@ -238,15 +233,6 @@ public partial class Posts : ForumPage
                 $@"window.open('{facebookShareUrl}','{this.GetText("FACEBOOK_SHARE_TOPIC")}','width=550,height=690,resizable=yes');",
                 "fab fa-facebook");
             this.ShareMenu.AddPostBackItem("reddit", this.GetText("REDDIT_TOPIC"), "fab fa-reddit");
-
-            this.ShareMenu.AddPostBackItem("tumblr", this.GetText("TUMBLR_TOPIC"), "fab fa-tumblr");
-        }
-        else
-        {
-            if (this.PageBoardContext.BoardSettings.AllowEmailTopic)
-            {
-                this.OptionsMenu.AddPostBackItem("email", this.GetText("EMAILTOPIC"), "fa fa-email");
-            }
         }
 
         if (!this.PageBoardContext.IsGuest)
@@ -305,10 +291,6 @@ public partial class Posts : ForumPage
 
         this.BindData();
 
-        var firstPost = ((List<PagedMessage>)this.MessageList.DataSource).FirstOrDefault();
-
-        this.forumFlags = new ForumFlags(firstPost.ForumFlags);
-
         if (this.PageBoardContext.IsGuest && !this.PageBoardContext.ForumReadAccess)
         {
             // attempt to get permission by redirecting to login...
@@ -362,14 +344,14 @@ public partial class Posts : ForumPage
         this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
         this.QuickReplyLink2.Visible = yafBoardSettings.ShowQuickAnswer;
 
-        if (!this.PageBoardContext.ForumPostAccess || this.forumFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
+        if (!this.PageBoardContext.ForumPostAccess || this.PageBoardContext.PageForum.ForumFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
         {
             this.NewTopic1.Visible = false;
             this.NewTopic2.Visible = false;
         }
 
         // Ederon : 9/9/2007 - moderators can reply in locked topics
-        if (!this.PageBoardContext.ForumReplyAccess || (this.topic.TopicFlags.IsLocked || this.forumFlags.IsLocked) &&
+        if (!this.PageBoardContext.ForumReplyAccess || (this.topic.TopicFlags.IsLocked || this.PageBoardContext.PageForum.ForumFlags.IsLocked) &&
             !this.PageBoardContext.ForumModeratorAccess)
         {
             this.PostReplyLink1.Visible = this.PostReplyLink2.Visible = false;
@@ -446,7 +428,7 @@ public partial class Posts : ForumPage
             return;
         }
 
-        if (!this.forumFlags.IsLocked)
+        if (!this.PageBoardContext.PageForum.ForumFlags.IsLocked)
         {
             return;
         }
@@ -891,7 +873,7 @@ public partial class Posts : ForumPage
                         .RemoveMultipleWhitespace();
 
                     var tweetUrl =
-                        $"http://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(string.Format("RT {1}Thread: {0}", twitterMsg.Truncate(100), twitterName))}";
+                        $"https://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(string.Format("RT {1}Thread: {0}", twitterMsg.Truncate(100), twitterName))}";
 
                     this.Get<HttpResponseBase>().Redirect(tweetUrl);
                 }
@@ -900,7 +882,7 @@ public partial class Posts : ForumPage
             case "reddit":
                 {
                     var redditUrl =
-                        $"http://www.reddit.com/submit?url={this.Server.UrlEncode(topicUrl)}&title={this.Server.UrlEncode(this.topic.TopicName)}";
+                        $"https://www.reddit.com/submit?url={this.Server.UrlEncode(topicUrl)}&title={this.Server.UrlEncode(this.topic.TopicName)}";
 
                     this.Get<HttpResponseBase>().Redirect(redditUrl);
                 }
@@ -928,9 +910,6 @@ public partial class Posts : ForumPage
                 break;
             case "unwatch":
                 this.UnTrackTopicClick(sender, e);
-                break;
-            case "email":
-                this.EmailTopic_Click(sender, e);
                 break;
             case "atomfeed":
                 this.Get<LinkBuilder>().Redirect(

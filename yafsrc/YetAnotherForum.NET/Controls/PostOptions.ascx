@@ -1,8 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PostOptions"
     CodeBehind="PostOptions.ascx.cs" %>
 
-<asp:PlaceHolder id="OptionsRow" runat="server">
-    <div class="row">
+<div class="row">
         <div class="col">
             <h6>
                 <YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" />
@@ -28,4 +27,3 @@
             </div>
         </div>
     </div>
-</asp:PlaceHolder>

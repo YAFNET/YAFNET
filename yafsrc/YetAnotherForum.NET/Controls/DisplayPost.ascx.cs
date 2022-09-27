@@ -277,15 +277,15 @@ public partial class DisplayPost : BaseUserControl
             }
         }
 
-        if (this.ReportPost.Visible == false && this.MarkAsAnswer.Visible == false
-                                             && this.ManageDropPlaceHolder.Visible == false)
+        if (!this.ReportPost.Visible && !this.MarkAsAnswer.Visible
+                                             && !this.ManageDropPlaceHolder.Visible)
         {
             this.ToolsHolder.Visible = false;
         }
 
-        if (this.ThanksDataLiteral.Visible == false
-            && this.Thank.Visible == false
-            && this.Quote.Visible == false && this.MultiQuote.Visible == false)
+        if (!this.ThanksDataLiteral.Visible
+            && !this.Thank.Visible
+            && !this.Quote.Visible && !this.MultiQuote.Visible)
         {
             this.Footer.Visible = false;
         }
@@ -430,7 +430,7 @@ public partial class DisplayPost : BaseUserControl
 
         this.DataSource.ReputationVoteDate = DateTime.UtcNow;
 
-        this.DataSource.Points = this.DataSource.Points + 1;
+        this.DataSource.Points += 1;
 
         this.PageBoardContext.Notify(
             this.GetTextFormatted(
@@ -465,7 +465,7 @@ public partial class DisplayPost : BaseUserControl
 
         this.DataSource.ReputationVoteDate = DateTime.UtcNow;
 
-        this.DataSource.Points = this.DataSource.Points - 1;
+        this.DataSource.Points -= 1;
 
         this.PageBoardContext.Notify(
             this.GetTextFormatted(

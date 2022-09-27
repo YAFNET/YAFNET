@@ -33,15 +33,6 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.Label Title;
 
         /// <summary>
-        /// SubjectRow-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder SubjectRow;
-
-        /// <summary>
         /// TopicSubjectLabel-Steuerelement.
         /// </summary>
         /// <remarks>

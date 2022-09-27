@@ -203,7 +203,7 @@
                              Type="Secondary"
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
                              CssClass="ms-1 mb-1"
-                             Icon="comment" />
+                             Icon="plus" />
             <YAF:ThemeButton ID="PostReplyLink2" runat="server"
                              Type="Primary"
                              CssClass="ms-1 mb-1"

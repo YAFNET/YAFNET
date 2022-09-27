@@ -127,7 +127,7 @@ public partial class PostTopic : ForumPage
             return false;
         }
 
-        if (this.SubjectRow.Visible && HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text).IsNotSet())
+        if (HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text).IsNotSet())
         {
             this.PageBoardContext.Notify(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
             return false;
@@ -457,7 +457,7 @@ public partial class PostTopic : ForumPage
         var isApproved = newMessage.MessageFlags.IsApproved;
 
         // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
-        var attachPollParameter = this.PageBoardContext.ForumPollAccess && this.PostOptions1.PollOptionVisible;
+        var attachPollParameter = this.PageBoardContext.ForumPollAccess;
 
         // Create notification emails
         if (isApproved)

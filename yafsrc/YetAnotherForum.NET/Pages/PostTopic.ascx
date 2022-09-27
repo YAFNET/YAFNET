@@ -23,21 +23,19 @@
                 <asp:Label ID="Title" runat="server" />
             </div>
             <div class="card-body">
-                <asp:PlaceHolder ID="SubjectRow" runat="server">
-                    <div class="mb-3">
-                        <asp:Label runat="server" AssociatedControlID="TopicSubjectTextBox">
-                            <YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server"
-                                                LocalizedTag="subject" />
-                        </asp:Label>
-                        <asp:TextBox ID="TopicSubjectTextBox" runat="server"
-                            CssClass="form-control"
-                            MaxLength="100"
-                            autocomplete="off" />
-                    </div>
-                    <div id="SearchResultsPlaceholder"
-                        data-url="<%=BoardInfo.ForumClientFileRoot %>">
-                    </div>
-                </asp:PlaceHolder>
+                <div class="mb-3">
+                    <asp:Label runat="server" AssociatedControlID="TopicSubjectTextBox">
+                        <YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server"
+                                            LocalizedTag="subject" />
+                    </asp:Label>
+                    <asp:TextBox ID="TopicSubjectTextBox" runat="server"
+                                 CssClass="form-control"
+                                 MaxLength="100"
+                                 autocomplete="off" />
+                </div>
+                <div id="SearchResultsPlaceholder"
+                     data-url="<%=BoardInfo.ForumClientFileRoot %>">
+                </div>
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="TopicDescriptionTextBox">
                         <YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server"

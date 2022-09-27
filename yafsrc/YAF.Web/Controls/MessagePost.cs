@@ -245,7 +245,7 @@ public class MessagePost : MessageBase
         [NotNull] HtmlTextWriter writer, int messageId)
     {
         writer.Write(
-            @"<div class=""alert alert-success"" role=""alert"">
+            @"<div class=""alert alert-success alert-dismissible fade show"" role=""alert"">
                       <a title=""{0}"" href=""{1}""><i class=""fa fa-check fa-fw""></i>{0}</a>
                       <button type=""button"" class=""btn-close"" data-bs-dismiss=""alert"" aria-label=""Close"">
                       </button></div>",
