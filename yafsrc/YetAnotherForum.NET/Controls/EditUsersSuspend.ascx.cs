@@ -159,6 +159,10 @@ public partial class EditUsersSuspend : BaseUserControl
                 EventLogTypes.UserUnsuspended);
         }
 
+        this.PageBoardContext.Notify(
+            $"User {this.User.DisplayOrUserName()} was un-suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
+            MessageTypes.success);
+
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
         this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
@@ -234,6 +238,10 @@ public partial class EditUsersSuspend : BaseUserControl
             suspend,
             this.SuspendedReason.Text.Trim(),
             this.PageBoardContext.PageUserID);
+
+        this.PageBoardContext.Notify(
+            $"User {this.User.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
+            MessageTypes.success);
 
         this.Get<ILoggerService>().Log(
             this.PageBoardContext.PageUserID,
