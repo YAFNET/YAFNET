@@ -154,8 +154,6 @@ public partial class MessageHistory : ForumPage
         switch (e.CommandName)
         {
             case "restore":
-                var currentMessage = this.GetRepository<Message>().GetMessageAsTuple(this.originalMessage.Item2.ID);
-
                 var edited = e.CommandArgument.ToType<DateTime>();
 
                 var messageToRestore = this.GetRepository<Types.Models.MessageHistory>().GetSingle(
@@ -171,9 +169,11 @@ public partial class MessageHistory : ForumPage
                         null,
                         null,
                         messageToRestore.EditReason,
-                        this.PageBoardContext.PageUserID != currentMessage.Item2.UserID,
+                        this.PageBoardContext.PageUserID != this.originalMessage.Item2.UserID,
                         this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess,
-                        currentMessage,
+                        this.originalMessage.Item2,
+                        this.originalMessage.Item4,
+                        this.originalMessage.Item3,
                         this.PageBoardContext.PageUserID);
 
                     this.PageBoardContext.Notify(this.GetText("MESSAGE_RESTORED"), MessageTypes.success);

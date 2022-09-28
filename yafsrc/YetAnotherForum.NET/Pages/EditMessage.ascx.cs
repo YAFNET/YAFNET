@@ -22,6 +22,7 @@
  * under the License.
  */
 
+using YAF.Core.Extensions;
 using YAF.Types.Models;
 
 namespace YAF.Pages;
@@ -37,27 +38,12 @@ public partial class EditMessage : ForumPage
     private ForumEditor forumEditor;
 
     /// <summary>
-    ///   The owner user id.
-    /// </summary>
-    private int ownerUserId;
-
-    /// <summary>
-    /// The edit or quoted message.
-    /// </summary>
-    private Tuple<Topic, Message, User, Forum> editedMessage;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="EditMessage"/> class.
     /// </summary>
     public EditMessage()
         : base("POSTMESSAGE", ForumPages.EditMessage)
     {
     }
-
-    /// <summary>
-    ///   Gets EditMessageID.
-    /// </summary>
-    protected int? EditMessageId => this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("m");
 
     /// <summary>
     ///   Gets or sets the PollId if the topic has a poll attached
@@ -119,7 +105,7 @@ public partial class EditMessage : ForumPage
 
         if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName)
             && this.GetRepository<Topic>().CheckForDuplicate(this.TopicSubjectTextBox.Text.Trim())
-            && !this.EditMessageId.HasValue)
+            && this.PageBoardContext.PageMessage == null)
         {
             this.PageBoardContext.Notify(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
             return false;
@@ -197,25 +183,13 @@ public partial class EditMessage : ForumPage
             this.Get<LinkBuilder>().AccessDenied();
         }
 
-        if (this.EditMessageId.HasValue)
+        if (!this.CanEditPostCheck(this.PageBoardContext.PageMessage, this.PageBoardContext.PageTopic))
         {
-            var editMessage = this.GetRepository<Message>().GetMessageAsTuple(this.EditMessageId.Value);
-
-            if (editMessage != null)
-            {
-                this.ownerUserId = editMessage.Item2.UserID;
-
-                if (!this.CanEditPostCheck(editMessage.Item2, this.PageBoardContext.PageTopic))
-                {
-                    this.Get<LinkBuilder>().AccessDenied();
-                }
-            }
-
-            this.editedMessage = editMessage;
-
-            // we edit message and should transfer both the message ID and TopicID for PageLinks.
-            this.PollList.EditMessageId = this.EditMessageId.Value;
+            this.Get<LinkBuilder>().AccessDenied();
         }
+        
+        // we edit message and should transfer both the message ID and TopicID for PageLinks.
+        this.PollList.EditMessageId = this.PageBoardContext.PageMessage.ID;
 
         this.HandleUploadControls();
 
@@ -258,8 +232,6 @@ public partial class EditMessage : ForumPage
                 this.StyleRow.Visible = false;
             }
 
-            this.EditReasonRow.Visible = false;
-
             this.PriorityRow.Visible = this.PageBoardContext.ForumPriorityAccess;
 
             // update options...
@@ -281,7 +253,6 @@ public partial class EditMessage : ForumPage
             {
                 this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
                 this.tr_captcha1.Visible = true;
-                this.tr_captcha2.Visible = true;
             }
 
             this.PageBoardContext.PageLinks.AddRoot();
@@ -290,8 +261,8 @@ public partial class EditMessage : ForumPage
             this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
 
             // editing a message...
-            this.InitEditedPost(this.editedMessage);
-            this.PollList.EditMessageId = this.EditMessageId.Value;
+            this.InitEditedPost(this.PageBoardContext.PageMessage);
+            this.PollList.EditMessageId = this.PageBoardContext.PageMessage.ID;
 
             // form user is only for "Guest"
             if (this.PageBoardContext.IsGuest)
@@ -313,7 +284,7 @@ public partial class EditMessage : ForumPage
     /// <returns>
     /// Returns the Message Id
     /// </returns>
-    protected Tuple<Topic, Message, User, Forum> PostReplyHandleEditPost()
+    private void PostReplyHandleEditPost()
     {
         if (!this.PageBoardContext.ForumEditAccess)
         {
@@ -342,7 +313,7 @@ public partial class EditMessage : ForumPage
         // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
         // Ederon : now it should be better, but all this code around forum/topic/message flags needs revamp
         // retrieve message flags
-        var messageFlags = new MessageFlags(this.editedMessage.Item2.Flags)
+        var messageFlags = new MessageFlags(this.PageBoardContext.PageMessage.Flags)
                                {
                                    IsHtml =
                                        this
@@ -360,9 +331,11 @@ public partial class EditMessage : ForumPage
                                            .PersistentChecked
                                };
 
-        this.editedMessage.Item2.Flags = messageFlags.BitValue;
+        this.PageBoardContext.PageMessage.Flags = messageFlags.BitValue;
 
-        var isModeratorChanged = this.PageBoardContext.PageUserID != this.ownerUserId;
+        var isModeratorChanged = this.PageBoardContext.PageUserID != this.PageBoardContext.PageMessage.UserID;
+
+        var messageUser = this.GetRepository<User>().GetById(this.PageBoardContext.PageMessage.UserID);
 
         this.GetRepository<Message>().Update(
             this.Priority.SelectedValue.ToType<short>(),
@@ -374,7 +347,9 @@ public partial class EditMessage : ForumPage
             this.HtmlEncode(this.ReasonEditor.Text),
             isModeratorChanged,
             this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess,
-            this.editedMessage,
+            this.PageBoardContext.PageMessage,
+            this.PageBoardContext.PageForum,
+            messageUser,
             this.PageBoardContext.PageUserID);
 
         // Update Topic Tags?!
@@ -387,8 +362,6 @@ public partial class EditMessage : ForumPage
         // remove cache if it exists...
         this.Get<IDataCache>()
             .Remove(string.Format(Constants.Cache.FirstPostCleaned, this.PageBoardContext.PageBoardID, this.PageBoardContext.PageTopicID));
-
-        return this.editedMessage;
     }
 
     /// <summary>
@@ -465,12 +438,12 @@ public partial class EditMessage : ForumPage
         this.Get<ISession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
         // Edit existing post
-        var editMessage = this.PostReplyHandleEditPost();
+        this.PostReplyHandleEditPost();
 
         // Check if message is approved
-        var isApproved = editMessage.Item2.MessageFlags.IsApproved;
+        var isApproved = this.PageBoardContext.PageMessage.MessageFlags.IsApproved;
 
-        var messageId = editMessage.Item2.ID;
+        var messageId = this.PageBoardContext.PageMessage.ID;
 
         // Create notification emails
         if (isApproved)
@@ -522,7 +495,7 @@ public partial class EditMessage : ForumPage
                                                        IsBBCode = this.forumEditor.UsesBBCode
                                                    };
 
-        this.PreviewMessagePost.MessageID = this.EditMessageId;
+        this.PreviewMessagePost.MessageID = this.PageBoardContext.PageMessage.ID;
 
         this.PreviewMessagePost.Message = this.forumEditor.Text;
     }
@@ -569,7 +542,7 @@ public partial class EditMessage : ForumPage
     /// <param name="currentMessage">
     /// The current message.
     /// </param>
-    private void InitEditedPost([NotNull] Tuple<Topic, Message, User, Forum> currentMessage)
+    private void InitEditedPost([NotNull] Message currentMessage)
     {
         /*if (this.forumEditor.UsesHTML && currentMessage.Flags.IsBBCode)
         {
@@ -577,21 +550,21 @@ public partial class EditMessage : ForumPage
             currentMessage.Message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(currentMessage.Message);
         }*/
 
-        if (this.forumEditor.UsesBBCode && currentMessage.Item2.MessageFlags.IsHtml)
+        if (this.forumEditor.UsesBBCode && currentMessage.MessageFlags.IsHtml)
         {
             // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
-            currentMessage.Item2.MessageText = this.Get<IBBCode>().ConvertHtmlToBBCodeForEdit(currentMessage.Item2.MessageText);
+            currentMessage.MessageText = this.Get<IBBCode>().ConvertHtmlToBBCodeForEdit(currentMessage.MessageText);
         }
 
-        this.forumEditor.Text = BBCodeHelper.DecodeCodeBlocks(currentMessage.Item2.MessageText);
+        this.forumEditor.Text = BBCodeHelper.DecodeCodeBlocks(currentMessage.MessageText);
 
-        if (this.forumEditor.UsesHTML && currentMessage.Item2.MessageFlags.IsBBCode)
+        if (this.forumEditor.UsesHTML && currentMessage.MessageFlags.IsBBCode)
         {
             this.forumEditor.Text = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
                 this.forumEditor.Text,
-                currentMessage.Item2.MessageFlags,
-                currentMessage.Item2.UserID,
-                currentMessage.Item2.ID);
+                currentMessage.MessageFlags,
+                currentMessage.UserID,
+                currentMessage.ID);
         }
 
         this.Title.Text = this.GetText("EDIT");
@@ -607,7 +580,7 @@ public partial class EditMessage : ForumPage
         this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(this.PageBoardContext.PageTopic.TopicName);
         this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(this.PageBoardContext.PageTopic.Description);
 
-        if (this.PageBoardContext.PageTopic.UserID == currentMessage.Item2.UserID
+        if (this.PageBoardContext.PageTopic.UserID == currentMessage.UserID
             || this.PageBoardContext.ForumModeratorAccess)
         {
             // allow editing of the topic subject
@@ -636,9 +609,8 @@ public partial class EditMessage : ForumPage
         this.Priority.SelectedItem.Selected = false;
         this.Priority.Items.FindByValue(this.PageBoardContext.PageTopic.Priority.ToString()).Selected = true;
 
-        this.EditReasonRow.Visible = true;
-        this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.Item2.EditReason);
-        this.PostOptions1.PersistentChecked = currentMessage.Item2.MessageFlags.IsPersistent;
+        this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
+        this.PostOptions1.PersistentChecked = currentMessage.MessageFlags.IsPersistent;
 
         var topicsList = this.GetRepository<TopicTag>().List(this.PageBoardContext.PageTopicID);
 

@@ -1096,31 +1096,34 @@ public static class MessageRepositoryExtensions
         [NotNull] string reasonOfEdit,
         [NotNull] bool isModeratorChanged,
         [NotNull] bool overrideApproval,
-        [NotNull] Tuple<Topic, Message, User, Forum> originalMessage,
+        [NotNull] Topic topic,
+        [NotNull] Message originalMessage,
+        [NotNull] Forum forum,
+        [NotNull] User originalMessageUser,
         [NotNull] int editedBy)
     {
         CodeContracts.VerifyNotNull(repository);
 
-        if (overrideApproval || !originalMessage.Item4.ForumFlags.IsModerated)
+        if (overrideApproval || !forum.ForumFlags.IsModerated)
         {
-            originalMessage.Item2.MessageFlags.IsApproved = true;
+            originalMessage.MessageFlags.IsApproved = true;
         }
 
         if (BoardContext.Current.GetRepository<MessageHistory>()
-            .Exists(m => m.MessageID == originalMessage.Item2.ID))
+            .Exists(m => m.MessageID == originalMessage.ID))
         {
             // -- insert current message variant - use OriginalMessage in future
             BoardContext.Current.GetRepository<MessageHistory>().Insert(
                 new MessageHistory
                     {
-                        MessageID = originalMessage.Item2.ID,
-                        Message = originalMessage.Item2.MessageText,
-                        IP = originalMessage.Item2.IP,
+                        MessageID = originalMessage.ID,
+                        Message = originalMessage.MessageText,
+                        IP = originalMessage.IP,
                         Edited = DateTime.UtcNow,
                         EditedBy = editedBy,
                         EditReason = reasonOfEdit,
-                        IsModeratorChanged = originalMessage.Item2.IsModeratorChanged.Value,
-                        Flags = originalMessage.Item2.Flags
+                        IsModeratorChanged = originalMessage.IsModeratorChanged.Value,
+                        Flags = originalMessage.Flags
                     });
         }
         else
@@ -1129,14 +1132,14 @@ public static class MessageRepositoryExtensions
             BoardContext.Current.GetRepository<MessageHistory>().Insert(
                 new MessageHistory
                     {
-                        MessageID = originalMessage.Item2.ID,
-                        Message = originalMessage.Item2.MessageText,
-                        IP = originalMessage.Item2.IP,
-                        Edited = originalMessage.Item2.Posted,
-                        EditedBy = originalMessage.Item2.UserID,
+                        MessageID = originalMessage.ID,
+                        Message = originalMessage.MessageText,
+                        IP = originalMessage.IP,
+                        Edited = originalMessage.Posted,
+                        EditedBy = originalMessage.UserID,
                         EditReason = null,
-                        IsModeratorChanged = originalMessage.Item2.IsModeratorChanged.Value,
-                        Flags = originalMessage.Item2.Flags
+                        IsModeratorChanged = originalMessage.IsModeratorChanged.Value,
+                        Flags = originalMessage.Flags
                     });
         }
 
@@ -1146,17 +1149,17 @@ public static class MessageRepositoryExtensions
                           MessageText = message,
                           Edited = DateTime.UtcNow,
                           EditedBy = editedBy,
-                          Flags = originalMessage.Item2.MessageFlags.BitValue,
+                          Flags = originalMessage.MessageFlags.BitValue,
                           IsModeratorChanged = isModeratorChanged,
                           EditReason = reasonOfEdit
                       },
-            m => m.ID == originalMessage.Item2.ID);
+            m => m.ID == originalMessage.ID);
 
         if (priority.HasValue)
         {
             BoardContext.Current.GetRepository<Topic>().UpdateOnly(
                 () => new Topic { Priority = priority.Value },
-                t => t.ID == originalMessage.Item2.TopicID);
+                t => t.ID == originalMessage.TopicID);
         }
 
         if (subject.IsSet())
@@ -1166,34 +1169,34 @@ public static class MessageRepositoryExtensions
                           {
                               TopicName = subject, Description = description, Status = status, Styles = styles
                           },
-                t => t.ID == originalMessage.Item2.TopicID);
+                t => t.ID == originalMessage.TopicID);
         }
 
         // Update Search index Item
         var updateMessage = new SearchMessage
                                 {
-                                    MessageId = originalMessage.Item2.ID,
+                                    MessageId = originalMessage.ID,
                                     Message = message,
-                                    Flags = originalMessage.Item2.Flags,
-                                    Posted = originalMessage.Item2.Posted.ToString(CultureInfo.InvariantCulture),
-                                    UserName = originalMessage.Item3.Name,
-                                    UserDisplayName = originalMessage.Item3.DisplayName,
-                                    UserStyle = originalMessage.Item3.UserStyle,
-                                    UserId = originalMessage.Item2.UserID,
-                                    TopicId = originalMessage.Item2.TopicID,
-                                    Topic = originalMessage.Item1.TopicName,
-                                    ForumId = originalMessage.Item1.ForumID,
-                                    ForumName = originalMessage.Item4.Name,
+                                    Flags = originalMessage.Flags,
+                                    Posted = originalMessage.Posted.ToString(CultureInfo.InvariantCulture),
+                                    UserName = originalMessageUser.Name,
+                                    UserDisplayName = originalMessageUser.DisplayName,
+                                    UserStyle = originalMessageUser.UserStyle,
+                                    UserId = originalMessage.UserID,
+                                    TopicId = originalMessage.TopicID,
+                                    Topic = subject.IsSet() ? subject : topic.TopicName,
+                                    ForumId = forum.ID,
+                                    ForumName = forum.Name,
                                     Description = description
                                 };
 
         BoardContext.Current.Get<ISearch>().UpdateSearchIndexItem(updateMessage, true);
 
-        if (originalMessage.Item4.ForumFlags.IsModerated)
+        if (forum.ForumFlags.IsModerated)
         {
             // If forum is moderated, make sure last post pointers are correct
             BoardContext.Current.Get<IRaiseEvent>().Raise(
-                new UpdateTopicLastPostEvent(originalMessage.Item4.ID, originalMessage.Item2.TopicID));
+                new UpdateTopicLastPostEvent(forum.ID, originalMessage.TopicID));
         }
     }
 

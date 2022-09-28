@@ -213,15 +213,6 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.Image imgCaptcha;
 
         /// <summary>
-        /// tr_captcha2-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder tr_captcha2;
-
-        /// <summary>
         /// tbCaptcha-Steuerelement.
         /// </summary>
         /// <remarks>
@@ -229,15 +220,6 @@ namespace YAF.Pages
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbCaptcha;
-
-        /// <summary>
-        /// EditReasonRow-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder EditReasonRow;
 
         /// <summary>
         /// ReasonEditor-Steuerelement.

@@ -101,8 +101,6 @@
                         </asp:Label>
                         <asp:Image ID="imgCaptcha" runat="server" />
                     </div>
-                </asp:PlaceHolder>
-                <asp:PlaceHolder ID="tr_captcha2" runat="server" Visible="false">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="tbCaptcha">
                             <YAF:LocalizedLabel runat="server"
@@ -111,15 +109,13 @@
                         <asp:TextBox ID="tbCaptcha" runat="server" CssClass="form-control" />
                     </div>
                 </asp:PlaceHolder>
-                <asp:PlaceHolder ID="EditReasonRow" runat="server">
-                    <div class="mb-3">
-                        <asp:Label runat="server" AssociatedControlID="ReasonEditor">
-                            <YAF:LocalizedLabel runat="server"
-                                                LocalizedTag="EditReason" />
-                        </asp:Label>
-                        <asp:TextBox ID="ReasonEditor" runat="server" CssClass="form-control" />
-                    </div>
-                </asp:PlaceHolder>
+                <div class="mb-3">
+                    <asp:Label runat="server" AssociatedControlID="ReasonEditor">
+                        <YAF:LocalizedLabel runat="server"
+                                            LocalizedTag="EditReason" />
+                    </asp:Label>
+                    <asp:TextBox ID="ReasonEditor" runat="server" CssClass="form-control" />
+                </div>
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton ID="Preview" runat="server"
@@ -145,5 +141,4 @@
     </div>
 </div>
 
-<YAF:LastPosts ID="LastPosts1" runat="server" Visible="false" />
 <YAF:AttachmentsUploadDialog ID="UploadDialog" runat="server" Visible="False"></YAF:AttachmentsUploadDialog>
