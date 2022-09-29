@@ -236,7 +236,7 @@ public partial class QuickReply : BaseUserControl
 
             var messageFlags = new MessageFlags
                                    {
-                                       IsHtml = this.quickReplyEditor.UsesHTML,
+                                       IsHtml = false,
                                        IsBBCode = this.quickReplyEditor.UsesBBCode,
                                        IsApproved = spamApproved
                                    };
