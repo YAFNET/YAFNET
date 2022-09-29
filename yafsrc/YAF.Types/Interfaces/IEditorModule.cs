@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -37,9 +37,4 @@ public interface IEditorModule : IModuleDefinition
     /// Gets a value indicating whether UsesBBCode.
     /// </summary>
     bool UsesBBCode { get; }
-
-    /// <summary>
-    /// Gets a value indicating whether UsesHTML.
-    /// </summary>
-    bool UsesHTML { get; }
 }

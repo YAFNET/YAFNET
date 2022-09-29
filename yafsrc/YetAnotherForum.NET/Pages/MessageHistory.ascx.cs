@@ -23,6 +23,7 @@
  */
 namespace YAF.Pages;
 
+using YAF.Core.Extensions;
 using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Models;
 
@@ -31,11 +32,6 @@ using YAF.Types.Models;
 /// </summary>
 public partial class MessageHistory : ForumPage
 {
-    /// <summary>
-    ///   To save originalRow value.
-    /// </summary>
-    private Tuple<Topic, Message, User, Forum> originalMessage;
-
     /// <summary>
     ///   Initializes a new instance of the <see cref = "MessageHistory" /> class.
     /// </summary>
@@ -94,9 +90,9 @@ public partial class MessageHistory : ForumPage
             this.ReturnModBtn.Visible = true;
         }
 
-        this.originalMessage = this.GetRepository<Message>().GetMessageWithAccess(this.PageBoardContext.PageMessage.ID, this.PageBoardContext.PageUserID);
+        var originalMessage = this.GetRepository<Message>().GetMessageWithAccess(this.PageBoardContext.PageMessage.ID, this.PageBoardContext.PageUserID);
 
-        if (this.originalMessage == null)
+        if (originalMessage == null)
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
@@ -106,8 +102,8 @@ public partial class MessageHistory : ForumPage
             return;
         }
 
-        this.PageBoardContext.PageLinks.AddForum(this.originalMessage.Item4);
-        this.PageBoardContext.PageLinks.AddTopic(this.originalMessage.Item1.TopicName, this.originalMessage.Item1.ID);
+        this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
+        this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic);
 
         this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
@@ -131,7 +127,7 @@ public partial class MessageHistory : ForumPage
     {
         this.Get<LinkBuilder>().Redirect(
             ForumPages.Posts,
-            new { m = this.originalMessage.Item2.ID, name = this.originalMessage.Item1.TopicName });
+            new { m = this.PageBoardContext.PageMessage.ID, name = this.PageBoardContext.PageTopic.TopicName });
     }
 
     /// <summary>
@@ -141,7 +137,7 @@ public partial class MessageHistory : ForumPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void ReturnModBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, new { f = this.originalMessage.Item4.ID });
+        this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, new { f = this.PageBoardContext.PageForumID });
     }
 
     /// <summary>
@@ -157,10 +153,12 @@ public partial class MessageHistory : ForumPage
                 var edited = e.CommandArgument.ToType<DateTime>();
 
                 var messageToRestore = this.GetRepository<Types.Models.MessageHistory>().GetSingle(
-                    m => m.MessageID == this.originalMessage.Item2.ID && m.Edited == edited);
+                    m => m.MessageID == this.PageBoardContext.PageMessage.ID && m.Edited == edited);
 
                 if (messageToRestore != null)
                 {
+                    var messageUser = this.GetRepository<User>().GetById(this.PageBoardContext.PageMessage.UserID);
+
                     this.GetRepository<Message>().Update(
                         null,
                         messageToRestore.Message,
@@ -169,11 +167,12 @@ public partial class MessageHistory : ForumPage
                         null,
                         null,
                         messageToRestore.EditReason,
-                        this.PageBoardContext.PageUserID != this.originalMessage.Item2.UserID,
+                        this.PageBoardContext.PageUserID != this.PageBoardContext.PageMessage.UserID,
                         this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess,
-                        this.originalMessage.Item2,
-                        this.originalMessage.Item4,
-                        this.originalMessage.Item3,
+                        this.PageBoardContext.PageTopic,
+                        this.PageBoardContext.PageMessage,
+                        this.PageBoardContext.PageForum,
+                        messageUser,
                         this.PageBoardContext.PageUserID);
 
                     this.PageBoardContext.Notify(this.GetText("MESSAGE_RESTORED"), MessageTypes.success);

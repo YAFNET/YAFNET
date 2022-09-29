@@ -487,7 +487,7 @@ public partial class PostPrivateMessage : ForumPage
         // make preview row visible
         this.PreviewRow.Visible = true;
 
-        this.PreviewMessagePost.MessageFlags.IsHtml = this.editor.UsesHTML;
+        this.PreviewMessagePost.MessageFlags.IsHtml = false;
         this.PreviewMessagePost.MessageFlags.IsBBCode = this.editor.UsesBBCode;
         this.PreviewMessagePost.Message = this.editor.Text;
         this.PreviewMessagePost.MessageID = 0;
@@ -560,7 +560,7 @@ public partial class PostPrivateMessage : ForumPage
             var body = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.editor.Text));
             var messageFlags = new MessageFlags
                                    {
-                                       IsHtml = this.editor.UsesHTML,
+                                       IsHtml = false,
                                        IsBBCode = this.editor.UsesBBCode
                                    };
 
@@ -675,7 +675,7 @@ public partial class PostPrivateMessage : ForumPage
 
                         var messageFlags = new MessageFlags
                                                {
-                                                   IsHtml = this.editor.UsesHTML,
+                                                   IsHtml = false,
                                                    IsBBCode = this.editor.UsesBBCode
                                                };
 

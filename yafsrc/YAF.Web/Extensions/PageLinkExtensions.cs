@@ -101,20 +101,17 @@ public static class PageLinkExtensions
     /// <param name="pageLinks">
     /// The page links.
     /// </param>
-    /// <param name="topicName">
-    /// The topic name.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic id.
+    /// <param name="topic">
+    /// The topic.
     /// </param>
     /// <returns>
     /// The <see cref="PageLinks"/>.
     /// </returns>
-    public static List<PageLink> AddTopic(this List<PageLink> pageLinks, [NotNull] string topicName, [NotNull] int topicId)
+    public static List<PageLink> AddTopic(this List<PageLink> pageLinks, [NotNull] Topic topic)
     {
         CodeContracts.VerifyNotNull(pageLinks);
 
-        pageLinks.AddLink(topicName, BoardContext.Current.Get<LinkBuilder>().GetTopicLink(topicId, topicName));
+        pageLinks.AddLink(topic.TopicName, BoardContext.Current.Get<LinkBuilder>().GetTopicLink(topic.ID, topic.TopicName));
 
         return pageLinks;
     }

@@ -357,7 +357,7 @@ public partial class PollEdit : ForumPage
         {
             this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
 
-            this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopic.ID);
+            this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic);
         }
 
         // Check if the user has the page access and variables are correct.

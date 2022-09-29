@@ -126,6 +126,6 @@ public partial class PrintTopic : ForumPage
         this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
 
         this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
-        this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
+        this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic);
     }
 }

@@ -22,7 +22,6 @@
  * under the License.
  */
 
-using YAF.Core.Extensions;
 using YAF.Types.Models;
 
 namespace YAF.Pages;
@@ -316,9 +315,7 @@ public partial class EditMessage : ForumPage
         var messageFlags = new MessageFlags(this.PageBoardContext.PageMessage.Flags)
                                {
                                    IsHtml =
-                                       this
-                                           .forumEditor
-                                           .UsesHTML,
+                                       false,
                                    IsBBCode
                                        =
                                        this
@@ -347,6 +344,7 @@ public partial class EditMessage : ForumPage
             this.HtmlEncode(this.ReasonEditor.Text),
             isModeratorChanged,
             this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess,
+            this.PageBoardContext.PageTopic,
             this.PageBoardContext.PageMessage,
             this.PageBoardContext.PageForum,
             messageUser,
@@ -491,7 +489,7 @@ public partial class EditMessage : ForumPage
 
         this.PreviewMessagePost.MessageFlags = new MessageFlags
                                                    {
-                                                       IsHtml = this.forumEditor.UsesHTML,
+                                                       IsHtml = false,
                                                        IsBBCode = this.forumEditor.UsesBBCode
                                                    };
 
@@ -544,12 +542,6 @@ public partial class EditMessage : ForumPage
     /// </param>
     private void InitEditedPost([NotNull] Message currentMessage)
     {
-        /*if (this.forumEditor.UsesHTML && currentMessage.Flags.IsBBCode)
-        {
-            // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
-            currentMessage.Message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(currentMessage.Message);
-        }*/
-
         if (this.forumEditor.UsesBBCode && currentMessage.MessageFlags.IsHtml)
         {
             // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
@@ -558,21 +550,12 @@ public partial class EditMessage : ForumPage
 
         this.forumEditor.Text = BBCodeHelper.DecodeCodeBlocks(currentMessage.MessageText);
 
-        if (this.forumEditor.UsesHTML && currentMessage.MessageFlags.IsBBCode)
-        {
-            this.forumEditor.Text = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
-                this.forumEditor.Text,
-                currentMessage.MessageFlags,
-                currentMessage.UserID,
-                currentMessage.ID);
-        }
-
         this.Title.Text = this.GetText("EDIT");
         this.PostReply.TextLocalizedTag = "SAVE";
         this.PostReply.TextLocalizedPage = "COMMON";
 
         // add topic link...
-        this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
+        this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic);
 
         // editing..
         this.PageBoardContext.PageLinks.AddLink(this.GetText("EDIT"));

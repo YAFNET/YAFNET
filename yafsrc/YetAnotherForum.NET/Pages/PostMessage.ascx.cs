@@ -357,7 +357,7 @@ public partial class PostMessage : ForumPage
         // make message flags
         var messageFlags = new MessageFlags
                                {
-                                   IsHtml = this.forumEditor.UsesHTML,
+                                   IsHtml = false,
                                    IsBBCode = this.forumEditor.UsesBBCode,
                                    IsPersistent = this.PostOptions1.PersistentChecked,
                                    IsApproved = isSpamApproved
@@ -556,7 +556,7 @@ public partial class PostMessage : ForumPage
 
         this.PreviewMessagePost.MessageFlags = new MessageFlags
                                                    {
-                                                       IsHtml = this.forumEditor.UsesHTML,
+                                                       IsHtml = false,
                                                        IsBBCode = this.forumEditor.UsesBBCode
                                                    };
 
@@ -605,12 +605,6 @@ public partial class PostMessage : ForumPage
             messageContent = this.Get<IFormatMessage>().RemoveNestedQuotes(messageContent);
         }
 
-        /*if (this.forumEditor.UsesHTML && message.Flags.IsBBCode)
-        {
-            // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
-            messageContent = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(messageContent);
-        }*/
-
         if (this.forumEditor.UsesBBCode && message.MessageFlags.IsHtml)
         {
             // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
@@ -658,7 +652,7 @@ public partial class PostMessage : ForumPage
         }
 
         // add topic link...
-        this.PageBoardContext.PageLinks.AddTopic(this.topic.TopicName, this.PageBoardContext.PageTopicID);
+        this.PageBoardContext.PageLinks.AddTopic(this.topic);
 
         this.Title.Text = this.GetText("reply");
 

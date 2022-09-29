@@ -1592,7 +1592,7 @@ public static class MessageRepositoryExtensions
         // -- Find TopicID and ForumID
         var message = repository.GetMessage(messageId);
 
-        int? replyToId = repository.GetSingle(x => x.Position == 0 && x.TopicID == moveToTopicId).ID;
+        int? replyToId = repository.GetSingle(x => x.Position == 0 && x.TopicID == moveToTopicId)?.ID;
 
         int position;
 

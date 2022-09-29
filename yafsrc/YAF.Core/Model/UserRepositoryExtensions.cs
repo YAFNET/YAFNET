@@ -878,13 +878,13 @@ public static class UserRepositoryExtensions
             data.UsrSigChars = 0;
         }
 
-        try
+        if (rankMax.usrSigBBCodes != null)
         {
             data.UsrSigBBCodes = groupMax.usrSigBBCodes.Length > rankMax.usrSigBBCodes.Length ? groupMax.usrSigBBCodes : rankMax.usrSigBBCodes;
         }
-        catch (Exception)
+        else
         {
-            data.UsrSigBBCodes = string.Empty;
+            data.UsrSigBBCodes = groupMax.usrSigBBCodes;
         }
 
         return data;

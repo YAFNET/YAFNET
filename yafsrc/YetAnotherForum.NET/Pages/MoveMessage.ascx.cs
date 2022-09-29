@@ -29,7 +29,7 @@ using YAF.Types.Models;
 /// <summary>
 /// Move Message Page
 /// </summary>
-public partial class MoveMessage : ForumPage
+public partial class MoveMessage : ForumPageRegistered
 {
     /// <summary>
     ///   Initializes a new instance of the <see cref = "MoveMessage" /> class.
@@ -38,12 +38,6 @@ public partial class MoveMessage : ForumPage
         : base("MOVEMESSAGE", ForumPages.MoveMessage)
     {
     }
-
-    /// <summary>
-    /// The move message id.
-    /// </summary>
-    protected int MoveMessageId =>
-        this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
     /// <summary>
     /// Handles the PreRender event
@@ -82,12 +76,12 @@ public partial class MoveMessage : ForumPage
         if (this.TopicSubject.Text.IsSet())
         {
             var topicId = this.GetRepository<Topic>().CreateByMessage(
-                this.MoveMessageId,
+                this.PageBoardContext.PageMessage.ID,
                 this.ForumListSelected.Value.ToType<int>(),
                 this.TopicSubject.Text);
 
             this.GetRepository<Message>().Move(
-                this.MoveMessageId,
+                this.PageBoardContext.PageMessage.ID,
                 topicId.ToType<int>(),
                 true);
 
@@ -118,17 +112,13 @@ public partial class MoveMessage : ForumPage
         }
         
         this.GetRepository<Message>().Move(
-            this.MoveMessageId,
+            this.PageBoardContext.PageMessage.ID,
             moveTopicId,
             true);
 
         var topic = this.GetRepository<Topic>().GetById(moveTopicId);
 
-        this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { m = this.MoveMessageId, name = topic.TopicName });
-
-        this.Get<LinkBuilder>().Redirect(
-            ForumPages.Topics,
-            new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
+        this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { m = this.PageBoardContext.PageMessage.ID, name = topic.TopicName });
     }
 
     /// <summary>
@@ -152,7 +142,7 @@ public partial class MoveMessage : ForumPage
         this.PageBoardContext.PageLinks.AddRoot();
         this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
         this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
-        this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
+        this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic);
 
         this.PageBoardContext.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
     }

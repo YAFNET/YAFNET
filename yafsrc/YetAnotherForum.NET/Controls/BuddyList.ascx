@@ -48,10 +48,10 @@
                         </div>
                         <div>
                             <YAF:UserLink ID="UserProfileLink" runat="server"
-                          ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as BuddyUser).DisplayName : (Container.DataItem as BuddyUser).Name %>"
-                          Suspended="<%# (Container.DataItem as BuddyUser).Suspended %>"
-                          Style="<%# (Container.DataItem as BuddyUser).UserStyle %>"
-                          UserID="<%#  this.CurrentUserID == (Container.DataItem as BuddyUser).UserID ? (Container.DataItem as BuddyUser).FromUserID: (Container.DataItem as BuddyUser).UserID %>" />
+                                          ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as BuddyUser).DisplayName : (Container.DataItem as BuddyUser).Name %>"
+                                          Suspended="<%# (Container.DataItem as BuddyUser).Suspended %>"
+                                          Style="<%# (Container.DataItem as BuddyUser).UserStyle %>"
+                                          UserID="<%#  this.CurrentUserID == (Container.DataItem as BuddyUser).UserID ? (Container.DataItem as BuddyUser).FromUserID: (Container.DataItem as BuddyUser).UserID %>" />
             <div class="btn-group" role="group">
             <asp:PlaceHolder ID="pnlRemove" runat="server" Visible="false">
                 <YAF:ThemeButton ID="lnkRemove" runat="server"
@@ -94,29 +94,27 @@
         </div>
     </ItemTemplate>
     <FooterTemplate>
-        <asp:PlaceHolder runat="server" ID="FooterHolder">
-            </div>
-            <asp:Panel CssClass="card-footer" runat="server" ID="Footer" Visible="False">
-                <YAF:ThemeButton ID="Button1" runat="server"
-                                 ReturnConfirmTag="NOTIFICATION_APPROVEALL"
-                                 CommandName="approveall"
-                                 TextLocalizedTag="APPROVE_ALL"
-                                 Type="Secondary"
-                                 Icon="check-double"/>
-                <YAF:ThemeButton ID="Button3" runat="server"
-                                 ReturnConfirmTag="NOTIFICATION_APPROVEALLADD"
-                                 CommandName="approveaddall"
-                                 TextLocalizedTag="APPROVE_ADD_ALL"
-                                 Type="Secondary"
-                                 Icon="check-double"/>
-                <YAF:ThemeButton ID="Button2" runat="server"
-                                 ReturnConfirmTag="NOTIFICATION_REMOVE_OLD_UNAPPROVED"
-                                 CommandName="denyall"
-                                 TextLocalizedTag="DENY_ALL"
-                                 Type="Secondary"
-                                 Icon="times-circle"/>
-            </asp:Panel>
-        </asp:PlaceHolder>
+    </div>
+    <asp:Panel CssClass="card-footer" runat="server" ID="Footer" Visible="False">
+        <YAF:ThemeButton ID="Button1" runat="server"
+                         ReturnConfirmTag="NOTIFICATION_APPROVEALL"
+                         CommandName="approveall"
+                         TextLocalizedTag="APPROVE_ALL"
+                         Type="Secondary"
+                         Icon="check-double"/>
+        <YAF:ThemeButton ID="Button3" runat="server"
+                         ReturnConfirmTag="NOTIFICATION_APPROVEALLADD"
+                         CommandName="approveaddall"
+                         TextLocalizedTag="APPROVE_ADD_ALL"
+                         Type="Secondary"
+                         Icon="check-double"/>
+        <YAF:ThemeButton ID="Button2" runat="server"
+                         ReturnConfirmTag="NOTIFICATION_REMOVE_OLD_UNAPPROVED"
+                         CommandName="denyall"
+                         TextLocalizedTag="DENY_ALL"
+                         Type="Secondary"
+                         Icon="times-circle"/>
+    </asp:Panel>
     </FooterTemplate>
 </asp:Repeater>
 <YAF:Pager ID="Pager" runat="server"

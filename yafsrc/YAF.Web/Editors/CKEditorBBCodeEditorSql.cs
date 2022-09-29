@@ -47,11 +47,6 @@ public class CKEditorBBCodeEditorSql : CKEditor
     public override bool UsesBBCode => true;
 
     /// <summary>
-    ///   Gets a value indicating whether UsesHTML.
-    /// </summary>
-    public override bool UsesHTML => false;
-
-    /// <summary>
     /// The allows uploads.
     /// </summary>
     public override bool AllowsUploads => false;

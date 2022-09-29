@@ -339,7 +339,7 @@ public partial class PostTopic : ForumPage
         // make message flags
         var messageFlags = new MessageFlags
         {
-            IsHtml = this.forumEditor.UsesHTML,
+            IsHtml = false,
             IsBBCode = this.forumEditor.UsesBBCode,
             IsPersistent = this.PostOptions1.PersistentChecked,
             IsApproved = this.spamApproved
@@ -573,7 +573,7 @@ public partial class PostTopic : ForumPage
 
         this.PreviewMessagePost.MessageFlags = new MessageFlags
         {
-            IsHtml = this.forumEditor.UsesHTML,
+            IsHtml = false,
             IsBBCode = this.forumEditor.UsesBBCode
         };
 
