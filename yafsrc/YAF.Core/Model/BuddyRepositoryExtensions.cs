@@ -162,6 +162,26 @@ public static class BuddyRepositoryExtensions
         repository.Delete(b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
     }
 
+
+
+    /// <summary>
+    /// removes a friend request
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="toUserId">
+    /// The to User Id.
+    /// </param>
+    public static void RemoveRequest(
+        this IRepository<Buddy> repository,
+        [NotNull] int toUserId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        repository.Delete(b => b.FromUserID == BoardContext.Current.PageUserID && b.ToUserID == toUserId);
+    }
+
     /// <summary>
     /// Removes the "ToUserID" from "FromUserID"'s buddy list.
     /// </summary>
@@ -214,6 +234,7 @@ public static class BuddyRepositoryExtensions
                                      RankName = b.Name,
                                      c.Approved,
                                      c.FromUserID,
+                                     c.ToUserID,
                                      c.Requested,
                                      a.UserStyle,
                                      a.Suspended,
@@ -236,7 +257,8 @@ public static class BuddyRepositoryExtensions
                                      a.NumPosts,
                                      RankName = b.Name,
                                      c.Approved,
-                                     FromUserID = fromUserId,
+                                     c.FromUserID,
+                                     c.ToUserID,
                                      c.Requested,
                                      a.UserStyle,
                                      a.Suspended,

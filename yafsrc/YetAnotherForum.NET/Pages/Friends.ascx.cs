@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -81,9 +81,9 @@ public partial class Friends : ForumPageRegistered
     {
         var buddyList = this.Get<IFriends>().GetForUser(this.PageBoardContext.PageUserID);
 
-        this.InitializeBuddyList(this.BuddyList1, 2, buddyList);
-        this.InitializeBuddyList(this.PendingBuddyList, 3, buddyList);
-        this.InitializeBuddyList(this.BuddyRequested, 4, buddyList);
+        this.InitializeBuddyList(this.BuddyList1, FriendMode.Friends, buddyList);
+        this.InitializeBuddyList(this.PendingBuddyList, FriendMode.ReceivedRequests, buddyList);
+        this.InitializeBuddyList(this.BuddyRequested, FriendMode.SendRequests, buddyList);
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ public partial class Friends : ForumPageRegistered
     /// <param name="buddyList">
     /// The buddy List.
     /// </param>
-    private void InitializeBuddyList([NotNull] BuddyList customBuddyList, int mode, List<BuddyUser> buddyList)
+    private void InitializeBuddyList([NotNull] BuddyList customBuddyList, FriendMode mode, List<BuddyUser> buddyList)
     {
         customBuddyList.FriendsList = buddyList;
         customBuddyList.CurrentUserID = this.PageBoardContext.PageUserID;

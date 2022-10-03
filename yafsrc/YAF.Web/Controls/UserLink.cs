@@ -178,7 +178,7 @@ public class UserLink : UserLabel
         output.Write(HtmlTextWriter.TagRightChar);
 
         // show online icon
-        if (this.PageBoardContext.BoardSettings.ShowUserOnlineStatus && !isCrawler)
+        if (/*this.PageBoardContext.BoardSettings.ShowUserOnlineStatus &&*/ !isCrawler)
         {
             var onlineStatusIcon = new OnlineStatusIcon { UserId = this.UserID, Suspended = userSuspended };
 

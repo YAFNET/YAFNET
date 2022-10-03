@@ -25,6 +25,9 @@
 namespace YAF.Controls;
 
 using System.Web.UI;
+using YAF.Types.Constants;
+using YAF.Types.Models;
+using YAF.Web.Controls;
 
 /// <summary>
 /// Buddy List Control
@@ -44,7 +47,7 @@ public partial class BuddyList : BaseUserControl
     /// <summary>
     ///   Gets or sets the Determines what is th current mode of the control.
     /// </summary>
-    public int Mode { get; set; }
+    public FriendMode Mode { get; set; }
 
     /// <summary>
     /// Gets or sets the count.
@@ -129,22 +132,29 @@ public partial class BuddyList : BaseUserControl
         switch (e.CommandName)
         {
             case "remove":
-                this.PageBoardContext.Notify(
+                this.PageBoardContext.LoadMessage.AddSession(
                     string.Format(
                         this.GetText("REMOVEBUDDY_NOTIFICATION"),
                         this.Get<IFriends>().Remove(e.CommandArgument.ToType<int>())),
                     MessageTypes.success);
                 this.CurrentUserID = this.PageBoardContext.PageUserID;
                 break;
+            case "removeRequest":
+                this.GetRepository<Buddy>().RemoveRequest(e.CommandArgument.ToType<int>());
+
+                this.PageBoardContext.LoadMessage.AddSession(this.GetText("NOTIFICATION_REQUESTREMOVED"),
+                    MessageTypes.success);
+                this.CurrentUserID = this.PageBoardContext.PageUserID;
+                break;
             case "approve":
-                this.PageBoardContext.Notify(
+                this.PageBoardContext.LoadMessage.AddSession(
                     string.Format(
                         this.GetText("NOTIFICATION_BUDDYAPPROVED"),
                         this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), false)),
                     MessageTypes.success);
                 break;
             case "approveadd":
-                this.PageBoardContext.Notify(
+                this.PageBoardContext.LoadMessage.AddSession(
                     string.Format(
                         this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"),
                         this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), true)),
@@ -152,26 +162,24 @@ public partial class BuddyList : BaseUserControl
                 break;
             case "approveall":
                 this.Get<IFriends>().ApproveAllRequests(false);
-                this.PageBoardContext.Notify(this.GetText("NOTIFICATION_ALL_APPROVED"), MessageTypes.success);
+                this.PageBoardContext.LoadMessage.AddSession(this.GetText("NOTIFICATION_ALL_APPROVED"), MessageTypes.success);
                 break;
             case "approveaddall":
                 this.Get<IFriends>().ApproveAllRequests(true);
-                this.PageBoardContext.Notify(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
+                this.PageBoardContext.LoadMessage.AddSession(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
                 break;
             case "deny":
                 this.Get<IFriends>().DenyRequest(e.CommandArgument.ToType<int>());
-                this.PageBoardContext.Notify(this.GetText("NOTIFICATION_BUDDYDENIED"), MessageTypes.info);
+                this.PageBoardContext.LoadMessage.AddSession(this.GetText("NOTIFICATION_BUDDYDENIED"), MessageTypes.info);
                 break;
             case "denyall":
                 this.Get<IFriends>().DenyAllRequests();
-                this.PageBoardContext.Notify(this.GetText("NOTIFICATION_ALL_DENIED"), MessageTypes.info);
+                this.PageBoardContext.LoadMessage.AddSession(this.GetText("NOTIFICATION_ALL_DENIED"), MessageTypes.info);
                 break;
         }
 
         // Update all buddy list controls in Friends.ascx page.
-        this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("BuddyList1"), 2);
-        this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("PendingBuddyList"), 3);
-        this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("BuddyRequested"), 4);
+        this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
     }
 
     /// <summary>
@@ -192,14 +200,14 @@ public partial class BuddyList : BaseUserControl
         // 4: show the pending requests posted from the current user.
         switch (this.Mode)
         {
-            case 2:
+            case FriendMode.Friends:
                 if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
                 {
                     e.Item.FindControlAs<PlaceHolder>("pnlRemove").Visible = true;
                 }
 
                 break;
-            case 3:
+            case FriendMode.ReceivedRequests:
                 if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
                 {
                     e.Item.FindControlAs<PlaceHolder>("pnlPending").Visible = true;
@@ -209,15 +217,16 @@ public partial class BuddyList : BaseUserControl
                 {
                     if (this.rptBuddy.Items.Count > 0)
                     {
-                        e.Item.FindControlAs<Panel>("Footer").Visible = true;
+                        e.Item.FindControlAs<PlaceHolder>("Footer").Visible = true;
                     }
                 }
 
                 break;
-            case 4:
+            case FriendMode.SendRequests:
                 if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
                 {
                     e.Item.FindControlAs<PlaceHolder>("pnlRequests").Visible = true;
+                    e.Item.FindControlAs<ThemeButton>("RequestRemove").Visible = true;
                 }
 
                 break;
@@ -231,10 +240,9 @@ public partial class BuddyList : BaseUserControl
     {
         return this.Mode switch
             {
-                1 => this.GetText("FRIENDS", "BUDDYLIST"),
-                2 => this.GetText("FRIENDS", "BUDDYLIST"),
-                3 => this.GetText("FRIENDS", "PENDING_REQUESTS"),
-                4 => this.GetText("FRIENDS", "YOUR_REQUESTS"),
+                FriendMode.Friends => this.GetText("FRIENDS", "BUDDYLIST"),
+                FriendMode.ReceivedRequests => this.GetText("FRIENDS", "PENDING_REQUESTS"),
+                FriendMode.SendRequests => this.GetText("FRIENDS", "YOUR_REQUESTS"),
                 _ => this.GetText("FRIENDS", "BUDDYLIST")
             };
     }
@@ -256,15 +264,14 @@ public partial class BuddyList : BaseUserControl
             // Refer to "rptBuddy_ItemCreate" event for more info.
             switch (this.Mode)
             {
-                case 1:
-                case 2:
-                    buddyListView = buddyList.Where(x => x.Approved == true).ToList();
+                case FriendMode.Friends:
+                    buddyListView = buddyList.Where(x => x.Approved).ToList();
                     break;
-                case 3:
-                    buddyListView = buddyList.Where(x => x.Approved == false && x.FromUserID != this.CurrentUserID).ToList();
+                case FriendMode.ReceivedRequests:
+                    buddyListView = buddyList.Where(x => !x.Approved && x.FromUserID != this.CurrentUserID).ToList();
                     break;
-                case 4:
-                    buddyListView = buddyList.Where(x => x.Approved == false && x.FromUserID == this.CurrentUserID).ToList();
+                case FriendMode.SendRequests:
+                    buddyListView = buddyList.Where(x => !x.Approved && x.FromUserID == this.CurrentUserID).ToList();
                     break;
             }
 
@@ -287,32 +294,13 @@ public partial class BuddyList : BaseUserControl
 
         switch (this.Mode)
         {
-            case 1:
-            case 2:
+            case FriendMode.Friends:
                 this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-info text-info pe-1\"></i>{this.GetText("INFO_NO")}" });
                 break;
-            case 3:
-            case 4:
+            case FriendMode.ReceivedRequests:
+            case FriendMode.SendRequests:
                 this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-check text-success pe-1\"></i>{this.GetText("INFO_PENDING")}" });
                 break;
         }
-    }
-
-    /// <summary>
-    /// Initializes the values of BuddyList control's properties and calls the BindData()
-    ///   method of the control.
-    /// </summary>
-    /// <param name="customBuddyList">
-    /// The BuddyList control
-    /// </param>
-    /// <param name="BuddyListMode">
-    /// The mode of this BuddyList.
-    /// </param>
-    private void UpdateBuddyList([NotNull] BuddyList customBuddyList, int BuddyListMode)
-    {
-        customBuddyList.Mode = BuddyListMode;
-        customBuddyList.CurrentUserID = this.CurrentUserID;
-        customBuddyList.Container = this.Container;
-        customBuddyList.BindData();
     }
 }

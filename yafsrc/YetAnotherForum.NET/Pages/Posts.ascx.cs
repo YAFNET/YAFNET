@@ -343,6 +343,8 @@ public partial class Posts : ForumPage
         this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
         this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
         this.QuickReplyLink2.Visible = yafBoardSettings.ShowQuickAnswer;
+		
+		
 
         if (!this.PageBoardContext.ForumPostAccess || this.PageBoardContext.PageForum.ForumFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
         {
@@ -364,6 +366,7 @@ public partial class Posts : ForumPage
         {
             this.MoveTopic1.Visible = true;
             this.MoveTopic2.Visible = true;
+			this.MoveTopicDialog.Visible = true;
 
             this.Tools1.Visible = true;
             this.Tools2.Visible = true;
@@ -372,6 +375,7 @@ public partial class Posts : ForumPage
         {
             this.MoveTopic1.Visible = false;
             this.MoveTopic2.Visible = false;
+			this.MoveTopicDialog.Visible = false;
 
             this.Tools1.Visible = false;
             this.Tools2.Visible = false;

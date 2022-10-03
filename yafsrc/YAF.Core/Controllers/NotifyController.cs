@@ -56,7 +56,7 @@ public class NotifyController : ApiController, IHaveServiceLocator
     [HttpPost]
     public IHttpActionResult GetNotifications(PagedResults pagedResults)
     {
-        var userId = pagedResults.UserId;
+        var userId = BoardContext.Current.PageUserID;
         var pageSize = pagedResults.PageSize;
         var pageNumber = pagedResults.PageNumber;
 

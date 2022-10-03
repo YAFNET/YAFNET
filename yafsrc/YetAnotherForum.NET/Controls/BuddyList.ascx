@@ -46,47 +46,56 @@
                                        AlternateText="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? 
                                                               (Container.DataItem as BuddyUser).DisplayName : (Container.DataItem as BuddyUser).Name  %>"/>
                         </div>
-                        <div>
+                        <div class="ms-3">
                             <YAF:UserLink ID="UserProfileLink" runat="server"
                                           ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as BuddyUser).DisplayName : (Container.DataItem as BuddyUser).Name %>"
                                           Suspended="<%# (Container.DataItem as BuddyUser).Suspended %>"
                                           Style="<%# (Container.DataItem as BuddyUser).UserStyle %>"
                                           UserID="<%#  this.CurrentUserID == (Container.DataItem as BuddyUser).UserID ? (Container.DataItem as BuddyUser).FromUserID: (Container.DataItem as BuddyUser).UserID %>" />
-            <div class="btn-group" role="group">
-            <asp:PlaceHolder ID="pnlRemove" runat="server" Visible="false">
-                <YAF:ThemeButton ID="lnkRemove" runat="server"
-                                 TextLocalizedTag="REMOVEBUDDY"
-                                 ReturnConfirmTag="NOTIFICATION_REMOVE"
-                                 CommandName="remove" CommandArgument="<%# (Container.DataItem as BuddyUser).UserID %>"
-                                 Size="Small"
-                                 Type="Danger"
-                                 Icon="trash"/>
-            </asp:PlaceHolder>
-            <asp:PlaceHolder ID="pnlPending" runat="server" Visible="false">
-                <YAF:ThemeButton runat="server"
-                                 Size="Small"
-                                 CommandName="approve" CommandArgument="<%# (Container.DataItem as BuddyUser).FromUserID %>"
-                                 TextLocalizedTag="APPROVE"
-                                 Type="Success"
-                                 Icon="check"/>
-                <YAF:ThemeButton runat="server"
-                                 Size="Small"
-                                 CommandName="approveadd" CommandArgument="<%# (Container.DataItem as BuddyUser).FromUserID %>"
-                                 TextLocalizedTag="APPROVE_ADD"
-                                 Type="Success"
-                                 Icon="check"/>
-                <YAF:ThemeButton runat="server"
-                                 Size="Small"
-                                 ReturnConfirmTag="NOTIFICATION_DENY"
-                                 CommandName="deny" CommandArgument="<%# (Container.DataItem as BuddyUser).FromUserID %>"
-                                 TextLocalizedTag="DENY"
-                                 Type="Danger"
-                                 Icon="times-circle"/>
-            </asp:PlaceHolder>
-            </div>
-            <asp:PlaceHolder ID="pnlRequests" runat="server" Visible="false">
-                <%# this.Get<IDateTimeService>().FormatDateLong((Container.DataItem as BuddyUser).Requested) %>
-            </asp:PlaceHolder>
+                            <asp:PlaceHolder ID="pnlRequests" runat="server" Visible="false">
+                                <%# this.Get<IDateTimeService>().FormatDateLong((Container.DataItem as BuddyUser).Requested) %>
+                            </asp:PlaceHolder>
+
+                            <div class="btn-group" role="group">
+                                <YAF:ThemeButton ID="RequestRemove" runat="server"
+                                                 TextLocalizedTag="REMOVE"
+                                                 CommandName="removeRequest" CommandArgument="<%# (Container.DataItem as BuddyUser).UserID %>"
+                                                 Size="Small"
+                                                 Type="Danger"
+                                                 Icon="trash"
+                                                 Visible="False" />
+                                <asp:PlaceHolder ID="pnlRemove" runat="server" Visible="false">
+                                    <YAF:ThemeButton ID="lnkRemove" runat="server"
+                                                     TextLocalizedTag="REMOVEBUDDY"
+                                                     ReturnConfirmTag="NOTIFICATION_REMOVE"
+                                                     CommandName="remove" CommandArgument="<%# (Container.DataItem as BuddyUser).UserID %>"
+                                                     Size="Small"
+                                                     Type="Danger"
+                                                     Icon="trash"/>
+                                </asp:PlaceHolder>
+                                <asp:PlaceHolder ID="pnlPending" runat="server" Visible="false">
+                                    <YAF:ThemeButton runat="server"
+                                                     Size="Small"
+                                                     CommandName="approve" CommandArgument="<%# (Container.DataItem as BuddyUser).FromUserID %>"
+                                                     TextLocalizedTag="APPROVE"
+                                                     Type="Success"
+                                                     Icon="check"/>
+                                    <YAF:ThemeButton runat="server"
+                                                     Size="Small"
+                                                     CommandName="approveadd" CommandArgument="<%# (Container.DataItem as BuddyUser).FromUserID %>"
+                                                     TextLocalizedTag="APPROVE_ADD"
+                                                     Type="Success"
+                                                     Icon="check"/>
+                                    <YAF:ThemeButton runat="server"
+                                                     Size="Small"
+                                                     ReturnConfirmTag="NOTIFICATION_DENY"
+                                                     CommandName="deny" CommandArgument="<%# (Container.DataItem as BuddyUser).FromUserID %>"
+                                                     TextLocalizedTag="DENY"
+                                                     Type="Danger"
+                                                     Icon="times-circle"/>
+                                </asp:PlaceHolder>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -95,34 +104,36 @@
     </ItemTemplate>
     <FooterTemplate>
     </div>
-    <asp:Panel CssClass="card-footer" runat="server" ID="Footer" Visible="False">
-        <YAF:ThemeButton ID="Button1" runat="server"
-                         ReturnConfirmTag="NOTIFICATION_APPROVEALL"
-                         CommandName="approveall"
-                         TextLocalizedTag="APPROVE_ALL"
-                         Type="Secondary"
-                         Icon="check-double"/>
-        <YAF:ThemeButton ID="Button3" runat="server"
-                         ReturnConfirmTag="NOTIFICATION_APPROVEALLADD"
-                         CommandName="approveaddall"
-                         TextLocalizedTag="APPROVE_ADD_ALL"
-                         Type="Secondary"
-                         Icon="check-double"/>
-        <YAF:ThemeButton ID="Button2" runat="server"
-                         ReturnConfirmTag="NOTIFICATION_REMOVE_OLD_UNAPPROVED"
-                         CommandName="denyall"
-                         TextLocalizedTag="DENY_ALL"
-                         Type="Secondary"
-                         Icon="times-circle"/>
-    </asp:Panel>
+    <asp:PlaceHolder runat="server" ID="Footer" Visible="False">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Buddy tools">
+            <YAF:ThemeButton ID="Button1" runat="server"
+                             ReturnConfirmTag="NOTIFICATION_APPROVEALL"
+                             CommandName="approveall"
+                             TextLocalizedTag="APPROVE_ALL"
+                             Type="OutlineSecondary"
+                             Icon="check-double"/>
+            <YAF:ThemeButton ID="Button3" runat="server"
+                             ReturnConfirmTag="NOTIFICATION_APPROVEALLADD"
+                             CommandName="approveaddall"
+                             TextLocalizedTag="APPROVE_ADD_ALL"
+                             Type="OutlineSecondary"
+                             Icon="check-double"/>
+            <YAF:ThemeButton ID="Button2" runat="server"
+                             ReturnConfirmTag="NOTIFICATION_REMOVE_OLD_UNAPPROVED"
+                             CommandName="denyall"
+                             TextLocalizedTag="DENY_ALL"
+                             Type="OutlineSecondary"
+                             Icon="times-circle"/>
+        </div>
+    </asp:PlaceHolder>
     </FooterTemplate>
 </asp:Repeater>
 <YAF:Pager ID="Pager" runat="server"
            OnPageChange="Pager_PageChange" />
     </div>
     <asp:PlaceHolder runat="server" Visible="<%# this.rptBuddy.Items.Count == 0 %>">
-    <div class="card-body">
-        <YAF:Alert runat="server" Type="info" ID="Info"></YAF:Alert>
-    </div>
-</asp:PlaceHolder>
+        <div class="card-body">
+            <YAF:Alert runat="server" Type="info" ID="Info"></YAF:Alert>
+        </div>
+    </asp:PlaceHolder>
 </div>

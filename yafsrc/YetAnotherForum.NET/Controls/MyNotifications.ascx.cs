@@ -159,16 +159,15 @@ public partial class MyNotifications : BaseUserControl
                                 IconCssClass = "far"
                             };
 
+        var userLink = new UserLink {
+                                        UserID = activity.Item1.FromUserID.Value,
+                                        Suspended = activity.Item2.Suspended,
+                                        Style = activity.Item2.UserStyle,
+                                        ReplaceName = activity.Item2.DisplayOrUserName()
+                                    };
+
         if (activity.Item1.ActivityFlags.ReceivedThanks && activity.Item1.FromUserID.HasValue)
         {
-            var userLink = new UserLink
-                               {
-                                   UserID = activity.Item1.FromUserID.Value,
-                                   Suspended = activity.Item2.Suspended,
-                                   Style = activity.Item2.UserStyle,
-                                   ReplaceName = activity.Item2.DisplayOrUserName()
-                               };
-
             icon = "heart";
             message = this.GetTextFormatted(
                 "RECEIVED_THANKS_MSG",
@@ -178,14 +177,6 @@ public partial class MyNotifications : BaseUserControl
 
         if (activity.Item1.ActivityFlags.WasMentioned && activity.Item1.FromUserID.HasValue)
         {
-            var userLink = new UserLink
-                               {
-                                   UserID = activity.Item1.FromUserID.Value,
-                                   Suspended = activity.Item2.Suspended,
-                                   Style = activity.Item2.UserStyle,
-                                   ReplaceName = activity.Item2.DisplayOrUserName()
-                               };
-
             icon = "at";
             message = this.GetTextFormatted(
                 "WAS_MENTIONED_MSG",
@@ -195,14 +186,6 @@ public partial class MyNotifications : BaseUserControl
 
         if (activity.Item1.ActivityFlags.WasQuoted && activity.Item1.FromUserID.HasValue)
         {
-            var userLink = new UserLink
-                               {
-                                   UserID = activity.Item1.FromUserID.Value,
-                                   Suspended = activity.Item2.Suspended,
-                                   Style = activity.Item2.UserStyle,
-                                   ReplaceName = activity.Item2.DisplayOrUserName()
-                               };
-
             icon = "quote-left";
             message = this.GetTextFormatted(
                 "WAS_QUOTED_MSG",
@@ -212,14 +195,6 @@ public partial class MyNotifications : BaseUserControl
 
         if (activity.Item1.ActivityFlags.WatchForumReply && activity.Item1.FromUserID.HasValue)
         {
-            var userLink = new UserLink
-                               {
-                                   UserID = activity.Item1.FromUserID.Value,
-                                   Suspended = activity.Item2.Suspended,
-                                   Style = activity.Item2.UserStyle,
-                                   ReplaceName = activity.Item2.DisplayOrUserName()
-                               };
-
             icon = "comments";
             message = this.GetTextFormatted(
                 "WATCH_FORUM_MSG",
@@ -229,14 +204,6 @@ public partial class MyNotifications : BaseUserControl
 
         if (activity.Item1.ActivityFlags.WatchTopicReply && activity.Item1.FromUserID.HasValue)
         {
-            var userLink = new UserLink
-                               {
-                                   UserID = activity.Item1.FromUserID.Value,
-                                   Suspended = activity.Item2.Suspended,
-                                   Style = activity.Item2.UserStyle,
-                                   ReplaceName = activity.Item2.DisplayOrUserName()
-                               };
-
             icon = "comment";
             message = this.GetTextFormatted(
                 "WATCH_TOPIC_MSG",

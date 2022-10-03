@@ -10,7 +10,7 @@
                         <YAF:IconHeader runat="server" ID="IconHeader"
                                         IconName="comments"
                                         LocalizedPage="MYTOPICS"
-                                        LocalizedTag="ActiveTopics" />
+                                        LocalizedTag="MEMBERTITLE" />
                     </div>
                     <div class="col-auto">
                         <div class="btn-toolbar" role="toolbar">

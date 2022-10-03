@@ -65,7 +65,7 @@ public partial class QuickReply : BaseUserControl
 
         if (this.EnableCaptcha())
         {
-            this.imgCaptcha.ImageUrl = this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
+            this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
             this.CaptchaDiv.Visible = true;
         }
 
