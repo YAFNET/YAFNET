@@ -82,7 +82,8 @@ public partial class Users : AdminPage
                 // get user(s) we are about to delete
                 var userToDelete = this.Get<IAspNetUsersHelper>().GetBoardUser(
                     e.CommandArgument.ToType<int>(),
-                    this.PageBoardContext.PageBoardID);
+                    this.PageBoardContext.PageBoardID,
+                    true);
 
                 if (userToDelete.Item1.UserFlags.IsGuest)
                 {
