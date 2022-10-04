@@ -667,12 +667,9 @@ public static class ForumRepositoryExtensions
         BoardContext.Current.GetRepository<NntpForum>().UpdateOnly(
             () => new NntpForum { ForumID = newForumId },
             f => f.ForumID == oldForumId);
-        BoardContext.Current.GetRepository<WatchForum>().UpdateOnly(
-            () => new WatchForum { ForumID = newForumId },
-            f => f.ForumID == oldForumId);
-        BoardContext.Current.GetRepository<ForumReadTracking>().UpdateOnly(
-            () => new ForumReadTracking { ForumID = newForumId },
-            f => f.ForumID == oldForumId);
+
+        BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.ForumID == oldForumId);
+        BoardContext.Current.GetRepository<ForumReadTracking>().Delete(x => x.ForumID == oldForumId);
 
         // -- Move topics, messages and attachments
         var topics = BoardContext.Current.GetRepository<Topic>().Get(t => t.ForumID == oldForumId);

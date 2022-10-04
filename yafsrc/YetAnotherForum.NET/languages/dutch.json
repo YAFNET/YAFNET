@@ -1845,6 +1845,10 @@
         "@name": "ADMIN_DELETEFORUM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Verwijder Forum"
           },

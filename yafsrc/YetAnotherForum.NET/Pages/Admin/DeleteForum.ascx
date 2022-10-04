@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.DeleteForum"
     CodeBehind="DeleteForum.ascx.cs" %>
 
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">
@@ -43,7 +42,6 @@
         </div>
     </div>
 
-
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <asp:Timer ID="UpdateStatusTimer" runat="server" Enabled="false" Interval="4000" OnTick="UpdateStatusTimerTick" />
@@ -54,7 +52,9 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE_TITLE" LocalizedPage="ADMIN_DELETEFORUM" />
+                <h5 class="modal-title">
+                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE_TITLE" LocalizedPage="ADMIN_DELETEFORUM" />
+                </h5>
             </div>
             <div class="modal-body text-center">
                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DELETE_MSG" LocalizedPage="ADMIN_DELETEFORUM" />

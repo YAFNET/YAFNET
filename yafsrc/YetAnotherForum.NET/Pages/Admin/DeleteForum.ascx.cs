@@ -82,13 +82,17 @@ public partial class DeleteForum : AdminPage
             return;
         }
 
-        if (this.PageBoardContext.PageForum == null)
+        var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
+
+        if (!this.Get<HttpRequestBase>().QueryString.Exists("fa") && forumId.HasValue)
         {
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }
         else
         {
-             this.IconHeader.Text = $"{this.GetText("HEADER1")}: <strong>{this.PageBoardContext.PageForum.Name}</strong>";
+            var forum = this.GetRepository<Forum>().GetById(forumId.Value);
+
+            this.IconHeader.Text = $"{this.GetText("HEADER1")}: <strong>{forum.Name}</strong>";
         }
     }
 
@@ -147,13 +151,14 @@ public partial class DeleteForum : AdminPage
         string errorMessage;
 
         var newForumId = this.ForumListSelected.Value.ToType<int>();
+        var oldForumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("fa");
 
-        if (this.MoveTopics.Checked && newForumId != this.PageBoardContext.PageForumID)
+        if (this.MoveTopics.Checked && newForumId != oldForumId)
         {
             // schedule...
             ForumDeleteTask.Start(
                 this.PageBoardContext.PageBoardID,
-                this.PageBoardContext.PageForumID,
+                oldForumId,
                 newForumId,
                 out errorMessage);
 
@@ -165,7 +170,7 @@ public partial class DeleteForum : AdminPage
         else
         {
             // schedule...
-            ForumDeleteTask.Start(this.PageBoardContext.PageBoardID, this.PageBoardContext.PageForumID, out errorMessage);
+            ForumDeleteTask.Start(this.PageBoardContext.PageBoardID, oldForumId, out errorMessage);
 
             // enable timer...
             this.UpdateStatusTimer.Enabled = true;
