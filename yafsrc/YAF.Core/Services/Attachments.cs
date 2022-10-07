@@ -136,7 +136,7 @@ public class Attachments : IAttachment, IHaveServiceLocator
             context.Response.ContentType = attachment.ContentType;
             context.Response.AppendHeader(
                 "Content-Disposition",
-                $"attachment; filename={HttpUtility.UrlPathEncode(attachment.FileName).Replace("+", "_")}");
+                $"attachment; filename={HttpUtility.UrlPathEncode(attachment.FileName).Replace("+", "_").Replace(",", "_")}");
             context.Response.OutputStream.Write(data, 0, data.Length);
         }
         catch (Exception x)
