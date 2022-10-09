@@ -5270,14 +5270,6 @@
             "#text": "Salli haku:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Ensimmäisen viestin \"Otsikko\" välimuistin aikakatkaisu:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "Ensimmäinen viesti \"Otsikko\" SEO Cache Aikakatkaisu (minuutteina)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "SQL Server -versio:"
           },

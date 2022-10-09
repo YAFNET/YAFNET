@@ -5262,14 +5262,6 @@
             "#text": "Umożliwić wyszukiwanie:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Limit czasu pamięci podręcznej pierwszego wpisu „Tytuł”:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "Pierwszy post \"Tytuł\" dla pamięci podręcznej SEO Limit czasu (w minutach)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "Wersja serwera SQL:"
           },

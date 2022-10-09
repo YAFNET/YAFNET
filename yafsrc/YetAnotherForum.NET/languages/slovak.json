@@ -5270,14 +5270,6 @@
             "#text": "Umožniť vyhľadávanie:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Prvý príspevok \"Názov\" Časový limit vyrovnávacej pamäte:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "Prvý príspevok \"Názov\" pre SEO Cache Timeout (v minútach)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "Verzia servera SQL Server:"
           },

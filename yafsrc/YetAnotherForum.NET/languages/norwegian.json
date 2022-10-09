@@ -5270,14 +5270,6 @@
             "#text": "Tillat søk til:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Tidsavbrudd for hurtigbuffer for første innlegg &quot;Tittel&quot;:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "Første innlegg &quot;Tittel&quot; for SEO Cache Timeout (i minutter)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "SQL Server-versjon:"
           },

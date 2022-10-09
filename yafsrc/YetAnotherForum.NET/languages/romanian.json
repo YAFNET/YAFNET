@@ -5270,14 +5270,6 @@
             "#text": "Permiteți căutarea pentru:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Prima postare \"Titlu\" Timeout cache:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "Prima postare \"Titlu\" pentru SEO Cache Timeout (în minute)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "Versiunea SQL Server:"
           },

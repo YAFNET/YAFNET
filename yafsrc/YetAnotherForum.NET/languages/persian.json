@@ -5262,14 +5262,6 @@
             "#text": "مجاز بهه جستجوی:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "انقضای حافظه موقت \"عنوان\" اولین ارسال:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "انقضای حافظه موقت \"عنوان\" اولین ارسال برای SEO. به دقیقه"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "نسخه SQL Server :"
           },

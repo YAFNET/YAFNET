@@ -5262,14 +5262,6 @@
             "#text": "Suche für Folgende Erlauben"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Erster Beitrag \"Titel\" Speicher Ablaufzeit:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "Erster Beitrag \"Titel\" für den SEO Speicher Ablaufzeit (in Minuten)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "SQL-Server Version:"
           },

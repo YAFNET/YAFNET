@@ -5266,14 +5266,6 @@
             "#text": "Allow search to:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "First Post \"Title\" Cache Timeout:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "First Post \"Title\" for SEO Cache Timeout (in minutes)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "SQL Server Version:"
           },

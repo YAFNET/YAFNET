@@ -5270,14 +5270,6 @@
             "#text": "אפשר חיפוש כדי:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "פסק זמן של מטמון הפוסט הראשון &quot;כותרת&quot;:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "פוסט ראשון &quot;כותרת&quot; עבור פסק זמן של מטמון SEO (בדקות)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "גרסת SQL Server:"
           },

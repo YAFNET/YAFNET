@@ -5262,14 +5262,6 @@
             "#text": "Permitir búsquedas a:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Caducidad de caché para el \"Título\" de la primera publicación."
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "Caducidad de caché para el posicionamiento en buscadores (SEO) del \"Título\" de la primera publicación."
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "Versión del servidor SQL:"
           },

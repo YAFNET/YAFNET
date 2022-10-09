@@ -5270,14 +5270,6 @@
             "#text": "允许搜索："
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "第一篇文章“标题”缓存超时："
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "SEO 缓存超时的第一个帖子“标题”（以分钟为单位）"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "SQL 服务器版本："
           },

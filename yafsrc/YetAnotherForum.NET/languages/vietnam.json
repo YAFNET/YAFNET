@@ -5270,14 +5270,6 @@
             "#text": "Cho phép tìm kiếm:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Bài đầu tiên &quot;Tiêu đề&quot; Cache Timeout:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "&quot;Tiêu đề&quot; của bài đăng đầu tiên cho SEO Cache Timeout (tính bằng phút)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "Phiên bản máy chủ SQL:"
           },

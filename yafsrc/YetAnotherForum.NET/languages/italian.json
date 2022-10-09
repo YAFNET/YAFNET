@@ -5262,14 +5262,6 @@
             "#text": "Consentire la ricerca a:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Timeout della cache del primo messaggio \"Titolo\":"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "Titolo del primo messaggio per il timeout della cache SEO (in minuti)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "Versione di SQL Server:"
           },

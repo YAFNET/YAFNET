@@ -5270,14 +5270,6 @@
             "#text": "Luba otsing:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Esimese postituse \"Pealkiri\" vahemälu ajalõpp:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "SEO vahemälu ajalõpu esimene postitus \"Pealkiri\" (minutites)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "SQL serveri versioon:"
           },

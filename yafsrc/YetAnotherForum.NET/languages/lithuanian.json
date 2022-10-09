@@ -5270,14 +5270,6 @@
             "#text": "Leisti ieškoti:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Pirmojo pranešimo \"Pavadinimas\" talpyklos laiko tarpas:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "Pirmasis pranešimas \"Pavadinimas\" SEO talpyklos laiko tarpas (minutėmis)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "SQL serverio versija:"
           },

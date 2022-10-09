@@ -5262,14 +5262,6 @@
             "#text": "Zoeken toestaan voor:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Eerste Bericht \"Titel\" Cache Timeout:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "Eerste Bericht \"Titel\" voor SEO Cache Timeout (in minuten)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "SQL Server Versie:"
           },

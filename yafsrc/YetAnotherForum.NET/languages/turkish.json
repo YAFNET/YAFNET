@@ -5270,14 +5270,6 @@
             "#text": "Aramaya izin verin:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "İlk Gönderi \"Başlık\" Önbellek Zaman Aşımı:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "SEO Önbellek Zaman Aşımı için İlk Gönderi \"Başlığı\" (dakika cinsinden)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "SQL Server Sürümü:"
           },

@@ -5270,14 +5270,6 @@
             "#text": "Povolit vyhledávání:"
           },
           {
-            "@tag": "SEO_CACHE_TIMEOUT",
-            "#text": "Časový limit mezipaměti prvního příspěvku „Titul“:"
-          },
-          {
-            "@tag": "SEO_CACHE_TIMEOUT_HELP",
-            "#text": "První příspěvek „Titul“ pro časový limit mezipaměti SEO (v minutách)"
-          },
-          {
             "@tag": "SERVER_VERSION",
             "#text": "Verze serveru SQL:"
           },
