@@ -130,6 +130,7 @@ public class HelpLabel : BaseControl, ILocalizationSupport
         var label = new HtmlGenericControl("label");
 
         label.Attributes.Add(HtmlTextWriterAttribute.For.ToString(), associatedControlID);
+        label.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "form-label");
 
         label.Controls.Add(new Literal { Text = text });
 

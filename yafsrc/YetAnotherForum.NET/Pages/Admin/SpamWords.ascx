@@ -139,6 +139,13 @@
                 </ul>
         </FooterTemplate>
             </asp:Repeater>
+                    <YAF:Alert runat="server" ID="NoInfo"
+                               Type="success"
+                               Visible="False">
+                        <YAF:Icon runat="server" IconName="check" />
+                        <YAF:LocalizedLabel runat="server"
+                                            LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
+                    </YAF:Alert>
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton runat="server"

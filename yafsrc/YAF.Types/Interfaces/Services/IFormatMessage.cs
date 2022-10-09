@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -109,20 +109,6 @@ public interface IFormatMessage
     /// </returns>
     [NotNull]
     string FormatSyndicationMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool altItem, int charsToFetch);
-
-    /// <summary>
-    /// The get cleaned topic message. Caches cleaned topic message by TopicID.
-    /// </summary>
-    /// <param name="topicMessage">
-    /// The message to clean.
-    /// </param>
-    /// <param name="topicId">
-    ///   The topic id.
-    /// </param>
-    /// <returns>
-    /// The get cleaned topic message.
-    /// </returns>
-    MessageCleaned GetCleanedTopicMessage([NotNull] string topicMessage, [NotNull] int topicId);
 
     /// <summary>
     /// Removes nested quotes from the given message body.

@@ -10,7 +10,6 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<asp:PlaceHolder runat="server" ID="SearchResults" Visible="False">
     <div class="row">
         <div class="col-xl-12">
 
@@ -351,6 +350,5 @@
                UsePostBack="True" />
     </div>
 </div>
-    </asp:PlaceHolder>
 
 <modal:Import ID="ImportDialog" runat="server" />

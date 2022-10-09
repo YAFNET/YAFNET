@@ -101,7 +101,6 @@
                     <ItemTemplate>
                         <div class="row">
                             <div class="col-md-6">
-                                <h5>
                                 <asp:CheckBox runat="server" ID="topicCheck"
                                               Text="&nbsp;"
                                               CssClass="form-check d-inline-flex align-middle" />

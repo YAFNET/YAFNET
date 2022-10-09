@@ -198,6 +198,12 @@ public partial class SpamWords : AdminPage
                                   ? this.GetRepository<Spam_Words>()
                                       .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>()
                                   : 0;
+
+        if (this.list.Items.Count == 0)
+        {
+            this.NoInfo.Visible = true;
+        }
+
         this.DataBind();
     }
 

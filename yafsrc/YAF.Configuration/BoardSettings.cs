@@ -1014,16 +1014,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets FirstPostCacheTimeout.
-    /// </summary>
-    public int FirstPostCacheTimeout
-    {
-        get => this.Registry.GetValue("FirstPostCacheTimeout", 120);
-
-        set => this.Registry.SetValue("FirstPostCacheTimeout", value);
-    }
-
-    /// <summary>
     /// Gets or sets Max. Post Size.
     /// </summary>
     public int MaxPostSize

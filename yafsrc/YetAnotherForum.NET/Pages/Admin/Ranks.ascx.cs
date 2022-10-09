@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -81,24 +81,6 @@ public partial class Ranks : AdminPage
     protected string GetItemName(bool enabled)
     {
         return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
-    }
-
-    /// <summary>
-    /// The bit set.
-    /// </summary>
-    /// <param name="flags">
-    /// The flags.
-    /// </param>
-    /// <param name="bitmask">
-    /// The bitmask.
-    /// </param>
-    /// <returns>
-    /// The <see cref="bool"/>.
-    /// </returns>
-    protected bool BitSet([NotNull] object flags, int bitmask)
-    {
-        var i = (int)flags;
-        return (i & bitmask) != 0;
     }
 
     /// <summary>

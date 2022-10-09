@@ -525,110 +525,6 @@ public partial class Posts : ForumPage
     }
 
     /// <summary>
-    /// Adds meta data: description and keywords to the page header.
-    /// </summary>
-    /// <param name="firstMessage">
-    /// first message in the topic
-    /// </param>
-    private void AddMetaData([NotNull] string firstMessage)
-    {
-        try
-        {
-            if (firstMessage.IsNotSet())
-            {
-                return;
-            }
-        }
-        catch (Exception)
-        {
-            return;
-        }
-
-        if (this.Page.Header == null || !this.PageBoardContext.BoardSettings.AddDynamicPageMetaTags)
-        {
-            return;
-        }
-
-        var message = this.Get<IFormatMessage>().GetCleanedTopicMessage(firstMessage, this.PageBoardContext.PageTopicID);
-        var meta = this.Page.Header.FindControlType<HtmlMeta>();
-
-        var htmlMetas = meta as IList<HtmlMeta> ?? meta.ToList();
-        if (message.MessageTruncated.IsSet())
-        {
-            HtmlMeta descriptionMeta;
-
-            string descriptionContent;
-
-            // Use Topic Description if set
-            if (!this.topic.Description.IsNullOrEmptyField())
-            {
-                var topicDescription = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description));
-
-                descriptionContent = topicDescription.Length > 50
-                                         ? topicDescription
-                                         : $"{topicDescription} - {message.MessageTruncated}";
-            }
-            else
-            {
-                descriptionContent = message.MessageTruncated;
-            }
-
-            if (htmlMetas.Any(x => x.Name.Equals("description")))
-            {
-                // use existing...
-                descriptionMeta = htmlMetas.FirstOrDefault(x => x.Name.Equals("description"));
-                if (descriptionMeta != null)
-                {
-                    descriptionMeta.Content = descriptionContent;
-
-                    this.Page.Header.Controls.Remove(descriptionMeta);
-
-                    descriptionMeta = ControlHelper.MakeMetaDescriptionControl(descriptionContent);
-
-                    // add to the header...
-                    this.Page.Header.Controls.Add(descriptionMeta);
-                }
-            }
-            else
-            {
-                descriptionMeta = ControlHelper.MakeMetaDescriptionControl(descriptionContent);
-
-                // add to the header...
-                this.Page.Header.Controls.Add(descriptionMeta);
-            }
-        }
-
-        if (message.MessageKeywords.Count <= 0)
-        {
-            return;
-        }
-
-        HtmlMeta keywordMeta;
-
-        var keywordStr = message.MessageKeywords.Where(x => x.IsSet()).ToList().ToDelimitedString(",");
-
-        //// this.Tags.Text = "Tags: {0}".FormatWith(keywordStr);
-        if (htmlMetas.Any(x => x.Name.Equals("keywords")))
-        {
-            // use existing...
-            keywordMeta = htmlMetas.FirstOrDefault(x => x.Name.Equals("keywords"));
-            keywordMeta.Content = keywordStr;
-
-            this.Page.Header.Controls.Remove(keywordMeta);
-
-            // add to the header...
-            this.Page.Header.Controls.Add(keywordMeta);
-        }
-        else
-        {
-            keywordMeta = ControlHelper.MakeMetaKeywordsControl(keywordStr);
-
-            // add to the header...
-            this.Page.Header.Controls.Add(keywordMeta);
-        }
-    }
-
-    /// <summary>
     /// Binds the data.
     /// </summary>
     private void BindData()
@@ -700,13 +596,6 @@ public partial class Posts : ForumPage
                     "GotoAnchorJs",
                     JavaScriptBlocks.LoadGotoAnchor($"post{firstPost.MessageID}"));
             }
-        }
-
-        // if current index is 0 we are on the first page and the metadata can be added.
-        if (this.Pager.CurrentPageIndex == 0)
-        {
-            // handle add description/keywords for SEO
-            this.AddMetaData(firstPost.Message);
         }
 
         this.MessageList.DataSource = postList;

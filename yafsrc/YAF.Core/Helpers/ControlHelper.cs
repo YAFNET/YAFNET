@@ -61,41 +61,6 @@ public static class ControlHelper
     }
 
     /// <summary>
-    /// Finds a control recursively (forward only) using <paramref name="isControl"/> function.
-    /// </summary>
-    /// <param name="sourceControl">
-    /// Control to start search from.
-    /// </param>
-    /// <param name="isControl">
-    /// Function to test if we found the control.
-    /// </param>
-    /// <returns>
-    /// List of controls found
-    /// </returns>
-    [NotNull]
-    public static List<Control> ControlListRecursive(
-        [NotNull] this Control sourceControl,
-        [NotNull] Func<Control, bool> isControl)
-    {
-        CodeContracts.VerifyNotNull(sourceControl);
-        CodeContracts.VerifyNotNull(isControl);
-
-        var list = new List<Control>();
-
-        var withParents =
-            (from c in sourceControl.Controls.Cast<Control>().AsQueryable() where c.HasControls() select c).ToList();
-
-        // recursively call this function looking for controls...
-        withParents.ForEach(x => list.AddRange(ControlListRecursive(x, isControl)));
-
-        // add controls from this level...
-        list.AddRange(ControlListNoParents(sourceControl, isControl));
-
-        // return the lot...
-        return list;
-    }
-
-    /// <summary>
     /// Finds the control recursive reverse.
     /// </summary>
     /// <param name="sourceControl">The source control.</param>
@@ -349,36 +314,12 @@ public static class ControlHelper
     }
 
     /// <summary>
-    /// Creates a <see cref="HtmlMeta"/> control for keywords.
-    /// </summary>
-    /// <param name="keywords">keywords that go inside the meta</param>
-    /// <returns><see cref="HtmlMeta"/> control</returns>
-    public static HtmlMeta MakeMetaKeywordsControl(string keywords)
-    {
-        var meta = new HtmlMeta { Name = "keywords", Content = keywords };
-
-        return meta;
-    }
-
-    /// <summary>
     /// Creates a <see cref="HtmlMeta"/> control robots no-index.
     /// </summary>
     /// <returns><see cref="HtmlMeta"/> control</returns>
     public static HtmlMeta MakeMetaNoIndexControl()
     {
         var meta = new HtmlMeta { Name = "robots", Content = "noindex,follow" };
-
-        return meta;
-    }
-
-    /// <summary>
-    /// Creates a <see cref="HtmlMeta"/> control for description.
-    /// </summary>
-    /// <param name="description">description that go inside the meta</param>
-    /// <returns><see cref="HtmlMeta"/> control</returns>
-    public static HtmlMeta MakeMetaDescriptionControl(string description)
-    {
-        var meta = new HtmlMeta { Name = "description", Content = description };
 
         return meta;
     }

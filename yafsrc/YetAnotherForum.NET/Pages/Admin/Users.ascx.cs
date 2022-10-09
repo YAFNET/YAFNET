@@ -367,8 +367,6 @@ public partial class Users : AdminPage
     /// </summary>
     private void BindData()
     {
-        this.SearchResults.Visible = true;
-
         // default since date is now
         DateTime? sinceDate = null;
 

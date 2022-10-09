@@ -90,11 +90,6 @@ public static class Constants
         public const string UserCustomProfileData = "UserCustomProfileData{0}";
 
         /// <summary>
-        ///   The first post cleaned.
-        /// </summary>
-        public const string FirstPostCleaned = "FirstPostCleaned{0}{1}";
-
-        /// <summary>
         ///   The forum jump.
         /// </summary>
         public const string ForumJump = "ForumJump{0}";

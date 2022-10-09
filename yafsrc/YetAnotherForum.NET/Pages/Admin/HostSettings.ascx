@@ -1803,11 +1803,6 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <YAF:HelpLabel ID="HelpLabel47" runat="server"
-                                           LocalizedTag="SEO_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <asp:TextBox CssClass="form-control" runat="server" ID="FirstPostCacheTimeout" />
-                        </div>
-                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel48" runat="server"
                                            LocalizedTag="ONLINE_STATUS_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                             <asp:TextBox runat="server" ID="OnlineStatusCacheTimeout"

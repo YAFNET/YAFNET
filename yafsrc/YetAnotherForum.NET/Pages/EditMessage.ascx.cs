@@ -356,10 +356,6 @@ public partial class EditMessage : ForumPage
         this.GetRepository<TopicTag>().AddTagsToTopic(this.TagsValue.Value, this.PageBoardContext.PageTopicID);
 
         this.UpdateWatchTopic(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
-
-        // remove cache if it exists...
-        this.Get<IDataCache>()
-            .Remove(string.Format(Constants.Cache.FirstPostCleaned, this.PageBoardContext.PageBoardID, this.PageBoardContext.PageTopicID));
     }
 
     /// <summary>

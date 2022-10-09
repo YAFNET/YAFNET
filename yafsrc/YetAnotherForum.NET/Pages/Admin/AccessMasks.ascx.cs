@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -37,24 +37,6 @@ public partial class AccessMasks : AdminPage
     public AccessMasks()
         : base("ADMIN_ACCESSMASKS", ForumPages.Admin_AccessMasks)
     {
-    }
-
-    /// <summary>
-    /// The bit set.
-    /// </summary>
-    /// <param name="flag">
-    /// The flag.
-    /// </param>
-    /// <param name="bitmask">
-    /// The bitmask.
-    /// </param>
-    /// <returns>
-    /// The <see cref="bool"/>.
-    /// </returns>
-    protected bool BitSet([NotNull] object flag, int bitmask)
-    {
-        var i = (int)flag;
-        return (i & bitmask) != 0;
     }
 
     /// <summary>

@@ -168,46 +168,6 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Removes empty strings from the list
-    /// </summary>
-    /// <param name="inputList">
-    /// The input list.
-    /// </param>
-    /// <exception cref="ArgumentNullException">
-    /// <paramref name="inputList"/> is <c>null</c>.
-    /// </exception>
-    /// <returns>
-    /// Returns the Cleaned List
-    /// </returns>
-    [NotNull]
-    public static List<string> GetNewNoEmptyStrings([NotNull] this IEnumerable<string> inputList)
-    {
-        CodeContracts.VerifyNotNull(inputList);
-
-        return inputList.Where(x => x.IsSet()).ToList();
-    }
-
-    /// <summary>
-    /// Removes strings that are smaller then <paramref name="minSize"/>
-    /// </summary>
-    /// <param name="inputList">
-    /// The input list.
-    /// </param>
-    /// <param name="minSize">
-    /// The minimum size.
-    /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
-    [NotNull]
-    public static List<string> GetNewNoSmallStrings([NotNull] this IEnumerable<string> inputList, int minSize)
-    {
-        CodeContracts.VerifyNotNull(inputList);
-
-        return inputList.Where(x => x.Length >= minSize).ToList();
-    }
-
-    /// <summary>
     /// When the string is trimmed, is it <see langword="null" /> or empty?
     /// </summary>
     /// <param name="inputString">The input string.</param>
@@ -234,55 +194,6 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Processes the text.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>
-    /// The process text.
-    /// </returns>
-    public static string ProcessText(string text)
-    {
-        return ProcessText(text, true);
-    }
-
-    /// <summary>
-    /// Processes the text.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="nullify">The nullify.</param>
-    /// <returns>
-    /// The process text.
-    /// </returns>
-    public static string ProcessText(string text, bool nullify)
-    {
-        return ProcessText(text, nullify, true);
-    }
-
-    /// <summary>
-    /// Processes the text.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="nullify">The nullify.</param>
-    /// <param name="trim">The trim.</param>
-    /// <returns>
-    /// The process text.
-    /// </returns>
-    public static string ProcessText(string text, bool nullify, bool trim)
-    {
-        if (trim && text.IsSet())
-        {
-            text = text.Trim();
-        }
-
-        if (nullify && text.IsNotSet())
-        {
-            text = null;
-        }
-
-        return text;
-    }
-
-    /// <summary>
     /// Removes multiple whitespace characters from a string.
     /// </summary>
     /// <param name="text">The text.</param>
@@ -299,55 +210,6 @@ public static class StringExtensions
 
         var r = new Regex(@"\s+");
         return r.Replace(text, @" ");
-    }
-
-    /// <summary>
-    /// Converts a string to a list using delimiter.
-    /// </summary>
-    /// <param name="str">
-    /// starting string
-    /// </param>
-    /// <param name="delimiter">
-    /// value that delineates the string
-    /// </param>
-    /// <returns>
-    /// list of strings
-    /// </returns>
-    public static List<string> StringToList(this string str, char delimiter)
-    {
-        return str.StringToList(delimiter, new List<string>());
-    }
-
-    /// <summary>
-    /// Converts a string to a list using delimiter.
-    /// </summary>
-    /// <param name="str">
-    /// starting string
-    /// </param>
-    /// <param name="delimiter">
-    /// value that delineates the string
-    /// </param>
-    /// <param name="exclude">
-    /// items to exclude from list
-    /// </param>
-    /// <returns>
-    /// list of strings
-    /// </returns>
-    [NotNull]
-    public static List<string> StringToList(
-        [NotNull] this string str,
-        char delimiter,
-        [NotNull] List<string> exclude)
-    {
-        CodeContracts.VerifyNotNull(str);
-        CodeContracts.VerifyNotNull(exclude);
-
-        var list = str.Split(delimiter).ToList();
-
-        list.RemoveAll(exclude.Contains);
-        list.Remove(delimiter.ToString());
-
-        return list;
     }
 
     /// <summary>
@@ -414,24 +276,6 @@ public static class StringExtensions
                 });
 
         return sb.ToString();
-    }
-
-    /// <summary>
-    /// Converts a String to a MemoryStream.
-    /// </summary>
-    /// <param name="inputString">
-    /// The input String.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Stream"/>.
-    /// </returns>
-    [NotNull]
-    public static Stream ToStream([NotNull] this string inputString)
-    {
-        CodeContracts.VerifyNotNull(inputString);
-
-        var byteArray = Encoding.ASCII.GetBytes(inputString);
-        return new MemoryStream(byteArray);
     }
 
     /// <summary>
