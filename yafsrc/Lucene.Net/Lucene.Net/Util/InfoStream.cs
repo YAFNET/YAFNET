@@ -50,6 +50,7 @@ namespace YAF.Lucene.Net.Util
 
             protected override void Dispose(bool disposing)
             {
+                // LUCENENET: Intentionally blank
             }
         }
 

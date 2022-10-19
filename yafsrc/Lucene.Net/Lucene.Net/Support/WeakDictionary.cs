@@ -193,8 +193,6 @@ namespace YAF.Lucene.Net.Support
             throw new NotSupportedException();
         }
 
-        #region Nested Class: KeyCollection
-
         private class KeyCollection : ICollection<TKey>
         {
             private readonly IDictionary<WeakKey<TKey>, TValue> _internalDict;
@@ -227,8 +225,6 @@ namespace YAF.Lucene.Net.Support
 
             public bool IsReadOnly => true;
 
-            #region Explicit Interface Definitions
-
             bool ICollection<TKey>.Contains(TKey item)
             {
                 throw new NotSupportedException();
@@ -248,11 +244,7 @@ namespace YAF.Lucene.Net.Support
             {
                 throw new NotSupportedException();
             }
-
-#endregion Explicit Interface Definitions
         }
-
-        #endregion Nested Class: KeyCollection
 
         /// <summary>
         /// A weak reference wrapper for the hashtable keys. Whenever a key\value pair

@@ -130,7 +130,7 @@ namespace YAF.Lucene.Net.Search
                 });
             }
 
-            private class TermsAnonymousClass : Terms
+            private sealed class TermsAnonymousClass : Terms
             {
                 private readonly SortedDocValues fcsi;
 

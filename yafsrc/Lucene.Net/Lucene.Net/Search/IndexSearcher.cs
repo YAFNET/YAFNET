@@ -857,6 +857,7 @@ namespace YAF.Lucene.Net.Search
 
             public void Dispose()
             {
+                // LUCENENET: Intentionally blank
             }
 
             public void Submit(Func<T> task)

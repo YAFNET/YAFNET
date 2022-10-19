@@ -1099,7 +1099,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
-        private class DirectPackedReaderAnonymousClass : DirectPackedReader
+        private sealed class DirectPackedReaderAnonymousClass : DirectPackedReader
         {
             private readonly IndexInput @in;
             private readonly int valueCount;

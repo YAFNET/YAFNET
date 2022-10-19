@@ -109,7 +109,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
             return new TokenStreamComponentsAnonymousClass(this, src, tok);
         }
 
-        private class TokenStreamComponentsAnonymousClass : TokenStreamComponents
+        private sealed class TokenStreamComponentsAnonymousClass : TokenStreamComponents
         {
             private readonly StandardAnalyzer outerInstance;
 

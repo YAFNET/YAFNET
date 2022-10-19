@@ -71,9 +71,7 @@ namespace YAF.Lucene.Net.Index
         protected BaseCompositeReader(R[] subReaders)
         {
             this.subReaders = subReaders;
-
             this.subReadersList = ((IndexReader[])subReaders).AsReadOnly(); // LUCENENET: Work around generic casting from R to IndexWriter
-
             starts = new int[subReaders.Length + 1]; // build starts array
             int maxDoc = 0, numDocs = 0;
             for (int i = 0; i < subReaders.Length; i++)

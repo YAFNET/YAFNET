@@ -40,7 +40,7 @@ namespace YAF.Lucene.Net.Search
                     return "-";
 
                 default:
-                    throw new ArgumentOutOfRangeException("Invalid Occur value"); // LUCENENET specific
+                    throw new ArgumentOutOfRangeException(nameof(occur), "Invalid Occur value"); // LUCENENET specific
             }
         }
 

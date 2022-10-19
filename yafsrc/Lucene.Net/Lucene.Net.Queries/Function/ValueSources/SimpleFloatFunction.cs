@@ -42,7 +42,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             return new SingleDocValuesAnonymousClass(this, this, vals);
         }
 
-        private class SingleDocValuesAnonymousClass : SingleDocValues
+        private sealed class SingleDocValuesAnonymousClass : SingleDocValues
         {
             private readonly SimpleSingleFunction outerInstance;
             private readonly FunctionValues vals;

@@ -58,7 +58,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             return new SingleDocValuesAnonymousClass(this, arr, valid);
         }
 
-        private class SingleDocValuesAnonymousClass : SingleDocValues
+        private sealed class SingleDocValuesAnonymousClass : SingleDocValues
         {
             private readonly FieldCache.Singles arr;
             private readonly IBits valid;

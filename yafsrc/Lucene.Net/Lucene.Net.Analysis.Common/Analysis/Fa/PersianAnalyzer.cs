@@ -1,6 +1,7 @@
 ﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.Ar;
 using YAF.Lucene.Net.Analysis.Core;
+using YAF.Lucene.Net.Analysis.Miscellaneous;
 using YAF.Lucene.Net.Analysis.Standard;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
@@ -9,8 +10,6 @@ using System.IO;
 
 namespace YAF.Lucene.Net.Analysis.Fa
 {
-    using YAF.Lucene.Net.Analysis.Miscellaneous;
-
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
      * contributor license agreements.  See the NOTICE file distributed with
@@ -63,7 +62,7 @@ namespace YAF.Lucene.Net.Analysis.Fa
         /// Atomically loads the <see cref="DEFAULT_STOP_SET"/> in a lazy fashion once the outer class 
         /// accesses the static final set the first time.;
         /// </summary>
-        private class DefaultSetHolder
+        private static class DefaultSetHolder
         {
             internal static readonly CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
 

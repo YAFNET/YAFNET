@@ -36,8 +36,6 @@ namespace YAF.Lucene.Net.Support
         }
     }
 
-    #region SubList<T>
-
     internal sealed class SubList<T> : IList<T>
     {
         private readonly IList<T> list;
@@ -169,6 +167,4 @@ namespace YAF.Lucene.Net.Support
             }
         }
     }
-
-    #endregion SubList<T>
 }

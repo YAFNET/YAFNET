@@ -265,7 +265,7 @@ namespace YAF.Lucene.Net.Util
                         // Handle intermediate merges.
                         if (merges.Count == maxTempFiles)
                         {
-                            var intermediate = new FileInfo(Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()));
+                            var intermediate = new FileInfo(Path.GetTempFileName());
                             try
                             {
                                 MergePartitions(merges, intermediate);
@@ -441,7 +441,7 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
-        private class PriorityQueueAnonymousClass : PriorityQueue<FileAndTop>
+        private sealed class PriorityQueueAnonymousClass : PriorityQueue<FileAndTop>
         {
             private readonly OfflineSorter outerInstance;
 

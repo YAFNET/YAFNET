@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using JCG = J2N.Collections.Generic;
 using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
@@ -60,7 +60,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         // 3.x doesn't support docvalues
         private readonly DocValuesFormat docValuesFormat = new DocValuesFormatAnonymousClass();
 
-        private class DocValuesFormatAnonymousClass : DocValuesFormat
+        private sealed class DocValuesFormatAnonymousClass : DocValuesFormat
         {
             public DocValuesFormatAnonymousClass()
                 : base()

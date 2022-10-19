@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Util;
+﻿using YAF.Lucene.Net.Util;
 using System.Collections.Generic;
 using System.Text;
 
@@ -139,6 +139,7 @@ namespace YAF.Lucene.Net.Search
 
         public override void ExtractTerms(ISet<Term> terms)
         {
+            // LUCENENET: Intentionally blank
         }
 
         public override string ToString(string field)

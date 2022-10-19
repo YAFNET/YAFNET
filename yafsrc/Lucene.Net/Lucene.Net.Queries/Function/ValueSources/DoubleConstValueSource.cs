@@ -51,7 +51,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             return new DoubleDocValuesAnonymousClass(this, this);
         }
 
-        private class DoubleDocValuesAnonymousClass : DoubleDocValues
+        private sealed class DoubleDocValuesAnonymousClass : DoubleDocValues
         {
             private readonly DoubleConstValueSource outerInstance;
 

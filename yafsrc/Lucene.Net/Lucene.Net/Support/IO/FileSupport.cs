@@ -60,7 +60,7 @@ namespace YAF.Lucene.Net.Support.IO
             try
             {
                 // This could throw, but we don't care about this HResult value.
-                fileName = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+                fileName = Path.GetTempFileName();
             }
             catch
             {
@@ -84,10 +84,7 @@ namespace YAF.Lucene.Net.Support.IO
                 {
                     File.Delete(fileName);
                 }
-                catch
-                {
-                    // Should never get here
-                }
+                catch { }
             }
             return null; // Should never get here
         }

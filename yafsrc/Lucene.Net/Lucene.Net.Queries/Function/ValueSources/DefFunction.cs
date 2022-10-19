@@ -43,7 +43,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             return new ValuesAnonymousClass(this, ValsArr(m_sources, fcontext, readerContext));
         }
 
-        private class ValuesAnonymousClass : Values
+        private sealed class ValuesAnonymousClass : Values
         {
             public ValuesAnonymousClass(DefFunction outerInstance, FunctionValues[] valsArr)
                 : base(outerInstance, valsArr)
