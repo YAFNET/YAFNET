@@ -149,7 +149,7 @@
                         <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
                                          Type="Danger"
                                          Size="Small"
-                                         CommandName="delete"
+                                         CommandName="remove"
                                          CommandArgument='<%# this.Eval( "Item2.GroupID") %>'
                                          TitleLocalizedTag="REMOVE"
                                          Icon="trash"
@@ -171,7 +171,7 @@
                         <YAF:ThemeButton ID="ThemeButton2" runat="server"
                                          Type="None"
                                          CssClass="dropdown-item"
-                                         CommandName="delete"
+                                         CommandName="remove"
                                          CommandArgument='<%# this.Eval( "Item2.GroupID") %>'
                                          TitleLocalizedTag="REMOVE"
                                          Icon="trash"

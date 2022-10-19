@@ -25,11 +25,6 @@
                             </YAF:LocalizedLabel>
                         </YAF:Alert>
                         <div class="mb-3">
-                            <label for="<%# this.importFile.ClientID %>" class="form-label">
-                                <YAF:LocalizedLabel runat="server" 
-                                                    LocalizedTag="SELECT_IMPORT" 
-                                                    LocalizedPage="ADMIN_EXTENSIONS_IMPORT"/>
-                            </label>
                             <input type="file" id="importFile" class="form-control" runat="server" />
                         </div>
                         <!-- Modal Content END !-->
@@ -37,7 +32,7 @@
                     <div class="modal-footer">
                         <YAF:ThemeButton id="Import" runat="server" 
                                          OnClick="Import_OnClick"
-                                         TextLocalizedTag="ADMIN_BANNEDEMAIL_IMPORT" TextLocalizedPage="IMPORT"
+                                         TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_BANNEDEMAIL_IMPORT"
                                          Type="Primary" 
                                          Icon="upload">
                         </YAF:ThemeButton>

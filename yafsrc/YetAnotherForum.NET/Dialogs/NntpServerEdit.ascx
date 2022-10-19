@@ -56,7 +56,6 @@
                                                AssociatedControlID="UserName"
                                                LocalizedTag="NNTP_USERNAME" LocalizedPage="ADMIN_EDITNNTPSERVER" />
                                 <asp:TextBox ID="UserName" runat="server"
-                                             Enabled="true"
                                              CssClass="form-control" />
                             </div>
                             <div class="mb-3 col-md-6">
@@ -64,8 +63,7 @@
                                                AssociatedControlID="UserPass"
                                                LocalizedTag="NNTP_PASSWORD" LocalizedPage="ADMIN_EDITNNTPSERVER" />
                                 <asp:TextBox ID="UserPass" runat="server"
-                                             CssClass="form-control"
-                                             Enabled="true" />
+                                             CssClass="form-control" />
                             </div>
                         </div>
                         <!-- Modal Content END !-->

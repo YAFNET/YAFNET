@@ -128,14 +128,6 @@ public partial class EditCategory : AdminPage
             categoryImage = this.CategoryImages.SelectedItem.Text;
         }
 
-        if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
-        {
-            this.PageBoardContext.Notify(
-                this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"),
-                MessageTypes.danger);
-            return;
-        }
-
         var category = this.GetRepository<Category>().GetSingle(c => c.Name == this.Name.Text);
 
         // Check Name duplicate only if new Category

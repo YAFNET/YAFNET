@@ -30,7 +30,7 @@
                     </div>
                     <div class="modal-footer">
                         <YAF:ThemeButton id="Import" runat="server" OnClick="Import_OnClick" 
-                            TextLocalizedTag="ADMIN_SPAMWORDS_IMPORT" TextLocalizedPage="TITLE"
+                            TextLocalizedPage="ADMIN_SPAMWORDS_IMPORT" TextLocalizedTag="TITLE"
                             Type="Primary" Icon="upload">
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server"

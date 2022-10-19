@@ -50,7 +50,6 @@
                                                LocalizedTag="DATECUTOFF" LocalizedPage="ADMIN_EDITNNTPFORUM" />
                                 <asp:TextBox ID="DateCutOff" runat="server"
                                              CssClass="form-control"
-                                             Enabled="true"
                                              TextMode="DateTime" />
                             </div>
                             <div class="mb-3 col-auto">

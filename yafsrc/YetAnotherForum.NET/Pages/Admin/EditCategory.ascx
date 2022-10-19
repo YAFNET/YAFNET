@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True"
+﻿<%@ Control Language="c#" AutoEventWireup="True"
     Inherits="YAF.Pages.Admin.EditCategory" Codebehind="EditCategory.ascx.cs" %>
 
 
@@ -35,7 +35,7 @@
                                          MaxLength="5" 
                                          required="required" 
                                          CssClass="form-control" 
-                                         TextMode="Number"></asp:TextBox>
+                                         TextMode="Number" data-min="1"></asp:TextBox>
                             <div class="invalid-feedback">
                                 <YAF:LocalizedLabel runat="server"
                                                     LocalizedTag="MSG_VALUE" />

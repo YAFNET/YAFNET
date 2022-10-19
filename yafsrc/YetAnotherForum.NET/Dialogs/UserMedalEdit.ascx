@@ -19,25 +19,13 @@
                                            AssociatedControlID="UserName"
                                            LocalizedTag="MEDAL_USER" LocalizedPage="ADMIN_EDITMEDAL"/>
                             <div class="input-group">
-                                <asp:DropDownList runat="server" ID="UserNameList"
-                                                  Visible="false"
-                                                  CssClass="select2-select"/>
                                 <asp:TextBox ID="UserName" runat="server"
-                                             required="required"
                                              CssClass="form-control"/>
-                                <YAF:ThemeButton runat="server" ID="FindUsers"
-                                                 Icon="search"
-                                                 OnClick="FindUsersClick"
-                                                 Type="Info"
-                                                 TextLocalizedTag="FIND"/>
-                                <YAF:ThemeButton runat="server" ID="Clear"
-                                                 Icon="trash"
-                                                 OnClick="ClearClick"
-                                                 Visible="false"
-                                                 Type="Info"
-                                                 TextLocalizedTag="CLEAR"/>
-                                <asp:TextBox Visible="false" ID="UserID" runat="server"
-                                             CssClass="form-control"/>
+                                <asp:PlaceHolder runat="server" id="UserSelectHolder" Visible="False">
+                                    <select id="UserSelect" class="form-select"></select>
+                                </asp:PlaceHolder>
+                                
+                                <asp:HiddenField id="SelectedUserID" runat="server" />
                             </div>
                             <div class="invalid-feedback">
                                 <YAF:LocalizedLabel runat="server"

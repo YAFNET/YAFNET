@@ -52,14 +52,6 @@ public partial class BBCode_Edit : AdminPage
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     protected void Add_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (!ValidationHelper.IsValidPosShort(this.txtExecOrder.Text.Trim()))
-        {
-            this.PageBoardContext.Notify(
-                this.GetText("ADMIN_BBCODE_EDIT", "MSG_POSITIVE_VALUE"),
-                MessageTypes.warning);
-            return;
-        }
-
         this.GetRepository<Types.Models.BBCode>().Save(
             this.BBCodeID,
             this.txtName.Text.Trim(),

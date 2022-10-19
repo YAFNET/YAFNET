@@ -17,8 +17,7 @@
                              TextMode="MultiLine"
                              Visible="False"
                     CssClass="form-control"></asp:TextBox>
-                <asp:Placeholder ID="PanelGetStats" runat="server" Visible="False">
-                    <p class="card-text">
+                <p class="card-text">
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                                             LocalizedTag="SHOW_STATS"
                                             LocalizedPage="ADMIN_REINDEX" />
@@ -31,9 +30,7 @@
                                          TextLocalizedTag="TBLINDEXSTATS_BTN" />
                     </p>
                     <hr />
-                </asp:Placeholder>
-                <asp:Placeholder ID="PanelRecoveryMode" runat="server" Visible="False">
-                    <p class="card-text">
+               <p class="card-text">
                         <YAF:ThemeButton ID="RecoveryMode" Type="Primary" runat="server" OnClick="RecoveryModeClick"
                                          ReturnConfirmTag="CONFIRM_RECOVERY"
                                          Icon="database" TextLocalizedTag="SETRECOVERY_BTN" />
@@ -45,9 +42,7 @@
                         </div>
                     </p>
                     <hr />
-                </asp:Placeholder>
-                <asp:Placeholder ID="PanelReindex" runat="server" Visible="False">
-                    <p class="card-text">
+                <p class="card-text">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="REINDEX" LocalizedPage="ADMIN_REINDEX" />
                     </p>
                     <p class="card-text">
@@ -57,10 +52,7 @@
                                          Icon="database" TextLocalizedTag="REINDEXTBL_BTN" />
                     </p>
                     <hr />
-                </asp:Placeholder>
-                <asp:Placeholder ID="PanelShrink" runat="server" Visible="False">
-                    <p class="card-text">
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SHRINK" LocalizedPage="ADMIN_REINDEX" />
+                   <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SHRINK" LocalizedPage="ADMIN_REINDEX" />
                     </p>
                     <p class="card-text">
                         <YAF:ThemeButton ID="Shrink" runat="server"
@@ -70,7 +62,6 @@
                                          ReturnConfirmTag="CONFIRM_SHRINK"
                                          TextLocalizedTag="SHRINK_BTN" />
                     </p>
-                </asp:Placeholder>
             </div>
         </div>
     </div>

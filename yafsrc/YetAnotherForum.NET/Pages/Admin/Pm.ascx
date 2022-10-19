@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <asp:Label runat="server"
-                                       CssClass="fw-bold"
+                                       CssClass="form-label"
                                        AssociatedControlID="Days1">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
                                                     LocalizedTag="DELETE_READ" LocalizedPage="ADMIN_PM" />
@@ -40,7 +40,7 @@
                         </div>
                         <div class="mb-3 col-md-4">
                             <asp:Label runat="server"
-                                       CssClass="fw-bold"
+                                       CssClass="form-label"
                                        AssociatedControlID="Days2">
                                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
                                                     LocalizedTag="DELETE_UNREAD" LocalizedPage="ADMIN_PM" />

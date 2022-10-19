@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -76,14 +76,7 @@ public partial class Mail : AdminPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void SendClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        int? groupId = null;
-
-        if (this.ToList.SelectedItem.Value != "0")
-        {
-            groupId = this.ToList.SelectedValue.ToType<int>();
-        }
-
-        var emails = this.GetRepository<User>().GroupEmails(groupId.Value);
+        var emails = this.GetRepository<User>().GroupEmails(this.ToList.SelectedValue.ToType<int>());
 
         Parallel.ForEach(
             emails,
@@ -142,11 +135,11 @@ public partial class Mail : AdminPage
     /// </summary>
     private void BindData()
     {
-        this.ToList.DataSource = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID);
-        this.DataBind();
+        var groups = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID);
 
-        var item = new ListItem(this.GetText("ADMIN_MAIL", "ALL_USERS"), "0");
-        this.ToList.Items.Insert(0, item);
+        this.ToList.DataSource = groups.Where(r => !r.GroupFlags.IsGuest);
+
+        this.DataBind();
 
         this.TestSubject.Text = this.GetText("TEST_SUBJECT");
         this.TestBody.Text = this.GetText("TEST_BODY");

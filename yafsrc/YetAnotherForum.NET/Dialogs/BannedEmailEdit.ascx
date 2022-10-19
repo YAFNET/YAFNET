@@ -18,7 +18,7 @@
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" 
                                            AssociatedControlID="mask"
                                            LocalizedTag="MASK" 
-                                           LocalizedPage="ADMIN_EDITACCESSMASKS" />
+                                           LocalizedPage="ADMIN_BANNEDEMAIL_EDIT" />
                             <asp:TextBox ID="mask" runat="server" 
                                          CssClass="form-control" 
                                          required="required"
@@ -32,7 +32,7 @@
                             <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel2" runat="server" 
                                            AssociatedControlID="BanReason"
-                                           LocalizedTag="REASON" LocalizedPage="ADMIN_EDITACCESSMASKS" />
+                                           LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDEMAIL_EDIT" />
                                 <asp:TextBox ID="BanReason" runat="server" 
                                              CssClass="form-control" 
                                              MaxLength="128"

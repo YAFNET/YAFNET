@@ -39,7 +39,7 @@
                         </div>
                         <div class="card-body">
                             <asp:TextBox ID="txtResult" runat="server" TextMode="MultiLine"
-                                Width="100%" Height="300px" Wrap="false" style="font-size: 8pt;" CssClass="form-control"></asp:TextBox>
+                                Width="100%" Height="300px" Wrap="false" style="font-size: 8pt;" CssClass="form-control text-bg-dark"></asp:TextBox>
                         </div>
                     </div>
                 </div>

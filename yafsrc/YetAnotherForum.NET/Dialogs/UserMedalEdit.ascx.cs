@@ -76,9 +76,8 @@ public partial class UserMedalEdit : BaseUserControl
         this.UserId = userId;
 
         // clear controls
-        this.UserID.Text = null;
+       
         this.UserName.Text = null;
-        this.UserNameList.Items.Clear();
         this.UserMessage.Text = null;
         this.UserHide.Checked = false;
         this.UserSortOrder.Text = "0";
@@ -86,9 +85,6 @@ public partial class UserMedalEdit : BaseUserControl
         // set controls visibility and availability
         this.UserName.Enabled = true;
         this.UserName.Visible = true;
-        this.UserNameList.Visible = false;
-        this.FindUsers.Visible = true;
-        this.Clear.Visible = false;
 
         // focus on save button
         this.AddUserSave.Focus();
@@ -102,21 +98,20 @@ public partial class UserMedalEdit : BaseUserControl
             // tweak it for editing
             this.UserMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_USER");
             this.UserName.Enabled = false;
-            this.FindUsers.Visible = false;
 
             // load data to controls
-            this.UserID.Text = row.Item3.ID.ToString();
             this.UserName.Text = row.Item3.Name;
             this.UserMessage.Text = row.Item2.Message.IsSet() ? row.Item2.Message : row.Item1.Message;
             this.UserSortOrder.Text = row.Item2.SortOrder.ToString();
             this.UserHide.Checked = row.Item2.Hide;
             this.MedalName = row.Item1.Name;
-
-            this.UserMedalEditTitle.Text = this.MedalName;
         }
         else
         {
             var medal = this.GetRepository<Medal>().GetById(this.MedalId);
+
+            this.UserSelectHolder.Visible = true;
+            this.UserName.Visible = false;
 
             this.MedalName = medal.Name;
 
@@ -144,71 +139,18 @@ public partial class UserMedalEdit : BaseUserControl
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "loadValidatorFormJs",
             JavaScriptBlocks.FormValidatorJs(this.AddUserSave.ClientID));
-    }
 
-    /// <summary>
-    /// Handles clear button click event.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void ClearClick([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        // clear drop down
-        this.UserNameList.Items.Clear();
 
-        // hide it and show empty UserName text box
-        this.UserNameList.Visible = false;
-        this.UserName.Text = null;
-        this.UserName.Visible = true;
-        this.UserID.Text = null;
-
-        // show find users and all users (if user is admin)
-        this.FindUsers.Visible = true;
-
-        // clear button is not necessary now
-        this.Clear.Visible = false;
-
-        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-            "openModalJs",
-            JavaScriptBlocks.OpenModalJs("UserEditDialog"));
-    }
-
-    /// <summary>
-    /// Handles find users button click event.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void FindUsersClick([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        // try to find users by user name
-        var users = this.GetRepository<User>().Get(
-            u => u.BoardID == this.PageBoardContext.PageBoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
-                 (u.Name.Contains(this.UserName.Text) || u.DisplayName.Contains(this.UserName.Text)));
-
-        if (!users.Any())
+        if (!this.UserId.HasValue)
         {
-            return;
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.SelectUsersLoadJs),
+                JavaScriptBlocks.SelectUsersLoadJs(
+                    "UserEditDialog",
+                    "UserSelect",
+                    this.SelectedUserID.ClientID));
         }
-
-        // we found a user(s)
-        this.UserNameList.DataSource = users;
-        this.UserNameList.DataValueField = "ID";
-        this.UserNameList.DataTextField = "Name";
-        this.UserNameList.DataBind();
-
-        // hide To text box and show To drop down
-        this.UserNameList.Visible = true;
-        this.UserName.Visible = false;
-
-        // find is no more needed
-        this.FindUsers.Visible = false;
-
-        // we need clear button displayed now
-        this.Clear.Visible = true;
-
-        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-            "openModalJs",
-            JavaScriptBlocks.OpenModalJs("UserEditDialog"));
+        
     }
 
     /// <summary>
@@ -223,69 +165,11 @@ public partial class UserMedalEdit : BaseUserControl
             return;
         }
 
-        // test if there is specified user name/id
-        if (this.UserNameList.SelectedValue.IsNotSet()
-            && this.UserName.Text.IsNotSet())
-        {
-            // no username, nor userID specified
-            this.PageBoardContext.Notify(
-                this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"),
-                MessageTypes.warning);
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "openModalJs",
-                JavaScriptBlocks.OpenModalJs("UserEditDialog"));
-
-            return;
-        }
-
-        if (this.UserNameList.SelectedValue.IsNotSet() && this.UserID.Text.IsNotSet())
-        {
-            // only username is specified, we must find id for it
-            var users = this.GetRepository<User>().Get(
-                u => u.BoardID == this.PageBoardContext.PageBoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
-                     u.Name.Contains(this.UserName.Text) || u.DisplayName.Contains(this.UserName.Text));
-
-            if (users.Count > 1)
-            {
-                // more than one user is available for this username
-                this.PageBoardContext.Notify(
-                    this.GetText("ADMIN_EDITMEDAL", "MSG_AMBIGOUS_USER"),
-                    MessageTypes.warning);
-
-                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                    "openModalJs",
-                    JavaScriptBlocks.OpenModalJs("UserEditDialog"));
-                return;
-            }
-
-            if (!users.Any())
-            {
-                // no user found
-                this.PageBoardContext.Notify(
-                    this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"),
-                    MessageTypes.warning);
-
-                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                    "openModalJs",
-                    JavaScriptBlocks.OpenModalJs("UserEditDialog"));
-                return;
-            }
-
-            // save id to the control
-            this.UserID.Text = users.First().ID.ToString();
-        }
-        else if (this.UserID.Text.IsNotSet())
-        {
-            // user is selected in dropdown, we must get id to UserID control
-            this.UserID.Text = this.UserNameList.SelectedValue;
-        }
-
         if (this.UserId.HasValue)
         {
             // save user, if there is no message specified, pass null
             this.GetRepository<UserMedal>().Save(
-                this.UserID.Text.ToType<int>(),
+                this.UserId.Value,
                 this.MedalId,
                 this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
                 this.UserHide.Checked,
@@ -293,17 +177,35 @@ public partial class UserMedalEdit : BaseUserControl
         }
         else
         {
+            // test if there is specified user name/id
+            if (this.SelectedUserID.Value.IsNotSet())
+            {
+                // no username, nor userID specified
+                this.PageBoardContext.Notify(
+                    this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"),
+                    MessageTypes.warning);
+
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("UserEditDialog"));
+
+                return;
+            }
+
+            var userId = this.SelectedUserID.Value.ToType<int>();
+
+
             this.GetRepository<UserMedal>().SaveNew(
-                this.UserID.Text.ToType<int>(),
+                userId,
                 this.MedalId,
                 this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
                 this.UserHide.Checked,
                 this.UserSortOrder.Text.ToType<byte>());
-        }
 
-        if (this.PageBoardContext.BoardSettings.EmailUserOnMedalAward)
-        {
-            this.Get<ISendNotification>().ToUserWithNewMedal(this.UserID.Text.ToType<int>(), this.MedalName);
+            if (this.PageBoardContext.BoardSettings.EmailUserOnMedalAward)
+            {
+                this.Get<ISendNotification>().ToUserWithNewMedal(userId, this.MedalName);
+            }
         }
 
         // clear cache...

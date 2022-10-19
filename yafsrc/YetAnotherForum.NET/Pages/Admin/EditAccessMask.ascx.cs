@@ -104,14 +104,6 @@ public partial class EditAccessMask : AdminPage
             accessMaskId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i");
         }
 
-        if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
-        {
-            this.PageBoardContext.Notify(
-                this.GetText("ADMIN_EDITACCESSMASKS", "MSG_POSITIVE_SORT"),
-                MessageTypes.warning);
-            return;
-        }
-
         if (!short.TryParse(this.SortOrder.Text.Trim(), out var sortOrder))
         {
             this.PageBoardContext.Notify(

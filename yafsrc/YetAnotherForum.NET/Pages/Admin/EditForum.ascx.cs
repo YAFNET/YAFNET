@@ -433,14 +433,6 @@ public partial class EditForum : AdminPage
             return;
         }
 
-        if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
-        {
-            this.PageBoardContext.Notify(
-                this.GetText("ADMIN_EDITFORUM", "MSG_POSITIVE_VALUE"),
-                MessageTypes.warning);
-            return;
-        }
-
         // Forum
         var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
         var forumCopyId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("copy");

@@ -103,7 +103,7 @@
                                          MaxLength="5"
                                          Text="10" 
                                          CssClass="form-control" 
-                                         TextMode="Number"></asp:TextBox>
+                                         TextMode="Number" data-min="1"></asp:TextBox>
                         </div>
                         <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel13" runat="server" 

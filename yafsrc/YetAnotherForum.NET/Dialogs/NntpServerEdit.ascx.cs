@@ -121,9 +121,9 @@ public partial class NntpServerEdit : BaseUserControl
             this.PageBoardContext.PageBoardID,
             this.Name.Text,
             this.Address.Text,
-            this.Port.Text.Length > 0 ? this.Port.Text.ToType<int?>() : null,
-            this.UserName.Text.Length > 0 ? this.UserName.Text : null,
-            this.UserPass.Text.Length > 0 ? this.UserPass.Text : null);
+            this.Port.Text.IsSet() ? this.Port.Text.ToType<int?>() : null,
+            this.UserName.Text,
+            this.UserPass.Text);
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_NntpServers);
     }

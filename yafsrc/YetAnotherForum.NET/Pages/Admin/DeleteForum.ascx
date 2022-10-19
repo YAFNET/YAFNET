@@ -29,7 +29,7 @@
                 </div>
                 <div class="card-footer text-center">
                     <YAF:ThemeButton ID="Delete" runat="server"
-                                     CssClass="btn btn-danger"
+                                     Type="Danger"
                                      Icon="trash"
                                      TextLocalizedTag="DELETE_FORUM" TextLocalizedPage="ADMIN_DELETEFORUM" ReturnConfirmTag="CONFIRM_DELETE">
                     </YAF:ThemeButton>

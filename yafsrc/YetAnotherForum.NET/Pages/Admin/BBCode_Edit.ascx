@@ -38,7 +38,8 @@
                                          required="required"
                                          CssClass="form-control"
                                          TextMode="Number"
-                                         MaxLength="5"></asp:TextBox>
+                                         MaxLength="5"
+                                         data-min="1"></asp:TextBox>
                             <div class="invalid-feedback">
                                 <YAF:LocalizedLabel runat="server"
                                                     LocalizedTag="MSG_NUMBER" />

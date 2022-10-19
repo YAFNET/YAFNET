@@ -1,11 +1,9 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.EditBoard" Codebehind="EditBoard.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.EditBoard" Codebehind="EditBoard.ascx.cs" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-    <asp:UpdatePanel ID="UppdatePanel1" runat="server" UpdateMode="Conditional">
-    <ContentTemplate>
-        <div class="row">
+<div class="row">
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
@@ -126,8 +124,4 @@
                 </div>
             </div>
         </div>
-    </div>
-    </ContentTemplate>
-    </asp:UpdatePanel>
-
-
+</div>

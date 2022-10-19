@@ -71,8 +71,6 @@ public partial class Prune : AdminPage
             this.days.Text = "60";
         }
 
-        this.lblPruneInfo.Text = string.Empty;
-
         if (!this.Get<ITaskModuleManager>().IsTaskRunning(PruneTopicTask.TaskName))
         {
             return;

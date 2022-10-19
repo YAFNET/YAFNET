@@ -53,12 +53,6 @@ public partial class ReIndex : AdminPage
             return;
         }
 
-        // Check and see if it should make panels enable or not
-        this.PanelReindex.Visible = true;
-        this.PanelShrink.Visible = true;
-        this.PanelRecoveryMode.Visible = true;
-        this.PanelGetStats.Visible = true;
-
         this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY1")));
         this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY2")));
         this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY3")));
