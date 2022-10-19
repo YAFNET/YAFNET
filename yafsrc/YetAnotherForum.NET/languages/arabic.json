@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "Arabic",
     "@code": "ar",
@@ -28,7 +28,7 @@
           },
           {
             "@tag": "CREATED_REPLY_MSG",
-            "#text": "تمت إضافة رد على الموضوع {0}"
+            "#text": "{تمت إضافة رد على الموضوع {0}"
           },
           {
             "@tag": "CREATED_TOPIC",
@@ -36,7 +36,7 @@
           },
           {
             "@tag": "CREATED_TOPIC_MSG",
-            "#text": "إنشاء موضوع جديد {0}"
+            "#text": "{إنشاء موضوع جديد {0}"
           },
           {
             "@tag": "DELETE_ACCOUNT",
