@@ -262,12 +262,6 @@
              </div>
     </div>
 
-<p id="UpgradeNotice" runat="server" visible="false">
-    <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server"
-                        LocalizedTag="ADMIN_UPGRADE"
-                        LocalizedPage="ADMIN_ADMIN" />
-</p>
-
 <div class="row">
     <div class="col">
                     <div class="card mb-3">

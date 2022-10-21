@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.TestData"
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.TestData"
     TargetSchema="http://schemas.microsoft.com/intellisense/ie5" Codebehind="TestData.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -88,30 +88,6 @@
                               ControlToValidate="Password2"
                               ErrorMessage="Passwords didn't match."
                               ControlToCompare="Password"></asp:CompareValidator>
-    </div>
-
-    <div class="mb-3">
-        <asp:Label runat="server" AssociatedControlID="Question">
-            Password Question(for all users):
-        </asp:Label>
-        <asp:TextBox ID="Question" runat="server"
-                     CssClass="form-control" Text="testuser?" />
-        <asp:RequiredFieldValidator ID="Requiredfieldvalidator3" runat="server"
-                                    EnableClientScript="False"
-                                    ControlToValidate="Question"
-                                    ErrorMessage="Password Question is Required."></asp:RequiredFieldValidator>
-    </div>
-
-    <div class="mb-3">
-        <asp:Label runat="server" AssociatedControlID="Answer">
-            Password Answer(for all users):
-        </asp:Label>
-        <asp:TextBox ID="Answer" runat="server"
-                     CssClass="form-control">yes</asp:TextBox>
-        <asp:RequiredFieldValidator ID="Requiredfieldvalidator4" runat="server"
-                                    EnableClientScript="False"
-                                    ControlToValidate="Answer"
-                                    ErrorMessage="Password Answer is Required."></asp:RequiredFieldValidator>
     </div>
 
     <div class="mb-3">

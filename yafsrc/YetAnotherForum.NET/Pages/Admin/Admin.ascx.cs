@@ -148,38 +148,6 @@ public partial class Admin : AdminPage
     }
 
     /// <summary>
-    /// Formats the topic link.
-    /// </summary>
-    /// <param name="topicId">
-    /// The topic ID.
-    /// </param>
-    /// <param name="topicName">
-    /// Name of the topic.
-    /// </param>
-    /// <returns>
-    /// The format topic link.
-    /// </returns>
-    protected string FormatTopicLink([NotNull] object topicId, [NotNull] string topicName)
-    {
-        if (topicId.ToString() == string.Empty || topicName.IsNotSet())
-        {
-            return string.Empty;
-        }
-
-        return
-            $"<a target=\"_top\" href=\"{this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new {t = topicId, name = topicName})}\">{topicName}</a>";
-    }
-
-    /// <summary>
-    /// Registers the needed Java Scripts
-    /// </summary>
-    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
-    {
-        base.OnPreRender(e);
-    }
-
-    /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>

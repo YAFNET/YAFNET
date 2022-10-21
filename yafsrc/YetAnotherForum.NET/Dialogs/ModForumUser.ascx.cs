@@ -88,10 +88,8 @@ public partial class ModForumUser : BaseUserControl
 
         if (!this.UserId.HasValue)
         {
-            this.UserName.Enabled = true;
-            this.UserName.Text = string.Empty;
-
-            this.FindUsers.Visible = true;
+            this.UserSelectHolder.Visible = true;
+            this.UserName.Visible = false;
 
             return;
         }
@@ -107,8 +105,6 @@ public partial class ModForumUser : BaseUserControl
         this.UserName.Text = userForum.Item1.DisplayOrUserName();
         this.UserName.Enabled = false;
 
-        // we don't need to find users now
-        this.FindUsers.Visible = false;
 
         // get access mask for this user
         if (this.AccessMaskID.Items.FindByValue(userForum.Item2.AccessMaskID.ToString()) != null)
@@ -133,9 +129,8 @@ public partial class ModForumUser : BaseUserControl
             nameof(JavaScriptBlocks.SelectUsersLoadJs),
             JavaScriptBlocks.SelectUsersLoadJs(
                 "ModForumUserDialog",
-                "ToList",
-                this.FindUsers.ClientID,
-                this.UserName.ClientID));
+                "UserSelect",
+                this.SelectedUserID.ClientID));
     }
 
     /// <summary>
@@ -149,32 +144,10 @@ public partial class ModForumUser : BaseUserControl
     /// </param>
     protected void UpdateClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        // no user was specified
-        if (this.UserName.Text.Length <= 0)
-        {
-            this.PageBoardContext.Notify(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
-            return;
-        }
-
-        // we need to verify user exists
-        var user = this.Get<IUserDisplayName>().FindUserByName(this.UserName.Text.Trim());
-
-        // there is no such user or reference is ambiguous
-        if (user == null)
-        {
-            this.PageBoardContext.Notify(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
-            return;
-        }
-
-        if (user.UserFlags.IsGuest)
-        {
-            this.PageBoardContext.Notify(this.GetText("NOT_GUEST"), MessageTypes.warning);
-            return;
-        }
-
         // save permission
         this.GetRepository<UserForum>().Save(
-            user.ID,
+            // save permission
+            this.UserId ?? this.SelectedUserID.Value.ToType<int>(),
             this.PageBoardContext.PageForumID,
             this.AccessMaskID.SelectedValue.ToType<int>());
 

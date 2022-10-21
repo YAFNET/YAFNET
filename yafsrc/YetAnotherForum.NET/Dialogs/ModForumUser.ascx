@@ -16,17 +16,13 @@
             <div class="modal-body">
              <!-- Modal Content START !-->
                 <div class="input-group mb-3">
-                    <asp:TextBox runat="server" ID="UserName" 
-                                 CssClass="form-control" 
-                                 PlaceHolder='<%# this.GetText("USER") %>' />
-                    <YAF:ThemeButton runat="server" ID="FindUsers" 
-                                     TextLocalizedTag="FIND"
-                                     NavigateUrl="#"
-                                     Type="Secondary"
-                                     Icon="search" />
-                </div>
-                <div class="mb-3">
-                    <select ID="ToList" style="display:none"></select>
+                    <asp:TextBox ID="UserName" runat="server"
+                                 CssClass="form-control"/>
+                    <asp:PlaceHolder runat="server" id="UserSelectHolder" Visible="False">
+                        <select id="UserSelect" class="form-select"></select>
+                    </asp:PlaceHolder>
+                                
+                    <asp:HiddenField id="SelectedUserID" runat="server" />
                 </div>
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="AccessMaskID">
