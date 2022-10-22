@@ -134,8 +134,8 @@ public class DigestSendTask : LongBackgroundTask
 
                         // get users with digest enabled...
                         var usersWithDigest = this.GetRepository<User>().Get(
-                            u => u.BoardID == board.ID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
-                                 u.DailyDigest);
+                            u => u.BoardID == board.ID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4
+                                 && (u.Flags & 32) != 32 && u.DailyDigest);
 
                         if (usersWithDigest.Any())
                         {

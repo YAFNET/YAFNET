@@ -33,6 +33,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
 using System.Linq.Expressions;
+using System.Web.Http;
 
 using YAF.Core.Identity;
 using YAF.Core.Model;
@@ -228,7 +229,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         var allUsers = this.GetRepository<User>().GetByBoardId();
 
         // iterate through each one...
-        allUsers.Where(user => (user.Flags & 4) != 4 && (user.Flags & 2) == 2 && user.LastVisit < createdCutoff)
+        allUsers.Where(user => (user.Flags & 4) != 4 && (user.Flags & 2) == 2 && (user.Flags & 32) != 32 && user.LastVisit < createdCutoff)
             .ForEach(
                 user =>
                 {
@@ -236,6 +237,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
                     // Set user to un-approve...
                     flags.IsApproved = false;
+                    flags.IsDeleted = true;
 
                     this.GetRepository<User>().UpdateOnly(
                         () => new User {
@@ -979,14 +981,20 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         [CanBeNull] DateTime? joinedDate,
         [NotNull] bool onlySuspended,
         [CanBeNull] int? groupId,
-        [CanBeNull] int? rankId)
+        [CanBeNull] int? rankId,
+        bool includeGuests = true)
     {
         return this.GetRepository<User>().DbAccess.Execute(
             db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-                    Expression<Func<User, bool>> whereCriteria = u => u.BoardID == (boardId ?? this.GetRepository<User>().BoardID);
+                    Expression<Func<User, bool>> whereCriteria =
+                        includeGuests
+                            ? u => u.BoardID == (boardId ?? this.GetRepository<User>().BoardID)
+                                   && (u.Flags & 2) == 2
+                            : u => u.BoardID == (boardId ?? this.GetRepository<User>().BoardID)
+                                   && (u.Flags & 2) == 2 && (u.Flags & 4) != 4;
 
                     // -- count total
                     var countTotalExpression = db.Connection.From<User>();
@@ -1187,8 +1195,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                                   u.DisplayName.StartsWith(startLetter.ToString()));
                     }
 
-                    // Remove Guests
-                    expression.And<User>(u => (u.Flags & 4) != 4);
+                    // Remove Guests amd deleted
+                    expression.And<User>(u => (u.Flags & 4) != 4 && (u.Flags & 32) != 32);
 
                     // filter by posts
                     if (numPosts.HasValue)

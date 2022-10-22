@@ -119,4 +119,7 @@ public class BBCode : IEntity, IHaveBoardID, IHaveID
     /// </summary>
     [Required]
     public int ExecOrder { get; set; }
+
+    [Ignore]
+    public bool Selected { get; set; }
 }

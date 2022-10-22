@@ -509,7 +509,8 @@ public interface IAspNetUsersHelper
         [CanBeNull] DateTime? joinedDate,
         [NotNull] bool onlySuspended,
         [CanBeNull] int? groupId,
-        [CanBeNull] int? rankId);
+        [CanBeNull] int? rankId,
+        bool includeGuests = true);
 
     /// <summary>
     /// List Members Paged

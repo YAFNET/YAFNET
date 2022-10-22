@@ -23,6 +23,7 @@
  */
 namespace YAF.Core.Utilities;
 
+using System.Web.UI.WebControls;
 using YAF.Core.Context.Start;
 
 /// <summary>
@@ -1461,68 +1462,76 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <summary>
     /// select2 user load JS.
     /// </summary>
+    /// <param name="parentId">
+    /// The id of the modal
+    /// </param>
     /// <param name="selectClientId">
-    /// The select Client Id.
+    /// The id of the select
     /// </param>
-    /// <param name="findUserClientId">
-    /// The find User Client Id.
-    /// </param>
-    /// <param name="userClientId">
-    /// The user Client Id.
+    /// <param name="hiddenUserId">
+    /// The hidden id to store the selected user id value
     /// </param>
     /// <returns>
     /// Returns the select2 user load JS.
     /// </returns>
     [NotNull]
-    public static string SelectUsersLoadJs([NotNull] string selectClientId, [NotNull] string findUserClientId, [NotNull] string userClientId)
+    public static string SelectUsersLoadJs(
+        [NotNull] string parentId,
+        [NotNull] string selectClientId,
+        [NotNull] string hiddenUserId)
     {
-        return $@"{Config.JQueryAlias}('#{findUserClientId}').click(function() {{ 
-                              if ({Config.JQueryAlias}('#{userClientId}').val().lenth < 3)
-                              {{
-                                   return;
-                              }}
-
-                             {Config.JQueryAlias}('#{selectClientId}').show();
-                             {Config.JQueryAlias}('#{userClientId}').hide();
-                             {Config.JQueryAlias}('#{findUserClientId}').hide();
-                          
-                          {Config.JQueryAlias}('#{selectClientId}').select2({{
+        return $@"{Config.JQueryAlias}('#{selectClientId}').select2({{
             ajax: {{
                 url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/User/GetUsers',
                 type: 'POST',
                 dataType: 'json',
-                allowClearing: false,
-                minimumInputLength: 3,
+                contentType: 'application/json',
+                minimumInputLength: 0,
                 data: function(params) {{
                       var query = {{
                           ForumId : 0,
                           UserId: 0,
-                          SearchTerm : {Config.JQueryAlias}('#{userClientId}').val()
+                          PageSize: 0,
+                          Page : params.page || 0,
+                          SearchTerm : params.term || ''
                       }}
-                      return query;
+                      return JSON.stringify(query);
                 }},
                 error: function(x, e)  {{
                        console.log('An Error has occurred!');
                        console.log(x.responseText);
                        console.log(x.status);
                 }},
-                processResults: function(data) {{
+                processResults: function(data, params) {{
+                    params.page = params.page || 0;
+
+                    var resultsPerPage = 15 * 2;
+
+                    var total = params.page == 0 ? data.Results.length : resultsPerPage;
+
                     return {{
-                        results: data.Results
+                        results: data.Results,
+                        pagination: {{
+                            more: total < data.Total
+                        }}
                     }}
                 }}
             }},
-            width: '100%',
+            dropdownParent: {Config.JQueryAlias}(""#{parentId}""),
             theme: 'bootstrap-5',
-            allowClearing: true,
+            allowClearing: false,
+            placeholder: '{BoardContext.Current.Get<ILocalization>().GetText("ADD_USER")}',
             cache: true,
+            width: '100%',
             {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
         }});
-
+              
              {Config.JQueryAlias}('#{selectClientId}').on('select2:select', function (e) {{
-                 var data = e.params.data;
-                 {Config.JQueryAlias}('#{userClientId}').val(data.text);
-                }});
+                if (e.params.data.Total) {{ 
+                                                 {Config.JQueryAlias}('#{hiddenUserId}').val(e.params.data.Results[0].children[0].id);
+                                             }} else {{
+                                                 {Config.JQueryAlias}('#{hiddenUserId}').val(e.params.data.id);
+                                             }}
             }});";
     }
 

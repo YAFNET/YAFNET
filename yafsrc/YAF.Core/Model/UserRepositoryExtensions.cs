@@ -150,7 +150,7 @@ public static class UserRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
-        return repository.Count(u => u.BoardID == boardId && (u.Flags & 4) != 4 && (u.Flags & 2) == 2);
+        return repository.Count(u => u.BoardID == boardId && (u.Flags & 4) != 4 && (u.Flags & 32) != 32 && (u.Flags & 2) == 2);
     }
 
     /// <summary>

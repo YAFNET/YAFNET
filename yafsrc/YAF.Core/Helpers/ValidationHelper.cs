@@ -135,20 +135,6 @@ public static class ValidationHelper
     }
 
     /// <summary>
-    /// The value is a valid positive short.
-    /// </summary>
-    /// <param name="input">
-    /// The input.
-    /// </param>
-    /// <returns>
-    /// Returns indicating whether the value is a positive valid short.
-    /// </returns>
-    public static bool IsValidPosShort(string input)
-    {
-        return short.TryParse(input, out var value) && value >= 0;
-    }
-
-    /// <summary>
     /// Check if pattern is a valid Regex
     /// </summary>
     /// <param name="pattern">
