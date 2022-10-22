@@ -71,6 +71,10 @@ public partial class Forums : ModerateForumPage
                 false,
                 this.ForumListSelected.ClientID));
 
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.DropDownToggleJs),
+            JavaScriptBlocks.DropDownToggleJs());
+
         base.OnPreRender(e);
     }
 
