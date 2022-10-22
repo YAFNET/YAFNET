@@ -265,7 +265,7 @@ public partial class BuddyList : BaseUserControl
             switch (this.Mode)
             {
                 case FriendMode.Friends:
-                    buddyListView = buddyList.Where(x => x.Approved).ToList();
+                    buddyListView = buddyList.Where(x => x.Approved).DistinctBy(x => x.UserID).ToList();
                     break;
                 case FriendMode.ReceivedRequests:
                     buddyListView = buddyList.Where(x => !x.Approved && x.FromUserID != this.CurrentUserID).ToList();
