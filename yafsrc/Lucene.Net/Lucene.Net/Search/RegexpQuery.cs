@@ -105,7 +105,7 @@ namespace YAF.Lucene.Net.Search
             if (!m_term.Field.Equals(field, StringComparison.Ordinal))
             {
                 buffer.Append(m_term.Field);
-                buffer.Append(":");
+                buffer.Append(':');
             }
             buffer.Append('/');
             buffer.Append(m_term.Text);

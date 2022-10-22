@@ -1,4 +1,4 @@
-// Lucene version compatibility level 4.8.1
+﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.Core;
 using YAF.Lucene.Net.Analysis.En;
 using YAF.Lucene.Net.Analysis.Standard;
@@ -62,7 +62,7 @@ namespace YAF.Lucene.Net.Analysis.Snowball
         /// Builds the named analyzer with the given stop words. </summary>
         public SnowballAnalyzer(LuceneVersion matchVersion, string name, CharArraySet stopWords) : this(matchVersion, name)
         {
-            stopSet = CharArraySet.UnmodifiableSet(CharArraySet.Copy(matchVersion, stopWords));
+            stopSet = CharArraySet.Copy(matchVersion, stopWords).AsReadOnly();
         }
 
         /// <summary>

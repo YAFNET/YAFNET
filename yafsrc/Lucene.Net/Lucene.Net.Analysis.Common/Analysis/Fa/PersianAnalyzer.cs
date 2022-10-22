@@ -1,7 +1,6 @@
 ﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.Ar;
 using YAF.Lucene.Net.Analysis.Core;
-using YAF.Lucene.Net.Analysis.Miscellaneous;
 using YAF.Lucene.Net.Analysis.Standard;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
@@ -70,7 +69,7 @@ namespace YAF.Lucene.Net.Analysis.Fa
             {
                 try
                 {
-                    return LoadStopwordSet(false, typeof(PersianAnalyzer), DEFAULT_STOPWORD_FILE, STOPWORDS_COMMENT);
+                    return LoadStopwordSet(false, typeof(PersianAnalyzer), DEFAULT_STOPWORD_FILE, STOPWORDS_COMMENT).AsReadOnly(); // LUCENENET: Made readonly as stated in the docs: https://github.com/apache/lucene/issues/11866
                 }
                 catch (Exception ex) when (ex.IsIOException())
                 {
@@ -81,14 +80,12 @@ namespace YAF.Lucene.Net.Analysis.Fa
             }
         }
 
-        private readonly CharArraySet stemExclusionSet;
-
         /// <summary>
         /// Builds an analyzer with the default stop words:
         /// <see cref="DEFAULT_STOPWORD_FILE"/>.
         /// </summary>
         public PersianAnalyzer(LuceneVersion matchVersion)
-              : this(matchVersion, DefaultSetHolder.DEFAULT_STOP_SET)
+            : this(matchVersion, DefaultSetHolder.DEFAULT_STOP_SET)
         {
         }
 
@@ -100,25 +97,8 @@ namespace YAF.Lucene.Net.Analysis.Fa
         /// <param name="stopwords">
         ///          a stopword set </param>
         public PersianAnalyzer(LuceneVersion matchVersion, CharArraySet stopwords)
-              : this(matchVersion, stopwords, CharArraySet.EMPTY_SET)
+            : base(matchVersion, stopwords)
         {
-        }
-
-        /// <summary>
-        /// Builds an analyzer with the given stop word. If a none-empty stem exclusion set is
-        /// provided this analyzer will add a <see cref="SetKeywordMarkerFilter"/> before
-        /// <see cref="PersianStemFilter"/>.
-        /// </summary>
-        /// <param name="matchVersion">
-        ///          lucene compatibility version </param>
-        /// <param name="stopwords">
-        ///          a stopword set </param>
-        /// <param name="stemExclusionSet">
-        ///          a set of terms not to be stemmed </param>
-        public PersianAnalyzer(LuceneVersion matchVersion, CharArraySet stopwords, CharArraySet stemExclusionSet)
-              : base(matchVersion, stopwords)
-        {
-            this.stemExclusionSet = CharArraySet.UnmodifiableSet(CharArraySet.Copy(matchVersion, stemExclusionSet));
         }
 
         /// <summary>
@@ -153,12 +133,7 @@ namespace YAF.Lucene.Net.Analysis.Fa
              * the order here is important: the stopword list is normalized with the
              * above!
              */
-            result = new StopFilter(m_matchVersion, result, m_stopwords);
-            if (stemExclusionSet.Count > 0)
-            {
-                result = new SetKeywordMarkerFilter(result, stemExclusionSet);
-            }
-            return new TokenStreamComponents(source, new PersianStemFilter(result));
+            return new TokenStreamComponents(source, new StopFilter(m_matchVersion, result, m_stopwords));
         }
 
         /// <summary>

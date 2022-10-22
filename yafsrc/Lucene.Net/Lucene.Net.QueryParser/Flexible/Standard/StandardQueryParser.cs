@@ -46,8 +46,8 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard
     /// To change any configuration before parsing the query string do, for example:
     /// <code>
     /// queryParserHelper.Analyzer = new WhitespaceAnalyzer();
-    ///  /// queryParserHelper.AllowLeadingWildcard = true;
-    /// // Or alternatively use the query config handler returned by StandardQueryParser which is a
+    /// queryParserHelper.AllowLeadingWildcard = true;
+    /// // Or alternativley use the query config handler returned by StandardQueryParser which is a
     /// // StandardQueryConfigHandler:
     /// queryParserHelper.QueryConfigHandler.Set(ConfigurationKeys.ALLOW_LEADING_WILDCARD, true);
     /// </code>

@@ -123,7 +123,7 @@ namespace YAF.Lucene.Net.Search
             if (!Field.Equals(field, StringComparison.Ordinal))
             {
                 buffer.Append(Field);
-                buffer.Append(":");
+                buffer.Append(':');
             }
             buffer.Append(Term.Text);
             buffer.Append(ToStringUtils.Boost(Boost));

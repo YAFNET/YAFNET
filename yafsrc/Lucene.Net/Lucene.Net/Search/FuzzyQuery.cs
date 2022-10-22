@@ -166,7 +166,7 @@ namespace YAF.Lucene.Net.Search
             if (!term.Field.Equals(field, StringComparison.Ordinal))
             {
                 buffer.Append(term.Field);
-                buffer.Append(":");
+                buffer.Append(':');
             }
             buffer.Append(term.Text);
             buffer.Append('~');

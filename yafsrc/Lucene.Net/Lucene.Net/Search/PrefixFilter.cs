@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Search
             StringBuilder buffer = new StringBuilder();
             buffer.Append("PrefixFilter(");
             buffer.Append(Prefix.ToString());
-            buffer.Append(")");
+            buffer.Append(')');
             return buffer.ToString();
         }
     }

@@ -48,6 +48,11 @@ public abstract class MigrationBase : IAppTask
     public DateTime? CompletedDate { get; set; }
     public Exception? Error { get; set; }
 
+    /// <summary>
+    /// Add additional logs to capture in Migration table
+    /// </summary>
+    public StringBuilder MigrationLog { get; set; } = new();
+
     public virtual void AfterOpen() { }
     public virtual void BeforeCommit() { }
     public virtual void BeforeRollback() { }
@@ -391,15 +396,14 @@ public class Migrator
 
     public static MigrationBase Run(IDbConnectionFactory dbFactory, Type nextRun, Action<MigrationBase> migrateAction)
     {
-        var sb = StringBuilderCache.Allocate();
         var holdFilter = OrmLiteConfig.BeforeExecFilter;
-        OrmLiteConfig.BeforeExecFilter = dbCmd => sb.AppendLine(dbCmd.GetDebugString());
+        var instance = nextRun.CreateInstance<MigrationBase>();
+        OrmLiteConfig.BeforeExecFilter = dbCmd => instance.MigrationLog.AppendLine(dbCmd.GetDebugString());
 
         var namedConnection = nextRun.FirstAttribute<NamedConnectionAttribute>()?.Name;
 
         IDbConnection? useDb = null;
         IDbTransaction? trans = null;
-        var instance = nextRun.CreateInstance<MigrationBase>();
 
         try
         {
@@ -419,7 +423,7 @@ public class Migrator
             migrateAction(instance);
 
             instance.CompletedDate = DateTime.UtcNow;
-            instance.Log = sb.ToString();
+            instance.Log = instance.MigrationLog.ToString();
 
             instance.BeforeCommit();
             trans.Commit();
@@ -430,7 +434,7 @@ public class Migrator
         {
             instance.CompletedDate = DateTime.UtcNow;
             instance.Error = e;
-            instance.Log = sb.ToString();
+            instance.Log = instance.MigrationLog.ToString();
             instance.BeforeRollback();
             trans?.Rollback();
             trans?.Dispose();
@@ -441,7 +445,6 @@ public class Migrator
             instance.Transaction = null;
             OrmLiteConfig.BeforeExecFilter = holdFilter;
             useDb?.Dispose();
-            StringBuilderCache.Free(sb);
         }
         return instance;
     }

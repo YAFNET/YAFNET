@@ -301,9 +301,9 @@ namespace YAF.Lucene.Net.Search
             for (SubScorer sub = scorers; sub != null; sub = sub.Next)
             {
                 buffer.Append(sub.Scorer.ToString());
-                buffer.Append(" ");
+                buffer.Append(' ');
             }
-            buffer.Append(")");
+            buffer.Append(')');
             return buffer.ToString();
         }
     }
