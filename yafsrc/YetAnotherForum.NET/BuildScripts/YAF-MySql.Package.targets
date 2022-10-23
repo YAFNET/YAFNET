@@ -224,6 +224,8 @@
     <Copy SourceFiles="$(MSBuildProjectDirectory)\robots.txt"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\"/>
 
+    <Exec Command="$(MSBuildProjectDirectory)\..\Tools\LanguageManager\YAF.LanguageManager &quot;$(MSBuildProjectDirectory)\\Package\\languages\\&quot; -minify"/>
+
     <!-- Create the Install package -->
     <ZipDirectory
             SourceDirectory="$(MSBuildProjectDirectory)\Package\"
