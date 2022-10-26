@@ -2,6 +2,7 @@
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support.Threading;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 
 namespace YAF.Lucene.Net.Index
@@ -23,7 +24,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using FlushedSegment = YAF.Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
+    using FlushedSegment = Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
 
     /// <summary>
     /// @lucene.internal
@@ -299,6 +300,7 @@ namespace YAF.Lucene.Net.Index
                 indexWriter.PublishFlushedSegment(newSegment.segmentInfo, segmentUpdates, globalPacket);
             }
 
+            [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "By design")]
             protected void FinishFlush(IndexWriter indexWriter, FlushedSegment newSegment, FrozenBufferedUpdates bufferedUpdates)
             {
                 // Finish the flushed segment and publish it to IndexWriter
