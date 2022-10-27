@@ -10,13 +10,13 @@
         "grunt-contrib-sass": "*",
         "grunt-contrib-uglify": "^5.2.2",
         "grunt-dev-update": "^2.3.0",
-        "postcss": "^8.4.17",
+        "postcss": "^8.4.18",
         "sass": "^1.55.0"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.2.0",
         "bootbox": "^5.5.3",
-        "bootswatch": "^5.2.1",
+        "bootswatch": "^5.2.2",
         "flag-icons": "^6.6.6",
         "jquery": "^3.6.1",
         "long-press-event": "^2.4.4",

@@ -20,7 +20,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "Scripts/jquery-3.6.0.js",
+                    "Scripts/jquery-3.6.1.js",
                     "Scripts/select2.js",
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/forum/InstallWizard.js"
@@ -118,8 +118,6 @@ module.exports = function(grunt) {
                 src: [
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/bootbox.js",
-                    "Scripts/bootstrap-datetimepicker.js",
-                    "Scripts/bootstrap-notify.js",
                     "Scripts/jquery.bootstrap-touchspin.js",
                     "Scripts/select2.js",
                     "Scripts/blueimp-gallery/blueimp-gallery.js",
@@ -144,7 +142,6 @@ module.exports = function(grunt) {
                 },
                 src: [
                     "Scripts/bootbox.js",
-                    "Scripts/bootstrap-datetimepicker.js",
                     "Scripts/bootstrap-notify.js",
                     "Scripts/jquery.bootstrap-touchspin.js",
                     "Scripts/select2.js",

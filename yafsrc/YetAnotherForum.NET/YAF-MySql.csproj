@@ -114,7 +114,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ExcludeFilesFromDeployment>package-lock.json;packages.config;Gruntfile.js;YetAnotherForum.NET.snk;Content\bootstrap-datetimepicker.css;Content\bootstrap-notify.css;Content\prism.css;
+    <ExcludeFilesFromDeployment>package-lock.json;packages.config;Gruntfile.js;YetAnotherForum.NET.snk;Content\bootstrap-notify.css;Content\prism.css;
 	web.config;app.config;db.config;mail.config;
   Scripts\jquery.ForumAdminExtensionsDnn.js;Scripts\jquery.ForumAdminExtensionsDnn.min.js;
   Scripts\bootbox.js;Scripts\bootstrap.bundle.js;Scripts\bootstrap.bundle.min.js;Scripts\bootstrap-notify.js;Scripts\jquery.bootstrap-touchspin.js;
@@ -1175,7 +1175,6 @@
       <LastGenOutput>Install.de.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap\bootstrap.css">
       <DependentUpon>bootstrap.scss</DependentUpon>
     </Content>
