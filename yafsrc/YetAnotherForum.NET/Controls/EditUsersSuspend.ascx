@@ -35,13 +35,13 @@
             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_NEW" />
         </h2>
 <div class="mb-3">
-    <asp:Label runat="server" AssociatedControlID="SuspendedReason">
+    <asp:Label runat="server" AssociatedControlID="SuspendedReason" CssClass="form-label">
         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_REASON" />
     </asp:Label>
     <asp:TextBox Style="height:80px;" ID="SuspendedReason" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
 </div>
 <div class="mb-3">
-    <asp:Label runat="server" AssociatedControlID="SuspendCount">
+    <asp:Label runat="server" AssociatedControlID="SuspendCount" CssClass="form-label">
         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
     </asp:Label>
     <asp:TextBox runat="server" ID="SuspendCount" CssClass="form-control" TextMode="Number" />

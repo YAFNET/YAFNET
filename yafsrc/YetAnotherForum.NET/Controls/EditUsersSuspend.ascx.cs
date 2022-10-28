@@ -206,6 +206,7 @@ public partial class EditUsersSuspend : BaseUserControl
         if (this.User.UserFlags.IsGuest)
         {
             this.PageBoardContext.Notify(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"), MessageTypes.danger);
+			return;
         }
 
         // time until when user is suspended

@@ -60,8 +60,7 @@
     </div>
     </asp:PlaceHolder>
     <div class="row">
-    <asp:PlaceHolder runat="server" id="IsCaptchaExcludedRow">
-        <div class="mb-3 col-md-6">
+    <div class="mb-3 col-md-6">
             <YAF:HelpLabel ID="HelpLabel6" runat="server" 
                            AssociatedControlID="IsCaptchaExcluded"
                            LocalizedTag="USERINFO_EX_CAPTCHA" LocalizedPage="ADMIN_EDITUSER" />
@@ -70,8 +69,6 @@
             <asp:CheckBox Text="&nbsp;" runat="server" ID="IsCaptchaExcluded" />
         </div>
     </div>
-            </asp:PlaceHolder>
-    <asp:PlaceHolder runat="server" id="IsExcludedFromActiveUsersRow">
         <div class="mb-3 col-md-6">
             <YAF:HelpLabel ID="HelpLabel7" runat="server" 
                            AssociatedControlID="IsExcludedFromActiveUsers"
@@ -81,7 +78,6 @@
             <asp:CheckBox Text="&nbsp;" runat="server" ID="IsExcludedFromActiveUsers" />
         </div>
     </div>
-    </asp:PlaceHolder>
     </div>
 <div class="mb-3">
             <YAF:HelpLabel ID="HelpLabel8" runat="server" 

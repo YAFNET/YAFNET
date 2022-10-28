@@ -77,35 +77,35 @@
                             </asp:PlaceHolder>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane" id="View1" role="tabpanel">
+                            <div class="tab-pane fade" id="View1" role="tabpanel">
                                 <uc1:QuickEdit ID="QuickEditControl" runat="server" />
                             </div>
-                            <div class="tab-pane" id="View2" role="tabpanel">
+                            <div class="tab-pane fade" id="View2" role="tabpanel">
                                 <uc1:GroupsEdit ID="GroupEditControl" runat="server" Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>" />
                             </div>
-                            <div class="tab-pane" id="View3" role="tabpanel">
+                            <div class="tab-pane fade" id="View3" role="tabpanel">
                                 <uc1:ProfileEdit ID="ProfileEditControl" runat="server" />
                             </div>
-                            <div class="tab-pane" id="View10" role="tabpanel">
+                            <div class="tab-pane fade" id="View10" role="tabpanel">
                                 <uc1:ProfileSettings ID="ProfileSettings" runat="server" />
                             </div>
-                            <div class="tab-pane" id="View11" role="tabpanel">
+                            <div class="tab-pane fade" id="View11" role="tabpanel">
                                 <uc1:Attachments ID="UserAttachments" runat="server" />
                             </div>
-                            <div class="tab-pane" id="View4" role="tabpanel">
+                            <div class="tab-pane fade" id="View4" role="tabpanel">
                                 <uc1:AvatarEdit runat="server" ID="AvatarEditControl" />
                             </div>
-                            <div class="tab-pane" id="View5" role="tabpanel">
+                            <div class="tab-pane fade" id="View5" role="tabpanel">
                                 <uc1:SignatureEdit ID="SignatureEditControl" runat="server" />
                             </div>
-                            <div class="tab-pane" id="View6" role="tabpanel">
+                            <div class="tab-pane fade" id="View6" role="tabpanel">
                                 <uc1:PointsEdit runat="server" ID="UserPointsControl" />
                             </div>
                             <asp:PlaceHolder runat="server" ID="FielsNoGuests" Visible="<%#!this.EditBoardUser.Item1.UserFlags.IsGuest%>">
-                                <div class="tab-pane" id="View8" role="tabpanel">
+                                <div class="tab-pane fade" id="View8" role="tabpanel">
                                     <uc1:SuspendEdit runat="server" ID="SuspendUserControl" />
                                 </div>
-                                <div class="tab-pane" id="View9" role="tabpanel">
+                                <div class="tab-pane fade" id="View9" role="tabpanel">
                                     <uc1:KillEdit runat="server" ID="KillEdit1" />
                                 </div>
                             </asp:PlaceHolder>

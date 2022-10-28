@@ -159,7 +159,7 @@
                                            LocalizedTag="MODERATED_NEWTOPIC_ONLY" LocalizedPage="ADMIN_EDITFORUM" />
              
                             <div class="form-check form-switch">
-                                <asp:CheckBox ID="ModerateNewTopicOnly" runat="server" AutoPostBack="true" Text="&nbsp;"></asp:CheckBox>
+                                <asp:CheckBox ID="ModerateNewTopicOnly" runat="server" Text="&nbsp;"></asp:CheckBox>
                             </div>
                         </div>
                     </asp:PlaceHolder>

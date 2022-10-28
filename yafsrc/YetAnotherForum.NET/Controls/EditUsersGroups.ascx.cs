@@ -39,22 +39,7 @@ public partial class EditUsersGroups : BaseUserControl
     /// </summary>
     [NotNull]
     public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
-
-    /// <summary>
-    /// Handles click on cancel button.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        // redirect to user admin page.
-        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
-    }
-
+	
     /// <summary>
     /// Handles page load event.
     /// </summary>

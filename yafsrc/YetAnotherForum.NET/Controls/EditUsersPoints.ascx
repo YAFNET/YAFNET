@@ -14,13 +14,12 @@
 
 <div class="row">
     <div class="mb-3 col-md-4">
-        <asp:Label runat="server" AssociatedControlID="txtUserPoints">
+        <asp:Label runat="server" AssociatedControlID="txtUserPoints" CssClass="form-label">
             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                 LocalizedTag="SET_POINTS" 
                                 LocalizedPage="ADMIN_EDITUSER" />
         </asp:Label>
         <asp:TextBox runat="server" ID="txtUserPoints" 
-                     ValidationGroup="UserPoints" 
                      CssClass="form-control" 
                      TextMode="Number" />
         <YAF:ThemeButton runat="server" ID="btnUserPoints" 
@@ -31,13 +30,12 @@
                          CssClass="mt-1"/>
     </div>
     <div class="mb-3 col-md-4">
-        <asp:Label runat="server" AssociatedControlID="txtAddPoints">
+        <asp:Label runat="server" AssociatedControlID="txtAddPoints" CssClass="form-label">
             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                 LocalizedTag="ADD_POINTS" 
                                 LocalizedPage="ADMIN_EDITUSER" />
         </asp:Label>
         <asp:TextBox runat="server" ID="txtAddPoints" 
-                     ValidationGroup="Add" 
                      CssClass="form-control" 
                      TextMode="Number" Text="0" />
         <YAF:ThemeButton runat="server" ID="btnAddPoints"
@@ -48,13 +46,12 @@
                          CssClass="mt-1" />
     </div>
     <div class="mb-3 col-md-4">
-        <asp:Label runat="server" AssociatedControlID="txtRemovePoints">
+        <asp:Label runat="server" AssociatedControlID="txtRemovePoints" CssClass="form-label">
             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                 LocalizedTag="REMOVE_POINTS" 
                                 LocalizedPage="ADMIN_EDITUSER" />
         </asp:Label>
         <asp:TextBox runat="server" ID="txtRemovePoints" 
-                     ValidationGroup="Removem" 
                      CssClass="form-control" 
                      TextMode="Number" 
                      Text="0" />

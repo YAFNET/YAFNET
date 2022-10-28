@@ -177,20 +177,6 @@ public partial class Restore : AdminPage
                 }
 
                 break;
-
-            case "delete_complete":
-                {
-                    var deletedTopics = this.GetRepository<Topic>().GetDeletedTopics(this.PageBoardContext.PageBoardID, this.Filter.Text);
-
-                    deletedTopics.ForEach(
-                        topic => this.GetRepository<Topic>().Delete(topic.Item2.ForumID, topic.Item2.ID, true));
-
-                    this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
-
-                    this.BindData();
-                }
-
-                break;
             case "delete_zero":
                 {
                     var deletedTopics = this.GetRepository<Topic>().Get(t => (t.Flags & 8) == 8 && t.NumPosts.Equals(0));

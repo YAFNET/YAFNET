@@ -81,7 +81,7 @@ public partial class EditUsersKill : BaseUserControl
     private User CurrentUser { get; set; }
 
     /// <summary>
-    /// Kills the PageUser
+    /// Kills the User
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -169,8 +169,7 @@ public partial class EditUsersKill : BaseUserControl
                         return;
                     }
 
-                    if (this.User.Item4.IsAdmin == 1 ||
-                        this.User.Item1.UserFlags.IsHostAdmin)
+                    if (this.User.Item1.UserFlags.IsHostAdmin)
                     {
                         // admin are not deletable either
                         this.PageBoardContext.Notify(
