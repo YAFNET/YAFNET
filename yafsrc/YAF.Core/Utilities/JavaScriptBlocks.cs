@@ -23,7 +23,6 @@
  */
 namespace YAF.Core.Utilities;
 
-using System.Web.UI.WebControls;
 using YAF.Core.Context.Start;
 
 /// <summary>
