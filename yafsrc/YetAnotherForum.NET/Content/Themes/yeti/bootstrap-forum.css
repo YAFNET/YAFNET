@@ -12233,6 +12233,10 @@ textarea.form-control-lg {
   border-color: #1f1f1f;
 }
 
+.btn-outline-secondary {
+  color: #000;
+}
+
 .btn-group .dropdown-menu {
   border-top-width: 0;
 }

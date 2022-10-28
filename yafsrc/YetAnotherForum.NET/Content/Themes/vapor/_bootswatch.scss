@@ -1,4 +1,4 @@
-﻿// Vapor 5.2.1
+﻿// Vapor 5.2.2
 // Bootswatch
 
 
@@ -26,11 +26,10 @@ $outrun: false !default;
 }
 
 @mixin box-shadow($color) {
- 
 }
 
 @mixin box-shadow-lg($color) {
-  
+  box-shadow: 0 0 2rem rgba(tint-color($color, 10%), .4), 0 0 8rem rgba(tint-color($color, 10%), .3);
 }
 
 @mixin header-shadow($color) {

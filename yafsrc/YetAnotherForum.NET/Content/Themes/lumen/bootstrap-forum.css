@@ -12248,6 +12248,10 @@ textarea.form-control-lg {
   border-color: #4d4d4d;
 }
 
+.btn-outline-secondary {
+  color: #000;
+}
+
 [class*=btn-outline] {
   border-top-width: 1px;
 }
