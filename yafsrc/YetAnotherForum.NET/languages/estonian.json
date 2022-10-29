@@ -5996,7 +5996,7 @@
         "Resource": [
           {
             "@tag": "BETA_WARNING",
-            "#text": "<p style=\"color: red\">\r\n      "
+            "#text": "<p class=\"text-danger\">\r\n      "
           },
           {
             "@tag": "GROUPS",
@@ -8558,6 +8558,10 @@
           {
             "@tag": "YES",
             "#text": "Jah"
+          },
+          {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
           }
         ]
       },

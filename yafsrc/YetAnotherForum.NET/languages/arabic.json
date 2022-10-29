@@ -1,4 +1,4 @@
-﻿{
+{
   "Resources": {
     "@language": "Arabic",
     "@code": "ar",
@@ -8546,6 +8546,10 @@
           {
             "@tag": "YES",
             "#text": "نعم"
+          },
+          {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
           }
         ]
       },

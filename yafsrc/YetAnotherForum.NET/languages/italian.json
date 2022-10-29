@@ -5988,7 +5988,7 @@
         "Resource": [
           {
             "@tag": "BETA_WARNING",
-            "#text": "<p style=\"color: red\">\r\n      La funzione NNTP di Yet Another Forum.net è ancora in fase beta e <strong>avrà</strong> dei bug.\r\n      I bug da tenere d'occhio sono la conversione dei set di caratteri e l'orario errato dei messaggi.\r\n      Gli articoli Usenet saranno inviati al forum con la data dell'intestazione dell'articolo,\r\n      il che significa che potreste avere date future. Per favore, fatemi sapere se ci sono fusi orari sconosciuti\r\n      fusi orari sconosciuti che si incontrano.\r\n   </p>\r\n   <p style=\"color: red\">\r\n      I forum in cui vengono pubblicati gli articoli di usenet devono essere di sola lettura, in quanto i messaggi non verranno <strong>riportati</strong> su usenet.\r\n      saranno rinviati a usenet. Per motivi di velocità, gli articoli usenet sono automaticamente\r\n      approvati, il che significa che se il forum è moderato, i messaggi saranno automaticamente approvati.\r\n      approvati.\r\n   </p>\r\n   <p style=\"color: red\">.\r\n      Per proteggere i server usenet, un newsgroup può essere aggiornato solo una volta ogni 10 minuti.\r\n   </p>"
+            "#text": "<p class=\"text-danger\">\r\n      La funzione NNTP di Yet Another Forum.net è ancora in fase beta e <strong>avrà</strong> dei bug.\r\n      I bug da tenere d'occhio sono la conversione dei set di caratteri e l'orario errato dei messaggi.\r\n      Gli articoli Usenet saranno inviati al forum con la data dell'intestazione dell'articolo,\r\n      il che significa che potreste avere date future. Per favore, fatemi sapere se ci sono fusi orari sconosciuti\r\n      fusi orari sconosciuti che si incontrano.\r\n   </p>\r\n   <p class=\"text-danger\">\r\n      I forum in cui vengono pubblicati gli articoli di usenet devono essere di sola lettura, in quanto i messaggi non verranno <strong>riportati</strong> su usenet.\r\n      saranno rinviati a usenet. Per motivi di velocità, gli articoli usenet sono automaticamente\r\n      approvati, il che significa che se il forum è moderato, i messaggi saranno automaticamente approvati.\r\n      approvati.\r\n   </p>\r\n   <p class=\"text-danger\">.\r\n      Per proteggere i server usenet, un newsgroup può essere aggiornato solo una volta ogni 10 minuti.\r\n   </p>"
           },
           {
             "@tag": "GROUPS",
@@ -8550,6 +8550,10 @@
           {
             "@tag": "YES",
             "#text": "Sì"
+          },
+          {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
           }
         ]
       },

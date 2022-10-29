@@ -5988,7 +5988,7 @@
         "Resource": [
           {
             "@tag": "BETA_WARNING",
-            "#text": "<p style=\"color: red\">\r\n    La funcionalidad NNTP de YAF es todavía beta, y <strong>tendrá</strong> bugs.\r\n        Los errores que debes buscar son la conversión del set de caracteres, y los tiempos incorrectos en las publicaciones.\r\n        Los artículos de Usenet serán publicados en el foro con la fecha de la cabecera del artículo,\r\n        lo que significa que puedes obtener fechas en el futuro. Por favor, haznos saber de cualquier\r\n        Zona horaria desconocida que sea encontrada.\r\n  </p>\r\n  <p style=\"color: red\">\r\n    Los artículos de los foros Usenet son publicados en solo lectura, los mensajes <strong>no</strong>\r\n        será publicados de vuelta en Usenet. Por razones de velocidad los artículos en Usenet son aprobados automáticamente,\r\n        lo que significa que si el foro es moderado, la publicación será automáticamente aprobada.\r\n  </p>\r\n  <p style=\"color: red\">\r\n    Para proteger los servidores Usenet, un grupo de noticias solo puede ser actualizado cada 10 minutos.\r\n  </p>"
+            "#text": "<p class=\"text-danger\">\r\n    La funcionalidad NNTP de YAF es todavía beta, y <strong>tendrá</strong> bugs.\r\n        Los errores que debes buscar son la conversión del set de caracteres, y los tiempos incorrectos en las publicaciones.\r\n        Los artículos de Usenet serán publicados en el foro con la fecha de la cabecera del artículo,\r\n        lo que significa que puedes obtener fechas en el futuro. Por favor, haznos saber de cualquier\r\n        Zona horaria desconocida que sea encontrada.\r\n  </p>\r\n  <p class=\"text-danger\">\r\n    Los artículos de los foros Usenet son publicados en solo lectura, los mensajes <strong>no</strong>\r\n        será publicados de vuelta en Usenet. Por razones de velocidad los artículos en Usenet son aprobados automáticamente,\r\n        lo que significa que si el foro es moderado, la publicación será automáticamente aprobada.\r\n  </p>\r\n  <p class=\"text-danger\">\r\n    Para proteger los servidores Usenet, un grupo de noticias solo puede ser actualizado cada 10 minutos.\r\n  </p>"
           },
           {
             "@tag": "GROUPS",
@@ -8550,6 +8550,10 @@
           {
             "@tag": "YES",
             "#text": "Si"
+          },
+          {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
           }
         ]
       },
