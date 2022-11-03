@@ -540,9 +540,13 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                      }});
                   }});";
 
+        var contextMenuRemove = BoardContext.Current.Get<BoardSettings>().UseCustomContextMenu
+                                    ? string.Empty
+                                    : ",contextmenu";
+
         return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
-                          extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,{(uploadAllowed ? "attachments," : "")}quote,codemirror,textselection"",
+                          extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,{(uploadAllowed ? "attachments," : "")}quote,codemirror,textselection{contextMenuRemove}"",
                           removePlugins: 'bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
                           toolbar: [{toolbar}],
                           entities_greek: false,
@@ -640,10 +644,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string forumCssUrl,
         [NotNull] string toolbar)
     {
+        var contextMenuRemove = BoardContext.Current.Get<BoardSettings>().UseCustomContextMenu
+                                    ? string.Empty
+                                    : ",contextmenu";
+
         return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
                           extraPlugins: ""bbcode,mentions,wordcount,autolink,quote,codemirror"",
-                          removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
+                          removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates{contextMenuRemove}',
                           toolbar: [{toolbar}],
                           entities_greek: false,
                           entities_latin: false,
@@ -729,10 +737,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string forumCssUrl,
         [NotNull] string mime)
     {
+
+        var contextMenuRemove = BoardContext.Current.Get<BoardSettings>().UseCustomContextMenu
+                                    ? string.Empty
+                                    : ",contextmenu";
         return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
                           extraPlugins: ""wordcount,codemirror"",
-                          removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
+                          removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates{contextMenuRemove}',
                           toolbar: [],
                           startupMode: 'source',
                           entities_greek: false,
