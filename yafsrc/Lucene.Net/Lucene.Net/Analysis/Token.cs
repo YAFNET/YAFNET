@@ -131,8 +131,6 @@ namespace YAF.Lucene.Net.Analysis
         /// Constructs a <see cref="Token"/> will null text. </summary>
         public Token()
         {
-            string s = "fooobar";
-            s.ToCharArray();
         }
 
         /// <summary>

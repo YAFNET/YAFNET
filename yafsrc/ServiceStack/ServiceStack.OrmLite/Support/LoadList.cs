@@ -269,6 +269,28 @@ internal abstract class LoadList<Into, From>
             }
         }
     }
+
+    protected void SetFieldReferenceChildResults(FieldDefinition fieldDef, FieldReference fieldRef, IList childResults)
+    {
+        var map = CreateRefMap();
+
+        var refField = fieldRef.RefModelDef.PrimaryKey;
+        foreach (var result in childResults)
+        {
+            var refValue = refField.GetValue(result);
+            var refFieldValue = fieldRef.RefFieldDef.GetValue(result);
+            map[refValue] = refFieldValue;
+        }
+
+        foreach (var result in parentResults)
+        {
+            var fkValue = fieldRef.RefIdFieldDef.GetValue(result);
+            if (map.TryGetValue(fkValue, out var childResult))
+            {
+                fieldDef.SetValue(result, childResult);
+            }
+        }
+    }
 }
 
 /// <summary>

@@ -60,7 +60,7 @@ namespace YAF.Lucene.Net.Support.IO
             try
             {
                 // This could throw, but we don't care about this HResult value.
-                fileName = Path.GetTempFileName();
+                fileName = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()); // LUCENENET NOTE: Path.GetTempFileName() is considered insecure because the filename can be guessed https://rules.sonarsource.com/csharp/RSPEC-5445
             }
             catch
             {
@@ -192,7 +192,6 @@ namespace YAF.Lucene.Net.Support.IO
                 catch (IOException e) when (IsFileAlreadyExistsException(e, fileName))
                 {
                     // If the error was because the file exists, try again.
-                    continue;
                 }
             }
             return new FileInfo(fileName);

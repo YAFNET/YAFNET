@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene41

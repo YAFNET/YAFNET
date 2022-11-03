@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         // when set, some words have exceptional stems, and the last entry is a pointer to stemExceptions
         internal bool hasStemExceptions;
 
-        private readonly DirectoryInfo tempDir = OfflineSorter.DefaultTempDir(); // TODO: make this configurable?
+        private readonly DirectoryInfo tempDir = OfflineSorter.GetDefaultTempDir(); // TODO: make this configurable?
 
         internal bool ignoreCase;
         internal bool complexPrefixes;
@@ -1338,7 +1338,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             {
                 if (rawFlags.Length == 0)
                 {
-                    return Arrays.Empty<char>(); ; // LUCENENET: Optimized char[] creation
+                    return Arrays.Empty<char>(); // LUCENENET: Optimized char[] creation
                 }
 
                 StringBuilder builder = new StringBuilder();
