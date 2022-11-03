@@ -152,92 +152,14 @@ internal abstract class LoadList<Into, From>
         }
     }
 
-    /// <summary>
-    /// Gets the reference self SQL.
-    /// </summary>
-    /// <param name="modelDef">The model definition.</param>
-    /// <param name="refSelf">The reference self.</param>
-    /// <param name="refModelDef">The reference model definition.</param>
-    /// <returns>System.String.</returns>
-    protected string GetRefSelfSql(ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef)
-    {
-        //Load Self Table.RefTableId PK
-        var refQ = q.Clone();
-        refQ.Select(dialectProvider.GetQuotedColumnName(modelDef, refSelf));
-        refQ.OrderBy().ClearLimits(); //clear any ORDER BY or LIMIT's in Sub Select's
+    protected string GetRefSelfSql(ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef) =>
+        dialectProvider.GetRefSelfSql(q.Clone(), modelDef, refSelf, refModelDef);
 
-        var subSqlRef = refQ.ToMergedParamsSelectStatement();
+    protected string GetRefFieldSql(ModelDefinition refModelDef, FieldDefinition refField) =>
+        dialectProvider.GetRefFieldSql(subSql, refModelDef, refField);
 
-        var sqlRef = $"SELECT {dialectProvider.GetColumnNames(refModelDef)} " +
-                     $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
-                     $"WHERE {dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey)} " +
-                     $"IN ({subSqlRef})";
-
-        if (OrmLiteConfig.LoadReferenceSelectFilter != null)
-            sqlRef = OrmLiteConfig.LoadReferenceSelectFilter(refModelDef.ModelType, sqlRef);
-
-        return sqlRef;
-    }
-
-    /// <summary>
-    /// Gets the reference field SQL.
-    /// </summary>
-    /// <param name="refModelDef">The reference model definition.</param>
-    /// <param name="refField">The reference field.</param>
-    /// <returns>System.String.</returns>
-    protected string GetRefFieldSql(ModelDefinition refModelDef, FieldDefinition refField)
-    {
-        var sqlRef = $"SELECT {dialectProvider.GetColumnNames(refModelDef)} " +
-                     $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
-                     $"WHERE {dialectProvider.GetQuotedColumnName(refField)} " +
-                     $"IN ({subSql})";
-
-        if (OrmLiteConfig.LoadReferenceSelectFilter != null)
-            sqlRef = OrmLiteConfig.LoadReferenceSelectFilter(refModelDef.ModelType, sqlRef);
-
-        return sqlRef;
-    }
-
-    protected string GetFieldReferenceSql(FieldDefinition fieldDef, FieldReference fieldRef)
-    {
-        var refModelDef = fieldRef.RefModelDef;
-
-        var useSubSql = $"SELECT {dialectProvider.GetQuotedColumnName(fieldRef.RefIdFieldDef)} FROM "
-                        + subSql.RightPart("FROM");
-
-        var pk = dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey);
-        var sqlRef = $"SELECT {pk}, {dialectProvider.GetQuotedColumnName(fieldRef.RefFieldDef)} " +
-                     $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
-                     $"WHERE {pk} " +
-                     $"IN ({useSubSql})";
-
-        if (OrmLiteConfig.LoadReferenceSelectFilter != null)
-            sqlRef = OrmLiteConfig.LoadReferenceSelectFilter(refModelDef.ModelType, sqlRef);
-
-        return sqlRef;
-    }
-
-    protected void SetFieldReferenceChildResults(FieldDefinition fieldDef, FieldReference fieldRef, IList childResults)
-    {
-        var map = CreateRefMap();
-
-        var refField = fieldRef.RefModelDef.PrimaryKey;
-        foreach (var result in childResults)
-        {
-            var refValue = refField.GetValue(result);
-            var refFieldValue = fieldRef.RefFieldDef.GetValue(result);
-            map[refValue] = refFieldValue;
-        }
-
-        foreach (var result in parentResults)
-        {
-            var fkValue = fieldRef.RefIdFieldDef.GetValue(result);
-            if (map.TryGetValue(fkValue, out var childResult))
-            {
-                fieldDef.SetValue(result, childResult);
-            }
-        }
-    }
+    protected string GetFieldReferenceSql(FieldDefinition fieldDef, FieldReference fieldRef) =>
+        dialectProvider.GetFieldReferenceSql(subSql, fieldDef, fieldRef);
 
     /// <summary>
     /// Creates the reference map.

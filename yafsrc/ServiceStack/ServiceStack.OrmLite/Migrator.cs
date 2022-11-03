@@ -29,7 +29,8 @@ public class Migration : IMeta
     public DateTime? CompletedDate { get; set; }
     public string ConnectionString { get; set; }
     public string? NamedConnection { get; set; }
-    [StringLength(StringLengthAttribute.MaxText)]
+
+    //[StringLength(StringLengthAttribute.MaxText)] // https://stackoverflow.com/a/2864109/85785[StringLength(StringLengthAttribute.MaxText)]
     public string? Log { get; set; }
     public string? ErrorCode { get; set; }
     public string? ErrorMessage { get; set; }

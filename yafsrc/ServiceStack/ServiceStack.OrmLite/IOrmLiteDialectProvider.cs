@@ -1054,6 +1054,10 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string MergeParamsIntoSql(string sql, IEnumerable<IDbDataParameter> dbParams);
 
+    string GetRefSelfSql<From>(SqlExpression<From> refQ, ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef);
+    string GetRefFieldSql(string subSql, ModelDefinition refModelDef, FieldDefinition refField);
+    string GetFieldReferenceSql(string subSql, FieldDefinition fieldDef, FieldReference fieldRef);
+
     /// <summary>
     /// Converts to tablenamesstatement.
     /// </summary>
