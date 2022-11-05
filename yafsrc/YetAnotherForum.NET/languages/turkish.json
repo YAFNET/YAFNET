@@ -8400,6 +8400,10 @@
             "#text": "Google'da ara ..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Göster/Gizle"
           },
@@ -8558,10 +8562,6 @@
           {
             "@tag": "YES",
             "#text": "Evet"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11146,6 +11146,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Durduruldu"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "E-posta adresi"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Süper kullanıcının adını girin"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Parola"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Şifreyi Doğrula"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Yeni Kurulun adını girin"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Şifreyi Yapılandır"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Bağlantı detayları"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Mevcut Bağlantı Dizesini Seçin"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "SQL Server Veri Tabanı Bağlantı Dizesini Seçin:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Bağlantı başarısız:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Yeni Bağlantı Dizesi Oluştur"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Bağlantı dizesi olarak kaydedilecek"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Bağlantı Başarılı"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Veri Tabanı Bağlantı Testi"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Yeni Tahta Oluştur"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Yeni Süper Kullanıcı Oluştur (Host)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Misafir Kullanıcı Kültürü (Dil)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Şimdiki versiyonu:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "Veritabanı"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Veri kaynağını girin (sql sunucusunun adı veya adresi)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "YAF.NET Veritabanı Bağlantısı"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Veritabanı Adını Girin"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "Bu e-posta adresi için bir kullanıcı adı zaten var. Lütfen farklı bir e-posta adresi girin."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Kullanıcı adı zaten var. Lütfen farklı bir kullanıcı adı girin."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Hata"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Yönetim Kurulu zaten yüklü."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "Bir Kurul adı girmelisiniz."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "Devam etmek için appSettings'i YAF.ConfigPassword Key ile güncellemelisiniz. NOT: Anahtar adı büyük / küçük harf duyarlıdır."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "Bir Kurulun e-posta adresini girmelisiniz."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "Bir şifre girmelisiniz."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Yönetici Kullanıcısı Başarısız Oldu:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "Süper kullanıcı e-posta adresini girmelisiniz."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "Süper kullanıcı kullanıcı adını girmelisiniz,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Mevcut kullanıcı adı geçersiz ve üyelik mağazasında mevcut bir kullanıcıyı temsil etmiyor."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "<strong> Yanlış şifreyi </strong> girdiniz!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Mevcut DB Bağlantı Dizesini Kullan"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Bitiş"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Son'u tıklamak sizi Forum ana sayfasına götürür."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "bitirdi"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "Forum E-posta Adresi"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Forum Bankası URL Maskesi"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "E-posta Adresinden giriniz."
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Forumunuz şimdi hazır."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "başlat"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Kurulum"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Entegre Güvenliği Kullan"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "Sağlanan şifre alım cevabı geçersiz. Lütfen değeri kontrol edip tekrar deneyin."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "Sağlanan e-posta adresi geçersiz. Lütfen değeri kontrol edip tekrar deneyin."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "Sağlanan şifre geçersiz. Lütfen geçerli bir şifre değeri girin."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "Verilen şifre alma sorusu geçersiz. Lütfen değeri kontrol edip tekrar deneyin."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "Sağlanan kullanıcı adı geçersiz. Lütfen değeri kontrol edip tekrar deneyin."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Posta (SMTP) Gönderme Testi"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Adrese gönder olarak tanımlanan e-posta adresine bir test mesajı gönderir."
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Yeni DB Bağlantı Dizesi Oluştur"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Sonraki"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "\"İleri\" yi tıklamak, veritabanınızı en son sürüme başlatacaktır."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Hazır olduğunuzda \"İleri\" yi tıklayın."
+          },
+          {
+            "@tag": "NO",
+            "#text": "YOK HAYIR"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Not"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Ayarlara Yazma Erişimi Yok"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Yapılandırma dosyanızı, yazma izni olmadığından Veritabanı Bağlantısı'nı ayarlayacak şekilde değiştiremiyor."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Veritabanı Bağlantı Dizelerine Yazma Erişimi Yok"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Yapılandırma dosyanızı, yazma izni olmadığından Veritabanı Bağlantısı dizesini ayarlamak üzere değiştirilemiyor."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Lütfen aç"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "Uygulama kök dizininde dosya ve <AppSettings> bölümünde aşağıdaki anahtarı ekleyin / güncelleyin:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "Uygulama kök dizininde dosya ve <connectionStrings> bölümünde aşağıdaki anahtarı ekleyin / güncelleyin:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Doğrulama şifrenizle aynı değil."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET, Kök Uygulama Rehberine Yazma Erişimine Sahiptir (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET \"~ / Upload\" dizinine Yazma Erişimine Sahiptir ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "Önceki"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "Kimlik doğrulama sağlayıcısı bir hata döndürdü. Lütfen girişinizi doğrulayın ve tekrar deneyin. Sorun devam ederse, lütfen sistem yöneticinize başvurun."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "Güvenlik sorusunun cevabı"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "Kayıp şifrenizi almanız gerektiğinde size sorulacak soru"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Kurmak"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "E-posta gönderimi YAF kurulumunuzdan çalışıyor gibi görünüyor."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "SMTP Test Detayları"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Başka Bir Forumdan E-posta Testi"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Mail gönderildi. Girdiğiniz e-posta adresinden alındığını doğrulayın."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "SQL şifresini girin"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "SQL Kullanıcı Adını Girin"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Test bağlantısı"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Smtp Ayarlarını Test Et"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Test İzni"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Test Ayarları"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Veritabanı yapılandırmasını düzenlemek için \"Önceki\" düğmesini tıklayın."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Devam etmeden önce YAF yapılandırma ayarlarınızı burada test etmek isteyebilirsiniz."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Misafir Kullanıcı Saat Dilimi"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "E-posta Adresine Girin"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "kontrolsüz"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "Kullanıcı oluşturma isteği iptal edildi. Lütfen girişinizi doğrulayın ve tekrar deneyin. Sorun devam ederse, lütfen sistem yöneticinize başvurun."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "İzinleri Doğrula"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "YetAnotherForum.NET Uygulama, .config dosyasına yazma erişimi olduğunda kurulum daha kolaydır.\r\n                        Dosyalar."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "İzinlerin doğru olup olmadığını test etmek için aşağıya tıklayın. Onlar değilse, yapabilirsiniz\r\n                        hala kurulum sihirbazını kullanın."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "YAF.NET Kurulumuna Hoşgeldiniz"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Yükleme işlemini başlatmak için \"İleri\" ye tıklayın."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Bu Yükleyici, YetAnotherForum.NET'i (YAF.NET) yüklemek için gerekli adımlarda size rehberlik edecektir."
+          },
+          {
+            "@tag": "YES",
+            "#text": "EVET"
           }
         ]
       },

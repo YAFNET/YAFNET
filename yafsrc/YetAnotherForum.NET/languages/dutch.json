@@ -8392,6 +8392,10 @@
             "#text": "Zoek op Google naar..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Laat zien/Verberg"
           },
@@ -8550,10 +8554,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11130,6 +11130,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Geblokkeerd"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "E-mail adres"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Voer de naam van de supergebruiker in"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Wachtwoord"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Bevestig wachtwoord"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Voer de naam van het nieuwe bord in"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Config wachtwoord"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Verbindingsdetails"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Selecteer Bestaande verbindingsreeks"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Selecteer SQL Server-databaseverbindingsreeks:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Kon niet verbinden:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Maak een nieuwe verbindingsreeks"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Verbindingsreeks wordt opgeslagen als"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Verbinding geslaagd"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Test van databaseverbinding"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Maak een nieuw bord"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Nieuwe supergebruiker maken (host)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Gastgebruikercultuur (taal)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Huidige versie:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "Database"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Voer de gegevensbron in (naam of adres van de sql-server)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "YAF.NET-databaseverbinding"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Voer de databasenaam in"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "Er bestaat al een gebruikersnaam voor dat e-mailadres. Voer een ander e-mailadres in."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Gebruikersnaam bestaat al. Vul alsjeblieft een andere gebruikersnaam in."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Fout"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Bord is al geïnstalleerd."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "U moet een bordnaam invoeren."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "U moet uw app-instellingen bijwerken met de YAF.ConfigPassword-sleutel om door te gaan. OPMERKING: De sleutelnaam is hoofdlettergevoelig."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "U moet een Board-e-mailadres invoeren."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "U moet een wachtwoord invoeren."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Aanmaken Admin User Failed:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "U moet het e-mailadres van de supergebruiker invoeren."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "U moet de gebruikersnaam voor de supergebruiker invoeren,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Bestaande gebruikersnaam is ongeldig en vertegenwoordigt geen huidige gebruiker in de lidmaatschapswinkel."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "U heeft het <strong> verkeerde wachtwoord </strong> ingevoerd!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Gebruik bestaande DB-verbindingsreeks"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Af hebben"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Als u op Voltooien klikt, gaat u naar de hoofdpagina van het forum."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "Afgewerkt"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "Forum e-mailadres"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Forum Base Url Mask"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Voer het van e-mailadres in"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Je forum is nu klaar."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "initialiseren"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Installatie"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Gebruik geïntegreerde beveiliging"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "Het opgegeven wachtwoord voor het ophalen van een wachtwoord is ongeldig. Controleer de waarde en probeer het opnieuw."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "Het opgegeven e-mailadres is ongeldig. Controleer de waarde en probeer het opnieuw."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "Het opgegeven wachtwoord is ongeldig. Voer een geldige wachtwoordwaarde in."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "De gegeven wachtwoordvraag is ongeldig. Controleer de waarde en probeer het opnieuw."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "De opgegeven gebruikersnaam is ongeldig. Controleer de waarde en probeer het opnieuw."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Mail (SMTP) verzendtest"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Stuurt een testbericht naar het e-mailadres dat is gedefinieerd als Verzenden naar adres"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Maak een nieuwe DB-verbindingsreeks"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "volgende"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Als u op \"Volgende\" klikt, wordt uw database geïnitialiseerd naar de nieuwste versie."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Klik op \"Volgende\" wanneer u klaar bent."
+          },
+          {
+            "@tag": "NO",
+            "#text": "NEE"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Notitie"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Geen schrijftoegang tot instellingen"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Kan uw configuratiebestand niet wijzigen om Database-verbinding in te stellen vanwege geen schrijfrechten."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Geen schrijftoegang tot databaseverbindingsreeksen"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Kan uw configuratiebestand niet wijzigen om de databaseverbindingsreeks in te stellen vanwege geen schrijfrechten."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Open de"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "bestand in de hoofdmap van de toepassing en voeg / update de volgende sleutel toe in de & lt; AppSettings & gt; sectie:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "bestand in de hoofdmap van de toepassing en voeg de volgende sleutel toe aan de update & lt; connectionStrings & gt; sectie:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Verificatie is niet hetzelfde als uw wachtwoord."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET heeft schrijftoegang tot root-applicatiemap (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET heeft schrijftoegang tot de map \"~ / Upload\" ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "voorgaand"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "De authenticatieprovider heeft een fout geretourneerd. Controleer uw invoer en probeer het opnieuw. Neem contact op met uw systeembeheerder als het probleem zich blijft voordoen."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "Het antwoord op de beveiligingsvraag"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "De vraag die u wordt gesteld wanneer u uw verloren wachtwoord moet achterhalen"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Opstelling"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "Het verzenden van e-mail lijkt te werken vanuit uw YAF-installatie."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "SMTP-testdetails"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Test e-mail van nog een ander Forum.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Mail verzonden. Controleer of het op uw opgegeven e-mailadres is ontvangen."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Voer het SQL-wachtwoord in"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Voer de SQL-gebruikersnaam in"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Test verbinding"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Smtp-instellingen testen"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Test toestemming"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Test instellingen"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Klik op de knop \"Vorige\" om de databaseconfiguratie te bewerken."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Misschien wilt u uw YAF-configuratie-instellingen hier testen voordat u doorgaat."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Tijdzone gastgebruiker"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Voer het e-mailadres in"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "ongehinderd"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "Het verzoek om een ​​gebruiker te maken is geannuleerd. Controleer uw invoer en probeer het opnieuw. Neem contact op met uw systeembeheerder als het probleem zich blijft voordoen."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Machtigingen valideren"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "YetAnotherForum.NET Installatie is eenvoudiger wanneer de toepassing schrijftoegang heeft tot uw .config\r\n                        bestanden."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Klik hieronder om te testen of machtigingen correct zijn. Als ze dat niet zijn, kunt u dat\r\n                        gebruik nog steeds de installatiewizard."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Welkom bij de YAF.NET-installatie"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Klik op \"Volgende\" om het installatieproces te starten."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Dit installatieprogramma leidt u door de stappen die nodig zijn om YetAnotherForum.NET (YAF.NET) te installeren."
+          },
+          {
+            "@tag": "YES",
+            "#text": "JA"
           }
         ]
       },

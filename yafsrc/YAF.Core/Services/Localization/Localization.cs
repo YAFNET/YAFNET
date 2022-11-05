@@ -497,7 +497,8 @@ public class Localization : ILocalization
         {
             this.localizer =
                 new Localizer(
-                    HostingEnvironment.MapPath($"{BoardInfo.ForumServerFileRoot}languages/{fileName}"));
+                    HostingEnvironment.MapPath($"{BoardInfo.ForumServerFileRoot}languages/{fileName}"),
+                    !this.TransPage.Equals("INSTALL"));
 
 #if !DEBUG
                 BoardContext.Current.Get<IDataCache>().Set($"Localizer.{fileName}", this.localizer);
@@ -520,7 +521,8 @@ public class Localization : ILocalization
                 this.defaultLocale =
                     new Localizer(
                         HostingEnvironment.MapPath(
-                            $"{BoardInfo.ForumServerFileRoot}languages/english.json"));
+                            $"{BoardInfo.ForumServerFileRoot}languages/english.json"),
+                        !this.TransPage.Equals("INSTALL"));
 #if !DEBUG
                     BoardContext.Current.Get<IDataCache>().Set("DefaultLocale",this.defaultLocale);
 #endif
@@ -556,25 +558,35 @@ public class Localization : ILocalization
             return this.localizer.CurrentCulture;
         }
 
-        string filename;
+        string fileName;
 
-        if (BoardContext.Current.PageIsNull() || BoardContext.Current.PageUser.LanguageFile.IsNotSet()
-                                              || !BoardContext.Current.BoardSettings.AllowUserLanguage)
+        if (this.TransPage.Equals("INSTALL"))
         {
-            filename = BoardContext.Current.IsGuest
-                           ? UserHelper.GetGuestUserLanguageFile()
-                           : BoardContext.Current.BoardSettings.Language;
+            var culture = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+
+            fileName = StaticDataHelper.LanguageFiles().FirstOrDefault(x => x.CultureTag == culture).CultureFile;
         }
         else
         {
-            filename = BoardContext.Current.IsGuest
-                           ? UserHelper.GetGuestUserLanguageFile()
-                           : BoardContext.Current.PageUser.LanguageFile;
+            if (BoardContext.Current.PageIsNull() || BoardContext.Current.PageUser.LanguageFile.IsNotSet()
+                                                  || !BoardContext.Current.BoardSettings.AllowUserLanguage)
+            {
+                fileName = BoardContext.Current.IsGuest
+                               ? UserHelper.GetGuestUserLanguageFile()
+                               : BoardContext.Current.BoardSettings.Language;
+            }
+            else
+            {
+                fileName = BoardContext.Current.IsGuest
+                               ? UserHelper.GetGuestUserLanguageFile()
+                               : BoardContext.Current.PageUser.LanguageFile;
+            }
         }
 
-        filename ??= "english.json";
 
-        return this.LoadTranslation(filename);
+        fileName ??= "english.json";
+
+        return this.LoadTranslation(fileName);
     }
 
     /// <summary>

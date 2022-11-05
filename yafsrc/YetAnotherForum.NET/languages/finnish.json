@@ -8400,6 +8400,10 @@
             "#text": "Etsi Googlesta ..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Näytä/piilota"
           },
@@ -8558,10 +8562,6 @@
           {
             "@tag": "YES",
             "#text": "Kyllä"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11146,6 +11146,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Keskeytetty"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "Sähköpostiosoite"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Kirjoita superkäyttäjän nimi"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Salasana"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Vahvista salasana"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Kirjoita uuden hallituksen nimi"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Määritä salasana"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Yhteyden yksityiskohdat"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Valitse Nykyinen yhteysjono"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Valitse SQL Server Database Connection String:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Ei voida yhdistää:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Luo uusi yhteysjono"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Yhteysjono tallennetaan nimellä"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Yhteys onnistui"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Tietokantayhteystesti"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Luo uusi hallitus"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Luo uusi superkäyttäjä (isäntä)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Vieraskäyttäjän kulttuuri (kieli)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Nykyinen versio:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "Tietokanta"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Kirjoita tietolähde (SQL-palvelimen nimi tai osoite)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "YAF.NET-tietokantayhteys"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Kirjoita tietokannan nimi"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "Kyseisen sähköpostiosoitteen käyttäjänimi on jo olemassa. Anna toinen sähköpostiosoite."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Käyttäjätunnus on jo olemassa. Anna toinen käyttäjänimi."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Virhe"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Taulu on jo asennettu."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "Sinun on annettava hallituksen nimi."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "Jatka päivittämällä sovellusasetuksesi YAF.ConfigPassword-avaimella. HUOMAUTUS: Avaimen nimi on kirjainkoko."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "Sinun on annettava hallituksen sähköpostiosoite."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "Sinun on annettava salasana."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Luo järjestelmänvalvojan käyttäjä epäonnistui:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "Sinun on annettava superkäyttäjän sähköpostiosoite."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "Sinun on annettava superkäyttäjänimi,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Nykyinen käyttäjänimi on virheellinen, eikä se edusta nykyistä käyttäjää jäsenkaupassa."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "Annoit <strong> väärän salasanan </strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Käytä olemassa olevaa DB-yhteysjonoa"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Suorittaa loppuun"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Napsauttamalla Valmis vie sinut foorumin pääsivulle."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "Valmiit"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "Foorumin sähköpostiosoite"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Foorumipohjainen URL-naamio"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Kirjoita sähköpostiosoitteesta"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Foorumi on nyt valmis."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "Alustaa"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Asennus"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Käytä integroitua suojausta"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "Antama vastaus salasanan hakuun on virheellinen. Tarkista arvo ja yritä uudelleen."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "Annettu sähköpostiosoite on virheellinen. Tarkista arvo ja yritä uudelleen."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "Annettu salasana on virheellinen. Anna kelvollinen salasanan arvo."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "Annettu salasananhakukysymys on virheellinen. Tarkista arvo ja yritä uudelleen."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "Annettu käyttäjänimi on virheellinen. Tarkista arvo ja yritä uudelleen."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Postin (SMTP) lähetystesti"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Lähettää testiviestin sähköpostiosoitteeseen, joka määritetään Lähetä osoitteeseen"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Luo uusi DB-yhteysjono"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Seuraava"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Napsauttamalla \"Seuraava\" alustaa tietokanta uusimpaan versioon."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Napsauta Seuraava, kun olet valmis."
+          },
+          {
+            "@tag": "NO",
+            "#text": "EI"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Huomautus"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Ei kirjoitusoikeutta asetuksiin"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Konfigurointitiedostoa ei voi muokata asemaan tietokantayhteyttä, koska kirjoitusoikeutta ei ole."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Ei kirjoitusoikeutta tietokantayhteysjonoihin"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Konfigurointitiedostoa ei voi muokata määrittämään tietokantayhteysjonoa, koska kirjoitusoikeutta ei ole."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Avaa"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "tiedosto sovelluksen juurikansioon ja lisää / päivitä seuraava avain & lt; AppSettings & gt; jakso:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "tiedosto sovelluksen juurikansioon ja lisää / päivitä seuraava avain & lt; connectionStrings & gt; jakso:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Vahvistus ei ole sama kuin salasanasi."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET on kirjoittanut pääsyn juurisovellushakemistoon (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NETillä on kirjoitusoikeus \"~ / Upload\" -hakemistoon ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "Edellinen"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "Todennustoimittaja palautti virheen. Vahvista ilmoituksesi ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä järjestelmänvalvojaan."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "Vastaus turvallisuuskysymykseen"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "Kysymys, joka sinulta kysytään, kun sinun on haettava kadonneen salasanasi"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Perustaa"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "Sähköpostin lähettäminen näyttää toimivan YAF-asennuksesi perusteella."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "SMTP-testitiedot"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Testaa sähköpostia vielä yhdeltä foorumilta.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Posti lähetetty. Varmista, että se on vastaanotettu antamassasi sähköpostiosoitteessa."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Kirjoita SQL-salasana"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Kirjoita SQL-käyttäjänimi"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Testaa yhteys"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Testaa Smtp-asetukset"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Testilupa"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Testaa asetukset"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Napsauta \"Edellinen\" -painiketta muokataksesi tietokannan määrityksiä."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Voit testata YAF-kokoonpanoasetuksesi täällä ennen jatkamista."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Vieraskäyttäjän aikavyöhyke"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Kirjoita sähköpostiosoite"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "esteettä"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "Käyttäjän luomispyyntö on peruutettu. Vahvista ilmoituksesi ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä järjestelmänvalvojaan."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Vahvista käyttöoikeudet"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "YetAnotherForum.NET -sovelluksen asennus on helpompaa, kun sovelluksella on kirjoitusoikeus .config-tiedostoon\r\n                        tiedostot."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Napsauta alla testataksesi oikeudet oikein. Jos he eivät ole, voit\r\n                        käytä edelleen ohjattua asennusta."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Tervetuloa YAF.NET-asennukseen"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Napsauta \"Seuraava\" aloittaaksesi asennusprosessin."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Tämä asennusohjelma opastaa sinut vaiheissa, joita tarvitaan YetAnotherForum.NET (YAF.NET) asennukseen."
+          },
+          {
+            "@tag": "YES",
+            "#text": "JOO"
           }
         ]
       },

@@ -10,7 +10,7 @@
         name="scriptlanguage" content="text/javascript" />
     <meta id="YafMetaStyles" http-equiv="Content-Style-Type" runat="server" name="styles"
         content="text/css" />
-   <title>YAF.NET <%# YAF.App_GlobalResources.Install.Installation %></title>
+   <title>YAF.NET <%# Localization.GetText("Installation") %></title>
    <link href="../Content/InstallWizard.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -27,64 +27,64 @@
             <WizardSteps>
                 <asp:WizardStep runat="server" Title="Welcome" ID="WizWelcome">
                     <h4>
-                        <%# YAF.App_GlobalResources.Install.WelcomeInstall %>
+                        <%# Localization.GetText("WelcomeInstall") %>
                     </h4>
-                    <p class="descriptionText">
-                        <%# YAF.App_GlobalResources.Install.WelcomeInstallDesc %>
+                    <p class="text-muted">
+                        <%# Localization.GetText("WelcomeInstallDesc") %>
                     </p>
                     <p>
-                        <%# YAF.App_GlobalResources.Install.WelcomeInstallText %>
+                        <%# Localization.GetText("WelcomeInstallText") %>
                     </p>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Validate Permissions" ID="WizValidatePermission">
                     <h4>
-                        <%# YAF.App_GlobalResources.Install.ValidatePermission %>
+                        <%# Localization.GetText("ValidatePermission") %>
                     </h4>
                     <p>
-                    <%# YAF.App_GlobalResources.Install.ValidatePermissionDesc %>
-                    <p class="descriptionText">
-                        <%# YAF.App_GlobalResources.Install.ValidatePermissionText %>
+                    <%# Localization.GetText("ValidatePermissionDesc") %>
+					</p>
+                    <p class="text-muted">
+                        <%# Localization.GetText("ValidatePermissionText") %>
                     </p>
                     <ul class="standardList">
                         <li>
                             <asp:Label ID="lblPermissionApp" runat="server"
                                        CssClass="badge bg-info float-end">
-                                <%# YAF.App_GlobalResources.Install.Unchecked %>
+                                <%# Localization.GetText("Unchecked") %>
                             </asp:Label>
-                            <%# YAF.App_GlobalResources.Install.PermissionApp %>
+                            <%# Localization.GetText("PermissionApp") %>
                         </li>
                         <li>
                             <asp:Label ID="lblPermissionUpload" runat="server"
                                        CssClass="badge bg-info float-end">
-                                <%# YAF.App_GlobalResources.Install.Unchecked %>
+                                <%# Localization.GetText("Unchecked") %>
                             </asp:Label>
-                            <%# YAF.App_GlobalResources.Install.PermissionUpload %>
+                            <%# Localization.GetText("PermissionUpload") %>
                         </li>
                     </ul>
                     <YAF:ThemeButton ID="btnTestPermissions" runat="server"
                                      Icon="clipboard-check"
                                      Type="Info"
-                                     Text="<%# YAF.App_GlobalResources.Install.TestPermission %>"
+                                     Text='<%# Localization.GetText("TestPermission") %>'
                                      OnClick="TestPermissions_Click" />
+
                 </asp:WizardStep>
 
                 <asp:WizardStep runat="server" Title="Database Connection" ID="WizDatabaseConnection">
                     <h4>
-                        <%# YAF.App_GlobalResources.Install.DBConnection %>
+                        <%# Localization.GetText("DBConnection") %>
                     </h4>
-                    <asp:PlaceHolder ID="ExistingConnectionHolder" runat="server" Visible="true">
-                        <h4>
-                            <%# YAF.App_GlobalResources.Install.ConnectionExist %>
-                        </h4>
-                        <%# YAF.App_GlobalResources.Install.ConnectionExistDesc %>&nbsp;
-                        <asp:DropDownList ID="lbConnections" runat="server"
-                                          CssClass="form-select">
-                        </asp:DropDownList>
-                    </asp:PlaceHolder>
+                    <p class="text-muted">
+                        <%# Localization.GetText("ConnectionExist") %>
+                    </p>
+                    <%# Localization.GetText("ConnectionExistDesc") %>&nbsp;
+                    <asp:DropDownList ID="lbConnections" runat="server"
+                                      CssClass="form-select">
+                    </asp:DropDownList>
                     <hr/>
                     <YAF:ThemeButton ID="btnTestDBConnection" runat="server"
                                      Type="Info"
-                                     Text="<%# YAF.App_GlobalResources.Install.TestConnection %>"
+                                     Text='<%# Localization.GetText("TestConnection") %>'
                                      OnClick="TestDBConnection_Click"/>
                     <asp:PlaceHolder ID="ConnectionInfoHolder" runat="server" Visible="false">
                         <hr/>
@@ -94,57 +94,57 @@
                 <asp:WizardStep runat="server" Title="Manually Modify Database Connection" ID="WizManualDatabaseConnection">
                     <asp:PlaceHolder ID="NoWriteAppSettingsHolder" runat="server" Visible="false">
                         <h4>
-                            <%# YAF.App_GlobalResources.Install.NoWriteAppSettings %>
+                            <%# Localization.GetText("NoWriteAppSettings") %>
                         </h4>
                         <div class="alert alert-danger">
                             <span class="badge bg-danger">
-                                <%# YAF.App_GlobalResources.Install.Error %>
+                                <%# Localization.GetText("Error") %>
                             </span>
-                            <%# YAF.App_GlobalResources.Install.NoWriteAppSettingsNote %>
+                            <%# Localization.GetText("NoWriteAppSettingsNote") %>
                         </div>
                         <p>
-                            <%# YAF.App_GlobalResources.Install.OpenFile %><strong>
+                            <%# Localization.GetText("OpenFile") %><strong>
                                 <asp:Label runat="server" ID="lblAppSettingsFile">web.config</asp:Label></strong>
-                            <%# YAF.App_GlobalResources.Install.OpenFileDesc %>
+                            <%# Localization.GetText("OpenFileDesc") %>
                         </p>
                         <code>&lt;add key="YAF.ConnectionStringName" value="<asp:Label runat="server" ID="lblConnectionStringName"></asp:Label>"/&gt;</code>
                     </asp:PlaceHolder>
                     <asp:PlaceHolder ID="NoWriteDBSettingsHolder" runat="server" Visible="false">
                         <h4>
-                            <%# YAF.App_GlobalResources.Install.NoWriteConnSettings %>
+                            <%# Localization.GetText("NoWriteConnSettings") %>
                         </h4>
                         <div class="alert alert-danger">
                             <span class="badge bg-danger">
-                                <%# YAF.App_GlobalResources.Install.Error %>
+                                <%# Localization.GetText("Error") %>
                             </span>
-                            <%# YAF.App_GlobalResources.Install.NoWriteConnSettingsNote %>
+                            <%# Localization.GetText("NoWriteConnSettingsNote") %>
                         </div>
                         <p>
-                            <%# YAF.App_GlobalResources.Install.OpenFile %><strong><asp:Label runat="server" ID="lblDBSettingsFile">db.config</asp:Label></strong>
-                            <%# YAF.App_GlobalResources.Install.OpenFileDesc2 %>
+                            <%# Localization.GetText("OpenFile") %><strong><asp:Label runat="server" ID="lblDBSettingsFile">db.config</asp:Label></strong>
+                            <%# Localization.GetText("OpenFileDesc2") %>
                         </p>
                         <code>&lt;add name="<asp:Label runat="server" ID="lblDBConnStringName" />" connectionString="<asp:Label runat="server" ID="lblDBConnStringValue" />" /&gt;</code>
                     </asp:PlaceHolder>
-                    <p class="descriptionText">
-                        <%# YAF.App_GlobalResources.Install.NextReady %>
+                    <p class="text-muted">
+                        <%# Localization.GetText("NextReady") %>
                     </p>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Test Settings" ID="WizTestSettings">
                     <h4>
-                        <%# YAF.App_GlobalResources.Install.TestSettings %>
+                        <%# Localization.GetText("TestSettings") %>
                     </h4>
-                    <p class="descriptionText">
-                        <%# YAF.App_GlobalResources.Install.TestSettingsDesc %>
+                    <p class="text-muted">
+                        <%# Localization.GetText("TestSettingsDesc") %>
                     </p>
                     <p>
-                        <%# YAF.App_GlobalResources.Install.TestSettingsText %>
+                        <%# Localization.GetText("TestSettingsText") %>
                     </p>
                     <h4>
-                        <%# YAF.App_GlobalResources.Install.ConnectionTest %>
+                        <%# Localization.GetText("ConnectionTest") %>
                     </h4>
                     <YAF:ThemeButton ID="btnTestDBConnectionManual" runat="server"
                                      Type="Info"
-                                     Text="<%# YAF.App_GlobalResources.Install.ConnectionTest %>"
+                                     Text='<%# Localization.GetText("ConnectionTest") %>'
                                      OnClick="TestDBConnectionManual_Click"/>
                     <asp:PlaceHolder ID="ManualConnectionInfoHolder" runat="server" Visible="false">
                         <hr/>
@@ -152,29 +152,29 @@
                     </asp:PlaceHolder>
                     <hr />
                     <h4>
-                        <%# YAF.App_GlobalResources.Install.MailTest %>
+                        <%# Localization.GetText("MailTest") %>
                     </h4>
-                    <p class="descriptionText">
-                        <%# YAF.App_GlobalResources.Install.MailTestDesc %>
+                    <p class="text-muted">
+                        <%# Localization.GetText("MailTestDesc") %>
                     </p>
                     <div class="mb-3">
                         <asp:TextBox ID="txtTestFromEmail" runat="server"
-                                     Placeholder="<%# YAF.App_GlobalResources.Install.FromEmail %>"
+                                     Placeholder='<%# Localization.GetText("FromEmail") %>'
                                      RenderWrapper="True"
                                      Type="Email"
-                                     LabelText="<%# YAF.App_GlobalResources.Install.FromEmail %>"
+                                     LabelText='<%# Localization.GetText("FromEmail") %>'
                                      CssClass="form-control"/>
                     </div>
                     <div class="mb-3">
                     <asp:TextBox ID="txtTestToEmail" runat="server"
-                                 Placeholder="<%# YAF.App_GlobalResources.Install.ToEmail %>"
+                                 Placeholder='<%# Localization.GetText("ToEmail") %>'
                                  RenderWrapper="True"
                                  Type="Email"
-                                 LabelText="<%# YAF.App_GlobalResources.Install.ToEmail %>"
+                                 LabelText='<%# Localization.GetText("ToEmail") %>'
                                  CssClass="form-control"/>
                     </div>
                     <YAF:ThemeButton ID="btnTestSmtp" runat="server"
-                                     Text="<%# YAF.App_GlobalResources.Install.TestEmail %>"
+                                     Text='<%# Localization.GetText("TestEmail") %>'
                                      Type="Info"
                                      OnClick="TestSmtp_Click" />
                     <asp:PlaceHolder ID="SmtpInfoHolder" runat="server" Visible="false">
@@ -184,19 +184,19 @@
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Upgrade Database" ID="WizInitDatabase">
                     <h4>
-                            <%# YAF.App_GlobalResources.Install.Initialize %> <%# YAF.App_GlobalResources.Install.Database %>
+                            <%# Localization.GetText("Initialize") %> <%# Localization.GetText("Database") %>
                     </h4>
-                    <p class="descriptionText">
-                        <%# YAF.App_GlobalResources.Install.NextInitDb %>
+                    <p class="text-muted">
+                        <%# Localization.GetText("NextInitDb")%>
                     </p>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Create Forum" ID="WizCreateForum">
                     <h4>
-                        <%# YAF.App_GlobalResources.Install.CreateBoard %>
+                        <%# Localization.GetText("CreateBoard") %>
                     </h4>
                     <div class="mb-3">
                         <asp:TextBox ID="TheForumName" runat="server"
-                                     Placeholder="<%# YAF.App_GlobalResources.Install.BoardName %>"
+                                     Placeholder='<%# Localization.GetText("BoardName") %>'
                                      RenderWrapper="True"
                                      LabelText="Board Name"
                                      CssClass="form-control"/>
@@ -204,17 +204,17 @@
                     <div class="mb-3">
                         <asp:Label id="Label7" runat="server"
                                    AssociatedControlId="Cultures">
-                            <%# YAF.App_GlobalResources.Install.Culture %>
+                            <%# Localization.GetText("Culture") %>
                         </asp:Label>
                         <asp:DropDownList ID="Cultures" runat="server"
                                           CssClass="form-select" />
                     </div>
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlId="ForumEmailAddress">
-                            <%# YAF.App_GlobalResources.Install.ForumEmail %>
+                            <%# Localization.GetText("ForumEmail") %>
                         </asp:Label>
                     <asp:TextBox ID="ForumEmailAddress" runat="server"
-                                 Placeholder="<%# YAF.App_GlobalResources.Install.ForumEmail %>"
+                                 Placeholder='<%# Localization.GetText("ForumEmail") %>'
                                  RenderWrapper="True"
                                  LabelText="Forum Email"
                                  Type="Email"
@@ -222,10 +222,10 @@
                     </div>
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlId="ForumBaseUrlMask">
-                            <%# YAF.App_GlobalResources.Install.ForumUrl %>
+                            <%# Localization.GetText("ForumUrl") %>
                         </asp:Label>
                         <asp:TextBox ID="ForumBaseUrlMask" runat="server"
-                                     Placeholder="<%# YAF.App_GlobalResources.Install.ForumUrl %>"
+                                     Placeholder='<%# Localization.GetText("ForumUrl") %>'
                                      RenderWrapper="True"
                                      LabelText="Forum Base Url Mask"
                                      Type="Url"
@@ -233,18 +233,18 @@
                     </div>
                     <hr/>
                     <h4>
-                        <%# YAF.App_GlobalResources.Install.CreateUser %>
+                        <%# Localization.GetText("CreateUser") %>
                     </h4>
                     <div class="mb-3">
                             <asp:TextBox ID="UserName" runat="server"
-                                         Placeholder="<%# YAF.App_GlobalResources.Install.AdminName %>"
+                                         Placeholder='<%# Localization.GetText("AdminName") %>'
                                          RenderWrapper="True"
                                          LabelText="Admin User Name"
                                          CssClass="form-control"/>
                         </div>
                         <div class="mb-3">
                             <asp:TextBox ID="AdminEmail" runat="server"
-                                         Placeholder="<%# YAF.App_GlobalResources.Install.AdminEmail %>"
+                                         Placeholder='<%# Localization.GetText("AdminEmail") %>'
                                          RenderWrapper="True"
                                          LabelText="Admin E-mail"
                                          Type="Email"
@@ -252,7 +252,7 @@
                         </div>
                         <div class="mb-3">
                             <asp:TextBox ID="Password1" runat="server"
-                                         Placeholder="<%# YAF.App_GlobalResources.Install.AdminPassword %>"
+                                         Placeholder='<%# Localization.GetText("AdminPassword") %>'
                                          RenderWrapper="True"
                                          LabelText="Admin Password"
                                          TextMode="Password"
@@ -261,7 +261,7 @@
                         </div>
                         <div class="mb-3">
                             <asp:TextBox ID="Password2" runat="server"
-                                         Placeholder="<%# YAF.App_GlobalResources.Install.AdminPassword2 %>"
+                                         Placeholder='<%# Localization.GetText("AdminPassword2") %>'
                                          RenderWrapper="True"
                                          LabelText="Confirm Password"
                                          TextMode="Password"
@@ -271,23 +271,23 @@
                 </asp:WizardStep>
             <asp:WizardStep runat="server" StepType="Finish" Title="Finished" ID="WizFinished">
                     <h4>
-                        <%# YAF.App_GlobalResources.Install.Setup%> <%# YAF.App_GlobalResources.Install.Finished %>
+                        <%# Localization.GetText("Setup")%> <%# Localization.GetText("Finished") %>
                     </h4>
-                    <p class="descriptionText"><%# YAF.App_GlobalResources.Install.FinishDesc %></p>
-                    <p><%# YAF.App_GlobalResources.Install.InitFinish%></p>
+                    <p class="text-muted"><%# Localization.GetText("FinishDesc") %></p>
+                    <p><%# Localization.GetText("InitFinish")%></p>
                 </asp:WizardStep>
             </WizardSteps>
             <FinishNavigationTemplate>
                 <YAF:ThemeButton ID="FinishPreviousButton" runat="server"
                                  CommandName="MovePrevious"
                                  Icon="arrow-alt-circle-left"
-                                 Text="<%# YAF.App_GlobalResources.Install.Previous %>"
+                                 Text='<%# Localization.GetText("Previous") %>'
                                  Type="Secondary" />
                 <YAF:ThemeButton ID="FinishButton" runat="server"
                                  Icon="check-circle"
                                  Type="Success"
                                  CommandName="MoveComplete"
-                                 Text="<%# YAF.App_GlobalResources.Install.Finish %>" />
+                                 Text='<%# Localization.GetText("Finish") %>' />
             </FinishNavigationTemplate>
             <LayoutTemplate>
                 <div class="yafWizard modal fade" data-bs-backdrop="static">
@@ -312,7 +312,7 @@
                                            <path d="M4349.68,845.34h266.26v59.47H4512v376h-58.79v-376H4349.68Z" transform="translate(0 0)" style="fill:#444342"/>
                                        </g>
                                    </svg>
-                                    <%# YAF.App_GlobalResources.Install.Installation%> Wizard
+                                    <%# Localization.GetText("Installation")%> Wizard
                                 </h5>
                                 <span>
                                     <asp:DropDownList ID="Languages" runat="server"
@@ -369,7 +369,7 @@
                                      Icon="arrow-alt-circle-right"
                                      Type="Primary"
                                      CommandName="MoveNext"
-                                     Text="<%# YAF.App_GlobalResources.Install.Next %>"/>
+                                     Text='<%# Localization.GetText("Next") %>'/>
             </StartNavigationTemplate>
             <StepNavigationTemplate>
                     <YAF:ThemeButton ID="StepPreviousButton" runat="server"
@@ -377,12 +377,12 @@
                                      Icon="arrow-alt-circle-left"
                                      Visible="false"
                                      CommandName="MovePrevious"
-                                     Text="<%# YAF.App_GlobalResources.Install.Previous %>" />
+                                     Text='<%# Localization.GetText("Previous") %>' />
                     <YAF:ThemeButton ID="StepNextButton" runat="server"
                                      Type="Primary"
                                      Icon="arrow-alt-circle-right"
                                      CommandName="MoveNext"
-                                     Text="<%# YAF.App_GlobalResources.Install.Next %>" />
+                                     Text='<%# Localization.GetText("Next") %>' />
             </StepNavigationTemplate>
         </asp:Wizard>
     </form>

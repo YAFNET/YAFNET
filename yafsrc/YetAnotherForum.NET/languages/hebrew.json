@@ -8404,6 +8404,10 @@
             "#text": "חפש בגוגל..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "הצג הסתר"
           },
@@ -8562,10 +8566,6 @@
           {
             "@tag": "YES",
             "#text": "כן"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11150,6 +11150,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "מושעים"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "כתובת דואר אלקטרוני"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "הזן את שם משתמש העל"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "סיסמה"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "אמת את הסיסמה"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "הזן את שם הלוח החדש"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "הגדר סיסמא"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "פרטי חיבור"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "בחר מחרוזת חיבור קיימת"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "בחר מחרוזת חיבור מסד נתונים של SQL Server:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "ההתחברות נכשלה:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "צור מחרוזת חיבור חדשה"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "מחרוזת חיבור תישמר כ-"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "החיבור הצליח"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "מבחן חיבור מסד נתונים"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "צור לוח חדש"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "צור משתמש סופר חדש (מארח)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "תרבות המשתמש האורח (שפה)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "גרסה נוכחית:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "מאגר מידע"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "הזן את מקור הנתונים (שם או כתובת של שרת ה- sql)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "חיבור מסד נתונים של YAF.NET"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "הזן את שם בסיס הנתונים"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "שם משתמש עבור אותה כתובת דואר אלקטרוני כבר קיים. אנא הזן כתובת דואר אלקטרוני אחרת."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "שם משתמש כבר קיים. נא להזין שם משתמש אחר."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "שגיאה"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "הלוח כבר מותקן."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "עליך להזין שם לוח."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "עליך לעדכן את הגדרות היישום שלך באמצעות מפתח YAF.ConfigPassword כדי להמשיך. הערה: שם המפתח הוא תלוי רישיות."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "עליך להזין כתובת דוא\"ל של הלוח."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "עליך להזין סיסמה."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "יצירת משתמש מנהל נכשלה:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "עליך להזין את כתובת הדוא\"ל של משתמש העל."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "עליך להזין את שם המשתמש של משתמש העל,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "שם המשתמש הקיים אינו חוקי ואינו מייצג משתמש נוכחי בחנות החברות."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "הזנת את <strong> סיסמא שגויה </ strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "השתמש במחרוזת חיבור DB קיימת"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "סיום"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "לחיצה על סיום תעביר אותך לעמוד הראשי של הפורום."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "סיים"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "כתובת אימייל בפורום"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "מסכת כתובת אתר של Base Forum"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "הזן את כתובת הדוא\"ל"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "הפורום שלך כבר מוכן."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "לאתחל"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "התקנה"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "השתמש באבטחה משולבת"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "התשובה לשליפת הסיסמה שסופקה אינה חוקית. אנא בדוק את הערך ונסה שוב."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "כתובת הדואר האלקטרוני שצוינה אינה חוקית. אנא בדוק את הערך ונסה שוב."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "הסיסמה שצוינה אינה חוקית. אנא הכנס ערך סיסמא תקף."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "שאלת אחזור הסיסמה שנמסרה אינה חוקית. אנא בדוק את הערך ונסה שוב."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "שם המשתמש שסופק אינו חוקי. אנא בדוק את הערך ונסה שוב."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "מבחן שליחת דואר (SMTP)"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "שולח הודעת מבחן לכתובת הדוא\"ל המוגדרת כ- שלח לכתובת"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "צור מחרוזת חיבור DB חדשה"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "הבא"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "לחיצה על \"הבא\" תאתחל את בסיס הנתונים לגירסה האחרונה."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "לחץ על \"הבא\" כשתהיה מוכן."
+          },
+          {
+            "@tag": "NO",
+            "#text": "לא"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "הערה"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "אין גישה לכתיבה להגדרות"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "לא ניתן לשנות את קובץ התצורה שלך להגדרת חיבור מסד נתונים ללא הרשאת כתיבה."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "אין גישה לכתיבה למיתרי חיבור למסד נתונים"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "לא ניתן לשנות את קובץ התצורה שלך להגדרת מחרוזת חיבור מסד נתונים ללא הרשאת כתיבה."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "אנא פתח את ה-"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "קובץ בספריית השורש של היישום והוסף / עדכן את המפתח הבא ב & lt; AppSettings & gt; קטע:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "קובץ בספריית השורש של היישום והוסף / עדכן את המפתח הבא ב & lt; connectionStrings & gt; קטע:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "האימות אינו זהה לסיסמה שלך."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "ל- YAF.NET גישה לכתיבה לספריית יישומי השורש (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "ל- YAF.NET גישה לכתיבה לספריית \"~ / העלאה\" ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "קודם"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "ספק האימות החזיר שגיאה. אמת את הרשומה שלך ונסה שוב. אם הבעיה נמשכת, אנא צור קשר עם מנהל המערכת שלך."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "התשובה לשאלת האבטחה"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "השאלה שתישאל כשאתה צריך לאחזר את הסיסמה שאבדה"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "להכין"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "נראה כי שליחת הדוא\"ל עובדת מהתקנת YAF שלך."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "פרטי בדיקת SMTP"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "בדוק דוא\"ל מפורום אחר"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "דואר נשלח. ודא שהוא התקבל בכתובת הדוא\"ל שהזנת."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "הזן את סיסמת SQL"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "הזן את שם המשתמש של SQL"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "חיבור מבחן"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "בדוק את הגדרות ה- Smtp"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "הרשאת מבחן"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "הגדרות בדיקה"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "לחץ על כפתור \"קודם\" כדי לערוך את תצורת בסיס הנתונים."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "מומלץ לבדוק כאן את הגדרות התצורה של YAF לפני שתמשיך."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "אזור זמן אורח למשתמש"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "הזן את כתובת הדוא\"ל"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "לא בדוק"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "בקשת יצירת המשתמש בוטלה. אמת את הרשומה שלך ונסה שוב. אם הבעיה נמשכת, אנא צור קשר עם מנהל המערכת שלך."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "אמת את ההרשאות"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "YetAnotherForum.NET התקנה קלה יותר כאשר לאפליקציה יש גישה לכתיבה ל- .config שלך\r\n                        קבצים."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "לחץ למטה כדי לבדוק אם ההרשאות נכונות. אם הם לא, אתה יכול\r\n                        השתמש עדיין באשף ההתקנה."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "ברוך הבא להתקנת YAF.NET"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "לחץ על \"הבא\" כדי להתחיל בתהליך ההתקנה."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "מתקין זה ידריך אתכם בשלבים הנדרשים להתקנת YetAnotherForum.NET (YAF.NET)."
+          },
+          {
+            "@tag": "YES",
+            "#text": "כן"
           }
         ]
       },

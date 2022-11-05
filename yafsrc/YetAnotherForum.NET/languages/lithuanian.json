@@ -8400,6 +8400,10 @@
             "#text": "Ieškokite \"Google\"..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Rodyti / slėpti"
           },
@@ -8558,10 +8562,6 @@
           {
             "@tag": "YES",
             "#text": "Taip"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11146,6 +11146,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Pakabinamos "
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "Elektroninio pašto adresas"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Įveskite super vartotojo vardą"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Slaptažodis"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Patvirtinkite slaptažodį"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Įveskite naujos valdybos pavadinimą"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Konfigūruoti slaptažodį"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Informacija apie jungtį"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Pasirinkite esamą ryšio eilutę"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Pasirinkite „SQL Server“ duomenų bazės ryšio eilutę:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Nepavyko prisijungti:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Sukurkite naują ryšio eilutę"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Ryšio eilutė bus išsaugota kaip"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Ryšys pavyko"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Duomenų bazės ryšio testas"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Sukurti naują valdybą"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Sukurti naują super vartotoją (pagrindinį kompiuterį)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Svečio vartotojo kultūra (kalba)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Dabartinė versija:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "Duomenų bazė"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Įveskite duomenų šaltinį („SQL“ serverio pavadinimas arba adresas)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "YAF.NET duomenų bazės ryšys"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Įveskite duomenų bazės pavadinimą"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "To el. Pašto vartotojo vardas jau yra. Įveskite kitą el. Pašto adresą."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Vardas jau egzistuoja. Įveskite kitą vartotojo vardą."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Klaida"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Plokštė jau įdiegta."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "Turite įvesti valdybos pavadinimą."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "Jei norite tęsti, turite atnaujinti „appSettings“ naudodami „YAF.ConfigPassword Key“. PASTABA: rakto pavadinime yra didžiosios ir mažosios raidės."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "Turite įvesti valdybos el. Pašto adresą."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "Turite įvesti slaptažodį."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Nepavyko sukurti administratoriaus vartotojo:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "Turite įvesti super vartotojo el. Pašto adresą."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "Turite įvesti super vartotojo vardą,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Esamas vartotojo vardas neteisingas ir neatstovauja dabartiniam vartotojui narystės parduotuvėje."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "Įvedėte <strong> neteisingą slaptažodį </strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Naudokite esamą DB ryšio eilutę"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Baigti"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Spustelėję Baigti, pateksite į pagrindinį forumo puslapį."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "Baigta"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "Forumo el. Pašto adresas"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Forumo bazės URL kaukė"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Įveskite iš el. Pašto adreso"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Jūsų forumas dabar paruoštas."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "Pradėti"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Montavimas"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Naudokite integruotą apsaugą"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "Pateiktas slaptažodžio gavimo atsakymas yra neteisingas. Patikrinkite vertę ir bandykite dar kartą."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "Pateiktas el. Pašto adresas neteisingas. Patikrinkite vertę ir bandykite dar kartą."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "Pateiktas slaptažodis neteisingas. Įveskite teisingą slaptažodžio reikšmę."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "Pateiktas slaptažodžio gavimo klausimas yra neteisingas. Patikrinkite vertę ir bandykite dar kartą."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "Pateiktas vartotojo vardas neteisingas. Patikrinkite vertę ir bandykite dar kartą."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Pašto (SMTP) siuntimo testas"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Siunčia bandomąjį pranešimą el. Pašto adresu, kuris apibūdinamas kaip Siųsti į adresą"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Sukurkite naują DB ryšio eilutę"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Kitas"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Spustelėjus „Kitas“, jūsų duomenų bazė bus inicializuota į naujausią versiją."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Spustelėkite „Kitas“, kai būsite pasiruošę."
+          },
+          {
+            "@tag": "NO",
+            "#text": "NE"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Pastaba"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Nėra rašymo prieigos prie nustatymų"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Nepavyko modifikuoti savo konfigūracijos failo, kad jis nustatytų duomenų bazės ryšį, nes neturi rašymo leidimo."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Nėra rašymo prieigos prie duomenų bazės eilučių"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Nepavyko modifikuoti savo konfigūracijos failo, kad nustatytumėte duomenų bazės ryšio eilutę, nes neturite teisės rašyti."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Prašome atidaryti"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "failą programos šakniniame kataloge ir pridėkite / atnaujinkite šį raktą į & lt; AppSettings & gt; skyrius:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "failą programos šakniniame kataloge ir pridėkite / atnaujinkite šį raktą į & lt; connectionStrings & gt; skyrius:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Patvirtinimas nėra tas pats kaip jūsų slaptažodis."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET turi rašymo prieigą prie šakninių programų katalogo (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET turi rašymo prieigą prie „~ / Įkelti“ katalogo ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "Ankstesnis"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "Autentifikavimo teikėjas grąžino klaidą. Patikrinkite savo įrašą ir bandykite dar kartą. Jei problema išlieka, susisiekite su sistemos administratoriumi."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "Atsakymas į saugumo klausimą"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "Klausimas, kuris bus užduotas, kai reikės susigrąžinti prarastą slaptažodį"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Sąranka"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "Panašu, kad el. Laiškų siuntimas veikia iš jūsų YAF diegimo."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "SMTP testo duomenys"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Testuokite el. Laišką iš dar vieno forumo.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Paštas išsiųstas. Patikrinkite, ar jis gautas jūsų įvestu el. Pašto adresu."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Įveskite SQL slaptažodį"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Įveskite SQL vartotojo vardą"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Tikrinkite ryšį"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Išbandykite „Smtp“ nustatymus"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Testo leidimas"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Testo nustatymai"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Spustelėkite mygtuką „Ankstesnis“, norėdami redaguoti duomenų bazės konfigūraciją."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Prieš tęsdami, čia galite išbandyti YAF konfigūracijos parametrus."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Svečio vartotojo laiko juosta"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Įveskite el. Pašto adresą"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "Nepažymėtas"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "Vartotojo atšaukimo užklausa atšaukta. Patikrinkite savo įrašą ir bandykite dar kartą. Jei problema išlieka, susisiekite su sistemos administratoriumi."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Patvirtinti leidimus"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "„YetAnotherForum.NET“ įdiegti lengviau, kai programa turi rašymo prieigą prie jūsų .config\r\n                        bylos."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Spustelėkite žemiau, kad patikrintumėte, ar teisingi leidimai. Jei jų nėra, galite\r\n                        vis tiek naudokite diegimo vedlį."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Sveiki apsilankę YAF.NET diegime"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Spustelėkite „Kitas“, kad pradėtumėte diegimo procesą."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Šis diegimo programa padės jums atlikti veiksmus, kurių reikia norint įdiegti „YetAnotherForum.NET“ (YAF.NET)."
+          },
+          {
+            "@tag": "YES",
+            "#text": "TAIP"
           }
         ]
       },

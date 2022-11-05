@@ -1,8 +1,8 @@
-//------------------------------------------------------------------------------
+ï»¿//------------------------------------------------------------------------------
 // <automatisch generiert>
 //     Dieser Code wurde von einem Tool generiert.
 //
-//     Änderungen an dieser Datei können fehlerhaftes Verhalten verursachen und gehen verloren, wenn
+//     Ã„nderungen an dieser Datei kÃ¶nnen fehlerhaftes Verhalten verursachen und gehen verloren, wenn
 //     der Code neu generiert wird.
 // </automatisch generiert>
 //------------------------------------------------------------------------------
@@ -19,7 +19,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlHead YafHead;
 
@@ -28,7 +28,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlMeta YafMetaScriptingLanguage;
 
@@ -37,7 +37,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlMeta YafMetaStyles;
 
@@ -46,7 +46,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm Form1;
 
@@ -55,7 +55,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
@@ -64,7 +64,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Wizard InstallWizard;
 
@@ -73,7 +73,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizWelcome;
 
@@ -82,7 +82,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizValidatePermission;
 
@@ -91,7 +91,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPermissionApp;
 
@@ -100,7 +100,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPermissionUpload;
 
@@ -109,7 +109,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton btnTestPermissions;
 
@@ -118,7 +118,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizDatabaseConnection;
 
@@ -127,7 +127,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ExistingConnectionHolder;
 
@@ -136,7 +136,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList lbConnections;
 
@@ -145,7 +145,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton btnTestDBConnection;
 
@@ -154,7 +154,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ConnectionInfoHolder;
 
@@ -163,7 +163,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal lblConnectionDetails;
 
@@ -172,7 +172,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizManualDatabaseConnection;
 
@@ -181,7 +181,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder NoWriteAppSettingsHolder;
 
@@ -190,7 +190,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAppSettingsFile;
 
@@ -199,7 +199,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblConnectionStringName;
 
@@ -208,7 +208,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder NoWriteDBSettingsHolder;
 
@@ -217,7 +217,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDBSettingsFile;
 
@@ -226,7 +226,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDBConnStringName;
 
@@ -235,7 +235,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDBConnStringValue;
 
@@ -244,7 +244,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizTestSettings;
 
@@ -253,7 +253,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton btnTestDBConnectionManual;
 
@@ -262,7 +262,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ManualConnectionInfoHolder;
 
@@ -271,7 +271,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal lblConnectionDetailsManual;
 
@@ -280,7 +280,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTestFromEmail;
 
@@ -289,7 +289,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTestToEmail;
 
@@ -298,7 +298,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton btnTestSmtp;
 
@@ -307,7 +307,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder SmtpInfoHolder;
 
@@ -316,7 +316,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal lblSmtpTestDetails;
 
@@ -325,7 +325,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizInitDatabase;
 
@@ -334,7 +334,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizCreateForum;
 
@@ -343,7 +343,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TheForumName;
 
@@ -352,7 +352,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label7;
 
@@ -361,7 +361,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList Cultures;
 
@@ -370,7 +370,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ForumEmailAddress;
 
@@ -379,7 +379,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ForumBaseUrlMask;
 
@@ -388,7 +388,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserName;
 
@@ -397,7 +397,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox AdminEmail;
 
@@ -406,7 +406,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Password1;
 
@@ -415,7 +415,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Password2;
 
@@ -424,7 +424,7 @@ namespace YAF.Install
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// Zum Ã„ndern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizFinished;
     }

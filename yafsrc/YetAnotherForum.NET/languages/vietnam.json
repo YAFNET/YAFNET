@@ -8400,6 +8400,10 @@
             "#text": "Tìm kiếm trên Google cho ..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Hiện an"
           },
@@ -8558,10 +8562,6 @@
           {
             "@tag": "YES",
             "#text": "Đúng"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11146,6 +11146,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Tạm khoá"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Trình cài đặt này sẽ hướng dẫn bạn các bước cần thiết để Cài đặt YetAnotherForum.NET (YAF.NET)."
+          },
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "Địa chỉ email"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Nhập tên của siêu người dùng"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Mật khẩu"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Xác nhận lại mật khẩu"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Nhập tên của Hội đồng quản trị mới"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Cấu hình mật khẩu"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Chi tiết kết nối"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Chọn Chuỗi kết nối hiện có"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Chọn Chuỗi kết nối cơ sở dữ liệu SQL Server:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Kết nối thất bại:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Tạo chuỗi kết nối mới"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Chuỗi kết nối sẽ được lưu dưới dạng"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Kết nối thành công"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Kiểm tra kết nối cơ sở dữ liệu"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Tạo bảng mới"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Tạo siêu người dùng mới (Máy chủ)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Văn hóa người dùng của khách (Ngôn ngữ)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Phiên bản hiện tại:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "Cơ sở dữ liệu"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Nhập nguồn dữ liệu (Tên hoặc địa chỉ của máy chủ sql)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "Kết nối cơ sở dữ liệu YAF.NET"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Nhập tên cơ sở dữ liệu"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "Tên người dùng cho địa chỉ email đó đã tồn tại. Vui lòng nhập một địa chỉ email khác."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Tên này đã có người dùng. Vui lòng nhập một tên người dùng khác nhau."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "lỗi"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Bảng đã được cài đặt."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "Bạn phải nhập tên Hội đồng."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "Bạn phải cập nhật Cài đặt ứng dụng của mình với Khóa YAF.ConfigPassword để tiếp tục. LƯU Ý: Tên khóa là trường hợp nhạy cảm."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "Bạn phải nhập một địa chỉ email của Hội đồng."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "Bạn phải nhập mật khẩu."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Tạo quản trị viên không thành công:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "Bạn phải nhập địa chỉ email siêu người dùng."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "Bạn phải nhập tên người dùng siêu,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Tên người dùng hiện tại không hợp lệ và không đại diện cho người dùng hiện tại trong cửa hàng thành viên."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "Bạn đã nhập <strong> mật khẩu sai </ strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Sử dụng chuỗi kết nối DB hiện có"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Hoàn thành"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Nhấp vào Kết thúc sẽ đưa bạn đến trang chính của Diễn đàn."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "Đã kết thúc"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "Địa chỉ Email diễn đàn"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Diễn đàn Url Mask"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Nhập địa chỉ từ Email"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Diễn đàn của bạn đã sẵn sàng."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "Khởi tạo"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Cài đặt"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Sử dụng bảo mật tích hợp"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "Câu trả lời lấy lại mật khẩu được cung cấp là không hợp lệ. Vui lòng kiểm tra giá trị và thử lại."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "Địa chỉ e-mail được cung cấp không hợp lệ. Vui lòng kiểm tra giá trị và thử lại."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "Mật khẩu được cung cấp không hợp lệ. Vui lòng nhập một giá trị mật khẩu hợp lệ."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "Câu hỏi truy xuất mật khẩu được cung cấp không hợp lệ. Vui lòng kiểm tra giá trị và thử lại."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "Tên người dùng được cung cấp không hợp lệ. Vui lòng kiểm tra giá trị và thử lại."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Kiểm tra gửi thư (SMTP)"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Gửi tin nhắn kiểm tra đến địa chỉ Email được xác định là Gửi đến địa chỉ"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Tạo chuỗi kết nối DB mới"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Kế tiếp"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Nhấp vào \"Tiếp theo\" sẽ khởi tạo cơ sở dữ liệu của bạn lên phiên bản mới nhất."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Nhấp vào \"Tiếp theo\" khi bạn đã sẵn sàng."
+          },
+          {
+            "@tag": "NO",
+            "#text": "KHÔNG"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "chú thích"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Không có quyền truy cập ghi vào cài đặt"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Không thể sửa đổi tệp cấu hình của bạn để đặt Kết nối cơ sở dữ liệu do không có quyền ghi."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Không có quyền truy cập ghi vào chuỗi kết nối cơ sở dữ liệu"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Không thể sửa đổi tệp cấu hình của bạn để đặt chuỗi Kết nối cơ sở dữ liệu do không có quyền ghi."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Vui lòng mở"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "tệp trong thư mục gốc của ứng dụng và thêm / cập nhật khóa sau trong phần <Cài đặt ứng dụng>:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "tệp trong thư mục gốc của ứng dụng và thêm / cập nhật khóa sau trong phần <ConnectionStrings>:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Xác minh không giống như mật khẩu của bạn."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET có quyền truy cập ghi vào thư mục ứng dụng gốc (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET có quyền truy cập ghi vào thư mục \"~ / Tải lên\" ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "Trước"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "Nhà cung cấp xác thực trả lại một lỗi. Vui lòng xác nhận nhập cảnh của bạn và thử lại. Nếu sự cố vẫn còn, vui lòng liên hệ với quản trị viên hệ thống của bạn."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "Câu trả lời cho câu hỏi bảo mật"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "Câu hỏi bạn sẽ được hỏi khi bạn cần lấy lại mật khẩu bị mất"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Thiết lập"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "Việc gửi email dường như đang hoạt động từ cài đặt YAF của bạn."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "Chi tiết kiểm tra SMTP"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Kiểm tra email từ một diễn đàn khác.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Thư đã gửi. Xác nhận nó nhận được tại địa chỉ email đã nhập của bạn."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Nhập mật khẩu SQL"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Nhập tên người dùng SQL"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Kiểm tra kết nối"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Kiểm tra cài đặt Smtp"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Giấy phép thử nghiệm"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Cài đặt kiểm tra"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Nhấp vào nút \"Trước\" để chỉnh sửa cấu hình cơ sở dữ liệu."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Bạn có thể muốn kiểm tra cài đặt cấu hình YAF của mình tại đây trước khi tiếp tục."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Múi giờ của người dùng"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Nhập địa chỉ email"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "Bỏ chọn"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "Yêu cầu tạo người dùng đã bị hủy. Vui lòng xác nhận nhập cảnh của bạn và thử lại. Nếu sự cố vẫn còn, vui lòng liên hệ với quản trị viên hệ thống của bạn."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Xác thực quyền"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "Cài đặt YetAnotherForum.NET dễ dàng hơn khi Ứng dụng có quyền truy cập ghi vào .config của bạn\r\n                        các tập tin."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Nhấp vào bên dưới để kiểm tra nếu quyền là chính xác. Nếu họ không, bạn có thể\r\n                        vẫn sử dụng trình hướng dẫn cài đặt."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Chào mừng bạn đến với Cài đặt YAF.NET"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Nhấp vào \"Tiếp theo\" để bắt đầu quá trình Cài đặt."
+          },
+          {
+            "@tag": "YES",
+            "#text": "VÂNG"
           }
         ]
       },

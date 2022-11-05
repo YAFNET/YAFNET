@@ -8400,6 +8400,10 @@
             "#text": "Søk på Google etter..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Vis skjul"
           },
@@ -8558,10 +8562,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11146,6 +11146,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Suspendert"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "Epost adresse"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Skriv inn navnet på superbrukeren"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Passord"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Bekreft passord"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Skriv inn navnet på det nye styret"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Konfigurer passord"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Tilkoblingsdetaljer"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Velg Eksisterende tilkoblingsstreng"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Velg SQL Server Database Connection String:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Tilkobling mislyktes:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Lag ny tilkoblingsstreng"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Tilkoblingsstreng lagres som"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Tilkoblingen lyktes"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Test av databasetilkobling"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Lag nytt styre"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Opprett ny superbruker (vert)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Gjestebrukerkultur (språk)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Gjeldende versjon:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "database"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Skriv inn datakilden (navn eller adresse på sql-serveren)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "YAF.NET databasetilkobling"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Skriv inn databasenavnet"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "Et brukernavn for den e-postadressen eksisterer allerede. Skriv inn en annen e-postadresse."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Brukernavn finnes allerede. Skriv inn et annet brukernavn."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Feil"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Board er allerede installert."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "Du må oppgi et styrenavn."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "Du må oppdatere appinnstillingene dine med YAF.ConfigPassword Key for å fortsette. MERKNAD: Nøkkelnavnet er små og små bokstaver."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "Du må oppgi en e-postadresse for styret."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "Du må oppgi et passord."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Opprett administratorbruker mislyktes:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "Du må oppgi e-postadressen for superbrukeren."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "Du må oppgi superbrukerbrukernavnet,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Det eksisterende brukernavnet er ugyldig og representerer ikke en gjeldende bruker i medlemsbutikken."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "Du skrev inn <strong> feil passord </strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Bruk eksisterende DB-tilkoblingsstreng"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Bli ferdig"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Hvis du klikker på Fullfør, vil du ta deg til forumets hovedside."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "ferdig"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "Forumets e-postadresse"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Forum Base Url Mask"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Skriv inn e-postadressen"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Forumet ditt er nå klart."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "initial~~POS=TRUNC"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Installasjon"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Bruk integrert sikkerhet"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "Svaret med passordinnhenting er ugyldig. Sjekk verdien og prøv igjen."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "Den oppgitte e-postadressen er ugyldig. Sjekk verdien og prøv igjen."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "Passordet som er oppgitt, er ugyldig. Angi en gyldig passordverdi."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "Spørsmålet om henting av passord er ugyldig. Sjekk verdien og prøv igjen."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "Brukernavnet som er oppgitt, er ugyldig. Sjekk verdien og prøv igjen."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Mail (SMTP) sendingstest"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Sender en testmelding til e-postadressen som er definert som Send til adresse"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Lag ny DB-tilkoblingsstreng"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "neste"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Hvis du klikker \"Neste\", vil databasen initialiseres til den nyeste versjonen."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Klikk \"Neste\" når du er klar."
+          },
+          {
+            "@tag": "NO",
+            "#text": "NEI"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Merk"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Ingen skrivetilgang til innstillinger"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Kan ikke endre konfigurasjonsfilen din til å angi databaseforbindelse på grunn av ingen skrivetillatelse."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Ingen skrivetilgang til databasetilkoblingsstrenger"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Kan ikke endre konfigurasjonsfilen din til å angi databaseforbindelsesstreng på grunn av ingen skrivetillatelse."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Åpne"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "filen i programrotens katalog og legg til / oppdater følgende nøkkel i & lt; AppSettings & gt; seksjon:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "fil i programrotens katalog og legg til / oppdater følgende nøkkel i & lt; connectionStrings & gt; seksjon:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Bekreftelsen er ikke den samme som passordet ditt."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET har skrivetilgang til Root Application Directory (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET har skrivetilgang til katalogen \"~ / Last opp\" ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "Tidligere"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "Autentiseringsleverandøren returnerte en feil. Bekreft oppføringen din og prøv igjen. Hvis problemet vedvarer, kan du kontakte systemadministratoren."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "Svaret på sikkerhetsspørsmålet"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "Spørsmålet du vil bli stilt når du trenger å hente det tapte passordet"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Setup"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "E-post sendingen ser ut til å fungere fra YAF-installasjonen."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "SMTP-testdetaljer"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Test e-post fra nok et forum.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "E-post sendt. Bekreft at den er mottatt på din e-postadresse."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Skriv inn SQL-passordet"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Skriv inn SQL-brukernavnet"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Testforbindelse"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Test Smtp-innstillinger"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Testtillatelse"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Testinnstillinger"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Klikk på \"Forrige\" -knappen for å redigere databasekonfigurasjonen."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Det kan være lurt å teste YAF-konfigurasjonsinnstillingene her før du fortsetter."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Gjestebrukerens tidssone"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Skriv inn e-postadressen"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "ukontrollert"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "Forespørsel om opprettelse av bruker er kansellert. Bekreft oppføringen din og prøv igjen. Hvis problemet vedvarer, kan du kontakte systemadministratoren."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Valider tillatelser"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "YetAnotherForum.NET-installasjonen er enklere når applikasjonen har skrivetilgang til .config\r\n                        filer."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Klikk nedenfor for å teste om tillatelsene er riktige. Hvis de ikke er det, kan du gjøre det\r\n                        bruk fortsatt installasjonsveiviseren."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Velkommen til YAF.NET-installasjonen"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Klikk \"Neste\" for å starte installasjonsprosessen."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Denne installatøren vil guide deg gjennom trinnene som kreves for å installere YetAnotherForum.NET (YAF.NET)."
+          },
+          {
+            "@tag": "YES",
+            "#text": "JA"
           }
         ]
       },

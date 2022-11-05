@@ -63,12 +63,12 @@ public class UpdateSearchIndexTask : LongBackgroundTask
                 return;
             }
 
-            var forums = this.GetRepository<Forum>().ListAll(BoardContext.Current.PageBoardID);
-
             if (!IsTimeToUpdateSearchIndex())
             {
                 return;
             }
+
+            var forums = this.GetRepository<Forum>().ListAll(BoardContext.Current.PageBoardID);
 
             forums.ForEach(
                 forum =>

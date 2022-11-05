@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Mail" Codebehind="Mail.ascx.cs" %>
 
-
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
     <div class="row">
@@ -77,7 +76,7 @@
                                        AssociatedControlID="TestFromEmail">
                         </YAF:HelpLabel>
                         <asp:TextBox ID="TestFromEmail" runat="server"
-                                     Placeholder="<%# YAF.App_GlobalResources.Install.FromEmail %>"
+                                     Placeholder='<%# this.GetText("FromEmail") %>'
                                      Type="Email"
                                      CssClass="form-control" />
                     </div>
@@ -87,7 +86,7 @@
                                        AssociatedControlID="TestToEmail">
                         </YAF:HelpLabel>
                         <asp:TextBox ID="TestToEmail" runat="server"
-                                     Placeholder="<%# YAF.App_GlobalResources.Install.ToEmail %>"
+                                     Placeholder='<%# this.GetText("ToEmail") %>'
                                      CssClass="form-control" />
                     </div>
                 </div>

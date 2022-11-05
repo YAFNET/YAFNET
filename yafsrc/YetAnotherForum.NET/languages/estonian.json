@@ -8400,6 +8400,10 @@
             "#text": "Otsi Google'ist..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Näita Peida"
           },
@@ -8558,10 +8562,6 @@
           {
             "@tag": "YES",
             "#text": "Jah"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11146,6 +11146,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Peatatud"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "E-posti aadress"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Sisestage superkasutaja nimi"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Parool"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Kinnita parool"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Sisestage uue juhatuse nimi"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Seadista parool"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Ühenduse üksikasjad"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Valige olemasolev ühenduse string"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Valige SQL Serveri andmebaasi ühendusstring:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Ühendus ebaõnnestus:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Loo uus ühendustring"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Ühenduse string salvestatakse kujul"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Ühendus õnnestus"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Andmebaasi ühenduse test"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Loo uus juhatus"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Loo uus superkasutaja (host)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Külaliste kasutajate kultuur (keel)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Praegune versioon:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "Andmebaas"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Sisestage andmeallikas (SQL-serveri nimi või aadress)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "YAF.NET-i andmebaasiühendus"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Sisestage andmebaasi nimi"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "Selle e-posti aadressi kasutajanimi on juba olemas. Sisestage teine ​​e-posti aadress."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Kasutajanimi on juba olemas. Sisestage teine ​​kasutajanimi."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Viga"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Laud on juba installitud."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "Peate sisestama juhatuse nime."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "Jätkamiseks peate värskendama oma rakenduse seadeid YAF.ConfigPassword võtmega. MÄRKUS. Võtme nimi on tõstutundlik."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "Peate sisestama juhatuse e-posti aadressi."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "Peate sisestama parooli."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Administraatori kasutaja loomine nurjus:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "Peate sisestama superkasutaja e-posti aadressi."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "Peate sisestama superkasutaja kasutajanime,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Olemasolev kasutajanimi on kehtetu ega esinda praegust kasutajat liikmestaatuses."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "Sisestasite <strong> vale parooli </strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Kasutage olemasolevat DB-ühenduse stringi"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Lõpetama"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Finishi klõpsamine viib teid foorumi avalehele."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "Valmis"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "Foorumi e-posti aadress"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Foorumi alus URL-i mask"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Sisestage e-posti aadressist"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Teie foorum on nüüd valmis."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "Initsialiseerige"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Paigaldamine"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Kasutage integreeritud turvalisust"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "Esitatud parooli otsimise vastus on vale. Kontrollige väärtust ja proovige uuesti."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "Esitatud e-posti aadress on vale. Kontrollige väärtust ja proovige uuesti."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "Esitatud parool on vale. Sisestage kehtiv parooli väärtus."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "Esitatud parooli otsimise küsimus on vale. Kontrollige väärtust ja proovige uuesti."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "Esitatud kasutajanimi on vale. Kontrollige väärtust ja proovige uuesti."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Posti (SMTP) saatmise test"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Saadab testteate e-posti aadressile, mis on määratletud kui Saada aadressile"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Uue DB-ühenduse stringi loomine"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Järgmine"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Klõpsates nupul \"Järgmine\", lähtestatakse teie andmebaas uusimale versioonile."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Kui olete valmis, klõpsake \"Järgmine\"."
+          },
+          {
+            "@tag": "NO",
+            "#text": "EI"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Märge"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Juurdepääs seadetele puudub"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Teie konfiguratsioonifaili ei saa Andmebaasi ühenduse määramiseks muuta, kuna puuduvad kirjutamisõigused."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Juurdepääs andmebaasi ühendusstringidele puudub"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Teie konfiguratsioonifaili ei saa Database Connection stringi määramiseks muuta, kuna tal pole kirjutamisõigust."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Palun avage"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "faili rakenduse juurkataloogis ja lisage / värskendage järgmist võtit jaotises & lt; AppSettings & gt; jaotis:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "faili rakenduse juurkataloogis ja lisage / värskendage järgmist võtit jaotises & lt; connectionStrings & gt; jaotis:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Kinnitamine ei ole sama, mis teie parool."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET omab juurdepääsu juurrakenduste kataloogile (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET-il on juurdepääs kataloogile \"~ / Laadi üles\" ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "Eelmine"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "Autentimispakkuja tagastati tõrge. Kinnitage oma sisestus ja proovige uuesti. Kui probleem püsib, pöörduge oma süsteemi administraatori poole."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "Vastus turvaküsimusele"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "Küsimus, mis esitatakse siis, kui peate kadunud parooli hankima"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Seadistamine"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "E-posti saatmine näib toimivat teie YAF-i installist."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "SMTP testi üksikasjad"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Testimeili veel ühest foorumist.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Post saadeti. Kontrollige, kas see on teie sisestatud e-posti aadressil laekunud."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Sisestage SQL parool"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Sisestage SQL kasutajanimi"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Testühendus"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Testige Smtp-seadeid"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Testi luba"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Testiseaded"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Andmebaasi konfiguratsiooni muutmiseks klõpsake nuppu \"Eelmine\"."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Enne jätkamist võiksite siin proovida YAF-i konfiguratsiooniseadeid."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Külaliste kasutaja ajavöönd"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Sisestage e-posti aadress"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "Märkimata"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "Kasutaja loomise taotlus on tühistatud. Kinnitage oma sisestus ja proovige uuesti. Kui probleem püsib, pöörduge oma süsteemi administraatori poole."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Kinnitage õigused"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "YetAnotherForum.NET on installimine lihtsam, kui rakendusel on teie .config-i kirjutamisõigus\r\n                        faile."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Klõpsake allpool, et kontrollida, kas õigused on õiged. Kui neid pole, saate seda teha\r\n                        kasuta ikkagi installiviisardit."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Tere tulemast YAF.NET installi"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Installiprotsessi alustamiseks klõpsake \"Järgmine\"."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Installer juhendab teid YetAnotherForum.NET (YAF.NET) installimiseks vajalikest sammudest."
+          },
+          {
+            "@tag": "YES",
+            "#text": "JAH"
           }
         ]
       },

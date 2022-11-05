@@ -8392,6 +8392,10 @@
             "#text": "Suche mit Google nach ..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Zeigen/Verstecken"
           },
@@ -8550,10 +8554,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11130,6 +11130,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Gesperrt"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "E-Mail-Adresse"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Geben Sie den Namen des Superuser ein"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Passwort"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Passwort bestätigen"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Geben Sie den Namen des neuen Boards ein"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Konfigurationspasswort"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Verbindungsdetails"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Bestehende Verbindungszeichenfolge auswählen"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Wählen Sie die SQL Server-Datenbankverbindungszeichenfolge aus:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Verbindung nicht möglich:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Neue Verbindungszeichenfolge erstellen"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Verbindungszeichenfolge wird gespeichert als"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Verbindung erfolgreich"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Datenbankverbindungstest"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Neues Board erstellen"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Neuen Superuser erstellen (Host)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Gastnutzerkultur (Sprache)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Aktuelle Version:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "Datenbank"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Geben Sie die Datenquelle ein (Name oder Adresse des SQL-Servers)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "YAF.NET-Datenbankverbindung"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Geben Sie den Datenbanknamen ein"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "Ein Benutzername für diese E-Mail-Adresse ist bereits vorhanden. Bitte geben Sie eine andere E-Mail-Adresse ein."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Benutzername existiert bereits. Bitte geben Sie einen anderen Benutzernamen ein."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Error"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Board ist bereits installiert."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "Sie müssen einen Boardnamen eingeben."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "Sie müssen Ihre App-Einstellungen mit dem YAF.ConfigPassword-Schlüssel aktualisieren, um fortzufahren. HINWEIS: Der Schlüsselname unterscheidet zwischen Groß- und Kleinschreibung."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "Sie müssen eine Board-E-Mail-Adresse eingeben."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "Sie müssen ein Passwort eingeben."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Erstellen des Administratorbenutzers fehlgeschlagen:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "Sie müssen die Superuser-E-Mail-Adresse eingeben."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "Sie müssen den Superuser-Benutzernamen eingeben,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Der vorhandene Benutzername ist ungültig und repräsentiert keinen aktuellen Benutzer im Mitgliedschaftsspeicher."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "Sie haben das <strong> falsche Passwort </ strong> eingegeben!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Vorhandene DB-Verbindungszeichenfolge verwenden"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Fertig"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Klicken Sie auf Fertig stellen, um zur Hauptseite des Forums zu gelangen."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "Fertig"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "E-Mail-Adresse des Forums"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Forum Base-URL-Maske"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Geben Sie die von E-Mail-Adresse ein"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Dein Forum ist jetzt fertig."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "Initialisieren"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Installation"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Integrierte Sicherheit verwenden"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "Die angegebene Antwort zum Abrufen des Kennworts ist ungültig. Bitte überprüfen Sie den Wert und versuchen Sie es erneut."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "Die angegebene E-Mail-Adresse ist ungültig. Bitte überprüfen Sie den Wert und versuchen Sie es erneut."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "Das angegebene Passwort ist ungültig. Bitte geben Sie einen gültigen Passwortwert ein."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "Die angegebene Frage zum Abrufen des Passworts ist ungültig. Bitte überprüfen Sie den Wert und versuchen Sie es erneut."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "Der angegebene Benutzername ist ungültig. Bitte überprüfen Sie den Wert und versuchen Sie es erneut."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Mail (SMTP) Sendetest"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Sendet eine Testnachricht an die E-Mail-Adresse, die als An Adresse senden definiert ist"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Neue DB-Verbindungszeichenfolge erstellen"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Weiter"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Durch Klicken auf \"Weiter\" wird Ihre Datenbank auf die neueste Version initialisiert."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Klicken Sie auf \"Weiter\", wenn Sie fertig sind."
+          },
+          {
+            "@tag": "NO",
+            "#text": "NEIN"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Hinweis"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Kein Schreibzugriff auf Einstellungen"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Die Konfigurationsdatei kann nicht geändert werden, um die Datenbankverbindung einzurichten, da keine Schreibberechtigung vorliegt."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Kein Schreibzugriff auf Datenbankverbindungszeichenfolgen"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Die Konfigurationsdatei kann nicht geändert werden, um die Datenbankverbindungszeichenfolge festzulegen, da keine Schreibberechtigung vorliegt."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Bitte öffne die"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "Datei im Stammverzeichnis der Anwendung und fügen Sie den folgenden Schlüssel in den & lt; AppSettings & gt; Sektion:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "Datei im Stammverzeichnis der Anwendung und fügen Sie den folgenden Schlüssel in den & lt; connectionStrings & gt; Sektion:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Die Bestätigung stimmt nicht mit Ihrem Passwort überein."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET hat Schreibzugriff auf das Stammverzeichnis der Anwendung (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET hat Schreibzugriff auf das Verzeichnis \"~ / Upload\" ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "Zurück"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "Der Authentifizierungsanbieter hat einen Fehler zurückgegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut. Wenn das Problem weiterhin besteht, wenden Sie sich an Ihren Systemadministrator."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "Die Antwort auf die Sicherheitsfrage"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "Die Frage, die Ihnen gestellt wird, wenn Sie Ihr verlorenes Passwort abrufen müssen"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Konfiguration"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "Der E-Mail-Versand scheint von Ihrer YAF-Installation aus zu funktionieren."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "SMTP-Testdetails"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Testen Sie die E-Mail von einem weiteren Forum.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Mail gesendet. Überprüfen Sie, ob es an Ihrer eingegebenen E-Mail-Adresse eingegangen ist."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Geben Sie das SQL-Passwort ein"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Geben Sie den SQL-Benutzernamen ein"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Testverbindung"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Testen Sie die Smtp-Einstellungen"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Testberechtigung"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Testeinstellungen"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Klicken Sie auf die Schaltfläche \"Zurück\", um die Datenbankkonfiguration zu bearbeiten."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Sie können Ihre YAF-Konfigurationseinstellungen hier testen, bevor Sie fortfahren."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Zeitzone des Gastbenutzers"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Geben Sie die E-Mail-Adresse ein"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "Deaktiviert"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "Die Benutzererstellungsanforderung wurde abgebrochen. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut. Wenn das Problem weiterhin besteht, wenden Sie sich an Ihren Systemadministrator."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Berechtigungen validieren"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "Die Installation von YetAnotherForum.NET ist einfacher, wenn die Anwendung Schreibzugriff auf Ihre .config-Datei hat\r\n                        Dateien."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Klicken Sie unten, um zu testen, ob die Berechtigungen korrekt sind. Wenn nicht, können Sie\r\n                        Verwenden Sie weiterhin den Installationsassistenten."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Willkommen bei der YAF.NET-Installation"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Klicken Sie auf \"Weiter\", um den Installationsvorgang zu starten."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Dieses Installationsprogramm führt Sie durch die Schritte zur Installation von YetAnotherForum.NET (YAF.NET)."
+          },
+          {
+            "@tag": "YES",
+            "#text": "JA"
           }
         ]
       },

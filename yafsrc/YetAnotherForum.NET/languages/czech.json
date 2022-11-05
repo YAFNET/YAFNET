@@ -8400,6 +8400,10 @@
             "#text": "Hledat na Googlu..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Zobrazit/Skrýt"
           },
@@ -8558,10 +8562,6 @@
           {
             "@tag": "YES",
             "#text": "Ano"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11150,6 +11150,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Pozastavené"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "Emailová adresa"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Zadejte jméno superuživatele"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Heslo"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "potvrďte heslo"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Zadejte název nové rady"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Konfigurovat heslo"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Podrobnosti o připojení"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Vyberte existující řetězec připojení"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Vyberte řetězec připojení k serveru SQL Server:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Připojení selhalo:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Vytvořit nový řetězec připojení"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Připojovací řetězec bude uložen jako"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Připojení proběhlo úspěšně"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Test připojení databáze"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Vytvořit novou tabuli"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Vytvořit nového super uživatele (hostitele)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Kultura hosta uživatele (jazyk)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Současná verze:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "Databáze"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Zadejte zdroj dat (název nebo adresa serveru SQL)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "Připojení k databázi YAF.NET"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Zadejte název databáze"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "Uživatelské jméno pro tuto e-mailovou adresu již existuje. Zadejte jinou e-mailovou adresu."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Uživatelské jméno již existuje. Zadejte jiné uživatelské jméno."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Chyba"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Deska je již nainstalována."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "Musíte zadat název desky."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "Chcete-li pokračovat, musíte aktualizovat své nastavení aplikace klíčem YAF.ConfigPassword. POZNÁMKA: Název klíče rozlišuje velká a malá písmena."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "Musíte zadat e-mailovou adresu fóra."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "Musíte zadat heslo."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Vytvoření uživatele se nezdařilo:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "Musíte zadat e-mailovou adresu superuživatele."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "Musíte zadat uživatelské jméno superuživatele,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Existující uživatelské jméno je neplatné a nepředstavuje aktuálního uživatele v členském obchodě."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "Zadali jste <strong> nesprávné heslo </strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Použít existující řetězec připojení DB"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Dokončit"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Kliknutím na Dokončit se dostanete na hlavní stránku fóra."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "Dokončeno"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "E-mailová adresa fóra"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Maska základní adresy fóra"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Zadejte e-mailovou adresu"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Vaše fórum je nyní připraveno."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "Inicializovat"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Instalace"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Používejte integrované zabezpečení"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "Zadaná odpověď na získání hesla je neplatná. Zkontrolujte hodnotu a akci opakujte."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "Zadaná e-mailová adresa je neplatná. Zkontrolujte hodnotu a akci opakujte."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "Zadané heslo je neplatné. Zadejte prosím platnou hodnotu hesla."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "Zadaná otázka pro získání hesla je neplatná. Zkontrolujte hodnotu a akci opakujte."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "Zadané uživatelské jméno je neplatné. Zkontrolujte hodnotu a akci opakujte."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Test odesílání pošty (SMTP)"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Odešle zkušební zprávu na e-mailovou adresu, která je definována jako Odeslat na adresu"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Vytvořit nový řetězec připojení DB"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "další"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Kliknutím na „Další“ inicializujete svou databázi na nejnovější verzi."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Až budete připraveni, klikněte na „Další“."
+          },
+          {
+            "@tag": "NO",
+            "#text": "NE"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Poznámka"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Žádný přístup pro zápis k nastavení"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Nelze upravit váš konfigurační soubor tak, aby nastavil připojení k databázi z důvodu bez oprávnění k zápisu."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Žádný přístup pro zápis k řetězcům připojení k databázi"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Nelze upravit váš konfigurační soubor tak, aby nastavil řetězec připojení k databázi z důvodu bez oprávnění k zápisu."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Otevřete prosím"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "soubor v kořenovém adresáři aplikace a přidejte / aktualizujte následující klíč v AppSettings & gt; sekce:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "soubor v kořenovém adresáři aplikace a přidejte / aktualizujte následující klíč v <connectionStrings & gt; sekce:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Ověření není stejné jako vaše heslo."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET má přístup pro zápis do kořenového adresáře aplikací (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET má přístup pro zápis do adresáře \"~ / Upload\" ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "Předchozí"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "Poskytovatel ověřování vrátil chybu. Ověřte svůj záznam a zkuste to znovu. Pokud problém přetrvává, kontaktujte správce systému."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "Odpověď na bezpečnostní otázku"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "Otázka, kterou budete dotázáni, když potřebujete získat ztracené heslo"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Založit"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "Zdá se, že odesílání e-mailů funguje z instalace YAF."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "Podrobnosti testu SMTP"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Vyzkoušejte e-mail z jiného fóra Forum.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Pošta byla odeslána. Ověřte, zda byl přijat na zadanou e-mailovou adresu."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Zadejte heslo SQL"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Zadejte uživatelské jméno SQL"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Vyzkoušejte připojení"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Vyzkoušejte nastavení SMTP"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Zkouška oprávnění"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Testujte nastavení"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Kliknutím na tlačítko „Předchozí“ upravte konfiguraci databáze."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Možná budete chtít vyzkoušet nastavení konfigurace YAF zde, než budete pokračovat."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Časové pásmo hosta uživatele"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Zadejte e-mailovou adresu"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "Nezaškrtnuto"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "Žádost o vytvoření uživatele byla zrušena. Ověřte svůj záznam a zkuste to znovu. Pokud problém přetrvává, kontaktujte správce systému."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Ověřte oprávnění"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "Instalace YetAnotherForum.NET je jednodušší, když má aplikace přístup pro zápis do vašeho .config\r\n                        soubory."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Kliknutím níže otestujete správnost oprávnění. Pokud tomu tak není, můžete\r\n                        stále použijte průvodce instalací."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Vítejte v instalaci YAF.NET"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Klepnutím na tlačítko „Další“ zahájíte proces instalace."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Tento instalační program vás provede kroky potřebnými k instalaci YetAnotherForum.NET (YAF.NET)."
+          },
+          {
+            "@tag": "YES",
+            "#text": "ANO"
           }
         ]
       },

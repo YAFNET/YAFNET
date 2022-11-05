@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Services.Localization;
 
-using Newtonsoft.Json;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,7 +43,7 @@ public class Localizer
     /// <summary>
     ///   The file name.
     /// </summary>
-    private string fileName = string.Empty;
+    private string fileName;
 
     /// <summary>
     /// The localization resources.
@@ -53,23 +51,21 @@ public class Localizer
     private LanguageResource localizationLanguageResources;
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "Localizer" /> class.
-    /// </summary>
-    public Localizer()
-    {
-    }
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="Localizer"/> class.
     /// </summary>
     /// <param name="fileName">
     /// The file name.
     /// </param>
-    public Localizer(string fileName)
+    /// <param name="initCulture"></param>
+    public Localizer(string fileName, bool initCulture)
     {
         this.fileName = fileName.Replace(".xml", ".json");
         this.LoadFile();
-        this.InitCulture();
+
+        if (initCulture)
+        {
+            this.InitCulture();
+        }
     }
 
     /// <summary>

@@ -8400,6 +8400,10 @@
             "#text": "用谷歌搜索..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "显示/隐藏"
           },
@@ -8558,10 +8562,6 @@
           {
             "@tag": "YES",
             "#text": "是"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11146,6 +11146,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "暂停"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "邮箱地址"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "输入超级用户的名称"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "密码"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "验证密码"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "输入新董事会的名称"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "配置密码"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "连接细节"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "选择现有连接字符串"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "选择SQL Server数据库连接字符串："
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "连接失败："
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "创建新的连接字符串"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "连接字符串将保存为"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "连接成功"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "数据库连接测试"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "创建新董事会"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "创建新的超级用户（主机）"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "访客用户文化（语言）"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "当前版本："
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "数据库"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "输入数据源（sql server的名称或地址）"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "YAF.NET数据库连接"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "输入数据库名称"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "该电子邮件地址的用户名已存在。请输入其他电子邮件地址。"
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "此用户名已存在。请输入其他用户名。"
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "错误"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "主板已安装。"
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "您必须输入董事会名称。"
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "您必须使用YAF.ConfigPassword键更新您的appSettings才能继续。注意：密钥名称区分大小写。"
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "您必须输入董事会电子邮件地址。"
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "您必须输入密码。"
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "创建管理员用户失败："
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "您必须输入超级用户电子邮件地址。"
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "您必须输入超级用户用户名，"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "现有用户名无效，并且不代表成员资格存储中的当前用户。"
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "您输入了<strong>错误的密码</ strong>！"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "使用现有DB连接字符串"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "完"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "单击“完成”将转到论坛主页面。"
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "成品"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "论坛邮箱地址"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "论坛Base Url Mask"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "输入来自电子邮件地址"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "您的论坛现已准备就绪。"
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "初始化"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "安装"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "使用集成安全性"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "提供的密码检索答案无效。请检查该值，然后重试。"
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "提供的电子邮件地址无效。请检查该值，然后重试。"
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "提供的密码无效。请输入有效的密码值。"
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "提供的密码检索问题无效。请检查该值，然后重试。"
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "提供的用户名无效。请检查该值，然后重试。"
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "邮件（SMTP）发送测试"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "将测试消息发送到定义为发送到地址的电子邮件地址"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "创建新的DB连接字符串"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "下一个"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "单击“下一步”将数据库初始化为最新版本。"
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "准备好后，单击“下一步”。"
+          },
+          {
+            "@tag": "NO",
+            "#text": "没有"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "注意"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "无设置写入权限"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "由于没有写入权限，无法修改配置文件以设置数据库连接。"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "没有对数据库连接字符串的写访问权限"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "由于没有写入权限，无法修改配置文件以设置数据库连接字符串。"
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "请打开"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "在应用程序根目录中的文件，并在＆lt; AppSettings＆gt;中添加/更新以下密钥部分："
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "在应用程序根目录中的文件，并在＆lt; connectionStrings＆gt;中添加/更新以下密钥部分："
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "验证与您的密码不同。"
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET具有对根应用程序目录的写访问权（“〜/”）..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET具有对“〜/ Upload”目录的写入权限..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "以前"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "身份验证提供程序返回错误。请验证您的输入，然后重试。如果问题仍然存在，请与系统管理员联系。"
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "安全问题的答案"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "当您需要检索丢失的密码时，系统会询问您的问题"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "建立"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "电子邮件发送似乎正在您的YAF安装中运行。"
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "SMTP测试详细信息"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "从另一个Forum.NET测试电子邮件"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "邮件已发送。验证是否已在您输入的电子邮件地址中收到。"
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "输入SQL密码"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "输入SQL用户名"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "测试连接"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "测试Smtp设置"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "测试许可"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "测试设置"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "单击“上一步”按钮以编辑数据库配置。"
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "在继续之前，您可能需要在此处测试YAF配置设置。"
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "访客用户时区"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "输入电子邮件地址"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "未选中"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "用户创建请求已被取消。请验证您的输入，然后重试。如果问题仍然存在，请与系统管理员联系。"
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "验证权限"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "当Application具有对.config的写入权限时，YetAnotherForum.NET安装更容易\r\n                        文件。"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "单击下方以测试权限是否正确。如果他们不是，你可以\r\n                        仍然使用安装向导。"
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "欢迎来到YAF.NET安装"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "单击“下一步”以启动安装过程。"
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "此安装程序将指导您完成安装YetAnotherForum.NET（YAF.NET）所需的步骤。"
+          },
+          {
+            "@tag": "YES",
+            "#text": "是"
           }
         ]
       },

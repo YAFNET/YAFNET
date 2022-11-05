@@ -28,8 +28,8 @@ namespace YAF.Pages;
 using System.Web.UI.HtmlControls;
 using YAF.Controls;
 using YAF.Types.Exceptions;
-using YAF.Web.EventsArgs;
 using YAF.Types.Models;
+using YAF.Web.EventsArgs;
 
 /// <summary>
 /// The Posts Page.

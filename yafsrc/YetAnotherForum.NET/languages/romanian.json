@@ -8400,6 +8400,10 @@
             "#text": "Căutați pe Google pentru ..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Afișează/ Ascunde"
           },
@@ -8558,10 +8562,6 @@
           {
             "@tag": "YES",
             "#text": "Da"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11146,6 +11146,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Suspendat"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "Adresa de email"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Introduceți numele super utilizatorului"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Parola"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Verifică parola"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Introduceți numele noului consiliu"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Configurați parola"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Detalii conexiune"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Selectați șirul de conexiune existent"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Selectați șirul de conexiune la baza de date SQL Server:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Eroare de conexiune:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Creați șir de conexiune nou"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Cablul de conexiune va fi salvat ca"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Conexiunea a reușit"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Test de conexiune la baza de date"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Creați un nou Consiliu"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Creați un nou utilizator super (gazdă)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Cultura utilizatorului invitat (limbă)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Versiune curentă:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "Bază de date"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Introduceți sursa de date (numele sau adresa serverului sql)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "Conexiune de baze de date YAF.NET"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Introduceți numele bazei de date"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "Un nume de utilizator pentru acea adresă de e-mail există deja. Vă rugăm să introduceți o altă adresă de e-mail."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Nume de utilizator deja existent. Vă rugăm să introduceți un nume de utilizator diferit."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Eroare"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Placa este deja instalată."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "Trebuie să introduceți un nume de consiliu."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "Pentru a continua, trebuie să actualizați setările de aplicații cu cheia YAF.ConfigPassword. NOTĂ: Numele cheii este sensibil cu litere mari și mici."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "Trebuie să introduceți o adresă de e-mail a Consiliului."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "Trebuie să introduceți o parolă."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Crearea utilizatorului de administrator eșuat:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "Trebuie să introduceți adresa de e-mail super utilizator."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "Trebuie să introduceți numele de utilizator super,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Numele de utilizator existent nu este valid și nu reprezintă un utilizator curent în magazinul de membri."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "Ați introdus <strong> parola greșită </strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Utilizați șirul de conexiune DB existent"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "finalizarea"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Dacă faceți clic pe Finish vă va duce la pagina principală a Forumului."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "Terminat"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "Adresa de e-mail a forumului"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Forum Mask Url de bază"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Introduceți adresa de la e-mail"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Forumul dvs. este acum gata."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "Inițializare"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Instalare"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Utilizați securitate integrată"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "Răspunsul de recuperare a parolei furnizat nu este valid. Verificați valoarea și încercați din nou."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "Adresa de e-mail furnizată nu este validă. Verificați valoarea și încercați din nou."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "Parola furnizată nu este validă. Vă rugăm să introduceți o valoare de parolă validă."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "Întrebarea de recuperare a parolei furnizată nu este validă. Verificați valoarea și încercați din nou."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "Numele de utilizator furnizat nu este valid. Verificați valoarea și încercați din nou."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Test de trimitere prin poștă (SMTP)"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Trimite un mesaj de testare la adresa de e-mail care este definită ca Trimite la adresă"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Creați șir de conexiune DB nouă"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Următor →"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Făcând clic pe „Următorul” va inițializa baza de date la cea mai recentă versiune."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Faceți clic pe „Următorul” când sunteți gata."
+          },
+          {
+            "@tag": "NO",
+            "#text": "NU"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Notă"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Fără acces de scriere la setări"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Imposibil de modificat fișierul de configurare pentru a seta conexiunea bazei de date din cauza permisiunii de scriere."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Fără acces în scris la șirurile de conexiune la baze de date"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Imposibil de modificat fișierul de configurare pentru a seta șirul conexiunii bazei de date din cauza permisiunii de scriere."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Vă rugăm să deschideți"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "fișați în directorul rădăcină al aplicației și adăugați / actualizați următoarea cheie din secțiunea <Aplicări>"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "fișați în directorul rădăcină al aplicației și adăugați / actualizați următoarea cheie din secțiunea <conectareStrings>:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Verificarea nu este aceeași cu parola dvs."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET are acces de scriere la directorul de aplicații rădăcină (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET are acces de scriere la directorul „~ / Upload” ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "Anterior"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "Furnizorul de autentificare a returnat o eroare. Vă rugăm să verificați înscrierea și încercați din nou. Dacă problema persistă, contactați administratorul de sistem."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "Răspunsul la întrebarea de securitate"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "Întrebarea vi se va pune atunci când va trebui să vă regăsiți parola pierdută"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Înființat"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "Trimiterea prin e-mail pare să funcționeze de la instalarea dvs. YAF."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "Detalii test SMTP"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Testează e-mailul încă de pe un alt Forum.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Mail trimis. Verificați că a fost primit la adresa de e-mail introdusă."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Introduceți parola SQL"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Introduceți numele de utilizator SQL"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Test de conexiune"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Testează setările Smtp"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Permis de testare"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Setări test"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Faceți clic pe butonul „Precedent” pentru a edita configurația bazei de date."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Poate doriți să testați setările de configurare YAF aici înainte de a continua."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Fusul orar al utilizatorului oaspeților"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Introduceți adresa de e-mail"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "necontenit"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "Cererea de creare a utilizatorului a fost anulată. Vă rugăm să verificați introducerea și încercați din nou. Dacă problema persistă, contactați administratorul de sistem."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Validarea permiselor"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "Instalarea YetAnotherForum.NET este mai ușoară atunci când aplicația are acces de scriere la .config\r\n                        fișiere."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Faceți clic mai jos pentru a testa dacă permisiunile sunt corecte. Dacă nu sunt, poți\r\n                        utilizați în continuare expertul de instalare."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Bine ați venit la Instalarea YAF.NET"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Faceți clic pe „Următorul” pentru a începe procesul de instalare."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Acest program de instalare vă va ghida prin etapele necesare instalării YetAnotherForum.NET (YAF.NET)."
+          },
+          {
+            "@tag": "YES",
+            "#text": "DA"
           }
         ]
       },

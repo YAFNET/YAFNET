@@ -8392,6 +8392,10 @@
             "#text": "Buscar en Google para ..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Mostrar/Ocultar"
           },
@@ -8550,10 +8554,6 @@
           {
             "@tag": "YES",
             "#text": "Si"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11130,6 +11130,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Suspendido"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "Dirección de correo electrónico"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Ingrese el nombre del superusuario"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Contraseña"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Verificar contraseña"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Ingrese el nombre de la nueva Junta"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Contraseña de configuración"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Detalles de conexión"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Seleccionar cadena de conexión existente"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Seleccione la cadena de conexión de la base de datos de SQL Server:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "No se pudo conectar:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Crear nueva cadena de conexión"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "La cadena de conexión se guardará como"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Conexión exitosa"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Prueba de conexión de base de datos"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Crear nueva junta"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Crear nuevo superusuario (host)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Cultura del usuario invitado (idioma)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Versión actual:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "Base de datos"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Ingrese la fuente de datos (nombre o dirección del servidor SQL)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "Conexión de base de datos YAF.NET"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Ingrese el nombre de la base de datos"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "Ya existe un nombre de usuario para esa dirección de correo electrónico. Por favor, introduzca una dirección de correo electrónico diferente."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Nombre de usuario ya existe. por favor ingresa un nombre de usuario distinto."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Error"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "La placa ya está instalada."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "Debe ingresar un nombre de la Junta."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "Debe actualizar la configuración de su aplicación con la clave YAF.ConfigPassword para continuar. NOTA: El nombre de la clave distingue entre mayúsculas y minúsculas."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "Debe ingresar una dirección de correo electrónico de la Junta."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "Debes ingresar una contraseña."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Error al crear usuario administrador:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "Debe ingresar la dirección de correo electrónico del superusuario."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "Debes ingresar el nombre de usuario superusuario,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "El nombre de usuario existente no es válido y no representa a un usuario actual en la tienda de membresía."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "¡Ingresó la <strong> contraseña incorrecta </strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Usar cadena de conexión de base de datos existente"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Terminar"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Al hacer clic en Finalizar, accederá a la página principal del Foro."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "Terminado"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "Dirección de correo electrónico del foro"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Máscara de URL base del foro"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Ingrese la dirección de correo electrónico de"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Su foro ya está listo."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "Inicializar"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Instalación"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Usar seguridad integrada"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "La respuesta de recuperación de contraseña proporcionada no es válida. Verifique el valor e intente nuevamente."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "La dirección de correo electrónico proporcionada no es válida. Verifique el valor e intente nuevamente."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "La contraseña proporcionada no es válida. Por favor, introduzca un valor de contraseña válido."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "La pregunta de recuperación de contraseña proporcionada no es válida. Verifique el valor e intente nuevamente."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "El nombre de usuario proporcionado no es válido. Verifique el valor e intente nuevamente."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Prueba de envío de correo (SMTP)"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Envía un mensaje de prueba a la dirección de correo electrónico que se define como Enviar a dirección"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Crear nueva cadena de conexión de base de datos"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "próximo"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Al hacer clic en \"Siguiente\" se inicializará su base de datos a la última versión."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Haga clic en \"Siguiente\" cuando esté listo."
+          },
+          {
+            "@tag": "NO",
+            "#text": "NO"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Nota"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Sin acceso de escritura a la configuración"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "No se puede modificar su archivo de configuración para establecer la conexión de la base de datos debido a que no tiene permiso de escritura."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Sin acceso de escritura a cadenas de conexión de base de datos"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "No se puede modificar su archivo de configuración para establecer la cadena de conexión de la base de datos debido a que no hay permiso de escritura."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Por favor abra el"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "archivo en el directorio raíz de la aplicación y agregue / actualice la siguiente clave en la sección <AppSettings>:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "en el directorio raíz de la aplicación y agregue / actualice la siguiente clave en la sección <connectionStrings>:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "La verificación no es lo mismo que su contraseña."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET tiene acceso de escritura al directorio de aplicaciones raíz (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET tiene acceso de escritura al directorio \"~ / Upload\" ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "Anterior"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "El proveedor de autenticación devolvió un error. Verifique su entrada e intente nuevamente. Si el problema persiste, comuníquese con el administrador del sistema."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "La respuesta a la pregunta de seguridad."
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "La pregunta que se le hará cuando necesite recuperar su contraseña perdida"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Preparar"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "El envío de correo electrónico parece estar funcionando desde su instalación de YAF."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "Detalles de la prueba SMTP"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Pruebe el correo electrónico de otro foro más .NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Correo enviado. Verifique que se reciba en su dirección de correo electrónico ingresada."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Ingrese la contraseña de SQL"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Ingrese el nombre de usuario SQL"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Conexión de prueba"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Probar la configuración de Smtp"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Permiso de prueba"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Configuraciones de prueba"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Haga clic en el botón \"Anterior\" para editar la configuración de la base de datos."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Es posible que desee probar los ajustes de configuración de YAF aquí antes de continuar."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Zona horaria del usuario invitado"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Ingrese la dirección de correo electrónico"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "Desenfrenado"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "La solicitud de creación de usuario ha sido cancelada. Verifique su entrada e intente nuevamente. Si el problema persiste, comuníquese con el administrador del sistema."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Validar permisos"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "Sin embargo, la instalación de AnotherForum.NET es más fácil cuando la aplicación tiene acceso de escritura a su .config\r\n                        archivos"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Haga clic a continuación para probar si los permisos son correctos. Si no lo son, puedes\r\n                        Todavía uso el asistente de instalación."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Bienvenido a la instalación de YAF.NET"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Haga clic en \"Siguiente\" para iniciar el proceso de instalación."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Este instalador lo guiará a través de los pasos necesarios para instalar YetAnotherForum.NET (YAF.NET)."
+          },
+          {
+            "@tag": "YES",
+            "#text": "SÍ"
           }
         ]
       },

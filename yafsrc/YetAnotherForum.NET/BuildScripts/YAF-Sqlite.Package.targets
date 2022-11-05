@@ -24,42 +24,7 @@
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\System.Text.Encodings.Web.dll" />
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\System.Threading.Channels.dll" />
 
-	  <ItemGroup>
-		  <languages-Include
-			  Include="$(MSBuildProjectDirectory)\bin\**\YAF.resources.dll"
-			  Exclude="$(MSBuildProjectDirectory)\bin\languages\**\YAF.resources.dll"/>
-	  </ItemGroup>
-    <Move SourceFiles="@(languages-Include)"
-          DestinationFolder="$(MSBuildProjectDirectory)\bin\languages\%(RecursiveDir)" />
-
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\ar\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\cs\" />
-
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\da\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\de\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\es\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\et\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\fa\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\fi\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\fr\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\he\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\hr\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\it\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\lt\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\nl\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\no\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\pl\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\pt\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\ro\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\ru\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\sk\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\sv\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\tr\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\vi\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\zh-CN\" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\zh-TW\" />
-
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\net48\" />
+      <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\net48\" />
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\bin\" ContinueOnError="True" />
   </Target>
   <Target Name="PackageModule" Condition=" '$(Configuration)' == 'Release' AND '$(CreatePackages)' == 'true' ">

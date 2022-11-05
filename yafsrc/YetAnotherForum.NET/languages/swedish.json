@@ -8400,6 +8400,10 @@
             "#text": "Sök på Google efter ..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Visa/dölj"
           },
@@ -8558,10 +8562,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11146,6 +11146,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Uppskjuten"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "E-postadress"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Ange namnet på superanvändaren"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Lösenord"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Verifiera lösenord"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Ange namnet på det nya styrelsen"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Konfigurera lösenord"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Anslutningsdetaljer"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Välj befintlig anslutningssträng"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Välj SQL Server-databasanslutningssträng:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Det gick inte att ansluta:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Skapa ny anslutningssträng"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Anslutningssträng sparas som"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Anslutningen lyckades"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Databasanslutningstest"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Skapa nytt styrelse"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Skapa ny superanvändare (värd)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Gästanvändarkultur (språk)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Aktuell version:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "Databas"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Ange datakällan (namn eller adress på sql-servern)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "YAF.NET databasanslutning"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Ange databasnamnet"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "Ett användarnamn för den e-postadressen finns redan. Ange en annan e-postadress."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Användarnamn existerar redan. Ange ett annat användarnamn."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Fel"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Kortet är redan installerat."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "Du måste ange ett styrelsens namn."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "Du måste uppdatera dina appinställningar med YAF.ConfigPassword Key för att fortsätta. OBS: Nyckelnamnet är skiftlägeskänsligt."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "Du måste ange en e-postadress för styrelsen."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "Du måste ange ett lösenord."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Skapa administratörs användare misslyckades:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "Du måste ange superanvändarens e-postadress."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "Du måste ange superanvändarnamnet,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Befintligt användarnamn är ogiltigt och representerar inte en aktuell användare i medlemsbutiken."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "Du angav <strong> fel lösenord </ strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Använd befintlig DB-anslutningssträng"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Avsluta"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Om du klickar på Finish kommer du till forumets startsida."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "Färdiga"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "Forumets e-postadress"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Forum Base Url Mask"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Ange från e-postadressen"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Ditt forum är nu klart."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "initiera"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Installation"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Använd integrerad säkerhet"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "Det angivna lösenords svaret är ogiltigt. Kontrollera värdet och försök igen."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "Den angivna e-postadressen är ogiltig. Kontrollera värdet och försök igen."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "Det angivna lösenordet är ogiltigt. Ange ett giltigt lösenordsvärde."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "Frågan om återställning av lösenord är ogiltig. Kontrollera värdet och försök igen."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "Användarnamnet är ogiltigt. Kontrollera värdet och försök igen."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Mail (SMTP) sändningstest"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Skickar ett testmeddelande till e-postadressen som definieras som Skicka till adress"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Skapa ny DB-anslutningssträng"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Nästa"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Klicka på \"Nästa\" kommer att initialisera din databas till den senaste versionen."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Klicka på \"Nästa\" när du är redo."
+          },
+          {
+            "@tag": "NO",
+            "#text": "NEJ"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Notera"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Ingen skrivtillgång till inställningar"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Det går inte att ändra din konfigurationsfil för att ställa in databasanslutning på grund av ingen skrivtillstånd."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Ingen skrivåtkomst till databasanslutningssträngar"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Det går inte att ändra din konfigurationsfil för att ställa in databasanslutningssträng på grund av ingen skrivtillstånd."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Öppna"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "fil i programrotens katalog och lägg till / uppdatera följande nyckel i avsnittet <AppSettings>:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "fil i programrotens katalog och lägg till / uppdatera följande nyckel i avsnittet <connectionStrings>:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Verifieringen är inte densamma som ditt lösenord."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET har skrivåtkomst till root-applikationskatalogen (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET har skrivåtkomst till \"~ / Upload\" -katalogen ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "Tidigare"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "Autentiseringsleverantören returnerade ett fel. Kontrollera ditt inträde och försök igen. Om problemet kvarstår, kontakta din systemadministratör."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "Svaret på säkerhetsfrågan"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "Frågan du kommer att ställas när du behöver hämta ditt förlorade lösenord"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Inrätta"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "E-postmeddelandet verkar fungera från din YAF-installation."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "SMTP-testdetaljer"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Testa e-post från ännu ett forum.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Mail skickat. Kontrollera att den har mottagits på din angivna e-postadress."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Ange SQL-lösenordet"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Ange SQL-användarnamn"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Testanslutning"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Testa Smtp-inställningar"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Testtillstånd"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Testinställningar"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Klicka på \"Föregående\" för att redigera databaskonfigurationen."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Du kanske vill testa dina YAF-konfigurationsinställningar här innan du fortsätter."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Gästanvändares tidszon"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Ange till e-postadressen"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "Okontrollerat"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "Begäran om skapande av användare har avbrutits. Kontrollera ditt inträde och försök igen. Om problemet kvarstår, kontakta din systemadministratör."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Validera behörigheter"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "YetAnotherForum.NET-installationen är enklare när applikationen har skrivåtkomst till din .config\r\n                        filer."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Klicka nedan för att testa om behörigheterna är korrekta. Om de inte är det kan du\r\n                        Använd fortfarande installationsguiden."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Välkommen till YAF.NET-installationen"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Klicka på \"Nästa\" för att starta installationsprocessen."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Denna installatör guider dig genom stegen som krävs för att installera YetAnotherForum.NET (YAF.NET)."
+          },
+          {
+            "@tag": "YES",
+            "#text": "JA"
           }
         ]
       },

@@ -8388,6 +8388,10 @@
             "#text": "بحث في Google عن ..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "اظهر المخفي"
           },
@@ -8546,10 +8550,6 @@
           {
             "@tag": "YES",
             "#text": "نعم"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11126,6 +11126,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "إستبعاد"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "عنوان البريد الإلكتروني"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "أدخل اسم المستخدم الفائق"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "كلمه السر"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "اكد كلمة المرور"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "أدخل اسم المجلس الجديد"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "كلمة مرور التكوين"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "تفاصيل الاتصال"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "حدد سلسلة الاتصال الحالية"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "حدد سلسلة اتصال قاعدة بيانات SQL Server:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "فشل الاتصال:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "إنشاء سلسلة اتصال جديدة"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "سيتم حفظ سلسلة الاتصال باسم"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "اتصال نجحت"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "اختبار اتصال قاعدة البيانات"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "إنشاء مجلس جديد"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "إنشاء مستخدم سوبر جديد (مضيف)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "ضيف ثقافة المستخدم (اللغة)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "النسخة الحالية:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "قاعدة البيانات"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "أدخل مصدر البيانات (اسم أو عنوان خادم sql)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "YAF.NET اتصال قاعدة البيانات"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "أدخل اسم قاعدة البيانات"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "يوجد بالفعل اسم مستخدم لعنوان البريد الإلكتروني هذا. الرجاء إدخال عنوان بريد إلكتروني مختلف."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "اسم المستخدم موجود بالفعل. من فضلك أدخل اسم مستخدم آخر."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "خطأ"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "تم تثبيت اللوحة بالفعل."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "يجب إدخال اسم لوحة."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "يجب عليك تحديث إعداداتك من خلال مفتاح YAF.ConfigPassword للمتابعة. ملاحظة: اسم المفتاح حساس لحالة الأحرف."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "يجب إدخال عنوان البريد الإلكتروني للمجلس."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "يجب إدخال كلمة مرور."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "فشل إنشاء مستخدم المسؤول:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "يجب إدخال عنوان البريد الإلكتروني للمستخدم الفائق."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "يجب إدخال اسم المستخدم الفائق ،"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "اسم المستخدم الحالي غير صالح ولا يمثل المستخدم الحالي في مخزن العضوية."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "لقد أدخلت <strong> كلمة مرور خاطئة </ strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "استخدم سلسلة اتصال DB الموجودة"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "إنهاء"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "سيؤدي النقر فوق \"إنهاء\" إلى نقلك إلى صفحة المنتدى الرئيسية."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "تم الانتهاء من"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "عنوان البريد الإلكتروني للمنتدى"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "منتدى قاعدة عنوان قناع"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "أدخل من عنوان البريد الإلكتروني"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "منتداك جاهز الآن."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "تهيئة"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "التركيب"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "استخدام الأمن المتكامل"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "إجابة استرداد كلمة المرور المقدمة غير صالحة. يرجى التحقق من القيمة والمحاولة مرة أخرى."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "عنوان البريد الإلكتروني المقدم غير صالح. يرجى التحقق من القيمة والمحاولة مرة أخرى."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "كلمة المرور المقدمة غير صالحة. الرجاء إدخال قيمة كلمة مرور صالحة."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "سؤال استرداد كلمة المرور المقدم غير صالح. يرجى التحقق من القيمة والمحاولة مرة أخرى."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "اسم المستخدم المقدم غير صالح. يرجى التحقق من القيمة والمحاولة مرة أخرى."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "اختبار إرسال البريد (SMTP)"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "إرسال اختبار رسالة إلى عنوان البريد الإلكتروني الذي تم تعريفه على أنه إرسال إلى عنوان"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "إنشاء سلسلة اتصال DB جديدة"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "التالى"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "يؤدي النقر فوق \"التالي\" إلى تهيئة قاعدة البيانات الخاصة بك إلى أحدث إصدار."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "انقر فوق \"التالي\" عندما تكون جاهزًا."
+          },
+          {
+            "@tag": "NO",
+            "#text": "لا"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "ملحوظة"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "لا الكتابة الوصول إلى الإعدادات"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "غير قادر على تعديل ملف التكوين الخاص بك لضبط اتصال قاعدة البيانات بسبب عدم وجود إذن الكتابة."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "لا الكتابة الوصول إلى سلاسل اتصال قاعدة البيانات"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "غير قادر على تعديل ملف التكوين الخاص بك لتعيين سلسلة اتصال قاعدة البيانات بسبب عدم وجود إذن الكتابة."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "من فضلك افتح"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "ملف في دليل جذر التطبيق وإضافة / تحديث المفتاح التالي في علامة & lt؛ AppSettings & gt؛ الجزء:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "ملف في دليل جذر التطبيق وإضافة / تحديث المفتاح التالي في علامة & lt؛ connectionStrings & gt؛ الجزء:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "التحقق ليس هو نفسه كلمة المرور الخاصة بك."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET له حق الوصول للكتابة إلى دليل تطبيق الجذر (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET لديه حق الوصول للكتابة إلى دليل \"~ / تحميل\" ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "سابق"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "أرجع مزود المصادقة خطأ. يرجى التحقق من دخول وحاول مرة أخرى. إذا استمرت المشكلة ، فيرجى الاتصال بمسؤول النظام لديك."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "الجواب على سؤال الأمان"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "السؤال الذي سيتم طرحه عندما تحتاج إلى استرداد كلمة المرور المفقودة"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "اقامة"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "يبدو أن إرسال البريد الإلكتروني يعمل من خلال تثبيت YAF."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "تفاصيل اختبار SMTP"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "اختبار البريد الإلكتروني من آخر Forum.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "البريد المرسلة. تحقق من استلامها على عنوان البريد الإلكتروني الذي أدخلته."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "أدخل كلمة مرور SQL"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "أدخل اسم مستخدم SQL"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "اختبار الاتصال"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "اختبار إعدادات Smtp"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "إذن الاختبار"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "إعدادات الاختبار"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "انقر فوق الزر \"السابق\" لتحرير تكوين قاعدة البيانات."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "قد ترغب في اختبار إعدادات التكوين YAF هنا قبل المتابعة."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "ضيف المنطقة الزمنية للمستخدم"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "أدخل عنوان البريد الإلكتروني"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "غير مفحوص"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "تم إلغاء طلب إنشاء المستخدم. يرجى التحقق من دخول وحاول مرة أخرى. إذا استمرت المشكلة ، فيرجى الاتصال بمسؤول النظام لديك."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "التحقق من الأذونات"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "يكون تثبيت YetAnotherForum.NET أسهل عندما يكون للتطبيق حق وصول للكتابة إلى .config\r\n                        الملفات."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "انقر أدناه لاختبار ما إذا كانت الأذونات صحيحة. إذا لم تكن كذلك ، يمكنك ذلك\r\n                        لا تزال تستخدم معالج التثبيت."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "مرحبًا بك في YAF.NET Installation"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "انقر فوق \"التالي\" لبدء عملية التثبيت."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "سيقوم هذا المثبت بإرشادك خلال الخطوات المطلوبة لتثبيت YetAnotherForum.NET (YAF.NET)."
+          },
+          {
+            "@tag": "YES",
+            "#text": "نعم فعلا"
           }
         ]
       },

@@ -8400,6 +8400,10 @@
             "#text": "Vyhľadajte na Googli..."
           },
           {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
             "@tag": "SHOWHIDE",
             "#text": "Zobraziť/skryť"
           },
@@ -8558,10 +8562,6 @@
           {
             "@tag": "YES",
             "#text": "Áno"
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
           }
         ]
       },
@@ -11146,6 +11146,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Pozastavené"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "Emailová adresa"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Zadajte meno superužívateľa"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "heslo"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Overte heslo"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Zadajte názov novej rady"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Konfigurovať heslo"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Podrobnosti o pripojení"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Vyberte položku Existing Connection String"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Vyberte reťazec pripojenia k serveru SQL Server:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Nepodarilo sa pripojiť:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Vytvorte nový reťazec pripojenia"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Pripojovací reťazec sa uloží ako"
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Pripojenie bolo úspešné"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Test pripojenia databázy"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Vytvorenie novej rady"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Vytvoriť nového super používateľa (hostiteľa)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Kultúra hosťa používateľa (jazyk)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Aktuálna verzia:"
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "databázy"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Zadajte zdroj údajov (názov alebo adresa servera SQL)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "YAF.NET Pripojenie k databáze"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Zadajte názov databázy"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "Používateľské meno pre túto e-mailovú adresu už existuje. Zadajte inú e-mailovú adresu."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Užívateľské meno už existuje. Zadajte iné používateľské meno."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Chyba"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Doska je už nainštalovaná."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "Musíte zadať názov rady."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "Ak chcete pokračovať, musíte svoje nastavenia aplikácií aktualizovať pomocou kľúča YAF.ConfigPassword. POZNÁMKA: Názov kľúča rozlišuje malé a veľké písmená."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "Musíte zadať e-mailovú adresu fóra."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "Musíte zadať heslo."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Vytvorenie správneho používateľa zlyhalo:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "Musíte zadať e-mailovú adresu super používateľa."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "Musíte zadať užívateľské meno superužívateľa,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Existujúce užívateľské meno je neplatné a nepredstavuje aktuálneho používateľa v obchode s členmi."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "Zadali ste <strong> nesprávne heslo </strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Použite existujúci reťazec pripojenia DB"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Skončiť"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Kliknutím na tlačidlo Dokončiť sa dostanete na hlavnú stránku fóra."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "dokončené"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "E-mailová adresa fóra"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Maska základne adresy URL fóra"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Zadajte e-mailovú adresu"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Vaše fórum je teraz pripravené."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "začať"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "inštalácia"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Použite integrované zabezpečenie"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "Zadaná odpoveď na obnovenie hesla je neplatná. Skontrolujte hodnotu a skúste to znova."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "Poskytnutá e-mailová adresa je neplatná. Skontrolujte hodnotu a skúste to znova."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "Zadané heslo je neplatné. Zadajte platnú hodnotu hesla."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "Zadaná otázka na obnovenie hesla je neplatná. Skontrolujte hodnotu a skúste to znova."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "Zadané meno používateľa je neplatné. Skontrolujte hodnotu a skúste to znova."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Test odosielania pošty (SMTP)"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Odošle testovaciu správu na e-mailovú adresu, ktorá je definovaná ako Odoslať na adresu"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Vytvorte nový reťazec pripojenia DB"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Ďalšie"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Kliknutím na tlačidlo „Ďalej“ inicializujete svoju databázu na najnovšiu verziu."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Až budete pripravení, kliknite na tlačidlo „Ďalej“."
+          },
+          {
+            "@tag": "NO",
+            "#text": "NO"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Poznámka"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "Prístup k nastaveniam nie je možný"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Váš konfiguračný súbor nie je možné zmeniť tak, aby nastavil pripojenie k databáze z dôvodu povolenia na zápis."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "Bez prístupu na zápis k reťazcom pripojenia k databáze"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Nie je možné upraviť váš konfiguračný súbor tak, aby nastavoval reťazec pripojenia k databáze kvôli žiadnemu povoleniu na zápis."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Prosím otvorte"
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "súbor v koreňovom adresári aplikácie a pridajte / aktualizujte nasledujúci kľúč v časti <AppSettings>:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "do koreňového adresára aplikácie a v časti <connectionStrings> pridajte / aktualizujte nasledujúci kľúč:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Overenie nie je to isté ako vaše heslo."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET má prístup na zápis do adresára koreňových aplikácií (\"~ /\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET má prístup na zápis do adresára „~ / Upload“ ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "predchádzajúca"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "Poskytovateľ autentifikácie vrátil chybu. Skontrolujte zadanie a skúste to znova. Ak problém pretrváva, kontaktujte správcu systému."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "Odpoveď na bezpečnostnú otázku"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "Otázka, ktorá sa vás opýta, keď potrebujete získať stratené heslo"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Nastaviť"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "Zdá sa, že odosielanie e-mailov funguje z vašej inštalácie YAF."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "Podrobnosti testu SMTP"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Vyskúšajte e-mail z iného fóra Forum.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Pošta odoslaná. Overte, či bol prijatý na zadanú e-mailovú adresu."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Zadajte heslo SQL"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Zadajte meno používateľa SQL"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Otestujte pripojenie"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Vyskúšajte nastavenia protokolu SMTP"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Testovacie povolenie"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Testovacie nastavenia"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Kliknite na tlačidlo „Predchádzajúce“ a upravte konfiguráciu databázy."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "Možno budete chcieť vyskúšať svoje konfiguračné nastavenia YAF tu, skôr ako budete pokračovať."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Časové pásmo hosťa používateľa"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Zadajte e-mailovú adresu"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "nekontrolovaný"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "Žiadosť o vytvorenie používateľa bola zrušená. Skontrolujte zadanie a skúste to znova. Ak problém pretrváva, kontaktujte správcu systému."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Overiť povolenia"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "Inštalácia YetAnotherForum.NET je jednoduchšia, keď má aplikácia prístup na zápis do vášho .config\r\n                        Súbory."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Kliknutím nižšie otestujete, či sú povolenia správne. Ak nie sú, môžete\r\n                        stále používajte sprievodcu inštaláciou."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Vitajte v inštalácii YAF.NET"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Kliknutím na „Ďalej“ spustíte proces inštalácie."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Tento inštalátor vás prevedie krokmi potrebnými na inštaláciu YetAnotherForum.NET (YAF.NET)."
+          },
+          {
+            "@tag": "YES",
+            "#text": "ÁNO"
           }
         ]
       },

@@ -8396,12 +8396,12 @@
             "#text": "Search Google for ..."
           },
           {
-            "@tag": "SHOWHIDE",
-            "#text": "Show/Hide"
-          },
-          {
             "@tag": "SHOW_TITLE",
             "#text": "Page Size Selection"
+          },
+          {
+            "@tag": "SHOWHIDE",
+            "#text": "Show/Hide"
           },
           {
             "@tag": "SUBMIT",
@@ -11134,6 +11134,399 @@
           {
             "@tag": "TITLE_SUSPENDED",
             "#text": "Suspended"
+          }
+        ]
+      },
+      {
+        "@name": "INSTALL",
+        "Resource": [
+          {
+            "@tag": "ADMINEMAIL",
+            "#text": "Email Adress"
+          },
+          {
+            "@tag": "ADMINNAME",
+            "#text": "Enter the name of the super user"
+          },
+          {
+            "@tag": "ADMINPASSWORD",
+            "#text": "Password"
+          },
+          {
+            "@tag": "ADMINPASSWORD2",
+            "#text": "Verify Password"
+          },
+          {
+            "@tag": "BOARDNAME",
+            "#text": "Enter the name of the new Board"
+          },
+          {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Config Password"
+          },
+          {
+            "@tag": "CONNECTIONDETAILS",
+            "#text": "Connection Details"
+          },
+          {
+            "@tag": "CONNECTIONEXIST",
+            "#text": "Select Existing Connection String"
+          },
+          {
+            "@tag": "CONNECTIONEXISTDESC",
+            "#text": "Select SQL Server Database Connection String:"
+          },
+          {
+            "@tag": "CONNECTIONFAILED",
+            "#text": "Failed to connect:"
+          },
+          {
+            "@tag": "CONNECTIONNEW",
+            "#text": "Create New Connection String"
+          },
+          {
+            "@tag": "CONNECTIONNEWNOTE",
+            "#text": "Connection String will be saved as "
+          },
+          {
+            "@tag": "CONNECTIONSUCCESS",
+            "#text": "Connection Succeeded"
+          },
+          {
+            "@tag": "CONNECTIONTEST",
+            "#text": "Database Connection Test"
+          },
+          {
+            "@tag": "CREATEBOARD",
+            "#text": "Create New Board"
+          },
+          {
+            "@tag": "CREATEUSER",
+            "#text": "Create New Super User (Host)"
+          },
+          {
+            "@tag": "CULTURE",
+            "#text": "Guest User Culture (Language)"
+          },
+          {
+            "@tag": "CURRENTVERSION",
+            "#text": "Current Version: "
+          },
+          {
+            "@tag": "DATABASE",
+            "#text": "Database"
+          },
+          {
+            "@tag": "DATASOURCE",
+            "#text": "Enter the Data Source (Name or address of the sql server)"
+          },
+          {
+            "@tag": "DBCONNECTION",
+            "#text": "YAF.NET Database Connection"
+          },
+          {
+            "@tag": "DBNAME",
+            "#text": "Enter the Database Name"
+          },
+          {
+            "@tag": "DUPLICATEEMAIL",
+            "#text": "A username for that e-mail address already exists. Please enter a different e-mail address."
+          },
+          {
+            "@tag": "DUPLICATEUSERNAME",
+            "#text": "Username already exists. Please enter a different user name."
+          },
+          {
+            "@tag": "ERROR",
+            "#text": "Error"
+          },
+          {
+            "@tag": "ERRORBOARDINSTALLED",
+            "#text": "Board is already installed."
+          },
+          {
+            "@tag": "ERRORBOARDNAME",
+            "#text": "You must enter a Board name."
+          },
+          {
+            "@tag": "ERRORCONFIGPASSWORD",
+            "#text": "You must update your appSettings with the YAF.ConfigPassword Key to continue. NOTE: The key name is case sensitive."
+          },
+          {
+            "@tag": "ERRORFORUMEMAIL",
+            "#text": "You must enter a Board email address."
+          },
+          {
+            "@tag": "ERRORPASSWORD",
+            "#text": "You must enter a password."
+          },
+          {
+            "@tag": "ERRORUSERCREATE",
+            "#text": "Create Admin User Failed:"
+          },
+          {
+            "@tag": "ERRORUSEREMAIL",
+            "#text": "You must enter the super user email address."
+          },
+          {
+            "@tag": "ERRORUSERNAME",
+            "#text": "You must enter the super user user name,"
+          },
+          {
+            "@tag": "ERRORUSERNOTFOUND",
+            "#text": "Existing user name is invalid and does not represent a current user in the membership store."
+          },
+          {
+            "@tag": "ERRORWRONGPASSWORD",
+            "#text": "You entered the <strong>wrong password</strong>!"
+          },
+          {
+            "@tag": "EXISTCONNECTION",
+            "#text": "Use Existing DB Connection String"
+          },
+          {
+            "@tag": "FINISH",
+            "#text": "Finish"
+          },
+          {
+            "@tag": "FINISHDESC",
+            "#text": "Clicking Finish will take you to the Forum main page."
+          },
+          {
+            "@tag": "FINISHED",
+            "#text": "Finished"
+          },
+          {
+            "@tag": "FORUMEMAIL",
+            "#text": "Forum Email Address"
+          },
+          {
+            "@tag": "FORUMURL",
+            "#text": "Forum Base Url Mask"
+          },
+          {
+            "@tag": "FROMEMAIL",
+            "#text": "Enter the from Email Address"
+          },
+          {
+            "@tag": "INITFINISH",
+            "#text": "Your forum is now been ready."
+          },
+          {
+            "@tag": "INITIALIZE",
+            "#text": "Initialize"
+          },
+          {
+            "@tag": "INSTALLATION",
+            "#text": "Installation"
+          },
+          {
+            "@tag": "INTEGRATED",
+            "#text": "Use Integrated Security"
+          },
+          {
+            "@tag": "INVALIDANSWER",
+            "#text": "The password retrieval answer provided is invalid. Please check the value and try again."
+          },
+          {
+            "@tag": "INVALIDEMAIL",
+            "#text": "The e-mail address provided is invalid. Please check the value and try again."
+          },
+          {
+            "@tag": "INVALIDPASSWORD",
+            "#text": "The password provided is invalid. Please enter a valid password value."
+          },
+          {
+            "@tag": "INVALIDQUESTION",
+            "#text": "The password retrieval question provided is invalid. Please check the value and try again."
+          },
+          {
+            "@tag": "INVALIDUSERNAME",
+            "#text": "The user name provided is invalid. Please check the value and try again."
+          },
+          {
+            "@tag": "MAILTEST",
+            "#text": "Mail (SMTP) Sending Test"
+          },
+          {
+            "@tag": "MAILTESTDESC",
+            "#text": "Sends a test Message to the Email address that is defined as Send to address"
+          },
+          {
+            "@tag": "NEWCONNECTION",
+            "#text": "Create New DB Connection String"
+          },
+          {
+            "@tag": "NEXT",
+            "#text": "Next"
+          },
+          {
+            "@tag": "NEXTINITDB",
+            "#text": "Clicking \"Next\" will initialize your database to the latest version."
+          },
+          {
+            "@tag": "NEXTREADY",
+            "#text": "Click \"Next\" when you are ready."
+          },
+          {
+            "@tag": "NO",
+            "#text": "NO"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Note"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGS",
+            "#text": "No Write Access to Settings"
+          },
+          {
+            "@tag": "NOWRITEAPPSETTINGSNOTE",
+            "#text": "Unable to modify your config file to set Database Connection due to no write permission."
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGS",
+            "#text": "No Write Access to Database Connection Strings"
+          },
+          {
+            "@tag": "NOWRITECONNSETTINGSNOTE",
+            "#text": "Unable to modify your config file to set Database Connection string due to no write permission."
+          },
+          {
+            "@tag": "OPENFILE",
+            "#text": "Please open the "
+          },
+          {
+            "@tag": "OPENFILEDESC",
+            "#text": "file in the application root directory and add/update the following key in the &lt;AppSettings&gt; section:"
+          },
+          {
+            "@tag": "OPENFILEDESC2",
+            "#text": "file in the application root directory and add/update the following key in the &lt;connectionStrings&gt; section:"
+          },
+          {
+            "@tag": "PASSWORDNOMATCH",
+            "#text": "Verification is not the same as your password."
+          },
+          {
+            "@tag": "PERMISSIONAPP",
+            "#text": "YAF.NET Has Write Access to Root Application Directory (\"~/\") ..."
+          },
+          {
+            "@tag": "PERMISSIONUPLOAD",
+            "#text": "YAF.NET Has Write Access to \"~/Upload\" directory ..."
+          },
+          {
+            "@tag": "PREVIOUS",
+            "#text": "Previous"
+          },
+          {
+            "@tag": "PROVIDERERROR",
+            "#text": "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator."
+          },
+          {
+            "@tag": "SECURITYANSWER",
+            "#text": "The answer to the security question"
+          },
+          {
+            "@tag": "SECURITYQUESTION",
+            "#text": "The question you will be asked when you need to retrieve your lost password"
+          },
+          {
+            "@tag": "SETUP",
+            "#text": "Setup"
+          },
+          {
+            "@tag": "SMTPTESTBODY",
+            "#text": "The email sending appears to be working from your YAF installation."
+          },
+          {
+            "@tag": "SMTPTESTDETAILS",
+            "#text": "SMTP Test Details"
+          },
+          {
+            "@tag": "SMTPTESTSUBJECT",
+            "#text": "Test Email From Yet Another Forum.NET"
+          },
+          {
+            "@tag": "SMTPTESTSUCCESS",
+            "#text": "Mail Sent. Verify it's received at your entered email address."
+          },
+          {
+            "@tag": "SQLPASS",
+            "#text": "Enter the SQL Password"
+          },
+          {
+            "@tag": "SQLUSER",
+            "#text": "Enter the SQL User Name"
+          },
+          {
+            "@tag": "TESTCONNECTION",
+            "#text": "Test Connection"
+          },
+          {
+            "@tag": "TESTEMAIL",
+            "#text": "Test Smtp Settings"
+          },
+          {
+            "@tag": "TESTPERMISSION",
+            "#text": "Test Permission"
+          },
+          {
+            "@tag": "TESTSETTINGS",
+            "#text": "Test Settings"
+          },
+          {
+            "@tag": "TESTSETTINGSDESC",
+            "#text": "Click the \"Previous\" button to edit the database configuration."
+          },
+          {
+            "@tag": "TESTSETTINGSTEXT",
+            "#text": "You may want to test your YAF configuration settings here before proceeding."
+          },
+          {
+            "@tag": "TIMEZONE",
+            "#text": "Guest User Time Zone"
+          },
+          {
+            "@tag": "TOEMAIL",
+            "#text": "Enter the to Email Address"
+          },
+          {
+            "@tag": "UNCHECKED",
+            "#text": "Unchecked"
+          },
+          {
+            "@tag": "USERREJECTED",
+            "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
+          },
+          {
+            "@tag": "VALIDATEPERMISSION",
+            "#text": "Validate Permissions"
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONDESC",
+            "#text": "YetAnotherForum.NET Installation is easier when the Application has write access to your .config\r\n                        files."
+          },
+          {
+            "@tag": "VALIDATEPERMISSIONTEXT",
+            "#text": "Click below to test if permissions are correct. If they are not, you can\r\n                        still use the installation wizard."
+          },
+          {
+            "@tag": "WELCOMEINSTALL",
+            "#text": "Welcome to the YAF.NET Installation"
+          },
+          {
+            "@tag": "WELCOMEINSTALLDESC",
+            "#text": "Click \"Next\" to start the Install process."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "This Installer will guide you through the steps required to Install YetAnotherForum.NET (YAF.NET)."
+          },
+          {
+            "@tag": "YES",
+            "#text": "YES"
           }
         ]
       },

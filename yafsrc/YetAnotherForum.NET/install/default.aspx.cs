@@ -27,7 +27,6 @@ namespace YAF.Install;
 using System.Configuration;
 using System.Security.Permissions;
 using System.Web.UI;
-using YAF.App_GlobalResources;
 using YAF.Core.Context;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Models.Identity;
@@ -47,6 +46,8 @@ public partial class _default : BasePage, IHaveServiceLocator
     ///     The _load message.
     /// </summary>
     private string loadMessage = string.Empty;
+
+    public ILocalization Localization => this.Get<ILocalization>();
 
     /// <summary>
     ///     Gets the install service.
@@ -144,8 +145,8 @@ public partial class _default : BasePage, IHaveServiceLocator
             UpdateInfoPanel(
                 this.ManualConnectionInfoHolder,
                 this.lblConnectionDetailsManual,
-                Install.ConnectionDetails,
-                $"{Install.ConnectionFailed} {message}",
+                Localization.GetText("ConnectionDetails"),
+                $"{Localization.GetText("ConnectionFailed")} {message}",
                 "danger");
         }
         else
@@ -153,8 +154,8 @@ public partial class _default : BasePage, IHaveServiceLocator
             UpdateInfoPanel(
                 this.ManualConnectionInfoHolder,
                 this.lblConnectionDetailsManual,
-                Install.ConnectionDetails,
-                Install.ConnectionSuccess,
+                Localization.GetText("ConnectionDetails"),
+            Localization.GetText("ConnectionSuccess"),
                 "success");
         }
     }
@@ -175,8 +176,8 @@ public partial class _default : BasePage, IHaveServiceLocator
             UpdateInfoPanel(
                 this.ConnectionInfoHolder,
                 this.lblConnectionDetails,
-                Install.ConnectionDetails,
-                $"{Install.ConnectionFailed} {message}",
+                Localization.GetText("ConnectionDetails"),
+                $"{Localization.GetText("ConnectionFailed")} {message}",
                 "danger");
         }
         else
@@ -184,8 +185,8 @@ public partial class _default : BasePage, IHaveServiceLocator
             UpdateInfoPanel(
                 this.ConnectionInfoHolder,
                 this.lblConnectionDetails,
-                Install.ConnectionDetails,
-                Install.ConnectionSuccess,
+                Localization.GetText("ConnectionDetails"),
+            Localization.GetText("ConnectionSuccess"),
                 "success");
         }
     }
@@ -221,15 +222,15 @@ public partial class _default : BasePage, IHaveServiceLocator
                 this.txtTestFromEmail.Text.Trim(),
                 this.txtTestToEmail.Text.Trim(),
                 this.txtTestFromEmail.Text.Trim(),
-                Install.SmtpTestSubject,
-                Install.SmtpTestBody);
+                Localization.GetText("SmtpTestSubject"),
+            Localization.GetText("SmtpTestBody"));
 
             // success
             UpdateInfoPanel(
                 this.SmtpInfoHolder,
                 this.lblSmtpTestDetails,
-                Install.SmtpTestDetails,
-                Install.SmtpTestSuccess,
+                Localization.GetText("SmtpTestDetails"),
+            Localization.GetText("SmtpTestSuccess"),
                 "success");
         }
         catch (Exception x)
@@ -237,8 +238,8 @@ public partial class _default : BasePage, IHaveServiceLocator
             UpdateInfoPanel(
                 this.SmtpInfoHolder,
                 this.lblSmtpTestDetails,
-                Install.SmtpTestDetails,
-                $"{Install.ConnectionFailed} {x.Message}",
+                Localization.GetText("SmtpTestDetails"),
+                $"{Localization.GetText("ConnectionFailed")} {x.Message}",
                 "danger");
         }
     }
@@ -444,20 +445,16 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// </summary>
     /// <param name="theLabel">The label that's gone be updated.</param>
     /// <param name="status">The status.</param>
-    private static void UpdateStatusLabel([NotNull] Label theLabel, int status)
+    private void UpdateStatusLabel([NotNull] Label theLabel, int status)
     {
         switch (status)
         {
             case 0:
-                theLabel.Text = Install.No;
+                theLabel.Text = Localization.GetText("No");
                 theLabel.CssClass = "badge bg-danger float-end";
                 break;
-            case 1:
-                theLabel.Text = Install.Unchecked;
-                theLabel.CssClass = "badge bg-info float-end";
-                break;
             case 2:
-                theLabel.Text = Install.Yes;
+                theLabel.Text = Localization.GetText("Yes");
                 theLabel.CssClass = "badge bg-success float-end";
                 break;
         }
@@ -500,13 +497,13 @@ public partial class _default : BasePage, IHaveServiceLocator
     {
         if (this.TheForumName.Text.IsNotSet())
         {
-            this.ShowErrorMessage(Install.ErrorBoardName);
+            this.ShowErrorMessage(Localization.GetText("ErrorBoardName"));
             return false;
         }
 
         if (this.ForumEmailAddress.Text.IsNotSet())
         {
-            this.ShowErrorMessage(Install.ErrorForumEmail);
+            this.ShowErrorMessage(Localization.GetText("ErrorForumEmail"));
             return false;
         }
 
@@ -514,25 +511,25 @@ public partial class _default : BasePage, IHaveServiceLocator
 
         if (this.UserName.Text.IsNotSet())
         {
-            this.ShowErrorMessage(Install.ErrorUserName);
+            this.ShowErrorMessage(Localization.GetText("ErrorUserName"));
             return false;
         }
 
         if (this.AdminEmail.Text.IsNotSet())
         {
-            this.ShowErrorMessage(Install.ErrorUserEmail);
+            this.ShowErrorMessage(Localization.GetText("ErrorUserEmail"));
             return false;
         }
 
         if (this.Password1.Text.IsNotSet())
         {
-            this.ShowErrorMessage(Install.ErrorPassword);
+            this.ShowErrorMessage(Localization.GetText("ErrorPassword"));
             return false;
         }
 
         if (this.Password1.Text != this.Password2.Text)
         {
-            this.ShowErrorMessage(Install.PasswordNoMatch);
+            this.ShowErrorMessage(Localization.GetText("PasswordNoMatch"));
             return false;
         }
 
@@ -553,7 +550,7 @@ public partial class _default : BasePage, IHaveServiceLocator
 
         if (!result.Succeeded)
         {
-            this.ShowErrorMessage($"{Install.ErrorUserCreate} - {result.Errors.FirstOrDefault()}");
+            this.ShowErrorMessage($"{Localization.GetText("ErrorUserCreate")} - {result.Errors.FirstOrDefault()}");
             return false;
         }
 
@@ -667,6 +664,8 @@ public partial class _default : BasePage, IHaveServiceLocator
             errorMessage.Visible = false;
         }
 
+        this.Localization.TransPage = "INSTALL";
+
         if (this.IsPostBack)
         {
             this.DataBind();
@@ -687,7 +686,7 @@ public partial class _default : BasePage, IHaveServiceLocator
         }
         else
         {
-            this.Cache["DBVersion"] = this.GetRepository<Registry>().GetDbVersion();
+            this.Cache[Constants.Cache.Version] = this.GetRepository<Registry>().GetDbVersion();
 
             this.CurrentWizardStepID = "WizWelcome";
 
@@ -783,9 +782,6 @@ public partial class _default : BasePage, IHaveServiceLocator
 
     private void CheckWritePermission()
     {
-        UpdateStatusLabel(this.lblPermissionApp, 1);
-        UpdateStatusLabel(this.lblPermissionUpload, 1);
-
         UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(this.Server.MapPath("~/")) ? 2 : 0);
         UpdateStatusLabel(
             this.lblPermissionUpload,
