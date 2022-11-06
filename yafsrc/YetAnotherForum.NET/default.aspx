@@ -10,7 +10,6 @@
     <meta id="YafMetaStyles" http-equiv="Content-Style-Type" runat="server" name="styles"
         content="text/css" />
     <meta id="YafMetaDescription" runat="server" name="description" content="YetAnotherForum.NET -- A bulletin board system written in ASP.NET" />
-    <meta id="YafMetaKeywords" runat="server" name="keywords" content="Yet Another Forum .Net, Forum, ASP.NET, BB, Bulletin Board, opensource" />
     <title></title>
 </head>
 <body id="YafBody" runat="server">
