@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs
@@ -37,7 +37,7 @@ namespace YAF.Lucene.Net.Codecs
         /// Sole constructor. (For invocation by subclass
         /// constructors, typically implicit.)
         /// </summary>
-        protected internal LiveDocsFormat()
+        protected LiveDocsFormat()
         {
         }
 

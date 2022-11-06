@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -39,7 +39,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public abstract class DocMap
         {
-            internal DocMap()
+            private protected DocMap() // LUCENENET: Changed from internal to private protected
             {
             }
 

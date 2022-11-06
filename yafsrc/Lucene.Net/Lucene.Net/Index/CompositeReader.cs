@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -64,7 +64,7 @@ namespace YAF.Lucene.Net.Index
         /// Sole constructor. (For invocation by subclass
         /// constructors, typically implicit.)
         /// </summary>
-        protected internal CompositeReader()
+        protected CompositeReader()
             : base()
         {
         }

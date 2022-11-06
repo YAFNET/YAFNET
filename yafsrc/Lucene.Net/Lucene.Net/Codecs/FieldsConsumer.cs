@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -52,7 +52,7 @@ namespace YAF.Lucene.Net.Codecs
         /// Sole constructor. (For invocation by subclass
         /// constructors, typically implicit.)
         /// </summary>
-        protected internal FieldsConsumer()
+        protected FieldsConsumer()
         {
         }
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 
 namespace YAF.Lucene.Net.Analysis
@@ -34,7 +34,7 @@ namespace YAF.Lucene.Net.Analysis
 
         /// <summary>
         /// Construct a token stream filtering the given input. </summary>
-        protected internal TokenFilter(TokenStream input)
+        protected TokenFilter(TokenStream input)
             : base(input)
         {
             this.m_input = input;

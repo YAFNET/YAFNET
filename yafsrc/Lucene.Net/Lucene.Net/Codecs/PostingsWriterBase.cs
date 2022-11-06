@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace YAF.Lucene.Net.Codecs
 {
@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Codecs
         /// Sole constructor. (For invocation by subclass
         /// constructors, typically implicit.)
         /// </summary>
-        protected internal PostingsWriterBase()
+        protected PostingsWriterBase()
         {
         }
 

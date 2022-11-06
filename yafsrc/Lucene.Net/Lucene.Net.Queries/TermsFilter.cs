@@ -61,7 +61,7 @@ namespace YAF.Lucene.Net.Queries
         {
         }
 
-        private class FieldAndTermEnumAnonymousClass : FieldAndTermEnum
+        private sealed class FieldAndTermEnumAnonymousClass : FieldAndTermEnum
         {            
             public FieldAndTermEnumAnonymousClass(IList<Term> terms)
             {
@@ -103,7 +103,7 @@ namespace YAF.Lucene.Net.Queries
         {
         }
 
-        private class FieldAndTermEnumAnonymousClass2 : FieldAndTermEnum
+        private sealed class FieldAndTermEnumAnonymousClass2 : FieldAndTermEnum
         {
             public FieldAndTermEnumAnonymousClass2(string field, IList<BytesRef> terms)
                 : base(field)
@@ -398,11 +398,11 @@ namespace YAF.Lucene.Net.Queries
 
             public abstract bool MoveNext();
 
-            public FieldAndTermEnum()
+            protected FieldAndTermEnum() // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
             {
             }
 
-            public FieldAndTermEnum(string field)
+            protected FieldAndTermEnum(string field) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
             {
                 this.Field = field;
             }

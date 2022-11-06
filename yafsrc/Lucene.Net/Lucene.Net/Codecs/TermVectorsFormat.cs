@@ -1,4 +1,4 @@
-namespace YAF.Lucene.Net.Codecs
+﻿namespace YAF.Lucene.Net.Codecs
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Codecs
         /// Sole constructor. (For invocation by subclass
         /// constructors, typically implicit.)
         /// </summary>
-        protected internal TermVectorsFormat()
+        protected TermVectorsFormat()
         {
         }
 

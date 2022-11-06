@@ -1,4 +1,4 @@
-namespace YAF.Lucene.Net.Codecs
+﻿namespace YAF.Lucene.Net.Codecs
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -58,7 +58,7 @@ namespace YAF.Lucene.Net.Codecs
         /// create a no-arg ctor and pass the delegate codec
         /// and a unique name to this ctor.
         /// </summary>
-        protected internal FilterCodec(Codec @delegate)
+        protected FilterCodec(Codec @delegate)
             : base()
         {
             this.m_delegate = @delegate;
