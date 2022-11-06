@@ -1,6 +1,13 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.8
+* [FIXED #761] Delete Board Announcement
+* [FIXED #762] deleting posts with Reply
+* Upgraded to Bootstrap 5.2.2
+* Upgraded to CKEditor 4.20.0
+* Bug fixes
+
 # YetAnotherForum.NET v3.1.7
 * Upgraded to Bootstrap 5.2.0
 * Bug fixes
