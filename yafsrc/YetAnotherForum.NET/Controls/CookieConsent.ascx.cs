@@ -41,25 +41,17 @@ public partial class CookieConsent : BaseUserControl
     }
 
     /// <summary>
-    /// Accept Cookie Consent
+    /// The On PreRender event.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
     /// <param name="e">
-    /// The e.
+    /// the Event Arguments
     /// </param>
-    protected void AcceptClick(object sender, EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        this.PageBoardContext.Get<HttpResponseBase>().SetCookie(
-            new HttpCookie("YAF-AcceptCookies", "true")
-                {
-                    Expires = DateTime.UtcNow.AddYears(1), HttpOnly = true,
-                    Secure = this.Request.IsSecureConnection
-                });
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            nameof(JavaScriptBlocks.CookieConsentJs),
+            JavaScriptBlocks.CookieConsentJs());
 
-        this.Response.Redirect(this.HtmlEncode(this.Request.RawUrl));
-
-        this.DataBind();
+        base.OnPreRender(e);
     }
 }

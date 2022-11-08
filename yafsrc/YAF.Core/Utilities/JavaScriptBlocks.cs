@@ -168,6 +168,29 @@ public static class JavaScriptBlocks
         }});";
 
     /// <summary>
+    /// The cookie consent JS.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    [NotNull]
+    public static string CookieConsentJs()
+    {
+        return @"function addConsentCookie(name, value, days) {
+        var expires;
+
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = ""; expires="" + date.toGMTString();
+        } else {
+            expires = """";
+        }
+        document.cookie = encodeURIComponent(name) + ""="" + encodeURIComponent(value) + expires + ""; path=/"";
+    }";
+    }
+
+    /// <summary>
     /// Java Script events for Album pages.
     /// </summary>
     /// <param name="albumEmptyTitle">

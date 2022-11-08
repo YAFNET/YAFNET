@@ -17,11 +17,8 @@
                              Type="Link" 
                              TextLocalizedTag="COOKIE_DETAILS">
             </YAF:ThemeButton>
-            <YAF:ThemeButton runat="server" ID="close" 
-                             Type="Primary" 
-                             TextLocalizedTag="COOKIE_AGREE" 
-                             Icon="check-square"
-                             OnClick="AcceptClick">
-            </YAF:ThemeButton>
+            <a class="btn btn-primary" role="button" data-bs-dismiss="alert" aria-label="Close" onclick="addConsentCookie('YAF-AcceptCookies', 'true', 365)">
+                <YAF:Icon runat="server" IconName="check-square"></YAF:Icon><YAF:LocalizedLabel runat="server" LocalizedTag="COOKIE_AGREE"></YAF:LocalizedLabel>
+            </a>
         </p>
 </div>

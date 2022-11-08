@@ -171,7 +171,7 @@
                                                  DateTime="<%# this.DataSource.Posted %>">
                             </YAF:DisplayDateTime>
                     </div>
-                    <div style="margin-top: 1px">
+                    <div>
                         <a id="post<%# this.DataSource.MessageID %>"
                            href="<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts,new { m = this.DataSource.MessageID, name = this.PageBoardContext.PageTopic.TopicName }) %>">
                             #<%# this.CurrentPage * this.PageBoardContext.BoardSettings.PostsPerPage + this.PostCount + 1%>
