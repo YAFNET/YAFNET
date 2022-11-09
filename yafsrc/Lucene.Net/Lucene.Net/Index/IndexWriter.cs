@@ -1,6 +1,4 @@
 ﻿using J2N;
-using J2N.Text;
-using J2N.Threading;
 using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
@@ -8,6 +6,7 @@ using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -35,24 +34,24 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using Constants = YAF.Lucene.Net.Util.Constants;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldNumbers = YAF.Lucene.Net.Index.FieldInfos.FieldNumbers;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using Lock = YAF.Lucene.Net.Store.Lock;
-    using LockObtainFailedException = YAF.Lucene.Net.Store.LockObtainFailedException;
-    using Lucene3xCodec = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
-    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using MergeInfo = YAF.Lucene.Net.Store.MergeInfo;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
+    using Analyzer = Lucene.Net.Analysis.Analyzer;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory = Lucene.Net.Store.CompoundFileDirectory;
+    using Constants = Lucene.Net.Util.Constants;
+    using Directory = Lucene.Net.Store.Directory;
+    using FieldNumbers = Lucene.Net.Index.FieldInfos.FieldNumbers;
+    using IBits = Lucene.Net.Util.IBits;
+    using InfoStream = Lucene.Net.Util.InfoStream;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using Lock = Lucene.Net.Store.Lock;
+    using LockObtainFailedException = Lucene.Net.Store.LockObtainFailedException;
+    using Lucene3xCodec = Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
+    using Lucene3xSegmentInfoFormat = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using MergeInfo = Lucene.Net.Store.MergeInfo;
+    using Query = Lucene.Net.Search.Query;
+    using TrackingDirectoryWrapper = Lucene.Net.Store.TrackingDirectoryWrapper;
 
     /// <summary>
     /// An <see cref="IndexWriter"/> creates and maintains an index.
@@ -1090,34 +1089,96 @@ namespace YAF.Lucene.Net.Index
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void Dispose()
         {
-            Dispose(true);
+            Dispose(disposing: true, waitForMerges: true);
             GC.SuppressFinalize(this);
         }
 
         /// <summary>
-        /// Closes the index with or without waiting for currently
+        /// Disposes the index with or without waiting for currently
         /// running merges to finish.  This is only meaningful when
         /// using a <see cref="MergeScheduler"/> that runs merges in background
         /// threads.
         ///
-        /// <para><b>NOTE</b>: if this method hits an <see cref="OutOfMemoryException"/>
+        /// <para><b>NOTE</b>: If this method hits an <see cref="OutOfMemoryException"/>
         /// you should immediately dispose the writer, again.  See 
         /// <see cref="IndexWriter"/> for details.</para>
         ///
-        /// <para><b>NOTE</b>: it is dangerous to always call
+        /// <para><b>NOTE</b>: It is dangerous to always call
         /// <c>Dispose(false)</c>, especially when <see cref="IndexWriter"/> is not open
         /// for very long, because this can result in "merge
         /// starvation" whereby long merges will never have a
         /// chance to finish.  This will cause too many segments in
         /// your index over time.</para>
+        ///
+        /// <para><b>NOTE</b>: This overload should not be called when implementing a finalizer.
+        /// Instead, call <see cref="Dispose(bool, bool)"/> with <c>disposing</c> set to
+        /// <c>false</c> and <c>waitForMerges</c> set to <c>true</c>.</para>
         /// </summary>
-        /// <param name="waitForMerges"> if <c>true</c>, this call will block
+        /// <param name="waitForMerges"> If <c>true</c>, this call will block
         /// until all merges complete; else, it will ask all
         /// running merges to abort, wait until those merges have
         /// finished (which should be at most a few seconds), and
         /// then return. </param>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public virtual void Dispose(bool waitForMerges) // LUCENENET TODO: API - mark protected
+        [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "This is Lucene's alternate path to Dispose() and we must suppress the finalizer here.")]
+        public void Dispose(bool waitForMerges)
+        {
+            Dispose(disposing: true, waitForMerges);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Disposes the index with or without waiting for currently
+        /// running merges to finish.  This is only meaningful when
+        /// using a <see cref="MergeScheduler"/> that runs merges in background
+        /// threads.
+        ///
+        /// <para>This call will block
+        /// until all merges complete; else, it will ask all
+        /// running merges to abort, wait until those merges have
+        /// finished (which should be at most a few seconds), and
+        /// then return.
+        /// </para>
+        ///
+        /// <para><b>NOTE</b>: Always be sure to call <c>base.Dispose(disposing, waitForMerges)</c>
+        /// when overriding this method.</para>
+        ///
+        /// <para><b>NOTE</b>: When implementing a finalizer in a subclass, this overload should be called
+        /// with <paramref name="disposing"/> set to <c>false</c> and <paramref name="waitForMerges"/>
+        /// set to <c>true</c>.</para>
+        ///
+        /// <para><b>NOTE</b>: If this method hits an <see cref="OutOfMemoryException"/>
+        /// you should immediately dispose the writer, again.  See 
+        /// <see cref="IndexWriter"/> for details.</para>
+        ///
+        /// <para><b>NOTE</b>: It is dangerous to always call
+        /// with <paramref name="waitForMerges"/> set to <c>false</c>,
+        /// especially when <see cref="IndexWriter"/> is not open
+        /// for very long, because this can result in "merge
+        /// starvation" whereby long merges will never have a
+        /// chance to finish.  This will cause too many segments in
+        /// your index over time.</para>
+        /// </summary>
+        /// <param name="waitForMerges"> If <c>true</c>, this call will block
+        /// until all merges complete; else, it will ask all
+        /// running merges to abort, wait until those merges have
+        /// finished (which should be at most a few seconds), and
+        /// then return. </param>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources;
+        /// <c>false</c> to release only unmanaged resources. </param>
+        // LUCENENET specific - Added this overload to allow subclasses to dispose resoruces
+        // in one place without also having to override Dispose(bool).
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        protected virtual void Dispose(bool disposing, bool waitForMerges)
+        {
+            if (disposing)
+            {
+                Close(waitForMerges);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void Close(bool waitForMerges)
         {
             // Ensure that only one thread actually gets to do the
             // closing, and make sure no commit is also in progress:
