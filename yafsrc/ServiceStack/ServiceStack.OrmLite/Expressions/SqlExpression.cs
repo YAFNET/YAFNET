@@ -4384,6 +4384,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         if (argValue == null)
             return FalseLiteral; // "column IN (NULL)" is always false
 
+        if (quotedColName is not PartialSqlString)
+            quotedColName = ConvertToParam(quotedColName);
+
         if (argValue is IEnumerable enumerableArg)
         {
             var inArgs = Sql.Flatten(enumerableArg);
