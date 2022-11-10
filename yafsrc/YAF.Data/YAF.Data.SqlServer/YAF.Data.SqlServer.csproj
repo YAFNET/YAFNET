@@ -41,8 +41,4 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.4.0" />
   </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
-  </ItemGroup>
 </Project>
