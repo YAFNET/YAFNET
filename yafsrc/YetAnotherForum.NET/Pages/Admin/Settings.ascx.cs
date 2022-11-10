@@ -111,6 +111,7 @@ public partial class Settings : AdminPage
         boardSettings.DefaultNotificationSetting = this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
         boardSettings.DefaultCollapsiblePanelState = this.DefaultCollapsiblePanelState.SelectedValue.ToEnum<CollapsiblePanelState>();
         boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
+        boardSettings.ForumEmail = this.ForumEmail.Text;
         boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
         boardSettings.DigestSendEveryXHours = this.DigestSendEveryXHours.Text.ToType<int>();
 
