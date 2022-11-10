@@ -124,11 +124,7 @@ public partial class CategoryList : BaseUserControl
     /// </param>
     protected void MarkAllClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        var markAll = (ThemeButton)sender;
-
-        var categoryId = markAll.CommandArgument.ToType<int?>();
-
-        var forums = this.Data.Item2.Where(x => x.CategoryID == categoryId);
+        var forums = this.Data.Item2;
 
         this.Get<IReadTrackCurrentUser>().SetForumRead(forums.Select(f => f.ForumID));
 
