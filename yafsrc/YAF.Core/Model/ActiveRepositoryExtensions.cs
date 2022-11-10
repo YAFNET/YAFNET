@@ -418,7 +418,7 @@ public static class ActiveRepositoryExtensions
                     countMembersExpression.Join<User>((x, u) => u.ID == x.UserID);
 
                     countMembersExpression.Where<Active, User>(
-                        (x, u) => x.BoardID == boardId && (u.Flags & 16) != 16 && (u.Flags & 2) == 2);
+                        (x, u) => x.BoardID == boardId && (u.Flags & 16) != 16 && (u.Flags & 2) == 2 && (u.Flags & 4) != 4);
 
                     var countMembersSql = countMembersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
