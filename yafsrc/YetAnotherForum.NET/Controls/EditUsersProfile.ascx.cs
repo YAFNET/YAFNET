@@ -179,11 +179,6 @@ public partial class EditUsersProfile : BaseUserControl
                 {
                     checkPlaceHolder.Visible = true;
 
-                    if (profileDef.Required)
-                    {
-                        check.Attributes.Add("required", "required");
-                    }
-
                     if (profileDef.DefaultValue.IsSet())
                     {
                         check.Checked = profileDef.DefaultValue.ToType<bool>();

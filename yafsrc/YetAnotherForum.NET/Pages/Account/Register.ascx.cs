@@ -248,6 +248,8 @@ public partial class Register : AccountPage
         var hidden = e.Item.FindControlAs<HiddenField>("DefID");
         var label = e.Item.FindControlAs<Label>("DefLabel");
         var textBox = e.Item.FindControlAs<TextBox>("DefText");
+
+        var checkPlaceHolder = e.Item.FindControlAs<PlaceHolder>("CheckPlaceHolder");
         var check = e.Item.FindControlAs<CheckBox>("DefCheck");
 
         hidden.Value = profileDef.ID.ToString();
@@ -301,14 +303,11 @@ public partial class Register : AccountPage
                 }
             case DataType.Check:
                 {
+                    checkPlaceHolder.Visible = true;
                     check.Visible = true;
+                    check.Text = profileDef.Name;
 
-                    if (profileDef.Required)
-                    {
-                        check.Attributes.Add("required", "required");
-                    }
-
-                    label.AssociatedControlID = check.ClientID;
+                    label.Visible = false;
 
                     break;
                 }
