@@ -45,8 +45,8 @@ public partial class AdminMenu : BaseUserControl
         this.AdminDropdown.CssClass = "nav-link dropdown-toggle";
 
         if (this.PageBoardContext.CurrentForumPage.IsAdminPage &&
-            !(this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or
-                  ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList))
+            this.PageBoardContext.CurrentForumPage.PageType is not (ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or
+                ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList))
         {
             this.AdminDropdown.CssClass = "nav-link dropdown-toggle active";
         }
@@ -179,6 +179,18 @@ public partial class AdminMenu : BaseUserControl
         {
             this.RenderAdminUpgrade(pagesAccess);
         }
+
+#if DEBUG
+        // Admin - Test Data
+        RenderMenuItem(
+            this.MenuHolder,
+            "dropdown-item",
+            "Test Generator",
+            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_TestData),
+            this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Admin_TestData,
+            false,
+            "vial-virus");
+#endif
     }
 
     /// <summary>

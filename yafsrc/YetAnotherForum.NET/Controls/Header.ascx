@@ -66,7 +66,7 @@
                                                             LocalizedTag="admin_pageaccesslist"/>
                                     </a>
                                 </li>
-                        </ul>
+                            </ul>
                   </li>
                     </asp:PlaceHolder>
                 <asp:PlaceHolder id="LoggedInUserPanel" runat="server" Visible="false">
