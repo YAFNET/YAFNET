@@ -8,6 +8,10 @@
 
 If you have any questions or would like to get in touch with the project, please see the contact information at the bottom of this document.
 
+## Prerequisites:
+* ASP.NET .NET Framework 4.8 (YAF v3.x)
+* BuildPackages requires .NET v7
+
 ### Installation & Upgrade
 
 1.  [New Installation](https://github.com/YAFNET/YAFNET/wiki/Installation)
