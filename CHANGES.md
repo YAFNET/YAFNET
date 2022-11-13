@@ -1,6 +1,14 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.9
+* [FIXED #813] custom profile checkboxes
+* [FIXED #810] Save Board Email Address
+* [FIXED #807] Enabled Browser based spell checking in the Editor
+* [FIXED #806] wrong member count in Active User List
+* [FIXED #805] Mark all Forums as Read
+* [FIXED #803] empty p tags in bbcode list elements
+
 # YetAnotherForum.NET v3.1.8
 * [FIXED #761] Delete Board Announcement
 * [FIXED #762] deleting posts with Reply
