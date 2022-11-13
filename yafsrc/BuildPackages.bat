@@ -18,7 +18,7 @@ If "%Current%" NEQ "15.0" set Current=Current
 
 @set $MSBUILDPATH="%$MSBUILDROOT%\MsBuild\%Current%\Bin\MSBuild.exe"
 
-%$MSBUILDPATH% YAF.NET-MySql.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Clean,Build /p:WarningLevel=0;CreatePackages=true
-%$MSBUILDPATH% YAF.NET-PostgreSQL.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Clean,Build /p:WarningLevel=0;CreatePackages=true
-%$MSBUILDPATH% YAF.NET-Sqlite.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Clean,Build /p:WarningLevel=0;CreatePackages=true
-%$MSBUILDPATH% YAF.NET-SqlServer.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Clean,Build /p:WarningLevel=0;CreatePackages=true
+%$MSBUILDPATH% YAF.NET-MySql.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Clean,Build /p:WarningLevel=0;CreatePackages=true /flp1:logfile=errors.txt
+%$MSBUILDPATH% YAF.NET-PostgreSQL.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Clean,Build /p:WarningLevel=0;CreatePackages=true /flp1:logfile=errors.txt
+%$MSBUILDPATH% YAF.NET-Sqlite.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Clean,Build /p:WarningLevel=0;CreatePackages=true /flp1:logfile=errors.txt
+%$MSBUILDPATH% YAF.NET-SqlServer.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Clean,Build /p:WarningLevel=0;CreatePackages=true /flp1:logfile=errors.txt
