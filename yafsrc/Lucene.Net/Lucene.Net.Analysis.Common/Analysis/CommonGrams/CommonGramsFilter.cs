@@ -1,4 +1,4 @@
-// Lucene version compatibility level 4.8.1
+﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Analysis.CommonGrams
     /// <summary>
     /// Construct bigrams for frequently occurring terms while indexing. Single terms
     /// are still indexed too, with bigrams overlaid. This is achieved through the
-    /// use of <see cref="PositionIncrementAttribute.PositionIncrement"/>. Bigrams have a type
+    /// use of <see cref="IPositionIncrementAttribute.PositionIncrement"/>. Bigrams have a type
     /// of <see cref="GRAM_TYPE"/> Example:
     /// <list type="bullet">
     ///     <item><description>input:"the quick brown fox"</description></item>

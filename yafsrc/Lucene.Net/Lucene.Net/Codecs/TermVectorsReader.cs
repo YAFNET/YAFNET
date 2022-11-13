@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Codecs
 
     using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum; // javadocs
     using Fields = YAF.Lucene.Net.Index.Fields;
-    using OffsetAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.OffsetAttribute; // javadocs
+    using IOffsetAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.IOffsetAttribute; // javadocs
 
     /// <summary>
     /// Codec API for reading term vectors:
@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Codecs
         /// <summary>
         /// Returns term vectors for this document, or <c>null</c> if
         /// term vectors were not indexed. If offsets are
-        /// available they are in an <see cref="OffsetAttribute"/>
+        /// available they are in an <see cref="IOffsetAttribute"/>
         /// available from the <see cref="DocsAndPositionsEnum"/>.
         /// </summary>
         public abstract Fields Get(int doc);

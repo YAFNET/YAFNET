@@ -7,6 +7,7 @@ using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace YAF.Lucene.Net.Analysis.Util
@@ -138,6 +139,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 this.isDisposing = false;
 #endif
             }
+            base.Dispose(disposing); // LUCENENET specific - disposable pattern requires calling the base class implementation
         }
 
         /// <summary>
@@ -302,7 +304,8 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// <exception cref="IOException">if this reader is disposed or some other I/O error occurs.</exception>
         public override int Read(char[] buffer, int offset, int length)
         {
-            lock(m_lock)
+            UninterruptableMonitor.Enter(m_lock);
+            try
             {
                 EnsureOpen();
                 // LUCENENT specific - refactored guard clauses to throw individual messages.
@@ -341,8 +344,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                      * underlying stream would block.
                      */
                     // LUCENENET specific: only CharFilter derived types support IsReady
-                    var charFilter = @in as CharFilter;
-                    if (outstanding == 0 || (outstanding < length) && charFilter != null && !charFilter.IsReady)
+                    if (outstanding == 0 || (outstanding < length) && @in is CharFilter charFilter && !charFilter.IsReady)
                     {
                         break;
                     }
@@ -378,6 +380,10 @@ namespace YAF.Lucene.Net.Analysis.Util
                 int count = length - outstanding;
                 return (count > 0 || count == length) ? count : 0 /*-1*/;
             }
+            finally
+            {
+                UninterruptableMonitor.Exit(m_lock);
+            }
         }
 
         /// <summary>
@@ -391,7 +397,8 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// <exception cref="IOException">if this reader is disposed or some other I/O error occurs.</exception>
         public override string ReadLine()
         {
-            lock(m_lock)
+            UninterruptableMonitor.Enter(m_lock);
+            try
             {
                 EnsureOpen();
                 /* has the underlying stream been exhausted? */
@@ -486,6 +493,10 @@ namespace YAF.Lucene.Net.Analysis.Util
                     }
                 }
             }
+            finally
+            {
+                UninterruptableMonitor.Exit(m_lock);
+            }
         }
 
         /// <summary>
@@ -504,8 +515,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 {
                     EnsureOpen();
                     // LUCENENET specific: only CharFilter derived types support IsReady
-                    var charFilter = @in as CharFilter;
-                    return ((end - pos) > 0) || (charFilter != null && charFilter.IsReady);
+                    return ((end - pos) > 0) || (@in is CharFilter charFilter && charFilter.IsReady);
                 }
                 finally
                 {
@@ -599,50 +609,154 @@ namespace YAF.Lucene.Net.Analysis.Util
             }
         }
 
-#region LUCENENET Specific Methods
+        #region LUCENENET Specific Methods
 
+        /// <summary>
+        /// Reads a single character from this reader and returns it with the two
+        /// higher-order bytes set to 0. If possible, <see cref="BufferedCharFilter"/> returns a
+        /// character from the buffer. If there are no characters available in the
+        /// buffer, it fills the buffer and then returns a character. It returns -1
+        /// if there are no more characters in the source reader. Unlike <see cref="Read()"/>,
+        /// this method does not advance the current position.
+        /// </summary>
+        /// <returns>The character read or -1 if the end of the source reader has been reached.</returns>
+        /// <exception cref="IOException">If this reader is disposed or some other I/O error occurs.</exception>
         public override int Peek()
         {
-            throw new NotImplementedException();
+            UninterruptableMonitor.Enter(m_lock);
+            try
+            {
+                EnsureOpen();
+                /* Are there buffered characters available? */
+                if (pos < end || FillBuf() != -1)
+                {
+                    return buf[pos];
+                }
+                return -1;
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(m_lock);
+            }
         }
 
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => @in.Equals(obj);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => @in.GetHashCode();
+
+        /// <inheritdoc/>
+        public override string ToString() => @in.ToString();
+
+#if FEATURE_STREAM_READ_SPAN
+        /// <summary>
+        /// Not supported.
+        /// </summary>
+        /// <exception cref="NotSupportedException">In all cases.</exception>
+        public override int Read(Span<char> buffer)
+        {
+            throw UnsupportedOperationException.Create();
+        }
+
+        /// <summary>
+        /// Not supported.
+        /// </summary>
+        /// <exception cref="NotSupportedException">In all cases.</exception>
+        public override ValueTask<int> ReadAsync(Memory<char> buffer, CancellationToken cancellationToken = default)
+        {
+            throw UnsupportedOperationException.Create();
+        }
+
+        /// <summary>
+        /// Not supported.
+        /// </summary>
+        /// <exception cref="NotSupportedException">In all cases.</exception>
+        public override int ReadBlock(Span<char> buffer)
+        {
+            throw UnsupportedOperationException.Create();
+        }
+
+        /// <summary>
+        /// Not supported.
+        /// </summary>
+        /// <exception cref="NotSupportedException">In all cases.</exception>
+        public override ValueTask<int> ReadBlockAsync(Memory<char> buffer, CancellationToken cancellationToken = default)
+        {
+            throw UnsupportedOperationException.Create();
+        }
+#endif
+        /// <summary>
+        /// Not supported.
+        /// </summary>
+        /// <exception cref="NotSupportedException">In all cases.</exception>
         public override Task<int> ReadAsync(char[] buffer, int index, int count)
         {
-            throw new NotImplementedException();
+            throw UnsupportedOperationException.Create();
         }
 
+        /// <summary>
+        /// Not supported.
+        /// </summary>
+        /// <exception cref="NotSupportedException">In all cases.</exception>
         public override int ReadBlock(char[] buffer, int index, int count)
         {
-            throw new NotImplementedException();
+            throw UnsupportedOperationException.Create();
         }
 
+        /// <summary>
+        /// Not supported.
+        /// </summary>
+        /// <exception cref="NotSupportedException">In all cases.</exception>
         public override Task<int> ReadBlockAsync(char[] buffer, int index, int count)
         {
-            throw new NotImplementedException();
+            throw UnsupportedOperationException.Create();
         }
 
+        /// <summary>
+        /// Not supported.
+        /// </summary>
+        /// <exception cref="NotSupportedException">In all cases.</exception>
         public override Task<string> ReadLineAsync()
         {
-            throw new NotImplementedException();
+            throw UnsupportedOperationException.Create();
         }
 
+        /// <summary>
+        /// Not supported.
+        /// </summary>
+        /// <exception cref="NotSupportedException">In all cases.</exception>
         public override string ReadToEnd()
         {
-            throw new NotImplementedException();
+            throw UnsupportedOperationException.Create();
         }
 
+        /// <summary>
+        /// Not supported.
+        /// </summary>
+        /// <exception cref="NotSupportedException">In all cases.</exception>
         public override Task<string> ReadToEndAsync()
         {
-            throw new NotImplementedException();
+            throw UnsupportedOperationException.Create();
         }
 #if FEATURE_TEXTWRITER_INITIALIZELIFETIMESERVICE
+        /// <summary>
+        /// Not supported.
+        /// </summary>
+        /// <exception cref="NotSupportedException">In all cases.</exception>
+        // LUCENENET: We don't override this on .NET Core, it throws a
+        // PlatformNotSupportedException, which is the behavior we want.
         public override object InitializeLifetimeService()
         {
-            throw new NotImplementedException();
+            throw UnsupportedOperationException.Create();
         }
 #endif
 
 #if FEATURE_TEXTWRITER_CLOSE
+        /// <summary>
+        /// Not supported.
+        /// </summary>
+        /// <exception cref="NotSupportedException">The call didn't originate from within <see cref="Dispose(bool)"/>.</exception>
         public override void Close()
         {
             if (!isDisposing)
@@ -651,6 +765,6 @@ namespace YAF.Lucene.Net.Analysis.Util
             }
         }
 #endif
-        #endregion
+        #endregion LUCENENET Specific Methods
     }
 }

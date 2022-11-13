@@ -2,7 +2,7 @@
 using System;
 using Attribute = YAF.Lucene.Net.Util.Attribute;
 
-namespace YAF.Lucene.Net.Search
+namespace YAF.Lucene.Net.Analysis.TokenAttributes
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,26 +22,46 @@ namespace YAF.Lucene.Net.Search
      */
 
     /// <summary>
-    /// Implementation class for <see cref="IBoostAttribute"/>.
-    /// <para/>
-    /// @lucene.internal
-    /// </summary>
-    public sealed class BoostAttribute : Attribute, IBoostAttribute
+    /// Default implementation of <see cref="IFlagsAttribute"/>. </summary>
+    public class FlagsAttribute : Attribute, IFlagsAttribute // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
-        private float boost = 1.0f;
+        private int flags = 0;
 
         /// <summary>
-        /// Gets or Sets the boost in this attribute. Default is <c>1.0f</c>.
-        /// </summary>
-        public float Boost
+        /// Initialize this attribute with no bits set </summary>
+        public FlagsAttribute()
         {
-            get => boost;
-            set => boost = value;
+        }
+
+        public virtual int Flags
+        {
+            get => flags;
+            set => this.flags = value;
         }
 
         public override void Clear()
         {
-            boost = 1.0f;
+            flags = 0;
+        }
+
+        public override bool Equals(object other)
+        {
+            if (this == other)
+            {
+                return true;
+            }
+
+            if (other is FlagsAttribute flagsAttribute)
+            {
+                return flagsAttribute.flags == flags;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return flags;
         }
 
         public override void CopyTo(IAttribute target) // LUCENENET specific - intentionally expanding target to use IAttribute rather than Attribute
@@ -49,9 +69,9 @@ namespace YAF.Lucene.Net.Search
             // LUCENENET: Added guard clauses
             if (target is null)
                 throw new ArgumentNullException(nameof(target));
-            if (target is not IBoostAttribute t)
-                throw new ArgumentException($"Argument type {target.GetType().FullName} must implement {nameof(IBoostAttribute)}", nameof(target));
-            t.Boost = boost;
+            if (target is not IFlagsAttribute t)
+                throw new ArgumentException($"Argument type {target.GetType().FullName} must implement {nameof(IFlagsAttribute)}", nameof(target));
+            t.Flags = flags;
         }
     }
 }

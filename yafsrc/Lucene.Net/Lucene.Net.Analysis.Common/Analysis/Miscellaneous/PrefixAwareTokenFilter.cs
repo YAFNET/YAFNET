@@ -1,4 +1,4 @@
-// Lucene version compatibility level 4.8.1
+﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Util;
 
@@ -182,6 +182,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
                 prefix.Dispose();
                 suffix.Dispose();
             }
+            base.Dispose(disposing); // LUCENENET specific - disposable pattern requires calling the base class implementation
         }
 
         public override void Reset()

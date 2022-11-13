@@ -494,9 +494,14 @@ namespace YAF.Lucene.Net.Search
                 return automata.Equals(((LevenshteinAutomataAttribute)other).automata);
             }
 
-            public override void CopyTo(IAttribute target)
+            public override void CopyTo(IAttribute target) // LUCENENET specific - intentionally expanding target to use IAttribute rather than Attribute
             {
-                IList<CompiledAutomaton> targetAutomata = ((LevenshteinAutomataAttribute)target).Automata;
+                // LUCENENET: Added guard clauses
+                if (target is null)
+                    throw new ArgumentNullException(nameof(target));
+                if (target is not ILevenshteinAutomataAttribute t)
+                    throw new ArgumentException($"Argument type {target.GetType().FullName} must implement {nameof(ILevenshteinAutomataAttribute)}", nameof(target));
+                IList<CompiledAutomaton> targetAutomata = t.Automata;
                 targetAutomata.Clear();
                 targetAutomata.AddRange(automata);
             }

@@ -389,10 +389,7 @@ namespace YAF.Lucene.Net.Store
                     // make local copy, then un-set early
                     ByteBuffer[] bufs = buffers;
                     UnsetBuffers();
-                    if (clones != null)
-                    {
-                        clones.Remove(this);
-                    }
+                    clones?.Remove(this);
 
                     if (isClone)
                     {

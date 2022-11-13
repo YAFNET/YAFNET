@@ -562,6 +562,7 @@ namespace YAF.Lucene.Net.Store
                         }
                     }
                 }
+                //base.Dispose(disposing); // LUCENENET: No need to call base class, we are not using the functionality of BufferedIndexOutput
             }
 
             /// <summary>

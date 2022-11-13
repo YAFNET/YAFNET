@@ -1,5 +1,4 @@
-using YAF.Lucene.Net.Support;
-using System;
+﻿using YAF.Lucene.Net.Support;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 

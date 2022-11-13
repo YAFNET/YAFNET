@@ -1,4 +1,6 @@
-﻿namespace YAF.Lucene.Net.Analysis.TokenAttributes
+using YAF.Lucene.Net.Util;
+
+namespace YAF.Lucene.Net.Analysis.TokenAttributes
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,81 +19,27 @@
      * limitations under the License.
      */
 
-    using Attribute = YAF.Lucene.Net.Util.Attribute;
-    using IAttribute = YAF.Lucene.Net.Util.IAttribute;
+    // javadocs
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
-    /// Default implementation of <see cref="IPayloadAttribute"/>. </summary>
-    public class PayloadAttribute : Attribute, IPayloadAttribute // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
+    /// The payload of a Token.
+    /// <para/>
+    /// The payload is stored in the index at each position, and can
+    /// be used to influence scoring when using Payload-based queries
+    /// in the <see cref="Lucene.Net.Search.Payloads"/> and
+    /// <see cref="Lucene.Net.Search.Spans"/> namespaces.
+    /// <para/>
+    /// NOTE: because the payload will be stored at each position, its usually
+    /// best to use the minimum number of bytes necessary. Some codec implementations
+    /// may optimize payload storage when all payloads have the same length.
+    /// </summary>
+    /// <seealso cref="Index.DocsAndPositionsEnum"/>
+    public interface IPayloadAttribute : IAttribute
     {
-        private BytesRef payload;
-
         /// <summary>
-        /// Initialize this attribute with no payload.
+        /// Gets or Sets this <see cref="Token"/>'s payload.
         /// </summary>
-        public PayloadAttribute()
-        {
-        }
-
-        /// <summary>
-        /// Initialize this attribute with the given payload.
-        /// </summary>
-        public PayloadAttribute(BytesRef payload)
-        {
-            this.payload = payload;
-        }
-
-        public virtual BytesRef Payload
-        {
-            get => this.payload;
-            set => this.payload = value;
-        }
-
-        public override void Clear()
-        {
-            payload = null;
-        }
-
-        public override object Clone()
-        {
-            PayloadAttribute clone = (PayloadAttribute)base.Clone();
-            if (payload != null)
-            {
-                clone.payload = (BytesRef)payload.Clone();
-            }
-            return clone;
-        }
-
-        public override bool Equals(object other)
-        {
-            if (other == this)
-            {
-                return true;
-            }
-
-            if (other is PayloadAttribute o)
-            {
-                if (o.payload is null || payload is null)
-                {
-                    return o.payload is null && payload is null;
-                }
-
-                return o.payload.Equals(payload);
-            }
-
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return (payload is null) ? 0 : payload.GetHashCode();
-        }
-
-        public override void CopyTo(IAttribute target)
-        {
-            PayloadAttribute t = (PayloadAttribute)target;
-            t.Payload = (payload is null) ? null : (BytesRef)payload.Clone();
-        }
+        BytesRef Payload { get; set; }
     }
 }

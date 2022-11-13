@@ -2,7 +2,7 @@
 using System;
 using Attribute = YAF.Lucene.Net.Util.Attribute;
 
-namespace YAF.Lucene.Net.Search
+namespace YAF.Lucene.Net.Analysis.TokenAttributes
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,26 +22,20 @@ namespace YAF.Lucene.Net.Search
      */
 
     /// <summary>
-    /// Implementation class for <see cref="IBoostAttribute"/>.
-    /// <para/>
-    /// @lucene.internal
-    /// </summary>
-    public sealed class BoostAttribute : Attribute, IBoostAttribute
+    /// Default implementation of <see cref="IKeywordAttribute"/>. </summary>
+    public sealed class KeywordAttribute : Attribute, IKeywordAttribute
     {
-        private float boost = 1.0f;
+        private bool keyword;
 
         /// <summary>
-        /// Gets or Sets the boost in this attribute. Default is <c>1.0f</c>.
-        /// </summary>
-        public float Boost
+        /// Initialize this attribute with the keyword value as false. </summary>
+        public KeywordAttribute()
         {
-            get => boost;
-            set => boost = value;
         }
 
         public override void Clear()
         {
-            boost = 1.0f;
+            keyword = false;
         }
 
         public override void CopyTo(IAttribute target) // LUCENENET specific - intentionally expanding target to use IAttribute rather than Attribute
@@ -49,9 +43,34 @@ namespace YAF.Lucene.Net.Search
             // LUCENENET: Added guard clauses
             if (target is null)
                 throw new ArgumentNullException(nameof(target));
-            if (target is not IBoostAttribute t)
-                throw new ArgumentException($"Argument type {target.GetType().FullName} must implement {nameof(IBoostAttribute)}", nameof(target));
-            t.Boost = boost;
+            if (target is not IKeywordAttribute attr)
+                throw new ArgumentException($"Argument type {target.GetType().FullName} must implement {nameof(IKeywordAttribute)}", nameof(target));
+            attr.IsKeyword = keyword;
+        }
+
+        public override int GetHashCode()
+        {
+            return keyword ? 31 : 37;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (this == obj)
+            {
+                return true;
+            }
+            if (this.GetType() != obj.GetType())
+            {
+                return false;
+            }
+            KeywordAttribute other = (KeywordAttribute)obj;
+            return keyword == other.keyword;
+        }
+
+        public bool IsKeyword
+        {
+            get => keyword;
+            set => keyword = value;
         }
     }
 }

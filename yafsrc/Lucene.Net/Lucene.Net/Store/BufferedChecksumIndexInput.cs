@@ -1,5 +1,4 @@
 ﻿using YAF.Lucene.Net.Support;
-using System;
 
 namespace YAF.Lucene.Net.Store
 {

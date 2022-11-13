@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Util;
+﻿using YAF.Lucene.Net.Util;
 
 namespace YAF.Lucene.Net.Analysis.TokenAttributes
 {
@@ -39,7 +39,7 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
     ///
     ///     if (IsInteresting(bytes))
     ///     {
-    ///       // because the bytes are reused by the attribute (like CharTermAttribute's char[] buffer),
+    ///       // because the bytes are reused by the attribute (like ICharTermAttribute's char[] buffer),
     ///       // you should make a copy if you need persistent access to the bytes, otherwise they will
     ///       // be rewritten across calls to IncrementToken()
     ///
