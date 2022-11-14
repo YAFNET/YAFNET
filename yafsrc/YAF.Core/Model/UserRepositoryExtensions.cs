@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
-using System.Runtime.CompilerServices;
 
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -635,7 +634,18 @@ public static class UserRepositoryExtensions
         BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.UserID == userId);
         BoardContext.Current.GetRepository<TopicReadTracking>().Delete(x => x.UserID == userId);
         BoardContext.Current.GetRepository<ForumReadTracking>().Delete(x => x.UserID == userId);
+
+        // -- Delete user albums
+        var albums = BoardContext.Current.GetRepository<UserAlbum>().ListByUser(userId);
+
+        albums.ForEach(
+            album =>
+            {
+                BoardContext.Current.GetRepository<UserAlbumImage>().Delete(x => x.AlbumID == album.ID);
+            });
+
         BoardContext.Current.GetRepository<UserAlbum>().Delete(x => x.UserID == userId);
+
         BoardContext.Current.GetRepository<ReputationVote>().Delete(x => x.ReputationFromUserID == userId);
         BoardContext.Current.GetRepository<ReputationVote>().Delete(x => x.ReputationToUserID == userId);
         BoardContext.Current.GetRepository<UserGroup>().Delete(x => x.UserID == userId);

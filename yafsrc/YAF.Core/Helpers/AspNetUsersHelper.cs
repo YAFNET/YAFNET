@@ -45,6 +45,7 @@ using YAF.Types.Models.Identity;
 using YAF.Types.Objects.Model;
 
 using Constants = YAF.Types.Constants.Constants;
+using YAF.Core.Extensions;
 
 /// <summary>
 /// This is a stop-gap class to help with syncing operations
@@ -204,18 +205,24 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         // iterate through each one...
         allUsers.Where(user => !user.IsApproved && user.CreateDate < createdCutoff).ForEach(
             user =>
+            {
+                var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+
+                if (yafUser != null)
                 {
                     // delete this user...
-                    this.GetRepository<User>().Delete(this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id).ID);
-                    this.Get<AspNetUsersManager>().Delete(user);
+                    this.GetRepository<User>().Delete(yafUser.ID);
+                }
 
-                    if (this.Get<BoardSettings>().LogUserDeleted)
-                    {
-                        this.Get<ILoggerService>().UserDeleted(
-                            BoardContext.Current.PageUser.ID,
-                            $"User {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.");
-                    }
-                });
+                this.Get<AspNetUsersManager>().Delete(user);
+
+                if (this.Get<BoardSettings>().LogUserDeleted)
+                {
+                    this.Get<ILoggerService>().UserDeleted(
+                        BoardContext.Current.PageUser.ID,
+                        $"User {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.");
+                }
+            });
     }
 
     /// <summary>

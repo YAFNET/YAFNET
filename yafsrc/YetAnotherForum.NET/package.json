@@ -1,4 +1,4 @@
-﻿{
+{
     "name": "yetanotherforum-net",
     "version": "3.1.8",
     "private": true,
@@ -10,8 +10,8 @@
         "grunt-contrib-sass": "*",
         "grunt-contrib-uglify": "^5.2.2",
         "grunt-dev-update": "^2.3.0",
-        "postcss": "^8.4.18",
-        "sass": "^1.56.0"
+        "postcss": "^8.4.19",
+        "sass": "^1.56.1"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.2.0",
