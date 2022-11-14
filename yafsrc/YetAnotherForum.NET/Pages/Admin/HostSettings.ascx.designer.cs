@@ -1923,24 +1923,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox AllowUsersImagedPoll;
 
         /// <summary>
-        /// HelpLabel123-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel123;
-
-        /// <summary>
-        /// PollImageMaxFileSize-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PollImageMaxFileSize;
-
-        /// <summary>
         /// HelpLabel124-Steuerelement.
         /// </summary>
         /// <remarks>

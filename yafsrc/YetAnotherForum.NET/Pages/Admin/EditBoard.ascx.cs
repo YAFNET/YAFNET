@@ -134,7 +134,7 @@ public partial class EditBoard : AdminPage
         else
         {
             // new admin
-            var newAdmin = this.Get<IAspNetUsersHelper>().GetUser();
+            var newAdmin = this.PageBoardContext.MembershipUser;
 
             // Create Board
             newBoardId = this.DbCreateBoard(

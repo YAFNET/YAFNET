@@ -24,7 +24,6 @@
 namespace YAF.Core.BasePages;
 
 using System;
-using System.Collections;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -76,9 +75,6 @@ public abstract class ForumPage : UserControl,
         this.Get<IInjectServices>().Inject(this);
 
         BoardContext.Current.CurrentForumPage = this;
-
-        // create empty hashtable for cache entries));
-        this.PageCache = new Hashtable();
 
         this.PageType = pageType;
         this.TranslationPage = transPage;
@@ -151,11 +147,6 @@ public abstract class ForumPage : UserControl,
     /// </summary>
     [Inject]
     public ILoggerService Logger { get; set; }
-
-    /// <summary>
-    ///   Gets cache associated with this page.
-    /// </summary>
-    public Hashtable PageCache { get; }
 
     /// <summary>
     ///   Gets the current forum Context (helper reference)
@@ -370,8 +361,5 @@ public abstract class ForumPage : UserControl,
     private void ForumPage_Unload([NotNull] object sender, [NotNull] EventArgs e)
     {
         this.Get<IRaiseEvent>().Raise(new ForumPageUnloadEvent());
-
-        // release cache
-        this.PageCache?.Clear();
     }
 }

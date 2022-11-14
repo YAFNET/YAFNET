@@ -191,8 +191,6 @@ public class Forum : UserControl, IHaveServiceLocator
         base.OnInit(e);
     }
 
-
-
     /// <summary>
     /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
     /// </summary>

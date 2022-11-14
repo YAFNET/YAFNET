@@ -973,12 +973,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <YAF:HelpLabel ID="HelpLabel123" runat="server"
-                                               AssociatedControlID="PollImageMaxFileSize"
-                                               LocalizedTag="POLL_IMAGE_FILESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:TextBox CssClass="form-control" ID="PollImageMaxFileSize" MaxLength="4" runat="server"></asp:TextBox>
-                            </div>
                         </div>
                     <div class="tab-pane fade" id="pms" role="tabpanel" aria-labelledby="pms-tab">
                         <div class="row">

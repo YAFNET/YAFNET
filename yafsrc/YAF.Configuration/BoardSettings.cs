@@ -824,16 +824,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets PollImageMaxFileSize.
-    /// </summary>
-    public int PollImageMaxFileSize
-    {
-        get => this.Registry.GetValue("PollImageMaxFileSize", 100);
-
-        set => this.Registry.SetValue("PollImageMaxFileSize", value);
-    }
-
-    /// <summary>
     /// Gets or sets CaptchaTypeRegister.
     /// </summary>
     public int CaptchaTypeRegister
@@ -1001,16 +991,6 @@ public class BoardSettings
         get => this.Registry.GetValue("BoardModeratorsCacheTimeout", 1440);
 
         set => this.Registry.SetValue("BoardModeratorsCacheTimeout", value);
-    }
-
-    /// <summary>
-    /// Gets or sets BoardCategoriesCacheTimeout.
-    /// </summary>
-    public int BoardCategoriesCacheTimeout
-    {
-        get => this.Registry.GetValue("BoardCategoriesCacheTimeout", 1440);
-
-        set => this.Registry.SetValue("BoardCategoriesCacheTimeout", value);
     }
 
     /// <summary>
@@ -1661,16 +1641,6 @@ public class BoardSettings
         get => this.Registry.GetValue("ResizePostedImages", true);
 
         set => this.Registry.SetValue("ResizePostedImages", value);
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowUserInfoCaching.
-    /// </summary>
-    public bool AllowUserInfoCaching
-    {
-        get => this.Registry.GetValue("AllowUserInfoCaching", true);
-
-        set => this.Registry.SetValue("AllowUserInfoCaching", value);
     }
 
     /// <summary>

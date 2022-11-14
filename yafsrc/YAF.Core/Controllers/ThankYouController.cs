@@ -55,7 +55,7 @@ public class ThankYouController : ApiController, IHaveServiceLocator
     [HttpPost]
     public IHttpActionResult GetThanks([NotNull] int messageId)
     {
-        var membershipUser = this.Get<IAspNetUsersHelper>().GetUser();
+        var membershipUser = BoardContext.Current.MembershipUser;
 
         if (membershipUser is null)
         {
@@ -90,7 +90,7 @@ public class ThankYouController : ApiController, IHaveServiceLocator
     [HttpPost]
     public IHttpActionResult AddThanks([NotNull] int messageId)
     {
-        var membershipUser = this.Get<IAspNetUsersHelper>().GetUser();
+        var membershipUser = BoardContext.Current.MembershipUser;
 
         if (membershipUser is null)
         {
