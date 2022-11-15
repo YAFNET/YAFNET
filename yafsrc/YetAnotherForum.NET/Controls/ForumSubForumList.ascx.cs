@@ -81,6 +81,14 @@ public partial class ForumSubForumList : BaseUserControl
         }
     }
 
+    protected void SubForumList_OnPreRender(object sender, EventArgs e)
+    {
+        if (this.SubforumList.Items.Count == 0)
+        {
+            this.Visible = false;
+        }
+    }
+
     /// <summary>
     /// Gets the Posts string
     /// </summary>

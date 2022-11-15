@@ -3,7 +3,7 @@
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 
-<asp:Repeater ID="SubforumList" runat="server" OnItemDataBound="SubForumList_ItemCreated">
+<asp:Repeater ID="SubforumList" runat="server" OnItemDataBound="SubForumList_ItemCreated" OnPreRender="SubForumList_OnPreRender">
     <HeaderTemplate>
         <div class="card my-1">
         <div class="card-body ps-2 py-1">
@@ -41,9 +41,9 @@
         </li>
     </ItemTemplate>
     <FooterTemplate>
-    <li class="list-inline-item">
-            <asp:Label Text="..." Visible="false" ID="CutOff" runat="server" />
-            </li>
+        <li class="list-inline-item" Visible="false" ID="CutOff" runat="server">
+            ...
+        </li>
         </ul>
         </div></div>
 </FooterTemplate>
