@@ -39,11 +39,9 @@ public class ActiveUser
     [Ignore]
     public ActiveFlags ActiveFlags => new(this.Flags);
 
-    //public bool IsCrawler { get; set; }
-
     public string UserStyle { get; set; }
 
-    //public bool IsGuest { get; set; }
+    public bool IsGuest { get; set; }
 
     public DateTime? Suspended { get; set; }
 

@@ -199,12 +199,12 @@ public static class ActiveRepositoryExtensions
                         {
                             expression.Where<User, Active>(
                                 (u, a) => a.BoardID == (boardId ?? repository.BoardID) &&
-                                          ((u.Flags & 4) == 4 || (u.Flags & 8) == 8));
+                                          ((a.Flags & 4) == 4 || (a.Flags & 8) == 8));
                         }
                         else
                         {
                             expression.Where<User, Active>(
-                                (u, a) => a.BoardID == (boardId ?? repository.BoardID) && (u.Flags & 4) != 4);
+                                (u, a) => a.BoardID == (boardId ?? repository.BoardID) && (a.Flags & 4) != 4 && (a.Flags & 8) != 8);
                         }
                     }
 
@@ -237,7 +237,6 @@ public static class ActiveRepositoryExtensions
                                              IsGuest =
                                                  Sql.Custom<bool>(
                                                      $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
-                                             IsCrawler = a.Flags & 8,
                                              IsActiveExcluded =
                                                  Sql.Custom<bool>(
                                                      $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
