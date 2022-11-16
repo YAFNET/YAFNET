@@ -7,7 +7,7 @@
     <EditJS></EditJS>
     <DisplayCSS></DisplayCSS>
     <SearchRegex>\[twitter\](?&lt;statusID&gt;.+?)\[/twitter\]</SearchRegex>
-    <ReplaceRegex>&lt;div class="ratio ratio-1x1" data-oembed-url="${statusID}"&gt;&lt;iframe src="https://twitframe.com/show?url=${statusID}"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;div class="ratio w-50" style="--bs-aspect-ratio: 56%;" data-oembed-url="${statusID}"&gt;&lt;iframe src="https://twitframe.com/show?url=${statusID}"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
     <Variables>statusID</Variables>
     <UseModule>false</UseModule>
     <UseToolbar>true</UseToolbar>
