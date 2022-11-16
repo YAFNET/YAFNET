@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web.Hosting;
+
 using YAF.Types.Objects.Language;
 
 /// <summary>
@@ -488,6 +489,8 @@ public class Localization : ILocalization
             return this.localizer.CurrentCulture;
         }
 
+        var isInstallPage = this.TransPage.IsSet() && this.TransPage.Equals("INSTALL");
+
 #if !DEBUG
             if (this.localizer == null && BoardContext.Current.Get<IDataCache>().Get($"Localizer.{fileName}") != null) {
                 this.localizer = BoardContext.Current.Get<IDataCache>().Get($"Localizer.{fileName}") as Localizer;
@@ -498,7 +501,7 @@ public class Localization : ILocalization
             this.localizer =
                 new Localizer(
                     HostingEnvironment.MapPath($"{BoardInfo.ForumServerFileRoot}languages/{fileName}"),
-                    !this.TransPage.Equals("INSTALL"));
+                    !isInstallPage);
 
 #if !DEBUG
                 BoardContext.Current.Get<IDataCache>().Set($"Localizer.{fileName}", this.localizer);
@@ -522,7 +525,7 @@ public class Localization : ILocalization
                     new Localizer(
                         HostingEnvironment.MapPath(
                             $"{BoardInfo.ForumServerFileRoot}languages/english.json"),
-                        !this.TransPage.Equals("INSTALL"));
+                        !isInstallPage);
 #if !DEBUG
                     BoardContext.Current.Get<IDataCache>().Set("DefaultLocale",this.defaultLocale);
 #endif
@@ -582,7 +585,6 @@ public class Localization : ILocalization
                                : BoardContext.Current.PageUser.LanguageFile;
             }
         }
-
 
         fileName ??= "english.json";
 
