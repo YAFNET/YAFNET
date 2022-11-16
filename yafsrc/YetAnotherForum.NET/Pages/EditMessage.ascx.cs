@@ -512,7 +512,7 @@ public partial class EditMessage : ForumPage
 
         if (!this.PageBoardContext.IsAdmin && this.PageBoardContext.BoardSettings.LockPosts > 0)
         {
-            var edited = message.Edited.Value;
+            var edited = message.Edited ?? message.Posted;
 
             if (edited.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow)
             {
