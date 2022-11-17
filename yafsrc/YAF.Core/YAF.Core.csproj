@@ -80,7 +80,7 @@
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="Autofac" Version="6.5.0" />
     <PackageReference Include="Farsi.Library" Version="2.7.0" />
   </ItemGroup>
 </Project>
