@@ -230,7 +230,6 @@ public partial class ActiveUsers : ForumPage
             this.PageBoardContext.PageUserID,
             showGuests,
             showCrawlers,
-            this.PageBoardContext.BoardSettings.ActiveListTime,
             this.PagerTop.CurrentPageIndex,
             this.PagerTop.PageSize);
 

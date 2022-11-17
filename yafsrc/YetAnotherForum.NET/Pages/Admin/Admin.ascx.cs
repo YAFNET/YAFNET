@@ -288,7 +288,6 @@ public partial class Admin : AdminPage
             this.PageBoardContext.PageUserID,
             true,
             true,
-            this.PageBoardContext.BoardSettings.ActiveListTime,
             this.PagerTop.CurrentPageIndex,
             this.PagerTop.PageSize);
 
