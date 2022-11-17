@@ -151,7 +151,7 @@ public class ActiveUsers : BaseControl
                 }
 
                 // if user is guest and guest should be hidden
-                bool addControl = !(user.ActiveFlags.IsGuest && !this.PageBoardContext.IsAdmin);
+                var addControl = !(user.ActiveFlags.IsGuest && !this.PageBoardContext.IsAdmin);
 
                 // we might not want to add this user link if user is marked as hidden
                 if (user.IsActiveExcluded)

@@ -200,14 +200,14 @@ public partial class ActiveUsers : ForumPage
                 break;
         }
 
+        this.PagerTop.Count = activeUsers.Any() ? activeUsers.First().UserCount : 0;
+
         if (activeUsers.NullOrEmpty())
         {
             return;
         }
 
         this.UserList.DataSource = activeUsers;
-
-        this.PagerTop.Count = activeUsers.Any() ? activeUsers.First().UserCount : 0;
 
         this.DataBind();
     }

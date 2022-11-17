@@ -104,7 +104,6 @@ public class Resources : IResources, IHaveServiceLocator
             var activeUsers = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.UsersOnlineStatus,
                 () => this.GetRepository<Active>().List(
-                    false,
                     this.Get<BoardSettings>().ShowCrawlersInActiveList,
                     this.Get<BoardSettings>().ActiveListTime),
                 TimeSpan.FromMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));

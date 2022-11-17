@@ -61,7 +61,6 @@ public class OnlineStatusIcon : BaseControl
         var activeUsers = this.Get<IDataCache>().GetOrSet(
             Constants.Cache.UsersOnlineStatus,
             () => this.GetRepository<Active>().List(
-                false,
                 this.PageBoardContext.BoardSettings.ShowCrawlersInActiveList,
                 this.PageBoardContext.BoardSettings.ActiveListTime),
             TimeSpan.FromMilliseconds(BoardContext.Current.BoardSettings.OnlineStatusCacheTimeout));
@@ -74,7 +73,6 @@ public class OnlineStatusIcon : BaseControl
             // suspended
             writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-warning user-suspended me-1");
             writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetTextFormatted("USERSUSPENDED", this.Suspended.Value));
-             
         }
         else
         {

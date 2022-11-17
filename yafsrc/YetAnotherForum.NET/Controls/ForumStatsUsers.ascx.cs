@@ -144,7 +144,6 @@ public partial class ForumStatsUsers : BaseUserControl
         var activeUsers = this.Get<IDataCache>().GetOrSet(
             Constants.Cache.UsersOnlineStatus,
             () => this.GetRepository<Active>().List(
-                false,
                 this.PageBoardContext.BoardSettings.ShowCrawlersInActiveList,
                 this.PageBoardContext.BoardSettings.ActiveListTime),
             TimeSpan.FromMilliseconds(this.PageBoardContext.BoardSettings.OnlineStatusCacheTimeout));

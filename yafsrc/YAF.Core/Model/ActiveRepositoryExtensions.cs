@@ -153,9 +153,6 @@ public static class ActiveRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="showGuests">
-    /// The show Guests.
-    /// </param>
     /// <param name="showCrawlers">
     /// The show crawlers.
     /// </param>
@@ -170,7 +167,6 @@ public static class ActiveRepositoryExtensions
     /// </returns>
     public static List<ActiveUser> List(
         this IRepository<Active> repository,
-        [NotNull] bool showGuests,
         [NotNull] bool showCrawlers,
         [NotNull] int activeTime,
         [CanBeNull] int? boardId = null)
@@ -189,23 +185,16 @@ public static class ActiveRepositoryExtensions
                 {
                     expression.Join<Rank>((u, r) => r.ID == u.RankID).Join<Active>((u, a) => a.UserID == u.ID);
 
-                    if (showGuests)
+                    if (showCrawlers)
                     {
-                        expression.Where<User, Active>((u, a) => a.BoardID == (boardId ?? repository.BoardID));
+                        expression.Where<User, Active>(
+                            (u, a) => a.BoardID == (boardId ?? repository.BoardID) &&
+                                      ((a.Flags & 4) == 4 || (a.Flags & 8) == 8));
                     }
                     else
                     {
-                        if (showCrawlers)
-                        {
-                            expression.Where<User, Active>(
-                                (u, a) => a.BoardID == (boardId ?? repository.BoardID) &&
-                                          ((a.Flags & 4) == 4 || (a.Flags & 8) == 8));
-                        }
-                        else
-                        {
-                            expression.Where<User, Active>(
-                                (u, a) => a.BoardID == (boardId ?? repository.BoardID) && (a.Flags & 4) != 4 && (a.Flags & 8) != 8);
-                        }
+                        expression.Where<User, Active>(
+                            (u, a) => a.BoardID == (boardId ?? repository.BoardID) && (a.Flags & 4) == 4 && (a.Flags & 8) != 8);
                     }
 
                     expression.OrderByDescending<Active>(a => a.LastActive);
@@ -272,9 +261,6 @@ public static class ActiveRepositoryExtensions
     /// <param name="showCrawlers">
     /// The show crawlers.
     /// </param>
-    /// <param name="activeTime">
-    /// The active time.
-    /// </param>
     /// <param name="pageIndex">
     /// The page Index.
     /// </param>
@@ -292,7 +278,6 @@ public static class ActiveRepositoryExtensions
         [NotNull] int userId,
         [NotNull] bool showGuests,
         [NotNull] bool showCrawlers,
-        [NotNull] int activeTime,
         [NotNull] int pageIndex,
         [NotNull] int pageSize,
         [CanBeNull] int? boardId = null)
