@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "English",
     "@code": "en",
@@ -3598,78 +3598,82 @@
       {
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
-          {
-            "@tag": "APPLY",
-            "#text": "Apply"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Delete this event log entry?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE_ALL",
-            "#text": "Delete all event log entries?"
-          },
-          {
-            "@tag": "DELETE_ALL",
-            "#text": "Delete All"
-          },
-          {
-            "@tag": "DELETE_ALLOWED",
-            "#text": "Clean Up"
-          },
-          {
-            "@tag": "HIDE",
-            "#text": "Hide"
-          },
-          {
-            "@tag": "NO_ENTRY",
-            "#text": "No Entries found"
-          },
-          {
-            "@tag": "SHOW",
-            "#text": "Show"
-          },
-          {
-            "@tag": "SINCEDATE",
-            "#text": "Start Date"
-          },
-          {
-            "@tag": "SINCEDATE_HELP",
-            "#text": "Select the start date for the log to show."
-          },
-          {
-            "@tag": "SOURCE",
-            "#text": "Source"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "Time"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Event Log"
-          },
-          {
-            "@tag": "TODATE",
-            "#text": "End Date"
-          },
-          {
-            "@tag": "TODATE_HELP",
-            "#text": "Select the end date for log to show."
-          },
-          {
-            "@tag": "TYPE",
-            "#text": "Type"
-          },
-          {
-            "@tag": "TYPES",
-            "#text": "Type"
-          },
-          {
-            "@tag": "TYPES_HELP",
-            "#text": "Choose to restrict the Log to certain types of events."
-          }
+            {
+                "@tag": "APPLY",
+                "#text": "Apply"
+            },
+            {
+                "@tag": "CONFIRM_DELETE",
+                "#text": "Delete this event log entry?"
+            },
+            {
+                "@tag": "CONFIRM_DELETE_ALL",
+                "#text": "Delete all event log entries?"
+            },
+            {
+                "@tag": "COPY_TO_CLIPBOARD",
+                "#text": "Copy to clipboard"
+            },
+            {
+                "@tag": "DELETE_ALL",
+                "#text": "Delete All"
+            },
+            {
+                "@tag": "DELETE_ALLOWED",
+                "#text": "Clean Up"
+            },
+            {
+                "@tag": "HIDE",
+                "#text": "Hide"
+            },
+            {
+                "@tag": "NO_ENTRY",
+                "#text": "No Entries found"
+            },
+            {
+                "@tag": "SHOW",
+                "#text": "Show"
+            },
+            {
+                "@tag": "SINCEDATE",
+                "#text": "Start Date"
+            },
+            {
+                "@tag": "SINCEDATE_HELP",
+                "#text": "Select the start date for the log to show."
+            },
+            {
+                "@tag": "SOURCE",
+                "#text": "Source"
+            },
+            {
+                "@tag": "TIME",
+                "#text": "Time"
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "Event Log"
+            },
+            {
+                "@tag": "TODATE",
+                "#text": "End Date"
+            },
+            {
+                "@tag": "TODATE_HELP",
+                "#text": "Select the end date for log to show."
+            },
+            {
+                "@tag": "TYPE",
+                "#text": "Type"
+            },
+            {
+                "@tag": "TYPES",
+                "#text": "Type"
+            },
+            {
+                "@tag": "TYPES_HELP",
+                "#text": "Choose to restrict the Log to certain types of events."
+            }
         ]
       },
       {

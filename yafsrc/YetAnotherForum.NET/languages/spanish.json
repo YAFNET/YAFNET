@@ -3665,6 +3665,10 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Selecciónalo para restringir el log a unos tipos de eventos concretos."
+          },
+          {
+            "@tag": "COPY_TO_CLIPBOARD",
+            "#text": "Copy to clipboard"
           }
         ]
       },

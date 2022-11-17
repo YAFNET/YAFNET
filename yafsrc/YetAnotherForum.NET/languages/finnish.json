@@ -3673,6 +3673,10 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Voit rajoittaa lokin tietyntyyppisiin tapahtumiin."
+          },
+          {
+            "@tag": "COPY_TO_CLIPBOARD",
+            "#text": "Copy to clipboard"
           }
         ]
       },

@@ -3665,6 +3665,10 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Выберите, чтобы ограничить журнал определенными типами событий."
+          },
+          {
+            "@tag": "COPY_TO_CLIPBOARD",
+            "#text": "Copy to clipboard"
           }
         ]
       },

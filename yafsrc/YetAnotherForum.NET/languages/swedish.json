@@ -3673,6 +3673,10 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Välj att begränsa loggningen till vissa typer av händelser."
+          },
+          {
+            "@tag": "COPY_TO_CLIPBOARD",
+            "#text": "Copy to clipboard"
           }
         ]
       },

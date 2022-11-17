@@ -3673,6 +3673,10 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Vælg at begrænse loggen til bestemte typer begivenheder."
+          },
+          {
+            "@tag": "COPY_TO_CLIPBOARD",
+            "#text": "Copy to clipboard"
           }
         ]
       },

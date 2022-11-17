@@ -3665,6 +3665,10 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "اختر تقييد السجل لأنواع معينة من الأحداث."
+          },
+          {
+            "@tag": "COPY_TO_CLIPBOARD",
+            "#text": "Copy to clipboard"
           }
         ]
       },

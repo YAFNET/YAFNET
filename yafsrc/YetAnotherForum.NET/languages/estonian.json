@@ -3673,6 +3673,10 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Valige logi piiramine teatud tüüpi sündmustega."
+          },
+          {
+            "@tag": "COPY_TO_CLIPBOARD",
+            "#text": "Copy to clipboard"
           }
         ]
       },
@@ -5054,14 +5058,6 @@
             "#text": "Allowes the upload and use of attachments in Private messages."
           },
           {
-            "@tag": "POLL_IMAGE_FILESIZE",
-            "#text": "Poll Image File size:"
-          },
-          {
-            "@tag": "POLL_IMAGE_FILESIZE_HELP",
-            "#text": "Max. file size for poll images in KB."
-          },
-          {
             "@tag": "POPULAR_DAYS",
             "#text": "Aktiivsed päevad kuumaks jäämiseks:"
           },
@@ -5812,6 +5808,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, mida kasutatakse turvaliste veebiteenuste kõnede tegemiseks. "
+          },
+          {
+            "@tag": "POLL_IMAGE_FILESIZE",
+            "#text": "Max. File Size for User Poll Images:"
+          },
+          {
+            "@tag": "POLL_IMAGE_FILESIZE_HELP",
+            "#text": "Define the Max. File Size in Kilo Bytes for an User Poll Image."
           }
         ]
       },

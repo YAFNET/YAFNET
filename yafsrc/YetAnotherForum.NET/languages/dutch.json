@@ -3665,6 +3665,10 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Kies ervoor om het logboek te beperken tot bepaalde soorten gebeurtenissen."
+          },
+          {
+            "@tag": "COPY_TO_CLIPBOARD",
+            "#text": "Copy to clipboard"
           }
         ]
       },

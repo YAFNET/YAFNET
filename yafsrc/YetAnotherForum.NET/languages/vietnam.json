@@ -3673,6 +3673,10 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Chọn để hạn chế Nhật ký đối với một số loại sự kiện nhất định."
+          },
+          {
+            "@tag": "COPY_TO_CLIPBOARD",
+            "#text": "Copy to clipboard"
           }
         ]
       },
@@ -11153,10 +11157,6 @@
         "@name": "INSTALL",
         "Resource": [
           {
-            "@tag": "WELCOMEINSTALLTEXT",
-            "#text": "Trình cài đặt này sẽ hướng dẫn bạn các bước cần thiết để Cài đặt YetAnotherForum.NET (YAF.NET)."
-          },
-          {
             "@tag": "ADMINEMAIL",
             "#text": "Địa chỉ email"
           },
@@ -11535,6 +11535,10 @@
           {
             "@tag": "WELCOMEINSTALLDESC",
             "#text": "Nhấp vào \"Tiếp theo\" để bắt đầu quá trình Cài đặt."
+          },
+          {
+            "@tag": "WELCOMEINSTALLTEXT",
+            "#text": "Trình cài đặt này sẽ hướng dẫn bạn các bước cần thiết để Cài đặt YetAnotherForum.NET (YAF.NET)."
           },
           {
             "@tag": "YES",

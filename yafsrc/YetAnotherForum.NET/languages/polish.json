@@ -3665,6 +3665,10 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Można ograniczyć rejestr do określonych typów zdarzeń."
+          },
+          {
+            "@tag": "COPY_TO_CLIPBOARD",
+            "#text": "Copy to clipboard"
           }
         ]
       },

@@ -140,6 +140,10 @@
                                          Icon="trash"
                                          TextLocalizedTag="DELETE">
                         </YAF:ThemeButton>
+                        <a class="dropdown-item" role="button" onclick="<%# "copyToClipBoard($('#eventDetails{0} code').text())".Fmt(((PagedEventLog)Container.DataItem).ID) %>">
+                            <YAF:Icon runat="server" IconName="clipboard"></YAF:Icon>
+                            <YAF:LocalizedLabel runat="server" LocalizedTag="COPY_TO_CLIPBOARD"></YAF:LocalizedLabel>
+                        </a>
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton runat="server"
                                          Type="None"
