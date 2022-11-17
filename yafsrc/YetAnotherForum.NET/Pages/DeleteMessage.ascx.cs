@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Pages;
 
 using YAF.Types.Models;
@@ -68,7 +69,7 @@ public partial class DeleteMessage : ForumPage
                 return false;
             }
 
-            var edited = this.PageBoardContext.PageMessage.Edited.Value;
+            var edited = this.PageBoardContext.PageMessage.Edited ?? this.PageBoardContext.PageMessage.Posted;
 
             return edited.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow;
         }
