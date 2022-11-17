@@ -846,7 +846,9 @@ public class BBCode : IBBCode, IHaveServiceLocator
             // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
             ruleEngine.AddRule(horizontalLineRule);
 
-            ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
+            //ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
+
+            ruleEngine.AddRule( breakRule );
 
             if (!isEditMode)
             {
