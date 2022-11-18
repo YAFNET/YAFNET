@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services;
 
 using System.Collections.Generic;
@@ -47,14 +48,10 @@ public class TemplateEmail : IHaveServiceLocator
         var logoUrl =
             $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.Get<BoardSettings>().ForumLogo}";
 
-        var inlineCss = File.ReadAllText(
-            this.Get<HttpContextBase>().Server
-                .MapPath(this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")));
-
         this.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
         this.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
-        this.TemplateParams["{css}"] = inlineCss;
-        this.TemplateParams["{logo}"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
+        this.TemplateParams["%%forumlink%%"] = this.Get<LinkBuilder>().ForumUrl;
+        this.TemplateParams["%%logo%%"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
     }
 
     /// <summary>
@@ -192,8 +189,8 @@ public class TemplateEmail : IHaveServiceLocator
     /// </returns>
     private string ProcessHtml(string textBody)
     {
-        var htmlTemplate = File.ReadAllText(this.Get<HttpContextBase>().Server.MapPath(
-            $"{BoardInfo.ForumServerFileRoot}Resources/{this.HtmlTemplateFileName}"));
+        var htmlTemplate = File.ReadAllText(
+            this.Get<HttpContextBase>().Server.MapPath(this.Get<ITheme>().BuildThemePath(this.HtmlTemplateFileName)));
 
         var formattedBody = this.Get<IBBCode>().MakeHtml(textBody, true, true);
 

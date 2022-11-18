@@ -1,0 +1,43 @@
+.row {
+  margin-right: -24px;
+  & > table {
+    table-layout: fixed;
+    -premailer-width: 100%;
+    width: 100%;
+    & > tbody > tr > td {
+      min-height: 1px;
+      font-weight: normal;
+      padding-right: 24px;
+      vertical-align: top;
+      text-align: left;
+    }
+  }
+}
+
+@each $key, $value in $grid-cols {
+  td.col-#{$key},
+  td.col-lg-#{$key} {
+    width: $value;
+  }
+}
+
+@each $space, $value in $spacers {
+  .row.gap-#{$space},
+  .row.gap-x-#{$space},
+  .row.gap-lg-#{$space},
+  .row.gap-x-lg-#{$space} {
+    margin-right: -1 * $value;
+    & > table > tbody > tr > td {
+      padding-right: $value;
+    }
+  }
+  .row.gap-#{$space},
+  .row.gap-y-#{$space},
+  .row.gap-lg-#{$space},
+  .row.gap-y-lg-#{$space} {
+    margin-bottom: -1 * $value;
+    & > table > tbody > tr > td {
+      padding-bottom: $value;
+    }
+  }
+}

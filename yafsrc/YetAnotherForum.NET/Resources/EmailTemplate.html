@@ -3,20 +3,20 @@
 <head>
     <title>{title}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <style type="text/css">{css}</style>
+     <style>
+       /* Add custom classes and styles that you want inlined here */
+    </style>
 </head>
 <body class="bg-light">
     <div class="container">
-        <div class="mx-auto mt-4 mb-3 text-center" style="width: 100px; height: 40px;">
-            <img src="{logo}" alt="logo" />
-        </div>
-        <div class="card mb-4 border-top border-5 border-primary">
+        <img class="ax-center my-10 w-24" src="%%logo%%" alt="logo" />
+        <div class="card p-6 p-lg-10 space-y-4">
             <div class="card-body">
                 {CONTENT}
             </div>
         </div>
 
-        <div class="text-center text-muted"><strong>{forumname}</strong> at <a href="{forumlink}">{forumlink}</a></div>
+        <div class="text-center text-muted"><strong>{forumname}</strong> at <a href="%%forumlink%%">{forumlink}</a></div>
     </div>
 
 </body>
