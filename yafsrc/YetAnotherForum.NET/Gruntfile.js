@@ -10,6 +10,94 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
 
+        shell: {
+            emailTemplates: {
+                command: [
+                    "@echo off",
+                    "echo Build cerulean theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/cerulean/EmailTemplate.html  -c Content/Themes/cerulean/bootstrap_email.config",
+
+                    "echo Build cosmo theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/cosmo/EmailTemplate.html -c Content/Themes/cosmo/bootstrap_email.config",
+
+                    "echo Build cyborg theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/cyborg/EmailTemplate.html -c Content/Themes/cyborg/bootstrap_email.config",
+
+                    "echo Build darkly theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/darkly/EmailTemplate.html -c Content/Themes/darkly/bootstrap_email.config",
+
+                    "echo Build flatly theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/flatly/EmailTemplate.html -c Content/Themes/flatly/bootstrap_email.config",
+
+                    "echo Build journal theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/journal/EmailTemplate.html -c Content/Themes/journal/bootstrap_email.config",
+
+                    "echo Build litera theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/litera/EmailTemplate.html -c Content/Themes/litera/bootstrap_email.config",
+
+                    "echo Build lumen theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/lumen/EmailTemplate.html -c Content/Themes/lumen/bootstrap_email.config",
+
+                    "echo Build lux theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/lux/EmailTemplate.html -c Content/Themes/lux/bootstrap_email.config",
+
+                    "echo Build materia theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/materia/EmailTemplate.html -c Content/Themes/materia/bootstrap_email.config",
+
+                    "echo Build minty theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/minty/EmailTemplate.html -c Content/Themes/minty/bootstrap_email.config",
+
+                    "echo Build morph theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/morph/EmailTemplate.html -c Content/Themes/morph/bootstrap_email.config",
+
+                    "echo Build pulse theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/pulse/EmailTemplate.html -c Content/Themes/pulse/bootstrap_email.config",
+
+                    "echo Build quartz theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/quartz/EmailTemplate.html -c Content/Themes/quartz/bootstrap_email.config",
+
+                    "echo Build sandstone theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/sandstone/EmailTemplate.html -c Content/Themes/sandstone/bootstrap_email.config",
+
+                    "echo Build simplex theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/simplex/EmailTemplate.html -c Content/Themes/simplex/bootstrap_email.config",
+
+                    "echo Build sketchy theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/sketchy/EmailTemplate.html -c Content/Themes/sketchy/bootstrap_email.config",
+
+                    "echo Build slate theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/slate/EmailTemplate.html -c Content/Themes/slate/bootstrap_email.config",
+
+                    "echo Build solar theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/solar/EmailTemplate.html -c Content/Themes/solar/bootstrap_email.config",
+
+                    "echo Build spacelab theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/spacelab/EmailTemplate.html -c Content/Themes/spacelab/bootstrap_email.config",
+
+                    "echo Build superhero theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/superhero/EmailTemplate.html -c Content/Themes/superhero/bootstrap_email.config",
+
+                    "echo Build united theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/united/EmailTemplate.html -c Content/Themes/united/bootstrap_email.config",
+
+                    "echo Build vapor theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/vapor/EmailTemplate.html -c Content/Themes/vapor/bootstrap_email.config",
+
+                    "echo Build yaf theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/yaf/EmailTemplate.html -c Content/Themes/yaf/bootstrap_email.config",
+
+                    "echo Build yeti theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/yeti/EmailTemplate.html -c Content/Themes/yeti/bootstrap_email.config",
+
+                    "echo Build zephyr theme email template",
+                    "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/zephyr/EmailTemplate.html -c Content/Themes/zephyr/bootstrap_email.config",
+
+                    "rmdir .sass-cache /s /q"
+                ].join('&&')
+
+            }
+        },
+
         // Minimize JS
         uglify: {
             installWizard: {
@@ -341,10 +429,16 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-dev-update");
+    grunt.loadNpmTasks("grunt-shell");
 
     grunt.registerTask("default",
         [
-           "devUpdate", "uglify", "sass", "postcss", "cssmin"
+            "devUpdate", "uglify", "sass", "postcss", "cssmin"
+        ]);
+
+    grunt.registerTask("emailTemplates",
+        [
+            "shell"
         ]);
 
     grunt.registerTask("js",
