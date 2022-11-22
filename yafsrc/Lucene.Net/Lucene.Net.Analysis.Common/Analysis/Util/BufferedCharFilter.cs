@@ -3,6 +3,7 @@
 // https://svn.apache.org/repos/asf/harmony/enhanced/java/trunk/
 
 using YAF.Lucene.Net.Analysis.CharFilters;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.IO;
@@ -177,13 +178,13 @@ namespace YAF.Lucene.Net.Analysis.Util
                     newLength = markLimit;
                 }
                 char[] newbuf = new char[newLength];
-                System.Array.Copy(buf, 0, newbuf, 0, buf.Length);
+                Arrays.Copy(buf, 0, newbuf, 0, buf.Length);
                 buf = newbuf;
             }
             else if (mark > 0)
             {
                 /* make room by shifting the buffered data to left mark positions */
-                System.Array.Copy(buf, mark, buf, 0, buf.Length - mark);
+                Arrays.Copy(buf, mark, buf, 0, buf.Length - mark);
                 pos -= mark;
                 end -= mark;
                 mark = 0;
@@ -331,7 +332,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                     if (available > 0)
                     {
                         int count2 = available >= outstanding ? outstanding : available;
-                        System.Array.Copy(buf, pos, buffer, offset, count2);
+                        Arrays.Copy(buf, pos, buffer, offset, count2);
                         pos += count2;
                         offset += count2;
                         outstanding -= count2;
@@ -639,15 +640,6 @@ namespace YAF.Lucene.Net.Analysis.Util
                 UninterruptableMonitor.Exit(m_lock);
             }
         }
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => @in.Equals(obj);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => @in.GetHashCode();
-
-        /// <inheritdoc/>
-        public override string ToString() => @in.ToString();
 
 #if FEATURE_STREAM_READ_SPAN
         /// <summary>

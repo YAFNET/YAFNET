@@ -1,4 +1,5 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 
@@ -111,7 +112,7 @@ namespace YAF.Lucene.Net.Search.Spans
             if (payload != null)
             {
                 bytes = new byte[payload.Length];
-                Array.Copy(payload.Bytes, payload.Offset, bytes, 0, payload.Length);
+                Arrays.Copy(payload.Bytes, payload.Offset, bytes, 0, payload.Length);
             }
             else
             {

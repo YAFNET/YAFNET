@@ -1,5 +1,6 @@
 ﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
+using YAF.Lucene.Net.Support;
 using System;
 
 namespace YAF.Lucene.Net.Search
@@ -217,7 +218,7 @@ namespace YAF.Lucene.Net.Search
                 if (termState.Length < ord.Length)
                 {
                     TermContext[] tmpTermState = new TermContext[ArrayUtil.Oversize(ord.Length, RamUsageEstimator.NUM_BYTES_OBJECT_REF)];
-                    Array.Copy(termState, 0, tmpTermState, 0, termState.Length);
+                    Arrays.Copy(termState, 0, tmpTermState, 0, termState.Length);
                     termState = tmpTermState;
                 }
                 if (Debugging.AssertsEnabled) Debugging.Assert(termState.Length >= ord.Length && boost.Length >= ord.Length);

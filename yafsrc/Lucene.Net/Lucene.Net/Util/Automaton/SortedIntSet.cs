@@ -1,4 +1,5 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -196,7 +197,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         public FrozenInt32Set ToFrozenInt32Set() // LUCENENET specific
         {
             int[] c = new int[upto];
-            Array.Copy(values, 0, c, 0, upto);
+            Arrays.Copy(values, 0, c, 0, upto);
             return new FrozenInt32Set(c, this.hashCode, this.state);
         }
 
@@ -204,7 +205,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         public FrozenInt32Set Freeze(State state)
         {
             int[] c = new int[upto];
-            Array.Copy(values, 0, c, 0, upto);
+            Arrays.Copy(values, 0, c, 0, upto);
             return new FrozenInt32Set(c, hashCode, state);
         }
 

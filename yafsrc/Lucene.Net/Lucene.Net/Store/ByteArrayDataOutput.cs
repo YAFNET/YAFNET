@@ -1,4 +1,5 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -73,7 +74,7 @@ namespace YAF.Lucene.Net.Store
         public override void WriteBytes(byte[] b, int offset, int length)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(pos + length <= limit);
-            System.Buffer.BlockCopy(b, offset, bytes, pos, length);
+            Arrays.Copy(b, offset, bytes, pos, length);
             pos += length;
         }
     }

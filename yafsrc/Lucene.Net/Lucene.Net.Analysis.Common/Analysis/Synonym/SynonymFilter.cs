@@ -4,6 +4,7 @@ using J2N.Numerics;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Fst;
 using System;
@@ -199,19 +200,19 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                 if (count == outputs.Length)
                 {
                     CharsRef[] next = new CharsRef[ArrayUtil.Oversize(1 + count, RamUsageEstimator.NUM_BYTES_OBJECT_REF)];
-                    Array.Copy(outputs, 0, next, 0, count);
+                    Arrays.Copy(outputs, 0, next, 0, count);
                     outputs = next;
                 }
                 if (count == endOffsets.Length)
                 {
                     int[] next = new int[ArrayUtil.Oversize(1 + count, RamUsageEstimator.NUM_BYTES_INT32)];
-                    Array.Copy(endOffsets, 0, next, 0, count);
+                    Arrays.Copy(endOffsets, 0, next, 0, count);
                     endOffsets = next;
                 }
                 if (count == posLengths.Length)
                 {
                     int[] next = new int[ArrayUtil.Oversize(1 + count, RamUsageEstimator.NUM_BYTES_INT32)];
-                    Array.Copy(posLengths, 0, next, 0, count);
+                    Arrays.Copy(posLengths, 0, next, 0, count);
                     posLengths = next;
                 }
                 if (outputs[count] is null)

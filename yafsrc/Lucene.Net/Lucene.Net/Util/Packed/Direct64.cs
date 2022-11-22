@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Runtime.CompilerServices;
@@ -95,7 +95,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
 
             int gets = Math.Min(m_valueCount - index, len);
-            System.Array.Copy(values, index, arr, off, gets);
+            Arrays.Copy(values, index, arr, off, gets);
             return gets;
         }
 
@@ -109,7 +109,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
 
             int sets = Math.Min(m_valueCount - index, len);
-            System.Array.Copy(arr, off, values, index, sets);
+            Arrays.Copy(arr, off, values, index, sets);
             return sets;
         }
 

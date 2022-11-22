@@ -2,6 +2,7 @@
 using YAF.Lucene.Net.Analysis.Core;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.IO;
@@ -323,14 +324,14 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
                     if (len + n > output.Length) // grow capacity
                     {
                         char[] tmp = new char[Math.Max(output.Length << 1, len + n)];
-                        Array.Copy(output, 0, tmp, 0, len);
-                        Array.Copy(buffer, 0, tmp, len, n);
+                        Arrays.Copy(output, 0, tmp, 0, len);
+                        Arrays.Copy(buffer, 0, tmp, len, n);
                         buffer = output; // use larger buffer for future larger bulk reads
                         output = tmp;
                     }
                     else
                     {
-                        Array.Copy(buffer, 0, output, len, n);
+                        Arrays.Copy(buffer, 0, output, len, n);
                     }
                     len += n;
                 }

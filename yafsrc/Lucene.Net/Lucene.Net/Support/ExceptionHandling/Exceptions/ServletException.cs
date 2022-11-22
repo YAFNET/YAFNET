@@ -68,6 +68,5 @@ namespace YAF.Lucene
         {
         }
 #endif
-
     }
 }

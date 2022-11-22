@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using YAF.Lucene.Net.Support;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -49,7 +50,7 @@ namespace YAF.Lucene.Net.Index
             {
                 int newSize = ArrayUtil.Oversize(fieldCount + 1, RamUsageEstimator.NUM_BYTES_OBJECT_REF);
                 IIndexableField[] newArray = new IIndexableField[newSize];
-                Array.Copy(fields, 0, newArray, 0, fieldCount);
+                Arrays.Copy(fields, 0, newArray, 0, fieldCount);
                 fields = newArray;
             }
 

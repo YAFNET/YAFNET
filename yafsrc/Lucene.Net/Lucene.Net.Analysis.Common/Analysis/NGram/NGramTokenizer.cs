@@ -3,6 +3,7 @@ using J2N;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Diagnostics;
@@ -216,7 +217,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
                 // compact
                 if (bufferStart >= bufferEnd - maxGram - 1 && !exhausted)
                 {
-                    Array.Copy(buffer, bufferStart, buffer, 0, bufferEnd - bufferStart);
+                    Arrays.Copy(buffer, bufferStart, buffer, 0, bufferEnd - bufferStart);
                     bufferEnd -= bufferStart;
                     lastCheckedChar -= bufferStart;
                     lastNonTokenChar -= bufferStart;

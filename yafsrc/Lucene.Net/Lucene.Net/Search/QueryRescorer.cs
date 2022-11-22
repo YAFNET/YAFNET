@@ -1,5 +1,6 @@
 ﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
+using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 
@@ -135,7 +136,7 @@ namespace YAF.Lucene.Net.Search
             if (topN < hits.Length)
             {
                 ScoreDoc[] subset = new ScoreDoc[topN];
-                Array.Copy(hits, 0, subset, 0, topN);
+                Arrays.Copy(hits, 0, subset, 0, topN);
                 hits = subset;
             }
 

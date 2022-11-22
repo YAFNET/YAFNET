@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Util
     {
         /// <summary>
         /// An empty byte array for convenience </summary>
-        [SuppressMessage("Performance", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
+        [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
         [SuppressMessage("Performance", "S3887:Use an immutable collection or reduce the accessibility of the non-private readonly field", Justification = "Collection is immutable")]
         [SuppressMessage("Performance", "S2386:Use an immutable collection or reduce the accessibility of the public static field", Justification = "Collection is immutable")]
         public static readonly byte[] EMPTY_BYTES = Arrays.Empty<byte>();
@@ -275,7 +275,7 @@ namespace YAF.Lucene.Net.Util
                 bytes = new byte[other.Length];
                 Offset = 0;
             }
-            Array.Copy(other.bytes, other.Offset, bytes, Offset, other.Length);
+            Arrays.Copy(other.bytes, other.Offset, bytes, Offset, other.Length);
             Length = other.Length;
         }
 
@@ -291,11 +291,11 @@ namespace YAF.Lucene.Net.Util
             if (bytes.Length - Offset < newLen)
             {
                 var newBytes = new byte[newLen];
-                Array.Copy(bytes, Offset, newBytes, 0, Length);
+                Arrays.Copy(bytes, Offset, newBytes, 0, Length);
                 Offset = 0;
                 bytes = newBytes;
             }
-            Array.Copy(other.bytes, other.Offset, bytes, Length + Offset, other.Length);
+            Arrays.Copy(other.bytes, other.Offset, bytes, Length + Offset, other.Length);
             Length = newLen;
         }
 

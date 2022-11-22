@@ -91,7 +91,7 @@ namespace YAF.Lucene.Net.Store
                 {
                     Flush();
                 }
-                System.Buffer.BlockCopy(b, off, buffer, upto, len);
+                Arrays.Copy(b, off, buffer, upto, len);
                 upto += len;
             }
         }

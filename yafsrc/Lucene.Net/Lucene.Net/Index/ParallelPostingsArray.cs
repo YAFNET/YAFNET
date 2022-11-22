@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using YAF.Lucene.Net.Support;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -59,9 +60,9 @@ namespace YAF.Lucene.Net.Index
 
         internal virtual void CopyTo(ParallelPostingsArray toArray, int numToCopy)
         {
-            Array.Copy(textStarts, 0, toArray.textStarts, 0, numToCopy);
-            Array.Copy(intStarts, 0, toArray.intStarts, 0, numToCopy);
-            Array.Copy(byteStarts, 0, toArray.byteStarts, 0, numToCopy);
+            Arrays.Copy(textStarts, 0, toArray.textStarts, 0, numToCopy);
+            Arrays.Copy(intStarts, 0, toArray.intStarts, 0, numToCopy);
+            Arrays.Copy(byteStarts, 0, toArray.byteStarts, 0, numToCopy);
         }
     }
 }

@@ -1,3 +1,4 @@
+﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -71,7 +72,7 @@ namespace YAF.Lucene.Net.Util
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void Save(int start, int len)
         {
-            Array.Copy(arr, start, tmp, 0, len);
+            Arrays.Copy(arr, start, tmp, 0, len);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

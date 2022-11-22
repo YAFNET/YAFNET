@@ -3,6 +3,7 @@ using J2N.Collections.Generic.Extensions;
 using J2N.Text;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -115,7 +116,7 @@ namespace YAF.Lucene.Net.Analysis.Pt
             {
                 if (m_replacement.Length > 0)
                 {
-                    Array.Copy(m_replacement, 0, s, len - m_suffix.Length, m_replacement.Length);
+                    Arrays.Copy(m_replacement, 0, s, len - m_suffix.Length, m_replacement.Length);
                 }
                 return len - m_suffix.Length + m_replacement.Length;
             }

@@ -1,6 +1,7 @@
-// Lucene version compatibility level 4.8.1
+﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 
@@ -88,7 +89,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
 
                 // clone the term, and add to the set of seen terms.
                 char[] saved = new char[length];
-                Array.Copy(term, 0, saved, 0, length);
+                Arrays.Copy(term, 0, saved, 0, length);
                 previous.Add(saved);
 
                 if (!duplicate)

@@ -3,6 +3,7 @@
 using ICU4N.Text;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -155,7 +156,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             m_offset += usableLength;
             int leftover = length - usableLength;
-            Array.Copy(m_buffer, usableLength, m_buffer, 0, leftover);
+            Arrays.Copy(m_buffer, usableLength, m_buffer, 0, leftover);
             int requested = m_buffer.Length - leftover;
             int returned = Read(m_input, m_buffer, leftover, requested);
             length = returned < 0 ? leftover : returned + leftover;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using YAF.Lucene.Net.Support;
+using System;
 using System.IO;
 
 namespace YAF.Lucene.Net.Store
@@ -84,7 +85,7 @@ namespace YAF.Lucene.Net.Store
 
                 int remainInBuffer = bufferLength - bufferPosition;
                 int bytesToCopy = len < remainInBuffer ? len : remainInBuffer;
-                System.Array.Copy(currentBuffer, bufferPosition, b, offset, bytesToCopy);
+                Arrays.Copy(currentBuffer, bufferPosition, b, offset, bytesToCopy);
                 offset += bytesToCopy;
                 len -= bytesToCopy;
                 bufferPosition += bytesToCopy;

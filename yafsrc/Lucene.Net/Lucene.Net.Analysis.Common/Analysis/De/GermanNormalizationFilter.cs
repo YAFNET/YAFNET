@@ -1,6 +1,7 @@
-// Lucene version compatibility level 4.8.1
+﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
+using YAF.Lucene.Net.Support;
 using System;
 
 namespace YAF.Lucene.Net.Analysis.De
@@ -103,7 +104,7 @@ namespace YAF.Lucene.Net.Analysis.De
                             buffer = termAtt.ResizeBuffer(1 + length);
                             if (i < length)
                             {
-                                Array.Copy(buffer, i, buffer, i + 1, (length - i));
+                                Arrays.Copy(buffer, i, buffer, i + 1, (length - i));
                             }
                             buffer[i] = 's';
                             length++;

@@ -1,8 +1,9 @@
-// Lucene version compatibility level 4.8.1
+﻿// Lucene version compatibility level 4.8.1
 #if FEATURE_COLLATION
 using Icu.Collation;
 using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 
@@ -110,14 +111,14 @@ namespace YAF.Lucene.Net.Collation
         internal static byte[] ToByteArray(this sbyte[] arr)
         {
             var unsigned = new byte[arr.Length];
-            System.Buffer.BlockCopy(arr, 0, unsigned, 0, arr.Length);
+            Arrays.Copy(arr, 0, unsigned, 0, arr.Length);
             return unsigned;
         }
 
         internal static sbyte[] ToSByteArray(this byte[] arr)
         {
             var unsigned = new sbyte[arr.Length];
-            System.Buffer.BlockCopy(arr, 0, unsigned, 0, arr.Length);
+            Arrays.Copy(arr, 0, unsigned, 0, arr.Length);
             return unsigned;
         }
     }
