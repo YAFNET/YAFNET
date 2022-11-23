@@ -416,11 +416,11 @@ public static class VirtualDirectoryExtensions
                     yield return file;
                 }
             }
-        }
 
-        foreach (var file in dir.Files)
-        {
-            yield return file;
+            foreach (var file in dir.Files)
+            {
+                yield return file;
+            }
         }
     }
 
