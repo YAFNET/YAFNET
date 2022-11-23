@@ -30,8 +30,6 @@ using YAF.Core.Context.Start;
 using YAF.Web.Controls;
 using YAF.Types.Models;
 
-using ButtonStyle = YAF.Types.Constants.ButtonStyle;
-
 /// <summary>
 /// DisplayPost Class.
 /// </summary>
@@ -164,6 +162,7 @@ public partial class DisplayPost : BaseUserControl
             this.ContextMenu.Visible = false;
         }
 
+        this.Quote.Text = this.GetText("BUTTON_QUOTE_TT");
         this.Quote.IconMobileOnly = true;
 
         this.ReplyFooter.Text = this.GetText("REPLY");
