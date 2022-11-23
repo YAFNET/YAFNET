@@ -667,7 +667,7 @@ public struct JsonTypeSerializer
     public string UnescapeString(string value)
     {
         var i = 0;
-        return UnescapeJsonString(value, ref i);
+        return UnescapeJsonString(value, i);
     }
 
     /// <summary>
@@ -679,7 +679,7 @@ public struct JsonTypeSerializer
     public ReadOnlySpan<char> UnescapeString(ReadOnlySpan<char> value)
     {
         var i = 0;
-        return UnescapeJsonString(value, ref i);
+        return UnescapeJsonString(value, i);
     }
 
     /// <summary>
@@ -691,7 +691,7 @@ public struct JsonTypeSerializer
     public object UnescapeStringAsObject(ReadOnlySpan<char> value)
     {
         var ignore = 0;
-        return UnescapeJsString(value, JsonUtils.QuoteChar, true, ref ignore).Value();
+        return UnescapeJsString(value, JsonUtils.QuoteChar, true, ignore).Value();
     }
 
     /// <summary>
@@ -730,10 +730,10 @@ public struct JsonTypeSerializer
     /// <param name="json">The json.</param>
     /// <param name="index">The index.</param>
     /// <returns>System.String.</returns>
-    private static string UnescapeJsonString(string json, ref int index)
+    private static string UnescapeJsonString(string json, int index)
     {
         return json != null
-                   ? UnescapeJsonString(json.AsSpan(), ref index).ToString()
+                   ? UnescapeJsonString(json.AsSpan(), index).ToString()
                    : null;
     }
 
@@ -743,8 +743,8 @@ public struct JsonTypeSerializer
     /// <param name="json">The json.</param>
     /// <param name="index">The index.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    private static ReadOnlySpan<char> UnescapeJsonString(ReadOnlySpan<char> json, ref int index) =>
-        UnescapeJsString(json, JsonUtils.QuoteChar, true, ref index);
+    private static ReadOnlySpan<char> UnescapeJsonString(ReadOnlySpan<char> json, int index) =>
+        UnescapeJsString(json, JsonUtils.QuoteChar, true, index);
 
     /// <summary>
     /// Unescapes the js string.
@@ -755,7 +755,7 @@ public struct JsonTypeSerializer
     public static ReadOnlySpan<char> UnescapeJsString(ReadOnlySpan<char> json, char quoteChar)
     {
         var ignore = 0;
-        return UnescapeJsString(json, quoteChar, false, ref ignore);
+        return UnescapeJsString(json, quoteChar, false, ignore);
     }
 
     /// <summary>
@@ -766,7 +766,7 @@ public struct JsonTypeSerializer
     /// <param name="removeQuotes">if set to <c>true</c> [remove quotes].</param>
     /// <param name="index">The index.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    public static ReadOnlySpan<char> UnescapeJsString(ReadOnlySpan<char> json, char quoteChar, bool removeQuotes, ref int index)
+    public static ReadOnlySpan<char> UnescapeJsString(ReadOnlySpan<char> json, char quoteChar, bool removeQuotes, int index)
     {
         if (json.IsNullOrEmpty()) return json;
         var jsonLength = json.Length;

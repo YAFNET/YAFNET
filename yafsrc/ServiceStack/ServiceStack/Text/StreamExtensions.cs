@@ -378,7 +378,7 @@ public static class StreamExtensions
     /// <returns>System.Threading.Tasks.Task.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Task WriteAsync(this Stream stream, string text, CancellationToken token = default) =>
-        MemoryProvider.Instance.WriteAsync(stream, text.AsSpan(), token);
+        MemoryProvider.Instance.WriteAsync(stream, text.AsMemory(), token);
 
     /// <summary>
     /// Converts to md5hash.

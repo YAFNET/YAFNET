@@ -62,7 +62,7 @@ internal static class DeserializeTypeRefJson
 
         while (index < strTypeLength)
         {
-            var propertyName = JsonTypeSerializer.UnescapeJsString(strType, JsonUtils.QuoteChar, true, ref index);
+            var propertyName = JsonTypeSerializer.UnescapeJsString(strType, JsonUtils.QuoteChar, true, index);
 
             //Serializer.EatMapKeySeperator(strType, ref index);
             for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index])) break; } //Whitespace inline

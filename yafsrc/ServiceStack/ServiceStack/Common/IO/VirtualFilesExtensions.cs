@@ -407,11 +407,14 @@ public static class VirtualDirectoryExtensions
     /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
     public static IEnumerable<IVirtualFile> GetAllFiles(this IVirtualDirectory dir)
     {
-        foreach (var subDir in dir.GetDirectories())
+        if (dir != null)
         {
-            foreach (var file in subDir.GetAllFiles())
+            foreach (var subDir in dir.GetDirectories())
             {
-                yield return file;
+                foreach (var file in subDir.GetAllFiles())
+                {
+                    yield return file;
+                }
             }
         }
 

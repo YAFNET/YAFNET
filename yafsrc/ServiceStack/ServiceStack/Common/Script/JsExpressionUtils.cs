@@ -275,7 +275,7 @@ public static class JsExpressionUtils
             return literal;
         }
 
-        literal = peekLiteral.ParseJsMemberExpression(ref node, filterExpression);
+        literal = peekLiteral.ParseJsMemberExpression(node, filterExpression);
 
         token = node;
         return literal;

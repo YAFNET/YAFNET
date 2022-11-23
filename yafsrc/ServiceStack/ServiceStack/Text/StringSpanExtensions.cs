@@ -571,7 +571,9 @@ public static class StringSpanExtensions
         if (dirSep == 0)
             return TypeConstants.NullStringSpan;
 
-        filePath.TrimEnd(dirSep).SplitOnLast(dirSep, out var first, out _);
+        ReadOnlySpan<char> first;
+
+        filePath.TrimEnd(dirSep).SplitOnLast(dirSep, out first, out _);
         return first;
     }
 

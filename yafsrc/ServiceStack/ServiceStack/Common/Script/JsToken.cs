@@ -463,8 +463,10 @@ public static class JsTokenUtils
     /// <param name="quoteChar">The quote character.</param>
     /// <returns>System.String.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static string CookRawString(this ReadOnlySpan<char> str, char quoteChar) =>
-        JsonTypeSerializer.UnescapeJsString(str, quoteChar).Value() ?? "";
+    internal static string CookRawString(this ReadOnlySpan<char> str, char quoteChar)
+    {
+       return JsonTypeSerializer.UnescapeJsString(str, quoteChar).Value() ?? "";
+    }
 
     /// <summary>
     /// Trims the first new line.
@@ -749,7 +751,7 @@ public static class JsTokenUtils
 
             if (hasMemberSuffix)
             {
-                literal = literal.Advance(numLiteral.Length).ParseJsMemberExpression(ref token, filterExpression);
+                literal = literal.Advance(numLiteral.Length).ParseJsMemberExpression(token, filterExpression);
                 return literal;
             }
 
@@ -847,7 +849,7 @@ public static class JsTokenUtils
 
         if (node is not JsOperator)
         {
-            literal = literal.ParseJsMemberExpression(ref node, filterExpression);
+            literal = literal.ParseJsMemberExpression(node, filterExpression);
         }
 
         token = node;
@@ -1077,7 +1079,7 @@ public static class JsTokenUtils
     /// <param name="node">The node.</param>
     /// <param name="filterExpression">if set to <c>true</c> [filter expression].</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    internal static ReadOnlySpan<char> ParseJsMemberExpression(this ReadOnlySpan<char> literal, ref JsToken node, bool filterExpression)
+    internal static ReadOnlySpan<char> ParseJsMemberExpression(this ReadOnlySpan<char> literal, JsToken node, bool filterExpression)
     {
         literal = literal.AdvancePastWhitespace();
 
@@ -1086,7 +1088,7 @@ public static class JsTokenUtils
 
         var c = literal[0];
 
-        while (c == '.' || c == '[' || c == '(' || filterExpression && c == ':')
+        while (c is '.' or '[' or '(' || filterExpression && c == ':')
         {
             literal = literal.Advance(1);
 
