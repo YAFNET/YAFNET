@@ -98,20 +98,21 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
         RegisterConverter<XmlValue>(new PostgreSqlXmlConverter());
 
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        AppContext.SetSwitch("Npgsql.EnableLegacyCaseInsensitiveDbParameters", true);
+
 #if NET6_0
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-            AppContext.SetSwitch("Npgsql.EnableLegacyCaseInsensitiveDbParameters", true);
             RegisterConverter<DateOnly>(new PostgreSqlDateOnlyConverter());
 #endif
 
         this.Variables = new Dictionary<string, string>
-                             {
-                                 { OrmLiteVariables.SystemUtc, "now() at time zone 'utc'" },
-                                 { OrmLiteVariables.MaxText, "TEXT" },
-                                 { OrmLiteVariables.MaxTextUnicode, "TEXT" },
-                                 { OrmLiteVariables.True, SqlBool(true) },
-                                 { OrmLiteVariables.False, SqlBool(false) },
-                             };
+                         {
+                             { OrmLiteVariables.SystemUtc, "now() at time zone 'utc'" },
+                             { OrmLiteVariables.MaxText, "TEXT" },
+                             { OrmLiteVariables.MaxTextUnicode, "TEXT" },
+                             { OrmLiteVariables.True, SqlBool(true) },
+                             { OrmLiteVariables.False, SqlBool(false) }
+                         };
     }
 
     /// <summary>
@@ -1083,11 +1084,11 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                                                                            [typeof(PhysicalAddress)] = NpgsqlDbType.MacAddr,
                                                                            [typeof(NpgsqlTsQuery)] = NpgsqlDbType.TsQuery,
                                                                            [typeof(NpgsqlTsVector)] = NpgsqlDbType.TsVector,
-                                                                           [typeof(NpgsqlDate)] = NpgsqlDbType.Date,
+                                                                           //[typeof(NpgsqlDate)] = NpgsqlDbType.Date,
                                                                            [typeof(DateTime)] = NpgsqlDbType.Timestamp,
                                                                            [typeof(DateTimeOffset)] = NpgsqlDbType.TimestampTz,
                                                                            [typeof(TimeSpan)] = NpgsqlDbType.Time,
-                                                                           [typeof(NpgsqlTimeSpan)] = NpgsqlDbType.Time,
+                                                                           //[typeof(NpgsqlTimeSpan)] = NpgsqlDbType.Time,
                                                                            [typeof(byte[])] = NpgsqlDbType.Bytea,
                                                                            [typeof(uint)] = NpgsqlDbType.Oid,
                                                                            [typeof(uint[])] = NpgsqlDbType.Oidvector,
