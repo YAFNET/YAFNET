@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System.Collections.Generic;
@@ -267,9 +268,6 @@ public static class ActiveRepositoryExtensions
     /// <param name="pageSize">
     /// The page Size.
     /// </param>
-    /// <param name="boardId">
-    /// The board Id.
-    /// </param>
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
@@ -279,8 +277,7 @@ public static class ActiveRepositoryExtensions
         [NotNull] bool showGuests,
         [NotNull] bool showCrawlers,
         [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [CanBeNull] int? boardId = null)
+        [NotNull] int pageSize)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -295,21 +292,21 @@ public static class ActiveRepositoryExtensions
                     if (showGuests)
                     {
                         expression.Where<User, Active, ActiveAccess>(
-                            (u, a, x) => a.BoardID == (boardId ?? repository.BoardID) && x.UserID == userId);
+                            (u, a, x) => a.BoardID == repository.BoardID && x.UserID == userId);
                     }
                     else
                     {
                         if (showCrawlers)
                         {
                             expression.Where<User, Active, ActiveAccess>(
-                                (u, a, x) => a.BoardID == (boardId ?? repository.BoardID) &&
+                                (u, a, x) => a.BoardID == repository.BoardID &&
                                              ((u.Flags & 4) == 4 || (u.Flags & 8) == 8) && x.UserID == userId);
                         }
                         else
                         {
                             expression.Where<User, Active, ActiveAccess>(
                                 (u, a, x) =>
-                                    a.BoardID == (boardId ?? repository.BoardID) && (u.Flags & 4) != 4 &&
+                                    a.BoardID == repository.BoardID && (u.Flags & 4) != 4 &&
                                     x.UserID == userId);
                         }
                     }

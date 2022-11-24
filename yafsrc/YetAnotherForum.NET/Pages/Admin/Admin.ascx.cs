@@ -25,11 +25,12 @@
 namespace YAF.Pages.Admin;
 
 using System.Net.Mail;
+
 using FarsiLibrary.Utils;
+
 using YAF.Types.Extensions.Data;
 using YAF.Types.Interfaces.Data;
 using YAF.Web.Controls;
-
 using YAF.Types.Models;
 
 /// <summary>

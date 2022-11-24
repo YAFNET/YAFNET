@@ -81,7 +81,8 @@ public partial class MoveMessage : ForumPageRegistered
                 this.TopicSubject.Text);
 
             this.GetRepository<Message>().Move(
-                this.PageBoardContext.PageMessage.ID,
+                this.PageBoardContext.PageTopic,
+                this.PageBoardContext.PageMessage,
                 topicId.ToType<int>(),
                 true);
 
@@ -112,7 +113,8 @@ public partial class MoveMessage : ForumPageRegistered
         }
         
         this.GetRepository<Message>().Move(
-            this.PageBoardContext.PageMessage.ID,
+            this.PageBoardContext.PageTopic,
+            this.PageBoardContext.PageMessage,
             moveTopicId,
             true);
 

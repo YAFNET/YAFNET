@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -129,7 +129,6 @@ public static class DataImport
     /// Import List of Banned Email Addresses
     /// </summary>
     /// <param name="boardId">The board id.</param>
-    /// <param name="userId">The user id.</param>
     /// <param name="inputStream">The input stream.</param>
     /// <returns>
     /// Returns the Number of Imported Items.
@@ -137,7 +136,7 @@ public static class DataImport
     /// <exception cref="Exception">
     /// Import stream is not expected format.
     /// </exception>
-    public static int BannedEmailAddressesImport(int boardId, int userId, Stream inputStream)
+    public static int BannedEmailAddressesImport(int boardId, Stream inputStream)
     {
         var importedCount = 0;
 

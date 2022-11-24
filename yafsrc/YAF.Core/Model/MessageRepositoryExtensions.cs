@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -660,8 +661,11 @@ public static class MessageRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="messageId">
-    /// The message Id.
+    /// <param name="oldTopic">
+    /// The old topic.
+    /// </param>
+    /// <param name="message">
+    /// The message.
     /// </param>
     /// <param name="moveToTopicId">
     /// The move To Topic Id.
@@ -671,26 +675,26 @@ public static class MessageRepositoryExtensions
     /// </param>
     public static void Move(
         this IRepository<Message> repository,
-        [NotNull] int messageId,
+        [NotNull] Topic oldTopic,
+        [NotNull] Message message,
         [NotNull] int moveToTopicId,
         [NotNull] bool moveAll)
     {
         CodeContracts.VerifyNotNull(repository);
 
-        repository.Move(messageId, moveToTopicId);
+        repository.Move(message, moveToTopicId);
 
         if (moveAll)
         {
             // moveAll=true anyway
             // it's in charge of moving answers of moved post
-            var replies = repository.Get(m => m.ReplyTo == messageId).Select(x => x.ID);
+            var replies = repository.Get(m => m.ReplyTo == message.ID);
 
-            replies.ForEach(replyId => repository.MoveRecursively(replyId, moveToTopicId));
+            replies.ForEach(reply => repository.MoveRecursively(reply, moveToTopicId));
         }
 
         var newForumId = BoardContext.Current.GetRepository<Topic>().GetById(moveToTopicId).ForumID;
-        var oldTopic = BoardContext.Current.GetRepository<Topic>().GetTopicFromMessage(messageId);
-
+        
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(newForumId, moveToTopicId));
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(oldTopic.ForumID, oldTopic.ID));
 
@@ -751,7 +755,7 @@ public static class MessageRepositoryExtensions
 
         var minDateTime = DateTimeHelper.SqlDbMinTime().AddYears(-1);
 
-        (int MessagePosition, int MessageID) message = new(0, 0);
+        (int MessagePosition, int MessageID) message;
 
         if (messageId.HasValue)
         {
@@ -815,7 +819,6 @@ public static class MessageRepositoryExtensions
                         expression.Select(m => new { MessagePosition = m.Position, MessageID = m.ID });
 
                         return db.Connection.Single<(int MessagePosition, int MessageID)>(expression);
-
                     });
 
             if (message.MessageID > 0)
@@ -847,7 +850,6 @@ public static class MessageRepositoryExtensions
                     expression.Select(m => new { MessagePosition = m.Position, MessageID = m.ID });
 
                     return db.Connection.Single<(int MessagePosition, int MessageID)>(expression);
-
                 });
 
         return message;
@@ -1331,24 +1333,24 @@ public static class MessageRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="messageId">
-    /// The message id.
+    /// <param name="message">
+    /// The message.
     /// </param>
     /// <param name="moveToTopicId">
     /// The move to topic.
     /// </param>
     private static void MoveRecursively(
         this IRepository<Message> repository,
-        [NotNull] int messageId,
+        [NotNull] Message message,
         [NotNull] int moveToTopicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
-        var replies = repository.Get(m => m.ReplyTo == messageId).Select(x => x.ID);
+        var replies = repository.Get(m => m.ReplyTo == message.ID);
 
-        replies.ForEach(replyId => repository.MoveRecursively(replyId, moveToTopicId));
+        replies.ForEach(reply => repository.MoveRecursively(reply, moveToTopicId));
 
-        repository.Move(messageId, moveToTopicId);
+        repository.Move(message, moveToTopicId);
     }
 
     /// <summary>
@@ -1576,21 +1578,18 @@ public static class MessageRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="messageId">
-    /// The message id.
+    /// <param name="message">
+    /// The message.
     /// </param>
     /// <param name="moveToTopicId">
     /// The move To Topic Id.
     /// </param>
     private static void Move(
         this IRepository<Message> repository,
-        [NotNull] int messageId,
+        [NotNull] Message message,
         [NotNull] int moveToTopicId)
     {
         CodeContracts.VerifyNotNull(repository);
-
-        // -- Find TopicID and ForumID
-        var message = repository.GetMessage(messageId);
 
         int? replyToId = repository.GetSingle(x => x.Position == 0 && x.TopicID == moveToTopicId)?.ID;
 
@@ -1627,7 +1626,7 @@ public static class MessageRepositoryExtensions
                           LastUserDisplayName = null,
                           LastMessageFlags = null
                       },
-            x => x.LastMessageID == messageId);
+            x => x.LastMessageID == message.ID);
 
         BoardContext.Current.GetRepository<Forum>().UpdateOnly(
             () => new Forum
@@ -1638,12 +1637,12 @@ public static class MessageRepositoryExtensions
                           LastUserName = null,
                           LastUserDisplayName = null
                       },
-            x => x.LastMessageID == messageId);
+            x => x.LastMessageID == message.ID);
 
         if (position == 0)
         {
             repository.UpdateOnly(
-                () => new Message { ReplyTo = messageId },
+                () => new Message { ReplyTo = message.ID },
                 x => x.TopicID == moveToTopicId && x.ReplyTo == null);
 
             replyToId = null;
@@ -1651,7 +1650,7 @@ public static class MessageRepositoryExtensions
 
         repository.UpdateOnly(
             () => new Message { TopicID = moveToTopicId, ReplyTo = replyToId, Position = position },
-            x => x.ID == messageId);
+            x => x.ID == message.ID);
 
         // -- Delete topic if there are no more messages
         if (repository.Count(x => x.TopicID == message.TopicID && (x.Flags & 8) != 8) == 0)

@@ -25,10 +25,10 @@
 namespace YAF.Pages;
 
 using System.Text;
+
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 using YAF.Web.Controls;
-using ButtonStyle = YAF.Types.Constants.ButtonStyle;
 
 /// <summary>
 /// The User Profile Page.

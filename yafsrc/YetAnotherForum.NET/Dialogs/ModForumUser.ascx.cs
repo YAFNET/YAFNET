@@ -144,12 +144,34 @@ public partial class ModForumUser : BaseUserControl
     /// </param>
     protected void UpdateClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        // save permission
-        this.GetRepository<UserForum>().Save(
+        
+
+        if (this.UserId.HasValue)
+        {
             // save permission
-            this.UserId ?? this.SelectedUserID.Value.ToType<int>(),
-            this.PageBoardContext.PageForumID,
-            this.AccessMaskID.SelectedValue.ToType<int>());
+            this.GetRepository<UserForum>().Save(
+                this.UserId.Value,
+                this.PageBoardContext.PageForumID,
+                this.AccessMaskID.SelectedValue.ToType<int>());
+        }
+        else
+        {
+            var userId = this.SelectedUserID.Value.ToType<int>();
+
+            // no user was specified
+            if (userId == 0)
+            {
+                this.PageBoardContext.Notify(this.GetText("MSG_VALID_USER"), MessageTypes.warning);
+                return;
+            }
+
+            // save permission
+            this.GetRepository<UserForum>().Save(
+                userId,
+                this.PageBoardContext.PageForumID,
+                this.AccessMaskID.SelectedValue.ToType<int>());
+        }
+
 
         // redirect to forum moderation page
         this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Forums, new { f = this.PageBoardContext.PageForumID });

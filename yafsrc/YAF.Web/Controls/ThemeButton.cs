@@ -21,10 +21,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Web.Controls;
 
 using AttributeCollection = System.Web.UI.AttributeCollection;
-using ButtonStyle = YAF.Types.Constants.ButtonStyle;
 
 /// <summary>
 /// The theme button.
@@ -606,6 +606,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
         writer.WriteEndTag("a");
         writer.EndRender();
     }
+
     /// <summary>
     /// Gets the CSS class value.
     /// </summary>
