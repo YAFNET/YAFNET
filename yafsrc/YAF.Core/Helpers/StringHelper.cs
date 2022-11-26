@@ -57,11 +57,10 @@ public static class StringHelper
     /// <returns>Returns if text is Html Encoded or not</returns>
     public static bool IsHtmlEncoded(string text)
     {
-        if (text.Contains("<")) return false;
-        if (text.Contains(">")) return false;
-        if (text.Contains("\"")) return false;
-        if (text.Contains("'")) return false;
-        if (text.Contains("script")) return false;
+        if (text.Contains('<')) return false;
+        if (text.Contains('>')) return false;
+        if (text.Contains('\"')) return false;
+        if (text.Contains('\'')) return false;
 
         // if decoded string == original string, it is already encoded
         return HttpUtility.HtmlDecode(text) != text;
