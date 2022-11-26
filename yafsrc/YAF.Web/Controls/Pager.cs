@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Web.Controls;
 
 /// <summary>
@@ -59,6 +60,16 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     }
 
     /// <summary>
+    ///   Gets or sets LinkedPager.
+    /// </summary>
+    public string LinkedPager
+    {
+        get => (string)this.ViewState["LinkedPager"];
+
+        set => this.ViewState["LinkedPager"] = value;
+    }
+
+    /// <summary>
     ///   Gets or sets PageSize.
     /// </summary>
     public int PageSize
@@ -74,6 +85,30 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     public bool UsePostBack { get; set; } = true;
 
     /// <summary>
+    ///   Gets the Current Linked Pager.
+    /// </summary>
+    [CanBeNull]
+    protected Pager CurrentLinkedPager
+    {
+        get
+        {
+            if (this.LinkedPager == null)
+            {
+                return null;
+            }
+
+            var linkedPager = this.Parent.FindControlAs<Pager>(this.LinkedPager);
+
+            if (linkedPager == null)
+            {
+                throw new Exception($"Failed to link pager to '{this.LinkedPager}'.");
+            }
+
+            return linkedPager;
+        }
+    }
+
+    /// <summary>
     /// The raise post back event.
     /// </summary>
     /// <param name="eventArgument">
@@ -81,14 +116,28 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     /// </param>
     public void RaisePostBackEvent([NotNull] string eventArgument)
     {
-        if (this.PageChange == null)
+        if (this.LinkedPager != null)
         {
-            return;
+            // raise post back event on the linked pager...
+            this.CurrentLinkedPager.RaisePostBackEvent(eventArgument);
         }
+        else if (this.PageChange != null)
+        {
+            this.CurrentPageIndex = int.Parse(eventArgument) - 1;
+            this.ignorePageIndex = true;
+            this.PageChange(this, EventArgs.Empty);
+        }
+    }
 
-        this.CurrentPageIndex = int.Parse(eventArgument) - 1;
-        this.ignorePageIndex = true;
-        this.PageChange(this, EventArgs.Empty);
+    /// <summary>
+    /// Copies the pager settings.
+    /// </summary>
+    /// <param name="toPager">To pager.</param>
+    protected void CopyPagerSettings([NotNull] Pager toPager)
+    {
+        toPager.Count = this.Count;
+        toPager.CurrentPageIndex = this.CurrentPageIndex;
+        toPager.PageSize = this.PageSize;
     }
 
     /// <summary>
@@ -142,6 +191,12 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     /// </param>
     protected override void Render([NotNull] HtmlTextWriter writer)
     {
+        if (this.LinkedPager != null)
+        {
+            // just copy the linked pager settings but still render in this function...
+            this.CurrentLinkedPager.CopyPagerSettings(this);
+        }
+
         if (this.PageCount() < 2)
         {
             return;
