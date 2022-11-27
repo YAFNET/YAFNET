@@ -88,7 +88,7 @@ public static class UserPMessageRepositoryExtensions
 
         flags.IsRead = true;
 
-        repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, m => m.PMessageID == message.ID);
+        repository.UpdateOnly(() => new UserPMessage {Flags = flags.BitValue}, m => m.ID == message.ID);
     }
 
     public static List<UserPMessage> List(
