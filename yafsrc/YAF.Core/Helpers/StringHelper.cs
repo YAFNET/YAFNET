@@ -24,11 +24,13 @@
 
 namespace YAF.Core.Helpers;
 
+using YAF.Core.Utilities.StringUtils;
+
 public static class StringHelper
 {
     public static string GetAbbreviation(this string data)
     {
-        var trimmedData = data.Trim();
+        var trimmedData = data.Unidecode().Trim();
 
         if (trimmedData.Contains(' '))
         {
