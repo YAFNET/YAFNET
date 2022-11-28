@@ -29,6 +29,7 @@
         <YAF:ForumStatsUsers ID="ForumStats" runat="Server" />
     </div>
 </div>
+
 <div class="row">
     <div class="col">
         <YAF:Statistics ID="ForumStatistics" runat="Server" />

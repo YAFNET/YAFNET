@@ -102,7 +102,6 @@ public partial class PMList : BaseUserControl
             this.GetTextFormatted("msgdeleted2", this.PagerTop.Count),
             MessageTypes.success);
 
-
         this.Get<LinkBuilder>().Redirect(
             ForumPages.MyMessages,
             new {v = PmViewConverter.ToQueryStringParam(this.View)});
@@ -136,7 +135,6 @@ public partial class PMList : BaseUserControl
         this.PageBoardContext.LoadMessage.AddSession(
             itemCount == 1 ? this.GetText("msgdeleted1") : this.GetTextFormatted("msgdeleted2", itemCount),
             MessageTypes.success);
-
 
         this.Get<LinkBuilder>().Redirect(
             ForumPages.MyMessages,
@@ -196,7 +194,6 @@ public partial class PMList : BaseUserControl
         }
 
         var messageList = this.GetMessagesForExport(exportPmIds);
-
 
         switch (this.ExportType.SelectedItem.Value)
         {
@@ -274,8 +271,6 @@ public partial class PMList : BaseUserControl
                     // Clearing cache with old permissions data...
                     this.ClearCache();
                 });
-
-
         this.BindData();
     }
 

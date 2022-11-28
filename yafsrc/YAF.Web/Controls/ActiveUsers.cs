@@ -69,21 +69,6 @@ public class ActiveUsers : BaseControl
     }
 
     /// <summary>
-    /// Gets or sets the Instant ID for this control.
-    /// </summary>
-    /// <remarks>
-    /// Multiple instants of this control can exist in the same page but
-    /// each must have a different instant ID. Not specifying an Instant ID
-    /// default to the ID being string.Empty.
-    /// </remarks>
-    public string InstantId
-    {
-        get => (this.ViewState["InstantId"] as string) + string.Empty;
-
-        set => this.ViewState["InstantId"] = value;
-    }
-
-    /// <summary>
     /// Raises PreRender event and prepares control for rendering by creating links to active users.
     /// </summary>
     /// <param name="e">
@@ -126,7 +111,6 @@ public class ActiveUsers : BaseControl
                                    UserID = user.UserID,
                                    Style = user.UserStyle
                                };
-                    userLink.ID += userLink.CrawlerName;
                 }
                 else
                 {
@@ -139,7 +123,6 @@ public class ActiveUsers : BaseControl
                                                      ? user.UserDisplayName
                                                      : user.UserName
                                };
-                    userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
                 }
 
                 // how many users of this type is present (valid for guests, others have it 1)
@@ -151,7 +134,7 @@ public class ActiveUsers : BaseControl
                 }
 
                 // if user is guest and guest should be hidden
-                var addControl = !(user.ActiveFlags.IsGuest && !this.PageBoardContext.IsAdmin);
+                var addControl = !(user.IsGuest && !this.PageBoardContext.IsAdmin);
 
                 // we might not want to add this user link if user is marked as hidden
                 if (user.IsActiveExcluded)
