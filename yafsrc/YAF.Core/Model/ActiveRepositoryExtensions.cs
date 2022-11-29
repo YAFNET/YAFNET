@@ -422,7 +422,7 @@ public static class ActiveRepositoryExtensions
 
                     var countHiddenSql = countHiddenExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
-                    expression.Select<Active>(
+                    expression.Take(1).Select<Active>(
                         x => new
                                  {
                                      ActiveUsers = Sql.Count("1"),

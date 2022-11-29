@@ -787,7 +787,7 @@ public static class ForumRepositoryExtensions
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
         expression.Join<Forum>((t, f) => f.ID == t.ForumID)
-            .Where<Topic, Forum>((t, f) => (f.ID == forumId || f.ParentID == forumId) && (t.Flags & 8) != 8)
+            .Where<Topic, Forum>((t, f) => (f.ID == forumId || f.ParentID == forumId) && (t.Flags & 8) != 8).Take(1)
             .Select<Topic, Forum>(
                 (t, f) => new { PostsCount = Sql.Sum(t.NumPosts), TopicsCount = Sql.Count(t.ID), });
 
@@ -812,7 +812,7 @@ public static class ForumRepositoryExtensions
 
         expression.Join<Message>((t, m) => m.TopicID == t.ID)
             .Where<Topic, Message>((t, m) => t.ForumID == forumId && (t.Flags & 8) != 8 && (m.Flags & 24) == 16)
-            .OrderByDescending<Message>(m => m.Posted);
+            .OrderByDescending<Message>(m => m.Posted).Take(1);
 
         var message = repository.DbAccess.Execute(db => db.Connection.Single<Message>(expression));
 

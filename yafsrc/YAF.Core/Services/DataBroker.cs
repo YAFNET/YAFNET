@@ -400,7 +400,7 @@ public class DataBroker : IHaveServiceLocator
 
                 var id = forumId;
                 expression.Join<Category>((f, c) => c.ID == f.CategoryID)
-                    .Where<Forum, Category>((f, c) => f.ID == id.Value && c.BoardID == boardId);
+                    .Where<Forum, Category>((f, c) => f.ID == id.Value && c.BoardID == boardId).Take(1);
 
                 var result = this.GetRepository<ActiveAccess>().DbAccess
                     .Execute(db => db.Connection.Single<Category>(expression));
@@ -582,7 +582,7 @@ public class DataBroker : IHaveServiceLocator
                                                  $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(uploadAccessSql, 0)})"),
                                          DownloadAccess = Sql.Custom(
                                              $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(downloadAccessSql, 0)})")
-                                     });
+                                     }).Take(1);
 
                         return db.Connection.Single<PageLoad>(expression);
                     });

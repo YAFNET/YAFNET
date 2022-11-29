@@ -55,7 +55,7 @@ public static class TopicRepositoryExtensions
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
-        expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId);
+        expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId).Take(1);
 
         return repository.DbAccess.Execute(db => db.Connection.Single<Topic>(expression));
     }

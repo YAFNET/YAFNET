@@ -219,7 +219,7 @@ public static class UserGroupRepositoryExtensions
 
         expression.Join<Group>((userGroup, group) => group.ID == userGroup.GroupID)
             .Where<UserGroup, Group>((userGroup, group) => group.Style != null && userGroup.UserID == userId)
-            .OrderBy<Group>(group => group.SortOrder);
+            .OrderBy<Group>(group => group.SortOrder).Take(1);
 
         var groups = repository.DbAccess.Execute(db => db.Connection.Single<Group>(expression));
 
