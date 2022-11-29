@@ -4970,56 +4970,30 @@
     }
 })(this, function init($, undefined) {
     "use strict";
-    if (!Object.keys) {
-        Object.keys = function() {
-            var hasOwnProperty = Object.prototype.hasOwnProperty, hasDontEnumBug = !{
-                toString: null
-            }.propertyIsEnumerable("toString"), dontEnums = [ "toString", "toLocaleString", "valueOf", "hasOwnProperty", "isPrototypeOf", "propertyIsEnumerable", "constructor" ], dontEnumsLength = dontEnums.length;
-            return function(obj) {
-                if (typeof obj !== "function" && (typeof obj !== "object" || obj === null)) {
-                    throw new TypeError("Object.keys called on non-object");
-                }
-                var result = [], prop, i;
-                for (prop in obj) {
-                    if (hasOwnProperty.call(obj, prop)) {
-                        result.push(prop);
-                    }
-                }
-                if (hasDontEnumBug) {
-                    for (i = 0; i < dontEnumsLength; i++) {
-                        if (hasOwnProperty.call(obj, dontEnums[i])) {
-                            result.push(dontEnums[i]);
-                        }
-                    }
-                }
-                return result;
-            };
-        }();
-    }
-    var exports = {};
-    var VERSION = "5.5.3";
+    let exports = {};
+    let VERSION = "6.0.0";
     exports.VERSION = VERSION;
-    var locales = {
+    let locales = {
         en: {
             OK: "OK",
             CANCEL: "Cancel",
             CONFIRM: "OK"
         }
     };
-    var templates = {
-        dialog: '<div class="bootbox modal" tabindex="-1" role="dialog" aria-hidden="true">' + '<div class="modal-dialog">' + '<div class="modal-content">' + '<div class="modal-body"><div class="bootbox-body"></div></div>' + "</div>" + "</div>" + "</div>",
-        header: '<div class="modal-header">' + '<h5 class="modal-title"></h5>' + "</div>",
+    let templates = {
+        dialog: '<div class="bootbox modal" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="bootbox-body"></div></div></div></div></div>',
+        header: '<div class="modal-header"><h5 class="modal-title"></h5></div>',
         footer: '<div class="modal-footer"></div>',
-        closeButton: '<button type="button" class="bootbox-close-button btn-close" aria-hidden="true"></button>',
+        closeButton: '<button type="button" class="bootbox-close-button close btn-close" aria-hidden="true" aria-label="Close"></button>',
         form: '<form class="bootbox-form"></form>',
         button: '<button type="button" class="btn"></button>',
-        option: "<option></option>",
+        option: '<option value=""></option>',
         promptMessage: '<div class="bootbox-prompt-message"></div>',
         inputs: {
             text: '<input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text" />',
             textarea: '<textarea class="bootbox-input bootbox-input-textarea form-control"></textarea>',
             email: '<input class="bootbox-input bootbox-input-email form-control" autocomplete="off" type="email" />',
-            select: '<select class="bootbox-input bootbox-input-select form-control"></select>',
+            select: '<select class="bootbox-input bootbox-input-select form-select"></select>',
             checkbox: '<div class="form-check checkbox"><label class="form-check-label"><input class="form-check-input bootbox-input bootbox-input-checkbox" type="checkbox" /></label></div>',
             radio: '<div class="form-check radio"><label class="form-check-label"><input class="form-check-input bootbox-input bootbox-input-radio" type="radio" name="bootbox-radio" /></label></div>',
             date: '<input class="bootbox-input bootbox-input-date form-control" autocomplete="off" type="date" />',
@@ -5029,7 +5003,7 @@
             range: '<input class="bootbox-input bootbox-input-range form-control-range" autocomplete="off" type="range" />'
         }
     };
-    var defaults = {
+    let defaults = {
         locale: "en",
         backdrop: "static",
         animate: true,
@@ -5039,12 +5013,15 @@
         container: "body",
         value: "",
         inputType: "text",
+        errorMessage: null,
         swapButtonOrder: false,
         centerVertical: false,
         multiple: false,
         scrollable: false,
         reusable: false,
-        relatedTarget: null
+        relatedTarget: null,
+        size: null,
+        id: null
     };
     exports.locales = function(name) {
         return name ? locales[name] : locales;
@@ -5074,7 +5051,7 @@
         return exports.setDefaults("locale", name);
     };
     exports.setDefaults = function() {
-        var values = {};
+        let values = {};
         if (arguments.length === 2) {
             values[arguments[0]] = arguments[1];
         } else {
@@ -5092,31 +5069,31 @@
     };
     exports.dialog = function(options) {
         if ($.fn.modal === undefined) {
-            throw new Error('"$.fn.modal" is not defined; please double check you have included ' + "the Bootstrap JavaScript library. See https://getbootstrap.com/docs/4.4/getting-started/javascript/ " + "for more details.");
+            throw new Error('"$.fn.modal" is not defined; please double check you have included the Bootstrap JavaScript library. See https://getbootstrap.com/docs/5.1/getting-started/introduction/ for more details.');
         }
         options = sanitize(options);
         if ($.fn.modal.Constructor.VERSION) {
             options.fullBootstrapVersion = $.fn.modal.Constructor.VERSION;
-            var i = options.fullBootstrapVersion.indexOf(".");
+            let i = options.fullBootstrapVersion.indexOf(".");
             options.bootstrap = options.fullBootstrapVersion.substring(0, i);
         } else {
             options.bootstrap = "2";
             options.fullBootstrapVersion = "2.3.2";
             console.warn("Bootbox will *mostly* work with Bootstrap 2, but we do not officially support it. Please upgrade, if possible.");
         }
-        var dialog = $(templates.dialog);
-        var innerDialog = dialog.find(".modal-dialog");
-        var body = dialog.find(".modal-body");
-        var header = $(templates.header);
-        var footer = $(templates.footer);
-        var buttons = options.buttons;
-        var callbacks = {
+        let dialog = $(templates.dialog);
+        let innerDialog = dialog.find(".modal-dialog");
+        let body = dialog.find(".modal-body");
+        let header = $(templates.header);
+        let footer = $(templates.footer);
+        let buttons = options.buttons;
+        let callbacks = {
             onEscape: options.onEscape
         };
         body.find(".bootbox-body").html(options.message);
         if (getKeyLength(options.buttons) > 0) {
             each(buttons, function(key, b) {
-                var button = $(templates.button);
+                let button = $(templates.button);
                 button.data("bb-handler", key);
                 button.addClass(b.className);
                 switch (key) {
@@ -5130,6 +5107,16 @@
                     break;
                 }
                 button.html(b.label);
+                if (b.id) {
+                    button.attr({
+                        id: b.id
+                    });
+                }
+                if (b.disabled === true) {
+                    button.prop({
+                        disabled: true
+                    });
+                }
                 footer.append(button);
                 callbacks[key] = b.callback;
             });
@@ -5140,6 +5127,11 @@
         }
         if (options.className) {
             dialog.addClass(options.className);
+        }
+        if (options.id) {
+            dialog.attr({
+                id: options.id
+            });
         }
         if (options.size) {
             if (options.fullBootstrapVersion.substring(0, 3) < "3.1") {
@@ -5171,21 +5163,24 @@
                 console.warn('Using "scrollable" requires Bootstrap 4.3.0 or higher. You appear to be using ' + options.fullBootstrapVersion + ". Please upgrade to use this option.");
             }
         }
-        if (options.title) {
-            body.before(header);
-            dialog.find(".modal-title").html(options.title);
-        }
-        if (options.closeButton) {
-            var closeButton = $(templates.closeButton);
+        if (options.title || options.closeButton) {
             if (options.title) {
-                if (options.bootstrap > 3) {
-                    dialog.find(".modal-header").append(closeButton);
-                } else {
-                    dialog.find(".modal-header").prepend(closeButton);
-                }
+                header.find(".modal-title").html(options.title);
             } else {
-                closeButton.prependTo(body);
+                header.addClass("border-0");
             }
+            if (options.closeButton) {
+                let closeButton = $(templates.closeButton);
+                if (options.bootstrap < 5) {
+                    closeButton.html("&times;");
+                }
+                if (options.bootstrap < 4) {
+                    header.prepend(closeButton);
+                } else {
+                    header.append(closeButton);
+                }
+            }
+            body.before(header);
         }
         if (options.centerVertical) {
             innerDialog.addClass("modal-dialog-centered");
@@ -5197,6 +5192,9 @@
             dialog.one("hide.bs.modal", {
                 dialog: dialog
             }, unbindModal);
+            dialog.one("hidden.bs.modal", {
+                dialog: dialog
+            }, destroyModal);
         }
         if (options.onHide) {
             if ($.isFunction(options.onHide)) {
@@ -5204,11 +5202,6 @@
             } else {
                 throw new Error('Argument supplied to "onHide" must be a function');
             }
-        }
-        if (!options.reusable) {
-            dialog.one("hidden.bs.modal", {
-                dialog: dialog
-            }, destroyModal);
         }
         if (options.onHidden) {
             if ($.isFunction(options.onHidden)) {
@@ -5235,11 +5228,13 @@
             }
         }
         if (options.backdrop === true) {
+            let startedOnBody = false;
+            dialog.on("mousedown", ".modal-content", function(e) {
+                e.stopPropagation();
+                startedOnBody = true;
+            });
             dialog.on("click.dismiss.bs.modal", function(e) {
-                if (dialog.children(".modal-backdrop").length) {
-                    e.currentTarget = dialog.children(".modal-backdrop").get(0);
-                }
-                if (e.target !== e.currentTarget) {
+                if (startedOnBody || e.target !== e.currentTarget) {
                     return;
                 }
                 dialog.trigger("escape.close.bb");
@@ -5251,7 +5246,7 @@
             }
         });
         dialog.on("click", ".modal-footer button:not(.disabled)", function(e) {
-            var callbackKey = $(this).data("bb-handler");
+            let callbackKey = $(this).data("bb-handler");
             if (callbackKey !== undefined) {
                 processCallback(e, dialog, callbacks[callbackKey]);
             }
@@ -5276,7 +5271,7 @@
         return dialog;
     };
     exports.alert = function() {
-        var options;
+        let options;
         options = mergeDialogOptions("alert", [ "ok" ], [ "message", "callback" ], arguments);
         if (options.callback && !$.isFunction(options.callback)) {
             throw new Error('alert requires the "callback" property to be a function when provided');
@@ -5290,7 +5285,7 @@
         return exports.dialog(options);
     };
     exports.confirm = function() {
-        var options;
+        let options;
         options = mergeDialogOptions("confirm", [ "cancel", "confirm" ], [ "message", "callback" ], arguments);
         if (!$.isFunction(options.callback)) {
             throw new Error("confirm requires a callback");
@@ -5304,12 +5299,12 @@
         return exports.dialog(options);
     };
     exports.prompt = function() {
-        var options;
-        var promptDialog;
-        var form;
-        var input;
-        var shouldShow;
-        var inputOptions;
+        let options;
+        let promptDialog;
+        let form;
+        let input;
+        let shouldShow;
+        let inputOptions;
         form = $(templates.form);
         options = mergeDialogOptions("prompt", [ "cancel", "confirm" ], [ "title", "callback" ], arguments);
         if (!options.value) {
@@ -5324,7 +5319,7 @@
             return options.callback.call(this, null);
         };
         options.buttons.confirm.callback = function() {
-            var value;
+            let value;
             if (options.inputType === "checkbox") {
                 value = input.find("input:checked").map(function() {
                     return $(this).val();
@@ -5332,7 +5327,17 @@
             } else if (options.inputType === "radio") {
                 value = input.find("input:checked").val();
             } else {
-                if (input[0].checkValidity && !input[0].checkValidity()) {
+                let el = input[0];
+                if (options.errorMessage) {
+                    el.setCustomValidity("");
+                }
+                if (el.checkValidity && !el.checkValidity()) {
+                    if (options.errorMessage) {
+                        el.setCustomValidity(options.errorMessage);
+                    }
+                    if (el.reportValidity) {
+                        el.reportValidity();
+                    }
                     return false;
                 } else {
                     if (options.inputType === "select" && options.multiple === true) {
@@ -5395,6 +5400,12 @@
             }
             if (options.pattern) {
                 input.attr("pattern", options.pattern);
+            } else {
+                if (options.inputType === "date") {
+                    input.attr("pattern", "d{4}-d{2}-d{2}");
+                } else if (options.inputType === "time") {
+                    input.attr("pattern", "d{2}:d{2}");
+                }
             }
             if (options.required) {
                 input.prop({
@@ -5421,16 +5432,13 @@
             break;
 
           case "select":
-            var groups = {};
+            let groups = {};
             inputOptions = options.inputOptions || [];
             if (!$.isArray(inputOptions)) {
                 throw new Error("Please pass an array of input options");
             }
             if (!inputOptions.length) {
                 throw new Error('prompt with "inputType" set to "select" requires at least one option');
-            }
-            if (options.placeholder) {
-                input.attr("placeholder", options.placeholder);
             }
             if (options.required) {
                 input.prop({
@@ -5443,7 +5451,7 @@
                 });
             }
             each(inputOptions, function(_, option) {
-                var elem = input;
+                let elem = input;
                 if (option.value === undefined || option.text === undefined) {
                     throw new Error('each option needs a "value" property and a "text" property');
                 }
@@ -5453,7 +5461,7 @@
                     }
                     elem = groups[option.group];
                 }
-                var o = $(templates.option);
+                let o = $(templates.option);
                 o.attr("value", option.value).text(option.text);
                 elem.append(o);
             });
@@ -5461,10 +5469,13 @@
                 input.append(group);
             });
             input.val(options.value);
+            if (options.bootstrap < 5) {
+                input.removeClass("form-select").addClass("form-control");
+            }
             break;
 
           case "checkbox":
-            var checkboxValues = $.isArray(options.value) ? options.value : [ options.value ];
+            let checkboxValues = $.isArray(options.value) ? options.value : [ options.value ];
             inputOptions = options.inputOptions || [];
             if (!inputOptions.length) {
                 throw new Error('prompt with "inputType" set to "checkbox" requires at least one option');
@@ -5474,7 +5485,7 @@
                 if (option.value === undefined || option.text === undefined) {
                     throw new Error('each option needs a "value" property and a "text" property');
                 }
-                var checkbox = $(templates.inputs[options.inputType]);
+                let checkbox = $(templates.inputs[options.inputType]);
                 checkbox.find("input").attr("value", option.value);
                 checkbox.find("label").append("\n" + option.text);
                 each(checkboxValues, function(_, value) {
@@ -5495,12 +5506,12 @@
                 throw new Error('prompt with "inputType" set to "radio" requires at least one option');
             }
             input = $('<div class="bootbox-radiobutton-list"></div>');
-            var checkFirstRadio = true;
+            let checkFirstRadio = true;
             each(inputOptions, function(_, option) {
                 if (option.value === undefined || option.text === undefined) {
                     throw new Error('each option needs a "value" property and a "text" property');
                 }
-                var radio = $(templates.inputs[options.inputType]);
+                let radio = $(templates.inputs[options.inputType]);
                 radio.find("input").attr("value", option.value);
                 radio.find("label").append("\n" + option.text);
                 if (options.value !== undefined) {
@@ -5523,7 +5534,7 @@
             promptDialog.find(".bootbox-accept").trigger("click");
         });
         if ($.trim(options.message) !== "") {
-            var message = $(templates.promptMessage).html(options.message);
+            let message = $(templates.promptMessage).html(options.message);
             form.prepend(message);
             options.message = form;
         } else {
@@ -5540,12 +5551,12 @@
         return promptDialog;
     };
     function mapArguments(args, properties) {
-        var argn = args.length;
-        var options = {};
-        if (argn < 1 || argn > 2) {
+        let argsLength = args.length;
+        let options = {};
+        if (argsLength < 1 || argsLength > 2) {
             throw new Error("Invalid argument length");
         }
-        if (argn === 2 || typeof args[0] === "string") {
+        if (argsLength === 2 || typeof args[0] === "string") {
             options[properties[0]] = args[0];
             options[properties[1]] = args[1];
         } else {
@@ -5557,22 +5568,22 @@
         return $.extend(true, {}, defaults, mapArguments(args, properties));
     }
     function mergeDialogOptions(className, labels, properties, args) {
-        var locale;
+        let locale;
         if (args && args[0]) {
             locale = args[0].locale || defaults.locale;
-            var swapButtons = args[0].swapButtonOrder || defaults.swapButtonOrder;
+            let swapButtons = args[0].swapButtonOrder || defaults.swapButtonOrder;
             if (swapButtons) {
                 labels = labels.reverse();
             }
         }
-        var baseOptions = {
+        let baseOptions = {
             className: "bootbox-" + className,
             buttons: createLabels(labels, locale)
         };
         return validateButtons(mergeArguments(baseOptions, args, properties), labels);
     }
     function validateButtons(options, buttons) {
-        var allowedButtons = {};
+        let allowedButtons = {};
         each(buttons, function(key, value) {
             allowedButtons[value] = true;
         });
@@ -5584,11 +5595,11 @@
         return options;
     }
     function createLabels(labels, locale) {
-        var buttons = {};
-        for (var i = 0, j = labels.length; i < j; i++) {
-            var argument = labels[i];
-            var key = argument.toLowerCase();
-            var value = argument.toUpperCase();
+        let buttons = {};
+        for (let i = 0, j = labels.length; i < j; i++) {
+            let argument = labels[i];
+            let key = argument.toLowerCase();
+            let value = argument.toUpperCase();
             buttons[key] = {
                 label: getText(value, locale)
             };
@@ -5596,12 +5607,12 @@
         return buttons;
     }
     function getText(key, locale) {
-        var labels = locales[locale];
+        let labels = locales[locale];
         return labels ? labels[key] : locales.en[key];
     }
     function sanitize(options) {
-        var buttons;
-        var total;
+        let buttons;
+        let total;
         if (typeof options !== "object") {
             throw new Error("Please supply an object of options");
         }
@@ -5632,7 +5643,7 @@
                 button.label = key;
             }
             if (!button.className) {
-                var isPrimary = false;
+                let isPrimary = false;
                 if (options.swapButtonOrder) {
                     isPrimary = index === 0;
                 } else {
@@ -5651,7 +5662,7 @@
         return Object.keys(obj).length;
     }
     function each(collection, iterator) {
-        var index = 0;
+        let index = 0;
         $.each(collection, function(key, value) {
             iterator(key, value, index++);
         });
@@ -5673,15 +5684,15 @@
     function processCallback(e, dialog, callback) {
         e.stopPropagation();
         e.preventDefault();
-        var preserveDialog = $.isFunction(callback) && callback.call(dialog, e) === false;
+        let preserveDialog = $.isFunction(callback) && callback.call(dialog, e) === false;
         if (!preserveDialog) {
             dialog.modal("hide");
         }
     }
     function minAndMaxAreValid(type, min, max) {
-        var result = false;
-        var minValid = true;
-        var maxValid = true;
+        let result = false;
+        let minValid = true;
+        let maxValid = true;
         if (type === "date") {
             if (min !== undefined && !(minValid = dateIsValid(min))) {
                 console.warn('Browsers which natively support the "date" input type expect date values to be of the form "YYYY-MM-DD" (see ISO-8601 https://www.iso.org/iso-8601-date-and-time-format.html). Bootbox does not enforce this rule, but your min value may not be enforced by this browser.');
