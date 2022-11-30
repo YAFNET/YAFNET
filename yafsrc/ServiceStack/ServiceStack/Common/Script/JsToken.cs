@@ -20,6 +20,19 @@ using ServiceStack.Text.Json;
 using ServiceStack.Text.Extensions;
 #endif
 
+public ref struct SpanJsToken
+{
+    public ReadOnlySpan<char> Span { get; }
+
+    public JsToken Node { get; }
+
+    public SpanJsToken(ReadOnlySpan<char> value, JsToken node)
+    {
+        Span = value;
+        Node = node;
+    }
+}
+
 /// <summary>
 /// Class JsToken.
 /// Implements the <see cref="ServiceStack.IRawString" />
@@ -751,7 +764,9 @@ public static class JsTokenUtils
 
             if (hasMemberSuffix)
             {
-                literal = literal.Advance(numLiteral.Length).ParseJsMemberExpression(token, filterExpression);
+                var result = literal.Advance(numLiteral.Length).ParseJsMemberExpression(token, filterExpression);
+                literal = result.Span;
+                token = result.Node;
                 return literal;
             }
 
@@ -849,7 +864,9 @@ public static class JsTokenUtils
 
         if (node is not JsOperator)
         {
-            literal = literal.ParseJsMemberExpression(node, filterExpression);
+            var result = literal.ParseJsMemberExpression(node, filterExpression);
+            literal = result.Span;
+            node = result.Node;
         }
 
         token = node;
@@ -1079,12 +1096,12 @@ public static class JsTokenUtils
     /// <param name="node">The node.</param>
     /// <param name="filterExpression">if set to <c>true</c> [filter expression].</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    internal static ReadOnlySpan<char> ParseJsMemberExpression(this ReadOnlySpan<char> literal, JsToken node, bool filterExpression)
+    internal static SpanJsToken ParseJsMemberExpression(this ReadOnlySpan<char> literal, JsToken node, bool filterExpression)
     {
         literal = literal.AdvancePastWhitespace();
 
         if (literal.IsNullOrEmpty())
-            return literal;
+            return new(literal, node);
 
         var c = literal[0];
 
@@ -1117,7 +1134,7 @@ public static class JsTokenUtils
                 {
                     literal = literal.ParseWhitespaceArgument(out var argument);
                     node = new JsCallExpression(node, argument);
-                    return literal;
+                    return new(literal, node);
                 }
 
                 var peekLiteral = literal.AdvancePastWhitespace();
@@ -1125,7 +1142,7 @@ public static class JsTokenUtils
                 {
                     literal = peekLiteral.ParseArrowExpressionBody(new[] { new JsIdentifier("it") }, out var arrowExpr);
                     node = arrowExpr;
-                    return literal;
+                    return new(literal, arrowExpr);
                 }
             }
 
@@ -1137,7 +1154,7 @@ public static class JsTokenUtils
             c = literal[0];
         }
 
-        return literal;
+        return new(literal, node);
     }
 
     /// <summary>

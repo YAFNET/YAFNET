@@ -572,8 +572,8 @@ public static class StringSpanExtensions
             return TypeConstants.NullStringSpan;
 
         ReadOnlySpan<char> first;
-
         filePath.TrimEnd(dirSep).SplitOnLast(dirSep, out first, out _);
+
         return first;
     }
 

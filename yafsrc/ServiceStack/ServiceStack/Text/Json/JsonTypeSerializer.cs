@@ -14,6 +14,19 @@ using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text.Json;
 
+public ref struct SpanIndex
+{
+    public ReadOnlySpan<char> Span { get; }
+
+    public int Index { get; }
+
+    public SpanIndex(ReadOnlySpan<char> value, int index)
+    {
+        Span = value;
+        Index = index;
+    }
+}
+
 /// <summary>
 /// Struct JsonTypeSerializer
 /// Implements the <see cref="ServiceStack.Text.Common.ITypeSerializer" />
@@ -666,8 +679,7 @@ public struct JsonTypeSerializer
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public string UnescapeString(string value)
     {
-        var i = 0;
-        return UnescapeJsonString(value, i);
+        return UnescapeJsonString(value, 0);
     }
 
     /// <summary>
@@ -678,8 +690,7 @@ public struct JsonTypeSerializer
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ReadOnlySpan<char> UnescapeString(ReadOnlySpan<char> value)
     {
-        var i = 0;
-        return UnescapeJsonString(value, i);
+        return UnescapeJsonString(value, 0);
     }
 
     /// <summary>
@@ -690,8 +701,7 @@ public struct JsonTypeSerializer
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public object UnescapeStringAsObject(ReadOnlySpan<char> value)
     {
-        var ignore = 0;
-        return UnescapeJsString(value, JsonUtils.QuoteChar, true, ignore).Value();
+        return UnescapeJsString(value, JsonUtils.QuoteChar, removeQuotes: true, 0).Span.Value();
     }
 
     /// <summary>
@@ -744,7 +754,7 @@ public struct JsonTypeSerializer
     /// <param name="index">The index.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     private static ReadOnlySpan<char> UnescapeJsonString(ReadOnlySpan<char> json, int index) =>
-        UnescapeJsString(json, JsonUtils.QuoteChar, true, index);
+        UnescapeJsString(json, JsonUtils.QuoteChar, true, index).Span;
 
     /// <summary>
     /// Unescapes the js string.
@@ -755,7 +765,7 @@ public struct JsonTypeSerializer
     public static ReadOnlySpan<char> UnescapeJsString(ReadOnlySpan<char> json, char quoteChar)
     {
         var ignore = 0;
-        return UnescapeJsString(json, quoteChar, false, ignore);
+        return UnescapeJsString(json, quoteChar, false, ignore).Span;
     }
 
     /// <summary>
@@ -766,9 +776,9 @@ public struct JsonTypeSerializer
     /// <param name="removeQuotes">if set to <c>true</c> [remove quotes].</param>
     /// <param name="index">The index.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    public static ReadOnlySpan<char> UnescapeJsString(ReadOnlySpan<char> json, char quoteChar, bool removeQuotes, int index)
+    public static SpanIndex UnescapeJsString(ReadOnlySpan<char> json, char quoteChar, bool removeQuotes, int index)
     {
-        if (json.IsNullOrEmpty()) return json;
+        if (json.IsNullOrEmpty()) return new(json, index);
         var jsonLength = json.Length;
         var buffer = json;
 
@@ -781,15 +791,15 @@ public struct JsonTypeSerializer
             var jsonAtIndex = json.Slice(index);
             var strEndPos = jsonAtIndex.IndexOfAny(IsSafeJsonChars);
             if (strEndPos == -1)
-                return jsonAtIndex.Slice(0, jsonLength);
+                return new(jsonAtIndex.Slice(0, jsonLength), index);
 
             if (jsonAtIndex[strEndPos] == quoteChar)
             {
                 var potentialValue = jsonAtIndex.Slice(0, strEndPos);
                 index += strEndPos + 1;
-                return potentialValue.Length > 0
-                           ? potentialValue
-                           : TypeConstants.EmptyStringSpan;
+                return new(potentialValue.Length > 0
+                              ? potentialValue
+                              : TypeConstants.EmptyStringSpan, index);
             }
         }
         else
@@ -805,10 +815,10 @@ public struct JsonTypeSerializer
                 i++;
             }
             if (i == end)
-                return buffer.Slice(index, jsonLength - index);
+                return new(buffer.Slice(index, jsonLength - index), index);
         }
 
-        return Unescape(json, removeQuotes, quoteChar);
+        return new(Unescape(json, removeQuotes: removeQuotes, quoteChar: quoteChar), index);
     }
 
     /// <summary>

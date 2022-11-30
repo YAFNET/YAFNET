@@ -483,18 +483,20 @@ public static class OrmLiteWriteCommandExtensions
         values = PopulateValues(reader, values, dialectProvider);
 
         var dbNullFilter = OrmLiteConfig.OnDbNullFilter;
+        FieldDefinition fieldDef = null;
+        object value = null;
 
         foreach (var fieldCache in indexCache)
         {
             try
             {
-                var fieldDef = fieldCache.Item1;
+                fieldDef = fieldCache.Item1;
                 var index = fieldCache.Item2;
                 var converter = fieldCache.Item3;
 
                 if (values != null && values[index] == DBNull.Value)
                 {
-                    var value = fieldDef.IsNullable ? null : fieldDef.FieldTypeDefaultValue;
+                    value = fieldDef.IsNullable ? null : fieldDef.FieldTypeDefaultValue;
                     var useValue = dbNullFilter?.Invoke(fieldDef);
                     if (useValue != null)
                         value = useValue;
@@ -503,7 +505,7 @@ public static class OrmLiteWriteCommandExtensions
                 }
                 else
                 {
-                    var value = converter.GetValue(reader, index, values);
+                    value = converter.GetValue(reader, index, values);
                     if (value == null)
                     {
                         if (!fieldDef.IsNullable)
@@ -522,7 +524,8 @@ public static class OrmLiteWriteCommandExtensions
             }
             catch (Exception ex)
             {
-                OrmLiteUtils.HandleException(ex);
+                OrmLiteUtils.HandleException(ex, "Could not populate {0}.{1} with {2}: {3}",
+                    typeof(T).Name, fieldDef?.Name, value, ex.Message);
             }
         }
 

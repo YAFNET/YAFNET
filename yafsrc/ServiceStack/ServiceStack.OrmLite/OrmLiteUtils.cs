@@ -54,12 +54,12 @@ public static class OrmLiteUtils
     /// </summary>
     /// <param name="ex">The ex.</param>
     /// <param name="message">The message.</param>
-    public static void HandleException(Exception ex, string message = null)
+    public static void HandleException(Exception ex, string message = null, params object[] args)
     {
         if (OrmLiteConfig.ThrowOnError)
             throw ex;
 
-        Log.Error(message ?? ex.Message, ex);
+        Log.Error(ex, message ?? ex.Message, args);
     }
 
     /// <summary>
