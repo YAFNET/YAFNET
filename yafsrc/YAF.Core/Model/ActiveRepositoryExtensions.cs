@@ -87,7 +87,7 @@ public static class ActiveRepositoryExtensions
                                               a.Browser
                                           }).OrderBy<User>(u => u.Name);
 
-                    return db.Connection.Select<ActiveUser>(expression);
+                    return db.Connection.Select<ActiveUser>(expression).DistinctBy(x => x.UserID).ToList();
                 });
     }
 
@@ -144,7 +144,7 @@ public static class ActiveRepositoryExtensions
                                               a.Browser
                                           }).OrderBy<User>(u => u.Name);
 
-                    return db.Connection.Select<ActiveUser>(expression);
+                    return db.Connection.Select<ActiveUser>(expression).DistinctBy(x => x.UserID).ToList();
                 });
     }
 
