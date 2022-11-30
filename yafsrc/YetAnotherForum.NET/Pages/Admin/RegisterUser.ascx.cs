@@ -70,7 +70,6 @@ public partial class RegisterUser : AdminPage
             return;
         }
 
-
         var user = new AspNetUsers
                        {
                            Id = Guid.NewGuid().ToString(),

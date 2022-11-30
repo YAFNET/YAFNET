@@ -134,7 +134,13 @@
                                 <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server"
                                                     LocalizedTag="Captcha_Image" />
 
-                                <asp:Image ID="imgCaptcha" runat="server" CssClass="form-control w-25" />
+                                <asp:Image ID="imgCaptcha" runat="server" CssClass="form-control w-25" ToolTip="captcha" />
+
+                                <YAF:ThemeButton id="RefreshCaptcha" runat="server" CausesValidation="False"
+                                                 OnClick="RefreshCaptchaClick"
+                                                 CssClass="mt-1"
+                                                 Icon="rotate"
+                                                 Type="Secondary"></YAF:ThemeButton>
                             </div>
                             <div class="mb-3">
                                 <asp:Label runat="server" AssociatedControlID="tbCaptcha">

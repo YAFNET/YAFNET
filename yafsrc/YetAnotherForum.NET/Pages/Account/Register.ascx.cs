@@ -56,6 +56,11 @@ public partial class Register : AccountPage
     /// <c>true</c> if the user is possible spam bot; otherwise, <c>false</c>.
     /// </value>
     private bool IsPossibleSpamBot { get; set; }
+
+    /// <summary>
+    /// Gets the profile definitions.
+    /// </summary>
+    /// <value>The profile definitions.</value>
     private IList<ProfileDefinition> ProfileDefinitions =>
         this.profileDefinitions ??= this.GetRepository<ProfileDefinition>().GetByBoardId();
 
@@ -179,21 +184,22 @@ public partial class Register : AccountPage
             var displayName = this.DisplayName.Text;
 
             // create the user in the YAF DB as well as sync roles...
-            var userID = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, this.PageBoardContext.PageBoardID);
+            var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, this.PageBoardContext.PageBoardID);
 
-            if (userID == null)
+            if (userId == null)
             {
                 // something is seriously wrong here -- redirect to failure...
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
+                return;
             }
 
-            this.SaveCustomProfile(userID.Value);
+            this.SaveCustomProfile(userId.Value);
 
             if (this.IsPossibleSpamBot)
             {
                 if (this.PageBoardContext.BoardSettings.BotHandlingOnRegister.Equals(1))
                 {
-                    this.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userID.Value);
+                    this.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userId.Value);
                 }
             }
             else
@@ -201,12 +207,12 @@ public partial class Register : AccountPage
                 // handle e-mail verification
                 var email = this.Email.Text.Trim();
 
-                this.Get<ISendNotification>().SendVerificationEmail(user, email, userID);
+                this.Get<ISendNotification>().SendVerificationEmail(user, email, userId);
 
                 if (this.PageBoardContext.BoardSettings.NotificationOnUserRegisterEmailList.IsSet())
                 {
                     // send user register notification to the following admin users...
-                    this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
+                    this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userId.Value);
                 }
             }
 
@@ -315,6 +321,20 @@ public partial class Register : AccountPage
     }
 
     /// <summary>
+    /// Handles the Click event of the RefreshCaptcha control.
+    /// </summary>
+    /// <param name="sender">
+    /// The source of the event.
+    /// </param>
+    /// <param name="e">
+    /// The <see cref="EventArgs"/> instance containing the event data.
+    /// </param>
+    protected void RefreshCaptchaClick(object sender, EventArgs e)
+    {
+        this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
+    }
+
+    /// <summary>
     /// The setup create user step.
     /// </summary>
     private void SetupCreateUserStep()
@@ -325,6 +345,8 @@ public partial class Register : AccountPage
         if (this.PageBoardContext.BoardSettings.CaptchaTypeRegister == 1)
         {
             this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
+
+            this.RefreshCaptcha.Text = this.GetText("GENERATE_CAPTCHA");
 
             captchaPlaceHolder.Visible = true;
         }
