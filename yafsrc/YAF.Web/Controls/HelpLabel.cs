@@ -145,7 +145,7 @@ public class HelpLabel : BaseControl, ILocalizationSupport
             this.ParamHelp1,
             this.ParamHelp2);
 
-        tooltip = tooltip.IsSet() ? this.HtmlEncode(tooltip) : text;
+        tooltip = tooltip.IsSet() ? tooltip : text;
 
         label.Controls.Add(new Literal { Text = "&nbsp;" });
 
@@ -155,6 +155,7 @@ public class HelpLabel : BaseControl, ILocalizationSupport
         button.Attributes.Add(HtmlTextWriterAttribute.Title.ToString(), tooltip);
 
         button.Attributes.Add("data-bs-toggle", "tooltip");
+        button.Attributes.Add("data-bs-html", "true");
         button.Attributes.Add("data-bs-placement", "right");
 
         button.Controls.Add(new Icon { IconName = "info-circle", IconSize = "fa-lg", IconType = "text-info" });
