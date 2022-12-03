@@ -20,7 +20,6 @@
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\System.Text.Encodings.Web.dll" />
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\System.Threading.Channels.dll" />
 
-      <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\net48\" />
       <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\bin\" ContinueOnError="True" />
   </Target>
   <Target Name="PackageModule" Condition=" '$(Configuration)' == 'Release' AND '$(CreatePackages)' == 'true' ">
