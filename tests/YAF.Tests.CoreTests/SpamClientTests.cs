@@ -39,6 +39,7 @@ public class SpamClientTests
     /// </summary>
     [Test]
     [Description("A Test to Check for Bot via StopForumSpam.com API")]
+    [Ignore("Ignore from automatic testing")]
     public void Check_For_Bot_Test_via_StopForumSpam()
     {
         Assert.IsTrue(
@@ -52,6 +53,7 @@ public class SpamClientTests
     /// </summary>
     [Test]
     [Description("A Test to Check for Bot via BotScout.com API")]
+    [Ignore("Ignore from automatic testing")]
     public void Check_For_Bot_Test_via_BotScout()
     {
         Assert.IsTrue(
@@ -65,6 +67,7 @@ public class SpamClientTests
     /// </summary>
     [Test]
     [Description("A Test to Check for Bot via BotScout.com API or StopForumSpam.com API")]
+    [Ignore("Ignore from automatic testing")]
     public void Check_For_Bot_Test()
     {
         var botScoutCheck = new BotScout().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out _);
