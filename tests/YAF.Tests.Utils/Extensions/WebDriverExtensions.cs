@@ -76,7 +76,7 @@ public static class WebDriverExtensions
     /// <param name="localPath">The local path.</param>
     public static void DownloadFile(this IWebDriver driver, string url, string localPath)
     {
-        var client = new WebClient { Headers = { [HttpRequestHeader.Cookie] = CookieString(driver) } };
+        using var client = new WebClient {Headers = {[HttpRequestHeader.Cookie] = CookieString(driver)}};
 
         client.DownloadFile(url, localPath);
     }

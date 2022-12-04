@@ -170,6 +170,11 @@ public static class RegisterLoginExtensions
 
         var confirmEmail = simpleSmtpServer.ReceivedEmail.FirstOrDefault();
 
+        if (confirmEmail == null)
+        {
+            return false;
+        }
+
         var confirmUrl = StringUtils.GetLinks(confirmEmail.MessageParts[0].BodyData).FirstOrDefault();
 
         driver.Navigate().GoToUrl(confirmUrl);
