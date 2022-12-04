@@ -40,6 +40,7 @@ public class MimeTypesTests
     /// The file match content type test.
     /// </summary>
     [Test]
+    [Ignore("Ignore from automatic testing")]
     public void FileMatchContentType_Test()
     {
         using (new HttpSimulator("/", TestConfig.TestFilesDirectory).SimulateRequest())

@@ -54,6 +54,7 @@ public class FormatDateTimeTests : IHaveServiceLocator
     /// </summary>
     [Test]
     [Description("Format date to long test.")]
+    [Ignore("Ignore from automatic testing")]
     public void Format_Date_To_Long_Test()
     {
         using (new HttpSimulator("/", TestConfig.TestFilesDirectory).SimulateRequest())

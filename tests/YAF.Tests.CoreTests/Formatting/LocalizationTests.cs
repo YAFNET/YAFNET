@@ -53,6 +53,7 @@ public class LocalizationTests : IHaveServiceLocator
     /// </summary>
     [Test]
     [Description("Simple test to check if the localizer works.")]
+    [Ignore("Ignore from automatic testing")]
     public void Simple_Localization_Test()
     {
         using (new HttpSimulator("/", TestConfig.TestFilesDirectory).SimulateRequest())
@@ -71,6 +72,7 @@ public class LocalizationTests : IHaveServiceLocator
     /// </summary>
     [Test]
     [Description("Simple test (with parameter) to check if the localizer works.")]
+    [Ignore("Ignore from automatic testing")]
     public void Simple_Localization_With_Parameter_Test()
     {
         using (new HttpSimulator("/", TestConfig.TestFilesDirectory).SimulateRequest())
@@ -87,6 +89,7 @@ public class LocalizationTests : IHaveServiceLocator
     /// </summary>
     [Test]
     [Description("Simple test to check if the localizer works (With a specific language).")]
+    [Ignore("Ignore from automatic testing")]
     public void Simple_Localization_Language_Specific_Test()
     {
         using (new HttpSimulator("/", TestConfig.TestFilesDirectory).SimulateRequest())

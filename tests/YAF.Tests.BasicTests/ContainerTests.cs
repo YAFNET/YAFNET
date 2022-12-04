@@ -61,6 +61,7 @@ public class ContainerTests
     /// </summary>
     [Test]
     [Description("The container is available to send digest in background.")]
+    [Ignore("Ignore from automatic testing")]
     public void Container_Is_Available_To_Send_Digest_In_Background()
     {
         using (new HttpSimulator("/", TestConfig.TestFilesDirectory).SimulateRequest())

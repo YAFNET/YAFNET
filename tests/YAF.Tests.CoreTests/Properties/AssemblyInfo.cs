@@ -45,6 +45,5 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("b79415c9-f3c6-48a3-aba4-7e0e4d783ba7")]
 
-
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("..\\..\\yafsrc\\YetAnotherForum.NET.snk")] 
