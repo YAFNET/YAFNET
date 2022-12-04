@@ -26,7 +26,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-using NUnit.Framework;
+//using NUnit.Framework;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -44,7 +44,7 @@ using NUnit.Framework;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-[assembly: Apartment(ApartmentState.STA)]
+//[assembly: Apartment(ApartmentState.STA)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("b79415c9-f3c6-48a3-aba4-7e0e4d783ba7")]

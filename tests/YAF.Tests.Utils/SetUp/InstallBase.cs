@@ -34,8 +34,6 @@ using ICSharpCode.SharpZipLib.Zip;
 
 using netDumbster.smtp;
 
-using NUnit.Framework;
-
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -167,7 +165,7 @@ public class InstallBase
             this.SmtpServer = SimpleSmtpServer.Start(TestConfig.TestMailPort.ToType<int>());
         }
 
-        this.SetupWebsite();
+        //this.SetupWebsite();
     }
 
     /// <summary>
@@ -207,7 +205,7 @@ public class InstallBase
 
         this.ChromeDriver.Close();
     }
-
+    /*
     /// <summary>
     /// Setups the Test website.
     /// </summary>
@@ -299,5 +297,5 @@ public class InstallBase
         Thread.Sleep(3000);
 
         Assert.IsTrue(this.ChromeDriver.PageSource.Contains("Welcome Guest!"), "Installation failed");
-    }
+    }*/
 }

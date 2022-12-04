@@ -2,7 +2,6 @@
   <PropertyGroup>
     <ProductVersion />
     <TargetFramework>net48</TargetFramework>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputPath>bin\</OutputPath>
@@ -24,7 +23,6 @@
     <PackageReference Include="Microsoft.SqlServer.SqlManagementObjects.SSMS" Version="161.47027.0" />
     <PackageReference Include="Microsoft.Web.Administration" Version="11.1.0" />
     <PackageReference Include="netDumbster" Version="3.0.1" />
-    <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="Selenium.Support" Version="4.7.0" />
     <PackageReference Include="SharpZipLib" Version="1.4.1" />
   </ItemGroup>
