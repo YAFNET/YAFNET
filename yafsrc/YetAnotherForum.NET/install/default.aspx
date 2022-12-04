@@ -381,6 +381,6 @@
             </StepNavigationTemplate>
         </asp:Wizard>
     </form>
-    <script src="../Scripts/InstallWizard.comb.min.js" type="text/javascript" async></script>
+    <script src="../Scripts/InstallWizard.comb.min.js" async></script>
 </body>
 </html>

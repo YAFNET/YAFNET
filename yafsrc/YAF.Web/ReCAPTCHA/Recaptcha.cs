@@ -187,7 +187,6 @@ public class RecaptchaControl : WebControl, IValidator
     /// <param name="output">The output.</param>
     protected override void RenderContents([NotNull] HtmlTextWriter output)
     {
-        output.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
         output.AddAttribute(HtmlTextWriterAttribute.Src, "//www.google.com/recaptcha/api.js", false);
         output.RenderBeginTag(HtmlTextWriterTag.Script);
         output.RenderEndTag();

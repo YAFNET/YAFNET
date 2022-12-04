@@ -24,24 +24,6 @@ namespace YAF.Install
         protected global::System.Web.UI.HtmlControls.HtmlHead YafHead;
 
         /// <summary>
-        /// YafMetaScriptingLanguage-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlMeta YafMetaScriptingLanguage;
-
-        /// <summary>
-        /// YafMetaStyles-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlMeta YafMetaStyles;
-
-        /// <summary>
         /// Form1-Steuerelement.
         /// </summary>
         /// <remarks>
@@ -121,15 +103,6 @@ namespace YAF.Install
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizDatabaseConnection;
-
-        /// <summary>
-        /// ExistingConnectionHolder-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ExistingConnectionHolder;
 
         /// <summary>
         /// lbConnections-Steuerelement.
