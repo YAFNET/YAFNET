@@ -2037,7 +2037,7 @@ public class BoardSettings
         get =>
             this.Registry.GetValue(
                 "EditorToolbarFull",
-                "[\"Source\"],[\"Cut\", \"Copy\", \"Paste\"], [\"Undo\", \"Redo\", \"-\", \"Find\", \"Replace\", \"-\", \"SelectAll\", \"RemoveFormat\"],[\"About\"],\"/\",[\"Bold\", \"Italic\", \"Underline\", \"-\", \"TextColor\", \"FontSize\",\"highlight\"],[\"-\", \"JustifyLeft\", \"JustifyCenter\", \"JustifyRight\"],[\"-\", \"Outdent\", \"Indent\"],[\"EmojiPanel\"],[\"-\", \"Link\", \"Unlink\", \"-\", \"attachments\", \"-\", \"Image\", \"albumsbrowser\"], [\"-\", \"NumberedList\", \"BulletedList\"],[\"quote\", \"Syntaxhighlight\",\"bbcodeselector\"],[\"youtube\",\"vimeo\", \"instagram\", \"twitter\", \"facebook\"]");
+                "[\"Source\"],[\"Cut\", \"Copy\", \"Paste\"], [\"Undo\", \"Redo\", \"-\", \"Find\", \"Replace\", \"-\", \"SelectAll\", \"RemoveFormat\"],[\"About\"],\"/\",[\"Bold\", \"Italic\", \"Underline\", \"-\", \"TextColor\", \"FontSize\",\"highlight\"],[\"-\", \"JustifyLeft\", \"JustifyCenter\", \"JustifyRight\"],[\"-\", \"Outdent\", \"Indent\"],[\"EmojiPanel\"],[\"Table\"],[\"-\", \"Link\", \"Unlink\", \"-\", \"attachments\", \"-\", \"Image\", \"albumsbrowser\"], [\"-\", \"NumberedList\", \"BulletedList\"],[\"quote\", \"Syntaxhighlight\",\"bbcodeselector\"],[\"youtube\",\"vimeo\", \"instagram\", \"twitter\", \"facebook\"]");
 
         set => this.Registry.SetValue("EditorToolbarFull", value);
     }
