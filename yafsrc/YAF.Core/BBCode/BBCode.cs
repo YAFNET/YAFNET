@@ -761,6 +761,35 @@ public class BBCode : IBBCode, IHaveServiceLocator
                     "<div style=\"margin-left:40px\">${inner}</div>",
                     Options));
 
+            // Tables
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    @"\[td\]",
+                    "<td>",
+                    Options));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    @"\[/td\]",
+                    "</td>",
+                    Options));
+
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    @"\[tr\]",
+                    "<tr>",
+                    Options));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    @"\[/tr\]",
+                    "</tr>",
+                    Options));
+
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    @"\[table\](?<inner>(.*?))\[/table\]",
+                    "<table class=\"table table-striped\">${inner}</table>",
+                    Options));
+
             string imageHtml;
             string imageHtmlWithDesc;
 

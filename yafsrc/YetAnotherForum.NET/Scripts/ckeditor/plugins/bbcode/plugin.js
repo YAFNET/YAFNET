@@ -25,6 +25,30 @@
                 tab = definition.getContents('info');
                 //tab.remove( 'txtAlt' );
                 tab.remove('basic');
+            } else if (name == 'table' || name == 'tableProperties') {
+                var advTab = definition.getContents('advanced');
+
+                var stylesField = advTab.get('advCSSClasses');
+                stylesField['default'] = 'table table-striped';
+
+                advTab.remove('advId');
+                advTab.remove('advLangDir');
+                advTab.remove('advStyles');
+
+                definition.onShow = function () {
+                    this.getContentElement("advanced", "advCSSClasses").disable()
+                }
+               
+                tab = definition.getContents('info');
+                tab.remove('selHeaders');
+                tab.remove('txtBorder');
+                tab.remove('cmbAlign');
+                tab.remove('txtCellSpace');
+                tab.remove('txtCellPad');
+                tab.remove('txtWidth');
+                tab.remove('txtHeight');
+                tab.remove('txtCaption');
+                tab.remove('txtSummary');
             }
         });
 
@@ -46,9 +70,12 @@
         '*': 'li',
         list: 'ol',
         h: 'mark',
+        table: 'table',
+        td: 'td',
+        tr: 'tr'
        // code: 'code'
     },
-        convertMap = { strong: 'b', b: 'b', u: 'u', em: 'i', i: 'i', s: 's', li: '*', mark: 'h', /*code: 'code'*/ },
+        convertMap = { strong: 'b', b: 'b', u: 'u', em: 'i', i: 'i', s: 's', li: '*', mark: 'h', table: 'table', td: 'td', tr: 'tr' /*code: 'code'*/ },
         tagnameMap = {
             strong: 'b',
             em: 'i',
@@ -60,6 +87,9 @@
             a: 'link',
             img: 'img',
             mark: 'h',
+            table: 'table',
+            td: 'td',
+            tr: 'tr'
             //code: 'code'
         },
         stylesMap = {
@@ -672,6 +702,9 @@
                 var bbcodeFilter = new CKEDITOR.htmlParser.filter();
                 bbcodeFilter.addRules({
                     elements: {
+                        table: function (element) {
+                            element.addClass("table table-striped");
+                        },
                         /*blockquote: function( element ) {
                             var quoted = new CKEDITOR.htmlParser.element( 'div' );
                             quoted.children = element.children;

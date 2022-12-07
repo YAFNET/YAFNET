@@ -570,7 +570,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
                           extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,{(uploadAllowed ? "attachments," : "")}quote,codemirror,textselection"",
-                          removePlugins: 'bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates{contextMenuRemove}',
+                          removePlugins: 'bidi,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,templates{contextMenuRemove}',
                           toolbar: [{toolbar}],
                           entities_greek: false,
                           entities_latin: false,
