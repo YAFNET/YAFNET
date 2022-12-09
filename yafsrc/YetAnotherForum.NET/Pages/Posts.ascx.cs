@@ -26,6 +26,7 @@
 namespace YAF.Pages;
 
 using System.Web.UI.HtmlControls;
+
 using YAF.Controls;
 using YAF.Types.Exceptions;
 using YAF.Types.Models;
@@ -343,9 +344,7 @@ public partial class Posts : ForumPage
         this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
         this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
         this.QuickReplyLink2.Visible = yafBoardSettings.ShowQuickAnswer;
-		
-		
-
+        
         if (!this.PageBoardContext.ForumPostAccess || this.PageBoardContext.PageForum.ForumFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
         {
             this.NewTopic1.Visible = false;
@@ -807,7 +806,7 @@ public partial class Posts : ForumPage
             case "atomfeed":
                 this.Get<LinkBuilder>().Redirect(
                     ForumPages.Feed,
-                    new {feed = RssFeeds.Posts.ToInt(), t = this.PageBoardContext.PageTopicID });
+                    new {feed = RssFeeds.Posts.ToInt(), t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
                 break;
             default:
                 throw new ApplicationException(e.Item);
