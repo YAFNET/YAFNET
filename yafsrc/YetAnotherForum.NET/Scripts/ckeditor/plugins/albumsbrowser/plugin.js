@@ -91,7 +91,14 @@ CKEDITOR.dialog.add("albumsbrowserDialog",
 
                     doc.replaceRange(insert, pos);
                 } else {
-                    currentEditor.insertHtml(insert);
+                    var selectedText = editor.getSelection().getSelectedText()
+					
+					if (selectedText.length) {
+                        currentEditor.insertHtml(selectedText + " " + insert);
+                    }
+                    else {
+                        currentEditor.insertHtml(insert);
+                    }
                 }
 
                 dialog.hide();

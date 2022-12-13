@@ -95,7 +95,14 @@ CKEDITOR.dialog.add("attachmentsDialog",
 
                     doc.replaceRange(insert, pos);
                 } else {
-                    currentEditor.insertHtml(insert);
+                    var selectedText = editor.getSelection().getSelectedText()
+					
+					if (selectedText.length) {
+                        currentEditor.insertHtml(selectedText + " " + insert);
+                    }
+                    else {
+                        currentEditor.insertHtml(insert);
+                    }
                 }
 
                 dialog.hide();
