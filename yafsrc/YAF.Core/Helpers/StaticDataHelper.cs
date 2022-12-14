@@ -228,7 +228,6 @@ public static class StaticDataHelper
                 resourceFile.TranslatedPercentage = countTranslated * 100 / tagsCount;
                 resourceFile.TranslatedCount = countTranslated;
                 resourceFile.TagsCount = tagsCount;
-
             });
 
         return list;

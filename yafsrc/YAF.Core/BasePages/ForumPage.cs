@@ -332,10 +332,7 @@ public abstract class ForumPage : UserControl,
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (!this.IsPostBack)
-        {
-            this.CreatePageLinks();
-        }
+        this.CreatePageLinks();
 
         // fire pre-load event...
         this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());

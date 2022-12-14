@@ -795,12 +795,10 @@ public class BBCode : IBBCode, IHaveServiceLocator
 
             if (messageId > 0)
             {
-                imageHtml = "<a href=\"${http}${inner}\" data-gallery=\"#blueimp-gallery-" +
-                            messageId +
-                            "\"><img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${height}px;\"></a>";
-                imageHtmlWithDesc = "<a href=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" data-gallery=\"#blueimp-gallery-" +
-                                    messageId +
-                                    "\"><img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${height}px;\"></a>";
+                imageHtml =
+                    $"<a href=\"${{http}}${{inner}}\" data-gallery=\"#blueimp-gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${{height}}px;\"></a>";
+                imageHtmlWithDesc =
+                    $"<a href=\"${{http}}${{inner}}\" alt=\"${{description}}\" title=\"${{description}}\" data-gallery=\"#blueimp-gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${{height}}px;\"></a>";
             }
             else
             {
