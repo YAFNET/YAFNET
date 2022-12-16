@@ -212,5 +212,10 @@ public partial class BannedEmails : AdminPage
                                   : 0;
 
         this.DataBind();
+
+        if (this.list.Items.Count == 0)
+        {
+            this.EmptyState.Visible = true;
+        }
     }
 }

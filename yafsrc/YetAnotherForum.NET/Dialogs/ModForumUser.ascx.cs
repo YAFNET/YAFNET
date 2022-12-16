@@ -105,7 +105,6 @@ public partial class ModForumUser : BaseUserControl
         this.UserName.Text = userForum.Item1.DisplayOrUserName();
         this.UserName.Enabled = false;
 
-
         // get access mask for this user
         if (this.AccessMaskID.Items.FindByValue(userForum.Item2.AccessMaskID.ToString()) != null)
         {
@@ -144,7 +143,6 @@ public partial class ModForumUser : BaseUserControl
     /// </param>
     protected void UpdateClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        
 
         if (this.UserId.HasValue)
         {
@@ -171,7 +169,6 @@ public partial class ModForumUser : BaseUserControl
                 this.PageBoardContext.PageForumID,
                 this.AccessMaskID.SelectedValue.ToType<int>());
         }
-
 
         // redirect to forum moderation page
         this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Forums, new { f = this.PageBoardContext.PageForumID });

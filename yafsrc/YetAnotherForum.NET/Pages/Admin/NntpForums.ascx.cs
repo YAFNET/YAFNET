@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -112,5 +112,10 @@ public partial class NntpForums : AdminPage
         this.RankList.DataSource = this.GetRepository<NntpForum>()
             .NntpForumList(this.PageBoardContext.PageBoardID, null);
         this.DataBind();
+
+        if (this.RankList.Items.Count == 0)
+        {
+            this.EmptyState.Visible = true;
+        }
     }
 }

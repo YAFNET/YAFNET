@@ -140,7 +140,6 @@ public partial class UserMedalEdit : BaseUserControl
             "loadValidatorFormJs",
             JavaScriptBlocks.FormValidatorJs(this.AddUserSave.ClientID));
 
-
         if (!this.UserId.HasValue)
         {
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
@@ -150,7 +149,6 @@ public partial class UserMedalEdit : BaseUserControl
                     "UserSelect",
                     this.SelectedUserID.ClientID));
         }
-        
     }
 
     /// <summary>
@@ -193,7 +191,6 @@ public partial class UserMedalEdit : BaseUserControl
             }
 
             var userId = this.SelectedUserID.Value.ToType<int>();
-
 
             this.GetRepository<UserMedal>().SaveNew(
                 userId,

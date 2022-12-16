@@ -7,20 +7,22 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
+<div class="row">
+<div class="col-xl-12">
+<div class="card mb-3">
+<div class="card-header">
+    <YAF:IconHeader runat="server"
+                    IconName="sticky-note"
+                    LocalizedPage="ADMIN_REPLACEWORDS"></YAF:IconHeader>
+</div>
+<div class="card-body">
+    <YAF:EmptyState runat="server" ID="EmptyState" Visible="False"
+                    Icon="sticky-note"
+                    HeaderTextPage="ADMIN_REPLACEWORDS" HeaderTextTag="EMPTY_HEADER"
+                    MessageTextPage="ADMIN_REPLACEWORDS" MessageTextTag="EMPTY_MESSAGE"/>
+    <ul class="list-group">
     <asp:Repeater ID="list" runat="server">
-        <HeaderTemplate>
-            <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <YAF:IconHeader runat="server"
-                                    IconName="sticky-note"
-                                    LocalizedPage="ADMIN_REPLACEWORDS"></YAF:IconHeader>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group">
-        </HeaderTemplate>
-        <ItemTemplate>
+    <ItemTemplate>
             <li class="list-group-item list-group-item-action list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">
@@ -110,44 +112,44 @@
                 </div>
             </li>
         </ItemTemplate>
-        <FooterTemplate>
-                    </ul>
-                </div>
-                <div class="card-footer text-center">
-                    <YAF:ThemeButton runat="server"
-                                     CommandName="add"
-                                     CssClass="mb-1"
-                                     ID="Linkbutton3"
-                                     Type="Primary"
-                                     Icon="plus-square"
-                                     TextLocalizedTag="ADD"
-                                     TextLocalizedPage="ADMIN_REPLACEWORDS">
-                    </YAF:ThemeButton>
-                    <YAF:ThemeButton runat="server"
-                                     CssClass="mb-1"
-                                     Icon="upload"
-                                     DataToggle="modal"
-                                     DataTarget="ReplaceWordsImportDialog"
-                                     ID="Linkbutton5"
-                                     Type="Info"
-                                     TextLocalizedTag="IMPORT"
-                                     TextLocalizedPage="ADMIN_REPACEWORDS">
-                    </YAF:ThemeButton>
-                    <YAF:ThemeButton runat="server"
-                                     CssClass="mb-1"
-                                     CommandName="export"
-                                     ID="Linkbutton4"
-                                     Type="Warning"
-                                     Icon="download"
-                                     TextLocalizedTag="EXPORT"
-                                     TextLocalizedPage="ADMIN_REPLACEWORDS">
-                    </YAF:ThemeButton>
-                </div>
+</asp:Repeater>
+
+
+                </ul>
+            </div>
+            <div class="card-footer text-center">
+                <YAF:ThemeButton runat="server"
+                                 CommandName="add"
+                                 CssClass="mb-1"
+                                 ID="Linkbutton3"
+                                 Type="Primary"
+                                 Icon="plus-square"
+                                 TextLocalizedTag="ADD"
+                                 TextLocalizedPage="ADMIN_REPLACEWORDS">
+                </YAF:ThemeButton>
+                <YAF:ThemeButton runat="server"
+                                 CssClass="mb-1"
+                                 Icon="upload"
+                                 DataToggle="modal"
+                                 DataTarget="ReplaceWordsImportDialog"
+                                 ID="Linkbutton5"
+                                 Type="Info"
+                                 TextLocalizedTag="IMPORT"
+                                 TextLocalizedPage="ADMIN_REPACEWORDS">
+                </YAF:ThemeButton>
+                <YAF:ThemeButton runat="server"
+                                 CssClass="mb-1"
+                                 CommandName="export"
+                                 ID="Linkbutton4"
+                                 Type="Warning"
+                                 Icon="download"
+                                 TextLocalizedTag="EXPORT"
+                                 TextLocalizedPage="ADMIN_REPLACEWORDS">
+                </YAF:ThemeButton>
             </div>
         </div>
     </div>
-        </FooterTemplate>
-    </asp:Repeater>
+</div>
 
 
 

@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin;
 
 using YAF.Web.Controls;
 using YAF.Types.Models;
+
 using Forum = YAF.Types.Models.Forum;
 
 /// <summary>

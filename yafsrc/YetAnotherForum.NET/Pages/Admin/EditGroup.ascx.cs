@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Pages.Admin;
 
 using YAF.Types.Models;
@@ -311,7 +312,6 @@ public partial class EditGroup : AdminPage
             // simply create it
             this.Get<IAspNetRolesHelper>().CreateRole(roleName);
         }
-
 
         // go through all forums
         for (var i = 0; i < this.AccessList.Items.Count; i++)

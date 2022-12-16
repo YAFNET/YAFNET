@@ -149,7 +149,6 @@ public partial class LoginBox : BaseUserControl
         var result = (PasswordVerificationResult)this.Get<IAspNetUsersHelper>().IPasswordHasher
             .VerifyHashedPassword(user.PasswordHash, this.Password.Text);
 
-
         switch (result)
         {
             case PasswordVerificationResult.Success:

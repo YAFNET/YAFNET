@@ -1,22 +1,25 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.ProfileDefinitions" Codebehind="ProfileDefinitions.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 
-
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/EditProfileDefinition.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
     <div class="col-xl-12">
-        <asp:Repeater ID="List" runat="server" OnItemCommand="ListItemCommand">
+        <div class="card mb-3">
+            <div class="card-header">
+                <YAF:IconHeader runat="server"
+                                IconName="id-card"
+                                LocalizedPage="ADMIN_PROFILEDEFINITIONS"></YAF:IconHeader>
+            </div>
+            <div class="card-body">
+                <YAF:EmptyState runat="server" ID="EmptyState" Visible="False"
+                                Icon="id-card"
+                                HeaderTextPage="ADMIN_PROFILEDEFINITIONS" HeaderTextTag="EMPTY_HEADER"
+                                MessageTextPage="ADMIN_PROFILEDEFINITIONS" MessageTextTag="EMPTY_MESSAGE"/>
+                <asp:Repeater ID="List" runat="server" OnItemCommand="ListItemCommand">
             <HeaderTemplate>
-                <div class="card mb-3">
-                <div class="card-header">
-                    <YAF:IconHeader runat="server"
-                                    IconName="id-card"
-                                    LocalizedPage="ADMIN_PROFILEDEFINITIONS"></YAF:IconHeader>
-                </div>
-                <div class="card-body">
                 <ul class="list-group">
             </HeaderTemplate>
             <ItemTemplate>
@@ -94,17 +97,17 @@
             </ItemTemplate>
             <FooterTemplate>
                 </ul>
-            </div>
-            <div class="card-footer text-center">
-                <YAF:ThemeButton ID="New" runat="server"
-                                 CommandName="new"
-                                 Type="Primary"
-                                 Icon="plus-square"
-                                 TextLocalizedTag="NEW_DEF" />
-                    </div>
-                </div>
             </FooterTemplate>
         </asp:Repeater>
+            </div>
+        <div class="card-footer text-center">
+            <YAF:ThemeButton ID="New" runat="server"
+                             CommandName="new"
+                             Type="Primary"
+                             Icon="plus-square"
+                             TextLocalizedTag="NEW_DEF" />
+        </div>
+    </div>
     </div>
 </div>
 

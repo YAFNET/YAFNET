@@ -21,12 +21,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Modules;
 
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using YAF.Types.Attributes;
 
 /// <summary>

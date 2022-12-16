@@ -1040,6 +1040,14 @@
           {
             "@tag": "TITLE",
             "#text": "Verboden e-mailadressen"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Email Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
           }
         ]
       },
@@ -1163,6 +1171,14 @@
           {
             "@tag": "TITLE",
             "#text": "Geblokkeerde IP-Adressen"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned IP Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
           }
         ]
       },
@@ -1290,6 +1306,14 @@
           {
             "@tag": "TITLE",
             "#text": "Verboden namen"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Names"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
           }
         ]
       },
@@ -3607,6 +3631,10 @@
             "#text": "Verwijder alle event log items?"
           },
           {
+            "@tag": "COPY_TO_CLIPBOARD",
+            "#text": "Copy to clipboard"
+          },
+          {
             "@tag": "DELETE_ALL",
             "#text": "Verwijder Alles"
           },
@@ -3665,10 +3693,6 @@
           {
             "@tag": "TYPES_HELP",
             "#text": "Kies ervoor om het logboek te beperken tot bepaalde soorten gebeurtenissen."
-          },
-          {
-            "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
           }
         ]
       },
@@ -5939,6 +5963,14 @@
           {
             "@tag": "TITLE",
             "#text": "Medailles"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Medals"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
           }
         ]
       },
@@ -5984,6 +6016,14 @@
           {
             "@tag": "TITLE",
             "#text": "NNTP-forums"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Forums"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           }
         ]
       },
@@ -6066,6 +6106,14 @@
           {
             "@tag": "USERNAME",
             "#text": "Gebruikersnaam"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Servers"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
           }
         ]
       },
@@ -6178,6 +6226,14 @@
           {
             "@tag": "TITLE",
             "#text": "Aangepaste profieldefinities"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Custom Profile Definitions"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
           }
         ]
       },
@@ -6456,6 +6512,14 @@
           {
             "@tag": "TITLE",
             "#text": "Vervangwoorden"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Replace Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
           }
         ]
       },
@@ -6667,6 +6731,14 @@
           {
             "@tag": "TITLE",
             "#text": "Spamcontrolewoorden"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Spam Check Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
           }
         ]
       },

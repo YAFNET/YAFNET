@@ -204,7 +204,6 @@ public partial class Restore : AdminPage
     /// </param>
     protected void Messages_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-        int? messageId = null;
         int? forumId = null;
         int? topicId = null;
         Message message = null;
@@ -213,7 +212,7 @@ public partial class Restore : AdminPage
         {
             var commandArgs = e.CommandArgument.ToString().Split(';');
 
-            messageId = commandArgs[0].ToType<int>();
+            int? messageId = commandArgs[0].ToType<int>();
             forumId = commandArgs[1].ToType<int>();
             topicId = commandArgs[2].ToType<int>();
 

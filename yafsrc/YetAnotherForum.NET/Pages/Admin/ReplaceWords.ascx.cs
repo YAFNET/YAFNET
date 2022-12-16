@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -25,6 +25,7 @@
 namespace YAF.Pages.Admin;
 
 using System.Xml.Linq;
+
 using YAF.Types.Models;
 
 /// <summary>
@@ -82,7 +83,13 @@ public partial class ReplaceWords : AdminPage
     private void BindData()
     {
         this.list.DataSource = this.GetRepository<Replace_Words>().GetByBoardId();
+
         this.DataBind();
+
+        if (this.list.Items.Count == 0)
+        {
+            this.EmptyState.Visible = true;
+        }
     }
 
     /// <summary>

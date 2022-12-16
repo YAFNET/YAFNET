@@ -33,15 +33,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox txtIndexStatistics;
 
         /// <summary>
-        /// PanelGetStats-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PanelGetStats;
-
-        /// <summary>
         /// LocalizedLabel2-Steuerelement.
         /// </summary>
         /// <remarks>
@@ -58,15 +49,6 @@ namespace YAF.Pages.Admin
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton GetStats;
-
-        /// <summary>
-        /// PanelRecoveryMode-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PanelRecoveryMode;
 
         /// <summary>
         /// RecoveryMode-Steuerelement.
@@ -87,15 +69,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList1;
 
         /// <summary>
-        /// PanelReindex-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PanelReindex;
-
-        /// <summary>
         /// LocalizedLabel4-Steuerelement.
         /// </summary>
         /// <remarks>
@@ -112,15 +85,6 @@ namespace YAF.Pages.Admin
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Reindex;
-
-        /// <summary>
-        /// PanelShrink-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PanelShrink;
 
         /// <summary>
         /// LocalizedLabel3-Steuerelement.

@@ -53,8 +53,7 @@
                     </p>
                     <hr />
                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SHRINK" LocalizedPage="ADMIN_REINDEX" />
-                    </p>
-                    <p class="card-text">
+                <p class="card-text">
                         <YAF:ThemeButton ID="Shrink" runat="server"
                                          OnClick="ShrinkClick"
                                          Type="Primary"

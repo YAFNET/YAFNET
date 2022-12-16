@@ -24,9 +24,7 @@
 
 namespace YAF.Pages;
 
-using System.ComponentModel;
 using YAF.Types.EventProxies;
-using YAF.Types.Interfaces.Data;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 

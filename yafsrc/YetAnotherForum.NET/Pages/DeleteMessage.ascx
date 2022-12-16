@@ -136,7 +136,7 @@
             </div>
             <div class="card-text">
                 <YAF:MessagePostData ID="MessagePost1" runat="server" 
-                                     CurrentMessage="<%# ((Message)Container.DataItem) %>"
+                                     CurrentMessage="<%# (Message)Container.DataItem %>"
                                      ShowAttachments="false" 
                                      ShowSignature="false">
                 </YAF:MessagePostData>

@@ -15,6 +15,10 @@
                                     LocalizedPage="ADMIN_NNTPFORUMS"></YAF:IconHeader>
                     </div>
                 <div class="card-body">
+                    <YAF:EmptyState runat="server" ID="EmptyState" Visible="False"
+                                    Icon="newspaper"
+                                    HeaderTextPage="ADMIN_NNTPFORUMS" HeaderTextTag="EMPTY_HEADER"
+                                    MessageTextPage="ADMIN_NNTPFORUMS" MessageTextTag="EMPTY_MESSAGE"/>
                     <asp:Repeater ID="RankList" OnItemCommand="RankListItemCommand" runat="server">
             <HeaderTemplate>
                 <ul class="list-group">

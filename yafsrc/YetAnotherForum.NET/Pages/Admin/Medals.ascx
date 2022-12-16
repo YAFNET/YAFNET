@@ -12,6 +12,10 @@
                                     LocalizedPage="ADMIN_MEDALS"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
+                    <YAF:EmptyState runat="server" ID="EmptyState" Visible="False"
+                                    Icon="medal"
+                                    HeaderTextPage="ADMIN_MEDALS" HeaderTextTag="EMPTY_HEADER"
+                                    MessageTextPage="ADMIN_MEDALS" MessageTextTag="EMPTY_MESSAGE"/>
                     <asp:Repeater ID="MedalList"
                                   OnItemCommand="MedalListItemCommand" runat="server">
                         <HeaderTemplate>

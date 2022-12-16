@@ -25,6 +25,7 @@
 namespace YAF.Pages.Admin;
 
 using System.Xml.Linq;
+
 using YAF.Types.Models;
 
 /// <summary>
@@ -199,12 +200,12 @@ public partial class SpamWords : AdminPage
                                       .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>()
                                   : 0;
 
+        this.DataBind();
+
         if (this.list.Items.Count == 0)
         {
-            this.NoInfo.Visible = true;
+            this.EmptyState.Visible = true;
         }
-
-        this.DataBind();
     }
 
     /// <summary>

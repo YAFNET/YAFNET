@@ -258,7 +258,6 @@ public partial class EditUsersSuspend : BaseUserControl
             this.User.Email,
             this.User.DisplayOrUserName());
 
-
         this.SuspendedReason.Text = string.Empty;
 
         // re-bind data

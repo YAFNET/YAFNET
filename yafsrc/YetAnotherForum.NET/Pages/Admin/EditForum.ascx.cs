@@ -22,11 +22,10 @@
  * under the License.
  */
 
-
-
 namespace YAF.Pages.Admin;
 
 using System.IO;
+
 using YAF.Types.Objects;
 using YAF.Types.Models;
 
@@ -157,7 +156,6 @@ public partial class EditForum : AdminPage
         if (this.IsPostBack)
         {
             this.Body.CssClass = "card-body was-validated";
-
 
             return;
         }
@@ -309,7 +307,6 @@ public partial class EditForum : AdminPage
                     item.Selected = true;
                 }
             }
-
         }
     }
 

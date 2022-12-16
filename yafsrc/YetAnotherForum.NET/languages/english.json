@@ -1013,38 +1013,46 @@
       {
         "@name": "ADMIN_BANNEDEMAIL",
         "Resource": [
-          {
-            "@tag": "ADD_IP",
-            "#text": "Add New Email"
-          },
-          {
-            "@tag": "IMPORT_IPS",
-            "#text": "Import Email(s)"
-          },
-          {
-            "@tag": "MASK",
-            "#text": "Mask"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "The Banned Email Address Already exists!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_EMAIL",
-            "#text": "Email was successfully deleted"
-          },
-          {
-            "@tag": "REASON",
-            "#text": "Reason"
-          },
-          {
-            "@tag": "SINCE",
-            "#text": "Since"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Banned Email Addresses"
-          }
+            {
+                "@tag": "ADD_IP",
+                "#text": "Add New Email"
+            },
+            {
+                "@tag": "EMPTY_HEADER",
+                "#text": "No Banned Email Addresses"
+            },
+            {
+                "@tag": "EMPTY_MESSAGE",
+                "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            },
+            {
+                "@tag": "IMPORT_IPS",
+                "#text": "Import Email(s)"
+            },
+            {
+                "@tag": "MASK",
+                "#text": "Mask"
+            },
+            {
+                "@tag": "MSG_EXIST",
+                "#text": "The Banned Email Address Already exists!"
+            },
+            {
+                "@tag": "MSG_REMOVEBAN_EMAIL",
+                "#text": "Email was successfully deleted"
+            },
+            {
+                "@tag": "REASON",
+                "#text": "Reason"
+            },
+            {
+                "@tag": "SINCE",
+                "#text": "Since"
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "Banned Email Addresses"
+            }
         ]
       },
       {
@@ -1124,50 +1132,58 @@
       {
         "@name": "ADMIN_BANNEDIP",
         "Resource": [
-          {
-            "@tag": "ADD_IP",
-            "#text": "Add New Address"
-          },
-          {
-            "@tag": "BAN_BY",
-            "#text": "Banned By"
-          },
-          {
-            "@tag": "EXPORT",
-            "#text": "Export to Text File"
-          },
-          {
-            "@tag": "IMPORT_IPS",
-            "#text": "Import Address(es)"
-          },
-          {
-            "@tag": "MASK",
-            "#text": "Mask"
-          },
-          {
-            "@tag": "MSG_DELETE",
-            "#text": "Delete this Banned Item?"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "The Banned IP Already exists!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_IP",
-            "#text": "IP Address or Mask '{0}' was successfully deleted"
-          },
-          {
-            "@tag": "REASON",
-            "#text": "Reason"
-          },
-          {
-            "@tag": "SINCE",
-            "#text": "Since"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Banned IP Addresses"
-          }
+            {
+                "@tag": "ADD_IP",
+                "#text": "Add New Address"
+            },
+            {
+                "@tag": "BAN_BY",
+                "#text": "Banned By"
+            },
+            {
+                "@tag": "EXPORT",
+                "#text": "Export to Text File"
+            },
+            {
+                "@tag": "EMPTY_HEADER",
+                "#text": "No Banned IP Addresses"
+            },
+            {
+                "@tag": "EMPTY_MESSAGE",
+                "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            },
+            {
+                "@tag": "IMPORT_IPS",
+                "#text": "Import Address(es)"
+            },
+            {
+                "@tag": "MASK",
+                "#text": "Mask"
+            },
+            {
+                "@tag": "MSG_DELETE",
+                "#text": "Delete this Banned Item?"
+            },
+            {
+                "@tag": "MSG_EXIST",
+                "#text": "The Banned IP Already exists!"
+            },
+            {
+                "@tag": "MSG_REMOVEBAN_IP",
+                "#text": "IP Address or Mask '{0}' was successfully deleted"
+            },
+            {
+                "@tag": "REASON",
+                "#text": "Reason"
+            },
+            {
+                "@tag": "SINCE",
+                "#text": "Since"
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "Banned IP Addresses"
+            }
         ]
       },
       {
@@ -1263,38 +1279,46 @@
       {
         "@name": "ADMIN_BANNEDNAME",
         "Resource": [
-          {
-            "@tag": "ADD_IP",
-            "#text": "Add New User Name"
-          },
-          {
-            "@tag": "IMPORT_IPS",
-            "#text": "Import Name(s)"
-          },
-          {
-            "@tag": "MASK",
-            "#text": "Mask"
-          },
-          {
-            "@tag": "MSG_EXIST",
-            "#text": "The Banned Name Already exists!"
-          },
-          {
-            "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The user name was successfully deleted"
-          },
-          {
-            "@tag": "REASON",
-            "#text": "Reason"
-          },
-          {
-            "@tag": "SINCE",
-            "#text": "Since"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Banned Names"
-          }
+            {
+                "@tag": "ADD_IP",
+                "#text": "Add New User Name"
+            },
+            {
+                "@tag": "IMPORT_IPS",
+                "#text": "Import Name(s)"
+            },
+            {
+                "@tag": "EMPTY_HEADER",
+                "#text": "No Banned Names"
+            },
+            {
+                "@tag": "EMPTY_MESSAGE",
+                "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            },
+            {
+                "@tag": "MASK",
+                "#text": "Mask"
+            },
+            {
+                "@tag": "MSG_EXIST",
+                "#text": "The Banned Name Already exists!"
+            },
+            {
+                "@tag": "MSG_REMOVEBAN_NAME",
+                "#text": "The user name was successfully deleted"
+            },
+            {
+                "@tag": "REASON",
+                "#text": "Reason"
+            },
+            {
+                "@tag": "SINCE",
+                "#text": "Since"
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "Banned Names"
+            }
         ]
       },
       {
@@ -3140,126 +3164,126 @@
       {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
-          {
-            "@tag": "ALBUMS_NUMBER",
-            "#text": "User Albums Number:"
-          },
-          {
-            "@tag": "ALBUMS_NUMBER_HELP",
-            "#text": "Integer value for a user allowed albums number."
-          },
-          {
-            "@tag": "IMAGES_NUMBER",
-            "#text": "Album Images Number:"
-          },
-          {
-            "@tag": "IMAGES_NUMBER_HELP",
-            "#text": "Integer value for a user allowed images number per album."
-          },
-          {
-            "@tag": "IS_START",
-            "#text": "Is Start:"
-          },
-          {
-            "@tag": "IS_START_HELP",
-            "#text": "Means that this is the rank that new users belong to. Only one rank should have this checked. <br /><span style=\"color:red\">[b]Warning:[/b] at least one Rank need to have this Check box enabled or new users wont be able to register.</span>"
-          },
-          {
-            "@tag": "LADDER_GROUP",
-            "#text": "Is Ladder Group:"
-          },
-          {
-            "@tag": "LADDER_GROUP_HELP",
-            "#text": "If this is checked, this rank should be part of the ladder system where users advance as they post messages."
-          },
-          {
-            "@tag": "MIN_POSTS",
-            "#text": "Minimum Posts:"
-          },
-          {
-            "@tag": "MIN_POSTS_HELP",
-            "#text": "Minimum number of posts before users are advanced to this rank."
-          },
-          {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Rank Priority should be small integer."
-          },
-          {
-            "@tag": "NEED_NAME",
-            "#text": "You must define a rank name."
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES",
-            "#text": "Private Messages:"
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES_HELP",
-            "#text": "Max. Private Messages allowed to Rank members."
-          },
-          {
-            "@tag": "RANK_DESC",
-            "#text": "Description:"
-          },
-          {
-            "@tag": "RANK_DESC_HELP",
-            "#text": "Enter here a role description."
-          },
-          {
-            "@tag": "RANK_IMAGE",
-            "#text": "Rank Image:"
-          },
-          {
-            "@tag": "RANK_IMAGE_HELP",
-            "#text": "This image will be shown next to users of this rank."
-          },
-          {
-            "@tag": "RANK_NAME",
-            "#text": "Name:"
-          },
-          {
-            "@tag": "RANK_NAME_HELP",
-            "#text": "Name of this rank."
-          },
-          {
-            "@tag": "RANK_PRIO",
-            "#text": "Priority:"
-          },
-          {
-            "@tag": "RANK_PRIO_HELP",
-            "#text": "Priority of rank is various things."
-          },
-          {
-            "@tag": "RANK_STYLE",
-            "#text": "Style:"
-          },
-          {
-            "@tag": "RANK_STYLE_HELP",
-            "#text": "Style of users links in active users, color, font size..."
-          },
-          {
-            "@tag": "SELECT_IMAGE",
-            "#text": "Select Rank Image"
-          },
-          {
-            "@tag": "SIG_BBCODE",
-            "#text": "User signature BBCodes:"
-          },
-          {
-            "@tag": "SIG_BBCODE_HELP",
-            "#text": "Comma separated  BBCodes allowed in a user signature in the rank."
-          },
-          {
-            "@tag": "SIG_LENGTH",
-            "#text": "Max number of chars in a user signature:"
-          },
-          {
-            "@tag": "SIG_LENGTH_HELP",
-            "#text": "Max number of chars in a user signature in the rank."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit Rank"
-          }
+            {
+                "@tag": "ALBUMS_NUMBER",
+                "#text": "User Albums Number:"
+            },
+            {
+                "@tag": "ALBUMS_NUMBER_HELP",
+                "#text": "Integer value for a user allowed albums number."
+            },
+            {
+                "@tag": "IMAGES_NUMBER",
+                "#text": "Album Images Number:"
+            },
+            {
+                "@tag": "IMAGES_NUMBER_HELP",
+                "#text": "Integer value for a user allowed images number per album."
+            },
+            {
+                "@tag": "IS_START",
+                "#text": "Is Start:"
+            },
+            {
+                "@tag": "IS_START_HELP",
+                "#text": "Means that this is the rank that new users belong to. Only one rank should have this checked. <br /><span style=\"color:red\">[b]Warning:[/b] at least one Rank need to have this Check box enabled or new users wont be able to register.</span>"
+            },
+            {
+                "@tag": "LADDER_GROUP",
+                "#text": "Is Ladder Group:"
+            },
+            {
+                "@tag": "LADDER_GROUP_HELP",
+                "#text": "If this is checked, this rank should be part of the ladder system where users advance as they post messages."
+            },
+            {
+                "@tag": "MIN_POSTS",
+                "#text": "Minimum Posts:"
+            },
+            {
+                "@tag": "MIN_POSTS_HELP",
+                "#text": "Minimum number of posts before users are advanced to this rank."
+            },
+            {
+                "@tag": "MSG_RANK_INTEGER",
+                "#text": "Rank Priority should be small integer."
+            },
+            {
+                "@tag": "NEED_NAME",
+                "#text": "You must define a rank name."
+            },
+            {
+                "@tag": "PRIVATE_MESSAGES",
+                "#text": "Private Messages:"
+            },
+            {
+                "@tag": "PRIVATE_MESSAGES_HELP",
+                "#text": "Max. Private Messages allowed to Rank members."
+            },
+            {
+                "@tag": "RANK_DESC",
+                "#text": "Description:"
+            },
+            {
+                "@tag": "RANK_DESC_HELP",
+                "#text": "Enter here a role description."
+            },
+            {
+                "@tag": "RANK_IMAGE",
+                "#text": "Rank Image:"
+            },
+            {
+                "@tag": "RANK_IMAGE_HELP",
+                "#text": "This image will be shown next to users of this rank."
+            },
+            {
+                "@tag": "RANK_NAME",
+                "#text": "Name:"
+            },
+            {
+                "@tag": "RANK_NAME_HELP",
+                "#text": "Name of this rank."
+            },
+            {
+                "@tag": "RANK_PRIO",
+                "#text": "Priority:"
+            },
+            {
+                "@tag": "RANK_PRIO_HELP",
+                "#text": "Priority of rank is various things."
+            },
+            {
+                "@tag": "RANK_STYLE",
+                "#text": "Style:"
+            },
+            {
+                "@tag": "RANK_STYLE_HELP",
+                "#text": "Style of users links in active users, color, font size..."
+            },
+            {
+                "@tag": "SELECT_IMAGE",
+                "#text": "Select Rank Image"
+            },
+            {
+                "@tag": "SIG_BBCODE",
+                "#text": "User signature BBCodes:"
+            },
+            {
+                "@tag": "SIG_BBCODE_HELP",
+                "#text": "Comma separated  BBCodes allowed in a user signature in the rank."
+            },
+            {
+                "@tag": "SIG_LENGTH",
+                "#text": "Max number of chars in a user signature:"
+            },
+            {
+                "@tag": "SIG_LENGTH_HELP",
+                "#text": "Max number of chars in a user signature in the rank."
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "Add/Edit Rank"
+            }
         ]
       },
       {
@@ -5916,79 +5940,95 @@
       {
         "@name": "ADMIN_MEDALS",
         "Resource": [
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Delete this Medal?"
-          },
-          {
-            "@tag": "DISPLAY_BOX",
-            "#text": "Medal image as it'll be displayed in user box."
-          },
-          {
-            "@tag": "DISPLAY_RIBBON",
-            "#text": "Ribbon bar image as it'll be displayed in user box."
-          },
-          {
-            "@tag": "MOVE_DOWN",
-            "#text": "Move Down"
-          },
-          {
-            "@tag": "MOVE_UP",
-            "#text": "Move Up"
-          },
-          {
-            "@tag": "NEW_MEDAL",
-            "#text": "New Medal"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Medals"
-          }
+            {
+                "@tag": "CONFIRM_DELETE",
+                "#text": "Delete this Medal?"
+            },
+            {
+                "@tag": "DISPLAY_BOX",
+                "#text": "Medal image as it'll be displayed in user box."
+            },
+            {
+                "@tag": "DISPLAY_RIBBON",
+                "#text": "Ribbon bar image as it'll be displayed in user box."
+            },
+            {
+                "@tag": "EMPTY_HEADER",
+                "#text": "No Medals"
+            },
+            {
+                "@tag": "EMPTY_MESSAGE",
+                "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            },
+            {
+                "@tag": "MOVE_DOWN",
+                "#text": "Move Down"
+            },
+            {
+                "@tag": "MOVE_UP",
+                "#text": "Move Up"
+            },
+            {
+                "@tag": "NEW_MEDAL",
+                "#text": "New Medal"
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "Medals"
+            }
         ]
       },
       {
         "@name": "ADMIN_NNTPFORUMS",
         "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Active"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Delete"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "Delete this forum?"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Edit"
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Group"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "New Forum"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Save Forum"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Forums"
-          }
+            {
+                "@tag": "ACTIVE",
+                "#text": "Active"
+            },
+            {
+                "@tag": "DELETE",
+                "#text": "Delete"
+            },
+            {
+                "@tag": "DELETE_FORUM",
+                "#text": "Delete this forum?"
+            },
+            {
+                "@tag": "EDIT",
+                "#text": "Edit"
+            },
+            {
+                "@tag": "EMPTY_HEADER",
+                "#text": "No NNTP Forums"
+            },
+            {
+                "@tag": "EMPTY_MESSAGE",
+                "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
+            },
+            {
+                "@tag": "FORUM",
+                "#text": "Forum"
+            },
+            {
+                "@tag": "GROUP",
+                "#text": "Group"
+            },
+            {
+                "@tag": "NEW_FORUM",
+                "#text": "New Forum"
+            },
+            {
+                "@tag": "SAVE",
+                "#text": "Save Forum"
+            },
+            {
+                "@tag": "SERVER",
+                "#text": "Server"
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "NNTP Forums"
+            }
         ]
       },
       {
@@ -6043,34 +6083,42 @@
       {
         "@name": "ADMIN_NNTPSERVERS",
         "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Address"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "Delete this server?"
-          },
-          {
-            "@tag": "NAME",
-            "#text": "Name"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "New Server"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "Save Server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Servers"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "User Name"
-          }
+            {
+                "@tag": "ADRESS",
+                "#text": "Address"
+            },
+            {
+                "@tag": "DELETE_SERVER",
+                "#text": "Delete this server?"
+            },
+            {
+                "@tag": "EMPTY_HEADER",
+                "#text": "No NNTP Servers"
+            },
+            {
+                "@tag": "EMPTY_MESSAGE",
+                "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
+            },
+            {
+                "@tag": "NAME",
+                "#text": "Name"
+            },
+            {
+                "@tag": "NEW_SERVER",
+                "#text": "New Server"
+            },
+            {
+                "@tag": "SAVE_SERVER",
+                "#text": "Save Server"
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "NNTP Servers"
+            },
+            {
+                "@tag": "USERNAME",
+                "#text": "User Name"
+            }
         ]
       },
       {
@@ -6171,18 +6219,26 @@
       {
         "@name": "ADMIN_PROFILEDEFINITIONS",
         "Resource": [
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Delete Definition?"
-          },
-          {
-            "@tag": "NEW_DEF",
-            "#text": "Add New Definition"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Custom Profile Definitions"
-          }
+            {
+                "@tag": "CONFIRM_DELETE",
+                "#text": "Delete Definition?"
+            },
+            {
+                "@tag": "EMPTY_HEADER",
+                "#text": "No Custom Profile Definitions"
+            },
+            {
+                "@tag": "EMPTY_MESSAGE",
+                "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            },
+            {
+                "@tag": "NEW_DEF",
+                "#text": "Add New Definition"
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "Custom Profile Definitions"
+            }
         ]
       },
       {
@@ -6433,34 +6489,42 @@
       {
         "@name": "ADMIN_REPLACEWORDS",
         "Resource": [
-          {
-            "@tag": "ADD",
-            "#text": "Add New Word Replace"
-          },
-          {
-            "@tag": "BAD",
-            "#text": "\"Bad\" (Find) Expression"
-          },
-          {
-            "@tag": "EXPORT",
-            "#text": "Export to XML"
-          },
-          {
-            "@tag": "GOOD",
-            "#text": "\"Good\" (Replace) Expression"
-          },
-          {
-            "@tag": "IMPORT",
-            "#text": "Import from XML"
-          },
-          {
-            "@tag": "MSG_DELETE",
-            "#text": "Delete this Word Replacement?"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Replace Words"
-          }
+            {
+                "@tag": "ADD",
+                "#text": "Add New Word Replace"
+            },
+            {
+                "@tag": "BAD",
+                "#text": "\"Bad\" (Find) Expression"
+            },
+            {
+                "@tag": "EXPORT",
+                "#text": "Export to XML"
+            },
+            {
+                "@tag": "EMPTY_HEADER",
+                "#text": "No Replace Words"
+            },
+            {
+                "@tag": "EMPTY_MESSAGE",
+                "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            },
+            {
+                "@tag": "GOOD",
+                "#text": "\"Good\" (Replace) Expression"
+            },
+            {
+                "@tag": "IMPORT",
+                "#text": "Import from XML"
+            },
+            {
+                "@tag": "MSG_DELETE",
+                "#text": "Delete this Word Replacement?"
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "Replace Words"
+            }
         ]
       },
       {
@@ -6640,38 +6704,46 @@
       {
         "@name": "ADMIN_SPAMWORDS",
         "Resource": [
-          {
-            "@tag": "ADD",
-            "#text": "Add New Word"
-          },
-          {
-            "@tag": "EXPORT",
-            "#text": "Export to XML"
-          },
-          {
-            "@tag": "IMPORT",
-            "#text": "Import from XML"
-          },
-          {
-            "@tag": "MSG_DELETE",
-            "#text": "Delete this Word?"
-          },
-          {
-            "@tag": "NOTE",
-            "#text": "<strong>Note: </strong> The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'."
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Save Word"
-          },
-          {
-            "@tag": "SPAM",
-            "#text": "\"Spam\" Word (Find) Expression"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Spam Check Words"
-          }
+            {
+                "@tag": "ADD",
+                "#text": "Add New Word"
+            },
+            {
+                "@tag": "EMPTY_HEADER",
+                "#text": "No Spam Check Words"
+            },
+            {
+                "@tag": "EMPTY_MESSAGE",
+                "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            },
+            {
+                "@tag": "EXPORT",
+                "#text": "Export to XML"
+            },
+            {
+                "@tag": "IMPORT",
+                "#text": "Import from XML"
+            },
+            {
+                "@tag": "MSG_DELETE",
+                "#text": "Delete this Word?"
+            },
+            {
+                "@tag": "NOTE",
+                "#text": "<strong>Note: </strong> The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'."
+            },
+            {
+                "@tag": "SAVE",
+                "#text": "Save Word"
+            },
+            {
+                "@tag": "SPAM",
+                "#text": "\"Spam\" Word (Find) Expression"
+            },
+            {
+                "@tag": "TITLE",
+                "#text": "Spam Check Words"
+            }
         ]
       },
       {
@@ -7317,7 +7389,7 @@
           },
           {
             "@tag": "NO_ATTACHMENTS",
-            "#text": "You don't have any attachments yet, to add one click on the <strong>Upload New File(s)</strong> button"
+            "#text": "The board don't have any attachments yet, to add one click on the <strong>Upload New File(s)</strong> button"
           },
           {
             "@tag": "SELECT_FILE",

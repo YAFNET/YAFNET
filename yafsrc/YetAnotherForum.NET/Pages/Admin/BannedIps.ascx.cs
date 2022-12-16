@@ -25,6 +25,7 @@
 namespace YAF.Pages.Admin;
 
 using System.IO;
+
 using YAF.Types.Models;
 
 /// <summary>
@@ -238,5 +239,10 @@ public partial class BannedIps : AdminPage
                                   : 0;
 
         this.DataBind();
+
+        if (this.list.Items.Count == 0)
+        {
+            this.EmptyState.Visible = true;
+        }
     }
 }

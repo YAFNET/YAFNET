@@ -67,6 +67,10 @@
                 </div>
             </div>
             <div class="card-body">
+                <YAF:EmptyState runat="server" ID="EmptyState" Visible="False"
+                                Icon="hand-paper"
+                                HeaderTextPage="ADMIN_BANNEDIP" HeaderTextTag="EMPTY_HEADER"
+                                MessageTextPage="ADMIN_BANNEDIP" MessageTextTag="EMPTY_MESSAGE"/>
                 <asp:Repeater ID="list" runat="server" OnItemCommand="List_ItemCommand">
         <HeaderTemplate>
             <ul class="list-group">

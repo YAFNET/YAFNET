@@ -24,6 +24,15 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
+        /// EmptyState-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Web.Controls.EmptyState EmptyState;
+
+        /// <summary>
         /// MedalList-Steuerelement.
         /// </summary>
         /// <remarks>

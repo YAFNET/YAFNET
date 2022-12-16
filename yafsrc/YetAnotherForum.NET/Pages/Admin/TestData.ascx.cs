@@ -26,6 +26,7 @@
 namespace YAF.Pages.Admin
 {
     using System.Text;
+
     using YAF.Types.Models.Identity;
     using YAF.Types.Models;
 
@@ -373,7 +374,6 @@ namespace YAF.Pages.Admin
                 return noCategories;
             }
 
-
             switch (numCategories)
             {
                 case <= 0:
@@ -550,7 +550,6 @@ namespace YAF.Pages.Admin
                         newForumId,
                         group.ID,
                         mask.ID));
-
 
                 if (topicsToCreate <= 0)
                 {

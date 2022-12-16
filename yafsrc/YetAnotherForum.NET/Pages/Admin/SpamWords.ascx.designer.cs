@@ -78,13 +78,13 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.Repeater list;
 
         /// <summary>
-        /// NoInfo-Steuerelement.
+        /// EmptyState-Steuerelement.
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.Controls.Alert NoInfo;
+        protected global::YAF.Web.Controls.EmptyState EmptyState;
 
         /// <summary>
         /// Linkbutton4-Steuerelement.

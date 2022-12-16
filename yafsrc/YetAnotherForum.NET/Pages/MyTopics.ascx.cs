@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Pages;
 
 using YAF.Web.Controls;
@@ -147,7 +148,6 @@ public partial class MyTopics : ForumPageRegistered
         this.BindData();
     }
 
-
     /// <summary>
     /// The create topic line.
     /// </summary>
@@ -188,7 +188,6 @@ public partial class MyTopics : ForumPageRegistered
 
         // page index in db which is returned back  is +1 based!
         var currentPageIndex = this.PagerTop.CurrentPageIndex;
-
 
         // default since date is now
         this.sinceDate = DateTime.UtcNow;

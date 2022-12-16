@@ -57,7 +57,6 @@ public partial class TopicTags : BaseUserControl
         this.Tags.DataSource = topicsList;
         this.Tags.DataBind();
 
-
         this.DataBind();
     }
 }
