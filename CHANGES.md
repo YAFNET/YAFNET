@@ -8,6 +8,9 @@ YetAnotherForum.NET Changelog
 * [FIXED #806] wrong member count in Active User List
 * [FIXED #805] Mark all Forums as Read
 * [FIXED #803] empty p tags in bbcode list elements
+* [FIXED] showing sticky topics at the top
+* [NEW] Support for tables via table bbcodes
+* bug fixes
 
 # YetAnotherForum.NET v3.1.8
 * [FIXED #761] Delete Board Announcement
