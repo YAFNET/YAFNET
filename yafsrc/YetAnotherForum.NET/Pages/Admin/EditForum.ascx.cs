@@ -205,6 +205,7 @@ public partial class EditForum : AdminPage
         if (forum == null)
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return;
         }
 
         this.Name.Text = forum.Name;
@@ -240,6 +241,7 @@ public partial class EditForum : AdminPage
         var item = this.ForumImages.Items.FindByText(forum.ImageURL);
         if (item != null)
         {
+            this.ForumImages.ClearSelection();
             item.Selected = true;
         }
 
