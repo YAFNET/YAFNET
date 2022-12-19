@@ -239,6 +239,7 @@ public partial class EditForum : AdminPage
         this.CategoryList.SelectedValue = forum.CategoryID.ToString();
 
         var item = this.ForumImages.Items.FindByText(forum.ImageURL);
+
         if (item != null)
         {
             this.ForumImages.ClearSelection();
@@ -288,6 +289,7 @@ public partial class EditForum : AdminPage
 
         if (list.Items.FindByValue(list.Attributes["value"]) != null)
         {
+            list.ClearSelection();
             list.Items.FindByValue(list.Attributes["value"]).Selected = true;
         }
         else
@@ -297,6 +299,8 @@ public partial class EditForum : AdminPage
 
             if (item != null)
             {
+                list.ClearSelection();
+
                 item.Selected = true;
             }
             else
@@ -304,10 +308,11 @@ public partial class EditForum : AdminPage
                 // Fallback if default access mask from board settings doesn't exist
                 item = list.Items.FindByText("Member Access");
 
-                if (item != null)
-                {
-                    item.Selected = true;
-                }
+                if (item == null) return;
+
+                list.ClearSelection();
+
+                item.Selected = true;
             }
         }
     }

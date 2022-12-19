@@ -29,8 +29,6 @@ using System.Text.RegularExpressions;
 
 using YAF.Types.Models;
 
-using ListItem = ListItem;
-
 /// <summary>
 /// The Post Private Message Page
 /// </summary>
