@@ -334,9 +334,11 @@ public partial class EditMessage : ForumPage
 
         var messageUser = this.GetRepository<User>().GetById(this.PageBoardContext.PageMessage.UserID);
 
+        var messageText = this.forumEditor.Text;
+
         this.GetRepository<Message>().Update(
             this.Priority.SelectedValue.ToType<short>(),
-            HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text)),
+            HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
             descriptionSave.Trim(),
             string.Empty,
             stylesSave.Trim(),

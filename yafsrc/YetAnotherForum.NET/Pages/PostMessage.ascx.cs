@@ -363,11 +363,13 @@ public partial class PostMessage : ForumPage
                                    IsApproved = isSpamApproved
                                };
 
+        var messageText = this.forumEditor.Text;
+
         var message = this.GetRepository<Message>().SaveNew(
             this.PageBoardContext.PageForum,
             this.PageBoardContext.PageTopic,
             this.PageBoardContext.PageUser,
-            HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text)),
+            HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
             this.User != null ? null : this.From.Text,
             this.Get<HttpRequestBase>().GetUserRealIPAddress(),
             DateTime.UtcNow,

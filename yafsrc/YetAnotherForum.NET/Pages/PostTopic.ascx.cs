@@ -345,6 +345,8 @@ public partial class PostTopic : ForumPage
             IsApproved = this.spamApproved
         };
 
+        var messageText = this.forumEditor.Text;
+
         // Save to Db
         var newTopic = this.GetRepository<Topic>().SaveNew(
             this.PageBoardContext.PageForum,
@@ -352,7 +354,7 @@ public partial class PostTopic : ForumPage
             string.Empty,
             HtmlHelper.StripHtml(this.TopicStylesTextBox.Text.Trim()),
             HtmlHelper.StripHtml(this.TopicDescriptionTextBox.Text.Trim()),
-            HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text)),
+            HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
             this.PageBoardContext.PageUser,
             this.Priority.SelectedValue.ToType<short>(),
             this.PageBoardContext.IsGuest ? this.From.Text : this.PageBoardContext.PageUser.Name,

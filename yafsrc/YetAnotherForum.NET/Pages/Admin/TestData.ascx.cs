@@ -30,8 +30,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Models.Identity;
     using YAF.Types.Models;
 
-    using ListItem = ListItem;
-
     /// <summary>
     /// The control generates test data for different data layers.
     /// </summary>
