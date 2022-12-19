@@ -10,6 +10,15 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
 
+        copy: {
+            bootswatchThemes: {
+                files: [
+                    // includes files within path
+                    { expand: true, src: "**/*.scss", cwd: "node_modules/bootswatch/dist", dest: "Content/Themes/" }
+                ],
+            },
+        },
+
         shell: {
             emailTemplates: {
                 command: [
@@ -426,6 +435,7 @@ module.exports = function(grunt) {
     // PLUGINS
     grunt.loadNpmTasks("grunt-contrib-sass");
     grunt.loadNpmTasks("@lodder/grunt-postcss");
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-dev-update");
@@ -434,6 +444,11 @@ module.exports = function(grunt) {
     grunt.registerTask("default",
         [
             "devUpdate", "uglify", "sass", "postcss", "cssmin"
+        ]);
+
+    grunt.registerTask("updateBootswatchThemes",
+        [
+            "copy"
         ]);
 
     grunt.registerTask("emailTemplates",

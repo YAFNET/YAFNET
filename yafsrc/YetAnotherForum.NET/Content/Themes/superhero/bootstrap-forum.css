@@ -12215,6 +12215,10 @@ label,
   font-size: 0.875rem;
 }
 
+.form-control {
+  color-scheme: light;
+}
+
 .form-floating label {
   color: #868e96;
 }

@@ -12348,6 +12348,10 @@ legend {
   color: #fff;
 }
 
+.form-control {
+  color-scheme: light;
+}
+
 .input-group-addon {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#8a9196), color-stop(60%, #7a8288), to(#70787d));
   background-image: linear-gradient(#8a9196, #7a8288 60%, #70787d);

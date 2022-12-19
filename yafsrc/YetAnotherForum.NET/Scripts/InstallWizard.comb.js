@@ -61,7 +61,7 @@
         }
         return typeof obj === "object" || typeof obj === "function" ? class2type[toString.call(obj)] || "object" : typeof obj;
     }
-    var version = "3.6.1", jQuery = function(selector, context) {
+    var version = "3.6.2", jQuery = function(selector, context) {
         return new jQuery.fn.init(selector, context);
     };
     jQuery.fn = jQuery.prototype = {
@@ -388,6 +388,9 @@
                             newSelector = groups.join(",");
                         }
                         try {
+                            if (support.cssSupportsSelector && !CSS.supports("selector(" + newSelector + ")")) {
+                                throw new Error();
+                            }
                             push.apply(results, newContext.querySelectorAll(newSelector));
                             return results;
                         } catch (qsaError) {
@@ -520,6 +523,9 @@
             support.scope = assert(function(el) {
                 docElem.appendChild(el).appendChild(document.createElement("div"));
                 return typeof el.querySelectorAll !== "undefined" && !el.querySelectorAll(":scope fieldset div").length;
+            });
+            support.cssSupportsSelector = assert(function() {
+                return CSS.supports("selector(*)") && document.querySelectorAll(":is(:jqfake)") && !CSS.supports("selector(:is(*,:jqfake))");
             });
             support.attributes = assert(function(el) {
                 el.className = "i";
@@ -655,11 +661,14 @@
                     rbuggyMatches.push("!=", pseudos);
                 });
             }
+            if (!support.cssSupportsSelector) {
+                rbuggyQSA.push(":has");
+            }
             rbuggyQSA = rbuggyQSA.length && new RegExp(rbuggyQSA.join("|"));
             rbuggyMatches = rbuggyMatches.length && new RegExp(rbuggyMatches.join("|"));
             hasCompare = rnative.test(docElem.compareDocumentPosition);
             contains = hasCompare || rnative.test(docElem.contains) ? function(a, b) {
-                var adown = a.nodeType === 9 ? a.documentElement : a, bup = b && b.parentNode;
+                var adown = a.nodeType === 9 && a.documentElement || a, bup = b && b.parentNode;
                 return a === bup || !!(bup && bup.nodeType === 1 && (adown.contains ? adown.contains(bup) : a.compareDocumentPosition && a.compareDocumentPosition(bup) & 16));
             } : function(a, b) {
                 if (b) {
@@ -3462,8 +3471,8 @@
         computed = computed || getStyles(elem);
         if (computed) {
             ret = computed.getPropertyValue(name) || computed[name];
-            if (isCustomProp) {
-                ret = ret.replace(rtrimCSS, "$1");
+            if (isCustomProp && ret) {
+                ret = ret.replace(rtrimCSS, "$1") || undefined;
             }
             if (ret === "" && !isAttached(elem)) {
                 ret = jQuery.style(elem, name);

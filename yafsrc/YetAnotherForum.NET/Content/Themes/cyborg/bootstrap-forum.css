@@ -12210,6 +12210,7 @@ legend {
 }
 
 .form-control {
+  color-scheme: light;
   background-clip: border-box;
 }
 .form-control:disabled, .form-control[readonly] {
