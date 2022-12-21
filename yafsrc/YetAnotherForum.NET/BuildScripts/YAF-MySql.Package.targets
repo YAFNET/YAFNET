@@ -74,7 +74,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.6.2.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.6.3.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\prism.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\select2.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\fontawesome\**\*.js" />
