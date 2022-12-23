@@ -65,11 +65,7 @@ public partial class PostPrivateMessage : ForumPage
         {
             this.PageBoardContext.PageElements.AddScriptReference("FileUploadScript");
 
-#if DEBUG
-            this.PageBoardContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.css");
-#else
-                this.PageBoardContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.min.css");
-#endif
+            this.PageBoardContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.min.css");
         }
 
         base.OnInit(e);

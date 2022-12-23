@@ -131,11 +131,7 @@ public partial class EditMessage : ForumPage
         {
             this.PageBoardContext.PageElements.AddScriptReference("FileUploadScript");
 
-#if DEBUG
-            this.PageBoardContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.css");
-#else
-                this.PageBoardContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.min.css");
-#endif
+            this.PageBoardContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.min.css");
         }
 
         this.forumEditor = ForumEditorHelper.GetCurrentForumEditor();
