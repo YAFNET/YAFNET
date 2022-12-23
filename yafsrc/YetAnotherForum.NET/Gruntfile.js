@@ -215,6 +215,7 @@ module.exports = function(grunt) {
                 src: [
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/bootbox.js",
+                    "Scripts/bootstrap-notify.js",
                     "Scripts/jquery.bootstrap-touchspin.js",
                     "Scripts/select2.js",
                     "Scripts/blueimp-gallery/blueimp-gallery.js",
