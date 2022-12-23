@@ -46,7 +46,7 @@ public static class ScriptManagerHelper
         }
         else
         {
-            jqueryUrl = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.min.js");
+            jqueryUrl = BoardInfo.GetURLToScripts("jquery.min.js");
         }
 
         // load jQuery
@@ -55,7 +55,7 @@ public static class ScriptManagerHelper
             new ScriptResourceDefinition
                 {
                     Path = jqueryUrl,
-                    DebugPath = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
+                    DebugPath = BoardInfo.GetURLToScripts("jquery.js"),
                     CdnPath = $"//code.jquery.com/jquery-{Config.JQueryVersion}.min.js",
                     CdnDebugPath = $"//code.jquery.com/jquery-{Config.JQueryVersion}.js",
                     CdnSupportsSecureConnection = true,

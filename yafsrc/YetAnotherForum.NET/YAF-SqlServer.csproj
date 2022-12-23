@@ -2735,12 +2735,12 @@
     <Content Include="Scripts\InstallWizard.comb.min.js">
       <DependentUpon>InstallWizard.comb.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-3.6.3.js" />
-    <Content Include="Scripts\jquery-3.6.3.min.js">
-      <DependentUpon>jquery-3.6.3.js</DependentUpon>
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.min.js">
+      <DependentUpon>jquery.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-3.6.3.min.map">
-      <DependentUpon>jquery-3.6.3.min.js</DependentUpon>
+    <Content Include="Scripts\jquery.min.map">
+      <DependentUpon>jquery.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
     <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.js" />

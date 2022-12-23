@@ -13,10 +13,14 @@ module.exports = function(grunt) {
         copy: {
             bootswatchThemes: {
                 files: [
-                    // includes files within path
                     { expand: true, src: "**/*.scss", cwd: "node_modules/bootswatch/dist", dest: "Content/Themes/" }
-                ],
+                ]
             },
+            jQuery: {
+                files: [
+                    { expand: true, src: ["**/jquery.js", "**/jquery.min.js", "**/jquery.min.map"], cwd: "node_modules/jquery/dist", dest: "Scripts/" }
+                ]
+            }
         },
 
         shell: {
