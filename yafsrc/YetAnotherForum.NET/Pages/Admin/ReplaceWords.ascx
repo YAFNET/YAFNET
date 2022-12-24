@@ -113,13 +113,11 @@
             </li>
         </ItemTemplate>
 </asp:Repeater>
-
-
-                </ul>
+    </ul>
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton runat="server"
-                                 CommandName="add"
+                                 OnClick="AddClick"
                                  CssClass="mb-1"
                                  ID="Linkbutton3"
                                  Type="Primary"
@@ -139,7 +137,7 @@
                 </YAF:ThemeButton>
                 <YAF:ThemeButton runat="server"
                                  CssClass="mb-1"
-                                 CommandName="export"
+                                 OnClick="ExportClick"
                                  ID="Linkbutton4"
                                  Type="Warning"
                                  Icon="download"

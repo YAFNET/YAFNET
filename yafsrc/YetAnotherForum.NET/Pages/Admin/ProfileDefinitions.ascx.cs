@@ -93,6 +93,15 @@ public partial class ProfileDefinitions : AdminPage
         }
     }
 
+    protected void AddClick(object sender, EventArgs e)
+    {
+        this.EditDialog.BindData(null);
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "openModalJs",
+            JavaScriptBlocks.OpenModalJs("EditDialog"));
+    }
+
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>

@@ -130,6 +130,20 @@ public partial class ReplaceWords : AdminPage
         }
     }
 
+    protected void AddClick(object sender, EventArgs e)
+    {
+        this.EditDialog.BindData(null);
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "openModalJs",
+            JavaScriptBlocks.OpenModalJs("ReplaceWordsEditDialog"));
+    }
+
+    protected void ExportClick(object sender, EventArgs e)
+    {
+        this.ExportWords();
+    }
+
     /// <summary>
     /// Exports the spam words.
     /// </summary>

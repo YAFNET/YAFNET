@@ -102,7 +102,7 @@
             </div>
         <div class="card-footer text-center">
             <YAF:ThemeButton ID="New" runat="server"
-                             CommandName="new"
+                             OnClick="AddClick"
                              Type="Primary"
                              Icon="plus-square"
                              TextLocalizedTag="NEW_DEF" />
