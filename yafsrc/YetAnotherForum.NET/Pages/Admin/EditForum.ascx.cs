@@ -462,7 +462,7 @@ public partial class EditForum : AdminPage
             }
 
             if (this.GetRepository<Forum>()
-                .IsParentsChecker(forumId.Value, parentId.Value))
+                .IsParentsChecker(forumId.Value))
             {
                 this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"),

@@ -178,9 +178,7 @@ public static class ForumRepositoryExtensions
     }
 
     /// <summary>
-    /// The method returns an integer value for a  found parent forum
-    ///   if a forum is a parent of an existing child to avoid circular dependency
-    ///   while creating a new forum
+    /// Checks if selected forum has already sub forums
     /// </summary>
     /// <param name="repository">
     /// The repository.
@@ -188,25 +186,14 @@ public static class ForumRepositoryExtensions
     /// <param name="forumId">
     /// The forum Id.
     /// </param>
-    /// <param name="parentId">
-    /// The parent Id.
-    /// </param>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool IsParentsChecker([NotNull] this IRepository<Forum> repository, [NotNull] int forumId, [NotNull] int parentId)
+    public static bool IsParentsChecker([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
-        if (repository.Exists(f => f.ParentID == forumId))
-        {
-            // Forum Is already a Parent
-            return true;
-        }
-
-        // Checks if Parent Forum is parent or child
-        return repository.Exists(f => f.ParentID == parentId && f.ID != forumId) ||
-               repository.Exists(f => f.ID == parentId && f.ParentID != null);
+        return repository.Exists(f => f.ParentID == forumId);
     }
 
     /// <summary>
