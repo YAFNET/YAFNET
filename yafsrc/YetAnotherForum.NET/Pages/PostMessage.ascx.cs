@@ -219,7 +219,7 @@ public partial class PostMessage : ForumPage
                         this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text"));
 
                     this.quotedMessage.MessageText =
-                        HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(HtmlHelper.CleanHtmlString(quotedMessageText)));
+                        HtmlHelper.StripHtml(BBCodeHelper.DecodeCodeBlocks(HtmlHelper.CleanHtmlString(quotedMessageText)));
                 }
 
                 if (this.quotedMessage.TopicID != this.PageBoardContext.PageTopicID)
@@ -596,7 +596,7 @@ public partial class PostMessage : ForumPage
     /// </param>
     private void InitQuotedReply(Message message)
     {
-        var messageContent = message.MessageText;
+        var messageContent = BBCodeHelper.DecodeCodeBlocks(message.MessageText);
 
         if (this.PageBoardContext.BoardSettings.RemoveNestedQuotes)
         {
@@ -669,14 +669,14 @@ public partial class PostMessage : ForumPage
     /// </param>
     private void UpdateWatchTopic(int userId, int topicId)
     {
-        var topicWatchedID = this.GetRepository<WatchTopic>().Check(userId, topicId);
+        var topicWatchedId = this.GetRepository<WatchTopic>().Check(userId, topicId);
 
-        if (topicWatchedID.HasValue && !this.PostOptions1.WatchChecked)
+        if (topicWatchedId.HasValue && !this.PostOptions1.WatchChecked)
         {
             // unsubscribe...
-            this.GetRepository<WatchTopic>().DeleteById(topicWatchedID.Value);
+            this.GetRepository<WatchTopic>().DeleteById(topicWatchedId.Value);
         }
-        else if (!topicWatchedID.HasValue && this.PostOptions1.WatchChecked)
+        else if (!topicWatchedId.HasValue && this.PostOptions1.WatchChecked)
         {
             // subscribe to this topic...
             this.GetRepository<WatchTopic>().Add(userId, topicId);
