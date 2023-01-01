@@ -121,7 +121,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "Scripts/jquery-3.6.3.js",
+                    "Scripts/jquery.js",
                     "Scripts/select2.js",
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/forum/InstallWizard.js"
