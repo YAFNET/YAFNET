@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2022 Ingo Herbote
+ * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,7 +24,7 @@
 
 using System.Reflection;
 
-[assembly: AssemblyInformationalVersion("3.1.9")]
-[assembly: AssemblyVersion("3.1.9.0")]
-[assembly: AssemblyFileVersion("3.1.9.0")]
+[assembly: AssemblyInformationalVersion("3.1.10")]
+[assembly: AssemblyVersion("3.1.10.0")]
+[assembly: AssemblyFileVersion("3.1.10.0")]
 [assembly: AssemblyCopyright("Copyright © YetAnotherForum.NET")]
