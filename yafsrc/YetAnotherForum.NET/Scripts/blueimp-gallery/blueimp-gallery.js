@@ -1,4 +1,4 @@
-/*
+﻿/*
  * blueimp Gallery JS v3.3.0
  * https://github.com/blueimp/Gallery
  *
@@ -105,7 +105,7 @@
       // The class for the "next" control:
       nextClass: "next",
       // The class for the "close" control:
-      closeClass: "btn-close",
+      closeClass: "close",
       // The class for the "play-pause" toggle control:
       playPauseClass: "play-pause",
       // The list object property (or data attribute) with the object type:

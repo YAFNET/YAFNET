@@ -10950,7 +10950,7 @@
             toggleClass: "toggle",
             prevClass: "prev",
             nextClass: "next",
-            closeClass: "btn-close",
+            closeClass: "close",
             playPauseClass: "play-pause",
             typeProperty: "type",
             titleProperty: "title",

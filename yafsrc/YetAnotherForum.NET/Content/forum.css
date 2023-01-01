@@ -13633,18 +13633,13 @@ readers do not read off random characters that represent icons */
   position: absolute;
   top: 15px;
   left: 15px;
-  margin: 0 40px 0 0;
-  font-size: 20px;
   line-height: 30px;
   color: #fff !important;
   text-shadow: 0 0 2px #000;
   opacity: 0.8;
   display: none;
-  padding: 15px;
   right: 15px;
   left: auto;
-  margin: -15px;
-  font-size: 30px;
   text-decoration: none;
   cursor: pointer;
   -webkit-user-select: none;
