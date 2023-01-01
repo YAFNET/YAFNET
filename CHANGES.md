@@ -1,6 +1,13 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.10
+* [FIXED] Image Gallery close button 
+* [FIXED] Code block when quoting a post
+* [FIXED] Add New Button on Replace Words and Profile Definitions Page
+* [FIXED] Notifications on Admin Pages
+* Upgraded to jQuery 3.6.3
+
 # YetAnotherForum.NET v3.1.9
 * [FIXED #813] custom profile checkboxes
 * [FIXED #810] Save Board Email Address
