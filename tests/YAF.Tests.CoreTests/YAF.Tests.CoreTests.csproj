@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\yafsrc\YAF.Core\YAF.Core.csproj" />
     <ProjectReference Include="..\..\yafsrc\YAF.Data\YAF.Data.SqlServer\YAF.Data.SqlServer.csproj" />
     <ProjectReference Include="..\..\yafsrc\YAF.Types\YAF.Types.csproj" />
+    <ProjectReference Include="..\Externals\HttpSimulator\HttpSimulator.csproj" />
     <ProjectReference Include="..\YAF.Tests.Utils\YAF.Tests.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
