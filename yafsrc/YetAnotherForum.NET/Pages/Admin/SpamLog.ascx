@@ -127,7 +127,7 @@
                         <YAF:ThemeButton runat="server"
                                          Type="None"
                                          CssClass="dropdown-item"
-                                         CommandName="delete" CommandArgument='<%# ((PagedEventLog)Container.DataItem).ID %>'
+                                         CommandName="delete" CommandArgument="<%# ((PagedEventLog)Container.DataItem).ID %>"
                                          ReturnConfirmTag="CONFIRM_DELETE"
                                          Icon="trash"
                                          TextLocalizedTag="DELETE">

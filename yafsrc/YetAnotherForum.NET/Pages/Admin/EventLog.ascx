@@ -125,7 +125,7 @@
                                              Type="Danger"
                                              Size="Small"
                                              CommandName="delete" CommandArgument="<%# ((PagedEventLog)Container.DataItem).ID %>"
-                                             ReturnConfirmTag="CONFIRM_REMOVE_USER"
+                                             ReturnConfirmTag="CONFIRM_DELETE"
                                              Icon="trash"
                                              TextLocalizedTag="DELETE">
                             </YAF:ThemeButton>
@@ -136,7 +136,7 @@
                                          Type="None"
                                          CssClass="dropdown-item"
                                          CommandName="delete" CommandArgument="<%# ((PagedEventLog)Container.DataItem).ID %>"
-                                         ReturnConfirmTag="CONFIRM_REMOVE_USER"
+                                         ReturnConfirmTag="CONFIRM_DELETE"
                                          Icon="trash"
                                          TextLocalizedTag="DELETE">
                         </YAF:ThemeButton>
