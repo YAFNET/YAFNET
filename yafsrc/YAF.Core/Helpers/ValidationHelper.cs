@@ -74,7 +74,7 @@ public static class ValidationHelper
     {
         try
         {
-            new Uri(url, UriKind.Absolute);
+            var uri = new Uri(url, UriKind.Absolute);
             return true;
         }
         catch (Exception)

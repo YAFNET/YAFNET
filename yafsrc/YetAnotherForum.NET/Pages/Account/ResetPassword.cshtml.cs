@@ -131,7 +131,7 @@ public class ResetPasswordModel : AccountPage
             return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
         }
 
-        return this.PageBoardContext.Notify(result.Errors.FirstOrDefault().Description, MessageTypes.danger);
+        return this.PageBoardContext.Notify(result.Errors.FirstOrDefault()?.Description, MessageTypes.danger);
     }
 
     /// <summary>

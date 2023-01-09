@@ -54,6 +54,11 @@ public class IgnoredUserController : ForumBaseController
 
             var source = messages.FirstOrDefault(message => message.MessageID == m);
 
+            if (source == null)
+            {
+                return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+            }
+
             this.Get<IUserIgnored>().RemoveIgnored(source.UserID);
 
             return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m, name = source.Topic });
@@ -78,6 +83,11 @@ public class IgnoredUserController : ForumBaseController
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
 
             var source = messages.FirstOrDefault(message => message.MessageID == m);
+
+            if (source == null)
+            {
+                return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+            }
 
             this.Get<IUserIgnored>().AddIgnored(source.UserID);
 

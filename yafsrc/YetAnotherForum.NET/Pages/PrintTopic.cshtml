@@ -13,7 +13,7 @@
 
     message = Model.Get<IFormatMessage>().RemoveCustomBBCodes(message);
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" aria-describedby="@Html.Raw(post.Topic)">
         <thead>
         <tr>
             <th scope="col">

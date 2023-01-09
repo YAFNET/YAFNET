@@ -52,6 +52,11 @@ public class PostsController : ForumBaseController
 
             var source = messages.FirstOrDefault(message => message.MessageID == m);
 
+            if (source == null)
+            {
+                return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+            }
+
             if (!source.IsDeleted && !this.PageBoardContext.IsGuest && this.PageBoardContext.MembershipUser != null
                 && this.PageBoardContext.PageUserID.Equals(source.TopicOwnerID)
                 && !source.UserID.Equals(this.PageBoardContext.PageUserID))

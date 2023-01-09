@@ -147,7 +147,7 @@ public class Google : IAuthBase, IHaveServiceLocator
         if (!result.Succeeded)
         {
             // error of some kind
-            message = result.Errors.FirstOrDefault().Description;
+            message = result.Errors.FirstOrDefault()?.Description;
             return null;
         }
 

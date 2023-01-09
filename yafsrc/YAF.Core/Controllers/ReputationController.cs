@@ -53,6 +53,11 @@ public class ReputationController : ForumBaseController
 
             var source = messages.FirstOrDefault(message => message.MessageID == m);
 
+            if (source == null)
+            {
+                return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+            }
+
             if (!this.Get<IReputation>().CheckIfAllowReputationVoting(source.ReputationVoteDate))
             {
                 return this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { m, name = source.Topic });
@@ -88,6 +93,11 @@ public class ReputationController : ForumBaseController
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
 
             var source = messages.FirstOrDefault(message => message.MessageID == m);
+
+            if (source == null)
+            {
+                return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+            }
 
             if (!this.Get<IReputation>().CheckIfAllowReputationVoting(source.ReputationVoteDate))
             {

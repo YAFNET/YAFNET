@@ -258,7 +258,7 @@ public class EditForumModel : AdminPage
 
         if (this.Input.CategoryID == 0)
         {
-            this.Input.CategoryID = categories.FirstOrDefault().ID;
+            this.Input.CategoryID = categories.FirstOrDefault()!.ID;
         }
 
         this.Categories = new SelectList(

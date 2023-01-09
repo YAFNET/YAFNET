@@ -54,6 +54,11 @@ public class FriendsController : ForumBaseController
 
             var source = messages.FirstOrDefault(message => message.MessageID == m);
 
+            if (source == null)
+            {
+                return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+            }
+
             var userName = this.PageBoardContext.BoardSettings.EnableDisplayName ? source.DisplayName : source.UserName;
 
             this.PageBoardContext.SessionNotify(
@@ -88,6 +93,11 @@ public class FriendsController : ForumBaseController
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
 
             var source = messages.FirstOrDefault(message => message.MessageID == m);
+
+            if (source == null)
+            {
+                return this.RedirectToPage(ForumPages.Posts.GetPageName(), new { m });
+            }
 
             this.Get<IFriends>().Remove(source.UserID);
 

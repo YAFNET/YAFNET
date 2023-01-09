@@ -152,7 +152,7 @@ public class RegisterModel : AccountPage
         if (!result.Succeeded)
         {
             // error of some kind
-            return this.PageBoardContext.Notify(result.Errors.FirstOrDefault().Description, MessageTypes.danger);
+            return this.PageBoardContext.Notify(result.Errors.FirstOrDefault()?.Description, MessageTypes.danger);
         }
 
         // setup initial roles (if any) for this user

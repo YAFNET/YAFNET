@@ -38,6 +38,8 @@ using System.Xml.Serialization;
 public class LoadSerializedXmlFile<T>
     where T : class
 {
+    private readonly object lockObj = new();
+
     /// <summary>
     /// The attempt load file.
     /// </summary>
@@ -65,7 +67,7 @@ public class LoadSerializedXmlFile<T>
             return null;
         }
 
-        lock (this)
+        lock (this.lockObj)
         {
             var serializer = new XmlSerializer(typeof(T));
             var sourceEncoding = GetEncodingForXmlFile(xmlFileName);
