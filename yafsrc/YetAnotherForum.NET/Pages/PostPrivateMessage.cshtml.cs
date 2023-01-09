@@ -540,7 +540,7 @@ public class PostPrivateMessageModel : ForumPageRegistered
         }
 
         // remove all abundant whitespaces and separators
-        var rx = new Regex(@";(\s|;)*;");
+        var rx = new Regex(@";(\s|;)*;", RegexOptions.NonBacktracking);
         this.To = rx.Replace(this.To, ";");
 
         if (this.To.StartsWith(";"))
@@ -553,7 +553,7 @@ public class PostPrivateMessageModel : ForumPageRegistered
             this.To = this.To[..^1];
         }
 
-        rx = new Regex(@"\s*;\s*");
+        rx = new Regex(@"\s*;\s*", RegexOptions.NonBacktracking);
         this.To = rx.Replace(this.To, ";");
 
         // list of recipients

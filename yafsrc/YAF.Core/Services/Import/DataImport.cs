@@ -340,7 +340,7 @@ public static class DataImport
             while (streamReader.Peek() >= 0)
             {
                 var dr = usersTable.NewRow();
-                var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+                var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", RegexOptions.NonBacktracking);
                 dr.ItemArray = regex.Split(streamReader.ReadLine());
 
                 usersTable.Rows.Add(dr);
