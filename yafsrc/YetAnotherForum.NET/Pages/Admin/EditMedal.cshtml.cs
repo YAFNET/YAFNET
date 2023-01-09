@@ -131,7 +131,7 @@ public class EditMedalModel : AdminPage
                                          ViewData = new ViewDataDictionary<UserMedalEditModal>(
                                              this.ViewData,
                                              new UserMedalEditModal {
-                                                                        MedalId = row.Item1.ID,
+                                                                        MedalId = row!.Item1.ID,
                                                                         UserID = row.Item3.ID,
                                                                         UserName = row.Item3.Name,
                                                                         UserMessage =
@@ -162,7 +162,7 @@ public class EditMedalModel : AdminPage
                        new GroupMedalEditModal
                        {
                            MedalId = medalId,
-                           GroupId = row.Item2.GroupID,
+                           GroupId = row!.Item2.GroupID,
                            GroupName = row.Item3.Name,
                            GroupMessage = row.Item2.Message.IsSet() ? row.Item2.Message : row.Item1.Message,
                            GroupSortOrder = row.Item2.SortOrder,

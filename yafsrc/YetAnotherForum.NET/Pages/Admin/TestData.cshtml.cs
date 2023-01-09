@@ -765,7 +765,7 @@ public class TestDataModel : AdminPage
 
             if (!result.Succeeded)
             {
-                this.PageBoardContext.Notify(result.Errors.FirstOrDefault().Description, MessageTypes.warning);
+                this.PageBoardContext.Notify(result.Errors.FirstOrDefault()?.Description, MessageTypes.warning);
 
                 continue;
             }

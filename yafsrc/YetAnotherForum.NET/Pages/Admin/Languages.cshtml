@@ -65,7 +65,7 @@
                                     <small>
                                         <div class="btn-group btn-group-sm">
                                             <a button-style="Info" button-size="Small"
-                                               asp-page="@ForumPages.Admin_EditLanguage.GetPageName()"
+                                       asp-page="@Html.Raw(ForumPages.Admin_EditLanguage.GetPageName())"
                                                asp-route-x="@Html.Raw(t.CultureFile)"
                                                title-localized-tag="EDIT"
                                                Icon="edit"

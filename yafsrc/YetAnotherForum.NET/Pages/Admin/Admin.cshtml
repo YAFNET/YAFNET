@@ -293,7 +293,8 @@
                                                 @Html.LocalizedText("ADMIN_ADMIN", "ADMIN_IPADRESS")
                                             </span>
                                             <a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, IPHelper.GetIpAddressAsString(activeUser.IP)))"
-                                       target="_blank" title-localized-tag="TT_IPDETAILS" title-localized-page="COMMON">
+                                               target="_blank" title-localized-tag="TT_IPDETAILS" title-localized-page="COMMON"
+                                               rel="noopener">
                                                 @Html.Raw(IPHelper.GetIpAddressAsString(activeUser.IP))
                                             </a>
                                         </div>

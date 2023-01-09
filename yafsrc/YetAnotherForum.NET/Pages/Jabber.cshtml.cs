@@ -114,7 +114,7 @@ public class JabberModel : ForumPage
 
             this.Message = serverMe == serverHe
                                ? this.GetTextFormatted("SERVERSAME", userDataHe.Profile_XMPP)
-                               : this.GetTextFormatted("SERVEROTHER", $"http://{serverHe}");
+                               : this.GetTextFormatted("SERVEROTHER", $"https://{serverHe}");
 
             this.AlertType = MessageTypes.info;
         }

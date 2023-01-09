@@ -153,7 +153,7 @@ public class UsersProfileModel : AdminPage
             // add http:// by default
             if (!Regex.IsMatch(this.Input.HomePage.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
             {
-                this.Input.HomePage = $"http://{this.Input.HomePage.Trim()}";
+                this.Input.HomePage = $"https://{this.Input.HomePage.Trim()}";
             }
 
             if (!ValidationHelper.IsValidUrl(this.Input.HomePage))

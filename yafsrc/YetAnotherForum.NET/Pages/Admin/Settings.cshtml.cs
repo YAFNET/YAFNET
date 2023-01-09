@@ -104,7 +104,7 @@ public class SettingsModel : AdminPage
 
         if (cultures.Any())
         {
-            languageFile = cultures.FirstOrDefault().CultureFile;
+            languageFile = cultures.FirstOrDefault()!.CultureFile;
         }
 
         this.GetRepository<Board>().Save(

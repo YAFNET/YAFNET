@@ -96,7 +96,7 @@ public class ChangePasswordModel : ProfilePage
         }
         else
         {
-            this.PageBoardContext.Notify(result.Errors.FirstOrDefault().Description, MessageTypes.danger);
+            this.PageBoardContext.Notify(result.Errors.FirstOrDefault()!.Description, MessageTypes.danger);
         }
     }
 

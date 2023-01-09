@@ -253,7 +253,7 @@ public class InstallModel : InstallPage
 
         if (!result.Succeeded)
         {
-            message = result.Errors.FirstOrDefault().Description;
+            message = result.Errors.FirstOrDefault()?.Description;
 
             return false;
         }

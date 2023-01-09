@@ -120,7 +120,7 @@ public class AdminModel : AdminPage
 
         var userFound = this.Get<IUserDisplayName>().FindUserContainsName(userUnApproved.Name).FirstOrDefault();
 
-        var user = this.Get<IAspNetUsersHelper>().GetUserByName(userFound.Name);
+        var user = this.Get<IAspNetUsersHelper>().GetUserByName(userFound!.Name);
 
         this.Get<ISendNotification>().SendVerificationEmail(user, userUnApproved.Email, userFound.ID);
 

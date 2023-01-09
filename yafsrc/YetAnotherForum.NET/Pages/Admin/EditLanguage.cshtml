@@ -1,4 +1,4 @@
-@page "{x:int}/{handler?}"
+@page "{x}/{handler?}"
 
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Types.Constants
@@ -32,18 +32,19 @@
                         @if (!Model.Locals.NullOrEmpty())
                         {
                             <table class="table table-striped">
+                                <caption>@Html.LocalizedText("ADMIN_EDITLANGUAGE", "HEADER") @Html.Raw(Model.Input.Pages)</caption>
                                 <thead>
-                                    <tr>
-                                        <th scope="col">
-                                            @Html.LocalizedText("ADMIN_EDITLANGUAGE", "RESOURCE_NAME")
-                                        </th>
-                                        <th scope="col">
-                                            @Html.LocalizedText("ADMIN_EDITLANGUAGE", "ORIGINAL_RESOURCE")
-                                        </th>
-                                        <th scope="col">
-                                            @Html.LocalizedText("ADMIN_EDITLANGUAGE", "LOCALIZED_RESOURCE")
-                                        </th>
-                                    </tr>
+                                <tr>
+                                    <th scope="col">
+                                        @Html.LocalizedText("ADMIN_EDITLANGUAGE", "RESOURCE_NAME")
+                                    </th>
+                                    <th scope="col">
+                                        @Html.LocalizedText("ADMIN_EDITLANGUAGE", "ORIGINAL_RESOURCE")
+                                    </th>
+                                    <th scope="col">
+                                        @Html.LocalizedText("ADMIN_EDITLANGUAGE", "LOCALIZED_RESOURCE")
+                                    </th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                 @for (var index = 0; index < Model.Locals.Count; index++)
@@ -55,10 +56,10 @@
                                             </label>
                                         </td>
                                         <td>
-                                                <input type="hidden" asp-for="Locals[index].ResourceName" value="@Model.Locals[index].ResourceName" />
-                                                <input type="hidden" asp-for="Locals[index].PageName" value="@Model.Locals[index].PageName" />
-                                                <input type="hidden" asp-for="Locals[index].OriginalResourceText" value="@Model.Locals[index].OriginalResourceText" />
-                                                <textarea asp-for="Locals[index].OriginalResourceText" rows="4" disabled="disabled" class="form-control" 
+                                            <input type="hidden" asp-for="Locals[index].ResourceName" value="@Model.Locals[index].ResourceName"/>
+                                            <input type="hidden" asp-for="Locals[index].PageName" value="@Model.Locals[index].PageName"/>
+                                            <input type="hidden" asp-for="Locals[index].OriginalResourceText" value="@Model.Locals[index].OriginalResourceText"/>
+                                            <textarea asp-for="Locals[index].OriginalResourceText" rows="4" disabled="disabled" class="form-control" 
                                                           placeholder="@Model.GetText("ADMIN_EDITLANGUAGE", "ORIGINAL_RESOURCE")"></textarea>
                                         </td>
                                         <td>

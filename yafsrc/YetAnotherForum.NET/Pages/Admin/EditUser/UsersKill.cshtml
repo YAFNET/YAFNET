@@ -32,7 +32,7 @@
         
         @foreach (var address in Model.IpAddresses.Take(5))
         {
-            <a href="@(string.Format(Current.BoardSettings.IPInfoPageURL, address))" target="_blank" 
+            <a href="@(string.Format(Current.BoardSettings.IPInfoPageURL, address))" target="_blank" rel="noopener"
                title="@Html.LocalizedText("COMMON", "TT_IPDETAILS")">
                 @address
             </a>

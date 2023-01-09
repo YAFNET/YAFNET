@@ -84,7 +84,7 @@ public class UserController : ForumBaseController
 
         var pagedUsers = new SelectPagedOptions
                               {
-                                  Total = !users.NullOrEmpty() ? users.FirstOrDefault().TotalRows : 0,
+                                  Total = !users.NullOrEmpty() ? users.FirstOrDefault()!.TotalRows : 0,
                                   Results = usersList
                               };
 

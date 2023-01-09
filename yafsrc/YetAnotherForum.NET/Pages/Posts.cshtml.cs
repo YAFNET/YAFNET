@@ -35,7 +35,6 @@ using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services;
-using YAF.Types;
 using YAF.Types.Attributes;
 using YAF.Types.Exceptions;
 using YAF.Types.Extensions;
@@ -297,7 +296,7 @@ public class PostsModel : ForumPage
 
         if (findMessageId > 0)
         {
-            if (p != firstPost.PageIndex)
+            if (p != firstPost!.PageIndex)
             {
                 return this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new {m = findMessageId, p = firstPost.PageIndex });
             }
@@ -314,7 +313,7 @@ public class PostsModel : ForumPage
             // move to this message on load...
             if (!this.PageBoardContext.IsCrawler)
             {
-                this.PageBoardContext.RegisterJsBlock(JavaScriptBlocks.LoadGotoAnchor($"post{firstPost.MessageID}"));
+                this.PageBoardContext.RegisterJsBlock(JavaScriptBlocks.LoadGotoAnchor($"post{firstPost!.MessageID}"));
             }
         }
 
@@ -370,7 +369,7 @@ public class PostsModel : ForumPage
             new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
 
         var tweetUrl =
-            $"http://twitter.com/share?url={HttpUtility.UrlEncode(topicUrl)}&text={HttpUtility.UrlEncode(string.Format("RT {1}Thread: {0}", twitterMsg.Truncate(100), twitterName))}";
+            $"https://twitter.com/share?url={HttpUtility.UrlEncode(topicUrl)}&text={HttpUtility.UrlEncode(string.Format("RT {1}Thread: {0}", twitterMsg.Truncate(100), twitterName))}";
 
         return this.Redirect(tweetUrl);
     }
@@ -382,7 +381,7 @@ public class PostsModel : ForumPage
             new {t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName});
 
         var redditUrl =
-            $"http://www.reddit.com/submit?url={HttpUtility.UrlEncode(topicUrl)}&title={HttpUtility.UrlEncode(this.PageBoardContext.PageTopic.TopicName)}";
+            $"https://www.reddit.com/submit?url={HttpUtility.UrlEncode(topicUrl)}&title={HttpUtility.UrlEncode(this.PageBoardContext.PageTopic.TopicName)}";
 
         return this.Redirect(redditUrl);
     }

@@ -33,7 +33,6 @@ using System.Linq;
 
 using YAF.Core.Extensions;
 using YAF.Core.Services;
-using YAF.Types;
 using YAF.Types.Extensions;
 using YAF.Types.Objects;
 

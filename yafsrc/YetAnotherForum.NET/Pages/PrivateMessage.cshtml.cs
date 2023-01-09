@@ -131,7 +131,7 @@ public class PrivateMessageModel : ForumPageRegistered
 
             var message = messages.FirstOrDefault();
 
-            this.SetMessageView(message.FromUserID, message.ToUserID, v, message.IsInOutbox);
+            this.SetMessageView(message!.FromUserID, message.ToUserID, v, message.IsInOutbox);
 
             this.MessageTitle = this.PageTitle = message.Subject;
             

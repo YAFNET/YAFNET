@@ -423,7 +423,7 @@ public class UserProfileModel : ForumPage
 
             if (!link.ToLower().StartsWith("http"))
             {
-                link = $"http://{link}";
+                link = $"https://{link}";
             }
 
             this.BlogUrl = link;
@@ -438,7 +438,7 @@ public class UserProfileModel : ForumPage
 
         if (this.CombinedUser.Item2.Profile_Twitter.IsSet())
         {
-            this.TwitterUrl = $"http://twitter.com/{this.HtmlEncode(this.CombinedUser.Item2.Profile_Twitter)}";
+            this.TwitterUrl = $"https://twitter.com/{this.HtmlEncode(this.CombinedUser.Item2.Profile_Twitter)}";
         }
 
         if (this.CombinedUser.Item2.Profile_XMPP.IsSet())

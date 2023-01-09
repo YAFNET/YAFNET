@@ -123,7 +123,7 @@ public class PollEditModel : ForumPage
             // we edit existing poll
             var pollAndChoices = this.GetRepository<Poll>().GetPollAndChoices(this.PollId.Value);
 
-            var poll = pollAndChoices.FirstOrDefault().Item1;
+            var poll = pollAndChoices.FirstOrDefault()!.Item1;
 
             if (poll.UserID != this.PageBoardContext.PageUserID && !this.PageBoardContext.IsAdmin
                                                                 && !this.PageBoardContext.ForumModeratorAccess)

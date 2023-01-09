@@ -100,7 +100,7 @@ public class TopicController : ForumBaseController
 
             var pagedTopics = new SelectPagedOptions
                                   {
-                                      Total = !topics.NullOrEmpty() ? topics.FirstOrDefault().TotalRows : 0,
+                                      Total = !topics.NullOrEmpty() ? topics.FirstOrDefault()!.TotalRows : 0,
                                       Results = topicsList
                                   };
 

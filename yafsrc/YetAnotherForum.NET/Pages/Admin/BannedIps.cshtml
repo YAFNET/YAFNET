@@ -80,7 +80,7 @@
                                         <h5 class="mb-1 text-break">
                                             <a href="@Html.Raw( string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, IPHelper.GetIpAddressAsString(item.Mask)) )"
                                                title="@Html.LocalizedText("COMMON", "TT_IPDETAILS")"
-                                               target="_blank">
+                                               target="_blank" rel="noopener">
                                                 @Html.Raw(Model.HtmlEncode(IPHelper.GetIpAddressAsString(item.Mask)) )
                                             </a>
                                         </h5>

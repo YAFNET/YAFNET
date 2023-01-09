@@ -119,7 +119,7 @@ public class ForumsModel : ModerateForumPage
                        new ModForumUserModal
                        {
                            ForumId = f,
-                           UserID = userForum.Item1.ID,
+                           UserID = userForum!.Item1.ID,
                            UserName = userForum.Item1.DisplayOrUserName(),
                            AccessMaskID = userForum.Item2.AccessMaskID
                        })
