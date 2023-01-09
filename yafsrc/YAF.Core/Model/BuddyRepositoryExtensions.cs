@@ -23,9 +23,11 @@
  */
 namespace YAF.Core.Model;
 
+using ServiceStack.OrmLite;
 using System;
 using System.Collections.Generic;
 
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -162,8 +164,6 @@ public static class BuddyRepositoryExtensions
         repository.Delete(b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
     }
 
-
-
     /// <summary>
     /// removes a friend request
     /// </summary>
@@ -207,67 +207,130 @@ public static class BuddyRepositoryExtensions
     }
 
     /// <summary>
-    /// Gets all the buddies of a certain user.
+    /// Gets all the friends of a certain user.
     /// </summary>
     /// <param name="repository">The repository.</param>
-    /// <param name="fromUserId">From user identifier.</param>
+    /// <param name="userId">From user identifier.</param>
     /// <returns>
-    /// The containing the buddy list.
+    /// The containing the friend list.
     /// </returns>
-    public static List<BuddyUser> ListAll(this IRepository<Buddy> repository, [NotNull] int fromUserId)
+    public static List<BuddyUser> GetAllFriends(this IRepository<Buddy> repository, [NotNull] int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
 
-        expression.Join<Rank>((u, r) => r.ID == u.RankID)
-            .Join<Buddy>((u, b) => b.ToUserID == u.ID && b.FromUserID == fromUserId && (u.Flags & 2) == 2)
-            .Select<User, Rank, Buddy>(
-                (a, b, c) => new
-                                 {
-                                     UserID = a.ID,
-                                     a.BoardID,
-                                     a.Name,
-                                     a.DisplayName,
-                                     a.Joined,
-                                     a.NumPosts,
-                                     RankName = b.Name,
-                                     c.Approved,
-                                     c.FromUserID,
-                                     c.ToUserID,
-                                     c.Requested,
-                                     a.UserStyle,
-                                     a.Suspended,
-                                     a.Avatar,
-                                     a.AvatarImage
-                                 });
+        // Get from user friends
+        expression.Join<User>((b, u) => u.ID == b.ToUserID && (u.Flags & 2) == 2 && (u.Flags & 32) != 32)
+            .Where<Buddy>(b => b.FromUserID == userId && b.Approved == true)
+            .Select<Buddy, User>((b, u) => new
+                                        {
+                                            UserID = u.ID,
+                                            u.Name,
+                                            u.DisplayName,
+                                            u.Joined,
+                                            u.NumPosts,
+                                            b.Approved,
+                                            b.Requested,
+                                            u.UserStyle,
+                                            u.Suspended,
+                                            u.Avatar,
+                                            u.AvatarImage
+            });
 
-        var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+        var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
 
-        expression2.Join<Rank>((u, r) => r.ID == u.RankID)
-            .Join<Buddy>((u, b) => b.ToUserID == fromUserId && b.FromUserID == u.ID && (u.Flags & 2) == 2)
-            .Select<User, Rank, Buddy>(
-                (a, b, c) => new
-                                 {
-                                     UserID = c.FromUserID,
-                                     a.BoardID,
-                                     a.Name,
-                                     a.DisplayName,
-                                     a.Joined,
-                                     a.NumPosts,
-                                     RankName = b.Name,
-                                     c.Approved,
-                                     c.FromUserID,
-                                     c.ToUserID,
-                                     c.Requested,
-                                     a.UserStyle,
-                                     a.Suspended,
-                                     a.Avatar,
-                                     a.AvatarImage
-                                 });
+        // Get from user friends
+        expression2.Join<User>((b, u) => u.ID == b.FromUserID && (u.Flags & 2) == 2 && (u.Flags & 32) != 32)
+            .Where<Buddy>(b => b.ToUserID == userId && b.Approved == true)
+            .Select<Buddy, User>((b, u) => new
+                                               {
+                                                   UserID = u.ID,
+                                                   u.Name,
+                                                   u.DisplayName,
+                                                   u.Joined,
+                                                   u.NumPosts,
+                                                   b.Approved,
+                                                   b.Requested,
+                                                   u.UserStyle,
+                                                   u.Suspended,
+                                                   u.Avatar,
+                                                   u.AvatarImage
+                                               });
 
         return repository.DbAccess.Execute(
-            db => db.Connection.Select<BuddyUser>(
-                $"{expression.ToSelectStatement()} UNION ALL {expression2.ToSelectStatement()}"));
+                db => db.Connection.Select<BuddyUser>(
+                    $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}"))
+            .DistinctBy(x => x.UserID).OrderBy(x => x.Name).ToList();
+    }
+
+    /// <summary>
+    /// Gets all pending Received Requests
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="userId">From user identifier.</param>
+    /// <returns>
+    /// Returns all pending Received Requests
+    /// </returns>
+    public static List<BuddyUser> GetReceivedRequests(this IRepository<Buddy> repository, [NotNull] int userId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
+
+        expression.Join<User>((b, u) => u.ID == b.FromUserID && (u.Flags & 2) == 2 && (u.Flags & 32) != 32)
+            .Where<Buddy>(b => b.ToUserID == userId && b.Approved == false)
+            .Select<Buddy, User>((b, u) => new
+            {
+                UserID = u.ID,
+                u.Name,
+                u.DisplayName,
+                u.Joined,
+                u.NumPosts,
+                b.Approved,
+                b.Requested,
+                u.UserStyle,
+                u.Suspended,
+                u.Avatar,
+                u.AvatarImage
+            });
+
+        return repository.DbAccess.Execute(db => db.Connection.Select<BuddyUser>(expression)).DistinctBy(x => x.UserID)
+            .OrderBy(x => x.Name).ToList();
+    }
+
+    /// <summary>
+    /// Gets all pending Send Requests
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="userId">From user identifier.</param>
+    /// <returns>
+    /// Returns all pending Send Requests
+    /// </returns>
+    public static List<BuddyUser> GetSendRequests(this IRepository<Buddy> repository, [NotNull] int userId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
+
+        expression.Join<User>((b, u) => u.ID == b.ToUserID && (u.Flags & 2) == 2 && (u.Flags & 32) != 32)
+            .Where<Buddy>(b => b.FromUserID == userId && b.Approved == false)
+            .Select<Buddy, User>((b, u) => new
+                                               {
+                                                   UserID = u.ID,
+                                                   u.Name,
+                                                   u.DisplayName,
+                                                   u.Joined,
+                                                   u.NumPosts,
+                                                   b.Approved,
+                                                   b.Requested,
+                                                   u.UserStyle,
+                                                   u.Suspended,
+                                                   u.Avatar,
+                                                   u.AvatarImage
+                                               });
+
+        return repository.DbAccess.Execute(db => db.Connection.Select<BuddyUser>(expression)).DistinctBy(x => x.UserID)
+            .OrderBy(x => x.Name).ToList();
     }
 }

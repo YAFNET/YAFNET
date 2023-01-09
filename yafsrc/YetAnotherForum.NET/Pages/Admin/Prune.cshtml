@@ -1,0 +1,87 @@
+@page "{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Helpers
+@using YAF.Core.Tasks
+@using YAF.Core.Utilities
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@model PruneModel
+
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("trash","ADMIN_PRUNE","TITLE")
+                </div>
+                <div class="card-body">
+
+                    @if (Model.Get<ITaskModuleManager>().IsTaskRunning(PruneTopicTask.TaskName))
+                    {
+                        @Html.LocalizedText("ADMIN_PRUNE", "PRUNE_INFO")
+                    }
+
+                    <div class="mb-3">
+                        <label class="form-label" ID="LocalizedLabel4"
+                               localized-tag="PRUNE_FORUM" localized-page="ADMIN_PRUNE"
+                               asp-for="Input.ForumListSelected"></label>
+                        <select id="ForumList" name="forumList">
+                        </select>
+                        <input type="hidden" asp-for="Input.ForumListSelected" Value="@Model.Input.ForumListSelected"/>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" ID="LocalizedLabel3"
+                                   localized-tag="PRUNE_DAYS" localized-page="ADMIN_PRUNE"
+                                   asp-for="Input.Days"></label>
+                            <div class="input-group">
+                                <input type="number" asp-for="Input.Days"
+                                       class="form-control"/>
+                                <div class="input-group-text">
+                                    @Html.LocalizedText("DAYS")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" ID="LocalizedLabel2"
+                                   localized-tag="PRUNE_PERMANENT" localized-page="ADMIN_PRUNE"
+                                   asp-for="Input.PermanentDelete"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.PermanentDelete"
+                                       class="form-check-input"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (!Model.Get<ITaskModuleManager>().IsTaskRunning(PruneTopicTask.TaskName))
+                {
+                    <div class="card-footer text-center">
+                        <button button-style="Primary"
+                                asp-page-handler="Commit"
+                                Icon="trash"
+                                text-localized-tag="PRUNE_START"
+                                return-confirm-tag="CONFIRM_DELETE">
+                        </button>
+                    </div>
+                }
+                
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.SelectForumsLoadJs(
+                "ForumList", 
+                Model.GetText("ADMIN_PRUNE", "PRUNE_FORUM"), 
+                false, 
+                false, 
+                "ForumListSelected")))
+            
+    </script>
+}

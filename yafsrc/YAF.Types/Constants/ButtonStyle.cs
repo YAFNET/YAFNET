@@ -30,6 +30,11 @@ namespace YAF.Types.Constants;
 public enum ButtonStyle
 {
     /// <summary>
+    /// The none
+    /// </summary>
+    None,
+
+    /// <summary>
     /// The primary
     /// </summary>
     Primary,
@@ -87,10 +92,5 @@ public enum ButtonStyle
     /// <summary>
     /// The link
     /// </summary>
-    Link,
-
-    /// <summary>
-    /// The none
-    /// </summary>
-    None
+    Link
 }

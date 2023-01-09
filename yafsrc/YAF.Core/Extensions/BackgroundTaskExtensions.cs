@@ -21,9 +21,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Extensions;
 
-using YAF.Types.Interfaces.Tasks;
+namespace YAF.Core.Extensions;
 
 /// <summary>
 /// Extensions for the <see cref="IBackgroundTask"/> interface

@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Services.Migrations
 {
+    using System.Data;
+
     using YAF.Core.Context;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;

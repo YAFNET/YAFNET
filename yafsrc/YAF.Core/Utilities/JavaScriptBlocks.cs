@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,9 +21,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Utilities;
 
-using YAF.Core.Context.Start;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// Contains the Java Script Blocks
@@ -36,22 +37,24 @@ public static class JavaScriptBlocks
     /// <returns></returns>
     [NotNull]
     public static string ChangeImageCaptionJs =>
-        $@"function changeImageCaption(imageID, txtTitleId){{
-                        var newImgTitleTxt = {Config.JQueryAlias}('#' + txtTitleId).val();
-              {Config.JQueryAlias}.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Album/ChangeImageCaption',
+        @"function changeImageCaption(imageID, txtTitleId){
+                        var newImgTitleTxt = $('#' + txtTitleId).val();
+              $.ajax({
+                    url: '/api/Album/ChangeImageCaption',
+                    headers: { ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() },
                     type: 'POST',
                     contentType: 'application/json;charset=utf-8',
-                    data: JSON.stringify({{ ImageId: imageID, NewCaption: newImgTitleTxt  }}),
+                    data: JSON.stringify({ ID: imageID, Caption: newImgTitleTxt  }),
                     dataType: 'json',
+                    contentType: 'application/json',
                     success: changeTitleSuccess,
-                    error: function(x, e)  {{
+                    error: function(x, e)  {
                              console.log('An Error has occurred!');
                              console.log(x.responseText);
                              console.log(x.status);
-                    }}
-                 }});
-               }}";
+                    }
+                 });
+               }";
 
     /// <summary>
     ///   Gets the script for album/image title/image callback.
@@ -62,9 +65,9 @@ public static class JavaScriptBlocks
     [NotNull]
     public static string AlbumCallbackSuccessJs =>
         @"function changeTitleSuccess(res){
-                  spnTitleVar = document.getElementById('spnTitle' + res.Id);
-                  txtTitleVar =  document.getElementById('txtTitle' + res.Id);
-                  spnTitleVar.firstChild.nodeValue = res.NewTitle;
+                  spnTitleVar = document.getElementById('spnTitle' + res.id);
+                  txtTitleVar =  document.getElementById('txtTitle' + res.id);
+                  spnTitleVar.firstChild.nodeValue = res.newTitle;
                   txtTitleVar.disabled = false;
                   spnTitleVar.style.display = 'inline';
                   txtTitleVar.style.display='none';}";
@@ -74,39 +77,43 @@ public static class JavaScriptBlocks
     /// </summary>
     [NotNull]
     public static string MultiQuoteCallbackSuccessJs =>
-        $@"function multiQuoteSuccess(res){{
-                  var multiQuoteButton = {Config.JQueryAlias}('#' + res.Id).parent('span');
-                  multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.NewTitle);
-                  {Config.JQueryAlias}(document).scrollTop(multiQuoteButton.offset().top - 20);
-                      }}";
+        @"function multiQuoteSuccess(res){
+                  var multiQuoteButton = $('#' + res.id).parent('span');
+                  multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.newTitle);
+                  $(document).scrollTop(multiQuoteButton.offset().top - 20);
+                      }";
 
     /// <summary>
     /// Gets the multi quote button JS.
     /// </summary>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
     [NotNull]
     public static string MultiQuoteButtonJs =>
-        $@"function handleMultiQuoteButton(button, msgId, tpId){{
-                var multiQuoteButton = {{}};
-                    multiQuoteButton.ButtonId = button.id;
-                    multiQuoteButton.IsMultiQuoteButton = button.checked;
-                    multiQuoteButton.MessageId = msgId;
-                    multiQuoteButton.TopicId = tpId;
-                    multiQuoteButton.ButtonCssClass = {Config.JQueryAlias}('#' + button.id).parent('span').attr('class');
- 
-                {Config.JQueryAlias}.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/MultiQuote/HandleMultiQuote',
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    data: JSON.stringify(multiQuoteButton),
-                    dataType: 'json',
-                    success: multiQuoteSuccess,
-                    error: function(x, e)  {{
-                             console.log('An Error has occurred!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }}
-                 }});
-        }}";
+        @"function handleMultiQuoteButton(button, msgId, tpId){
+                        var multiQuoteButton = {};
+                            multiQuoteButton.ButtonId = button.id;
+                            multiQuoteButton.IsMultiQuoteButton = button.checked;
+                            multiQuoteButton.MessageId = msgId;
+                            multiQuoteButton.TopicId = tpId;
+                            multiQuoteButton.ButtonCssClass = $('#' + button.id).parent('span').attr('class');
+
+                        $.ajax({
+                            url: '/api/MultiQuote/HandleMultiQuote',
+                            headers: { ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() },
+                            type: 'POST',
+                            contentType: 'application/json;charset=utf-8',
+                            data: JSON.stringify(multiQuoteButton),
+                            dataType: 'json',
+                            success: multiQuoteSuccess,
+                            error: function(x, e)  {
+                                     console.log('An Error has occurred!');
+                                     console.log(x.responseText);
+                                     console.log(x.status);
+                            }
+                         });
+                }";
 
     /// <summary>
     /// Gets Board Tags JavaScript
@@ -114,21 +121,21 @@ public static class JavaScriptBlocks
     /// <param name="inputId">
     /// The input Id.
     /// </param>
-    /// <param name="hiddenId">
-    /// the hidden id
-    /// </param>
+    /// <param name="hiddenId"></param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
     [NotNull]
     public static string GetBoardTagsJs(string inputId, string hiddenId) =>
-        $@"{Config.JQueryAlias}(""#{inputId}"").select2({{
+        $@"$(""#{inputId}"").select2({{
             tags: true,
             tokenSeparators: [',', ' '],
             ajax: {{
-                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Tags/GetBoardTags',
+                url: '/api/Tags/GetBoardTags',
+                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
                 type: 'POST',
                 dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
                 data: function(params) {{
                     var query = {{
                         ForumId: 0,
@@ -137,7 +144,7 @@ public static class JavaScriptBlocks
                         Page: params.page || 0,
                         SearchTerm: params.term || ''
                     }}
-                    return query;
+                    return JSON.stringify(query);
                 }},
                 error: function(x, e) {{
                     console.log('An Error has occurred!');
@@ -149,12 +156,12 @@ public static class JavaScriptBlocks
 
                     var resultsPerPage = 15 * 2;
 
-                    var total = params.page == 0 ? data.Results.length : resultsPerPage;
+                    var total = params.page == 0 ? data.results.length : resultsPerPage;
 
                     return {{
-                        results: data.Results,
+                        results: data.results,
                         pagination: {{
-                            more: total < data.Total
+                            more: total < data.total
                         }}
                     }}
                 }}
@@ -292,47 +299,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                                  backdrop: 'static',
                                                  keyboard: false
                                               }});
-                                   modal.show();
-                       ";
-    }
-
-    /// <summary>
-    /// Gets the Bootstrap Tab Load JS.
-    /// </summary>
-    /// <param name="tabId">The tab Id.</param>
-    /// <param name="hiddenId">The hidden field id.</param>
-    /// <returns>
-    /// Returns the the Bootstrap Tab Load JS string
-    /// </returns>
-    public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId)
-    {
-        return BootstrapTabsLoadJs(tabId, hiddenId, string.Empty);
-    }
-
-    /// <summary>
-    /// Gets the Bootstrap Tab Load JS.
-    /// </summary>
-    /// <param name="tabId">The tab Id.</param>
-    /// <param name="hiddenId">The hidden field id.</param>
-    /// <param name="onClickEvent">The on click event.</param>
-    /// <returns>
-    /// Returns the the Bootstrap Tab Load JS string
-    /// </returns>
-    public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId, string onClickEvent)
-    {
-        return $@"{Config.JQueryAlias}(document).ready(function() {{
-            var selectedTab = {Config.JQueryAlias}(""#{hiddenId}"");
-            var tabId = selectedTab.val() != """" ? selectedTab.val() : ""View1"";
-            {Config.JQueryAlias}('#{tabId} a[href=""#' + tabId + '""]').tab('show');
-            {Config.JQueryAlias}(""#{tabId} a"").click(function() {{
-                var tab = {Config.JQueryAlias}(this).attr(""href"").substring(1);
-                if (!tab.startsWith(""avascript""))
-{{
-                selectedTab.val({Config.JQueryAlias}(this).attr(""href"").substring(1));
-}}
-                {onClickEvent}
-            }});
-                           }});";
+                                   modal.show();";
     }
 
     /// <summary>
@@ -345,22 +312,189 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// The hidden field id.
     /// </param>
     /// <returns>
-    /// Returns the the Bootstrap Tab Load JS string
+    /// Returns the Bootstrap Tab Load JS string
     /// </returns>
-    public static string BootstrapTabLoadJs([NotNull] string tabId, [NotNull] string hiddenId)
+    public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId)
     {
-        return $@"{Config.JQueryAlias}(document).ready(function() {{
-            var selectedTab = {Config.JQueryAlias}(""#{hiddenId}"");
+        return $@"$(document).ready(function() {{
+            var selectedTab = $(""#{hiddenId}"");
             var tabId = selectedTab.val() != """" ? selectedTab.val() : ""View1"";
-            {Config.JQueryAlias}('#{tabId} a[href=""#' + tabId + '""]').tab('show');
-            {Config.JQueryAlias}(""#{tabId} a"").click(function() {{
-                var tab = {Config.JQueryAlias}(this).attr(""href"").substring(1);
-                if (!tab.startsWith(""avascript""))
-{{
-                selectedTab.val({Config.JQueryAlias}(this).attr(""href"").substring(1));
-}}
+            $('#{tabId} button[data-bs-target=""#' + tabId + '""]').tab('show');
+                  
+                 $(""#{tabId} button"").click(function(e) {{
+                   e.preventDefault();
+                var tab = $(this).data(""bs-target"");
+                selectedTab.val(tab);
+                }});
+            }});";
+    }
+
+    /// <summary>
+    /// Gets the Bootstrap Lazy Load Tab EditUser JS.
+    /// </summary>
+    /// <returns>
+    /// Returns the Bootstrap Lazy Load Tab EditUser JS.
+    /// </returns>
+    [NotNull]
+    public static string EditUserTabsLoadJs(int userId)
+    {
+        return $@"var currentTab = ""#"" + $(""#LastTab"").val();
+            
+            function loadTab (tabName)
+            {{
+                switch (tabName) {{
+                    case ""#View1"":
+                        if ($('#View1').is(':empty')) {{
+                            $.ajax({{
+                                url: ""/Admin/EditUser/UsersInfo"",
+                                type: ""GET"",
+                                data: {{ userId: {userId}}},
+                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
+                                success: function (result) {{
+                                    $(""#View1"").html(result);
+                                }}
+                            }})
+                            
+                        }}
+                        break;
+                    case ""#View2"":
+                        if ($('#View2').is(':empty')) {{
+                            $.ajax({{
+                                url: ""/Admin/EditUser/UsersGroups"",
+                                type: ""GET"",
+                                data: {{ userId: {userId}}},
+                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
+                                success: function (result) {{
+                                    $(""#View2"").html(result);
+                                }}
+                            }})
+                            
+                        }}
+                        break;
+                    case ""#View3"":
+                        if ($('#View3').is(':empty')) {{
+                            $.ajax({{
+                                url: ""/Admin/EditUser/UsersProfile"",
+                                type: ""GET"",
+                                data: {{ userId: {userId}}},
+                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
+                                success: function (result) {{
+                                    $(""#View3"").html(result);
+                                }}
+                            }})
+                            
+                        }}
+                        break;
+                    case ""#View4"":
+                        if ($('#View4').is(':empty')) {{
+                            $.ajax({{
+                                url: ""/Admin/EditUser/UsersAvatar"",
+                                type: ""GET"",
+                                data: {{ userId: {userId}}},
+                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
+                                success: function (result) {{
+                                    $(""#View4"").html(result);
+                                }}
+                            }})
+                            
+                        }}
+                        break;
+                    case ""#View5"":
+                        if ($('#View5').is(':empty')) {{
+                            $.ajax({{
+                                url: ""/Admin/EditUser/UsersSignature"",
+                                type: ""GET"",
+                                data: {{ userId: {userId}}},
+                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
+                                success: function (result) {{
+                                    $(""#View5"").html(result);
+                                }}
+                            }})
+                            
+                        }}
+                        break;
+                    case ""#View6"":
+                        if ($('#View6').is(':empty')) {{
+                            $.ajax({{
+                                url: ""/Admin/EditUser/UsersPoints"",
+                                type: ""GET"",
+                                data: {{ userId: {userId}}},
+                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
+                                success: function (result) {{
+                                    $(""#View6"").html(result);
+                                }}
+                            }})
+                            
+                        }}
+                        break;
+                    case ""#View8"":
+                        if ($('#View8').is(':empty')) {{
+                            $.ajax({{
+                                url: ""/Admin/EditUser/UsersSuspend"",
+                                type: ""GET"",
+                                data: {{ userId: {userId}}},
+                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
+                                success: function (result) {{
+                                    $(""#View8"").html(result);
+                                }}
+                            }})
+                            
+                        }}
+                        break;
+                    case ""#View9"":
+                        if ($('#View9').is(':empty')) {{
+                            $.ajax({{
+                                url: ""/Admin/EditUser/UsersKill"",
+                                type: ""GET"",
+                                data: {{ userId: {userId}}},
+                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
+                                success: function (result) {{
+                                    $(""#View9"").html(result);
+                                }}
+                            }})
+                            
+                        }}
+                        break;
+                    case ""#View10"":
+                        if ($('#View10').is(':empty')) {{
+                            $.ajax({{
+                                url: ""/Admin/EditUser/UsersSettings"",
+                                type: ""GET"",
+                                data: {{ userId: {userId}}},
+                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
+                                success: function (result) {{
+                                    $(""#View10"").html(result);
+                                }}
+                            }})
+                            
+                        }}
+                        break;
+                    case ""#View11"":
+                        if ($('#View11').is(':empty')) {{
+                            $.ajax({{
+                                url: ""/Admin/EditUser/UsersAttachments"",
+                                type: ""GET"",
+                                data: {{ userId: {userId}}},
+                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
+                                success: function (result) {{
+                                    $(""#View11"").html(result);
+                                }}
+                            }})
+                            
+                        }}
+                        break;
+                }}
+            }}
+
+        $(function () {{
+            loadTab(currentTab);
+
+            $('button[data-bs-toggle=""tab""]').on('shown.bs.tab', function (e) {{
+                var tab = $(e.target).data(""bs-target"");
+               
+                loadTab(tab)
             }});
-                           }});";
+        }});";
     }
 
     /// <summary>
@@ -371,19 +505,19 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </returns>
     public static string DropDownToggleJs()
     {
-        return $@"document.addEventListener('DOMContentLoaded', (event) => {{
-                {Config.JQueryAlias}(function() {{
-                {Config.JQueryAlias}('.dropdown-menu').on('click', function(e) {{
+        return @"document.addEventListener('DOMContentLoaded', (event) => {{
+                $(function() {{
+                $('.dropdown-menu').on('click', function(e) {{
                     if (e.target.type == 'button') {{
-                           {Config.JQueryAlias}().dropdown('toggle')
+                           $().dropdown('toggle')
                     }}
                     else {{ 
                          e.stopPropagation();
                     }}
                 }});
-                {Config.JQueryAlias}(window).on('click', function() {{
-                    if (!{Config.JQueryAlias}('.dropdown-menu').is(':hidden')) {{
-                        {Config.JQueryAlias}().dropdown('toggle')
+                $(window).on('click', function() {{
+                    if (!$('.dropdown-menu').is(':hidden')) {{
+                        $().dropdown('toggle')
                      }}
                  }});
                  }});
@@ -402,15 +536,15 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string CollapseToggleJs([NotNull] string hideText, [NotNull] string showText)
+    public static string CollapseToggleJs(string hideText, string showText)
     {
-        return $@"{Config.JQueryAlias}(document).ready(function() {{
-                          {Config.JQueryAlias}('a[data-bs-toggle=""collapse""]').click(function() {{
+        return $@"$(document).ready(function() {{
+                          $('button[data-bs-toggle=""collapse""]').click(function(e) {{
                               var button = $(this);
                               if (button.attr(""aria-expanded"") == ""false"") {{
-                                  button.html('<i class=""fa fa-caret-square-up fa-fw""></i>&nbsp;{hideText}');
+                                  button.html('<i class=""fa fa-caret-square-up fa-fw me-1""></i>{hideText}');
                               }} else {{
-                                  button.html('<i class=""fa fa-caret-square-down fa-fw""></i>&nbsp;{showText}');
+                                  button.html('<i class=""fa fa-caret-square-down fa-fw me-1""></i>{showText}');
                               }}
                           }});
                       }});";
@@ -427,31 +561,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </returns>
     public static string LoadGotoAnchor([NotNull] string anchor)
     {
-        return $@"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
-            function loadGotoAnchor() {{
+        return $@"document.addEventListener('DOMContentLoaded', function() {{
                document.getElementById('{anchor}').scrollIntoView();
-                  }}";
-    }
-
-    /// <summary>
-    /// Generates Modal Dialog Script
-    /// </summary>
-    /// <param name="openLink">
-    /// The Open Link, that opens the Modal Dialog.
-    /// </param>
-    /// <param name="dialogId">
-    /// The Id or CSS Class of the Dialog Content
-    /// </param>
-    /// <returns>
-    /// The YAF modal dialog Load JS.
-    /// </returns>
-    public static string LoginBoxLoadJs([NotNull] string openLink, [NotNull] string dialogId)
-    {
-        return $@"{Config.JQueryAlias}(document).ready(function() {{  
-                                {Config.JQueryAlias}('{openLink}').click(function () {{ 
-                                        {Config.JQueryAlias}('{dialogId}').modal('show');
-                                }}); 
-                   }});";
+			      }});";
     }
 
     /// <summary>
@@ -466,15 +578,16 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     public static string AddThanksJs([NotNull] string removeThankBoxHtml)
     {
         return $@"function addThanks(messageID){{ 
-            {Config.JQueryAlias}.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/ThankYou/AddThanks/' + messageID,
+            $.ajax({{
+                    url: '/api/ThankYou/AddThanks/' + messageID,
+                    headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
                     type: 'POST',
                     contentType: 'application/json;charset=utf-8',
                     success: function(response) {{
-                              {Config.JQueryAlias}('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
-                              {Config.JQueryAlias}('#dvThankBox' + response.MessageID).html({removeThankBoxHtml});
+                              $('#dvThanksInfo' + response.messageID).html(response.thanksInfo);
+                              $('#dvThankBox' + response.messageID).html({removeThankBoxHtml});
 
-                              {Config.JQueryAlias}('.thanks-popover').popover({{
+                              $('.thanks-popover').popover({{
                                      template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'}});
                     }},
                     error: function(x, e)  {{
@@ -483,7 +596,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                              console.log(x.status);
                     }}
                  }});
-
+                          
                  }}";
     }
 
@@ -500,12 +613,13 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     {
         return $@"function removeThanks(messageID){{ 
             $.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/ThankYou/RemoveThanks/' + messageID,
+                    url: '/api/ThankYou/RemoveThanks/' + messageID,
+                    headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
                     type: 'POST',
                     contentType: 'application/json;charset=utf-8',
                     success: function(response) {{
-                              $('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
-                              $('#dvThankBox' + response.MessageID).html({addThankBoxHtml});
+                              $('#dvThanksInfo' + response.messageID).html(response.thanksInfo);
+                              $('#dvThankBox' + response.messageID).html({addThankBoxHtml});
                     }},
                     error: function(x, e)  {{
                              console.log('An Error has occurred!');
@@ -548,52 +662,46 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     public static string CKEditorLoadJs(
         [NotNull] string editorId,
         [NotNull] string editorLanguage,
-        int maxCharacters,
+        [NotNull] int maxCharacters,
         [NotNull] string themeCssUrl,
         [NotNull] string forumCssUrl,
         [NotNull] string toolbar,
         bool uploadAllowed)
     {
-        var autoUploadJs = $@" CKEDITOR.on('instanceReady', function (ev) {{
-                     ev.editor.document.on('drop', function (event) {{
-                       {Config.JQueryAlias}('.EditorDiv').yafFileUpload(""send"", {{files: event.data.$.dataTransfer.files}});
-                     }});
-                     ev.editor.on('paste', function (event) {{
-                       {Config.JQueryAlias}('.EditorDiv').yafFileUpload(""send"", {{files: event.data.dataTransfer._.files}});
-                     }});
-                  }});";
+        var autoUploadJs = @" CKEDITOR.on('instanceReady', function (ev) {
+                     ev.editor.document.on('drop', function (event) {
+                       $('.EditorDiv').yafFileUpload(""send"", {files: event.data.$.dataTransfer.files});
+                     });
+                     ev.editor.on('paste', function (event) {
+                       $('.EditorDiv').yafFileUpload(""send"", {files: event.data.dataTransfer._.files});
+                     });
+                  });";
 
         var contextMenuRemove = BoardContext.Current.Get<BoardSettings>().UseCustomContextMenu
                                     ? string.Empty
                                     : ",contextmenu";
 
-        return $@"{Config.JQueryAlias}(document).ready(function() {{
-                      var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
+        return $@"$(document).ready(function() {{
+                      var yafCKEditor = $(""#{editorId}"").ckeditor({{
                           extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,{(uploadAllowed ? "attachments," : "")}quote,codemirror,textselection"",
                           removePlugins: 'bidi,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,templates{contextMenuRemove}',
                           toolbar: [{toolbar}],
-                          entities_greek: false,
+		                  entities_greek: false,
                           entities_latin: false,
                           language: '{editorLanguage}',
                           disableNativeSpellChecker:false,
                           disableObjectResizing: true,
-                          fontSize_sizes: ""30/30%;50/50%;100/100%;120/120%;150/150%;200/200%;300/300%"",
-                          forcePasteAsPlainText: true,
-                          contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
+		                  fontSize_sizes: ""30/30%;50/50%;100/100%;120/120%;150/150%;200/200%;300/300%"",
+		                  forcePasteAsPlainText: true,
+		                  contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
                           autosave:
                           {{
-                              messageType: ""statusbar"",
-                              saveDetectionSelectors: ""a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']"",
-                              delay: 60
+                               messageType: ""statusbar"",
+                               saveDetectionSelectors: ""a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']""
                           }},
-                          codemirror: {{mode: ""bbcode"",  theme: ""monokai""}},
-                          wordcount:
-                          {{
-                              maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
-                          }},
-                          codemirror: {{
-                              theme: ""monokai"",
-                              extraKeys: {{
+                          codemirror: {{mode: ""bbcode"",  
+                                        theme: ""monokai"",
+                                        extraKeys: {{
                                                ""Ctrl-B"" : function (codeMirror_Editor) {{
                                                                 codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[b]"", ""[/b]"");
                                                             }},
@@ -608,16 +716,21 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                                             }}
                                          }}
                           }},
-                          keystrokes: [[CKEDITOR.ALT + 83, 'source' ],[ CKEDITOR.CTRL + 13 , 'postMessage']],
-                          mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
+                          wordcount:
+                          {{
+                              maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
+                          }},
+		                  keystrokes: [[CKEDITOR.ALT + 83, 'source' ],[ CKEDITOR.CTRL + 13 , 'postMessage']],
+                          mentions: [ {{ feed:  CKEDITOR.basePath.replace('js/ckeditor/', '') + 'api/User/GetMentionUsers?users={{encodedQuery}}',
                                          itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
-                                         outputTemplate: '@[userlink]{{name}}[/userlink]'
-                                      }} ]
+		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'
+          		                      }} ]
                           }});
 
-                      {Config.JQueryAlias}(""a[id*='_PostReply'],a[id*='_Save'],a[id*='_Preview']"").click(function () {{
+                      $(""a[id*='_PostReply'],a[id*='_Save'],a[id*='_Preview']"").click(function () {{
                           yafCKEditor.editor.updateElement();
                       }});
+                 
 
                       yafCKEditor.editor.addCommand( 'postMessage', {{
                               modes: {{ wysiwyg: 1, source: 1 }},
@@ -630,9 +743,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                     }}
                               }}
                       }});
+
                   }});
 
-                 {(uploadAllowed ? autoUploadJs : string.Empty)}";
+                  {(uploadAllowed ? autoUploadJs : string.Empty)}";
     }
 
     /// <summary>
@@ -663,7 +777,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     public static string CKEditorBasicLoadJs(
         [NotNull] string editorId,
         [NotNull] string editorLanguage,
-        int maxCharacters,
+        [NotNull] int maxCharacters,
         [NotNull] string themeCssUrl,
         [NotNull] string forumCssUrl,
         [NotNull] string toolbar)
@@ -672,25 +786,26 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                     ? string.Empty
                                     : ",contextmenu";
 
-        return $@"{Config.JQueryAlias}(document).ready(function() {{
-                      var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
+        return $@"$(document).ready(function() {{
+                      var yafCKEditor = $(""#{editorId}"").ckeditor({{
                           extraPlugins: ""bbcode,mentions,wordcount,autolink,quote,codemirror"",
                           removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates{contextMenuRemove}',
-                          toolbar: [{toolbar}],
-                          entities_greek: false,
+		                  toolbar: [{toolbar}],
+		                  entities_greek: false,
                           entities_latin: false,
                           language: '{editorLanguage}',
                           disableNativeSpellChecker:false,
                           disableObjectResizing: true,
-                          forcePasteAsPlainText: true,
-                          contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
+		                  forcePasteAsPlainText: true,
+		                  contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
                           wordcount:
                           {{
                               maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
                           }},
-                          codemirror: {{mode: ""bbcode"",  
-                              theme: ""monokai"",
-                              extraKeys: {{
+                          codemirror: {{
+                                        mode: ""bbcode"",  
+                                        theme: ""monokai"",
+                                        extraKeys: {{
                                                ""Ctrl-B"" : function (codeMirror_Editor) {{
                                                                 codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[b]"", ""[/b]"");
                                                             }},
@@ -703,15 +818,16 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                                ""Ctrl-U"" : function (codeMirror_Editor) {{
                                                                 codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[u]"", ""[/u]"");
                                                             }}
-                                         }}}},
-                          keystrokes: [[CKEDITOR.ALT + 83, 'source' ],[ CKEDITOR.CTRL + 13 , 'postMessage']],
-                          mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
+                                         }}
+                          }},
+		                  keystrokes: [[CKEDITOR.ALT + 83, 'source' ],[ CKEDITOR.CTRL + 13 , 'postMessage']],
+                          mentions: [ {{ feed:  CKEDITOR.basePath.replace('js/ckeditor/', '') + 'api/User/GetMentionUsers?users={{encodedQuery}}',
                                          itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
-                                         outputTemplate: '@[userlink]{{name}}[/userlink]'
-                                      }} ]
+		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'
+          		                      }} ]
                           }});
 
-                          {Config.JQueryAlias}(""a[id*='_QuickReplyDialog'],a[id*='_SignatureEdit']"").click(function () {{
+                          $(""a[id*='_QuickReplyDialog'],a[id*='_SignatureEdit']"").click(function () {{
                               yafCKEditor.editor.updateElement();
                           }});
 
@@ -726,6 +842,90 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                     }}
                               }}
                       }});
+                  }});";
+    }
+
+    /// <summary>
+    /// The CKEditor Load JS.
+    /// </summary>
+    /// <param name="editorId">
+    /// The editor Id.
+    /// </param>
+    /// <param name="editorLanguage">
+    /// The editor language.
+    /// </param>
+    /// <param name="maxCharacters">
+    /// The max characters.
+    /// </param>
+    /// <param name="themeCssUrl">
+    /// The theme CSS url.
+    /// </param>
+    /// <param name="forumCssUrl">
+    /// The forum CSS url.
+    /// </param>
+    /// <param name="toolbar">
+    /// The toolbar.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    [NotNull]
+    public static string CKEditorQuickReplyLoadJs(
+        [NotNull] string editorId,
+        [NotNull] string editorLanguage,
+        [NotNull] int maxCharacters,
+        [NotNull] string themeCssUrl,
+        [NotNull] string forumCssUrl,
+        [NotNull] string toolbar)
+    {
+        var contextMenuRemove = BoardContext.Current.Get<BoardSettings>().UseCustomContextMenu
+                                    ? string.Empty
+                                    : ",contextmenu";
+
+        return $@"$(document).ready(function() {{
+                      var yafCKEditor = $(""#{editorId}"").ckeditor({{
+                          extraPlugins: ""bbcode,mentions,wordcount,autolink,quote,codemirror"",
+                          removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates{contextMenuRemove}',
+		                  toolbar: [{toolbar}],
+		                  entities_greek: false,
+                          entities_latin: false,
+                          language: '{editorLanguage}',
+                          disableNativeSpellChecker:false,
+                          disableObjectResizing: true,
+		                  forcePasteAsPlainText: true,
+		                  contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
+                          wordcount:
+                          {{
+                              maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
+                          }},
+                          codemirror: {{
+                                        mode: ""bbcode"",  
+                                        theme: ""monokai"",
+                                        extraKeys: {{
+                                               ""Ctrl-B"" : function (codeMirror_Editor) {{
+                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[b]"", ""[/b]"");
+                                                            }},
+                                               ""Ctrl-I"" : function (codeMirror_Editor) {{
+                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[i]"", ""[/i]"");
+                                                            }},
+                                               ""Shift-Ctrl-Q"" : function (codeMirror_Editor) {{
+                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[quote]"", ""[/quote]"");
+                                                            }},
+                                               ""Ctrl-U"" : function (codeMirror_Editor) {{
+                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[u]"", ""[/u]"");
+                                                            }}
+                                         }}
+                          }},
+		                  keystrokes: [[CKEDITOR.ALT + 83, 'source' ]],
+                          mentions: [ {{ feed:  CKEDITOR.basePath.replace('js/ckeditor/', '') + 'api/User/GetMentionUsers?users={{encodedQuery}}',
+                                         itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
+		                                 outputTemplate: '@@[userlink]{{name}}[/userlink]'
+          		                      }} ]
+                          }});
+
+                          $(""a[id*='QuickReplyDialog'],a[id*='SignatureEdit']"").click(function () {{
+                              yafCKEditor.editor.updateElement();
+                          }});
                   }});";
     }
 
@@ -762,12 +962,12 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string forumCssUrl,
         [NotNull] string mime)
     {
-
         var contextMenuRemove = BoardContext.Current.Get<BoardSettings>().UseCustomContextMenu
                                     ? string.Empty
                                     : ",contextmenu";
-        return $@"{Config.JQueryAlias}(document).ready(function() {{
-                      var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
+
+        return $@"$(document).ready(function() {{
+                      var yafCKEditor = $(""#{editorId}"").ckeditor({{
                           extraPlugins: ""wordcount,codemirror"",
                           removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates{contextMenuRemove}',
                           toolbar: [],
@@ -786,7 +986,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                           codemirror: {{mode: ""{mime}"",  theme: ""monokai""}}
                           }});
 
-                          {Config.JQueryAlias}(""a[id*='_RunQuery']"").click(function () {{
+                         $(""button[id*='RunQuery']"").click(function () {{
                               yafCKEditor.editor.updateElement();
                           }});
                   }});";
@@ -803,12 +1003,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </param>
     /// <param name="fileUploaderUrl">
     /// The file uploader URL.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum identifier.
-    /// </param>
-    /// <param name="boardId">
-    /// The board identifier.
     /// </param>
     /// <param name="imageMaxWidth">
     /// The image Max Width.
@@ -831,9 +1025,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] int imageMaxHeight,
         [NotNull] string editorId)
     {
-        return $@"{Config.JQueryAlias}('.EditorDiv').yafFileUpload({{
+        return $@"$('.EditorDiv').yafFileUpload({{
                 url: '{fileUploaderUrl}',
-                acceptFileTypes: /(\.|\/)({acceptedFileTypes})$/i,
+                acceptFileTypes: new RegExp('(\.|\/)(' + '{acceptedFileTypes}' + ')', 'i'),
                 imageMaxWidth: {imageMaxWidth},
                 imageMaxHeight: {imageMaxHeight},
                 autoUpload: true,
@@ -842,14 +1036,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 dataType: 'json',
                 {(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}
                 done: function (e, data) {{
-                    var ckEditor = CKEDITOR.instances.{editorId};
+                    var ckEditor = CKEDITOR.instances.{editorId}; 
                     ckEditor.insertHtml( '[attach]' + data.result[0].fileID + '[/attach]' );
                 }},
                 formData: {{
                     userID: '{BoardContext.Current.PageUserID}'
                 }},
-                dropZone: {Config.JQueryAlias}('.EditorDiv'),
-                pasteZone: {Config.JQueryAlias}('.EditorDiv')
+                dropZone: $('.EditorDiv'),
+                pasteZone: $('.EditorDiv')
             }});";
     }
 
@@ -864,12 +1058,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </param>
     /// <param name="fileUploaderUrl">
     /// The file uploader URL.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum identifier.
-    /// </param>
-    /// <param name="boardId">
-    /// The board identifier.
     /// </param>
     /// <param name="imageMaxWidth">
     /// The image Max Width.
@@ -888,11 +1076,11 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] int imageMaxWidth,
         [NotNull] int imageMaxHeight)
     {
-        return $@"{Config.JQueryAlias}(function() {{
+        return $@"$(function() {{
 
-            {Config.JQueryAlias}('#fileupload').yafFileUpload({{
+            $('#fileupload').yafFileUpload({{
                 url: '{fileUploaderUrl}',
-                acceptFileTypes: /(\.|\/)({acceptedFileTypes})$/i,
+                acceptFileTypes: new RegExp('(\.|\/)(' + '{acceptedFileTypes}' + ')', 'i'),
                 imageMaxWidth: {imageMaxWidth},
                 imageMaxHeight: {imageMaxHeight},
                 disableImageResize: /Android(?!.*Chrome)|Opera/
@@ -900,15 +1088,15 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 dataType: 'json',
                 {(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}
                 start: function (e) {{
-                    {Config.JQueryAlias}('#fileupload .alert-danger').toggle();
+                    $('#fileupload .alert-danger').toggle();
                 }},
                 done: function (e, data) {{
                     CKEDITOR.tools.insertAttachment(data.result[0].fileID);
-                    {Config.JQueryAlias}('#fileupload').find('.files li:first').remove();
+                    $('#fileupload').find('.files li:first').remove();
 
-                    if ({Config.JQueryAlias}('#fileupload').find('.files li').length == 0) {{
-                     {Config.JQueryAlias}('#UploadDialog').modal('hide');
-                     {Config.JQueryAlias}('#fileupload .alert-danger').toggle();
+                    if ($('#fileupload').find('.files li').length == 0) {{
+                     $('#UploadDialog').modal('hide');
+                     $('#fileupload .alert-danger').toggle();
 
                         var pageSize = 5;
                         var pageNumber = 0;
@@ -916,12 +1104,12 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     }}
                 }},
                 formData: {{
-                    userID: '{BoardContext.Current.PageUserID}'
+                    allowedUpload: true
                 }},
-                dropZone: {Config.JQueryAlias}('#UploadDialog')
+                dropZone: $('#UploadDialog')
             }});
-            {Config.JQueryAlias}(document).bind('dragover', function (e) {{
-                var dropZone = {Config.JQueryAlias}('#dropzone'),
+            $(document).bind('dragover', function (e) {{
+                var dropZone = $('#dropzone'),
                     timeout = window.dropZoneTimeout;
                 if (!timeout) {{
                     dropZone.addClass('ui-state-highlight');
@@ -962,27 +1150,31 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <param name="selectedHiddenId">
     /// The topic selected Hidden Id.
     /// </param>
+    /// <param name="placeHolder"></param>
     /// <returns>
     /// Returns the select2 topics load JS.
     /// </returns>
     [NotNull]
-    public static string SelectTopicsLoadJs([NotNull] string topicsId, [NotNull] string forumDropDownId, [NotNull] string selectedHiddenId)
+    public static string SelectTopicsLoadJs([NotNull] string topicsId, [NotNull] string forumDropDownId, [NotNull] string selectedHiddenId, [NotNull] string placeHolder)
     {
-        return $@"{Config.JQueryAlias}('#{topicsId}').select2({{
+        return $@"$('#{topicsId}').select2({{
             ajax: {{
-                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Topic/GetTopics',
+                url: '/api/Topic/GetTopics',
+                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
                 type: 'POST',
                 dataType: 'json',
-                minimumInputLength: 1,
+                contentType: 'application/json',
+                minimumInputLength: 0,
+                allowClearing: false,
                 data: function(params) {{
                       var query = {{
-                          ForumId : {Config.JQueryAlias}('#{forumDropDownId}').val(),
+                          ForumId : $('#{forumDropDownId}').val(),
                           TopicId: {BoardContext.Current.PageTopicID},
                           PageSize: 0,
                           Page : params.page || 0,
                           SearchTerm : params.term || ''
                       }}
-                      return query;
+                      return JSON.stringify(query);
                 }},
                 error: function(x, e)  {{
                        console.log('An Error has occurred!');
@@ -994,26 +1186,27 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
                     var resultsPerPage = 15 * 2;
 
-                    var total = params.page == 0 ? data.Results.length : resultsPerPage;
+                    var total = params.page == 0 ? data.results.length : resultsPerPage;
 
                     return {{
-                        results: data.Results,
+                        results: data.results,
                         pagination: {{
-                            more: total < data.Total
+                            more: total < data.total
                         }}
                     }}
                 }}
             }},
-            allowClearing: false,
+
             width: '100%',
             theme: 'bootstrap-5',
             cache: true,
+            placeholder: '{placeHolder}',
             {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
-        }}).on('select2:select', function(e){{
-                   if (e.params.data.Total) {{ 
-                                                 {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.Results[0].children[0].id);
+         }}).on('select2:select', function(e){{
+                   if (e.params.data.total) {{ 
+                                                 $('#{selectedHiddenId}').val(e.params.data.results[0].children[0].id);
                                              }} else {{
-                                                 {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.id);
+                                                 $('#{selectedHiddenId}').val(e.params.data.id);
                                              }}
             }});";
     }
@@ -1043,23 +1236,24 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     public static string SelectForumsLoadJs([NotNull] string forumDropDownId, [NotNull] string placeHolder, bool forumLink, bool allForumsOption, [CanBeNull] string selectedHiddenId = null)
     {
         var selectHiddenValue = selectedHiddenId.IsSet()
-                                    ? $@"if (e.params.data.Total) {{ 
-                                                 {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.Results[0].children[0].id);
+                                    ? $@"if (e.params.data.total) {{ 
+                                                 $('#{selectedHiddenId}').val(e.params.data.results[0].children[0].id);
                                              }} else {{
-                                                 {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.id);
+                                                 $('#{selectedHiddenId}').val(e.params.data.id);
                                              }}"
                                     : string.Empty;
 
-        var forumSelect = selectedHiddenId.IsSet() ? $@"var forumsListSelect = {Config.JQueryAlias}('#{forumDropDownId}');
-            var forumId = {Config.JQueryAlias}('#{selectedHiddenId}').val();
+        var forumSelect = selectedHiddenId.IsSet() ? $@"var forumsListSelect = $('#{forumDropDownId}');
+            var forumId = $('#{selectedHiddenId}').val();
 
-            {Config.JQueryAlias}.ajax({{
-                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Forum/GetForum/' + forumId,
+            $.ajax({{
+                url: '/api/Forum/GetForum/' + forumId,
+                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
                 type: 'POST',
                 dataType: 'json'
             }}).then(function (data) {{
-                                if (data.Total > 0) {{
-                                var result = data.Results[0].children[0];
+                                if (data.total > 0) {{
+                                var result = data.results[0].children[0];
                                        
                                 var option = new Option(result.text, result.id, true, true);
                                 forumsListSelect.append(option).trigger('change');
@@ -1074,9 +1268,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
         var allForumsOptionJs = allForumsOption ? "AllForumsOption: true," : string.Empty;
 
-        return $@"{Config.JQueryAlias}('#{forumDropDownId}').select2({{
+        return $@"$('#{forumDropDownId}').select2({{
             ajax: {{
-                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Forum/GetForums',
+                url: '/api/Forum/GetForums',
+                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
                 type: 'POST',
                 dataType: 'json',
                 data: function(params) {{
@@ -1098,12 +1293,12 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
                     var resultsPerPage = 15 * 2;
 
-                    var total = params.page == 0 ? data.Results.length : resultsPerPage;
+                    var total = params.page == 0 ? data.results.length : resultsPerPage;
 
                         return {{
-                        results: data.Results,
+                        results: data.results,
                         pagination: {{
-                            more: total < data.Total
+                            more: total < data.total
                         }}
                     }}
                 }}
@@ -1117,16 +1312,16 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                     return option.text;
                                 }}
 	                            if (option.id) {{
-	                                var $container = {Config.JQueryAlias}(""<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>"" + option.text + ""</span>"");
+	                                var $container = $(""<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>"" + option.text + ""</span>"");
                                     return $container;
 	                            }} else {{
-                                    var $container = {Config.JQueryAlias}(""<span class='select2-image-select-icon'><i class='fas fa-folder fa-fw text-warning me-1'></i>"" + option.text + ""</span>"");
+                                    var $container = $(""<span class='select2-image-select-icon'><i class='fas fa-folder fa-fw text-warning me-1'></i>"" + option.text + ""</span>"");
                                     return $container;
 	                            }}
 	        }},
             templateSelection: function (option) {{
 	                               if (option.id) {{
-	                               var $container = {Config.JQueryAlias}(""<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>"" + option.text + ""</span>"");
+	                               var $container = $(""<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>"" + option.text + ""</span>"");
                                        return $container;
 	                               }} else {{
 	                                   return option.text;
@@ -1143,6 +1338,16 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
             {forumSelect}
             ";
+    }
+
+    [NotNull]
+    public static string Select2LoadJs()
+    {
+         return @"$("".select2-select"").select2({
+                          width: '100%',
+                          theme: 'bootstrap-5',
+                          placeholder: $(this).attr('placeholder')
+                      });";
     }
 
     /// <summary>
@@ -1168,42 +1373,42 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string passwordStrongerText,
         [NotNull] string passwordWeakText)
     {
-        return $@"{Config.JQueryAlias}(document).ready(function () {{
-        var password = {Config.JQueryAlias}('#{passwordClientId}');
-        var passwordConfirm = {Config.JQueryAlias}('#{confirmPasswordClientId}');
+        return $@"$(document).ready(function () {{
+        var password = $('#{passwordClientId}');
+        var passwordConfirm = $('#{confirmPasswordClientId}');
         // Check if passwords match
-        {Config.JQueryAlias}('#{passwordClientId}, #{confirmPasswordClientId}').on('keyup', function () {{
+        $('#{passwordClientId}, #{confirmPasswordClientId}').on('keyup', function () {{
             if (password.val() !== '' && passwordConfirm.val() !== '' && password.val() === passwordConfirm.val()) {{
-                {Config.JQueryAlias}('#PasswordInvalid').hide();
-                password.removeClass('is-invalid');
+                $('#PasswordInvalid').hide();
+				password.removeClass('is-invalid');
                 passwordConfirm.removeClass('is-invalid');
             }} else {{
-                {Config.JQueryAlias}('#PasswordInvalid').show();
-                {Config.JQueryAlias}('#PasswordInvalid').html('{notMatchText}');
+                $('#PasswordInvalid').show();
+                $('#PasswordInvalid').html('{notMatchText}');
                 password.addClass('is-invalid');
                 passwordConfirm.addClass('is-invalid');
             }}
 
             var strongRegex=new RegExp(""^(?=.{{8,}})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$"",""g"");
-            var mediumRegex=new RegExp(""^(?=.{{7,}})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$"",""g"");
-            var okRegex=new RegExp(""(?=.{{{minimumChars},}}).*"",""g"");
+			var mediumRegex=new RegExp(""^(?=.{{7,}})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$"",""g"");
+			var okRegex=new RegExp(""(?=.{{{minimumChars},}}).*"",""g"");
 
-            {Config.JQueryAlias}('#passwordStrength').removeClass(""d-none"");
+            $('#passwordStrength').removeClass(""d-none"");
 
             if (okRegex.test(password.val()) === false) {{
-               {Config.JQueryAlias}('#passwordHelp').html('{passwordMinText}');
-               {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-danger w-25');
-
+			   $('#passwordHelp').html('{passwordMinText}');
+               $('#progress-password').removeClass().addClass('progress-bar bg-danger w-25');
+               
 
             }} else if (strongRegex.test(password.val())) {{
-                {Config.JQueryAlias}('#passwordHelp').html('{passwordGoodText}');
-                {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-success w-100');
+                $('#passwordHelp').html('{passwordGoodText}');
+				$('#progress-password').removeClass().addClass('progress-bar bg-success w-100');
             }} else if (mediumRegex.test(password.val())) {{
-                {Config.JQueryAlias}('#passwordHelp').html('{passwordStrongerText}');
-                {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-warning w-75');
+                $('#passwordHelp').html('{passwordStrongerText}');
+				$('#progress-password').removeClass().addClass('progress-bar bg-warning w-75');
             }} else {{
-                {Config.JQueryAlias}('#passwordHelp').html('{passwordWeakText}');
-                {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-warning w-50');
+			    $('#passwordHelp').html('{passwordWeakText}');
+                $('#progress-password').removeClass().addClass('progress-bar bg-warning w-50');
             }}
         }});
         let currForm1 = document.querySelector(""form"");
@@ -1231,16 +1436,26 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     }
 
     /// <summary>
-    /// Renders Modal open JS.
+    /// The do quick search JS.
     /// </summary>
-    /// <param name="clientId">The client id.</param>
+    /// <param name="url">
+    /// The url.
+    /// </param>
     /// <returns>
-    /// Returns the JS String
+    /// The <see cref="string"/>.
     /// </returns>
     [NotNull]
-    public static string OpenModalJs([NotNull] string clientId)
+    public static string DoQuickSearchJs(string url)
     {
-        return $"var myModal = new bootstrap.Modal(document.getElementById('{clientId}'), null);myModal.show();";
+        return $@"function quickSearch() {{
+                        var searchInput = $(""#QuickSearch"").val();
+
+                        if (searchInput.length) {{
+                            var url = ""{url}"";
+                     
+                            window.location.replace(url + ""?search="" + searchInput);
+                        }}
+                      }}";
     }
 
     /// <summary>
@@ -1252,7 +1467,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string DoSearchJs()
     {
-        return $"{Config.JQueryAlias}(document).ready(function() {{getSearchResultsData(0);}});";
+        return "document.addEventListener('DOMContentLoaded', function() { getSearchResultsData(0); })";
     }
 
     /// <summary>
@@ -1270,14 +1485,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string ForumIconLegendPopoverJs([NotNull] string content, [NotNull] string cssClass)
     {
-        return $@"Sys.Application.add_load(function(){{var popoverTriggerIconList = [].slice.call(document.querySelectorAll('.{cssClass}'));
+        return $@"var popoverTriggerIconList = [].slice.call(document.querySelectorAll('.{cssClass}'));
                       var popoverIconList = popoverTriggerIconList.map(function(popoverTriggerEl) {{
                            return new bootstrap.Popover(popoverTriggerEl,{{
                            html: true,
                            content: ""{content}"",
                            trigger: ""focus""
                            }});
-                    }});}});";
+                    }});";
     }
 
     /// <summary>
@@ -1296,17 +1511,17 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// Returns the JS String
     /// </returns>
     [NotNull]
-    public static string TopicLinkPopoverJs([NotNull] string title, [NotNull] string cssClass, [NotNull] string trigger)
+    public static string TopicLinkPopoverJs(
+        [NotNull] string title,
+        [NotNull] string cssClass,
+        [NotNull] string trigger)
     {
-        return $@"Sys.Application.add_load(function(){{
-                      var popoverTriggerModsList = [].slice.call(document.querySelectorAll('{cssClass}'));
-                      var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {{
-                           return new bootstrap.Popover(popoverTriggerEl,{{
+        return $@"$(document).ready(function() {{
+                     $('{cssClass}').popover({{
                            title: '{title}',
                            html: true,
                            trigger: '{trigger}',
                            template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body""></div></div>'
-                           }});
                 }});
                 }});";
     }
@@ -1323,8 +1538,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string ForumModsPopoverJs([NotNull] string title)
     {
-        return $@"Sys.Application.add_load(function(){{
-                      var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
+        return $@"var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
                       var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {{
                            return new bootstrap.Popover(popoverTriggerEl,{{
                            title: '{title}',
@@ -1332,9 +1546,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                            trigger: 'focus',
                            template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'
                            }});
-                }});
-
-       }});";
+                }});";
     }
 
     /// <summary>
@@ -1347,46 +1559,60 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     public static string HoverCardJs()
     {
         return $@"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ 
-                      {Config.JQueryAlias}('.hc-user').hovercard({{
+                      $('.hc-user').hovercard({{
                                       delay: {BoardContext.Current.BoardSettings.HoverCardOpenDelay}, 
                                       width: 350,
                                       loadingHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',
                                       errorHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}',
-                                      pointsText: '{BoardContext.Current.Get<ILocalization>().GetText("REPUTATION").ToJsString()}',
+                                      pointsText: '{BoardContext.Current.Get<ILocalization>().GetText("REPUTATION").ToJsString()}', 
                                       postsText: '{BoardContext.Current.Get<ILocalization>().GetText("POSTS").ToJsString()}'
-                      }});
+                      }}); 
                  }}";
     }
 
     /// <summary>
     /// Form Validator JS.
     /// </summary>
-    /// <param name="buttonClientId">
-    /// The button Client Id.
-    /// </param>
     /// <returns>
     /// Returns the JS String
     /// </returns>
     [NotNull]
-    public static string FormValidatorJs([NotNull] string buttonClientId)
+    public static string FormValidatorJs()
     {
-        return $@"(function() {{
-                'use strict';
-                window.addEventListener('load', function() {{
-                    var form = document.forms[0];
+        return @"$(document).ready( function () {
+                    $("".needs-validation"").validate({
+                errorElement: ""div"",
+                errorPlacement: function (error, element) {
+                    $(element).closest(""form"").addClass(""was-validated"");
+                    return true;
+                },
+            });
+                  });";
+    }
 
-                    var test = document.getElementById('{buttonClientId}');
-                    test.addEventListener('click', function(event) {{
-                        if (form.checkValidity() === false)
-                        {{
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }}
-                        form.classList.add('was-validated');
-                    }}, false);
-                   
-                }}, false);
-            }})();";
+    /// <summary>
+    /// Form Validator JS.
+    /// </summary>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    [NotNull]
+    public static string FormValidatorJQueryJs()
+    {
+        return @"var validator = $("".needs-validation"").validate({
+                errorElement: ""div"",
+                errorPlacement: function (error, element) {
+                    $(element).closest(""form"").addClass(""was-validated"");
+                    return true;
+                },
+            });";
+    }
+
+    [NotNull]
+    public static string ToolTipJs()
+    {
+        return @"if (typeof tooltipTriggerList !== 'undefined') {const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle=""tooltip""]')
+                 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))  }";
     }
 
     /// <summary>
@@ -1459,6 +1685,91 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     }
 
     /// <summary>
+    /// The BootBox notify JS.
+    /// </summary>
+    /// <param name="type">
+    /// The type.
+    /// </param>
+    /// <param name="body">
+    /// The body.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    [NotNull]
+    public static string NotifyJs([NotNull] string type, [NotNull] string body)
+    {
+        return $@"var iconFA = """";
+        var type = ""{type}"";
+
+        if (type == ""warning"") {{
+            iconFA = ""fa fa-exclamation-triangle"";
+        }}
+        else if (type == ""danger"") {{
+            iconFA = ""fa fa-exclamation-triangle"";
+        }}
+        else if (type == ""info"") {{
+            iconFA = ""fa fa-info-circle"";
+        }}
+        else if (type == ""success"") {{
+            iconFA = ""fa fa-check"";
+        }}
+
+        $.notify({{
+                title: ""{BoardContext.Current.BoardSettings.Name}"",
+                message: ""{body}"",
+                icon: iconFA
+            }},
+            {{
+                type: ""{type}"",
+                element: ""body"",
+                position: null,
+                placement: {{ from: ""top"", align: ""center"" }},
+                delay: {BoardContext.Current.BoardSettings.MessageNotifcationDuration} * 1000
+            }});";
+    }
+
+    /// <summary>
+    /// The BootBox notify JS.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    [NotNull]
+    public static string ModalNotifyJs()
+    {
+        return $@"function ShowModalNotify(type, body, formElement) {{var iconFA = """";
+        var type = type;
+
+        if (type == ""warning"") {{
+            iconFA = ""fa fa-exclamation-triangle"";
+        }}
+        else if (type == ""danger"") {{
+            iconFA = ""fa fa-exclamation-triangle"";
+        }}
+        else if (type == ""info"") {{
+            iconFA = ""fa fa-info-circle"";
+        }}
+        else if (type == ""success"") {{
+            iconFA = ""fa fa-check"";
+        }}
+
+        $.notify({{
+                title: ""{BoardContext.Current.BoardSettings.Name}"",
+                message: body,
+                icon: iconFA
+            }},
+            {{
+                type: type,
+                element: formElement,
+                position: null,
+                placement: {{ from: ""top"", align: ""center"" }},
+                delay: {BoardContext.Current.BoardSettings.MessageNotifcationDuration} * 1000
+            }});
+          }}";
+    }
+
+    /// <summary>
     /// Opens the BootBox Prompt Dialog JS.
     /// </summary>
     /// <param name="title">
@@ -1490,10 +1801,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         return $@"bootbox.prompt({{ 
                                       title: '{title}',
                                       message: '{message}',
-                                      value: '{value}',
+	                                  value: '{value}',
                                       buttons: {{cancel:{{label:'{cancel}'}}, confirm:{{label:'{ok}'}}}},
                                       callback: function(){{}}
-                                  }});";
+	                              }});";
     }
 
     /// <summary>
@@ -1517,9 +1828,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string selectClientId,
         [NotNull] string hiddenUserId)
     {
-        return $@"{Config.JQueryAlias}('#{selectClientId}').select2({{
+        return $@"$('#{selectClientId}').select2({{
             ajax: {{
-                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/User/GetUsers',
+                url: '/api/User/GetUsers',
+                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
@@ -1544,17 +1856,17 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
                     var resultsPerPage = 15 * 2;
 
-                    var total = params.page == 0 ? data.Results.length : resultsPerPage;
+                    var total = params.page == 0 ? data.results.length : resultsPerPage;
 
                     return {{
-                        results: data.Results,
+                        results: data.results,
                         pagination: {{
-                            more: total < data.Total
+                            more: total < data.total
                         }}
                     }}
                 }}
             }},
-            dropdownParent: {Config.JQueryAlias}(""#{parentId}""),
+            dropdownParent: $(""#{parentId}""),
             theme: 'bootstrap-5',
             allowClearing: false,
             placeholder: '{BoardContext.Current.Get<ILocalization>().GetText("ADD_USER")}',
@@ -1563,11 +1875,11 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
         }});
               
-             {Config.JQueryAlias}('#{selectClientId}').on('select2:select', function (e) {{
-                if (e.params.data.Total) {{ 
-                                                 {Config.JQueryAlias}('#{hiddenUserId}').val(e.params.data.Results[0].children[0].id);
+             $('#{selectClientId}').on('select2:select', function (e) {{
+                if (e.params.data.total) {{ 
+                                                 $('#{hiddenUserId}').val(e.params.data.results[0].children[0].id);
                                              }} else {{
-                                                 {Config.JQueryAlias}('#{hiddenUserId}').val(e.params.data.id);
+                                                 $('#{hiddenUserId}').val(e.params.data.id);
                                              }}
             }});";
     }
@@ -1628,9 +1940,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <summary>
     /// Renders the Load More on Scrolling JS.
     /// </summary>
-    /// <param name="buttonUniqueId">
-    /// The button Unique Id.
-    /// </param>
     /// <param name="buttonClientId">
     /// The button Client Id.
     /// </param>
@@ -1638,16 +1947,43 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// Returns the JS String
     /// </returns>
     [NotNull]
-    public static string LoadMoreOnScrolling([NotNull] string buttonUniqueId, [NotNull] string buttonClientId)
+    public static string LoadMoreOnScrolling(string url)
     {
-        return $@"{Config.JQueryAlias}(window).scroll(function () {{
-                           if ({Config.JQueryAlias}(window).scrollTop() == $(document).height() - {Config.JQueryAlias}(window).height()) {{
-                                 var btn = document.getElementById(""{buttonClientId}"");
-                                 if (btn != null) {{
-                                     __doPostBack('{buttonUniqueId}', '');
-                                  }}
-                              }}
-                         }});";
+        return $@"function GetCategories() {{
+
+                var categoryIndex = $('#category-index').val();
+
+                categoryIndex++;
+
+                var url = '{url}' + ""?index="" + categoryIndex;
+
+                $.ajax({{
+                    type: 'GET',
+                    url: url,
+
+                    success: function (response) {{
+                        $('#category-list').html(response);
+                     
+                        $('#category-index').val(categoryIndex);
+                    
+                    }},
+                    error: function (xhr, textStatus, error) {{
+                        console.log(xhr.statusText);
+                        console.log(textStatus);
+                        console.log(error);
+                    }}
+                }});
+            }}
+
+         $(document).ready(function () {{
+             $(window).scroll(function () {{
+            if ($(window).scrollTop() + $(window).height() == $(document).height()) {{
+                if ($('#category-info-more').length) {{
+                    GetCategories();
+                }}
+            }}
+        }});
+    }});";
     }
 
     /// <summary>
@@ -1663,10 +1999,50 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     public static string ToggleDiffSelectionJs([NotNull] string message)
     {
         return $@"function toggleSelection(source) {{
-                                              if ({Config.JQueryAlias}(""input[id*='Compare']:checked"").length > 2) {{
+                                              if ($(""input[id*='Compare']:checked"").length > 2) {{
                                                   source.checked = false;
                                                   bootbox.alert({message});
                                               }}
                                           }}";
+    }
+
+    /// <summary>
+    /// Renders toggleSelection Function JS.
+    /// </summary>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    [NotNull]
+    public static string SetGroupMaskJs()
+    {
+        return @"$(""#Save"").click(function(e) {
+            $("".accessMasks"").each(function () {
+                
+                var roleId = $(""#Input_Id"").val();
+
+                if (roleId)
+                {
+                    var forumId = $(this).find(""input[type='hidden']"").val();
+                    var accessMaskId =  $(this).find( ""select option:selected"").val(); 
+                    
+                    var data = {};
+
+                    data.UserId = forumId;
+                    data.PageSize = accessMaskId;
+                    data.PageNumber = roleId;
+                    
+                    var ajaxURL = ""/api/AccessMask/SetGroupMask"";
+                
+                $.ajax({
+                    url: ajaxURL,
+                    type: ""POST"",
+                    data: JSON.stringify(data),
+                    contentType: ""application/json; charset=utf-8"", 
+                    headers: { ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }
+                });
+            }
+        });
+
+        });";
     }
 }

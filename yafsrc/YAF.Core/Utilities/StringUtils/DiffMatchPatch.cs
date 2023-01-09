@@ -20,8 +20,8 @@ namespace YAF.Core.Utilities.StringUtils;
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 /// <summary>
 /// The compatibility extensions.
@@ -93,7 +93,6 @@ public enum Operation
     Equal
 }
 
-
 /**
      * Class representing one diff operation.
      */
@@ -159,7 +158,7 @@ public class DiffMatchPatch
         }
         else
         {
-            deadline = DateTime.Now + new TimeSpan(((long) (this.DiffTimeout * 1000)) * 10000);
+            deadline = DateTime.Now + new TimeSpan((long) (this.DiffTimeout * 1000) * 10000);
         }
 
         return this.DiffMain(text1, text2, checkLines, deadline);
@@ -197,15 +196,15 @@ public class DiffMatchPatch
 
         // Trim off common prefix (speedup).
         var commonLength = this.CommonPrefix(text1, text2);
-        var commonPrefix = text1.Substring(0, commonLength);
-        text1 = text1.Substring(commonLength);
-        text2 = text2.Substring(commonLength);
+        var commonPrefix = text1[..commonLength];
+        text1 = text1[commonLength..];
+        text2 = text2[commonLength..];
 
         // Trim off common suffix (speedup).
         commonLength = this.CommonSuffix(text1, text2);
-        var commonSuffix = text1.Substring(text1.Length - commonLength);
-        text1 = text1.Substring(0, text1.Length - commonLength);
-        text2 = text2.Substring(0, text2.Length - commonLength);
+        var commonSuffix = text1[^commonLength..];
+        text1 = text1[..^commonLength];
+        text2 = text2[..^commonLength];
 
         // Compute the diff on the middle block.
         diffs = this.Compute(text1, text2, checkLines, deadline);
@@ -213,7 +212,7 @@ public class DiffMatchPatch
         // Restore the prefix and suffix.
         if (commonPrefix.Length != 0)
         {
-            diffs.Insert(0, (new Diff(Operation.Equal, commonPrefix)));
+            diffs.Insert(0, new Diff(Operation.Equal, commonPrefix));
         }
 
         if (commonSuffix.Length != 0)
@@ -261,9 +260,9 @@ public class DiffMatchPatch
         {
             // Shorter text is inside the longer text (speedup).
             var op = text1.Length > text2.Length ? Operation.Delete : Operation.Insert;
-            diffs.Add(new Diff(op, longtext.Substring(0, i)));
+            diffs.Add(new Diff(op, longtext[..i]));
             diffs.Add(new Diff(Operation.Equal, shortText));
-            diffs.Add(new Diff(op, longtext.Substring(i + shortText.Length)));
+            diffs.Add(new Diff(op, longtext[(i + shortText.Length)..]));
             return diffs;
         }
 
@@ -404,7 +403,7 @@ public class DiffMatchPatch
         var delta = text1Length - text2Length;
         // If the total number of characters is odd, then the front path will
         // collide with the reverse path.
-        var front = (delta % 2 != 0);
+        var front = delta % 2 != 0;
         // Offsets for start and end of k loop.
         // Prevents mapping of space beyond the grid.
         var k1Start = 0;
@@ -458,6 +457,7 @@ public class DiffMatchPatch
                     {
                         continue;
                     }
+                    
                     // Mirror x2 onto top-left coordinate system.
                     var x2 = text1Length - v2[k2Offset];
                     if (x1 >= x2)
@@ -508,6 +508,7 @@ public class DiffMatchPatch
                     {
                         continue;
                     }
+                    
                     var x1 = v1[k1Offset];
                     var y1 = maxD + x1 - k1Offset;
                     // Mirror x2 onto top-left coordinate system.
@@ -539,10 +540,10 @@ public class DiffMatchPatch
          */
     private List<Diff> BisectSplit(string text1, string text2, int x, int y, DateTime deadline)
     {
-        var text1A = text1.Substring(0, x);
-        var text2A = text2.Substring(0, y);
-        var text1B = text1.Substring(x);
-        var substring = text2.Substring(y);
+        var text1A = text1[..x];
+        var text2A = text2[..y];
+        var text1B = text1[x..];
+        var substring = text2[y..];
 
         // Compute both diffs serially.
         var diffs = this.DiffMain(text1A, text2A, false, deadline);
@@ -616,13 +617,13 @@ public class DiffMatchPatch
                 if (lineArray.Count == maxLines)
                 {
                     // Bail out at 65535 because char 65536 == char 0.
-                    line = text.Substring(lineStart);
+                    line = text[lineStart..];
                     lineEnd = text.Length;
                 }
 
                 lineArray.Add(line);
                 lineHash.Add(line, lineArray.Count - 1);
-                chars.Append(((char) (lineArray.Count - 1)));
+                chars.Append((char) (lineArray.Count - 1));
             }
 
             lineStart = lineEnd + 1;
@@ -716,11 +717,11 @@ public class DiffMatchPatch
         // Truncate the longer string.
         if (text1Length > text2Length)
         {
-            text1 = text1.Substring(text1Length - text2Length);
+            text1 = text1[(text1Length - text2Length)..];
         }
         else if (text1Length < text2Length)
         {
-            text2 = text2.Substring(0, text1Length);
+            text2 = text2[..text1Length];
         }
 
         var textLength = Math.Min(text1Length, text2Length);
@@ -737,7 +738,7 @@ public class DiffMatchPatch
         var length = 1;
         while (true)
         {
-            var pattern = text1.Substring(textLength - length);
+            var pattern = text1[(textLength - length)..];
             var found = text2.IndexOf(pattern, StringComparison.Ordinal);
             if (found == -1)
             {
@@ -745,10 +746,11 @@ public class DiffMatchPatch
             }
 
             length += found;
-            if (found != 0 && text1.Substring(textLength - length) != text2.Substring(0, length))
+            if (found != 0 && text1[(textLength - length)..] != text2[..length])
             {
                 continue;
             }
+            
             best = length;
             length++;
         }
@@ -764,7 +766,6 @@ public class DiffMatchPatch
          *     suffix of text1, the prefix of text2, the suffix of text2 and the
          *     common middle.  Or null if there was no match.
          */
-
     protected string[] HalfMatch(string text1, string text2)
     {
         if (this.DiffTimeout <= 0)
@@ -828,18 +829,19 @@ public class DiffMatchPatch
         string bestShortTextA = string.Empty, bestShortTextB = string.Empty;
         while (j < shortText.Length && (j = shortText.IndexOf(seed, j + 1, StringComparison.Ordinal)) != -1)
         {
-            var prefixLength = this.CommonPrefix(longtext.Substring(i), shortText.Substring(j));
-            var suffixLength = this.CommonSuffix(longtext.Substring(0, i), shortText.Substring(0, j));
+            var prefixLength = this.CommonPrefix(longtext[i..], shortText[j..]);
+            var suffixLength = this.CommonSuffix(longtext[..i], shortText[..j]);
             if (bestCommon.Length >= suffixLength + prefixLength)
             {
                 continue;
             }
+
             bestCommon = shortText.Substring(j - suffixLength, suffixLength)
                          + shortText.Substring(j, prefixLength);
-            bestLongtextA = longtext.Substring(0, i - suffixLength);
-            bestLongtextB = longtext.Substring(i + prefixLength);
-            bestShortTextA = shortText.Substring(0, j - suffixLength);
-            bestShortTextB = shortText.Substring(j + prefixLength);
+            bestLongtextA = longtext[..(i - suffixLength)];
+            bestLongtextB = longtext[(i + prefixLength)..];
+            bestShortTextA = shortText[..(j - suffixLength)];
+            bestShortTextB = shortText[(j + prefixLength)..];
         }
 
         return bestCommon.Length * 2 >= longtext.Length ? new[] {bestLongtextA, bestLongtextB, bestShortTextA, bestShortTextB, bestCommon} : null;
@@ -890,10 +892,10 @@ public class DiffMatchPatch
 
                 // Eliminate an equality that is smaller or equal to the edits on both
                 // sides of it.
-                if (lastEquality != null && (lastEquality.Length <= Math.Max(lengthInsertions1, lengthDeletions1))
-                                         && (lastEquality.Length <= Math.Max(
-                                                 lengthInsertions2,
-                                                 length)))
+                if (lastEquality != null && lastEquality.Length <= Math.Max(lengthInsertions1, lengthDeletions1)
+                                         && lastEquality.Length <= Math.Max(
+                                             lengthInsertions2,
+                                             length))
                 {
                     // Duplicate record.
                     diffs.Insert(equalities.Peek(), new Diff(Operation.Delete, lastEquality));
@@ -948,9 +950,9 @@ public class DiffMatchPatch
                     {
                         // Overlap found.
                         // Insert an equality and trim the surrounding edits.
-                        diffs.Insert(pointer, new Diff(Operation.Equal, insertion.Substring(0, overlapLength1)));
-                        diffs[pointer - 1].Text = deletion.Substring(0, deletion.Length - overlapLength1);
-                        diffs[pointer + 1].Text = insertion.Substring(overlapLength1);
+                        diffs.Insert(pointer, new Diff(Operation.Equal, insertion[..overlapLength1]));
+                        diffs[pointer - 1].Text = deletion[..^overlapLength1];
+                        diffs[pointer + 1].Text = insertion[overlapLength1..];
                         pointer++;
                     }
                 }
@@ -960,11 +962,11 @@ public class DiffMatchPatch
                     {
                         // Reverse overlap found.
                         // Insert an equality and swap and trim the surrounding edits.
-                        diffs.Insert(pointer, new Diff(Operation.Equal, deletion.Substring(0, overlapLength2)));
+                        diffs.Insert(pointer, new Diff(Operation.Equal, deletion[..overlapLength2]));
                         diffs[pointer - 1].Operation = Operation.Insert;
-                        diffs[pointer - 1].Text = insertion.Substring(0, insertion.Length - overlapLength2);
+                        diffs[pointer - 1].Text = insertion[..^overlapLength2];
                         diffs[pointer + 1].Operation = Operation.Delete;
-                        diffs[pointer + 1].Text = deletion.Substring(overlapLength2);
+                        diffs[pointer + 1].Text = deletion[overlapLength2..];
                         pointer++;
                     }
                 }
@@ -999,9 +1001,9 @@ public class DiffMatchPatch
                 var commonOffset = this.CommonSuffix(equality1, edit);
                 if (commonOffset > 0)
                 {
-                    var commonString = edit.Substring(edit.Length - commonOffset);
-                    equality1 = equality1.Substring(0, equality1.Length - commonOffset);
-                    edit = commonString + edit.Substring(0, edit.Length - commonOffset);
+                    var commonString = edit[^commonOffset..];
+                    equality1 = equality1[..^commonOffset];
+                    edit = commonString + edit[..^commonOffset];
                     equality2 = commonString + equality2;
                 }
 
@@ -1015,8 +1017,8 @@ public class DiffMatchPatch
                 while (edit.Length != 0 && equality2.Length != 0 && edit[0] == equality2[0])
                 {
                     equality1 += edit[0];
-                    edit = edit.Substring(1) + equality2[0];
-                    equality2 = equality2.Substring(1);
+                    edit = edit[1..] + equality2[0];
+                    equality2 = equality2[1..];
                     var score = this.CleanupSemanticScore(equality1, edit)
                                 + this.CleanupSemanticScore(edit, equality2);
                     // The >= encourages trailing rather than leading whitespace on
@@ -1025,6 +1027,7 @@ public class DiffMatchPatch
                     {
                         continue;
                     }
+
                     bestScore = score;
                     bestEquality1 = equality1;
                     bestEdit = edit;
@@ -1082,7 +1085,7 @@ public class DiffMatchPatch
         // 'whitespace'.  Since this function's purpose is largely cosmetic,
         // the choice has been made to use each language's native features
         // rather than force total conformity.
-        var char1 = one[one.Length - 1];
+        var char1 = one[^1];
         var char2 = two[0];
         var nonAlphaNumeric1 = !char.IsLetterOrDigit(char1);
         var nonAlphaNumeric2 = !char.IsLetterOrDigit(char2);
@@ -1171,27 +1174,27 @@ public class DiffMatchPatch
                                 var commonLength = this.CommonPrefix(textInsert, textDelete);
                                 if (commonLength != 0)
                                 {
-                                    if ((pointer - countDelete - countInsert) > 0 && diffs[pointer - countDelete - countInsert - 1].Operation == Operation.Equal)
+                                    if (pointer - countDelete - countInsert > 0 && diffs[pointer - countDelete - countInsert - 1].Operation == Operation.Equal)
                                     {
-                                        diffs[pointer - countDelete - countInsert - 1].Text += textInsert.Substring(0, commonLength);
+                                        diffs[pointer - countDelete - countInsert - 1].Text += textInsert[..commonLength];
                                     }
                                     else
                                     {
-                                        diffs.Insert(0, new Diff(Operation.Equal, textInsert.Substring(0, commonLength)));
+                                        diffs.Insert(0, new Diff(Operation.Equal, textInsert[..commonLength]));
                                         pointer++;
                                     }
 
-                                    textInsert = textInsert.Substring(commonLength);
-                                    textDelete = textDelete.Substring(commonLength);
+                                    textInsert = textInsert[commonLength..];
+                                    textDelete = textDelete[commonLength..];
                                 }
 
                                 // Factor out any common suffixes.
                                 commonLength = this.CommonSuffix(textInsert, textDelete);
                                 if (commonLength != 0)
                                 {
-                                    diffs[pointer].Text = textInsert.Substring(textInsert.Length - commonLength) + diffs[pointer].Text;
-                                    textInsert = textInsert.Substring(0, textInsert.Length - commonLength);
-                                    textDelete = textDelete.Substring(0, textDelete.Length - commonLength);
+                                    diffs[pointer].Text = textInsert[^commonLength..] + diffs[pointer].Text;
+                                    textInsert = textInsert[..^commonLength];
+                                    textDelete = textDelete[..^commonLength];
                                 }
                             }
 
@@ -1231,7 +1234,7 @@ public class DiffMatchPatch
                 }
             }
 
-            if (diffs[diffs.Count - 1].Text.Length == 0)
+            if (diffs[^1].Text.Length == 0)
             {
                 diffs.RemoveAt(diffs.Count - 1); // Remove the dummy entry at the end.
             }
@@ -1242,7 +1245,7 @@ public class DiffMatchPatch
             var changes = false;
             pointer = 1;
             // Intentionally ignore the first and last element (don't need checking).
-            while (pointer < (diffs.Count - 1))
+            while (pointer < diffs.Count - 1)
             {
                 if (diffs[pointer - 1].Operation == Operation.Equal && diffs[pointer + 1].Operation == Operation.Equal)
                 {
@@ -1250,7 +1253,7 @@ public class DiffMatchPatch
                     if (diffs[pointer].Text.EndsWith(diffs[pointer - 1].Text, StringComparison.Ordinal))
                     {
                         // Shift the edit over the previous equality.
-                        diffs[pointer].Text = diffs[pointer - 1].Text + diffs[pointer].Text.Substring(0, diffs[pointer].Text.Length - diffs[pointer - 1].Text.Length);
+                        diffs[pointer].Text = diffs[pointer - 1].Text + diffs[pointer].Text[..^diffs[pointer - 1].Text.Length];
                         diffs[pointer + 1].Text = diffs[pointer - 1].Text + diffs[pointer + 1].Text;
                         diffs.Splice(pointer - 1, 1);
                         changes = true;
@@ -1259,7 +1262,7 @@ public class DiffMatchPatch
                     {
                         // Shift the edit over the next equality.
                         diffs[pointer - 1].Text += diffs[pointer + 1].Text;
-                        diffs[pointer].Text = diffs[pointer].Text.Substring(diffs[pointer + 1].Text.Length) + diffs[pointer + 1].Text;
+                        diffs[pointer].Text = diffs[pointer].Text[diffs[pointer + 1].Text.Length..] + diffs[pointer + 1].Text;
                         diffs.Splice(pointer + 1, 1);
                         changes = true;
                     }

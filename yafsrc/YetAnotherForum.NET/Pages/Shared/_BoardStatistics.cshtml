@@ -1,0 +1,102 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Extensions
+@using YAF.Core.Model
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+@using YAF.Types.Models
+
+@inject BoardContext Current
+
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header d-flex align-items-center">
+                @Html.IconHeader("chart-bar", "COMMON", "STATS", "fa-2x")
+            </div>
+            <div class="row">
+                <div class="col">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            @{
+                                // Forum Statistics
+                                var postsStatistics = Current.Get<IDataCache>().GetOrSet(
+                                    Constants.Cache.BoardStats,
+                                    () => Current.GetRepository<Board>().PostStats(Current.PageBoardID, true),
+                                TimeSpan.FromMinutes(Current.BoardSettings.ForumStatisticsCacheTimeout));
+
+                                var latestUser = Current.Get<IDataCache>().GetOrSet(
+                                    Constants.Cache.BoardUserStats,
+                                    () => Current.GetRepository<User>().Latest(Current.PageBoardID),
+                                TimeSpan.FromMinutes(Current.BoardSettings.BoardUserStatsCacheTimeout));
+
+                                var statsPostsTopicCount = Current.Get<ILocalization>().GetTextFormatted(
+                                    "stats_posts",
+                                    postsStatistics.Posts,
+                                    postsStatistics.Topics,
+                                    postsStatistics.Forums);
+
+                                // Member Count
+                                var membersCount = Current.Get<IDataCache>().GetOrSet(
+                                    Constants.Cache.BoardMembers,
+                                    () => Current.GetRepository<User>().BoardMembers(Current.PageBoardID),
+                                TimeSpan.FromMinutes(Current.BoardSettings.BoardUserStatsCacheTimeout));
+
+                                var statsMembersCount = Current.Get<ILocalization>().GetTextFormatted("stats_members", membersCount);
+                            }
+                            @statsPostsTopicCount
+                        </li>
+
+                        @if (postsStatistics.LastPost.HasValue)
+                        {
+                            <li class="list-group-item">
+                                <label>
+                                    @Html.LocalizedText("DEFAULT", "LASTPOST")
+                                    @Html.DisplayDateTime(DateTimeFormat.BothTopic, postsStatistics.LastPost.Value))
+                                    @Html.LocalizedText("SEARCH", "BY"):
+                                </label>
+                                @Html.UserLink(postsStatistics.LastUserID.Value, Current.BoardSettings.EnableDisplayName
+                                    ? postsStatistics.LastUserDisplayName
+                                    : postsStatistics.LastUser, postsStatistics.LastUserSuspended,
+                                    postsStatistics.LastUserStyle)
+                            </li>
+                        }
+
+                        <li class="list-group-item">
+                            @statsMembersCount
+                        </li>
+                        <li class="list-group-item">
+                            <label>
+                                @Html.LocalizedText("COMMON", "STATS_LASTMEMBER")
+                            </label>
+                            @Html.UserLink(latestUser.ID, latestUser.DisplayOrUserName(), latestUser.Suspended,
+                                latestUser.UserStyle)
+                        </li>
+                    </ul>
+                </div>
+                @if (Model.PageBoardContext.BoardSettings.DeniedRegistrations > 0 || Model.PageBoardContext.BoardSettings.BannedUsers > 0
+                   || Model.PageBoardContext.BoardSettings.ReportedSpammers > 0)
+                {
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <h6>
+                                    @Html.LocalizedText("COMMON", "STATS_SPAM")
+                                </h6>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.LocalizedTextFormatted("STATS_SPAM_DENIED", Current.BoardSettings.DeniedRegistrations.ToString())
+                            </li>
+                            <li class="list-group-item">
+                                @Html.LocalizedTextFormatted("STATS_SPAM_BANNED", Current.BoardSettings.BannedUsers.ToString())
+                            </li>
+                            <li class="list-group-item">
+                                @Html.LocalizedTextFormatted("STATS_SPAM_REPORTED", Current.BoardSettings.ReportedSpammers.ToString())
+                            </li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

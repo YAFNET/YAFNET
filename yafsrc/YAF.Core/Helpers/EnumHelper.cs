@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -40,7 +40,7 @@ public static class EnumHelper
     /// <typeparam name="T">
     /// </typeparam>
     /// <returns>
-    /// The <see cref="IDictionary"/>.
+    /// Returns the Dictionary
     /// </returns>
     public static IDictionary<int, string> EnumToDictionary<T>()
     {
@@ -99,7 +99,10 @@ public static class EnumHelper
                 var display = Enum.GetName(enumType, value);
 
                 // Return the first if there was a match.
-                if (field.GetCustomAttributes(typeof(StringValueAttribute), false) is StringValueAttribute[] { Length: > 0 } attribs)
+                if (field.GetCustomAttributes(typeof(StringValueAttribute), false) is StringValueAttribute[]
+                        {
+                            Length: > 0
+                        } attribs)
                 {
                     display = attribs[0].StringValue;
                 }

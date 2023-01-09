@@ -1,0 +1,249 @@
+@page "{copy:bool}/{fa:int?}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@model EditForumModel
+
+<form method="post" class="needs-validation">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("comments")
+                    @if (Model.Input.Id > 0)
+                    {
+                        @Html.LocalizedText("ADMIN_EDITFORUM", "HEADER1")<strong class="ms-1">@Model.Input.Name</strong>
+                    }
+                    else
+                    {
+                        @Html.LocalizedText("ADMIN_EDITFORUM", "NEW_FORUM")
+                    }
+                </div>
+            <div class="card-body">
+                <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id"/>
+                <input type="hidden" asp-for="Input.Copy" value="@Model.Input.Copy"/>
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Name"
+                               localized-tag="NAME" localized-page="ADMIN_EDITFORUM"></label>
+                        <input type="text" asp-for="Input.Name"
+                               required="required"
+                               class="form-control"/>
+                        <div class="invalid-feedback">
+                            @Html.LocalizedText("MSG_NAME_FORUM")
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Description"
+                               localized-tag="DESCRIPTION" localized-page="ADMIN_EDITFORUM"></label>
+                        <input type="text" asp-for="Input.Description"
+                               class="form-control"
+                               required="required"/>
+                        <div class="invalid-feedback">
+                            @Html.LocalizedText("MSG_VALUE")
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.CategoryID"
+                               localized-tag="CATEGORY" localized-page="ADMIN_EDITFORUM"></label>
+                        <select asp-for="Input.CategoryID"
+                                onchange="this.form.submit();"
+                                class="select2-image-select">
+                            @foreach (var item in Model.Categories)
+                            {
+                                <option value="@item.Value" item="@item" icon-name="folder">
+                                    @item.Text
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.ParentID"
+                               localized-tag="PARENT_FORUM" localized-page="ADMIN_EDITFORUM"></label>
+                        <select asp-for="Input.ParentID"
+                                class="select2-image-select"
+                                placeholder="@Html.LocalizedText("COMMON", "NONE")"
+                                data-allow-clear="true">
+                            @foreach (var item in Model.ParentForums)
+                            {
+                                <option value="@item.Value" item="@item" icon-name="comments">
+                                    @item.Text
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <hr/>
+                <h3>
+                    @Html.LocalizedText("ADMIN_EDITFORUM", "HEADER2")
+                </h3>
+                <div class="row">
+                    @for (var index = 0; index < Model.AccessList.Count; index++)
+                    {
+                        <div class="mb-3 col-md-4">
+                            <input type="hidden" asp-for="AccessList[index].GroupID" value="@Model.AccessList[index].GroupID" />
+                            <label asp-for="AccessList[index].AccessMaskID">
+                                @Html.Raw(Model.AccessList[index].GroupName)
+                            </label>
+                            <select asp-for="AccessList[index].AccessMaskID"
+                                    asp-items="Model.AccessMaskList"
+                                    class="form-select">
+                            </select>
+                        </div>
+                    }
+                </div>
+
+                <hr/>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.RemoteURL"
+                           localized-tag="REMOTE_URL" localized-page="ADMIN_EDITFORUM"></label>
+
+                    <input type="text" asp-for="Input.RemoteURL"
+                           class="form-control"/>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.SortOrder"
+                               localized-tag="SORT_ORDER" localized-page="ADMIN_EDITFORUM"></label>
+                        <input type="number" asp-for="Input.SortOrder"
+                               class="form-control"
+                               data-min="1" min="1"/>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.ThemeURL"
+                               localized-tag="THEME" localized-page="ADMIN_EDITFORUM"></label>
+
+                        <select asp-for="Input.ThemeURL" class="select2-select" asp-items="Model.Themes" placeholder="@(Model.GetText("ADMIN_EDITFORUM", "CHOOSE_THEME"))">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.HideNoAccess"
+                               localized-tag="HIDE_NOACESS" localized-page="ADMIN_EDITFORUM"></label>
+
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.HideNoAccess" class="form-check-label"/>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Locked"
+                               localized-tag="LOCKED" localized-page="ADMIN_EDITFORUM"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.Locked" class="form-check-label"/>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.IsTest"
+                               localized-tag="NO_POSTSCOUNT" localized-page="ADMIN_EDITFORUM"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.IsTest" class="form-check-label"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.Moderated"
+                           localized-tag="PRE_MODERATED" localized-page="ADMIN_EDITFORUM"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" asp-for="Input.Moderated"
+                               onchange="this.form.submit();"
+                               class="form-check-label"/>
+                    </div>
+                </div>
+                    
+                @if (Model.Input.Moderated)
+                {
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.ModerateNewTopicOnly"
+                               localized-tag="MODERATED_NEWTOPIC_ONLY" localized-page="ADMIN_EDITFORUM"></label>
+
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.ModerateNewTopicOnly" class="form-check-label"/>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               localized-tag="MODERATED_COUNT" localized-page="ADMIN_EDITFORUM"></label>
+
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.ModerateAllPosts" role="switch" AutoPostBack="true"
+                                   onchange="this.form.submit();"
+                                   class="form-check-label"/>
+                            <label class="form-check-label" asp-for="Input.ModerateAllPosts" localized-tag="MODERATE_ALL_POSTS"></label>
+
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        @if (!this.Model.Input.ModerateAllPosts)
+                        {
+                            <input type="number" asp-for="Input.ModeratedPostCount"
+                                   class="form-control"/>
+                        }
+                    </div>
+                }
+                    
+                <div class="mb-3">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.ImageURL"
+                           localized-tag="FORUM_IMAGE" localized-page="ADMIN_EDITFORUM"></label>
+                    <select asp-for="Input.ImageURL"
+                            class="select2-image-select"
+                            placeholder="@Html.LocalizedText("COMMON", "NONE")"
+                            data-allow-clear="true">
+                        @foreach (var item in Model.ForumImages)
+                        {
+                            <option value="@item.Value" item="@item">
+                                @item.Text
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.Styles"
+                           localized-tag="STYLES" localized-page="ADMIN_EDITFORUM"></label>
+                    <input type="text" asp-for="Input.Styles" class="form-control"/>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <button class="me-2"
+                        asp-page-handler="Save"
+                        asp-route-fa="Model.Re"
+                        button-style="Primary"
+                        Icon="save" 
+                        text-localized-tag="SAVE">
+                </button>
+                <a button-style="Secondary"
+                   asp-page="@ForumPages.Admin_Forums.GetPageName()"
+                   Icon="times"
+                   text-localized-tag="CANCEL">
+                </a>
+            </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

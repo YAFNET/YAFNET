@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Services;
 
+using YAF.Types.Objects;
+
 /// <summary>
 /// The YAF board folders.
 /// </summary>
@@ -33,9 +35,9 @@ public class BoardFolders
     /// Gets BoardFolder.
     /// </summary>
     public string BoardFolder =>
-        Config.MultiBoardFolders
-            ? $"{Config.BoardRoot}{BoardContext.Current.Get<ControlSettings>().BoardID}/"
-            : Config.BoardRoot;
+        BoardContext.Current.Get<BoardConfiguration>().MultiBoardFolders
+            ? $"{BoardContext.Current.Get<BoardConfiguration>().BoardRoot}{BoardContext.Current.Get<ControlSettings>().BoardID}/"
+            : BoardContext.Current.Get<BoardConfiguration>().BoardRoot;
 
     /// <summary>
     /// Gets Uploads.

@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -23,9 +23,9 @@
  */
 namespace YAF.Types.Extensions;
 
-using System.Linq;
-using System.Security.Permissions;
-using System.Security.Policy;
+using System.Text;
+
+using YAF.Types;
 
 /// <summary>
 /// The type extensions.
@@ -39,12 +39,20 @@ public static class TypeExtensions
     /// The source type.
     /// </param>
     /// <returns>
-    /// Returns the Signing Key
     /// </returns>
-    public static StrongNamePublicKeyBlob GetSigningKey([NotNull] this Type sourceType)
+    public static string GetSigningKey([NotNull] this Type sourceType)
     {
         CodeContracts.VerifyNotNull(sourceType);
 
-        return sourceType.Assembly.Evidence.OfType<StrongName>().Select(t => t.PublicKey).FirstOrDefault();
+        var key = new StringBuilder();
+
+        var pk = sourceType.Assembly.GetName().GetPublicKey();
+
+        for (var i = 0; i < pk.GetLength(0); i++)
+        {
+            key.AppendFormat("{0:x2}", pk[i]);
+        }
+
+        return key.ToString().ToUpperInvariant();
     }
 }

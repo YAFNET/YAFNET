@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,14 +24,18 @@
 
 namespace YAF.Core.Services.Localization;
 
-using Newtonsoft.Json;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Web.Hosting;
+using System.Web;
 
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
+
+using Newtonsoft.Json;
+
+using YAF.Types.Attributes;
 using YAF.Types.Objects.Language;
 
 /// <summary>
@@ -65,7 +69,7 @@ public class Localization : ILocalization
     private Localizer localizer;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Localization"/> class.
+    /// Initializes a new instance of the <see cref="Localization"/> class. 
     ///   Initializes a new instance of the <see cref="YAF.Core"/> class.
     /// </summary>
     public Localization()
@@ -73,7 +77,7 @@ public class Localization : ILocalization
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Localization"/> class.
+    /// Initializes a new instance of the <see cref="Localization"/> class. 
     /// Initializes a new instance of the <see cref="YAF.Core"/> class.
     /// </summary>
     /// <param name="transPage">
@@ -258,7 +262,7 @@ public class Localization : ILocalization
     }
 
     /// <summary>
-    /// Gets the attribute encoded text.
+    /// Gets the attribute encoded text. 
     /// </summary>
     /// <param name="text">
     /// The text.
@@ -310,10 +314,10 @@ public class Localization : ILocalization
 
                 BoardContext.Current.Get<IDataCache>().Remove($"Localizer.{filename}");
 #endif
-            BoardContext.Current.Get<ILoggerService>()
+            BoardContext.Current.Get<ILogger<Localization>>()
                 .Log(
                     BoardContext.Current.PageUserID,
-                    $"{page.ToLower()}.ascx",
+                    $"{page.ToLower()}",
                     $"Missing Translation For {page.ToUpper()}.{tag.ToUpper()}");
 
             return $"[{page.ToUpper()}.{tag.ToUpper()}]";
@@ -405,7 +409,7 @@ public class Localization : ILocalization
 
                 BoardContext.Current.Get<IDataCache>().Remove($"Localizer.{filename}");
 #endif
-            BoardContext.Current.Get<ILoggerService>().Log(
+            BoardContext.Current.Get<ILogger<Localization>>().Log(
                 BoardContext.Current.PageUserID,
                 $"{page.ToLower()}.ascx",
                 $"Missing Translation For {page.ToUpper()}.{tag.ToUpper()}");
@@ -435,7 +439,7 @@ public class Localization : ILocalization
     {
         return this.GetLocalizedTextInternal(page, tag).IsSet();
     }
-
+        
     /// <summary>
     /// Formats a localized string -- but verifies the parameter count matches
     /// </summary>
@@ -498,10 +502,9 @@ public class Localization : ILocalization
 #endif
         if (this.localizer == null)
         {
-            this.localizer =
-                new Localizer(
-                    HostingEnvironment.MapPath($"{BoardInfo.ForumServerFileRoot}languages/{fileName}"),
-                    !isInstallPage);
+            this.localizer = new Localizer(
+                Path.Combine(BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath, "languages", fileName),
+                !isInstallPage);
 
 #if !DEBUG
                 BoardContext.Current.Get<IDataCache>().Set($"Localizer.{fileName}", this.localizer);
@@ -521,11 +524,12 @@ public class Localization : ILocalization
 
             if (this.defaultLocale == null)
             {
-                this.defaultLocale =
-                    new Localizer(
-                        HostingEnvironment.MapPath(
-                            $"{BoardInfo.ForumServerFileRoot}languages/english.json"),
-                        !isInstallPage);
+                this.defaultLocale = new Localizer(
+                    Path.Combine(
+                        BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath,
+                        "languages",
+                        "english.json"),
+                    !isInstallPage);
 #if !DEBUG
                     BoardContext.Current.Get<IDataCache>().Set("DefaultLocale",this.defaultLocale);
 #endif

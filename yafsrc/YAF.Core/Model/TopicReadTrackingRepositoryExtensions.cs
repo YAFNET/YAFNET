@@ -26,6 +26,7 @@ namespace YAF.Core.Model;
 
 using System;
 
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>

@@ -24,7 +24,7 @@
 
 namespace YAF.Core.BasePages;
 
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The account page.
@@ -34,31 +34,16 @@ public class AccountPage : ForumPage
     /// <summary>
     /// Initializes a new instance of the <see cref="AccountPage"/> class.
     /// </summary>
-    public AccountPage()
-        : this(null, ForumPages.Board)
-    {
-        this.IsAccountPage = true;
-        this.IsProtected = false;
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AccountPage"/> class.
-    /// </summary>
     /// <param name="transPage">
     /// The trans page.
     /// </param>
-    /// <param name="pageType">
-    /// The page Type.
+    /// <param name="page">
+    /// The page.
     /// </param>
-    public AccountPage([CanBeNull] string transPage, ForumPages pageType)
-        : base(transPage, pageType)
+    public AccountPage([CanBeNull] string transPage, ForumPages page)
+        : base(transPage, page)
     {
         this.IsAccountPage = true;
         this.IsProtected = false;
     }
-
-    /// <summary>
-    /// Gets the Page Name.
-    /// </summary>
-    public override string PageName => $"Account_{base.PageName}";
 }

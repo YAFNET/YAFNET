@@ -24,23 +24,25 @@
 
 namespace YAF.Core.Controllers;
 
-using System.Web.Http;
+using System.Threading.Tasks;
+using System;
 
-using YAF.Types.Interfaces.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
+
+using YAF.Types.Models;
 using YAF.Types.Objects;
+using YAF.Core.BasePages;
 using YAF.Types.Objects.Model;
 
 /// <summary>
 /// The User controller.
 /// </summary>
-[RoutePrefix("api")]
-public class UserController : ApiController, IHaveServiceLocator
+[Produces("application/json")]
+[Route("api/[controller]")]
+[ApiController]
+public class UserController : ForumBaseController
 {
-    /// <summary>
-    ///   Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
     /// <summary>
     /// Gets all found Users.
     /// </summary>
@@ -48,20 +50,20 @@ public class UserController : ApiController, IHaveServiceLocator
     /// The search topic.
     /// </param>
     /// <returns>
-    /// The <see cref="IHttpActionResult"/>.
+    /// The <see cref="IActionResult"/>.
     /// </returns>
-    [Route("User/GetUsers")]
-    [HttpPost]
-    public IHttpActionResult GetUsers(SearchTopic searchTopic)
+    [ValidateAntiForgeryToken]
+    [HttpPost("GetUsers")]
+    public IActionResult GetUsers([FromBody] SearchTopic searchTopic)
     {
-        if (!BoardContext.Current.IsAdmin && !BoardContext.Current.IsForumModerator)
+        if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.IsForumModerator)
         {
             return this.NotFound();
         }
 
         var users = this.Get<IAspNetUsersHelper>().GetUsersPaged(
-            BoardContext.Current.PageBoardID,
-            searchTopic.Page,
+            this.PageBoardContext.PageBoardID,
+            this.PageBoardContext.PageIndex,
             15,
             searchTopic.SearchTerm,
             null,
@@ -73,19 +75,60 @@ public class UserController : ApiController, IHaveServiceLocator
 
         var usersList = (from PagedUser user in users
                          select new SelectOptions
-                                {
-                                    text = BoardContext.Current.BoardSettings.EnableDisplayName
-                                               ? user.DisplayName
-                                               : user.Name,
-                                    id = user.UserID.ToString()
-                                }).ToList();
+                                    {
+                                        text = this.PageBoardContext.BoardSettings.EnableDisplayName
+                                                   ? user.DisplayName
+                                                   : user.Name,
+                                        id = user.UserID.ToString()
+                                    }).ToList();
 
         var pagedUsers = new SelectPagedOptions
-                         {
-                             Total = users.Any() ? users.FirstOrDefault().TotalRows : 0,
-                             Results = usersList
-                         };
+                              {
+                                  Total = !users.NullOrEmpty() ? users.FirstOrDefault().TotalRows : 0,
+                                  Results = usersList
+                              };
 
         return this.Ok(pagedUsers);
+    }
+
+    /// <summary>
+    /// Gets the forum user info as JSON string for the hover cards
+    /// </summary>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    [ValidateAntiForgeryToken]
+    [Authorize]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("GetMentionUsers")]
+    public Task<ActionResult> GetMentionUsers(string users)
+    {
+        try
+        {
+            // Check if user has access
+            if (BoardContext.Current == null)
+            {
+                return Task.FromResult<ActionResult>(this.NotFound());
+            }
+
+            var searchQuery = users;
+
+            var usersList = this.GetRepository<User>().Get(
+                user => this.PageBoardContext.BoardSettings.EnableDisplayName
+                            ? user.DisplayName.StartsWith(searchQuery)
+                            : user.Name.StartsWith(searchQuery));
+
+            var userList = usersList.AsEnumerable().Where(u => !this.Get<IUserIgnored>().IsIgnored(u.ID)).Select(
+                u => new { id = u.ID, name = u.DisplayOrUserName() });
+
+            return Task.FromResult<ActionResult>(this.Ok(userList));
+        }
+        catch (Exception x)
+        {
+            this.Get<ILogger<UserController>>().Log(BoardContext.Current != null ? this.PageBoardContext.PageUserID : null, this, x, EventLogTypes.Information);
+
+            return Task.FromResult<ActionResult>(this.NotFound());
+        }
     }
 }

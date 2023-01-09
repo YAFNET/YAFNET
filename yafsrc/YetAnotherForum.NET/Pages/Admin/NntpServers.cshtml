@@ -1,0 +1,101 @@
+@page "{handler?}"
+
+@model NntpServersModel
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("newspaper","ADMIN_NNTPSERVERS","TITLE")
+                </div>
+                <div class="card-body">
+                    @if (!Model.List.NullOrEmpty())
+                    {
+                        <ul class="list-group">
+                            @foreach (var item in Model.List)
+                            {
+                                <li class="list-group-item list-group-item-action list-group-item-menu">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">
+                                            @Html.Raw(item.Name)
+                                        </h5>
+                                    </div>
+                                    <p class="mb-1">
+                                        <span class="fw-bold">
+                                            @Html.LocalizedText("ADMIN_NNTPSERVERS", "ADRESS"):
+                                        </span>
+                                        @Html.Raw(item.Address)
+                                    </p>
+                                    <small>
+                                        <div class="btn-group btn-group-sm">
+                                            <button bs-toggle="ajax-modal"
+                                                bs-target-url="@(Url.Page("NntpServers", "Edit", new {id = item.ID}))"
+                                                button-style="Info"
+                                                button-size="Small"
+                                                Icon="edit"
+                                                text-localized-tag="EDIT">
+                                            </button>
+                                            <button button-style="Danger"
+                                                button-size="Small"
+                                                asp-page-handler="Delete"
+                                                asp-route-id="@Html.Raw(item.ID)"
+                                                Icon="trash"
+                                                text-localized-tag="DELETE"
+                                            return-confirm-tag="DELETE_SERVER">
+                                            </button>
+                                        </div>
+                                    </small>
+                                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                        <button button-style="None"
+                                                bs-toggle="ajax-modal"
+                                                bs-target-url="@(Url.Page("NntpServers", "Edit", new {id = item.ID}))"
+                                                class="dropdown-item"
+                                                Icon="edit"
+                                                text-localized-tag="EDIT">
+                                        </button>
+                                        <button button-style="None"
+                                                class="dropdown-item"
+                                                asp-page-handler="Delete"
+                                                asp-route-id="@Html.Raw(item.ID)"
+                                                Icon="trash"
+                                                text-localized-tag="DELETE"
+                                                return-confirm-tag="DELETE_SERVER">
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <button button-style="None"
+                                                class="dropdown-item"
+                                        bs-toggle="ajax-modal"
+                                                bs-target-url="@(Url.Page("NntpServers", "Add"))"
+                                                Icon="plus-square"
+                                                text-localized-tag="NEW_SERVER"></button>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <empty icon="newspaper"
+                               header-text-page="ADMIN_NNTPSERVERS" header-text-tag="EMPTY_HEADER"
+                               message-text-page="ADMIN_NNTPSERVERS" message-text-tag="EMPTY_MESSAGE">
+                        </empty>
+                    }
+                </div>
+                    <div class="card-footer text-center">
+                        <button button-style="Primary"  
+                                bs-toggle="ajax-modal"
+                                bs-target-url="@(Url.Page("NntpServers", "Add"))"
+                                Icon="plus-square" 
+                                text-localized-tag="NEW_SERVER"></button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,32 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Extensions
+
+@inject BoardContext Current
+
+@{
+    var type = (string)TempData["_alert.type"];
+    var body = (string)TempData["_alert.body"];
+
+    var message = Current.SessionMessageService.GetMessage();
+
+    if (message != null)
+    {
+        if (message.Message.IsNotSet())
+        {
+            return;
+        }
+
+        type = message.MessageType.ToString();
+        body = message.Message.ToJsString();
+    }
+}
+
+@if (type.IsSet())
+{
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.NotifyJs(type, body)))
+    </script>
+}
+

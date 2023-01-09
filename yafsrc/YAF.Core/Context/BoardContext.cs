@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -25,19 +25,15 @@
 namespace YAF.Core.Context;
 
 using System;
-
-using Autofac;
-
 using System.Collections.Generic;
+
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using YAF.Configuration.Pattern;
 using YAF.Core.BasePages;
-using YAF.Types.Constants;
-using YAF.Types.Interfaces.Identity;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
-
-using AspNetUsers = YAF.Types.Models.Identity.AspNetUsers;
 
 /// <summary>
 /// Context class that accessible with the same instance from all locations
@@ -57,12 +53,12 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <summary>
     /// The load message.
     /// </summary>
-    private LoadMessage loadMessage;
+    private SessionMessageService loadMessage;
 
     /// <summary>
-    /// The page elements.
+    /// The inline elements
     /// </summary>
-    private PageElementRegister pageElements;
+    private InlineElements inlineElements;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BoardContext"/> class. BoardContext Constructor
@@ -76,9 +72,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
 
         // init the repository
         this.Globals = new ContextVariableRepository(this.Vars);
-
-        // init context...
-        this.Init?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
@@ -92,11 +85,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     public event EventHandler<EventArgs> BeforeInit;
 
     /// <summary>
-    /// On BoardContext Constructor Call
-    /// </summary>
-    public event EventHandler<EventArgs> Init;
-
-    /// <summary>
     /// On BoardContext Unload Call
     /// </summary>
     public event EventHandler<EventArgs> Unload;
@@ -104,7 +92,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <summary>
     /// Gets the instance of the Forum Context
     /// </summary>
-    public static BoardContext Current => GlobalContainer.Container.Resolve<BoardContext>();
+    public static BoardContext Current => GlobalContainer.AutoFacContainer.Resolve<BoardContext>();
 
     /// <summary>
     /// Gets or sets the Current Board Settings
@@ -122,6 +110,12 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     public ForumPage CurrentForumPage { get; set; }
 
     /// <summary>
+    /// Gets or sets the current forum controller.
+    /// </summary>
+    /// <value>The current forum controller.</value>
+    public ForumBaseController CurrentForumController { get; set; }
+
+    /// <summary>
     /// Gets the Access to the Context Global Variable Repository Class which is a helper class that accesses BoardContext.Vars with strongly typed properties for primary variables.
     /// </summary>
     public ContextVariableRepository Globals { get; }
@@ -129,12 +123,9 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <summary>
     /// Gets the current Page Load Message
     /// </summary>
-    public LoadMessage LoadMessage => this.loadMessage ??= new LoadMessage();
+    public SessionMessageService SessionMessageService => this.loadMessage ??= new SessionMessageService();
 
-    /// <summary>
-    /// Gets the Current Page Elements
-    /// </summary>
-    public PageElementRegister PageElements => this.pageElements ??= new PageElementRegister();
+    public InlineElements InlineElements => this.inlineElements ??= new InlineElements();
 
     /// <summary>
     /// Gets the Provides access to the Service Locator
@@ -147,7 +138,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     public ControlSettings Settings => this.Get<ControlSettings>();
 
     /// <summary>
-    /// Gets or sets the Current Membership PageUser
+    /// Gets or sets the Current Membership User
     /// </summary>
     public AspNetUsers MembershipUser => this.membershipUser ??= this.Get<IAspNetUsersHelper>().GetUser();
 
@@ -157,14 +148,14 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     public User PageUser => this.PageData.Item2.Item2;
 
     /// <summary>
-    /// Returns if user is Host User or an Admin of one or more forums.
+    /// Returns if user is Host PageUser or an Admin of one or more forums.
     /// </summary>
     public bool IsAdmin => this.PageUser.UserFlags.IsHostAdmin || Current.IsForumAdmin;
 
     /// <summary>
     /// Gets the YAF Context Global Instance Variables Use for plugins or other situations where a value is needed per instance.
     /// </summary>
-    public TypeDictionary Vars { get; } = new ();
+    public TypeDictionary Vars { get; } = new();
 
     /// <summary>
     /// Returns a value from the BoardContext Global Instance Variables (Vars) collection.
@@ -180,6 +171,16 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     }
 
     /// <summary>
+    /// Registers the Java Script block.
+    /// </summary>
+    /// <param name="block">The block.</param>
+    /// <returns>PageResult.</returns>
+    public PageResult RegisterJsBlock([NotNull] string block)
+    {
+        return this.CurrentForumPage.RegisterJsBlock(block).Page();
+    }
+
+    /// <summary>
     /// Helper Function that adds a "load message" to the load message class.
     /// </summary>
     /// <param name="message">
@@ -188,9 +189,30 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <param name="messageType">
     /// The message type.
     /// </param>
-    public void Notify([NotNull] string message, MessageTypes messageType)
+    public PageResult Notify([NotNull] string message, MessageTypes messageType)
     {
-        this.LoadMessage.Add(message, messageType);
+        return this.CurrentForumPage.ToastMessage(messageType.ToString(), message).Page();
+    }
+
+    /// <summary>
+    /// Add Notify message to session
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="messageType">Type of the message.</param>
+    public void SessionNotify([NotNull] string message, MessageTypes messageType)
+    {
+        this.SessionMessageService.AddSession(message, messageType);
+    }
+
+    /// <summary>
+    /// Show Confirm Modal
+    /// </summary>
+    public void ShowConfirmModal([NotNull] string title, [NotNull] string text,
+                                 [NotNull] string yes,
+                                 [NotNull] string no,
+                                 [NotNull] string link)
+    {
+        this.CurrentForumPage.ConfirmModal(title, text, yes, no, link).Page();
     }
 
     /// <summary>
@@ -210,8 +232,9 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
         {
             return;
         }
-
+        
         this.PageLinks = new List<PageLink>();
+        this.PageLinks.AddRoot();
 
         this.BeforeInit?.Invoke(this, EventArgs.Empty);
 

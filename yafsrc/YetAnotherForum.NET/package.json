@@ -1,27 +1,29 @@
 {
-    "name": "yetanotherforum-net",
-    "version": "3.1.8",
-    "private": true,
-    "devDependencies": {
-        "@lodder/grunt-postcss": "^3.1.1",
-        "autoprefixer": "^10.4.13",
-        "grunt": "~1.5.3",
-        "grunt-contrib-copy": "^1.0.0",
-        "grunt-contrib-cssmin": "*",
-        "grunt-contrib-sass": "*",
-        "grunt-contrib-uglify": "^5.2.2",
-        "grunt-dev-update": "^2.3.0",
-        "grunt-shell": "^4.0.0",
-        "postcss": "^8.4.20",
-        "sass": "^1.57.1"
-    },
-    "dependencies": {
-        "@fortawesome/fontawesome-free": "^6.2.1",
-        "bootbox": "^6.0.0",
-        "bootswatch": "^5.2.3",
-        "flag-icons": "^6.6.6",
-        "jquery": "^3.6.3",
-        "long-press-event": "^2.4.4",
-        "prismjs": "^1.29.0"
-    }
+  "name": "yetanotherforum-net",
+  "version": "4.0.0",
+  "private": true,
+  "devDependencies": {
+    "@lodder/grunt-postcss": "^3.1.1",
+    "autoprefixer": "^10.4.13",
+    "grunt": "~1.5.3",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-uglify": "^5.2.2",
+    "grunt-dev-update": "^2.3.0",
+    "postcss": "^8.4.20",
+    "sass": "^1.57.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.2.1",
+    "bootbox": "^6.0.0",
+    "bootswatch": "^5.2.3",
+    "flag-icons": "^6.6.6",
+    "grunt-shell": "^4.0.0",
+    "jquery": "^3.6.3",
+    "jquery-ajax-unobtrusive": "^3.2.6",
+    "jquery-validation": "^1.19.5",
+    "long-press-event": "^2.4.4",
+    "prismjs": "^1.29.0"
+  }
 }

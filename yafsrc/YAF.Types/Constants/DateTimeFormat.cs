@@ -32,27 +32,27 @@ public enum DateTimeFormat
     /// <summary>
     ///   The both.
     /// </summary>
-    Both,
+    Both, 
 
     /// <summary>
     ///   The both date short.
     /// </summary>
-    BothDateShort,
+    BothDateShort, 
 
     /// <summary>
     ///   The time.
     /// </summary>
-    Time,
+    Time, 
 
     /// <summary>
     ///   The date short.
     /// </summary>
-    DateShort,
+    DateShort, 
 
     /// <summary>
     ///   The date long.
     /// </summary>
-    DateLong,
+    DateLong, 
 
     /// <summary>
     ///   The both topic.

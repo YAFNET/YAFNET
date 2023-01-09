@@ -1,0 +1,136 @@
+@page "{i:int?}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@model EditAccessMaskModel
+
+<form method="post" class="needs-validation">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("universal-access","ADMIN_EDITACCESSMASKS","TITLE")
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <input type="hidden" asp-for="Input.Id" value="@Model.Input" />
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Name"
+                                   localized-tag="MASK_NAME" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                            <input type="text" asp-for="Input.Name" required="required"
+                                   class="form-control"/>
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("MSG_MASK_NAME")
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.SortOrder"
+                                   localized-tag="MASK_ORDER" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                            <input type="number" asp-for="Input.SortOrder"
+                                   required="required" maxlength="5"
+                                   class="form-control" data-min="1" min="1" />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("MSG_NUMBER_SORT")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-2">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.ReadAccess"
+                                   localized-tag="READ_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.ReadAccess" class="form-check-input" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-2">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.PostAccess"
+                                   localized-tag="POST_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.PostAccess" class="form-check-input" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-2">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.ReplyAccess"
+                                   localized-tag="REPLY_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.ReplyAccess" class="form-check-input" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-2">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.PriorityAccess"
+                                   localized-tag="PRIORITY_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.PriorityAccess" class="form-check-input" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-2">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.PollAccess"
+                                   localized-tag="POLL_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.PollAccess" class="form-check-input" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-2">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.VoteAccess"
+                                   localized-tag="VOTE_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.VoteAccess" class="form-check-input" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-2">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.ModeratorAccess"
+                                   localized-tag="MODERATOR_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.ModeratorAccess" class="form-check-input" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-2">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.EditAccess"
+                                   localized-tag="EDIT_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.EditAccess" class="form-check-input" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-2">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.DeleteAccess"
+                                   localized-tag="DELETE_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.DeleteAccess" class="form-check-input" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button asp-page-handler="Save"
+                            button-style="Primary"
+                            Icon="save"
+                            text-localized-tag="SAVE"></button>
+                    <button asp-page="@ForumPages.Admin_AccessMasks.GetPageName()"
+                            button-style="Secondary"
+                            Icon="reply"
+                            text-localized-tag="CANCEL"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

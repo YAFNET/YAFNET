@@ -1,0 +1,182 @@
+﻿@page
+
+@using YAF.Core.Context
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+@model YAF.Pages.Admin.EditUser.UsersInfoModel
+
+@inject BoardContext Current
+
+@{
+    Layout = "_EditUserLayout";
+}
+
+<h2>
+    @Html.LocalizedText("ADMIN_EDITUSER", "HEAD_USER_DETAILS")
+</h2>
+<hr />
+
+<form method="post">
+    <div class="row">
+        <div class="mb-3 col-md-4">
+            <label info-button="true" class="form-label"
+                   asp-for="Input.Name"
+                   localized-tag="USERINFO_NAME" localized-page="ADMIN_EDITUSER"></label>
+            <input type="text" class="form-control" asp-for="Input.Name"
+                   Enabled="false" />
+        </div>
+        <div class="mb-3 col-md-4">
+            <label info-button="true" class="form-label"
+                   asp-for="Input.DisplayName"
+                   localized-tag="USERINFO_DISPLAYNAME" localized-page="ADMIN_EDITUSER"></label>
+            <input type="text" class="form-control" asp-for="Input.DisplayName" />
+        </div>
+        <div class="mb-3 col-md-4">
+            <label info-button="true" class="form-label"
+                   asp-for="Input.Email"
+                   localized-tag="EMAIL" localized-page="PROFILE"></label>
+            <input type="email" asp-for="Input.Email"
+                   class="form-control" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label info-button="true" class="form-label"
+               asp-for="Input.RankID"
+               localized-tag="RANK" localized-page="ADMIN_USERS"></label>
+        <select asp-for="Input.RankID" asp-items="Model.Ranks" class="form-select"></select>
+    </div>
+    
+    @if (Current.PageUser.UserFlags.IsHostAdmin)
+    {
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <div class="form-check form-switch">
+                    <input type="checkbox" asp-for="Input.Moderated" class="form-check-input" />
+                    <label info-button="true" class="form-check-label"
+                           asp-for="Input.Moderated"
+                           localized-tag="MODERATE" localized-page="ADMIN_EDITUSER"></label>
+                </div>
+            </div>
+            <div class="mb-3 col-md-6">
+                <div class="form-check form-switch">
+                    <input type="checkbox" asp-for="Input.IsHostAdminX" class="form-check-input" />
+                    <label info-button="true" class="form-check-label"
+                           asp-for="Input.IsHostAdminX"
+                           localized-tag="USERINFO_HOST" localized-page="ADMIN_EDITUSER"></label>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <div class="form-check form-switch">
+                <input type="checkbox" asp-for="Input.IsCaptchaExcluded" class="form-check-input" />
+                <label info-button="true" class="form-check-label"
+                       asp-for="Input.IsCaptchaExcluded"
+                       localized-tag="USERINFO_EX_CAPTCHA" localized-page="ADMIN_EDITUSER"></label>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <div class="form-check form-switch">
+                <input type="checkbox" asp-for="Input.IsExcludedFromActiveUsers" class="form-check-input" />
+                <label info-button="true" class="form-check-label"
+                       asp-for="Input.IsExcludedFromActiveUsers"
+                       localized-tag="USERINFO_EX_ACTIVE" localized-page="ADMIN_EDITUSER"></label>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="form-check form-switch">
+            <input type="checkbox" asp-for="Input.IsApproved" disabled="disabled" class="form-check-input" />
+            <label info-button="true" class="form-check-label"
+                   asp-for="Input.IsApproved"
+                   localized-tag="USERINFO_APPROVED" localized-page="ADMIN_EDITUSER"></label>
+        </div>
+    </div>
+    <div class="row">
+        @if (!Model.EditUser.Item1.UserFlags.IsApproved && !Model.EditUser.Item1.UserFlags.IsDeleted)
+        {
+            <div class="mb-3 col-md-6">
+                <button button-style="Secondary"
+                        Icon="check"
+                        asp-page-handler="ApproveUser"
+                        asp-route-u="@Model.EditUser.Item1.ID"
+                        text-localized-tag="ADMIN_APPROVE"></button>
+            </div>
+        }
+        
+        @if (!Model.EditUser.Item1.UserFlags.IsApproved && Model.EditUser.Item1.UserFlags.IsDeleted)
+        {
+            <div class="mb-3 col-md-6">
+                <div class="form-check form-switch">
+                    <input type="checkbox" asp-for="Input.UnDisableUser" disabled="disabled" class="form-check-input" />
+                    <label info-button="true" class="form-check-label"
+                           asp-for="Input.UnDisableUser"
+                           localized-tag="DISABLED" localized-page="ADMIN_EDITUSER"></label>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="mb-3">
+        <div class="form-check form-switch">
+            <input type="checkbox" asp-for="Input.IsGuestX" disabled="disabled" class="form-check-input" />
+            <label info-button="true" class="form-check-label"
+                   asp-for="Input.IsGuestX"
+                   localized-tag="USERINFO_GUEST" localized-page="ADMIN_EDITUSER"></label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label info-button="true" class="form-label"
+                   asp-for="Input.Joined"
+                   localized-tag="JOINED" localized-page="PROFILE"></label>
+            <input type="text" class="form-control" asp-for="Input.Joined" disabled="disabled" />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label info-button="true" class="form-label"
+                   asp-for="Input.LastVisit"
+                   localized-tag="LASTVISIT" localized-page="PROFILE"></label>
+            <input type="text" class="form-control" asp-for="Input.LastVisit" disabled="disabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-4">
+            <div class="form-check form-switch">
+                <input type="checkbox" asp-for="Input.IsFacebookUser" disabled="disabled" class="form-check-input" />
+                <label info-button="true" class="form-check-label"
+                       asp-for="Input.IsFacebookUser"
+                       localized-tag="FACEBOOK_USER" localized-page="ADMIN_EDITUSER"></label>
+            </div>
+        </div>
+        <div class="mb-3 col-md-4">
+            <div class="form-check form-switch">
+                <input type="checkbox" asp-for="Input.IsTwitterUser" disabled="disabled" class="form-check-input" />
+                <label info-button="true" class="form-check-label"
+                       asp-for="Input.IsTwitterUser"
+                       localized-tag="TWITTER_USER" localized-page="ADMIN_EDITUSER"></label>
+            </div>
+        </div>
+        <div class="mb-3 col-md-4">
+            <div class="form-check form-switch">
+                <input type="checkbox" asp-for="Input.IsGoogleUser" disabled="disabled" class="form-check-input" />
+                <label info-button="true" class="form-check-label"
+                       asp-for="Input.IsGoogleUser"
+                       localized-tag="Google_USER" localized-page="ADMIN_EDITUSER"></label>
+            </div>
+        </div>
+    </div>
+    <div class="text-lg-center">
+        <button button-style="Primary"
+                Icon="save" 
+                text-localized-tag="SAVE"
+                asp-page-handler="Save"
+                asp-route-u="@Model.EditUser.Item1.ID"></button>
+        <a button-style="Secondary"
+                Icon="times"
+                text-localized-tag="CANCEL"
+                asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
+    </div>
+</form>

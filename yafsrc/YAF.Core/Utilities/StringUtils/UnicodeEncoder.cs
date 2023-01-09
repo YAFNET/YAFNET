@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -35,12 +35,12 @@ public class UnicodeEncoder
     /// <summary>
     /// The HTML unicode's
     /// </summary>
-    private readonly List<HtmlCode> htmlUniCodes = new ();
+    private readonly List<HtmlCode> htmlUniCodes = new();
 
     /// <summary>
     /// The simple list of codes that are needed
     /// </summary>
-    private readonly List<HtmlCode> htmlSimpleCodes = new ();
+    private readonly List<HtmlCode> htmlSimpleCodes = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UnicodeEncoder"/> class.

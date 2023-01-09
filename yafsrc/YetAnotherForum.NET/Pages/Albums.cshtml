@@ -1,0 +1,92 @@
+﻿@page "{u:int}/{p:int=1}/{handler?}"
+
+@using YAF.Core.Extensions
+@using YAF.Core.Model
+@using YAF.Core.Services
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Models
+@model AlbumsModel
+
+<section class="text-center container">
+    <div class="row">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">
+                    @Html.LocalizedTextFormatted("ALBUMS_HEADER_TEXT", Model.AlbumUser.DisplayOrUserName())
+            </h1>
+            
+            @if (Model.AlbumsInfo.IsSet())
+            {
+                <p class="lead text-muted">
+                    @Model.AlbumsInfo
+                </p>
+            }
+           
+            @if (Model.ShowAddAlbumButton)
+            {
+                <p>
+                    <a role="button"
+                       button-style="Primary"
+                       icon="images"
+                       class=" mb-3"
+                       text-localized-page="BUTTON"
+                       text-localized-tag="BUTTON_ADDALBUM"
+                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.EditAlbumImages, new {a = "new"}))"></a>
+                </p>
+            }
+        </div>
+    </div>
+</section>
+
+<div class="bg-light">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            @foreach (var album in Model.Albums)
+            {
+                <div class="col">
+                    <div class="card mb-4 shadow-sm">
+                        <a href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID }))"
+                           target="_parent" title="@Html.HtmlEncode(album.Title)" bs-toggle="tooltip">
+                            <img title="@Html.HtmlEncode(album.Title)" alt="@Html.Raw(album.ID)" class="card-img-top"
+                             src='@Html.Raw(Model.Get<IUrlHelper>().Action("GetAlbumCover", "Albums" , new { albumId=album.ID, coverId=album.CoverImageID ?? 0 }))' />
+                        </a>
+                        <div class="card-body">
+                            <p class="card-text">
+                                @Html.HtmlEncode(album.Title)
+                            </p>
+                            <form method="post">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a role="button" button-style="OutlineSecondary"
+                                           button-size="Small"
+                                           text-localized-tag="VIEW"
+                                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Album, new {u = album.UserID, a = album.ID}))"></a>
+
+                                        @if (Model.AlbumUser.ID == Model.PageBoardContext.PageUserID)
+                                        {
+                                            <a role="button"
+                                                    button-style="OutlineSecondary"
+                                                    button-size="Small"
+                                                    text-localized-page="BUTTON"
+                                                    text-localized-tag="EDIT"
+                                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.EditAlbumImages, new {a = album.ID}))"></a>
+                                        }
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row justify-content-end">
+            <div class="col-auto">
+                <pager page-size="@Model.PageBoardContext.BoardSettings.AlbumsPerPage"
+                       count="!Model.Albums.NullOrEmpty() ? Model.GetRepository<UserAlbum>().ListByUser(Model.AlbumUser.ID).Count.ToType<int>() : 0">
+                </pager>
+            </div>
+        </div>
+    </div>
+</div>

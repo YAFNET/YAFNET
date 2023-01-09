@@ -24,10 +24,9 @@
 namespace YAF.Core.Helpers;
 
 using System;
-using System.IO;
-using System.Runtime.Caching;
 
-using YAF.Core.Utilities.ImageUtils;
+using YAF.Core.Utilities.Captcha;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The captcha helper.
@@ -42,17 +41,9 @@ public static class CaptchaHelper
     /// </returns>
     public static string GetCaptcha()
     {
-        using var stream = new MemoryStream();
+        var imgText = BoardContext.Current.Get<ISixLaborsCaptchaModule>().Generate(GetCaptchaText(true));
 
-        var captchaImage = new CaptchaImage(
-            GetCaptchaText(BoardContext.Current.Get<HttpContextBase>().Session, MemoryCache.Default, true),
-            250,
-            50,
-            "Century Schoolbook");
-
-        captchaImage.Image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-
-        return $"data:image/png;base64,{Convert.ToBase64String(stream.ToArray())}";
+        return $"data:image/png;base64,{Convert.ToBase64String(imgText)}";
     }
 
     /// <summary>
@@ -64,19 +55,12 @@ public static class CaptchaHelper
     public static string GetCaptchaString()
     {
         return StringExtensions.GenerateRandomString(
-            BoardContext.Current.BoardSettings.CaptchaSize,
-            "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789");
+            BoardContext.Current.BoardSettings.CaptchaSize);
     }
 
     /// <summary>
     /// The get captcha text.
     /// </summary>
-    /// <param name="session">
-    /// The session.
-    /// </param>
-    /// <param name="cache">
-    /// The cache.
-    /// </param>
     /// <param name="forceNew">
     /// The force New.
     /// </param>
@@ -84,29 +68,20 @@ public static class CaptchaHelper
     /// The <see cref="string"/>.
     /// </returns>
     public static string GetCaptchaText(
-        [NotNull] HttpSessionStateBase session,
-        [NotNull] MemoryCache cache,
         bool forceNew)
     {
-        CodeContracts.VerifyNotNull(session);
+        var cache = BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.Session;
 
-        var cacheName = $"Session{session.SessionID}CaptchaImageText";
+        var cacheName = $"Session{cache.Id}CaptchaImageText";
 
-        if (!forceNew && cache[cacheName] != null)
+        if (!forceNew && cache.GetString(cacheName).IsSet())
         {
-            return cache[cacheName].ToString();
+            return cache.GetString(cacheName);
         }
 
         var text = GetCaptchaString();
 
-        if (cache[cacheName] != null)
-        {
-            cache[cacheName] = text;
-        }
-        else
-        {
-            cache.Add(cacheName, text, DateTimeOffset.MaxValue);
-        }
+        cache.SetString(cacheName, text);
 
         return text;
     }
@@ -124,7 +99,7 @@ public static class CaptchaHelper
     {
         CodeContracts.VerifyNotNull(captchaText);
 
-        var text = GetCaptchaText(BoardContext.Current.Get<HttpSessionStateBase>(), MemoryCache.Default, false);
+        var text = GetCaptchaText(false);
 
         return string.Compare(text, captchaText, StringComparison.InvariantCultureIgnoreCase) == 0;
     }

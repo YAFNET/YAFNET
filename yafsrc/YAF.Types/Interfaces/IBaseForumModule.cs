@@ -29,15 +29,6 @@ namespace YAF.Types.Interfaces;
 public interface IBaseForumModule : IModuleDefinition, IDisposable
 {
     /// <summary>
-    /// Gets or sets ForumControlObj.
-    /// </summary>
-    object ForumControlObj
-    {
-        get;
-        set;
-    }
-
-    /// <summary>
     /// The initialization function.
     /// </summary>
     void Init();

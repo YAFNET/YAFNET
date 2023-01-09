@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2023 Ingo Herbote
@@ -25,12 +25,13 @@
 namespace YAF.Core.Services;
 
 using System;
-using System.IO;
-using System.Net;
+using System.Net.Http;
+
+using Microsoft.Extensions.Logging;
 
 using ServiceStack.Text;
 
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -55,24 +56,24 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
     public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>
-    /// Get the User IP Locator
+    /// Get the PageUser IP Locator
     /// </summary>
     /// <returns>
-    /// The <see cref="IDictionary"/>.
+    /// The <see cref="IpLocator"/>.
     /// </returns>
     public IpLocator GetUserIpLocator()
     {
-        return this.GetUserIpLocator(this.Get<HttpRequestBase>().GetUserRealIPAddress());
+        return this.GetUserIpLocator(this.Get<IHttpContextAccessor>().HttpContext.GetUserRealIPAddress());
     }
 
     /// <summary>
-    /// Get the User IP Locator
+    /// Get the PageUser IP Locator
     /// </summary>
     /// <param name="ipAddress">
     /// The IP Address.
     /// </param>
     /// <returns>
-    /// The <see cref="IDictionary"/>.
+    /// The <see cref="IpLocator"/>.
     /// </returns>
     public IpLocator GetUserIpLocator(string ipAddress)
     {
@@ -94,7 +95,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
             return userIpLocator;
         }
 
-        this.Get<ILoggerService>().Log(
+        this.Get<ILogger<IpInfoService>>().Log(
             null,
             this,
             $"Geolocation Service reports: {userIpLocator.StatusMessage}",
@@ -110,7 +111,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
     /// The IP Address.
     /// </param>
     /// <returns>
-    /// The <see cref="IDictionary"/>.
+    /// The <see cref="IpLocator"/>.
     /// </returns>
     private IpLocator GetData([CanBeNull] string ip)
     {
@@ -132,10 +133,11 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
             var url = $"{this.Get<BoardSettings>().IPLocatorUrlPath}&format=json";
             var path = string.Format(url, IPHelper.GetIpAddressAsString(ip));
 
-            var webRequest = (HttpWebRequest)WebRequest.Create(path);
-            var response = (HttpWebResponse)webRequest.GetResponse();
-            var streamReader = new StreamReader(response.GetResponseStream());
-            var responseText = streamReader.ReadToEnd();
+            var client = new HttpClient(new HttpClientHandler());
+
+            var response = client.GetAsync(path).Result;
+
+            var responseText = response.Content.ReadAsStringAsync().Result;
 
             return responseText.FromJson<IpLocator>();
         }

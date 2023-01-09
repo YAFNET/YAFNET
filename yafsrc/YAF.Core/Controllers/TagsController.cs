@@ -25,74 +25,56 @@
 namespace YAF.Core.Controllers;
 
 using System;
-using System.Web.Http;
+using System.Threading.Tasks;
 
+using YAF.Core.BasePages;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF Tags controller.
 /// </summary>
-[RoutePrefix("api")]
-public class TagsController : ApiController, IHaveServiceLocator
+[Produces("application/json")]
+[Route("api/[controller]")]
+[ApiController]
+public class TagsController : ForumBaseController
 {
-    /// <summary>
-    ///   Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
     /// <summary>
     /// Get all tags by Board Id
     /// </summary>
-    /// <param name="searchTopic">
-    /// The search Topic.
-    /// </param>
     /// <returns>
     /// Returns list of all tags.
     /// </returns>
-    [Route("Tags/GetBoardTags")]
-    [HttpPost]
-    public IHttpActionResult GetBoardTags(SearchTopic searchTopic)
+    [ValidateAntiForgeryToken]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SearchGridDataSet))]
+    [HttpPost("GetBoardTags")]
+    public Task<ActionResult<SearchGridDataSet>> GetBoardTags([FromBody] SearchTopic searchTopic)
     {
         var tags = this.Get<IDataCache>().GetOrSet(
-            $"Tags_{BoardContext.Current.PageBoardID}",
+            $"Tags_{this.PageBoardContext.PageBoardID}",
             () => this.GetRepository<Tag>().GetByBoardId(),
             TimeSpan.FromMinutes(5));
 
         if (searchTopic.SearchTerm.IsSet())
         {
-            var tagsList = tags
-                .Where(tag => tag.TagName.ToLower().Contains(searchTopic.SearchTerm.ToLower()))
-                .Select(
-                    tag => new SelectOptions
-                               {
-                                   text = tag.TagName,
-                                   id = tag.ID.ToString()
-                               }).ToList();
+            var tagsList = tags.Where(tag => tag.TagName.ToLower().Contains(searchTopic.SearchTerm.ToLower()))
+                .Select(tag => new SelectOptions {text = tag.TagName, id = tag.ID.ToString()}).ToList();
 
-            var pagedTags = new SelectPagedOptions { Total = 0, Results = tagsList };
+            var pagedTags = new SelectPagedOptions {Total = 0, Results = tagsList};
 
-            return this.Ok(pagedTags);
+            return Task.FromResult<ActionResult<SearchGridDataSet>>(this.Ok(pagedTags));
         }
         else
         {
-            var pager = new Paging { CurrentPageIndex = searchTopic.Page, PageSize = 20 };
-                
+            var pager = new Paging {CurrentPageIndex = searchTopic.Page, PageSize = 20};
+
             var tagsPaged = tags.GetPaged(pager);
             var tagsList = (from Tag tag in tagsPaged
-                            select new SelectOptions
-                                       {
-                                           text = tag.TagName,
-                                           id = tag.ID.ToString()
-                                       }).ToList();
+                            select new SelectOptions {text = tag.TagName, id = tag.ID.ToString()}).ToList();
 
-            var pagedTags = new SelectPagedOptions
-                                {
-                                    Total = tagsList.Any() ? tags.Count : 0,
-                                    Results = tagsList
-                                };
+            var pagedTags = new SelectPagedOptions {Total = tagsList.Any() ? tags.Count : 0, Results = tagsList};
 
-            return this.Ok(pagedTags);
+            return Task.FromResult<ActionResult<SearchGridDataSet>>(this.Ok(pagedTags));
         }
     }
 }

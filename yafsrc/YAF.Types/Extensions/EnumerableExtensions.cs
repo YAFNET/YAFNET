@@ -27,6 +27,8 @@ namespace YAF.Types.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
+using YAF.Types;
+
 /// <summary>
 /// The enumerable extensions.
 /// </summary>
@@ -35,7 +37,7 @@ public static class EnumerableExtensions
     /// <summary>
     ///     Iterates through a generic list type
     /// </summary>
-    /// <typeparam name="T">The typed generic list</typeparam>
+    /// <typeparam name="T"> </typeparam>
     /// <param name="list"> </param>
     /// <param name="action"> </param>
     public static void ForEach<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T> action)
@@ -49,9 +51,7 @@ public static class EnumerableExtensions
     /// <summary>
     ///     Iterates through a list with a isFirst flag.
     /// </summary>
-    /// <typeparam name="T">
-    /// The typed generic list
-    /// </typeparam>
+    /// <typeparam name="T"> </typeparam>
     /// <param name="list"> </param>
     /// <param name="action"> </param>
     public static void ForEachFirst<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, bool> action)
@@ -72,9 +72,7 @@ public static class EnumerableExtensions
     /// <summary>
     ///     Iterates through a list with a index.
     /// </summary>
-    /// <typeparam name="T">
-    /// The typed generic list
-    /// </typeparam>
+    /// <typeparam name="T"> </typeparam>
     /// <param name="list"> </param>
     /// <param name="action"> </param>
     public static void ForEachIndex<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, int> action)
@@ -92,15 +90,14 @@ public static class EnumerableExtensions
     ///      name="T" /> is returned, else <paramref name="currentEnumerable" /> is returned.
     /// </summary>
     /// <param name="currentEnumerable"> The current enumerable. </param>
-    /// <typeparam name="T">
-    /// The typed generic list
-    /// </typeparam>
+    /// <typeparam name="T"> </typeparam>
     /// <returns> </returns>
     public static IEnumerable<T> IfNullEmpty<T>([CanBeNull] this IEnumerable<T> currentEnumerable)
     {
         return currentEnumerable ?? Enumerable.Empty<T>();
     }
 
+    /*
     /// <summary>
     /// The distinct by.
     /// </summary>
@@ -117,13 +114,13 @@ public static class EnumerableExtensions
     /// <returns>
     /// The <see cref="IEnumerable"/>.
     /// </returns>
-    public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
+    /*public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
         this IEnumerable<TSource> source,
         Func<TSource, TKey> keySelector)
     {
         var knownKeys = new HashSet<TKey>();
         return source.Where(element => knownKeys.Add(keySelector(element)));
-    }
+    }*/
 
     /// <summary>
     /// Checks if List is Null Or Empty

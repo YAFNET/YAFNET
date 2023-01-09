@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services.Migrations
 {
-    using System;
-
     using ServiceStack.OrmLite;
     using System.Data;
 

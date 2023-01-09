@@ -1,0 +1,197 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Helpers
+@using YAF.Core.Services
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+
+@model TopicsModel
+
+@inject BoardContext Current
+
+@{
+    var forumList = Current.PageForumID > 0 ?
+        Model.SubForums.Item2 : Model.SubForums.Item2.Where(x => !x.ParentID.HasValue);
+}
+
+@foreach (var forum in forumList)
+{
+    var mods = Model.SubForums.Item1.Where(x => x.ForumID == forum.ForumID).DistinctBy(x => x.ModeratorID).ToList();
+
+    var subForums = Model.SubForums.Item2.Where(item => item.ParentID == forum.ForumID)
+        .Take(Current.BoardSettings.SubForumsInForumList).ToList();
+
+    var lastRead = Current.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+    forum.ForumID,
+forum.LastTopicID,
+forum.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
+forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
+
+    var lastPosted = forum.LastPosted ?? lastRead;
+
+    var imageUrl = string.Empty;
+    var imageClass = string.Empty;
+    var imageToolTip = string.Empty;
+
+    if (forum.ImageURL.IsSet())
+    {
+        imageUrl = $"/{Current.Get<BoardFolders>().Forums}/{forum.ImageURL}";
+
+        // Highlight custom icon images and add tool tips to them.
+        try
+        {
+            if (forum.ForumFlags.IsLocked)
+            {
+                imageClass = "forum_customimage_locked";
+                imageToolTip = Current.Get<ILocalization>().GetText("ICONLEGEND", "FORUM_LOCKED");
+            }
+            else if (lastPosted > lastRead)
+            {
+                imageClass = "forum_customimage_newposts";
+                imageToolTip = Current.Get<ILocalization>().GetText("ICONLEGEND", "NEW_POSTS");
+            }
+            else
+            {
+                imageClass = "forum_customimage_nonewposts";
+                imageToolTip = Current.Get<ILocalization>().GetText("ICONLEGEND", "NO_NEW_POSTS");
+            }
+
+
+        }
+        catch
+        {
+            imageUrl = string.Empty;
+        }
+    }
+
+
+    <div class="row">
+        <div class="@Html.Raw(forum.RemoteURL.IsNotSet() ? "col-md-8" : "col" )">
+            <h5>
+
+                @if (imageUrl.IsSet())
+                {
+                    <img src="@imageUrl" alt="@imageToolTip" title="@imageToolTip" class="@imageClass"/>
+                }
+                else
+                {
+                    if (forum.ForumFlags.IsLocked)
+                    {
+                        <a tabindex="0" class="btn btn-link m-0 p-0 forum-icon-legend-popvover" role="button" data-bs-toggle="popover" href="#" aria-label="icon-legend">
+                            @Html.IconStack(
+                                "comments",
+                                "text-secondary",
+                                "lock",
+                                "text-warning",
+                                "fa-1x");
+                        </a>
+                    }
+                    else if (lastPosted > lastRead && forum.ReadAccess)
+                    {
+                        <a tabindex="0" class="btn btn-link m-0 p-0 forum-icon-legend-popvover" role="button" data-bs-toggle="popover" href="#" aria-label="icon-legend">
+                            @Html.Icon(
+                                "comments",
+                                "text-success",
+                                "fas",
+                                "fa-2x");
+                        </a>
+                    }
+                    else
+                    {
+                        <a tabindex="0" class="btn btn-link m-0 p-0 forum-icon-legend-popvover" role="button" data-bs-toggle="popover" href="#" aria-label="icon-legend">
+                            <span class="fa-stack">
+                                @Html.Icon(
+                                    "comments",
+                                    "text-secondary",
+                                    "fas",
+                                    "fa-2x");
+                            </span>
+                        </a>
+                    }
+                }
+
+                @if (forum.ReadAccess)
+                {
+                    var title = forum.Description.IsSet() ? forum.Description : Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM");
+
+                    @if (forum.RemoteURL.IsSet())
+                    {
+                        <a href="@forum.RemoteURL"
+                           title="@Html.Raw(Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"))"
+                           target="_blank">
+                            @Html.HtmlEncode(forum.Forum)&nbsp;<i class="fas fa-external-link-alt fa-fw"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Html.Raw(Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))" data-bs-toggle="tooltip" title="@title">
+                            @Html.HtmlEncode(forum.Forum)
+                        </a>
+                    }
+                }
+                else
+                {
+                    @forum.Forum
+                    @Html.LocalizedText("NO_FORUM_ACCESS")
+                }
+
+                @if (forum.Viewing > 0)
+                {
+                    <span class="badge bg-light text-dark">
+                        <i class="far fa-eye" title="@Html.Raw(Current.Get<ILocalization>().GetTextFormatted("VIEWING", forum.Viewing))"></i>
+                        @forum.Viewing
+                    </span>
+                }
+
+                @if (forum.RemoteURL.IsNotSet() && forum.ReadAccess)
+                {
+                    <span class="badge bg-light text-dark me-1"
+                          title="@Html.LocalizedText("TOPICS")"
+                          data-bs-toggle="tooltip">
+                        @Html.Icon("comments", "", "far")
+                        @Html.Raw($"{forum.Topics:N0}")
+                    </span>
+                    <span class="badge bg-light text-dark"
+                          title="@Html.LocalizedText("POSTS")"
+                          data-bs-toggle="tooltip">
+                        @Html.Icon("comment", "", "far")
+                        @Html.Raw($"{forum.Posts:N0}")
+                    </span>
+                }
+                
+                @if (!mods.NullOrEmpty())
+                {
+                    @await Html.PartialAsync("_ForumModeratorList", mods)
+                }
+            </h5>
+
+            @if (forum.Description.IsSet())
+            {
+                <h6 class="card-subtitle text-muted mb-1">
+                    @forum.Description
+                </h6>
+            }
+        </div>
+
+        @if (forum.RemoteURL.IsNotSet())
+        {
+            <div class="col-md-4 text-secondary">
+                <div class="card bg-light text-dark card-post-last">
+                    <div class="card-body py-1 ps-2">
+                        @await Html.PartialAsync("_ForumLastPost", forum)
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (Model.SubForums.Item2.Any(item => item.ParentID == forum.ForumID))
+    {
+        <div class="row">
+            <div class="col">
+                @await Html.PartialAsync("_ForumSubForumList", subForums)
+            </div>
+        </div>
+    }
+}

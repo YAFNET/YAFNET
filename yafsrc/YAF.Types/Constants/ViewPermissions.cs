@@ -31,12 +31,12 @@ public enum ViewPermissions
     /// <summary>
     ///   The nobody.
     /// </summary>
-    Nobody = 0,
+    Nobody = 0, 
 
     /// <summary>
     ///   The registered users.
     /// </summary>
-    RegisteredUsers = 1,
+    RegisteredUsers = 1, 
 
     /// <summary>
     ///   The everyone.

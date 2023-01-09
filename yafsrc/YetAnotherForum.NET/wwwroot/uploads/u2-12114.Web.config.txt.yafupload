@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="rewriter" type="YAF.UrlRewriter.Configuration.RewriterConfigurationSectionHandler, YAF.UrlRewriter" requirePermission="false" />
+  </configSections>
+  <connectionStrings configSource="db.config" />
+  <appSettings configSource="app.config" />
+  <rewriter configSource="URLRewriter.config" />
+  <system.net>
+    <mailSettings>
+      <smtp configSource="mail.config" />
+    </mailSettings>
+  </system.net>
+  <system.web>
+    <httpRuntime targetFramework="4.7.2" />
+    <customErrors defaultRedirect="Error.aspx" mode="Off" />
+    <!--  GLOBALIZATION
+          This section sets the globalization settings of the application. 
+          Utf-8 is not supported on Netscape 4.x 
+          If you need Netscape compatibility leave iso-8859-1.
+          UTF-8 is recommended for complex languages
+    -->
+    <globalization culture="en-US" uiCulture="en" requestEncoding="UTF-8" responseEncoding="UTF-8" fileEncoding="UTF-8" />
+    <!--<globalization culture="en-US" uiCulture="en"  fileEncoding="iso-8859-1" requestEncoding="iso-8859-1" responseEncoding="iso-8859-1"/>-->
+    
+    <!-- COMPILATION
+    * Set debug to "true" to test out the system in development 
+    * Set optimizeCompilation to "true" for *MUCH* faster application pool
+      restarts on larger .NET systems. But, please read and understand the caveats
+      before enabling this settings:
+      http://blogs.msdn.com/b/davidebb/archive/2009/04/15/a-new-flag-to-optimize-asp-net-compilation-behavior.aspx             
+    -->
+    <compilation debug="false" targetFramework="4.7.2" optimizeCompilations="false">
+     <assemblies>
+       <add assembly="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
+     </assemblies>
+   </compilation>
+    <httpHandlers>
+	<add path="Sitemap.xml" 
+           verb="*" 
+           type="YAF.Core.Handlers.SiteMapHandler, YAF.Core"  />
+      <add verb="GET" path="Resource.ashx" type="YAF.Core.Handlers.ResourceHandler, YAF.Core" />
+	  <add path="FileUploader.ashx" 
+           verb="GET" 
+           type="YAF.Core.Handlers.FileUploader, YAF.Core" />
+    </httpHandlers>
+    <httpModules>
+      <add name="YafTaskModule" type="YAF.Core.TaskModule, YAF.Core" />
+      <add name="UrlRewriter" type="YAF.UrlRewriter.RewriterHttpModule,YAF.UrlRewriter" />
+    </httpModules>
+    <pages clientIDMode="AutoID" validateRequest="false">
+      <controls>
+        <add tagPrefix="asp" namespace="System.Web.UI.HtmlControls" assembly="System.Web" />
+        <!-- Default: use non-dynamic (compiled classes) in YAF -->
+        <add tagPrefix="YAF" namespace="YAF.Web.Controls" assembly="YAF.Web" />
+        <add tagPrefix="YAF" namespace="YAF.Configuration" />
+        <add tagPrefix="YAF" namespace="YAF" />
+        
+      </controls>
+      <namespaces>
+        <add namespace="YAF" />
+        <add namespace="YAF.Core" />
+        <add namespace="YAF.Web" />
+        <add namespace="YAF.Utils" />
+        <add namespace="YAF.Types.Interfaces" />
+        <add namespace="YAF.Types" />
+      </namespaces>
+    </pages>
+   <roleManager enabled="true" defaultProvider="YafRoleProvider">
+      <providers>
+        <clear />
+        <add connectionStringName="yafnet" applicationName="YAF.NET" name="YafRoleProvider" type="YAF.Providers.Roles.YafRoleProvider" />
+      </providers>
+    </roleManager>
+    <membership defaultProvider="YafMembershipProvider" hashAlgorithmtype="SHA256">
+      <providers>
+        <clear />
+        <add connectionStringName="yafnet" applicationName="YAF.NET" name="YafMembershipProvider" 
+             requiresUniqueEmail="true" hashCase="Upper" hashHex="true" type="YAF.Providers.Membership.YafMembershipProvider"
+             enablePasswordReset="true" useSalt="true" requiresQuestionAndAnswer="false"
+             />
+      </providers>
+    </membership>
+    <profile enabled="true" defaultProvider="YafProfileProvider" inherits="YAF.Utils.YafUserProfile">
+      <providers>
+        <clear />
+        <add connectionStringName="yafnet" applicationName="YAF.NET" name="YafProfileProvider" type="YAF.Providers.Profile.YafProfileProvider" />
+      </providers>
+    </profile>
+    <!--  Enable it if your application is hosted in a web farm or cluster (e.g. GoDaddy hosting) or you are using standard ASP.NET providers and encryption. 
+          IMPORTANT: DO NOT USE THIS KEY! You need to generate your own machine key via http://yetanotherforum.net/key
+    -->
+    <machineKey validationKey="6D921F488BB609DA578BF2B84A271D1AE0E446E85DC79E8DE0CD533FD7AAA04705E8A8A7BA5D897036197F7686269015A77570EC9F0EE57EAFD510C94A2F38BD" decryptionKey="28B4731163F4151A78A14E0B2820E13375B7E95AD02015CF" validation="SHA1" decryption="AES" />
+    <webServices>
+      <protocols>
+        <add name="HttpGet" />
+        <add name="HttpPost" />
+      </protocols>
+    </webServices>
+  </system.web>
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+    <modules>
+      <remove name="YafTaskModule" />
+      <remove name="UrlRewriter" />
+      <add name="YafTaskModule" type="YAF.Core.TaskModule, YAF.Core" preCondition="managedHandler" />
+      <add name="UrlRewriter" type="YAF.UrlRewriter.RewriterHttpModule,YAF.UrlRewriter" preCondition="managedHandler" />
+    </modules>
+    <handlers>
+      <add name="YafHandler" preCondition="integratedMode" verb="GET" path="Resource.ashx" type="YAF.Core.Handlers.ResourceHandler, YAF.Core" />
+      <add name="YafSitemapHandler" 
+           path="Sitemap.xml" 
+           verb="*" 
+           type="YAF.Core.Handlers.SiteMapHandler, YAF.Core" 
+           preCondition="integratedMode" />
+		   <add name="FileUploader"
+           path="FileUploader.ashx"
+           verb="*"
+           type="YAF.Core.Handlers.FileUploader, YAF.Core"
+           preCondition="integratedMode" />
+    </handlers>
+    <staticContent>
+      <remove fileExtension=".woff" />
+      <remove fileExtension=".woff2" />
+      <mimeMap fileExtension=".woff" mimetype="application/x-font-woff" />
+      <mimeMap fileExtension=".woff2" mimetype="application/font-woff2" />
+    </staticContent>
+    <caching>
+      <profiles>
+        <add extension=".png" policy="CacheUntilChange" varyByHeaders="Browser" location="Client" />
+        <add extension=".gif" policy="CacheUntilChange" varyByHeaders="Browser" location="Client" />
+        <add extension=".jpg" policy="CacheUntilChange" varyByHeaders="Browser" location="Client" />
+        <add extension=".js" policy="CacheUntilChange" varyByHeaders="Browser" location="Client" />
+        <add extension=".css" policy="CacheUntilChange" varyByHeaders="Browser" location="Client" />
+        <add extension=".ico" policy="CacheUntilChange" varyByHeaders="Browser" location="Client" />
+        <add extension=".axd" kernelCachePolicy="CacheUntilChange" varyByHeaders="Browser" location="Client" />
+      </profiles>
+    </caching>
+  </system.webServer>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <probing privatePath="bin;bin\languages" />
+      <dependentAssembly>
+        <assemblyIdentity name="Antlr3.Runtime" publicKeyToken="EB42632606E9261F" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.5.0.2" newVersion="3.5.0.2" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="WebGrease" publicKeyToken="31BF3856AD364E35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.6.5135.21930" newVersion="1.6.5135.21930" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="WebGrease" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.6.5135.21930" newVersion="1.6.5135.21930" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Antlr3.Runtime" publicKeyToken="eb42632606e9261f" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.5.0.2" newVersion="3.5.0.2" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-13.0.0.0" newVersion="13.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+				<assemblyIdentity name="Microsoft.Extensions.Primitives" publicKeyToken="ADB9793829DDAE60" culture="neutral"/>
+				<bindingRedirect oldVersion="0.0.0.0-5.0.0.1" newVersion="5.0.0.1"/>
+			</dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Runtime.CompilerServices.Unsafe" publicKeyToken="B03F5F7F11D50A3A" culture="neutral"/>
+        <bindingRedirect oldVersion="0.0.0.0-5.0.0.0" newVersion="5.0.0.0"/>
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2022 Ingo Herbote
+ * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,5 +44,5 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("2ee60a5c-8e6c-4896-b85c-a2ea5e60515a")]
 
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("..\\..\\YetAnotherForum.NET.snk")]
+//[assembly: AssemblyDelaySign(false)]
+//[assembly: AssemblyKeyFile("..\\..\\YetAnotherForum.NET.snk")]

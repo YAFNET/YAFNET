@@ -59,4 +59,6 @@ public class MessageHistoryTopic
     public DateTime Posted { get; set; }
 
     public string MessageIP { get; set; }
+
+    public bool Selected { get; set; }
 }

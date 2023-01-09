@@ -24,9 +24,12 @@
 namespace YAF.Types.Extensions;
 
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
+
+using YAF.Types;
 
 /// <summary>
 /// The string helper.
@@ -144,24 +147,24 @@ public static class StringExtensions
     /// <param name="length">
     /// the length of the random string
     /// </param>
-    /// <param name="pickFrom">
-    /// the string of characters to pick randomly from
-    /// </param>
     /// <returns>
     /// The generate random string.
     /// </returns>
-    public static string GenerateRandomString(int length, [NotNull] string pickFrom)
+    public static string GenerateRandomString(int length)
     {
-        CodeContracts.VerifyNotNull(pickFrom);
+        var chars = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVXYZW23456789".ToCharArray();
 
-        var r = new Random();
-        var result = new StringBuilder();
-        var pickFromLength = pickFrom.Length - 1;
-
+        var data = new byte[4 * length];
+        using (var crypto = new RNGCryptoServiceProvider())
+        {
+            crypto.GetBytes(data);
+        }
+        var result = new StringBuilder(length);
         for (var i = 0; i < length; i++)
         {
-            var index = r.Next(pickFromLength);
-            result.Append(pickFrom.Substring(index, 1));
+            var rnd = BitConverter.ToUInt32(data, i * 4);
+            var idx = rnd % chars.Length;
+            result.Append(chars[idx]);
         }
 
         return result.ToString();
@@ -317,7 +320,7 @@ public static class StringExtensions
         }
 
         // cut the string down to the maximum number of characters
-        output = output.Substring(0, limit);
+        output = output[..limit];
 
         // Check if the space right after the truncate point
         // was a space. if not, we are in the middle of a word and
@@ -329,7 +332,7 @@ public static class StringExtensions
             // if we found a space then, cut back to that space
             if (lastSpace != -1)
             {
-                output = output.Substring(0, lastSpace);
+                output = output[..lastSpace];
             }
         }
 
@@ -351,12 +354,6 @@ public static class StringExtensions
                || inputString.EndsWith("jpeg", StringComparison.InvariantCultureIgnoreCase)
                || inputString.EndsWith("jpg", StringComparison.InvariantCultureIgnoreCase)
                || inputString.EndsWith("bmp", StringComparison.InvariantCultureIgnoreCase);
-    }
-
-    public static bool IsTextName(this string inputString)
-    {
-        return inputString.EndsWith("txt", StringComparison.InvariantCultureIgnoreCase)
-               || inputString.EndsWith("config", StringComparison.InvariantCultureIgnoreCase);
     }
 
     /// <summary>
@@ -400,7 +397,7 @@ public static class StringExtensions
     {
         CodeContracts.VerifyNotNull(value);
 
-        byte[] bytes = new byte[16];
+        var bytes = new byte[16];
         BitConverter.GetBytes(value.ToType<int>()).CopyTo(bytes, 0);
         return new Guid(bytes);
     }

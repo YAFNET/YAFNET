@@ -1,0 +1,1863 @@
+@page "{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+@model HostSettingsModel
+
+<form method="post">
+<div class="row">
+<div class="col flex-grow-1 ms-lg-3 d-lg-none">
+    <div class="nav d-grid gap-2" id="v-pills-tab-dropdown" role="tablist" aria-orientation="vertical">
+        <div class="dropdown d-grid gap-2">
+            <button class="dropdown-toggle"
+                    bs-toggle="dropdown"
+                    button-style="Secondary"
+                    text-localized-tag="TITLE"
+                    text-localized-page="ADMIN_HOSTSETTINGS"></button>
+            <div class="dropdown-menu scrollable-dropdown w-100" aria-labelledby="dropdownMenuButton">
+                <button data-bs-target="#View0" class="nav-link btn btn-link" button-style="None" data-bs-toggle="pill" role="tab">
+                    @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SERVER_INFO")
+                </button>
+                <button data-bs-target="#View1" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
+                    @Html.LocalizedText("ADMIN_HOSTSETTINGS","HEADER_SETUP")
+                </button>
+                <button data-bs-target="#View2" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
+                    @Html.LocalizedText("ADMIN_HOSTSETTINGS","HOST_FEATURES")
+                </button>
+                <button data-bs-target="#View3" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
+                    @Html.LocalizedText("ADMIN_HOSTSETTINGS","HOST_DISPLAY")
+                </button>
+                <button data-bs-target="#View4" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
+                    @Html.LocalizedText("ADMIN_HOSTSETTINGS","HOST_ADVERTS")
+                </button>
+                <button data-bs-target="#View5" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
+                    @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_EDITORS")
+                </button>
+                <button data-bs-target="#View6" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
+                    @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_PERMISSION")
+                </button>
+                <button data-bs-target="#View8" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
+                    @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_AVATARS")
+                </button>
+                <button data-bs-target="#View9" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
+                    @Html.LocalizedText("ADMIN_HOSTSETTINGS","HOST_CACHE")
+                </button>
+                <button data-bs-target="#View10" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
+                    @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_SEARCH")
+                </button>
+                <button data-bs-target="#View11" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
+                    @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_LOG")
+                </button>
+            </div>
+        </div>
+    </div>
+       
+</div>
+<div class="col-md-3 d-none d-lg-block mt-3">
+    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <button data-bs-target="#View0" class="nav-link" data-bs-toggle="pill" role="tab">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SERVER_INFO")
+        </button>
+        <button data-bs-target="#View1" class="nav-link" data-bs-toggle="pill" role="tab">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SETUP")
+        </button>
+        <button data-bs-target="#View2" class="nav-link" data-bs-toggle="pill" role="tab">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_FEATURES")
+        </button>
+        <button data-bs-target="#View3" class="nav-link" data-bs-toggle="pill" role="tab">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_DISPLAY")
+        </button>
+        <button data-bs-target="#View4" class="nav-link" data-bs-toggle="pill" role="tab">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_ADVERTS")
+        </button>
+        <button data-bs-target="#View5" class="nav-link" data-bs-toggle="pill" role="tab">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_EDITORS")
+        </button>
+        <button data-bs-target="#View6" class="nav-link" data-bs-toggle="pill" role="tab">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_PERMISSION")
+        </button>
+        <button data-bs-target="#View8" class="nav-link" data-bs-toggle="pill" role="tab">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_AVATARS")
+        </button>
+        <button data-bs-target="#View9" class="nav-link" data-bs-toggle="pill" role="tab">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_CACHE")
+        </button>
+        <button data-bs-target="#View10" class="nav-link" data-bs-toggle="pill" role="tab">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_SEARCH")
+        </button>
+        <button data-bs-target="#View11" class="nav-link" data-bs-toggle="pill" role="tab">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_LOG")
+        </button>
+    </div>
+</div>
+<div class="col-md-9">
+<div id="HostSettingsTabs" class="tab-content">
+
+<div class="tab-pane fade" id="View0" role="tabpanel">
+    <div class="card mb-3">
+        <div class="card-header">
+            @Html.IconHeader("cog","ADMIN_HOSTSETTINGS", "TITLE")
+            - @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SERVER_INFO")
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label" info-button="true" 
+                       asp-for="Input.SQLVersion"
+                       localized-tag="SERVER_VERSION"></label>
+                <textarea asp-for="Input.SQLVersion" class="form-control"
+                                 rows="5" disabled="disabled"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.AppOsName"
+                       localized-tag="APP_OS_NAME"></label>
+                <input type="text" asp-for="Input.AppOsName" 
+                       class="form-control"
+                       Enabled="False"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.AppRuntime"
+                       localized-tag="APP_RUNTIME"></label>
+                <input type="text" asp-for="Input.AppRuntime" 
+                       class="form-control"
+                       Enabled="False"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.AppCores"
+                       localized-tag="APP_CORES"></label>
+                <input type="text" asp-for="Input.AppCores" 
+                       class="form-control"
+                       Enabled="False"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.AppMemory"
+                       localized-tag="APP_MEMORY"></label>
+                <input type="text" asp-for="Input.AppMemory" 
+                       class="form-control"
+                       Enabled="False"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tab-pane fade" id="View1" role="tabpanel">
+<div class="card mb-3">
+<div class="card-header">
+    @Html.IconHeader("cog","ADMIN_HOSTSETTINGS", "TITLE")
+    - @Html.LocalizedText("ADMIN_HOSTSETTINGS","HEADER_SETUP")
+</div>
+<div class="card-body">
+<ul class="nav nav-tabs" id="tabSetup" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="setup-tab" data-bs-toggle="tab" data-bs-target="#setup" role="tab" aria-controls="setup" aria-selected="true">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS","HEADER_SETUP")
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" role="tab" aria-controls="password" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_PASSWORD")
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="spam-tab" data-bs-toggle="tab" data-bs-target="#spam" role="tab" aria-controls="spam" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SPAM")
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="bot-tab" data-bs-toggle="tab" data-bs-target="#bot" role="tab" aria-controls="bot" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_BOTSPAM")
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" role="tab" aria-controls="login" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_LOGIN")
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="attachments-tab" data-bs-toggle="tab" data-bs-target="#attachments" role="tab" aria-controls="attachments" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_ATTACHMENTS")
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="albums-tab" data-bs-toggle="tab" data-bs-target="#albums" role="tab" aria-controls="albums" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_ALBUM")
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="image-tab" data-bs-toggle="tab" data-bs-target="#image" role="tab" aria-controls="image" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_IMAGE_ATTACH")
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="cdn-tab" data-bs-toggle="tab" data-bs-target="#cdn" role="tab" aria-controls="cdn" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_CDN")
+        </a>
+    </li>
+</ul>
+<div class="tab-content" id="setupTabContent">
+<div class="tab-pane fade show active" id="setup" role="tabpanel" aria-labelledby="setup-tab">
+    <div class="mb-3">
+        <label class="form-label" info-button="true" 
+               asp-for="Input.ServerTimeCorrection"
+               localized-tag="SERVERTIME_CORRECT"></label>
+        <input type="text" class="form-control serverTime-Input" asp-for="Input.ServerTimeCorrection" />
+        <small class="form-text text-muted">@Html.Raw(DateTime.UtcNow)</small>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true" 
+               asp-for="Input.RequireSSL"
+               localized-tag="SSL_REQUIRE"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.RequireSSL" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true" 
+                   asp-for="Input.UseFileTable"
+                   localized-tag="FILE_TABLE"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.UseFileTable" />
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true" 
+                   asp-for="Input.ShowCookieConsent"
+                   localized-tag="SHOW_COOKIECONSET"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.ShowCookieConsent" />
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true" 
+               asp-for="Input.AbandonSessionsForDontTrack"
+               localized-tag="ABANDON_TRACKUSR"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.AbandonSessionsForDontTrack" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.EditTimeOut"
+               localized-tag="POSTEDIT_TIMEOUT"></label>
+        <input type="number" class="form-control" asp-for="Input.EditTimeOut" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true" 
+               asp-for="Input.CreateNntpUsers"
+               localized-tag="CREATE_NNTPNAMES"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.CreateNntpUsers"/>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true" 
+                   asp-for="Input.DisplayNameMinLength"
+                   localized-tag="DISPLAYNAME_MIN_LENGTH"></label>
+            <input type="number" class="form-control"  asp-for="Input.DisplayNameMinLength" />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true" 
+                   asp-for="Input.UserNameMaxLength"
+                   localized-tag="NAME_LENGTH"></label>
+            <input type="number" class="form-control" asp-for="Input.UserNameMaxLength"  />
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true" 
+                   asp-for="Input.MaxReportPostChars"
+                   localized-tag="MAX_POST_CHARS"></label>
+            <input type="number" class="form-control" asp-for="Input.MaxReportPostChars"  />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true" 
+                   asp-for="Input.MaxPostSize"
+                   localized-tag="MAX_POST_SIZE"></label>
+            <input type="number" class="form-control" asp-for="Input.MaxPostSize" />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.PostFloodDelay"
+                   localized-tag="FLOOT_DELAY"></label>
+            <input type="number" class="form-control" asp-for="Input.PostFloodDelay" />
+        </div>
+    </div>
+</div>
+<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.MinRequiredPasswordLength"
+               localized-tag="PASSWORD_MIN_LENGTH"></label>
+        <input type="number" asp-for="Input.MinRequiredPasswordLength"
+               class="form-control"/>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true" 
+                   asp-for="Input.PasswordRequireNonLetterOrDigit"
+                   localized-tag="PASSWORD_REQUIRE_NON_LETTER"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.PasswordRequireNonLetterOrDigit"/>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true" 
+                   asp-for="Input.PasswordRequireDigit"
+                   localized-tag="PASSWORD_REQUIRE_DIGIT"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.PasswordRequireDigit"  />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.PasswordRequireLowercase"
+                   localized-tag="PASSWORD_LOWER_CASE"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.PasswordRequireLowercase" />
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.PasswordRequireUppercase"
+                   localized-tag="PASSWORD_UPPER_CASE"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.PasswordRequireUppercase"  />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tab-pane fade" id="spam" role="tabpanel" aria-labelledby="spam-tab">
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.SpamServiceType"
+               localized-tag="CHECK_FOR_SPAM"></label>
+
+
+        <select class="form-select" asp-for="Input.SpamServiceType" asp-items="Model.SpamServiceTypeList">
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true" 
+               asp-for="Input.SpamMessageHandling"
+               localized-tag="SPAM_MESSAGE_HANDLING" localized-page="ADMIN_HOSTSETTINGS" Suffix=":"></label>
+        <select class="form-select" asp-for="Input.SpamMessageHandling" asp-items="Model.SpamMessageHandlingList">
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.IgnoreSpamWordCheckPostCount"
+               localized-tag="IGNORE_SPAMCHECK_COUNT"></label>
+        <input type="number" asp-for="Input.IgnoreSpamWordCheckPostCount" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true" 
+               asp-for="Input.AllowedNumberOfUrls"
+               localized-tag="SPAMCHECK_ALLOWED_URLS"></label>
+        <input type="number" asp-for="Input.AllowedNumberOfUrls" class="form-control" />
+    </div>
+</div>
+<div class="tab-pane fade" id="bot" role="tabpanel" aria-labelledby="bot-tab">
+        <div class="mb-3">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.BotSpamServiceType"
+                   localized-tag="CHECK_FOR_BOTSPAM"></label>
+            <select class="form-select" asp-for="Input.BotSpamServiceType" asp-items="Model.BotSpamServiceTypeList">
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.BotScoutApiKey"
+                   localized-tag="BOTSCOUT_KEY"></label>
+            <div class="input-group">
+                <input type="text" asp-for="Input.BotScoutApiKey" class="form-control" />
+                <a href="http://botscout.com/getkey.htm"
+                   button-style="Info"
+                   Icon="sign-in-alt"
+                   text-localized-tag="AKISMET_KEY_DOWN"></a>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.StopForumSpamApiKey"
+                   localized-tag="STOPFORUMSPAM_KEY"></label>
+            <div class="input-group">
+                <input type="text" asp-for="Input.StopForumSpamApiKey" class="form-control" />
+                <a href="http://stopforumspam.com"
+                   button-style="Info"
+                   Icon="sign-in-alt"
+                   text-localized-tag="AKISMET_KEY_DOWN"></a>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" info-button="true"                                               
+                   asp-for="Input.BotHandlingOnRegister"
+                   localized-tag="BOT_CHECK_ONREGISTER"></label>
+            <select asp-for="Input.BotHandlingOnRegister" asp-items="Model.BotHandlingOnRegisterList"
+                    class="form-select"></select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.BanBotIpOnDetection"
+                   localized-tag="BOT_IPBAN_ONREGISTER"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.BanBotIpOnDetection"  />
+            </div>
+        </div>
+    </div>
+<div class="tab-pane fade" id="login" role="tabpanel" aria-labelledby="login-tab">
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.DisableRegistrations"
+                       localized-tag="DISABLE_REGISTER"></label>
+                <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-label" asp-for="Input.DisableRegistrations" />
+                </div>
+            </div>
+            <div class="mb-3 col-md-6">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.RequireLogin"
+                       localized-tag="REQUIRE_LOGIN"></label>
+                <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-label" asp-for="Input.RequireLogin"  />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.ShowConnectMessageInTopic"
+                       localized-tag="SHOW_CONNECT_MESSAGE"></label>
+                <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-label" asp-for="Input.ShowConnectMessageInTopic" />
+                </div>
+            </div>
+            <div class="mb-3 col-md-6">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.AllowSingleSignOn"
+                       localized-tag="ENABLE_SSO"></label>
+                <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-label" asp-for="Input.AllowSingleSignOn"  />
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.SendWelcomeNotificationAfterRegister"
+                   localized-tag="WELCOME_NOTIFICATION"></label>
+            <select class="form-select" asp-for="Input.SendWelcomeNotificationAfterRegister" asp-items="Model.SendWelcomeNotificationAfterRegisterList"></select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ShowRulesForRegistration"
+                   localized-tag="RULES_ONREGISTER"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.ShowRulesForRegistration"  />
+            </div>
+        </div>
+    </div>
+<div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachments-tab">
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.AllowPrivateMessageAttachments"
+               localized-tag="PM_ATTACHMENTS"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.AllowPrivateMessageAttachments" />
+
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.MaxFileSize"
+               localized-tag="MAX_FILESIZE"></label>
+        <input type="text" class="form-control" asp-for="Input.MaxFileSize" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.AllowedFileExtensions"
+               localized-tag="ALLOWED_EXTENSIONS"></label>
+        <input type="text" class="form-control" asp-for="Input.AllowedFileExtensions" />
+    </div>
+</div>
+<div class="tab-pane fade" id="albums" role="tabpanel" aria-labelledby="albums-tab">
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.EnableAlbum"
+               localized-tag="ENABLE_ABLBUMS"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.EnableAlbum"/>
+
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.AlbumImagesSizeMax"
+               localized-tag="ALBUM_IMAGE_SIZE"></label>
+        <input type="text" class="form-control" asp-for="Input.AlbumImagesSizeMax" />
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.AlbumsPerPage"
+                   localized-tag="ALBUMS_PER_PAGE"></label>
+            <input type="number" class="form-control" asp-for="Input.AlbumsPerPage" />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.AlbumImagesPerPage"
+                   localized-tag="ALBUM_IMAGES_PER_PAGE"></label>
+            <input type="text" class="form-control" asp-for="Input.AlbumImagesPerPage" />
+        </div>
+    </div>
+</div>
+<div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.PictureAttachmentDisplayTreshold"
+               localized-tag="DISPLAY_TRESHOLD_IMGATTACH"></label>
+        <input type="number" class="form-control" asp-for="Input.PictureAttachmentDisplayTreshold" />
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.EnableImageAttachmentResize"
+                   localized-tag="IMAGE_ATTACH_RESIZE"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.EnableImageAttachmentResize"  />
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ResizePostedImages"
+                   localized-tag="POSTED_IMAGE_RESIZE"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.ResizePostedImages"  />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ImageThumbnailMaxWidth"
+                   localized-tag="IMAGE_THUMB_WIDTH"></label>
+            <input type="number" class="form-control" asp-for="Input.ImageThumbnailMaxWidth" />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ImageThumbnailMaxHeight"
+                   localized-tag="IMAGE_THUMB_HEIGHT"></label>
+            <input type="number" class="form-control" asp-for="Input.ImageThumbnailMaxHeight" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ImageAttachmentResizeWidth"
+                   localized-tag="IMAGE_RESIZE_WIDTH"></label>
+            <input type="number" class="form-control" asp-for="Input.ImageAttachmentResizeWidth" />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ImageAttachmentResizeHeight"
+                   localized-tag="IMAGE_RESIZE_HEIGHT"></label>
+            <input type="number" class="form-control" asp-for="Input.ImageAttachmentResizeHeight" />
+        </div>
+    </div>
+</div>
+<div class="tab-pane fade" id="cdn" role="tabpanel" aria-labelledby="cdn-tab">
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ScriptManagerScriptsCDNHosted"
+                   localized-tag="CDN_SCRIPTMANAGER"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.ScriptManagerScriptsCDNHosted"  />
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+</div>
+<div class="card-footer text-lg-center">
+    <button button-style="Primary" asp-page-handler="Save"
+            Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
+    </button>
+</div>
+</div>
+</div>
+<div class="tab-pane fade" id="View2" role="tabpanel">
+<div class="card mb-3">
+<div class="card-header">
+    @Html.IconHeader("cog","ADMIN_HOSTSETTINGS", "TITLE")
+    - @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SERVER_INFO")
+</div>
+<div class="card-body">
+<ul class="nav nav-tabs" id="featuresTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="display-tab" data-bs-toggle="tab" data-bs-target="#display" role="tab" aria-controls="display" aria-selected="true">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_DISPLAY")
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="hover-tab" data-bs-toggle="tab" data-bs-target="#hover" role="tab" aria-controls="hover" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_HOVERCARD")
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="poll-tab" data-bs-toggle="tab" data-bs-target="#poll" role="tab" aria-controls="poll" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_POLL")
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pms-tab" data-bs-toggle="tab" data-bs-target="#pms" role="tab" aria-controls="pms" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_PMS")
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="hot-tab" data-bs-toggle="tab" data-bs-target="#hot" role="tab" aria-controls="hot" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_HOTTOPICS")
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="syndication-tab" data-bs-toggle="tab" data-bs-target="#syndication" role="tab" aria-controls="syndication" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS","HEADER_SYNDICATION")
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="geo-tab" data-bs-toggle="tab" data-bs-target="#geo" role="tab" aria-controls="geo" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_GEOLOCATION")
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="reputation-tab" data-bs-toggle="tab" data-bs-target="#reputation" role="tab" aria-controls="reputation" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_REPUTATION")
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="captcha-tab" data-bs-toggle="tab" data-bs-target="#captcha" role="tab" aria-controls="captcha" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_CAPTCHA")
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="notification-tab" data-bs-toggle="tab" data-bs-target="#notification" role="tab" aria-controls="notification" aria-selected="false">
+            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_MESSAGE_NOTIFICATION")
+        </a>
+    </li>
+</ul>
+<div class="tab-content" id="featuresTabContent">
+<div class="tab-pane fade show active" id="display" role="tabpanel" aria-labelledby="display-tab">
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.UseReadTrackingByDatabase"
+                   localized-tag="USE_READ_TRACKING"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.UseReadTrackingByDatabase"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ShowRelativeTime"
+                   localized-tag="SHOW_RELATIVE_TIME"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.ShowRelativeTime"/>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.UseFarsiCalender"
+                   localized-tag="USE_FARSI_CALENDER"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.UseFarsiCalender"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.AllowUserHideHimself"
+                   localized-tag="ALLOW_USER_HIDE"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.AllowUserHideHimself"/>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ShowUserOnlineStatus"
+                   localized-tag="SHOW_USER_STATUS"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.ShowUserOnlineStatus"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.EnableDisplayName"
+                   localized-tag="ENABLE_DISPLAY_NAME"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.EnableDisplayName"/>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.AllowDisplayNameModification"
+                   localized-tag="ALLOW_MODIFY_DISPLAYNAME"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.AllowDisplayNameModification"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.UseStyledNicks"
+                   localized-tag="STYLED_NICKS"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox"  asp-for="Input.UseStyledNicks"
+                       class="form-check-label"/>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true" 
+                   asp-for="Input.UseStyledTopicTitles"
+                   localized-tag="STYLED_TOPIC_TITLES"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox"  asp-for="Input.UseStyledTopicTitles"
+                       class="form-check-label"/>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowThanksDate"
+               localized-tag="SHOW_THANK_DATE"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowThanksDate"/>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.EnableBuddyList"
+               localized-tag="ENABLE_BUDDYLIST"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.EnableBuddyList"/>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.RemoveNestedQuotes"
+               localized-tag="REMOVE_NESTED_QUOTES"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.RemoveNestedQuotes"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ShowQuickAnswer"
+                   localized-tag="ALLOW_QUICK_ANSWER"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.ShowQuickAnswer"/>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.AllowEmailTopic"
+                   localized-tag="ALLOW_EMAIL_TOPIC"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.AllowEmailTopic"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true" 
+                   asp-for="Input.DisableNoFollowLinksAfterDay"
+                   localized-tag="DISABLE_NOFOLLOW_ONOLDERPOSTS"></label>
+            <input type="text" class="form-control" asp-for="Input.DisableNoFollowLinksAfterDay" />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.LockPosts"
+                   localized-tag="DAYS_BEFORE_POSTLOCK"></label>
+            <input type="text" class="form-control" asp-for="Input.LockPosts" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowShareTopicTo"
+               localized-tag="ALLOW_SHARE_TOPIC"></label>
+        <select class="form-select" asp-for="Input.ShowShareTopicTo" asp-items="Model.ShowShareTopicToList">
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.TwitterUserName"
+               localized-tag="TWITTER_USERNAME"></label>
+        <input type="text" class="form-control" asp-for="Input.TwitterUserName" />
+    </div>
+</div>
+<div class="tab-pane fade" id="hover" role="tabpanel" aria-labelledby="hover-tab">
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.EnableUserInfoHoverCards"
+                   localized-tag="ENABLE_HOVERCARDS"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.EnableUserInfoHoverCards"/>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.HoverCardOpenDelay"
+                   localized-tag="HOVERCARD_DELAY"></label>
+            <input type="number" class="form-control" asp-for="Input.HoverCardOpenDelay" />
+        </div>
+    </div>
+</div>
+<div class="tab-pane fade" id="poll" role="tabpanel" aria-labelledby="poll-tab">
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.AllowedPollChoiceNumber"
+               localized-tag="MAX_ALLOWED_CHOICES"></label>
+        <input type="number" class="form-control" asp-for="Input.AllowedPollChoiceNumber" maxlength="2" />
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.AllowPollChangesAfterFirstVote"
+                   localized-tag="ALLOW_CHANGE_AFTERVOTE"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.AllowPollChangesAfterFirstVote"/>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.AllowMultipleChoices"
+                   localized-tag="ALLOW_MULTI_VOTING"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.AllowMultipleChoices"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.AllowUsersHidePollResults"
+                   localized-tag="ALLOW_HIDE_POLLRESULTS"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.AllowUsersHidePollResults"/>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.AllowUsersImagedPoll"
+                   localized-tag="ALLOW_USERS_POLLIMAGES"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.AllowUsersImagedPoll"/>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.PollImageMaxFileSize"
+               localized-tag="POLL_IMAGE_FILESIZE"></label>
+        <input type="number" class="form-control" asp-for="Input.PollImageMaxFileSize" maxlength="4" />
+    </div>
+</div>
+<div class="tab-pane fade" id="pms" role="tabpanel" aria-labelledby="pms-tab">
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.AllowPrivateMessages"
+                   localized-tag="ALLOW_PMS"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.AllowPrivateMessages"/>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.AllowPMEmailNotification"
+                   localized-tag="ALLOW_PM_NOTIFICATION"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.AllowPMEmailNotification"/>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.PrivateMessageMaxRecipients"
+               localized-tag="MAX_PM_RECIPIENTS"></label>
+        <input type="number" class="form-control" asp-for="Input.PrivateMessageMaxRecipients" />
+    </div>
+</div>
+<div class="tab-pane fade" id="hot" role="tabpanel" aria-labelledby="hot-tab">
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.PopularTopicViews"
+                   localized-tag="POPULAR_VIEWS"></label>
+            <input type="number" class="form-control" asp-for="Input.PopularTopicViews" />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.PopularTopicReplys"
+                   localized-tag="POPULAR_REPLYS"></label>
+            <input type="number" class="form-control" asp-for="Input.PopularTopicReplys" />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.PopularTopicDays"
+                   localized-tag="POPULAR_DAYS"></label>
+            <input type="number" class="form-control" asp-for="Input.PopularTopicDays" />
+        </div>
+    </div>
+</div>
+<div class="tab-pane fade" id="syndication" role="tabpanel" aria-labelledby="syndication-tab">
+    <div class="row">
+        <div class="mb-3">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ShowAtomLink"
+                   localized-tag="SHOW_ATOM_LINKS"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.ShowAtomLink"/>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.TopicsFeedItemsCount"
+               localized-tag="TOPICFEED_COUNT"></label>
+        <input type="text" class="form-control" asp-for="Input.TopicsFeedItemsCount" />
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.PostsFeedAccess"
+                   localized-tag="POSTS_FEEDS_ACCESS"></label>
+            <select class="form-select" asp-for="Input.PostsFeedAccess" asp-items="Model.PostLatestFeedAccessList">
+            </select>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.PostLatestFeedAccess"
+                   localized-tag="LASTPOSTS_FEEDS_ACCESS"></label>
+            <select class="form-select" asp-for="Input.PostLatestFeedAccess" asp-items="Model.PostLatestFeedAccessList">
+            </select>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.TopicsFeedAccess"
+               localized-tag="TOPIC_FEEDS_ACCESS"></label>
+        <select class="form-select" asp-for="Input.TopicsFeedAccess" asp-items="Model.TopicsFeedAccessList">
+        </select>
+    </div>
+</div>
+<div class="tab-pane fade" id="geo" role="tabpanel" aria-labelledby="geo-tab">
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.EnableIPInfoService"
+               localized-tag="IP_INFOSERVICE"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.EnableIPInfoService"/>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.IPLocatorUrlPath"
+               localized-tag="IP_INFOSERVICE_XMLURL"></label>
+        <input type="text" class="form-control" asp-for="Input.IPLocatorUrlPath" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.IPLocatorResultsMapping"
+               localized-tag="IP_INFOSERVICE_DATAMAPPING"></label>
+        <input type="text" class="form-control" asp-for="Input.IPLocatorResultsMapping" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.IPInfoPageURL"
+               localized-tag="IPINFO_ULRL"></label>
+        <input type="text" class="form-control" asp-for="Input.IPInfoPageURL" />
+    </div>
+</div>
+<div class="tab-pane fade" id="reputation" role="tabpanel" aria-labelledby="reputation-tab">
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.EnableUserReputation"
+                   localized-tag="ENABLE_USERREPUTATION"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.EnableUserReputation"/>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ReputationAllowNegative"
+                   localized-tag="REPUTATION_ALLOWNEGATIVE"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.ReputationAllowNegative"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ReputationMaxNegative"
+                   localized-tag="REPUTATION_MIN"></label>
+            <input type="number" class="form-control" asp-for="Input.ReputationMaxNegative" />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ReputationMaxPositive"
+                   localized-tag="REPUTATION_MAX"></label>
+            <input type="number" class="form-control" asp-for="Input.ReputationMaxPositive" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ReputationMinUpVoting"
+                   localized-tag="REPUTATION_MINUP"></label>
+            <input type="number" class="form-control" asp-for="Input.ReputationMinUpVoting" />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.ReputationMinDownVoting"
+                   localized-tag="REPUTATION_MINDOWN"></label>
+            <input type="number" class="form-control" asp-for="Input.ReputationMinDownVoting" />
+        </div>
+    </div>
+</div>
+<div class="tab-pane fade" id="captcha" role="tabpanel" aria-labelledby="captcha-tab">
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.CaptchaTypeRegister"
+               localized-tag="CAPTCHA_FOR_REGISTER"></label>
+        <select class="form-select" asp-for="Input.CaptchaTypeRegister" asp-items="Model.CaptchaTypeRegisterList">
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label" info-button="true" 
+                   asp-for="Input.EnableCaptchaForGuests"
+                   localized-tag="CAPTCHA_GUEST_POSTING"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.EnableCaptchaForGuests"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.EnableCaptchaForPost"
+                   localized-tag="ENABLE_CAPTCHA_FORPOST"></label>
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-label" asp-for="Input.EnableCaptchaForPost"/>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.CaptchaSize"
+               localized-tag="CAPTCHA_SIZE"></label>
+        <input type="number" class="form-control" asp-for="Input.CaptchaSize" />
+    </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.RecaptchaPublicKey"
+                   localized-tag="RECAPTCHA_PUBLIC_KEY"></label>
+            <input type="text" class="form-control" asp-for="Input.RecaptchaPublicKey" />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" info-button="true"
+                   asp-for="Input.RecaptchaPrivateKey"
+                   localized-tag="RECAPTCHA_PRIVATE_KEY"></label>
+            <input type="text" class="form-control" asp-for="Input.RecaptchaPrivateKey" />
+        </div>
+    </div>
+</div>
+<div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.MessageNotifcationDuration"
+               localized-tag="NOTIFICATION_DURATION"></label>
+        <input type="number" class="form-control" asp-for="Input.MessageNotifcationDuration" />
+    </div>
+</div>
+</div>
+</div>
+<div class="card-footer text-lg-center">
+    <button button-style="Primary" asp-page-handler="Save"
+            Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
+    </button>
+</div>
+</div>
+</div>
+<div class="tab-pane fade" id="View3" role="tabpanel">
+<div class="card mb-3">
+<div class="card-header">
+    @Html.IconHeader("cog","ADMIN_HOSTSETTINGS", "TITLE")
+    - @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_DISPLAY")
+</div>
+<div class="card-body">
+<div class="mb-3">
+    <label class="form-label" info-button="true"
+           asp-for="Input.ActiveListTime"
+           localized-tag="ACTIVE_USERTIME"></label>
+    <input type="number" class="form-control" asp-for="Input.ActiveListTime"  />
+</div>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ActiveDiscussionsCount"
+               localized-tag="LASTPOST_COUNT"></label>
+        <input type="number" class="form-control" asp-for="Input.ActiveDiscussionsCount"  />
+
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowGuestsInDetailedActiveList"
+               localized-tag="SHOW_GUESTS_INACTIVE"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowGuestsInDetailedActiveList"/>
+        </div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowCrawlersInActiveList"
+               localized-tag="SHOW_BOTS_INACTIVE"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowCrawlersInActiveList"/>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowDeletedMessages"
+               localized-tag="SHOW_DEL_MESSAGES"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowDeletedMessages"/>
+        </div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowDeletedMessagesToAll"
+               localized-tag="SHOW_DEL_MESSAGES_TOALL"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowDeletedMessagesToAll"/>
+        </div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true" 
+               asp-for="Input.ShowEditedMessage"
+               localized-tag="SHOW_EDIT_MESSAGE"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowEditedMessage"/>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label class="form-label" 
+               asp-for="Input.BlankLinks"
+               localized-tag="SHOW_LINKS_NEWWINDOW"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.BlankLinks"/>
+        </div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.UseNoFollowLinks"
+               localized-tag="NOFOLLOW_LINKTAGS"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.UseNoFollowLinks"/>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.NoCountForumsInActiveDiscussions"
+               localized-tag="SHOW_NOCOUNT_POSTS"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.NoCountForumsInActiveDiscussions"/>
+        </div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowActiveDiscussions"
+               localized-tag="SHOW_ACTIVE_DISCUSSION"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowActiveDiscussions"/>
+
+        </div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowRecentUsers"
+               localized-tag="SHOW_RECENT_USERS"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowRecentUsers"/>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowForumStatistics"
+               localized-tag="SHOW_FORUM_STATS"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowForumStatistics"/>
+        </div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowPageGenerationTime"
+               localized-tag="SHOW_RENDERTIME"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowPageGenerationTime"/>
+        </div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true" 
+               asp-for="Input.ShowYAFVersion"
+               localized-tag="SHOW_YAFVERSION"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowYAFVersion"/>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowGroupsProfile"
+               localized-tag="SHOW_GROUPS_INPROFILE"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowGroupsProfile"/>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowBrowsingUsers"
+               localized-tag="SHOW_USERSBROWSING"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowBrowsingUsers"/>
+        </div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowSimilarTopics"
+               localized-tag="SHOW_SIMILARTOPICS"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowSimilarTopics"/>
+        </div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowForumJump"
+               localized-tag="SHOW_FORUM_JUMP"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowForumJump"/>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowMedals"
+               localized-tag="SHOW_MEDALS"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowMedals"/>
+        </div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowMoved"
+               localized-tag="SHOW_MOVED_TOPICS"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowMoved"/>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowHelpTo"
+               localized-tag="SHOWHELP"></label>
+        <select class="form-select" asp-for="Input.ShowHelpTo" asp-items="Model.ShowHelpToList">
+        </select>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowTeamTo"
+               localized-tag="SHOWTEAM"></label>
+        <select class="form-select" asp-for="Input.ShowTeamTo" asp-items="Model.ShowTeamToList">
+        </select>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.ShowModeratorList"
+               localized-tag="SHOW_MODLIST"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-label" asp-for="Input.ShowModeratorList"/>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.PostsPerPage"
+               localized-tag="POSTS_PER_PAGE"></label>
+        <input type="number" class="form-control" asp-for="Input.PostsPerPage" />
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.SubForumsInForumList"
+               localized-tag="AMOUNT_OF_SUBFORUMS"></label>
+        <input type="number" class="form-control" asp-for="Input.SubForumsInForumList" />
+    </div>
+</div>
+<div class="mb-3">
+    <label class="form-label" info-button="true"
+           asp-for="Input.ShowScrollBackToTopButton"
+           localized-tag="SHOW_SCROLL"></label>
+    <div class="form-check form-switch">
+        <input type="checkbox" class="form-check-label" asp-for="Input.ShowScrollBackToTopButton"/>
+    </div>
+</div>
+<div class="mb-3">
+    <label class="form-label" info-button="true"
+           asp-for="Input.TwoColumnBoardLayout"
+           localized-tag="TWOCOLUMN_BOARD"></label>
+    <div class="form-check form-switch">
+        <input type="checkbox" class="form-check-label" asp-for="Input.TwoColumnBoardLayout"/>
+    </div>
+</div>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.TitleTemplate"
+               localized-tag="TEMPLATE_TITLE"></label>
+        <input type="text" class="form-control" asp-for="Input.TitleTemplate" />
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.PagingTitleTemplate"
+               localized-tag="TEMPLATE_TITLE_PAGER"></label>
+        <input type="text" class="form-control" asp-for="Input.PagingTitleTemplate" />
+    </div>
+</div>
+<div class="mb-3">
+    <label class="form-label" info-button="true"
+           asp-for="Input.UseCustomContextMenu"
+           localized-tag="USE_CUSTOM_CONTEXTMENU"></label>
+    <div class="form-check form-switch">
+        <input type="checkbox" class="form-check-label" asp-for="Input.UseCustomContextMenu"/>
+    </div>
+</div>
+</div>
+<div class="card-footer text-lg-center">
+    <button button-style="Primary" asp-page-handler="Save"
+            Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
+    </button>
+</div>
+</div>
+</div>
+<div class="tab-pane fade" id="View4" role="tabpanel">
+    <div class="card mb-3">
+        <div class="card-header">
+            @Html.IconHeader("cog","ADMIN_HOSTSETTINGS", "TITLE")
+            - @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_ADVERTS")
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.AdPost"
+                       localized-tag="POST_AD"></label>
+                <textarea asp-for="Input.AdPost" 
+                                         height="80px" rows="3"
+                                         class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.ShowAdsToSignedInUsers"
+                       localized-tag="SHOWAD_LOGINUSERS"></label>
+                <div class="form-check form-switch">
+                    <input type="checkbox"  asp-for="Input.ShowAdsToSignedInUsers"
+                           class="form-check-label"/>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-lg-center">
+            <button button-style="Primary" asp-page-handler="Save"
+                    Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
+            </button>
+        </div>
+    </div>
+</div><div class="tab-pane fade" id="View5" role="tabpanel">
+    <div class="card mb-3">
+        <div class="card-header">
+            @Html.IconHeader("cog","ADMIN_HOSTSETTINGS", "TITLE")
+            - @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_EDITORS")
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.EditorToolbarBasic"
+                       localized-tag="EDITOR_BASIC"></label>
+                <textarea asp-for="Input.EditorToolbarBasic" 
+                                 class="form-control"
+                                 rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.EditorToolbarFull"
+                       localized-tag="EDITOR_FULL"></label>
+                <textarea asp-for="Input.EditorToolbarFull" 
+                                 class="form-control"
+                                 rows="5"></textarea>
+            </div>
+        </div>
+        <div class="card-footer text-lg-center">
+            <button button-style="Primary" asp-page-handler="Save"
+                    Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
+            </button>
+        </div>
+    </div>
+</div><div class="tab-pane fade" id="View6" role="tabpanel">
+    <div class="card mb-3">
+        <div class="card-header">
+            @Html.IconHeader("cog","ADMIN_HOSTSETTINGS", "TITLE")
+            - @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_PERMISSION")
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.AllowUserTheme"
+                           localized-tag="USER_CHANGE_THEME"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.AllowUserTheme"/>
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.AllowUserLanguage"
+                           localized-tag="USER_CHANGE_LANGUAGE"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.AllowUserLanguage"/>
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.AllowSignatures"
+                           localized-tag="ALLOW_SIGNATURE"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.AllowSignatures"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.AllowEmailSending"
+                           localized-tag="ALLOW_SENDMAIL"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.AllowEmailSending"/>
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.AllowEmailChange"
+                           localized-tag="ALLOW_EMAIL_CHANGE"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.AllowEmailChange"/>
+
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.AllowModeratorsViewIPs"
+                       localized-tag="ALLOW_MOD_VIEWIP"></label>
+                <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-label" asp-for="Input.AllowModeratorsViewIPs"/>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.AllowCreateTopicsSameName"
+                           localized-tag="ALLOW_TOPICS_DUPLICATENAME"></label>
+                    <select class="form-select" asp-for="Input.AllowCreateTopicsSameName" asp-items="Model.AllowCreateTopicsSameNameList">
+                    </select>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.AllowForumsWithSameName"
+                           localized-tag="ALLOW_FORUMS_DUPLICATENAME"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.AllowForumsWithSameName"/>
+
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.ReportPostPermissions"
+                       localized-tag="REPORT_POST_PERMISSION"></label>
+                <select class="form-select" asp-for="Input.ReportPostPermissions" asp-items="Model.ReportPostPermissionsList">
+                </select>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.ActiveUsersViewPermissions"
+                           localized-tag="VIEWACTIVE_PERMISSION"></label>
+                    <select class="form-select" asp-for="Input.ActiveUsersViewPermissions" asp-items="Model.ActiveUsersViewPermissionsList">
+                    </select>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.ProfileViewPermissions"
+                           localized-tag="VIEWPROFILE_PERMISSION"></label>
+                    <select class="form-select" asp-for="Input.ProfileViewPermissions" asp-items="Model.ProfileViewPermissionsList">
+                    </select>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.MembersListViewPermissions"
+                           localized-tag="VIEWMEMBERLIST_PERMISSION"></label>
+                    <select class="form-select" asp-for="Input.MembersListViewPermissions" asp-items="Model.MembersListViewPermissionsList">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-lg-center">
+            <button button-style="Primary" asp-page-handler="Save"
+                    Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
+            </button>
+        </div>
+    </div>
+</div>
+<div class="tab-pane fade" id="View8" role="tabpanel">
+        <div class="card mb-3">
+            <div class="card-header">
+                @Html.IconHeader("cog","ADMIN_HOSTSETTINGS", "TITLE")
+                - @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_AVATARS")
+            </div>
+            <div class="card-body">
+                <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.AvatarGallery"
+                                   localized-tag="AVATAR_GALLERY"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-label" asp-for="Input.AvatarGallery"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.AvatarUpload"
+                                   localized-tag="AVATAR_UPLOAD"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-label" asp-for="Input.AvatarUpload"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.AvatarSize"
+                               localized-tag="AVATAR_SIZE"></label>
+                        <input type="text" class="form-control" asp-for="Input.AvatarSize" />
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.AvatarWidth"
+                                   localized-tag="AVATAR_WIDTH"></label>
+                            <input type="number" class="form-control" asp-for="Input.AvatarWidth" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.AvatarHeight"
+                                   localized-tag="AVATAR_HEIGHT"></label>
+                            <input type="number" class="form-control" asp-for="Input.AvatarHeight" />
+                        </div>
+                    </div>
+            </div>
+            <div class="card-footer text-lg-center">
+                <button button-style="Primary" asp-page-handler="Save"
+                        Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
+                </button>
+            </div>
+        </div>
+    </div>
+<div class="tab-pane fade" id="View9" role="tabpanel">
+    <div class="card mb-3">
+        <div class="card-header">
+            @Html.IconHeader("cog","ADMIN_HOSTSETTINGS", "TITLE")
+            - @Html.LocalizedText("ADMIN_HOSTSETTINGS","HEADER_CACHE")
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       asp-for="Input.ForumStatisticsCacheTimeout"
+                       localized-tag="STATS_CACHE_TIMEOUT"></label>
+                <div class="input-group">
+                    <input type="number" class="form-control"  asp-for="Input.ForumStatisticsCacheTimeout" />
+                    <button button-style="Primary"
+                            text-localized-tag="CLEAR"
+                            Icon="trash"
+                            asp-page-handler="ForumStatisticsCacheReset"></button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       localized-tag="USRSTATS_CACHE_TIMEOUT"></label>
+                <div class="input-group">
+                    <input type="number" class="form-control"  asp-for="Input.BoardUserStatsCacheTimeout" />
+                    <button button-style="Primary"
+                            text-localized-tag="CLEAR"  
+                            Icon="trash"
+                            asp-page-handler="BoardUserStatsCacheReset"></button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       localized-tag="DISCUSSIONS_CACHE_TIMEOUT"></label>
+                <div class="input-group">
+                    <input type="number" class="form-control"  asp-for="Input.ActiveDiscussionsCacheTimeout" />
+                    <button button-style="Primary"
+                            text-localized-tag="CLEAR"
+                            Icon="trash"
+                            asp-page-handler="ActiveDiscussionsCacheReset"></button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       localized-tag="MOD_CACHE_TIMEOUT"></label>
+                <div class="input-group">
+                    <input type="number" class="form-control"  asp-for="Input.BoardModeratorsCacheTimeout" />
+                    <button button-style="Primary"
+                            text-localized-tag="CLEAR"  
+                            Icon="trash"
+                            asp-page-handler="BoardModeratorsCacheReset"></button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       localized-tag="ONLINE_STATUS_TIMEOUT"></label>
+                <input type="number"  asp-for="Input.OnlineStatusCacheTimeout"
+                       class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       localized-tag="LAZY_CACHE_TIMEOUT"></label>
+                <div class="input-group">
+                    <input type="number"  asp-for="Input.ActiveUserLazyDataCacheTimeout"
+                           class="form-control" />
+
+                    <button button-style="Primary" 
+                            text-localized-tag="CLEAR" 
+                            Icon="trash"
+                            asp-page-handler="UserLazyDataCacheReset"></button>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-lg-center">
+            <button button-style="Primary" 
+                     text-localized-tag="CLEAR_CACHE"
+                     Icon="trash"
+                     asp-page-handler="ResetCacheAll"></button>
+        </div>
+    </div>
+</div>
+<div class="tab-pane fade" id="View10" role="tabpanel">
+    <div class="card mb-3">
+        <div class="card-header">
+            @Html.IconHeader("cog","ADMIN_HOSTSETTINGS", "TITLE")
+            - @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_SEARCH")
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           localized-tag="MAX_SEARCH_RESULTS"></label>
+                    <input type="number" class="form-control" asp-for="Input.ReturnSearchMax" />
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           localized-tag="SEARCH_MINLENGTH"></label>
+                    <input type="number" class="form-control" asp-for="Input.SearchStringMinLength" />
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       localized-tag="SEARCH_PERMISS"></label>
+                <select class="form-select" asp-for="Input.SearchPermissions" asp-items="Model.SearchPermissionsList" title="@Model.GetText("SEARCH_PERMISS")">
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true"
+                       localized-tag="QUICK_SEARCH"></label>
+                <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-label" asp-for="Input.ShowQuickSearch"/>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" info-button="true" 
+                       localized-tag="INDEX_SEARCH"></label>
+                <button text-localized-tag="INDEX_SEARCH"
+                        title-localized-tag="INDEX_SEARCH_HELP"
+                        Icon="sync"
+                        button-style="Danger"
+                        asp-page-handler="IndexSearch"></button>
+            </div>
+        </div>
+        <div class="card-footer text-lg-center">
+            <button button-style="Primary" asp-page-handler="Save"
+                    Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
+            </button>
+        </div>
+    </div>
+</div>
+<div class="tab-pane fade" id="View11" role="tabpanel">
+    <div class="card mb-3">
+        <div class="card-header">
+            @Html.IconHeader("cog","ADMIN_HOSTSETTINGS", "TITLE")
+            - @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_LOG")
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true" 
+                           localized-tag="EVENTLOG_MAX_MESSAGES"></label>
+                    <input type="number" class="form-control" asp-for="Input.EventLogMaxMessages" />
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           localized-tag="EVENTLOG_MAX_DAYS"></label>
+                    <input type="number" class="form-control" asp-for="Input.EventLogMaxDays" />
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           localized-tag="MESSAGE_CHANGE_HISTORY"></label>
+                    <input type="number" class="form-control" asp-for="Input.MessageHistoryDaysToLog" />
+                </div>
+            </div>
+            <h2>
+                @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_LOGSCOPE")
+            </h2>
+            <hr />
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           localized-tag="UNHANDLED_USERAGENT_LOG"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.UserAgentBadLog" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" 
+                           localized-tag="LOG_ERROR"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.LogError" />
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           localized-tag="LOG_WARNING"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.LogWarning" />
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           localized-tag="LOG_INFORMATION"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.LogInformation" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true" 
+                           localized-tag="LOG_VIEWSTATEERROR"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.LogViewStateError" />
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true"
+                           localized-tag="LOG_BANNEDIP"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.LogBannedIP" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true" 
+                           localized-tag="LOG_USERDELETED"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.LogUserDeleted" />
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" info-button="true" 
+                           localized-tag="LOG_SUSPENDEDANDCONTRA"></label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-label" asp-for="Input.LogUserSuspendedUnsuspended" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-lg-center">
+            <button button-style="Primary" asp-page-handler="Save"
+                    Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<input type="hidden" asp-for="Input.LastTabId" Value="@Model.Input.LastTabId" />
+
+</form>
+
+@section Scripts {
+    <script>
+    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.BootstrapTabsLoadJs("v-pills-tab", "Input_LastTabId")));
+    </script>
+}

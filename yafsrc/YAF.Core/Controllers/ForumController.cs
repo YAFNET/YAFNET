@@ -25,8 +25,9 @@
 namespace YAF.Core.Controllers;
 
 using System.Collections.Generic;
-using System.Web.Http;
+using System.Threading.Tasks;
 
+using YAF.Core.BasePages;
 using YAF.Core.Model;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -34,14 +35,10 @@ using YAF.Types.Objects;
 /// <summary>
 /// The YAF Forum controller.
 /// </summary>
-[RoutePrefix("api")]
-public class ForumController : ApiController, IHaveServiceLocator
+[Produces("application/json")]
+[Route("api/[controller]")]
+public class ForumController : ForumBaseController
 {
-    /// <summary>
-    ///   Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
     /// <summary>
     /// Gets the topics by forum.
     /// </summary>
@@ -51,26 +48,27 @@ public class ForumController : ApiController, IHaveServiceLocator
     /// <returns>
     /// The <see cref="SelectPagedOptions"/>.
     /// </returns>
-    [Route("Forum/GetForums")]
-    [HttpPost]
-    public IHttpActionResult GetForums(SearchTopic searchTopic)
+    [ValidateAntiForgeryToken]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SelectPagedGroupOptions))]
+    [HttpPost("GetForums")]
+    public Task<ActionResult<SelectPagedGroupOptions>> GetForums([FromRoute] SearchTopic searchTopic)
     {
         if (searchTopic.SearchTerm.IsSet())
         {
             var forums = this.GetRepository<Forum>().ListAllSorted(
-                BoardContext.Current.PageBoardID,
-                BoardContext.Current.PageUserID,
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID,
                 searchTopic.SearchTerm.ToLower());
 
             var pagedForums = new SelectPagedGroupOptions { Total = forums.Count, Results = forums };
 
-            return this.Ok(pagedForums);
+            return Task.FromResult<ActionResult<SelectPagedGroupOptions>>(this.Ok(pagedForums));
         }
         else
         {
             var forums = this.GetRepository<Forum>().ListAllSorted(
-                BoardContext.Current.PageBoardID,
-                BoardContext.Current.PageUserID,
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID,
                 searchTopic.Page,
                 20,
                 out var pager);
@@ -81,14 +79,13 @@ public class ForumController : ApiController, IHaveServiceLocator
                     0,
                     new SelectGroup
                         {
-                            text = BoardContext.Current.Get<ILocalization>().GetText("ALL_CATEGORIES"),
+                            text = this.GetText("ALL_CATEGORIES"),
                             children = new List<SelectOptions>
                                            {
                                                new ()
                                                    {
                                                        id = "0",
-                                                       text = BoardContext.Current.Get<ILocalization>()
-                                                           .GetText("ALL_FORUMS")
+                                                       text = this.GetText("ALL_FORUMS")
                                                    }
                                            }
                         });
@@ -100,7 +97,7 @@ public class ForumController : ApiController, IHaveServiceLocator
                                       Results = forums
                                   };
 
-            return this.Ok(pagedForums);
+            return Task.FromResult<ActionResult<SelectPagedGroupOptions>>(this.Ok(pagedForums));
         }
     }
 
@@ -111,11 +108,11 @@ public class ForumController : ApiController, IHaveServiceLocator
     /// The forum id.
     /// </param>
     /// <returns>
-    /// The <see cref="IHttpActionResult"/>.
+    /// The <see cref="IActionResult"/>.
     /// </returns>
-    [Route("Forum/GetForum/{forumId}")]
-    [HttpPost]
-    public IHttpActionResult GetForum(int forumId)
+    [ValidateAntiForgeryToken]
+    [HttpPost("GetForum/{forumId:int}")]
+    public IActionResult GetForum([FromRoute] int forumId)
     {
         var forums = new List<SelectGroup>();
 
@@ -125,28 +122,20 @@ public class ForumController : ApiController, IHaveServiceLocator
                 0,
                 new SelectGroup
                     {
-                        text = BoardContext.Current.Get<ILocalization>().GetText("ALL_CATEGORIES"),
-                        children = new List<SelectOptions>
-                                       {
-                                           new ()
-                                               {
-                                                   id = "0",
-                                                   text = BoardContext.Current.Get<ILocalization>()
-                                                       .GetText("ALL_FORUMS")
-                                               }
-                                       }
+                        text = this.GetText("ALL_CATEGORIES"),
+                        children = new List<SelectOptions> {new() {id = "0", text = this.GetText("ALL_FORUMS")}}
                     });
         }
         else
         {
             forums = this.GetRepository<Forum>().ListAllSorted(
-                BoardContext.Current.PageBoardID,
-                BoardContext.Current.PageUserID,
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID,
                 forumId);
         }
 
         var pagedForums = new SelectPagedGroupOptions { Total = forums.Count, Results = forums };
-
+       
         return this.Ok(pagedForums);
     }
 }

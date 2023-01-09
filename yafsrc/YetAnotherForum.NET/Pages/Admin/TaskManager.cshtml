@@ -1,0 +1,42 @@
+@page "{handler?}"
+
+@model TaskManagerModel
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                @Html.IconHeader("tasks","ADMIN_TASKMANAGER","HEADER", param0: Model.Tasks.Count.ToString())
+            </div>
+            <div class="card-body">
+                @if (!Model.Tasks.NullOrEmpty())
+                {
+                    <ul class="list-group">
+                        @foreach (var task in Model.Tasks)
+                        {
+                            <li class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">
+                                        @(task.Key)
+                                    </h5>
+                                    <small class="d-none d-md-block">
+                                        @Html.LocalizedText("ADMIN_TASKMANAGER","DURATION"):
+                                        @(Model.FormatTimeSpan(task.Value.Started))
+                                    </small>
+                                </div>
+                                <p class="mb-1">
+                                    @Html.LocalizedText("ADMIN_TASKMANAGER","RUNNING"): 
+                                    <span class="@(Model.GetItemColor(task.Value.IsRunning))">
+                                        @(Model.GetItemName(task.Value.IsRunning))
+                                    </span>
+                                </p>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</div>

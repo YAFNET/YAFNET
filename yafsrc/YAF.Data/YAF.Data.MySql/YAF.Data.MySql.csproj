@@ -1,23 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>8.0.30703</ProductVersion>
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net7.0</TargetFrameworks>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PostBuildEvent />
     <PostBuildEvent />
     <PostBuildEvent />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent />
@@ -32,8 +25,8 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite.MySql\ServiceStack.OrmLite.MySql.csproj" />
-    <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj" />
+    <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite.MySql\ServiceStack.OrmLite.MySql.Core.csproj" />
+    <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
     <ProjectReference Include="..\..\YAF.Configuration\YAF.Configuration.csproj" />
     <ProjectReference Include="..\..\YAF.Core\YAF.Core.csproj" />
     <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj" />

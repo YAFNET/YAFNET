@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+@model YAF.Types.Modals.ImportModal
+
+<!-- Modal -->
+<div class="modal fade" id="ImportDialog" tabindex="-1" role="dialog" aria-labelledby="ImportDialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    @Html.LocalizedText("ADMIN_BANNEDEMAIL_IMPORT", "HEADER")
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="BannedEmail" asp-action="Import" enctype="multipart/form-data" id="formImport">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <!-- Modal Content START !-->
+                    <label asp-for="Import" localized-tag="IMPORT_FILE" localized-page="ADMIN_BANNEDEMAIL_IMPORT"></label>
+                    <alert type="info" icon="info-circle" localized-page="ADMIN_BANNEDEMAIL" localized-tag="NOTE">
+                    </alert>
+                    <div class="mb-3">
+                        <label asp-for="Import" localized-tag="IMPORT_FILE_HELP" localized-page="ADMIN_BANNEDEMAIL_IMPORT"></label>
+                        <input type="file" asp-for="Import" class="form-control"/>
+                    </div>
+                    <!-- Modal Content END !-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button button-style="Primary" data-bs-save="importModal"
+                        text-localized-tag="IMPORT"
+                        text-localized-page="ADMIN_BANNEDEMAIL_IMPORT"
+                        Icon="upload">
+                </button>
+                <button type="button" button-style="Secondary" icon="times" data-bs-dismiss="modal" text-localized-tag="CANCEL"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+</script>

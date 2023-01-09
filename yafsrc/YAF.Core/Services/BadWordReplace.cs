@@ -27,7 +27,9 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-using YAF.Types.Constants;
+using Microsoft.Extensions.Logging;
+
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -49,7 +51,7 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
     /// <param name="serviceLocator">The service locator.</param>
     public BadWordReplace(
         [NotNull] IObjectStore objectStore,
-        [NotNull] ILoggerService logger,
+        [NotNull] ILogger<BadWordReplace> logger,
         IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
@@ -65,7 +67,7 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
     /// <summary>
     /// Gets or sets Logger.
     /// </summary>
-    public ILoggerService Logger { get; set; }
+    public ILogger Logger { get; set; }
 
     /// <summary>
     /// Gets or sets ObjectStore.
@@ -134,12 +136,11 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
                         throw new Exception($"Bad Word Regular Expression Failed: {e.Message}", e);
                     }
 #else
-                        catch (Exception x)
+                        catch (Exception)
                         {
                             // disable this regular expression henceforth...
                             item.Active = false;
                             this.Logger.Warn(
-                                x,
                                 "Couldn't run RegEx for Bad Word Replace value: {0}",
                                 item.BadWordRegEx);
                         }

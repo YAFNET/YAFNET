@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -28,6 +28,7 @@ using System;
 using System.Data;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 
 using YAF.Core.Model;
 using YAF.Types.Models;
@@ -144,7 +145,6 @@ public static class DataImport
         var existingBannedEmailList = repository.Get(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
-
         while (!streamReader.EndOfStream)
         {
             var line = streamReader.ReadLine();
@@ -159,7 +159,7 @@ public static class DataImport
                 continue;
             }
 
-            if (repository.Save(null, line, "Imported Email Address", boardId))
+            if (repository.Save(null, line, "Imported Email Adress", boardId))
             {
                 importedCount++;
             }
@@ -188,7 +188,6 @@ public static class DataImport
         var existingBannedIPList = repository.Get(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
-
         while (!streamReader.EndOfStream)
         {
             var line = streamReader.ReadLine();
@@ -203,7 +202,7 @@ public static class DataImport
                 continue;
             }
 
-            if (repository.Save(null, importAddress.ToString(), "Imported IP Address", userId, boardId))
+            if (repository.Save(null, importAddress.ToString(), "Imported IP Adress", userId, boardId))
             {
                 importedCount++;
             }
@@ -213,7 +212,7 @@ public static class DataImport
     }
 
     /// <summary>
-    /// Import List of Banned User Names
+    /// Import List of Banned PageUser Names
     /// </summary>
     /// <param name="boardId">The board id.</param>
     /// <param name="userId">The user id.</param>
@@ -232,7 +231,6 @@ public static class DataImport
         var existingBannedNameList = repository.Get(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
-
         while (!streamReader.EndOfStream)
         {
             var line = streamReader.ReadLine();
@@ -247,7 +245,7 @@ public static class DataImport
                 continue;
             }
 
-            if (repository.Save(null, line, "Imported User Name", boardId))
+            if (repository.Save(null, line, "Imported PageUser Name", boardId))
             {
                 importedCount++;
             }
@@ -290,5 +288,275 @@ public static class DataImport
                     });
 
         return importedCount;
+    }
+
+    /// <summary>
+    /// Import Users from the InputStream
+    /// </summary>
+    /// <param name="inputStream">
+    /// The input stream.
+    /// </param>
+    /// <param name="isXml">
+    /// Indicates if input Stream is Xml file
+    /// </param>
+    /// <returns>
+    /// Returns How Many Users where imported.
+    /// </returns>
+    /// <exception cref="Exception">
+    /// Import stream is not expected format.
+    /// </exception>
+    public static int ImportingUsers(Stream inputStream, bool isXml)
+    {
+        var importedCount = 0;
+
+        if (isXml)
+        {
+            var usersDataSet = new DataSet();
+            usersDataSet.ReadXml(inputStream);
+
+            if (usersDataSet.Tables["User"] != null)
+            {
+                importedCount =
+                    usersDataSet.Tables["User"].Rows.Cast<DataRow>().Where(
+                            row => BoardContext.Current.Get<IAspNetUsersHelper>().GetUserByName((string)row["Name"]) == null)
+                        .Aggregate(
+                            importedCount, (current, row) => ImportUser(row, current));
+            }
+            else
+            {
+                throw new Exception("Import stream is not expected format.");
+            }
+        }
+        else
+        {
+            var usersTable = new DataTable();
+
+            var streamReader = new StreamReader(inputStream);
+
+            var headers = streamReader.ReadLine()?.Split(',');
+
+            headers.ForEach(header => usersTable.Columns.Add(header));
+
+            while (streamReader.Peek() >= 0)
+            {
+                var dr = usersTable.NewRow();
+                var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+                dr.ItemArray = regex.Split(streamReader.ReadLine());
+
+                usersTable.Rows.Add(dr);
+            }
+
+            streamReader.Close();
+
+            importedCount =
+                usersTable.Rows.Cast<DataRow>().Where(
+                    row => BoardContext.Current.Get<IAspNetUsersHelper>().GetUserByName((string)row["Name"]) == null).Aggregate(
+                    importedCount, (current, row) => ImportUser(row, current));
+        }
+
+        return importedCount;
+    }
+
+    /// <summary>
+    /// Import the User From the Current Table Row
+    /// </summary>
+    /// <param name="row">
+    /// The row with the User Information.
+    /// </param>
+    /// <param name="importCount">
+    /// The import Count.
+    /// </param>
+    /// <returns>
+    /// Returns the Imported User Count.
+    /// </returns>
+    private static int ImportUser(DataRow row, int importCount)
+    {
+        // Also Check if the Email is unique and exists
+        if (BoardContext.Current.Get<IAspNetUsersHelper>().GetUserByEmail((string)row["Email"]) != null)
+        {
+            return importCount;
+        }
+
+        var pass = PasswordGenerator.GeneratePassword(true, true, true, true, false, 16);
+
+        // create empty profile just so they have one
+        var userProfile = new ProfileInfo();
+
+        // Add Profile Fields to User List Table.
+        if (row.Table.Columns.Contains("RealName") && ((string)row["RealName"]).IsSet())
+        {
+            userProfile.RealName = (string)row["RealName"];
+        }
+
+        if (row.Table.Columns.Contains("Blog") && ((string)row["Blog"]).IsSet())
+        {
+            userProfile.Blog = (string)row["Blog"];
+        }
+
+        if (row.Table.Columns.Contains("Gender") && ((string)row["Gender"]).IsSet())
+        {
+            int.TryParse((string)row["Gender"], out var gender);
+
+            userProfile.Gender = gender;
+        }
+
+        if (row.Table.Columns.Contains("Birthday") && ((string)row["Birthday"]).IsSet())
+        {
+            DateTime.TryParse((string)row["Birthday"], out var userBirthdate);
+
+            if (userBirthdate > DateTimeHelper.SqlDbMinTime())
+            {
+                userProfile.Birthday = userBirthdate;
+            }
+        }
+
+        if (row.Table.Columns.Contains("GoogleId") && ((string)row["GoogleId"]).IsSet())
+        {
+            userProfile.GoogleId = (string)row["GoogleId"];
+        }
+
+        if (row.Table.Columns.Contains("Location") && ((string)row["Location"]).IsSet())
+        {
+            userProfile.Location = (string)row["Location"];
+        }
+
+        if (row.Table.Columns.Contains("Country") && ((string)row["Country"]).IsSet())
+        {
+            userProfile.Country = (string)row["Country"];
+        }
+
+        if (row.Table.Columns.Contains("Region") && ((string)row["Region"]).IsSet())
+        {
+            userProfile.Region = (string)row["Region"];
+        }
+
+        if (row.Table.Columns.Contains("City") && ((string)row["City"]).IsSet())
+        {
+            userProfile.City = (string)row["City"];
+        }
+
+        if (row.Table.Columns.Contains("Interests") && ((string)row["Interests"]).IsSet())
+        {
+            userProfile.Interests = (string)row["Interests"];
+        }
+
+        if (row.Table.Columns.Contains("Homepage") && ((string)row["Homepage"]).IsSet())
+        {
+            userProfile.Homepage = (string)row["Homepage"];
+        }
+
+        if (row.Table.Columns.Contains("Skype") && ((string)row["Skype"]).IsSet())
+        {
+            userProfile.Skype = (string)row["Skype"];
+        }
+
+        if (row.Table.Columns.Contains("XMPP") && ((string)row["XMPP"]).IsSet())
+        {
+            userProfile.XMPP = (string)row["XMPP"];
+        }
+
+        if (row.Table.Columns.Contains("Occupation") && ((string)row["Occupation"]).IsSet())
+        {
+            userProfile.Occupation = (string)row["Occupation"];
+        }
+
+        if (row.Table.Columns.Contains("Twitter") && ((string)row["Twitter"]).IsSet())
+        {
+            userProfile.Twitter = (string)row["Twitter"];
+        }
+
+        if (row.Table.Columns.Contains("TwitterId") && ((string)row["TwitterId"]).IsSet())
+        {
+            userProfile.TwitterId = (string)row["TwitterId"];
+        }
+
+        if (row.Table.Columns.Contains("Facebook") && ((string)row["Facebook"]).IsSet())
+        {
+            userProfile.Facebook = (string)row["Facebook"];
+        }
+
+        if (row.Table.Columns.Contains("FacebookId") && ((string)row["FacebookId"]).IsSet())
+        {
+            userProfile.FacebookId = (string)row["FacebookId"];
+        }
+
+        var user = new AspNetUsers
+        {
+            Id = Guid.NewGuid().ToString(),
+            ApplicationId = BoardContext.Current.BoardSettings.ApplicationId,
+            UserName = (string)row["Name"],
+            LoweredUserName = (string)row["Name"],
+            Email = (string)row["Email"],
+            IsApproved = true,
+
+            Profile_Birthday = userProfile.Birthday,
+            Profile_Blog = userProfile.Blog,
+            Profile_Gender = userProfile.Gender,
+            Profile_GoogleId = userProfile.GoogleId,
+            Profile_Homepage = userProfile.Homepage,
+            Profile_Facebook = userProfile.Facebook,
+            Profile_FacebookId = userProfile.FacebookId,
+            Profile_Twitter = userProfile.Twitter,
+            Profile_TwitterId = userProfile.TwitterId,
+            Profile_Interests = userProfile.Interests,
+            Profile_Location = userProfile.Location,
+            Profile_Country = userProfile.Country,
+            Profile_Region = userProfile.Region,
+            Profile_City = userProfile.City,
+            Profile_Occupation = userProfile.Occupation,
+            Profile_RealName = userProfile.RealName,
+            Profile_Skype = userProfile.Skype,
+            Profile_XMPP = userProfile.XMPP
+        };
+
+        BoardContext.Current.Get<IAspNetUsersHelper>().Create(user, pass);
+
+        // setup initial roles (if any) for this user
+        BoardContext.Current.Get<IAspNetRolesHelper>().SetupUserRoles(BoardContext.Current.PageBoardID, user);
+
+        // create the user in the YAF DB as well as sync roles...
+        var userId = BoardContext.Current.Get<IAspNetRolesHelper>().CreateForumUser(user, BoardContext.Current.PageBoardID);
+
+        if (userId == null)
+        {
+            // something is seriously wrong here -- redirect to failure...
+            return importCount;
+        }
+
+        // send user register notification to the new users
+        BoardContext.Current.Get<ISendNotification>().SendRegistrationNotificationToUser(
+            user, pass, "NOTIFICATION_ON_REGISTER");
+
+        var timeZone = 0;
+
+        if (row.Table.Columns.Contains("Timezone") && ((string)row["Timezone"]).IsSet())
+        {
+            int.TryParse((string)row["Timezone"], out timeZone);
+        }
+
+        var autoWatchTopicsEnabled = BoardContext.Current.BoardSettings.DefaultNotificationSetting
+                                     == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+
+        BoardContext.Current.GetRepository<User>().Save(
+            userId.Value,
+            timeZone.ToString(),
+            row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"].ToString() : null,
+            row.Table.Columns.Contains("Culture") ? row["Culture"].ToString() : null,
+            row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"].ToString() : null,
+            false,
+            true,
+            5);
+
+        // save the settings...
+        BoardContext.Current.GetRepository<User>().SaveNotification(
+            userId.Value,
+            true,
+            autoWatchTopicsEnabled,
+            BoardContext.Current.BoardSettings.DefaultNotificationSetting.ToInt(),
+            BoardContext.Current.BoardSettings.DefaultSendDigestEmail);
+
+        importCount++;
+
+        return importCount;
     }
 }

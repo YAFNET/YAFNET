@@ -1,0 +1,132 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Model
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Identity
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Models
+@using YAF.Types.Objects.Model
+
+@inject BoardContext Current
+
+@{
+    var recentUsers = new List<ActiveUser>();
+    var recentUsersCount = string.Empty;
+
+    // Active users : Call this before forum_stats to clean up active users
+    var activeUsers = Current.Get<IDataCache>().GetOrSet(
+        Constants.Cache.UsersOnlineStatus,
+        () => Current.GetRepository<Active>().List(
+            Current.BoardSettings.ShowCrawlersInActiveList,
+            Current.BoardSettings.ActiveListTime),
+        TimeSpan.FromMilliseconds(Current.BoardSettings.OnlineStatusCacheTimeout));
+
+    // "Active Users" Count and Most Users Count
+    var activeStats = Current.GetRepository<Active>().Stats(Current.PageBoardID);
+
+    // Tommy MOD "Recent Users" Count.
+    if (Model.PageBoardContext.BoardSettings.ShowRecentUsers)
+    {
+        var activeUsers30Day = Current.Get<IDataCache>().GetOrSet(
+            Constants.Cache.VisitorsInTheLast30Days,
+            () => Current.GetRepository<User>().GetRecentUsers(),
+            TimeSpan.FromMinutes(Current.BoardSettings.ForumStatisticsCacheTimeout));
+
+        if (!activeUsers30Day.NullOrEmpty())
+        {
+            var activeUsers1Day1 = activeUsers30Day.Where(x => x.LastVisit >= DateTime.UtcNow.AddDays(-1)).ToList();
+
+            recentUsersCount = Current.Get<ILocalization>().GetTextFormatted(
+                "RECENT_ONLINE_USERS",
+                activeUsers1Day1.Count,
+                activeUsers30Day.Count);
+
+            if (activeUsers1Day1.Any())
+            {
+                recentUsers = activeUsers1Day1;
+            }
+        }
+    }
+
+    // show max users...
+    var mostUsersCount =
+        Model.PageBoardContext.BoardSettings.MaxUsers > 0 ?
+            Current.Get<ILocalization>().GetTextFormatted("MAX_ONLINE",
+                Model.PageBoardContext.BoardSettings.MaxUsers,
+                Current.Get<IDateTimeService>().FormatDateTimeTopic(Model.PageBoardContext.BoardSettings.MaxUsersWhen)) :
+            Current.Get<ILocalization>().GetTextFormatted(
+                "MAX_ONLINE",
+                activeStats.ActiveUsers,
+                Current.Get<IDateTimeService>().FormatDateTimeTopic(DateTime.UtcNow));
+
+    // most active users
+    var mostActiveUsers = Current.Get<IDataCache>().GetOrSet(
+        Constants.Cache.MostActiveUsers,
+        () => Current.GetRepository<User>().LastActive(
+            Current.PageBoardID,
+            Current.Get<IAspNetUsersHelper>().GuestUser(Current.PageBoardID).ID,
+            DateTime.UtcNow.AddDays(-7),
+            10),
+        TimeSpan.FromMinutes(5));
+}
+
+<div class="card mb-3">
+    <div class="card-header d-flex align-items-center">
+        @Html.IconHeader("users", "DEFAULT", "ACTIVE_USERS", "fa-2x")
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+            @Html.ActiveUserStats(activeStats.ActiveUsers, activeStats.ActiveHidden, activeStats.ActiveMembers, activeStats.ActiveGuests)
+        </p>
+        @Html.ActiveUsers(activeUsers)
+    </div>
+    <div class="card-footer">
+        <small class="text-muted">
+            @mostUsersCount
+        </small>
+    </div>
+</div>
+
+@if (Model.PageBoardContext.BoardSettings.ShowRecentUsers && !recentUsers.NullOrEmpty())
+{
+    <div class="card mb-3">
+        <div class="card-header d-flex align-items-center">
+            @Html.IconHeader("users", "DEFAULT", "RECENT_USERS", "fa-2x")
+        </div>
+        <div class="card-body">
+            @Html.ActiveUsers(recentUsers)
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">
+                @recentUsersCount
+            </small>
+        </div>
+    </div>
+}
+
+@if (mostActiveUsers.Any())
+{
+    <div class="card mb-3">
+        <div class="card-header d-flex align-items-center">
+            @Html.Icon("chart-line", "", "fas text-secondary", "fa-2x")
+            @Html.LocalizedTextFormatted("MOST_ACTIVE", "7")
+        </div>
+        <div class="card-body">
+            <ol class="mb-0">
+                @foreach (var item in mostActiveUsers)
+                {
+                    <li>
+                        @Html.UserLink(
+                            item.ID,
+                            Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name,
+                            item.Suspended,
+                            item.UserStyle)
+                            (@item.NumOfPosts)
+                    </li>
+                }
+            </ol>
+        </div>
+    </div>
+}

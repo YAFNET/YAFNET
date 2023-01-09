@@ -1,0 +1,52 @@
+@page "{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@model PageAccessListModel
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("building","ADMIN_PAGEACCESSLIST","TITLE")
+                </div>
+                <div class="card-body">
+                    @if (!Model.List.NullOrEmpty())
+                    {
+                        <ul class="list-group">
+
+                            @foreach (var item in Model.List)
+                            {
+                                <li class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">
+                                            @Html.Icon("user-secret")
+                                            @Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name)
+                                        </h5>
+                                    </div>
+                                    <div class="small">
+                                        <div class="btn-group btn-group-sm">
+                                            <a button-style="Info"
+                                               button-size="Small"
+                                               title-localized-page="ADMIN_PAGEACCESSLIST"
+                                               asp-page="@ForumPages.Admin_PageAccessEdit.GetPageName()"
+                                               asp-route-u="@item.ID"
+                                               title-localized-tag="EDIT"
+                                               Icon="edit"
+                                               text-localized-tag="EDIT">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

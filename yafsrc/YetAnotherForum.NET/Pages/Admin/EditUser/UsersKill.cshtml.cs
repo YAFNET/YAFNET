@@ -1,0 +1,335 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014-2023 Ingo Herbote
+ * https://www.yetanotherforum.net/
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * https://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+namespace YAF.Pages.Admin.EditUser;
+
+using System.Collections.Generic;
+using System.Linq;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Core.Model;
+using YAF.Core.Services;
+using YAF.Core.Services.CheckForSpam;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces.Identity;
+using YAF.Types.Models;
+using YAF.Types.Models.Identity;
+
+public class UsersKillModel : AdminPage
+{
+    /// <summary>
+    ///   The _all posts by user.
+    /// </summary>
+    private IOrderedEnumerable<Message> allPostsByUser;
+
+    /// <summary>
+    /// Gets or sets the User Data.
+    /// </summary>
+    [NotNull]
+    public User EditUser { get; set; }
+
+    [BindProperty]
+    public List<SelectListItem> SuspendOrDeleteList { get; set; }
+
+    /// <summary>
+    ///   Gets AllPostsByUser.
+    /// </summary>
+    public IOrderedEnumerable<Message> AllPostsByUser =>
+        this.allPostsByUser ??= this.GetRepository<Message>().GetAllUserMessages(this.EditUser.ID);
+
+    /// <summary>
+    ///   Gets the IPAddresses.
+    /// </summary>
+    [NotNull]
+    public List<string> IpAddresses {
+        get {
+            var list = this.AllPostsByUser.Select(m => m.IP).OrderBy(x => x).Distinct().ToList();
+
+            if (list.Count.Equals(0))
+            {
+                list.Add(this.EditUser.IP);
+            }
+
+            return list;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the input.
+    /// </summary>
+    [BindProperty]
+    public InputModel Input { get; set; }
+
+    public UsersKillModel()
+        : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
+    {
+    }
+
+    public IActionResult OnGet(int userId)
+    {
+        if (!BoardContext.Current.IsAdmin)
+        {
+            return this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        this.Input = new InputModel
+                     {
+                         UserId = userId
+                     };
+
+        this.BindData(userId);
+
+        return this.Page();
+    }
+
+    /// <summary>
+    /// Kills the User
+    /// </summary>
+    public IActionResult OnPostKill()
+    {
+        var user =
+            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
+                Tuple<User, AspNetUsers, Rank, vaccess>;
+
+        // Ban User Email?
+        if (this.Input.BanEmail)
+        {
+            this.GetRepository<BannedEmail>().Save(
+                null,
+                user.Item1.Email,
+                $"Email was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
+        }
+
+        // Ban User IP?
+        if (this.Input.BanIps && this.IpAddresses.Any())
+        {
+            this.BanUserIps(user.Item1);
+        }
+
+        // Ban User IP?
+        if (this.Input.BanName)
+        {
+            this.GetRepository<BannedName>().Save(
+                null,
+                user.Item1.Name,
+                $"Name was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
+        }
+
+        this.DeleteAllUserMessages();
+
+        if (this.Input.ReportUser && this.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet() &&
+            this.IpAddresses.Any())
+        {
+            try
+            {
+                var stopForumSpam = new StopForumSpam();
+
+                if (stopForumSpam.ReportUserAsBot(this.IpAddresses.FirstOrDefault(), user.Item1.Email, user.Item1.Name))
+                {
+                    this.GetRepository<Registry>().IncrementReportedSpammers();
+
+                    this.Get<ILogger<UsersKillModel>>().Log(
+                        this.PageBoardContext.PageUserID,
+                        "User Reported to StopForumSpam.com",
+                        $"User (Name:{user.Item1.Name}/ID:{user.Item1.ID}/IP:{this.IpAddresses.FirstOrDefault()}/Email:{user.Item1.Email}) Reported to StopForumSpam.com by {this.PageBoardContext.PageUser.DisplayOrUserName()}",
+                        EventLogTypes.SpamBotReported);
+                }
+            }
+            catch (Exception exception)
+            {
+                this.Get<ILogger<UsersKillModel>>().Log(
+                    this.PageBoardContext.PageUserID,
+                    $"User (Name{user.Item1.Name}/ID:{user.Item1.ID}) Report to StopForumSpam.com Failed",
+                    exception);
+
+                this.PageBoardContext.SessionNotify(
+                    this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"),
+                    MessageTypes.danger);
+
+                return this.Get<LinkBuilder>().Redirect(
+                    ForumPages.Admin_EditUser,
+                    new { u = this.Input.UserId, tab = "View9" });
+            }
+        }
+
+        switch (this.Input.SuspendOrDelete)
+        {
+            case "delete":
+                if (user.Item1.ID > 0)
+                {
+                    // we are deleting user
+                    if (this.PageBoardContext.PageUserID == user.Item1.ID)
+                    {
+                        // deleting yourself isn't an option
+                        this.PageBoardContext.SessionNotify(
+                            this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
+                            MessageTypes.danger);
+
+                        return this.Get<LinkBuilder>().Redirect(
+                            ForumPages.Admin_EditUser,
+                            new { u = this.Input.UserId, tab = "View9" });
+                    }
+
+                    // get user(s) we are about to delete
+                    if (user.Item1.UserFlags.IsGuest)
+                    {
+                        // we cannot delete guest
+                        this.PageBoardContext.SessionNotify(
+                            this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
+                            MessageTypes.danger);
+
+                        return this.Get<LinkBuilder>().Redirect(
+                            ForumPages.Admin_EditUser,
+                            new { u = this.Input.UserId, tab = "View9" });
+                    }
+
+                    if (user.Item1.UserFlags.IsHostAdmin)
+                    {
+                        // admin are not deletable either
+                        this.PageBoardContext.SessionNotify(
+                            this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
+                            MessageTypes.danger);
+
+                        return this.Get<LinkBuilder>().Redirect(
+                            ForumPages.Admin_EditUser,
+                            new {u = this.Input.UserId, tab = "View9"});
+                    }
+
+                    // all is good, user can be deleted
+                    this.Get<IAspNetUsersHelper>().DeleteUser(this.Input.UserId);
+
+                    this.PageBoardContext.SessionNotify(
+                        this.GetTextFormatted("MSG_USER_KILLED", user.Item1.Name),
+                        MessageTypes.success);
+
+                    return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
+                }
+
+                break;
+            case "suspend":
+                if (this.Input.UserId > 0)
+                {
+                    this.GetRepository<User>().Suspend(
+                        this.Input.UserId,
+                        DateTime.UtcNow.AddYears(5));
+                }
+
+                break;
+        }
+
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View9" });
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private void BindData(int userId)
+    {
+        var user =
+            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
+                Tuple<User, AspNetUsers, Rank, vaccess>;
+
+        this.EditUser = user.Item1;
+
+        this.SuspendOrDeleteList = new List<SelectListItem> {
+                                                                new(
+                                                                    this.GetText("ADMIN_EDITUSER", "DELETE_ACCOUNT"),
+                                                                    "delete"),
+                                                                new(
+                                                                    this.GetText(
+                                                                        "ADMIN_EDITUSER",
+                                                                        "SUSPEND_ACCOUNT_USER"),
+                                                                    "suspend")
+                                                            };
+    }
+
+    /// <summary>
+    /// Deletes all user messages.
+    /// </summary>
+    private void DeleteAllUserMessages()
+    {
+        // delete posts...
+        var messages = this.AllPostsByUser.Distinct().ToList();
+
+        messages.ForEach(
+            x => this.GetRepository<Message>().Delete(
+                x.Topic.ForumID,
+                x.Topic.ID,
+                x,
+                true,
+                string.Empty,
+                true,
+                true));
+    }
+
+    /// <summary>
+    /// Bans the user IP Addresses.
+    /// </summary>
+    private void BanUserIps(User user)
+    {
+        var allIps = this.GetRepository<BannedIP>().Get(x => x.BoardID == this.PageBoardContext.PageBoardID)
+            .Select(x => x.Mask).ToList();
+
+        // ban user ips...
+        var name = user.DisplayOrUserName();
+
+        this.IpAddresses.Except(allIps).ToList().Where(i => i.IsSet()).ForEach(
+            ip =>
+            {
+                var linkUserBan = this.Get<ILocalization>().GetTextFormatted(
+                    "ADMIN_EDITUSER",
+                    "LINK_USER_BAN",
+                    user.ID,
+                    this.Get<LinkBuilder>().GetUserProfileLink(user.ID, name),
+                    this.HtmlEncode(name));
+
+                this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageBoardContext.PageUserID);
+            });
+    }
+
+    /// <summary>
+    /// The input model.
+    /// </summary>
+    public class InputModel
+    {
+        public int UserId { get; set; }
+
+        public bool ReportUser { get; set; }
+
+        public bool BanName { get; set; } = true;
+
+        public bool BanIps { get; set; } = true;
+
+        public bool BanEmail { get; set; } = true;
+
+        public string SuspendOrDelete { get; set; }
+    }
+}

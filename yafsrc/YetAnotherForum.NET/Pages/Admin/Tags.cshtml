@@ -1,0 +1,99 @@
+@page "{p:int=1}/{handler?}"
+
+@model TagsModel
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Interfaces
+@using YAF.Types.Models
+@using YAF.Core.Extensions
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-auto">
+                            @Html.IconHeader("tags", "ADMIN_TAGS", "TITLE")
+                        </div>
+                        <div class="col-auto">
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="input-group input-group-sm me-2" role="group">
+                                    <div class="input-group-text">
+                                        @Html.LocalizedText("SHOW"):
+                                    </div>
+                                    <select asp-for="@Model.Size"
+                                            asp-items="Model.PageSizeList"
+                                            title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                            aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                            class="form-select"
+                                            onchange="this.form.submit();"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @if (!Model.List.NullOrEmpty())
+                    {
+                        <ul class="list-group">
+                            @foreach (var item in Model.List)
+                            {
+                                <li class="list-group-item list-group-item-action list-group-item-menu">
+                                    <div class="d-flex w-100 justify-content-between text-break">
+                                        <h5 class="mb-1">
+                                            @Html.Icon("tag")
+                                            @Html.Raw(item.TagName)
+                                        </h5>
+                                        <small class="d-none d-md-block">
+                                            @Html.LocalizedText("USAGES")
+                                            <span class="badge bg-secondary">
+                                                @Html.Raw(Model.GetRepository<TopicTag>().Count(x => x.TagID == item.ID))
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <small>
+                                        <div class="btn-group btn-group-sm">
+                                            <a asp-page="@ForumPages.Search.GetPageName()"
+                                               asp-route-tag="item.TagName"
+                                               text-localized-tag="SHOW_TOPICS"
+                                               class="btn btn-info"></a>
+                                            <button
+                                                button-style="Danger"
+                                                button-size="Small"
+                                                asp-page-handler="Delete"
+                                                asp-route-id="@item.ID"
+                                                return-confirm-tag="CONFIRM_DELETE"
+                                                Icon="trash"
+                                                text-localized-tag="DELETE">
+                                            </button>
+                                        </div>
+                                    </small>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <alert type="success" icon="check" localized-tag="NO_ENTRY">
+                            @Html.Icon("check")
+                            @Html.LocalizedText("NO_ENTRY")
+                        </alert>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-auto">
+            <pager page-size="@Model.Size"
+                   count="!Model.List.NullOrEmpty() ? Model.GetRepository<Tag>().GetByBoardId().Count : 0">
+            </pager>
+        </div>
+    </div> 
+</form>

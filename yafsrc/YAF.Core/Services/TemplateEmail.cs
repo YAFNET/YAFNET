@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,12 +21,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Core.Services;
 
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Mail;
+
+using Microsoft.AspNetCore.Hosting;
+
+using MimeKit;
+
+using YAF.Types.Attributes;
 
 /// <summary>
 ///     The YAF template email.
@@ -39,14 +43,13 @@ public class TemplateEmail : IHaveServiceLocator
     /// <param name="templateName">
     /// The template name.
     /// </param>
-    public TemplateEmail([CanBeNull]string templateName)
+    public TemplateEmail([CanBeNull] string templateName)
     {
         this.HtmlTemplateFileName = "EmailTemplate.html";
-
         this.TemplateName = templateName;
 
         var logoUrl =
-            $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.Get<BoardSettings>().ForumLogo}";
+            $"/{this.Get<BoardFolders>().Logos}/{this.Get<BoardSettings>().ForumLogo}";
 
         this.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
         this.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
@@ -88,12 +91,10 @@ public class TemplateEmail : IHaveServiceLocator
     /// <param name="subject">
     /// The subject.
     /// </param>
-    public void SendEmail(MailAddress toAddress, string subject)
+    public void SendEmail(MailboxAddress toAddress, string subject)
     {
         this.SendEmail(
-            new MailAddress(
-                this.Get<BoardSettings>().ForumEmail,
-                this.Get<BoardSettings>().Name),
+            new MailboxAddress(this.Get<BoardSettings>().Name, this.Get<BoardSettings>().ForumEmail),
             toAddress,
             subject);
     }
@@ -110,7 +111,7 @@ public class TemplateEmail : IHaveServiceLocator
     /// <param name="subject">
     /// The subject.
     /// </param>
-    public void SendEmail(MailAddress fromAddress, MailAddress toAddress, string subject)
+    public void SendEmail(MailboxAddress fromAddress, MailboxAddress toAddress, string subject)
     {
         var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
 
@@ -137,9 +138,9 @@ public class TemplateEmail : IHaveServiceLocator
     /// The subject.
     /// </param>
     /// <returns>
-    /// The <see cref="MailMessage"/>.
+    /// The <see cref="MimeMessage"/>.
     /// </returns>
-    public MailMessage CreateEmail(MailAddress fromAddress, MailAddress toAddress, string subject)
+    public MimeMessage CreateEmail(MailboxAddress fromAddress, MailboxAddress toAddress, string subject)
     {
         var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
 
@@ -162,7 +163,7 @@ public class TemplateEmail : IHaveServiceLocator
     /// <returns>
     /// The process template.
     /// </returns>
-    public string ProcessTemplate([CanBeNull]string templateName)
+    public string ProcessTemplate([CanBeNull] string templateName)
     {
         var email = this.ReadTemplate(templateName, this.TemplateLanguageFile);
 
@@ -189,10 +190,12 @@ public class TemplateEmail : IHaveServiceLocator
     /// </returns>
     private string ProcessHtml(string textBody)
     {
-        var htmlTemplate = File.ReadAllText(
-            this.Get<HttpContextBase>().Server.MapPath(this.Get<ITheme>().BuildThemePath(this.HtmlTemplateFileName)));
+        var path =
+            $"{this.Get<IWebHostEnvironment>().WebRootPath}{this.Get<ITheme>().BuildThemePath(this.HtmlTemplateFileName).Replace("/", "\\")}";
 
-        var formattedBody = this.Get<IBBCode>().MakeHtml(textBody, true, true);
+        var htmlTemplate = File.ReadAllText(path);
+
+        var formattedBody = this.Get<IBBCodeService>().MakeHtml(textBody, true, true);
 
         var html = this.TemplateParams.Keys.Aggregate(
             htmlTemplate,

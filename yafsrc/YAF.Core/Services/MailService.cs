@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,9 +26,17 @@ namespace YAF.Core.Services;
 
 using System;
 using System.Collections.Generic;
-using System.Net.Mail;
 
-using YAF.Types.Constants;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+
+using MimeKit;
+
+using YAF.Types.Attributes;
+using YAF.Types.Objects;
 
 /// <summary>
 ///     Functions to send email via SMTP
@@ -41,19 +49,42 @@ public class MailService : IMailService, IHaveServiceLocator
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
+    /// The mail config.
+    /// </summary>
+    private readonly MailConfiguration mailConfig;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MailService"/> class.
+    /// </summary>
+    /// <param name="mailConfiguration">
+    /// The mail configuration.
+    /// </param>
+    public MailService(IOptions<MailConfiguration> mailConfiguration)
+    {
+        this.mailConfig = mailConfiguration.Value;
+    }
+
+    /// <summary>
     /// Sends all MailMessages via the SMTP Client. Doesn't handle any exceptions.
     /// </summary>
     /// <param name="messages">
     /// The messages.
     /// </param>
     public void SendAll(
-        [NotNull] IEnumerable<MailMessage> messages)
+        [NotNull] IEnumerable<MimeMessage> messages)
     {
         var mailMessages = messages.ToList();
 
         CodeContracts.VerifyNotNull(mailMessages);
 
-        using var smtpClient = new SmtpClient();
+        var smtpClient = new SmtpClient();
+
+        smtpClient.Connect(this.mailConfig.Host, this.mailConfig.Port, SecureSocketOptions.StartTlsWhenAvailable);
+
+        if (this.mailConfig.Password.IsSet() && this.mailConfig.Mail.IsSet())
+        {
+            smtpClient.Authenticate(this.mailConfig.Mail, this.mailConfig.Password);
+        }
 
         // send the message...
         mailMessages.ToList().ForEach(
@@ -69,10 +100,10 @@ public class MailService : IMailService, IHaveServiceLocator
                     }
                     catch (Exception ex)
                     {
-                        this.Get<ILoggerService>().Log("Mail Error", EventLogTypes.Error, null, null, ex);
+                        this.Get<ILogger<MailService>>().Error(ex, "Mail Error");
                     }
                 });
 
-        smtpClient.Dispose();
+        smtpClient.Disconnect(true);
     }
 }

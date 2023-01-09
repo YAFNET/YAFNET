@@ -25,9 +25,10 @@ namespace YAF.Core.Model;
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Web.Hosting;
 
+using Microsoft.Extensions.Logging;
+
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -125,7 +126,7 @@ public static class AttachmentRepositoryExtensions
             catch (Exception e)
             {
                 // error deleting that file...
-                BoardContext.Current.Get<ILoggerService>().Warn(e, "Error Deleting Attachment");
+                BoardContext.Current.Get<ILogger<IRepository<Attachment>>>().Error(e, "Error Deleting Attachment");
             }
         }
 

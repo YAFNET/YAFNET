@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -27,7 +27,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-using YAF.Core.Services.Startup;
 using YAF.Types.Objects.Language;
 
 /// <summary>
@@ -198,18 +197,13 @@ public class Localizer
     /// </summary>
     private void InitCulture()
     {
-        if (!BoardContext.Current.Get<StartupInitializeDb>().Initialized)
-        {
-            return;
-        }
-
         var langCode = this.CurrentCulture.TwoLetterISOLanguageName;
 
         // vzrus: Culture code is missing for a user until he saved his profile.
         // First set it to board culture
         try
         {
-            if (langCode.Equals(BoardContext.Current.BoardSettings.Culture.Substring(0, 2)))
+            if (langCode.Equals(BoardContext.Current.BoardSettings.Culture[..2]))
             {
                 this.CurrentCulture = new CultureInfo(BoardContext.Current.BoardSettings.Culture);
             }
@@ -226,7 +220,7 @@ public class Localizer
             return;
         }
 
-        if (!cultureUser.Trim().Substring(0, 2).Equals(langCode))
+        if (!cultureUser.Trim()[..2].Equals(langCode))
         {
             return;
         }
@@ -235,7 +229,7 @@ public class Localizer
         {
             this.CurrentCulture =
                 new CultureInfo(
-                    cultureUser.Trim().Length > 5 ? cultureUser.Trim().Substring(0, 2) : cultureUser.Trim());
+                    cultureUser.Trim().Length > 5 ? cultureUser.Trim()[..2] : cultureUser.Trim());
         }
         catch (Exception)
         {
@@ -263,7 +257,7 @@ public class Localizer
 
         if (userLanguageCode.Length > 5)
         {
-            userLanguageCode = this.localizationLanguageResources.Resources.Code.Trim().Substring(0, 2);
+            userLanguageCode = this.localizationLanguageResources.Resources.Code.Trim()[..2];
         }
 
         this.CurrentCulture = new CultureInfo(userLanguageCode);

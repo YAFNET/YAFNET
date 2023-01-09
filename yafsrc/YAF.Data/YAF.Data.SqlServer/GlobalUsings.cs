@@ -4,9 +4,10 @@ global using System;
 global using System.Collections.Generic;
 global using System.Data;
 global using System.Data.Common;
-global using System.Data.SqlClient;
 global using System.Linq;
 global using System.Text;
+
+global using Microsoft.Data.SqlClient;
 
 global using ServiceStack.OrmLite;
 global using ServiceStack.OrmLite.SqlServer;

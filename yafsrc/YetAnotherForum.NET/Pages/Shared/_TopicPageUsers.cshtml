@@ -1,0 +1,20 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Model
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Models
+@using YAF.Types.Interfaces
+
+@inject BoardContext Current
+
+@{ 
+    var activeUsers = Current.GetRepository<Active>().ListTopic(Current.PageTopicID);
+}
+
+<div class="card">
+    <div class="card-header">
+        @Html.LocalizedText("TOPICBROWSERS")
+    </div>
+    <div class="card-body">
+        @Html.ActiveUsers(activeUsers)
+    </div>
+</div>

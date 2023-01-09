@@ -32,8 +32,6 @@ namespace YAF.Core.Services.Migrations
     using System.Data;
     using System.Linq;
 
-    using Microsoft.AspNet.Identity;
-
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
@@ -49,6 +47,10 @@ namespace YAF.Core.Services.Migrations
     using YAF.Types.Models.Identity;
 
     using ServiceStack.DataAnnotations;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Logging;
+
+    using YAF.Types.Attributes;
 
     /// <summary>
     /// Version 30 Migrations
@@ -63,15 +65,12 @@ namespace YAF.Core.Services.Migrations
         /// </param>
         public void MigrateDatabase(IDbAccess dbAccess)
         {
-            if (!Config.IsDotNetNuke)
-            {
-                // Install Membership Scripts
-                dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
-                dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetRoles>());
-                dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserClaims>());
-                dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
-                dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
-            }
+            // Install Membership Scripts
+            dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
+            dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetRoles>());
+            dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserClaims>());
+            dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
+            dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
 
             this.MigrateLegacyUsers(dbAccess);
         }
@@ -123,7 +122,7 @@ namespace YAF.Core.Services.Migrations
         }
 
         /// <summary>
-        /// Migrates the users from table User table and import them in to Idenitity
+        /// Migrates the users from table PageUser table and import them in to Idenitity
         /// </summary>
         /// <param name="users">The users.</param>
         private void MigrateUsersFromTable(IList<User> users)
@@ -166,7 +165,7 @@ namespace YAF.Core.Services.Migrations
 
                                 if (!status.Succeeded)
                                 {
-                                    this.Get<ILoggerService>().Log(
+                                    this.Get<ILogger<V30_Migration>>().Log(
                                         userId: null,
                                         source: "MigrateUsers",
                                         description: $"Failed to create user {name}: {status.Errors.FirstOrDefault()}");
@@ -277,11 +276,11 @@ namespace YAF.Core.Services.Migrations
     }
 
     /// <summary>
-    /// A class which represents the User table.
+    /// A class which represents the PageUser table.
     /// </summary>
     [Serializable]
 
-    [Alias("User")]
+    [Alias("PageUser")]
     public class LegacyUser : IEntity, IHaveBoardID, IHaveID
     {
         #region Properties

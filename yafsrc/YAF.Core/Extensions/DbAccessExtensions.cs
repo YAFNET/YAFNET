@@ -21,11 +21,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Extensions;
 
-using System.Data.Common;
-
-using YAF.Types.Extensions.Data;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The db access extensions.

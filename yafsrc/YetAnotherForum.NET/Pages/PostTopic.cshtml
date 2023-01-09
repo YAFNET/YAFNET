@@ -1,0 +1,195 @@
+@page "{f:int}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Flags
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+@model PostTopicModel
+
+@section StyleSheets {
+    @if (Model.PageBoardContext.UploadAccess)
+    {
+        @await Html.PartialAsync("_FileUploadStylesSheetsPartial")
+    }
+}
+
+<form method="post">
+        <div class="row">
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.Icon("comment-medical", "text-secondary")
+                        @Html.LocalizedText("NEWTOPIC")
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label asp-for="Input.TopicSubject" class="form-label searchSimilarTopics" localized-page="POSTMESSAGE" localized-tag="SUBJECT">
+                            </label>
+                            <input asp-for="Input.TopicSubject" class="form-control" maxlength="100" autocomplete="off" />
+                        </div>
+                        <div id="SearchResultsPlaceholder"></div>
+                        <div class="mb-3">
+                            <label asp-for="Input.TopicDescription" class="form-label" localized-page="POSTMESSAGE" localized-tag="description">
+                            </label>
+                            <input asp-for="Input.TopicDescription" class="form-control" maxlength="255" autocomplete="off" />
+                        </div>
+                    @if (Model.PageBoardContext.IsGuest)
+                    {
+                        <div class="mb-3">
+                            <label asp-for="Input.From" class="form-label" localized-page="POSTMESSAGE" localized-tag="FROM">
+                            </label>
+                            <input asp-for="Input.From" class="form-control" maxlength="100" value="@(Model.PageBoardContext.PageUser.DisplayOrUserName())" />
+                        </div>
+                    }
+
+                    @if (Model.PageBoardContext.ForumPriorityAccess)
+                    {
+                        <div class="mb-3">
+                            <label asp-for="Input.Priority" class="form-label" localized-tag="PRIORITY"></label>
+                            <select asp-for="Input.Priority" class="select2-image-select">
+                                @foreach (var item in Model.Priorities)
+                                {
+                                    if (item.Selected)
+                                    {
+                                        <option value="@item.Value" selected="selected">@item.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    }
+
+                    @if (Model.PageBoardContext.BoardSettings.UseStyledTopicTitles && (Model.PageBoardContext.ForumModeratorAccess || Model.PageBoardContext.IsAdmin))
+                    {
+                        <div class="mb-3">
+                            <label asp-for="Input.TopicStyles" class="form-label" localized-page="POSTMESSAGE" localized-tag="STYLES">
+                            </label>
+                            <input asp-for="Input.TopicStyles" class="form-control" maxlength="100" />
+                        </div>
+                    }
+                    <div class="mb-3">
+                        <label asp-for="Input.TagsValue" class="form-label" localized-page="POSTMESSAGE" localized-tag="TAGS">
+                        </label>
+                        <select id="Tags" multiple="multiple" class="form-control"></select>
+                        <input type="hidden" asp-for="Input.TagsValue" value="@Model.Input.TagsValue" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Input.Editor" class="form-label" localized-tag="MESSAGE"></label>
+                        <textarea asp-for="Input.Editor"
+                                  class="form-control"
+                                  rows="15"
+                                  cols="100"
+                                  editor-mode="Standard"
+                                  users-can-upload="@(Model.PageBoardContext.UploadAccess)"
+                                  maxlength="@Model.PageBoardContext.BoardSettings.MaxPostSize"
+                                  max-characters="@Model.PageBoardContext.BoardSettings.MaxPostSize"></textarea>
+                    </div>
+
+                    @if (Model.Input.PreviewMessage.IsSet())
+                    {
+                        <h5 class="card-title">
+                            @Html.LocalizedText("previewtitle")
+                        </h5>
+                        <alert type="light">
+                            <message message-flags="@(new MessageFlags{IsBBCode = true})" message-id="0" message="@Model.Input.PreviewMessage"></message>
+                        </alert>
+                    }
+
+                    @if (!Model.PageBoardContext.IsGuest)
+                    {
+                        <div class="row">
+                            <div class="col">
+                                <h6>
+                                    @Html.LocalizedText("NEWPOSTOPTIONS")
+                                </h6>
+                                @if (Model.PageBoardContext.ForumPollAccess)
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" asp-for="Input.AddPoll">
+                                        <label class="form-check-label" asp-for="Input.AddPoll" localized-tag="POLLADD">
+                                        </label>
+                                    </div>
+                                }
+
+                                @if (Model.PageBoardContext.IsAdmin || Model.PageBoardContext.ForumModeratorAccess)
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" asp-for="Input.Persistent">
+                                        <label class="form-check-label" asp-for="Input.Persistent">
+                                            @Html.LocalizedText("PERSISTENCY") (@Html.LocalizedText("PERSISTENCY_INFO"))
+                                        </label>
+                                    </div>
+                                }
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" asp-for="Input.TopicWatch">
+                                    <label class="form-check-label" asp-for="Input.TopicWatch" localized-tag="TOPICWATCH"></label>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.EnableCaptchaForGuests ||
+                    Model.PageBoardContext.BoardSettings.EnableCaptchaForPost && !Model.PageBoardContext.PageUser.UserFlags.IsCaptchaExcluded)
+                    {
+                        <div class="mb-3">
+                            <label class="form-label" localized-tag="Captcha_Image"></label>
+                            <img src="@(CaptchaHelper.GetCaptcha())" alt="captcha" title="@(Model.Get<ILocalization>().GetText("Captcha_Image"))" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" localized-tag="Captcha_Enter" asp-for="Input.Captcha"></label>
+                            <input asp-for="Input.Captcha" class="form-control" type="text" />
+                        </div>
+                    }
+                </div>
+                <div class="card-footer text-center">
+                    <button class="mt-1"
+                            asp-page-handler="Preview"
+                            asp-route-f="@Model.PageBoardContext.PageForumID"
+                            text-localized-tag="PREVIEW" title-localized-tag="PREVIEW_TITLE"
+                            button-style="Secondary"
+                            Icon="image"></button>
+                    <button class="mt-1"
+                            asp-page-handler="PostReply"
+                            asp-route-f="@Model.PageBoardContext.PageForumID"
+                            text-localized-tag="NEWTOPIC"
+                            button-style="Primary"
+                            Icon="comment-medical"></button>
+                    <button class="mt-1"
+                            asp-page-handler="Cancel"
+                            asp-route-f="@Model.PageBoardContext.PageForumID"
+                            text-localized-tag="CANCEL"
+                            button-style="Secondary"
+                            Icon="times"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue")))
+    </script>
+    
+    @await Html.PartialAsync("_CKEditorScriptsPartial")
+
+    @if (Model.PageBoardContext.UploadAccess)
+    {
+        @await Html.PartialAsync("_FileUploadScriptsPartial")
+    }
+}
+
+@if (Model.PageBoardContext.UploadAccess)
+{
+    @await Html.PartialAsync("Dialogs/_AttachmentUpload")
+}

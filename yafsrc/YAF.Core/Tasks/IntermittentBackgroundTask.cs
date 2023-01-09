@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -23,7 +23,6 @@
  */
 namespace YAF.Core.Tasks;
 
-using System.Security.Principal;
 using System.Threading;
 
 /// <summary>
@@ -32,14 +31,9 @@ using System.Threading;
 public class IntermittentBackgroundTask : BaseBackgroundTask
 {
     /// <summary>
-    /// The primary thread identity
+    /// The intermittent timer.
     /// </summary>
-    private WindowsIdentity primaryThreadIdentity;
-
-    /// <summary>
-    /// Gets or sets the intermittent timer.
-    /// </summary>
-    public Timer intermittentTimer { get; set; }
+    protected Timer intermittentTimer;
 
     /// <summary>
     /// Gets or sets Start Delay.
@@ -68,13 +62,8 @@ public class IntermittentBackgroundTask : BaseBackgroundTask
             return;
         }
 
-        // keep the context...
-        this.primaryThreadIdentity = WindowsIdentity.GetCurrent();
-
         // we're running this thread now...
         this.IsRunning = true;
-
-        this.Logger.Debug($"Starting Background Task {this.GetType().Name} Now");
 
         // create the timer...);
         this.intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
@@ -93,13 +82,6 @@ public class IntermittentBackgroundTask : BaseBackgroundTask
             return;
         }
 
-        WindowsImpersonationContext impersonationContext = null;
-
-        if (this.primaryThreadIdentity != null)
-        {
-            impersonationContext = this.primaryThreadIdentity.Impersonate();
-        }
-
         try
         {
             this.RunOnce();
@@ -107,8 +89,6 @@ public class IntermittentBackgroundTask : BaseBackgroundTask
         finally
         {
             Monitor.Exit(this);
-
-            impersonationContext?.Undo();
         }
     }
 }

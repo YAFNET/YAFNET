@@ -1,0 +1,92 @@
+﻿@page "{handler?}"
+
+@using YAF.Web.HtmlHelpers
+@model YAF.Pages.Moderate.ModerateModel
+
+<div class="row">
+    @foreach (var category in Model.Categories)
+    {
+        var forums = Model.Forums.Where(f => f.CategoryID == category.ID).ToList();
+
+        if (forums.Any())
+        {
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.Icon("folder")
+                        @category.Name
+                    </div>
+                    <div class="card-body text-center">
+                        @foreach (var forum in forums)
+                        {
+                            <div class="list-group list-group-flush small">
+                                <div class="list-group-item list-group-item-action">
+                                    <h5 class="fw-bold">
+                                        @Html.Raw($"{(forum.ParentID.HasValue ? "--" : "-")}{forum.Name}")
+                                    </h5>
+                                    <form method="post">
+                                        @if (forum.MessageCount > 0)
+                                        {
+                                            <button type="submit"
+                                                    asp-page-handler="Unapproved"
+                                                    asp-route-forumId="@forum.ForumID"
+                                                    button-style="Secondary"
+                                                    button-size="Small">
+                                                @Html.LocalizedText("MODERATE_DEFAULT", "UNAPPROVED")
+                                                <span class="badge bg-light text-dark">
+                                                    @forum.MessageCount
+                                                </span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <a text-localized-page="MODERATE"
+                                               text-localized-tag="NO_POSTS"
+                                               button-style="Secondary"
+                                               button-size="Small"
+                                               aria-disabled="true"
+                                               class=" disabled"></a>
+                                        }
+
+                                        @if (forum.ReportedCount > 0)
+                                        {
+                                            <button type="submit"
+                                                    asp-page-handler="Reported"
+                                                    asp-route-forumId="@forum.ForumID"
+                                                    button-style="Secondary"
+                                                    button-size="Small">
+                                                @Html.LocalizedText("MODERATE_DEFAULT", "REPORTED")
+                                                <span class="badge bg-light text-dark">
+                                                    @forum.ReportedCount
+                                                </span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <a text-localized-page="MODERATE"
+                                               text-localized-tag="NO_POSTS"
+                                               button-style="Secondary"
+                                               button-size="Small"
+                                               aria-disabled="true"
+                                               class=" disabled"></a>
+                                        }
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@if (!Model.Forums.Any())
+{
+    <alert icon="check"
+           icon-text-color="text-success"
+           type="success"
+           localized-page="MODERATE"
+           localized-tag="NOMODERATION">
+    </alert>
+}

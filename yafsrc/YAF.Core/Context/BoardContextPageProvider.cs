@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,32 +21,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Context;
 
-using Autofac;
-using Autofac.Core.Lifetime;
+using System;
 
 /// <summary>
 /// The board context page provider.
 /// </summary>
-internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
+public class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
 {
     /// <summary>
-    /// The page yaf context name.
+    /// The Page Context name.
     /// </summary>
     private const string PageBoardContextName = "YAF.BoardContext";
 
     /// <summary>
-    /// The _container.
+    /// The global instance.
     /// </summary>
-    private readonly ILifetimeScope _lifetimeScope;
-
-    private readonly IInjectServices _injectServices;
+    private static BoardContext globalInstance;
 
     /// <summary>
-    /// The _global instance.
+    /// The container.
     /// </summary>
-    private static BoardContext _globalInstance;
+    private readonly ILifetimeScope lifetimeScope;
+
+    /// <summary>
+    /// The inject services.
+    /// </summary>
+    private readonly IInjectServices injectServices;
+
+    private readonly IHttpContextAccessor httpContext;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BoardContextPageProvider"/> class.
@@ -57,10 +62,11 @@ internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
     /// <param name="injectServices">
     /// The inject Services.
     /// </param>
-    public BoardContextPageProvider(ILifetimeScope lifetimeScope, IInjectServices injectServices)
+    public BoardContextPageProvider(ILifetimeScope lifetimeScope, IInjectServices injectServices, IHttpContextAccessor httpContextAccessor)
     {
-        this._lifetimeScope = lifetimeScope;
-        this._injectServices = injectServices;
+        this.lifetimeScope = lifetimeScope;
+        this.injectServices = injectServices;
+        this.httpContext = httpContextAccessor;
     }
 
     /// <summary>
@@ -70,20 +76,27 @@ internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
     {
         get
         {
-            if (HttpContext.Current is null)
+            if (this.httpContext.HttpContext == null)
             {
-                return _globalInstance ??= this.CreateContextInstance();
+                return globalInstance ??= this.CreateContextInstance();
             }
 
-            if (HttpContext.Current.Items[PageBoardContextName] is BoardContext pageInstance)
+            if (this.httpContext.HttpContext.Items[PageBoardContextName] is BoardContext)
             {
-                return pageInstance;
+                return this.httpContext.HttpContext.Items[PageBoardContextName] as BoardContext;
             }
 
-            pageInstance = this.CreateContextInstance();
+            var pageInstance = this.CreateContextInstance();
 
-            // make sure it's put back in the page...
-            HttpContext.Current.Items[PageBoardContextName] = pageInstance;
+            try
+            {
+                // make sure it's put back in the page...
+                this.httpContext.HttpContext.Items[PageBoardContextName] = pageInstance;
+            }
+            catch (Exception)
+            {
+                // Ignore
+            }
 
             return pageInstance;
         }
@@ -97,10 +110,10 @@ internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
     /// </returns>
     private BoardContext CreateContextInstance()
     {
-        var lifetimeContainer = this._lifetimeScope.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
+        var lifetimeContainer = this.lifetimeScope.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
 
         var instance = new BoardContext(lifetimeContainer);
-        this._injectServices.Inject(instance);
+        this.injectServices.Inject(instance);
 
         return instance;
     }

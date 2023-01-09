@@ -1,5 +1,5 @@
-﻿/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bj�rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -26,11 +26,15 @@ namespace YAF.Types.Interfaces.Identity;
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
+using System.Threading.Tasks;
 
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 using YAF.Types.Exceptions;
+using YAF.Types.Models;
+using YAF.Types.Models.Identity;
+using YAF.Types.Objects.Model;
 
 /// <summary>
 /// The AspNetUsersHelper interface.
@@ -43,7 +47,7 @@ public interface IAspNetUsersHelper
     IQueryable<AspNetUsers> Users { get; }
 
     /// <summary>Gets the hash/verify passwords</summary>
-    IPasswordHasher IPasswordHasher { get; }
+    IPasswordHasher<AspNetUsers> IPasswordHasher { get; }
 
     /// <summary>
     /// Gets the guest user for the current board.
@@ -190,16 +194,14 @@ public interface IAspNetUsersHelper
     AspNetUsers GetUser(object providerKey);
 
     /// <summary>
-    /// Get the User from the ProviderUserKey
+    /// Get the UserID from the ProviderUserKey
     /// </summary>
-    /// <param name="providerUserKey">
-    /// The provider user key.
-    /// </param>
+    /// <param name="providerUserKey">The provider user key.</param>
     /// <param name="currentBoard">
     /// Get user from Current board, or all boards
     /// </param>
     /// <returns>
-    /// The get user from provider user key.
+    /// The get user id from provider user key.
     /// </returns>
     User GetUserFromProviderUserKey(string providerUserKey, bool currentBoard = true);
 
@@ -266,26 +268,21 @@ public interface IAspNetUsersHelper
     /// <param name="isPersistent">
     /// The is persistent.
     /// </param>
-    void SignIn(AspNetUsers user, bool isPersistent = true);
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    Task SignInAsync(AspNetUsers user, bool isPersistent = true);
 
     /// <summary>
     /// The sign in external.
     /// </summary>
-    void SignInExternal();
-
-    /// <summary>
-    /// Creates a ClaimsIdentity representing the user
-    /// </summary>
     /// <param name="user">
     /// The user.
     /// </param>
-    /// <param name="authenticationType">
-    /// The authentication Type.
-    /// </param>
     /// <returns>
-    /// The <see cref="ClaimsIdentity"/>.
+    /// The <see cref="Task"/>.
     /// </returns>
-    ClaimsIdentity CreateIdentity(AspNetUsers user, string authenticationType);
+    Task<IActionResult> SignInExternalAsync(AspNetUsers user);
 
     /// <summary>
     /// Delete a user
@@ -301,13 +298,13 @@ public interface IAspNetUsersHelper
     /// <summary>
     /// Returns the roles for the user
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <returns>
     /// The <see cref="IList"/>.
     /// </returns>
-    IList<string> GetRoles(string userId);
+    IList<string> GetRoles(AspNetUsers user);
 
     /// <summary>
     /// Returns true if the user is in the specified role
@@ -337,8 +334,8 @@ public interface IAspNetUsersHelper
     /// <summary>
     /// The remove from role.
     /// </summary>
-    /// <param name="userId">
-    /// The user id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="role">
     /// The role.
@@ -346,7 +343,7 @@ public interface IAspNetUsersHelper
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    IdentityResult RemoveFromRole(string userId, string role);
+    IdentityResult RemoveFromRole(AspNetUsers user, string role);
 
     /// <summary>
     /// Create a user with the given password
@@ -376,8 +373,8 @@ public interface IAspNetUsersHelper
     /// <summary>
     /// Confirm the user's email with confirmation token
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="token">
     /// The token.
@@ -385,24 +382,24 @@ public interface IAspNetUsersHelper
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    IdentityResult ConfirmEmail(string userId, string token);
+    IdentityResult ConfirmEmail(AspNetUsers user, string token);
 
     /// <summary>
     /// Generate a password reset token for the user using the UserTokenProvider
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    string GeneratePasswordResetToken(string userId);
+    string GeneratePasswordResetToken(AspNetUsers user);
 
     /// <summary>
     /// Reset a user's password using a reset password token
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="token">
     /// The token.
@@ -413,24 +410,24 @@ public interface IAspNetUsersHelper
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    IdentityResult ResetPassword(string userId, string token, string newPassword);
+    IdentityResult ResetPassword(AspNetUsers user, string token, string newPassword);
 
     /// <summary>
     /// Get the email confirmation token for the user
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    string GenerateEmailConfirmationResetToken(string userId);
+    string GenerateEmailConfirmationResetToken(AspNetUsers user);
 
     /// <summary>
     /// Change a user password
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="currentPassword">
     /// The current Password.
@@ -441,7 +438,7 @@ public interface IAspNetUsersHelper
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    IdentityResult ChangePassword(string userId, string currentPassword, string newPassword);
+    IdentityResult ChangePassword(AspNetUsers user, string currentPassword, string newPassword);
 
     /// <summary>
     /// The add login.
@@ -473,9 +470,6 @@ public interface IAspNetUsersHelper
     /// </param>
     /// <param name="boardId">
     /// The board id.
-    /// </param>
-    /// <param name="includeNonApproved">
-    /// Include Non Approved user.
     /// </param>
     /// <returns>
     /// The <see cref="Tuple"/>.

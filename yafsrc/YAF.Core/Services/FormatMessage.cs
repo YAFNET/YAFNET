@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -26,10 +26,9 @@ namespace YAF.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Web;
 
-using YAF.Core.Utilities.StringUtils;
-using YAF.Types.Constants;
-using YAF.Types.Objects;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// YAF FormatMessage provides functions related to formatting the post messages.
@@ -42,19 +41,14 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    /// <param name="httpServer">
-    /// The http server.
-    /// </param>
     /// <param name="processReplaceRuleFactory">
     /// The process replace rule factory.
     /// </param>
     public FormatMessage(
         IServiceLocator serviceLocator,
-        HttpServerUtilityBase httpServer,
         Func<IEnumerable<bool>, IProcessReplaceRules> processReplaceRuleFactory)
     {
         this.ServiceLocator = serviceLocator;
-        this.HttpServer = httpServer;
         this.ProcessReplaceRuleFactory = processReplaceRuleFactory;
     }
 
@@ -62,11 +56,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
-
-    /// <summary>
-    /// Gets or sets HttpServer.
-    /// </summary>
-    public HttpServerUtilityBase HttpServer { get; set; }
 
     /// <summary>
     /// Gets or sets ProcessReplaceRuleFactory.
@@ -102,7 +91,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         MatchAndPerformAction(
             @"\[.*?\]",
             stringToClear,
-            (tag, index, len) =>
+            (tag, _, _) =>
                 {
                     var bbCode = tag.Replace("/", string.Empty).Replace("]", string.Empty);
 
@@ -211,7 +200,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         if (!ruleEngine.HasRules)
         {
             // get rules for YafBBCode
-            this.Get<IBBCode>().CreateBBCodeRules(
+            this.Get<IBBCodeService>().CreateBBCodeRules(
                 messageId,
                 ruleEngine,
                 true,
@@ -297,7 +286,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         MatchAndPerformAction(
             "<.*?>",
             stringToClear,
-            (tag, index, len) =>
+            (tag, _, _) =>
                 {
                     var code = tag.Replace("/", string.Empty).Replace(">", string.Empty);
 
@@ -465,7 +454,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
             word => MatchAndPerformAction(
                 $"({word.ToLower().ToRegExString()})",
                 message,
-                (inner, index, length) =>
+                (_, index, length) =>
                     {
                         message = message.Insert(index + length, postfix);
                         message = message.Insert(index, prefix);
@@ -497,7 +486,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         const RegexOptions RegexOptions = RegexOptions.IgnoreCase;
 
-        var matches = Regex.Matches(text, matchRegEx, RegexOptions).Cast<Match>().OrderByDescending(x => x.Index);
+        var matches = Regex.Matches(text, matchRegEx, RegexOptions).OrderByDescending(x => x.Index);
 
         matches.ForEach(
             match =>

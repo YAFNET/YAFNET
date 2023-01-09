@@ -36,7 +36,7 @@ public interface IAuthBase
     /// The message.
     /// </param>
     /// <returns>
-    /// The <see cref="bool"/>.
+    /// The <see cref="AspNetUsers"/>.
     /// </returns>
-    bool LoginOrCreateUser(out string message);
+    AspNetUsers LoginOrCreateUser(out string message);
 }

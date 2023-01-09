@@ -1,0 +1,141 @@
+﻿@page
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Configuration
+@using YAF.Core.Services
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Extensions
+@using YAF.Web.TagHelpers
+
+@model YAF.Pages.DigestModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>@Html.Raw(string.Format(Model.GetText("SUBJECT"),Model.PageBoardContext.BoardSettings.Name))</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+        @Html.Raw(Model.InlineCss)
+    </style>
+</head>
+
+<body class="bg-light">
+<div class="container">
+    <div class="mx-auto mt-4 mb-3 text-center" style="width: 100px; height: 40px;">
+        <img alt="logo" src="@Html.Raw($"/{Model.Get<BoardFolders>().Logos}/{Model.Get<BoardSettings>().ForumLogo}")"/>
+    </div>
+    <div class="p-3 mx-auto text-center">
+        <div class="card-body">
+            <h1 class="display-4 fw-normal">
+                @Model.GetText("ACTIVETOPICS")
+            </h1>
+            <p class="fs-5 text-muted">
+                @Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(DateTime.UtcNow))
+            </p>
+        </div>
+    </div>
+
+    @if (!Model.NewTopics.NullOrEmpty())
+    {
+        @foreach (var forum in Model.NewTopics)
+        {
+            <div class="card text-center mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        @forum.Key.Name
+                    </h5>
+
+                    @foreach (var topic in forum.OrderByDescending(x => x.LastPostDate))
+                    {
+                        <h6 class="card-subtitle">
+                            <a href="@Html.Raw(Model.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new {m = topic.LastMessageID, name = topic.Subject}))"
+                               target="_blank">
+                                <i class="fas fa-comment"></i> @topic.Subject
+                            </a>
+                            <span class="badge bg-secondary">
+                                @string.Format(Model.GetText("COMMENTS"), topic.Replies)
+                            </span>
+                        </h6>
+                        <p class="text-muted small">
+                            @string.Format(Model.GetText("STARTEDBY"), topic.StartedUserName)
+                        </p>
+                        <p class="card-text">
+                            @Model.GetMessageFormattedAndTruncated(topic.LastMessage, 200)
+                        </p>
+
+                        <a class="btn btn-primary btn-sm mx-auto mt-2"
+                           href="@Html.Raw(Model.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new {m = topic.LastMessageID, name = topic.Subject}))"
+                           target="_blank">
+                            @Model.GetText("LINK")
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+    }
+
+    @if (!Model.ActiveTopics.NullOrEmpty())
+    {
+        @foreach (var forum in Model.ActiveTopics)
+        {
+            <div class="card text-center mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        @forum.Key.Name
+                    </h5>
+
+                    @foreach (var topic in forum.OrderByDescending(x => x.LastPostDate))
+                    {
+                        <h6 class="card-subtitle">
+                            <a href="@Html.Raw(Model.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new {m = topic.LastMessageID, name = topic.Subject}))"
+                               target="_blank">
+                                <i class="fas fa-comment"></i> @topic.Subject
+                            </a>
+                            <span class="badge bg-secondary">
+                                @string.Format(Model.GetText("COMMENTS"), topic.Replies)
+                            </span>
+                        </h6>
+                        <p class="text-muted small">
+                            @string.Format(Model.GetText("STARTEDBY"), topic.StartedUserName)
+                        </p>
+                        <p class="card-text">
+                            @Model.GetMessageFormattedAndTruncated(topic.LastMessage, 200)
+                        </p>
+
+                        <a class="btn btn-primary btn-sm mx-auto mt-2"
+                           href="@Html.Raw(Model.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new {m = topic.LastMessageID, name = topic.Subject}))"
+                           target="_blank">
+                            @Model.GetText("LINK")
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+    }
+    
+    @if (Model.ErrorMessage.IsSet())
+    {
+        @Model.ErrorMessage
+    }
+
+   
+
+    <div class="text-center text-muted small">
+        @Model.GetText("REMOVALTEXT")
+        <a asp-page="@ForumPages.Profile_Subscriptions.GetPageName()"
+           button-style="None">
+            @Model.GetText("REMOVALLINK")
+        </a>
+    </div>
+
+</div>
+
+</body>
+
+</html>

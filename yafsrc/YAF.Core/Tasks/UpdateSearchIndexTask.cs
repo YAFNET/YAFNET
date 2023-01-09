@@ -26,8 +26,9 @@ namespace YAF.Core.Tasks;
 using System;
 using System.Threading;
 
+using Microsoft.Extensions.Logging;
+
 using YAF.Core.Model;
-using YAF.Types.Constants;
 using YAF.Types.Models;
 
 /// <summary>
@@ -73,17 +74,14 @@ public class UpdateSearchIndexTask : LongBackgroundTask
             forums.ForEach(
                 forum =>
                     {
-                        var messages =
-                            this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.Item2.ID);
+                        var messages = this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.Item2.ID);
 
                         this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
                     });
 
-            this.Get<ILoggerService>().Log(
-                "search index updated",
-                EventLogTypes.Information,
-                null,
-                "Update Search Index Task");
+
+
+            this.Get<ILogger<UpdateSearchIndexTask>>().Info("search index updated");
         }
         catch (Exception x)
         {
@@ -121,9 +119,7 @@ public class UpdateSearchIndexTask : LongBackgroundTask
         {
             try
             {
-                lastSend = Convert.ToDateTime(
-                    boardSettings.LastSearchIndexUpdated,
-                    CultureInfo.InvariantCulture);
+                lastSend = Convert.ToDateTime(boardSettings.LastSearchIndexUpdated, CultureInfo.InvariantCulture);
             }
             catch (Exception)
             {

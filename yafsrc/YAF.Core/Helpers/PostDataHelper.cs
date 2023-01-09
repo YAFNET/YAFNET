@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -140,11 +140,11 @@ public class PostDataHelperWrapper
     /// Gets a value indicating whether CanEditPost.
     /// </summary>
     public bool CanEditPost =>
-        (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
-         && (this.UserId == BoardContext.Current.PageUserID && !this.DataRow.IsGuest
-             || this.DataRow.IsGuest && this.DataRow.IP
-             == BoardContext.Current.CurrentForumPage.Request.GetUserRealIPAddress())
-         || BoardContext.Current.ForumModeratorAccess) && BoardContext.Current.ForumEditAccess;
+        (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked &&
+         (this.UserId == BoardContext.Current.PageUserID && !this.DataRow.IsGuest || this.DataRow.IsGuest &&
+          this.DataRow.IP == BoardContext.Current.Get<IHttpContextAccessor>().HttpContext
+              .GetUserRealIPAddress()) || BoardContext.Current.ForumModeratorAccess) &&
+        BoardContext.Current.ForumEditAccess;
 
     /// <summary>
     /// Gets a value indicating whether PostLocked.
@@ -186,19 +186,19 @@ public class PostDataHelperWrapper
     /// Gets a value indicating whether CanAttach.
     /// </summary>
     public bool CanAttach =>
-        (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
-         && this.UserId == BoardContext.Current.PageUserID || BoardContext.Current.ForumModeratorAccess)
-        && BoardContext.Current.UploadAccess;
+        (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked &&
+         this.UserId == BoardContext.Current.PageUserID || BoardContext.Current.ForumModeratorAccess) &&
+        BoardContext.Current.UploadAccess;
 
     /// <summary>
     /// Gets a value indicating whether CanDeletePost.
     /// </summary>
     public bool CanDeletePost =>
-        (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
-         && (this.UserId == BoardContext.Current.PageUserID && !this.DataRow.IsGuest
-             || this.DataRow.IsGuest && this.DataRow.IP
-             == BoardContext.Current.CurrentForumPage.Request.GetUserRealIPAddress())
-         || BoardContext.Current.ForumModeratorAccess) && BoardContext.Current.ForumDeleteAccess;
+        (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked &&
+         (this.UserId == BoardContext.Current.PageUserID && !this.DataRow.IsGuest || this.DataRow.IsGuest &&
+          this.DataRow.IP == BoardContext.Current.Get<IHttpContextAccessor>().HttpContext
+              .GetUserRealIPAddress()) || BoardContext.Current.ForumModeratorAccess) &&
+        BoardContext.Current.ForumDeleteAccess;
 
     /// <summary>
     /// Gets a value indicating whether CanUnDeletePost.
@@ -209,6 +209,6 @@ public class PostDataHelperWrapper
     /// Gets a value indicating whether CanReply.
     /// </summary>
     public bool CanReply =>
-        (!this.messageFlags.IsLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
-         || BoardContext.Current.ForumModeratorAccess) && BoardContext.Current.ForumReplyAccess;
+        (!this.messageFlags.IsLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked ||
+         BoardContext.Current.ForumModeratorAccess) && BoardContext.Current.ForumReplyAccess;
 }

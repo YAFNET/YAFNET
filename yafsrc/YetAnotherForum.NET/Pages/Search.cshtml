@@ -1,0 +1,111 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Interfaces
+@using YAF.Web.TagHelpers
+@model YAF.Pages.SearchModel
+
+<form method="post">
+    <div class="input-group">
+        <input asp-for="Input.SearchInput" class="form-control searchInput" id="searchInput" placeholder="@Model.GetText("BTNSEARCH")"/>
+        <a button-style="Primary" icon="search" text-localized-tag="BTNSEARCH" href="javascript:getSearchResultsData(0);"></a>
+        <a class="dropdown-toggle" role="button" href="#" data-bs-toggle="dropdown" aria-expanded="false" button-style="Secondary" icon="cog" text-localized-tag="OPTIONS"
+           text-localized-page="ADMIN_USERS"></a>
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="optionsDropDown">
+            <div class="px-3 py-1">
+                <div class="mb-3">
+                    <label asp-for="Input.SearchStringFromWho" localized-tag="POSTEDBY" class="form-label"></label>
+                    <input asp-for="Input.SearchStringFromWho" class="form-control searchUserInput" data-display="@Html.Raw(Model.PageBoardContext.BoardSettings.EnableDisplayName.ToString())"/>
+                </div>
+            </div>
+            <div class="px-3 py-1">
+                <div class="mb-3">
+                    <label asp-for="Input.SearchStringTag" localized-tag="Tags" class="form-label"></label>
+                    <input asp-for="Input.SearchStringTag" class="form-control searchTagInput"/>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="px-3 py-1">
+                <div class="mb-3">
+                    <label asp-for="Input.SearchWhat" localized-tag="KEYWORDS" class="form-label"></label>
+                    <select asp-for="Input.SearchWhat"
+                            asp-items="Model.SearchWhatList"
+                            class="form-select searchWhat"></select>
+                </div>
+                <div class="mb-3">
+                    <label for="ForumList" localized-tag="SEARCH_IN" class="form-label"></label>
+                    <select id="ForumList" name="forumList" class="form-select"></select>
+                    <input type="hidden" asp-for="Input.ForumListSelected" value="@Model.Input.ForumListSelected"/>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.TitleOnly" localized-tag="SEARCH_TITLEORBOTH" class="form-label"></label>
+                    <select asp-for="Input.TitleOnly"
+                            asp-items="Model.TitleOnlyList"
+                            class="form-select titleOnly"></select>
+
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.ResultsPerPage" localized-tag="SEARCH_RESULTS" class="form-label"></label>
+                    <select asp-for="Input.ResultsPerPage"
+                            asp-items="Model.ResultsPerPageList"
+                            class="form-select resultsPage"></select>
+                </div>
+            </div>
+            <div class="px-3 d-grid gap-2">
+                <button button-style="Primary"
+                        button-size="Small"
+                        text-localized-tag="OK"
+                        text-localized-page="COMMON"></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="SearchResultsListBox">
+
+    <div id="SearchResultsPagerTop" class="mt-3"></div>
+    <div id="SearchResultsLoader">
+        <div class="modal fade" id="loadModal" tabindex="-1" role="dialog" aria-labelledby="loadModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <div class="fa-3x">
+                            <i class="fas fa-spinner fa-pulse"></i>
+                        </div>
+                        <h5 class="text-center">@Html.LocalizedText("COMMON", "LOADING")</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="SearchResultsPlaceholder"
+         data-minimum="@Html.Raw( Model.PageBoardContext.BoardSettings.SearchStringMinLength )"
+         data-notext='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("NO_SEARCH_RESULTS") )'
+         data-posted='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("POSTED") )'
+         data-by='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("By") )'
+         data-lastpost='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("GO_LAST_POST") )'
+         data-topic='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("COMMON","VIEW_TOPIC") )'
+         style="clear: both;">
+    </div>
+
+    <div id="SearchResultsPagerBottom" class="mt-3"></div>
+</div>
+
+@section Scripts {
+
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectForumsLoadJs(
+            "ForumList",
+            Model.Get<ILocalization>().GetText("PRUNE_FORUM"),
+            false,
+            true, 
+            "Input_ForumListSelected")))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.DropDownToggleJs()))
+    </script>
+}

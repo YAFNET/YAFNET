@@ -21,10 +21,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Events.Cache;
 
 using YAF.Types.Attributes;
-using YAF.Types.Constants;
 
 /// <summary>
 ///     The attachment event handle file delete.

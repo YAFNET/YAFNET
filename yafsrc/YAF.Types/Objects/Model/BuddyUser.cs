@@ -66,22 +66,10 @@ public class BuddyUser
     public int NumPosts { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the rank.
-    /// </summary>
-    /// <value>The name of the rank.</value>
-    public string RankName { get; set; }
-
-    /// <summary>
     /// Gets or sets a value indicating whether this <see cref="BuddyUser"/> is approved.
     /// </summary>
     /// <value><c>true</c> if approved; otherwise, <c>false</c>.</value>
     public bool Approved { get; set; }
-
-    /// <summary>
-    /// Gets or sets from user identifier.
-    /// </summary>
-    /// <value>From user identifier.</value>
-    public int FromUserID { get; set; }
 
     /// <summary>
     /// Gets or sets the requested.

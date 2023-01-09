@@ -1,0 +1,211 @@
+﻿@page "{handler?}"
+
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Objects
+@model RegisterModel
+
+<div class="row">
+    <div class="col">
+        <form method="post" class="needs-validation">
+            <div class="card">
+                <div class="card-header">
+                    @Html.IconHeader("user-plus", "REGISTER", "CREATE_USER")
+                </div>
+                <div class="card-body">
+                    @if (Model.ErrorMessage.IsSet())
+                    {
+                        <alert type="success"
+                               class="text-center"
+                               message="@Html.Raw(Model.ErrorMessage)"></alert>
+                    }
+                    else
+                    {
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label asp-for="Input.UserName" class="form-label"
+                       localized-page="REGISTER" localized-tag="USERNAME">
+                </label>
+                <input asp-for="Input.UserName" class="form-control" required />
+                <div class="invalid-feedback">
+                    @Html.LocalizedText("LOGIN", "NEED_USERNAME")
+                </div>
+            </div>
+            @if (Model.PageBoardContext.BoardSettings.EnableDisplayName)
+            {
+                <div class="mb-3 col-md-6">
+                    <label asp-for="Input.DisplayName" class="form-label"
+                           localized-page="REGISTER" localized-tag="DISPLAYNAME">
+                    </label>
+                    <input asp-for="Input.DisplayName" class="form-control" />
+                </div>
+            }
+        </div>
+                        <div class="mb-3">
+                            <label asp-for="Input.Email" class="form-label"
+                                   localized-page="REGISTER" localized-tag="EMAIL">
+                            </label>
+                            <input asp-for="Input.Email" class="form-control" required />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("REGISTER", "NEED_EMAIL")
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label asp-for="Input.Password" class="form-label"
+                                       localized-page="REGISTER" localized-tag="PASSWORD">
+                                </label>
+                                <input asp-for="Input.Password" class="form-control" required />
+                                <div class="invalid-feedback">
+                                    @Html.LocalizedText("REGISTER", "NEED_PASSWORD")
+                                </div>
+                                <div class="d-none" id="passwordStrength">
+                                    <small class="form-text text-muted mb-2" id="passwordHelp"></small>
+                                    <div class="progress">
+                                        <div id="progress-password"
+                                             class="progress-bar"
+                                             role="progressbar"
+                                             aria-label="password"
+                                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label asp-for="Input.ConfirmPassword" class="form-label"
+                                       localized-page="REGISTER" localized-tag="CONFIRM_PASSWORD">
+                                </label>
+                                <input asp-for="Input.ConfirmPassword" class="form-control" required />
+                                <div class="invalid-feedback">
+                                    @Html.LocalizedText("REGISTER", "RETYPE_PASSWORD")
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (Model.PageBoardContext.BoardSettings.CaptchaTypeRegister == 1)
+                        {
+                            <div class="mb-3">
+                                @Html.LocalizedText("REGISTER", "CAPTCHA_IMAGE")
+
+                                <img class="form-control w-25" src="@Model.CaptchaImage" alt="captcha" />
+
+                                <button type="submit"
+                                asp-page-handler="RefreshCaptcha"
+                                button-style="Secondary"
+                                button-size="Small"
+                                text-localized-page="REGISTER"
+                                text-localized-tag="GENERATE_CAPTCHA"></button>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Input.Captcha" class="form-label"
+                               localized-page="REGISTER" localized-tag="CAPTCHA_ENTER">
+                                </label>
+                                <input asp-for="Input.Captcha" class="form-control" required />
+                            </div>
+                        }
+                        else if (Model.PageBoardContext.BoardSettings.CaptchaTypeRegister == 2)
+                        {
+                            <recaptcha />
+                        }
+
+                        @if (Model.Input.CustomProfile.Any())
+                        {
+                            <hr/>
+                            <h4>
+                                @Html.LocalizedText("EDIT_PROFILE", "OTHER")
+                            </h4>
+
+                            @for (var i = 0; i < Model.Input.CustomProfile.Count; i++)
+                            {
+                                if (Model.Input.CustomProfile[i].Required)
+                                {
+                                    <div class="mb-3">
+                                        @switch (Model.Input.CustomProfile[i].DataType.ToEnum<DataType>())
+                                        {
+                                            case DataType.Text:
+                                                {
+                                                    <label asp-for="Input.CustomProfile[i].Value" class="form-label">@Model.Input.CustomProfile[i].Name</label>
+
+                                                    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required"/>
+                                                    <div class="invalid-feedback">
+                                                        @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
+                                                    </div>
+
+                                                    break;
+                                                }
+                                            case DataType.Number:
+                                                {
+                                                    <label asp-for="Input.CustomProfile[i].Value" class="form-label">@Model.Input.CustomProfile[i].Name</label>
+
+                                                    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required" type="number"/>
+                                                    <div class="invalid-feedback">
+                                                        @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
+                                                    </div>
+
+                                                }
+                                                break;
+                                            case DataType.Check:
+                                                {
+                                                    <div class="form-check form-switch">
+                                                        <input asp-for="Input.CustomProfile[i].Value" class="form-check-input" required="required" type="checkbox" role="switch"/>
+                                                        <label class="form-check-label" asp-for="Input.CustomProfile[i].Value">@Model.Input.CustomProfile[i].Name</label>
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        @Html.LocalizedTextFormatted("NEED_USERNAME", @Model.Input.CustomProfile[i].Name)
+                                                    </div>
+
+                                                }
+                                                break;
+
+                                        }
+                                    </div>
+                                }
+                            }
+                        }
+                    }
+
+                </div>
+                @if (Model.ErrorMessage.IsNotSet())
+                {
+                    <div class="card-footer text-center">
+                        <button type="submit" class=" btn-loading"
+                                button-style="Primary"
+                                icon="user-plus"
+                                text-localized-page="REGISTER"
+                                text-localized-tag="REGISTER">
+                        </button>
+                        @if (Model.PageBoardContext.IsGuest && Model.PageBoardContext.Get<BoardConfiguration>().AllowLoginAndLogoff)
+                        {
+                            <a asp-page="/Account/Login"
+                               button-style="OutlineSecondary"
+                               icon="sign-in-alt"
+                               title-localized-page="TOOLBAR"
+                               title-localized-tag="LOGIN_INSTEAD"
+                               text-localized-page="TOOLBAR"
+                               text-localized-tag="LOGIN">
+                            </a>
+                        }
+                    </div>
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.PasswordStrengthCheckerJs(
+            "Input_Password",
+            "Input_ConfirmPassword",
+            Model.PageBoardContext.BoardSettings.MinRequiredPasswordLength,
+            Model.Get<ILocalization>().GetText("PASSWORD_NOTMATCH"),
+            Model.Get<ILocalization>().GetTextFormatted("PASSWORD_MIN", Model.PageBoardContext.BoardSettings.MinRequiredPasswordLength),
+            Model.Get<ILocalization>().GetText("PASSWORD_GOOD"),
+            Model.Get<ILocalization>().GetText("PASSWORD_STRONGER"),
+            Model.Get<ILocalization>().GetText("PASSWORD_WEAK"))))
+    </script>
+}

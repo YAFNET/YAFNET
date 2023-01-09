@@ -1,0 +1,34 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Model
+@using YAF.Core.Services
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+@using YAF.Types.Models
+@using YAF.Web.TagHelpers
+
+@inject BoardContext Current
+
+@{ 
+    var tagsList = Current.GetRepository<TopicTag>().List(Current.PageTopicID);
+}
+
+@if (!tagsList.NullOrEmpty())
+{
+    <div class="row mb-3">
+        <div class="col">
+            <h5>
+                @foreach (var tag in tagsList)
+                {
+                    <span class="badge bg-primary">
+                        @Html.Icon("tag")
+                        <a href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.Search, new { tag = tag.Item2.TagName} ))"
+                           class="link-light">@(tag.Item2.TagName)
+                        </a>
+                    </span>
+                }
+            </h5>
+        </div>
+    </div>
+}

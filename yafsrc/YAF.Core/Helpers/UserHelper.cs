@@ -25,6 +25,7 @@ namespace YAF.Core.Helpers;
 
 using System;
 
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -52,7 +53,7 @@ public static class UserHelper
     }
 
     /// <summary>
-    /// Gets the Guest User Language File based on the current Browser Language
+    /// Gets the Guest PageUser Language File based on the current Browser Language
     /// </summary>
     /// <returns>
     /// The <see cref="string"/>.
@@ -83,7 +84,7 @@ public static class UserHelper
     /// The theme.
     /// </param>
     /// <returns>
-    /// Returns User theme
+    /// Returns PageUser theme
     /// </returns>
     public static string GetUserThemeFile([CanBeNull] User user, [NotNull] bool allowUserTheme, [NotNull] string theme)
     {

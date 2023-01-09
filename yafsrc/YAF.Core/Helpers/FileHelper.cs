@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Helpers;
 
 using System;
@@ -28,7 +29,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-using YAF.Types.Objects;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+using YAF.Types.Attributes;
 
 /// <summary>
 /// Provides helper functions for File handling
@@ -100,7 +103,7 @@ public static class FileHelper
     /// The folder.
     /// </param>
     public static void AddImageFiles(
-        [NotNull] this List<NamedParameter> list,
+        [NotNull] this List<SelectListItem> list,
         [NotNull] List<FileInfo> files,
         [NotNull] string folder)
     {
@@ -115,7 +118,9 @@ public static class FileHelper
                      StringComparison.InvariantCultureIgnoreCase)).ForEach(
             f =>
                 {
-                    var item = new NamedParameter(f.Name, $"{BoardInfo.ForumClientFileRoot}{folder}/{f.Name}");
+                    var item = new SelectListItem(
+                        f.Name,
+                        BoardContext.Current.Get<IUrlHelper>().Content($"~/{folder}/{f.Name}"));
 
                     list.Add(item);
                 });

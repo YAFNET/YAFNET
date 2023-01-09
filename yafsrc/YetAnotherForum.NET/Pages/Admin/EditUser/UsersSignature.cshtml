@@ -1,0 +1,56 @@
+﻿@page
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+@model YAF.Pages.Admin.EditUser.UsersSignatureModel
+
+@inject BoardContext Current
+
+@{
+    Layout = "_EditUserLayout";
+}
+
+<h2>
+    @Html.LocalizedText("EDIT_SIGNATURE", "TITLE")
+</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
+    
+
+    <signature display-user-id="@Model.PageBoardContext.PageUserID"
+               signature="@Model.Signature"></signature>
+            
+    <textarea asp-for="Signature"
+                      class="form-control"
+                      rows="15"
+                      cols="100"
+                      editor-mode="Basic"
+                      users-can-upload="false"
+                      maxlength="@Model.AllowedNumberOfCharacters"
+                      max-characters="@Model.AllowedNumberOfCharacters"></textarea>
+    <hr />
+    <div class="text-lg-center">
+        <button type="submit"
+                asp-page-handler="Preview"
+                button-style="Secondary"
+                icon="image"
+                class=" me-2"
+                text-localized-page="COMMON"
+                text-localized-tag="PREVIEW"></button>
+        <button button-style="Primary"
+                Icon="save"
+                text-localized-tag="SAVE"
+                asp-page-handler="Save"></button>
+        <a button-style="Secondary"
+           Icon="times"
+           text-localized-tag="CANCEL"
+           asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
+    </div>
+</form>
+
+@await Html.PartialAsync("_CKEditorScriptsPartial")

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Events.Cache;
 
 using System;
@@ -111,7 +112,6 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     {
         // clear the cache for this user...
         var userId = @event.UserId;
-        this.DataCache.Remove(string.Format(Constants.Cache.UserBuddies, userId));
 
         // update forum moderators cache just in case something was changed...
         this.ClearModeratorsCache();

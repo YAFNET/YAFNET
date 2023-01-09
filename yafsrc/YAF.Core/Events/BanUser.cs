@@ -21,11 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Events;
+
+using Microsoft.Extensions.Logging;
 
 using YAF.Core.Model;
 using YAF.Types.Attributes;
-using YAF.Types.Constants;
 using YAF.Types.Models;
 
 /// <summary>
@@ -73,7 +75,7 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
 
         if (this.Get<BoardSettings>().LogBannedIP)
         {
-            this.Get<ILoggerService>().Log(
+            this.Get<ILogger<BanUser>>().Log(
                 @event.UserId,
                 "IP BAN of Bot",
                 $"A spam Bot who was banned by IP {@event.IpAddress}",

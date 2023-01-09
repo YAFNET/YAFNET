@@ -27,6 +27,7 @@ namespace YAF.Types.Objects.Model;
 /// <summary>
 /// The paged topic.
 /// </summary>
+[Serializable]
 public class PagedTopic
 {
     /// <summary>
@@ -203,4 +204,7 @@ public class PagedTopic
     /// Gets or sets the first message.
     /// </summary>
     public string FirstMessage { get; set; }
+
+    [Ignore]
+    public bool Selected { get; set; }
 }

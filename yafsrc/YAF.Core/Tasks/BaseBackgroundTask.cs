@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -25,6 +25,8 @@ namespace YAF.Core.Tasks;
 
 using System;
 
+using Microsoft.Extensions.Logging;
+
 using YAF.Types.Attributes;
 
 /// <summary>
@@ -45,10 +47,10 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// <summary>
     /// The lock object.
     /// </summary>
-    protected object lockObject = new();
+    protected object lockObject = new ();
 
     /// <summary>
-    /// The started.
+    /// The _started.
     /// </summary>
     protected DateTime started;
 
@@ -62,7 +64,7 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// Gets or sets the logger.
     /// </summary>
     [Inject]
-    public ILoggerService Logger { get; set; }
+    public ILogger<BaseBackgroundTask> Logger { get; set; }
 
     /// <summary>
     /// Gets or sets BoardID.

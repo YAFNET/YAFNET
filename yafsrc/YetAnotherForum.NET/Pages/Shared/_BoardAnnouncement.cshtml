@@ -1,0 +1,47 @@
+﻿@using System.Globalization
+@using YAF.Core.Context
+@using YAF.Core.Services
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Interfaces
+@using YAF.Web.TagHelpers
+
+@inject BoardContext Current
+
+@{
+    var dateTime = Convert.ToDateTime(
+        Current.BoardSettings.BoardAnnouncementUntil,
+        CultureInfo.InvariantCulture);
+
+    var visible = true;
+
+    if (dateTime <= DateTime.Now)
+    {
+        var boardSettings = Current.BoardSettings;
+
+        boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
+        boardSettings.BoardAnnouncement = string.Empty;
+
+        // save the settings to the database
+        Current.Get<BoardSettingsService>().SaveRegistry(boardSettings);
+
+        // delete no show
+        visible = false;
+    }
+}
+
+@if (visible)
+{
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-@(Current.BoardSettings.BoardAnnouncementType) alert-dismissible">
+                <span class="badge bg-@(Current.BoardSettings.BoardAnnouncementType) me-1">
+                    <i class="fas fa-bullhorn me-1"></i>@Html.LocalizedText("ANNOUNCEMENT")
+                </span>
+                @Html.Raw(Current.BoardSettings.BoardAnnouncement)
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        </div>
+    </div>
+}
+

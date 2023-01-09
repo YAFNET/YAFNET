@@ -24,16 +24,17 @@
 
 namespace YAF.Core.Identity;
 
+using System.Threading;
 using System.Threading.Tasks;
 
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 
-using YAF.Types.Models.Identity;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The role store.
 /// </summary>
-public class RoleStore : IQueryableRoleStore<AspNetRoles, string>,
+public class RoleStore : IQueryableRoleStore<AspNetRoles>,
                          IHaveServiceLocator
 {
     /// <summary>
@@ -66,55 +67,15 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles, string>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task CreateAsync([NotNull]AspNetRoles role)
+    public async Task<IdentityResult> CreateAsync([NotNull]AspNetRoles role, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(role);
 
-        return Task.FromResult(this.GetRepository<AspNetRoles>().Insert(role, false));
-    }
+        cancellationToken.ThrowIfCancellationRequested();
 
-    /// <summary>
-    /// The delete async.
-    /// </summary>
-    /// <param name="role">
-    /// The role.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    public virtual Task DeleteAsync([NotNull]AspNetRoles role)
-    {
-        CodeContracts.VerifyNotNull(role);
+        await Task.FromResult(this.GetRepository<AspNetRoles>().Insert(role, false));
 
-        return Task.FromResult(this.GetRepository<AspNetRoles>().Delete(r => r.Id == role.Id));
-    }
-
-    /// <summary>
-    /// The find by id async.
-    /// </summary>
-    /// <param name="roleId">
-    /// The role id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    public virtual Task<AspNetRoles> FindByIdAsync([NotNull]string roleId)
-    {
-        return Task.FromResult(this.GetRepository<AspNetRoles>().GetSingle(r => r.Id == roleId));
-    }
-
-    /// <summary>
-    /// The find by name async.
-    /// </summary>
-    /// <param name="roleName">
-    /// The role name.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    public virtual Task<AspNetRoles> FindByNameAsync([NotNull]string roleName)
-    {
-        return Task.FromResult(this.GetRepository<AspNetRoles>().GetSingle(r => r.Name == roleName));
+        return IdentityResult.Success;
     }
 
     /// <summary>
@@ -126,12 +87,93 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles, string>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task UpdateAsync([NotNull]AspNetRoles role)
+    public async Task<IdentityResult> UpdateAsync([NotNull] AspNetRoles role, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(role);
 
-        this.GetRepository<AspNetRoles>().Update(role);
+        cancellationToken.ThrowIfCancellationRequested();
 
+        await Task.FromResult(this.GetRepository<AspNetRoles>().Update(role));
+
+        return IdentityResult.Success;
+    }
+
+    /// <summary>
+    /// The delete async.
+    /// </summary>
+    /// <param name="role">
+    /// The role.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public Task<IdentityResult> DeleteAsync([NotNull]AspNetRoles role, CancellationToken cancellationToken)
+    {
+        CodeContracts.VerifyNotNull(role);
+
+        cancellationToken.ThrowIfCancellationRequested();
+
+        this.GetRepository<AspNetRoles>().Delete(r => r.Id == role.Id);
+
+        return Task.FromResult(IdentityResult.Success);
+    }
+
+    /// <summary>
+    /// The find by id async.
+    /// </summary>
+    /// <param name="roleId">
+    /// The role id.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public async Task<AspNetRoles> FindByIdAsync([NotNull]string roleId, CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        return await Task.FromResult(this.GetRepository<AspNetRoles>().GetSingle(r => r.Id == roleId));
+    }
+
+    /// <summary>
+    /// The find by name async.
+    /// </summary>
+    /// <param name="roleName">
+    /// The role name.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public async Task<AspNetRoles> FindByNameAsync([NotNull]string roleName, CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        return await Task.FromResult(this.GetRepository<AspNetRoles>().GetSingle(r => r.Name == roleName));
+    }
+
+    public Task<string> GetRoleIdAsync(AspNetRoles role, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(role.Id);
+    }
+
+    public Task<string> GetRoleNameAsync(AspNetRoles role, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(role.Name);
+    }
+
+    public Task SetRoleNameAsync(AspNetRoles role, string roleName, CancellationToken cancellationToken)
+    {
+        role.Name = roleName;
+        return Task.FromResult(0);
+    }
+
+    public Task<string> GetNormalizedRoleNameAsync(AspNetRoles role, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(role.Name);
+    }
+
+    public Task SetNormalizedRoleNameAsync(AspNetRoles role, string normalizedName, CancellationToken cancellationToken)
+    {
+        role.Name = normalizedName;
         return Task.FromResult(0);
     }
 

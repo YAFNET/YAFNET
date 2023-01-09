@@ -1,0 +1,70 @@
+@page "{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@model ReIndexModel
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("database","ADMINMENU","admin_reindex")
+                </div>
+                <div class="card-body">
+                    @if (Model.IndexStatistics.IsSet())
+                    {
+                        <textarea asp-for="IndexStatistics"
+                              class="form-control" rows="10"></textarea>
+                    }
+
+                    <p class="card-text">
+                        @Html.LocalizedText("ADMIN_REINDEX", "SHOW_STATS")
+                    </p>
+                    <p class="card-text">
+                        <button button-style="Primary"
+                                asp-page-handler="GetStats"
+                                Icon="database"
+                                text-localized-tag="TBLINDEXSTATS_BTN"></button>
+                    </p>
+                    <hr />
+
+                    <p class="card-text">
+                        <button button-style="Primary" asp-page-handler="RecoveryMode"
+                                return-confirm-tag="CONFIRM_RECOVERY"
+                                Icon="database" text-localized-tag="SETRECOVERY_BTN"></button>
+                    </p>
+
+                    <div>
+                        <select class="form-select" asp-for="RecoveryMode" asp-items="Model.RecoveryModes" title="@Model.GetText("SETRECOVERY_BTN")"></select>
+                    </div>
+
+                    <hr />
+
+                    <p class="card-text">
+                        @Html.LocalizedText("ADMIN_REINDEX", "REINDEX")
+                    </p>
+                    <p class="card-text">
+                        <button return-confirm-tag="CONFIRM_REINDEX"
+                                button-style="Primary"
+                                asp-page-handler="ReIndex"
+                                Icon="database" text-localized-tag="REINDEXTBL_BTN"></button>
+                    </p>
+                    <hr />
+                    <p class="card-text">
+                        @Html.LocalizedText("ADMIN_REINDEX", "SHRINK")
+                    </p>
+                    <p class="card-text">
+                        <button asp-page-handler="Shrink"
+                                return-confirm-tag="CONFIRM_SHRINK"
+                                button-style="Primary"
+                                Icon="database"
+                                text-localized-tag="SHRINK_BTN"></button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,56 @@
+﻿@page
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+@model YAF.Pages.Admin.EditUser.UsersGroupsModel
+
+@{
+    Layout = "_EditUserLayout";
+}
+
+<h2>
+    @Html.LocalizedText("ADMIN_EDITUSER", "HEAD_USER_GROUPS")
+</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
+    <div class="row">
+        @for (var index = 0; index < Model.UserGroups.Count; index++)
+        {
+            <div class="mb-3 col-md-4">
+
+                <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" asp-for="@Model.UserGroups[index].IsMember"/>
+                    <label class="form-check-label" asp-for="@Model.UserGroups[index].IsMember">
+                        @Model.UserGroups[index].Name
+                    </label>
+                </div>
+                <input type="hidden" asp-for="@Model.UserGroups[index].GroupID" value="@Model.UserGroups[index].GroupID"/>
+            </div>
+        }
+    </div>
+    <hr/>
+    <div class="row justify-content-md-center g-3 align-items-center">
+        <div class="col-md-auto">
+            <div class="form-check form-switch">
+                <input type="checkbox" asp-for="Input.SendEmail" class="form-check-input"/>
+                <label class="form-check-label" asp-for="Input.SendEmail"
+                       localized-page="ADMIN_EDITUSER" localized-tag="SEND_EMAIL">
+                </label>
+            </div>
+        </div>
+        <div class="col-md-auto">
+            <button button-style="Primary"
+                    Icon="save"
+                    text-localized-tag="SAVE"
+                    asp-page-handler="Save"></button>
+            <a button-style="Secondary"
+               Icon="times"
+               text-localized-tag="CANCEL"
+               asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,109 @@
+﻿@page "{handler?}"
+
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Interfaces
+
+@model YAF.Pages.Profile.EditAvatarModel
+
+<div class="row">
+    <div class="col-sm-auto">
+        <profileMenu></profileMenu>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.IconHeader("user-tie" , "EDIT_AVATAR", "TITLE")
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @Html.LocalizedText("EDIT_AVATAR", "AvatarModel")
+                        </h5>
+                        <p class="card-text">
+                            <img alt="avatar" class="img-thumbnail"
+                                 style="max-width: @Html.Raw(Model.PageBoardContext.BoardSettings.AvatarWidth.ToString());max-height: @Html.Raw(Model.PageBoardContext.BoardSettings.AvatarHeight.ToString());"
+                                 src="@Model.AvatarUrl" />
+                        </p>
+                        @if (!Model.AvatarUrl.Contains("avatar="))
+                        {
+                            <form method="post" asp-page-handler="DeleteAvatar">
+                                <button button-style="Danger"
+                                        icon="trash"
+                                        text-localized-page="EDIT_AVATAR"
+                                        text-localized-tag="AVATARDELETE"
+                                    return-confirm-tag="AVATARDELETE"></button>
+                            </form>
+                        }
+                        else
+                        {
+                            @Html.LocalizedText("EDIT_AVATAR", "NOAVATAR")
+                        }
+                        <hr />
+                        @if (Model.PageBoardContext.BoardSettings.AvatarGallery && Model.Gallery.Any())
+                        {
+                            <form method="post">
+                                <div class="mb-3">
+                                    <h4>
+                                        @Html.LocalizedText("EDIT_AVATAR", "OURAVATAR")
+                                    </h4>
+                                    <select asp-for="AvatarGallery" class="select2-image-select" placeholder="@Html.LocalizedText("OURAVATAR")" data-allow-clear="true">
+                                        @foreach (var item in Model.Gallery)
+                                        {
+                                            <option value="@item.Value" item="@item">
+                                                @item.Text
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <button asp-page-handler="Gallery"
+                                            type="submit"
+                                            button-style="Primary"
+                                            icon="save"
+                                            text-localized-page="COMMON"
+                                            text-localized-tag="UPDATE"></button>
+                                </div>
+                                <hr />
+
+                            </form>
+                        }
+                        @if (Model.PageBoardContext.BoardSettings.AvatarUpload)
+                        {
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <h4>
+                                        @Html.LocalizedText("EDIT_AVATAR", "AVATARUPLOAD")
+                                    </h4>
+                                    <div class="mb-3">
+                                        <label asp-for="Upload" class="form-label"
+                                               localized-tag="AVATARUPLOAD"
+                                               localized-page="EDIT_AVATAR">
+                                        </label>
+                                        <input type="file" asp-for="Upload" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="text-break alert alert-info" role="alert">
+                                    @Html.Icon("info-circle")
+                                    @Html.Raw(Model.Get<ILocalization>().GetTextFormatted(
+                                        "NOTE_LOCAL",
+                                Model.PageBoardContext.BoardSettings.AvatarWidth.ToString(),
+                                Model.PageBoardContext.BoardSettings.AvatarHeight,
+                                (Model.PageBoardContext.BoardSettings.AvatarSize / 1024).ToString()))
+                                </div>
+                                <div class="text-lg-center">
+                                    <button asp-page-handler="UploadUpdate"
+                                            type="submit"
+                                            button-style="Primary"
+                                            icon="save"
+                                            text-localized-page="COMMON"
+                                            text-localized-tag="SAVE"></button>
+                                </div>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

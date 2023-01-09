@@ -1,0 +1,102 @@
+﻿@using YAF.Core.Context
+@using YAF.Web.HtmlHelpers
+
+
+
+@{
+    string[] themeImageTags =
+    {
+        "TOPIC_NEW", "TOPIC", "TOPIC_HOT_NEW", "TOPIC_HOT", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED",
+        "TOPIC_MOVED"
+    };
+}
+
+<div>
+   
+</div>
+
+<div Class="row">
+    <div Class="col">
+        @Html.IconStack(
+            "comment", 
+            "text-success", 
+            "comment", 
+            "fa-inverse", 
+            "fa-1x")
+        <span class="small">
+            @Html.LocalizedText("NEW_POSTS")
+        </span>
+    </div>
+    <div Class="col">
+        @Html.IconStack(
+            "comment",
+            "text-secondary",
+            "comment",
+            "fa-inverse",
+            "fa-1x")
+        <span class="small">
+            @Html.LocalizedText("NO_NEW_POSTS")
+        </span>
+    </div>
+</div>
+<div Class="row">
+    <div Class="col">
+        @Html.IconStack(
+            "comment",
+            "text-success",
+            "fire",
+            "fa-inverse",
+            "fa-1x")
+        <span class="small">
+            @Html.LocalizedText("HOT_NEW_POSTS")
+        </span>
+    </div>
+    <div Class="col">
+        @Html.IconStack(
+            "comment",
+            "text-secondary",
+            "fire",
+            "fa-inverse",
+            "fa-1x")
+        <span class="small">
+            @Html.LocalizedText("HOT_NO_NEW_POSTS")
+        </span>
+    </div>
+</div>
+<div Class="row">
+    <div Class="col">
+        @Html.IconStack(
+            "comment",
+            "text-success",
+            "lock",
+            "fa-inverse",
+            "fa-1x")
+        <span class="small">
+            @Html.LocalizedText("NEW_POSTS_LOCKED")
+        </span>
+    </div>
+    <div Class="col">
+        @Html.IconStack(
+            "comment",
+            "text-secondary",
+            "lock",
+            "fa-inverse",
+            "fa-1x")
+        <span class="small">
+            @Html.LocalizedText("NO_NEW_POSTS_LOCKED")
+        </span>
+    </div>
+</div>
+<div Class="row">
+    <div Class="col">
+        @Html.IconStack(
+            "comment",
+            "text-secondary",
+            "arrows-alt",
+            "fa-inverse",
+            "fa-1x")
+        <span class="small">
+            @Html.LocalizedText("MOVED")
+        </span>
+    </div>
+</div>

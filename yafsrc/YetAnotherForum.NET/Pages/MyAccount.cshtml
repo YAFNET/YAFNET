@@ -1,0 +1,280 @@
+﻿@page "{handler?}"
+
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Services
+@using YAF.Core.Utilities
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Models
+
+@model MyAccountModel
+
+<div class="row">
+    <div class="col-sm-auto">
+        <profileMenu></profileMenu>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.IconHeader("bell", "NOTIFICATION", "YOUR_NOTIFIY")
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-2 mb-3">
+                                <span class="pull-right">
+                                    <img src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForCurrentUser())"
+                                         class="img-fluid rounded"
+                                         alt="avatar"
+                                         style="max-width: @Html.Raw(Model.PageBoardContext.BoardSettings.AvatarWidth);max-height: @Html.Raw(Model.PageBoardContext.BoardSettings.AvatarHeight)" />
+                                </span>
+                            </div>
+                            <div class="col">
+                                <ul class="list-group">
+                                    <li class="list-group-item fw-bold text-light bg-secondary" contenteditable="false">
+                                        @Html.LocalizedText("YOUR_ACCOUNT")
+                                    </li>
+                                    <li class="list-group-item text-end">
+                                        <span class="float-start">
+                                            <span class="fw-bold">
+                                                @Html.LocalizedText("YOUR_USERNAME")
+                                            </span>
+                                        </span> @Model.PageBoardContext.PageUser.Name
+                                    </li>
+
+                                    @if (Model.PageBoardContext.BoardSettings.EnableDisplayName)
+                                    {
+                                        <li class="list-group-item text-end">
+                                            <span class="float-start">
+                                                <span class="fw-bold">
+                                                    @Html.LocalizedText("YOUR_USERDISPLAYNAME")
+                                                </span>
+                                            </span> @Html.HtmlEncode(Model.PageBoardContext.PageUser.DisplayOrUserName())
+                                        </li>
+                                    }
+
+                                    <li class="list-group-item text-end">
+                                        <span class="float-start">
+                                            <span class="fw-bold">@Html.LocalizedText("YOUR_EMAIL")</span>
+                                        </span> @Model.PageBoardContext.PageUser.Email
+                                    </li>
+                                    <li class="list-group-item text-end">
+                                        <span class="float-start">
+                                            <span class="fw-bold">@Html.LocalizedText("NUMPOSTS")</span>
+                                        </span> @Html.Raw($"{Model.PageBoardContext.PageUser.NumPosts:N0}")
+
+                                    </li>
+                                    <li class="list-group-item text-end">
+                                        <span class="float-start">
+                                            <span class="fw-bold">@Html.LocalizedText("GROUPS")</span>
+                                        </span>
+                                        <ul class="list-inline">
+                                            @foreach (var group in Model.Groups)
+                                            {
+                                                <li class="list-inline-item">
+                                                    <span style="@group.Style">
+                                                        @group.Name
+                                                    </span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                    <li class="list-group-item text-end">
+                                        <span class="float-start">
+                                            <span class="fw-bold"> @Html.LocalizedText("JOINED")</span>
+                                        </span>@Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(Model.PageBoardContext.PageUser.Joined))
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @if (Model.PageBoardContext.PageUser.Activity)
+        {
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-3 mt-2" id="activity">
+                        <div class="card-header">
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col-auto">
+                                    @Html.IconHeader("stream", "ACCOUNT", "ACTIVITY")
+                                </div>
+                                <div class="col-auto">
+                                    <form method="post">
+                                    <div class="btn-toolbar" role="toolbar">
+                                        
+                                        <div class="input-group input-group-sm me-2" role="group">
+                                            <div class="input-group-text">
+                                                @Html.LocalizedText("SHOW"):
+                                            </div>
+                                            <select asp-for="@Model.Size"
+                                                    asp-items="Model.PageSizeList"
+                                                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                                    class="form-select"
+                                                    onchange="this.form.submit();"></select>
+                                        </div>
+                                        <div class="btn-group" role="group" aria-label="Filters">
+                                            <button button-style="Secondary"
+                                                    button-size="Small"
+                                                    bs-toggle="dropdown"
+                                                    class="dropdown-toggle"
+                                                    icon="filter"
+                                                    text-localized-page="ADMIN_USERS"
+                                                    text-localized-tag="FILTER_DROPDOWN"></button>
+                                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                                                <div class="px-3 py-1">
+                                                    <div class="mb-3">
+                                                        <div class="form-check form-switch">
+                                                            <input asp-for="CreatedTopic" class="form-check-input" role="switch"/>
+                                                            <label asp-for="CreatedTopic" class="form-check-label"
+                                                                   localized-page="ACCOUNT"
+                                                                   localized-tag="CREATED_TOPIC">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <div class="form-check form-switch">
+                                                            <input asp-for="CreatedReply" class="form-check-input" role="switch"/>
+                                                            <label asp-for="CreatedReply" class="form-check-label"
+                                                                   localized-page="ACCOUNT"
+                                                                   localized-tag="CREATED_REPLY">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <div class="form-check form-switch">
+                                                            <input asp-for="GivenThanks" class="form-check-input" role="switch"/>
+                                                            <label asp-for="GivenThanks" class="form-check-label"
+                                                                   localized-page="ACCOUNT"
+                                                                   localized-tag="GIVEN_THANKS">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <hr/>
+                                                    <button type="submit"
+                                                            button-style="Primary"
+                                                            button-size="Small"
+                                                            icon="sync"
+                                                            text-localized-page="COMMON"
+                                                            text-localized-tag="UPDATE"></button>
+
+                                                    <button type="submit"
+                                                            asp-page-handler="Reset"
+                                                            class=" float-end"
+                                                            button-style="Secondary"
+                                                            button-size="Small"
+                                                            icon="trash"
+                                                            text-localized-page="COMMON"
+                                                            text-localized-tag="CLEAR"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            @for (var index = 0; index < Model.Stream.Count; index++)
+                            {
+                                var activity = Model.Stream[index];
+
+                                var message = string.Empty;
+                                var icon = string.Empty;
+                                var title = string.Empty;
+                                var url = Model.Get<LinkBuilder>().GetTopicLink(activity.Item2.ID, activity.Item2.TopicName);
+
+                                if (activity.Item1.ActivityFlags.CreatedTopic)
+                                {
+                                    title = Model.Get<ILocalization>().GetText("ACCOUNT", "CREATED_TOPIC");
+                                    icon = "comment";
+                                    message = Model.Get<ILocalization>().GetTextFormatted("CREATED_TOPIC_MSG", "");
+                                }
+
+                                if (activity.Item1.ActivityFlags.CreatedReply)
+                                {
+                                    title = Model.Get<ILocalization>().GetText("ACCOUNT", "CREATED_REPLY");
+                                    icon = "comment";
+                                    message = Model.Get<ILocalization>().GetTextFormatted("CREATED_REPLY_MSG", "");
+                                }
+
+                                if (activity.Item1.ActivityFlags.GivenThanks)
+                                {
+                                    var user = Model.GetRepository<User>().GetById(activity.Item1.FromUserID.Value);
+
+                                    var userLink = Model.Get<IHtmlHelper>().UserLink(user);
+
+                                    title = Model.Get<ILocalization>().GetText("ACCOUNT", "GIVEN_THANKS");
+                                    icon = "heart";
+                                    message = Model.Get<ILocalization>().GetTextFormatted(
+                                        "GIVEN_THANKS_MSG",
+                                        userLink.RenderToString(),
+                                        "");
+                                }
+
+                                var notify = activity.Item1.Notification ? "text-success" : "text-secondary";
+
+                                <div class="row">
+                                    <div class="col-auto text-center flex-column d-none d-sm-flex">
+                                        <h5 class="m-2">
+                                            @Html.IconStack("circle", notify, icon, "fa-inverse", "fa-1x pt-3")
+                                        </h5>
+                                        <div class="row h-50">
+                                            <div class="col @Html.Raw(Model.GetLastItemClass(index))">&nbsp;</div>
+                                            <div class="col">&nbsp;</div>
+                                        </div>
+                                    </div>
+                                    <div class="col py-2">
+                                        <div class="@Html.Raw(activity.Item1.Notification ? "card shadow" : "card")">
+                                            <div class="card-body py-2">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="card-title mb-1 text-break d-none d-md-block">
+                                                        @title
+                                                    </h5>
+                                                    <small class="d-none d-md-block">
+                                                        @Html.IconBadge("calender-day", "clock", "text-secondary")
+                                                        @Html.DisplayDateTime(DateTimeFormat.Both, activity.Item1.Created)
+                                                    </small>
+                                                </div>
+                                                @Html.Raw(message) <a button-style="None"
+                                                            icon="comment"
+                                                            icon-css-class="far"
+                                                            text="@activity.Item2.TopicName"
+                                                            href="@url"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row justify-content-end">
+                <div class="col-auto">
+                    <pager page-size="@Model.Size"
+                           count="!Model.Stream.NullOrEmpty() ? Model.TotalItems : 0">
+                    </pager>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DropDownToggleJs()))
+    </script>
+}

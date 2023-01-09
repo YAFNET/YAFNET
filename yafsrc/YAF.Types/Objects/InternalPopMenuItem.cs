@@ -24,6 +24,8 @@
 
 namespace YAF.Types.Objects;
 
+using YAF.Types;
+
 /// <summary>
 /// The internal pop menu item.
 /// </summary>

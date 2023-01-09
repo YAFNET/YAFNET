@@ -134,7 +134,7 @@ public class SqlBuilder
         public object CreateDynamicType()
         {
             var assemblyName = new AssemblyName { Name = "tmpAssembly" };
-#if NETCORE
+#if NET7_0_OR_GREATER
                 var typeBuilder =
                     AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run)
                     .DefineDynamicModule("tmpModule")

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BBCode.ReplaceRules;
 
 using System.Text.RegularExpressions;
@@ -75,7 +76,7 @@ public class SyntaxHighlighterRegexReplaceRule : SimpleRegexReplaceRule
             var replaceIndex = replacement.Add(replaceItem);
 
             text =
-                $"{text.Substring(0, m.Groups[0].Index)}{replacement.Get(replaceIndex)}{text.Substring(m.Groups[0].Index + m.Groups[0].Length)}";
+                $"{text[..m.Groups[0].Index]}{replacement.Get(replaceIndex)}{text[(m.Groups[0].Index + m.Groups[0].Length)..]}";
 
             m = this.RegExSearch.Match(text);
         }

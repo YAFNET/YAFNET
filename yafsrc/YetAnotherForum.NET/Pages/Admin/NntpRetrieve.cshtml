@@ -1,0 +1,80 @@
+@page "{handler?}"
+
+@model NntpRetrieveModel
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Web.HtmlHelpers
+
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("newspaper","ADMIN_NNTPRETRIEVE","TITLE")
+                </div>
+                <div class="card-body">
+                    <alert type="danger" localized-tag="BETA_WARNING">
+                    </alert>
+                    @if (!Model.List.NullOrEmpty())
+                    {
+                        <ul class="list-group">
+                            @foreach (var item in Model.List)
+                            {
+                                <li class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">
+                                            @Html.LocalizedText("ADMIN_NNTPRETRIEVE", "GROUPS"):
+                                            @Html.Raw(item.Item1.GroupName))
+                                        </h5>
+                                        <small>
+                                            @Html.LocalizedText("ADMIN_NNTPRETRIEVE", "LAST_MESSAGE"):
+                                            @Html.Raw(Model.LastMessageNo(item))
+                                        </small>
+                                    </div>
+                                    <small>
+                                        <span class="fw-bold">
+                                            @Html.LocalizedText("ADMIN_NNTPRETRIEVE", "LAST_UPDATE"):
+                                        </span>
+                                        @Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(item.Item1.LastUpdate))
+                                    </small>
+                                </li>
+                            }
+                        </ul>
+
+                        <div class="mb-3">
+                            <label asp-for="Seconds" class="form-label" localized-tag="TIME" localized-page="ADMIN_NNTPRETRIEVE"></label>
+                            <div class="input-group">
+                                <input type="number" asp-for="Seconds"
+                                   class="form-control" />
+                                <div class="input-group-text">
+                                    @Html.LocalizedText("SECONDS")
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <alert ID="NoContent" type="info" icon="info-circle" localized-tag="NO_GROUPS">
+                        </alert>
+                    }
+
+                </div>
+
+                @if (!Model.List.NullOrEmpty())
+                {
+                    <div class="card-footer text-center">
+                        <button button-style="Primary"
+                            asp-page-handler="Retrieve"
+                            Icon="download"
+                            text-localized-tag="RETRIEVE"></button>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</form>

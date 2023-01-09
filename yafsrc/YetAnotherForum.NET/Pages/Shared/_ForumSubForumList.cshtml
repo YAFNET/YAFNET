@@ -1,0 +1,77 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Services
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+
+@model List<YAF.Types.Objects.Model.ForumRead>
+
+@inject BoardContext Current
+
+@if (!Model.NullOrEmpty())
+{
+    <div class="card my-1">
+        <div class="card-body ps-2 py-1">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <span class="fw-bold small text-secondary">
+                        @Html.LocalizedText("TOPICS","SUBFORUMS"):
+                    </span>
+                </li>
+
+                @foreach (var forum in Model)
+                {
+                    <li class="list-inline-item">
+                        @Html.Icon("comments", "text-secondary")
+
+                        @if (forum.ReadAccess)
+                        {
+                            <a class="card-link small"
+                               href="@Html.Raw(Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))"
+                               title="@Html.Raw(Current.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"))">
+                                @forum.Forum
+                            </a>
+                            <span class="badge bg-light text-dark me-1"
+                                  title="@Html.LocalizedText("TOPICS")"
+                                  data-bs-toggle="tooltip">
+                                @Html.Icon("comments", "", "far")
+                                @Html.Raw($"{forum.Topics:N0}")
+                            </span>
+                            <span class="badge bg-light text-dark"
+                                  title="@Html.LocalizedText("POSTS")"
+                                  data-bs-toggle="tooltip">
+                                @Html.Icon("comment", "", "far")
+                                @Html.Raw($"{forum.Posts:N0}")
+                            </span>
+                        }
+                        else
+                        {
+                            @forum.Forum
+                            @Html.LocalizedText("NO_FORUM_ACCESS")
+                        }
+
+                        @if (forum.ReadAccess)
+                        {
+                            <a class="card-link small" href="@Html.Raw(Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.Forum))" 
+                               title-localized-tag="VIEW_FORUM" title-localized-page="COMMON">
+                                @Html.Encode(forum.Forum) 
+                            </a>
+                        }
+                        else
+                        {
+                            @Html.Encode(forum.Forum) 
+                            @Html.LocalizedText("NO_FORUM_ACCESS")
+                        }
+                    </li>
+                }
+
+                @if (Model.Count >= Current.BoardSettings.SubForumsInForumList)
+                {
+                    <li class="list-inline-item">
+                        <span>...</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

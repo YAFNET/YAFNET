@@ -21,71 +21,87 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Extensions;
 
-using System;
-
-using YAF.Types.Constants;
-
-/// <summary>
-///     The Logger extensions.
-/// </summary>
-public static class ILoggerExtensions
+namespace YAF.Core.Extensions
 {
+    using System;
+    
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Logging;
+
+    using YAF.Core.Context;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
+
     /// <summary>
-    /// The log.
+    ///     The Logger extensions.
     /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="exception">
-    /// The exception.
-    /// </param>
-    /// <param name="eventType">
-    /// The event type.
-    /// </param>
-    public static void Log(
-        [NotNull] this ILoggerService logger, 
-        [CanBeNull] int? userId, 
-        [CanBeNull] object source, 
-        [NotNull] Exception exception, 
-        EventLogTypes eventType = EventLogTypes.Error)
+    public static class ILoggerExtensions
     {
-        CodeContracts.VerifyNotNull(logger);
+        #region Public Methods and Operators
 
-        var sourceDescription = "unknown";
+        /// <summary>
+        /// The log.
+        /// </summary>
+        /// <param name="logger">
+        /// The logger.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="exception">
+        /// The exception.
+        /// </param>
+        /// <param name="eventType">
+        /// The event type.
+        /// </param>
+        public static void Log(
+            [NotNull] this ILogger logger, 
+            [CanBeNull] int? userId, 
+            [CanBeNull] object source, 
+            [CanBeNull] Exception exception, 
+            EventLogTypes eventType = EventLogTypes.Error)
+        {
+            CodeContracts.VerifyNotNull(logger);
 
-        if (source is Type)
-        {
-            sourceDescription = source.GetType().FullName;
-        }
-        else if (source != null)
-        {
-            sourceDescription = source.ToString().Truncate(50);
+            var sourceDescription = "unknown";
+
+            if (source is Type)
+            {
+                sourceDescription = source.GetType().FullName;
+            }
+            else if (source != null)
+            {
+                sourceDescription = source.ToString().Truncate(50);
+            }
+
+            string message;
+
+            try
+            {
+                message =
+                    $"Exception at URL: {BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.Request.Path}";
+            }
+            catch (Exception)
+            {
+                message = "Exception";
+            }
+
+            var logEntry = new EventLog { Type = eventType.ToInt(), UserID = userId, Source = sourceDescription, Exception = exception };
+
+            using (logger.BeginScope(logEntry))
+            {
+                logger.Log(LogLevel.Error, message);
+            }
         }
 
-        string message;
-
-        try
-        {
-            message = $"Exception at URL: {BoardContext.Current.Get<HttpRequestBase>().Url}";
-        }
-        catch (Exception)
-        {
-            message = "Exception";
-        }
-            
-        logger.Log(
-            message,
-            eventType,
-            userId,
-            sourceDescription,
-            exception);
+        #endregion
     }
 }

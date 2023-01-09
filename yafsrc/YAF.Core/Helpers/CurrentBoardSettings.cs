@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,7 +25,7 @@ namespace YAF.Core.Helpers;
 
 using System.Runtime.Caching;
 
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
 
 /// <summary>
 ///     The current board settings.
@@ -78,8 +78,9 @@ public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
     /// </summary>
     public BoardSettings Instance
     {
-        get =>
-            MemoryCache.Default.GetOrSet(
+        get
+        {
+            return MemoryCache.Default.GetOrSet(
                 this.treatCacheKey.Treat(Constants.Cache.BoardSettings),
                 () =>
                     {
@@ -91,6 +92,7 @@ public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
 
                         return boardSettings;
                     });
+        }
 
         set => MemoryCache.Default.Set(this.treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
     }

@@ -1,0 +1,20 @@
+﻿@page "{info:int}/{message?}"
+@model InfoModel
+
+@{
+    Model.PageBoardContext.CurrentForumPage.PageTitle = Model.Title;
+}
+
+<div class="card text-white bg-secondary mb-3 text-center mx-auto w-50">
+    <div class="card-body">
+        <h5 class="card-title">
+            @Model.Title
+        </h5>
+        <p class="card-text">
+            @Model.InfoLabel
+        </p>
+        <a asp-page="/Index" button-style="Danger" 
+           text-localized-page="INFO" text-localized-tag="CONTINUE">
+        </a>
+    </div>
+</div>

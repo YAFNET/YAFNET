@@ -23,6 +23,11 @@
  */
 namespace YAF.Types.EventProxies;
 
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Models;
+using YAF.Types.Objects;
+using YAF.Types.Objects.Model;
+
 /// <summary>
 /// The page load event.
 /// </summary>

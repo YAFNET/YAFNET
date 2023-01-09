@@ -1,0 +1,106 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Configuration
+@using YAF.Core.Context
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+
+@inject ILocalization Localization;
+
+@model YAF.Types.Modals.InstallModal
+
+@{
+    Layout = "_LayoutInstall";
+
+    var requestCultureFeature = BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.Features.Get<IRequestCultureFeature>();
+    var requestCulture = requestCultureFeature.RequestCulture;
+
+    Localization.TransPage = "INSTALL";
+}
+
+<form method="post">
+    <div class="modal-body">
+        <h4>
+            @Localization.GetText("TestSettings")
+        </h4>
+        <p>
+            @Localization.GetText("TestSettingsText")
+        </p>
+        <h4>
+            @Localization.GetText("ConnectionTest")
+        </h4>
+        <h4>
+            @Config.ConnectionProviderName
+        </h4>
+        <p class="text-muted">
+            @Config.ConnectionString
+        </p>
+
+        <hr/>
+        
+        @if (Model.ConnectionSuccess)
+        {
+            <div class="alert alert-success">
+                <span class="badge bg-success me-2">@Localization.GetText("ConnectionDetails")</span> @Localization.GetText("ConnectionSuccess")
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <span class="badge bg-danger me-2">@Localization.GetText("ConnectionDetails")</span>@Localization.GetText("ConnectionFailed") @Model.ConnectionInfo
+            </div>
+        }
+        
+        <hr />
+        <h4>
+            @Localization.GetText("MailTest")
+        </h4>
+        <p class="text-muted">
+            @Localization.GetText("MailTestDesc")
+        </p>
+        <div class="mb-3">
+            <label for="fromEmail" class="form-label">@Localization.GetText("FromEmail")</label>
+            <input id="fromEmail" name="fromEmail"
+                   placeholder="@Localization.GetText("FromEmail")"
+                   type="email"
+                   class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="toEmail" class="form-label">@Localization.GetText("ToEmail")</label>
+            <input id="toEmail" name="toEmail"
+                   placeholder="@Localization.GetText("ToEmail")"
+                   type="Email"
+                   class="form-control"/>
+        </div>
+        <button Text="@Localization.GetText("TestEmail")"
+                button-style="Info"
+                asp-page-handler="TestSmtp"
+                asp-route-culture="@requestCulture.Culture.Name"></button>
+        
+        <hr />
+
+        @if (Model.TestEmailInfo.IsSet())
+        {
+            @if (Model.TestEmailSuccess)
+            {
+                <div class="alert alert-success">
+                    <span class="badge bg-success me-2">@Localization.GetText("SmtpTestDetails")</span> @Localization.GetText("SmtpTestSuccess")
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <span class="badge bg-danger me-2">@Localization.GetText("SmtpTestDetails")</span>@Localization.GetText("ConnectionFailed") @Model.TestEmailInfo
+                </div>
+            }
+        }
+    </div>
+    <div class="modal-footer">
+        <button button-style="Primary"
+                Icon="arrow-alt-circle-right"
+                asp-page-handler="InstallInitDatabase"
+                asp-route-culture="@requestCulture.Culture.Name"
+                Text="@Localization.GetText("Next")"></button>
+    </div>
+</form>

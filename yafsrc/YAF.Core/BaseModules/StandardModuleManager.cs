@@ -21,9 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BaseModules;
 
 using System.Collections.Generic;
+
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The standard module manager.
@@ -55,8 +58,11 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// <summary>
     /// Get all instances of modules available.
     /// </summary>
-    /// <param name="getInactive">The get Inactive.</param>
-    /// <returns>Returns all Modules</returns>
+    /// <param name="getInactive">
+    /// The get Inactive.
+    /// </param>
+    /// <returns>
+    /// </returns>
     public IEnumerable<TModule> GetAll(bool getInactive)
     {
         return !getInactive ? this.modules.Where(m => m.Active) : this.modules;

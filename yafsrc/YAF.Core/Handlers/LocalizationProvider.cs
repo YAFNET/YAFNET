@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -116,7 +116,14 @@ public class LocalizationProvider
 
         this.BeforeInit?.Invoke(this, EventArgs.Empty);
 
-        this.Localization = new Localization(this.TranslationPage);
+        if (this.TranslationPage.IsNotSet() && BoardContext.Current.CurrentForumPage != null)
+        {
+            this.Localization = BoardContext.Current.CurrentForumPage.Localization;
+        }
+        else
+        {
+            this.Localization = new Localization(this.TranslationPage);
+        }
 
         this.AfterInit?.Invoke(this, EventArgs.Empty);
     }

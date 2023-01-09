@@ -1,0 +1,145 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Model
+@using YAF.Core.Services
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Models
+@using YAF.Types.Objects.Model
+@using YAF.Web.TagHelpers
+
+@inject BoardContext Current
+
+@{
+    // Latest forum posts
+    // Shows the latest n number of posts on the main forum list page
+    const string CacheKey = Constants.Cache.ActiveDiscussions;
+
+    List<LatestTopic> activeTopics = null;
+
+    if (Current.IsGuest)
+    {
+        // allow caching since this is a guest...
+        activeTopics = Current.Get<IDataCache>()[CacheKey] as List<LatestTopic>;
+    }
+
+    if (activeTopics == null)
+    {
+        Current.Get<ISessionService>().UnreadTopics = 0;
+
+        activeTopics = Current.GetRepository<Topic>().Latest(
+            Current.PageBoardID,
+            Current.PageCategoryID,
+            Current.BoardSettings.ActiveDiscussionsCount,
+            Current.PageUserID,
+            Current.BoardSettings.NoCountForumsInActiveDiscussions,
+            Current.BoardSettings.UseReadTrackingByDatabase);
+
+        if (Current.IsGuest)
+        {
+            Current.Get<IDataCache>().Set(CacheKey, activeTopics, TimeSpan.FromMinutes(Current.BoardSettings.ActiveDiscussionsCacheTimeout));
+        }
+    }
+}
+
+<div class="card mb-3">
+    <div class="card-header d-flex align-items-center">
+        @Html.IconHeader("comments", "DEFAULT", "ACTIVE_DISCUSSIONS", "fa-2x")
+    </div>
+    <ul class="list-group list-group-flush">
+        @if (activeTopics.Any())
+        {
+            foreach (var topic in activeTopics)
+            {
+                var topicSubject = Current.Get<IBadWordReplace>().Replace(Html.HtmlEncode(topic.Topic));
+
+                var topicStyle = topic.Styles;
+
+                var styles = Current.BoardSettings.UseStyledTopicTitles && topicStyle.IsSet()
+                    ? Current.Get<IStyleTransform>().Decode(topic.Styles)
+                    : string.Empty;
+
+                var lastRead = Current.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                topic.ForumID,
+                topic.TopicID,
+                topic.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
+                topic.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
+
+                var startedByText = Current.Get<ILocalization>().GetTextFormatted(
+                    "VIEW_TOPIC_STARTED_BY",
+                Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName);
+
+                var inForumText = Current.Get<ILocalization>().GetTextFormatted("IN_FORUM", Html.HtmlEncode(topic.Forum));
+
+                var lastPostedDateTime = (DateTime)topic.LastPosted;
+
+                var formattedDatetime = Current.BoardSettings.ShowRelativeTime
+                ? lastPostedDateTime.ToRelativeTime()
+                    : Current.Get<IDateTimeService>().Format(
+                        DateTimeFormat.BothTopic,
+                        lastPostedDateTime);
+
+                var span = Current.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
+
+                var infoData = $@"{Html.UserLink((int)topic.LastUserID, Current.BoardSettings.EnableDisplayName
+                ? topic.LastUserDisplayName
+                : topic.LastUserName, topic.LastUserSuspended, topic.LastUserStyle).RenderToString()} 
+                       <span class=""fa-stack""><i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
+                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
+                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
+                                                </span>&nbsp;{span}{formattedDatetime}</span>";
+
+                <li class="list-group-item pt-2 list-group-item-action">
+                    <a button-style="Link"
+                       role="button"
+                       icon="comment"
+                       icon-css-class="far"
+                       icon-color="text-secondary"
+                       class=" fw-bold p-0"
+                       style="@styles"
+                       bs-toggle="tooltip"
+                       text="@topicSubject"
+                       title-non-localized="@Html.Raw($"{startedByText} {inForumText}")"
+                       href="@Html.Raw(Current.Get<LinkBuilder>().GetLink(ForumPages.Posts, new {t = topic.TopicID, name = topicSubject}))">
+                    </a>
+
+                    @if ((DateTime)topic.LastPosted > lastRead)
+                    {
+                        <span localized-page="COMMON"
+                               localized-tag="NEW_MESSAGE"
+                               class="badge bg-success"></span>
+                    }
+
+                    <a class=" p-0"
+                       role="button"
+                       button-style="Link"
+                       text="@Html.Raw($"({topic.Forum})")"
+                       href="@Html.Raw(Current.Get<LinkBuilder>().GetForumLink(topic.ForumID, topic.Forum))"></a>
+
+                    <a button-style="Link"
+                       icon="info-circle"
+                       icon-color="text-secondary"
+                       text-localized-page="DEFAULT"
+                       text-localized-tag="BY"
+               text-param0="@Html.Raw(Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName)"
+                       bs-content="@infoData"
+                       class=" topic-link-popover p-0"
+                       bs-toggle="popover"></a>
+
+                </li>
+            }
+        }
+    </ul>
+    @if (Current.Get<IPermissions>().Check(Current.BoardSettings.PostLatestFeedAccess) && Current.BoardSettings.ShowAtomLink)
+    {
+        <div class="card-footer">
+            <div class="float-end" role="group" aria-label="Tools">
+                @Html.RssFeedLink(RssFeeds.LatestPosts, true)
+            </div>
+        </div>
+    }
+</div>

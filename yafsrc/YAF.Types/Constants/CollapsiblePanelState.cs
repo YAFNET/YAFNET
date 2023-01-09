@@ -23,6 +23,9 @@
  */
 namespace YAF.Types.Constants;
 
+/// <summary>
+/// The collapsible panel state.
+/// </summary>
 public enum CollapsiblePanelState
 {
     /// <summary>

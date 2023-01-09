@@ -32,10 +32,10 @@ public class HideBBCodeModule : BBCodeControl
     /// <summary>
     /// The render.
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
+    /// <param name="stringBuilder">
+    /// The string Builder.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    public override void Render(StringBuilder stringBuilder)
     {
         var hiddenContent = this.Parameters["inner"];
 
@@ -74,7 +74,7 @@ public class HideBBCodeModule : BBCodeControl
 
         if (BoardContext.Current.IsAdmin)
         {
-            writer.Write(hiddenContent);
+            stringBuilder.Append(hiddenContent);
             return;
         }
 
@@ -93,7 +93,7 @@ public class HideBBCodeModule : BBCodeControl
 
             if (BoardContext.Current.IsGuest)
             {
-                writer.Write(shownContentGuest);
+                stringBuilder.Append(shownContentGuest);
                 return;
             }
 
@@ -120,7 +120,7 @@ public class HideBBCodeModule : BBCodeControl
 
             if (BoardContext.Current.IsGuest)
             {
-                writer.Write(shownContentGuest);
+                stringBuilder.Append(shownContentGuest);
                 return;
             }
 
@@ -139,7 +139,7 @@ public class HideBBCodeModule : BBCodeControl
             // Handle Hide Thanks
             if (BoardContext.Current.IsGuest)
             {
-                writer.Write(shownContentGuest);
+                stringBuilder.Append(shownContentGuest);
                 return;
             }
 
@@ -159,6 +159,6 @@ public class HideBBCodeModule : BBCodeControl
             }
         }
 
-        writer.Write(shownContent);
+        stringBuilder.Append(shownContent);
     }
 }

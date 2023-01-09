@@ -25,8 +25,9 @@ namespace YAF.Core.Services.Syndication;
 
 using System;
 using System.ServiceModel.Syndication;
-
+using YAF.Core.Services;
 using YAF.Core.Utilities.StringUtils;
+using YAF.Types.Attributes;
 using YAF.Types.Constants;
 
 /// <summary>
@@ -61,18 +62,18 @@ public class FeedItem : SyndicationFeed
             $"{BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED")} - {BoardContext.Current.BoardSettings.Name} - {subTitle}");
 
         // Alternate link
-        this.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(BaseUrlBuilder.BaseUrl)));
+        this.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(BoardContext.Current.Get<BoardInfo>().ForumBaseUrl)));
 
         // Self Link
         var slink = new Uri(
-            BoardContext.Current.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Feed, new { feed = feedType.ToInt() }));
+            $"{BoardContext.Current.Get<BoardInfo>().ForumBaseUrl}{BoardContext.Current.Get<IUrlHelper>().Action("GetLatestPosts", "Feed")}");
         this.Links.Add(SyndicationLink.CreateSelfLink(slink));
 
         this.Generator = "YetAnotherForum.NET";
         this.LastUpdatedTime = DateTime.UtcNow;
         this.Language = BoardContext.Current.Get<ILocalization>().LanguageCode;
         this.ImageUrl = new Uri(
-            $"{BaseUrlBuilder.BaseUrl}{BoardInfo.ForumClientFileRoot}{BoardContext.Current.Get<BoardFolders>().Logos}/{BoardContext.Current.BoardSettings.ForumLogo}");
+            $"{BoardContext.Current.Get<BoardInfo>().ForumBaseUrl}/{BoardContext.Current.Get<BoardFolders>().Logos}/{BoardContext.Current.BoardSettings.ForumLogo}");
 
         this.Id =
             $"urn:{urlAlphaNum}:{BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED")}:{BoardContext.Current.BoardSettings.Name}:{subTitle}:{BoardContext.Current.PageBoardID}"
@@ -85,7 +86,7 @@ public class FeedItem : SyndicationFeed
             new SyndicationPerson(
                 BoardContext.Current.BoardSettings.ForumEmail,
                 "Forum Admin",
-                BaseUrlBuilder.BaseUrl));
+                BoardContext.Current.Get<BoardInfo>().ForumBaseUrl));
         this.Categories.Add(new SyndicationCategory(FeedCategories));
     }
 }

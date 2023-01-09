@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Tasks;
 
-using YAF.Types.Interfaces.Tasks;
-
 /// <summary>
 /// Automatically cleans up the tasks if they are no longer running...
 /// </summary>

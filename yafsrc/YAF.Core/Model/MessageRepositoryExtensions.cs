@@ -27,6 +27,9 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
+using Microsoft.Extensions.Logging;
+
+using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -203,7 +206,7 @@ public static class MessageRepositoryExtensions
     /// The message Position.
     /// </param>
     /// <returns>
-    /// The <see cref="List"/>.
+    /// Returns the Paged Post List
     /// </returns>
     public static List<PagedMessage> PostListPaged(
         this IRepository<Message> repository,
@@ -233,6 +236,11 @@ public static class MessageRepositoryExtensions
         {
             // Change index
             pageIndex = messagePosition / pageSize;
+
+            if (pageIndex > 0)
+            {
+                pageIndex++;
+            }
         }
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
@@ -694,7 +702,7 @@ public static class MessageRepositoryExtensions
         }
 
         var newForumId = BoardContext.Current.GetRepository<Topic>().GetById(moveToTopicId).ForumID;
-        
+
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(newForumId, moveToTopicId));
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(oldTopic.ForumID, oldTopic.ID));
 
@@ -1186,7 +1194,7 @@ public static class MessageRepositoryExtensions
                                     UserStyle = originalMessageUser.UserStyle,
                                     UserId = originalMessage.UserID,
                                     TopicId = originalMessage.TopicID,
-                                    Topic = subject.IsSet() ? subject : topic.TopicName,
+                                    Topic = subject.IsSet() ? subject  : topic.TopicName,
                                     ForumId = forum.ID,
                                     ForumName = forum.Name,
                                     Description = description
@@ -1270,7 +1278,7 @@ public static class MessageRepositoryExtensions
         {
             if (BoardContext.Current.CurrentForumPage != null)
             {
-                BoardContext.Current.Get<ILoggerService>().Log(
+                BoardContext.Current.Get<ILogger<IRepository<Message>>>().Log(
                     BoardContext.Current.PageUserID,
                     "YAF",
                     BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", message.ID),
@@ -1591,7 +1599,7 @@ public static class MessageRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
-        int? replyToId = repository.GetSingle(x => x.Position == 0 && x.TopicID == moveToTopicId)?.ID;
+        var replyToId = repository.GetSingle(x => x.Position == 0 && x.TopicID == moveToTopicId)?.ID;
 
         int position;
 

@@ -1,0 +1,48 @@
+{
+  "HelpNavigation": [
+    {
+      "HelpCategory": "GENERALTOPICS",
+      "HelpPages": [
+        "FORUMS",
+        "REGISTRATION",
+        "SEARCHING",
+        "ANOUNCE",
+        "DISPLAY",
+        "NEWPOSTS",
+        "THREADOPT",
+        "RECOVER",
+        "MEMBERSLIST",
+        "POPUPS",
+        "PM",
+        "RSS"
+      ]
+    },
+    {
+      "HelpCategory": "PROFILETOPICS",
+      "HelpPages": [
+        "MYSETTINGS",
+        "MESSENGER",
+        "PUBLICPROFILE",
+        "EDITPROFILE",
+        "THANKS",
+        "BUDDIES",
+        "MYALBUMS",
+        "MYPICS",
+        "MAILSETTINGS",
+        "SUBSCRIPTIONS"
+      ]
+    },
+    {
+      "HelpCategory": "READPOSTTOPICS",
+      "HelpPages": [
+        "POSTING",
+        "REPLYING",
+        "EDITDELETE",
+        "POLLS",
+        "ATTACHMENTS",
+        "BBCODES",
+        "MODSADMINS"
+      ]
+    }
+  ]
+}

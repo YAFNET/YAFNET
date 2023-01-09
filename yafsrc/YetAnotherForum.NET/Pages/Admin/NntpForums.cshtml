@@ -1,0 +1,115 @@
+@page "{handler?}"
+
+@model NntpForumsModel
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("newspaper","ADMIN_NNTPFORUMS","TITLE")
+                </div>
+                <div class="card-body">
+
+                    @if (!Model.List.NullOrEmpty())
+                    {
+                        <ul class="list-group">
+                            @foreach (var item in Model.List)
+                            {
+                                <li class="list-group-item list-group-item-action list-group-item-menu">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">
+                                            @Html.Raw(item.Item2.Name)
+                                        </h5>
+                                        <small>
+                                            <span class="fw-bold">
+                                                @Html.LocalizedText("ADMIN_NNTPFORUMS", "Active")
+                                            </span>
+                                            <div class="badge bg-@(item.Item1.Active ? "success" : "secondary")">
+                                                @Html.Raw(item.Item1.Active)
+                                            </div>
+                                        </small>
+                                    </div>
+                                    <p class="mb-1">
+                                        <span class="fw-bold">
+                                            @Html.LocalizedText("ADMIN_NNTPFORUMS", "Group")
+                                        </span>
+                                        @Html.Raw(item.Item1.GroupName)
+
+                                        <span class="fw-bold">
+                                            @Html.LocalizedText("ADMIN_NNTPFORUMS", "Forum")
+                                        </span>
+                                        @Html.Raw(item.Item3.Name)
+                                    </p>
+                                    <small>
+                                        <div class="btn-group btn-group-sm">
+                                            <button button-style="Info"
+                                                    button-size="Small"
+                                                    bs-toggle="ajax-modal"
+                                                    bs-target-url="@(Url.Page("NntpForums", "Edit", new {id = item.Item1.ID}))"
+                                                    Icon="edit"
+                                                    text-localized-tag="EDIT">
+                                            </button>
+                                            <button button-style="Danger"
+                                                    button-size="Small"
+                                                    asp-page-handler="Delete"
+                                                    asp-route-id="@Html.Raw(item.Item1.ID)"
+                                                    Icon="trash"
+                                                    text-localized-tag="DELETE"
+                                                    return-confirm-tag="DELETE_FORUM">
+                                            </button>
+                                        </div>
+                                    </small>
+                                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                        <button button-style="None"
+                                                class="dropdown-item"
+                                                bs-toggle="ajax-modal"
+                                                bs-target-url="@(Url.Page("NntpForums", "Edit", new {id = item.Item1.ID}))"
+                                                Icon="edit"
+                                                text-localized-tag="EDIT">
+                                        </button>
+                                        <button button-style="None"
+                                                class="dropdown-item"
+                                                asp-page-handler="Delete"
+                                                asp-route-id="@Html.Raw(item.Item1.ID)"
+                                                Icon="trash"
+                                                text-localized-tag="DELETE"
+                                                return-confirm-tag="DELETE_FORUM">
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <button button-style="None"
+                                                class="dropdown-item"
+                                                bs-toggle="ajax-modal"
+                                                bs-target-url="@(Url.Page("NntpForums", "Add"))"
+                                                Icon="plus-square"
+                                                text-localized-tag="NEW_FORUM"
+                                                text-localized-page="ADMIN_NNTPFORUMS"></button>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <empty icon="newspaper"
+                               header-text-page="ADMIN_NNTPFORUMS" header-text-tag="EMPTY_HEADER"
+                               message-text-page="ADMIN_NNTPFORUMS" message-text-tag="EMPTY_MESSAGE">
+                        </empty>
+                    }
+                </div>
+                <div class="card-footer text-center">
+                    <button button-style="Primary" 
+                            bs-toggle="ajax-modal"
+                            bs-target-url="@(Url.Page("NntpForums", "Add"))"
+                            Icon="plus-square" 
+                            text-localized-tag="NEW_FORUM" 
+                            text-localized-page="ADMIN_NNTPFORUMS"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

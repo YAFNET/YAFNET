@@ -21,13 +21,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Nntp;
 
 using System;
 using System.Runtime.Caching;
 
+using Microsoft.Extensions.Logging;
+
 using YAF.Core.Model;
-using YAF.Types.Interfaces.Identity;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Nntp;
 
@@ -50,7 +53,7 @@ public class Nntp : INewsreader
     /// <param name="logger">
     /// The logger.
     /// </param>
-    public Nntp([NotNull] ILoggerService logger)
+    public Nntp([NotNull] ILogger logger)
     {
         this.Logger = logger;
     }
@@ -58,7 +61,7 @@ public class Nntp : INewsreader
     /// <summary>
     /// Gets or sets Logger.
     /// </summary>
-    public ILoggerService Logger { get; set; }
+    public ILogger Logger { get; set; }
 
     /// <summary>
     /// The get nntp connection.
@@ -111,7 +114,7 @@ public class Nntp : INewsreader
     /// </returns>
     public int ReadArticles(int boardId, int lastUpdate, int timeToRun, bool createUsers)
     {
-        if (MemoryCache.Default["WorkingInYafNNTP"] != null)
+        if (MemoryCache.Default.Contains("WorkingInYafNNTP"))
         {
             return 0;
         }
@@ -212,12 +215,12 @@ public class Nntp : INewsreader
 
                         if (fromName.IsSet() && fromName.Contains("<"))
                         {
-                            fromName = fromName.Substring(0, fromName.LastIndexOf('<') - 1);
+                            fromName = fromName[..(fromName.LastIndexOf('<') - 1)];
                             fromName = fromName.Replace("\"", string.Empty).Trim();
                         }
                         else if (fromName.IsSet() && fromName.Contains("("))
                         {
-                            fromName = fromName.Substring(0, fromName.LastIndexOf('(') - 1).Trim();
+                            fromName = fromName[..(fromName.LastIndexOf('(') - 1)].Trim();
                         }
 
                         if (fromName.IsNotSet())

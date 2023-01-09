@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model YAF.Types.Objects.Model.CultureSwitcherModel
+ 
+<div>
+    <form id="culture-switcher">
+        <select name="culture" id="culture-options" class="form-select">
+           @foreach (var culture in Model.SupportedCultures)
+            {
+                <option value="@culture.Name" selected="@(Model.CurrentUICulture.Name == culture.Name)">@culture.DisplayName</option>
+            }
+        </select>
+    </form>
+</div>
+ 
+ 
+<script>
+    document.getElementById("culture-options").addEventListener("change", () => {
+        document.getElementById("culture-switcher").submit();
+    });
+</script>

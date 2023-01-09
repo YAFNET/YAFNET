@@ -1,0 +1,246 @@
+@page "{handler?}"
+
+@model GroupsModel
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+<form method="post">
+    @if (Model.RoleListNet is {Count: > 0 })
+    {
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.IconHeader("users","ADMIN_GROUPS","PROVIDER_ROLES")
+                    </div>
+                    <div class="card-body">
+
+                        <alert Type="danger" icon="info-circle" localized-page="ADMIN_GROUPS" localized-tag="NOTE_DELETE">
+                        </alert>
+
+                        <ul class="list-group">
+                            @foreach (var role in Model.RoleListNet)
+                            {
+                                <li class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1 text-break">
+                                            @Html.Raw(role)
+                                        </h5>
+                                        <small class="text-muted">
+                                            @Html.LocalizedText( "ADMIN_GROUPS","UNLINKED")
+                                        </small>
+                                    </div>
+                                    <div class="small">
+                                        <div class="btn-group btn-group-sm">
+                                            <button button-style="Info"
+                                                    button-size="Small"
+                                                    asp-page-handler="AddNet"
+                                                    asp-route-role="@Html.Raw(role)"
+                                                    title-localized-tag="ADD_ROLETOYAF"
+                                                    title-localized-page="ADMIN_GROUPS"
+                                                    text-localized-tag="ADD_ROLETOYAF"
+                                                    text-localized-page="ADMIN_GROUPS"
+                                                    Icon="plus-circle">
+                                            </button>
+                                            <button button-style="Danger"
+                                                    button-size="Small"
+                                                    asp-page-handler="DeleteNet"
+                                                    asp-route-role="@Html.Raw(role)"
+                                                    title-localized-tag="DELETE"
+                                                    Icon="trash"
+                                                    text-localized-tag="DELETE"
+                                                    return-confirm-tag="CONFIRM_DELETE">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("users","ADMIN_GROUPS","HEADER")
+                </div>
+                <div class="card-body">
+                    <alert type="danger" icon="info-circle" localized-page="ADMIN_GROUPS" localized-tag="NOTE_DELETE_LINKED">
+                    </alert>
+                    @if (!Model.RoleListYaf.NullOrEmpty())
+                    {
+                        <ul class="list-group">
+
+                            @foreach (var role in Model.RoleListYaf)
+                            {
+                                <li class="list-group-item list-group-item-action list-group-item-menu">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1 text-break">
+                                            <i class="fa fa-users fa-fw"></i>&nbsp;@Html.Raw(role.Name)
+                                        </h5>
+                                        <small class="text-muted">
+                                            @Html.Raw(Model.GetLinkedStatus(role))
+                                        </small>
+                                    </div>
+                                    <p>
+                                        @if (role.Description.IsSet())
+                                        {
+                                            <label class="form-label me-3"
+                                                   localized-tag="DESCRIPTION" localized-page="ADMIN_EDITGROUP">
+                                            </label>
+                                            @Html.Raw(role.Description)
+                                        }
+
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_EDITGROUP","PRIORITY")&nbsp;
+                                                <span class="@Html.Raw(Model.GetItemColorString(role.SortOrder.ToString()))">
+                                                    @Html.Raw( role.SortOrder)
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText( "ADMIN_GROUPS","IS_GUEST"):&nbsp;
+                                                <span class="@Html.Raw(Model.GetItemColor(role.GroupFlags.IsGuest))">
+                                                    @Html.Raw(Model.GetItemName(role.GroupFlags.IsGuest) )
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_GROUPS","IS_START"):&nbsp;
+                                                <span class="@Html.Raw(Model.GetItemColor(role.GroupFlags.IsStart))">
+                                                    @Html.Raw(Model.GetItemName(role.GroupFlags.IsStart) )
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_GROUPS","IS_MOD"):&nbsp;
+                                                <span class="@Html.Raw(Model.GetItemColor(role.GroupFlags.IsModerator))">
+                                                    @Html.Raw(Model.GetItemName(role.GroupFlags.IsModerator) )
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_GROUPS","IS_ADMIN"):&nbsp;
+                                                <span class="@Html.Raw(Model.GetItemColor(role.GroupFlags.IsAdmin))">
+                                                    @Html.Raw(Model.GetItemName(role.GroupFlags.IsAdmin) )
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_GROUPS","PMS"):&nbsp;
+                                                <span class="@Html.Raw(Model.GetItemColorString(role.PMLimit == int.MaxValue ? "\u221E" : role.PMLimit.ToString()))">
+                                                    @Html.Raw(role.PMLimit == int.MaxValue ? "\u221E" : role.PMLimit.ToString())
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_EDITGROUP","ALBUM_NUMBER")&nbsp;
+                                                <span class="@Html.Raw(Model.GetItemColorString(role.UsrAlbums.ToString()))">
+                                                    @Html.Raw(role.UsrAlbums)
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_EDITGROUP","IMAGES_NUMBER")
+                                                <span class="@Html.Raw(Model.GetItemColorString(role.UsrAlbumImages.ToString()))">
+                                                    @Html.Raw(role.UsrAlbumImages)
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_EDITGROUP","STYLE")&nbsp;
+                                                <span class="@Html.Raw(Model.GetItemColorString(role.Style) )">
+                                                    @Html.Raw(role.Style.IsSet() && role.Style.Trim().Length > 0 ? "" : Model.GetItemName(false))
+                                                </span>
+                                                <code>@Html.Raw(role.Style)</code>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <label class="form-label" localized-tag="SIGNATURE_LENGTH" localized-page="ADMIN_EDITGROUP" )></label>
+                                                <span class="@Html.Raw(Model.GetItemColorString(role.UsrSigChars.ToString()) )">
+                                                    @Html.Raw(role.UsrSigChars.ToString().IsSet() ? role.UsrSigChars : Model.GetItemName(false) )
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <label class="form-label" localized-tag="SIG_BBCODES" localized-page="ADMIN_EDITGROUP"></label>
+                                                <span class="@Html.Raw(Model.GetItemColorString(role.UsrSigBBCodes) )">
+                                                    @Html.Raw(role.UsrSigBBCodes.IsSet() ? role.UsrSigBBCodes : Model.GetItemName(false) )
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </p>
+                                    <small>
+                                        <div class="btn-group btn-group-sm">
+                                            <a button-style="Info"
+                                               button-size="Small"
+                                               asp-page="@ForumPages.Admin_EditGroup.GetPageName()"
+                                               asp-route-i="@Html.Raw(role.ID)"
+                                               title-localized-tag="EDIT"
+                                               Icon="edit"
+                                               text-localized-tag="EDIT">
+                                            </a>
+
+                                            @if (!role.GroupFlags.IsGuest)
+                                            {
+                                                <button button-style="Danger"
+                                                        button-size="Small"
+                                                        asp-page-handler="Delete"
+                                                        asp-route-id="@Html.Raw(role.ID)"
+                                                        return-confirm-tag="CONFIRM_DELETE"
+                                                        title-localized-tag="DELETE"
+                                                        Icon="trash"
+                                                        text-localized-tag="DELETE">
+                                                </button>
+                                            }
+                                        </div>
+                                        <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                            <a button-style="None"
+                                               class="dropdown-item"
+                                               asp-page="@ForumPages.Admin_EditGroup.GetPageName()"
+                                               asp-route-i="@Html.Raw(role.ID)"
+                                               title-localized-tag="EDIT"
+                                               Icon="edit"
+                                               text-localized-tag="EDIT">
+                                            </a>
+                                            
+                                            @if (!role.GroupFlags.IsGuest)
+                                            {
+                                                <button button-style="None"
+                                                        class="dropdown-item"
+                                                        asp-page-handler="Delete"
+                                                        asp-route-id="@Html.Raw(role.ID)"
+                                                        return-confirm-tag="CONFIRM_DELETE"
+                                                        title-localized-tag="DELETE"
+                                                        Icon="trash"
+                                                        text-localized-tag="DELETE">
+                                                </button>
+                                            }
+
+                                            <div class="dropdown-divider"></div>
+                                            <a asp-page="@ForumPages.Admin_EditGroup.GetPageName()"
+                                               button-style="None"
+                                               class="dropdown-item"
+                                               Icon="plus-square"
+                                               text-localized-tag="NEW_ROLE">
+                                            </a>
+                                        </div>
+                                    </small>
+                                </li>
+                            }
+                        </ul>
+
+                    }
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-page="@ForumPages.Admin_EditGroup.GetPageName()"
+                       button-style="Primary"
+                       Icon="plus-square"
+                       text-localized-tag="NEW_ROLE">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

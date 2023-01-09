@@ -23,8 +23,6 @@
  */
 namespace YAF.Types.Interfaces.Services;
 
-using System.Collections.Generic;
-
 /// <summary>
 /// The Friends interface.
 /// </summary>
@@ -66,14 +64,6 @@ public interface IFriends
     bool ApproveRequest(int toUserId, bool mutual);
 
     /// <summary>
-    /// Gets all the buddies of the current user.
-    /// </summary>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
-    List<BuddyUser> ListAll();
-
-    /// <summary>
     /// Clears the buddies cache for the current user.
     /// </summary>
     /// <param name="userId">
@@ -95,29 +85,15 @@ public interface IFriends
     void DenyRequest(int fromUserId);
 
     /// <summary>
-    /// Gets all the buddies for the specified user.
-    /// </summary>
-    /// <param name="userId">
-    ///     The user id.
-    /// </param>
-    /// <returns>
-    /// a List of all buddies.
-    /// </returns>
-    List<BuddyUser> GetForUser(int userId);
-
-    /// <summary>
     /// determines if the "<paramref name="buddyUserId"/>" and current user are buddies.
     /// </summary>
     /// <param name="buddyUserId">
     /// The Buddy User Id.
     /// </param>
-    /// <param name="approved">
-    /// Just look into approved buddies?
-    /// </param>
     /// <returns>
     /// true if they are buddies, <see langword="false"/> if not.
     /// </returns>
-    bool IsBuddy(int buddyUserId, bool approved);
+    bool IsBuddy(int buddyUserId);
 
     /// <summary>
     /// Removes the "<paramref name="toUserId"/>" from current user's buddy list.

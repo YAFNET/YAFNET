@@ -26,6 +26,10 @@ namespace YAF.Types.Interfaces.Identity;
 
 using System.Collections.Generic;
 
+using YAF.Types;
+using YAF.Types.Models.Identity;
+using YAF.Types.Objects;
+
 /// <summary>
 /// The AspNetRolesHelper interface.
 /// </summary>
@@ -162,13 +166,13 @@ public interface IAspNetRolesHelper
     /// <summary>
     /// The remove user from role.
     /// </summary>
-    /// <param name="userProviderKey">
-    /// The user Provider Key.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="role">
     /// The role.
     /// </param>
-    void RemoveUserFromRole([NotNull] string userProviderKey, [NotNull] string role);
+    void RemoveUserFromRole([NotNull] AspNetUsers user, [NotNull] string role);
 
     /// <summary>
     /// Roles the exists.

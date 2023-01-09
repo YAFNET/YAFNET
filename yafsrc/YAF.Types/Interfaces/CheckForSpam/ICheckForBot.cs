@@ -24,6 +24,8 @@
 
 namespace YAF.Types.Interfaces.CheckForSpam;
 
+using YAF.Types;
+
 /// <summary>
 /// Bot Check Interface
 /// </summary>

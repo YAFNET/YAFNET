@@ -26,6 +26,8 @@ namespace YAF.Core.Extensions;
 
 using System.Collections.Generic;
 
+using YAF.Types.Attributes;
+
 /// <summary>
 ///     The module manager extensions.
 /// </summary>

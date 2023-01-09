@@ -1,0 +1,156 @@
+﻿@page
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+@model YAF.Pages.Admin.EditUser.UsersSettingsModel
+
+@{
+    Layout = "_EditUserLayout";
+}
+
+<h2>
+    @Html.LocalizedText("EDIT_PROFILE", "FORUM_SETTINGS")
+</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
+
+    <h4>
+        @Html.LocalizedText("EDIT_PROFILE", "FORUM_SETTINGS")
+    </h4>
+
+    @if (Model.PageBoardContext.BoardSettings.AllowUserHideHimself || Model.PageBoardContext.IsAdmin)
+    {
+        <div class="mb-3">
+            <div class="form-check form-switch">
+                <input asp-for="Input.Activity" class="form-check-input" role="switch"/>
+                <label asp-for="Input.Activity" class="form-check-label"
+                       localized-page="EDIT_PROFILE"
+                       localized-tag="ACTIVITY">
+                </label>
+            </div>
+        </div>
+    }
+
+    <div class="mb-3">
+        <div class="form-check form-switch">
+            <input asp-for="Input.HideMe" class="form-check-input" role="switch"/>
+            <label asp-for="Input.HideMe" class="form-check-label"
+                   localized-page="EDIT_PROFILE"
+                   localized-tag="HIDEME">
+            </label>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.TimeZone" localized-page="EDIT_PROFILE" localized-tag="TIMEZONE2" class="form-label">
+        </label>
+        <select asp-for="Input.TimeZone" class="select2-select">
+            @foreach (var item in Model.TimeZones)
+            {
+                if (item.Selected)
+                {
+                    <option value="@item.Value" selected="selected">@item.Text</option>
+                }
+                else
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+
+            }
+        </select>
+    </div>
+
+    @if (Model.PageBoardContext.BoardSettings.AllowUserTheme)
+    {
+        <div class="mb-3">
+            <label asp-for="Input.Theme" localized-page="EDIT_PROFILE" localized-tag="SELECT_THEME" class="form-label">
+            </label>
+            <select asp-for="Input.Theme" class="select2-select">
+                @foreach (var item in Model.Themes)
+                {
+                    if (item.Selected)
+                    {
+                        <option value="@item.Value" selected="selected">@item.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+
+                }
+            </select>
+        </div>
+    }
+
+    @if (Model.PageBoardContext.BoardSettings.AllowUserLanguage)
+    {
+        <div class="mb-3">
+            <label asp-for="Input.Language" localized-page="EDIT_PROFILE" localized-tag="SELECT_LANGUAGE" class="form-label">
+            </label>
+            <select asp-for="Input.Language" class="select2-select">
+                @foreach (var item in Model.Languages)
+                {
+                    if (item.Selected)
+                    {
+                        <option value="@item.Value" selected="selected">@item.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+
+                }
+            </select>
+        </div>
+    }
+
+    <div class="mb-3">
+        <label asp-for="Input.Size" localized-page="EDIT_PROFILE" localized-tag="SELECT_PAGESIZE" class="form-label">
+        </label>
+        <select asp-for="Input.Size" class="select2-select" asp-items="Model.PageSizeList">
+        </select>
+    </div>
+
+    @if (Model.PageBoardContext.BoardSettings.AllowEmailChange)
+    {
+        <h4>
+            @Html.LocalizedText("EDIT_PROFILE", "CHANGE_EMAIL")
+        </h4>
+        <div class="mb-3">
+            <label asp-for="Input.Email" localized-page="EDIT_PROFILE" localized-tag="EMAIL" class="form-label">
+            </label>
+            <input asp-for="Input.Email" class="form-control"/>
+        </div>
+    }
+
+    <div class="text-lg-center">
+        <button type="submit"
+                button-style="Primary"
+                class=" me-2"
+                icon="save"
+                text-localized-page="COMMON"
+                text-localized-tag="SAVE"></button>
+
+        <a role="button"
+           asp-page="@ForumPages.MyAccount.GetPageName()"
+           button-style="Secondary"
+           icon="reply"
+           text-localized-page="COMMON"
+           text-localized-tag="CANCEL"></a>
+    </div>
+    <hr/>
+    <div class="text-lg-center">
+        <button button-style="Primary"
+                Icon="save"
+                text-localized-tag="SAVE"
+                asp-page-handler="Save"></button>
+        <a button-style="Secondary"
+           Icon="times"
+           text-localized-tag="CANCEL"
+           asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
+    </div>
+</form>

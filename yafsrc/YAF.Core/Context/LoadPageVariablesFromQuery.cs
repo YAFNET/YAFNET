@@ -21,7 +21,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Context;
+
+using Microsoft.AspNetCore.Routing;
 
 using YAF.Types.Attributes;
 
@@ -60,12 +63,36 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
     /// <param name="event">The @event.</param>
     public void Handle([NotNull] InitPageLoadEvent @event)
     {
-        var queryString = this.Get<HttpRequestBase>().QueryString;
+        var queryString = this.Get<IHttpContextAccessor>().HttpContext.Request.Query;
 
-        @event.PageQueryData.CategoryID = queryString.GetFirstOrDefault("c").ToTypeOrDefault(0);
-        @event.PageQueryData.ForumID = queryString.GetFirstOrDefault("f").ToTypeOrDefault(0);
-        @event.PageQueryData.TopicID = queryString.GetFirstOrDefault("t").ToTypeOrDefault(0);
-        @event.PageQueryData.MessageID = queryString.GetFirstOrDefault("m").ToTypeOrDefault(0);
+        var routeData = this.Get<IHttpContextAccessor>().HttpContext.GetRouteData();
+
+        if (queryString.Count == 0 && routeData.Values.Count > 0)
+        {
+            @event.PageQueryData.CategoryID = routeData.Values["c"].ToTypeOrDefault(0);
+            @event.PageQueryData.ForumID = routeData.Values["f"].ToTypeOrDefault(0);
+            @event.PageQueryData.TopicID = routeData.Values["t"].ToTypeOrDefault(0);
+            @event.PageQueryData.MessageID = routeData.Values["m"].ToTypeOrDefault(0);
+            @event.PageQueryData.PageIndex = routeData.Values["p"].ToTypeOrDefault(0);
+        }
+        else
+        {
+            @event.PageQueryData.CategoryID = queryString["c"].FirstOrDefault().ToTypeOrDefault(0);
+            @event.PageQueryData.ForumID = queryString["f"].FirstOrDefault().ToTypeOrDefault(0);
+            @event.PageQueryData.TopicID = queryString["t"].FirstOrDefault().ToTypeOrDefault(0);
+            @event.PageQueryData.MessageID = queryString["m"].FirstOrDefault().ToTypeOrDefault(0);
+            @event.PageQueryData.PageIndex = queryString["p"].FirstOrDefault().ToTypeOrDefault(0);
+        }
+
+        var topicId = this.Get<IDataCache>().Get("TopicID");
+
+        if (topicId != null)
+        {
+            if (@event.PageQueryData.TopicID == 0)
+            {
+                @event.PageQueryData.TopicID = topicId.ToType<int>();
+            }
+        }
 
         if (BoardContext.Current.Settings.CategoryID != 0)
         {

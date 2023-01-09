@@ -27,6 +27,7 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
+using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 
@@ -88,7 +89,7 @@ public static class UserPMessageRepositoryExtensions
 
         flags.IsRead = true;
 
-        repository.UpdateOnly(() => new UserPMessage {Flags = flags.BitValue}, m => m.ID == message.ID);
+        repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, m => m.ID == message.ID);
     }
 
     public static List<UserPMessage> List(

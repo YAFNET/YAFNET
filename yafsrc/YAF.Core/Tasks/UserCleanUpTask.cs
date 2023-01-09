@@ -46,7 +46,7 @@ public class UserCleanUpTask : IntermittentBackgroundTask
     /// <summary>
     /// Gets TaskName.
     /// </summary>
-    public static string TaskName => "UserCleanUpTask";
+    public static string TaskName { get; } = "UserCleanUpTask";
 
     /// <summary>
     /// The run once.

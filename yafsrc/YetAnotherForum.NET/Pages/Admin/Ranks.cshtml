@@ -1,0 +1,158 @@
+@page "{handler?}"
+
+@model RanksModel
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("graduation-cap","ADMIN_RANKS","TITLE")
+                </div>
+                <div class="card-body">
+                    @if (!Model.List.NullOrEmpty())
+                    {
+                        <ul class="list-group">
+
+                            @foreach (var rank in Model.List)
+                            {
+                                <li class="list-group-item list-group-item-action list-group-item-menu">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1 text-break">
+                                            <i class="fa fa-graduation-cap fa-fw"></i>&nbsp;
+                                            @Html.Raw(rank.Name)
+                                        </h5>
+                                        <small>
+                                            @Html.LocalizedText("ADMIN_RANKS","IS_START")
+                                            <span class="@Html.Raw(Model.GetItemColor(rank.RankFlags.IsStart))">
+                                                @Html.Raw(Model.GetItemName(rank.RankFlags.IsStart))
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <p>
+                                        @if (rank.Description.IsSet())
+                                        {
+                                            @Html.LocalizedText("ADMIN_EDITGROUP", "DESCRIPTION")
+                                            @Html.Raw(rank.Description)
+                                        }
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_EDITGROUP", "PRIORITY")
+                                                <span class="@Html.Raw(Model.GetItemColorString(rank.SortOrder.ToString()))">
+                                                    @Html.Raw(rank.SortOrder.ToString())
+                                                </span>
+                                            </li>
+
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_RANKS", "IS_LADDER")
+                                                <span class="@Html.Raw(Model.GetItemColor(rank.RankFlags.IsLadder))">
+                                                    @Html.Raw(Model.LadderInfo(rank))
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_RANKS", "PM_LIMIT")
+                                                <span class="@Html.Raw(Model.GetItemColorString(rank.PMLimit == int.MaxValue ? "\u221E" : rank.PMLimit.ToString()))">
+                                                    @Html.Raw(rank.PMLimit == int.MaxValue ? "\u221E" : rank.PMLimit.ToString())
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_EDITGROUP", "ALBUM_NUMBER")
+                                                <span class="@Html.Raw(Model.GetItemColorString(rank.UsrAlbums.ToString()))">
+                                                    @Html.Raw(rank.UsrAlbums.ToString())
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_EDITGROUP", "IMAGES_NUMBER")
+                                                <span class="@Html.Raw(Model.GetItemColorString(rank.UsrAlbumImages.ToString()))">
+                                                    @Html.Raw(rank.UsrAlbumImages.ToString())
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_EDITGROUP", "STYLE")&nbsp;
+                                                <span class="@Html.Raw(Model.GetItemColorString(rank.Style))">
+                                                    @Html.Raw(rank.Style.IsSet() && rank.Style.Trim().Length > 0 ? "" : Model.GetItemName(false))
+                                                </span>
+                                                <code>@Html.Raw(rank.Style)</code>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_EDITGROUP","SIGNATURE_LENGTH")
+                                                <span class="@Html.Raw(Model.GetItemColorString(rank.UsrSigChars.ToString()))">
+                                                    @Html.Raw(rank.UsrSigChars.ToString().IsSet() ? rank.UsrSigChars.ToString() : Model.GetItemName(false))
+                                                </span>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                @Html.LocalizedText("ADMIN_EDITGROUP","SIG_BBCODES")
+                                                <span class="@Html.Raw(Model.GetItemColorString(rank.UsrSigBBCodes))">
+                                                    @Html.Raw(rank.UsrSigBBCodes.IsSet() ? rank.UsrSigBBCodes : Model.GetItemName(false))
+                                                </span>
+                                            </li>
+                                        </ul>
+
+                                    </p>
+                                    <div class="small">
+                                        <div class="btn-group btn-group-sm">
+                                            <a button-style="Info"
+                                               button-size="Small"
+                                               asp-page="@ForumPages.Admin_EditRank.GetPageName()"
+                                               asp-route-r="@Html.Raw(rank.ID)"
+                                               title-localized-tag="EDIT"
+                                               Icon="edit"
+                                               text-localized-tag="EDIT">
+                                            </a>
+                                            <button button-style="Danger"
+                                                    button-size="Small"
+                                                    asp-page-handler="Delete"
+                                                    asp-route-id="@Html.Raw(rank.ID)"
+                                                    title-localized-tag="DELETE"
+                                                    Icon="trash"
+                                                    text-localized-tag="DELETE"
+                                                    return-confirm-tag="CONFIRM_DELETE">
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                        <a button-style="None"
+                                           class="dropdown-item"
+                                           asp-page="@ForumPages.Admin_EditRank.GetPageName()"
+                                           asp-route-r="@Html.Raw(rank.ID)"
+                                           title-localized-tag="EDIT"
+                                           Icon="edit"
+                                           text-localized-tag="EDIT">
+                                        </a>
+                                        <button button-style="None"
+                                                class="dropdown-item"
+                                                asp-page-handler="Delete"
+                                                asp-route-id="@Html.Raw(rank.ID)"
+                                                title-localized-tag="DELETE"
+                                                Icon="trash"
+                                                text-localized-tag="DELETE"
+                                                return-confirm-tag="CONFIRM_DELETE">
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <a asp-page="@ForumPages.Admin_EditRank.GetPageName()"
+                                           button-style="None"
+                                           class="dropdown-item"
+                                           Icon="plus-square"
+                                           text-localized-tag="NEW_RANK"></a>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-page="@ForumPages.Admin_EditRank.GetPageName()"
+                       button-style="Primary"
+                       Icon="plus-square"
+                       text-localized-tag="NEW_RANK"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

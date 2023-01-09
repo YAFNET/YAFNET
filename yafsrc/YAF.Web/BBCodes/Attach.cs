@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,9 +21,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Web.BBCodes;
 
-using System.Net;
+using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
 /// The Attachment BB Code Module.
@@ -33,8 +34,10 @@ public class Attach : BBCodeControl
     /// <summary>
     /// Render The Album Image as Link with Image
     /// </summary>
-    /// <param name="writer">The writer.</param>
-    protected override void Render(HtmlTextWriter writer)
+    /// <param name="stringBuilder">
+    /// The string Builder.
+    /// </param>
+    public override void Render(StringBuilder stringBuilder)
     {
         var attachId = HtmlHelper.StripHtml(this.Parameters["inner"]);
 
@@ -52,20 +55,19 @@ public class Attach : BBCodeControl
 
         var filename = attachment.FileName.ToLower();
         var showImage = false;
-        var showText = filename.IsTextName();
 
         // verify it's not too large to display
         // Ederon : 02/17/2009 - made it board setting
-        if (attachment.Bytes.ToType<int>() <= this.PageBoardContext.BoardSettings.PictureAttachmentDisplayTreshold)
+        if (attachment.Bytes.ToType<int>() <= this.PageContext.BoardSettings.PictureAttachmentDisplayTreshold)
         {
             // is it an image file?
             showImage = filename.IsImageName();
         }
 
         // user doesn't have rights to download, don't show the image
-        if (!this.PageBoardContext.DownloadAccess)
+        if (!this.PageContext.DownloadAccess)
         {
-            writer.Write(
+            stringBuilder.AppendFormat(
                 @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge bg-warning text-dark"" role=""alert"">{1}</span>",
                 attachment.FileName,
                 this.GetText("ATTACH_NO"));
@@ -76,82 +78,57 @@ public class Attach : BBCodeControl
         if (showImage)
         {
             // user has rights to download, show him image
-            if (this.PageBoardContext.BoardSettings.EnableImageAttachmentResize)
+            if (this.PageContext.BoardSettings.EnableImageAttachmentResize)
             {
-                writer.Write(
+                stringBuilder.AppendFormat(
                     @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
-                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
+                    this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
 
-                writer.Write(
-                    @"<a href=""{0}resource.ashx?i={1}&b={3}"" title=""{2}""  data-gallery=""#blueimp-gallery-{4}"">",
-                    BoardInfo.ForumClientFileRoot,
-                    attachment.ID,
+                stringBuilder.AppendFormat(
+                    @"<a href=""{0}"" title=""{1}""  data-gallery=""#blueimp-gallery-{2}"">",
+                    this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = false }),
                     this.HtmlEncode(attachment.FileName),
-                    this.PageBoardContext.PageBoardID,
                     this.MessageID.Value);
 
-                writer.Write(
-                    @"<img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" class=""img-user-posted card-img-top"" style=""max-height:{4}px"">",
-                    BoardInfo.ForumClientFileRoot,
-                    attachment.ID,
+                stringBuilder.AppendFormat(
+                    @"<img src=""{0}"" alt=""{1}"" class=""img-user-posted card-img-top"" style=""max-height:{2}px"">",
+                    this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
                     this.HtmlEncode(attachment.FileName),
-                    this.PageBoardContext.PageBoardID,
-                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight);
+                    this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
 
-                writer.Write(@"</a>");
+                stringBuilder.Append(@"</a>");
 
-                writer.Write(
+                stringBuilder.AppendFormat(
                     @"<div class=""card-body py-1""><p class=""card-text small"">{0}",
                     this.GetText("IMAGE_RESIZE_ENLARGE"));
 
-                writer.Write(
+                stringBuilder.AppendFormat(
                     @"<span class=""text-muted float-end"">{0}</span></p>",
                     this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads));
 
-                writer.Write(@"</div></div>");
+                stringBuilder.Append(@"</div></div>");
             }
             else
             {
-                writer.Write(
-                    @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-height:{4}px"">",
-                    BoardInfo.ForumClientFileRoot,
-                    attachment.ID,
+                stringBuilder.AppendFormat(
+                    @"<img src=""{0}"" alt=""{1}"" class=""img-user-posted img-thumbnail"" style=""max-height:{2}px"">",
+                    this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
                     this.HtmlEncode(attachment.FileName),
-                    this.PageBoardContext.PageBoardID,
-                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight);
+                    this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
             }
         }
-        /*else if (showText)
-        {
-            var webClient = new WebClient();
-            var url =
-                $"{this.PageBoardContext.BoardSettings.BaseUrlMask}{BoardInfo.ForumClientFileRoot}resource.ashx?a={attachment.ID}&b={this.PageBoardContext.PageBoardID}";
-            var content = webClient.DownloadString(url);
-            webClient.Dispose();
-
-            writer.Write(
-                @"<pre class=""line-numbers language-markup""><code class=""language-markup""> ");
-
-            writer.Write(
-                "<!---->{0}<!---->",
-                HttpUtility.HtmlEncode(content));
-
-            writer.Write("</code></pre>");
-        }*/
         else
         {
             // regular file attachment
             var kb = (1023 + attachment.Bytes.ToType<int>()) / 1024;
 
-            writer.Write(
+            stringBuilder.AppendFormat(
                 @"<i class=""fa fa-file fa-fw""></i>&nbsp;
-                         <a href=""{0}resource.ashx?a={1}&b={4}"">{2}</a>
-                         <span>{3}</span>",
-                BoardInfo.ForumClientFileRoot,
-                attachment.ID,
+                         <a href=""{0}"">{1}</a>
+                         <span>{2}</span>",
+                this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
                 attachment.FileName,
-                this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads),
-                this.PageBoardContext.PageBoardID);
+                this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads));
         }
     }
 }

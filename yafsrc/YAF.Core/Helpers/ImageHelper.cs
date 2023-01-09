@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -24,34 +24,40 @@
 
 namespace YAF.Core.Helpers;
 
-using System;
-using System.Drawing;
 using System.IO;
 
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Processing;
+
 /// <summary>
-/// The Image Helper.
+/// The image helper.
 /// </summary>
 public static class ImageHelper
 {
     /// <summary>
     /// Returns resized image stream.
     /// </summary>
-    /// <param name="img">
-    /// The Image.
+    /// <param name="image">
+    ///     The Image.
+    /// </param>
+    /// <param name="imageFormat">
+    /// The Image Format
     /// </param>
     /// <param name="x">
-    /// The image width.
+    ///     The image width.
     /// </param>
     /// <param name="y">
-    /// The image height.
+    ///     The image height.
     /// </param>
     /// <returns>
     /// A resized image stream Stream.
     /// </returns>
-    public static Stream GetResizedImageStreamFromImage(Image img, long x, long y)
+    public static MemoryStream GetResizedImage(Image image, IImageFormat imageFormat, long x, long y)
     {
-        double newWidth = img.Width;
-        double newHeight = img.Height;
+        double newWidth = image.Width;
+        double newHeight = image.Height;
+
         if (newWidth > x)
         {
             newHeight = newHeight * x / newWidth;
@@ -64,11 +70,12 @@ public static class ImageHelper
             newHeight = y;
         }
 
-        // TODO : Save an Animated Gif
-        var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
+        image.Mutate(context => context.Resize((int)newWidth, (int)newHeight, KnownResamplers.Lanczos3));
 
         var resized = new MemoryStream();
-        bitmap.Save(resized, img.RawFormat);
+
+        image.Save(resized, imageFormat);
+
         return resized;
     }
 }

@@ -1,0 +1,111 @@
+﻿@page "{handler?}"
+@using YAF.Core.Helpers
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces;
+@using YAF.Core.Utilities;
+@model IndexModel
+
+<div class="row">
+    <div class="col">
+        <div class="text-break alert alert-light float-end d-none d-md-block py-0">
+            @Html.Icon("clock")
+            @Model.TimeNow
+            @if (Model.LastVisit.IsSet())
+            {
+                <span class="mx-1"></span>
+                @Html.IconBadge("calender-day", "clock")
+                @Model.LastVisit
+            }
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+<div class="@Html.Raw(Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout ? "col-md-8" : "col")">
+    
+    <div id="category-list">
+        @await Html.PartialAsync("_CategoryList", Model.Categories)
+    </div>
+    <input type="hidden" value="0" id="category-index" />
+
+    <div class="d-flex flex-row-reverse mb-3">
+        <div>
+            <form method="post">
+                <div class="btn-group" role="group" aria-label="Tools">
+                    @if (!Model.PageBoardContext.IsGuest)
+                    {
+                        <button asp-page-handler="WatchAll"
+                                button-style="Secondary"
+                                button-size="Small"
+                                icon="eye"
+                                bs-toggle="tooltip"
+                                text-localized-page="COMMON"
+                                text-localized-tag="WATCHFORUM_ALL"
+                                title-localized-page="COMMON"
+                                title-localized-tag="WATCHFORUM_ALL">
+                        </button>
+
+                        <button asp-page-handler="MarkAll"
+                                button-style="Secondary"
+                                button-size="Small"
+                                icon="glasses"
+                                bs-toggle="tooltip"
+                                text-localized-page="COMMON"
+                                text-localized-tag="MARKALL"
+                                title-localized-page="COMMON"
+                                title-localized-tag="MARKALL">
+                        </button>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@if (!this.Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout)
+{
+    @Html.Raw("</div><div class=\"\"row\"\">")
+}
+
+<div class="@Html.Raw(Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout ? "col-md-4" : "col")">
+    @await Html.PartialAsync("_ActiveDiscussions")
+    @await Html.PartialAsync("_ForumStatsUsers")
+</div>
+</div>
+
+@if (Model.PageBoardContext.BoardSettings.ShowForumStatistics)
+{
+    <div class="row">
+        <div class="col">
+            @await Html.PartialAsync("_BoardStatistics")
+        </div>
+    </div>
+}
+
+@section Scripts
+{
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.TopicLinkPopoverJs($"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...", ".topic-link-popover", "focus hover")))
+
+        @if (Model.PageBoardContext.BoardSettings.ShowModeratorList)
+        {
+            @Html.Raw(
+                JsAndCssHelper.CompressJavaScript(
+                JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
+        }
+
+        @Html.Raw(
+            JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.ForumIconLegendPopoverJs((await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(), "forum-icon-legend-popvover")))
+
+
+        @Html.Raw(
+            JsAndCssHelper.CompressJavaScript(
+                JavaScriptBlocks.LoadMoreOnScrolling(Url.Page("", "ShowMore"))))
+    
+    </script>
+}

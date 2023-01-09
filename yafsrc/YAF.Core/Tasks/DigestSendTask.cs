@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,14 +21,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Tasks;
 
 using System;
 using System.Collections.Generic;
-using System.Net.Mail;
 using System.Text.RegularExpressions;
 
-using YAF.Types.Constants;
+using Microsoft.Extensions.Logging;
+
+using MimeKit;
+
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -93,10 +97,9 @@ public class DigestSendTask : LongBackgroundTask
         // haven't sent in X hours or more and it's 12 to 5 am.
         var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours);
 #else
-
-            // haven't sent in X hours or more and it's 12 to 5 am.
-            var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours)
-                             && DateTime.Now < DateTime.Today.AddHours(6);
+        // haven't sent in X hours or more and it's 12 to 5 am.
+        var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours)
+                         && DateTime.Now < DateTime.Today.AddHours(6);
 #endif
         if (!sendDigest && !boardSettings.ForceDigestSend)
         {
@@ -144,41 +147,35 @@ public class DigestSendTask : LongBackgroundTask
                         }
                         else
                         {
-                            this.Get<ILoggerService>().Info("no user found");
+                            this.Get<ILogger<DigestSendTask>>().Info("no user found");
                         }
                     });
         }
         catch (Exception ex)
         {
-            this.Get<ILoggerService>().Error(ex, $"Error In {TaskName} Task");
+            this.Get<ILogger<DigestSendTask>>().Error(ex, $"Error In {TaskName} Task");
         }
     }
 
     /// <summary>
     /// Sends the digest to users.
     /// </summary>
-    /// <param name="usersWithDigest">
-    /// The users with digest.
-    /// </param>
-    /// <param name="boardSettings">
-    /// The Board Settings.
-    /// </param>
+    /// <param name="usersWithDigest">The users with digest.</param>
+    /// <param name="boardSettings">The board settings.</param>
     private void SendDigestToUsers(IEnumerable<User> usersWithDigest, BoardSettings boardSettings)
     {
-        var currentContext = HttpContext.Current;
+        var mailMessages = new List<MimeMessage>();
 
-        var mailMessages = new List<MailMessage>();
-
-        var boardEmail = new MailAddress(boardSettings.ForumEmail, boardSettings.Name);
+        var boardEmail = new MailboxAddress(boardSettings.Name, boardSettings.ForumEmail);
 
         usersWithDigest.AsParallel().ForAll(
             user =>
                 {
-                    HttpContext.Current = currentContext;
-
                     try
                     {
-                        var digestHtml = this.Get<IDigest>().GetDigestHtml(user, boardSettings);
+                        var url = this.Get<IDigestService>().GetDigestUrl(user.ID, boardSettings, false);
+
+                        var digestHtml = this.Get<IDigestService>().GetDigestHtmlAsync(url).Result;
 
                         if (digestHtml.IsNotSet())
                         {
@@ -190,39 +187,25 @@ public class DigestSendTask : LongBackgroundTask
                             return;
                         }
 
-                        if (user.UserFlags.IsGuest)
-                        {
-                            return;
-                        }
-
-                        var subject = Regex.Match(digestHtml, "<title>(.*?)</title>", RegexOptions.Singleline).Groups[1]
-                            .Value.Trim();
+                        var subject = Regex.Match(digestHtml, "<title>(.*?)</title>", RegexOptions.Singleline)
+                            .Groups[1].Value.Trim();
 
                         // send the digest...
-                        mailMessages.Add(
-                            this.Get<IDigest>().CreateDigestMessage(
-                                subject.Trim(),
-                                digestHtml,
-                                boardEmail,
-                                user.Email,
-                                user.DisplayOrUserName()));
+                        mailMessages.Add(this.Get<IDigestService>().CreateDigestMessage(
+                            subject.Trim(),
+                            digestHtml,
+                            boardEmail,
+                            user.Email,
+                            user.DisplayOrUserName()));
                     }
                     catch (Exception e)
                     {
-                        this.Get<ILoggerService>().Error(e, $"Error In Creating Digest for User {user.ID}");
-                    }
-                    finally
-                    {
-                        HttpContext.Current = null;
+                        this.Get<ILogger<DigestSendTask>>().Error(e, $"Error In Creating Digest for PageUser {user.ID}");
                     }
                 });
 
         this.Get<IMailService>().SendAll(mailMessages);
 
-        this.Get<ILoggerService>().Log(
-            $"Digest send to {mailMessages.Count} user(s)",
-            EventLogTypes.Information,
-            null,
-            "Digest Send Task");
+        this.Get<ILogger<DigestSendTask>>().Info($"Digest send to {mailMessages.Count} user(s)");
     }
 }

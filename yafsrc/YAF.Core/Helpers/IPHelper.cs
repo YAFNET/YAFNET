@@ -29,6 +29,10 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 
+using Microsoft.Extensions.Logging;
+
+using YAF.Types.Attributes;
+
 /// <summary>
 ///     The IP Helper Class.
 /// </summary>
@@ -97,33 +101,18 @@ public static class IPHelper
             address = Dns.GetHostAddresses(inputIpAddress)
                 .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetworkV6);
 
-            if (address != null)
-            {
-                return address.ToString();
-            }
-
-            // to find by host name - is not in use so far (does not work properly via rDNSing a host from it's IPv6 to IPv4).
-            // address = Dns.GetHostAddresses(Dns.GetHostName())
-            //     .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
-
-
-            // return localhost if no IP address found or detected (prevents server IP from being listed as user IP
-            // we should never get here -- connections to server ALWAYS return some form of remote IP address
-            return "127.0.0.1";
-
-
+            return address != null ? address.ToString() : "127.0.0.1";
         }
         catch (Exception ex)
         {
-            BoardContext.Current.Get<ILoggerService>().Log("Exception in GetIpAddressAsString", exception: ex);
+            BoardContext.Current.Get<ILogger<IPAddress>>().Error(ex, "Exception in GetIpAddressAsString");
         }
-
 
         return ipAddressAsString;
     }
 
     /// <summary>
-    /// Gets User IP considering X-Forwarded-For and X-Real-IP HTTP headers
+    /// Gets PageUser IP considering X-Forwarded-For and X-Real-IP HTTP headers
     /// </summary>
     /// <param name="httpRequest">The HTTP request.</param>
     /// <returns>
@@ -136,25 +125,24 @@ public static class IPHelper
     {
         CodeContracts.VerifyNotNull(httpRequest);
 
-        return new HttpRequestWrapper(httpRequest).GetUserRealIPAddress();
+        return httpRequest.HttpContext.GetUserRealIPAddress();
     }
 
     /// <summary>
-    /// Gets User IP considering X-Forwarded-For and X-Real-IP HTTP headers
+    /// Gets PageUser IP considering X-Forwarded-For and X-Real-IP HTTP headers
     /// </summary>
-    /// <param name="httpRequest">The HTTP request.</param>
     /// <returns>
     /// Client IP
     /// </returns>
     /// <see cref="http://wiki.nginx.org/HttpRealipModule" />
     /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For" />
     /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
-    public static string GetUserRealIPAddress([NotNull] this HttpRequestBase httpRequest)
+    public static string GetUserRealIPAddress([NotNull] this HttpContext httpContext)
     {
-        CodeContracts.VerifyNotNull(httpRequest);
+        CodeContracts.VerifyNotNull(httpContext);
 
         IPAddress ipAddress;
-        var ipString = httpRequest.Headers["X-Forwarded-For"];
+        var ipString = httpContext.Request.Headers["X-Forwarded-For"].ToString();
 
         if (ipString.IsSet())
         {
@@ -169,16 +157,16 @@ public static class IPHelper
             }
         }
 
-        ipString = httpRequest.Headers["X-Real-IP"];
+        ipString = httpContext.Request.Headers["X-Real-IP"].ToString();
 
-        if (!ipString.IsSet())
+        if (ipString.IsNotSet())
         {
-            return httpRequest.UserHostAddress;
+            return httpContext.Connection.RemoteIpAddress.ToString();
         }
 
         return IPAddress.TryParse((ipString.Split(',').LastOrDefault() ?? string.Empty).Trim(), out ipAddress)
                    ? ipString
-                   : httpRequest.UserHostAddress;
+                   : httpContext.Connection.RemoteIpAddress.ToString();
     }
 
     /// <summary>
@@ -214,7 +202,6 @@ public static class IPHelper
         {
             bannedIP = bannedIP.Replace("*", "0");
         }
-
 
         var ipCheck = StringToIP(chk);
 

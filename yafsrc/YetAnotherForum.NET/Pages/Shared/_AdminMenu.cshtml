@@ -1,0 +1,23 @@
+﻿@using YAF.Core.Context
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+
+@inject BoardContext Current
+
+@if (BoardContext.Current.IsAdmin)
+{
+    <li class="nav-item dropdown">
+        <a class="@Html.Raw(Current.CurrentForumPage.IsAdminPage
+                            && !(Current.CurrentForumPage.PageName is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList) ? "nav-link dropdown-toggle active" : "nav-link dropdown-toggle")"
+           role="button"
+           href="#"
+           data-bs-toggle="dropdown"
+           aria-expanded="false"
+           text-localized-page="ADMINMENU"
+           text-localized-tag="ADMIN">
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+            @Html.AdminMenu()
+        </ul>
+    </li>
+}

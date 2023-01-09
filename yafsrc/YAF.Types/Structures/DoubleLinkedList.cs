@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -23,6 +23,11 @@
  */
 namespace YAF.Types.Structures;
 
+using System.Collections;
+using System.Threading;
+
+using YAF.Types;
+
 /// <summary>
 /// Class that represents a doubly linked list (I can't believe that .NET didn't
 ///   have one of these).  The primary usage for this class is with the Most Recently Used class,
@@ -34,12 +39,12 @@ public class DoubleLinkedList : IList
     /// <summary>
     /// The head link.
     /// </summary>
-    private LinkItem HeadLink;
+    public LinkItem HeadLink;
 
     /// <summary>
     /// The tail link.
     /// </summary>
-    internal LinkItem TailLink;
+    public LinkItem TailLink;
 
     /// <summary>
     /// The m_count.
@@ -270,9 +275,7 @@ public class DoubleLinkedList : IList
         int i;
         LinkItem current;
 
-        for (i = 0, current = this.HeadLink;
-             current != null && i + index < array.Length;
-             i++, current = current.Next)
+        for (i = 0, current = this.HeadLink; current != null && i + index < array.Length; i++, current = current.Next)
         {
             array.SetValue(current.Item, index + i);
         }

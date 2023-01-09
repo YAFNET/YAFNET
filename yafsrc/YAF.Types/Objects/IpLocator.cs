@@ -24,6 +24,8 @@
 
 namespace YAF.Types.Objects;
 
+using System.Xml.Serialization;
+
 /// <summary>
 /// The IP locator.
 /// </summary>

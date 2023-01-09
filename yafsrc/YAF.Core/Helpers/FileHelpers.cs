@@ -21,11 +21,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Helpers;
 
 using System.IO;
-using System.Web.Hosting;
 
+using Microsoft.AspNetCore.Hosting;
+
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -46,8 +49,9 @@ public static class FileHelpers
     {
         CodeContracts.VerifyNotNull(attachment);
 
-        var uploadFolder = HostingEnvironment.MapPath(
-            string.Concat(BaseUrlBuilder.ServerFileRoot, BoardContext.Current.Get<BoardFolders>().Uploads));
+        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+
+        var uploadFolder = Path.Combine(webRootPath, BoardContext.Current.Get<BoardFolders>().Uploads);
 
         var fileNameOld =
             $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload";
@@ -64,7 +68,6 @@ public static class FileHelpers
         if (!File.Exists(fileName))
         {
             return false;
-                
         }
 
         File.Delete(fileName);

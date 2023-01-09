@@ -1,0 +1,109 @@
+@page "{p:int=1}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@model MedalsModel
+
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("medal","ADMIN_MEDALS","TITLE")
+                </div>
+                <div class="card-body"> 
+                    @if (!Model.MedalList.NullOrEmpty())
+                    {
+                        <ul class="list-group">
+                    
+                            @foreach (var medal in Model.MedalList)
+                            {
+                                <li class="list-group-item list-group-item-action list-group-item-menu">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1 text-break">
+                                            @Html.Raw(Model.RenderImages(medal))
+                                            @Html.Raw(medal.Name)
+                                        </h5>
+                                        <small class="d-none d-md-block">
+                                            <span class="fw-bold">
+                                                @Html.LocalizedText("MODERATE_DEFAULT", "CATEGORY"):
+                                            </span>
+                                            @Html.Raw(medal.Category)
+                                        </small>
+                                    </div>
+                                    <p class="mb-1">
+                                        <span class="fw-bold">
+                                            @Html.LocalizedText("ADMIN_BBCODE", "DESCRIPTION"):
+                                        </span>
+                                        @Html.Raw(medal.Description)
+                                    </p>
+                                    <div class="small">
+                                        <div class="btn-group btn-group-sm">
+                                            <a button-style="Info"
+                                                    button-size="Small"
+                                                    asp-page="@ForumPages.Admin_EditMedal.GetPageName()"
+                                                    asp-route-medalId="@Html.Raw(medal.ID)"
+                                                    title-localized-tag="EDIT"
+                                                    Icon="edit"
+                                                    text-localized-tag="EDIT"></a>
+                                            <button button-style="Danger"
+                                                    button-size="Small"
+                                                    asp-page-handler="Delete"
+                                                    asp-route-medalId="@Html.Raw(medal.ID)"
+                                                    title-localized-tag="DELETE"
+                                                    Icon="trash"
+                                                    text-localized-tag="DELETE"
+                                                    return-confirm-tag="CONFIRM_DELETE"></button>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                        <a button-style="None"
+                                           class="dropdown-item"
+                                           asp-page="@ForumPages.Admin_EditMedal.GetPageName()"
+                                           asp-route-medalId="@Html.Raw(medal.ID)"
+                                           title-localized-tag="EDIT"
+                                           Icon="edit"
+                                           text-localized-tag="EDIT">
+                                        </a>
+                                        <button button-style="None"
+                                                class="dropdown-item"
+                                                asp-page-handler="Delete"
+                                                asp-route-medalId="@Html.Raw(medal.ID)"
+                                                title-localized-tag="DELETE"
+                                                Icon="trash"
+                                                text-localized-tag="DELETE"
+                                                return-confirm-tag="CONFIRM_DELETE">
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <a asp-page="@ForumPages.Admin_EditMedal.GetPageName()"
+                                           button-style="None"
+                                           class="dropdown-item"
+                                           Icon="plus-square"
+                                           text-localized-tag="NEW_MEDAL"></a>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    }
+                    else
+                    {
+                        <empty icon="medal"
+                               header-text-page="ADMIN_MEDALS" header-text-tag="EMPTY_HEADER"
+                               message-text-page="ADMIN_MEDALS" message-text-tag="EMPTY_MESSAGE">
+                        </empty>
+                    }
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-page="@ForumPages.Admin_EditMedal.GetPageName()"
+                       button-style="Primary"
+                       Icon="plus-square"
+                       text-localized-tag="NEW_MEDAL"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

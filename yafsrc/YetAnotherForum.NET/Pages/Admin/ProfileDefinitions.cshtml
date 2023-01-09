@@ -1,0 +1,109 @@
+@page "{handler?}"
+
+@model ProfileDefinitionsModel
+
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.IconHeader("id-card", "ADMIN_PROFILEDEFINITIONS", "TITLE")
+                    </div>
+                <div class="card-body">
+                    @if (!Model.List.NullOrEmpty())
+                    {
+                        <ul class="list-group">
+                            @foreach (var item in Model.List)
+                            {
+                                <li class="list-group-item list-group-item-action list-group-item-menu">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">
+                                            @Html.Raw(item.Name)
+                                        </h5>
+                                        <small class="d-none d-md-block">
+                                            <span class="fw-bold">
+                                                @Html.LocalizedText("REQUIRED")
+                                            </span>
+                                            <span class='badge bg-@(Html.Raw(item.Required ? "danger" : "secondary"))'>
+                                                @Html.LocalizedText(item.Required ? "YES" : "NO")
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <p class="mb-1">
+                                        @Html.Raw(item.DataType)
+                                    </p>
+                                    <small>
+                                        <div class="btn-group btn-group-sm">
+                                            <button button-style="Info"
+                                                    button-size="Small"
+                                                    bs-toggle="ajax-modal"
+                                                    bs-target-url="@(Url.Page("ProfileDefinitions", "Edit", new {id = item.ID}))"
+                                                    title-localized-tag="EDIT"
+                                                    Icon="edit"
+                                                    text-localized-tag="EDIT">
+                                            </button>
+                                            <button button-style="Danger"
+                                                    button-size="Small"
+                                                    asp-page-handler="Delete"
+                                                    asp-route-id="@Html.Raw(item.ID)"
+                                                    title-localized-tag="DELETE"
+                                                    Icon="trash"
+                                                    text-localized-tag="DELETE"
+                                                    return-confirm-tag="CONFIRM_DELETE">
+                                            </button>
+                                        </div>
+
+                                        <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                            <button ID="ThemeButton1"
+                                                    button-style="None"
+                                                    class="dropdown-item"
+                                                    bs-toggle="ajax-modal"
+                                                    bs-target-url="@(Url.Page("ProfileDefinitions", "Edit", new {id = item.ID}))"
+                                                    title-localized-tag="EDIT"
+                                                    Icon="edit"
+                                                    text-localized-tag="EDIT">
+                                            </button>
+                                            <button button-style="None"
+                                                    class="dropdown-item"
+                                                    asp-page-handler="Delete"
+                                                    asp-route-id="@Html.Raw(item.ID)"
+                                                    title-localized-tag="DELETE"
+                                                    Icon="trash"
+                                                    text-localized-tag="DELETE"
+                                                    return-confirm-tag="CONFIRM_DELETE">
+                                            </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button bs-toggle="ajax-modal"
+                                                    bs-target-url="@(Url.Page("ProfileDefinitions", "Add"))"
+                                                    button-style="None"
+                                                    class="dropdown-item"
+                                                    Icon="plus-square"
+                                                    text-localized-tag="NEW_DEF"></button>
+                                        </div>
+                                    </small>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <alert type="success" icon="check" localized-tag="NO_ENTRY">
+                            @Html.Icon("check")
+                            @Html.LocalizedText( "NO_ENTRY")
+                        </alert>
+                    }
+                </div>
+                <div class="card-footer text-center">
+                    <button bs-toggle="ajax-modal"
+                            bs-target-url="@(Url.Page("ProfileDefinitions", "Add"))"
+                            button-style="Primary"
+                            Icon="plus-square"
+                            text-localized-tag="NEW_DEF"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

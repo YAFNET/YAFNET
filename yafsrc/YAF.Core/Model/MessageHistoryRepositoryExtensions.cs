@@ -25,6 +25,7 @@ namespace YAF.Core.Model;
 
 using System.Collections.Generic;
 
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 

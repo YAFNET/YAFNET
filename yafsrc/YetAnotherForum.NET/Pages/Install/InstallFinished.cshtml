@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Interfaces
+
+@inject ILocalization Localization;
+
+@model YAF.Types.Modals.InstallModal
+
+@{
+    Layout = "_LayoutInstall";
+
+    Localization.TransPage = "INSTALL";
+}
+
+<form method="post">
+    <div class="modal-body">
+        <h4>
+            @Localization.GetText("Setup") @Localization.GetText("Finished")
+        </h4>
+        <p class="text-muted">
+            @Localization.GetText("FinishDesc")
+        </p>
+        <p>@Localization.GetText("InitFinish")</p>
+    </div>
+    <div class="modal-footer">
+        <button icon="check-circle"
+                button-style="Success"
+                asp-page-handler="Complete"
+                Text="@Localization.GetText("Finish")"></button>
+    </div>
+</form>

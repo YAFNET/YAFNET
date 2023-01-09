@@ -26,7 +26,9 @@ namespace YAF.Core.Model;
 
 using System;
 using System.Collections.Generic;
+using System.Web;
 
+using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -585,7 +587,7 @@ public static class ForumRepositoryExtensions
 
         if (repository.Exists(f => f.ParentID == forumId))
         {
-            repository.UpdateOnly(() => new Forum {ParentID = null}, f => f.ParentID == forumId);
+            repository.UpdateOnly(() => new Forum { ParentID = null }, f => f.ParentID == forumId);
         }
 
         repository.UpdateOnly(() => new Forum { LastMessageID = null, LastTopicID = null }, f => f.ID == forumId);
@@ -957,7 +959,6 @@ public static class ForumRepositoryExtensions
                                               children = forumsByCategory.Select(
                                                   forum => new SelectOptions
                                                                {
-
                                                                    id = forum.ID.ToString(),
                                                                    text = forum.ParentID.HasValue ? $" - {HttpUtility.HtmlEncode(forum.Name)}"
                                                                               : HttpUtility.HtmlEncode(forum.Name),

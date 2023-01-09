@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,24 +21,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Events;
 
 using System;
 using System.Collections.Generic;
 
-using YAF.Core.Tasks;
+using Microsoft.Extensions.Logging;
+
 using YAF.Types.Attributes;
 
 /// <summary>
 /// Initializes the Application task manager.
 /// </summary>
 [ExportService(ServiceLifetimeScope.Singleton)]
-public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplicationInitEvent>, IHaveServiceLocator
+public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpContextInitEvent>, IHaveServiceLocator
 {
     /// <summary>
     ///   The app instance.
     /// </summary>
-    private HttpApplication appInstance;
+    private HttpContext appInstance;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AppInitTaskManager"/> class.
@@ -49,7 +51,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
     /// <param name="logger">
     /// The logger.
     /// </param>
-    public AppInitTaskManager([NotNull] IServiceLocator serviceLocator, [NotNull] ILoggerService logger)
+    public AppInitTaskManager([NotNull] IServiceLocator serviceLocator, [NotNull] ILogger<AppInitTaskManager> logger)
     {
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
@@ -58,7 +60,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
     /// <summary>
     /// Gets or sets Logger.
     /// </summary>
-    public ILoggerService Logger { get; set; }
+    public ILogger Logger { get; set; }
 
     /// <summary>
     ///   Gets Order.
@@ -71,7 +73,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
     public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>
-    /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
+    /// Start a non-running task -- will set the <see cref="HttpContext"/> instance.
     /// </summary>
     /// <param name="instanceName">
     /// Unique name of this task
@@ -87,7 +89,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
         CodeContracts.VerifyNotNull(instanceName);
         CodeContracts.VerifyNotNull(start);
 
-        if (this.appInstance is null)
+        if (this.appInstance == null)
         {
             return false;
         }
@@ -98,20 +100,18 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
             return false;
         }
 
-        this.Logger.Debug($"Starting Task {instanceName}...");
-
         var injectServices = this.Get<IInjectServices>();
 
         taskManager.AddOrUpdate(
             instanceName,
-            s =>
+            _ =>
                 {
                     var task = start();
                     injectServices.Inject(task);
                     task.Run();
                     return task;
                 },
-            (s, task) =>
+            (_, task) =>
                 {
                     task?.Dispose();
 
@@ -130,12 +130,9 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
     /// <param name="event">
     /// The event.
     /// </param>
-    public void Handle([NotNull] HttpApplicationInitEvent @event)
+    public void Handle([NotNull] HttpContextInitEvent @event)
     {
-        this.appInstance = @event.HttpApplication;
-
-        // wire up provider so that the task module can be found...
-        this.Get<CurrentTaskModuleProvider>().Instance = this;
+        this.appInstance = @event.HttpContext;
 
         // create intermittent cleanup task...
         this.StartTask("CleanUpTask", () => new CleanUpTask { TaskManager = this });

@@ -26,7 +26,6 @@ namespace YAF.Core.ForumModules;
 using System;
 
 using YAF.Core.BaseModules;
-using YAF.Core.Tasks;
 using YAF.Types.Attributes;
 
 /// <summary>
@@ -42,7 +41,7 @@ public class UpdateSearchIndexTaskForumModule : BaseForumModule
     public override void Init()
     {
         // hook the page init for mail sending...
-        this.PageBoardContext.AfterInit += this.CurrentAfterInit;
+        this.PageContext.AfterInit += this.CurrentAfterInit;
     }
 
     /// <summary>

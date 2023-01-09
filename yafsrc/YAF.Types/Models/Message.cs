@@ -23,6 +23,8 @@
  */
 namespace YAF.Types.Models;
 
+using YAF.Types.Objects.Model;
+
 /// <summary>
 /// A class which represents the Message table.
 /// </summary>
@@ -136,7 +138,7 @@ public class Message : IEntity, IHaveID
     /// Gets or sets the id.
     /// </summary>
     [AutoIncrement]
-    [Alias("MessageID")]
+    [AliasAttribute("MessageID")]
     public int ID { get; set; }
 
     /// <summary>

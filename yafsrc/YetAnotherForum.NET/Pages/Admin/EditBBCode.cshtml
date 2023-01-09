@@ -1,0 +1,163 @@
+@page "{b:int?}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@model EditBBCodeModel
+
+<form method="post" class="needs-validation">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("plug","ADMIN_BBCODE_EDIT","HEADER")
+                </div>
+                <div class="card-body">
+                    <h2>
+                        @Html.LocalizedText("ADMIN_BBCODE_EDIT", "HEADER1")
+                    </h2>
+                    <hr />
+                    <div class="ms-2">
+                        <div class="mb-3">
+                            <input type="hidden" asp-for="Input.BBCodeId" value="@Model.Input.BBCodeId" />
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Name"
+                                   localized-tag="BBCODE_NAME" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
+                            <input type="text" asp-for="Input.Name"
+                                   required="required"
+                                   class="form-control"/>
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("MSG_NAME")
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label info-button="true"
+                                   asp-for="Input.ExecOrder"
+                                   localized-tag="EXEC_ORDER" localized-page="ADMIN_EXTENSIONS_EDIT">
+                                </label>
+                            <input asp-for="Input.ExecOrder" value="1"
+                                   required="required"
+                                   class="form-control"
+                                   maxlength="5"
+                                   data-min="1" min="1"/>
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("MSG_NUMBER")
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Description"
+                                   localized-tag="BBCODE_DESC" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
+                            <textarea asp-for="Input.Description" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.UseToolbar"
+                                   localized-tag="USE_TOOLBAR" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
+
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.UseToolbar" class="form-check-label" />
+                            </div>
+                        </div>
+                    </div>
+                    <h2>
+                        @Html.LocalizedText("ADMIN_BBCODE_EDIT","HEADER2")
+                    </h2>
+                    <hr />
+                    <div class="ms-2">
+                        <div class="mb-3">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.SearchRegEx"
+                                   localized-tag="SEARCH_REGEX" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
+                            <textarea type="text" asp-for="Input.SearchRegEx"
+                                      class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.ReplaceRegEx"
+                                   localized-tag="REPLACE_REGEX" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
+                            <textarea type="text" asp-for="Input.ReplaceRegEx" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Variables"
+                                   localized-tag="REPLACE_VARIABLES" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
+                            <textarea type="text" asp-for="Input.Variables"
+                                      class="form-control"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label" info-button="true"
+                                       asp-for="Input.UseModule"
+                                       localized-tag="USE_MODULE" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" asp-for="Input.UseModule"
+                                           class="form-check-label" />
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label" info-button="true"
+                                       asp-for="Input.ModuleClass"
+                                       localized-tag="CLASS_NAME" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
+                                <input type="text" asp-for="Input.ModuleClass"
+                                       class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <h2>
+                        @Html.LocalizedText("ADMIN_BBCODE_EDIT","HEADER3")
+                    </h2>
+                    <hr />
+                    <div class="ms-2">
+                        <div class="mb-3">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.OnClickJS"
+                                   localized-tag="ONCLICK_JS" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
+                            <textarea type="text" asp-for="Input.OnClickJS"
+                                      class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.DisplayJS"
+                                   localized-tag="DISPLAY_JS" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
+                            <textarea type="text" asp-for="Input.DisplayJS"
+                                      class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.EditJS"
+                                   localized-tag="EDIT_JS" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
+                            <textarea type="text" asp-for="Input.EditJS"
+                                      class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.DisplayCSS"
+                                   localized-tag="DISPLAY_CSS" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
+
+                            <textarea type="text" asp-for="Input.DisplayCSS"
+                                      class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button asp-page-handler="Add"
+                            button-style="Primary"
+                            Icon="save"
+                            text-localized-tag="SAVE">
+                    </button>
+                    <button asp-page="@ForumPages.Admin_BBCodes.GetPageName()"
+                            button-style="Secondary"
+                            Icon="times"
+                            text-localized-tag="CANCEL">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

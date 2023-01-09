@@ -1,0 +1,60 @@
+﻿@using System.Text
+@using YAF.Core.Context
+@using YAF.Core.Helpers
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+
+@model List<YAF.Types.Objects.SimpleModerator>
+
+@inject BoardContext Current
+
+@{
+    var content = new StringBuilder();
+
+    content.Append(@"<ol class=""list-unstyled"">");
+
+    Model.ForEach(
+        row =>
+        {
+            content.Append("<li>");
+
+            if (row.IsGroup)
+            {
+                // render mod group
+                content.Append(
+                    Current.BoardSettings.EnableDisplayName
+                        ? row.DisplayName
+                        : row.Name);
+            }
+            else
+            {
+                // Render Moderator PageUser Link
+                var userLink = Current.Get<IHtmlHelper>().UserLink(row.ModeratorID, 
+                    Current.BoardSettings.EnableDisplayName ? row.DisplayName : row.Name, 
+                    null, 
+                    row.Style);
+
+                content.Append(userLink.RenderToString());
+            }
+
+            content.Append(@"</li>");
+        });
+
+    content.Append("</ol>");
+
+    var infoContent = content.ToString().ToJsString();
+    var infoText = $"{Current.Get<ILocalization>().GetText("SHOW")} {Current.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")}";
+}
+
+@if (!Model.NullOrEmpty())
+{
+    <button type="button"
+            button-style="OutlineInfo"
+            icon="user-secret"
+            bs-toggle="popover"
+            button-size="Small"
+            class="forum-mods-popover"
+            text="@infoText"
+            bs-content="@infoContent"></button>
+}

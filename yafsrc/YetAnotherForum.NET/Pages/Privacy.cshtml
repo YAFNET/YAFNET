@@ -1,0 +1,47 @@
+﻿@page "{handler?}"
+
+@using YAF.Core.Context
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Objects
+@model PrivacyModel
+@{
+    ViewBag.Email = Model.Get<BoardConfiguration>().GDPRControllerAddress.IsSet() ?
+                        Model.Get<BoardConfiguration>().GDPRControllerAddress :
+        Model.PageBoardContext.BoardSettings.ForumEmail;
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                @Html.IconHeader("user-secret", "RULES", "TITLE")
+            </div>
+            <div class="card-body">
+                @Html.Raw(Model.Get<IBBCodeService>().MakeHtml(Model.Get<ILocalization>().GetTextFormatted("RULES_TEXT", (string)ViewBag.Email), true, true))
+            </div>
+
+            @if (BoardContext.Current.IsGuest)
+            {
+                <div class="card-footer text-center">
+                    <form method="post">
+                        <fieldset>
+                            <button type="submit" button-style="Success" role="button"
+                                    icon="check"
+                                    text-localized-page="RULES"
+                                    text-localized-tag="ACCEPT">
+                            </button>
+                            <a button-style="Danger" role="button" asp-page="/Index"
+                               icon="hand-paper"
+                               text-localized-page="RULES"
+                               text-localized-tag="DECLINE">
+                            </a>
+                        </fieldset>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+</div>

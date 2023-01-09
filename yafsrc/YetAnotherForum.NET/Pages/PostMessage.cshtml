@@ -1,0 +1,186 @@
+@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Model
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Flags
+@using YAF.Types.Models
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+@model PostMessageModel
+
+@section StyleSheets {
+    @if (Model.PageBoardContext.UploadAccess)
+    {
+        @await Html.PartialAsync("_FileUploadStylesSheetsPartial")
+    }
+}
+
+@await Html.PartialAsync("_PollList", Model)
+
+<form method="post">
+        <div class="row">
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.Icon("comment-dots", "text-secondary")
+                        @Html.LocalizedText("reply")
+                    </div>
+                    <div class="card-body">
+                    @if (Model.Input.PreviewMessage.IsSet())
+                    {
+                        <h5 class="card-title">
+                            @Html.LocalizedText("previewtitle")
+                        </h5>
+                        <alert type="light">
+                            <message message-flags="@(new MessageFlags{IsBBCode = true})" message-id="0" message="@Model.Input.PreviewMessage"></message>
+                        </alert>
+                    }
+                    @if (Model.PageBoardContext.IsGuest)
+                    {
+                        <div class="mb-3">
+                            <label asp-for="Input.From" class="form-label" localized-page="POSTMESSAGE" localized-tag="FROM">
+                            </label>
+                            <input asp-for="Input.From" class="form-control" maxlength="100" value="@(Model.PageBoardContext.PageUser.DisplayOrUserName())" />
+                        </div>
+                    }
+                    <div class="mb-3">
+                        <label asp-for="Input.Editor" class="form-label" localized-tag="MESSAGE"></label>
+                        <textarea asp-for="Input.Editor"
+                                  class="form-control"
+                                  rows="15"
+                                  cols="100"
+                                  editor-mode="Standard"
+                                  users-can-upload="@(Model.PageBoardContext.UploadAccess)"
+                                  maxlength="@Model.PageBoardContext.BoardSettings.MaxPostSize"
+                                  max-characters="@Model.PageBoardContext.BoardSettings.MaxPostSize"></textarea>
+                    </div>
+
+                    @if (!Model.PageBoardContext.IsGuest)
+                    {
+                        <div class="row">
+                            <div class="col">
+                                <h6>
+                                    @Html.LocalizedText("NEWPOSTOPTIONS")
+                                </h6>
+
+                                @if (Model.PageBoardContext.IsAdmin || Model.PageBoardContext.ForumModeratorAccess)
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" asp-for="Input.Persistent">
+                                        <label class="form-check-label" asp-for="Input.Persistent">
+                                            @Html.LocalizedText("PERSISTENCY") (@Html.LocalizedText("PERSISTENCY_INFO"))
+                                        </label>
+                                    </div>
+                                }
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" asp-for="Input.TopicWatch">
+                                    <label class="form-check-label" asp-for="Input.TopicWatch" localized-tag="TOPICWATCH"></label>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.EnableCaptchaForGuests ||
+                    Model.PageBoardContext.BoardSettings.EnableCaptchaForPost && !Model.PageBoardContext.PageUser.UserFlags.IsCaptchaExcluded)
+                    {
+                        <div class="mb-3">
+                            <label class="form-label" localized-tag="Captcha_Image"></label>
+                            <img src="@(CaptchaHelper.GetCaptcha())" alt="captcha" title="@(Model.Get<ILocalization>().GetText("Captcha_Image"))" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" localized-tag="Captcha_Enter" asp-for="Input.Captcha"></label>
+                            <input asp-for="Input.Captcha" class="form-control" type="text" />
+                        </div>
+                    }
+                </div>
+                <div class="card-footer text-center">
+                    <button class="mt-1"
+                            asp-page-handler="Preview"
+                            asp-route-t="@Request.Query["t"]"
+                            asp-route-f="@Request.Query["f"]"
+                            asp-route-q="@Request.Query["q"]"
+                            text-localized-tag="PREVIEW" title-localized-tag="PREVIEW_TITLE"
+                            button-style="Secondary"
+                            Icon="image"></button>
+                    <button class="mt-1"
+                            asp-page-handler="PostReply"
+                            asp-route-t="@Request.Query["t"]"
+                            asp-route-f="@Request.Query["f"]"
+                            asp-route-q="@Request.Query["q"]"
+                            text-localized-tag="SAVE" title-localized-tag="SAVE_TITLE"
+                            button-style="Primary"
+                            Icon="save"></button>
+                    <button class="mt-1"
+                            asp-page-handler="Cancel"
+                            asp-route-t="@Request.Query["t"]"
+                            asp-route-f="@Request.Query["f"]"
+                            asp-route-q="@Request.Query["q"]"
+                            text-localized-tag="CANCEL"
+                            button-style="Secondary"
+                            Icon="times"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@{
+    var messages = Model.GetRepository<Message>().LastPosts(Model.PageBoardContext.PageTopicID);
+}
+
+@if (!messages.NullOrEmpty())
+{
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("comment", "PROFILE", "LAST10")
+                </div>
+                <div class="card-body p-2" style="overflow-y: auto; height: 400px;">
+                    @foreach (var message in messages)
+                    {
+                        <div class="card my-3">
+                            <div class="card-body">
+                                <div class="card-title h5">
+                                    <footer class="blockquote-footer">
+                                        @Html.UserLink(message.Item2.ID, 
+                                            message.Item2.DisplayOrUserName(), 
+                                            message.Item2.Suspended, 
+                                            message.Item2.UserStyle, 
+                                            blankTarget: true)
+                                        <small class="text-muted">
+                                            @Html.IconBadge("calendar-day", "clock")
+                                            @Html.DisplayDateTime(DateTimeFormat.Both, message.Item1.Posted)
+                                        </small>
+                                    </footer>
+                                </div>
+                                <div class="card-text">
+                                    <messagePostData current-message="message.Item1" show-attachments="false"></messagePostData>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @await Html.PartialAsync("_CKEditorScriptsPartial")
+
+    @if (Model.PageBoardContext.UploadAccess)
+    {
+        @await Html.PartialAsync("_FileUploadScriptsPartial")
+    }
+}
+
+@if (Model.PageBoardContext.UploadAccess)
+{
+    @await Html.PartialAsync("Dialogs/_AttachmentUpload")
+}

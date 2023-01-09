@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BBCode.ReplaceRules;
 
 using System.Text.RegularExpressions;
@@ -64,7 +65,7 @@ public class CodeRegexReplaceRule : SimpleRegexReplaceRule
 
             var replaceIndex = replacement.Add(replaceItem);
             text =
-                $"{text.Substring(0, m.Groups[0].Index)}{replacement.Get(replaceIndex)}{text.Substring(m.Groups[0].Index + m.Groups[0].Length)}";
+                $"{text[..m.Groups[0].Index]}{replacement.Get(replaceIndex)}{text[(m.Groups[0].Index + m.Groups[0].Length)..]}";
 
             m = this.RegExSearch.Match(text);
         }

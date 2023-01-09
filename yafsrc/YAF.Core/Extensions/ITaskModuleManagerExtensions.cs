@@ -25,6 +25,8 @@ namespace YAF.Core.Extensions;
 
 using System;
 
+using YAF.Types.Attributes;
+
 /// <summary>
 /// The i task module manager extensions.
 /// </summary>

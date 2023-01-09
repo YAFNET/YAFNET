@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,25 +24,27 @@
 
 namespace YAF.Core.Controllers;
 
-using System.Collections.Generic;
-using System.Web.Http;
-using System.Web.UI.WebControls;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-using YAF.Types.Constants;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authorization;
+
+using YAF.Core.BasePages;
+using YAF.Core.Model;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
 /// <summary>
 /// The Notifications controller.
 /// </summary>
-[RoutePrefix("api")]
-public class NotifyController : ApiController, IHaveServiceLocator
+[Produces("application/json")]
+[Route("api/[controller]")]
+[ApiController]
+public class NotifyController : ForumBaseController
 {
-    /// <summary>
-    ///   Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
     /// <summary>
     /// Gets the paged attachments.
     /// </summary>
@@ -52,11 +54,12 @@ public class NotifyController : ApiController, IHaveServiceLocator
     /// <returns>
     /// Returns the Attachment List as Grid Data Set
     /// </returns>
-    [Route("Notify/GetNotifications")]
-    [HttpPost]
-    public IHttpActionResult GetNotifications(PagedResults pagedResults)
+    [ValidateAntiForgeryToken]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GridDataSet))]
+    [HttpPost("GetNotifications")]
+    public Task<ActionResult<GridDataSet>> GetNotifications([FromBody] PagedResults pagedResults)
     {
-        var userId = BoardContext.Current.PageUserID;
+        var userId = this.PageBoardContext.PageUserID;
         var pageSize = pagedResults.PageSize;
         var pageNumber = pagedResults.PageNumber;
 
@@ -70,34 +73,30 @@ public class NotifyController : ApiController, IHaveServiceLocator
         activities.ForEach(
             activity =>
                 {
-                    if (!activity.TopicID.HasValue || !activity.FromUserID.HasValue || !activity.MessageID.HasValue)
-                    {
-                        return;
-                    }
+                    var messageHolder = new HtmlContentBuilder();
 
-                    var messageHolder = new PlaceHolder();
-                    var iconLabel = new Label { CssClass = "fa-stack" };
+                    var iconLabel = new TagBuilder("span");
+
+                    iconLabel.AddCssClass("fa-stack");
 
                     var message = string.Empty;
                     var icon = string.Empty;
 
                     var topic = this.GetRepository<Topic>().GetById(activity.TopicID.Value);
 
-                    var topicLink = new HyperLink
-                                        {
-                                            NavigateUrl =
-                                                this.Get<LinkBuilder>().GetLink(
-                                                    ForumPages.Posts,
-                                                    new { m = activity.MessageID.Value, name = topic.TopicName }),
-                                            Text = $@"<i class=""fas fa-comment fa-fw me-1""></i>{topic.TopicName}"
-                                        };
+                    var topicLink = new TagBuilder("a");
+
+                    topicLink.MergeAttribute("href", this.Get<LinkBuilder>().GetLink(
+                        ForumPages.Posts,
+                        new { m = activity.MessageID.Value, name = topic.TopicName }));
+                    topicLink.InnerHtml.Append($"<i class=\"fas fa-comment fa-fw me-1\"></i>{topic.TopicName}");
 
                     var name = this.Get<IUserDisplayName>().GetNameById(activity.FromUserID.Value);
 
                     if (activity.ActivityFlags.ReceivedThanks)
                     {
                         icon = "heart";
-                        message = this.Get<ILocalization>().GetTextFormatted(
+                        message = this.GetTextFormatted(
                             "RECEIVED_THANKS_MSG",
                             name,
                             topicLink.RenderToString());
@@ -106,7 +105,7 @@ public class NotifyController : ApiController, IHaveServiceLocator
                     if (activity.ActivityFlags.WasMentioned)
                     {
                         icon = "at";
-                        message = this.Get<ILocalization>().GetTextFormatted(
+                        message = this.GetTextFormatted(
                             "WAS_MENTIONED_MSG",
                             name,
                             topicLink.RenderToString());
@@ -114,8 +113,8 @@ public class NotifyController : ApiController, IHaveServiceLocator
 
                     if (activity.ActivityFlags.WasQuoted)
                     {
-                        icon = "quote-left";
-                        message = this.Get<ILocalization>().GetTextFormatted(
+                       icon = "quote-left";
+                        message = this.GetTextFormatted(
                             "WAS_QUOTED_MSG",
                             name,
                             topicLink.RenderToString());
@@ -124,7 +123,7 @@ public class NotifyController : ApiController, IHaveServiceLocator
                     if (activity.ActivityFlags.WatchForumReply)
                     {
                         icon = "comments";
-                        message = this.Get<ILocalization>().GetTextFormatted(
+                        message = this.GetTextFormatted(
                             "WATCH_FORUM_MSG",
                             name,
                             topicLink.RenderToString());
@@ -133,7 +132,7 @@ public class NotifyController : ApiController, IHaveServiceLocator
                     if (activity.ActivityFlags.WatchTopicReply)
                     {
                         icon = "comment";
-                        message = this.Get<ILocalization>().GetTextFormatted(
+                        message = this.GetTextFormatted(
                             "WATCH_TOPIC_MSG",
                             name,
                             topicLink.RenderToString());
@@ -141,32 +140,50 @@ public class NotifyController : ApiController, IHaveServiceLocator
 
                     var notify = activity.Notification ? "text-success" : "text-secondary";
 
-                    iconLabel.Text = $@"<i class=""fas fa-circle fa-stack-2x {notify}""></i>
-                                            <i class=""fas fa-{icon} fa-stack-1x fa-inverse""></i>";
+                    iconLabel.InnerHtml.AppendHtml($@"<i class=""fas fa-circle fa-stack-2x {notify}""></i>
+                                        <i class=""fas fa-{icon} fa-stack-1x fa-inverse""></i>");
 
-                    messageHolder.Controls.Add(iconLabel);
+                    messageHolder.AppendHtml(iconLabel);
 
-                    messageHolder.Controls.Add(new Literal { Text = message });
+                    messageHolder.AppendHtml(message);
 
                     var attachment = new AttachmentItem
-                                         {
+                    {
                                              FileName = messageHolder.RenderToString()
                                          };
 
                     attachmentItems.Add(attachment);
                 });
 
-        return this.Ok(
-            new GridDataSet
-                {
-                    PageNumber = pageNumber,
-                    TotalRecords =
-                        activities.Any()
-                            ? this.GetRepository<Activity>().Count(a => a.UserID == userId && a.FromUserID.HasValue && a.Notification)
-                                .ToType<int>()
-                            : 0,
-                    PageSize = pageSize,
-                    AttachmentList = attachmentItems
-                });
+        return Task.FromResult<ActionResult<GridDataSet>>(
+            this.Ok(
+                new GridDataSet
+                    {
+                        PageNumber = pageNumber,
+                        TotalRecords =
+                            activities.Any()
+                                ? this.GetRepository<Activity>().Count(
+                                    a => a.UserID == userId && a.FromUserID.HasValue
+                                                             && a.Notification).ToType<int>()
+                                : 0,
+                        PageSize = pageSize,
+                        AttachmentList = attachmentItems
+                    }));
+    }
+
+    /// <summary>
+    /// Mark all Activity as read
+    /// </summary>
+    [Authorize]
+    [ValidateAntiForgeryToken]
+    [HttpGet]
+    [Route("MarkAllActivity")]
+    public IActionResult MarkAllActivity()
+    {
+        this.GetRepository<Activity>().MarkAllAsRead(this.PageBoardContext.PageUserID);
+
+        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
+
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
     }
 }

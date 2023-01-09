@@ -21,14 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BBCode.ReplaceRules;
 
 using System;
-using System.Text;
 using System.Text.RegularExpressions;
 
 using YAF.Core.Model;
-using YAF.Types.Constants;
 using YAF.Types.Models;
 
 /// <summary>
@@ -81,21 +80,22 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
             // extract post id if exists
             if (quote.Contains(";"))
             {
-                string postId, userName, topicLink = string.Empty;
+                string postId, userName, topicLink = string.Empty, topicName = string.Empty;
 
                 try
                 {
-                    postId = quote.Substring(quote.LastIndexOf(";", StringComparison.Ordinal) + 1);
+                    postId = quote[(quote.LastIndexOf(";", StringComparison.Ordinal) + 1)..];
                     userName = quote = quote.Remove(quote.LastIndexOf(";", StringComparison.Ordinal));
+
+                    topicName = BoardContext.Current.GetRepository<Topic>().GetNameFromMessage(postId.ToType<int>());
 
                     topicLink = BoardContext.Current.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         new
                             {
                                 m = postId,
-                                name = BoardContext.Current.GetRepository<Topic>()
-                                    .GetNameFromMessage(postId.ToType<int>())
-                            });
+                                name = topicName
+                        });
                 }
                 catch (Exception)
                 {
@@ -106,7 +106,7 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
 
                 quote = postId.IsSet()
                             ? $@"<footer class=""blockquote-footer"">
-                                         <cite>{localQuotePosted.Replace("{0}", userName)}&nbsp;<a href=""{topicLink}""><i class=""fas fa-external-link-alt""></i></a></cite></footer>
+                                         <cite>{localQuotePosted.Replace("{0}", userName)}&nbsp;<a href=""{topicLink}"" title=""{topicName}""><i class=""fas fa-external-link-alt""></i></a></cite></footer>
                                          <p class=""mb-0 mt-2"">"
                             : $@"<footer class=""blockquote-footer"">
                                          <cite>{localQuoteWrote.Replace("{0}", quote)}</cite></footer><p class=""mb-0"">";

@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -25,7 +25,7 @@ namespace YAF.Core.Utilities;
 
 using System;
 
-using Microsoft.Win32;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The class gets common system info. Used in data layers other than MSSQL. Created by vzrus 2010
@@ -49,59 +49,10 @@ public static class SystemInfo
     public static string Processors => Environment.ProcessorCount.ToString();
 
     /// <summary>
-    /// Gets Runtime String.
-    /// </summary>
-    /// <value>
-    /// The runtime string.
-    /// </value>
-    [NotNull]
-    public static string RuntimeString
-    {
-        get
-        {
-            try
-            {
-                const string SubKey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\";
-
-                using var openSubKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32)
-                    .OpenSubKey(SubKey);
-                return openSubKey?.GetValue("Release") != null
-                           ? $"Framework Version: {CheckFor45PlusVersion(openSubKey.GetValue("Release").ToType<int>())}"
-                           : Environment.Version.ToString();
-            }
-            catch (Exception)
-            {
-                return Environment.Version.ToString();
-            }
-        }
-    }
-
-    /// <summary>
     /// Gets the version string.
     /// </summary>
     /// <value>
     /// The version string.
     /// </value>
     public static string VersionString => Environment.OSVersion.VersionString;
-
-    /// <summary>
-    /// Checking the version using >= will enable forward compatibility.
-    /// </summary>
-    /// <param name="releaseKey">The release key.</param>
-    /// <returns>Returns the version string.</returns>
-    private static string CheckFor45PlusVersion(int releaseKey)
-    {
-        return releaseKey switch {
-                >= 528040 => "4.8 or later",
-                >= 461808 => "4.7.2",
-                >= 461308 => "4.7.1",
-                >= 460798 => "4.7",
-                >= 394802 => "4.6.2",
-                >= 394254 => "4.6.1",
-                >= 393295 => "4.6",
-                >= 379893 => "4.5.2",
-                >= 378675 => "4.5.1",
-                _ => releaseKey >= 378389 ? "4.5" : "No 4.5 or later version detected"
-            };
-    }
 }

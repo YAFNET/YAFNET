@@ -1,7 +1,7 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,9 +27,6 @@ namespace YAF.Core.Modules;
 using System.Collections.Generic;
 using System.Reflection;
 
-using Autofac;
-
-using YAF.Core.BaseModules;
 using YAF.Core.Data;
 using YAF.Core.Events;
 using YAF.Core.Nntp;
@@ -73,7 +70,7 @@ public class GeneralModule : BaseModule
 
         // register filters -- even if they require BoardContext, they MUST BE REGISTERED UNDER GENERAL SCOPE
         // Do the BoardContext check inside the constructor and throw an exception if it's required.
-        // builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
+        //builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
     }
 
     /// <summary>
@@ -88,8 +85,8 @@ public class GeneralModule : BaseModule
         builder.RegisterGeneric(typeof(FireEvent<>)).As(typeof(IFireEvent<>)).InstancePerLifetimeScope();
 
         //// scan assemblies for events to wire up...
-        // builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AsClosedTypesOf(typeof(IHandleEvent<>)).
-        // AsImplementedInterfaces().InstancePerLifetimeScope();
+        builder.RegisterAssemblyTypes(ExtensionAssemblies.ToArray()).AsClosedTypesOf(typeof(IHandleEvent<>)).
+         AsImplementedInterfaces().InstancePerLifetimeScope();
     }
 
     /// <summary>
@@ -108,17 +105,6 @@ public class GeneralModule : BaseModule
         builder.RegisterType<BoardContextPageProvider>().AsSelf().As<IReadOnlyProvider<BoardContext>>().SingleInstance()
             .PreserveExistingDefaults();
         builder.Register((k) => k.Resolve<IComponentContext>().Resolve<BoardContextPageProvider>().Instance)
-            .ExternallyOwned().PreserveExistingDefaults();
-
-        // Http Application Base
-        builder.RegisterType<CurrentHttpApplicationStateBaseProvider>().SingleInstance().PreserveExistingDefaults();
-        builder.Register(
-                k => k.Resolve<IComponentContext>().Resolve<CurrentHttpApplicationStateBaseProvider>().Instance)
-            .ExternallyOwned().PreserveExistingDefaults();
-
-        // Task Module
-        builder.RegisterType<CurrentTaskModuleProvider>().SingleInstance().PreserveExistingDefaults();
-        builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentTaskModuleProvider>().Instance)
             .ExternallyOwned().PreserveExistingDefaults();
 
         builder.RegisterType<Nntp>().As<INewsreader>().InstancePerLifetimeScope().PreserveExistingDefaults();
@@ -143,10 +129,6 @@ public class GeneralModule : BaseModule
 
         // forum modules...
         builder.RegisterAssemblyTypes(assemblies).AssignableTo<IBaseForumModule>().As<IBaseForumModule>()
-            .InstancePerLifetimeScope();
-
-        // editor modules...
-        builder.RegisterAssemblyTypes(assemblies).AssignableTo<ForumEditor>().As<ForumEditor>()
             .InstancePerLifetimeScope();
     }
 

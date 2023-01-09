@@ -24,6 +24,8 @@
 
 namespace YAF.Types.Interfaces.Auth;
 
+using Microsoft.AspNetCore.Http;
+
 /// <summary>
 /// Interface For oAUTH
 /// </summary>

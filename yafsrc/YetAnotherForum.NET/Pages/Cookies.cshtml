@@ -1,0 +1,23 @@
+﻿@page
+@using YAF.Web.HtmlHelpers
+@model CookiesModel
+
+<div class="row">
+    <div class="col-xl-12">
+        <h1>
+            @Html.LocalizedText("COOKIES", "TITLE")
+        </h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                @Html.IconHeader("cookie", "COOKIES", "TITLE")
+            </div>
+            <div class="card-body">
+                @Html.LocalizedText("COOKIES","COOKIES_TEXT", true)
+            </div>
+        </div>
+    </div>
+</div>

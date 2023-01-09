@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces.Services;
+namespace YAF.Types.Interfaces;
 
 /// <summary>
 /// Activity Stream Interface

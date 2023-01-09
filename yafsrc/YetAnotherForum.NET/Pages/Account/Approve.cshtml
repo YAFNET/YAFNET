@@ -1,0 +1,47 @@
+﻿@page "{code}"
+
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Extensions
+@model ApproveModel
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2>
+            @Html.LocalizedText("APPROVE", "TITLE")
+        </h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card w-25 mx-auto">
+            <div class="card-body">
+                <h5 class="card-title">
+                    @Html.LocalizedText("APPROVE", "TITLE")
+                </h5>
+                @if (Model.ErrorMessage.IsSet())
+                {
+    <alert type="danger"
+           icon="info-circle"
+           icon-text-color="text-danger"
+           message="@Model.ErrorMessage">
+    </alert>}
+                <form method="post">
+                    <div class="mb-3">
+                        <label asp-for="Input.Key" localized-page="APPROVE" localized-tag="ENTER_KEY" class="form-label">
+                        </label>
+                        <input asp-for="Input.Key" class="form-control" required />
+                    </div>
+                    <div class="mb-3 d-grid gap-2">
+                        <button type="submit"
+                                button-style="Primary"
+                                icon="check"
+                                text-localized-page="APPROVE"
+                                text-localized-tag="VALIDATE">
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

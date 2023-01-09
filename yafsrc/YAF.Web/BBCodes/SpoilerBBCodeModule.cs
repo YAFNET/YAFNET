@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Web.BBCodes;
 
 /// <summary>
@@ -31,18 +32,18 @@ public class SpoilerBBCodeModule : BBCodeControl
     /// <summary>
     /// The render.
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
+    /// <param name="stringBuilder">
+    /// The string Builder.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    public override void Render(StringBuilder stringBuilder)
     {
         var spoilerTitle = this.HtmlEncode(
             this.LocalizedString(
                 "SPOILERMOD_TOOLTIP",
                 "Click here to show or hide the hidden text (also known as a spoiler)"));
 
-        writer.Write("<!-- BEGIN spoiler -->");
-        writer.Write(
+        stringBuilder.Append("<!-- BEGIN spoiler -->");
+        stringBuilder.AppendFormat(
             @"<p>
                       <a class=""btn btn-secondary btn-sm"" data-bs-toggle=""collapse"" href=""#{0}"" role=""button"" aria-expanded=""false"" title=""{2}"">{1}</a>
                   </p>
@@ -50,8 +51,8 @@ public class SpoilerBBCodeModule : BBCodeControl
             this.GetUniqueID("spoil_"),
             this.HtmlEncode(this.LocalizedString("SPOILERMOD_SHOW", "Show Spoiler")),
             spoilerTitle);
-        writer.Write(this.Parameters["inner"]);
-        writer.Write("</div></div>");
-        writer.Write("<!-- END spoiler -->");
+        stringBuilder.Append(this.Parameters["inner"]);
+        stringBuilder.Append("</div></div>");
+        stringBuilder.Append("<!-- END spoiler -->");
     }
 }

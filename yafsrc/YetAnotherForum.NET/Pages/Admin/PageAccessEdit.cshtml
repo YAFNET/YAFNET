@@ -1,0 +1,69 @@
+@page "{u:int}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Web.HtmlHelpers
+@model PageAccessEditModel
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("building")
+                    @Html.LocalizedText("ADMIN_PAGEACCESSEDIT", "HEADER"): <strong>@Html.HtmlEncode(Model.Get<IUserDisplayName>().GetNameById(Model.UserID))</strong>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" asp-for="UserID" value="@Model.UserID" />
+                    <ul class="list-group">
+
+                        @for (var index = 0; index < Model.AccessList.Count; index++)
+                        {
+                            <li class="list-group-item list-group-item-action">
+                                <input type="hidden" asp-for="AccessList[index].PageName" value="@Model.AccessList[index].PageName" />
+                                <label class="form-label" localized-page="ADMIN_PAGEACCESSEDIT" localized-tag="PAGE">
+                                </label>
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" asp-for="AccessList[index].ReadAccess" class="form-check-input"/>
+                                    <label class="form-check-label" asp-for="AccessList[index].ReadAccess">
+                                        @Model.AccessList[index].PageName
+                                    </label>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+                <div class="card-footer text-center">
+                    <button asp-page-handler="Save"
+                            class="mt-1"
+                            button-style="Primary"
+                            Icon="save"
+                            text-localized-tag="SAVE"
+                            text-localized-page="ADMIN_PAGEACCESSEDIT"></button>&nbsp;
+                    <button asp-page-handler="GrantAll"
+                            class="mt-1"
+                            button-style="Info"
+                            Icon="check"
+                            text-localized-tag="GRANTALL"
+                            text-localized-page="ADMIN_PAGEACCESSEDIT"></button>&nbsp;
+                    <button asp-page-handler="RevokeAll"
+                            class="mt-1"
+                            button-style="Danger"
+                            Icon="trash"
+                            text-localized-tag="REVOKEALL"
+                            text-localized-page="ADMIN_PAGEACCESSEDIT"></button>&nbsp;
+                    <a asp-page="@ForumPages.Admin_PageAccessList.GetPageName()"
+                       class="mt-1"
+                       button-style="Secondary"
+                       Icon="times"
+                       text-localized-tag="CANCEL"
+                       text-localized-page="ADMIN_PAGEACCESSEDIT"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

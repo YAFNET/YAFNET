@@ -25,14 +25,13 @@
 namespace YAF.Core.Identity.Owin;
 
 using System;
+using System.Security.Claims;
 
-using Microsoft.Owin.Security;
+using Microsoft.AspNetCore.Identity;
 
 using YAF.Core.Model;
-using YAF.Types.Constants;
-using YAF.Types.Interfaces.Identity;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
-using YAF.Types.Models.Identity;
 
 /// <summary>
 /// Twitter Single Sign On Class
@@ -51,9 +50,9 @@ public class Twitter : IAuthBase, IHaveServiceLocator
     /// The message.
     /// </param>
     /// <returns>
-    /// Returns if Login was successful or not
+    /// The <see cref="AspNetUsers"/>.
     /// </returns>
-    public bool LoginOrCreateUser(out string message)
+    public AspNetUsers LoginOrCreateUser(out string message)
     {
         message = string.Empty;
 
@@ -61,34 +60,34 @@ public class Twitter : IAuthBase, IHaveServiceLocator
         {
             message = this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
 
-            return false;
+            return null;
         }
 
-        var loginInfo = this.Get<IAuthenticationManager>().GetExternalLoginInfo();
+        var loginInfo = this.Get<SignInManager<AspNetUsers>>().GetExternalLoginInfoAsync();
 
         // Get Values
-        var name = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "urn:twitter:name").Value;
+        var name = loginInfo.Result.Principal.FindFirst(ClaimTypes.Name).Value;
         var email = $"{name}@twitter.com";
-        var twitterUserId = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "urn:twitter:id").Value;
+        var twitterUserId = loginInfo.Result.Principal.FindFirst(ClaimTypes.NameIdentifier).Value;
 
         // Check if user exists
         var existingUser = this.Get<IAspNetUsersHelper>().GetUserByName(name);
 
         if (existingUser == null)
         {
-            // Create new User
+            // Create new PageUser
             return this.CreateTwitterUser(name, email, twitterUserId, out message);
         }
 
         if (existingUser.Profile_TwitterId == twitterUserId)
         {
             message = string.Empty;
-            return true;
+            return existingUser;
         }
 
         message = this.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED3");
 
-        return false;
+        return null;
     }
 
     /// <summary>
@@ -101,7 +100,7 @@ public class Twitter : IAuthBase, IHaveServiceLocator
     /// The email.
     /// </param>
     /// <param name="twitterUserId">
-    /// The twitter User Id.
+    /// The twitter PageUser Id.
     /// </param>
     /// <param name="message">
     /// The message.
@@ -109,12 +108,12 @@ public class Twitter : IAuthBase, IHaveServiceLocator
     /// <returns>
     /// Returns if the login was successfully or not
     /// </returns>
-    private bool CreateTwitterUser(string name, string email, string twitterUserId, out string message)
+    private AspNetUsers CreateTwitterUser(string name, string email, string twitterUserId, out string message)
     {
         if (this.Get<BoardSettings>().DisableRegistrations)
         {
             message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-            return false;
+            return null;
         }
 
         // Check if user name is null
@@ -144,8 +143,8 @@ public class Twitter : IAuthBase, IHaveServiceLocator
         if (!result.Succeeded)
         {
             // error of some kind
-            message = result.Errors.FirstOrDefault();
-            return false;
+            message = result.Errors.FirstOrDefault().Description;
+            return null;
         }
 
         // setup initial roles (if any) for this user
@@ -158,7 +157,7 @@ public class Twitter : IAuthBase, IHaveServiceLocator
         {
             // something is seriously wrong here -- redirect to failure...
             message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-            return false;
+            return null;
         }
 
         // send user register notification to the user...
@@ -185,11 +184,11 @@ public class Twitter : IAuthBase, IHaveServiceLocator
 
         message = string.Empty;
 
-        return true;
+        return user;
     }
 
     /// <summary>
-    /// Send an Private Message to the Newly Created User with
+    /// Send an Private Message to the Newly Created PageUser with
     /// his Account Info (Pass, Security Question and Answer)
     /// </summary>
     /// <param name="user">

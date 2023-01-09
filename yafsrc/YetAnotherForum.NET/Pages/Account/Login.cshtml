@@ -1,0 +1,137 @@
+﻿@page
+@using System.Linq
+@using Microsoft.AspNetCore.Identity
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Models.Identity
+@model LoginModel
+@inject SignInManager<AspNetUsers> SignInManager
+
+<div class="row">
+    <div class="col">
+        <div class="card mx-auto" style="max-width:450px">
+            <div class="card-header">
+                @Html.IconHeader("sign-in-alt", "LOGIN", "TITLE")
+            </div>
+            <div class="card-body">
+                <section>
+                    <form method="post" class="needs-validation" novalidate>
+                        
+                        @if (Model.ShowNotApproved)
+                        {
+                            <div class="mb-3">
+                                <alert type="warning">
+                                    @Html.LocalizedText("LOGIN","ACCOUNT_NOT_APPROVED")
+                                    <button button
+                                            button-style="None"
+                                            class="alert-link"
+                                            asp-page-handler="ResendConfirm"
+                                            text-localized-tag="ADMIN_RESEND_EMAIL"></button>
+                                </alert>
+                            </div>
+                        }
+
+                        <div class="mb-3">
+                            <label asp-for="Input.UserName" localized-page="LOGIN" localized-tag="USERNAME" class="form-label">
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    @Html.Icon("user", "text-secondary")
+                                </span>
+                                <input asp-for="Input.UserName" class="form-control" required/>
+                                <div class="invalid-feedback">
+                                    @Html.LocalizedText("LOGIN", "NEED_USERNAME")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Input.Password" localized-page="LOGIN" localized-tag="PASSWORD" class="form-label">
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    @Html.Icon("key", "text-secondary")
+                                </span>
+                                <input asp-for="Input.Password" class="form-control" required/>
+                                <div class="invalid-feedback">
+                                    @Html.LocalizedText("PAGE", "NEED_PASSWORD")
+                                </div>
+                                <span class="input-group-text" id="PasswordToggle">
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <div class="form-check">
+                                    <input asp-for="Input.RememberMe" class="form-check-input"/>
+                                    <label asp-for="Input.RememberMe" class="form-check-label"
+                                           localized-page="LOGIN" localized-tag="AUTO">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6 text-end">
+                                <a asp-page="/Account/ForgotPassword"
+                                   button-style="Secondary"
+                                   button-size="Small"
+                                   icon="key"
+                                   text-localized-page="LOGIN"
+                                   text-localized-tag="LOSTPASSWORD">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mb-3 d-grid gap-2">
+                            <button type="submit" class=" btn-login" id="Login" button-style="Primary"
+                                    icon="sign-in-alt"
+                                    text-localized-page="LOGIN"
+                                    text-localized-tag="FORUM_LOGIN">
+                            </button>
+                        </div>
+                    </form>
+                </section>
+                <section>
+                    <form method="post">
+                        <div class="d-grid gap-2">
+                            @{
+                                var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+                                if (loginProviders.Any())
+                                {
+                                    @foreach (var provider in loginProviders)
+                                    {
+                                        <button type="submit"
+                                                asp-page-handler="Auth"
+                                                asp-route-auth="@provider.Name"
+                                                button-style="None"
+                                                button-size="Small"
+                                                class="@Html.Raw($"btn btn-social btn-{provider.Name} me-1 mb-1")"
+                                                icon="@provider.Name"
+                                                icon-css-class="fab"
+                                                text-localized-tag="AUTH_CONNECT"
+                                                title-localized-tag="AUTH_CONNECT"
+                                                text-param0="@provider.DisplayName"
+                                                title-param0="@provider.DisplayName">
+                                        </button>
+                                    }
+                                }
+                            }
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div class="card-footer text-center">
+                <form method="post">
+                    <button type="submit"
+                            asp-page-handler="Register"
+                            button-style="OutlineSecondary"
+                            button-size="Small"
+                            icon="user-plus"
+                            text-localized-page="LOGIN"
+                            text-localized-tag="REGISTER_INSTEAD">
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

@@ -1,0 +1,90 @@
+@page "{m:int}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+@model MoveMessageModel
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2>@Html.LocalizedText("TITLE")</h2>
+    </div>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("arrows-alt","MOVEMESSAGE","MOVE_TITLE")
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <label for="ForumList" class="form-label" localized-tag="select_forum_moveto"></label>
+                        <select id="ForumList" name="forumList"></select>
+                        <input type="hidden" asp-for="Input.ForumListSelected" Value="@Model.Input.ForumListSelected" />
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="TopicList" class="form-label" localized-tag="select_topic_moveto"></label>
+                        <select id="TopicList"></select>
+                        <input type="hidden" asp-for="Input.TopicListSelected" Value="@Model.Input.TopicListSelected" />
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button asp-page-handler="Move" 
+                            asp-route-m="@Model.PageBoardContext.PageMessage.ID"
+                            button-style="Primary"
+                            text-localized-tag="MOVE_MESSAGE"
+                            title-localized-tag="MOVE_TITLE"
+                            icon="arrows-alt"></button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("cut","MOVEMESSAGE","SPLIT_TITLE")
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <label asp-for="Input.TopicSubject" class="form-label" localized-tag="new_topic">
+                            @Html.LocalizedText("new_topic")
+                        </label>
+                        <input type="text" asp-for="Input.TopicSubject" class="form-control" />
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button asp-page-handler="CreateAndMove"
+                            asp-route-m="@Model.PageBoardContext.PageMessage.ID"
+                            text-localized-tag="CREATE_TOPIC"
+                            title-localized-tag="SPLIT_TITLE"
+                            button-style="Secondary"
+                            Icon="cut"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectForumsLoadJs(
+            "ForumList",
+            Model.GetText("select_forum_moveto"),
+            false,
+            false,
+            "Input_ForumListSelected")))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectTopicsLoadJs(
+            "TopicList", 
+            "Input_ForumListSelected", 
+            "Input_TopicListSelected", 
+            Model.GetText("select_topic_moveto"))))
+    </script>
+}

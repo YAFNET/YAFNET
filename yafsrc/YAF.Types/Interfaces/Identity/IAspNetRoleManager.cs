@@ -27,7 +27,9 @@ namespace YAF.Types.Interfaces.Identity;
 using System.Collections.Generic;
 using System.Linq;
 
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
+
+using YAF.Types.Models.Identity;
 
 /// <summary>
 /// The AspNetRoleManager interface.

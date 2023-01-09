@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core;
 
 using System;
@@ -28,8 +29,11 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
 
-using Autofac;
 using Autofac.Core;
+
+using Microsoft.Extensions.Logging;
+
+using YAF.Types.Attributes;
 
 using NamedParameter = YAF.Types.Objects.NamedParameter;
 using TypedParameter = YAF.Types.Objects.TypedParameter;
@@ -236,8 +240,8 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
         properties.ForEach(
             injectProp =>
                 {
-                    var serviceInstance = injectProp.Item1 == typeof(ILoggerService)
-                                              ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.Item2)
+                    var serviceInstance = injectProp.Item1 == typeof(ILogger)
+                                              ? this.Container.Resolve<ILoggerProvider>().CreateLogger(injectProp.Item2.Name)
                                               : this.Container.Resolve(injectProp.Item1);
 
                     // set value is super slow... best not to use it very much.

@@ -23,48 +23,10 @@
  */
 namespace YAF.Core;
 
-using Autofac;
-using Autofac.Core.Lifetime;
-
-using YAF.Core.Modules;
-
 /// <summary>
 /// Instance of the Global Container... yes, a God class. It's the best way to do it, though.
 /// </summary>
 public static class GlobalContainer
 {
-    /// <summary>
-    /// Initializes static members of the <see cref="GlobalContainer"/> class.
-    /// </summary>
-    static GlobalContainer()
-    {
-        var container = CreateContainer();
-
-        using (var scope = container.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag))
-        {
-            ServiceLocatorAccess.CurrentServiceProvider = scope.Resolve<IServiceLocator>();
-        }
-
-        Container = container;
-    }
-
-    /// <summary>
-    ///   Gets Container.
-    /// </summary>
-    public static IContainer Container { get; }
-
-    /// <summary>
-    /// Create Container
-    /// </summary>
-    /// <returns>
-    /// The <see cref="IContainer"/>.
-    /// </returns>
-    private static IContainer CreateContainer()
-    {
-        var builder = new ContainerBuilder();
-
-        builder.RegisterModule<BootstrapModule>();
-
-        return builder.Build();
-    }
+    public static ILifetimeScope AutoFacContainer { get; set; }
 }

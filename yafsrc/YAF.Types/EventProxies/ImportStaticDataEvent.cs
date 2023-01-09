@@ -24,6 +24,8 @@
 
 namespace YAF.Types.EventProxies;
 
+using YAF.Types.Interfaces.Events;
+
 /// <summary>
 /// The import static data event.
 /// </summary>

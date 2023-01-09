@@ -1,0 +1,33 @@
+@page "{t:int}"
+
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@model PrintTopicModel
+
+@foreach (var post in Model.Posts)
+{
+    var message = post.Message;
+
+    // Remove HIDDEN Text
+    message = Model.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message);
+
+    message = Model.Get<IFormatMessage>().RemoveCustomBBCodes(message);
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">
+                    @Html.Raw($"<strong>{Model.Get<ILocalization>().GetText("postedby")}: {(Model.PageBoardContext.BoardSettings.EnableDisplayName ? post.DisplayName : post.UserName)}</strong> - {Model.Get<IDateTimeService>().FormatDateTime(post.Posted)}")
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                @Html.Raw(message)
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+}

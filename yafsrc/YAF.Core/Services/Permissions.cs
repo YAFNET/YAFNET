@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,11 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services;
 
-using System.Web.Hosting;
-
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
+using YAF.Types.Objects;
 
 /// <summary>
 /// The permissions.
@@ -71,56 +71,22 @@ public class Permissions : IPermissions, IHaveServiceLocator
     /// The handle request.
     /// </summary>
     /// <param name="permission">
-    /// The permission.
+    ///     The permission.
     /// </param>
-    public void HandleRequest(ViewPermissions permission)
+    public IActionResult HandleRequest(ViewPermissions permission)
     {
-        var noAccess = true;
-
         if (this.Check(permission))
         {
-            return;
+            return null;
         }
 
-        if (permission == ViewPermissions.RegisteredUsers)
+        if (permission != ViewPermissions.RegisteredUsers)
         {
-            switch (Config.AllowLoginAndLogoff)
-            {
-                case false when this.Get<BoardSettings>().CustomLoginRedirectUrl.IsSet():
-                    {
-                        var loginRedirectUrl = this.Get<BoardSettings>().CustomLoginRedirectUrl;
-
-                        // allow custom redirect...
-                        this.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
-                        noAccess = false;
-                        break;
-                    }
-                case false when Config.IsDotNetNuke:
-                    {
-                        // automatic DNN redirect...
-                        var appPath = HostingEnvironment.ApplicationVirtualPath;
-                        if (!appPath.EndsWith("/"))
-                        {
-                            appPath += "/";
-                        }
-
-                        // redirect to DNN login...
-                        this.Get<HttpResponseBase>().Redirect(
-                            $"{appPath}Login.aspx?ReturnUrl={HttpUtility.UrlEncode(this.Get<LinkBuilder>().GetSafeRawUrl())}");
-                        noAccess = false;
-                        break;
-                    }
-                case true:
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Account_Login);
-                    noAccess = false;
-                    break;
-            }
+            return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        // fall-through with no access...
-        if (noAccess)
-        {
-            this.Get<LinkBuilder>().AccessDenied();
-        }
+        return this.Get<BoardConfiguration>().AllowLoginAndLogoff ? this.Get<LinkBuilder>().Redirect(ForumPages.Account_Login) :
+                   // fall-through with no access...
+                   this.Get<LinkBuilder>().AccessDenied();
     }
 }

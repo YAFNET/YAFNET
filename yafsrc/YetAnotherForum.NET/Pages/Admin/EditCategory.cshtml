@@ -1,0 +1,99 @@
+@page "{c:int?}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@model EditCategoryModel
+
+<form method="post" class="needs-validation">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("comments")
+
+                    @if (Model.Input.Id > 0)
+                    {
+                        @Html.LocalizedText("NEW_CATEGORY")
+                    }
+                    else
+                    {
+                        @Html.LocalizedText("ADMIN_EDITCATEGORY", "HEADER")<strong class="ms-1">@Model.Input.Name</strong>
+                    }
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Name"
+                                   localized-tag="CATEGORY_NAME"
+                                   localized-page="ADMIN_EDITCATEGORY"></label>
+                            <input type="text" asp-for="Input.Name"
+                                   maxlength="50"
+                                   required="required"
+                                   class="form-control"/>
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("MSG_VALUE")
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.SortOrder"
+                                   localized-tag="SORT_ORDER" localized-page="ADMIN_EDITCATEGORY"></label>
+                            <input type="number" asp-for="Input.SortOrder"
+                                   maxlength="5"
+                                   required="required"
+                                   class="form-control"
+                                   data-min="1" min="1" />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("MSG_VALUE")
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Active"
+                                   localized-tag="Active" localized-page="ADMIN_EDITCATEGORY"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.Active" class="form-check-label" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.CategoryImage"
+                               localized-tag="CATEGORY_IMAGE" localized-page="ADMIN_EDITCATEGORY"></label>
+                        <select asp-for="Input.CategoryImage"
+                                class="select2-image-select"
+                                placeholder="@Html.LocalizedText("COMMON", "NONE")"
+                                data-allow-clear="true">
+                            @foreach (var item in Model.CategoryImages)
+                            {
+                                <option value="@item.Text" item="@item">
+                                    @item.Text
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button asp-page-handler="Save"
+                            button-style="Primary"
+                            Icon="save"
+                            text-localized-tag="Save">
+                    </button>
+                    <a asp-page="@ForumPages.Admin_Forums.GetPageName()"
+                            button-style="Secondary"
+                            Icon="times"
+                            text-localized-tag="CANCEL">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

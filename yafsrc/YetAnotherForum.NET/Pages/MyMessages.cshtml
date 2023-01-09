@@ -1,0 +1,45 @@
+@page "{handler?}"
+
+@using YAF.Core.Services
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+@using YAF.Web.TagHelpers
+@model MyMessagesModel
+
+<div class="row">
+    <div class="col-sm-auto">
+        <profileMenu></profileMenu>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <a text-localized-tag="BUTTON_NEWPM" title-localized-tag="BUTTON_NEWPM_TT"
+                   bs-toggle="tooltip"
+                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage))" 
+                   button-style="Secondary"
+                   icon="envelope-open-text"></a>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <div class="card mb-3">
+                    @await Html.PartialAsync("_PMList")
+                    <div class="card-footer">
+                        <small class="text-muted">
+                            @Html.Raw(Model.Info)
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a text-localized-tag="BUTTON_NEWPM" title-localized-tag="BUTTON_NEWPM_TT"
+                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage))"
+                   bs-toggle="tooltip"
+                   button-style="Secondary"
+                   icon="envelope-open-text"></a>
+            </div>
+        </div>
+    </div>
+</div>

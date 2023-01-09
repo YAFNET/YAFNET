@@ -1,0 +1,222 @@
+@page "{i:int?}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Models
+@using YAF.Web.HtmlHelpers
+@model EditGroupModel
+
+@{
+    var group = Model.Get<ISessionService>().GetPageData<Group>();
+}
+
+<form method="post" class="needs-validation">
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                @Html.IconHeader("users","ADMIN_EDITGROUP","TITLE")
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Name"
+                               localized-tag="ROLE_NAME" localized-page="ADMIN_EDITGROUP"></label>
+                        <input type="text" asp-for="Input.Name"
+                               required="required"
+                               class="form-control"/>
+                        <div class="invalid-feedback">
+                            @Html.LocalizedText("MSG_NAME")
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Description"
+                               localized-tag="DESCRIPTION" localized-page="ADMIN_EDITGROUP"></label>
+                        <input type="text" asp-for="Input.Description"
+                               class="form-control"/>
+                    </div>
+                </div>
+                    
+                @if (Model.Input.Id > 0 && group.GroupFlags.IsGuest)
+                {
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.IsGuestX"
+                               localized-tag="IS_GUEST" localized-page="ADMIN_EDITGROUP"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.IsGuestX" 
+                                   class="form-check-label" />
+                        </div>
+                    </div>
+                }
+
+                    
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.IsStartX"
+                               localized-tag="IS_START" localized-page="ADMIN_EDITGROUP"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.IsStartX" 
+                                   class="form-check-label"/>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.IsModeratorX"
+                               localized-tag="FORUM_MOD" localized-page="ADMIN_EDITGROUP"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.IsModeratorX" 
+                                   class="form-check-label"/>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.IsAdminX"
+                               localized-tag="IS_ADMIN" localized-page="ADMIN_EDITGROUP"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.IsAdminX" 
+                                   class="form-check-label"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-2">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.UploadAccess"
+                               localized-tag="UPLOAD_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox"  asp-for="Input.UploadAccess" class="form-check-label" />
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-2">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.DownloadAccess"
+                               localized-tag="DOWNLOAD_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox"  asp-for="Input.DownloadAccess" class="form-check-label" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true" 
+                           asp-for="Input.Priority"
+                           localized-tag="PRIORITY" localized-page="ADMIN_EDITGROUP"></label>
+                    <input type="number" asp-for="Input.Priority" 
+                           class="form-control"
+                           maxlength="5" />
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.PMLimit"
+                               localized-tag="PMMESSAGES" localized-page="ADMIN_EDITGROUP"></label>
+                        <input type="number" asp-for="Input.PMLimit" 
+                               class="form-control"/>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.UsrSigChars"
+                               localized-tag="SIGNATURE_LENGTH" localized-page="ADMIN_EDITGROUP"></label>
+                        <input type="number" asp-for="Input.UsrSigChars" 
+                               class="form-control" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true" 
+                           asp-for="Input.UsrSigBBCodes"
+                           localized-tag="SIG_BBCODES" localized-page="ADMIN_EDITGROUP"></label>
+                    <input type="text" asp-for="Input.UsrSigBBCodes" 
+                           class="form-control"/>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.UsrAlbums"
+                               localized-tag="ALBUM_NUMBER" localized-page="ADMIN_EDITGROUP"></label>
+                        <input type="number" asp-for="Input.UsrAlbums" 
+                               class="form-control" />
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.UsrAlbumImages"
+                               localized-tag="IMAGES_NUMBER" localized-page="ADMIN_EDITGROUP"></label>
+                        <input type="number" asp-for="Input.UsrAlbumImages" 
+                               class="form-control" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true" 
+                           asp-for="Input.Style"
+                           localized-tag="STYLE" localized-page="ADMIN_EDITGROUP"></label>
+                    <textarea  asp-for="Input.Style" 
+                                     class="form-control"></textarea>
+                </div>
+                    
+                @if (Model.Input.Id == 0)
+                {
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.NewAccessMaskID"
+                               localized-tag="INITIAL_MASK" localized-page="ADMIN_EDITGROUP"></label>
+                        <select asp-for="Input.NewAccessMaskID"
+                                asp-items="Model.NewAccessMasks"
+                                class="form-select"></select>
+                    </div>
+                }
+                else
+                {
+                    @if (!group.GroupFlags.IsGuest)
+                    {
+                        <div class="row">
+
+                            @for (var index = 0; index < Model.AccessMasksList.Count; index++)
+                            {
+                                <div class="mb-3 col-md-4">
+                                    <input type="hidden" asp-for="@Model.AccessMasksList[index].ForumID" value="@Model.AccessMasksList[index].ForumID" />
+                                    <label asp-for="@Model.AccessMasksList[index].AccessMaskID">
+                                        @Model.AccessMasksList[index].ForumName
+                                    </label>
+                                    <select asp-for="@Model.AccessMasksList[index].AccessMaskID" asp-items="Model.NewAccessMasks"
+                                            class="form-select"></select>
+                                </div>
+                            }
+
+                        </div>
+                    }
+                }
+            </div>
+            <div class="card-footer text-center">
+                <button id="Save" class="me-2"
+                        asp-page-handler="Save"
+                        button-style="Primary"
+                        Icon="save"
+                        text-localized-tag="SAVE">
+                </button>
+                <a asp-page="@ForumPages.Admin_Groups.GetPageName()"
+                   button-style="Secondary"
+                   Icon="times"
+                   text-localized-tag="CANCEL">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SetGroupMaskJs()));
+    </script>
+}

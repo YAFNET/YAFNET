@@ -24,21 +24,19 @@
 
 namespace YAF.Core.Controllers;
 
-using System.Web.Http;
+using System.Threading.Tasks;
 
+using YAF.Core.BasePages;
 using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF Search controller.
 /// </summary>
-[RoutePrefix("api")]
-public class SearchController : ApiController, IHaveServiceLocator
+[Produces("application/json")]
+[Route("api/[controller]")]
+[ApiController]
+public class SearchController : ForumBaseController
 {
-    /// <summary>
-    ///   Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
     /// <summary>
     /// Get similar topic titles
     /// </summary>
@@ -48,9 +46,10 @@ public class SearchController : ApiController, IHaveServiceLocator
     /// <returns>
     /// Returns the search Results.
     /// </returns>
-    [Route("Search/GetSimilarTitles")]
-    [HttpPost]
-    public IHttpActionResult GetSimilarTitles(SearchTopic searchTopic)
+    [ValidateAntiForgeryToken]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SearchGridDataSet))]
+    [HttpPost("GetSimilarTitles")]
+    public Task<ActionResult<SearchGridDataSet>> GetSimilarTitles([FromRoute] SearchTopic searchTopic)
     {
         var results = this.Get<ISearch>().SearchSimilar(
             string.Empty,
@@ -59,20 +58,16 @@ public class SearchController : ApiController, IHaveServiceLocator
 
         if (results is null)
         {
-            return this.Ok(
-                new SearchGridDataSet
-                    {
-                        PageNumber = 0,
-                        TotalRecords = 0,
-                        PageSize = 0
-                    });
+            return Task.FromResult<ActionResult<SearchGridDataSet>>(
+                this.Ok(new SearchGridDataSet {PageNumber = 0, TotalRecords = 0, PageSize = 0}));
         }
 
-        return this.Ok(
-            new SearchGridDataSet
-                {
-                    PageNumber = 1, TotalRecords = results.Count, PageSize = 20, SearchResults = results
-                });
+        return Task.FromResult<ActionResult<SearchGridDataSet>>(
+            this.Ok(
+                new SearchGridDataSet
+                    {
+                        PageNumber = 1, TotalRecords = results.Count, PageSize = 20, SearchResults = results
+                    }));
     }
 
     /// <summary>
@@ -84,9 +79,10 @@ public class SearchController : ApiController, IHaveServiceLocator
     /// <returns>
     /// Returns the search Results.
     /// </returns>
-    [Route("Search/GetSearchResults")]
-    [HttpPost]
-    public IHttpActionResult GetSearchResults(SearchTopic searchTopic)
+    [ValidateAntiForgeryToken]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SearchGridDataSet))]
+    [HttpPost("GetSearchResults")]
+    public Task<ActionResult<SearchGridDataSet>> GetSearchResults([FromBody] SearchTopic searchTopic)
     {
         var results = this.Get<ISearch>().SearchPaged(
             out var totalHits,
@@ -95,13 +91,14 @@ public class SearchController : ApiController, IHaveServiceLocator
             searchTopic.Page,
             searchTopic.PageSize);
 
-        return this.Ok(
-            new SearchGridDataSet
-                {
-                    PageNumber = searchTopic.Page,
-                    TotalRecords = totalHits,
-                    PageSize = searchTopic.PageSize,
-                    SearchResults = results
-                });
+        return Task.FromResult<ActionResult<SearchGridDataSet>>(
+            this.Ok(
+                new SearchGridDataSet
+                    {
+                        PageNumber = searchTopic.Page,
+                        TotalRecords = totalHits,
+                        PageSize = searchTopic.PageSize,
+                        SearchResults = results
+                    }));
     }
 }

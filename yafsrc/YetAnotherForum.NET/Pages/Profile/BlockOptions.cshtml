@@ -1,0 +1,119 @@
+﻿@page "{handler?}"
+
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Extensions
+
+@model YAF.Pages.Profile.BlockOptionsModel
+
+<div class="row">
+    <div class="col-sm-auto">
+        <profileMenu></profileMenu>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.IconHeader("user-lock", "BLOCK_OPTIONS", "BLOCK_OPTIONS")
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            <h6 class="card-title">
+                                @Html.LocalizedText("SELECT_OPTIONS")
+                            </h6>
+
+                            @if (Model.PageBoardContext.BoardSettings.AllowPrivateMessages)
+                            {
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input asp-for="BlockPMs" class="form-check-input" />
+                                        <label asp-for="BlockPMs" class="form-check-label"
+                                               localized-page="BLOCK_OPTIONS"
+                                               localized-tag="BLOCK_PMS">
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+
+                            @if (Model.PageBoardContext.BoardSettings.EnableBuddyList)
+                            {
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input asp-for="BlockFriendRequests" class="form-check-input" />
+                                        <label asp-for="BlockFriendRequests" class="form-check-label"
+                                               localized-page="BLOCK_OPTIONS"
+                                               localized-tag="BLOCK_BUDDYS">
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+
+                            @if (Model.PageBoardContext.BoardSettings.AllowEmailSending)
+                            {
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input asp-for="BlockEmails" class="form-check-input" />
+                                        <label asp-for="BlockEmails" class="form-check-label"
+                                               localized-page="BLOCK_OPTIONS"
+                                               localized-tag="BLOCK_EMAILS">
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                            <alert type="info"
+                                   icon="info-circle"
+                                   icon-text-color="info"
+                                   localized-page="BLOCK_OPTIONS"
+                                   localized-tag="NOTE_BLOCK"></alert>
+                            <div class="text-lg-center">
+                                <button type="submit"
+                                        text-localized-page="COMMON"
+                                        text-localized-tag="SAVE"
+                                        button-style="Primary"
+                                        icon="save"></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (!Model.Users.NullOrEmpty())
+        {
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            @Html.IconHeader("users", "BLOCK_OPTIONS", "IGNORED_USERS")
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                @foreach(var user in Model.Users)
+                                {
+                                    <li class="list-group-item">
+                                        @Html.UserLink(user)
+                                        <form method="post">
+                                            <button type="submit" 
+                                                    asp-page-handler="Delete"
+                                                    asp-route-userId="@user.ID"
+                                                    button-style="Secondary"
+                                                    icon="eye"
+                                                    text-localized-page="POSTS"
+                                                    text-localized-tag="TOGGLEUSERPOSTS_SHOW">
+                                            </button>
+                                        </form>
+
+                                    </li>
+                                }
+                            </ul>
+                            
+                        </div>
+                        <div class="card-footer text-muted">
+                            @Html.LocalizedText("NOTE_USERS")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

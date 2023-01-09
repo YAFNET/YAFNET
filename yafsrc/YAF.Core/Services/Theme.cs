@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -23,9 +23,12 @@
 namespace YAF.Core.Services;
 
 using System.IO;
-using System.Web.Hosting;
+
+using Microsoft.AspNetCore.Hosting;
 
 using ServiceStack.Text;
+
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The YAF theme.
@@ -59,24 +62,23 @@ public class Theme : ITheme
     {
         CodeContracts.VerifyNotNull(theme);
 
-        return theme.IsSet() && Directory.Exists(GetMappedThemeFile(theme))
-                             && File.Exists(Path.Combine(GetMappedThemeFile(theme), "bootstrap-forum.min.css"));
+        return theme.IsSet() && Directory.Exists(GetMappedThemeFile(theme));
     }
 
     /// <summary>
     /// Gets full path to the given theme file.
     /// </summary>
     /// <param name="filename">
-    /// Short name of theme file.
+    /// Short name of theme file. 
     /// </param>
     /// <returns>
-    /// The build theme path.
+    /// The build theme path. 
     /// </returns>
     public string BuildThemePath([NotNull] string filename)
     {
         CodeContracts.VerifyNotNull(filename);
 
-        return BoardInfo.GetURLToContentThemes(this.ThemeFile.CombineWith(filename));
+        return BoardContext.Current.Get<BoardInfo>().GetUrlToContentThemes(this.ThemeFile.CombineWith(filename));
     }
 
     /// <summary>
@@ -90,7 +92,8 @@ public class Theme : ITheme
     {
         CodeContracts.VerifyNotNull(theme);
 
-        return
-            HostingEnvironment.MapPath($"{BoardInfo.ForumServerFileRoot}Content/Themes/{theme.Trim()}");
+        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+
+        return Path.Combine(webRootPath, "themes", theme.Trim());
     }
 }

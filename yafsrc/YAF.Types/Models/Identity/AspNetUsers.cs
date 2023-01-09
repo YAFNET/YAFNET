@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Models.Identity;
 
-using Microsoft.AspNet.Identity;
-
 using ServiceStack.Model;
 
 /// <summary>
@@ -93,7 +91,7 @@ public class AspNetUsers : AspNetUsers<string>
 /// <typeparam name="TKey">
 /// </typeparam>
 [Serializable]
-public class AspNetUsers<TKey> : IUser<TKey>, IEntity, IHasId<TKey>
+public class AspNetUsers<TKey> : IEntity, IHasId<TKey>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="AspNetUsers{TKey}"/> class.

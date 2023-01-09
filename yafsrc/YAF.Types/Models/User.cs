@@ -140,14 +140,15 @@ public class User : IEntity, IHaveBoardID, IHaveID
         {
             TimeZoneInfo timeZoneInfo;
 
-            var tz = this.TimeZone;
-            if (System.Text.RegularExpressions.Regex.IsMatch(tz, @"^[\-?\+?\d]*$"))
-            {
-                return TimeZoneInfo.Local;
-            }
-
             try
             {
+                var tz = this.TimeZone;
+
+                if (System.Text.RegularExpressions.Regex.IsMatch(tz, @"^[\-?\+?\d]*$"))
+                {
+                    return TimeZoneInfo.Local;
+                }
+
                 timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(tz);
             }
             catch (Exception)

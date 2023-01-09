@@ -26,6 +26,7 @@ namespace YAF.Core.BBCode;
 
 using System;
 using System.Text;
+using System.Web;
 
 /// <summary>
 /// The high lighter.
@@ -77,7 +78,7 @@ public class HighLighter
         // extract highlight
         if (language.Contains(";"))
         {
-            highlight = language.Substring(language.IndexOf(";", StringComparison.Ordinal) + 1);
+            highlight = language[(language.IndexOf(";", StringComparison.Ordinal) + 1)..];
             language = language.Remove(language.IndexOf(";", StringComparison.Ordinal));
         }
 

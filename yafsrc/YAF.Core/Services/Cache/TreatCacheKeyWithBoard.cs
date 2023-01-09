@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Services.Cache;
 
+using YAF.Types.Attributes;
+
 /// <summary>
 /// The treat cache key with board.
 /// </summary>

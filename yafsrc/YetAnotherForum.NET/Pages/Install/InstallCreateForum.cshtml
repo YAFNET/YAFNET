@@ -1,0 +1,110 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
+@using YAF.Core.Helpers
+@using YAF.Core.Services
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Objects
+@using YAF.Web.TagHelpers
+
+@inject ILocalization Localization;
+@inject BoardInfo BoardInfo;
+
+@model YAF.Types.Modals.InstallModal
+
+@{
+    Layout = "_LayoutInstall";
+
+    var requestCultureFeature = BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.Features.Get<IRequestCultureFeature>();
+    var requestCulture = requestCultureFeature.RequestCulture;
+
+    Localization.TransPage = "INSTALL";
+
+    var cultures = new SelectList(StaticDataHelper.Cultures(), nameof(Culture.CultureTag), nameof(Culture.CultureNativeName), "en-US");
+}
+
+<form method="post">
+    <div class="modal-body">
+        @if (Model.Message.IsSet())
+        {
+            <div class="alert alert-warning">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true"></button>
+                @Html.Raw(Model.Message)
+            </div>
+        }
+
+        <h4>
+            @Localization.GetText("CreateBoard")
+        </h4>
+        <div class="mb-3">
+            <label for="forumName">@Localization.GetText("BoardName")</label>
+            <input id="forumName" name="forumName" required placeholder="@Localization.GetText("BoardName")"
+                   class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <asp:Label id="Label7" for="cultures">
+                @Localization.GetText("Culture") %>
+            </asp:Label>
+            <select id="cultures" name="cultures" asp-items="cultures"
+                    class="form-select"></select>
+        </div>
+        <div class="mb-3">
+            <asp:Label for="forumEmailAddress">
+                @Localization.GetText("ForumEmail")
+            </asp:Label>
+            <input id="forumEmailAddress" name="forumEmailAddress" required
+                   placeholder="@Localization.GetText("ForumEmail")"
+                   type="Email"
+                   class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <asp:Label for="forumBaseUrlMask">
+                @Localization.GetText("ForumUrl")
+            </asp:Label>
+            <input id="forumBaseUrlMask" name="forumBaseUrlMask" required
+                   placeholder="@Localization.GetText("ForumUrl")"
+                   type="text" value="@BoardInfo.GetBaseUrlFromVariables()"
+                   class="form-control"/>
+        </div>
+        <hr/>
+        <h4>
+            @Localization.GetText("CreateUser")
+        </h4>
+        <div class="mb-3">
+            <label for="userName" class="form-label">@Localization.GetText("AdminName")</label>
+            <input id="userName" name="userName" required
+                   placeholder="@Localization.GetText("AdminName")"
+                   class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="adminEmail" class="form-label">@Localization.GetText("AdminEmail")</label>
+            <input id="adminEmail" name="adminEmail" required
+                   placeholder="@Localization.GetText("AdminEmail")"
+                   type="email"
+                   class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="password1" class="form-label">@Localization.GetText("AdminPassword")</label>
+            <input id="password1" name="password1" required
+                   placeholder="@Localization.GetText("AdminPassword")"
+                   type="password"
+                   class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">@Localization.GetText("AdminPassword2")</label>
+            <input id="password2" name="password2" required
+                   placeholder="@Localization.GetText("AdminPassword2")"
+                   type="password"
+                   class="form-control"/>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button button-style="Primary"
+                Icon="arrow-alt-circle-right"
+                asp-page-handler="InstallFinished"
+                asp-route-culture="@requestCulture.Culture.Name"
+                Text="@Localization.GetText("Next")"></button>
+    </div>
+</form>

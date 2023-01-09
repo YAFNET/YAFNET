@@ -1,4 +1,4 @@
-﻿/* Based on "Subkismet - The Cure For Comment Spam" v1.0: http://subkismet.codeplex.com/
+/* Based on "Subkismet - The Cure For Comment Spam" v1.0: http://subkismet.codeplex.com/
  *
  * License: New BSD License
  * -------------------------------------
@@ -23,9 +23,8 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Text;
 
-using YAF.Types.Exceptions;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// Class used to make the actual HTTP requests.
@@ -103,6 +102,7 @@ public class HttpClient
 
     /// <summary>
     /// Posts the request and returns a text response.
+    ///   This is all that is needed for Akismet.
     /// </summary>
     /// <param name="url">
     /// The URL.

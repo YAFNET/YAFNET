@@ -1,0 +1,126 @@
+﻿@page "{a}/{handler?}"
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Interfaces
+
+@model EditAlbumImagesModel
+
+<div class="row">
+    <div class="col-sm-auto">
+        <profileMenu></profileMenu>
+    </div>
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                @if (!Model.AlbumId.HasValue)
+                {
+                    @Html.IconHeader("image", "EDIT_ALBUMIMAGES", "TITLE_NEW")
+                }
+                else
+                {
+                    @Html.IconHeader("image", "EDIT_ALBUMIMAGES", "TITLE")
+                }
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label asp-for="AlbumTitle" class="form-label"
+                               localized-page="EDIT_ALBUMIMAGES"
+                               localized-tag="ALBUM_TITLE">
+                        </label>
+                        <div class="input-group">
+                            <input asp-for="AlbumTitle" maxlength="255" class="form-control" required />
+                            <div class="invalid-feedback">
+                                <span asp-validation-for="AlbumTitle">
+                                    @Html.LocalizedText("NEED_USERNAME")
+                                </span>
+                            </div>
+
+                            @if (Model.AlbumId.HasValue)
+                            {
+                                <button type="submit"
+                                        asp-page-handler="UpdateTitle"
+                                        asp-route-albumId="@Model.AlbumId"
+                                        text-localized-tag="UPDATE"
+                                        button-style="Secondary"
+                                        icon="pen"></button>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        @Html.LocalizedText("IMAGES")
+                    </div>
+                    <ul class="list-group">
+                        @foreach (var image in Model.Images)
+                        {
+                            <li class="list-group-item">
+                                @image.FileName ( @image.Bytes / 1024 Kb)
+
+                                <button type="submit"
+                                        asp-page-handler="DeleteImage"
+                                        asp-route-albumId="@Model.AlbumId"
+                                        asp-route-imageId="@image.ID"
+                                        text-localized-tag="DELETE"
+                                        button-style="Danger"
+                                        icon="trash"></button>
+                            </li>
+                        }
+                    </ul>
+
+                    @if (Model.EnableUpload)
+                    {
+                        <h4>
+                            @Html.LocalizedText("UPLOAD_TITLE")
+                        </h4>
+
+                        <label class="form-label"
+                               asp-for="ImageFiles"
+                               localized-tag="SELECT_FILE"
+                               localized-page="EDIT_ALBUMIMAGES">
+                        </label>
+                        <div class="input-group mb-3">
+                            <input type="file" asp-for="ImageFiles" class="form-control mb-3" multiple />
+                            <button asp-page-handler="Upload"
+                                    asp-route-albumId="@Model.AlbumId"
+                                    type="submit"
+                                    button-style="Primary"
+                                    icon="upload"
+                                    class=" mb-3"
+                                    text-localized-tag="UPLOAD"></button>
+                        </div>
+                    }
+
+                    <alert type="info" icon="info-circle" message="@Html.HtmlEncode(Model.Get<ILocalization>().GetTextFormatted("IMAGES_INFO", Model.Images.Count, Model.AllowedImages, Model.PageBoardContext.BoardSettings.AlbumImagesSizeMax / 1024))"></alert>
+
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto mb-1">
+                        <form method="post">
+                            @if (Model.AlbumId.HasValue)
+                            {
+                                <button type="submit"
+                                        button-style="Danger"
+                                        asp-route-albumId="@Model.AlbumId"
+                                        icon="trash"
+                                        text-localized-tag="Button_DeleteAlbum"
+                                        return-confirm-tag="ASK_DELETEALBUM"></button>
+                            }
+                        </form>
+                    </div>
+                    <div class="col-md-auto mb-1">
+                        <form method="post">
+                            <button type="submit"
+                                    asp-page-handler="Back"
+                                    asp-route-albumId="@Model.AlbumId"
+                                    button-style="Secondary"
+                                    icon="reply"
+                                    text-localized-tag="BACK"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

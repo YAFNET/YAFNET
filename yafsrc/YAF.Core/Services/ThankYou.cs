@@ -24,9 +24,10 @@
 
 namespace YAF.Core.Services;
 
-using System.Text;
+using System.Web;
 
 using YAF.Core.Model;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -183,8 +184,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
         thanks.ForEach(
             dr =>
                 {
-                    var name = this.Get<HttpServerUtilityBase>()
-                        .HtmlEncode(dr.Item2.DisplayOrUserName());
+                    var name = HttpUtility.HtmlEncode(dr.Item2.DisplayOrUserName());
 
                     // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
                     filler.AppendFormat(

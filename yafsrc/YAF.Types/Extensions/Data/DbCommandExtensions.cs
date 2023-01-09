@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -27,6 +27,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Dynamic;
 using System.Linq;
+
+using YAF.Types;
 
 /// <summary>
 /// The Database command extensions.
@@ -94,12 +96,12 @@ public static class DbCommandExtensions
 
             switch (item)
             {
-                case Guid:
+                case Guid _:
                     p.Value = item.ToString();
                     p.DbType = DbType.String;
                     p.Size = 4000;
                     break;
-                case ExpandoObject:
+                case ExpandoObject _:
                     {
                         var d = (IDictionary<string, object>)item;
                         p.Value = d.Values.FirstOrDefault();

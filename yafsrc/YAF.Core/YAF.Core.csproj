@@ -1,68 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net7.0</TargetFrameworks>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <PreBuildEvent />
-    <PostBuildEvent />
-    <PreBuildEvent />
-    <PostBuildEvent />
-    <PreBuildEvent />
-    <PostBuildEvent />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
-    <WarningLevel>0</WarningLevel>
-    <DocumentationFile />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
-    <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.Core.XML</DocumentationFile>
-    <Optimize>true</Optimize>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent />
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent />
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.3" />
+    <PackageReference Include="Lucene.Net" Version="4.8.0-beta00016" />
+    <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00016" />
+    <PackageReference Include="Lucene.Net.Highlighter" Version="4.8.0-beta00016" />
+    <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00016" />
+    <PackageReference Include="MailKit" Version="3.4.3" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.1" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.2" />
-    <PackageReference Include="Microsoft.Owin.Security" Version="4.2.2" />
-    <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.2.2" />
-    <PackageReference Include="Microsoft.Owin.Security.Facebook" Version="4.2.2" />
-    <PackageReference Include="Microsoft.Owin.Security.Google" Version="4.2.2" />
-    <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.2.2" />
-    <PackageReference Include="Microsoft.Owin.Security.Twitter" Version="4.2.2" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="7.0.0" />
-    <PackageReference Include="System.Runtime.Caching" Version="7.0.0" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta14" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.configuration" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.Extensions" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
     <Compile Update="BaseControls\BaseUserControl.cs" />
     <Compile Update="BasePages\AccountPage.cs" />
-    <Compile Update="BasePages\ForumPageBase.cs" />
     <Compile Update="BasePages\ProfilePage.cs" />
     <Compile Update="BasePages\ModerateForumPage.cs" />
     <Compile Update="BasePages\AdminPage.cs" />
@@ -70,17 +46,15 @@
     <Compile Update="BasePages\ForumPageRegistered.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lucene.Net\Lucene.Net.Analysis.Common\YAF.Lucene.Net.Analysis.Common.csproj" />
-    <ProjectReference Include="..\Lucene.Net\Lucene.Net.Highlighter\YAF.Lucene.Net.Highlighter.csproj" />
-    <ProjectReference Include="..\Lucene.Net\Lucene.Net.Queries\YAF.Lucene.Net.Queries.csproj" />
-    <ProjectReference Include="..\Lucene.Net\Lucene.Net.QueryParser\YAF.Lucene.Net.QueryParser.csproj" />
-    <ProjectReference Include="..\Lucene.Net\Lucene.Net\YAF.Lucene.Net.csproj" />
-    <ProjectReference Include="..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj" />
+    <ProjectReference Include="..\FarsiLibrary\FarsiLibrary.csproj" />
+    <ProjectReference Include="..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.5.0" />
-    <PackageReference Include="Farsi.Library" Version="2.7.0" />
+    <PackageReference Include="Shyjus.BrowserDetector" Version="2.0.0" />
+    <PackageReference Include="System.Runtime.Caching" Version="7.0.0" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="7.0.0" />
   </ItemGroup>
 </Project>

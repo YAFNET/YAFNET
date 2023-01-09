@@ -23,8 +23,10 @@
  */
 namespace YAF.Types.Interfaces;
 
+using YAF.Types.Constants;
+
 /// <summary>
-/// The LocatablePage interface.
+/// The i locatable page.
 /// </summary>
 public interface ILocatablePage
 {
@@ -51,5 +53,5 @@ public interface ILocatablePage
     /// <summary>
     ///   Gets PageName.
     /// </summary>
-    string PageName { get; }
+    ForumPages PageName { get; }
 }

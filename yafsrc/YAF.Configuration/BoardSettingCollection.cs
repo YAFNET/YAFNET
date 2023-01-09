@@ -24,8 +24,6 @@
 
 namespace YAF.Configuration;
 
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 /// <summary>
@@ -68,12 +66,6 @@ public class BoardSettingCollection
     /// </summary>
     public Dictionary<string, PropertyInfo> SettingsInt =>
         this.settings.Where(x => x.PropertyType == typeof(int)).ToDictionary(x => x.Name, x => x);
-
-    /// <summary>
-    /// Gets SettingsDouble.
-    /// </summary>
-    public Dictionary<string, PropertyInfo> SettingsDouble =>
-        this.settings.Where(x => x.PropertyType == typeof(double)).ToDictionary(x => x.Name, x => x);
 
     /// <summary>
     /// Gets SettingsOther.

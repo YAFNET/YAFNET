@@ -1,0 +1,8 @@
+@using YAF.Core.Context
+@using YAF.Core.Services
+@using YAF.Types.Interfaces
+
+@inject BoardContext Current
+
+<script src="@(Current.Get<BoardInfo>().GetUrlToScripts("ckeditor/ckeditor.js"))"></script>
+<script src="@(Current.Get<BoardInfo>().GetUrlToScripts("ckeditor/adapters/jquery.js"))"></script>

@@ -23,6 +23,12 @@
  */
 namespace YAF.Types.Interfaces.Services;
 
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Http;
+
+using Objects;
+
 /// <summary>
 /// The Album interface.
 /// </summary>
@@ -58,36 +64,4 @@ public interface IAlbum
     /// the return object.
     /// </returns>
     ReturnClass ChangeImageCaption(int imageId, [NotNull] string newCaption);
-
-    /// <summary>
-    /// The get album image preview.
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="localizationFile">The localization file.</param>
-    /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-    void GetAlbumImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped);
-
-    /// <summary>
-    /// The get album cover.
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="localizationFile">The localization file.</param>
-    /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-    void GetAlbumCover([NotNull] HttpContext context, string localizationFile, bool previewCropped);
-
-    /// <summary>
-    /// The get album image.
-    /// </summary>
-    /// <param name="context">
-    /// The context.
-    /// </param>
-    void GetAlbumImage([NotNull] HttpContext context);
-
-    /// <summary>
-    /// Gets the Preview Image as Response
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="localizationFile">The localization file.</param>
-    /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-    void GetResponseImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped);
 }

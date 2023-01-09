@@ -27,6 +27,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
+using YAF.Types.Attributes;
+
 /// <summary>
 /// The html helper.
 /// </summary>
@@ -97,12 +99,12 @@ public static class HtmlHelper
         var pos = tag.IndexOfAny(endchars, 1);
         if (pos > 0)
         {
-            tag = tag.Substring(0, pos);
+            tag = tag[..pos];
         }
 
         if (tag[0] == '/')
         {
-            tag = tag.Substring(1);
+            tag = tag[1..];
         }
 
         // check if it's a valid tag

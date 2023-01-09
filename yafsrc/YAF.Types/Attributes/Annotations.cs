@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Types;
+namespace YAF.Types.Attributes;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global

@@ -27,7 +27,9 @@ namespace YAF.Core.Services.CheckForSpam;
 using System;
 using System.Text.RegularExpressions;
 
-using YAF.Types.Constants;
+using Microsoft.Extensions.Logging;
+
+using YAF.Types.Attributes;
 using YAF.Types.Interfaces.CheckForSpam;
 using YAF.Types.Models;
 
@@ -75,8 +77,7 @@ public class InternalCheck : ICheckForBot
 
             var bannedIpList = BoardContext.Current.Get<IDataCache>().GetOrSet(
                 Constants.Cache.BannedIP,
-                () => bannedIPRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
-                    .Select(x => x.Mask.Trim()).ToList());
+                () => bannedIPRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID).Select(x => x.Mask.Trim()).ToList());
 
             var bannedNameRepository = BoardContext.Current.GetRepository<BannedName>();
 
@@ -95,7 +96,7 @@ public class InternalCheck : ICheckForBot
             }
             catch (Exception ex)
             {
-                BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot Email");
+                BoardContext.Current.Get<ILogger<InternalCheck>>().Error(ex, "Error while Checking for Bot Email");
             }
 
             if (bannedIpList.Any(i => i.Equals(ipAddress)))
@@ -121,7 +122,7 @@ public class InternalCheck : ICheckForBot
                 {
                     isBot = false;
 
-                    BoardContext.Current.Get<ILoggerService>().Error(
+                    BoardContext.Current.Get<ILogger<InternalCheck>>().Error(
                         ex,
                         $"Error while Checking for Bot Name (Check: {name.Mask})");
                 }
@@ -131,7 +132,7 @@ public class InternalCheck : ICheckForBot
         }
         catch (Exception ex)
         {
-            BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot");
+            BoardContext.Current.Get<ILogger<InternalCheck>>().Error(ex, "Error while Checking for Bot");
 
             return false;
         }

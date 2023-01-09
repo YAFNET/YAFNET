@@ -27,6 +27,7 @@ namespace YAF.Types.Objects.Model;
 /// <summary>
 /// The paged post (message).
 /// </summary>
+[Serializable]
 public class PagedMessage
 {
     /// <summary>

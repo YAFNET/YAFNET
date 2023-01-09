@@ -1,0 +1,47 @@
+﻿@using YAF.Core.Context
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+
+@inject BoardContext Current
+
+@{ 
+    var topicsList = Current.Get<ISearch>().SearchSimilar(
+        Current.PageTopicID.ToString(),
+        Current.PageTopic.TopicName,
+        "Topic").Take(5).ToList();
+
+}
+
+@if (!topicsList.NullOrEmpty())
+{
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header">
+                @Html.LocalizedText("POSTS","SIMILAR_TOPICS")
+            </div>
+            <ul class="list-group list-group-flush">
+                
+                @foreach (var topic in topicsList)
+                {
+                    <li class="list-group-item">
+                        <a href="@(topic.TopicUrl)">
+                            <strong>@Html.HtmlEncode(Current.Get<IBadWordReplace>().Replace(topic.Topic)))</strong>
+                        </a> (<a href="@(topic.ForumUrl)">@(topic.ForumName)</a>)
+                        @Html.LocalizedText("SEARCH", "BY")
+                        @Html.UserLink(topic.UserId.Value, Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName, topic.Suspended, topic.UserStyle)
+                        <span class="fa-stack">
+                            <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
+                            <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
+                            <i class="fa fa-clock fa-badge text-secondary"></i>
+                        </span>
+                        @Html.DisplayDateTime(DateTimeFormat.Both, topic.Posted)
+                    </li>
+                }
+            
+            </ul>
+        </div>
+    </div>
+}

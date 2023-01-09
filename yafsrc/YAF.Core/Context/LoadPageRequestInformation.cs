@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Context;
 
 using YAF.Types.Attributes;
@@ -32,25 +33,36 @@ using YAF.Types.Attributes;
 public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
 {
     /// <summary>
+    /// The browser detector.
+    /// </summary>
+    private readonly IBrowserDetector browserDetector;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="LoadPageRequestInformation"/> class.
     /// </summary>
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    /// <param name="httpRequestBase">
-    /// The http request base.
+    /// <param name="accessor">
+    /// The accessor.
+    /// </param>
+    /// <param name="browserDetector">
+    /// The browser Detector.
     /// </param>
     public LoadPageRequestInformation(
-        [NotNull] IServiceLocator serviceLocator, [NotNull] HttpRequestBase httpRequestBase)
+        [NotNull] IServiceLocator serviceLocator,
+        [NotNull] IHttpContextAccessor accessor,
+        [NotNull] IBrowserDetector browserDetector)
     {
         this.ServiceLocator = serviceLocator;
-        this.HttpRequestBase = httpRequestBase;
+        this.HttpRequestBase = accessor.HttpContext.Request;
+        this.browserDetector = browserDetector;
     }
 
     /// <summary>
     /// Gets or sets HttpRequestBase.
     /// </summary>
-    public HttpRequestBase HttpRequestBase { get; set; }
+    public HttpRequest HttpRequestBase { get; set; }
 
     /// <summary>
     ///   Gets Order.
@@ -68,15 +80,20 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
     /// <param name="event">The @event.</param>
     public void Handle([NotNull] InitPageLoadEvent @event)
     {
-        var browser = $"{this.HttpRequestBase.Browser.Browser} {this.HttpRequestBase.Browser.Version}";
-        var platform = this.HttpRequestBase.Browser.Platform;
+        if (this.browserDetector.Browser == null)
+        {
+            return;
+        }
 
-        var userAgent = this.HttpRequestBase.UserAgent;
+        var browser = $"{this.browserDetector.Browser.Name} {this.browserDetector.Browser.Version}";
+        var platform = this.browserDetector.Browser.OS;
+
+        var userAgent = this.HttpRequestBase.Headers["User-Agent"].ToString();
 
         // try and get more verbose platform name by ref and other parameters
         UserAgentHelper.Platform(
             userAgent,
-            this.HttpRequestBase.Browser.Crawler,
+            UserAgentHelper.SearchEngineSpiderName(userAgent).IsSet(),
             ref platform,
             ref browser,
             out var isSearchEngine);

@@ -23,6 +23,10 @@
  */
 namespace YAF.Types.EventProxies;
 
+using System.Runtime.Caching;
+
+using YAF.Types.Interfaces.Events;
+
 /// <summary>
 /// The cache item removed event.
 /// </summary>

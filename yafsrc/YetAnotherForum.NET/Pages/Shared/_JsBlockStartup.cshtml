@@ -1,0 +1,13 @@
+﻿@using YAF.Core.Helpers
+@using YAF.Types.Extensions
+
+@{
+    var block = (string)TempData["_jsBlock"];
+}
+
+@if (block.IsSet())
+{
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(block))
+    </script>
+}

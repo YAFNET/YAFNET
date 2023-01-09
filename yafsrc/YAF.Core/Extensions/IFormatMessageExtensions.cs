@@ -21,9 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Extensions;
 
 using System;
+
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The i format message extensions.

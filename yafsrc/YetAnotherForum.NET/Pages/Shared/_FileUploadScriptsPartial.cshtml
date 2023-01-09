@@ -1,0 +1,7 @@
+@using YAF.Core.Context
+@using YAF.Core.Services
+@using YAF.Types.Interfaces
+
+@inject BoardContext Current
+
+<script src="@(Current.Get<BoardInfo>().GetUrlToScripts("jquery.fileupload.comb.min.js"))"></script>

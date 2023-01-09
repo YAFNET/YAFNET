@@ -39,5 +39,5 @@ public class HelpNavigation
     /// <summary>
     ///   Gets or sets The Help pages
     /// </summary>
-    public List<HelpNavigationPage> HelpPages { get; set; }
+    public List<string> HelpPages { get; set; }
 }

@@ -33,7 +33,7 @@ using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
 
 /// <summary>
-/// User Page Class.
+/// PageUser Page Class.
 /// </summary>
 public abstract class UserPageBase
 {
@@ -310,6 +310,16 @@ public abstract class UserPageBase
     /// </summary>
     public bool UserHasBuddies => this.PageData.Item3.UserHasBuddies;
 
+    /// <summary>
+    /// Gets the index of the page from the Pager.
+    /// </summary>
+    /// <value>The index of the page.</value>
+    public int PageIndex => this.PageData.Item4.PageIndex > 0 ? this.PageData.Item4.PageIndex - 1 : 0;
+
+    /// <summary>
+    /// Gets or sets the page links (breadcrumb).
+    /// </summary>
+    /// <value>The page links.</value>
     public List<PageLink> PageLinks { get; set; }
 
     /// <summary>

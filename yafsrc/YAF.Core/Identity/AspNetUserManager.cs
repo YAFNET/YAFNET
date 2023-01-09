@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,15 +26,12 @@ namespace YAF.Core.Identity;
 
 using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 using YAF.Core.Membership;
-using YAF.Types.Models.Identity;
-
-using Startup = YAF.Core.Context.Start.Startup;
 
 /// <summary>
 /// The asp net users manager.
@@ -47,88 +44,74 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <param name="store">
     /// The store.
     /// </param>
+    /// <param name="optionsAccessor">
+    /// The options Accessor.
+    /// </param>
+    /// <param name="passwordHasher">
+    /// The password Hasher.
+    /// </param>
+    /// <param name="userValidators">
+    /// The user Validators.
+    /// </param>
+    /// <param name="passwordValidators">
+    /// The password Validators.
+    /// </param>
+    /// <param name="keyNormalizer">
+    /// The key Normalizer.
+    /// </param>
+    /// <param name="errors">
+    /// The errors.
+    /// </param>
+    /// <param name="services">
+    /// The services.
+    /// </param>
+    /// <param name="logger">
+    /// The logger.
+    /// </param>
     public AspNetUsersManager(
-        IUserStore<AspNetUsers> store)
-        : base(store)
+        IUserStore<AspNetUsers> store,
+        IOptions<IdentityOptions> optionsAccessor,
+        IPasswordHasher<AspNetUsers> passwordHasher,
+        IEnumerable<IUserValidator<AspNetUsers>> userValidators,
+        IEnumerable<IPasswordValidator<AspNetUsers>> passwordValidators,
+        ILookupNormalizer keyNormalizer,
+        IdentityErrorDescriber errors,
+        IServiceProvider services,
+            ILogger<UserManager<AspNetUsers>> logger)
+        : base(
+            store,
+            optionsAccessor,
+            passwordHasher,
+            userValidators,
+            passwordValidators,
+            keyNormalizer,
+            errors,
+            services,
+            logger)
     {
-        this.UserValidator = new UserValidator<AspNetUsers>(this)
-                                 {
-                                     AllowOnlyAlphanumericUserNames = false,
-                                     RequireUniqueEmail = true
-                                 };
-
         this.PasswordHasher = new SQLPasswordHasher();
-
-        int requiredLength;
-
-        try
-        {
-            requiredLength = BoardContext.Current.BoardSettings.MinRequiredPasswordLength;
-        }
-        catch (Exception)
-        {
-            requiredLength = 6;
-        }
-
-        this.PasswordValidator = new PasswordValidator
-                                     {
-                                         RequiredLength = requiredLength,
-                                         RequireNonLetterOrDigit = BoardContext.Current.BoardSettings.PasswordRequireNonLetterOrDigit,
-                                         RequireDigit = BoardContext.Current.BoardSettings.PasswordRequireDigit,
-                                         RequireLowercase = BoardContext.Current.BoardSettings.PasswordRequireLowercase,
-                                         RequireUppercase = BoardContext.Current.BoardSettings.PasswordRequireUppercase
-                                     };
-
-        this.UserLockoutEnabledByDefault = true;
-        this.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-        this.MaxFailedAccessAttemptsBeforeLockout = 5;
-
-        var dataProtectionProvider = Startup.DataProtectionProvider;
-
-        this.UserTokenProvider =
-            new DataProtectorTokenProvider<AspNetUsers>(dataProtectionProvider.Create("ASP.NET Identity"))
-                {
-                    TokenLifespan = TimeSpan.FromHours(3)
-                };
     }
 
     /// <summary>
     /// The users.
     /// </summary>
-    public virtual IQueryable<AspNetUsers> AspNetUsers => this.Users;
+    public virtual IQueryable<AspNetUsers> AspNetUsers => base.Users;
 
     /// <summary>
     /// Remove a user from a role.
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="role">
     /// The role.
     /// </param>
     /// <returns>
-    /// The <see cref="IdentityResult"/>.
+    /// The <see cref="Microsoft.AspNetCore.Identity.IdentityResult"/>.
     /// </returns>
-    public IdentityResult RemoveFromRole(string userId, string role)
+    public IdentityResult RemoveFromRole(AspNetUsers user, string role)
     {
-        return this.RemoveFromRoleAsync(userId, role).Result;
-    }
-
-    /// <summary>
-    /// Creates a ClaimsIdentity representing the user
-    /// </summary>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <param name="authenticationType">
-    /// The authentication Type.
-    /// </param>
-    /// <returns>
-    /// The <see cref="ClaimsIdentity"/>.
-    /// </returns>
-    public ClaimsIdentity CreateIdentity(AspNetUsers user, string authenticationType)
-    {
-        return this.CreateIdentityAsync(user, authenticationType).Result;
+        return this.RemoveFromRoleAsync(user, role).Result;
     }
 
     /// <summary>
@@ -160,17 +143,17 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     }
 
     /// <summary>
-    /// Gets the roles for the user
+    /// Returns the roles for the user
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <returns>
-    /// Returns the roles for the user
+    /// The <see cref="IList"/>.
     /// </returns>
-    public IList<string> GetRoles(string userId)
+    public IList<string> GetRoles(AspNetUsers user)
     {
-        return this.GetRolesAsync(userId).Result;
+        return this.GetRolesAsync(user).Result;
     }
 
     /// <summary>
@@ -187,7 +170,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </returns>
     public bool IsInRole(AspNetUsers user, string role)
     {
-        return this.IsInRoleAsync(user.Id, role).Result;
+        return this.IsInRoleAsync(user, role).Result;
     }
 
     /// <summary>
@@ -200,8 +183,8 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// The role Name.
     /// </param>
     public void AddToRole(AspNetUsers user, string roleName)
-    {
-        this.AddToRoleAsync(user.Id, roleName);
+    { 
+        this.AddToRoleAsync(user, roleName);
     }
 
     /// <summary>
@@ -238,8 +221,8 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <summary>
     /// Confirm the user's email with confirmation token
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="token">
     /// The token.
@@ -247,9 +230,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult ConfirmEmail(string userId, string token)
+    public IdentityResult ConfirmEmail(AspNetUsers user, string token)
     {
-        return this.ConfirmEmailAsync(userId, token).Result;
+        return this.ConfirmEmailAsync(user, token).Result;
     }
 
     /// <summary>
@@ -283,22 +266,22 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <summary>
     /// Generate a password reset token for the user using the UserTokenProvider
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public string GeneratePasswordResetToken(string userId)
+    public string GeneratePasswordResetToken(AspNetUsers user)
     {
-        return this.GeneratePasswordResetTokenAsync(userId).Result;
+        return this.GeneratePasswordResetTokenAsync(user).Result;
     }
 
     /// <summary>
     /// Reset a user's password using a reset password token
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="token">
     /// The token.
@@ -309,30 +292,30 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult ResetPassword(string userId, string token, string newPassword)
+    public IdentityResult ResetPassword(AspNetUsers user, string token, string newPassword)
     {
-        return this.ResetPasswordAsync(userId, token, newPassword).Result;
+        return this.ResetPasswordAsync(user, token, newPassword).Result;
     }
 
     /// <summary>
     /// Get the email confirmation token for the user
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public string GenerateEmailConfirmationResetToken(string userId)
+    public string GenerateEmailConfirmationResetToken(AspNetUsers user)
     {
-        return this.GenerateEmailConfirmationTokenAsync(userId).Result;
+        return this.GenerateEmailConfirmationTokenAsync(user).Result;
     }
 
     /// <summary>
     /// Change a user password
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="currentPassword">
     /// The current Password.
@@ -343,16 +326,16 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult ChangePassword(string userId, string currentPassword, string newPassword)
+    public IdentityResult ChangePassword(AspNetUsers user, string currentPassword, string newPassword)
     {
-        return this.ChangePasswordAsync(userId, currentPassword, newPassword).Result;
+        return this.ChangePasswordAsync(user, currentPassword, newPassword).Result;
     }
 
     /// <summary>
     /// The add login.
     /// </summary>
-    /// <param name="userId">
-    /// The user id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="login">
     /// The login.
@@ -360,8 +343,8 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult AddLogin(string userId, UserLoginInfo login)
+    public IdentityResult AddLogin(AspNetUsers user, UserLoginInfo login)
     {
-        return this.AddLoginAsync(userId, login).Result;
+        return this.AddLoginAsync(user, login).Result;
     }
 }

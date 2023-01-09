@@ -1,11 +1,9 @@
-﻿// Written by Paul Seal. Licensed under MIT. Free for private and commercial uses.
+// Written by Paul Seal. Licensed under MIT. Free for private and commercial uses.
 // https://codeshare.co.uk/blog/how-to-create-a-random-password-generator-in-c/#final-code
 
 namespace YAF.Core.Helpers;
 
 using System.Text.RegularExpressions;
-
-using YAF.Core.Utilities;
 
 /// <summary>
 /// The password generator.
@@ -53,7 +51,7 @@ public static class PasswordGenerator
         const int PASSWORD_LENGTH_MIN = 8;
         const int PASSWORD_LENGTH_MAX = 128;
 
-        if (lengthOfPassword < PASSWORD_LENGTH_MIN || lengthOfPassword > PASSWORD_LENGTH_MAX)
+        if (lengthOfPassword is < PASSWORD_LENGTH_MIN or > PASSWORD_LENGTH_MAX)
         {
             return "Password length must be between 8 and 128.";
         }
@@ -89,6 +87,7 @@ public static class PasswordGenerator
         var characterSetLength = characterSet.Length;
 
         var random = new RandomGenerator();
+
         for (var characterPosition = 0; characterPosition < lengthOfPassword; characterPosition++)
         {
             password[characterPosition] = characterSet[random.Next(1, characterSetLength - 1)];

@@ -29,6 +29,8 @@ using System.Text.RegularExpressions;
 
 using ServiceStack.Text;
 
+using YAF.Core.Context;
+
 /// <summary>
 /// DateTime Helper
 /// </summary>

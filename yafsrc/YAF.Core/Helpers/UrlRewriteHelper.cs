@@ -25,13 +25,13 @@
 namespace YAF.Core.Helpers;
 
 using System;
-using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
-using YAF.Core.Utilities.StringUtils;
+using YAF.Types.Attributes;
 
 /// <summary>
-/// URL Rewriter Helper Class
+/// URL Rewrite Helper Class
 /// </summary>
 public static class UrlRewriteHelper
 {
@@ -42,7 +42,7 @@ public static class UrlRewriteHelper
     /// <returns>
     /// The clean string for url.
     /// </returns>
-    public static string CleanStringForURL([NotNull]string inputString)
+    public static string CleanStringForUrl([NotNull]string inputString)
     {
         CodeContracts.VerifyNotNull(inputString);
 

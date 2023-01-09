@@ -23,6 +23,8 @@
  */
 namespace YAF.Types.Interfaces.Data;
 
+using YAF.Types.Interfaces.Events;
+
 /// <summary>
 /// The Repository interface.
 /// </summary>

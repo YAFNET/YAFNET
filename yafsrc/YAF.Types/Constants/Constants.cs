@@ -85,6 +85,11 @@ public static class Constants
         public const string CustomBBCode = "CustomBBCode";
 
         /// <summary>
+        ///   The edit user data
+        /// </summary>
+        public const string EditUser = "EditUser{0}";
+
+        /// <summary>
         ///   The user data which is not refreshed too often.
         /// </summary>
         public const string UserCustomProfileData = "UserCustomProfileData{0}";
@@ -128,11 +133,6 @@ public static class Constants
         /// The task module.
         /// </summary>
         public const string TaskModule = "TaskModule";
-
-        /// <summary>
-        ///   The user buddies.
-        /// </summary>
-        public const string UserBuddies = "UserBuddies{0}";
 
         /// <summary>
         ///   The user ignore list.

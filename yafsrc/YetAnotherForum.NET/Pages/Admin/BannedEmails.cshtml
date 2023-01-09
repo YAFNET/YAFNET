@@ -1,0 +1,207 @@
+@page "{p:int=1}/{handler?}"
+
+@model BannedEmailsModel
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Extensions
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Models
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-auto">
+                            @Html.IconHeader("hand-paper","ADMIN_BANNEDEMAIL","TITLE")
+                        </div>
+                        <div class="col-auto">
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="input-group input-group-sm me-2" role="group">
+                                    <div class="input-group-text">
+                                        @Html.LocalizedText("SHOW"):
+                                    </div>
+                                    <select asp-for="@Model.Size"
+                                            asp-items="Model.PageSizeList"
+                                            title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                            aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                            class="form-select"
+                                            onchange="this.form.submit();"></select>
+                                </div>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button class="dropdown-toggle"
+                                            bs-toggle="dropdown"
+                                            button-size="Small"
+                                            button-style="Secondary"
+                                            Icon="filter"
+                                            text-localized-tag="FILTER_DROPDOWN"
+                                            text-localized-page="ADMIN_USERS"></button>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                                        <div class="px-3 py-1">
+                                            <div class="mb-3">
+                                                <label info-button="true" class="form-label" asp-for="SearchInput"
+                                                       localized-tag="MASK" localized-page="ADMIN_BANNEDEMAIL"></label>
+                                                <input type="text" asp-for="SearchInput" class="form-control"/>
+                                            </div>
+                                            <div class="mb-3 d-grid gap-2">
+                                                <button button-style="Primary"
+                                                        text-localized-tag="BTNSEARCH"
+                                                        text-localized-page="SEARCH"
+                                                        Icon="search"
+                                                        asp-page-handler="Search">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                @if (!Model.List.NullOrEmpty())
+                {
+                    <div class="card-body">
+                        <ul class="list-group">
+
+                            @foreach (var item in Model.List)
+                            {
+                                <li class="list-group-item list-group-item-action list-group-item-menu">
+                                    <input type="hidden" ID="fID" Value='@Html.Raw(item.ID)' />
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1 text-break">
+                                            @Html.Raw(item.Mask)
+                                        </h5>
+                                        <small class="d-none d-md-block">
+                                            <span class="fw-bold">
+                                                @Html.LocalizedText("ADMIN_BANNEDEMAIL","SINCE")
+                                            </span>
+                                            @Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(item.Since) )
+                                        </small>
+                                    </div>
+                                    <p class="mb-1">
+                                        <span class="fw-bold">
+                                            @Html.LocalizedText("ADMIN_BANNEDEMAIL", "REASON")
+                                        </span>
+                                        @Html.Raw(item.Reason)
+                                    </p>
+                                    <small>
+                                        <div class="btn-group btn-group-sm">
+                                            <button button-style="Info" 
+                                                    button-size="Small"
+                                                    bs-toggle="ajax-modal"
+                                                    bs-target-url="@(Url.Page("BannedEmails", "Edit", new {id = item.ID}))"
+                                                    text-localized-tag="EDIT"
+                                                    title-localized-tag="EDIT"
+                                                    Icon="edit" >
+                                            </button>
+                                            <button button-style="Danger"
+                                                    button-size="Small"
+                                                    asp-page-handler="Delete"
+                                                    asp-route-id="@Html.Raw(item.ID)"
+                                                    text-localized-tag="DELETE"
+                                                    return-confirm-tag="MSG_DELETE"
+                                                    title-localized-tag="DELETE"
+                                                    Icon="trash" >
+                                            </button>
+                                        </div>
+                                    </small>
+                                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                        <button button-style="None"
+                                                class="dropdown-item"
+                                                bs-toggle="ajax-modal"
+                                                bs-target-url="@(Url.Page("BannedEmails", "Edit", new {id = item.ID}))"
+                                                text-localized-tag="EDIT"
+                                                title-localized-tag="EDIT"
+                                                Icon="edit" >
+                                        </button>
+                                        <button button-style="None"
+                                                class="dropdown-item"
+                                                asp-page-handler="Delete"
+                                                asp-route-id="@Html.Raw(item.ID)"
+                                                text-localized-tag="DELETE"
+                                                return-confirm-tag="MSG_DELETE"
+                                                title-localized-tag="DELETE"
+                                                Icon="trash" >
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <button Icon="plus-square"
+                                                button-style="None"
+                                                class="dropdown-item"
+                                                text-localized-tag="ADD_IP" text-localized-page="ADMIN_BANNEDEMAIL"
+                                                bs-toggle="ajax-modal"
+                                                bs-target-url="@(Url.Page("BannedEmails", "Add"))">
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <button Icon="upload"
+                                                bs-toggle="ajax-modal"
+                                                bs-target-url="@(Url.Page("BannedEmails", "Import"))"
+                                                button-style="None"
+                                                class="dropdown-item"
+                                                text-localized-tag="IMPORT_IPS" text-localized-page="ADMIN_BANNEDEMAIL">
+                                        </button>
+                                        <button asp-page-handler="Export"
+                                                button-style="None"
+                                                class="dropdown-item"
+                                                Icon="download"
+                                                text-localized-page="ADMIN_BANNEDIP" text-localized-tag="EXPORT">
+                                        </button>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-body">
+                        <empty icon="hand-paper"
+                           header-text-page="ADMIN_BANNEDEMAIL" header-text-tag="EMPTY_HEADER"
+                           message-text-page="ADMIN_BANNEDEMAIL" message-text-tag="EMPTY_MESSAGE">
+                        </empty>
+                    </div>
+                }
+                
+                <div class="card-footer text-center">
+                    <button class="mb-1"
+                            Icon="plus-square"
+                            button-style="Primary"
+                            bs-toggle="ajax-modal"
+                            bs-target-url="@Url.Page("BannedEmails", "Add")"
+                            text-localized-tag="ADD_IP" text-localized-page="ADMIN_BANNEDEMAIL">
+                    </button>
+                    <button class="mb-1"
+                            Icon="upload"
+                            bs-toggle="ajax-modal"
+                            bs-target-url="@Url.Page("BannedEmails", "Import")"
+                            button-style="Info"
+                            text-localized-tag="IMPORT_IPS" text-localized-page="ADMIN_BANNEDEMAIL">
+                    </button>
+                    <button asp-page-handler="Export"
+                            class="mb-1"
+                            button-style="Warning"
+                            Icon="download"
+                            text-localized-page="ADMIN_BANNEDIP" text-localized-tag="EXPORT">
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-auto">
+            <pager page-size="@Model.Size"
+                   count="!Model.List.NullOrEmpty()
+             ? Model.GetRepository<BannedEmail>()
+                   .Count(x => x.BoardID == Model.PageBoardContext.PageBoardID).ToType<int>()
+             : 0">
+            </pager>
+        </div>
+    </div>
+</form>

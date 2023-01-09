@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -26,9 +26,12 @@ namespace YAF.Core.Nntp;
 using System;
 using System.Collections;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
+using Microsoft.Extensions.Logging;
+
+using YAF.Types.Attributes;
 using YAF.Types.Objects.Nntp;
 
 /// <summary>
@@ -176,10 +179,10 @@ public static class NntpUtil
     {
         try
         {
-            nntpDateTime = nntpDateTime.Substring(nntpDateTime.IndexOf(',') + 1);
+            nntpDateTime = nntpDateTime[(nntpDateTime.IndexOf(',') + 1)..];
             if (nntpDateTime.IndexOf("(", StringComparison.Ordinal) > 0)
             {
-                nntpDateTime = nntpDateTime.Substring(0, nntpDateTime.IndexOf('(') - 1).Trim();
+                nntpDateTime = nntpDateTime[..(nntpDateTime.IndexOf('(') - 1)].Trim();
             }
 
             var ipos = nntpDateTime.IndexOf('+');
@@ -187,27 +190,27 @@ public static class NntpUtil
             var tz = string.Empty;
             if (ipos > 0)
             {
-                tz = nntpDateTime.Substring(ipos + 1).Trim();
-                nntpDateTime = nntpDateTime.Substring(0, ipos - 1).Trim();
+                tz = nntpDateTime[(ipos + 1)..].Trim();
+                nntpDateTime = nntpDateTime[..(ipos - 1)].Trim();
             }
             else if (ineg > 0)
             {
-                tz = nntpDateTime.Substring(ineg + 1).Trim();
-                nntpDateTime = nntpDateTime.Substring(0, ineg - 1).Trim();
+                tz = nntpDateTime[(ineg + 1)..].Trim();
+                nntpDateTime = nntpDateTime[..(ineg - 1)].Trim();
             }
 
             var indGMT = nntpDateTime.IndexOf("GMT", StringComparison.Ordinal);
 
             if (indGMT > 0 && ineg < 0 && ipos < 0)
             {
-                nntpDateTime = nntpDateTime.Substring(0, indGMT - 1).Trim();
+                nntpDateTime = nntpDateTime[..(indGMT - 1)].Trim();
             }
 
             if (DateTime.TryParse(nntpDateTime, out var dtc))
             {
                 if (ipos > 0)
                 {
-                    var ts = TimeSpan.FromHours(tz.Substring(0, 2).ToType<int>()) +
+                    var ts = TimeSpan.FromHours(tz[..2].ToType<int>()) +
                              TimeSpan.FromMinutes(tz.Substring(2, 2).ToType<int>());
                     tzi = ts.Minutes;
                     return dtc + ts;
@@ -215,7 +218,7 @@ public static class NntpUtil
 
                 if (ineg > 0)
                 {
-                    var ts = TimeSpan.FromHours(tz.Substring(0, 2).ToType<int>()) +
+                    var ts = TimeSpan.FromHours(tz[..2].ToType<int>()) +
                              TimeSpan.FromMinutes(tz.Substring(2, 2).ToType<int>());
                     tzi = ts.Minutes;
                     return dtc - ts;
@@ -227,7 +230,7 @@ public static class NntpUtil
         }
         catch (Exception ex)
         {
-            BoardContext.Current.Get<ILoggerService>().Log(
+            BoardContext.Current.Get<ILogger<IRepository<Nntp>>>().Log(
                 BoardContext.Current.PageUserID,
                 "NntpUtil",
                 $"Unhandled NNTP DateTime nntpDateTime '{nntpDateTime}': {ex}");
@@ -258,7 +261,7 @@ public static class NntpUtil
         string line;
         MemoryStream ms;
         byte[] bytes;
-        switch (part.ContentType.Substring(0, part.ContentType.IndexOf('/')).ToUpper())
+        switch (part.ContentType[..part.ContentType.IndexOf('/')].ToUpper())
         {
             case "MULTIPART":
                 while ((line = sr.ReadLine()) != null && line != separator && line != $"{separator}--")
@@ -303,8 +306,7 @@ public static class NntpUtil
                         if (m.Success)
                         {
                             newPart.Filename = Base64HeaderDecode(m.Groups[1].ToString());
-                            newPart.Filename = newPart.Filename.Substring(
-                                newPart.Filename.LastIndexOfAny(new[] { '\\', '/' }) + 1);
+                            newPart.Filename = newPart.Filename[(newPart.Filename.LastIndexOfAny(new[] { '\\', '/' }) + 1)..];
                         }
 
                         line = sr.ReadLine();

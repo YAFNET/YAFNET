@@ -1,0 +1,581 @@
+﻿@page "{u:int}/{name}/{handler?}"
+
+@using System.Globalization
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Model
+@using YAF.Core.Services
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Models
+
+@model UserProfileModel
+
+@{
+    Model.PageBoardContext.CurrentForumPage.PageTitle = Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName());
+}
+
+<div class="row justify-content-between">
+    <div class="col-auto">
+        <h1>
+            @Html.UserLabel(Model.CombinedUser.Item1)
+        </h1>
+
+        @if (Model.ShowAddBuddyLink)
+            {
+                <form method="post">
+                    <button type="submit"
+                            asp-page-handler="AddBuddy"
+                            button-style="Success"
+                            icon="user-plus"
+                            text-localized-page="PAGE"
+                            text-localized-tag="ADDBUDDY"
+                            class=" mb-1"></button>
+                </form>
+            }
+
+        @if (Model.ShowRemoveBuddyLink)
+        {
+            <form method="post" class="d-inline-block">
+                <button type="submit"
+                        asp-page-handler="RemoveBuddy"
+                        button-style="Danger"
+                        icon="user-minus"
+                        text-localized-page="PAGE"
+                        text-localized-tag="REMOVEBUDDY"
+                        return-confirm-tag="NOTIFICATION_REMOVE"
+                        class=" mb-1"></button>
+            </form>
+        }
+
+    <form method="post" class="d-inline-block">
+        @if (Model.ShowPmLink)
+        {
+            <a role="button"
+               button-style="Info"
+               class=" mb-1"
+               icon="envelope-open-text"
+               text-localized-page="POSTS"
+               text-localized-tag="PM"
+               title-param0="@Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName())"
+               title-localized-page="POSTS"
+               title-localized-tag="PM_TITLE"
+               bs-toggle="tooltip"
+               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { u = Model.CombinedUser.Item1.ID }))"></a>
+        }
+
+        @if (Model.ShowEmailLink)
+        {
+            <a role="button"
+               button-style="Info"
+               class=" mb-1"
+               icon="at"
+               text-localized-page="POSTS"
+               text-localized-tag="EMAIL"
+               title-param0="@Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName())"
+               title-localized-page="POSTS"
+               title-localized-tag="EMAIL_TITLE"
+               bs-toggle="tooltip"
+               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = Model.CombinedUser.Item1.ID }))"></a>
+        }
+
+            @if (Model.PageBoardContext.IsAdmin)
+        {
+            <a role="button"
+               button-style="Danger"
+               class=" mb-1"
+               icon="user-cog"
+               text-localized-page="PROFILE"
+               text-localized-tag="ADMIN_USER"
+               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = Model.CombinedUser.Item1.ID }))"></a>
+        }
+
+    </form>
+
+    </div>
+    <div class="col-auto">
+        <img style="max-width: @Html.Raw(Model.PageBoardContext.BoardSettings.AvatarWidth); max-height: @Html.Raw(Model.PageBoardContext.BoardSettings.AvatarHeight)"
+             src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(Model.CombinedUser.Item1))"
+             alt="avatar" class="img-fluid rounded"/>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-3">
+        <!--left col-->
+    <ul class="list-group mb-3">
+        <li class="list-group-item link-light bg-primary">
+            @Html.LocalizedText("PROFILE", "PROFILE")
+        </li>
+        <li class="list-group-item text-end">
+            <span class="float-start fw-bold">
+                @Html.LocalizedText("PROFILE", "JOINED")
+            </span>
+            @Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(Model.CombinedUser.Item1.Joined))
+        </li>
+        <li class="list-group-item text-end">
+            <span class="float-start fw-bold">
+                @Html.LocalizedText("PROFILE", "LASTVISIT")
+            </span>
+
+            @if (!Model.PageBoardContext.IsAdmin && Model.CombinedUser.Item1.UserFlags.IsActiveExcluded)
+            {
+                @Html.LocalizedText("COMMON", "HIDDEN")
+            }
+            else
+            {
+                @Html.DisplayDateTime(DateTimeFormat.Both, Model.CombinedUser.Item1.LastVisit)
+            }
+
+        </li>
+
+        @if (Model.CombinedUser.Item2.Profile_RealName.IsSet())
+        {
+            <li class="list-group-item text-end">
+                <span class="float-start fw-bold">
+                    @Html.LocalizedText("PROFILE", "REALNAME")
+                </span>
+                @Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_RealName))
+            </li>
+        }
+
+
+            @if (Model.PageBoardContext.BoardSettings.ShowGroupsProfile || Model.PageBoardContext.IsAdmin)
+        {
+            <li class="list-group-item text-end">
+                <span class="float-start fw-bold">
+                    @Html.LocalizedText("PROFILE", "GROUPS")
+                </span>
+                <ul class="list-inline">
+                    @foreach (var group in Model.Groups)
+                    {
+                        <li class="list-inline-item">
+                            <span style="@group.Style">
+                                @group.Name
+                            </span>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+
+        @if (Model.CombinedUser.Item3.Name.IsSet())
+        {
+            <li class="list-group-item text-end">
+                <span class="float-start fw-bold">
+                    @Html.LocalizedText("PROFILE", "RANK")
+                </span>
+                    @Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item3.Name))
+            </li>
+        }
+
+        @if (Model.CombinedUser.Item2.Profile_Country.IsSet() && !Model.CombinedUser.Item2.Profile_Country.Equals("N/A"))
+        {
+            <li class="list-group-item text-end">
+                <span class="float-start fw-bold">
+                    @Html.LocalizedText("PROFILE", "COUNTRY")
+                </span>
+                @Html.Raw($"<span class=\"fi fi-{Model.CombinedUser.Item2.Profile_Country.Trim().ToLower()}\"></span>")
+                    &nbsp;@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.Get<ILocalization>().GetText("COUNTRY", Model.CombinedUser.Item2.Profile_Country.Trim())))
+            </li>
+        }
+
+        @if (Model.CombinedUser.Item2.Profile_Region.IsSet())
+        {
+            var tag = $"RGN_{(Model.CombinedUser.Item2.Profile_Country.Trim().IsSet() ? Model.CombinedUser.Item2.Profile_Country.Trim() : Model.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant())}_{Model.CombinedUser.Item2.Profile_Region}";
+
+            <li class="list-group-item text-end">
+                <span class="float-start fw-bold">
+                    @Html.LocalizedText("PROFILE", "REGION")
+                </span>
+
+
+                    @Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.Get<ILocalization>().GetText("REGION", tag)))
+            </li>
+        }
+
+        @if (Model.CombinedUser.Item2.Profile_City.IsSet())
+        {
+            <li class="list-group-item text-end">
+                <span class="float-start fw-bold">
+                    @Html.LocalizedText("PROFILE", "CITY")
+                </span>
+                @Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_City))
+            </li>
+        }
+
+        @if (Model.CombinedUser.Item2.Profile_Location.IsSet())
+        {
+            <li class="list-group-item text-end text-break">
+                <span class="float-start fw-bold">
+                    @Html.LocalizedText("PROFILE", "LOCATION")
+                </span>
+                    @Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_Location))
+            </li>
+        }
+
+        @if (Model.CombinedUser.Item2.Profile_Birthday.HasValue && Model.CombinedUser.Item2.Profile_Birthday.Value >= DateTimeHelper.SqlDbMinTime())
+        {
+            <li class="list-group-item text-end">
+                <span class="float-start fw-bold">
+                    @Html.LocalizedText("PROFILE", "BIRTHDAY")
+                </span>
+                @Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(
+                    Model.CombinedUser.Item2.Profile_Birthday.Value.AddMinutes(-DateTimeHelper.GetTimeZoneOffset(Model.CombinedUser.Item1.TimeZoneInfo))))
+            </li>
+        }
+
+        @if (Model.CombinedUser.Item2.Profile_Occupation.IsSet())
+        {
+            <li class="list-group-item text-end text-break">
+                <span class="float-start fw-bold">
+                    @Html.LocalizedText("PROFILE", "OCCUPATION")
+                </span>
+                    @Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_Occupation))
+            </li>
+        }
+
+        @if (Model.CombinedUser.Item2.Profile_Gender > 0)
+        {
+            var genders = EnumExtensions.GetAllItems<Gender>().ToList();
+
+            <li class="list-group-item text-end">
+                <span class="float-start fw-bold">
+                    @Html.LocalizedText("PROFILE", "GENDER")
+                </span>
+                @Html.LocalizedText("GENDER", genders[Model.CombinedUser.Item2.Profile_Gender].ToString())
+            </li>
+        }
+
+        @foreach (var item in Model.CustomProfile)
+        {
+            <li class="list-group-item text-end">
+                <span class="float-start fw-bold">
+                    @item.Item2.Name:
+                </span>
+                    @Html.HtmlEncode(item.Item1.Value)
+            </li>
+        }
+    </ul>
+
+    @if (Model.CombinedUser.Item2.Profile_Homepage.IsSet())
+    {
+        <div class="card mb-3">
+            <div class="card-header link-light bg-primary">
+                @Html.LocalizedText("PROFILE", "HOME")
+            </div>
+            <div class="card-body">
+                <a href="@Html.Raw(Model.CombinedUser.Item2.Profile_Homepage)"
+                   text-localized-page="PROFILE"
+                   text-localized-tag="HOME"></a>
+            </div>
+        </div>
+    }
+
+    <ul class="list-group mb-3">
+        <li class="list-group-item link-light bg-primary">
+            @Html.LocalizedText("PROFILE", "STATISTICS")
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-end">
+            <span class="fw-bold">
+                @Html.LocalizedText("PROFILE", "numposts")
+            </span>
+            <span class="ms-1 text-end">
+                @Model.Stats
+            </span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-end">
+            <span class="fw-bold">
+                @Html.LocalizedText("PROFILE", "THANKSFROM")
+            </span>
+            <span class="ms-1">
+                @Html.Raw(Model.GetRepository<Thanks>().ThanksFromUser(Model.CombinedUser.Item1.ID).ToString())
+            </span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-end">
+            <span class="fw-bold">
+                @Html.LocalizedText("PROFILE", "THANKSTOTIMES")
+            </span>
+            <span class="ms-1">
+                @Html.Raw(Model.Thanks.ThanksReceived)
+            </span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-end">
+            <span class="fw-bold">
+                @Html.LocalizedText("PROFILE", "THANKSTOPOSTS")
+            </span>
+            <span class="ms-1">
+                @Html.Raw(Model.Thanks.Posts.ToString())
+            </span>
+        </li>
+
+        @if (Model.PageBoardContext.BoardSettings.EnableUserReputation)
+        {
+            <li class="list-group-item">
+                <span class="fw-bold">
+                    @Html.LocalizedText("PROFILE", "REPUTATION_RECEIVED")
+                </span>
+                @Html.Raw(Model.Get<IReputation>().GenerateReputationBar(Model.CombinedUser.Item1.Points, Model.CombinedUser.Item1.ID))
+            </li>
+        }
+
+        @if (Model.Medals.IsSet())
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-end">
+                <span class="fw-bold">
+                    @Html.LocalizedText("PROFILE", "MEDALS")
+                </span>
+                <span class="ms-1">
+                    @Html.Raw(Model.Medals)
+                </span>
+            </li>
+        }
+
+    </ul>
+
+    @if (Model.ShowSocialMediaCard)
+    {
+        <div class="card mb-3">
+            <div class="card-header link-light bg-primary">
+                @Html.LocalizedText("PROFILE", "SOCIAL_MEDIA")
+            </div>
+            <div class="card-body">
+                @if (Model.BlogUrl.IsSet())
+                {
+                    <a role="button"
+                       target="_blank"
+                       rel="nofollow"
+                       button-style="None"
+                       text-localized-page="POSTS"
+                       text-localized-tag="BLOG"
+                       title-localized-page="POSTS"
+                       title-localized-tag="BLOG_TITLE"
+                       title-param0="@Html.Raw(Model.CombinedUser.Item1.DisplayOrUserName())"
+                       bs-toggle="tooltip"
+                       href="@Model.BlogUrl"></a>
+                }
+
+                @if (Model.XmppUrl.IsSet())
+                {
+                    <a role="button"
+                       button-style="None"
+                       text-localized-page="POSTS"
+                       text-localized-tag="XMPP"
+                       title-localized-page="POSTS"
+                       title-localized-tag="XMPP_TITLE"
+                       title-param0="@Html.Raw(Model.CombinedUser.Item1.DisplayOrUserName())"
+                       bs-toggle="tooltip"
+                       href="@Model.XmppUrl"></a>
+                }
+
+                @if (Model.SkypeUrl.IsSet())
+                {
+                    <a role="button"
+                       button-style="None"
+                       icon="skype"
+                       icon-css-class="fab"
+                       title-localized-page="POSTS"
+                       title-localized-tag="SKYPE_TITLE"
+                       title-param0="@Html.Raw(Model.CombinedUser.Item1.DisplayOrUserName())"
+                       bs-toggle="tooltip"
+                       href="@Model.SkypeUrl"></a>
+                }
+
+                @if (Model.FacebookUrl.IsSet())
+                {
+                    <a role="button"
+                       button-style="None"
+                       icon="facebook"
+                       icon-css-class="fab"
+                       title-localized-page="POSTS"
+                       title-localized-tag="FACEBOOK_TITLE"
+                       title-param0="@Html.Raw(Model.CombinedUser.Item1.DisplayOrUserName())"
+                       bs-toggle="tooltip"
+                       href="@Model.FacebookUrl"></a>
+                }
+
+                @if (Model.TwitterUrl.IsSet())
+                {
+                    <a role="button"
+                       button-style="None"
+                       icon="twitter"
+                       icon-css-class="fab"
+                       title-localized-page="POSTS"
+                       title-localized-tag="TWITTER_TITLE"
+                       title-param0="@Html.Raw(Model.CombinedUser.Item1.DisplayOrUserName())"
+                       bs-toggle="tooltip"
+                       href="@Model.TwitterUrl"></a>
+                }
+            </div>
+        </div>
+    }
+
+    </div>
+    <!--/col-3-->
+    <div class="col-md-9">
+        @if (Model.CombinedUser.Item2.Profile_Interests.IsSet())
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.LocalizedText("PROFILE", "interests")
+                </div>
+                <div class="card-body">
+                    @Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.CombinedUser.Item2.Profile_Interests))
+                </div>
+            </div>
+        }
+
+        @if (!Model.LastPosts.NullOrEmpty())
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.LocalizedText("PROFILE", "LAST10")
+                </div>
+                <div class="card-body">
+                    <a role="button" button-style="Secondary"
+                       text-localized-page="POSTS"
+                       text-localized-tag="SEARCHUSER"
+                       icon="search"
+                       class=" mb-3"
+                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Search, new { postedby = Model.CombinedUser.Item1.DisplayOrUserName() }))"></a>
+
+
+                    @foreach (var message in Model.LastPosts)
+                    {
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                @Html.Icon("comment", "", "far")
+                                <span class="fw-bold">
+                                    @Html.LocalizedText("TOPIC")
+                                </span>
+                                <a role="button"
+                                   title-localized-page="COMMON"
+                                   title-localized-tag="VIEW_TOPIC"
+                                   bs-toggle="tooltip"
+                                   href="@Html.Raw(Model.Get<LinkBuilder>().GetTopicLink(message.Item2.ID, message.Item2.TopicName))"
+                                   text="@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(message.Item2.TopicName))">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <message show-attachments="false"
+                                         current-message="@message.Item1"></message>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">
+                                    @Html.LocalizedText("POSTED")
+                                    &nbsp;
+                                    @Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(message.Item1.Posted))
+                                </small>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        @if (Model.PageBoardContext.IsAdmin || Model.PageBoardContext.IsForumModerator)
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.LocalizedText("PROFILE", "MODERATION")
+                </div>
+                <div class="card-body">
+                    @if (Model.CombinedUser.Item1.Suspended.HasValue)
+                    {
+                        var suspendedByUser = Model.GetRepository<User>().GetById(Model.CombinedUser.Item1.SuspendedBy);
+
+                        <div class="alert alert-warning" role="alert">
+                            <h4 class="alert-heading">
+                                @Html.LocalizedText("PROFILE", "SUSPEND_CURRENT")
+                            </h4>
+                            <p>
+                                <strong>
+                                    @Html.LocalizedText("PROFILE", "SUSPEND_REASON")
+                                </strong>
+                                @Model.CombinedUser.Item1.SuspendedReason
+                                <strong> @Html.LocalizedText("PROFILE", "SUSPEND_BY")</strong>
+                                @Html.UserLink(suspendedByUser)
+                                <strong> @Html.LocalizedText("PROFILE", "ENDS")</strong>
+                                @Html.Raw(Model.Get<IDateTimeService>().GetUserDateTime(
+                                    Model.CombinedUser.Item1.Suspended.Value,
+                                    Model.CombinedUser.Item1.TimeZoneInfo).ToString(CultureInfo.InvariantCulture))
+                            </p>
+                            <hr />
+                            <form method="post" class="mb-0">
+                                <button type="submit"
+                                        asp-page-handler="RemoveSuspension"
+                                        button-style="Danger"
+                                        button-size="Small"
+                                        text-localized-page="PROFILE"
+                                        text-localized-tag="REMOVESUSPENSION"
+                                        icon="flag"></button>
+                            </form>
+                        </div>
+                        <hr />
+                    }
+                    <form method="post">
+                        <h2>
+                            @Html.LocalizedText("PROFILE", "SUSPEND_NEW")
+                        </h2>
+                        <div class="mb-3">
+                            <label asp-for="SuspendReason" class="form-label"
+                                   localized-page="PROFILE" localized-tag="SUSPEND_REASON">
+                            </label>
+                            <textarea asp-for="SuspendReason" class="form-control" rows="3" cols="20"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="SuspendCount" class="form-label"
+                                   localized-page="PROFILE" localized-tag="SUSPEND_USER">
+                            </label>
+                            <div class="input-group">
+                                <input asp-for="SuspendCount" class="form-control" />
+                                <select asp-for="SuspendUnit" asp-items="Model.SuspendUnits" class="form-select" title="Suspend Unit"></select>
+                            </div>
+                        </div>
+                        <div class="text-break alert alert-info" role="alert">
+                            @Html.Icon("info-circle")
+                            @Html.Raw(Model.Get<ILocalization>().GetTextFormatted(
+                                "SUSPEND_INFO",
+                                Model.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow, Model.CombinedUser.Item1.TimeZoneInfo)
+                                    .ToString(CultureInfo.InvariantCulture)))
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit"
+                                    asp-page-handler="Suspend"
+                                    button-style="Primary"
+                                    icon="flag"
+                                    text-localized-page="PROFILE"
+                                    text-localized-tag="SUSPEND"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+
+        @if (!Model.Friends.NullOrEmpty())
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.LocalizedText("PROFILE", Model.CombinedUser.Item1.ID == Model.PageBoardContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE")
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        @foreach (var user in Model.Friends)
+                        {
+                            <li class="list-group-item">
+                                @Html.UserLink(user.UserID,
+                        Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name,
+                                    user.Suspended, 
+                                    user.UserStyle)
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+</div>

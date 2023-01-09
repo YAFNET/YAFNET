@@ -26,13 +26,12 @@ namespace YAF.Core.ForumModules;
 using System;
 
 using YAF.Core.BaseModules;
-using YAF.Core.Tasks;
 using YAF.Types.Attributes;
 
 /// <summary>
 /// The user clean up task module.
 /// </summary>
-[Module("Clean Up User Task Starting Module", "Tiny Gecko", 1)]
+[Module("Clean Up PageUser Task Starting Module", "Tiny Gecko", 1)]
 public class UserCleanUpTaskForumModule : BaseForumModule
 {
     /// <summary>
@@ -41,7 +40,7 @@ public class UserCleanUpTaskForumModule : BaseForumModule
     public override void Init()
     {
         // hook the page init for mail sending...
-        this.PageBoardContext.AfterInit += this.Current_AfterInit;
+        this.PageContext.AfterInit += this.Current_AfterInit;
     }
 
     /// <summary>

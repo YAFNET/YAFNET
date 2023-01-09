@@ -21,9 +21,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.BBCodes;
 
-using YAF.Web.Controls;
+namespace YAF.Web.BBCodes;
 
 /// <summary>
 /// The BB Code UserLink Module
@@ -33,10 +32,10 @@ public class UserLinkBBCodeModule : BBCodeControl
     /// <summary>
     /// The render.
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
+    /// <param name="stringBuilder">
+    /// The string Builder.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    public override void Render(StringBuilder stringBuilder)
     {
         var userName = this.Parameters["inner"];
 
@@ -58,31 +57,29 @@ public class UserLinkBBCodeModule : BBCodeControl
 
             if (boardUser == null)
             {
-                writer.Write(this.HtmlEncode(userName));
+                stringBuilder.Append(this.HtmlEncode(userName));
                 return;
             }
 
-            var userLink = new UserLink
-                               {
-                                   Suspended = boardUser.Suspended,
-                                   UserID = boardUser.ID,
-                                   Style = boardUser.UserStyle,
-                                   ReplaceName = boardUser.DisplayOrUserName(),
-                                   CssClass = "btn btn-outline-primary",
-                                   BlankTarget = true,
-                                   ID = $"UserLinkBBCodeFor{boardUser.ID}"
-                               };
+            var userLink = this.Get<IHtmlHelper>().UserLink(
+                boardUser.ID,
+                boardUser.DisplayOrUserName(),
+                boardUser.Suspended,
+                boardUser.UserStyle,
+                true,
+                " btn btn-outline-primary");
 
-            writer.Write("<!-- BEGIN userlink -->");
-            writer.Write(@"<span>");
-            userLink.RenderControl(writer);
+            stringBuilder.Append("<!-- BEGIN user link -->");
+            stringBuilder.Append(@"<span>");
+                
+            stringBuilder.Append(userLink.RenderToString());
 
-            writer.Write("</span>");
-            writer.Write("<!-- END userlink -->");
+            stringBuilder.Append("</span>");
+            stringBuilder.Append("<!-- END user link -->");
         }
         else
         {
-            writer.Write(this.HtmlEncode(userName));
+            stringBuilder.Append(this.HtmlEncode(userName));
         }
     }
 }

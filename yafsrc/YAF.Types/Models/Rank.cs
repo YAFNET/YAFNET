@@ -79,7 +79,7 @@ public class Rank : IEntity, IHaveID, IHaveBoardID
     /// Gets or sets the pm limit.
     /// </summary>
     [Default(0)]
-    public int? PMLimit { get; set; }
+    public int PMLimit { get; set; }
 
     /// <summary>
     /// Gets or sets the style.

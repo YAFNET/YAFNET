@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
 
 using YAF.Types.Objects.Nntp;
@@ -314,7 +313,7 @@ public class NntpConnection : IDisposable
         }
 
         var i = res.Message.IndexOf(' ');
-        return int.Parse(res.Message.Substring(0, i));
+        return int.Parse(res.Message[..i]);
     }
 
     /// <summary>
@@ -433,7 +432,7 @@ public class NntpConnection : IDisposable
         }
 
         var i = res.Message.IndexOf(' ');
-        article.ArticleId = int.Parse(res.Message.Substring(0, i));
+        article.ArticleId = int.Parse(res.Message[..i]);
         var end = res.Message.Substring(i, res.Message.Length - i - 1).Trim().IndexOf(' ');
         if (end == -1)
         {
@@ -595,7 +594,7 @@ public class NntpConnection : IDisposable
 
             try
             {
-                code = int.Parse(line.Substring(0, 3));
+                code = int.Parse(line[..3]);
             }
             catch (NullReferenceException)
             {
@@ -620,7 +619,7 @@ public class NntpConnection : IDisposable
 
             if (code != 480)
             {
-                return new Response(code, line.Length >= 5 ? line.Substring(4) : null, request);
+                return new Response(code, line.Length >= 5 ? line[4..] : null, request);
             }
 
             if (this.SendIdentity())
@@ -628,7 +627,7 @@ public class NntpConnection : IDisposable
                 continue;
             }
 
-            return new Response(code, line.Length >= 5 ? line.Substring(4) : null, request);
+            return new Response(code, line.Length >= 5 ? line[4..] : null, request);
         }
     }
 
@@ -663,8 +662,8 @@ public class NntpConnection : IDisposable
                     continue;
                 }
 
-                name = response.Substring(0, i).ToUpper();
-                value = response.Substring(i + 1);
+                name = response[..i].ToUpper();
+                value = response[(i + 1)..];
             }
 
             switch (name)
@@ -694,13 +693,12 @@ public class NntpConnection : IDisposable
                     header.LineCount = int.Parse(value);
                     break;
                 case "MIME-VERSION":
-                    part = new MIMEPart {
-                                                ContentType = "TEXT/PLAIN",
-                                                Charset = "US-ASCII",
-                                                ContentTransferEncoding = "7BIT",
-                                                Filename = null,
-                                                Boundary = null
-                                            };
+                    part = new MIMEPart
+                               {
+                                   ContentType = "TEXT/PLAIN", Charset = "US-ASCII", ContentTransferEncoding = "7BIT",
+                                   Filename = null,
+                                   Boundary = null
+                               };
                     break;
                 case "CONTENT-TYPE":
                     if (part != null)

@@ -32,10 +32,10 @@ public class HideReplyThanksModule : BBCodeControl
     /// <summary>
     /// The render.
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
+    /// <param name="stringBuilder">
+    /// The string Builder.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    public override void Render(StringBuilder stringBuilder)
     {
         var hiddenContent = this.Parameters["inner"];
 
@@ -60,7 +60,7 @@ public class HideReplyThanksModule : BBCodeControl
 
         if (BoardContext.Current.IsAdmin)
         {
-            writer.Write(hiddenContent);
+            stringBuilder.Append(hiddenContent);
             return;
         }
 
@@ -69,18 +69,18 @@ public class HideReplyThanksModule : BBCodeControl
         // Handle Hide Thanks
         if (BoardContext.Current.IsGuest)
         {
-            writer.Write(shownContentGuest);
+            stringBuilder.Append(shownContentGuest);
             return;
         }
 
         if (this.DisplayUserID == userId ||
             this.GetRepository<Thanks>().ThankedMessage(messageId.ToType<int>(), userId) ||
-            this.GetRepository<Message>().RepliedTopic(this.PageBoardContext.PageTopicID, userId))
+            this.GetRepository<Message>().RepliedTopic(this.PageContext.PageTopicID, userId))
         {
             // Show hidden content if user is the poster or have thanked the poster.
             shownContent = hiddenContent;
         }
 
-        writer.Write(shownContent);
+        stringBuilder.Append(shownContent);
     }
 }

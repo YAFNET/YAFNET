@@ -24,6 +24,8 @@
 
 namespace YAF.Types.Interfaces.Services;
 
+using YAF.Types.Objects;
+
 /// <summary>
 /// The ThankYou interface.
 /// </summary>

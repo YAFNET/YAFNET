@@ -24,11 +24,11 @@
 
 namespace YAF.Core.Utilities;
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 
-using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 using YAF.Types.Objects;
 
@@ -44,6 +44,7 @@ public static class MimeTypes
     /// </summary>
     private static List<MimeType> mimeTypes;
 
+
     /// <summary>
     /// Check if File Content Type is correct
     /// </summary>
@@ -53,7 +54,7 @@ public static class MimeTypes
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool FileMatchContentType(HttpPostedFile file)
+    public static bool FileMatchContentType(IFormFile file)
     {
         return FileMatchContentType(file.FileName, file.ContentType);
     }
@@ -79,11 +80,11 @@ public static class MimeTypes
 
         var extension = Path.GetExtension(fileName).Replace(".", string.Empty).ToLower();
 
-        var isMatch = mimeTypes.Where(m => m.Extension == extension).Any(m => m.Type == contentType);
+        var isMatch = mimeTypes.Where(m => m.Extension == extension).ToList().Any(m => m.Extension == extension && m.Type == contentType);
 
         if (!isMatch)
         {
-            BoardContext.Current.Get<ILoggerService>().Info($"Mimetype for Extension: '{extension}' with type: '{contentType}' not found!");
+            BoardContext.Current.Get<ILogger<MimeType>>().Info($"Mimetype for Extension: '{extension}' with type: '{contentType}' not found!");
         }
 
         return isMatch;
@@ -94,12 +95,10 @@ public static class MimeTypes
     /// </summary>
     private static void InitializeMimeTypeLists()
     {
-        var jsonFile = BoardContext.Current.Get<HttpContextBase>().Server.MapPath(
-            $"{BoardInfo.ForumServerFileRoot}Resources/mimeTypes.json");
+        mimeTypes = new List<MimeType>();
 
-        mimeTypes = BoardContext.Current.Get<IDataCache>().GetOrSet(
-            "MimeTypes",
-            () => JsonConvert.DeserializeObject<List<MimeType>>(File.ReadAllText(jsonFile)),
-            TimeSpan.FromDays(30));
+        var config = BoardContext.Current.Get<IConfiguration>();
+
+        config.GetSection(nameof(MimeType)).Bind(mimeTypes);
     }
 }

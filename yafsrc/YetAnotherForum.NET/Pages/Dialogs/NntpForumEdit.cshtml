@@ -1,0 +1,109 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Interfaces
+@using YAF.Types.Models
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+@model YAF.Types.Modals.NntpForumEditModal
+
+@inject BoardContext Current
+
+@{
+    var servers = new SelectList(Current.GetRepository<NntpServer>().GetByBoardId().OrderBy(s => s.Name), 
+        nameof(NntpServer.ID), 
+        nameof(NntpServer.Name));
+}
+
+<!-- Modal -->
+<div class="modal fade" id="NntpForumEditDialog" tabindex="-1" role="dialog" aria-labelledby="NntpForumEditDialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    @Html.LocalizedText("ADMIN_EDITNNTPFORUM", Model.Id.HasValue ? "TITLE_EDIT" : "TITLE")
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Nntp" asp-action="EditForum" class="needs-validation">
+                    <!-- Modal Content START !-->
+                    <input asp-for="Id" type="hidden" value="@Model.Id" />
+                    <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label info-button="true" class="form-label"
+                                       asp-for="NntpServerID"
+                                               localized-tag="SERVER" LocalizedPage="ADMIN_EDITNNTPFORUM"></label>
+                                <select asp-for="NntpServerID" asp-items="servers"
+                                        class="select2-select"></select>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label info-button="true" class="form-label"
+                                       asp-for="GroupName"
+                                       localized-tag="GROUP" localized-page="ADMIN_EDITNNTPFORUM"></label>
+                                <input asp-for="GroupName" type="text"
+                                             required="required"
+                                             class="form-control" />
+                                <div class="invalid-feedback">
+                                    @Html.LocalizedText("ADMIN_EDITNNTPFORUM","MSG_VALID_GROUP")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label info-button="true" class="form-label"
+                                   asp-for="ForumID"
+                                   localized-tag="FORUM" localized-page="ADMIN_EDITNNTPFORUM"></label>
+                            <select id="ForumList" name="forumList"></select>
+                            <input type="hidden" asp-for="ForumID" Value="@Model.ForumID" />
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-auto">
+                                <label info-button="true" class="form-label"
+                                       asp-for="DateCutOff"
+                                       localized-tag="DATECUTOFF" localized-page="ADMIN_EDITNNTPFORUM"></label>
+                                <input asp-for="DateCutOff" type="datetime"
+                                       class="form-control" />
+                            </div>
+                            <div class="mb-3 col-auto">
+                                <label info-button="true" class="form-label"
+                                       asp-for="Active"
+                                       localized-tag="ACTIVE" localized-page="ADMIN_EDITNNTPFORUM"></label>
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" asp-for="Active" class="form-check-input" />
+                                </div>
+                            </div>
+                        </div>
+                    <!-- Modal Content END !-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button button-style="Primary" data-bs-save="editModal"
+                        text-localized-tag="@(Model.Id.HasValue ? "SAVE": "TITLE")"
+                        text-localized-page="ADMIN_EDITNNTPFORUM"
+                        Icon="save">
+                </button>
+                <button type="button" button-style="Secondary" icon="times" data-bs-dismiss="modal" text-localized-tag="CANCEL"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+
+     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectForumsLoadJs(
+         "ForumList",
+         Current.Get<ILocalization>().GetText("ADMIN_EDITNNTPFORUM", "FORUM"),
+         false,
+         false,
+         "ForumID")));
+     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.FormValidatorJQueryJs()));
+     
+     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ToolTipJs()));
+     
+     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.Select2LoadJs()));
+</script>

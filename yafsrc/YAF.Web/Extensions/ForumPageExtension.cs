@@ -25,7 +25,6 @@
 namespace YAF.Web.Extensions;
 
 using YAF.Core.BasePages;
-using YAF.Web.Controls;
 
 public static class ForumPageExtensions
 {
@@ -35,30 +34,28 @@ public static class ForumPageExtensions
 
         var pageString = string.Empty;
 
-        if (page.PageType is ForumPages.Posts or ForumPages.Topics)
+        if (page.PageName is ForumPages.Posts or ForumPages.Topics)
         {
             // get current page...
-            var currentPager = page.FindControlAs<Pager>("Pager");
-
-            if (currentPager != null && currentPager.CurrentPageIndex != 0)
+            if (BoardContext.Current.PageIndex > 0)
             {
                 pageString = BoardContext.Current.BoardSettings.PagingTitleTemplate.Replace(
                     "{paging}",
-                    $"{BoardContext.Current.Get<ILocalization>().GetText("COMMON", "PAGE")} {currentPager.CurrentPageIndex + 1}");
+                    $"{BoardContext.Current.Get<ILocalization>().GetText("COMMON", "PAGE")} {BoardContext.Current.PageIndex + 1}");
             }
         }
 
         if (!page.IsAdminPage)
         {
-            switch (page.PageType)
+            switch (page.PageName)
             {
                 case ForumPages.Posts:
                     if (BoardContext.Current.PageTopicID != 0)
                     {
                         // Tack on the topic we're viewing
                         title.Append(
-                            BoardContext.Current.Get<IBadWordReplace>()
-                                .Replace(BoardContext.Current.PageTopic.TopicName.Truncate(80)));
+                            BoardContext.Current.Get<IBadWordReplace>().Replace(
+                                BoardContext.Current.PageTopic.TopicName.Truncate(80)));
                     }
 
                     // Append Current Page
@@ -76,7 +73,7 @@ public static class ForumPageExtensions
                     title.Append(pageString);
 
                     break;
-                case ForumPages.Board:
+                case ForumPages.Index:
                     if (BoardContext.Current.PageCategory != null && BoardContext.Current.PageCategory.Name.IsSet())
                     {
                         // Tack on the forum we're viewing
@@ -84,31 +81,68 @@ public static class ForumPageExtensions
                     }
 
                     break;
-                default:
-                    var pageLinks = BoardContext.Current.PageLinks;
-
-                    var activePageLink = pageLinks?.FirstOrDefault(link => link.URL.IsNotSet());
-
-                    if (activePageLink != null)
+                case ForumPages.Profile_DeleteAccount:
                     {
-                        // Tack on the forum we're viewing
-                        title.Append(page.HtmlEncode(activePageLink.Title.Truncate(80)));
+                        title.Append(
+                            BoardContext.Current.Get<ILocalization>().GetTextFormatted(
+                                "IM_XMPP",
+                                "TITLE",
+                                BoardContext.Current.PageUser.DisplayOrUserName()));
                     }
+
+                    break;
+                case ForumPages.Jabber:
+                    {
+                        title.Append(
+                            BoardContext.Current.Get<ILocalization>().GetTextFormatted(
+                                "DELETE_ACCOUNT",
+                                "TITLE",
+                                BoardContext.Current.PageUser.DisplayOrUserName()));
+                    }
+
+                    break;
+                case ForumPages.Privacy:
+                    {
+                        title.Append(BoardContext.Current.Get<ILocalization>().GetText("COMMON", "PRIVACY_POLICY"));
+                    }
+
+                    break;
+                case ForumPages.MyAccount:
+                    {
+                        title.Append(BoardContext.Current.Get<ILocalization>().GetText("ACCOUNT", "YOUR_ACCOUNT"));
+                    }
+
+                    break;
+                case ForumPages.Moderate_UnapprovedPosts:
+                case ForumPages.Moderate_ReportedPosts:
+                case ForumPages.Moderate_Forums:
+                    {
+                        title.Append(page.HtmlEncode(BoardContext.Current.PageForum.Name));
+                    }
+
+                    break;
+                case ForumPages.Moderate_Moderate:
+                    {
+                        title.Append(BoardContext.Current.Get<ILocalization>().GetText("MODERATE_DEFAULT", "MODERATEINDEX_TITLE"));
+                    }
+
+                    break;
+                case ForumPages.Friends:
+                    {
+                        title.Append(BoardContext.Current.Get<ILocalization>().GetText("BUDDYLIST_TT"));
+                    }
+
+                    break;
+
+                default:
+                    title.Append(page.HtmlEncode(page.PageTitle));
 
                     break;
             }
         }
         else
         {
-            var pageLinks = BoardContext.Current.PageLinks;
-
-            var activePageLink = pageLinks?.FirstOrDefault(link => link.URL.IsNotSet());
-
-            if (activePageLink != null)
-            {
-                // Tack on the forum we're viewing
-                title.Append(page.HtmlEncode(activePageLink.Title));
-            }
+            title.Append(page.HtmlEncode(page.PageTitle));
         }
 
         var boardName = page.HtmlEncode(BoardContext.Current.BoardSettings.Name);

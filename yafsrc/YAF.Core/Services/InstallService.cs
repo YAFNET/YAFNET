@@ -24,13 +24,14 @@
 
 namespace YAF.Core.Services;
 
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.IO;
 
 using YAF.Core.Model;
 using YAF.Core.Services.Import;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
-using YAF.Types.Models.Identity;
 
 /// <summary>
 ///     The install upgrade service.
@@ -40,12 +41,12 @@ public class InstallService : IHaveServiceLocator
     /// <summary>
     ///     The BBCode extensions import xml file.
     /// </summary>
-    private const string BbcodeImport = "Install/BBCodeExtensions.xml";
+    private const string BbcodeImport = "BBCodeExtensions.xml";
 
     /// <summary>
     ///     The Spam Words list import xml file.
     /// </summary>
-    private const string SpamWordsImport = "Install/SpamWords.xml";
+    private const string SpamWordsImport = "SpamWords.xml";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="InstallService"/> class.
@@ -181,7 +182,7 @@ public class InstallService : IHaveServiceLocator
             adminEmail,
             adminProviderUserKey,
             true,
-            Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
+            string.Empty);
 
         // reload the board settings...
         BoardContext.Current.BoardSettings = this.Get<BoardSettingsService>().LoadBoardSettings(boardId, null);
@@ -215,10 +216,10 @@ public class InstallService : IHaveServiceLocator
 
         this.ExecuteInstallScripts();
 
-        this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
-        this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
+        this.GetRepository<Registry>().Save("version", this.Get<BoardInfo>().AppVersion.ToString());
+        this.GetRepository<Registry>().Save("versionname", this.Get<BoardInfo>().AppVersionName);
 
-        this.GetRepository<Registry>().Save("cdvversion", 1);
+        this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
 
         return true;
     }
@@ -228,15 +229,12 @@ public class InstallService : IHaveServiceLocator
     /// </summary>
     private void ExecuteInstallScripts()
     {
-        if (!Config.IsDotNetNuke)
-        {
-            // Install Membership Scripts
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetRoles>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserClaims>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
-        }
+        // Install Membership Scripts
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetRoles>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserClaims>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
 
         // Run other
         this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateViews(this.DbAccess, dbCommand));
@@ -314,7 +312,7 @@ public class InstallService : IHaveServiceLocator
         var loadWrapper = new Action<string, Action<Stream>>(
             (file, streamAction) =>
                 {
-                    var fullFile = this.Get<HttpRequestBase>().MapPath(file);
+                    var fullFile = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, "Resources", file);
 
                     if (!File.Exists(fullFile))
                     {

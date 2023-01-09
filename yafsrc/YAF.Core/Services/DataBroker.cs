@@ -28,8 +28,7 @@ using System;
 using System.Collections.Generic;
 
 using YAF.Core.Model;
-using YAF.Types.Constants;
-using YAF.Types.Interfaces.Identity;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
@@ -359,10 +358,6 @@ public class DataBroker : IHaveServiceLocator
                     topicId = result.Item1.TopicID;
                     topic = result.Item2;
                 }
-                else
-                {
-                    messageId = null;
-                }
             }
 
             if (topicId.HasValue && (!categoryId.HasValue || !forumId.HasValue))
@@ -551,7 +546,7 @@ public class DataBroker : IHaveServiceLocator
                             .Where<UserGroup>(a => a.UserID == userId).Select(Sql.Count("1"))
                             .ToMergedParamsSelectStatement();
 
-                        expression.Select<ActiveAccess>(
+                        expression.Take(1).Select<ActiveAccess>(
                             x => new
                                      {
                                          ActiveUpdate = activeUpdate,
@@ -582,7 +577,7 @@ public class DataBroker : IHaveServiceLocator
                                                  $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(uploadAccessSql, 0)})"),
                                          DownloadAccess = Sql.Custom(
                                              $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(downloadAccessSql, 0)})")
-                                     }).Take(1);
+                                     });
 
                         return db.Connection.Single<PageLoad>(expression);
                     });

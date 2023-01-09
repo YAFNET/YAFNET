@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,7 +27,6 @@ namespace YAF.Core.Helpers;
 using System;
 using System.IO;
 using System.Runtime.Caching;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -43,10 +42,10 @@ public class LoadSerializedXmlFile<T>
     /// The attempt load file.
     /// </summary>
     /// <param name="xmlFileName">
-    /// The File Name.
+    /// The File Name. 
     /// </param>
     /// <param name="cacheName">
-    /// The cache Name.
+    /// The cache Name. 
     /// </param>
     /// <param name="transformResource">
     /// The transform Resource.
@@ -66,9 +65,7 @@ public class LoadSerializedXmlFile<T>
             return null;
         }
 
-        var lockObj = new object();
-
-        lock (lockObj)
+        lock (this)
         {
             var serializer = new XmlSerializer(typeof(T));
             var sourceEncoding = GetEncodingForXmlFile(xmlFileName);
@@ -102,7 +99,7 @@ public class LoadSerializedXmlFile<T>
     /// The get encoding for xml file.
     /// </summary>
     /// <param name="xmlFileName">
-    /// The xml file name.
+    /// The xml file name. 
     /// </param>
     /// <returns>
     /// The <see cref="Encoding"/>.

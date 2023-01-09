@@ -24,7 +24,7 @@
 
 namespace YAF.Core.Helpers;
 
-using YAF.Core.Utilities.StringUtils;
+using System.Web;
 
 public static class StringHelper
 {
@@ -40,7 +40,7 @@ public static class StringHelper
 
         var pascalCase = trimmedData;
 
-        pascalCase = trimmedData.ToUpper()[0] + pascalCase.Substring(1);
+        pascalCase = trimmedData.ToUpper()[0] + pascalCase[1..];
 
         var upperCaseOnly = string.Concat(pascalCase.Where(char.IsUpper));
 
@@ -49,7 +49,7 @@ public static class StringHelper
             return upperCaseOnly.ToUpper();
         }
 
-        return trimmedData.Length <= 3 ? trimmedData.ToUpper() : trimmedData.Substring(0, 3).ToUpper();
+        return trimmedData.Length <= 3 ? trimmedData.ToUpper() : trimmedData[..3].ToUpper();
     }
 
     /// <summary>

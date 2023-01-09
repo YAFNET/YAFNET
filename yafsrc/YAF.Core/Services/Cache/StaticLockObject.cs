@@ -23,6 +23,8 @@
  */
 namespace YAF.Core.Services.Cache;
 
+using YAF.Types.Attributes;
+
 /// <summary>
 /// The static lock object.
 /// </summary>

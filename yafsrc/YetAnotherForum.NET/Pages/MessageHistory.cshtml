@@ -1,0 +1,168 @@
+@page "{handler?}"
+
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Extensions
+@using YAF.Types.Objects.Model
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+@model MessageHistoryModel
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2>
+            @Html.LocalizedText("TITLE")
+        </h2>
+    </div>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("history", "MESSAGEHISTORY", "TITLE")
+                </div>
+                <div class="card-body">
+                    @if (!Model.RevisionsList.NullOrEmpty())
+                    {
+                        <ul class="list-group">
+
+                            @for (var i = 0; i < Model.RevisionsList.Count; i++)
+                            {
+                                var message = Model.Get<ISessionService>().GetPageData<List<MessageHistoryTopic>>()[i];
+
+                                <li class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">
+                                            <div class="form-check d-inline-block">
+                                                <input asp-for="@Model.RevisionsList[i].Selected" class="form-check-input" onclick="toggleSelection(this);" />
+                                                <label class="form-check-label" asp-for="@Model.RevisionsList[i].Selected">
+                                                </label>
+                                            </div>
+
+                                            <input type="hidden" asp-for="@Model.RevisionsList[i].Message" value="@Model.RevisionsList[i].Message" />
+                                            @Html.LocalizedText("POSTMESSAGE","EDITEREASON"): @Model.GetEditReason(message)
+                                            @(i.Equals(Model.RevisionsList.Count - 1) ? $"({Model.GetText("MESSAGEHISTORY", "CURRENTMESSAGE")})" : string.Empty)
+                                        </h5>
+                                        <small class="d-none d-md-block">
+                                            @Html.LocalizedText("POSTMESSAGE","EDITED"): @Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(message.Edited))
+                                        </small>
+                                    </div>
+                                    <p class="mb-1">
+                                        @Html.LocalizedText("POSTMESSAGE","EDITEDBY"):
+                                        @Html.UserLink(message.EditedBy, 
+                                            Model.PageBoardContext.BoardSettings.EnableDisplayName ? message.DisplayName : message.Name, 
+                                            message.Suspended,
+                                            message.UserStyle)
+
+                                        @if (Model.PageBoardContext.IsAdmin || Model.PageBoardContext.BoardSettings.AllowModeratorsViewIPs && Model.PageBoardContext.ForumModeratorAccess)
+                                        {
+                                            <span class="fw-bold me-2">
+                                                @Html.LocalizedText("IP"):
+                                            </span>
+                                            <a href="@(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, Model.GetIpAddress(message)))"
+                                               title="@(Model.GetText("COMMON", "TT_IPDETAILS"))"
+                                               target="_blank">
+                                                @(Model.GetIpAddress(message))
+                                            </a>
+                                        }
+
+                                        @Html.LocalizedText("POSTMESSAGE","EDITEDBY_MOD"): 
+                                        <span class="badge bg-secondary">
+                                            @Html.LocalizedText(message.IsModeratorChanged.Value ? "YES" : "NO")
+                                        </span>
+                                    </p>
+
+                                    @if (Model.PageBoardContext.IsAdmin || (Model.PageBoardContext.IsModeratorInAnyForum && !i.Equals(Model.RevisionsList.Count - 1)))
+                                    {
+                                        <small>
+                                            <button asp-page-handler="Restore"
+                                                    asp-route-f="@Request.Query["f"]"
+                                                    asp-route-m="@Request.Query["m"]"
+                                                    asp-route-edited="@message.Edited.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)"
+                                                    title-localized-tag="RESTORE_MESSAGE"
+                                                    text-localized-tag="RESTORE_MESSAGE"
+                                                    return-confirm-tag="CONFIRM_RESTORE"
+                                                    button-style="Secondary"
+                                                    button-size="Small"
+                                                    icon="undo">
+                                            </button>
+                                        </small>
+                                    }
+                                </li>
+                            }
+
+                        </ul>
+                    }
+                </div>
+                <div class="card-footer text-center">
+                    <button class="mb-1"
+                            text-localized-tag="COMPARE_VERSIONS"
+                            icon="equals"
+                            asp-page-handler="ShowDiff"
+                            asp-route-f="@Request.Query["f"]"
+                            asp-route-m="@Request.Query["m"]"
+                            button-style="Primary">
+                    </button>
+                    <button class="mb-1"
+                            asp-page-handler="Return"
+                            asp-route-f="@Request.Query["f"]"
+                            asp-route-m="@Request.Query["m"]"
+                            text-localized-tag="TOMESSAGE"
+                            button-style="Secondary"
+                            icon="external-link-square-alt">
+                    </button>
+                    
+                    @if (Request.RouteValues.ContainsKey("f"))
+                    {
+                        <button class="mb-1"
+                                asp-page-handler="ReturnForum"
+                                asp-route-f="@Request.Query["f"]"
+                                asp-route-m="@Request.Query["m"]"
+                                text-localized-tag="GOMODERATE"
+                                button-style="Secondary"
+                                icon="external-link-square-alt">
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("history","MESSAGEHISTORY", "COMPARE_TITLE")
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        @Html.LocalizedText("TEXT_CHANGES")
+                    </h6>
+                    <div id="diffContent">
+                        @if (Model.DiffText.IsNotSet())
+                        {
+                            <alert type="info" icon="info-circle" localized-tag="SELECT_DIFFERENT" localized-page="MESSAGEHISTORY">
+                            </alert>
+                        }
+                        else
+                        {
+                            @Html.Raw(@Model.DiffText)
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ToggleDiffSelectionJs(Model.GetText("SELECT_TWO"))))
+    </script>
+}

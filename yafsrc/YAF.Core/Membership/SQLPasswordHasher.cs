@@ -25,18 +25,22 @@
 namespace YAF.Core.Membership;
 
 using System;
-using System.Web.Security;
 
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
+
+using PasswordVerificationResult = Microsoft.AspNetCore.Identity.PasswordVerificationResult;
 
 /// <summary>
 /// The SQL password hasher.
 /// </summary>
-public class SQLPasswordHasher : PasswordHasher
+public class SQLPasswordHasher : PasswordHasher<AspNetUsers>
 {
     /// <summary>
     /// The verify hashed password.
     /// </summary>
+    /// <param name="user">
+    /// The user.
+    /// </param>
     /// <param name="hashedPassword">
     /// The hashed password.
     /// </param>
@@ -44,11 +48,9 @@ public class SQLPasswordHasher : PasswordHasher
     /// The provided password.
     /// </param>
     /// <returns>
-    /// The <see cref="PasswordVerificationResult"/>.
+    /// The <see cref="Microsoft.AspNetCore.Identity.PasswordVerificationResult"/>.
     /// </returns>
-    public override PasswordVerificationResult VerifyHashedPassword(
-        [NotNull] string hashedPassword,
-        [NotNull] string providedPassword)
+    public override PasswordVerificationResult VerifyHashedPassword(AspNetUsers user, string hashedPassword, string providedPassword)
     {
         if (hashedPassword.IsNotSet())
         {
@@ -59,7 +61,7 @@ public class SQLPasswordHasher : PasswordHasher
 
         if (passwordProperties.Length != 3)
         {
-            return base.VerifyHashedPassword(hashedPassword, providedPassword);
+            return base.VerifyHashedPassword(user, hashedPassword, providedPassword);
         }
 
         var passwordHash = passwordProperties[0];
@@ -67,11 +69,17 @@ public class SQLPasswordHasher : PasswordHasher
 
         var passwordFormat = passwordProperties[1].ToEnum<MembershipPasswordFormat>();
 
-        var encryptedPassword = EncryptPassword(passwordHash, providedPassword, passwordFormat, salt);
+        var encryptedPassword = EncryptPassword(
+            passwordHash,
+            providedPassword,
+            passwordFormat,
+            salt);
 
         return string.Equals(
                    encryptedPassword,
-                   passwordFormat == MembershipPasswordFormat.Hashed ? passwordHash : providedPassword,
+                   passwordFormat == MembershipPasswordFormat.Hashed
+                       ? passwordHash
+                       : providedPassword,
                    StringComparison.CurrentCultureIgnoreCase)
                    ? PasswordVerificationResult.SuccessRehashNeeded
                    : PasswordVerificationResult.Failed;
@@ -95,30 +103,20 @@ public class SQLPasswordHasher : PasswordHasher
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    private static string EncryptPassword(
-        [NotNull] string hashedPassword,
-        [NotNull] string clearPassword,
-        [NotNull] MembershipPasswordFormat passwordFormat,
-        [CanBeNull] string salt)
+    private static string EncryptPassword(string hashedPassword, string clearPassword, MembershipPasswordFormat passwordFormat, string salt)
     {
-        switch (passwordFormat)
-        {
-            case MembershipPasswordFormat.Clear:
-                return clearPassword;
-            case MembershipPasswordFormat.Hashed:
-                return HashHelper.Hash(
+        return passwordFormat switch
+            {
+                MembershipPasswordFormat.Clear => clearPassword,
+                MembershipPasswordFormat.Hashed => HashHelper.Hash(
                     clearPassword,
                     Config.LegacyMembershipHashAlgorithmType,
                     salt,
                     Config.LegacyMembershipHashHex,
                     Config.LegacyMembershipHashCase,
                     null,
-                    false);
-            case MembershipPasswordFormat.Encrypted:
-                var passwordManager = new YafMembershipProvider();
-                return passwordManager.GetClearTextPassword(hashedPassword);
-        }
-
-        return clearPassword;
+                    false),
+                _ => clearPassword
+            };
     }
 }

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Web.BBCodes;
 
 /// <summary>
@@ -31,11 +32,11 @@ public class ExampleBBCodeModule : BBCodeControl
     /// <summary>
     /// The render.
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
+    /// <param name="stringBuilder">
+    /// The string Builder.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    public override void Render(StringBuilder stringBuilder)
     {
-        writer.Write($"Hello, you wrote this: {this.Parameters["inner"]}");
+        stringBuilder.Append($"Hello, you wrote this: {this.Parameters["inner"]}");
     }
 }

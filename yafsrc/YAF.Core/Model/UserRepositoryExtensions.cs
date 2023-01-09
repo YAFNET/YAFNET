@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
 
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
@@ -68,15 +69,14 @@ public static class UserRepositoryExtensions
             // -- get highest rank user can get
             newRank = BoardContext.Current.GetRepository<Rank>().Get(
                 x => x.BoardID == rankInfo.Item2.BoardID && (x.Flags & 2) == 2 &&
-                     x.MinPosts <= rankInfo.Item1.NumPosts).OrderByDescending(x => x.MinPosts).FirstOrDefault();
+                     x.MinPosts <= rankInfo.Item1.NumPosts).MaxBy(x => x.MinPosts);
         }
         else
         {
             // -- See if user got enough posts for next ladder group
             newRank = BoardContext.Current.GetRepository<Rank>().Get(
-                    x => x.BoardID == rankInfo.Item2.BoardID && (x.Flags & 2) == 2 &&
-                         x.MinPosts <= rankInfo.Item1.NumPosts && x.MinPosts == rankInfo.Item2.MinPosts)
-                .OrderByDescending(x => x.MinPosts).FirstOrDefault();
+                x => x.BoardID == rankInfo.Item2.BoardID && (x.Flags & 2) == 2 &&
+                     x.MinPosts <= rankInfo.Item1.NumPosts && x.MinPosts == rankInfo.Item2.MinPosts).MaxBy(x => x.MinPosts);
         }
 
         if (newRank != null)
@@ -551,23 +551,9 @@ public static class UserRepositoryExtensions
         }
         else
         {
-            int rankId;
+            var rankId = BoardContext.Current.GetRepository<Rank>()
+                .GetSingle(r => r.BoardID == boardId && (r.Flags & 1) == 1).ID;
 
-            try
-            {
-                rankId = BoardContext.Current.GetRepository<Rank>()
-                    .GetSingle(r => r.BoardID == boardId && (r.Flags & 1) == 1).ID;
-            }
-            catch (Exception)
-            {
-                BoardContext.Current.Get<ILoggerService>().Log(
-                    null,
-                    "Register User Error",
-                    "No Rank found with Is Start Setting set, new users wont be able to register!");
-
-                throw;
-            }
-            
             if (displayName.IsNotSet())
             {
                 displayName = userName;
@@ -654,11 +640,9 @@ public static class UserRepositoryExtensions
 
         albums.ForEach(
             album =>
-            {
-                BoardContext.Current.GetRepository<UserAlbumImage>().Delete(x => x.AlbumID == album.ID);
-            });
-
-        BoardContext.Current.GetRepository<UserAlbum>().Delete(x => x.UserID == userId);
+                {
+                    BoardContext.Current.GetRepository<UserAlbumImage>().Delete(x => x.AlbumID == album.ID);
+                });
 
         BoardContext.Current.GetRepository<ReputationVote>().Delete(x => x.ReputationFromUserID == userId);
         BoardContext.Current.GetRepository<ReputationVote>().Delete(x => x.ReputationToUserID == userId);
@@ -1082,7 +1066,7 @@ public static class UserRepositoryExtensions
 
                         var hasBuddiesSql = hasBuddiesExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
-                        expression.Select<User>(
+                        expression.Take(1).Select<User>(
                             a => new
                                      {
                                          a.ProviderUserKey,

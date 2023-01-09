@@ -32,10 +32,10 @@ public class GroupHide : BBCodeControl
     /// <summary>
     /// The render.
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
+    /// <param name="stringBuilder">
+    /// The string Builder.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    public override void Render(StringBuilder stringBuilder)
     {
         var hiddenContent = this.Parameters["inner"];
 
@@ -57,7 +57,7 @@ public class GroupHide : BBCodeControl
             // Hide from Guests only
             if (BoardContext.Current.IsGuest)
             {
-                writer.Write(shownContentGuest);
+                stringBuilder.Append(shownContentGuest);
                 return;
             }
         }
@@ -65,7 +65,7 @@ public class GroupHide : BBCodeControl
         {
             if (BoardContext.Current.IsGuest)
             {
-                writer.Write(shownContentGuest);
+                stringBuilder.Append(shownContentGuest);
                 return;
             }
 
@@ -115,12 +115,12 @@ public class GroupHide : BBCodeControl
             }*/
         }
 
-        // Override Admin, or User is Post Author
+        // Override Admin, or PageUser is Post Author
         if (BoardContext.Current.IsAdmin || this.DisplayUserID == BoardContext.Current.PageUserID)
         {
             shownContentGuest = hiddenContent;
         }
 
-        writer.Write(shownContentGuest);
+        stringBuilder.Append(shownContentGuest);
     }
 }

@@ -1,0 +1,120 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Constants
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+@model YAF.Types.Modals.EditProfileDefinitionModal
+
+@{
+    var types = new SelectList(Enum.GetNames(typeof(DataType)));
+}
+
+<!-- Modal -->
+<div class="modal fade" id="EditDialog" tabindex="-1" role="dialog" aria-labelledby="EditDialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    @Html.LocalizedText("ADMIN_EDIT_PROFILEDEFINITION", Model.Id.HasValue ? "TITLE_EDIT" : "TITLE")
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="ProfileDefinition" asp-action="Edit" class="needs-validation">
+                    <!-- Modal Content START !-->
+                    <input asp-for="Id" type="hidden" value="@Model.Id" />
+                    
+                    <div class="mb-3">
+                    <label info-button="true" class="form-label"
+                                   asp-for="Name"
+                                   localized-tag="NAME"
+                                   localized-page="ADMIN_EDIT_PROFILEDEFINITION"></label>
+                    <input type="text" asp-for="Name"
+                                 required="required"
+                                 class="form-control" />
+                    <div class="invalid-feedback">
+                        @Html.LocalizedText("ADMIN_EDIT_PROFILEDEFINITION","NEED_NAME")
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label info-button="true" class="form-label"
+                           asp-for="DataType"
+                           localized-tag="DATA_TYPE"
+                           localized-page="ADMIN_EDIT_PROFILEDEFINITION"></label>
+                    <select asp-for="DataType" asp-items="types"
+                                      class="form-control"></select>
+                </div>
+                <div class="mb-3">
+                    <label info-button="true" class="form-label"
+                           asp-for="Length"
+                           localized-tag="LENGTH"
+                           localized-page="ADMIN_EDIT_PROFILEDEFINITION"></label>
+                    <input type="number" asp-for="Length"
+                                 required="required"
+                                 class="form-control" />
+                    <div class="invalid-feedback">
+                               @Html.LocalizedText("ADMIN_EDIT_PROFILEDEFINITION","NEED_LENGTH")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label info-button="true" class="form-label"
+                               asp-for="ShowInUserInfo"
+                               localized-tag="SHOW_USERINFO"
+                               localized-page="ADMIN_EDIT_PROFILEDEFINITION"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="ShowInUserInfo" class="form-check-input" />
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label info-button="true" class="form-label"
+                               asp-for="ShowOnRegisterPage"
+                               localized-tag="SHOW_REGISTER"
+                               localized-page="ADMIN_EDIT_PROFILEDEFINITION"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="ShowOnRegisterPage" class="form-check-input" />
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label info-button="true" class="form-label"
+                               asp-for="Required"
+                               localized-tag="REQUIRED"
+                               localized-page="ADMIN_EDIT_PROFILEDEFINITION"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Required" class="form-check-input" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label info-button="true" class="form-label"
+                           asp-for="DefaultValue"
+                           localized-tag="DEFAULT"
+                           localized-page="ADMIN_EDIT_PROFILEDEFINITION"></label>
+                    <input type="text" asp-for="DefaultValue"
+                           class="form-control" />
+                    
+                </div>
+                    <!-- Modal Content END !-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button button-style="Primary" data-bs-save="editModal"
+                        text-localized-tag="@(Model.Id.HasValue ? "SAVE": "ADD_IP")"
+                        text-localized-page="ADMIN_EDIT_PROFILEDEFINITION"
+                        Icon="save">
+                </button>
+                <button type="button" button-style="Secondary" icon="times" data-bs-dismiss="modal" text-localized-tag="CANCEL"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.FormValidatorJQueryJs()));
+     
+     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ToolTipJs()));
+</script>

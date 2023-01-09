@@ -1,0 +1,205 @@
+﻿@page "{f:int}/{handler?}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+@model YAF.Pages.Moderate.ForumsModel
+
+<form method="post">
+    @if (Model.PageBoardContext.IsAdmin)
+{
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("user-secret", "MODERATE", "MEMBERS")
+                </div>
+                <div class="card-body">
+                    @if (!Model.UserList.NullOrEmpty())
+                    {
+                        <ul class="list-group list-group-flush">
+                            @foreach (var item in Model.UserList)
+                            {
+                                <li class="list-group-item">
+                                    <span class="fw-bold">
+                                        <label ID="LocalizedLabel2" localized-tag="USER" localized-page="MODERATE"></label>:
+                                    </span>
+                                    
+                                    @Html.Raw(item.Item1.DisplayOrUserName())
+                                    
+                                    <span class="fw-bold">
+                                        <label ID="LocalizedLabel3" localized-tag="ACCEPTED" localized-page="MODERATE"></label>:
+                                    </span>
+                                    
+                                    @Html.Raw(item.Item2.Accepted)
+                                    
+                                    <span class="fw-bold">
+                                        <label ID="LocalizedLabel4" localized-tag="ACCESSMASK" localized-page="MODERATE"></label>:
+                                    </span>
+                                    
+                                    @Html.Raw(item.Item3.Name)
+                                    
+                                    <button bs-toggle="ajax-modal"
+                                            bs-target-url="@(Url.Page("Forums", "EditUser", new {userId = item.Item1.ID, f = Model.PageBoardContext.PageForumID}))"
+                                            title-localized-tag="EDIT"
+                                            button-size="Small"
+                                            button-style="Primary"
+                                            Icon="edit"></button>
+                                    <button return-confirm-tag="confirm_delete_user"
+                                            asp-page-handler="RemoveUser"
+                                            asp-route-id="@Html.Raw(item.Item1.ID)"
+                                            asp-route-f="@Html.Raw(Model.PageBoardContext.PageForumID)"
+                                            title-localized-tag="REMOVE"
+                                            button-size="Small"
+                                            button-style="Danger"
+                                            Icon="trash"></button>
+                                </li>
+                            }
+                        </ul>
+                    }
+
+                </div>
+                <div class="card-footer text-center">
+                    <button bs-toggle="ajax-modal"
+                            bs-target-url="@(Url.Page("Forums", "AddUser", new {f = Model.PageBoardContext.PageForumID}))"
+                            text-localized-tag="INVITE" text-localized-page="MODERATE"
+                            button-style="Secondary"
+                            icon="user-check"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3 mt-3">
+                <div class="card-header">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-auto">
+                            @Html.IconHeader("tasks", "MODERATE", "TITLE")
+                        </div>
+                        <div class="col-auto">
+                            <div class="input-group input-group-sm me-2" role="group">
+                                <div class="input-group-text">
+                                    @Html.LocalizedText("SHOW"):
+                                </div>
+                                <select asp-for="@Model.Size"
+                                        asp-items="Model.PageSizeList"
+                                        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                        class="form-select"
+                                        onchange="this.form.submit();"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @if (!Model.TopicList.NullOrEmpty())
+                    {
+                        <ul class="list-group list-group-flush">
+                            @for (var index = 0; index < Model.TopicList.Count; index++)
+                            {
+                                <li class="list-group-item">
+                                    <input type="hidden" asp-for="TopicList[index].TopicID" value="@Model.TopicList[index].TopicID"/>
+                                
+                                    <h5>
+                                        <div class="form-check">
+                                            <input type="checkbox" asp-for="TopicList[index].Selected"
+                                                   class="form-check-input" />
+                                            <label class="form-check-label" asp-for="TopicList[index].Selected">
+                                                <a asp-page="@ForumPages.Posts.GetPageName()"
+                                                   asp-route-t="@Model.TopicList[index].TopicID"
+                                                   asp-route-name="@Model.TopicList[index].Subject">@Model.TopicList[index].Subject</a>
+                                            </label>
+                                        </div>
+                                   
+                                    </h5>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+                <div class="card-footer text-center">
+                    <!-- Move Topic Button -->
+                    <button text-localized-tag="MOVE"
+                            text-localized-page="MOVETOPIC"
+                            class="dropdown-toggle"
+                            bs-toggle="dropdown"
+                            icon="arrows-alt"
+                            button-style="Primary"></button>
+                    <div class="dropdown-menu">
+                        <div class="px-4 py-3 dropdown-sm">
+                            <div class="mb-3">
+                                <label for="ForumList" class="form-label" localized-tag="select_forum">
+                                </label>
+                                <select id="ForumList" name="forumList"></select>
+                                <input type="hidden" asp-for="Input.ForumListSelected" Value="@Model.Input.ForumListSelected" />
+                            </div>
+
+                            @if (Model.PageBoardContext.BoardSettings.ShowMoved)
+                            {
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" asp-for="Input.LeavePointer">
+                                        <label class="form-check-label" asp-for="Input.LeavePointer" localized-tag="LEAVE_POINTER"></label>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Input.LinkDays" localized-tag="POINTER_DAYS">
+                                    </label>
+                                    <input asp-for="Input.LinkDays" class="form-control" type="number"/>
+                                </div>
+                            }
+
+                            <button asp-page-handler="Move"
+                                    asp-route-f="@Model.PageBoardContext.PageForumID"
+                                    button-style="Primary"
+                                    button-size="Small"
+                                    Icon="arrows-alt"
+                                    text-localized-tag="MOVE" text-localized-page="MOVETOPIC"></button>
+                        </div>
+                    </div>
+
+                    <!-- End of Move Topic Button -->
+                    <button text-localized-tag="BUTTON_DELETETOPIC" title-localized-tag="BUTTON_DELETETOPIC_TT"
+                            return-confirm-tag="confirm_delete"
+                            asp-page-handler="DeleteTopics"
+                            asp-route-f="@Model.PageBoardContext.PageForumID"
+                            button-style="Danger"
+                            Icon="trash"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-auto">
+            <pager page-size="@Model.Size"
+                   count="Model.TopicList.NullOrEmpty() ? 0 : Model.TopicList.FirstOrDefault().TotalRows">
+            </pager>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+
+    <script>
+        
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DropDownToggleJs()))
+    
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.SelectForumsLoadJs(
+                "ForumList",
+                Model.GetText("SELECT_FORUM"),
+                false,
+                false,
+                "Input_ForumListSelected")))
+    </script>
+}

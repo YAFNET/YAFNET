@@ -24,8 +24,6 @@
 
 namespace YAF.Configuration.Pattern;
 
-using System.Collections.Generic;
-
 /// <summary>
 /// Allows basic type conversion of Dictionary objects.
 /// </summary>

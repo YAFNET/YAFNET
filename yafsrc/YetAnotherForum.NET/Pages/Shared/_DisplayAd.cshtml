@@ -1,0 +1,25 @@
+﻿@using YAF.Core.Context
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Flags
+@using YAF.Types.Interfaces
+
+@inject BoardContext Current
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card bg-light mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <span class="badge bg-warning text-dark">
+                            @Html.LocalizedText("AD_USERNAME")
+                        </span>
+                        <message message="@Current.BoardSettings.AdPost" 
+                                 signature="@(Current.Get<ILocalization>().GetText("AD_SIGNATURE"))"
+                                 message-flags="@(new MessageFlags { IsLocked = true, NotFormatted = true })"></message>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

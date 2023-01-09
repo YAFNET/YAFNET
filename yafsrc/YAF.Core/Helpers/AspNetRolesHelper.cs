@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -27,10 +27,12 @@ namespace YAF.Core.Helpers;
 using System;
 using System.Collections.Generic;
 
+using Microsoft.Extensions.Logging;
+
+using YAF.Core.Identity;
 using YAF.Core.Model;
-using YAF.Types.Interfaces.Identity;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
-using YAF.Types.Models.Identity;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -53,6 +55,11 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; protected set; }
+
+    /// <summary>
+    /// The users.
+    /// </summary>
+    public IQueryable<AspNetRoles> Roles => this.Get<AspNetRoleManager>().AspNetRoles;
 
     /// <summary>
     /// The add user to role.
@@ -126,7 +133,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
         }
         catch (Exception x)
         {
-            this.Get<ILoggerService>().Error(x, "Error in CreateForumUser");
+            this.Get<ILogger<AspNetRolesHelper>>().Error(x, "Error in CreateForumUser");
         }
 
         return userId;
@@ -264,15 +271,15 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <summary>
     /// The remove user from role.
     /// </summary>
-    /// <param name="userProviderKey">
-    /// The user Provider Key.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="role">
     /// The role.
     /// </param>
-    public void RemoveUserFromRole([NotNull] string userProviderKey, [NotNull] string role)
+    public void RemoveUserFromRole([NotNull] AspNetUsers user, [NotNull] string role)
     {
-        this.Get<IAspNetUsersHelper>().RemoveFromRole(userProviderKey, role);
+        this.Get<IAspNetUsersHelper>().RemoveFromRole(user, role);
     }
 
     /// <summary>

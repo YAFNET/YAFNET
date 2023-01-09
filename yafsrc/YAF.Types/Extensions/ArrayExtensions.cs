@@ -25,6 +25,9 @@
 namespace YAF.Types.Extensions;
 
 using System.Collections.Generic;
+using System.Text;
+
+using YAF.Types;
 
 /// <summary>
 /// The bit bool extensions.

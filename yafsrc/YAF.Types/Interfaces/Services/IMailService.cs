@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -25,7 +25,8 @@
 namespace YAF.Types.Interfaces.Services;
 
 using System.Collections.Generic;
-using System.Net.Mail;
+
+using MimeKit;
 
 /// <summary>
 /// The SendMail interface.
@@ -33,10 +34,11 @@ using System.Net.Mail;
 public interface IMailService
 {
     /// <summary>
-    /// Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
+    /// Sends all MailMessages via MimiKit Doesn't handle any exceptions.
     /// </summary>
     /// <param name="messages">
     /// The messages.
     /// </param>
-    void SendAll([NotNull] IEnumerable<MailMessage> messages);
+    void SendAll(
+        [NotNull] IEnumerable<MimeMessage> messages);
 }

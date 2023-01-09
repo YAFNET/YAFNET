@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,9 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services;
+namespace YAF.Types.Interfaces;
 
 using System.Collections.Generic;
+
+using YAF.Types.Models;
+using YAF.Types.Models.Identity;
 
 /// <summary>
 /// The SendNotification Interface

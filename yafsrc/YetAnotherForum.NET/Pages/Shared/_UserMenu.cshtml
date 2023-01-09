@@ -1,0 +1,320 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Extensions
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+
+@inject BoardContext Current
+
+@{
+    var unreadCount = Current.UnreadPrivate + Current.PendingBuddies;
+
+    var unreadNotify = Current.Mention + Current.Quoted + Current.ReceivedThanks+ Current.WatchTopic;
+}
+
+@if (!Current.IsGuest)
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" role="button" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="badge bg-light text-dark p-0 border border-light me-1">
+                <img class="img-navbar-avatar rounded"
+                     alt="avatar"
+                     src="@Html.Raw(Current.Get<IAvatars>().GetAvatarUrlForCurrentUser())">
+            </span>
+            @Html.HtmlEncode(Current.PageUser.DisplayOrUserName())
+            @if (unreadCount > 0)
+            {
+                <span class="ms-1 badge bg-danger">
+                    @unreadCount
+                </span>
+            }
+        </a>
+    <div class="dropdown-menu dropend" aria-labelledby="userDropdown">
+
+            <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyAccount ? "dropdown-item active" : "dropdown-item")"
+       bs-toggle="tooltip"
+       asp-page="/MyAccount"
+       role="button"
+       target="_top"
+       text-localized-page="TOOLBAR"
+       text-localized-tag="MYPROFILE"
+       title-localized-page="TOOLBAR"
+       title-localized-tag="MYPROFILE_TITLE"
+       icon="address-card">
+    </a>
+
+            <a class="@Html.Raw(Current.CurrentForumPage.PageName is ForumPages.Profile_EditProfile or ForumPages.Profile_EditSettings or ForumPages.Profile_ChangePassword or ForumPages.Profile_Attachments or ForumPages.Profile_EditAvatar or ForumPages.Profile_EditSignature or ForumPages.Profile_Subscriptions or ForumPages.Profile_BlockOptions ? "dropdown-item dropdown-submenu dropdown-toggle active" : "dropdown-item dropdown-submenu dropdown-toggle")"
+       href="#"
+       bs-toggle="dropdown"
+       role="button"
+       text-localized-page="TOOLBAR"
+       text-localized-tag="MYSETTINGS"
+       icon="user-cog">
+    </a>
+    <div class="dropdown-menu">
+                <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_EditProfile ? "dropdown-item active" : "dropdown-item")"
+           bs-toggle="tooltip"
+           asp-page="/Profile/EditProfile"
+           role="button"
+           target="_top"
+           text-localized-page="TOOLBAR"
+           text-localized-tag="EDIT_PROFILE"
+           title-localized-page="TOOLBAR"
+           title-localized-tag="EDIT_PROFILE"
+           icon="user-edit">
+        </a>
+                <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_EditSettings ? "dropdown-item active" : "dropdown-item")"
+           bs-toggle="tooltip"
+           asp-page="/Profile/EditSettings"
+           role="button"
+           target="_top"
+           text-localized-page="ACCOUNT"
+           text-localized-tag="EDIT_SETTINGS"
+           title-localized-page="ACCOUNT"
+           title-localized-tag="EDIT_SETTINGS"
+           icon="user-cog">
+        </a>
+                <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_Attachments ? "dropdown-item active" : "dropdown-item")"
+           bs-toggle="tooltip"
+           asp-page="/Profile/Attachments"
+           role="button"
+           target="_top"
+           text-localized-page="ATTACHMENTS"
+           text-localized-tag="TITLE"
+           title-localized-page="ATTACHMENTS"
+           title-localized-tag="TITLE"
+           icon="paperclip">
+        </a>
+
+        @if (Current.BoardSettings.AvatarUpload || Current.BoardSettings.AvatarGallery)
+        {
+            <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_EditAvatar ? "dropdown-item active" : "dropdown-item")"
+               bs-toggle="tooltip"
+               asp-page="/Profile/EditAvatar"
+               role="button"
+               target="_top"
+               text-localized-page="ACCOUNT"
+               text-localized-tag="EDIT_AVATAR"
+               title-localized-page="ACCOUNT"
+               title-localized-tag="EDIT_AVATAR"
+               icon="user-tie">
+            </a>
+        }
+
+        @if (Current.BoardSettings.AllowSignatures)
+        {
+            <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_EditSignature ? "dropdown-item active" : "dropdown-item")"
+               bs-toggle="tooltip"
+               asp-page="/Profile/EditSignature"
+               role="button"
+               target="_top"
+               text-localized-page="ACCOUNT"
+               text-localized-tag="SIGNATURE"
+               title-localized-page="ACCOUNT"
+               title-localized-tag="SIGNATURE"
+               icon="signature">
+            </a>
+        }
+
+        <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_Subscriptions ? "dropdown-item active" : "dropdown-item")"
+           bs-toggle="tooltip"
+           asp-page="/Profile/Subscriptions"
+           role="button"
+           target="_top"
+           text-localized-page="ACCOUNT"
+           text-localized-tag="SUBSCRIPTIONS"
+           title-localized-page="ACCOUNT"
+           title-localized-tag="SUBSCRIPTIONS"
+           icon="envelope">
+        </a>
+
+        <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_BlockOptions ? "dropdown-item active" : "dropdown-item")"
+           bs-toggle="tooltip"
+           asp-page="/Profile/BlockOptions"
+           role="button"
+           target="_top"
+           text-localized-page="BLOCK_OPTIONS"
+           text-localized-tag="TITLE"
+           title-localized-page="BLOCK_OPTIONS"
+           title-localized-tag="TITLE"
+           icon="user-lock">
+        </a>
+
+        <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_ChangePassword ? "dropdown-item active" : "dropdown-item")"
+           bs-toggle="tooltip"
+           asp-page="/Profile/ChangePassword"
+           role="button"
+           target="_top"
+           text-localized-page="ACCOUNT"
+           text-localized-tag="CHANGE_PASSWORD"
+           title-localized-page="ACCOUNT"
+           title-localized-tag="CHANGE_PASSWORD"
+           icon="signature">
+        </a>
+
+        @if (!Current.PageUser.UserFlags.IsHostAdmin)
+        {
+            <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_DeleteAccount ? "dropdown-item active" : "dropdown-item")"
+               bs-toggle="tooltip"
+               asp-page="/Profile/DeleteAccount"
+               role="button"
+               target="_top"
+               text-localized-page="ACCOUNT"
+               text-localized-tag="DELETE_ACCOUNT"
+               title-localized-page="ACCOUNT"
+               title-localized-tag="DELETE_ACCOUNT"
+               icon="user-alt-slash">
+            </a>
+        }
+    </div>
+
+    <div class="dropdown-divider"></div>
+
+    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyMessages ? "dropdown-item active" : "dropdown-item")"
+       bs-toggle="tooltip"
+       asp-page="/MyMessages"
+       role="button"
+       target="_top"
+       title-localized-page="TOOLBAR"
+       title-localized-tag="INBOX_TITLE">
+        @Html.Icon("inbox")@Html.LocalizedText("TOOLBAR", "INBOX")
+        @if (Current.UnreadPrivate > 0)
+        {
+            <span class="badge bg-danger" title="@Html.LocalizedTextFormatted("NEWPM", Current.UnreadPrivate.ToString())">
+                @Current.UnreadPrivate
+                <span class="visually-hidden">
+                            @Html.LocalizedTextFormatted("NEWPM", Current.UnreadPrivate.ToString())
+                </span>
+            </span>
+        }
+    </a>
+
+    @if (Current.BoardSettings.EnableBuddyList && Current.UserHasBuddies)
+    {
+                <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Friends ? "dropdown-item active" : "dropdown-item")"
+           bs-toggle="tooltip"
+           asp-page="/Friends"
+           role="button"
+           target="_top"
+           title-localized-page="TOOLBAR"6
+           title-localized-tag="BUDDIES_TITLE">
+            @Html.Icon("users")@Html.LocalizedText("TOOLBAR", "BUDDIES")
+            @if (Current.PendingBuddies > 0)
+            {
+                        <span class="badge bg-danger" title="@Html.LocalizedTextFormatted("BUDDYREQUEST", Current.PendingBuddies.ToString())">
+                    @Current.PendingBuddies
+                    <span class="visually-hidden">
+                                @Html.LocalizedTextFormatted("BUDDYREQUEST", Current.PendingBuddies.ToString())
+                    </span>
+                </span>
+            }
+        </a>
+    }
+
+    @if (Current.BoardSettings.EnableAlbum && Current.NumAlbums > 0)
+    {
+        <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Albums ? "dropdown-item active" : "dropdown-item")"
+           bs-toggle="tooltip"
+           asp-page="/Albums"
+           asp-route-u="@Current.PageUserID"
+           role="button"
+           target="_top"
+           text-localized-page="TOOLBAR"
+           text-localized-tag="MYALBUMS"
+           title-localized-page="TOOLBAR"
+           title-localized-tag="MYALBUMS_TITLE"
+           icon="images">
+        </a>
+    }
+
+    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyTopics ? "dropdown-item active" : "dropdown-item")"
+       bs-toggle="tooltip"
+       asp-page="/MyTopics"
+       role="button"
+       target="_top"
+       text-localized-page="TOOLBAR"
+       text-localized-tag="MYTOPICS"
+       title-localized-page="TOOLBAR"
+       title-localized-tag="MYTOPICS_TITLE"
+       icon="comment">
+    </a>
+
+    <div class="dropdown-divider"></div>
+
+    <a class="btn btn-primary dropdown-item"
+       role="button"
+       href="javascript:LogOutClick()"
+       aria-label="sign-out-alt"
+       icon="sign-out-alt"
+       text-localized-page="TOOLBAR"
+       text-localized-tag="LOGOUT"
+       title-localized-page="TOOLBAR"
+       title-localized-tag="LOGOUT">
+    </a>
+    </div>
+    </li>
+    @if (Current.PageUser.Activity)
+    {
+        <li class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Notification ? "nav-item dropdown dropdown-notify active" : "nav-item dropdown dropdown-notify")">
+
+            @if (unreadNotify == 0)
+            {
+                <a button-style="None"
+                   class="nav-link"
+                   bs-toggle="tooltip"
+                   role="button"
+                   asp-page="/Notification"
+                   title-localized-page="TOOLBAR"
+                   title-localized-tag="MYNOTIFY_TITLE">
+                    @Html.Icon("bell")
+                </a>
+            }
+            else
+            {
+                <a button-style="None"
+                   class="nav-link dropdown-toggle notify-toggle"
+                   bs-toggle="dropdown"
+                   role="button"
+                   title-localized-page="TOOLBAR"
+                   title-localized-tag="MYNOTIFY_TITLE">
+                    @Html.Icon("dot-circle", "fa-xs text-primary unread")
+                    @Html.Icon("bell")
+                </a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item px-0">
+                        <div id="AttachmentsListPager"></div>
+                        <div id="Loader" class="px-2 mx-2">
+                            <p class="text-center">
+                                <span>@Html.LocalizedText("COMMON", "LOADING")</span>
+                                <br/>
+                                <div class="fa-3x">
+                                    <i class="fas fa-spinner fa-pulse"></i>
+                                </div>
+                            </p>
+                        </div>
+                        <div id="NotifyListPlaceholder" class="clearfix">
+                            <ul class="list-group list-group-flush">
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dropdown-item d-none" id="MarkRead">
+                        <form method="post">
+                            <a role="button"
+                               asp-controller="Notify"
+                               asp-action="MarkAllActivity"
+                               button-style="Secondary"
+                               button-size="Small"
+                               icon="glasses"
+                               text-localized-page="DEFAULT"
+                               text-localized-tag="MARK_ALL_ASREAD">
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            }
+
+        </li>
+    }
+}

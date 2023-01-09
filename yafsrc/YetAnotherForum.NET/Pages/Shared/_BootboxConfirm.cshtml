@@ -1,0 +1,19 @@
+﻿@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Extensions
+
+@{
+    var title = (string)TempData["_confirm.title"];
+    var text = (string)TempData["_confirm.text"];
+    var yes = (string)TempData["_confirm.yes"];
+    var no = (string)TempData["_confirm.no"];
+    var link = (string)TempData["_confirm.link"];
+}
+
+@if (text.IsSet())
+{
+<script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.
+            BootBoxConfirmJs(title, title, yes, no, link)))
+</script>
+}

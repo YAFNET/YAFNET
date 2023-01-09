@@ -1,0 +1,141 @@
+@page "{r:int?}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@model EditRankModel
+
+<form method="post" class="needs-validation">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("graduation-cap","ADMIN_EDITRANK","TITLE")
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Name"
+                                   localized-tag="RANK_NAME" localized-page="ADMIN_EDITRANK"></label>
+                            <input type="text" asp-for="Input.Name"
+                                   class="form-control"
+                                   required="required" />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("NEED_NAME")
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Description"
+                                   localized-tag="RANK_DESC" localized-page="ADMIN_EDITRANK"></label>
+                            <input type="text" asp-for="Input.Description"
+                                   class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.RankPriority"
+                                   localized-tag="RANK_PRIO" localized-page="ADMIN_EDITRANK"></label>
+                            <input type="number" asp-for="Input.RankPriority"
+                                   class="form-control"
+                                   required="required" />
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.IsStart"
+                                   localized-tag="IS_START" localized-page="ADMIN_EDITRANK"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.IsStart"
+                                       class="form-check-label" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.IsLadder"
+                                   localized-tag="LADDER_GROUP" localized-page="ADMIN_EDITRANK"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.IsLadder"
+                                       class="form-check-label" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.MinPosts"
+                                   localized-tag="MIN_POSTS" localized-page="ADMIN_EDITRANK"></label>
+                            <input type="number" asp-for="Input.MinPosts"
+                                   class="form-control" />
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.PMLimit"
+                                   localized-tag="PRIVATE_MESSAGES" localized-page="ADMIN_EDITRANK"></label>
+                            <input type="number" asp-for="Input.PMLimit"
+                                   class="form-control"/>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.UsrSigChars"
+                                   localized-tag="SIG_LENGTH" localized-page="ADMIN_EDITRANK"></label>
+                            <input type="number" asp-for="Input.UsrSigChars"
+                                   class="form-control" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.UsrSigBBCodes"
+                               localized-tag="SIG_BBCODE" localized-page="ADMIN_EDITRANK"></label>
+                        <input type="number" asp-for="Input.UsrSigBBCodes"
+                               class="form-control" />
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.UsrAlbums"
+                                   localized-tag="ALBUMS_NUMBER" localized-page="ADMIN_EDITRANK"></label>
+                            <input type="text" asp-for="Input.UsrAlbums"
+                                   class="form-control" />
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.UsrAlbumImages"
+                                   localized-tag="IMAGES_NUMBER" localized-page="ADMIN_EDITRANK"></label>
+                            <input type="number" asp-for="Input.UsrAlbumImages"
+                                   class="form-control" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Style"
+                               localized-tag="RANK_STYLE" localized-page="ADMIN_EDITRANK"></label>
+                        <textarea asp-for="Input.Style"
+                                  class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button asp-page-handler="Save"
+                            class="me-2"
+                            type="submit"
+                            button-style="Primary"
+                            Icon="save"
+                            text-localized-tag="SAVE">
+                    </button>
+                    <a asp-page="@ForumPages.Admin_Ranks.GetPageName()"
+                       button-style="Secondary"
+                       Icon="times"
+                       text-localized-tag="CANCEL">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

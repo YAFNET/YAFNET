@@ -1,0 +1,100 @@
+@page "{x:int}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@model EditLanguageModel
+
+<form method="post" class="needs-validation">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("language", "ADMIN_EDITLANGUAGE", "HEADER") @Html.Raw(Model.Input.Pages)
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label asp-for="Input.Pages" class="form-label" localized-page="ADMIN_EDITLANGUAGE" localized-tag="SELECT_PAGE">
+                        </label>
+                        <select asp-for="Input.Pages" asp-items="Model.PagesList" class="form-select"></select>
+                    </div>
+                    <div class="mb-3">
+                        <button asp-page-handler="LoadPageLocalization"
+                                asp-route-x="@Model.Request.RouteValues["x"]"
+                                button-style="Primary" 
+                                Icon="share" 
+                                text-localized-tag="LOAD_PAGE" text-localized-page="ADMIN_EDITLANGUAGE"></button>
+                    </div>
+                    <hr />
+                    <div class="table-responsive">
+                        @if (!Model.Locals.NullOrEmpty())
+                        {
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            @Html.LocalizedText("ADMIN_EDITLANGUAGE", "RESOURCE_NAME")
+                                        </th>
+                                        <th scope="col">
+                                            @Html.LocalizedText("ADMIN_EDITLANGUAGE", "ORIGINAL_RESOURCE")
+                                        </th>
+                                        <th scope="col">
+                                            @Html.LocalizedText("ADMIN_EDITLANGUAGE", "LOCALIZED_RESOURCE")
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @for (var index = 0; index < Model.Locals.Count; index++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <label asp-for="Locals[index].ResourceName" class="form-label">
+                                                @Html.Raw(Model.Locals[index].ResourceName)
+                                            </label>
+                                        </td>
+                                        <td>
+                                                <input type="hidden" asp-for="Locals[index].ResourceName" value="@Model.Locals[index].ResourceName" />
+                                                <input type="hidden" asp-for="Locals[index].PageName" value="@Model.Locals[index].PageName" />
+                                                <input type="hidden" asp-for="Locals[index].OriginalResourceText" value="@Model.Locals[index].OriginalResourceText" />
+                                                <textarea asp-for="Locals[index].OriginalResourceText" rows="4" disabled="disabled" class="form-control" 
+                                                          placeholder="@Model.GetText("ADMIN_EDITLANGUAGE", "ORIGINAL_RESOURCE")"></textarea>
+                                        </td>
+                                        <td>
+                                            <textarea asp-for="Locals[index].LocalizedResourceText" rows="4" title="@Html.Raw(Model.Locals[index].LocalizedResourceText)"
+                                                  placeholder="@Model.GetText("ADMIN_EDITLANGUAGE", "LOCALIZED_RESOURCE")"
+                                                  class="@(Model.LocalizedTextBoxClass(Model.Locals[index]))"></textarea>
+
+                                            <div class="invalid-feedback">
+                                                @Html.LocalizedText("NEED_TRANSLATION")
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                        }
+                    
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button class="me-1"
+                            asp-page-handler="Save"
+                            asp-route-x="@Model.Request.RouteValues["x"]"
+                            button-style="Primary"
+                            Icon="save" 
+                            text-localized-tag="SAVE"></button>
+                    <a asp-page="@ForumPages.Admin_Languages.GetPageName()"
+                       button-style="Secondary" 
+                       Icon="times"
+                       text-localized-tag="CANCEL"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

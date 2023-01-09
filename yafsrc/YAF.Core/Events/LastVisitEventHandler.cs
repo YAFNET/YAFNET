@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Events;
 
 using System;
@@ -31,29 +32,26 @@ using YAF.Types.Attributes;
 /// The last visit handler.
 /// </summary>
 [ExportService(ServiceLifetimeScope.InstancePerScope)]
-public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandleEvent<ForumPageUnloadEvent>
+public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>
 {
     /// <summary>
-    /// The request base
+    /// The context.
     /// </summary>
-    private readonly HttpRequestBase request;
-
-    /// <summary>
-    /// The response base
-    /// </summary>
-    private readonly HttpResponseBase response;
+    private readonly IHttpContextAccessor context;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LastVisitEventHandler"/> class.
     /// </summary>
-    /// <param name="yafSession">The YAF session.</param>
-    /// <param name="requestBase">The request base.</param>
-    /// <param name="responseBase">The response base.</param>
+    /// <param name="yafSession">
+    /// The YAF session.
+    /// </param>
+    /// <param name="contextAccessor">
+    /// The context Accessor.
+    /// </param>
     public LastVisitEventHandler(
-        [NotNull] ISession yafSession, HttpRequestBase requestBase, HttpResponseBase responseBase)
+        [NotNull] ISessionService yafSession, IHttpContextAccessor contextAccessor)
     {
-        this.request = requestBase;
-        this.response = responseBase;
+        this.context = contextAccessor;
         this.YafSession = yafSession;
     }
 
@@ -65,15 +63,7 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandl
     /// <summary>
     /// Gets or sets YAF Session.
     /// </summary>
-    public ISession YafSession { get; set; }
-
-    /// <summary>
-    /// Handles the specified @event.
-    /// </summary>
-    /// <param name="event">The @event.</param>
-    public void Handle(ForumPageUnloadEvent @event)
-    {
-    }
+    public ISessionService YafSession { get; set; }
 
     /// <summary>
     /// The handle.
@@ -83,7 +73,7 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandl
     /// </param>
     public void Handle([NotNull] ForumPagePreLoadEvent @event)
     {
-        var previousVisitKey = "PreviousVisit";
+        const string PreviousVisitKey = "PreviousVisit";
 
         if (!BoardContext.Current.IsGuest && BoardContext.Current.PageData.Item2.Item1.PreviousVisit.HasValue
                                           && !this.YafSession.LastVisit.HasValue)
@@ -92,10 +82,10 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandl
         }
         else if (BoardContext.Current.IsGuest && !this.YafSession.LastVisit.HasValue)
         {
-            if (this.request.Cookies.Get(previousVisitKey) != null)
+            if (this.context.HttpContext.Request.Cookies.Keys.Contains(PreviousVisitKey))
             {
                 // have previous visit cookie...
-                var previousVisitInsecure = this.request.Cookies.Get(previousVisitKey).Value;
+                var previousVisitInsecure = this.context.HttpContext.Request.Cookies[PreviousVisitKey];
 
                 try
                 {
@@ -112,13 +102,10 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandl
             }
 
             // set the last visit cookie...
-            var httpCookie = new HttpCookie(previousVisitKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
-                                 {
-                                     Expires = DateTime.Now.AddMonths(6),
-                                     HttpOnly = true,
-                                     Secure = this.request.IsSecureConnection
-                                 };
-            this.response.Cookies.Add(httpCookie);
+            this.context.HttpContext.Response.Cookies.Append(
+                PreviousVisitKey,
+                DateTime.UtcNow.ToString(CultureInfo.InvariantCulture),
+                new CookieOptions { Expires = DateTime.Now.AddMonths(6) });
         }
     }
 }

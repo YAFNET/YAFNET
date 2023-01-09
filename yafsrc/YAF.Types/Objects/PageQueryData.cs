@@ -47,4 +47,10 @@ public class PageQueryData
     /// Gets or sets the message id.
     /// </summary>
     public int MessageID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the index of the page.
+    /// </summary>
+    /// <value>The index of the page.</value>
+    public int PageIndex { get; set; }
 }

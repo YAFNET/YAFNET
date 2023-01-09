@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -23,7 +23,11 @@
  */
 namespace YAF.Types.Structures;
 
+using System.Collections;
 using System.Collections.Specialized;
+using System.Text;
+
+using YAF.Types;
 
 /// <summary>
 /// The most recently used.
@@ -34,12 +38,12 @@ public class MostRecentlyUsed : DictionaryBase
     /// <summary>
     /// The link to key.
     /// </summary>
-    private readonly HybridDictionary linkToKey = new ();
+    private readonly HybridDictionary linkToKey = new();
 
     /// <summary>
     /// The list.
     /// </summary>
-    private readonly DoubleLinkedList list = new ();
+    private readonly DoubleLinkedList list = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MostRecentlyUsed"/> class.

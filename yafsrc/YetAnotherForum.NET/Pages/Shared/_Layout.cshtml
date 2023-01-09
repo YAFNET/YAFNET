@@ -1,0 +1,227 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Configuration
+@using YAF.Core.Services
+@using YAF.Core.Context
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Interfaces
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Objects
+@using YAF.Web.Extensions
+@using YAF.Web.TagHelpers
+
+@inject BoardContext Current
+
+@{
+    ViewBag.CdvVersion = Current.BoardSettings.CdvVersion;
+
+    #if DEBUG
+    ViewBag.ForumJs = Current.CurrentForumPage.IsAdminPage ? "ForumAdminExtensions" : "ForumExtensions";
+    ViewBag.ForumCss = Current.CurrentForumPage.IsAdminPage ? "forum-admin" : "forum";
+    #else
+    ViewBag.ForumJs = Current.CurrentForumPage.IsAdminPage ? "ForumAdminExtensions.min" : "ForumExtensions.min";
+    ViewBag.ForumCss = Current.CurrentForumPage.IsAdminPage ? "forum-admin.min" : "forum.min";
+    #endif
+
+    ViewBag.PageName = Current.CurrentForumPage.PageName.ToString();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Html.Raw(Current.CurrentForumPage.GeneratePageTitle())</title>
+    <link rel="stylesheet" href="@Html.Raw($"{Current.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}?v={ViewBag.CdvVersion}")"
+          type="text/css" />
+    <link rel="stylesheet"
+          href="~/css/@Html.Raw($"{ViewBag.ForumCss}.css?v={ViewBag.CdvVersion}")" />
+    @await RenderSectionAsync("StyleSheets", required: false)
+    <link href="~/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <link href="~/favicons/favicon-32x32.png" rel="icon" sizes="32x32" />
+    <link href="~/favicons/favicon-16x16.png" rel="icon" sizes="16x16" />
+    <link href="~/favicons/site.webmanifest" rel="manifest" />
+    <link href="~/favicons/safari-pinned-tab.svg" rel="mask-icon" color="#5bbad5" />
+    <link href="~/favicons/favicon.ico" rel="shortcut icon" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml" />
+    @Html.RssFeedLink(RssFeeds.LatestPosts)
+    @Html.CanonicalMetaTag()
+</head>
+<body id="YafBody">
+<a title="@Html.Raw(Current.Get<ILocalization>().GetText("TOOLBAR", "FORUM_TITLE"))" asp-page="/Index">
+    <img alt="board logo" src="@Html.Raw($"/{Current.Get<BoardFolders>().Logos}/{Current.BoardSettings.ForumLogo}")" class="my-3" />
+</a>
+<div class="yafnet">
+    <div class="page-@ViewBag.PageName">
+
+        <header class="mb-2">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand mb-1" asp-area="" asp-page="/Index">
+                        @Html.Raw(Current.BoardSettings.Name)
+                    </a>
+
+                    <button class="navbar-toggler" type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto">
+                            @if (Current.Get<IPermissions>().Check(Current.BoardSettings.SearchPermissions))
+                            {
+                                <li class="nav-item">
+                                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Search ? "nav-link active" : "nav-link")" role="button"
+                                       asp-page="/Search"
+                                       bs-toggle="tooltip"
+                                       text-localized-page="TOOLBAR" text-localized-tag="SEARCH"
+                                       title-localized-page="TOOLBAR" title-localized-tag="SEARCH_TITLE">
+                                    </a>
+                                </li>
+                            }
+
+                            @if (Current.Get<IPermissions>().Check(Current.BoardSettings.MembersListViewPermissions))
+                            {
+                                <li class="nav-item">
+                                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Members ? "nav-link active" : "nav-link")" role="button"
+                                       asp-page="/Members"
+                                       bs-toggle="tooltip"
+                                       text-localized-page="TOOLBAR" text-localized-tag="MEMBERS"
+                                       title-localized-page="TOOLBAR" title-localized-tag="MEMBERS_TITLE">
+                                    </a>
+                                </li>
+                            }
+
+                            @if (Current.Get<IPermissions>().Check(Current.BoardSettings.ShowTeamTo))
+                            {
+                                <li class="nav-item">
+                                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Team ? "nav-link active" : "nav-link")" role="button"
+                                       asp-page="/Team"
+                                       bs-toggle="tooltip"
+                                       text-localized-page="TOOLBAR" text-localized-tag="TEAM"
+                                       title-localized-page="TOOLBAR" title-localized-tag="TEAM_TITLE">
+                                    </a>
+                                </li>
+                            }
+
+                            @if (Current.Get<IPermissions>().Check(Current.BoardSettings.ShowHelpTo))
+                            {
+                                <li class="nav-item">
+                                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Help ? "nav-link active" : "nav-link")" role="button"
+                                       asp-page="/Help"
+                                       bs-toggle="tooltip"
+                                       text-localized-page="TOOLBAR" text-localized-tag="HELP"
+                                       title-localized-page="TOOLBAR" title-localized-tag="HELP_TITLE">
+                                    </a>
+                                </li>
+                            }
+
+                            @await Html.PartialAsync("_LoginPartial")
+
+                            @if (Current.IsModeratorInAnyForum || Current.IsAdmin)
+                            {
+                                <li class="nav-item">
+                                    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Moderate_Moderate ? "nav-link active" : "nav-link")" role="button"
+                                       asp-page="/Moderate/Moderate"
+                                       bs-toggle="tooltip"
+                                       title-localized-page="TOOLBAR" title-localized-tag="MODERATE_TITLE">
+                                        @Html.LocalizedText("TOOLBAR", "MODERATE")
+                                        @if (Current.ModeratePosts > 0)
+                                        {
+                                            var title = Html.LocalizedTextFormatted("MODERATE_NEW", Current.ModeratePosts.ToString());
+
+                                            <span class="badge bg-danger ms-1" title="@title">
+                                                @Current.ModeratePosts.ToString()
+                                                <span class="visually-hidden">
+                                                    @title
+                                                </span>
+                                            </span>
+                                            // this.GetTextFormatted("MODERATE_NEW", this.PageContext.ModeratePosts)
+                                        }
+                                    </a>
+                                </li>
+                            }
+
+                            @await Html.PartialAsync("_AdminMenu")
+
+                            @await Html.PartialAsync("_HostMenu")
+
+                            @await Html.PartialAsync("_UserMenu")
+
+
+                        </ul>
+                        @await Html.PartialAsync("_QuickSearch")
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <breadcrumb></breadcrumb>
+
+        @if (Current.Get<BoardSettings>().BoardAnnouncement.IsSet())
+        {
+            @await Html.PartialAsync("_BoardAnnouncement")
+        }
+            
+        @await Html.PartialAsync("_GuestMessage")
+
+        @RenderBody()
+        
+        <!-- Modal placeholder -->
+        <div id="modal-placeholder"></div>
+
+        @if (!Current.Get<IHttpContextAccessor>().HttpContext.Request.Cookies.ContainsKey("YAF-AcceptCookies") &&
+             Current.Get<BoardSettings>().ShowCookieConsent)
+        {
+            @await Html.PartialAsync("_CookieConsent")
+        }
+
+        @if (Current.Get<BoardSettings>().ShowScrollBackToTopButton)
+        {
+            @await Html.PartialAsync("_ScrollTop")
+        }
+
+        <footer class="footer">
+            <div class="text-end">
+                @Html.FooterHelper()
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script src="@Html.Raw($"//code.jquery.com/jquery-{Current.Get<BoardConfiguration>().JQueryVersion}.min.js")"
+        asp-fallback-src="@Html.Raw("~/js/jquery.js")"
+        asp-fallback-test="window.jQuery"></script>
+<script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"jquery.{ViewBag.ForumJs}.js?v={ViewBag.CdvVersion}"))"></script>
+
+
+@await RenderSectionAsync("Scripts", required: false)
+@await Html.PartialAsync("_ToastMessages")
+@await Html.PartialAsync("_JsBlockStartup")
+@await Html.PartialAsync("_BootboxConfirm")
+@await Html.PartialAsync("Dialogs/_ImageGallery")
+
+@if (!Current.IsGuest)
+{
+    @await Html.PartialAsync("_LogoutConfirm")
+}
+
+<script>
+    @if (Current.Get<IPermissions>().Check(Current.BoardSettings.ProfileViewPermissions) || Current.BoardSettings.EnableUserInfoHoverCards)
+    {
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.HoverCardJs()))
+    }
+    </script>
+    <scripts></scripts>
+</body>
+</html>

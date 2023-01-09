@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite.SqlServer.Converters;
 using ServiceStack.Text;
-#if NETCORE
+#if NET6_0_OR_GREATER
 using ApplicationException = System.InvalidOperationException;
 #endif
 

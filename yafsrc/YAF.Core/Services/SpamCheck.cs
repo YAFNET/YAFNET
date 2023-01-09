@@ -25,10 +25,10 @@
 namespace YAF.Core.Services;
 
 using YAF.Core.Services.CheckForSpam;
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
 
 /// <summary>
-/// User and Content Spam Checking
+/// PageUser and Content Spam Checking
 /// </summary>
 public class SpamCheck : ISpamCheck, IHaveServiceLocator
 {
@@ -68,8 +68,7 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
     {
         result = string.Empty;
 
-        if (BoardContext.Current.PageUser.NumPosts
-            >= this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
+        if (BoardContext.Current.PageUser.NumPosts >= this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
         {
             return false;
         }
@@ -78,8 +77,7 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
 
         if (this.Get<BoardSettings>().SpamService is not SpamService.NoService)
         {
-            isSpamContent = this.Get<ISpamWordCheck>()
-                .CheckForSpamWord(postMessage, out result);
+            isSpamContent = this.Get<ISpamWordCheck>().CheckForSpamWord(postMessage, out result);
         }
 
         if (isSpamContent)
@@ -94,7 +92,7 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Check a User (Bot) against the StopForumSpam, BotScout Service or both
+    /// Check a PageUser (Bot) against the StopForumSpam, BotScout Service or both
     /// </summary>
     /// <param name="userName">Name of the user.</param>
     /// <param name="emailAddress">The email address.</param>

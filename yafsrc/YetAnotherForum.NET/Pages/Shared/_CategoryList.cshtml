@@ -1,0 +1,240 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
+@using YAF.Core.Helpers
+@using YAF.Core.Services
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Objects
+@using YAF.Types.Objects.Model
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+@model List<YAF.Types.Objects.Model.ForumRead>
+
+@inject BoardContext Current
+
+@foreach (var category in Model)
+{
+    var forumsCount = 0;
+
+    var tuple = new Tuple<List<SimpleModerator>, List<ForumRead>>(
+        Current.Get<ISessionService>().Mods,
+        Current.Get<ISessionService>().Forums.Where(forum => forum.CategoryID == category.CategoryID).ToList());
+
+    var forums  = Current.PageForumID > 0
+               ? tuple.Item2.ToList()
+               : tuple.Item2.Where(x => !x.ParentID.HasValue).ToList();
+
+    var hasCategoryImage = category.CategoryImage.IsSet();
+
+    var image = new TagBuilder("img") { TagRenderMode = TagRenderMode.SelfClosing };
+
+    image.MergeAttribute("alt", category.Category);
+    image.MergeAttribute("src", $"/{Current.Get<BoardFolders>().Categories}/{category.CategoryImage}");
+
+    var icon = new TagBuilder("i");
+
+    icon.AddCssClass("fas fa-folder fa-fw text-warning me-1");
+
+    var categoryImage = hasCategoryImage ? image : icon;
+
+
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-auto">
+                            <div class="d-none d-md-inline-block icon-category">
+                                @categoryImage
+                            </div>
+                            @Html.HtmlEncode(category.Category)
+                        </div>
+                        <div class="col-auto">
+                            <form method="post">
+                                <button button-style="Link"
+                                    asp-page-handler="ToggleCollapse"
+                                    asp-route-target="@Html.Raw($"categoryPanel{category.CategoryID}")"
+                                    type="submit"
+                                    class=" btn btn-collapse px-0"
+                                    title="@(Current.Get<ILocalization>().GetText("BOARD_DEFAULT_PANEL_STATE_HELP"))"
+                                    bs-toggle="collapse"
+                                    data-bs-target="@Html.Raw($"categoryPanel{category.CategoryID}")"
+                                    aria-expanded="false"
+                                    aria-controls="@Html.Raw($"categoryPanel{category.CategoryID}")">
+                                    @Html.Icon(CollapsePanelHelper.GetCollapsiblePanelIcon($"categoryPanel{category.CategoryID}", Current.BoardSettings.DefaultCollapsiblePanelState), "text-primary")
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body collapse @Html.Raw(Current.Get<ISessionService>().PanelState[$"categoryPanel{category.CategoryID}"] == CollapsiblePanelState.Expanded ? "show" : "")"
+                 id="@Html.Raw($"categoryPanel{category.CategoryID}")">
+                    @foreach (var forum in forums)
+                    {
+                        forumsCount++;
+
+                        var lastRead = Current.Get<IReadTrackCurrentUser>().GetForumTopicRead(forum.ForumID, forum.LastTopicID, forum.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(), forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
+
+                        <div class="row">
+                            <div class="@Html.Raw(forum.RemoteURL.IsNotSet() ? "col-md-8" : "col")">
+                                <h5>
+                                    @Html.GetForumIcon(forum, lastRead)
+
+                                    @Html.GetForumLink(forum)
+
+                                    @if (forum.Viewing > 0)
+                                    {
+                                        <span class="badge bg-light text-dark">
+                                            @Html.Icon("eye", "", "far")
+                                            @forum.Viewing
+                                        </span>
+                                    }
+
+                                    @if (forum.RemoteURL.IsNotSet() && forum.ReadAccess)
+                                    {
+                                        <span class="badge bg-light text-dark me-1"
+                                              title="@Html.LocalizedText("DEFAULT", "TOPICS")"
+                                              data-bs-toggle="tooltip">
+                                            @Html.Icon("comments", "", "far")
+                                            @Html.Raw(forum.RemoteURL.IsNotSet() ? $"{forum.Topics:N0}" : "-")
+                                        </span>
+                                        <span class="badge bg-light text-dark"
+                                              title="@Html.LocalizedText("DEFAULT", "POSTS")"
+                                              data-bs-toggle="tooltip">
+                                            @Html.Icon("comment", "", "far")
+                                            @Html.Raw(forum.RemoteURL.IsNotSet() ? $"{forum.Posts:N0}" : "-")
+                                        </span>
+                                    }
+
+                                    @if (Current.BoardSettings.ShowModeratorList && forum.RemoteURL.IsNotSet() && !Current.Get<ISessionService>().Mods.Where(x => x.ForumID == forum.ForumID).NullOrEmpty())
+                                    {
+                                        <button button-style="OutlineInfo"
+                                                button-size="Small"
+                                                bs-toggle="popover"
+                                                class=" forum-mods-popover"
+                                                bs-content="@Html.GetModerators(category)"
+                                                text="@Html.Raw($"{Current.Get<ILocalization>().GetText("SHOW")} {Current.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")}")"
+                                                icon="user-secret"></button>
+                                    }
+                                </h5>
+                                @if (forum.Description.IsSet())
+                                {
+                                    <h6 class="card-subtitle text-muted mb-1">
+                                        @forum.Description
+                                    </h6>
+                                }
+                                @if (forum.SubForums > 0)
+                                {
+                                    <div class="card my-1">
+                                        <div class="card-body ps-2 py-1">
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <span class="fw-bold small text-secondary">
+                                                        @Html.LocalizedText("TOPICS", "SUBFORUMS"):
+                                                    </span>
+                                                </li>
+
+                                                @foreach (var subForum in Html.GetSubForums(forum))
+                                                {
+                                                    <li class="list-inline-item">
+                                                        @Html.Icon("comments", "text-secondary")
+                                                        @Html.GetSubForumLink(subForum)
+                                                    </li>
+                                                }
+
+                                                @if (Html.GetSubForums(forum).Count() >= Current.BoardSettings.SubForumsInForumList)
+                                                {
+                                                    <li>
+                                                        <label>...</label>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            @if (forum.RemoteURL.IsNotSet())
+                            {
+                                <div class="col-md-4 text-secondary">
+                                    <div class="card bg-light text-dark card-post-last">
+                                        <div class="card-body py-1 ps-2">
+
+                                            @if (forum.ReadAccess && forum.LastPosted.HasValue)
+                                            {
+                                                var topicLinkText = Current.Get<IBadWordReplace>().Replace(@Html.HtmlEncode(forum.LastTopicName)).Truncate(50);
+
+                                                var styles = Current.BoardSettings.UseStyledTopicTitles ? Current.Get<IStyleTransform>().Decode(forum.LastTopicStyles) : string.Empty;
+
+
+                                                <a icon="comment"
+                                                   icon-color="text-secondary"
+                                                   icon-css-class="far"
+                                                   button-style="Link"
+                                                   class=" fw-bold p-0"
+                                                   bs-toggle="tooltip"
+                                                   role="button"
+                                                   title-localized-page="COMMON"
+                                                   title-localized-tag="VIEW_TOPIC"
+                                                   asp-page="@ForumPages.Posts.GetPageName()"
+                                                   asp-all-route-data="@(Current.Get<LinkBuilder>().GetAllRouteData(new {t = forum.LastTopicID, name = topicLinkText}))"
+                                                   text="@topicLinkText"
+                                                   style="@styles"></a>
+
+                                                @if (forum.LastPosted.Value > lastRead)
+                                                {
+                                                    <span class="badge bg-success me-1">
+                                                        @Html.LocalizedText("DEFAULT", "NEW_POSTS")
+                                                    </span>
+                                                }
+
+                                                var infoText = string.Format(Current.Get<ILocalization>().GetText("Default", "BY"), Current.BoardSettings.EnableDisplayName ? forum.LastUserDisplayName : forum.LastUser);
+
+                                                <a icon="info-circle"
+                                                   icon-color="text-secondary"
+                                                   button-style="Link"
+                                                   button-size="Small"
+                                                   role="button"
+                                                   class=" topic-link-popover"
+                                                   bs-toggle="popover"
+                                                   bs-content="@Html.GetLastPostInfo(forum)"
+                                                   text="@infoText"></a>
+                                            }
+                                            else
+                                            {
+                                                <span class="fst-italic">
+                                                    @Html.LocalizedText("DEFAULT", "NO_POSTS")
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        @if (forumsCount < forums.Count)
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <hr />
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Current.Get<ISessionService>().Forums.First().Total > Current.Get<ISessionService>().Forums.Count)
+{
+    <div class="text-center" id="category-info-more">
+        <div class="alert alert-light" role="alert">
+            <span class="me-3 align-top">
+                @Html.LocalizedTextFormatted("FORUMS_SHOWN", Current.Get<ISessionService>().Forums.Count.ToString(), Current.Get<ISessionService>().Forums.First().Total.ToString())
+            </span>
+        </div>
+    </div>
+}

@@ -1,0 +1,230 @@
+﻿@page "{f:int}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Extensions
+@using YAF.Core.Model
+@using YAF.Core.Services
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Flags
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Models
+@using YAF.Web.TagHelpers
+
+@model YAF.Pages.Moderate.ReportedPostsModel
+
+<div class="row">
+    @foreach (var report in Model.Reported)
+    {
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.Icon("comment", "text-secondary")
+                        <a asp-page="/Posts"
+                           asp-route-t="@report.TopicID"
+                           asp-route-name="@report.TopicName">
+                            @report.TopicName
+                        </a>
+                        <div class="float-end">
+                            <span class="fw-bold">
+                                @Html.LocalizedText("POSTED")
+                            </span>
+                            @Html.Raw(Model.Get<IDateTimeService>().FormatDateShort(report.Posted))
+
+                            <span class="fw-bold ps-3">
+                                @Html.LocalizedText("NUMBERREPORTED")
+                            </span>
+                            @report.NumberOfReports
+
+                            <span class="fw-bold ps-3">
+                                @Html.LocalizedText("REPORTPOST", "POSTEDBY")
+                            </span>
+                            @Html.UserLink(report.UserID,
+                                Model.PageBoardContext.BoardSettings.EnableDisplayName ? report.UserDisplayName : report.UserName,
+                                report.Suspended,
+                                report.UserStyle)
+                            @if (Model.PageBoardContext.IsAdmin)
+                            {
+                                <a role="button"
+                                   button-size="Small"
+                                   button-style="Danger"
+                                   icon="user-cog"
+                                   text-localized-page="PROFILE"
+                                   text-localized-tag="ADMIN_USER"
+                                   asp-page="/Admin/EditUser"
+                                   asp-route-u="@report.UserID"></a>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    @Html.LocalizedText("ORIGINALMESSAGE")
+                                </h6>
+                                <div class="card bg-light mb-3">
+                                    <div class="card-body">
+                                        <message show-attachments="false"
+                                                 show-edit-message="false"
+                                                 show-signature="false"
+                                                 show-answer-message-link="false"
+                                                 current-message="new Message { MessageFlags = new MessageFlags(report.Flags), ID = report.MessageID, MessageText = report.OriginalMessage }"
+                                             service-locator="Model.ServiceLocator">
+                                        </message>
+                                    </div>
+                                </div>
+                                @if (report.OriginalMessage != report.Message)
+                                {
+                                    <alert type="warning"
+                                           localized-page="MODERATE_FORUM"
+                                           localized-tag="MODIFIED"></alert>
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                @foreach (var reporter in Model.GetRepository<User>().MessageReporters(report.MessageID))
+                                {
+                                    string howMany = null;
+                                    var reporterName = reporter.Item2.DisplayOrUserName();
+                                    var reportString = reporter.Item1.ReportText.Trim().Split('|');
+
+                                    <div class="alert alert-secondary" role="alert">
+
+                                        @if (reporter.Item1.ReportedNumber > 1)
+                                        {
+                                            howMany = $"({Model.Get<ILocalization>().GetTextFormatted("REPORTED_TIMES", reporter.Item1.ReportedNumber)})";
+                                        }
+
+                                        @if (report.ResolvedDate.HasValue)
+                                        {
+                                            @if (report.ResolvedDate.Value > DateTime.MinValue)
+                                            {
+                                                var resolvedBy = Model.GetRepository<User>().GetById(report.ResolvedBy.Value);
+
+                                                var resolvedByName = resolvedBy.DisplayOrUserName();
+
+                                                <span class="fw-bold me-2">
+                                                    @Html.LocalizedText("RESOLVEDBY")
+                                                    <a href="@Html.Raw(Model.Get<LinkBuilder>().GetUserProfileLink((int)report.ResolvedBy, resolvedByName))">
+                                                        @resolvedByName
+                                                    </a>:
+                                                    @Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(report.ResolvedDate))
+                                                </span>
+                                            }
+                                        }
+
+                                        <span class="fw-bold mx-2">
+                                            @Html.LocalizedText("REPORTEDBY")
+                                        </span>
+
+                                        <a class="me-2"
+                                   href="@Html.Raw(Model.Get<LinkBuilder>().GetUserProfileLink(reporter.Item2.ID, reporterName))">
+                                            @reporterName
+                                        </a>
+
+                                        <em>@howMany</em>
+
+                                        <a class="btn btn-secondary btn-sm ms-2"
+                                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(
+                                                     ForumPages.PostPrivateMessage,
+                                                     new { u = reporter.Item2.ID, r = report.MessageID }))">
+                                            <i class="fa fa-envelope fa-fw me-1"></i>
+                                            @Html.LocalizedText("REPLYTO")
+                                            @reporterName
+                                        </a>
+                                    </div>
+
+                                    @foreach (var t in reportString)
+                                    {
+                                        var textString = t.Split("??".ToCharArray());
+
+                                        <p class="card-text">
+                                            @@
+                                            <span class="ps-1">
+                                                @Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(textString[0]))
+                                            </span>
+                                        </p>
+
+                                        <p class="card-text">
+                                            @if (textString.Length > 2)
+                                            {
+                                                @Html.Raw(textString[2])
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw(t)
+                                            }
+                                        </p>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        @if (report.OriginalMessage != report.Message)
+                        { <form method="post">
+
+                              <button type="submit"
+                                      asp-page-handler="CopyOver"
+                                      asp-route-messageId="@report.MessageID"
+                                      asp-route-f="@Model.PageBoardContext.PageForumID"
+                                      button-style="Secondary"
+                                      text-localized-page="MODERATE_FORUM"
+                                      text-localized-tag="COPYOVER"
+                                      icon="copy"></button>
+
+                          </form>
+                        }
+                        <form class="d-inline-block"
+                              asp-route-messageId="@report.MessageID"
+                              asp-route-topicId="@report.TopicID"
+                              asp-route-f="@Model.PageBoardContext.PageForumID"
+                              asp-page-handler="Delete"
+                              method="post">
+                            <button type="submit"
+                                    button-style="Danger"
+                                    text-localized-page="MODERATE_FORUM"
+                                    text-localized-tag="DELETE"
+                                    return-confirm-tag="ASK_DELETE"
+                                    icon="trash"></button>
+                        </form>
+                        <form method="post" class="d-inline-block">
+                            <button type="submit"
+                                    asp-page-handler="Resolved"
+                                    asp-route-messageId="@report.MessageID"
+                                    asp-route-f="@Model.PageBoardContext.PageForumID"
+                                    button-style="Success"
+                                    text-localized-page="MODERATE_FORUM"
+                                    text-localized-tag="RESOLVED"
+                                    icon="check"></button>
+
+                            <button type="submit"
+                                    asp-page-handler="View"
+                                    asp-route-messageId="@report.MessageID"
+                                    asp-route-f="@Model.PageBoardContext.PageForumID"
+                                    button-style="Secondary"
+                                    text-localized-page="MODERATE_FORUM"
+                                    text-localized-tag="VIEW"
+                                    icon="eye"></button>
+
+                            @if (report.OriginalMessage != report.Message)
+                            {
+                                <button type="submit"
+                                        asp-page-handler="ViewHistory"
+                                        asp-route-messageId="@report.MessageID"
+                                        asp-route-f="@Model.PageBoardContext.PageForumID"
+                                        button-style="Secondary"
+                                        text-localized-page="MODERATE_FORUM"
+                                        text-localized-tag="HISTORY"
+                                        icon="history"></button>
+                            }
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

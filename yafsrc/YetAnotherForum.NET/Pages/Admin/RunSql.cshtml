@@ -1,0 +1,59 @@
+@page "{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@model RunSqlModel
+
+<form method="post" class="needs-validation">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("database","ADMIN_RUNSQL","SQL_COMMAND")
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <textarea asp-for="Editor"
+                                  class="form-control"
+                                  rows="15"
+                                  cols="100"
+                                  maxlength="@int.MaxValue"
+                                  max-characters="@int.MaxValue"
+                                  editor-mode="Sql"></textarea>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button button-style="Primary"
+                            asp-page-handler="RunQuery"
+                            Icon="rocket"
+                            text-localized-tag="RUN_QUERY"
+                            text-localized-page="ADMIN_RUNSQL">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    @if (Model.Result.IsSet())
+    {
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-rocket fa-fw"></i>&nbsp;Result
+                    </div>
+                    <div class="card-body">
+                        <textarea asp-for="Result" width="100%" height="300px" wrap="false" style="font-size: 8pt;" class="form-control text-bg-dark"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+    
+    @await Html.PartialAsync("_CKEditorScriptsPartial")
+}

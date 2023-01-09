@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,11 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BBCode;
 
 using System.Collections.Generic;
 
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// Gets an instance of replace rules and uses
@@ -64,9 +65,9 @@ public class ProcessReplaceRulesProvider : IHaveServiceLocator, IReadOnlyProvide
     /// The unique Flags.
     /// </param>
     public ProcessReplaceRulesProvider(
-        [NotNull] IObjectStore objectStore,
-        [NotNull] IServiceLocator serviceLocator,
-        [NotNull] IInjectServices injectServices,
+        [NotNull] IObjectStore objectStore, 
+        [NotNull] IServiceLocator serviceLocator, 
+        [NotNull] IInjectServices injectServices, 
         [NotNull] IEnumerable<bool> uniqueFlags)
     {
         this.ServiceLocator = serviceLocator;
@@ -78,18 +79,23 @@ public class ProcessReplaceRulesProvider : IHaveServiceLocator, IReadOnlyProvide
     /// <summary>
     ///   Gets the Instance of this provider.
     /// </summary>
-    public IProcessReplaceRules Instance =>
-        this.objectStore.GetOrSet(
-            string.Format(Constants.Cache.ReplaceRules, this.uniqueFlags.ToIntOfBits()),
-            () =>
-                {
-                    var processRules = new ProcessReplaceRules();
+    public IProcessReplaceRules Instance
+    {
+        get
+        {
+            return this.objectStore.GetOrSet(
+                string.Format(Constants.Cache.ReplaceRules, this.uniqueFlags.ToIntOfBits()), 
+                () =>
+                    {
+                        var processRules = new ProcessReplaceRules();
 
-                    // inject
-                    this.injectServices.Inject(processRules);
+                        // inject
+                        this.injectServices.Inject(processRules);
 
-                    return processRules;
-                });
+                        return processRules;
+                    });
+        }
+    }
 
     /// <summary>
     ///   Gets or sets ServiceLocator.

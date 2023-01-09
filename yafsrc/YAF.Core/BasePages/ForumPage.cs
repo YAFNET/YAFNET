@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,45 +21,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BasePages;
 
 using System;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+using YAF.Core.Filters;
 using YAF.Core.Handlers;
-using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Attributes;
-using YAF.Types.Constants;
-using YAF.Types.Models.Identity;
 
 /// <summary>
 /// The class that all YAF forum pages are derived from.
 /// </summary>
-public abstract class ForumPage : UserControl,
-                                  IRaiseControlLifeCycles,
+[PageSecurityCheck]
+[UserSuspendCheck]
+public abstract class ForumPage : PageModel,
                                   IHaveServiceLocator,
                                   ILocatablePage,
                                   IHaveLocalization
 {
     /// <summary>
+    ///   The trans page.
+    /// </summary>
+    private readonly string transPage;
+
+    /// <summary>
     /// The Unicode Encoder
     /// </summary>
     private readonly UnicodeEncoder unicodeEncoder;
-
-    /// <summary>
-    ///   The top page control.
-    /// </summary>
-    private Control topPageControl;
-
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "ForumPage" /> class.
-    /// </summary>
-    protected ForumPage()
-        : this(string.Empty, ForumPages.Board)
-    {
-        this.unicodeEncoder = new UnicodeEncoder();
-    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ForumPage"/> class.
@@ -67,29 +59,29 @@ public abstract class ForumPage : UserControl,
     /// <param name="transPage">
     /// The trans page.
     /// </param>
-    /// <param name="pageType">
-    /// The page Type.
+    /// <param name="page">
+    /// The page.
     /// </param>
-    protected ForumPage([CanBeNull] string transPage, ForumPages pageType)
+    protected ForumPage([CanBeNull] string transPage, ForumPages page)
     {
+        this.PageName = page;
+
         this.Get<IInjectServices>().Inject(this);
 
+        // set the BoardContext ForumPage...
         BoardContext.Current.CurrentForumPage = this;
 
-        this.PageType = pageType;
-        this.TranslationPage = transPage;
-        this.Init += this.ForumPage_Init;
-        this.Load += this.ForumPage_Load;
-        this.Unload += this.ForumPage_Unload;
-        this.PreRender += this.ForumPage_PreRender;
+        this.transPage = transPage;
+
+        // set the current translation page...
+        this.Get<LocalizationProvider>().TranslationPage = this.transPage;
+
+        this.PageTitle = this.Localization.GetText(transPage, "TITLE");
 
         this.unicodeEncoder = new UnicodeEncoder();
-    }
 
-    /// <summary>
-    ///   The forum page rendered.
-    /// </summary>
-    public event EventHandler<ForumPageRenderedArgs> ForumPageRendered;
+        this.CreatePageLinks();
+    }
 
     /// <summary>
     ///   Gets or sets DataCache.
@@ -98,19 +90,12 @@ public abstract class ForumPage : UserControl,
     public IDataCache DataCache { get; set; }
 
     /// <summary>
-    ///   Gets or sets ForumFooter.
+    /// Creates the page links.
     /// </summary>
-    public Control ForumFooter { get; set; }
-
-    /// <summary>
-    ///   Gets or sets ForumHeader.
-    /// </summary>
-    public Control ForumHeader { get; set; }
-
-    /// <summary>
-    ///   Gets or sets ForumTopControl.
-    /// </summary>
-    public PlaceHolder ForumTopControl { get; set; }
+    public virtual void CreatePageLinks()
+    {
+        // Page link creation goes to this method (overloads in descendant classes)
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether is account page.
@@ -138,99 +123,93 @@ public abstract class ForumPage : UserControl,
     public bool IsRegisteredPage { get; protected set; }
 
     /// <summary>
+    /// Gets or sets the Page Size.
+    /// </summary>
+    [BindProperty]
+    public int Size { get; set; } = BoardContext.Current.PageUser.PageSize;
+
+    /// <summary>
+    /// Gets or sets the pageSize List.
+    /// </summary>
+    public SelectList PageSizeList { get; set; }
+
+    /// <summary>
     ///   Gets the Localization.
     /// </summary>
     public ILocalization Localization => this.Get<ILocalization>();
 
     /// <summary>
-    ///   Gets or sets Logger.
-    /// </summary>
-    [Inject]
-    public ILoggerService Logger { get; set; }
-
-    /// <summary>
     ///   Gets the current forum Context (helper reference)
     /// </summary>
-    public BoardContext PageBoardContext => this.PageBoardContext();
+    public BoardContext PageBoardContext => BoardContext.Current;
 
     /// <summary>
-    ///   Gets PageName.
+    ///   Gets or sets the PageName.
     /// </summary>
     [NotNull]
-    public virtual string PageName => this.GetType().Name.Replace("aspx", string.Empty);
+    public ForumPages PageName { get; set; }
 
     /// <summary>
-    /// Gets or sets the translation page.
+    /// Gets or sets the page title.
     /// </summary>
-    /// <value>The translation page.</value>
-    public string TranslationPage { get; set; }
-
-    /// <summary>
-    /// Gets or sets the page type.
-    /// </summary>
-    public ForumPages PageType { get; set; }
-
-    /// <summary>
-    ///   Gets or sets RefreshTime.
-    /// </summary>
-    public int RefreshTime { get; set; }
-
-    /// <summary>
-    ///   Gets or sets Adds a message that is displayed to the user when the page is loaded.
-    /// </summary>
-    public string RefreshURL { get; set; }
+    /// <value>The page title.</value>
+    public string PageTitle { get; set; }
 
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
-    public IServiceLocator ServiceLocator => this.PageBoardContext().ServiceLocator;
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether ShowFooter.
-    /// </summary>
-    public bool ShowFooter { get; protected set; } = Config.ShowFooter;
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether
-    ///   if you don't want the menus at top and bottom.
-    ///   Only admin pages will set this to false
-    /// </summary>
-    public bool ShowToolBar { get; protected set; } = Config.ShowToolBar;
-
-    /// <summary>
-    ///   Gets TopPageControl.
-    /// </summary>
-    public Control TopPageControl
-    {
-        get
-        {
-            if (this.topPageControl != null)
-            {
-                return this.topPageControl;
-            }
-
-            if (this.Page?.Header != null)
-            {
-                this.topPageControl = this.Page.Header;
-            }
-            else
-            {
-                this.topPageControl = this.FindControlRecursiveBoth("YafHead") ?? this.ForumTopControl;
-            }
-
-            return this.topPageControl;
-        }
-    }
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
     ///   Gets the current user.
     /// </summary>
-    public AspNetUsers User => this.PageBoardContext.MembershipUser;
+    public AspNetUsers AspNetUser => this.PageBoardContext.MembershipUser;
 
     /// <summary>
     /// Gets or sets a value indicating whether no data base, Should only be set by the page that initialized the database.
     /// </summary>
     protected bool NoDataBase { get; set; }
+
+    /// <summary>
+    /// Determines whether the specified value is null.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>
+    /// The is null.
+    /// </returns>
+    public static object IsNull([NotNull] string value)
+    {
+        return value == null || value.ToLower() == string.Empty ? DBNull.Value : value;
+    }
+
+    /// <summary>
+    /// Called before the handler method executes, after model binding is complete.
+    /// </summary>
+    /// <param name="context">The <see cref="PageHandlerExecutingContext"/>.</param>
+    public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
+    {
+        this.Get<IRaiseEvent>().Raise(new ForumPageInitEvent());
+
+        if (this.NoDataBase)
+        {
+            return;
+        }
+
+        // fire pre-load event...
+        this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());
+
+        this.Get<IDataCache>().Remove("TopicID");
+    }
+
+    /// <summary>
+    /// Called after the handler method executes, before the action result executes.
+    /// </summary>
+    /// <param name="context">The <see cref="PageHandlerExecutedContext"/>.</param>
+    public override void OnPageHandlerExecuted(PageHandlerExecutedContext context)
+    {
+        // fire pre-load event...
+        this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());
+    }
 
     /// <summary>
     /// Encodes the HTML
@@ -241,122 +220,5 @@ public abstract class ForumPage : UserControl,
     public string HtmlEncode([NotNull] object data)
     {
         return data is not string ? null : this.unicodeEncoder.XSSEncode(data.ToString());
-    }
-
-    /// <summary>
-    /// Redirects if no access.
-    /// </summary>
-    public void RedirectNoAccess()
-    {
-        this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
-    }
-
-    /// <summary>
-    /// Raise init.
-    /// </summary>
-    void IRaiseControlLifeCycles.RaiseInit()
-    {
-        this.OnInit(EventArgs.Empty);
-    }
-
-    /// <summary>
-    /// The raise load.
-    /// </summary>
-    void IRaiseControlLifeCycles.RaiseLoad()
-    {
-        this.OnLoad(EventArgs.Empty);
-    }
-
-    /// <summary>
-    /// The raise pre render.
-    /// </summary>
-    void IRaiseControlLifeCycles.RaisePreRender()
-    {
-        this.OnPreRender(EventArgs.Empty);
-    }
-
-    /// <summary>
-    /// Creates the page links.
-    /// </summary>
-    public virtual void CreatePageLinks()
-    {
-        // Page link creation goes to this method (overloads in descendant classes)
-    }
-
-    /// <summary>
-    /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
-    /// </summary>
-    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
-    {
-        base.OnPreRender(e);
-    }
-
-    /// <summary>
-    /// Writes the document
-    /// </summary>
-    /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter"/> object that receives the server control content.</param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
-    {
-        base.Render(writer);
-
-        // handle additional rendering if desired...
-        this.ForumPageRendered?.Invoke(this, new ForumPageRenderedArgs(writer));
-    }
-
-    /// <summary>
-    /// Called first to initialize the context
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ForumPage_Init([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        this.Get<IRaiseEvent>().Raise(new ForumPageInitEvent());
-
-        if (this.NoDataBase)
-        {
-            return;
-        }
-
-        // set the current translation page...
-        this.Get<LocalizationProvider>().TranslationPage = this.TranslationPage;
-
-        // fire pre-load event...
-        this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());
-    }
-
-    /// <summary>
-    /// Called when page is loaded
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        this.CreatePageLinks();
-
-        // fire pre-load event...
-        this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());
-    }
-
-    /// <summary>
-    /// Called when the page is pre rendered
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        this.Get<IRaiseEvent>().Raise(new ForumPagePreRenderEvent());
-
-        this.ForumFooter.Visible = this.ShowFooter;
-    }
-
-    /// <summary>
-    /// Called when the page is unloaded
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ForumPage_Unload([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        this.Get<IRaiseEvent>().Raise(new ForumPageUnloadEvent());
     }
 }

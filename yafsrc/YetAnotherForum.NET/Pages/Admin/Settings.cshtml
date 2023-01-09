@@ -1,0 +1,216 @@
+@page "{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+@model SettingsModel
+
+<form method="post" class="needs-validation">
+    <div class="row">
+    <div class="col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                @Html.IconHeader("cogs","ADMIN_BOARDSETTINGS","BOARD_SETUP")
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.Name"
+                               localized-tag="BOARD_NAME" localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <input type="text" asp-for="Input.Name" required="required" 
+                               class="form-control" />
+                        <div class="invalid-feedback">
+                            @Html.LocalizedText("MSG_NAME_BOARD")
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.ForumEmail"
+                               localized-tag="FORUM_EMAIL" localized-page="ADMIN_HOSTSETTINGS"></label>
+                        <input type="text" asp-for="Input.ForumEmail"  
+                               class="form-control" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true" 
+                           asp-for="Input.BoardLogo"
+                           localized-tag="BOARD_LOGO" localized-page="ADMIN_BOARDSETTINGS"></label>
+            
+                    <select asp-for="Input.BoardLogo"
+                            class="select2-image-select"
+                            placeholder="@Html.Raw(Model.GetText("BOARD_LOGO_SELECT"))"
+                            data-allow-clear="true">
+                        @foreach (var item in Model.LogoImages)
+                        {
+                            <option value="@item.Text" item="@item">
+                                @item.Text
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true" 
+                           asp-for="Input.ForumBaseUrlMask"
+                           localized-tag="FORUM_BASEURLMASK" localized-page="ADMIN_HOSTSETTINGS"></label>
+
+                    <input type="text" asp-for="Input.ForumBaseUrlMask" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true" 
+                           asp-for="Input.CopyrightRemovalKey"
+                           localized-tag="COPYRIGHT_REMOVAL_KEY" localized-page="ADMIN_BOARDSETTINGS"></label>
+                    <div class="input-group">
+                        <input type="text" asp-for="Input.CopyrightRemovalKey"  
+                               class="form-control"/>
+                        <a href="https://yetanotherforum.net/purchase.aspx"
+                           button-style="Info"
+                           Icon="key"
+                           text-localized-tag="COPYRIGHT_REMOVAL_KEY_DOWN">
+                        </a>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"
+                           asp-for="Input.Theme"
+                           localized-tag="BOARD_THEME" localized-page="ADMIN_BOARDSETTINGS"></label>
+                    <select asp-for="Input.Theme" asp-items="Model.Themes" class="select2-select"></select>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label"
+                               asp-for="Input.ShowTopic"
+                               localized-tag="BOARD_TOPIC_DEFAULT"
+                               localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <select asp-for="Input.ShowTopic" asp-items="Model.ShowTopics" class="select2-select">
+                        </select>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label"
+                               asp-for="Input.Culture"
+                               localized-tag="BOARD_CULTURE" localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <select asp-for="Input.Culture" asp-items="Model.Cultures" class="select2-select">
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"
+                           asp-for="Input.DefaultNotificationSetting"
+                           localized-tag="BOARD_DEFAULT_NOTIFICATION"
+                           localized-page="ADMIN_BOARDSETTINGS"></label>
+                    <select asp-for="Input.DefaultNotificationSetting"  
+                            class="select2-select" 
+                            asp-items="Model.DefaultNotificationSettings"
+                            placeholder="@Html.LocalizedText("BOARD_DEFAULT_NOTIFICATION")">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true" 
+                           asp-for="Input.DefaultCollapsiblePanelState"
+                           localized-tag="BOARD_DEFAULT_PANEL_STATE"
+                           localized-page="ADMIN_BOARDSETTINGS"></label>
+                    <select asp-for="Input.DefaultCollapsiblePanelState"  
+                            asp-items="Model.DefaultCollapsiblePanelStates"
+                            class="select2-select"
+                            placeholder="@Html.LocalizedText("BOARD_DEFAULT_PANEL_STATE")">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"
+                           asp-for="Input.NotificationOnUserRegisterEmailList"
+                           localized-tag="BOARD_EMAIL_ONREGISTER"
+                           localized-page="ADMIN_BOARDSETTINGS"></label>
+                    <input type="text" asp-for="Input.NotificationOnUserRegisterEmailList" class="form-control"/>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" 
+                               asp-for="Input.EmailModeratorsOnModeratedPost"
+                               localized-tag="BOARD_EMAIL_MODS"
+                               localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.EmailModeratorsOnModeratedPost" class="form-check-label"/>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" info-button="true" 
+                               asp-for="Input.EmailModeratorsOnReportedPost"
+                               localized-tag="BOARD_EMAIL_REPORTMODS"
+                               localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.EmailModeratorsOnReportedPost" class="form-check-label"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label"
+                               asp-for="Input.AllowDigestEmail"
+                               localized-tag="BOARD_ALLOW_DIGEST"
+                               localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.AllowDigestEmail" class="form-check-label"/>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" 
+                               asp-for="Input.DefaultSendDigestEmail"
+                               localized-tag="BOARD_DIGEST_NEWUSERS"
+                               localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.DefaultSendDigestEmail" class="form-check-label"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.DigestSendEveryXHours"
+                               localized-tag="BOARD_DIGEST_HOURS"
+                               localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <input type="number" asp-for="Input.DigestSendEveryXHours" class="form-control"/>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true" 
+                           asp-for="Input.CdvVersion"
+                           localized-tag="CdvVersion"
+                           localized-page="ADMIN_BOARDSETTINGS"></label>
+                    <div class="input-group">
+                        <input type="text" asp-for="Input.CdvVersion"  
+                               class="form-control" disabled="disabled"/>
+                        <button asp-page-handler="IncreaseVersion"
+                            class="float-end"
+                            button-style="Info"
+                            Icon="file-code"
+                            text-localized-tag="CDVVERSION_BUTTON"
+                            title-localized-tag="CDVVERSION_HELP">
+                        </button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true" 
+                           asp-for="Input.ForumDefaultAccessMask"
+                           localized-tag="FORUM_DEFAULT_ACCESSMASK"
+                           localized-page="ADMIN_BOARDSETTINGS"></label>
+                    <select asp-for="Input.ForumDefaultAccessMask"  
+                            class="select2-select"
+                            asp-items="Model.ForumDefaultAccessMasks"
+                            placeholder="@Html.LocalizedText("FORUM_DEFAULT_ACCESSMASK")">
+                    </select>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <button ID="Save" button-style="Primary" asp-page-handler="Save"
+                        Icon="save" text-localized-tag="SAVE">
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

@@ -26,7 +26,7 @@ namespace YAF.Core.Services;
 
 using System;
 
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -51,7 +51,7 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
     public IServiceLocator ServiceLocator { get; protected set; }
 
     /// <summary>
-    /// Adds the New Topic to the User's ActivityStream
+    /// Adds the New Topic to the PageUser's ActivityStream
     /// </summary>
     /// <param name="userId">
     /// The user Id.
@@ -86,7 +86,7 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Adds the Reply to the User's ActivityStream
+    /// Adds the Reply to the PageUser's ActivityStream
     /// </summary>
     /// <param name="userId">
     /// The user Id.
@@ -121,7 +121,7 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Adds the New Watch Topic to the User's ActivityStream
+    /// Adds the New Watch Topic to the PageUser's ActivityStream
     /// </summary>
     /// <param name="userId">
     /// The user Id.
@@ -139,7 +139,7 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
     /// The message.
     /// </param>
     /// <param name="fromUserId">
-    /// The from User Id.
+    /// The from PageUser Id.
     /// </param>
     public void AddWatchTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId)
     {
@@ -160,7 +160,7 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Adds the Watch Reply to the User's ActivityStream
+    /// Adds the Watch Reply to the PageUser's ActivityStream
     /// </summary>
     /// <param name="userId">
     /// The user Id.
@@ -178,7 +178,7 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
     /// The message.
     /// </param>
     /// <param name="fromUserId">
-    /// The from User Id.
+    /// The from PageUser Id.
     /// </param>
     public void AddWatchReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId)
     {

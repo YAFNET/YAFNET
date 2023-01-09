@@ -26,6 +26,7 @@ namespace YAF.Core.Helpers;
 
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Web;
 
 /// <summary>
 /// The bb code helper.

@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -70,11 +70,11 @@ public static class ValidationHelper
     /// <returns>
     /// Returns indicating whether the value is a valid Url
     /// </returns>
-    public static bool IsValidURL(string url)
+    public static bool IsValidUrl(string url)
     {
         try
         {
-            var uri = new Uri(url, UriKind.Absolute);
+            new Uri(url, UriKind.Absolute);
             return true;
         }
         catch (Exception)
@@ -106,32 +106,7 @@ public static class ValidationHelper
     /// </returns>
     public static bool IsNumeric(string valueToCheck)
     {
-        return double.TryParse(valueToCheck, System.Globalization.NumberStyles.Any, null, out var dummy);
-    }
-
-    /// <summary>
-    /// Checks if string is an valid integer
-    /// </summary>
-    /// <param name="input">
-    /// The input string to check.
-    /// </param>
-    /// <param name="lowerBound">
-    /// The lower Bound.
-    /// </param>
-    /// <param name="upperBound">
-    /// The upper Bound.
-    /// </param>
-    /// <returns>
-    /// Returns indicating whether the value is a valid integer
-    /// </returns> 
-    public static bool IsValidInt(string input, int lowerBound, int upperBound)
-    {
-        if (int.TryParse(input, out var value))
-        {
-            return value >= lowerBound && value <= upperBound;
-        }
-
-        return false;
+        return double.TryParse(valueToCheck, NumberStyles.Any, null, out var dummy);
     }
 
     /// <summary>

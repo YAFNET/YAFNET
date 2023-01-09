@@ -25,8 +25,8 @@
 namespace YAF.Core.Controllers;
 
 using System;
-using System.Web.Http;
 
+using YAF.Core.BasePages;
 using YAF.Core.Model;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -35,14 +35,11 @@ using YAF.Types.Objects.Model;
 /// <summary>
 /// The YAF Topic controller.
 /// </summary>
-[RoutePrefix("api")]
-public class TopicController : ApiController, IHaveServiceLocator
+[Produces("application/json")]
+[Route("api/[controller]")]
+[ApiController]
+public class TopicController : ForumBaseController
 {
-    /// <summary>
-    ///   Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
     /// <summary>
     /// Gets the topics by forum.
     /// </summary>
@@ -52,11 +49,11 @@ public class TopicController : ApiController, IHaveServiceLocator
     /// <returns>
     /// The <see cref="SelectPagedOptions"/>.
     /// </returns>
-    [Route("Topic/GetTopics")]
-    [HttpPost]
-    public IHttpActionResult GetTopics(SearchTopic searchTopic)
+    [ValidateAntiForgeryToken]
+    [HttpPost("GetTopics")]
+    public IActionResult GetTopics([FromBody] SearchTopic searchTopic)
     {
-        if (!BoardContext.Current.IsAdmin && !BoardContext.Current.IsForumModerator)
+        if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.IsForumModerator)
         {
             return this.NotFound();
         }
@@ -86,12 +83,12 @@ public class TopicController : ApiController, IHaveServiceLocator
         {
             var topics = this.GetRepository<Topic>().ListPaged(
                 searchTopic.ForumId,
-                BoardContext.Current.PageUserID,
+                this.PageBoardContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
                 searchTopic.Page,
                 15,
-                false);
-
+                false); 
+            
             topics.RemoveAll(t => t.TopicID == searchTopic.TopicId);
 
             var topicsList = (from PagedTopic topic in topics
@@ -103,7 +100,7 @@ public class TopicController : ApiController, IHaveServiceLocator
 
             var pagedTopics = new SelectPagedOptions
                                   {
-                                      Total = topics.Any() ? topics.FirstOrDefault().TotalRows : 0,
+                                      Total = !topics.NullOrEmpty() ? topics.FirstOrDefault().TotalRows : 0,
                                       Results = topicsList
                                   };
 

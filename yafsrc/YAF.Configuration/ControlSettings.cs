@@ -29,8 +29,6 @@ namespace YAF.Configuration;
 /// </summary>
 public class ControlSettings
 {
-    /* Ederon : 6/16/2007 - conventions */
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ControlSettings"/> class.
     /// </summary>
@@ -38,7 +36,7 @@ public class ControlSettings
     {
         this.CategoryID = Config.CategoryID;
 
-        this.BoardID = Config.BoardID;
+        this.BoardID = Config.BoardID == 0 ? 1 : Config.BoardID;
     }
 
     /// <summary>

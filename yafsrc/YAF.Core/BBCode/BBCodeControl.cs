@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,17 +21,33 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BBCode;
 
+using System;
 using System.Collections.Generic;
 
-using YAF.Core.BaseControls;
+using YAF.Core.Context;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The YAF BBCode control.
 /// </summary>
-public class BBCodeControl : BaseControl
+public class BBCodeControl : IHaveServiceLocator, IHaveLocalization
 {
+    /// <summary>
+    ///   The _localization.
+    /// </summary>
+    private ILocalization localization;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BBCodeControl"/> class.
+    /// </summary>
+    public BBCodeControl()
+    {
+        this.Get<IInjectServices>().Inject(this);
+    }
+
     /// <summary>
     ///   Gets or sets CurrentMessageFlags.
     /// </summary>
@@ -50,7 +66,59 @@ public class BBCodeControl : BaseControl
     /// <summary>
     ///   Gets or sets Parameters.
     /// </summary>
-    public Dictionary<string, string> Parameters { get; set; } = new();
+    public Dictionary<string, string> Parameters { get; set; } = new ();
+
+    /// <summary>
+    ///   Gets Localization.
+    /// </summary>
+    public ILocalization Localization => this.localization ??= this.Get<ILocalization>();
+
+    /// <summary>
+    ///   Gets PageContext.
+    /// </summary>
+    public BoardContext PageContext => BoardContext.Current;
+
+    /// <summary>
+    ///   Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator => this.PageContext.ServiceLocator;
+
+    /// <summary>
+    /// Creates a Unique ID
+    /// </summary>
+    /// <param name="prefix">
+    /// The prefix.
+    /// </param>
+    /// <returns>
+    /// The get unique id.
+    /// </returns>
+    public string GetUniqueID(string prefix)
+    {
+        return prefix.IsSet()
+                   ? $"{prefix}{Guid.NewGuid().ToString()[..5]}"
+                   : Guid.NewGuid().ToString()[..10];
+    }
+
+    /// <summary>
+    /// XSS Encode input String.
+    /// </summary>
+    /// <param name="data">
+    /// The data.
+    /// </param>
+    /// <returns>
+    /// The encoded string.
+    /// </returns>
+    public string HtmlEncode(object data)
+    {
+        if (data == null)
+        {
+            return null;
+        }
+
+        return BoardContext.Current.CurrentForumPage != null
+                   ? BoardContext.Current.CurrentForumPage.HtmlEncode(data.ToString())
+                   : new UnicodeEncoder().XSSEncode(data.ToString());
+    }
 
     /// <summary>
     /// Gets the localized string.
@@ -69,5 +137,15 @@ public class BBCodeControl : BaseControl
         return this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tag)
                    ? this.GetText("BBCODEMODULE", tag)
                    : defaultString;
+    }
+
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="stringBuilder">
+    /// The string builder.
+    /// </param>
+    public virtual void Render(StringBuilder stringBuilder)
+    {
     }
 }

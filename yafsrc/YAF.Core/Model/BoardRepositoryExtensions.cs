@@ -25,6 +25,7 @@ namespace YAF.Core.Model;
 
 using System;
 
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -344,7 +345,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
             0,
             userName,
             userName,
-            BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
+            BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.GetUserRealIPAddress(),
             DateTime.UtcNow,
             messageFlags,
             out _);

@@ -23,9 +23,10 @@
  */
 namespace YAF.Core.Services;
 
-using ServiceStack.Text;
+using System.Collections.Generic;
+using System.Reflection;
 
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -52,56 +53,22 @@ public class LinkBuilder : IHaveServiceLocator
     /// <summary>
     /// Gets full URL to the Root of the Forum
     /// </summary>
-    public string ForumUrl => this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Board);
+    public string ForumUrl => this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Index);
 
     /// <summary>
-    /// Gets the safe raw URL.
+    /// The get user profile link.
     /// </summary>
-    /// <returns>Returns the safe raw URL</returns>
-    public string GetSafeRawUrl()
-    {
-        return this.Get<LinkBuilder>().GetSafeRawUrl(this.Get<HttpContextBase>().Request.RawUrl);
-    }
-
-    /// <summary>
-    /// Cleans up a URL so that it doesn't contain any problem characters.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <returns>
-    /// The get safe raw URL.
-    /// </returns>
-    [NotNull]
-    public string GetSafeRawUrl([NotNull] string url)
-    {
-        CodeContracts.VerifyNotNull(url);
-
-        var processedRaw = url;
-        processedRaw = processedRaw.Replace("\"", string.Empty);
-        processedRaw = processedRaw.Replace("<", "%3C");
-        processedRaw = processedRaw.Replace(">", "%3E");
-        processedRaw = processedRaw.Replace("&", "%26");
-        return processedRaw.Replace("'", string.Empty);
-    }
-
-    /// <summary>
-    /// Function that verifies a string is an integer value or it redirects to invalid "info" page.
-    /// Used as a security feature against invalid values submitted to the page.
-    /// </summary>
-    /// <param name="intValue">
-    /// The string value to test
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <returns>
-    /// The converted integer value
+    /// The <see cref="string"/>.
     /// </returns>
-    public int StringToIntOrRedirect(string intValue)
+    public string GetUserProfileLink(User user)
     {
-        if (!int.TryParse(intValue, out var value))
-        {
-            // it's an invalid request. Redirect to the info page on invalid requests.
-            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-        }
-
-        return value;
+        return this.Get<LinkBuilder>().GetLink(
+            ForumPages.UserProfile,
+            new {u = user.ID, name = user.DisplayOrUserName()});
     }
 
     /// <summary>
@@ -118,7 +85,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetUserProfileLink(int userId, string userName)
     {
-        return this.Get<LinkBuilder>().GetLink(ForumPages.UserProfile, new { u = userId, name = userName });
+        return this.Get<LinkBuilder>().GetLink(ForumPages.UserProfile, new {u = userId, name = userName});
     }
 
     /// <summary>
@@ -132,7 +99,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetForumLink(Forum forum)
     {
-        return this.Get<LinkBuilder>().GetLink(ForumPages.Topics, new { f = forum.ID, name = forum.Name });
+        return this.Get<LinkBuilder>().GetLink(ForumPages.Topics, new {f = forum.ID, name = forum.Name});
     }
 
     /// <summary>
@@ -149,7 +116,9 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetForumLink(int forumId, string forumName)
     {
-        return this.Get<LinkBuilder>().GetLink(ForumPages.Topics, new { f = forumId, name = forumName });
+        return this.Get<LinkBuilder>().GetLink(
+            ForumPages.Topics,
+            new {f = forumId, name = UrlRewriteHelper.CleanStringForUrl(forumName)});
     }
 
     /// <summary>
@@ -166,8 +135,9 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetCategoryLink(int categoryId, string categoryName)
     {
-        return this.Get<LinkBuilder>().GetLink(ForumPages.Board, new { c = categoryId, name = categoryName })
-            .Replace("&amp;", "&");
+        return this.Get<LinkBuilder>().GetLink(
+            ForumPages.Index,
+            new {c = categoryId, name = UrlRewriteHelper.CleanStringForUrl(categoryName)});
     }
 
     /// <summary>
@@ -184,39 +154,23 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetTopicLink(int topicId, string topicName)
     {
-        return this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = topicName })
-            .Replace("&amp;", "&");
+        return this.Get<LinkBuilder>().GetLink(
+            ForumPages.Posts,
+            new {t = topicId, name = UrlRewriteHelper.CleanStringForUrl(topicName)});
     }
 
     /// <summary>
-    /// Gets base path to the page without ampersand.
+    /// Gets link to the page with given parameters.
     /// </summary>
+    /// <param name="page">
+    /// Page to which to create a link.
+    /// </param>
     /// <returns>
-    /// Base URL to the given page.
-    /// </returns>
-    public string GetBasePath()
-    {
-        return this.Get<IUrlBuilder>().BuildUrl(string.Empty).TrimEnd('&');
-    }
-
-    /// <summary>
-    /// Redirects response to the access denied page.
-    /// </summary>
-    public void AccessDenied()
-    {
-        this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
-    }
-
-    /// <summary>
-    /// Gets link to the page.
-    /// </summary>
-    /// <param name="page">Page to which to create a link.</param>
-    /// <returns>
-    /// URL to the given page.
+    /// URL to the given page with parameters.
     /// </returns>
     public string GetLink(ForumPages page)
     {
-        return this.Get<IUrlBuilder>().BuildUrl($"g={page}");
+        return this.Get<LinkBuilder>().GetLink(page, null);
     }
 
     /// <summary>
@@ -226,20 +180,20 @@ public class LinkBuilder : IHaveServiceLocator
     /// Page to which to create a link.
     /// </param>
     /// <param name="values">
-    /// The query string values.
+    /// The values.
     /// </param>
     /// <returns>
     /// URL to the given page with parameters.
     /// </returns>
     public string GetLink(ForumPages page, object values)
     {
-        var queryString = this.BuildQueryString(values);
+        var url = this.Get<IUrlHelper>().Page(page.GetPageName(), null, values);
 
-        return this.Get<IUrlBuilder>().BuildUrl($"g={page}{queryString}").Replace("&amp;", "&");
+        return url;
     }
 
     /// <summary>
-    /// Gets Absolute link to the page with given parameters.
+    /// Gets link to the page with given parameters.
     /// </summary>
     /// <param name="page">
     /// Page to which to create a link.
@@ -249,7 +203,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetAbsoluteLink(ForumPages page)
     {
-        return this.Get<IUrlBuilder>().BuildUrlFull($"g={page}");
+        return this.Get<LinkBuilder>().GetAbsoluteLink(page, null);
     }
 
     /// <summary>
@@ -266,9 +220,17 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetAbsoluteLink(ForumPages page, object values)
     {
-        var queryString = this.BuildQueryString(values);
+        var url = this.Get<IUrlHelper>().Page(page.GetPageName(), null, values);
 
-        return this.Get<IUrlBuilder>().BuildUrlFull($"g={page}{queryString}");
+        return $"{this.Get<BoardInfo>().ForumBaseUrl}{url}";
+    }
+
+    /// <summary>
+    /// Redirects response to the access denied page.
+    /// </summary>
+    public IActionResult AccessDenied()
+    {
+        return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
     }
 
     /// <summary>
@@ -277,9 +239,9 @@ public class LinkBuilder : IHaveServiceLocator
     /// <param name="page">
     /// Page to which to redirect response.
     /// </param>
-    public void Redirect(ForumPages page)
+    public IActionResult Redirect(ForumPages page)
     {
-        this.Get<HttpResponseBase>().Redirect(this.Get<LinkBuilder>().GetLink(page).Replace("&amp;", "&"));
+        return this.Get<LinkBuilder>().Redirect(page, null);
     }
 
     /// <summary>
@@ -289,26 +251,13 @@ public class LinkBuilder : IHaveServiceLocator
     /// Page to which to redirect response.
     /// </param>
     /// <param name="values">
-    /// The query string values.
+    /// The values.
     /// </param>
-    public void Redirect(ForumPages page, object values)
+    public IActionResult Redirect(ForumPages page, object values)
     {
-        this.Get<HttpResponseBase>().Redirect(this.Get<LinkBuilder>().GetLink(page, values).Replace("&amp;", "&"));
-    }
-
-    /// <summary>
-    /// Redirects to the given page with parameters.
-    /// </summary>
-    /// <param name="page">
-    /// Page to which to redirect response.
-    /// </param>
-    /// <param name="endResponse">True to end the Response, false otherwise.</param>
-    /// <param name="values">
-    /// The query string values.
-    /// </param>
-    public void Redirect(ForumPages page, bool endResponse, object values)
-    {
-        this.Get<HttpResponseBase>().Redirect(this.Get<LinkBuilder>().GetLink(page, values), endResponse);
+        return BoardContext.Current.CurrentForumPage != null
+                   ? BoardContext.Current.CurrentForumPage.RedirectToPage(page.GetPageName(), null, values)
+                   : BoardContext.Current.CurrentForumController.RedirectToPage(page.GetPageName(), null, values);
     }
 
     /// <summary>
@@ -317,30 +266,19 @@ public class LinkBuilder : IHaveServiceLocator
     /// <param name="infoMessage">
     /// The info Message.
     /// </param>
-    public void RedirectInfoPage(InfoMessage infoMessage)
+    public IActionResult RedirectInfoPage(InfoMessage infoMessage)
     {
-        this.Get<LinkBuilder>().Redirect(ForumPages.Info, new { i = infoMessage.ToType<int>() });
+        return this.Get<LinkBuilder>().Redirect(
+            ForumPages.Info,
+            new {info = infoMessage.ToType<int>()});
     }
 
-    /// <summary>
-    /// Build the Query String
-    /// </summary>
-    /// <param name="values">
-    /// The values.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    private string BuildQueryString(object values)
+    public IDictionary<string, string> GetAllRouteData(object values)
     {
-        var queryString = string.Empty;
+        const BindingFlags BindingFlags = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance;
 
-        var parameters = values.ToObjectDictionary();
-
-        queryString = parameters.Aggregate(
-            queryString,
-            (current, param) => $"{current}&{param.Key}={param.Value}");
-
-        return queryString;
+        return values.GetType().GetProperties(BindingFlags).ToDictionary(
+            propInfo => propInfo.Name,
+            propInfo => propInfo.GetValue(values, null).ToString());
     }
 }

@@ -25,9 +25,11 @@
 namespace YAF.Core.Services.CheckForSpam;
 
 using System;
-using System.IO;
-using System.Net;
+using System.Net.Http;
 
+using Microsoft.Extensions.Logging;
+
+using YAF.Types.Attributes;
 using YAF.Types.Interfaces.CheckForSpam;
 
 /// <summary>
@@ -72,14 +74,12 @@ public class BotScout : ICheckForBot
             var url =
                 $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(BoardContext.Current.BoardSettings.BotScoutApiKey.IsSet() ? $"&key={BoardContext.Current.BoardSettings.BotScoutApiKey}" : string.Empty)}";
 
-            var webRequest = (HttpWebRequest)WebRequest.Create(url);
 
-            var response = (HttpWebResponse)webRequest.GetResponse();
+            var client = new System.Net.Http.HttpClient(new HttpClientHandler());
 
-            using (var streamReader = new StreamReader(response.GetResponseStream()))
-            {
-                responseText = streamReader.ReadToEnd();
-            }
+            var response = client.GetAsync(url).Result;
+
+            responseText = response.Content.ReadAsStringAsync().Result;
 
             if (!responseText.StartsWith("Y|"))
             {
@@ -103,7 +103,7 @@ public class BotScout : ICheckForBot
         }
         catch (Exception ex)
         {
-            BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot");
+            BoardContext.Current.Get<ILogger<BotScout>>().Error(ex, "Error while Checking for Bot");
 
             responseText = ex.Message;
 

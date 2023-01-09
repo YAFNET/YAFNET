@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -27,25 +27,18 @@ namespace YAF.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Claims;
-
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
-
 using System.Linq.Expressions;
-using System.Web.Http;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 using YAF.Core.Identity;
 using YAF.Core.Model;
-using YAF.Types.Constants;
-using YAF.Types.Exceptions;
-using YAF.Types.Interfaces.Identity;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
-using YAF.Types.Models.Identity;
 using YAF.Types.Objects.Model;
-
-using Constants = YAF.Types.Constants.Constants;
-using YAF.Core.Extensions;
 
 /// <summary>
 /// This is a stop-gap class to help with syncing operations
@@ -75,7 +68,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     public IQueryable<AspNetUsers> Users => this.Get<AspNetUsersManager>().AspNetUsers;
 
     /// <summary>Used to hash/verify passwords</summary>et
-    public IPasswordHasher IPasswordHasher => this.Get<AspNetUsersManager>().PasswordHasher;
+    public IPasswordHasher<AspNetUsers> IPasswordHasher => this.Get<AspNetUsersManager>().PasswordHasher;
 
     /// <summary>
     /// Gets the guest user for the current board.
@@ -89,9 +82,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <returns>
     /// The <see cref="User"/>.
     /// </returns>
-    public User GuestUser (int boardId)
+    public User GuestUser(int boardId)
     {
-            
         var guestUser = this.Get<IDataCache>().GetOrSet(
             Constants.Cache.GuestUser,
             () =>
@@ -100,9 +92,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
                     var guestUser = guest.FirstOrDefault();
 
-                    if (guest == null)
+                    if (guestUser == null)
                     {
-                        throw new ApplicationException($"No candidates for a guest were found for the board {boardId}.");
+                        // failure...
+                        throw new NoValidGuestUserForBoardException(
+                            $@"Could not locate the guest user for the board id {BoardContext.Current.PageBoardID}. 
+                                          You might have deleted the guest group or removed the guest user.");
                     }
 
                     if (guest.Count > 1)
@@ -115,7 +110,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                 });
 
         return guestUser;
-        //}
     }
 
     /// <summary>
@@ -134,7 +128,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     // approve this user...
                     user.IsApproved = true;
                     this.Get<AspNetUsersManager>().Update(user);
-                    var checkUser  = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+                    var checkUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
 
                     var id = checkUser?.ID ?? 0;
 
@@ -171,7 +165,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         }
 
         var user = this.Get<IAspNetUsersHelper>().GetUser(yafUser.ProviderUserKey);
-
         if (!user.IsApproved)
         {
             user.IsApproved = true;
@@ -205,28 +198,28 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         // iterate through each one...
         allUsers.Where(user => !user.IsApproved && user.CreateDate < createdCutoff).ForEach(
             user =>
-            {
-                var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
-
-                if (yafUser != null)
                 {
-                    // delete this user...
-                    this.GetRepository<User>().Delete(yafUser.ID);
-                }
+                    var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
 
-                this.Get<AspNetUsersManager>().Delete(user);
+                    if (yafUser != null)
+                    {
+                        // delete this user...
+                        this.GetRepository<User>().Delete(yafUser.ID);
+                    }
 
-                if (this.Get<BoardSettings>().LogUserDeleted)
-                {
-                    this.Get<ILoggerService>().UserDeleted(
-                        BoardContext.Current.PageUser.ID,
-                        $"User {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.");
-                }
-            });
+                    this.Get<AspNetUsersManager>().Delete(user);
+
+                    if (this.Get<BoardSettings>().LogUserDeleted)
+                    {
+                        this.Get<ILogger<AspNetUsersHelper>>().UserDeleted(
+                            BoardContext.Current.PageUser.ID,
+                            $"PageUser {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.");
+                    }
+                });
     }
 
     /// <summary>
-    /// De-active all User accounts which are not active for x years
+    /// De-active all PageUser accounts which are not active for x years
     /// </summary>
     /// <param name="createdCutoff">
     /// The created cutoff.
@@ -247,9 +240,10 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     flags.IsDeleted = true;
 
                     this.GetRepository<User>().UpdateOnly(
-                        () => new User {
-                                           Flags = flags.BitValue
-                                       },
+                        () => new User
+                                  {
+                                      Flags = flags.BitValue
+                                  },
                         u => u.ID == user.ID);
                 });
     }
@@ -271,9 +265,10 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             return false;
         }
 
+        var webRootPath = this.Get<IWebHostEnvironment>().WebRootPath;
+
         // Delete the images/albums both from database and physically.
-        var uploadFolderPath = HttpContext.Current.Server.MapPath(
-            string.Concat(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads));
+        var uploadFolderPath = Path.Combine(webRootPath, this.Get<BoardFolders>().Uploads);
 
         var dt = this.GetRepository<UserAlbum>().ListByUser(userID);
 
@@ -305,9 +300,9 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         if (this.Get<BoardSettings>().LogUserDeleted)
         {
-            this.Get<ILoggerService>().UserDeleted(
+            this.Get<ILogger<AspNetUsersHelper>>().UserDeleted(
                 BoardContext.Current.PageUser.ID,
-                $"User {user.DisplayOrUserName()} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.PageUser.DisplayOrUserName())}.");
+                $"PageUser {user.DisplayOrUserName()} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.PageUser.DisplayOrUserName())}.");
         }
 
         return true;
@@ -317,7 +312,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// Deletes and ban's the user.
     /// </summary>
     /// <param name="userID">The user id.</param>
-    /// <param name="user">The MemberShip User.</param>
+    /// <param name="user">The MemberShip PageUser.</param>
     /// <param name="userIpAddress">The user's IP address.</param>
     /// <returns>
     /// Returns if Deleting was successfully
@@ -333,9 +328,10 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             this.Get<IRaiseEvent>().Raise(new BanUserEvent(userID, user.UserName, user.Email, userIpAddress));
         }
 
+        var webRootPath = this.Get<IWebHostEnvironment>().WebRootPath;
+
         // Delete the images/albums both from database and physically.
-        var uploadDir = HttpContext.Current.Server.MapPath(
-            string.Concat(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads));
+        var uploadDir = Path.Combine(webRootPath, this.Get<BoardFolders>().Uploads);
 
         var dt = this.GetRepository<UserAlbum>().ListByUser(userID);
 
@@ -360,9 +356,9 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         if (this.Get<BoardSettings>().LogUserDeleted)
         {
-            this.Get<ILoggerService>().UserDeleted(
+            this.Get<ILogger<AspNetUsersHelper>>().UserDeleted(
                 BoardContext.Current.PageUser.ID,
-                $"User {user.UserName} was deleted by the automatic spam check system.");
+                $"PageUser {user.UserName} was deleted by the automatic spam check system.");
         }
 
         return true;
@@ -433,8 +429,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </returns>
     public AspNetUsers GetUser()
     {
-        return this.Get<HttpContextBase>().User != null && this.Get<HttpContextBase>().User.Identity.IsAuthenticated
-                   ? this.Get<IAspNetUsersHelper>().GetUserByName(HttpContext.Current.User.Identity.Name)
+        return this.Get<IHttpContextAccessor>().HttpContext.User != null && this.Get<IHttpContextAccessor>().HttpContext.User.Identity.IsAuthenticated
+                   ? this.Get<IAspNetUsersHelper>().GetUserByName(this.Get<IHttpContextAccessor>().HttpContext.User.Identity.Name)
                    : null;
     }
 
@@ -477,14 +473,14 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Get the User from the ProviderUserKey
+    /// Get the UserID from the ProviderUserKey
     /// </summary>
     /// <param name="providerUserKey">The provider user key.</param>
     /// <param name="currentBoard">
     /// Get user from Current board, or all boards
     /// </param>
     /// <returns>
-    /// The get user from provider user key.
+    /// The get user id from provider user key.
     /// </returns>
     public User GetUserFromProviderUserKey(string providerUserKey, bool currentBoard = true)
     {
@@ -583,7 +579,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </summary>
     public void SignOut()
     {
-        this.Get<IAuthenticationManager>().SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        this.Get<SignInManager<AspNetUsers>>().SignOutAsync();
     }
 
     /// <summary>
@@ -595,16 +591,14 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <param name="isPersistent">
     /// The is persistent.
     /// </param>
-    public void SignIn(AspNetUsers user, bool isPersistent = true)
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public async Task SignInAsync(AspNetUsers user, bool isPersistent = true)
     {
-        this.Get<IAuthenticationManager>().SignOut(DefaultAuthenticationTypes.ExternalCookie);
+        await this.Get<SignInManager<AspNetUsers>>().SignOutAsync();
 
-        var userIdentity = this.Get<IAspNetUsersHelper>()
-            .CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-
-        this.Get<IAuthenticationManager>().SignIn(
-            new AuthenticationProperties { IsPersistent = isPersistent },
-            userIdentity);
+        await this.Get<SignInManager<AspNetUsers>>().SignInAsync(user, isPersistent);
 
         user.AccessFailedCount = 0;
         user.LockoutEndDateUtc = null;
@@ -617,27 +611,41 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <summary>
     /// The sign in external.
     /// </summary>
-    public void SignInExternal()
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <returns>
+    /// The <see cref="Task"/>.
+    /// </returns>
+    public async Task<IActionResult> SignInExternalAsync(AspNetUsers user)
     {
-        var loginInfo = this.Get<IAuthenticationManager>().GetExternalLoginInfo();
+        var info = await this.Get<SignInManager<AspNetUsers>>().GetExternalLoginInfoAsync();
 
-        var user = loginInfo.Login.LoginProvider.Equals("Twitter")
-                       ? this.Get<IAspNetUsersHelper>().GetUserByName(loginInfo.DefaultUserName)
-                       : this.Get<IAspNetUsersHelper>().GetUserByEmail(loginInfo.Email);
+        if (info == null)
+        {
+            return this.Get<LinkBuilder>().Redirect(ForumPages.Account_Login);
+        }
 
-        this.Get<IAspNetUsersHelper>().AddLogin(user.Id, loginInfo.Login);
+        await this.Get<SignInManager<AspNetUsers>>().SignOutAsync();
 
-        // Login
-        this.Get<IAspNetUsersHelper>().SignIn(user);
+        // Sign in the user with this external login provider if the user already has a login.
+        await this.Get<SignInManager<AspNetUsers>>().SignInAsync(user, true);
 
-        this.Get<LinkBuilder>().Redirect(ForumPages.Board);
+        user.AccessFailedCount = 0;
+        user.LockoutEndDateUtc = null;
+
+        this.Get<IAspNetUsersHelper>().Update(user);
+
+        this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(BoardContext.Current.PageUserID));
+
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
     }
 
     /// <summary>
     /// The remove from role.
     /// </summary>
-    /// <param name="userId">
-    /// The user id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="role">
     /// The role.
@@ -645,26 +653,9 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult RemoveFromRole(string userId, string role)
+    public IdentityResult RemoveFromRole(AspNetUsers user, string role)
     {
-        return this.Get<AspNetUsersManager>().RemoveFromRole(userId, role);
-    }
-
-    /// <summary>
-    /// Creates a ClaimsIdentity representing the user
-    /// </summary>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <param name="authenticationType">
-    /// The authentication Type.
-    /// </param>
-    /// <returns>
-    /// The <see cref="ClaimsIdentity"/>.
-    /// </returns>
-    public ClaimsIdentity CreateIdentity(AspNetUsers user, string authenticationType)
-    {
-        return this.Get<AspNetUsersManager>().CreateIdentity(user, authenticationType);
+        return this.Get<AspNetUsersManager>().RemoveFromRole(user, role);
     }
 
     /// <summary>
@@ -684,15 +675,15 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <summary>
     /// Returns the roles for the user
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <returns>
     /// The <see cref="IList"/>.
     /// </returns>
-    public IList<string> GetRoles(string userId)
+    public IList<string> GetRoles(AspNetUsers user)
     {
-        return this.Get<AspNetUsersManager>().GetRoles(userId);
+        return this.Get<AspNetUsersManager>().GetRoles(user);
     }
 
     /// <summary>
@@ -709,7 +700,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </returns>
     public bool IsInRole(AspNetUsers user, string role)
     {
-        return this.Get<AspNetUsersManager>().IsInRole(user.Id, role);
+        return this.Get<AspNetUsersManager>().IsInRole(user, role);
     }
 
     /// <summary>
@@ -723,7 +714,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </param>
     public void AddToRole(AspNetUsers user, string roleName)
     {
-        this.Get<AspNetUsersManager>().AddToRole(user.Id, roleName);
+        this.Get<AspNetUsersManager>().AddToRole(user, roleName);
     }
 
     /// <summary>
@@ -760,8 +751,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <summary>
     /// Confirm the user's email with confirmation token
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="token">
     /// The token.
@@ -769,30 +760,30 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult ConfirmEmail(string userId, string token)
+    public IdentityResult ConfirmEmail(AspNetUsers user, string token)
     {
-        return this.Get<AspNetUsersManager>().ConfirmEmail(userId, token);
+        return this.Get<AspNetUsersManager>().ConfirmEmail(user, token);
     }
 
     /// <summary>
     /// Generate a password reset token for the user using the UserTokenProvider
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public string GeneratePasswordResetToken(string userId)
+    public string GeneratePasswordResetToken(AspNetUsers user)
     {
-        return this.Get<AspNetUsersManager>().GeneratePasswordResetToken(userId);
+        return this.Get<AspNetUsersManager>().GeneratePasswordResetToken(user);
     }
 
     /// <summary>
     /// Reset a user's password using a reset password token
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="token">
     /// The token.
@@ -803,30 +794,30 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult ResetPassword(string userId, string token, string newPassword)
+    public IdentityResult ResetPassword(AspNetUsers user, string token, string newPassword)
     {
-        return this.Get<AspNetUsersManager>().ResetPassword(userId, token, newPassword);
+        return this.Get<AspNetUsersManager>().ResetPassword(user, token, newPassword);
     }
 
     /// <summary>
     /// Get the email confirmation token for the user
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public string GenerateEmailConfirmationResetToken(string userId)
+    public string GenerateEmailConfirmationResetToken(AspNetUsers user)
     {
-        return this.Get<AspNetUsersManager>().GenerateEmailConfirmationToken(userId);
+        return this.Get<AspNetUsersManager>().GenerateEmailConfirmationResetToken(user);
     }
 
     /// <summary>
     /// Change a user password
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="currentPassword">
     /// The current Password.
@@ -837,9 +828,9 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult ChangePassword(string userId, string currentPassword, string newPassword)
+    public IdentityResult ChangePassword(AspNetUsers user, string currentPassword, string newPassword)
     {
-        return this.Get<AspNetUsersManager>().ChangePassword(userId, currentPassword, newPassword);
+        return this.Get<AspNetUsersManager>().ChangePassword(user, currentPassword, newPassword);
     }
 
     /// <summary>
@@ -914,7 +905,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         }
 
         // get the username associated with this id...
-        user = this.Get<IAspNetUsersHelper>().GetUser(realUsername.ProviderUserKey);
+        user = this.Get<IAspNetUsersHelper>().GetUserByName(realUsername.Name);
 
         // validate again...
         return user;
@@ -931,9 +922,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <param name="boardId">
     /// The board id.
     /// </param>
-    /// <param name="includeNonApproved">
-    /// Include not approved user
-    /// </param>
+    /// <param name="includeNonApproved"></param>
     /// <returns>
     /// The <see cref="Tuple"/>.
     /// </returns>
@@ -1276,7 +1265,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                              });
 
                     // Set Sorting
-                    if (sortName.HasValue)
+                    if (sortName is > 0)
                     {
                         if (sortName.Value == 1)
                         {

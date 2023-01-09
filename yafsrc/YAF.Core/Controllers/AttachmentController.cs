@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,22 +25,19 @@
 namespace YAF.Core.Controllers;
 
 using System.Collections.Generic;
-using System.Web.Http;
 
+using YAF.Core.BasePages;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF Attachment controller.
 /// </summary>
-[RoutePrefix("api")]
-public class AttachmentController : ApiController, IHaveServiceLocator
+[Produces("application/json")]
+[Route("api/[controller]")]
+[ApiController]
+public class AttachmentController : ForumBaseController
 {
-    /// <summary>
-    ///   Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
     /// <summary>
     /// Gets the paged attachments.
     /// </summary>
@@ -50,11 +47,11 @@ public class AttachmentController : ApiController, IHaveServiceLocator
     /// <returns>
     /// Returns the Attachment List as Grid Data Set
     /// </returns>
-    [Route("Attachment/GetAttachments")]
-    [HttpPost]
-    public IHttpActionResult GetAttachments(PagedResults pagedResults)
+    [ValidateAntiForgeryToken]
+    [HttpPost("GetAttachments")]
+    public IActionResult GetAttachments([FromBody] PagedResults pagedResults)
     {
-        var userId = BoardContext.Current.PageUserID;
+        var userId = this.PageBoardContext.PageUserID;
         var pageSize = pagedResults.PageSize;
         var pageNumber = pagedResults.PageNumber;
 
@@ -69,7 +66,7 @@ public class AttachmentController : ApiController, IHaveServiceLocator
             attach =>
                 {
                     var url =
-                        $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&editor=true";
+                        this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attach.ID, editor = true });
 
                     var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
 

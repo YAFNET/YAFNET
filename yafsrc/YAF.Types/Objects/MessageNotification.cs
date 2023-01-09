@@ -50,18 +50,6 @@ public class MessageNotification
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MessageNotification"/> class.
-    /// </summary>
-    /// <param name="message">The message.</param>
-    /// <param name="messageType">Type of the message.</param>
-    public MessageNotification(string message, MessageTypes messageType, string script)
-    {
-        this.Message = message;
-        this.MessageType = messageType;
-        this.Script = script;
-    }
-
-    /// <summary>
     /// Gets or sets the message.
     /// </summary>
     /// <value>
@@ -76,6 +64,4 @@ public class MessageNotification
     /// The type of the message.
     /// </value>
     public MessageTypes MessageType { get; set; }
-
-    public string Script { get; set; }
 }

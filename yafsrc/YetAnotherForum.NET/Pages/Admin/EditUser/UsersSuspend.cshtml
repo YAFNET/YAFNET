@@ -1,0 +1,91 @@
+﻿@page
+
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
+@using YAF.Core.Extensions
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Models
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+@model YAF.Pages.Admin.EditUser.UsersSuspendModel
+
+@inject BoardContext Current
+
+@{
+    Layout = "_EditUserLayout";
+}
+
+<h2>
+    @Html.LocalizedText("PROFILE", "SUSPEND_USER")
+</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
+    
+    @if (Model.EditUser.Item1.Suspended.HasValue)
+    {
+        var suspendedByUser = Current.GetRepository<User>().GetById(Model.EditUser.Item1.SuspendedBy);
+        var suspendedTo = Current.Get<IDateTimeService>().GetUserDateTime(Model.EditUser.Item1.Suspended.Value, Model.EditUser.Item1.TimeZoneInfo).ToString(CultureInfo.InvariantCulture);
+
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">
+                @Html.LocalizedText("PROFILE","SUSPEND_CURRENT")
+            </h4>
+            <p>
+                <strong>@Html.LocalizedText("PROFILE","SUSPEND_REASON")</strong>
+                @Html.Raw(Model.EditUser.Item1.SuspendedReason)
+                <strong>@Html.LocalizedText("PROFILE","SUSPEND_BY")</strong>
+                @Html.UserLink(suspendedByUser)
+                <strong>@Html.LocalizedText("PROFILE","ENDS")</strong>
+                @Html.Raw(suspendedTo)
+            </p>
+            <hr />
+            <p class="mb-0">
+                <button button-style="Danger"
+                        button-size="Small"
+                        asp-page-handler="RemoveSuspension"
+                        text-localized-tag="REMOVESUSPENSION"
+                        Icon="flag"></button>
+            </p>
+        </div>
+        <hr />
+    }
+
+    <h2>
+        @Html.LocalizedText("PROFILE", "SUSPEND_NEW")
+    </h2>
+    <div class="mb-3">
+        <label asp-for="Input.SuspendedReason" localized-page="PROFILE" localized-tag="SUSPEND_REASON" class="form-label">
+        </label>
+        <textarea rows="4" asp-for="Input.SuspendedReason" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Input.SuspendCount" localized-page="PROFILE" localized-tag="SUSPEND_USER" class="form-label">
+        </label>
+        <div class="input-group">
+            <input type="number" asp-for="Input.SuspendCount" class="form-control"/>
+            <select asp-for="Input.SuspendUnit" asp-items="Model.SuspendUnits" class="form-select"></select>
+        </div>
+    </div>
+    
+    <alert type="info" icon="info-circle">
+        @Html.Raw(Model.GetTextFormatted("SUSPEND_INFO",
+        Model.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow, Model.EditUser.Item1.TimeZoneInfo).ToString(CultureInfo.InvariantCulture)))
+    </alert>
+    <hr/>
+    <div class="text-lg-center">
+        <button asp-page-handler="Suspend"
+                button-style="Primary"
+                Icon="flag"
+                text-localized-tag="SUSPEND"></button>
+        <a button-style="Secondary"
+           Icon="times"
+           text-localized-tag="CANCEL"
+           asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
+    </div>
+</form>

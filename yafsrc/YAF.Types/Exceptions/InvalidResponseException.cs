@@ -1,4 +1,4 @@
-﻿/* Based on "Subkismet - The Cure For Comment Spam" v1.0: http://subkismet.codeplex.com/
+/* Based on "Subkismet - The Cure For Comment Spam" v1.0: http://subkismet.codeplex.com/
  * 
  * License: New BSD License
  * -------------------------------------
@@ -21,6 +21,8 @@ namespace YAF.Types.Exceptions;
 
 using System.Net;
 using System.Runtime.Serialization;
+
+using YAF.Types;
 
 /// <summary>
 /// Exception thrown when a response other than 200 is returned.
@@ -65,5 +67,5 @@ public sealed class InvalidResponseException : Exception
     ///   Gets the HTTP status returned by the service.
     /// </summary>
     /// <value>The HTTP status.</value>
-    public HttpStatusCode HttpStatus { get; }
+    public HttpStatusCode HttpStatus { get; } = 0;
 }

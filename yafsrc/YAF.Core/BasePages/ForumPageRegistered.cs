@@ -24,8 +24,6 @@
 
 namespace YAF.Core.BasePages;
 
-using YAF.Types.Constants;
-
 /// <summary>
 /// Forum Page Registered Class
 /// </summary>
@@ -34,22 +32,14 @@ public class ForumPageRegistered : ForumPage
     /// <summary>
     /// Initializes a new instance of the <see cref="ForumPageRegistered"/> class.
     /// </summary>
-    public ForumPageRegistered()
-        : this(null, ForumPages.Board)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ForumPageRegistered"/> class.
-    /// </summary>
     /// <param name="transPage">
     /// The trans page.
     /// </param>
-    /// <param name="pageType">
-    /// The page Type.
+    /// <param name="page">
+    /// The page.
     /// </param>
-    public ForumPageRegistered(string transPage, ForumPages pageType)
-        : base(transPage, pageType)
+    public ForumPageRegistered(string transPage, ForumPages page)
+        : base(transPage, page)
     {
         this.IsRegisteredPage = true;
     }

@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,7 +21,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Context;
+
+using Microsoft.Extensions.Logging;
 
 using YAF.Types.Attributes;
 
@@ -32,6 +35,11 @@ using YAF.Types.Attributes;
 public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveServiceLocator
 {
     /// <summary>
+    /// The browser detector.
+    /// </summary>
+    private readonly IBrowserDetector browserDetector;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="LoadPageLogBadAgent"/> class.
     /// </summary>
     /// <param name="serviceLocator">
@@ -40,32 +48,38 @@ public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveService
     /// <param name="logger">
     /// The logger.
     /// </param>
-    /// <param name="httpRequestBase">
-    /// The http request base.
+    /// <param name="accessor">
+    /// The accessor.
+    /// </param>
+    /// <param name="browserDetector">
+    /// The browser Detector.
     /// </param>
     public LoadPageLogBadAgent(
         [NotNull] IServiceLocator serviceLocator,
-        [NotNull] ILoggerService logger,
-        [NotNull] HttpRequestBase httpRequestBase)
+        [NotNull] ILogger<LoadPageLogBadAgent> logger,
+        [NotNull] IHttpContextAccessor accessor,
+        [NotNull] IBrowserDetector browserDetector)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
         CodeContracts.VerifyNotNull(logger);
-        CodeContracts.VerifyNotNull(httpRequestBase);
+        CodeContracts.VerifyNotNull(accessor);
+        CodeContracts.VerifyNotNull(browserDetector);
 
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
-        this.HttpRequestBase = httpRequestBase;
+        this.HttpRequestBase = accessor.HttpContext.Request;
+        this.browserDetector = browserDetector;
     }
 
     /// <summary>
     /// Gets or sets HttpRequestBase.
     /// </summary>
-    public HttpRequestBase HttpRequestBase { get; set; }
+    public HttpRequest HttpRequestBase { get; set; }
 
     /// <summary>
     /// Gets or sets Logger.
     /// </summary>
-    public ILoggerService Logger { get; set; }
+    public ILogger Logger { get; set; }
 
     /// <summary>
     ///   Gets Order.
@@ -89,7 +103,7 @@ public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveService
             return;
         }
 
-        if (this.HttpRequestBase.Url.ToString().Contains("digest"))
+        if (this.HttpRequestBase.Path.ToString().Contains("digest"))
         {
             return;
         }
@@ -99,14 +113,14 @@ public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveService
             this.Logger.Warn("UserAgent string is empty.");
         }
 
-        if ((@event.UserRequestData.Platform.ToLower().Contains("unknown")
-             || @event.UserRequestData.Browser.ToLower().Contains("unknown"))
-            && !UserAgentHelper.IsSearchEngineSpider(@event.UserRequestData.UserAgent))
+        if (@event.UserRequestData.Platform.ToLower().Contains("unknown") || @event.UserRequestData.Browser.ToLower().Contains("unknown"))
         {
             this.Logger.Log(
                 BoardContext.Current.PageUserID,
                 this,
-                $"Unhandled UserAgent string:'{@event.UserRequestData.UserAgent}'<br />Platform:'{this.HttpRequestBase.Browser.Platform}'<br />Browser:'{this.HttpRequestBase.Browser.Browser}'");
+                $@"Unhandled UserAgent string:'{@event.UserRequestData.UserAgent}'<br />
+                                 Platform:'{this.browserDetector.Browser.OS}'<br />
+                                 Browser:'{this.browserDetector.Browser.Name}'");
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,6 +27,8 @@ namespace YAF.Core.Services;
 using System;
 
 using FarsiLibrary.Utils;
+
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The YAF DateTime.
@@ -55,7 +57,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
     public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>
-    ///   Gets the time zone offset
+    ///   Gets the time zone offset 
     ///   for the current user.
     /// </summary>
     public TimeSpan TimeOffset
@@ -70,10 +72,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
             var min = BoardContext.Current.TimeZoneUserOffSet;
             var hrs = min / 60;
 
-            return new TimeSpan(
-                hrs,
-                min % 60 + this.Get<BoardSettings>().ServerTimeCorrection,
-                0);
+            return new TimeSpan(hrs, min % 60 + this.Get<BoardSettings>().ServerTimeCorrection, 0);
         }
     }
 
@@ -148,7 +147,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
     /// The date Time.
     /// </param>
     /// <returns>
-    /// Formatted  <see cref="string"/> of the formatted <see cref="DateTime"/> Object.
+    /// Formatted  <see cref="string"/> of the formatted <see cref="System.DateTime"/> Object.
     /// </returns>
     public string FormatDateTime([NotNull] DateTime dateTime)
     {
@@ -212,7 +211,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Formats a DateTime value into 07.03.2003 00:00:00 except if
+    /// Formats a DateTime value into 07.03.2003 00:00:00 except if 
     ///   the date is yesterday or today -- in which case it says that.
     /// </summary>
     /// <param name="dateTime">

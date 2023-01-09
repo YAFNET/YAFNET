@@ -1,0 +1,338 @@
+@page "{p:int=1}/{handler?}"
+
+@model UsersModel
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Utilities
+@using YAF.Core.Helpers
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces.Services
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+<form method="post" class="needs-validation">
+
+    <div class="row">
+        <div class="col-xl-12">
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-auto">
+                    @Html.IconHeader("users", "ADMIN_USERS", "TITLE")
+                </div>
+                <div class="col-auto">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="input-group input-group-sm me-2 mb-1" role="group">
+                            <div class="input-group-text">
+                                @Html.LocalizedText("SHOW"):
+                            </div>
+                            <select asp-for="@Model.Size"
+                                    asp-items="Model.PageSizeList"
+                                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                    class="form-select"
+                                    onchange="this.form.submit();"></select>
+                        </div>
+                        <div class="btn-group btn-group-sm me-2 mb-1" role="group" aria-label="tools">
+                            <button class="dropdown-toggle"
+                                    bs-toggle="dropdown"
+                                    button-size="Small"
+                                    button-style="Secondary"
+                                    Icon="tools"
+                                    text-localized-tag="TOOLS"></button>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                                <div class="px-3 py-1 dropdown-sm">
+                                    <div class="mb-3">
+                                        <label asp-for="Input.YearsOld"
+                                               localized-tag="LOCK_INACTIVE"></label>
+                                        <div class="input-group">
+                                            <input type="number" asp-for="Input.YearsOld"
+                                                   class="form-control"/>
+
+                                            <div class="input-group-text">
+                                                @Html.LocalizedText("YEARS")
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 d-grid gap-2">
+                                        <button button-style="Danger"
+                                                Icon="trash"
+                                                text-localized-tag="LOCK_INACTIVE"
+                                                title-localized-tag="LOCK_INACTIVE_HELP"
+                                                asp-page-handler="LockAccounts"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group btn-group-sm mb-1" role="group" aria-label="sort">
+                            <button class="dropdown-toggle"
+                                    bs-toggle="dropdown"
+                                    button-size="Small"
+                                    button-style="Secondary"
+                                    Icon="filter"
+                                    text-localized-tag="FILTER_DROPDOWN"
+                                    text-localized-page="ADMIN_USERS"></button>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                                <div class="px-3 py-1 dropdown-sm">
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label asp-for="Input.Name" class="form-label">
+                                                @Html.LocalizedText("ADMIN_USERS", "NAME_CONTAINS")
+                                            </label>
+                                            <input type="text" asp-for="Input.Name" class="form-control"/>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label asp-for="Input.Email" class="form-label">
+                                                @Html.LocalizedText("ADMIN_USERS", "EMAIL_CONTAINS")
+                                            </label>
+                                            <input type="email" asp-for="Input.Email" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label asp-for="Input.Group" class="form-label">
+                                                @Html.LocalizedText("ADMIN_USERS", "ROLE")
+                                            </label>
+                                            <select asp-for="Input.Group" asp-items="Model.Groups"
+                                                    class="form-select"
+                                                    data-placeholder="@Html.Raw(Model.GetText("ADMIN_USERS", "FILTER_BY_GROUP"))">
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label asp-for="Input.Rank" class="form-label">
+                                                @Html.LocalizedText("ADMIN_USERS", "RANK")
+                                            </label>
+                                            <select asp-for="Input.Rank" asp-items="Model.Ranks"
+                                                    class="form-select"
+                                                    data-placeholder="@Html.Raw(Model.GetText("ADMIN_USERS", "FILTER_BY_RANK"))">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label asp-for="Input.Since" class="form-label">
+                                                @Html.LocalizedText("ADMIN_USERS", "FILTER")
+                                            </label>
+                                            <select asp-for="Input.Since" class="form-select" asp-items="Model.SinceList"></select>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label asp-for="Input.SuspendedOnly" class="form-label">
+                                                @Html.LocalizedText("ADMIN_USERS", "SUSPENDED_ONLY")
+                                            </label>
+                                            <div class="form-check form-switch">
+                                                <input type="checkbox" asp-for="Input.SuspendedOnly" class="form-check-input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <button asp-page-handler="Search"
+                                                class="me-2"
+                                                button-style="Primary"
+                                                Icon="search"
+                                                text-localized-tag="SEARCH"
+                                                text-localized-page="ADMIN_USERS"></button>
+                                        <a asp-page="@ForumPages.Admin_Users.GetPageName()"
+                                           text-localized-tag="CLEAR"
+                                           button-style="Secondary"
+                                           Icon="trash">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        <div class="card-body">
+            @if (!Model.List.NullOrEmpty())
+            {
+                <ul class="list-group">
+                    @foreach (var user in Model.List)
+                    {
+                        <li class="list-group-item list-group-item-action list-group-item-menu">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1 text-break">
+                                    @Html.Raw(Model.GetIsUserDisabledLabel(user.Flags))
+                                    <a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
+                                       asp-route-u="@Html.Raw(user.UserID)"
+                                       Text="@Html.Raw(Model.HtmlEncode(user.Name))"></a>
+                                    (
+                                    <a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
+                                       asp-route-u="@Html.Raw(user.UserID)"
+                                       Text="@Html.Raw(Model.HtmlEncode(user.DisplayName))"></a>)
+                                </h5>
+                                <small class="d-none d-md-block">
+                                    <label class="form-label fw-bold" localized-tag="TITLE_SUSPENDED" localized-page="INFO">
+                                    </label>
+                                    <span class="@Html.Raw(user.Suspended.HasValue ? "badge bg-danger" : "badge bg-success")">
+                                        @Html.Raw(Model.GetSuspendedString(user.Suspended.ToString()))
+                                    </span>
+                                </small>
+                            </div>
+                            <p class="mb-1">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <strong>@Html.LocalizedText("ADMIN_USERS", "EMAIL"):</strong>
+                                        @Html.Raw(user.Email)
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <strong>@Html.LocalizedText("ADMIN_USERS", "RANK") </strong>
+                                        @Html.Raw(Model.HtmlEncode(user.RankName))
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <strong>@Html.LocalizedText("ADMIN_USERS", "POSTS"):</strong>
+                                        @Html.Raw(user.NumPosts)
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <strong>@Html.LocalizedText("ADMIN_USERS", "LAST_VISIT"):</strong>
+                                        @Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(user.LastVisit))
+                                    </li>
+
+                                    @if (user.Profile_FacebookId.IsSet())
+                                    {
+                                        <li class="list-inline-item">
+                                            <span title="@Html.LocalizedText("ADMIN_EDITUSER", "FACEBOOK_USER_HELP")">
+                                                @Html.Icon("facebook", "text-info", "fab")
+                                            </span>
+                                        </li>
+                                    }
+                                    
+                                    @if (user.Profile_TwitterId.IsSet())
+                                    {
+                                        <li class="list-inline-item">
+                                            <span title="@Html.LocalizedText("ADMIN_EDITUSER", "TWITTER_USER_HELP")">
+                                                @Html.Icon("twitter", "text-info", "fab")
+                                            </span>
+                                        </li>
+                                    }
+                                    
+                                    @if (user.Profile_GoogleId.IsSet())
+                                    {
+                                        <li class="list-inline-item">
+                                            <span title="@Html.LocalizedText("ADMIN_EDITUSER", "GOOGLE_USER_HELP")">
+                                                @Html.Icon("google", "text-info", "fab")
+                                            </span>
+                                        </li>
+                                    }
+                                </ul>
+                            </p>
+                            <small>
+                                <div class="btn-group btn-group-sm">
+                                    <a button-style="Info"
+                                            button-size="Small"
+                                            asp-page="@ForumPages.Admin_EditUser.GetPageName()"
+                                            asp-route-u="@Html.Raw(user.UserID)"
+                                            text-localized-tag="EDIT"
+                                            title-localized-tag="EDIT"
+                                            Icon="edit">
+                                    </a>
+
+                                    @if (user.IsGuest == false)
+                                    {
+                                        <button return-confirm-tag="CONFIRM_DELETE"
+                                                button-style="Danger"
+                                                button-size="Small"
+                                                asp-page-handler="Delete"
+                                                asp-route-id="@Html.Raw(user.UserID)"
+                                                text-localized-tag="DELETE"
+                                                title-localized-tag="DELETE"
+                                                Icon="trash">
+                                        </button>
+                                    }
+
+                                </div>
+                            </small>
+                            <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                <button button-style="None"
+                                        class="dropdown-item"
+                                        asp-page="@ForumPages.Admin_EditUser.GetPageName()"
+                                        asp-route-u="@Html.Raw(user.UserID)"
+                                        text-localized-tag="EDIT"
+                                        title-localized-tag="EDIT"
+                                        Icon="edit">
+                                </button>
+                                
+                                @if (user.IsGuest == false)
+                                {
+                                    <button return-confirm-tag="CONFIRM_DELETE"
+                                            button-style="None"
+                                            class="dropdown-item"
+                                            asp-page-handler="Delete"
+                                            asp-route-id="@Html.Raw(user.UserID)"
+                                            text-localized-tag="DELETE"
+                                            title-localized-tag="DELETE"
+                                            Icon="trash">
+                                    </button>
+                                }
+                            </div>
+                        </li>
+                    }
+
+                </ul>
+            }
+            else
+            {
+                <alert type="success" icon="check" localized-tag="NO_ENTRY">
+                    @Html.Icon("check")
+                    @Html.LocalizedText("NO_ENTRY")
+                </alert>
+            }
+        </div>
+        <div class="card-footer text-center">
+            <a class="mt-1 me-1"
+               asp-page="@ForumPages.Admin_RegisterUser.GetPageName()"
+               button-style="Primary"
+               Icon="plus-square"
+               text-localized-tag="NEW_USER"
+               text-localized-page="ADMIN_USERS">
+            </a>
+            <button class="mt-1 me-1"
+                    bs-toggle="ajax-modal"
+                    bs-target-url="@Url.Page("SpamWords", "Import")"
+                    bs-toggle="modal"
+                    button-style="Info"
+                    text-localized-tag="IMPORT"
+                    text-localized-page="ADMIN_USERS">
+            </button>
+            <button class="mt-1 me-1"
+                    asp-page-handler="ExportUsersXml"
+                    button-style="Warning"
+                    Icon="download"
+                    text-localized-tag="EXPORT_XML"
+                    text-localized-page="ADMIN_USERS">
+            </button>
+            <button class="mt-1"
+                    asp-page-handler="ExportUsersCsv"
+                    button-style="Warning"
+                    Icon="download"
+                    text-localized-tag="EXPORT_CSV"
+                    text-localized-page="ADMIN_USERS">
+            </button>
+        </div>
+    </div>
+</div>
+    </div>
+
+
+
+
+    <div class="row justify-content-end">
+        <div class="col-auto">
+            <pager page-size="@Model.Size"
+                   count="!Model.List.NullOrEmpty() ? Model.List.FirstOrDefault().TotalRows : 0">
+            </pager>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+    
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DropDownToggleJs()));
+    </script>
+}

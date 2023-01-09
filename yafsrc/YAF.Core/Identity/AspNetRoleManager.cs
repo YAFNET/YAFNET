@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,11 +26,9 @@ namespace YAF.Core.Identity;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using Microsoft.AspNet.Identity;
-
-using YAF.Types.Interfaces.Identity;
-using YAF.Types.Models.Identity;
+    
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// The asp net role manager.
@@ -43,15 +41,19 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
     /// <param name="store">
     /// The store.
     /// </param>
-    public AspNetRoleManager(IRoleStore<AspNetRoles, string> store)
-        : base(store)
+    public AspNetRoleManager(IRoleStore<AspNetRoles> store,
+                             IEnumerable<IRoleValidator<AspNetRoles>> roleValidators,
+                             ILookupNormalizer keyNormalizer,
+                             IdentityErrorDescriber errors,
+                             ILogger<RoleManager<AspNetRoles>> logger)
+        : base(store, roleValidators, keyNormalizer, errors, logger)
     {
     }
 
     /// <summary>
     /// The roles.
     /// </summary>
-    public virtual IQueryable<AspNetRoles> AspNetRoles => this.Roles;
+    public virtual IQueryable<AspNetRoles> AspNetRoles => base.Roles;
 
     /// <summary>
     /// The get roles.
@@ -94,7 +96,7 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
     /// The role.
     /// </param>
     /// <returns>
-    /// The <see cref="IdentityResult"/>.
+    /// The <see cref="Microsoft.AspNetCore.Identity.IdentityResult"/>.
     /// </returns>
     public IdentityResult Create(
         AspNetRoles role)

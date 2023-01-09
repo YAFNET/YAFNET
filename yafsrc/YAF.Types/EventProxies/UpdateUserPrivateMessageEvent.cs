@@ -23,6 +23,8 @@
  */
 namespace YAF.Types.EventProxies;
 
+using YAF.Types.Interfaces.Events;
+
 /// <summary>
 /// The update user private message event.
 /// </summary>

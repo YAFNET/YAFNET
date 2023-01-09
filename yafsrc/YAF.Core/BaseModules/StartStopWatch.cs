@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BaseModules;
 
 using YAF.Types.Attributes;
@@ -29,7 +30,7 @@ using YAF.Types.Attributes;
 /// Stop watch start/stop
 /// </summary>
 [ExportService(ServiceLifetimeScope.InstancePerScope)]
-public class StartStopWatch : IHandleEvent<ForumPageInitEvent>, IHandleEvent<ForumPageUnloadEvent>
+public class StartStopWatch : IHandleEvent<ForumPageInitEvent>
 {
     /// <summary>
     /// The _stop watch.
@@ -62,17 +63,5 @@ public class StartStopWatch : IHandleEvent<ForumPageInitEvent>, IHandleEvent<For
     {
         // start the stop watch on init...
         this.stopWatch.Start();      
-    }
-
-    /// <summary>
-    /// The handle.
-    /// </summary>
-    /// <param name="event">
-    /// The event.
-    /// </param>
-    public void Handle(ForumPageUnloadEvent @event)
-    {
-        // stop the stop watch in case the footer did not...
-        this.stopWatch.Stop();
     }
 }

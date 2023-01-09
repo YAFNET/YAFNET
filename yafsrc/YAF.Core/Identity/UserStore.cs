@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,26 +27,22 @@ namespace YAF.Core.Identity;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
+    
+using Microsoft.AspNetCore.Identity;
 
-using Microsoft.AspNet.Identity;
-
-using YAF.Types.Models.Identity;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The user store.
 /// </summary>
-public class UserStore : IUserLoginStore<AspNetUsers>,
-                         IUserClaimStore<AspNetUsers>,
-                         IUserRoleStore<AspNetUsers>,
-                         IUserPasswordStore<AspNetUsers>,
-                         IUserSecurityStampStore<AspNetUsers>,
-                         IQueryableUserStore<AspNetUsers>,
-                         IUserEmailStore<AspNetUsers>,
+public class UserStore : IUserEmailStore<AspNetUsers>,
                          IUserPhoneNumberStore<AspNetUsers>,
-                         IUserTwoFactorStore<AspNetUsers, string>,
-                         IUserLockoutStore<AspNetUsers, string>,
-                         IUserStore<AspNetUsers>,
+                         IUserTwoFactorStore<AspNetUsers>,
+                         IUserPasswordStore<AspNetUsers>,
+                         IUserRoleStore<AspNetUsers>,
+                         IQueryableUserStore<AspNetUsers>,
                          IHaveServiceLocator
 {
     /// <summary>
@@ -111,7 +107,9 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
         var userLogin = this.GetRepository<AspNetUserLogins>().GetSingle(
             i => i.LoginProvider == login.LoginProvider && i.ProviderKey == login.ProviderKey);
 
-        return userLogin == null ? null : Task.FromResult(this.GetRepository<AspNetUsers>().GetSingle(u => u.Id == userLogin.UserId));
+        return userLogin == null
+                   ? null
+                   : Task.FromResult(this.GetRepository<AspNetUsers>().GetSingle(u => u.Id == userLogin.UserId));
     }
 
     /// <summary>
@@ -128,7 +126,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
         CodeContracts.VerifyNotNull(user);
 
         var logins = this.GetRepository<AspNetUserLogins>().Get(l => l.UserId == user.Id)
-            .Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey));
+            .Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey, user.UserName));
 
         IList<UserLoginInfo> result = logins.ToList();
         return Task.FromResult(result);
@@ -151,9 +149,10 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(login);
 
-        return Task.FromResult(this.GetRepository<AspNetUserLogins>().Delete(
-            l => l.UserId == user.Id && l.ProviderKey == login.ProviderKey &&
-                 l.LoginProvider == login.LoginProvider));
+        return Task.FromResult(
+            this.GetRepository<AspNetUserLogins>().Delete(
+                l => l.UserId == user.Id && l.ProviderKey == login.ProviderKey
+                                         && l.LoginProvider == login.LoginProvider));
     }
 
     /// <summary>
@@ -165,13 +164,15 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task CreateAsync([NotNull] AspNetUsers user)
+    public async Task<IdentityResult> CreateAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
-        this.GetRepository<AspNetUsers>().Insert(user, false);
+        cancellationToken.ThrowIfCancellationRequested();
 
-        return Task.FromResult(0);
+        await Task.FromResult(this.GetRepository<AspNetUsers>().Insert(user, false));
+
+        return IdentityResult.Success;
     }
 
     /// <summary>
@@ -183,11 +184,15 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task DeleteAsync([NotNull] AspNetUsers user)
+    public async Task<IdentityResult> DeleteAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
-        return Task.FromResult(this.GetRepository<AspNetUsers>().Delete(u => u.Id == user.Id));
+        cancellationToken.ThrowIfCancellationRequested();
+
+        await Task.FromResult(this.GetRepository<AspNetUsers>().Delete(u => u.Id == user.Id));
+
+        return IdentityResult.Success;
     }
 
     /// <summary>
@@ -199,11 +204,13 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<AspNetUsers> FindByIdAsync([NotNull] string userId)
+    public async Task<AspNetUsers> FindByIdAsync([NotNull] string userId, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(userId);
 
-        return Task.FromResult(this.GetRepository<AspNetUsers>().GetSingle(u => u.Id == userId));
+        cancellationToken.ThrowIfCancellationRequested();
+
+        return await Task.FromResult(this.GetRepository<AspNetUsers>().GetSingle(u => u.Id == userId));
     }
 
     /// <summary>
@@ -215,11 +222,13 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<AspNetUsers> FindByNameAsync([NotNull] string userName)
+    public async Task<AspNetUsers> FindByNameAsync([NotNull] string userName, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(userName);
 
-        return Task.FromResult(this.GetRepository<AspNetUsers>().GetSingle(u => u.UserName == userName));
+        cancellationToken.ThrowIfCancellationRequested();
+
+        return await Task.FromResult(this.GetRepository<AspNetUsers>().GetSingle(u => u.UserName == userName));
     }
 
     /// <summary>
@@ -231,11 +240,15 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task UpdateAsync([NotNull] AspNetUsers user)
+    public async Task<IdentityResult> UpdateAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
-        return this.UpdateUser(user);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        await Task.FromResult(this.UpdateUser(user));
+
+        return IdentityResult.Success;
     }
 
     /// <summary>
@@ -262,10 +275,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(claim);
 
-        var userClaim = new AspNetUserClaims
-                            {
-                                UserId = user.Id, ClaimType = claim.ValueType, ClaimValue = claim.Value
-                            };
+        var userClaim = new AspNetUserClaims {UserId = user.Id, ClaimType = claim.ValueType, ClaimValue = claim.Value};
 
         var result = this.GetRepository<AspNetUserClaims>().Insert(userClaim, false);
         this.UpdateUser(user);
@@ -329,24 +339,28 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task AddToRoleAsync([NotNull] AspNetUsers user, [NotNull] string roleName)
+    public async Task AddToRoleAsync(
+        [NotNull] AspNetUsers user,
+        [NotNull] string roleName,
+        CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(roleName);
+
+        cancellationToken.ThrowIfCancellationRequested();
 
         var role = this.GetRepository<AspNetRoles>().GetSingle(r => r.Name == roleName);
 
         if (role == null)
         {
-            return Task.FromResult(0);
+            return;
         }
 
-        var newUserRole = new AspNetUserRoles { RoleId = role.Id, UserId = user.Id };
+        var newUserRole = new AspNetUserRoles {RoleId = role.Id, UserId = user.Id};
 
         this.GetRepository<AspNetUserRoles>().Insert(newUserRole, false);
-        this.UpdateUser(user);
 
-        return Task.FromResult(0);
+        await Task.FromResult(this.UpdateUser(user));
     }
 
     /// <summary>
@@ -358,17 +372,16 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<IList<string>> GetRolesAsync([NotNull] AspNetUsers user)
+    public async Task<IList<string>> GetRolesAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
-        var roles = this.GetRepository<AspNetUserRoles>().Get(r => r.UserId == user.Id).Select(r => r.RoleId)
-            .ToArray();
+        cancellationToken.ThrowIfCancellationRequested();
 
-        var roleNames = this.GetRepository<AspNetRoles>().Get(r => roles.Contains(r.Id)).Select(r => r.Name)
-            .ToList();
+        var roles = this.GetRepository<AspNetUserRoles>().Get(r => r.UserId == user.Id).Select(r => r.RoleId).ToArray();
 
-        return Task.FromResult<IList<string>>(roleNames);
+        return await Task.FromResult<IList<string>>(
+                   this.GetRepository<AspNetRoles>().Get(r => roles.Contains(r.Id)).Select(r => r.Name).ToList());
     }
 
     /// <summary>
@@ -383,10 +396,15 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<bool> IsInRoleAsync([NotNull] AspNetUsers user, [NotNull] string roleName)
+    public async Task<bool> IsInRoleAsync(
+        [NotNull] AspNetUsers user,
+        [NotNull] string roleName,
+        CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(roleName);
+
+        cancellationToken.ThrowIfCancellationRequested();
 
         var role = this.GetRepository<AspNetRoles>().GetSingle(r => r.Name == roleName);
 
@@ -394,11 +412,17 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
 
         if (role != null)
         {
-            isInRole =
-                this.GetRepository<AspNetUserRoles>().Count(r => r.RoleId == role.Id && r.UserId == user.Id) > 0;
+            isInRole = this.GetRepository<AspNetUserRoles>().Count(r => r.RoleId == role.Id && r.UserId == user.Id) > 0;
         }
 
-        return Task.FromResult(isInRole);
+        return await Task.FromResult(isInRole);
+    }
+
+    public async Task<IList<AspNetUsers>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        return await Task.FromResult(this.Get<AspNetRolesHelper>().GetUsersInRole(roleName));
     }
 
     /// <summary>
@@ -413,21 +437,26 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task RemoveFromRoleAsync([NotNull] AspNetUsers user, [NotNull] string roleName)
+    public async Task RemoveFromRoleAsync(
+        [NotNull] AspNetUsers user,
+        [NotNull] string roleName,
+        CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(roleName);
+
+        cancellationToken.ThrowIfCancellationRequested();
 
         var role = this.GetRepository<AspNetRoles>().GetSingle(r => r.Name == roleName);
 
         if (role == null)
         {
-            return Task.FromResult(0);
+            return;
         }
 
-        var result = this.GetRepository<AspNetUserRoles>().Delete(r => r.UserId == user.Id && r.RoleId == role.Id);
-        this.UpdateUser(user).Wait();
-        return Task.FromResult(result);
+        this.GetRepository<AspNetUserRoles>().Delete(r => r.UserId == user.Id && r.RoleId == role.Id);
+
+        await this.UpdateUser(user);
     }
 
     /// <summary>
@@ -439,11 +468,11 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<string> GetPasswordHashAsync([NotNull] AspNetUsers user)
+    public Task<string> GetPasswordHashAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
-        return await Task.FromResult(user.PasswordHash);
+        return Task.FromResult(user.PasswordHash);
     }
 
     /// <summary>
@@ -455,10 +484,9 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> HasPasswordAsync([NotNull] AspNetUsers user)
+    public Task<bool> HasPasswordAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
-        var passwordHash = await this.GetPasswordHashAsync(user);
-        return passwordHash.IsNotSet();
+        return Task.FromResult(user.PasswordHash.IsSet());
     }
 
     /// <summary>
@@ -473,12 +501,17 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetPasswordHashAsync([NotNull] AspNetUsers user, [NotNull] string passwordHash)
+    public Task SetPasswordHashAsync(
+        [NotNull] AspNetUsers user,
+        [NotNull] string passwordHash,
+        CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
         user.PasswordHash = passwordHash;
-        return this.UpdateUser(user);
+        this.UpdateUser(user);
+
+        return Task.FromResult(0);
     }
 
     /// <summary>
@@ -526,9 +559,11 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<AspNetUsers> FindByEmailAsync([NotNull] string email)
+    public async Task<AspNetUsers> FindByEmailAsync([NotNull] string email, CancellationToken cancellationToken)
     {
-        return Task.FromResult(this.GetRepository<AspNetUsers>().GetSingle(u => u.Email == email));
+        cancellationToken.ThrowIfCancellationRequested();
+
+        return await Task.FromResult(this.GetRepository<AspNetUsers>().GetSingle(u => u.Email == email));
     }
 
     /// <summary>
@@ -540,7 +575,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<string> GetEmailAsync([NotNull] AspNetUsers user)
+    public async Task<string> GetEmailAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -556,11 +591,11 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> GetEmailConfirmedAsync([NotNull] AspNetUsers user)
+    public Task<bool> GetEmailConfirmedAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
-        return await Task.FromResult(user.EmailConfirmed);
+        return Task.FromResult(user.EmailConfirmed);
     }
 
     /// <summary>
@@ -575,12 +610,15 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetEmailAsync([NotNull] AspNetUsers user, string email)
+    public Task SetEmailAsync([NotNull] AspNetUsers user, string email, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
         user.Email = email;
-        return this.UpdateUser(user);
+
+        this.UpdateUser(user);
+
+        return Task.FromResult(0);
     }
 
     /// <summary>
@@ -595,12 +633,15 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetEmailConfirmedAsync([NotNull] AspNetUsers user, bool confirmed)
+    public Task SetEmailConfirmedAsync([NotNull] AspNetUsers user, bool confirmed, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
         user.EmailConfirmed = confirmed;
-        return this.UpdateUser(user);
+
+        this.UpdateUser(user);
+
+        return Task.FromResult(0);
     }
 
     /// <summary>
@@ -612,11 +653,11 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<string> GetPhoneNumberAsync([NotNull] AspNetUsers user)
+    public Task<string> GetPhoneNumberAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
-        return await Task.FromResult(user.PhoneNumber);
+        return Task.FromResult(user.PhoneNumber);
     }
 
     /// <summary>
@@ -628,11 +669,11 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> GetPhoneNumberConfirmedAsync([NotNull] AspNetUsers user)
+    public Task<bool> GetPhoneNumberConfirmedAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
-        return await Task.FromResult(user.PhoneNumberConfirmed);
+        return Task.FromResult(user.PhoneNumberConfirmed);
     }
 
     /// <summary>
@@ -647,12 +688,15 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetPhoneNumberAsync([NotNull] AspNetUsers user, string phoneNumber)
+    public Task SetPhoneNumberAsync([NotNull] AspNetUsers user, string phoneNumber, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
         user.PhoneNumber = phoneNumber;
-        return this.UpdateUser(user);
+
+        this.UpdateUser(user);
+
+        return Task.FromResult(0);
     }
 
     /// <summary>
@@ -667,12 +711,17 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetPhoneNumberConfirmedAsync([NotNull] AspNetUsers user, bool confirmed)
+    public Task SetPhoneNumberConfirmedAsync(
+        [NotNull] AspNetUsers user,
+        bool confirmed,
+        CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
         user.PhoneNumberConfirmed = confirmed;
-        return this.UpdateUser(user);
+        this.UpdateUser(user);
+
+        return Task.FromResult(0);
     }
 
     /// <summary>
@@ -684,11 +733,11 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> GetTwoFactorEnabledAsync([NotNull] AspNetUsers user)
+    public Task<bool> GetTwoFactorEnabledAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
-        return await Task.FromResult(user.TwoFactorEnabled);
+        return Task.FromResult(user.TwoFactorEnabled);
     }
 
     /// <summary>
@@ -703,12 +752,15 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetTwoFactorEnabledAsync([NotNull] AspNetUsers user, bool enabled)
+    public Task SetTwoFactorEnabledAsync([NotNull] AspNetUsers user, bool enabled, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
 
         user.TwoFactorEnabled = enabled;
-        return this.UpdateUser(user);
+
+        this.UpdateUser(user);
+
+        return Task.FromResult(0);
     }
 
     /// <summary>
@@ -835,6 +887,65 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
 
         user.LockoutEndDateUtc = lockoutEnd.UtcDateTime;
         return this.UpdateUser(user);
+    }
+
+    public Task<string> GetUserIdAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
+    {
+        CodeContracts.VerifyNotNull(user);
+
+        return Task.FromResult(user.Id);
+    }
+
+    public Task<string> GetUserNameAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
+    {
+        CodeContracts.VerifyNotNull(user);
+
+        return Task.FromResult(user.UserName);
+    }
+
+    public Task<string> GetNormalizedUserNameAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
+    {
+        CodeContracts.VerifyNotNull(user);
+
+        return Task.FromResult(user.LoweredUserName);
+    }
+
+
+    public Task SetNormalizedUserNameAsync(
+        [NotNull] AspNetUsers user,
+        string normalizedName,
+        CancellationToken cancellationToken)
+    {
+        CodeContracts.VerifyNotNull(user);
+
+        user.LoweredUserName = normalizedName;
+        return Task.FromResult(0);
+    }
+
+    public Task SetUserNameAsync([NotNull] AspNetUsers user, string userName, CancellationToken cancellationToken)
+    {
+        CodeContracts.VerifyNotNull(user);
+
+        user.UserName = userName;
+        return Task.FromResult(0);
+    }
+
+    public Task<string> GetNormalizedEmailAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
+    {
+        CodeContracts.VerifyNotNull(user);
+
+        return Task.FromResult(user.LoweredEmail);
+    }
+
+    public Task SetNormalizedEmailAsync(
+        [NotNull] AspNetUsers user,
+        string normalizedEmail,
+        CancellationToken cancellationToken)
+    {
+        CodeContracts.VerifyNotNull(user);
+
+        user.LoweredEmail = normalizedEmail;
+        return Task.FromResult(0);
     }
 
     /// <summary>

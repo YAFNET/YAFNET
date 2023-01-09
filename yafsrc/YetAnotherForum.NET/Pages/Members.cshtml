@@ -1,0 +1,221 @@
+﻿@page "{letter?}/{handler?}"
+
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@model MembersModel
+
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        @Html.IconHeader("users", "MEMBERS", "TITLE")
+                    </div>
+                    <div class="col-auto">
+                        <form method="post">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="input-group input-group-sm me-2 mb-1" role="group">
+                                <div class="input-group-text">
+                                    @Html.LocalizedText("SHOW"):
+                                </div>
+                                <select asp-for="@Model.Size"
+                                        asp-items="Model.PageSizeList"
+                                        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                        class="form-select"
+                                        onchange="this.form.submit();"></select>
+                            </div>
+                            
+                            <div class="btn-group me-2 mb-1" role="group" aria-label="Filters">
+                                <button button-style="Secondary"
+                                        button-size="Small"
+                                        class="dropdown-toggle"
+                                        bs-toggle="dropdown"
+                                        icon="filter"
+                                        text-localized-page="ADMIN_USERS"
+                                        text-localized-tag="FILTER_DROPDOWN"></button>
+
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                                    <div class="px-3 py-1">
+                                        <div class="mb-3">
+                                            <label class="form-label" asp-for="Input.Group" localized-tag="Search_Role">
+                                            </label>
+                                            <select asp-for="Input.Group" class="select2-select" asp-items="Model.GroupsList">
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" asp-for="Input.Rank" localized-tag="Search_Rank">
+                                            </label>
+                                            <select asp-for="Input.Rank" class="select2-select" asp-items="Model.RanksList">
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" asp-for="Input.NumPostValue" localized-tag="NUMPOSTS">
+                                            </label>
+                                            <select asp-for="Input.NumPostValue" class="select2-select" asp-items="Model.NumPostList">
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input asp-for="Input.NumPosts" class="form-control" type="number" placeholder="0" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" asp-for="Input.UserSearchName" localized-tag="Search_Member">
+                                            </label>
+                                            <input asp-for="Input.UserSearchName" type="text" class="form-control" />
+                                        </div>
+                                        <button asp-page-handler="Search"
+                                                class="me-2"
+                                                text-localized-tag="BTNSEARCH"
+                                                button-style="Primary"
+                                                Icon="search">
+                                        </button>
+                                        <button asp-page-handler="Reset"
+                                                text-localized-tag="CLEAR"
+                                                button-style="Secondary"
+                                                Icon="trash">
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-group btn-group-sm mb-1" role="group" aria-label="sort">
+                                <button class="dropdown-toggle"
+                                        button-size="Small"
+                                        button-style="Secondary"
+                                        bs-toggle="dropdown"
+                                        text-localized-tag="SORT_BY"
+                                        Icon="sort"></button>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                                    <button class="dropdown-item"
+                                            button-style="None"
+                                            asp-page-handler="UserNameAsc"
+                                            icon="@(Model.Input.SortNameField == 1 ? "check-square" : "sort-alpha-down")"
+                                            text-localized-tag="USERNAME_ASC"></button>
+                                    <button class="dropdown-item"
+                                            button-style="None"
+                                            asp-page-handler="UserNameDesc"
+                                            icon="@(Model.Input.SortNameField == 2 ? "check-square" : "sort-alpha-down-alt")"
+                                            text-localized-tag="USERNAME_DESC"></button>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item"
+                                            button-style="None"
+                                            asp-page-handler="RankAsc"
+                                            icon="@(Model.Input.SortRankNameField == 1 ? "check-square" : "sort-alpha-down")"
+                                            text-localized-tag="RANK_ASC"></button>
+                                    <button class="dropdown-item"
+                                            button-style="None"
+                                            asp-page-handler="RankDesc"
+                                            icon="@(Model.Input.SortRankNameField == 2 ? "check-square" : "sort-alpha-down-alt")"
+                                            text-localized-page="MEMBERS"
+                                            text-localized-tag="RANK_DESC"></button>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item"
+                                            button-style="None"
+                                            asp-page-handler="JoinedAsc"
+                                            icon="@(Model.Input.SortJoinedField == 1 ? "check-square" : "sort-alpha-down")"
+                                            text-localized-tag="JOINED_ASC"></button>
+                                    <button class="dropdown-item"
+                                            button-style="None"
+                                            asp-page-handler="JoinedDesc"
+                                            icon="@(Model.Input.SortJoinedField == 2 ? "check-square" : "sort-alpha-down-alt")"
+                                            text-localized-tag="JOINED_DESC"></button>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item"
+                                            button-style="None"
+                                            asp-page-handler="PostsAsc" 
+                                            icon="@(Model.Input.SortNumPostsField == 1 ? "check-square" : "sort-alpha-down")"
+                                            text-localized-tag="POSTS_ASC"></button>
+                                    <button class="dropdown-item"
+                                            button-style="None"
+                                            asp-page-handler="PostsDesc"
+                                            icon="@(Model.Input.SortNumPostsField == 2 ? "check-square" : "sort-alpha-down-alt")"
+                                            text-localized-tag="POSTS_DESC"></button>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item"
+                                            button-style="None"
+                                            asp-page-handler="LastVisitAsc" 
+                                            icon="@(Model.Input.SortLastVisitField == 1 ? "check-square" : "sort-alpha-down")"
+                                            text-localized-tag="LASTVISIT_ASC"></button>
+                                    <button class="dropdown-item"
+                                            button-style="None"
+                                            asp-page-handler="LastVisitDesc"
+                                            icon="@(Model.Input.SortLastVisitField == 2 ? "check-square" : "sort-alpha-down-alt")"
+                                            text-localized-tag="LASTVISIT_DESC"></button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                
+                @Html.AlphaSort(Model.CurrentLetter)
+
+                @if (!Model.UserList.NullOrEmpty())
+                {
+                    <ul class="list-group">
+                        @foreach (var user in Model.UserList)
+                        {
+                            <li class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1 text-break">
+                                        <img src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(user.UserID, user.Avatar, user.AvatarImage != null))"
+                                             alt="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name)"
+                                             title="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name)"
+                                             class="rounded img-fluid"
+                                             style="max-height: 50px; max-width: 50px"/>
+                                        @Html.UserLink(user.UserID, Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name, user.Suspended, user.UserStyle)
+                                    </h5>
+                                    <small class="d-none d-md-block">
+                                        <strong>@Html.LocalizedText("POSTS", "JOINED"):</strong>
+                                        @Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(user.Joined))
+                                    </small>
+                                </div>
+                                <p class="mb-1">
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            <strong>@Html.LocalizedText("RANK")</strong>
+                                            @user.RankName
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <strong>@Html.LocalizedText("ADMIN_USERS", "POSTS"):</strong>
+                                            @($"{user.NumPosts:N0}")
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <strong>@Html.LocalizedText("ADMIN_USERS", "LAST_VISIT"):</strong>
+                                            @Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(user.LastVisit))
+                                        </li>
+                                    </ul>
+                                </p>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <alert Type="info" icon="exclamation-triangle" localized-tag="NO_ENTRY">
+                    </alert>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <pager page-size="@Model.Size"
+               count="@(!Model.UserList.NullOrEmpty() ? this.Model.UserList.FirstOrDefault().TotalRows : 0)">
+        </pager>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DropDownToggleJs()))
+    </script>
+}

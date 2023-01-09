@@ -24,11 +24,7 @@
 
 namespace YAF.Core.BasePages;
 
-using System;
-
-using YAF.Core.Model;
-using YAF.Types.Constants;
-using YAF.Types.Models;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// Admin page with extra security. All admin pages need to be derived from this base class.
@@ -38,58 +34,15 @@ public class AdminPage : ForumPage
     /// <summary>
     /// Initializes a new instance of the <see cref="AdminPage"/> class.
     /// </summary>
-    public AdminPage()
-        : this(null, ForumPages.Board)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AdminPage"/> class.
-    /// </summary>
     /// <param name="transPage">
     /// The trans page.
     /// </param>
-    /// <param name="pageType">
-    /// The page Type.
+    /// <param name="page">
+    /// The page.
     /// </param>
-    public AdminPage([CanBeNull] string transPage, ForumPages pageType)
-        : base(transPage, pageType)
+    public AdminPage([CanBeNull] string transPage, ForumPages page)
+        : base(transPage, page)
     {
         this.IsAdminPage = true;
-        this.Load += this.AdminPageLoad;
-    }
-
-    /// <summary>
-    /// Gets the Page Name.
-    /// </summary>
-    public override string PageName => $"admin_{base.PageName}";
-
-    /// <summary>
-    /// Handles the Load event of the AdminPage control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void AdminPageLoad([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        // not admins are forbidden
-        if (!this.PageBoardContext.IsAdmin)
-        { 
-            this.Get<LinkBuilder>().AccessDenied();
-        }
-
-        // host admins are not checked
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
-        {
-            return;
-        }
-
-        // Load the page access list.
-        var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(this.PageBoardContext.PageUserID, this.PageBoardContext.CurrentForumPage.PageName);
-
-        // Check access rights to the page.
-        if (!this.PageBoardContext.CurrentForumPage.PageName.IsSet() || !hasAccess)
-        {
-            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
-        }
     }
 }

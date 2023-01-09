@@ -26,7 +26,6 @@ namespace YAF.Core.ForumModules;
 using System;
 
 using YAF.Core.BaseModules;
-using YAF.Core.Tasks;
 using YAF.Types.Attributes;
 
 /// <summary>
@@ -41,7 +40,7 @@ public class LinkedTopicCleanUpTaskForumModule : BaseForumModule
     public override void Init()
     {
         // hook the page init for mail sending...
-        this.PageBoardContext.AfterInit += this.Current_AfterInit;
+        this.PageContext.AfterInit += this.Current_AfterInit;
     }
 
     /// <summary>

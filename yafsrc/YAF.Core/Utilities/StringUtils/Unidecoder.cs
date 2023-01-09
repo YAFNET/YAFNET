@@ -1,4 +1,4 @@
-﻿/*
+/*
 COPYRIGHT
 
 Character transliteration tables:
@@ -23,8 +23,6 @@ it under the same terms as Perl.
 */
 
 namespace YAF.Core.Utilities.StringUtils;
-
-using System.Text;
 
 /// <summary>
 /// ASCII transliterations of Unicode text

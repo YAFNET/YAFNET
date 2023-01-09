@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -35,19 +35,12 @@ using YAF.Types.Models;
 public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
 {
     /// <summary>
-    ///     The session state.
-    /// </summary>
-    private readonly HttpSessionStateBase sessionState;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="ReadTrackCurrentUser" /> class.
     /// </summary>
     /// <param name="serviceLocator">The service locator.</param>
-    /// <param name="sessionState">The session State.</param>
-    public ReadTrackCurrentUser(IServiceLocator serviceLocator, HttpSessionStateBase sessionState)
+    public ReadTrackCurrentUser(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
-        this.sessionState = sessionState;
     }
 
     /// <summary>
@@ -57,15 +50,13 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
     {
         get
         {
-            var lastRead = this.sessionState["LastRead"]?.ToType<DateTime?>();
+            DateTime? lastRead = null;
 
-            if (!lastRead.HasValue && this.UseDatabaseReadTracking)
+            if (this.UseDatabaseReadTracking)
             {
-                var lastForumRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId)
-                    .OrderByDescending(t => t.LastAccessDate).FirstOrDefault();
+                var lastForumRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId).MaxBy(t => t.LastAccessDate);
 
-                var lastTopicRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId)
-                    .OrderByDescending(t => t.LastAccessDate).FirstOrDefault();
+                var lastTopicRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId).MaxBy(t => t.LastAccessDate);
 
                 if (lastForumRead != null && lastTopicRead != null)
                 {
@@ -88,7 +79,7 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
             }
             else
             {
-                lastRead = this.Get<ISession>().LastVisit;
+                lastRead = this.Get<ISessionService>().LastVisit;
             }
 
             return lastRead ?? DateTimeHelper.SqlDbMinTime();
@@ -135,8 +126,7 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
 
         if (this.UseDatabaseReadTracking)
         {
-            readTime = readTimeOverride ??
-                       this.GetRepository<ForumReadTracking>().LastRead(this.CurrentUserId, forumId);
+            readTime = readTimeOverride ?? this.GetRepository<ForumReadTracking>().LastRead(this.CurrentUserId, forumId);
         }
         else
         {
@@ -160,8 +150,7 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
 
         if (this.UseDatabaseReadTracking)
         {
-            readTime = readTimeOverride ??
-                       this.GetRepository<TopicReadTracking>().LastRead(this.CurrentUserId, topicId);
+            readTime = readTimeOverride ?? this.GetRepository<TopicReadTracking>().LastRead(this.CurrentUserId, topicId);
         }
         else
         {
@@ -183,7 +172,7 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
         }
         else
         {
-            this.Get<ISession>().SetForumRead(forumId, DateTime.UtcNow);
+            this.Get<ISessionService>().SetForumRead(forumId, DateTime.UtcNow);
         }
     }
 
@@ -199,7 +188,7 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
         }
         else
         {
-            this.Get<ISession>().SetTopicRead(topicId, DateTime.UtcNow);
+            this.Get<ISessionService>().SetTopicRead(topicId, DateTime.UtcNow);
         }
     }
 
@@ -212,7 +201,7 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
     /// </returns>
     private DateTime? GetSessionForumRead(int forumId)
     {
-        var forumReadHashtable = this.Get<ISession>().ForumRead;
+        var forumReadHashtable = this.Get<ISessionService>().ForumRead;
 
         if (forumReadHashtable != null && forumReadHashtable.ContainsKey(forumId))
         {
@@ -231,7 +220,7 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
     /// </returns>
     private DateTime? GetSessionTopicRead(int topicId)
     {
-        var topicReadHashtable = this.Get<ISession>().TopicRead;
+        var topicReadHashtable = this.Get<ISessionService>().TopicRead;
 
         if (topicReadHashtable != null && topicReadHashtable.ContainsKey(topicId))
         {

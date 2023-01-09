@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
-#if !NETCORE
+#if !NET6_0_OR_GREATER
 using System.Runtime.Remoting.Messaging;
 #endif
 using System.Threading;
@@ -38,8 +38,8 @@ public class OrmLiteContext
     [ThreadStatic]
     public static IDictionary ContextItems;
 
-#if NETCORE
-        readonly AsyncLocal<IDictionary> localContextItems = new();
+#if NET7_0_OR_GREATER
+    readonly AsyncLocal<IDictionary> localContextItems = new();
 #endif
 
     /// <summary>
@@ -63,7 +63,7 @@ public class OrmLiteContext
     /// <returns>IDictionary.</returns>
     private IDictionary GetItems()
     {
-#if NETCORE
+#if NET7_0_OR_GREATER
             return UseThreadStatic ? ContextItems : this.localContextItems.Value;
 
 #else
@@ -89,8 +89,8 @@ public class OrmLiteContext
     /// <returns>IDictionary.</returns>
     private IDictionary CreateItems(IDictionary items = null)
     {
-#if NETCORE
-            if (UseThreadStatic)
+#if NET7_0_OR_GREATER
+        if (UseThreadStatic)
             {
                 ContextItems = items ??= new Dictionary<object, object>();
             }
@@ -131,8 +131,8 @@ public class OrmLiteContext
         }
         else
         {
-#if NETCORE
-                this.localContextItems.Value = new ConcurrentDictionary<object, object>();                
+#if NET7_0_OR_GREATER
+            this.localContextItems.Value = new ConcurrentDictionary<object, object>();                
 #else                
             CallContext.FreeNamedDataSlot(_key);
 #endif

@@ -1,7 +1,7 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,8 +23,10 @@
  */
 namespace YAF.Core.Helpers;
 
+using YAF.Types.Attributes;
+
 /// <summary>
-/// Helper for Figuring out the User Agent.
+/// Helper for Figuring out the PageUser Agent.
 /// </summary>
 public static class UserAgentHelper
 {
@@ -63,19 +65,6 @@ public static class UserAgentHelper
 
         return userAgent.IsSet() && agentContains.Any(
                    agentContain => userAgent.ToLowerInvariant().Contains(agentContain.ToLowerInvariant()));
-    }
-
-    /// <summary>
-    /// Validates if the user agent is a search engine spider
-    /// </summary>
-    /// <param name="userAgent">The user agent.</param>
-    /// <returns>
-    /// The is search engine spider.
-    /// </returns>
-    public static bool IsSearchEngineSpider([CanBeNull] string userAgent)
-    {
-        return userAgent.IsSet()
-               && SpiderContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
     }
 
     /// <summary>

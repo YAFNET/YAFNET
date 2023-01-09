@@ -1,0 +1,94 @@
+﻿@page "{f:int}/{handler?}"
+
+@using YAF.Core.Extensions
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+
+@model YAF.Pages.Moderate.UnapprovedPostsModel
+
+<div class="row">
+    @foreach (var message in Model.Messages)
+    {
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.IconHeader("comment", "DEFAULT", "TOPIC")
+                        @if (message.Item1.NumPosts > 0)
+                        {
+                            <a asp-page="/Posts"
+                               asp-route-t="@message.Item1.ID"
+                               asp-route-name="@message.Item1.TopicName">
+                                @message.Item1.TopicName
+                            </a>
+                        }
+                        else
+                        {
+                            @message.Item1.TopicName
+                        }
+
+                        <div class="float-end">
+                            <span class="fw-bold">
+                                @Html.LocalizedText("POSTED")
+                            </span>
+                            @Html.Raw(Model.Get<IDateTimeService>().FormatDateShort(message.Item2.Posted))
+
+                            <span class="fw-bold ps-3">
+                                @Html.LocalizedText("REPORTPOST", "POSTEDBY")
+                            </span>
+                            @Html.UserLink(message.Item2.UserID,
+                                message.Item3.DisplayOrUserName(),
+                                message.Item3.Suspended,
+                                message.Item3.UserStyle)
+                            @if (Model.PageBoardContext.IsAdmin)
+                            {
+                                <a role="button"
+                                   button-size="Small"
+                                   button-style="Danger"
+                                   icon="user-cog"
+                                   text-localized-page="PROFILE"
+                                   text-localized-tag="ADMIN_USER"
+                                   asp-page="/Admin/EditPageUser"
+                                   asp-route-u="@message.Item2.UserID"></a>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @Model.FormatMessage(message)
+                    </div>
+                    <div class="card-footer text-center">
+                        <div class="row justify-content-md-center">
+                            <div class="col-md-auto mb-1">
+                                <form method="post">
+                                    <button type="submit"
+                                            asp-page-handler="Approve"
+                                            asp-route-messageId="@message.Item2.ID"
+                                        asp-route-f="@Model.PageBoardContext.PageForumID"
+                                            button-style="Success"
+                                            text-localized-page="MODERATE_FORUM"
+                                            text-localized-tag="APPROVE"
+                                            icon="check"></button>
+                                </form>
+                            </div>
+                            <div class="col-md-auto mb-1">
+                                <form asp-page-handler="Delete"
+                                      asp-route-messageId="@message.Item2.ID"
+                                      asp-route-topicId="@message.Item1.ID"
+                                      asp-route-f="@Model.PageBoardContext.PageForumID"
+                                      method="post">
+                                    <button type="submit"
+                                            button-style="Danger"
+                                            text-localized-page="MODERATE_FORUM"
+                                            text-localized-tag="DELETE"
+                                        return-confirm-tag="ASK_DELETE"
+                                            icon="trash"></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,117 @@
+﻿@page "{v:int?}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
+@using YAF.Core.Helpers
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Web.TagHelpers
+@model ActiveUsersModel
+
+@inject BoardContext Current
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        @Html.IconHeader("users", "ACTIVEUSERS", "TITLE")
+                    </div>
+                    <div class="col-auto">
+                        <form method="post">
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="input-group input-group-sm me-2" role="group">
+                                    <div class="input-group-text">
+                                        @Html.LocalizedText("SHOW"):
+                                    </div>
+                                    <select asp-for="@Model.Size"
+                                            asp-items="Model.PageSizeList"
+                                            title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                            aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                            class="form-select"
+                                            onchange="this.form.submit();"></select>
+                                
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    @foreach (var user in Model.UserList)
+                    {
+                        <li class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between text-break">
+                                <h5 class="mb-1">
+                                    @Html.UserLink(user.UserID, 
+                                        Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.UserDisplayName : user.UserName, 
+                                        user.Suspended, user.UserStyle, 
+                                        false, true, false, "", user.ActiveFlags.IsCrawler ? user.Browser : string.Empty)
+
+                                    @if (user.IsActiveExcluded)
+                                    {
+                                        @Html.Icon("user-secret")
+                                    }
+                                </h5>
+
+                                @if (Current.IsAdmin)
+                                {
+                                    var ipAddress = IPHelper.GetIpAddressAsString(user.IP);
+
+                                    <small class="d-none d-md-block">
+                                        @Html.LocalizedText("IP")
+                                        <span class="badge bg-secondary">
+                                            <a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, ipAddress))"
+                                               title="@Html.LocalizedText("COMMON", "TT_IPDETAILS")"
+                                               target="_blank" class="link-light">
+                                                @ipAddress
+                                            </a>
+                                        </span>
+                                    </small>
+                                }
+                                    
+                            </div>
+                            <p><strong>@Html.LocalizedText("latest_action")</strong>
+                                @Html.ActiveLocation(user.UserID, user.HasForumAccess, user.ForumPage, user.Location, user.ForumID ?? 0, user.ForumName, user.TopicID ?? 0, user.TopicName, false)
+                            </p>
+                            <small>
+                                <span>
+                                    <strong>@Html.LocalizedText("logged_in")</strong>
+                                    @Html.Raw(Current.Get<IDateTimeService>().FormatTime(user.Login))
+                                </span>
+                                <span>
+                                    <strong>@Html.LocalizedText("last_active")</strong>
+                                    @Html.Raw(Current.Get<IDateTimeService>().FormatTime(user.LastActive))
+                                </span>
+                                <span>
+                                    <strong>@Html.LocalizedText("active")</strong>
+                                    @Html.Raw(Current.Get<ILocalization>().GetTextFormatted("minutes", user.Active))
+                                </span>
+                                <span>
+                                    <strong>@Html.LocalizedText("browser")</strong>
+                                    @user.Browser
+                                </span>
+                                <span>
+                                    <strong>@Html.LocalizedText("platform")</strong>
+                                    @user.Platform
+                                </span>
+                            </small>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <pager page-size="@Model.Size"
+               count="!Model.UserList.NullOrEmpty() ? Model.UserList.First().UserCount : 0">
+        </pager>
+    </div>
+</div>

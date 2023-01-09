@@ -1,0 +1,265 @@
+﻿@page "{handler?}"
+
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+
+@model YAF.Pages.Profile.EditProfileModel
+
+<div class="row">
+<div class="col-sm-auto">
+    <profileMenu></profileMenu>
+</div>
+<div class="col">
+<div class="card">
+<div class="card-header">
+    @Html.IconHeader("user-edit", "EDIT_PROFILE", "TITLE")
+</div>
+<div class="card-body">
+<form method="post" class="needs-validation" novalidate>
+<h2>
+    @Html.LocalizedText("EDIT_PROFILE", "ABOUTYOU")
+</h2>
+@if (Model.PageBoardContext.BoardSettings.EnableDisplayName && Model.PageBoardContext.BoardSettings.AllowDisplayNameModification)
+{
+    <div class="mb-3">
+        <label asp-for="Input.DisplayName" localized-page="EDIT_PROFILE" localized-tag="DISPLAYNAME" class="form-label">
+        </label>
+        <input asp-for="Input.DisplayName" class="form-control" />
+    </div>
+}
+
+<div class="mb-3">
+    <label asp-for="Input.RealName" localized-page="EDIT_PROFILE" localized-tag="REALNAME2" class="form-label">
+    </label>
+    <input asp-for="Input.RealName" class="form-control" />
+</div>
+<div class="mb-3">
+    <label asp-for="Input.Birthday" localized-page="EDIT_PROFILE" localized-tag="BIRTHDAY" class="form-label">
+    </label>
+    <input asp-for="Input.Birthday" class="form-control" />
+</div>
+<div class="mb-3">
+    <label asp-for="Input.Occupation" localized-page="EDIT_PROFILE" localized-tag="OCCUPATION" class="form-label">
+    </label>
+    <input asp-for="Input.Occupation" class="form-control" />
+</div>
+<div class="mb-3">
+    <label asp-for="Input.Interests" localized-page="EDIT_PROFILE" localized-tag="INTERESTS" class="form-label">
+    </label>
+    <textarea asp-for="Input.Interests" class="form-control" rows="4"></textarea>
+</div>
+<div class="mb-3">
+    <label asp-for="Input.Gender" localized-page="EDIT_PROFILE" localized-tag="GENDER" class="form-label">
+    </label>
+    <select asp-for="Input.Gender" class="select2-select">
+        @foreach (var item in Model.Genders)
+        {
+            <option value="@item.Value" item="@item" is-flag-icon="true">
+                @item.Text
+            </option>
+        }
+    </select>
+</div>
+<h4>
+    @Html.LocalizedText("EDIT_PROFILE", "LOCATION")
+</h4>
+
+@if (Model.PageBoardContext.BoardSettings.EnableIPInfoService)
+{
+    <div class="mb-3">
+        <button type="submit"
+                asp-page-handler="GetLocation"
+                button-style="Secondary"
+                icon="location-arrow"
+                text-localized-page="EDIT_PROFILE"
+                text-localized-tag="GET_LOCATION"></button>
+    </div>
+}
+<div class="row">
+    <div class="mb-3 col-md-4">
+        <label asp-for="Input.Country" localized-page="EDIT_PROFILE" localized-tag="COUNTRY" class="form-label">
+        </label>
+        <select asp-for="Input.Country" class="select2-image-select" onchange="this.form.submit();">
+            @foreach (var item in Model.Countries)
+            {
+                <option value="@item.Value" item="@item" is-flag-icon="true">
+                    @item.Text
+                </option>
+            }
+        </select>
+    </div>
+    @if (!Model.Regions.NullOrEmpty())
+    {
+        <div class="mb-3 col-md-4">
+            <label asp-for="Input.Region" localized-page="EDIT_PROFILE" localized-tag="REGION" class="form-label">
+            </label>
+            <select asp-for="Input.Region" class="select2-select">
+                @foreach (var item in Model.Regions)
+                {
+                    if (item.Selected)
+                    {
+                        <option value="@item.Value" selected="selected">@item.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+
+                }
+            </select>
+        </div>
+    }
+
+    <div class="mb-3 col-md-4">
+        <label asp-for="Input.City" localized-page="EDIT_PROFILE" localized-tag="CITY" class="form-label">
+        </label>
+        <input asp-for="Input.City" class="form-control" />
+    </div>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Input.Location" localized-page="EDIT_PROFILE" localized-tag="WHERE" class="form-label">
+    </label>
+    <input asp-for="Input.Location" class="form-control" />
+</div>
+<h2>
+    @Html.LocalizedText("EDIT_PROFILE", "HOMEPAGE")
+</h2>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label asp-for="Input.HomePage" localized-page="EDIT_PROFILE" localized-tag="HOMEPAGE2" class="form-label">
+        </label>
+        <input asp-for="Input.HomePage" class="form-control" />
+    </div>
+    <div class="mb-3 col-md-6">
+        <label asp-for="Input.Blog" localized-page="EDIT_PROFILE" localized-tag="WEBLOG2" class="form-label">
+        </label>
+        <input asp-for="Input.Blog" class="form-control" />
+    </div>
+</div>
+
+<h4>
+    @Html.LocalizedText("EDIT_PROFILE", "MESSENGER")
+</h4>
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label asp-for="Input.Xmpp" localized-page="EDIT_PROFILE" localized-tag="XMPP" class="form-label">
+        </label>
+        <input asp-for="Input.Xmpp" class="form-control" />
+    </div>
+    <div class="mb-3 col-md-6">
+        <label asp-for="Input.Skype" localized-page="EDIT_PROFILE" localized-tag="SKYPE" class="form-label">
+        </label>
+        <input asp-for="Input.Skype" class="form-control" />
+    </div>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Input.Facebook" localized-page="EDIT_PROFILE" localized-tag="FACEBOOK" class="form-label">
+    </label>
+    <input asp-for="Input.Facebook" class="form-control" />
+</div>
+
+@if (Model.Input.CustomProfile.Any())
+{
+    <hr />
+    <h4>
+        @Html.LocalizedText("EDIT_PROFILE", "OTHER")
+    </h4>
+
+    @for (int i=0;i < Model.Input.CustomProfile.Count; i++)
+    {
+        <div class="mb-3">
+            @switch (Model.Input.CustomProfile[i].DataType.ToEnum<DataType>())
+            {
+                case DataType.Text:
+                    {
+                        <label asp-for="Input.CustomProfile[i].Value" class="form-label">@Model.Input.CustomProfile[i].Name</label>
+                                            
+                        if (Model.Input.CustomProfile[i].Required)
+                        {
+                            <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required" />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedTextFormatted("NEED_USERNAME", @Model.Input.CustomProfile[i].Name)
+                            </div>
+                        }
+                        else
+                        {
+                            <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" />
+                        }
+
+                        break;
+                    }
+                case DataType.Number:
+                    {
+                        <label asp-for="Input.CustomProfile[i].Value" class="form-label">@Model.Input.CustomProfile[i].Name</label>
+                                            
+                        if (Model.Input.CustomProfile[i].Required)
+                        {
+                            <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required" type="number"  />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedTextFormatted("NEED_USERNAME", @Model.Input.CustomProfile[i].Name)
+                            </div>
+                        }
+                        else
+                        {
+                            <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" type="number" />
+                        }
+
+                    }
+                    break;
+                case DataType.Check:
+                    {
+                        if (Model.Input.CustomProfile[i].Required)
+                        {
+                            <div class="form-check form-switch">
+                                <input asp-for="Input.CustomProfile[i].Value" class="form-check-input" required="required" type="checkbox"  />
+                                <label class="form-check-label" asp-for="Input.CustomProfile[i].Value">@Model.Input.CustomProfile[i].Name</label>
+                            </div>
+                            <div class="invalid-feedback">
+                                @Html.LocalizedTextFormatted("NEED_USERNAME", @Model.Input.CustomProfile[i].Name)
+                            </div>
+                                                
+                        }
+                        else
+                        {
+                            <div class="form-check form-switch">
+                                <input asp-for="Input.CustomProfile[i].Value" class="form-check-input" type="checkbox"/>
+                                <label class="form-check-label" asp-for="Input.CustomProfile[i].Value">@Model.Input.CustomProfile[i].Name</label>
+                            </div>
+                                                
+                        }
+
+                    }
+                    break;
+
+            }
+        </div>
+    }
+}
+
+<div class="text-lg-center">
+    <button type="submit"
+            asp-page-handler="UpdateProfile"
+            class=" me-2"
+            button-style="Primary"
+            text-localized-page="COMMON"
+            text-localized-tag="SAVE"
+            icon="save"></button>
+    <a role="button"
+       asp-page="@ForumPages.MyAccount.GetPageName()"
+       button-style="Secondary"
+       icon="reply"
+       text-localized-page="COMMON"
+       text-localized-tag="CANCEL"></a>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

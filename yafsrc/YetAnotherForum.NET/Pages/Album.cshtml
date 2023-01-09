@@ -1,0 +1,154 @@
+﻿@page "{u:int}/{a:int}/{p:int=1}/{handler?}"
+
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Model
+@using YAF.Core.Services
+@using YAF.Core.Utilities
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Models
+@model AlbumModel
+
+<section class="text-center container mb-3">
+    <div class="row">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">
+                @Html.Raw(Model.Get<ILocalization>().GetTextFormatted(
+                    "ALBUMTITLE",
+                    Html.HtmlEncode(Model.AlbumUser.DisplayOrUserName()),
+                    Html.HtmlEncode(Model.Album.Title)))
+            </h1>
+            <p>
+                @if (Model.PageBoardContext.PageUserID == Model.AlbumUser.ID)
+                {
+                    <a rol="button" button-style="Primary"
+                       icon="plus"
+                       text-localized-page="BUTTON"
+                       text-localized-tag="BUTTON_EDITALBUMIMAGES"
+                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(
+                                 ForumPages.EditAlbumImages,
+                                 new {a = Model.Album.ID}))"></a>
+                }
+
+                <a rol="button" button-style="Secondary"
+                   icon="arrow-circle-left"
+                   text-localized-page="BUTTON"
+                   text-localized-tag="BACK_ALBUMS"
+                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(
+                             ForumPages.Albums,
+                             new {u = this.Request.RouteValues["u"].ToString()}))"></a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="bg-light">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+            @foreach (var image in Model.Images)
+            {
+                <div class="col">
+                    <div class="card mb-4 shadow-sm">
+                        <a href="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImage", "Albums" , new { imageId=image.ID}))"
+                           title="@Html.Raw($"{(image.Caption.IsSet() ? Html.HtmlEncode(image.Caption) : Html.HtmlEncode(image.FileName))} - Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]")"
+                           data-gallery>
+                            <img src="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImagePreview", "Albums" , new { imageId=image.ID}))"
+                                 class="card-img-top"
+                                 alt="@Html.HtmlEncode(image.Caption.IsSet() ?  image.Caption : image.FileName)"
+                                 title="@Html.HtmlEncode(image.Caption.IsSet() ?  image.Caption : image.FileName)" />
+                        </a>
+                        <div class="card-body">
+                            @if (Model.AlbumUser.ID != Model.PageBoardContext.PageUserID)
+                            {
+                                <p class="card-text">
+                                    @Html.HtmlEncode(image.Caption)
+                                </p>
+                            }
+                            else
+                            {
+                                var caption = image.Caption.IsNotSet() ? Model.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION") : Html.HtmlEncode(image.Caption);
+
+                                <p class="card-text mb-3">
+                                    <span id="@Html.Raw($"spnTitle{image.ID}")"
+                                          onclick="showTexBox(this.id)"
+                                          title="@caption">
+                                        @Html.Icon("pen", "text-secondary")
+
+                                        @caption
+                                    </span>
+                                    <input type="text" id="@Html.Raw($"txtTitle{image.ID}")"
+                                           class="form-control"
+                                           onkeydown="@Html.Raw($"checkKey(event, this, '{image.ID}',false)")"
+                                           onblur="@Html.Raw($"blurTextBox(this.id, '{image.ID}', false)")" style="display: none;" />
+                                </p>
+                            }
+                            
+                            @if (Model.AlbumUser.ID == Model.PageBoardContext.PageUserID)
+                            {
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <form method="post">
+                                            @if (Model.Album.CoverImageID == image.ID)
+                                            {
+                                                <button type="submit"
+                                                        asp-page-handler="RemoveCover"
+                                                        asp-route-u="@Model.AlbumUser.ID"
+                                                        asp-route-a="@image.AlbumID"
+                                                        button-style="OutlineSecondary"
+                                                        button-size="Small"
+                                                        text-localized-tag="BUTTON_RESETCOVER"
+                                                        icon="trash"></button>
+                                            }
+                                            else
+                                            {
+                                                <button type="submit"
+                                                        asp-page-handler="SetCover"
+                                                        asp-route-u="@Model.AlbumUser.ID"
+                                                        asp-route-a="@image.AlbumID"
+                                                        asp-route-id="@image.ID"
+                                                        button-style="OutlineSecondary"
+                                                        button-size="Small"
+                                                        text-localized-tag="BUTTON_SETCOVER"
+                                                        icon="tag"></button>
+                                            }
+
+                                        </form>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row justify-content-end">
+            <div class="col-auto">
+                <pager page-size="@Model.PageBoardContext.BoardSettings.AlbumImagesPerPage"
+                       count="!Model.Images.NullOrEmpty() ? Model.GetRepository<UserAlbumImage>().List(Model.Images[0].AlbumID).Count.ToType<int>() : 0">
+                </pager>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @if (Model.AlbumUser.ID == Model.PageBoardContext.PageUserID)
+    {
+        <script>
+            @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.AlbumEventsJs(
+                Model.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE").ToJsString(),
+                Model.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION").ToJsString())))
+
+            @Html.Raw(JsAndCssHelper.CompressJavaScript(
+                        JavaScriptBlocks.ChangeImageCaptionJs))
+
+            @Html.Raw(JsAndCssHelper.CompressJavaScript(
+                        JavaScriptBlocks.AlbumCallbackSuccessJs))
+        </script>
+    }
+}

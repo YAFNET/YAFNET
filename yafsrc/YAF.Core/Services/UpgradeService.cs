@@ -26,20 +26,17 @@ namespace YAF.Core.Services;
 
 using System;
 using System.IO;
-using System.Text;
-using System.Web.Configuration;
+using System.Web;
+
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 using YAF.Core.Data;
 using YAF.Core.Model;
 using YAF.Core.Services.Import;
 using YAF.Core.Services.Migrations;
-using YAF.Types.Constants;
-using YAF.Types.Extensions.Data;
-using YAF.Types.Interfaces.Identity;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
-using YAF.Types.Models.Identity;
-
-using Constants = YAF.Types.Constants.Constants;
 
 /// <summary>
 ///     The upgrade service.
@@ -49,12 +46,12 @@ public class UpgradeService : IHaveServiceLocator
     /// <summary>
     ///     The BBCode extensions import xml file.
     /// </summary>
-    private const string BbcodeImport = "Install/BBCodeExtensions.xml";
+    private const string BbcodeImport = "BBCodeExtensions.xml";
 
     /// <summary>
     ///     The Spam Words list import xml file.
     /// </summary>
-    private const string SpamWordsImport = "Install/SpamWords.xml";
+    private const string SpamWordsImport = "SpamWords.xml";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UpgradeService"/> class.
@@ -114,23 +111,15 @@ public class UpgradeService : IHaveServiceLocator
         // Check if BaseUrlMask is set and if not automatically write it
         if (this.Get<BoardSettings>().BaseUrlMask.IsNotSet())
         {
-            this.GetRepository<Registry>().Save("baseurlmask", BaseUrlBuilder.GetBaseUrlFromVariables());
+            this.GetRepository<Registry>().Save("baseurlmask", this.Get<BoardInfo>().GetBaseUrlFromVariables());
         }
 
         if (prevVersion < 80)
         {
-            if (!Config.IsDotNetNuke)
-            {
-                this.MigrateConfig();
-            }
-
             this.Get<V80_Migration>().MigrateDatabase(this.DbAccess);
 
             // Upgrade to ASPNET Identity
-            if (!Config.IsDotNetNuke)
-            {
-                this.DbAccess.Information.IdentityUpgradeScripts.ForEach(this.ExecuteScript);
-            }
+            this.DbAccess.Information.IdentityUpgradeScripts.ForEach(this.ExecuteScript);
 
             this.MigrateAttachments();
 
@@ -162,15 +151,13 @@ public class UpgradeService : IHaveServiceLocator
             this.Get<V82_Migration>().MigrateDatabase(this.DbAccess);
         }
 
-        if (prevVersion is 80 or 81 or 82 or 83)
+        if (prevVersion is 80 or 81 or 82 or 84)
         {
-            var prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
-
-            var registeredRole = this.GetRepository<AspNetRoles>().GetSingle(x => x.Name == $"{prefix}Registered");
+            var registeredRole = this.GetRepository<AspNetRoles>().GetSingle(x => x.Name == "Registered");
 
             if (registeredRole != null)
             {
-                registeredRole.Name = $"{prefix}Registered Users";
+                registeredRole.Name = "Registered Users";
 
                 this.GetRepository<AspNetRoles>().Update(registeredRole);
             }
@@ -218,14 +205,15 @@ public class UpgradeService : IHaveServiceLocator
 
         this.Get<IDataCache>().Remove(Constants.Cache.Version);
 
-        this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
-        this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
+        this.GetRepository<Registry>().Save("version", this.Get<BoardInfo>().AppVersion.ToString());
+        this.GetRepository<Registry>().Save("versionname", this.Get<BoardInfo>().AppVersionName);
 
-        this.Get<ILoggerService>().Info($"YAF.NET Upgraded to Version {BoardInfo.AppVersionName}");
+        this.Get<ILogger<UpgradeService>>().Info($"YAF.NET Upgraded to Version {this.Get<BoardInfo>().AppVersionName}");
 
-        if (BoardContext.Current is {IsAdmin: true}){
-            BoardContext.Current.Notify(
-                $"YAF.NET Upgraded to Version {BoardInfo.AppVersionName}",
+        if (BoardContext.Current.IsAdmin)
+        {
+            BoardContext.Current.SessionNotify(
+                $"YAF.NET Upgraded to Version {this.Get<BoardInfo>().AppVersionName}",
                 MessageTypes.success);
         }
 
@@ -240,7 +228,7 @@ public class UpgradeService : IHaveServiceLocator
         var loadWrapper = new Action<string, Action<Stream>>(
             (file, streamAction) =>
                 {
-                    var fullFile = this.Get<HttpRequestBase>().MapPath(file);
+                    var fullFile = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, "Resources", file);
 
                     if (!File.Exists(fullFile))
                     {
@@ -270,6 +258,8 @@ public class UpgradeService : IHaveServiceLocator
                 });
     }
 
+
+
     /// <summary>
     /// The execute script.
     /// </summary>
@@ -279,7 +269,8 @@ public class UpgradeService : IHaveServiceLocator
     private void ExecuteScript([NotNull] string scriptFile)
     {
         string script;
-        var fileName = this.Get<HttpRequestBase>().MapPath(scriptFile);
+
+        var fileName = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, "Resources", scriptFile);
 
         try
         {
@@ -298,46 +289,6 @@ public class UpgradeService : IHaveServiceLocator
             CommandTextHelpers.GetCommandTextReplaced(script),
             scriptFile,
             Config.SqlCommandTimeout);
-    }
-
-    /// <summary>
-    /// Migrate Legacy Membership Settings
-    /// </summary>
-    private void MigrateConfig()
-    {
-        try
-        {
-            var membershipSection = (MembershipSection)WebConfigurationManager.GetSection("system.web/membership");
-
-            var defaultProvider = membershipSection.DefaultProvider;
-            var hashAlgorithmType = membershipSection.HashAlgorithmType;
-
-            var providerSettings = membershipSection.Providers[defaultProvider];
-
-            var hashHex = providerSettings.Parameters["hashHex"];
-            var hashCase = providerSettings.Parameters["hashCase"];
-
-            ConfigHelper config = new();
-
-            if (hashAlgorithmType.IsSet())
-            {
-                config.WriteAppSetting("YAF.LegacyMembershipHashAlgorithmType", hashAlgorithmType);
-            }
-
-            if (hashHex.IsSet())
-            {
-                config.WriteAppSetting("YAF.LegacyMembershipHashHex", hashHex);
-            }
-
-            if (hashCase.IsSet())
-            {
-                config.WriteAppSetting("YAF.LegacyMembershipHashCase", hashCase);
-            }
-        }
-        catch (Exception)
-        {
-            // Can Be ignored if settings have already been removed
-        }
     }
 
     /// <summary>
@@ -402,9 +353,6 @@ public class UpgradeService : IHaveServiceLocator
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileCustom>());
     }
 
-    /// <summary>
-    /// Migrate old attachments from message to user attachments.
-    /// </summary>
     private void MigrateAttachments()
     {
         // attempt to run the migration code...
@@ -434,11 +382,17 @@ public class UpgradeService : IHaveServiceLocator
                                 // Rename filename
                                 if (attach.FileData == null)
                                 {
-                                    var oldFilePath = this.Get<HttpRequestBase>().MapPath(
-                                        $"{Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads)}/{attach.MessageID}.{attach.FileName}.yafupload");
+                                    var webRootPath = this.Get<IWebHostEnvironment>().WebRootPath;
 
-                                    var newFilePath = this.Get<HttpRequestBase>().MapPath(
-                                        $"{Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads)}/u{message.UserID}-{attach.ID}.{attach.FileName}.yafupload");
+                                    var oldFilePath = Path.Combine(
+                                        webRootPath,
+                                        this.Get<BoardFolders>().Uploads,
+                                        $"{attach.MessageID}.{attach.FileName}.yafupload");
+
+                                    var newFilePath = Path.Combine(
+                                        webRootPath,
+                                        this.Get<BoardFolders>().Uploads,
+                                        $"u{message.UserID}-{attach.ID}.{attach.FileName}.yafupload");
 
                                     try
                                     {
@@ -446,7 +400,8 @@ public class UpgradeService : IHaveServiceLocator
                                     }
                                     catch (Exception ex)
                                     {
-                                        this.Get<ILoggerService>().Log(null, this, ex);
+                                        this.Get<ILogger<UpgradeService>>().Log(null, this, ex);
+                                        //this.GetRepository<Attachment>().DeleteById(attach.ID);
                                     }
                                 }
 
@@ -459,7 +414,6 @@ public class UpgradeService : IHaveServiceLocator
                     this.GetRepository<Message>().UpdateOnly(
                         () => new Message { MessageText = updatedMessage.ToString() },
                         m => m.ID == message.ID);
-
                 });
     }
 }

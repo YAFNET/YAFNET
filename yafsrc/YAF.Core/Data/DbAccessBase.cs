@@ -21,14 +21,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Data;
 
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 
-using YAF.Types.Extensions.Data;
+using YAF.Types.Attributes;
 
 /// <summary>
 ///     The DB access base.
@@ -84,7 +84,7 @@ public abstract class DbAccessBase : IDbAccess
 
         T result;
 
-        if (dbTransaction is null)
+        if (dbTransaction == null)
         {
             if (command.Connection is { State: ConnectionState.Open })
             {

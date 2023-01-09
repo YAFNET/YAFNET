@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,11 +26,11 @@ namespace YAF.Core.Services;
 using System.Collections.Generic;
 
 using YAF.Core.Model;
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
-/// User Ignored Service for the current user.
+/// PageUser Ignored Service for the current user.
 /// </summary>
 public class UserIgnored : IUserIgnored, IHaveServiceLocator
 {
@@ -39,25 +39,18 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
     /// </summary>
     private List<int> _userIgnoreList;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="UserIgnored"/> class.
-    /// </summary>
-    /// <param name="sessionStateBase">
-    /// The session state base.
-    /// </param>
-    /// <param name="dbBroker">
-    /// The db broker.
-    /// </param>
-    public UserIgnored([NotNull] HttpSessionStateBase sessionStateBase, IServiceLocator serviceLocator)
+    public UserIgnored([NotNull] IHttpContextAccessor contextAccessor, IServiceLocator serviceLocator)
     {
-        this.SessionStateBase = sessionStateBase;
+        CodeContracts.VerifyNotNull(contextAccessor);
+
+        this.SessionState = contextAccessor.HttpContext.Session;
         this.ServiceLocator = serviceLocator;
     }
 
     /// <summary>
-    /// Gets or sets SessionStateBase.
+    /// Gets or sets SessionState.
     /// </summary>
-    public HttpSessionStateBase SessionStateBase { get; set; }
+    public ISession SessionState { get; set; }
 
     /// <summary>
     ///     Gets or sets ServiceLocator.
@@ -82,7 +75,7 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
     public void ClearIgnoreCache()
     {
         // clear for the session
-        this.SessionStateBase.Remove(string.Format(Constants.Cache.UserIgnoreList, BoardContext.Current.PageUserID));
+        this.SessionState.Remove(string.Format(Constants.Cache.UserIgnoreList, BoardContext.Current.PageUserID));
     }
 
     /// <summary>
@@ -124,19 +117,24 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
 
         // stored in the user session...
 
+        var userList = this.SessionState.GetData<List<int>>(key);
+
         // was it in the cache?
-        if (this.SessionStateBase[key] is List<int> userList)
+        if (userList != null)
         {
             return userList;
         }
-
-        userList = new List<int>();
+        else
+        {
+            userList = new List<int>();
+        }
 
         // get fresh values
-        this.GetRepository<IgnoreUser>().Get(i => i.UserID == userId).ForEach(user => userList.Add(user.IgnoredUserID));
+        this.GetRepository<IgnoreUser>().Get(i => i.UserID == userId)
+            .ForEach(user => userList.Add(user.IgnoredUserID));
 
         // store it in the user session...
-        this.SessionStateBase.Add(key, userList);
+        this.SessionState.SetData(key, userList);
 
         return userList;
     }

@@ -24,6 +24,9 @@
 
 namespace YAF.Types.Objects;
 
+using System.Collections;
+using System.Xml.Serialization;
+
 using YAF.Types.Constants;
 using YAF.Types.Extensions;
 

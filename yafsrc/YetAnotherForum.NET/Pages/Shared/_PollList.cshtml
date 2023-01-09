@@ -1,0 +1,369 @@
+﻿@using System.Text
+@using YAF.Core.Context
+@using YAF.Core.Extensions
+@using YAF.Core.Model
+@using YAF.Core.Services
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Models
+
+@inject BoardContext Current
+
+@{
+    List<Tuple<Poll, Choice>> pollAndChoices = null;
+    List<PollVote> userPollVotes = null;
+    List<Tuple<PollVote, User>> voters = null;
+    Poll poll = null;
+
+    bool hasOwnerExistingGroupAccess;
+    var showResults = false;
+    int? daysToRun = null;
+    var hasVoteAccess = false;
+    string pollWarningNotification = null;
+    var isNotVoted = false;
+    var canEditPoll = false;
+
+    /////////////////////////
+    var topicId = Current.PageTopicID;
+    var forumId = Current.PageForumID;
+
+    var paramsToSend =  new Dictionary<string, object>();
+
+    if (topicId > 0)
+    {
+        paramsToSend.Add("t", topicId);
+    }
+
+    if (Current.PageMessage != null)
+    {
+        paramsToSend.Add("m", Current.PageMessage.ID);
+    }
+
+    if (forumId > 0)
+    {
+        paramsToSend.Add("f", forumId);
+    }
+
+    // if this is > 0 then we already have a poll and will display all buttons
+    if (Current.PageTopic.PollID.HasValue)
+    {
+        pollAndChoices = Current.GetRepository<Poll>().GetPollAndChoices(Current.PageTopic.PollID.Value);
+
+        // Check if Poll Exist
+        if (pollAndChoices.FirstOrDefault() != null)
+        {
+            // Set Poll
+            poll = pollAndChoices.FirstOrDefault().Item1;
+
+            // returns number of day to run - null if poll has no expiration date
+            daysToRun = Current.Get<PollService>().DaysToRun(poll, out var closesSoon);
+
+            // if the page user can change the poll. Only a group owner, forum moderator  or an admin can do it.   );
+            var canChange = poll.UserID == Current.PageUserID || Current.IsAdmin ||
+                            Current.ForumModeratorAccess;
+
+            if (pollAndChoices.Any())
+            {
+                // Check if the user is already voted in polls in the group
+                userPollVotes = Current.GetRepository<PollVote>().VoteCheck(poll.ID, Current.PageUserID);
+
+                isNotVoted = !userPollVotes.Any();
+
+                // This is not a guest w/o poll option view permissions, we bind the control.
+                if (poll.PollFlags.ShowVoters)
+                {
+                    voters = Current.GetRepository<PollVote>().Voters(poll.ID);
+                }
+
+                var isPollClosed = Current.Get<PollService>().IsPollClosed(poll);
+
+                var isClosedBound = poll.Closes.HasValue && poll.PollFlags.IsClosedBound &&
+                                    poll.Closes.Value < DateTime.UtcNow;
+
+                var pollHasNoVotes = pollAndChoices.All(row => row.Item2.Votes <= 0);
+
+                // The host admin can forbid a user to change poll after first vote to avoid fakes.
+                if (!Current.BoardSettings.AllowPollChangesAfterFirstVote)
+                {
+                    // Only if show buttons are enabled user can edit poll
+                    canEditPoll = Current.IsAdmin || Current.ForumModeratorAccess ||
+                                  Current.PageUserID == poll.UserID && pollHasNoVotes &&
+                                  !isPollClosed;
+                }
+                else
+                {
+                    // we don't call PollHasNoVotes method here
+                    canEditPoll = Current.IsAdmin || Current.ForumModeratorAccess ||
+                                  Current.PageUserID == poll.UserID && !isPollClosed;
+                }
+
+                switch (isClosedBound)
+                {
+                    case true when isPollClosed:
+                    case false:
+                        showResults = true;
+                        break;
+                }
+
+                // rule out users without voting rights
+                if (Current.ForumVoteAccess && !isPollClosed)
+                {
+                    hasVoteAccess = true;
+                }
+
+                // The poll had an expiration date and expired without voting
+                // show results anyway if poll has no expiration date days to run is null
+                if (daysToRun == 0)
+                {
+                    showResults = true;
+                }
+
+                // *************************
+                // Poll warnings section
+                // *************************
+                var notificationString = new StringBuilder();
+
+                if (Current.IsGuest)
+                {
+                    notificationString.Append(Current.Get<ILocalization>().GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST"));
+                }
+                else
+                {
+                    // Here warning labels are treated
+                    if (poll.PollFlags.AllowMultipleChoice)
+                    {
+                        notificationString.Append(Current.Get<ILocalization>().GetText("POLLEDIT", "POLL_MULTIPLECHOICES_INFO"));
+                    }
+                }
+
+                if (!isNotVoted && Current.ForumVoteAccess)
+                {
+                    notificationString.AppendFormat(" {0}", Current.Get<ILocalization>().GetText("POLLEDIT", "POLL_VOTED"));
+                }
+
+                switch (daysToRun)
+                {
+                    // Poll has expiration date
+                    case > 0:
+                        {
+                            notificationString.AppendFormat(
+                                " {0}",
+                                !closesSoon
+                                    ? Current.Get<ILocalization>().GetTextFormatted("POLL_WILLEXPIRE", daysToRun)
+                                    : Current.Get<ILocalization>().GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS"));
+
+                            if (isClosedBound)
+                            {
+                                notificationString.Append($" {Current.Get<ILocalization>().GetText("POLLEDIT", "POLL_CLOSEDBOUND")}");
+                            }
+                            break;
+                        }
+                    case 0:
+                        notificationString.Clear();
+                        notificationString.Append(Current.Get<ILocalization>().GetText("POLLEDIT", "POLL_EXPIRED"));
+                        break;
+                }
+
+                pollWarningNotification = notificationString.ToString();
+            }
+
+            if (!canChange && Current.CurrentForumPage.PageName is ForumPages.PostMessage or ForumPages.EditMessage)
+            {
+                poll = null;
+            }
+        }
+    }
+
+    if (Current.BoardSettings.AllowedPollChoiceNumber <= 0)
+    {
+        hasOwnerExistingGroupAccess = false;
+    }
+    else
+    {
+        hasOwnerExistingGroupAccess = Current.PageTopic.UserID == Current.PageUserID || Current.IsAdmin || Current.ForumModeratorAccess;
+    }
+}
+
+@if (Current.PageTopic.PollID.HasValue && poll != null)
+{
+    <form method="post">
+        <div class="row">
+            <div class="col">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">
+                        @Html.IconHeader("question-circle", "COMMON", "QUESTION"):
+                        @Html.HtmlEncode(Current.Get<IBadWordReplace>().Replace(poll.Question))
+
+                        @if (daysToRun is 0)
+                        {
+                            <span class="badge bg-danger ms-1"><i class="fa fa-lock fa-fw me-1"></i>@Html.LocalizedText("POLLEDIT", "POLL_CLOSED")</span>
+                        }
+                    </div>
+                    <div class="card-body">
+
+                        @if (pollWarningNotification.IsSet())
+                        {
+                            <alert type="info" icon="info-circle" message="@pollWarningNotification"></alert>
+                        }
+
+                        @if (poll.ObjectPath.IsSet())
+                        {
+                            <img data-bs-toggle="tooltip" class="img-thumbnail mb-1" style="max-height: 80px" title="@Html.HtmlEncode(poll.Question)" alt="@Html.Encode(poll.Question)"
+                                 href="@Html.HtmlEncode(poll.ObjectPath)" />
+                        }
+
+                        @if (!(!hasVoteAccess && userPollVotes.Any() && Current.IsGuest))
+                        {
+                            <ul class="list-group">
+                                @foreach (var choice in pollAndChoices)
+                                {
+                                    var voterNames = new StringBuilder();
+
+                                    var voteEnabled = hasVoteAccess && isNotVoted && userPollVotes.All(v => choice.Item2.ID != v.ChoiceID) ||
+                                    choice.Item1.PollFlags.AllowMultipleChoice && hasVoteAccess && userPollVotes.All(v => choice.Item2.ID != v.ChoiceID);
+
+                                    if (!voters.NullOrEmpty())
+                                    {
+                                        var votersByChoice = voters.Where(i => i.Item1.ChoiceID == choice.Item2.ID).ToList();
+
+                                        if (votersByChoice.Any())
+                                        {
+                                            voterNames.Append("(");
+
+                                            votersByChoice.ForEach(itemTuple => voterNames.AppendFormat("{0}, ", itemTuple.Item2.DisplayOrUserName()));
+
+                                            voterNames.Remove(voterNames.Length - 2, 2);
+
+                                            voterNames.Append(")");
+                                        }
+                                    }
+
+                                    <li class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5>
+                                                @if (choice.Item2.ObjectPath.IsSet())
+                                                {
+                                                    <img src="@(choice.Item2.ObjectPath)" class="img-fluid me-1" data-bs-toggle="tooltip"
+                                                         title="@(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))" alt="@(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))"
+                                                         style="max-height: 80px" />
+                                                }
+
+                                                @(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))
+                                            </h5>
+
+                                            @if (userPollVotes.Any(v => choice.Item2.ID == v.ChoiceID))
+                                            {
+                                                <small>
+                                                    <span class="badge bg-success" title="@Html.LocalizedText("POLLEDIT", "POLL_VOTED")">
+                                                        <i class="fa fa-check-circle fa-fw"></i>&nbsp;@Html.LocalizedText("POLLEDIT", "POLL_VOTED")
+                                                    </span>
+                                                </small>
+                                            }
+
+                                        </div>
+                                        @if (voteEnabled)
+                                        {
+                                            <button ID="VoteButton"
+                                                    class="mb-2"
+                                                    button-style="Success"
+                                                    button-size="Small"
+                                                    asp-controller="Poll"
+                                                    asp-action="Vote"
+                                                    asp-route-choiceId="@choice.Item2.ID"
+                                                    asp-route-pollId="@choice.Item1.ID"
+                                                    asp-route-topicId="@Current.PageTopicID"
+                                                    asp-route-forumId="@Current.PageTopicID"
+                                                    icon="vote-yea"
+                                                    title-localized-page="POLLEDIT"
+                                                    title-localized-tag="POLL_PLEASEVOTE">
+                                                @Html.HtmlEncode(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))
+                                            </button>
+
+                                        }
+
+                                        @if (showResults)
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-striped" role="progressbar"
+                                                     style="width: @(Current.Get<PollService>().VoteWidth(pollAndChoices, choice))%"
+                                                     aria-valuenow="@(Current.Get<PollService>().VoteWidth(pollAndChoices, choice))" aria-valuemin="0" aria-valuemax="100">
+                                                    @(Current.Get<PollService>().VoteWidth(pollAndChoices, choice))
+                                                </div>
+                                            </div>
+
+                                            @(choice.Item2.Votes)
+
+                                            <span class="ms-1">@Html.LocalizedText("VOTES")</span>
+
+                                            @if (voterNames.Length > 0)
+                                            {
+                                                <span class="ms-1 text-muted">@(voterNames.ToString())</span>
+                                            }
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        }
+
+                        <p class="card-text">
+                            @Html.LocalizedText("total"): @Html.Raw(pollAndChoices.Sum(x => x.Item2.Votes).ToString())
+                        </p>
+                    </div>
+
+                    @if (hasOwnerExistingGroupAccess)
+                    {
+                        <div class="card-footer text-muted">
+                            <div class="row">
+                                <div class="col">
+                                </div>
+                                <div class="col-auto d-flex flex-wrap">
+                                    
+                                    @if (canEditPoll)
+                                    {
+                                        <a button-size="Small"
+                                           class="me-1"
+                                           href="@(Current.Get<LinkBuilder>().GetLink(
+                                                     ForumPages.PollEdit,
+                                                     new {f = Current.PageForumID, t = Current.PageTopicID, pollId = poll.ID}))"
+                                           text-localized-tag="EDITPOLL"
+                                           button-style="Secondary"
+                                           icon="edit"></a>
+                                    }
+
+                                    @if (Current.IsAdmin || Current.ForumModeratorAccess || Current.PageUserID == poll.UserID)
+                                    {
+                                        <button asp-controller="Poll"
+                                                asp-action="RemovePoll"
+                                                asp-route-pollId="@poll.ID"
+                                                button-size="Small"
+                                                text-localized-tag="REMOVEPOLL"
+                                                return-confirm-tag="ASK_POLL_DELETE"
+                                                button-style="Danger"
+                                                icon="trash"></button>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+@if (!Current.PageTopic.PollID.HasValue && Current.BoardSettings.AllowedPollChoiceNumber > 0 && hasOwnerExistingGroupAccess)
+{
+    <div class="row">
+        <div class="col">
+            <a text-localized-tag="CREATEPOLL"
+               icon="poll-h"
+               href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.PollEdit, paramsToSend))"
+               button-style="Secondary"
+               class="mb-3"></a>
+        </div>
+    </div>
+}

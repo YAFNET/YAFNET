@@ -1,0 +1,71 @@
+﻿@page
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+@model YAF.Pages.Admin.EditUser.UsersPointsModel
+
+@{
+    Layout = "_EditUserLayout";
+}
+
+<h2>
+    @Html.LocalizedText("ADMIN_EDITUSER", "USER_REPUTATION")
+</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
+    <h6>
+        @Html.LocalizedText("ADMIN_EDITUSER", "CURRENT_POINTS")
+        <span class="badge bg-secondary">
+            @Html.Raw(Model.EditUser.Points)
+        </span>
+    </h6>
+
+    <div class="row">
+        <div class="mb-3 col-md-4">
+            <label class="form-label" asp-for="Input.UserPoints" 
+                   localized-tag="SET_POINTS"
+                   localized-page="ADMIN_EDITUSER"></label>
+            <input type="number" asp-for="Input.UserPoints"
+                   class="form-control"/>
+            <button text-localized-tag="GO"
+                    Icon="check"
+                    button-style="Secondary"
+                    asp-page-handler="SetUserPoints"
+                    class="mt-1"></button>
+        </div>
+        <div class="mb-3 col-md-4">
+            <label class="form-label" asp-for="Input.AddPoints"
+                   localized-tag="ADD_POINTS" localized-page="ADMIN_EDITUSER">
+            </label>
+            <input type="number" asp-for="Input.AddPoints"
+                   class="form-control"/>
+            <button text-localized-tag="GO"
+                    Icon="check"
+                    button-style="Secondary"
+                    asp-page-handler="AddPoints"
+                    class="mt-1"></button>
+        </div>
+        <div class="mb-3 col-md-4">
+            <label class="form-label" asp-for="Input.RemovePoints"
+                   localized-tag="REMOVE_POINTS" localized-page="ADMIN_EDITUSER">
+            </label>
+            <input type="number" asp-for="Input.RemovePoints"
+                   class="form-control"/>
+            <button button-style="Secondary"
+                    text-localized-tag="GO"
+                    Icon="check"
+                    asp-page-handler="RemovePointsk"
+                    Class="mt-1"></button>
+        </div>
+    </div>
+    <div class="text-lg-center">
+        <a button-style="Secondary"
+           Icon="times"
+           text-localized-tag="CANCEL"
+           asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
+    </div>
+</form>

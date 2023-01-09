@@ -23,6 +23,8 @@
  */
 namespace YAF.Types.Interfaces;
 
+using Microsoft.AspNetCore.Mvc;
+
 using YAF.Types.Constants;
 
 /// <summary>
@@ -31,7 +33,7 @@ using YAF.Types.Constants;
 public interface IPermissions
 {
     /// <summary>
-    /// Check Permissions
+    /// Check View Permissions.
     /// </summary>
     /// <param name="permission">
     /// The permission.
@@ -45,7 +47,7 @@ public interface IPermissions
     /// The handle request.
     /// </summary>
     /// <param name="permission">
-    /// The permission.
+    ///     The permission.
     /// </param>
-    void HandleRequest(ViewPermissions permission);
+    IActionResult HandleRequest(ViewPermissions permission);
 }

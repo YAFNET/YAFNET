@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -23,14 +23,20 @@
  */
 namespace YAF.Core.Services;
 
+using Microsoft.Extensions.Logging;
+
 using YAF.Configuration.Pattern;
 using YAF.Core.Model;
+using YAF.Types.Attributes;
 using YAF.Types.Exceptions;
 using YAF.Types.Models;
 
 public class BoardSettingsService : IHaveServiceLocator
 {
-    public BoardSettingsService([NotNull] ILoggerService logger, IServiceLocator serviceLocator)
+    /// <summary>Initializes a new instance of the <see cref="T:YAF.Core.Services.BoardSettingsService" /> class.</summary>
+    /// <param name="logger">The logger.</param>
+    /// <param name="serviceLocator">The service locator.</param>
+    public BoardSettingsService([NotNull] ILogger<BoardSettingsService> logger, IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
@@ -44,7 +50,7 @@ public class BoardSettingsService : IHaveServiceLocator
     /// <summary>
     /// Gets or sets Logger.
     /// </summary>
-    public ILoggerService Logger { get; set; }
+    public ILogger Logger { get; set; }
 
     /// <summary>Loads the board settings.</summary>
     /// <param name="boardId">The board identifier.</param>

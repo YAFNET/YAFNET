@@ -1,0 +1,48 @@
+﻿@using YAF.Core.Context
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Interfaces
+@using YAF.Types.Objects
+
+@inject BoardContext Current
+
+@if (Current.IsGuest)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @if (Current.BoardSettings.DisableRegistrations && !Current.Get<BoardConfiguration>().AllowLoginAndLogoff)
+        {
+            @Html.LocalizedText("TOOLBAR", "WELCOME_GUEST_NO")
+        }
+        else
+        {
+            @Html.LocalizedText("TOOLBAR", "WELCOME_GUEST_FULL")
+
+            if (Current.Get<BoardConfiguration>().AllowLoginAndLogoff)
+            {
+                <a class="alert-link" role="button"
+                   bs-toggle="ajax-modal"
+                   bs-target-url="@Url.Action("ShowModal", "LoginBox", null)"
+                   data-bs-toggle="tooltip"
+                   title="@Html.LocalizedText("TOOLBAR", "LOGIN_TITLE")">
+                    @Html.LocalizedText("TOOLBAR", "LOGIN")
+                </a>
+            }
+
+            if (!Current.BoardSettings.DisableRegistrations)
+            {
+                if (Current.Get<BoardConfiguration>().AllowLoginAndLogoff)
+                {
+                    @Html.Raw($"&nbsp;{Current.Get<ILocalization>().GetText("COMMON", "OR")}&nbsp;")
+                }
+
+                <a class="alert-link" role="button"
+                   asp-page="/Account/Register"
+                   data-bs-toggle="tooltip"
+                   title="@Html.LocalizedText("TOOLBAR", "REGISTER_TITLE")">
+                    @Html.LocalizedText("TOOLBAR", "REGISTER")
+                </a>
+            }
+        }
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}

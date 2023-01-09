@@ -1,0 +1,121 @@
+@page "{u:int=1}/{tab=View1}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+@model EditUserModel
+
+@{
+    var editUser = Model.EditUser;
+
+    var userName = Html.HtmlEncode(editUser.Item1.DisplayOrUserName());
+
+    var header = string.Format(Model.GetText("ADMIN_EDITUSER", "TITLE"), userName);
+
+    Model.PageBoardContext.CurrentForumPage.PageTitle = header;
+}
+
+<div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("user-edit")
+                    @Html.Raw(header)
+                </div>
+                <div class="card-body">
+                    <div id="EditUserTabs">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                            <button class ="nav-link" data-bs-target="#View1" data-bs-toggle="tab" data-bs-target="tab" role="tab">
+                                    @Html.LocalizedText("ADMIN_EDITUSER","USER_DETAILS")
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                            <button class="nav-link" data-bs-target="#View2" data-bs-toggle="tab" role="tab">
+                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_ROLES")
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                            <button class="nav-link" data-bs-target="#View3" data-bs-toggle="tab" role="tab">
+                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_PROFILE")
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                            <button class="nav-link" data-bs-target="#View10" data-bs-toggle="tab" role="tab">
+                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_SETTINGS")
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                            <button class="nav-link" data-bs-target="#View4" data-bs-toggle="tab" role="tab">
+                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_AVATAR")
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                            <button class="nav-link" data-bs-target="#View11" data-bs-toggle="tab" role="tab">
+                                    @Html.LocalizedText( "ATTACHMENTS","TITLE")
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                            <button class="nav-link" data-bs-target="#View5" data-bs-toggle="tab" role="tab">
+                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_SIG")
+                            </button>
+                            </li>
+                            <li class="nav-item">
+                            <button class="nav-link" data-bs-target="#View6" data-bs-toggle="tab" role="tab">
+                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_REPUTATION")
+                                </button>
+                            </li>
+
+                        @if (!editUser.Item1.UserFlags.IsGuest)
+                        {
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-target="#View8" data-bs-toggle="tab" role="tab">
+                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_SUSPEND")
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-target="#View9" data-bs-toggle="tab" role="tab">
+                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_KILL")
+                                </button>
+                            </li>
+                        }
+
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade" id="View1" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="View2" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="View3" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="View10" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="View11" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="View4" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="View5" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="View6" role="tabpanel"></div>
+                            
+                            @if (!editUser.Item1.UserFlags.IsGuest)
+                            {
+                                <div class="tab-pane fade" id="View8" role="tabpanel"></div>
+                                <div class="tab-pane fade" id="View9" role="tabpanel"></div>
+                            }
+
+                        </div>
+
+                    </div>
+                    <input type="hidden" asp-for="LastTab" Value="@Model.LastTab" />
+                </div>
+               </div>
+            </div>
+        </div>
+
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.BootstrapTabsLoadJs("EditUserTabs", "LastTab")));
+        
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.EditUserTabsLoadJs(editUser.Item1.ID))) 
+    </script>
+}

@@ -1,0 +1,99 @@
+@page "{handler?}"
+@model BoardsModel
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("globe","ADMIN_BOARDS","TITLE")
+                </div>
+                <div class="card-body">
+                    @if (!Model.List.NullOrEmpty())
+                    {
+                        <ul class="list-group">
+
+                            @foreach (var board in Model.List)
+                            {
+                                <li class="list-group-item list-group-item-action list-group-item-menu @Html.Raw(board.ID != Model.PageBoardContext.PageBoardID ? "" : "active")">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">
+                                            @Html.HtmlEncode(board.Name)
+                                        </h5>
+                                        <small>
+                                            @Html.LocalizedText("ADMIN_BOARDS", "ID"): @Html.Raw(board.ID)
+                                        </small>
+                                    </div>
+                                    <small>
+                                        <div class="btn-group btn-group-sm">
+                                            <a button-style="Info"
+                                                    button-size="Small"
+                                                    asp-page="@ForumPages.Admin_EditBoard.GetPageName()"
+                                                    asp-route-b="@Html.Raw(board.ID)"
+                                                    title-localized-tag="EDIT"
+                                                    text-localized-tag="EDIT"
+                                                    Icon="edit">
+                                            </a>
+
+                                            @if (Model.List.Count > 1)
+                                            {
+                                                <button button-style="Danger"
+                                                        button-size="Small"
+                                                        asp-page-handler="Delete"
+                                                        asp-route-id="@Html.Raw(board.ID)"
+                                                        title-localized-tag="DELETE"
+                                                        text-localized-tag="DELETE"
+                                                        Icon="trash"
+                                                        return-confirm-tag="CONFIRM_DELETE">
+                                                </button>
+                                            }
+                                        </div>
+                                    </small>
+                                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                        <a button-style="None"
+                                                class="dropdown-item"
+                                                asp-page="@ForumPages.Admin_EditBoard.GetPageName()"
+                                                asp-route-b="@Html.Raw(board.ID)"
+                                                title-localized-tag="EDIT"
+                                                text-localized-tag="EDIT"
+                                                Icon="edit">
+                                        </a>
+                                        <button button-style="None"
+                                                class="dropdown-item"
+                                                asp-page-handler="Delete"
+                                                asp-route-id="@Html.Raw(board.ID)"
+                                                title-localized-tag="DELETE"
+                                                text-localized-tag="DELETE"
+                                                Icon="trash"
+                                                return-confirm-tag="CONFIRM_DELETE">
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <button 
+                                            button-style="None"
+                                            class="dropdown-item"
+                                            asp-page="@ForumPages.Admin_EditBoard.GetPageName()"
+                                            text-localized-tag="NEW_BOARD"
+                                            Icon="plus-square"></button>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    }
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-page="@ForumPages.Admin_EditBoard.GetPageName()"
+                            button-style="Primary"
+                            text-localized-tag="NEW_BOARD"
+                            Icon="plus-square"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

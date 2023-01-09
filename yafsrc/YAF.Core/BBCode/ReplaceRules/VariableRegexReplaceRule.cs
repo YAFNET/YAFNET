@@ -21,10 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BBCode.ReplaceRules;
 
-using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 /// <summary>
 /// For complex regex with variable/default and truncate support

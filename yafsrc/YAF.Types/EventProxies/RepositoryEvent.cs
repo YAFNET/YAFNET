@@ -23,6 +23,8 @@
  */
 namespace YAF.Types.EventProxies;
 
+using YAF.Types.Interfaces.Events;
+
 /// <summary>
 ///     The repository event type.
 /// </summary>
@@ -31,12 +33,12 @@ public enum RepositoryEventType
     /// <summary>
     ///     The new.
     /// </summary>
-    New,
+    New, 
 
     /// <summary>
     ///     The update.
     /// </summary>
-    Update,
+    Update, 
 
     /// <summary>
     ///     The delete.

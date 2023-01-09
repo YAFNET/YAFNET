@@ -1,0 +1,526 @@
+@page "{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.TagHelpers
+@model TestDataModel
+
+<form method="post" class="needs-validation">
+    <div class="card">
+        <div class="card-body">
+            <div id="TestDataTabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <button data-bs-target="#View1" class="nav-link" data-bs-toggle="tab" role="tab">Users</button>
+                    </li>
+                    <li class="nav-item">
+                        <button data-bs-target="#View2" class="nav-link" data-bs-toggle="tab" role="tab">Boards</button>
+                    </li>
+                    <li class="nav-item">
+                        <button data-bs-target="#View3" class="nav-link" data-bs-toggle="tab" role="tab">Categories</button>
+                    </li>
+                    <li class="nav-item">
+                        <button data-bs-target="#View4" class="nav-link" data-bs-toggle="tab" role="tab">Forums</button>
+                    </li>
+                    <li class="nav-item">
+                        <button data-bs-target="#View5" class="nav-link" data-bs-toggle="tab" role="tab">Topics</button>
+                    </li>
+                    <li class="nav-item">
+                        <button data-bs-target="#View6" class="nav-link" data-bs-toggle="tab" role="tab">Messages</button>
+                    </li>
+                    <li class="nav-item">
+                        <button data-bs-target="#View7" class="nav-link" data-bs-toggle="tab" role="tab">Private Messages</button>
+                    </li>
+                    <li class="nav-item">
+                        <button data-bs-target="#View8" class="nav-link" data-bs-toggle="tab" role="tab">Settings/Help</button>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="View1" class="tab-pane" role="tabpanel">
+                        <h4>
+                            Create Test Users
+                        </h4>
+                        <div class="mb-3">
+                            <label asp-for="Input.UsersNumber" class="form-label">
+                                Number of users to create:
+                            </label>
+                            <input type="number" asp-for="Input.UsersNumber"
+                                   class="form-control" required="required" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.UsersBoardsList" class="form-label">
+                                Select board to Create users in:
+                            </label>
+                            <select asp-for="Input.UsersBoardsList" asp-items="Model.BoardList" class="select2-select">
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Password" class="form-label">
+                                Password(for all users):
+                            </label>
+                            <input type="text" asp-for="Input.Password"
+                                   class="form-control" required="required" />
+                            <div class="invalid-feedback">
+                                Users password is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Password2" class="form-label">
+                                Confirm Password:
+                            </label>
+                            <input type="text" asp-for="Input.Password2" required="required"
+                                   class="form-control" />
+                            <div class="invalid-feedback">
+                                Users password is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Location" class="form-label">
+                                Location(for all users):
+                            </label>
+
+                            <input type="text" asp-for="Input.Location" class="form-control" value="Earth">
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.HomePage" class="form-label">
+                                Home Page(for all users):
+                            </label>
+                            <input type="text" asp-for="Input.HomePage"
+                                   class="form-control" />
+                        </div>
+
+                        <alert type="danger">
+                            Warning! This is a test/debug feature. Never use it in production environment.
+                        </alert>
+                    </div>
+
+                    <div id="View2" class="tab-pane" role="tabpanel">
+                        <h4>
+                            Create Test Boards
+                        </h4>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.BoardNumber" class="form-label">
+                                Number of boards to create(max 10):
+                            </label>
+                            <input type="number" asp-for="Input.BoardNumber"
+                                   class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.BoardsUsersNumber" class="form-label">
+                                Number of Users in Each Board:
+                            </label>
+                            <input type="number" asp-for="Input.BoardsUsersNumber"
+                                   class="form-control" />
+                        </div>
+
+                        <alert type="danger">
+                            Warning! This is a test/debug feature. Never use it in production environment.
+                        </alert>
+                    </div>
+                    <div id="View3" class="tab-pane" role="tabpanel">
+                        <h4>
+                            Create Test Categories
+                        </h4>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.CategoriesNumber" class="form-label">
+                                Number of categories to create(max 100):
+                            </label>
+                            <input type="number" asp-for="Input.CategoriesNumber"
+                                   class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.CategoriesBoardsList" class="form-label">
+                                Create Categories in Board:
+                            </label>
+                            <select asp-for="Input.CategoriesBoardsList"
+                                    asp-items="Model.BoardList"
+                                    class="select2-select">
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.CategoriesForumsNumber" class="form-label">
+                                Number of Forums in Each Category:
+                            </label>
+                            <input type="number" asp-for="Input.CategoriesForumsNumber" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.CategoriesTopicsNumber" class="form-label">
+                                Number of Topics in Each Forum:
+                            </label>
+                            <input type="number" asp-for="Input.CategoriesTopicsNumber"
+                                   class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.CategoriesMessagesNumber" class="form-label">
+                                Number of Messages in Each Topic:
+                            </label>
+                            <input type="number" asp-for="Input.CategoriesMessagesNumber"
+                                   class="form-control" />
+                        </div>
+
+                        <alert type="danger">
+                            Warning! This is a test/debug feature. Never use it in production environment.
+                        </alert>
+
+                    </div>
+                    <div id="View4" class="tab-pane" role="tabpanel">
+                        <h4>
+                            Create Test Forums
+                        </h4>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ForumsNumber" class="form-label">
+                                Number of forums to create:
+                            </label>
+                            <input type="number" asp-for="Input.ForumsNumber" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ForumsCountMessages" class="form-label">
+                                Count topics and messages in statistics:
+                            </label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.ForumsCountMessages" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ForumsHideNoAccess" class="form-label">
+                                Hide forums if no access:
+                            </label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.ForumsHideNoAccess" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ForumsStartMask" class="form-label">
+                                Select common access mask for all groups:
+                            </label>
+                            <select asp-for="Input.ForumsStartMask" asp-items="Model.ForumsStartMasks"
+                                    class="select2-select">
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ForumsCategory" class=" form-label">
+                                Choose category:
+                            </label>
+                            <select asp-for="Input.ForumsCategory" asp-items="Model.Categories" 
+                                    onchange="this.form.submit();" class="select2-select">
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ForumsParent" class="form-label">
+                                Choose parent forum:
+                            </label>
+                            <select asp-for="Input.ForumsParent" asp-items="Model.ForumsParentList" class="select2-select">
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ForumsTopicsNumber" class="form-label">
+                                Number of Topics in Each Forum:
+                            </label>
+                            <input type="number" asp-for="Input.ForumsTopicsNumber"
+                                   class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ForumsMessagesNumber" class="form-label">
+                                Number of Messages in Each Topic:
+                            </label>
+                            <input type="number" asp-for="Input.ForumsMessagesNumber"
+                                   class="form-control" />
+                        </div>
+
+                        <alert type="danger">
+                            Warning! This is a test/debug feature. Never use it in production environment.
+                        </alert>
+                    </div>
+                    <div id="View5" class="tab-pane" role="tabpanel">
+                        <h4>
+                            Create Test Topics
+                        </h4>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.TopicsNumber" class="form-label">
+                                Number of topics to create:
+                            </label>
+                            <input type="number" asp-for="Input.TopicsNumber" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <select asp-for="Input.TopicsPriorityList" asp-items="Model.TopicPriorities" class="select2-select"></select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.PollCreate" class="form-label">
+                                Create Poll:
+                            </label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.PollCreate" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.TopicsCategory" class="form-label">
+                                Choose category:
+                            </label>
+                            <select asp-for="Input.TopicsCategory" asp-items="Model.Categories" 
+                                    onchange="this.form.submit();" class="select2-select">
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.TopicsForum" class="form-label">
+                                Choose forum:
+                            </label>
+                            <select asp-for="Input.TopicsForum" asp-items="Model.TopicsForumList" class="select2-select">
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.TopicsMessagesNumber" class="form-label">
+                                Number of Messages in Each Topic:
+                            </label>
+                            <input type="number" asp-for="Input.TopicsMessagesNumber" class="form-control" />
+                        </div>
+
+                        <alert type="danger">
+                            Warning! This is a test/debug feature. Never use it in production environment.
+                        </alert>
+
+                    </div>
+                    <div id="View6" class="tab-pane" role="tabpanel">
+                        <h4>
+                            Create Test Messages
+                        </h4>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.PostsNumber" class="form-label">
+                                Number of messages to create:
+                            </label>
+                            <input type="number" asp-for="Input.PostsNumber" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.PostsCategory" class="form-label">
+                                Choose category:
+                            </label>
+                            <select asp-for="Input.PostsCategory" asp-items="Model.Categories" 
+                                    onchange="this.form.submit();" class="select2-select">
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Input.PostsForum" class="form-label">
+                                Choose forum:
+                            </label>
+                            <select asp-for="Input.PostsForum" asp-items="Model.PostsForumList" class="select2-select">
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.PostsTopic" class="form-label">
+                                Choose topic:
+                            </label>
+                            <select asp-for="Input.PostsTopic" asp-items="Model.PostsTopicsList" class="select2-select">
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.MyMessage" class="form-label">
+                                Enter your custom message for each test message:
+                            </label>
+                            <textarea asp-for="Input.MyMessage" class="form-control"></textarea>
+                        </div>
+
+                        <alert type="danger">
+                            Warning! This is a test/debug feature. Never use it in production environment.
+                        </alert>
+                    </div>
+                    <div id="View7" class="tab-pane" role="tabpanel">
+                        <h4>
+                            Create Test Private Messages
+                        </h4>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.PMessagesNumber" class="form-label">
+                                Number of Private Messages to create:
+                            </label>
+                            <input type="number" asp-for="Input.PMessagesNumber" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <select asp-for="Input.PMessagesBoardsList"
+                                    asp-items="Model.BoardList"
+                                    class="select2-select">
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.From" class="form-label">
+                                From User:
+                            </label>
+                            <input type="text" asp-for="Input.From" class="form-control" required="required" />
+                            <div class="invalid-feedback">
+                                User Name is Required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.To" class="form-label">
+                                To User:
+                            </label>
+                            <input type="text" asp-for="Input.To" class="form-control" required="required" />
+                            <div class="invalid-feedback">
+                                User Name is Required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.PMessagesToAll" class="form-label">
+                                Send To All:
+                            </label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.PMessagesToAll" disabled="disabled" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.MarkRead" class="form-label">
+                                Mark All Private Messages As Read:
+                            </label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.MarkRead" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.PMessageText" class="form-label">
+                                Enter your custom message for each test private message:
+                            </label>
+
+                            <textarea asp-for="Input.PMessageText" class="form-control"></textarea>
+                        </div>
+
+                        <alert type="danger">
+                            Warning! This is a test/debug feature. Never use it in production environment.
+                        </alert>
+                    </div>
+                    <div id="View8" class="tab-pane" role="tabpanel">
+                        <h4>
+                            Usage guide
+                        </h4>
+
+                        <alert type="warning">
+                            <p>Test data generator is a utility to test Yet Another Forum performance.</p>
+                            <br />
+                            The operations take a lot of time, if you generate whales of data.
+                            All the time browser page will look like something hangs. On completing you will see notification window.
+                            If you want to generate hundreds thousands records it can take,
+                            hours or even days.
+                            <p><strong>never</strong> use it in production environment as you can't delete data using the test data generator.</p>
+                        </alert>
+
+                        <h4>
+                            Generator Settings
+                        </h4>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.UserPrefixTB" class="form-label">
+                                User Prefix(max 92):
+                            </label>
+                            <input type="text" asp-for="Input.UserPrefixTB" class="form-control" required="required" />
+                            <div class="invalid-feedback">
+                                A user Prefix is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.BoardPrefixTB" class="form-label">
+                                Board Prefix(max 12):
+                            </label>
+                            <input type="text" asp-for="Input.BoardPrefixTB" class="form-control" required="required" />
+                            <div class="invalid-feedback">
+                                A board Prefix is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.CategoryPrefixTB" class="form-label">
+                                Category Prefix(max 12):
+                            </label>
+                            <input type="text" asp-for="Input.CategoryPrefixTB" class="form-control" required="required" />
+                            <div class="invalid-feedback">
+                                A Category Prefix is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ForumPrefixTB" class="form-label">
+                                Forum Prefix(max 12):
+                            </label>
+                            <input type="text" asp-for="Input.ForumPrefixTB" class="form-control" required="required" />
+                            <div class="invalid-feedback">
+                                A Forum Prefix is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.TopicPrefixTB" class="form-label">
+                                Topic Name Prefix(max 92):
+                            </label>
+                            <input type="text" asp-for="Input.TopicPrefixTB" class="form-control" required="required" />
+                            <div class="invalid-feedback">
+                                A Topic Prefix is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.MessageContentPrefixTB" class="form-label">
+                                Message Content Prefix:
+                            </label>
+                            <input type="text" asp-for="Input.MessageContentPrefixTB" class="form-control" required="required" />
+                            <div class="invalid-feedback">
+                                A Message Content Prefix is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" asp-for="Input.LastTabId" Value="@Model.Input.LastTabId" />
+            <button Text="Launch Generator"
+                    button-style="Primary"
+                    class="card-link"
+                    asp-page-handler="CreateTestData"></button>
+            <a text-localized-tag="CANCEL"
+               button-size="Normal"
+               button-style="Danger"
+               class="card-link"
+               asp-page="@ForumPages.Admin_TestData.GetPageName()"></a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.BootstrapTabsLoadJs("TestDataTabs", "Input_LastTabId")));
+    </script>
+}

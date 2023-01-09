@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BBCode.ReplaceRules;
 
 /// <summary>
@@ -85,8 +86,8 @@ public class SimpleReplaceRule : BaseReplaceRule
 
             // replace it...
             var replaceIndex = replacement.Add(this.replace);
-            text = text.Substring(0, index) + replacement.Get(replaceIndex) +
-                   text.Substring(index + this.find.Length);
+            text = text[..index] + replacement.Get(replaceIndex) +
+                   text[(index + this.find.Length)..];
         }
         while (index >= 0);
     }

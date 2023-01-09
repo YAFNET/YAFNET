@@ -31,7 +31,17 @@ public enum ForumPages
     /// <summary>
     /// The Forum page.
     /// </summary>
-    Board,
+    Index,
+
+    /// <summary>
+    /// The digest page.
+    /// </summary>
+    Digest,
+
+    /// <summary>
+    /// The error page.
+    /// </summary>
+    Error,
 
     /// <summary>
     /// The topics.
@@ -109,19 +119,9 @@ public enum ForumPages
     ReportPost,
 
     /// <summary>
-    /// The MyMessages Page.
-    /// </summary>
-    MyMessages,
-
-    /// <summary>
     /// The Notification.
     /// </summary>
     Notification,
-
-    /// <summary>
-    /// The Friends page.
-    /// </summary>
-    Friends,
 
     /// <summary>
     /// The album.
@@ -156,7 +156,7 @@ public enum ForumPages
     /// <summary>
     /// The Rules and Privacy page.
     /// </summary>
-    RulesAndPrivacy,
+    Privacy,
 
     /// <summary>
     /// The Search page.
@@ -164,14 +164,9 @@ public enum ForumPages
     Search,
 
     /// <summary>
-    /// The My Topics page
-    /// </summary>
-    MyTopics,
-
-    /// <summary>
     /// The moderate index page.
     /// </summary>
-    Moderate_Index,
+    Moderate_Moderate,
 
     /// <summary>
     /// The moderate forum page.
@@ -197,11 +192,6 @@ public enum ForumPages
     /// The Email page.
     /// </summary>
     Email,
-
-    /// <summary>
-    /// The Feed page.
-    /// </summary>
-    Feed,
 
     /// <summary>
     /// The PollEdit page.
@@ -456,7 +446,7 @@ public enum ForumPages
     /// <summary>
     /// The Admin BBCode edit page.
     /// </summary>
-    Admin_BBCode_Edit,
+    Admin_EditBBCode,
 
     /// <summary>
     /// The Admin languages page.
@@ -482,13 +472,11 @@ public enum ForumPages
     /// The Admin task manager page.
     /// </summary>
     Admin_TaskManager,
-
-#if DEBUG
+    
     /// <summary>
     /// The admin_ test data.
     /// </summary>
     Admin_TestData,
-#endif
 
     /// <summary>
     /// The Admin restart app page.
@@ -549,6 +537,21 @@ public enum ForumPages
     /// The EditSignature.
     /// </summary>
     Profile_EditSignature,
+
+    /// <summary>
+    /// The Friends page.
+    /// </summary>
+    Friends,
+
+    /// <summary>
+    /// The MyMessages Page.
+    /// </summary>
+    MyMessages,
+
+    /// <summary>
+    /// The My Topics page
+    /// </summary>
+    MyTopics,
 
     /// <summary>
     /// The Subscriptions.

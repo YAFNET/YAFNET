@@ -1,0 +1,69 @@
+@page "{handler?}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@model BoardAnnouncementModel
+
+<form method="post" class="needs-validation">
+    <div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                @Html.IconHeader("bullhorn","ADMIN_BOARDSETTINGS","ANNOUNCEMENT_TITLE")
+            </div>
+            <div class="card-body">
+
+                @if (Model.PageBoardContext.BoardSettings.BoardAnnouncement.IsSet())
+                {
+                    <alert ID="Current" type="info">
+                        <strong class="me-2">@Html.LocalizedText("ANNOUNCEMENT_CURRENT"):</strong> @Html.Raw(Model.PageBoardContext.BoardSettings.BoardAnnouncementUntil)
+                        <button button-style="Danger"
+                                Icon="trash"
+                                asp-page-handler="Delete">
+                        </button>
+                    </alert>
+                }
+
+                <div class="mb-3">
+                    <label asp-for="Input.Message" localized-tag="ANNOUNCEMENT_MESSAGE" class="form-label">
+                    </label>
+                    <textarea asp-for="Input.Message" class="form-control" rows="3" required="required"></textarea>
+                    <div class="invalid-feedback">
+                        @Html.LocalizedText("NEED_MESSAGE")
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.BoardAnnouncementUntil" class="form-label" localized-tag="ANNOUNCEMENT_UNTIL">
+                    </label>
+                    <div class="input-group">
+                        <input type="number" asp-for="Input.BoardAnnouncementUntil"
+                               class="form-control"/>
+
+                        <select asp-for="Input.BoardAnnouncementUntilUnit" asp-items="Model.UntilUnits" 
+                                class="form-select" title="@Model.GetText("ANNOUNCEMENT_UNTIL")"></select>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.BoardAnnouncementType" class="form-label" localized-tag="ANNOUNCEMENT_TYPE">
+                    </label>
+                    <select asp-for="Input.BoardAnnouncementType" asp-items="Model.Types"
+                            class="select2-select">
+                    </select>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <button button-style="Primary" 
+                        asp-page-handler="SaveAnnouncement"
+                        Icon="save" 
+                        text-localized-tag="SAVE">
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

@@ -27,25 +27,31 @@ namespace YAF.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
+using Lucene.Net.Analysis;
+using Lucene.Net.Analysis.Standard;
+using Lucene.Net.Documents;
+using Lucene.Net.Index;
+using Lucene.Net.Queries;
+using Lucene.Net.QueryParsers.Classic;
+using Lucene.Net.Search;
+using Lucene.Net.Search.Highlight;
+using Lucene.Net.Store;
+using Lucene.Net.Util;
+
+using Microsoft.Extensions.Logging;
+
+using YAF.Configuration;
+using YAF.Core.Context;
 using YAF.Core.Model;
-using YAF.Lucene.Net.Analysis;
-using YAF.Lucene.Net.Analysis.Standard;
-using YAF.Lucene.Net.Documents;
-using YAF.Lucene.Net.Index;
-using YAF.Lucene.Net.Queries;
-using YAF.Lucene.Net.QueryParsers.Classic;
-using YAF.Lucene.Net.QueryParsers.ComplexPhrase;
-using YAF.Lucene.Net.Search;
-using YAF.Lucene.Net.Search.Highlight;
-using YAF.Lucene.Net.Store;
-using YAF.Lucene.Net.Util;
+using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
-using static YAF.Lucene.Net.Util.Fst.Builder;
 
 /// <summary>
 /// The YAF Search Functions
@@ -67,9 +73,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <summary>
     /// The search index folder.
     /// </summary>
-    private static readonly string SearchIndexFolder = Path.Combine(
-        AppDomain.CurrentDomain.GetData("DataDirectory").ToString(),
-        "search_index");
+    private static readonly string SearchIndexFolder = AppDomain.CurrentDomain.GetData("SearchDataDirectory").ToString();
 
     /// <summary>
     /// The standardAnalyzer.
@@ -124,7 +128,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 }
                 catch (Exception ex)
                 {
-                    this.Get<ILoggerService>().Log(null, this, ex);
+                    this.Get<ILogger<Search>>().Log(null, this, ex);
                 }
             }
 
@@ -380,7 +384,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         var parser = new QueryParser(MatchVersion, "Message", this.standardAnalyzer);
         var query = ParseQuery(input, parser);
 
-        return searcher.Search(query, null, 1000).TotalHits;
+        return searcher.Search(query, 1000).TotalHits;
     }
 
     /// <summary>
@@ -449,9 +453,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             }
             catch (Exception exception)
             {
-                this.Get<ILoggerService>().Error(exception, "Search Error");
+                this.Get<ILogger<Search>>().Error(exception, "Search Error");
             }
-                
         }
 
         totalHits = 0;
@@ -545,7 +548,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         return results.Any()
                    ? results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList()
-                   : null;
+                   : new List<SearchMessage>();
     }
 
     /// <summary>
@@ -633,7 +636,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             }
             catch (Exception ex)
             {
-                this.Get<ILoggerService>().Log(null, this, ex);
+                this.Get<ILogger<Search>>().Log(null, this, ex);
                 this.DisposeWriter();
                 this.Writer.UpdateDocument(
                     new Term("MessageId", message.MessageId.Value.ToString()),
@@ -724,7 +727,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             message,
             messageFlags);
 
-        formattedMessage = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
+        formattedMessage = this.Get<IBBCodeService>().FormatMessageWithCustomBBCode(
             formattedMessage,
             new MessageFlags(flags),
             doc.Get("UserId").ToType<int>(),
@@ -774,7 +777,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                        TopicUrl =
                            this.Get<LinkBuilder>().GetTopicLink(
                                doc.Get("TopicId").ToType<int>(),
-                              doc.Get("Topic")),
+                               doc.Get("Topic")),
                        MessageUrl =
                            this.Get<LinkBuilder>().GetLink(
                                ForumPages.Posts,

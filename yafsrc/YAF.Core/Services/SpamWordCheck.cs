@@ -27,7 +27,9 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-using YAF.Types.Constants;
+using Microsoft.Extensions.Logging;
+
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -47,7 +49,7 @@ public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
     /// <param name="objectStore">The object Store.</param>
     /// <param name="logger">The logger.</param>
     /// <param name="serviceLocator">The service locator.</param>
-    public SpamWordCheck([NotNull] IObjectStore objectStore, [NotNull] ILoggerService logger, IServiceLocator serviceLocator)
+    public SpamWordCheck([NotNull] IObjectStore objectStore, [NotNull] ILogger<SpamWordCheck> logger, IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
         this.ObjectStore = objectStore;
@@ -62,7 +64,7 @@ public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
     /// <summary>
     /// Gets or sets Logger.
     /// </summary>
-    public ILoggerService Logger { get; set; }
+    public ILogger Logger { get; set; }
 
     /// <summary>
     /// Gets or sets ObjectStore.
@@ -141,12 +143,12 @@ public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
             }
 
 #else
-                catch (Exception x)
-                {
-                    // disable this regular expression henceforth...
-                    item.Active = false;
-                    this.Logger.Warn(x, "Couldn't run RegEx for Spam Word Replace value: {0}", item.SpamWordRegEx);
-                }
+            catch (Exception)
+            {
+                // disable this regular expression henceforth...
+                item.Active = false;
+                this.Logger.Warn("Couldn't run RegEx for Spam Word Replace value: {0}", item.SpamWordRegEx);
+            }
 
 #endif
         }

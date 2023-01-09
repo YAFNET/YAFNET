@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -24,12 +24,13 @@
 
 namespace YAF.Core.Services;
 
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
 /// The avatars.
 /// </summary>
-public class Avatars : IAvatars
+public class Avatars : IAvatars, IHaveServiceLocator
 {
     /// <summary>
     /// The YAF board settings.
@@ -42,10 +43,19 @@ public class Avatars : IAvatars
     /// <param name="boardSettings">
     /// The board settings.
     /// </param>
-    public Avatars(BoardSettings boardSettings)
+    /// <param name="serviceLocator">
+    /// The service Locator.
+    /// </param>
+    public Avatars(BoardSettings boardSettings, [NotNull] IServiceLocator serviceLocator)
     {
         this.boardSettings = boardSettings;
+        this.ServiceLocator = serviceLocator;
     }
+
+    /// <summary>
+    /// Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>
     /// The get avatar url for current user.
@@ -71,10 +81,7 @@ public class Avatars : IAvatars
     {
         CodeContracts.VerifyNotNull(user);
 
-        return this.GetAvatarUrlForUser(
-            user.ID,
-            user.Avatar,
-            user.AvatarImage != null);
+        return this.GetAvatarUrlForUser(user.ID, user.Avatar, user.AvatarImage != null);
     }
 
     /// <summary>
@@ -98,7 +105,10 @@ public class Avatars : IAvatars
 
         if (this.boardSettings.AvatarUpload && hasAvatarImage)
         {
-            avatarUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?u={userId}";
+            avatarUrl = this.Get<IUrlHelper>().Action(
+                "GetResponseLocalAvatar",
+                "Avatar",
+                new { userId });
         }
         else if (avatarString.IsSet() && avatarString.StartsWith("/"))
         {
@@ -108,7 +118,10 @@ public class Avatars : IAvatars
         // Return NoAvatar Image is no Avatar available for that user.
         if (avatarUrl.IsNotSet())
         {
-            avatarUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?avatar={userId}";
+            avatarUrl = this.Get<IUrlHelper>().Action(
+                "GetTextAvatar",
+                "Avatar",
+                new { userId });
         }
 
         return avatarUrl;

@@ -1,0 +1,86 @@
+@page "{m:int}/{handler?}"
+
+@using YAF.Core.Services
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+@model ReportPostModel
+
+@{
+    Model.PageBoardContext.CurrentForumPage.PageTitle = Html.Encode(Model.Get<ILocalization>().GetText("HEADER"));
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2>@Html.LocalizedText("HEADER")</h2>
+    </div>
+</div>
+
+<form method="post" class="needs-validation">
+        <div class="row">
+            <div class="col">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">
+                        @Html.IconHeader("comment","REPORTPOST","REPORTPOST_TITLE")
+                    </div>
+                    <div class="card-body">
+                        <messagePostData show-attachments="false" show-signature="false" current-message="@Model.PageBoardContext.PageMessage"></messagePostData>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">
+                            @Html.LocalizedText("POSTEDBY")
+                            @Html.UserLink(Model.MessageAuthor)
+
+                            @Html.IconBadge("calendar-day", "clock")
+                            @Html.DisplayDateTime(DateTimeFormat.Both, Model.PageBoardContext.PageMessage.Posted)
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.IconHeader("exclamation-triangle","REPORTPOST","HEADER")
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                        <label class="form-check-label" asp-for="Report" localized-tag="ENTER_TEXT" class="form-label"></label>
+                            <input type="text" asp-for="Report" class="form-control" maxlength="@Model.PageBoardContext.BoardSettings.MaxReportPostChars" required="required" />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("NEED_REASON")
+                            </div>
+                        </div>
+                        <div class="d-sm-none d-md-block">
+                            <alert icon="info-circle" type="info" localized-tag="MAXNUMBEROF" localized-param0="@Model.PageBoardContext.BoardSettings.MaxReportPostChars.ToString()"></alert>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button asp-page-handler="Report"
+                            asp-route-m="@Model.PageBoardContext.PageMessage.ID"
+                            button-style="Danger"
+                            icon="paper-plane"
+                            return-confirm-tag="CONFIRM_REPORTPOST"
+                            text-localized-page="REPORTPOST"
+                            text-localized-tag="SEND"
+                            title-localized-page="REPORTPOST"
+                            title-localized-tag="SEND_TITLE"
+                            bs-toggle="tooltip"></button>
+                        <a role="button"
+                           href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Posts, new {m = Model.PageBoardContext.PageMessage.ID, name = Model.PageBoardContext.PageTopic.TopicName}))"
+                           button-style="Secondary"
+                           icon="reply"
+                           text-localized-page="COMMON"
+                           text-localized-tag="CANCEL"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

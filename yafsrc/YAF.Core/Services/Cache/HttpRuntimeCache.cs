@@ -26,9 +26,8 @@ namespace YAF.Core.Services.Cache;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Caching;
-using System.Web.Caching;
 
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The http runtime cache -- uses HttpRuntime cache to store cache information.
@@ -145,8 +144,7 @@ public class HttpRuntimeCache : IDataCache
                     var cacheItemPolicy = new CacheItemPolicy
                                               {
                                                   AbsoluteExpiration = DateTime.UtcNow + timeout,
-                                                  SlidingExpiration = Cache.NoSlidingExpiration,
-                                                  Priority = System.Runtime.Caching.CacheItemPriority.Default,
+                                                  Priority = CacheItemPriority.Default,
                                                   RemovedCallback = (k) => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
                                               };
                     MemoryCache.Default.Add(
@@ -178,9 +176,9 @@ public class HttpRuntimeCache : IDataCache
                 {
                     var cacheItemPolicy = new CacheItemPolicy
                                               {
-                                                  AbsoluteExpiration = DateTimeOffset.MaxValue,
-                                                  SlidingExpiration = Cache.NoSlidingExpiration,
-                                                  Priority = System.Runtime.Caching.CacheItemPriority.Default,
+                                                  AbsoluteExpiration = ObjectCache.InfiniteAbsoluteExpiration,
+                                                  SlidingExpiration = ObjectCache.NoSlidingExpiration,
+                                                  Priority = CacheItemPriority.Default,
                                                   RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
                                               };
                     MemoryCache.Default.Add(
@@ -209,7 +207,7 @@ public class HttpRuntimeCache : IDataCache
 
         lock (this._haveLockObject.Get(actualKey))
         {
-            if (MemoryCache.Default[actualKey] != null)
+            if (MemoryCache.Default.Contains(actualKey))
             {
                 MemoryCache.Default.Remove(actualKey);
             }
@@ -217,8 +215,8 @@ public class HttpRuntimeCache : IDataCache
             var cacheItemPolicy = new CacheItemPolicy
                                       {
                                           AbsoluteExpiration = DateTime.UtcNow + timeout,
-                                          SlidingExpiration = Cache.NoSlidingExpiration,
-                                          Priority = System.Runtime.Caching.CacheItemPriority.Default,
+                                          SlidingExpiration = ObjectCache.NoSlidingExpiration,
+                                          Priority = CacheItemPriority.Default,
                                           RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
                                       };
 

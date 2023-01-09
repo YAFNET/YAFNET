@@ -24,24 +24,24 @@
 
 namespace YAF.Core.Controllers;
 
-using System.Web.Http;
+using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Authorization;
+
+using YAF.Core.BasePages;
 using YAF.Core.Model;
-using YAF.Core.Utilities.StringUtils;
-using YAF.Types.Interfaces.Identity;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF ThankYou controller.
 /// </summary>
-[RoutePrefix("api")]
-public class ThankYouController : ApiController, IHaveServiceLocator
+[Produces("application/json")]
+[Route("api/[controller]")]
+[ApiController]
+public class ThankYouController : ForumBaseController
 {
-    /// <summary>
-    ///   Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
     /// <summary>
     /// Add Thanks to post
     /// </summary>
@@ -51,15 +51,19 @@ public class ThankYouController : ApiController, IHaveServiceLocator
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    [Route("ThankYou/GetThanks/{messageId}")]
-    [HttpPost]
-    public IHttpActionResult GetThanks([NotNull] int messageId)
+    [ValidateAntiForgeryToken]
+    [Authorize]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpPost("GetThanks/{messageId:int}")]
+    public Task<ActionResult<ThankYouInfo>> GetThanks([NotNull] int messageId)
     {
-        var membershipUser = BoardContext.Current.MembershipUser;
+        var membershipUser = this.PageBoardContext.MembershipUser;
 
         if (membershipUser is null)
         {
-            return this.NotFound();
+            return Task.FromResult<ActionResult<ThankYouInfo>>(this.NotFound());
         }
 
         var message = this.GetRepository<Message>().GetById(messageId);
@@ -68,13 +72,14 @@ public class ThankYouController : ApiController, IHaveServiceLocator
 
         // if the user is empty, return a null object...
         return userName.IsNotSet()
-                   ? this.NotFound()
-                   : this.Ok(
-                       this.Get<IThankYou>().GetThankYou(
-                           new UnicodeEncoder().XSSEncode(userName),
-                           "BUTTON_THANKSDELETE",
-                           "BUTTON_THANKSDELETE_TT",
-                           messageId));
+                   ? Task.FromResult<ActionResult<ThankYouInfo>>(this.NotFound())
+                   : Task.FromResult<ActionResult<ThankYouInfo>>(
+                       this.Ok(
+                           this.Get<IThankYou>().GetThankYou(
+                               new UnicodeEncoder().XSSEncode(userName),
+                               "BUTTON_THANKSDELETE",
+                               "BUTTON_THANKSDELETE_TT",
+                               messageId)));
     }
 
     /// <summary>
@@ -86,15 +91,19 @@ public class ThankYouController : ApiController, IHaveServiceLocator
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    [Route("ThankYou/AddThanks/{messageId}")]
-    [HttpPost]
-    public IHttpActionResult AddThanks([NotNull] int messageId)
+    [ValidateAntiForgeryToken]
+    [Authorize]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpPost("AddThanks/{messageId:int}")]
+    public Task<ActionResult<ThankYouInfo>> AddThanks([NotNull] int messageId)
     {
-        var membershipUser = BoardContext.Current.MembershipUser;
+        var membershipUser = this.PageBoardContext.MembershipUser;
 
         if (membershipUser is null)
         {
-            return this.NotFound();
+            return Task.FromResult<ActionResult<ThankYouInfo>>(this.NotFound());
         }
 
         var fromUserId = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(membershipUser.Id).ID;
@@ -105,18 +114,22 @@ public class ThankYouController : ApiController, IHaveServiceLocator
 
         this.GetRepository<Thanks>().AddMessageThanks(fromUserId, message.UserID, messageId);
 
-        this.Get<IActivityStream>().AddThanksReceivedToStream(message.UserID, message.TopicID, messageId, fromUserId);
+        this.Get<IActivityStream>().AddThanksReceivedToStream(
+            message.UserID,
+            message.TopicID,
+            messageId,
+            fromUserId);
         this.Get<IActivityStream>().AddThanksGivenToStream(fromUserId, message.TopicID, messageId, message.UserID);
 
         // if the user is empty, return a null object...
         return userName.IsNotSet()
-                   ? this.NotFound()
-                   : this.Ok(
+                   ? Task.FromResult<ActionResult<ThankYouInfo>>(this.NotFound())
+                   : Task.FromResult<ActionResult<ThankYouInfo>>(this.Ok(
                        this.Get<IThankYou>().CreateThankYou(
                            new UnicodeEncoder().XSSEncode(userName),
                            "BUTTON_THANKSDELETE",
                            "BUTTON_THANKSDELETE_TT",
-                           messageId));
+                           messageId)));
     }
 
     /// <summary>
@@ -128,23 +141,26 @@ public class ThankYouController : ApiController, IHaveServiceLocator
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    [Route("ThankYou/RemoveThanks/{messageId}")]
-    [HttpPost]
-    public IHttpActionResult RemoveThanks([NotNull] int messageId)
+    [ValidateAntiForgeryToken]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpPost("RemoveThanks/{messageId:int}")]
+    public Task<ActionResult<ThankYouInfo>> RemoveThanks([FromRoute] int messageId)
     {
         var message = this.GetRepository<Message>().GetById(messageId);
 
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
         this.GetRepository<Thanks>().RemoveMessageThanks(
-            BoardContext.Current.PageUserID,
+            this.PageBoardContext.PageUserID,
             messageId,
             this.Get<BoardSettings>().EnableDisplayName);
 
         this.GetRepository<Activity>()
             .Delete(a => a.MessageID == messageId && (a.Flags == 1024 || a.Flags == 2048));
 
-        return this.Ok(
-            this.Get<IThankYou>().CreateThankYou(userName, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId));
+        return Task.FromResult<ActionResult<ThankYouInfo>>(
+            this.Ok(this.Get<IThankYou>().CreateThankYou(userName, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId)));
     }
 }

@@ -25,14 +25,12 @@
 namespace YAF.Core.Identity.Owin;
 
 using System;
+using System.Security.Claims;
 
-using Microsoft.Owin.Security;
+using Microsoft.AspNetCore.Identity;
 
 using YAF.Core.Model;
-using YAF.Types.Constants;
-using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
-using YAF.Types.Models.Identity;
 
 /// <summary>
 /// Google Single Sign On Class
@@ -51,9 +49,9 @@ public class Google : IAuthBase, IHaveServiceLocator
     /// The message.
     /// </param>
     /// <returns>
-    /// Returns if Login was successful or not
+    /// The <see cref="AspNetUsers"/>.
     /// </returns>
-    public bool LoginOrCreateUser(out string message)
+    public AspNetUsers LoginOrCreateUser(out string message)
     {
         message = string.Empty;
 
@@ -61,21 +59,21 @@ public class Google : IAuthBase, IHaveServiceLocator
         {
             message = this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
 
-            return false;
+            return null;
         }
 
-        var loginInfo = this.Get<IAuthenticationManager>().GetExternalLoginInfo();
+        var loginInfo = this.Get<SignInManager<AspNetUsers>>().GetExternalLoginInfoAsync();
 
         // Get Values
-        var email = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "urn:google:email").Value;
-        var name = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "urn:google:name").Value;
-        var googleUserId = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "urn:google:id").Value;
+        var email = loginInfo.Result.Principal.FindFirst(ClaimTypes.Email).Value;
+        var name = loginInfo.Result.Principal.FindFirst(ClaimTypes.Name).Value;
+        var googleUserId = loginInfo.Result.Principal.FindFirst(ClaimTypes.NameIdentifier).Value;
 
         if (email.IsNotSet())
         {
             message = this.Get<ILocalization>().GetText("LOGIN", "SSO_GOOGLE_FAILED3");
 
-            return false;
+            return null;
         }
 
         // Check if user exists
@@ -83,19 +81,18 @@ public class Google : IAuthBase, IHaveServiceLocator
 
         if (existingUser == null)
         {
-            // Create new User
+            // Create new PageUser
             return this.CreateGoogleUser(name, email, googleUserId, out message);
         }
 
         if (existingUser.Profile_GoogleId == googleUserId)
         {
             message = string.Empty;
-            return true;
+            return existingUser;
         }
 
         message = this.Get<ILocalization>().GetText("LOGIN", "SSO_GOOGLE_FAILED3");
-
-        return false;
+        return null;
     }
 
     /// <summary>
@@ -108,7 +105,7 @@ public class Google : IAuthBase, IHaveServiceLocator
     /// The email.
     /// </param>
     /// <param name="googleUserId">
-    /// The google User Id.
+    /// The google PageUser Id.
     /// </param>
     /// <param name="message">
     /// The message.
@@ -116,12 +113,12 @@ public class Google : IAuthBase, IHaveServiceLocator
     /// <returns>
     /// Returns if the login was successfully or not
     /// </returns>
-    private bool CreateGoogleUser(string name, string email, string googleUserId, out string message)
+    private AspNetUsers CreateGoogleUser(string name, string email, string googleUserId, out string message)
     {
         if (this.Get<BoardSettings>().DisableRegistrations)
         {
             message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-            return false;
+            return null;
         }
 
         // Check if user name is null
@@ -150,8 +147,8 @@ public class Google : IAuthBase, IHaveServiceLocator
         if (!result.Succeeded)
         {
             // error of some kind
-            message = result.Errors.FirstOrDefault();
-            return false;
+            message = result.Errors.FirstOrDefault().Description;
+            return null;
         }
 
         // setup initial roles (if any) for this user
@@ -164,7 +161,7 @@ public class Google : IAuthBase, IHaveServiceLocator
         {
             // something is seriously wrong here -- redirect to failure...
             message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-            return false;
+            return null;
         }
 
         // send user register notification to the user...
@@ -191,18 +188,18 @@ public class Google : IAuthBase, IHaveServiceLocator
             this.Get<BoardSettings>().DefaultSendDigestEmail);
 
         // save avatar
-        /*this.GetRepository<User>().SaveAvatar(
+        /*this.GetRepository<PageUser>().SaveAvatar(
             userID.Value,
             $"https://graph.facebook.com/{facebookUserId}/picture",
             null,
             null);
 
-        BoardContext.Current.GetRepository<User>().SaveAvatar(BoardContext.Current.PageUserID, googleUser.ProfileImage, null, null);*/
+        BoardContext.Current.GetRepository<PageUser>().SaveAvatar(BoardContext.Current.PageUserID, googleUser.ProfileImage, null, null);*/
 
         this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userID.Value));
 
         message = string.Empty;
 
-        return true;
+        return user;
     }
 }

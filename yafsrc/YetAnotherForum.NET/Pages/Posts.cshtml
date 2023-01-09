@@ -1,0 +1,474 @@
+﻿@page
+@using System.Web
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Services
+@using YAF.Core.Utilities
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Web.TagHelpers
+
+@model PostsModel
+
+@if (Model.PageBoardContext.PageTopic.PollID.HasValue)
+{
+    @await Html.PartialAsync("_PollList", Model)
+}
+
+<form method="post">
+<div class="row justify-content-end">
+    <div class="col-auto">
+        @if (Model.PageBoardContext.ForumModeratorAccess)
+        {
+            <button button-style="Danger"
+                    bs-toggle="dropdown"
+                    class="dropdown-toggle me-1 mb-1"
+                    icon="cogs"
+                    text-localized-page="POSTS"
+                    text-localized-tag="MANAGE_TOPIC"></button>
+            <div class="dropdown-menu dropdown-menu-end">
+                <button class="dropdown-item"
+                        button-style="None"
+                        bs-toggle="ajax-modal"
+                        bs-target-url="@Url.Page("Posts", "MoveTopic", new { t = Request.Query["t"], p =  Request.Query["p"], m = Request.Query["m"]})"
+                        text-localized-tag="BUTTON_MOVETOPIC" title-localized-tag="BUTTON_MOVETOPIC_TT"
+                        Icon="arrows-alt"></button>
+
+                @if (Model.PageBoardContext.PageTopic.TopicFlags.IsLocked)
+                {
+                    <button button-style="None"
+                            class="dropdown-item"
+                            asp-page-handler="UnlockTopic"
+                            asp-route-t="@Request.Query["t"]"
+                            asp-route-p="@Request.Query["p"]"
+                            asp-route-m="@Request.Query["m"]"
+                            text-localized-tag="BUTTON_UNLOCKTOPIC" title-localized-tag="BUTTON_UNLOCKTOPIC_TT"
+                            icon="lock-open"></button>
+                }
+                else
+                {
+                    <button button-style="None"
+                            class="dropdown-item"
+                            asp-page-handler="LockTopic"
+                            asp-route-t="@Request.Query["t"]"
+                            asp-route-p="@Request.Query["p"]"
+                            asp-route-m="@Request.Query["m"]"
+                            text-localized-tag="BUTTON_LOCKTOPIC" title-localized-tag="BUTTON_LOCKTOPIC_TT"
+                            icon="lock"></button>
+                }
+
+                <button button-style="None"
+                        class="dropdown-item"
+                        asp-page-handler="DeleteTopic"
+                        asp-route-t="@Request.Query["t"]"
+                        asp-route-p="@Request.Query["p"]"
+                        asp-route-m="@Request.Query["m"]"
+                        return-confirm-tag="confirm_deletetopic"
+                        text-localized-tag="BUTTON_DELETETOPIC" title-localized-tag="BUTTON_DELETETOPIC_TT"
+                        icon="trash"></button>
+            </div>
+        }
+            
+        @if (Model.PageBoardContext.ForumPostAccess || Model.PageBoardContext.PageForum.ForumFlags.IsLocked && Model.PageBoardContext.ForumModeratorAccess)
+        {
+            <a button-style="Secondary"
+               text-localized-tag="BUTTON_NEWTOPIC" title-localized-tag="BUTTON_NEWTOPIC_TT"
+               class="me-1 mb-1"
+               href="@(Model.Get<LinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"
+               icon="plus"></a>
+        }
+
+        @if (Model.PageBoardContext.ForumReplyAccess && ((!Model.PageBoardContext.PageTopic.TopicFlags.IsLocked && !Model.PageBoardContext.PageForum.ForumFlags.IsLocked)
+                                                         || Model.PageBoardContext.ForumModeratorAccess))
+        {
+            <button button-style="Primary"
+                    class="me-1 mb-1"
+                    asp-page-handler="ReplyLink"
+                    asp-route-t="@Request.Query["t"]"
+                    asp-route-p="@Request.Query["p"]"
+                    asp-route-m="@Request.Query["m"]"
+                    text-localized-tag="BUTTON_POSTREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
+                    icon="reply"></button>
+
+            @if (Model.PageBoardContext.BoardSettings.ShowQuickAnswer)
+            {
+                <button button-style="Primary"
+                        class="mb-1"
+                        text-localized-tag="QUICKREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
+                        icon="reply"
+                        bs-toggle="ajax-modal"
+                        bs-target-url="@Url.Page("Posts", "QuickReply", new { t = Request.Query["t"], p =  Request.Query["p"], m = Request.Query["m"]})"></button>
+            }
+        }
+    </div>
+</div>
+
+
+<div class="row mb-3">
+    <div class="col">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Posts, new {t = Model.PageBoardContext.PageTopicID, name = Model.PageBoardContext.PageTopic.TopicName}))" class="navbar-brand pt-0"
+                   title="@Html.Raw(Model.Get<IBadWordReplace>().Replace(Html.HtmlEncode(Model.PageBoardContext.PageTopic.Description)))">
+                    @Html.Raw(Model.TopicSubject)
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <button button-style="Link"
+                                    asp-page-handler="PrevTopic"
+                                    asp-route-t="@Request.Query["t"]"
+                                    asp-route-p="@Request.Query["p"]"
+                                    asp-route-m="@Request.Query["m"]"
+                                    text-localized-tag="PREVTOPIC"
+                                    title-localized-tag="PREVTOPIC"
+                                    icon="arrow-circle-left"></button>
+                        </li>
+                        <li class="nav-item">
+                            <button ID="NextTopic"
+                                    button-style="Link"
+                                    asp-page-handler="NextTopic"
+                                    asp-route-t="@Request.Query["t"]"
+                                    asp-route-p="@Request.Query["p"]"
+                                    asp-route-m="@Request.Query["m"]"
+                                    text-localized-tag="NEXTTOPIC"
+                                    title-localized-tag="NEXTTOPIC"
+                                    icon="arrow-circle-right"></button>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            @if (Model.Get<IPermissions>().Check(Model.PageBoardContext.BoardSettings.ShowShareTopicTo))
+                            {
+                                var topicUrl = Model.Get<LinkBuilder>().GetAbsoluteLink(
+                                    ForumPages.Posts,
+                                    new { t = Model.PageBoardContext.PageTopicID, name = this.Model.PageBoardContext.PageTopic.TopicName });
+
+                                var facebookUrl = $"http://www.facebook.com/plugins/like.php?href={HttpUtility.UrlEncode(topicUrl)}";
+
+                                var facebookShareUrl =
+                                    $"https://www.facebook.com/sharer/sharer.php?u={HttpUtility.UrlEncode(topicUrl)}";
+
+                                <button text-localized-tag="SHARE" title-localized-tag="SHARE_TOOLTIP"
+                                        Icon="share-alt"
+                                        button-style="Link"
+                                        class="dropdown-toggle"
+                                        bs-toggle="dropdown"></button>
+
+                                <div class="dropdown-menu dropdown-menu-end">
+
+                                    @if (Model.PageBoardContext.BoardSettings.AllowEmailTopic)
+                                    {
+                                        <button text-localized-tag="EMAILTOPIC"
+                                                text-localized-page="POSTS"
+                                                icon="paper-plane"
+                                                button-style="None"
+                                                class="dropdown-item"
+                                                asp-page-handler="EmailTopic"
+                                                asp-route-t="@Request.Query["t"]"
+                                                asp-route-p="@Request.Query["p"]"
+                                                asp-route-m="@Request.Query["m"]"></button>
+                                    }
+                                        
+                                    <a text-localized-tag="LINKBACK_TOPIC"
+                                       icon="link"
+                                       button-style="None"
+                                       class="dropdown-item"
+                                       onclick="@(JavaScriptBlocks.BootBoxPromptJs(
+                                                    Model.GetText("LINKBACK_TOPIC"),
+                                                    Model.GetText("LINKBACK_TOPIC_PROMT"),
+                                                    Model.GetText("CANCEL"),
+                                                    Model.GetText("OK"),
+                                                    topicUrl))"></a>
+                                        
+                                    <button text-localized-tag="RETWEET_TOPIC"
+                                            icon="twitter"
+                                            icon-css-class="fab"
+                                            button-style="None"
+                                            class="dropdown-item"
+                                            asp-page-handler="ReTweet"
+                                            asp-route-t="@Request.Query["t"]"
+                                            asp-route-p="@Request.Query["p"]"
+                                            asp-route-m="@Request.Query["m"]"></button>
+                                        
+                                    <a text-localized-tag="FACEBOOK_TOPIC"
+                                       icon="facebook"
+                                       icon-css-class="fab"
+                                       button-style="None"
+                                       class="dropdown-item"
+                                       onclick="@($@"window.open('{facebookUrl}','{Model.GetText("FACEBOOK_TOPIC")}','width=300,height=200,resizable=yes');")"></a>
+                                        
+                                    <a text-localized-tag="FACEBOOK_SHARE_TOPIC"
+                                       icon="facebook"
+                                       icon-css-class="fab"
+                                       button-style="None"
+                                       class="dropdown-item"
+                                       onclick="@( $@"window.open('{facebookShareUrl}','{Model.GetText("FACEBOOK_SHARE_TOPIC")}','width=550,height=690,resizable=yes');")"></a>
+                                        
+                                    <button text-localized-tag="REDDIT_TOPIC"
+                                            icon="reddit"
+                                            icon-css-class="fab"
+                                            button-style="None"
+                                            class="dropdown-item"
+                                            asp-page-handler="Reddit"
+                                            asp-route-t="@Request.Query["t"]"
+                                            asp-route-p="@Request.Query["p"]"
+                                            asp-route-m="@Request.Query["m"]"></button>
+
+                                </div>
+                            }
+                               
+                        </li>
+                        <li class="nav-item dropdown">
+                            <button text-localized-tag="TOOLS" title-localized-tag="OPTIONS_TOOLTIP"
+                                    icon="cog"
+                                    button-style="Link"
+                                    class="dropdown-toggle"
+                                    bs-toggle="dropdown"></button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                    
+                                @if (!Model.PageBoardContext.IsGuest)
+                                {
+                                    var isWatched = Model.HandleWatchTopic();
+
+                                    if (isWatched)
+                                    {
+                                        <button text-localized-tag="UNWATCHTOPIC"
+                                                icon="eye-slash"
+                                                button-style="None"
+                                                class="dropdown-item"
+                                                asp-page-handler="UnTrackTopic"
+                                                asp-route-t="@Request.Query["t"]"
+                                                asp-route-p="@Request.Query["p"]"
+                                                asp-route-m="@Request.Query["m"]"></button>
+                                    }
+                                    else
+                                    {
+                                        <button text-localized-tag="WATCHTOPIC"
+                                                icon="eye"
+                                                button-style="None"
+                                                class="dropdown-item"
+                                                asp-page-handler="TrackTopic"
+                                                asp-route-t="@Request.Query["t"]"
+                                                asp-route-p="@Request.Query["p"]"
+                                                asp-route-m="@Request.Query["m"]"></button>
+                                    }
+                                }
+                                    
+                                <a text-localized-tag="PRINTTOPIC" text-localized-page="POSTS"
+                                   icon="print"
+                                   button-style="None"
+                                   class="dropdown-item"
+                                   href="@(Model.Get<LinkBuilder>().GetLink(ForumPages.PrintTopic, new { t = Model.PageBoardContext.PageTopicID }))"></a>
+
+                                @if (Model.PageBoardContext.BoardSettings.ShowAtomLink && Model.Get<IPermissions>().Check(Model.PageBoardContext.BoardSettings.PostsFeedAccess))
+                                {
+                                    <a text-localized-tag="ATOMTOPIC" text-localized-page="POSTS"
+                                       icon="rss"
+                                       button-style="None"
+                                       class="dropdown-item"
+                                       href="@(Model.Get<IUrlHelper>().Action("GetPostsFeed", "Feed",new {t = Model.PageBoardContext.PageTopicID}))"></a>
+                                }
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+</form>
+
+@for (var index = 0; index < Model.Messages.Count; index++)
+{
+    @await Html.PartialAsync("_DisplayPost",  Model.Messages[index], new ViewDataDictionary(ViewData){ {"index", index}})
+
+    if (index == 0 && Model.PageBoardContext.PageIndex == 0)
+    {
+
+        if (Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.ShowConnectMessageInTopic)
+        {
+            @await Html.PartialAsync("_DisplayConnect")
+        }
+
+        // check if need to display the ad...
+        if (Model.PageBoardContext.BoardSettings.AdPost.IsSet())
+        {
+            if (Model.PageBoardContext.IsGuest || Model.PageBoardContext.BoardSettings.ShowAdsToSignedInUsers)
+            {
+                @await Html.PartialAsync("_DisplayAd")
+            }
+
+        }
+    }
+}
+
+@if (Model.Get<IPermissions>().Check(Model.PageBoardContext.BoardSettings.PostsFeedAccess))
+{
+    <div class="row mb-3">
+        <div class="col">
+            @Html.RssFeedLink(RssFeeds.Posts, true)
+        </div>
+    </div>
+}
+
+<form method="post">
+    <div class="row mb-3 d-flex justify-content-between">
+    <div class="col-md-4">
+        <pager page-size="@Model.Size"
+               count="Model.Messages.NullOrEmpty() ? 0 : Model.Messages.FirstOrDefault().TotalRows">
+        </pager>
+    </div>
+    <div class="col-md-8 mt-1 mt-md-0">
+        <div class="d-flex justify-content-end flex-wrap">
+            @if (Model.PageBoardContext.ForumModeratorAccess)
+            {
+                <button button-style="Danger"
+                        bs-toggle="dropdown"
+                        class="dropdown-toggle me-1 mb-1"
+                        icon="cogs"
+                        text-localized-page="POSTS"
+                        text-localized-tag="MANAGE_TOPIC"></button>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <button button-style="None"
+                            class="dropdown-item"
+                            bs-toggle="ajax-modal"
+                            bs-target-url="@Url.Page("Posts", "MoveTopic", new { t = Request.Query["t"], p =  Request.Query["p"], m = Request.Query["m"]})"
+                            text-localized-tag="BUTTON_MOVETOPIC" title-localized-tag="BUTTON_MOVETOPIC_TT"
+                            icon="arrows-alt"></button>
+                    @if (Model.PageBoardContext.PageTopic.TopicFlags.IsLocked)
+                    {
+                        <button button-style="None"
+                                class="dropdown-item"
+                                asp-page-handler="UnlockTopic"
+                                asp-route-t="@Request.Query["t"]"
+                                asp-route-p="@Request.Query["p"]"
+                                asp-route-m="@Request.Query["m"]"
+                                text-localized-tag="BUTTON_UNLOCKTOPIC" title-localized-tag="BUTTON_UNLOCKTOPIC_TT"
+                                icon="lock-open"></button>
+                    }
+                    else
+                    {
+                        <button button-style="None"
+                                class="dropdown-item"
+                                asp-page-handler="LockTopic"
+                                asp-route-t="@Request.Query["t"]"
+                                asp-route-p="@Request.Query["p"]"
+                                asp-route-m="@Request.Query["m"]"
+                                text-localized-tag="BUTTON_LOCKTOPIC" title-localized-tag="BUTTON_LOCKTOPIC_TT"
+                                icon="lock"></button>
+                    }
+
+                    <button button-style="None"
+                            class="dropdown-item"
+                            asp-page-handler="DeleteTopic"
+                            asp-route-t="@Request.Query["t"]"
+                            asp-route-p="@Request.Query["p"]"
+                            asp-route-m="@Request.Query["m"]"
+                            return-confirm-tag="confirm_deletetopic"
+                            text-localized-tag="BUTTON_DELETETOPIC" title-localized-tag="BUTTON_DELETETOPIC_TT"
+                            icon="trash"></button>
+                </div>
+            }
+
+            @if (Model.PageBoardContext.ForumPostAccess || Model.PageBoardContext.PageForum.ForumFlags.IsLocked && Model.PageBoardContext.ForumModeratorAccess)
+            {
+                <a button-style="Secondary"
+                   text-localized-tag="BUTTON_NEWTOPIC" title-localized-tag="BUTTON_NEWTOPIC_TT"
+                   class="me-1 mb-1"
+                   href="@(Model.Get<LinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"
+                   icon="plus"></a>
+            }
+            
+            @if (Model.PageBoardContext.ForumReplyAccess && ((!Model.PageBoardContext.PageTopic.TopicFlags.IsLocked && !Model.PageBoardContext.PageForum.ForumFlags.IsLocked)
+                                                             || Model.PageBoardContext.ForumModeratorAccess))
+            {
+                <button button-style="Primary"
+                        class="me-1 mb-1"
+                        asp-page-handler="ReplyLink"
+                        asp-route-t="@Request.Query["t"]"
+                        asp-route-p="@Request.Query["p"]"
+                        asp-route-m="@Request.Query["m"]"
+                        text-localized-tag="BUTTON_POSTREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
+                        icon="reply"></button>
+               
+                @if (Model.PageBoardContext.BoardSettings.ShowQuickAnswer)
+                {
+                    <button button-style="Primary"
+                            class="mb-1"
+                            text-localized-tag="QUICKREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
+                            icon="reply"
+                            bs-toggle="ajax-modal"
+                            bs-target-url="@Url.Page("Posts", "QuickReply", new { t = Request.Query["t"], p =  Request.Query["p"], m = Request.Query["m"]})"></button>
+                }
+            }
+        </div>
+    </div>
+</div>
+</form>
+
+@await Html.PartialAsync("_TopicTags")
+
+<div class="row mb-3">
+    @if (Model.PageBoardContext.BoardSettings.ShowSimilarTopics)
+    {
+        @await Html.PartialAsync("_SimilarTopics")
+    }
+    
+    @if (Model.PageBoardContext.BoardSettings.ShowBrowsingUsers)
+    {
+        <div class="col">
+            @await Html.PartialAsync("_TopicPageUsers")
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
+            $"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.TopicLinkPopoverJs(
+            $"{Model.Get<ILocalization>().GetText("TOPIC_STARTER")}&nbsp;...",
+            ".topic-starter-popover",
+            "hover")))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.TopicLinkPopoverJs(
+                $"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...",
+                ".topic-link-popover",
+                "focus hover")))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.ForumIconLegendPopoverJs(
+                (await Html.PartialAsync("_TopicIconLegend")).RenderToString().ToJsString(),
+                "topic-icon-legend-popvover")))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.ForumIconLegendPopoverJs(
+                (await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(),
+                "forum-icon-legend-popvover")))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.SelectForumsLoadJs(
+                "ForumJump",
+                Model.Get<ILocalization>().GetText("FORUM_JUMP_PLACEHOLDER"),
+                true,
+                false)))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.DropDownToggleJs()))
+            
+    </script>
+}

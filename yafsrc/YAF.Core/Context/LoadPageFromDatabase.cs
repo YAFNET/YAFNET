@@ -26,9 +26,9 @@ namespace YAF.Core.Context;
 
 using System;
 
+using Microsoft.Extensions.Logging;
+
 using YAF.Types.Attributes;
-using YAF.Types.Constants;
-using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -45,7 +45,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// <param name="logger">The logger.</param>
     /// <param name="dataCache">The data cache.</param>
     public LoadPageFromDatabase(
-        [NotNull] IServiceLocator serviceLocator, ILoggerService logger, [NotNull] IDataCache dataCache)
+        [NotNull] IServiceLocator serviceLocator, ILogger<LoadPageFromDatabase> logger, [NotNull] IDataCache dataCache)
     {
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
@@ -58,7 +58,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// <value>
     /// The logger.
     /// </value>
-    public ILoggerService Logger { get; set; }
+    public ILogger Logger { get; set; }
 
     /// <summary>
     /// Gets or sets DataCache.
@@ -83,104 +83,135 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// </param>
     public void Handle([NotNull] InitPageLoadEvent @event)
     {
-        string userKey = null;
-
-        if (BoardContext.Current.MembershipUser != null)
+        try
         {
-            userKey = BoardContext.Current.MembershipUser.Id;
-        }
+            string userKey = null;
 
-        var tries = 0;
-        Tuple<PageLoad, User, Category, Forum, Topic, Message> pageRow;
+            var context = this.Get<IHttpContextAccessor>().HttpContext;
 
-        var location = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u");
-
-        if (location.IsNotSet())
-        {
-            location = string.Empty;
-        }
-
-        var forumPage = BoardContext.Current.CurrentForumPage != null
-                            ? BoardContext.Current.CurrentForumPage.PageType.ToString()
-                            : string.Empty;
-
-        do
-        {
-            pageRow = this.Get<DataBroker>().GetPageLoad(
-                this.Get<HttpSessionStateBase>().SessionID,
-                BoardContext.Current.PageBoardID,
-                userKey,
-                this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                location,
-                forumPage,
-                @event.UserRequestData.Browser,
-                @event.UserRequestData.Platform,
-                @event.PageQueryData.CategoryID,
-                @event.PageQueryData.ForumID,
-                @event.PageQueryData.TopicID,
-                @event.PageQueryData.MessageID,
-                @event.UserRequestData.IsSearchEngine,
-                @event.UserRequestData.DontTrack);
-
-            // if the user doesn't exist create the user...
-            if (userKey != null && pageRow is null && !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
-                    BoardContext.Current.MembershipUser,
-                    BoardContext.Current.PageBoardID))
+            if (BoardContext.Current.MembershipUser != null)
             {
-                throw new ApplicationException("Failed to create new user.");
+                userKey = BoardContext.Current.MembershipUser.Id;
             }
 
-            if (pageRow is not null && pageRow.Item1 == null)
+            var tries = 0;
+            Tuple<PageLoad, User, Category, Forum, Topic, Message> pageRow;
+
+            var forumPage = BoardContext.Current.CurrentForumPage != null
+                                ? BoardContext.Current.CurrentForumPage.PageName.ToString()
+                                : string.Empty;
+                
+            var location = context.Request.Query.GetFirstOrDefaultAs<string>("u");
+
+            if (location.IsNotSet())
             {
-                pageRow = null;
+                location = string.Empty;
             }
 
-            if (tries++ < 2)
+            do
             {
-                continue;
+                pageRow = this.Get<DataBroker>().GetPageLoad(
+                    context.Session.Id,
+                    BoardContext.Current.PageBoardID,
+                    userKey,
+                    context.GetUserRealIPAddress(),
+                    location,
+                    forumPage,
+                    @event.UserRequestData.Browser,
+                    @event.UserRequestData.Platform,
+                    @event.PageQueryData.CategoryID,
+                    @event.PageQueryData.ForumID,
+                    @event.PageQueryData.TopicID,
+                    @event.PageQueryData.MessageID,
+                    @event.UserRequestData.IsSearchEngine,
+                    @event.UserRequestData.DontTrack);
+
+                // if the user doesn't exist create the user...
+                if (userKey != null && pageRow == null && !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
+                        BoardContext.Current.MembershipUser,
+                        BoardContext.Current.PageBoardID))
+                {
+                    throw new ApplicationException("Failed to create new user.");
+                }
+
+                if (pageRow is not null && pageRow.Item1 == null)
+                {
+                    pageRow = null;
+                }
+
+                if (pageRow is not null && pageRow.Item1 == null)
+                {
+                    pageRow = null;
+                }
+
+                if (tries++ < 2)
+                {
+                    continue;
+                }
+
+                if (userKey != null && pageRow == null)
+                {
+                    // probably no permissions, use guest user instead...
+                    userKey = null;
+                    continue;
+                }
+
+                // fail...
+                break;
+            }
+            while (pageRow == null && userKey != null);
+
+            // add all loaded page data into our data dictionary...
+            @event.PageLoadData = pageRow ?? throw new ApplicationException("Unable to find the Guest User!");
+
+            // update Query Data
+            @event.PageQueryData.CategoryID = pageRow.Item3?.ID ?? 0;
+
+            // add all loaded page data into our data dictionary...
+            if (pageRow.Item4 != null)
+            {
+                @event.PageQueryData.ForumID = pageRow.Item4.ID;
             }
 
-            if (userKey != null && pageRow is null)
+            if (pageRow.Item5 != null)
             {
-                // probably no permissions, use guest user instead...
-                userKey = null;
-                continue;
+                @event.PageQueryData.TopicID = pageRow.Item5.ID;
             }
 
-            // fail...
-            break;
-        }
-        while (pageRow is null && userKey != null);
-
-        if (pageRow is null)
-        {
-            this.Logger.Info($"Unable to find the Guest User, or user data with ID: {userKey}");
-
-            throw new ApplicationException("Unable to find the Guest User!");
+            // clear active users list
+            if (@event.PageLoadData.Item1.ActiveUpdate)
+            {
+                // purge the cache if something has changed...
+                this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
+            }
         }
 
-        // add all loaded page data into our data dictionary...
-        @event.PageLoadData = pageRow;
+#if !DEBUG
+            catch (Exception x)
+            {
+                // log the exception...
+                this.Logger.Error(
+                    x,
+                    $"Failure Initializing User/Page (URL: {this.Get<IHttpContextAccessor>().HttpContext.Request.Path}).");
 
-
-        // update Query Data
-        @event.PageQueryData.CategoryID = pageRow.Item3?.ID ?? 0;
-
-        if (pageRow.Item4 != null)
+                // log the user out...
+                // FormsAuthentication.SignOut();
+                if (BoardContext.Current.CurrentForumPage.PageName != ForumPages.Info)
+                {
+                    // show a failure notice since something is probably up with membership...
+                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
+                }
+                else
+                {
+                    // totally failing... just re-throw the exception...
+                    throw;
+                }
+#else
+        catch (Exception)
         {
-            @event.PageQueryData.ForumID = pageRow.Item4.ID;
-        }
-
-        if (pageRow.Item5 != null)
-        {
-            @event.PageQueryData.TopicID = pageRow.Item5.ID;
-        }
-
-        // clear active users list
-        if (@event.PageLoadData.Item1.ActiveUpdate)
-        {
-            // purge the cache if something has changed...
-            this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
+            // re-throw exception...
+            throw;
+#endif
         }
     }
 }

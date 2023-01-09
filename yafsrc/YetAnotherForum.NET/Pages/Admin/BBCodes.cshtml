@@ -1,0 +1,154 @@
+@page "{p:int=1}/{handler?}"
+
+@model BBCodesModel
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Extensions
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Models
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-auto">
+                            @Html.IconHeader("plug","ADMIN_BBCODE","HEADER")
+                        </div>
+                        <div class="col-auto">
+                            <div class="input-group input-group-sm me-2" role="group">
+                                <div class="input-group-text">
+                                    @Html.LocalizedText("SHOW"):
+                                </div>
+                                <select asp-for="@Model.Size"
+                                        asp-items="Model.PageSizeList"
+                                        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                        class="form-select"
+                                        onchange="this.form.submit();"></select>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                @if (!Model.List.NullOrEmpty())
+                {
+                    <ul class="list-group list-group-flush">
+
+                        @for (var i = 0; i < Model.List.Count; i++)
+                        {
+                            <li class="list-group-item list-group-item-action list-group-item-menu">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">
+                                        <input type="hidden" asp-for="List[i].ID" />
+
+                                        <div class="form-check">
+                                            <input asp-for="List[i].Selected" class="form-check-input" />
+                                            <label class="form-check-label" asp-for="List[i].Selected">
+                                                @Html.Raw(Model.List[i].Name)
+                                            </label>
+                                        </div>
+                                    </h5>
+                                </div>
+                                <p class="mb-1">
+                                    @Html.Raw(Model.Get<IBBCodeService>().LocalizeCustomBBCodeElement(Model.List[i].Description))
+                                </p>
+                                <small>
+                                    <div class="btn-group btn-group-sm">
+                                        <a button-style="Info"
+                                                button-size="Small"
+                                                asp-page="@ForumPages.Admin_EditBBCode.GetPageName()"
+                                                asp-route-b="@Html.Raw(Model.List[i].ID)"
+                                                title-localized-tag="EDIT"
+                                                Icon="edit"
+                                                text-localized-tag="EDIT">
+                                        </a>
+                                        <button button-style="Danger"
+                                                button-size="Small"
+                                                asp-page-handler="Delete"
+                                                asp-route-b="@Html.Raw(Model.List[i].ID)"
+                                                title-localized-tag="DELETE"
+                                                Icon="trash"
+                                                text-localized-tag="DELETE"
+                                                return-confirm-tag="CONFIRM_DELETE">
+                                        </button>
+                                    </div>
+                                </small>
+                                <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                    <a button-style="None"
+                                            class="dropdown-item"
+                                            asp-page="@ForumPages.Admin_EditBBCode.GetPageName()"
+                                            asp-route-b="@Html.Raw(Model.List[i].ID)"
+                                            title-localized-tag="EDIT"
+                                            Icon="edit"
+                                            text-localized-tag="EDIT">
+                                    </a>
+                                    <button button-style="None"
+                                            class="dropdown-item"
+                                            asp-page-handler="Delete"
+                                            asp-route-b="@Html.Raw(Model.List[i].ID)"
+                                            title-localized-tag="DELETE"
+                                            Icon="trash"
+                                            text-localized-tag="DELETE"
+                                            return-confirm-tag="CONFIRM_DELETE">
+                                    </button>
+                                    <div class="dropdown-divider"></div>
+                                    <a asp-page="@ForumPages.Admin_EditBBCode.GetPageName()"
+                                            button-style="None"
+                                            class="dropdown-item"
+                                            Icon="plus-square"
+                                            text-localized-tag="ADD" text-localized-page="ADMIN_BBCODE"></a>
+                                    <div class="dropdown-divider"></div>
+                                    <button Icon="upload"
+                                            bs-toggle="ajax-modal"
+                                            bs-target-url="@Url.Page("BBCodes", "Import")"
+                                            button-style="None"
+                                            class="dropdown-item"
+                                            text-localized-tag="IMPORT" text-localized-page="ADMIN_BBCODE"></button>
+                                    <button asp-page-handler="Export"
+                                            button-style="None"
+                                            class="dropdown-item"
+                                            Icon="download"
+                                            text-localized-tag="EXPORT" text-localized-page="ADMIN_BBCODE"></button>
+                                </div>
+                            </li>
+                        }
+                       
+                    </ul>
+                }
+                <div class="card-footer text-center">
+                    <a asp-page="@ForumPages.Admin_EditBBCode.GetPageName()"
+                            button-style="Primary"
+                            class="mb-1"
+                            Icon="plus-square"
+                            text-localized-tag="ADD" text-localized-page="ADMIN_BBCODE"></a>
+                    <button Icon="upload"
+                            bs-toggle="ajax-modal"
+                            bs-target-url="@Url.Page("BBCodes", "Import")"
+                            button-style="Info"
+                            class="mb-1"
+                            text-localized-tag="IMPORT" text-localized-page="ADMIN_BBCODE"></button>
+                    <button asp-page-handler="Export"
+                            button-style="Warning"
+                            class="mb-1"
+                            Icon="download"
+                            text-localized-tag="EXPORT" text-localized-page="ADMIN_BBCODE"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-auto">
+            <pager page-size="@Model.Size"
+                   count="!Model.List.NullOrEmpty() ? Model.GetRepository<BBCode>().Count(x => x.BoardID == Model.PageBoardContext.PageBoardID).ToType<int>() : 0">
+            </pager>
+        </div>
+    </div>
+</form>

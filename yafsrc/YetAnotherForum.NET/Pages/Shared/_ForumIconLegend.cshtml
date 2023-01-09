@@ -1,0 +1,19 @@
+﻿@using YAF.Core.Context
+@using YAF.Web.HtmlHelpers
+
+
+
+<ul class="list-group list-group-flush">
+    <li class="list-group-item d-flex align-items-center">
+        @Html.Icon("comments", "text-success", "fas", "fa-2x")
+        @Html.LocalizedText("ICONLEGEND", "NEW_POSTS")
+    </li>
+    <li class="list-group-item d-flex align-items-center">
+        @Html.Icon("comments", "text-secondary", "fas", "fa-2x")
+        @Html.LocalizedText("ICONLEGEND", "NO_NEW_POSTS")
+    </li>
+    <li class="list-group-item d-flex align-items-center">
+        @Html.IconStack("comments", "text-secondary", "lock", "text-warning", "fa-1x")
+        @Html.LocalizedText("ICONLEGEND", "FORUM_LOCKED")
+    </li>
+</ul>

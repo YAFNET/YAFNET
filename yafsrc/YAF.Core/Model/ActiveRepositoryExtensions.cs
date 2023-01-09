@@ -21,11 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Core.Model;
 
 using System.Collections.Generic;
 
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 

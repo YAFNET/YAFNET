@@ -24,9 +24,7 @@
 
 namespace YAF.Core.BasePages;
 
-using System;
-
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The moderate forum page.
@@ -36,42 +34,29 @@ public class ModerateForumPage : ForumPage
     /// <summary>
     /// Initializes a new instance of the <see cref="ModerateForumPage"/> class.
     /// </summary>
-    public ModerateForumPage()
-        : this(null, ForumPages.Board)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ModerateForumPage"/> class.
-    /// </summary>
     /// <param name="transPage">
     /// The trans page.
     /// </param>
-    /// <param name="pageType">
-    /// The page Type.
+    /// <param name="page">
+    /// The page.
     /// </param>
-    public ModerateForumPage([CanBeNull] string transPage, ForumPages pageType)
-        : base(transPage, pageType)
+    public ModerateForumPage([CanBeNull] string transPage, ForumPages page)
+        : base(transPage, page)
     {
-        this.Load += this.ModeratePage_Load;
     }
 
     /// <summary>
-    /// Gets PageName.
+    /// The on page handler executing.
     /// </summary>
-    public override string PageName => $"moderate_{base.PageName}";
-
-    /// <summary>
-    /// Handles the Load event of the ModeratePage control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void ModeratePage_Load([NotNull] object sender, [NotNull] EventArgs e)
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
     {
         // Only moderators are allowed here
         if (!this.PageBoardContext.IsModeratorInAnyForum)
         {
-            this.Get<LinkBuilder>().AccessDenied();
+           context.Result = this.Get<LinkBuilder>().AccessDenied();
         }
     }
 }

@@ -21,11 +21,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Configuration;
 
-using System.Globalization;
-
-using YAF.Configuration.Pattern;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The YAF board settings.
@@ -46,6 +45,13 @@ public class BoardSettings
         this.Registry.OverrideDictionary = this.RegistryBoard;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:YAF.Configuration.BoardSettings" /> class.
+    /// </summary>
+    /// <param name="boardId">The board identifier.</param>
+    /// <param name="boardName">Name of the board.</param>
+    /// <param name="registry">The registry.</param>
+    /// <param name="registryBoard">The registry board.</param>
     public BoardSettings(
         [NotNull] int boardId,
         [NotNull] string boardName,
@@ -173,14 +179,6 @@ public class BoardSettings
     public string Name { get; set; }
 
     /// <summary>
-    /// Gets the board identifier.
-    /// </summary>
-    /// <value>
-    /// The board identifier.
-    /// </value>
-    public int BoardId { get; set; }
-
-    /// <summary>
     /// Gets or sets the title template.
     /// </summary>
     /// <value>
@@ -222,6 +220,7 @@ public class BoardSettings
     /// <value>
     /// <c>If true use CDN if not use locally</c>.
     /// </value>
+    // TODO : ScriptManagerScriptsCDNHosted
     public bool ScriptManagerScriptsCDNHosted
     {
         get => this.Registry.GetValue("ScriptManagerScriptsCDNHosted", true);
@@ -385,19 +384,6 @@ public class BoardSettings
         get => this.Registry.GetValue("LogUserSuspendedUnsuspended", false);
 
         set => this.Registry.SetValue("LogUserSuspendedUnsuspended", value);
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether [log view state error].
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if [log view state error]; otherwise, <c>false</c>.
-    /// </value>
-    public bool LogViewStateError
-    {
-        get => this.Registry.GetValue("LogViewStateError", false);
-
-        set => this.Registry.SetValue("LogViewStateError", value);
     }
 
     /// <summary>
@@ -1202,6 +1188,7 @@ public class BoardSettings
     /// <value>
     ///   <c>true</c> if [require SSL]; otherwise, <c>false</c>.
     /// </value>
+    // TODO : RequireSSL
     public bool RequireSSL
     {
         get => this.Registry.GetValue("UseSSLToRegister", false);
@@ -1808,32 +1795,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets the DNN page tab.
-    /// </summary>
-    /// <value>
-    /// The DNN page tab.
-    /// </value>
-    public int DNNPageTab
-    {
-        get => this.RegistryBoard.GetValue("DNNPageTab", -1);
-
-        set => this.RegistryBoard.SetValue("DNNPageTab", value);
-    }
-
-    /// <summary>
-    /// Gets or sets the DNN portal identifier.
-    /// </summary>
-    /// <value>
-    /// The DNN portal identifier.
-    /// </value>
-    public int DNNPortalId
-    {
-        get => this.RegistryBoard.GetValue("DNNPortalId", -1);
-
-        set => this.RegistryBoard.SetValue("DNNPortalId", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether to AddDynamicPageMetaTags.
     /// </summary>
     public bool AddDynamicPageMetaTags
@@ -2079,16 +2040,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets CustomLoginRedirectUrl.
-    /// </summary>
-    public string CustomLoginRedirectUrl
-    {
-        get => this.Registry.GetValue<string>("CustomLoginRedirectUrl", null);
-
-        set => this.Registry.SetValue("CustomLoginRedirectUrl", value);
-    }
-
-    /// <summary>
     /// Gets or sets BaseUrlMask.
     /// </summary>
     public string BaseUrlMask
@@ -2248,7 +2199,7 @@ public class BoardSettings
         get => this.RegistryBoard.GetValue("ForceUpdateSearchIndex", false);
 
         set => this.RegistryBoard.SetValue("ForceUpdateSearchIndex", value);
-    }
+    } 
 
     /// <summary>
     /// Gets or sets a value indicating whether two column board layout.
@@ -2312,4 +2263,9 @@ public class BoardSettings
     /// Gets or sets the RegistryDictionary.
     /// </summary>
     public RegistryDictionary RegistryBoard { get; set; }
+
+    /// <summary>
+    ///  Gets or sets the board id.
+    /// </summary>
+    public int BoardId { get; set; }
 }

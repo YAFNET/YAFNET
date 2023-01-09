@@ -1,0 +1,533 @@
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014-2023 Ingo Herbote
+ * https://www.yetanotherforum.net/
+ * 
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * https://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+namespace YAF.Pages;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
+
+using YAF.Core.Extensions;
+using YAF.Core.Helpers;
+using YAF.Core.Model;
+using YAF.Core.Services;
+using YAF.Types;
+using YAF.Types.Attributes;
+using YAF.Types.EventProxies;
+using YAF.Types.Extensions;
+using YAF.Types.Flags;
+using YAF.Types.Interfaces.Events;
+using YAF.Types.Interfaces.Identity;
+using YAF.Types.Models;
+using YAF.Types.Models.Identity;
+using YAF.Types.Objects.Model;
+
+/// <summary>
+/// The User Profile Page.
+/// </summary>
+public class UserProfileModel : ForumPage
+{
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "UserProfileModel" /> class.
+    /// </summary>
+    public UserProfileModel()
+        : base("PROFILE", ForumPages.UserProfile)
+    {
+    }
+
+    [BindProperty]
+    public Tuple<User, AspNetUsers, Rank, vaccess> CombinedUser { get; set; }
+
+    [BindProperty]
+    public List<Tuple<ProfileCustom, ProfileDefinition>> CustomProfile { get; set; }
+
+    [BindProperty]
+    public List<Group> Groups { get; set; }
+
+    [BindProperty]
+    public List<Tuple<Message, Topic, User>> LastPosts { get; set; }
+
+    [BindProperty]
+    public List<BuddyUser> Friends { get; set; }
+
+    [BindProperty]
+    public (int Posts, string ThanksReceived) Thanks { get; set; }
+
+    [BindProperty]
+    public string Stats { get; set; }
+
+    [BindProperty]
+    public string Medals { get; set; }
+
+    [BindProperty]
+    public string FacebookUrl { get; set; }
+
+    [BindProperty]
+    public string TwitterUrl { get; set; }
+
+    [BindProperty]
+    public string SkypeUrl { get; set; }
+
+    [BindProperty]
+    public string BlogUrl { get; set; }
+
+    [BindProperty]
+    public string XmppUrl { get; set; }
+
+    [BindProperty]
+    public bool ShowAddBuddyLink { get; set; }
+
+    [BindProperty]
+    public bool ShowRemoveBuddyLink { get; set; }
+
+    [BindProperty]
+    public bool ShowPmLink { get; set; }
+
+    [BindProperty]
+    public bool ShowEmailLink { get; set; }
+
+    [BindProperty]
+    public bool ShowSocialMediaCard { get; set; }
+
+    [BindProperty]
+    public string SuspendReason { get; set; }
+
+    [BindProperty]
+    public int SuspendCount { get; set; }
+
+    [BindProperty]
+    public string SuspendUnit { get; set; }
+
+    public List<SelectListItem> SuspendUnits =>
+        new() {
+                  new SelectListItem(this.GetText("PROFILE", "DAYS"), "1"),
+                  new SelectListItem(this.GetText("PROFILE", "HOURS"), "2"),
+                  new SelectListItem(this.GetText("PROFILE", "MINUTES"), "3")
+              };
+
+    /// <summary>
+    /// add page links.
+    /// </summary>
+    /// <param name="userDisplayName">
+    /// The user display name.
+    /// </param>
+    private void AddPageLinks([NotNull] string userDisplayName)
+    {
+        this.PageBoardContext.PageLinks.AddLink(
+            this.GetText("MEMBERS"),
+            this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.MembersListViewPermissions)
+                ? this.Get<LinkBuilder>().GetLink(ForumPages.Members)
+                : null);
+        this.PageBoardContext.PageLinks.AddLink(userDisplayName, string.Empty);
+    }
+
+    /// <summary>
+    /// The on get.
+    /// </summary>
+    public IActionResult OnGet(int u)
+    {
+        return u == 0
+                   ?
+                   // No such user exists
+                   this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid)
+                   : this.BindData(u);
+    }
+
+    public IActionResult OnPostAddBuddy(int u)
+    {
+        this.BindData(u);
+
+        return this.PageBoardContext.Notify(
+            this.Get<IFriends>().AddRequest(u)
+                ? this.GetTextFormatted(
+                    "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
+                    this.Get<IUserDisplayName>().GetNameById(u))
+                : this.GetText("NOTIFICATION_BUDDYREQUEST"),
+            MessageTypes.success);
+    }
+
+    public IActionResult OnPostRemoveBuddy(int u)
+    {
+        this.BindData(u);
+
+        return this.PageBoardContext.Notify(
+            this.GetTextFormatted("REMOVEBUDDY_NOTIFICATION", this.Get<IFriends>().Remove(u)),
+            MessageTypes.success);
+    }
+
+    public void OnPostRemoveSuspension(int u)
+    {
+        this.BindData(u);
+
+        // un-suspend user
+        this.GetRepository<User>().Suspend(u);
+
+        if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
+        {
+            this.Get<ILogger<UserProfileModel>>().Log(
+                this.PageBoardContext.PageUserID,
+                "YAF.Controls.EditUsersSuspend",
+                $"User {this.CombinedUser.Item1.DisplayOrUserName()} was unsuspended by {this.CombinedUser.Item1.DisplayOrUserName()}.",
+                EventLogTypes.UserUnsuspended);
+        }
+
+        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(u));
+
+        this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
+            this.CombinedUser.Item1.Email,
+            this.CombinedUser.Item1.DisplayOrUserName());
+    }
+
+    public void OnPostSuspend(int u)
+    {
+        this.BindData(u);
+
+        var access = this.GetRepository<vaccess>().GetSingle(v => v.UserID == u);
+
+        // is user to be suspended admin?
+        if (access.IsAdmin > 0)
+        {
+            // tell user he can't suspend admin
+            this.PageBoardContext.Notify(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"), MessageTypes.danger);
+            return;
+        }
+
+        // is user to be suspended forum moderator, while user suspending him is not admin?
+        if (!this.PageBoardContext.IsAdmin && access.IsForumModerator > 0)
+        {
+            // tell user he can't suspend forum moderator when he's not admin
+            this.PageBoardContext.Notify(this.GetText("PROFILE", "ERROR_FORUMMODERATORS"), MessageTypes.danger);
+            return;
+        }
+
+        var isGuest = this.CombinedUser.Item1.UserFlags.IsGuest;
+
+        // verify the user isn't guest...
+        if (isGuest)
+        {
+            this.PageBoardContext.Notify(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"), MessageTypes.danger);
+        }
+
+        // time until when user is suspended
+        var suspend = this.Get<IDateTimeService>().GetUserDateTime(
+            DateTime.UtcNow,
+            this.CombinedUser.Item1.TimeZoneInfo);
+
+        // number inserted by suspending user
+        var count = this.SuspendCount;
+
+        // what time units are used for suspending
+        suspend = this.SuspendUnit switch {
+            // days
+            "1" =>
+                // add user inserted suspension time to current time
+                suspend.AddDays(count),
+            // hours
+            "2" =>
+                // add user inserted suspension time to current time
+                suspend.AddHours(count),
+            // minutes
+            "3" =>
+                // add user inserted suspension time to current time
+                suspend.AddHours(count),
+            _ => suspend
+        };
+
+        // suspend user by calling appropriate method
+        this.GetRepository<User>().Suspend(u, suspend, this.SuspendReason.Trim(), this.PageBoardContext.PageUserID);
+
+        this.Get<ILogger<UserProfileModel>>().Log(
+            this.PageBoardContext.PageUserID,
+            "YAF.Controls.EditUsersSuspend",
+            $"User {this.CombinedUser.Item1.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
+            EventLogTypes.UserSuspended);
+
+        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(u));
+
+        this.Get<ISendNotification>().SendUserSuspensionNotification(
+            suspend,
+            this.SuspendReason.Trim(),
+            this.CombinedUser.Item1.Email,
+            this.CombinedUser.Item1.DisplayOrUserName());
+
+        this.SuspendReason = string.Empty;
+
+        this.BindData(u);
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private IActionResult BindData(int userId)
+    {
+        this.CombinedUser = this.Get<IAspNetUsersHelper>().GetBoardUser(userId);
+
+        if (this.CombinedUser == null || this.CombinedUser.Item1.ID == 0)
+        {
+            // No such user exists or this is an nntp user ("0")
+            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
+        // populate user information controls...
+        // Is BuddyList feature enabled?
+        if (this.PageBoardContext.BoardSettings.EnableBuddyList)
+        {
+            this.SetupBuddyList();
+        }
+
+        // Show User Medals
+        if (this.PageBoardContext.BoardSettings.ShowMedals)
+        {
+            this.ShowUserMedals();
+        }
+
+        this.AddPageLinks(this.CombinedUser.Item1.DisplayOrUserName());
+
+        this.SetupUserStatistics();
+
+        this.SetupUserLinks();
+
+        this.Groups = this.GetRepository<UserGroup>().List(this.CombinedUser.Item1.ID);
+
+        this.Thanks = this.GetRepository<Thanks>().ThanksToUser(this.CombinedUser.Item1.ID);
+
+        this.LastPosts = this.GetRepository<Message>().GetAllUserMessagesWithAccess(
+            this.PageBoardContext.PageBoardID,
+            userId,
+            this.PageBoardContext.PageUserID,
+            10);
+
+        // select hours
+        this.SuspendUnit = "1";
+
+        // default number of hours to suspend user for
+        this.SuspendCount = 2;
+
+        return this.Page();
+    }
+
+    /// <summary>
+    /// The setup buddy list.
+    /// </summary>
+    private void SetupBuddyList()
+    {
+        if (this.CombinedUser.Item1.ID == this.PageBoardContext.PageUserID)
+        {
+            this.ShowAddBuddyLink = false;
+            this.ShowRemoveBuddyLink = false;
+        }
+        else if (!this.PageBoardContext.IsGuest)
+        {
+            if (this.Get<IFriends>().IsBuddy(this.CombinedUser.Item1.ID))
+            {
+                this.ShowRemoveBuddyLink = true;
+            }
+            else
+            {
+                this.ShowAddBuddyLink = false;
+                this.ShowRemoveBuddyLink = false;
+            }
+        }
+        else
+        {
+            if (!this.PageBoardContext.IsGuest && !this.CombinedUser.Item1.Block.BlockFriendRequests)
+            {
+                this.ShowRemoveBuddyLink = true;
+            }
+            else
+            {
+                this.ShowAddBuddyLink = false;
+                this.ShowRemoveBuddyLink = false;
+            }
+        }
+
+        this.Friends = this.GetRepository<Buddy>().GetAllFriends(this.CombinedUser.Item1.ID);
+    }
+
+    /// <summary>
+    /// Show the user medals.
+    /// </summary>
+    private void ShowUserMedals()
+    {
+        var key = string.Format(Constants.Cache.UserMedals, this.CombinedUser.Item1.ID);
+
+        // get the medals cached...
+        var userMedals = this.DataCache.GetOrSet(
+            key,
+            () => this.GetRepository<Medal>().ListUserMedals(this.CombinedUser.Item1.ID),
+            TimeSpan.FromMinutes(10));
+
+        if (!userMedals.Any())
+        {
+            return;
+        }
+
+        var ribbonBar = new StringBuilder();
+        var medals = new StringBuilder();
+
+        userMedals.ForEach(
+            medal =>
+            {
+                var flags = new MedalFlags(medal.Flags);
+
+                // skip hidden medals
+                if (flags.AllowHiding && medal.Hide)
+                {
+                    return;
+                }
+
+                var title = $"{medal.Name}{(flags.ShowMessage ? $": {medal.Message}" : string.Empty)}";
+
+                ribbonBar.AppendFormat(
+                    "<li class=\"list-inline-item\"><img src=\"/{2}/{0}\" alt=\"{1}\" title=\"{1}\" data-bs-toggle=\"tooltip\"></li>",
+                    medal.MedalURL,
+                    title,
+                    this.Get<BoardFolders>().Medals);
+            });
+
+        this.Medals = $"<ul class=\"list-inline\">{ribbonBar}{medals}</ul>";
+    }
+
+    /// <summary>
+    /// The setup user links.
+    /// </summary>
+    private void SetupUserLinks()
+    {
+        if (this.CombinedUser.Item2.Profile_Blog.IsSet())
+        {
+            var link = this.CombinedUser.Item2.Profile_Blog.Replace("\"", string.Empty);
+
+            if (!link.ToLower().StartsWith("http"))
+            {
+                link = $"http://{link}";
+            }
+
+            this.BlogUrl = link;
+        }
+
+        if (this.CombinedUser.Item2.Profile_Facebook.IsSet())
+        {
+            this.FacebookUrl = ValidationHelper.IsNumeric(this.CombinedUser.Item2.Profile_Facebook)
+                                   ? $"https://www.facebook.com/profile.php?id={this.CombinedUser.Item2.Profile_Facebook}"
+                                   : this.CombinedUser.Item2.Profile_Facebook;
+        }
+
+        if (this.CombinedUser.Item2.Profile_Twitter.IsSet())
+        {
+            this.TwitterUrl = $"http://twitter.com/{this.HtmlEncode(this.CombinedUser.Item2.Profile_Twitter)}";
+        }
+
+        if (this.CombinedUser.Item2.Profile_XMPP.IsSet())
+        {
+            this.XmppUrl = this.Get<LinkBuilder>().GetLink(
+                ForumPages.Jabber,
+                new { u = this.CombinedUser.Item1.ID });
+        }
+
+        if (this.CombinedUser.Item2.Profile_Skype.IsSet())
+        {
+            this.SkypeUrl = $"skype:{this.CombinedUser.Item2.Profile_Skype}?call";
+        }
+
+        if (!this.SkypeUrl.IsSet() && !this.BlogUrl.IsSet() && !this.XmppUrl.IsSet() && !this.FacebookUrl.IsSet() &&
+            !this.TwitterUrl.IsSet())
+        {
+            this.ShowSocialMediaCard = false;
+        }
+        else
+        {
+            this.ShowSocialMediaCard = true;
+        }
+
+        this.CustomProfile = this.DataCache.GetOrSet(
+            string.Format(Constants.Cache.UserCustomProfileData, this.CombinedUser.Item1.ID),
+            () => this.GetRepository<ProfileCustom>().ListByUser(this.CombinedUser.Item1.ID));
+
+        if (this.CombinedUser.Item1.ID == this.PageBoardContext.PageUserID)
+        {
+            return;
+        }
+
+        var isFriend = this.Get<IFriends>().IsBuddy(this.CombinedUser.Item1.ID);
+
+        this.ShowPmLink = !this.CombinedUser.Item1.UserFlags.IsGuest &&
+                          this.PageBoardContext.BoardSettings.AllowPrivateMessages;
+
+        if (this.ShowPmLink)
+        {
+            if (this.CombinedUser.Item1.Block.BlockPMs)
+            {
+                this.ShowPmLink = false;
+            }
+
+            if (this.PageBoardContext.IsAdmin || isFriend)
+            {
+                this.ShowPmLink = true;
+            }
+        }
+
+        // email link
+        this.ShowEmailLink = !this.CombinedUser.Item1.UserFlags.IsGuest &&
+                             this.PageBoardContext.BoardSettings.AllowEmailSending;
+
+        if (!this.ShowEmailLink)
+        {
+            return;
+        }
+
+        if (this.CombinedUser.Item1.Block.BlockEmails && !this.PageBoardContext.IsAdmin)
+        {
+            this.ShowEmailLink = false;
+        }
+
+        if (this.PageBoardContext.IsAdmin || isFriend)
+        {
+            this.ShowEmailLink = true;
+        }
+    }
+
+    /// <summary>
+    /// The setup user statistics.
+    /// </summary>
+    private void SetupUserStatistics()
+    {
+        var allPosts = 0.0;
+
+        var postsInBoard = this.GetRepository<Message>()
+            .Count(m => (m.Flags & 16) == 16 && (m.Flags & 8) != 8);
+
+        if (postsInBoard > 0)
+        {
+            allPosts = 100.0 * this.CombinedUser.Item1.NumPosts / postsInBoard;
+        }
+
+        var numberDays = DateTimeHelper.DateDiffDay(this.CombinedUser.Item1.Joined, DateTime.UtcNow) + 1;
+
+        this.Stats =
+            $"{this.CombinedUser.Item1.NumPosts:N0} [{this.GetTextFormatted("NUMALL", allPosts)} / {this.GetTextFormatted("NUMDAY", (double)this.CombinedUser.Item1.NumPosts / numberDays)}]";
+    }
+}

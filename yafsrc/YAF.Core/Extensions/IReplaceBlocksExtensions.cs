@@ -23,7 +23,6 @@
  */
 namespace YAF.Core.Extensions;
 
-using System.Text;
 using System.Text.RegularExpressions;
 
 /// <summary>

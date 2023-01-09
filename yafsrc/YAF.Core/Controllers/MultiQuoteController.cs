@@ -25,21 +25,18 @@
 namespace YAF.Core.Controllers;
 
 using System.Collections.Generic;
-using System.Web.Http;
 
+using YAF.Core.BasePages;
 using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF MultiQuote Button controller.
 /// </summary>
-[RoutePrefix("api")]
-public class MultiQuoteController : ApiController, IHaveServiceLocator
+[Produces("application/json")]
+[Route("api/[controller]")]
+[ApiController]
+public class MultiQuoteController : ForumBaseController
 {
-    /// <summary>
-    ///   Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
     /// <summary>
     /// Handles the multi quote Button.
     /// </summary>
@@ -49,9 +46,9 @@ public class MultiQuoteController : ApiController, IHaveServiceLocator
     /// <returns>
     /// Returns the Message Id and the Updated CSS Class for the Button
     /// </returns>
-    [Route("MultiQuote/HandleMultiQuote")]
-    [HttpPost]
-    public IHttpActionResult HandleMultiQuote([NotNull] MultiQuoteButton quoteButton)
+    [ValidateAntiForgeryToken]
+    [HttpPost("HandleMultiQuote")]
+    public IActionResult HandleMultiQuote([FromBody] MultiQuoteButton quoteButton)
     {
         var buttonId = quoteButton.ButtonId;
         var isMultiQuoteButton = quoteButton.IsMultiQuoteButton;
@@ -59,7 +56,7 @@ public class MultiQuoteController : ApiController, IHaveServiceLocator
         var topicId = quoteButton.TopicId;
         var buttonCssClass = quoteButton.ButtonCssClass;
 
-        var yafSession = this.Get<ISession>();
+        var yafSession = this.Get<ISessionService>();
 
         var multiQuote = new MultiQuote { MessageID = messageId, TopicID = topicId };
 

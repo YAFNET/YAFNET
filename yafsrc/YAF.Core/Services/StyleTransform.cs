@@ -23,6 +23,8 @@
  */
 namespace YAF.Core.Services;
 
+using YAF.Types.Attributes;
+
 /// <summary>
 /// Transforms the style.
 /// </summary>

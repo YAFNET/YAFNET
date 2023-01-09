@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2022 Ingo Herbote
+ * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -196,8 +196,6 @@ public class PostgreSQLDbInformation : IDbInformation
         dbCommand.Connection.CreateView<vaccess_user>(vaccessUserSelect);
 
         var vaccessFullSelect = new StringBuilder();
-
-
 
         vaccessFullSelect.Append(" select ");
 

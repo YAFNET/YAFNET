@@ -1,0 +1,295 @@
+@page "{medalId:int?}/{handler?}"
+@model EditMedalModel
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Interfaces
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces.Services
+@using YAF.Web.HtmlHelpers
+
+<form method="post" class="needs-validation">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("medal","ADMIN_EDITMEDAL","TITLE")
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Name"
+                                   localized-tag="MEDAL_NAME" localized-page="ADMIN_EDITMEDAL"></label>
+                            <input type="text" asp-for="Input.Name"
+                                   maxlength="100"
+                                   class="form-control"
+                                   required="required" />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("MSG_NAME")
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Category"
+                                   localized-tag="MEDAL_CATEGORY" localized-page="ADMIN_EDITMEDAL"></label>
+                            <input type="text" asp-for="Input.Category" maxlength="50" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Description"
+                               localized-tag="MEDAL_DESC" localized-page="ADMIN_EDITMEDAL"></label>
+                        <textarea asp-for="Input.Description" class="form-control" height="100"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Message"
+                                   localized-tag="MEDAL_MESSAGE" localized-page="ADMIN_EDITMEDAL"></label>
+                            <input type="text" asp-for="Input.Message"
+                                   maxlength="100"
+                                   class="form-control" />
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.ShowMessage"
+                                   localized-tag="SHOW_MESSAGE" localized-page="ADMIN_EDITMEDAL"></label>
+
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.ShowMessage" class="form-check-label" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.MedalImage"
+                               localized-tag="MEDAL_IMAGE" localized-page="ADMIN_EDITMEDAL"></label>
+                        <select asp-for="Input.MedalImage"
+                                class="select2-image-select"
+                                placeholder="@Html.LocalizedText("COMMON", "NONE")"
+                                data-allow-clear="true">
+                            @foreach (var item in Model.MedalImages)
+                            {
+                                <option value="@item.Text" item="@item">
+                                    @item.Text
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.AllowHiding"
+                               localized-tag="ALLOW_HIDING" localized-page="ADMIN_EDITMEDAL"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.AllowHiding"
+                                   class="form-check-label" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button class="me-2"
+                            asp-page-handler="Save"
+                            button-style="Primary"
+                            Icon="save"
+                            text-localized-tag="SAVE"></button>
+                    <a asp-page="@ForumPages.Admin_Medals.GetPageName()"
+                       button-style="Secondary"
+                       Icon="times"
+                       text-localized-tag="CANCEL"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.Input.Id > 0)
+    {
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.IconHeader("medal", "ADMIN_EDITMEDAL", "HEADER2")
+                    </div>
+                    <div class="card-body">
+                        @if (!Model.GroupList.NullOrEmpty())
+                        {
+                            <ul class="list-group">
+
+                                @foreach (var item in Model.GroupList)
+                                {
+                                    <li class="list-group-item list-group-item-action list-group-item-menu">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1 text-break">
+                                                @Html.LocalizedText("GROUP"):
+                                                @Html.Raw(Model.FormatGroupLink(item))
+                                            </h5>
+                                        </div>
+                                        <p class="mb-1">
+                                            <span class="fw-bold">
+                                                @Html.LocalizedText("COMMON", "MESSAGE")
+                                            </span>
+                                            @Html.Raw(!item.Item2.Message.IsNullOrEmptyField() ? item.Item2.Message : item.Item1.Message)
+                                        </p>
+                                        <small>
+                                            <div class="btn-group btn-group-sm">
+                                                <button button-style="Info"
+                                                   button-size="Small"
+                                                   bs-toggle="ajax-modal"
+                                            bs-target-url="@(Url.Page("EditMedal", "EditGroup", new {groupId = item.Item2.GroupID, medalId = item.Item1.ID}))"
+                                                   title-localized-tag="EDIT"
+                                                   Icon="edit"
+                                                   text-localized-tag="EDIT">
+                                                </button>
+                                                <button button-style="Danger"
+                                                        button-size="Small"
+                                                        asp-page-handler="RemoveGroup"
+                                                        asp-route-id="@Html.Raw(item.Item2.GroupID)"
+                                                        title-localized-tag="REMOVE"
+                                                        Icon="trash"
+                                                        text-localized-tag="REMOVE"
+                                                        return-confirm-tag="CONFIRM_REMOVE_USER">
+                                                </button>
+                                            </div>
+                                        </small>
+                                        <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                            <button button-style="None"
+                                                    class="dropdown-item"
+                                                    bs-toggle="ajax-modal"
+                                                    bs-target-url="@(Url.Page("EditMedal", "EditGroup", new {groupId = item.Item2.GroupID, medalId = item.Item1.ID}))"
+                                                    title-localized-tag="EDIT"
+                                                    Icon="edit"
+                                                    text-localized-tag="EDIT">
+                                            </button>
+                                            <button button-style="None"
+                                                    class="dropdown-item"
+                                                    asp-page-handler="RemoveGroup"
+                                                    asp-route-id="@Html.Raw(item.Item2.GroupID)"
+                                                    title-localized-tag="REMOVE"
+                                                    Icon="trash"
+                                                    text-localized-tag="REMOVE"
+                                                    return-confirm-tag="@(Model.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_USER"))">
+                                            </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button bs-toggle="ajax-modal"
+                                        bs-target-url="@(Url.Page("EditMedal", "AddGroup", new {medalId = Model.Input.Id}))"
+                                                    button-style="None"
+                                                    class="dropdown-item"
+                                                    Icon="plus-square"
+                                                    text-localized-tag="ADD_GROUP">
+                                            </button>
+                                        </div>
+                                    </li>
+                                }
+
+                            </ul>
+                        }
+
+                    </div>
+                    <div class="card-footer text-center">
+                        <button bs-toggle="ajax-modal"
+                                bs-target-url="@(Url.Page("EditMedal", "AddGroup", new {medalId = Model.Input.Id}))"
+                                button-style="Primary"
+                                Icon="plus-square"
+                                text-localized-tag="ADD_GROUP">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.IconHeader("medal", "ADMIN_EDITMEDAL", "HEADER3")
+                    </div>
+                    <div class="card-body">
+                        @if (!Model.UserList.NullOrEmpty())
+                        {
+                            <ul class="list-group">
+
+                                @foreach (var item in Model.UserList)
+                                {
+                                    <li class="list-group-item list-group-item-action list-group-item-menu">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1 text-break">
+                                                @Html.Raw(Model.FormatUserLink(item))
+                                            </h5>
+                                            <small class="d-none d-md-block">
+                                                <span class="fw-bold">
+                                                    @Html.LocalizedText("ADMIN_EDITMEDAL", "DATE_AWARDED"):
+                                                </span>
+                                                @Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(item.Item2.DateAwarded))
+                                            </small>
+                                        </div>
+                                        <p class="mb-1">
+                                            <span class="fw-bold">
+                                                @Html.LocalizedText("COMMON", "MESSAGE")
+                                            </span>
+                                            @Html.Raw(item.Item2.Message.IsSet() ? item.Item2.Message : item.Item1.Message)
+                                        </p>
+                                        <small>
+                                            <div class="btn-group btn-group-sm">
+                                                <button bs-toggle="ajax-modal"
+                                                        bs-target-url="@(Url.Page("EditMedal", "EditUser", new {userId = item.Item2.UserID, medalId = item.Item1.ID}))"
+                                                        text-localized-tag="EDIT"
+                                                        button-style="Info"
+                                                        button-size="Small"
+                                                        Icon="edit">
+                                                </button>
+                                                <button asp-page-handler="RemoveUser"
+                                                        asp-route-id="@Html.Raw(item.Item2.UserID)"
+                                                        text-localized-tag="REMOVE"
+                                                        button-style="Danger"
+                                                        button-size="Small"
+                                                        Icon="trash">
+                                                </button>
+                                            </div>
+                                        </small>
+                                        <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                            <button bs-toggle="ajax-modal"
+                                        bs-target-url="@(Url.Page("EditMedal", "EditUser", new {userId = item.Item2.UserID, medalId = item.Item1.ID}))"
+                                                    text-localized-tag="EDIT"
+                                                    button-style="None"
+                                                    class="dropdown-item"
+                                                    Icon="edit">
+                                            </button>
+                                            <button asp-page-handler="RemoveUser"
+                                                    asp-route-id="@Html.Raw(item.Item2.UserID)"
+                                                    text-localized-tag="REMOVE"
+                                                    button-style="None"
+                                                    class="dropdown-item"
+                                                    Icon="trash">
+                                            </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button bs-toggle="ajax-modal"
+                                                    bs-target-url="@(Url.Page("EditMedal", "AddUser", new {medalId = item.Item1.ID}))"
+                                                    button-style="None"
+                                                    class="dropdown-item"
+                                                    Icon="plus-square"
+                                                    text-localized-tag="ADD_USER">
+                                            </button>
+                                        </div>
+                                    </li>
+                                }
+
+                            </ul>
+                        }
+                    </div>
+                    <div class="card-footer text-center">
+                        <button bs-toggle="ajax-modal"
+                            bs-target-url="@(Url.Page("EditMedal", "AddUser", new {medalId = Model.Input.Id}))"
+                                button-style="Primary"
+                                Icon="plus-square"
+                                text-localized-tag="ADD_USER">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+}

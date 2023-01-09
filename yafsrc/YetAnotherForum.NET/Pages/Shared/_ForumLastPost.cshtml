@@ -1,0 +1,112 @@
+﻿@using System.Globalization
+@using YAF.Core.Context
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Services
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+
+@model YAF.Types.Objects.Model.ForumRead
+
+@inject BoardContext Current
+
+@{
+    var lastRead = DateTime.MinValue;
+    var topicName = string.Empty;
+    var topicLink = string.Empty;
+    var style = string.Empty;
+    var infoText = string.Empty;
+    var infoContent = string.Empty;
+
+    if (Model.LastPosted.HasValue)
+    {
+        topicName = Current.Get<IBadWordReplace>()
+            .Replace(Html.HtmlEncode(Model.LastTopicName)).Truncate(50);
+
+        // Last Post Date
+        var lastPostedDateTime = Model.LastPosted.Value;
+
+        lastRead = Current.Get<IReadTrackCurrentUser>().GetForumTopicRead(Model.ForumID,
+            Model.LastTopicID,
+            Model.LastForumAccess,
+            Model.LastTopicAccess);
+
+        var formattedDatetime = Current.BoardSettings.ShowRelativeTime
+            ? lastPostedDateTime.ToRelativeTime()
+            : Current.Get<IDateTimeService>().Format(
+                DateTimeFormat.BothTopic,
+                lastPostedDateTime);
+
+        // Topic Link
+        topicLink = Current.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = Model.LastTopicID, name = topicName });
+
+        var styles = Current.BoardSettings.UseStyledTopicTitles
+            ? Current.Get<IStyleTransform>().Decode(
+                Model.LastTopicStyles)
+            : string.Empty;
+
+        if (styles.IsSet())
+        {
+            style = styles;
+        }
+
+        // Last Topic User
+        var lastUserLink = Current.Get<IHtmlHelper>().UserLink(Model.LastUserID.Value, Current.BoardSettings.EnableDisplayName
+            ? Model.LastUserDisplayName
+            : Model.LastUser, Model.LastUserSuspended, Current.BoardSettings.UseStyledNicks && Model.Style.IsSet()
+                ? Current.Get<IStyleTransform>().Decode(
+                    Model.Style)
+                : string.Empty);
+
+        var span = Current.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
+
+        infoContent = $@"
+                          {lastUserLink.RenderToString()}
+                          <span class=""fa-stack"">
+                                                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
+                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
+                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
+                                                </span>&nbsp;{span}{formattedDatetime}</span>
+                         ";
+
+        infoText = string.Format(
+            Current.Get<ILocalization>().GetText("Default", "BY"),
+            Current.BoardSettings.EnableDisplayName ? Model.LastUserDisplayName : Model.LastUser);
+    }
+
+}
+
+@if (!Model.ReadAccess || !Model.LastPosted.HasValue)
+{
+    <span class="fst-italic">
+        @Html.LocalizedText("NO_POSTS")
+    </span>
+}
+else
+{
+    <a role="button" button-style="Link" icon="comment" icon-css-class="far" icon-color="text-secondary"
+       class="fw-bold p-0 d-inline" bs-toggle="tooltip" title-localized-page="COMMON" title-localized-tag="VIEW_TOPIC"
+       text="@topicName" href="@topicLink" style="@style"></a>
+
+    @if (Model.LastPosted.Value > lastRead)
+    {
+        <span class="me-1">
+            <span class="badge bg-success d-inline">
+                @Html.LocalizedText("NEW_POSTS")
+            </span>
+        </span>
+    }
+
+    <button type="button"
+            button-style="Link"
+            icon="info-circle"
+            icon-color="text-secondary"
+            bs-toggle="popover"
+            button-size="Small"
+            class="topic-link-popover d-inline"
+            text="@infoText"
+            bs-content="@infoContent"></button>
+}

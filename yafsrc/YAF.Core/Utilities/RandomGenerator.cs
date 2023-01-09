@@ -47,75 +47,24 @@ using System.Security.Cryptography;
 public class RandomGenerator
 {
     /// <summary>
-    /// The crypto service provider.
-    /// </summary>
-    private readonly RNGCryptoServiceProvider cryptoServiceProvider;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RandomGenerator"/> class.
-    /// </summary>
-    public RandomGenerator()
-    {
-        this.cryptoServiceProvider = new RNGCryptoServiceProvider();
-    }
-
-    /// <summary>
     /// Generates a Random Number
     /// </summary>
     /// <param name="minValue">
     /// The min value.
     /// </param>
-    /// <param name="maxExclusiveValue">
+    /// <param name="maxValue">
     /// The max exclusive value.
     /// </param>
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
-    public int Next(int minValue, int maxExclusiveValue)
+    public int Next(int minValue, int maxValue)
     {
-        if (minValue >= maxExclusiveValue)
+        if (minValue >= maxValue)
         {
-            throw new ArgumentOutOfRangeException("minValue must be lower than maxExclusiveValue");
+            throw new ArgumentOutOfRangeException("minValue must be lower than maxValue");
         }
 
-        var diff = (long)maxExclusiveValue - minValue;
-        var upperBound = uint.MaxValue / diff * diff;
-
-        uint ui;
-        do
-        {
-            ui = this.GetRandomUInt();
-        } 
-        while (ui >= upperBound);
-            
-        return (int)(minValue + (ui % diff));
-    }
-
-    /// <summary>
-    /// The get random u int.
-    /// </summary>
-    /// <returns>
-    /// The <see cref="uint"/>.
-    /// </returns>
-    private uint GetRandomUInt()
-    {
-        var randomBytes = this.GenerateRandomBytes(sizeof(uint));
-        return BitConverter.ToUInt32(randomBytes, 0);
-    }
-
-    /// <summary>
-    /// The generate random bytes.
-    /// </summary>
-    /// <param name="bytesNumber">
-    /// The bytes number.
-    /// </param>
-    /// <returns>
-    /// Returns the byte
-    /// </returns>
-    private byte[] GenerateRandomBytes(int bytesNumber)
-    {
-        var buffer = new byte[bytesNumber];
-        this.cryptoServiceProvider.GetBytes(buffer);
-        return buffer;
+        return RandomNumberGenerator.GetInt32(minValue, maxValue);
     }
 }

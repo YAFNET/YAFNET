@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Data.SqlServer;
 
 /// <summary>
@@ -31,7 +32,7 @@ public class SqlServerDbAccess : DbAccessBase
     /// <summary>
     /// The provider type name.
     /// </summary>
-    public const string ProviderTypeName = "System.Data.SqlClient";
+    public const string ProviderTypeName = "Microsoft.Data.SqlClient";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SqlServerDbAccess"/> class.

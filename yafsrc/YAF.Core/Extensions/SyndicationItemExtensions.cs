@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,162 +21,170 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Extensions;
 
-using System;
-using System.Collections.Generic;
-using System.ServiceModel.Syndication;
-
-using YAF.Core.Services.Syndication;
-
-/// <summary>
-/// The syndication item extensions.
-/// </summary>
-public static class SyndicationItemExtensions
+namespace YAF.Core.Extensions
 {
-    /// <summary>
-    /// The add syndication item.
-    /// </summary>
-    /// <param name="currentList">
-    /// The current list.
-    /// </param>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    /// <param name="content">
-    /// The content.
-    /// </param>
-    /// <param name="summary">
-    /// The summary.
-    /// </param>
-    /// <param name="link">
-    /// The alternate link.
-    /// </param>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <param name="posted">
-    /// The posted.
-    /// </param>
-    /// <param name="feed">
-    /// The feed.
-    /// </param>
-    /// <param name="links">
-    /// The links.
-    /// </param>
-    public static void AddSyndicationItem(
-        this List<SyndicationItem> currentList,
-        string title,
-        string content,
-        string summary,
-        string link,
-        string id,
-        DateTime posted,
-        FeedItem feed,
-        List<SyndicationLink> links)
-    {
-        var si = new SyndicationItem(
-                     BoardContext.Current.Get<IBadWordReplace>().Replace(title),
-                     new TextSyndicationContent(
-                         BoardContext.Current.Get<IBadWordReplace>().Replace(content),
-                         TextSyndicationContentKind.Html),
-                     new Uri(link),
-                     id,
-                     new DateTimeOffset(posted)) { PublishDate = new DateTimeOffset(posted) };
+    using System;
+    using System.Collections.Generic;
+    using System.ServiceModel.Syndication;
 
-        links?.ForEach(syndicationLink => si.Links.Add(syndicationLink));
-
-        si.Authors.Add(
-            new SyndicationPerson(string.Empty, feed.Contributors[feed.Contributors.Count - 1].Name, string.Empty));
-        si.SourceFeed = feed;
-        if (summary.IsNotSet())
-        {
-            si.Summary = new TextSyndicationContent(
-                BoardContext.Current.Get<IBadWordReplace>().Replace(content),
-                TextSyndicationContentKind.Html);
-        }
-        else
-        {
-            si.Summary = new TextSyndicationContent(
-                BoardContext.Current.Get<IBadWordReplace>().Replace(summary),
-                TextSyndicationContentKind.Html);
-        }
-
-        currentList.Add(si);
-    }
+    using YAF.Core.Context;
+    using YAF.Core.Services;
+    using YAF.Core.Services.Syndication;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    
+    using DateTime = System.DateTime;
 
     /// <summary>
-    /// The add syndication item.
+    /// The syndication item extensions.
     /// </summary>
-    /// <param name="currentList">
-    /// The current list.
-    /// </param>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    /// <param name="content">
-    /// The content.
-    /// </param>
-    /// <param name="summary">
-    /// The summary.
-    /// </param>
-    /// <param name="link">
-    /// The alternate link.
-    /// </param>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <param name="posted">
-    /// The posted.
-    /// </param>
-    /// <param name="feed">
-    /// The feed.
-    /// </param>
-    public static void AddSyndicationItem(
-        this List<SyndicationItem> currentList,
-        string title,
-        string content,
-        string summary,
-        string link,
-        string id,
-        DateTime posted,
-        FeedItem feed)
+    public static class SyndicationItemExtensions
     {
-        AddSyndicationItem(currentList, title, content, summary, link, id, posted, feed, null);
-    }
-
-    /// <summary>
-    /// Add a new syndication person.
-    /// </summary>
-    /// <param name="userEmail">The email.</param>
-    /// <param name="userId">The user Id.</param>
-    /// <param name="userName">The user name.</param>
-    /// <param name="userDisplayName"> The user display name.</param>
-    /// <returns>The SyndicationPerson.</returns>
-    public static SyndicationPerson NewSyndicationPerson(
-        string userEmail,
-        int userId,
-        string userName,
-        string userDisplayName)
-    {
-        string userNameToShow;
-
-        if (BoardContext.Current.BoardSettings.EnableDisplayName)
+        /// <summary>
+        /// The add syndication item.
+        /// </summary>
+        /// <param name="currentList">
+        /// The current list.
+        /// </param>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <param name="content">
+        /// The content.
+        /// </param>
+        /// <param name="summary">
+        /// The summary.
+        /// </param>
+        /// <param name="link">
+        /// The alternate link.
+        /// </param>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <param name="posted">
+        /// The posted.
+        /// </param>
+        /// <param name="feed">
+        /// The feed.
+        /// </param>
+        /// <param name="links">
+        /// The links.
+        /// </param>
+        public static void AddSyndicationItem(
+            this List<SyndicationItem> currentList,
+            string title,
+            string content,
+            string summary,
+            string link,
+            string id,
+            DateTime posted,
+            FeedItem feed,
+            List<SyndicationLink> links)
         {
-            userNameToShow = userDisplayName.IsNotSet()
-                                 ? BoardContext.Current.Get<IUserDisplayName>().GetNameById(userId)
-                                 : userDisplayName;
-        }
-        else
-        {
-            userNameToShow = userName.IsNotSet()
-                                 ? BoardContext.Current.Get<IUserDisplayName>().GetNameById(userId)
-                                 : userName;
+            var si = new SyndicationItem(
+                BoardContext.Current.Get<IBadWordReplace>().Replace(title),
+                new TextSyndicationContent(
+                    BoardContext.Current.Get<IBadWordReplace>().Replace(content),
+                    TextSyndicationContentKind.Html),
+                new Uri(link),
+                id,
+                new DateTimeOffset(posted)) { PublishDate = new DateTimeOffset(posted) };
+
+            links?.ForEach(syndicationLink => si.Links.Add(syndicationLink));
+
+            si.Authors.Add(
+                new SyndicationPerson(string.Empty, feed.Contributors[^1].Name, string.Empty));
+            si.SourceFeed = feed;
+            if (summary.IsNotSet())
+            {
+                si.Summary = new TextSyndicationContent(
+                    BoardContext.Current.Get<IBadWordReplace>().Replace(content),
+                    TextSyndicationContentKind.Html);
+            }
+            else
+            {
+                si.Summary = new TextSyndicationContent(
+                    BoardContext.Current.Get<IBadWordReplace>().Replace(summary),
+                    TextSyndicationContentKind.Html);
+            }
+
+            currentList.Add(si);
         }
 
-        return new SyndicationPerson(
-            userEmail,
-            userNameToShow,
-            BoardContext.Current.Get<LinkBuilder>().GetUserProfileLink(userId, userNameToShow));
+        /// <summary>
+        /// The add syndication item.
+        /// </summary>
+        /// <param name="currentList">
+        /// The current list.
+        /// </param>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <param name="content">
+        /// The content.
+        /// </param>
+        /// <param name="summary">
+        /// The summary.
+        /// </param>
+        /// <param name="link">
+        /// The alternate link.
+        /// </param>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <param name="posted">
+        /// The posted.
+        /// </param>
+        /// <param name="feed">
+        /// The feed.
+        /// </param>
+        public static void AddSyndicationItem(
+            this List<SyndicationItem> currentList,
+            string title,
+            string content,
+            string summary,
+            string link,
+            string id,
+            DateTime posted,
+            FeedItem feed)
+        {
+            AddSyndicationItem(currentList, title, content, summary, link, id, posted, feed, null);
+        }
+
+        /// <summary>
+        /// Add a new syndication person.
+        /// </summary>
+        /// <param name="userEmail">The email.</param>
+        /// <param name="userId">The user Id.</param>
+        /// <param name="userName">The user name.</param>
+        /// <param name="userDisplayName"> The user display name.</param>
+        /// <returns>The SyndicationPerson.</returns>
+        public static SyndicationPerson NewSyndicationPerson(
+            string userEmail,
+            int userId,
+            string userName,
+            string userDisplayName)
+        {
+            string userNameToShow;
+
+            if (BoardContext.Current.BoardSettings.EnableDisplayName)
+            {
+                userNameToShow = userDisplayName.IsNotSet()
+                    ? BoardContext.Current.Get<IUserDisplayName>().GetNameById(userId)
+                    : userDisplayName;
+            }
+            else
+            {
+                userNameToShow = userName.IsNotSet()
+                    ? BoardContext.Current.Get<IUserDisplayName>().GetNameById(userId)
+                    : userName;
+            }
+
+            return new SyndicationPerson(
+                userEmail,
+                userNameToShow,
+                BoardContext.Current.Get<LinkBuilder>().GetUserProfileLink(userId, userNameToShow));
+        }
     }
 }

@@ -23,6 +23,8 @@
  */
 namespace YAF.Types.Objects.Nntp;
 
+using System.Collections;
+
 /// <summary>
 /// The article.
 /// </summary>

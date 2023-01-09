@@ -1,0 +1,31 @@
+﻿@using YAF.Core.Context
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Web.HtmlHelpers
+
+@inject BoardContext Current
+
+<script>
+    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CookieConsentJs()))
+</script>
+
+<div class="alert alert-dismissible text-center cookiealert" role="alert">
+    <h4 class="alert-heading">
+        @Html.LocalizedText("COMMON", "COOKIE_HEADER")
+    </h4>
+   
+    <form method="post">
+        <p>
+            @Html.LocalizedTextFormatted("COOKIE", Current.BoardSettings.Name)
+            <a asp-page="/Cookies" button-style="Link" 
+               text-localized-page="COOKIE" text-localized-tag="COOKIE_DETAILS">
+            </a>
+            <button type="submit" button-style="Primary" 
+                    onclick="addConsentCookie('YAF-AcceptCookies', 'true', 365)" 
+                    icon="check-square"
+                    data-bs-dismiss="alert" aria-label="Close"
+                    text-localized-page="COOKIE" text-localized-tag="COOKIE_AGREE">
+            </button>
+        </p>
+    </form>
+</div>

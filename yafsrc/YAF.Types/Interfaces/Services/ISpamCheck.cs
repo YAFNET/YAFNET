@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Services;
+namespace YAF.Types.Interfaces;
 
 /// <summary>
 /// Spam Check Interface

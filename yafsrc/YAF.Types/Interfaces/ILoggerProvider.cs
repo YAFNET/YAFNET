@@ -21,15 +21,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces;
-
-using YAF.Types.Interfaces.Services;
-
-/// <summary>
-/// The i logger provider.
-/// </summary>
-public interface ILoggerProvider
+/*namespace YAF.Types.Interfaces
 {
+  #region Using
+
+  using System;
+
+  using YAF.Types.Interfaces.Services;
+
+  #endregion
+
+  /// <summary>
+  /// The i logger provider.
+  /// </summary>
+  public interface ILoggerProvider
+  {
+    #region Public Methods
+
     /// <summary>
     /// The create.
     /// </summary>
@@ -39,4 +47,7 @@ public interface ILoggerProvider
     /// <returns>
     /// </returns>
     ILoggerService Create([CanBeNull] Type type);
-}
+
+    #endregion
+  }
+}*/

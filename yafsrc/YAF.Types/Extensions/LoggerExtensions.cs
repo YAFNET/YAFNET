@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -23,8 +23,10 @@
  */
 namespace YAF.Types.Extensions;
 
+using Microsoft.Extensions.Logging;
+
 using YAF.Types.Constants;
-using YAF.Types.Interfaces.Services;
+using YAF.Types.Models;
 
 /// <summary>
 ///     The logger extensions.
@@ -40,9 +42,14 @@ public static class LoggerExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void Debug(this ILoggerService logger, [NotNull] string message)
+    public static void Debug(this ILogger logger, [NotNull] string message)
     {
-        logger.Log(message, EventLogTypes.Debug);
+        var logEntry = new EventLog { Type = EventLogTypes.Debug.ToInt() };
+
+        using (logger.BeginScope(logEntry))
+        {
+            logger.Log(LogLevel.Debug, message);
+        }
     }
 
     /// <summary>
@@ -57,9 +64,14 @@ public static class LoggerExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void Error(this ILoggerService logger, Exception ex, [NotNull] string message)
+    public static void Error(this ILogger logger, Exception ex, [NotNull] string message)
     {
-        logger.Log(message, EventLogTypes.Error, exception: ex);
+        var logEntry = new EventLog { Type = EventLogTypes.Error.ToInt(), Description = ex.ToString()};
+
+        using (logger.BeginScope(logEntry))
+        {
+            logger.Log(LogLevel.Error, message);
+        }
     }
 
     /// <summary>
@@ -71,9 +83,14 @@ public static class LoggerExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void Info(this ILoggerService logger, [NotNull] string message)
+    public static void Info(this ILogger logger, [NotNull] string message)
     {
-        logger.Log(message, EventLogTypes.Information);
+        var logEntry = new EventLog {Type = EventLogTypes.Information.ToInt()};
+
+        using (logger.BeginScope(logEntry))
+        {
+            logger.Log(LogLevel.Information, message);
+        }
     }
 
     /// <summary>
@@ -88,14 +105,16 @@ public static class LoggerExtensions
     /// <param name="description">
     /// The description.
     /// </param>
-    public static void UserDeleted(
-        [NotNull] this ILoggerService logger,
-        [CanBeNull] int? userId,
-        [NotNull] string description)
+    public static void UserDeleted([NotNull] this ILogger logger, [CanBeNull] int? userId, [NotNull] string description)
     {
         CodeContracts.VerifyNotNull(logger);
 
-        logger.Log(description, EventLogTypes.UserDeleted, userId, "User Deleted");
+        var logEntry = new EventLog { Type = EventLogTypes.UserDeleted.ToInt(), Source = "User Deleted", UserID = userId};
+
+        using (logger.BeginScope(logEntry))
+        {
+            logger.Log(LogLevel.Information, description);
+        }
     }
 
     /// <summary>
@@ -111,13 +130,18 @@ public static class LoggerExtensions
     /// The description.
     /// </param>
     public static void SpamMessageDetected(
-        [NotNull] this ILoggerService logger,
+        [NotNull] this ILogger logger,
         [CanBeNull] int? userId,
         [NotNull] string description)
     {
         CodeContracts.VerifyNotNull(logger);
 
-        logger.Log(description, EventLogTypes.SpamMessageDetected, userId, "Spam Message Detected");
+        var logEntry = new EventLog { Type = EventLogTypes.SpamMessageDetected.ToInt(), Source = "Spam Message Detected", UserID = userId };
+
+        using (logger.BeginScope(logEntry))
+        {
+            logger.Log(LogLevel.Information, description);
+        }
     }
 
     /// <summary>
@@ -133,13 +157,57 @@ public static class LoggerExtensions
     /// The description.
     /// </param>
     public static void SpamBotDetected(
-        [NotNull] this ILoggerService logger,
+        [NotNull] this ILogger logger,
         [CanBeNull] int? userId,
         [NotNull] string description)
     {
         CodeContracts.VerifyNotNull(logger);
 
-        logger.Log(description, EventLogTypes.SpamBotDetected, userId, "Bot Detected");
+        var logEntry = new EventLog { Type = EventLogTypes.SpamBotDetected.ToInt(), Source = "Bot Detected", UserID = userId };
+
+        using (logger.BeginScope(logEntry))
+        {
+            logger.Log(LogLevel.Information, description);
+        }
+    }
+
+    /// <summary>
+    /// The log.
+    /// </summary>
+    /// <param name="logger">
+    /// The logger.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="eventType">
+    /// The event type.
+    /// </param>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="exception">
+    /// The exception.
+    /// </param>
+    public static void Log(
+        [NotNull] this ILogger logger,
+        string message,
+        EventLogTypes eventType = EventLogTypes.Error,
+        int? userId = null,
+        string source = null,
+        Exception exception = null)
+    {
+        CodeContracts.VerifyNotNull(logger);
+
+        var logEntry = new EventLog { Type = eventType.ToInt(), Source = source, UserID = userId, Exception = exception};
+
+        using (logger.BeginScope(logEntry))
+        {
+            logger.Log(LogLevel.Information, message);
+        }
     }
 
     /// <summary>
@@ -161,7 +229,7 @@ public static class LoggerExtensions
     /// The event type.
     /// </param>
     public static void Log(
-        [NotNull] this ILoggerService logger,
+        [NotNull] this ILogger logger,
         [CanBeNull] int? userId,
         [CanBeNull] object source,
         [NotNull] string description,
@@ -180,24 +248,12 @@ public static class LoggerExtensions
             sourceDescription = source.ToString();
         }
 
-        logger.Log(description, eventType, userId, sourceDescription);
-    }
+        var logEntry = new EventLog { Type = eventType.ToInt(), Source = sourceDescription, UserID = userId };
 
-    /// <summary>
-    /// The trace.
-    /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public static void Trace(this ILoggerService logger, [NotNull] string format, [NotNull] params object[] args)
-    {
-        logger.Log(string.Format(format, args), EventLogTypes.Trace);
+        using (logger.BeginScope(logEntry))
+        {
+            logger.Log(LogLevel.Error, description);
+        }
     }
 
     /// <summary>
@@ -212,28 +268,13 @@ public static class LoggerExtensions
     /// <param name="args">
     /// The args.
     /// </param>
-    public static void Warn(this ILoggerService logger, [NotNull] string format, [NotNull] params object[] args)
+    public static void Warn(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
     {
-        logger.Log(string.Format(format, args), EventLogTypes.Warning);
-    }
+        var logEntry = new EventLog { Type = EventLogTypes.Warning.ToInt() };
 
-    /// <summary>
-    /// The warn.
-    /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    /// <param name="ex">
-    /// The ex.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    public static void Warn(this ILoggerService logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
-    {
-        logger.Log(string.Format(format, args), EventLogTypes.Warning, exception: ex);
+        using (logger.BeginScope(logEntry))
+        {
+            logger.Log(LogLevel.Warning, string.Format(format, args));
+        }
     }
 }

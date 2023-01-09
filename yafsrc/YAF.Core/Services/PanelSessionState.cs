@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,7 +25,7 @@ namespace YAF.Core.Services;
 
 using System;
 
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The panel session state.
@@ -40,16 +40,18 @@ public class PanelSessionState : IPanelSessionState
         // Ederon : 7/14/2007
         get
         {
+            var context = BoardContext.Current.Get<IHttpContextAccessor>().HttpContext;
+
             var sessionPanelID = $"panelstate_{panelID}";
 
             // try to get panel state from session state first
-            if (BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)
+            if (context.Session.GetString(sessionPanelID).IsSet())
             {
-                return (CollapsiblePanelState)BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID];
+                return context.Session.GetData<CollapsiblePanelState>(sessionPanelID);
             }
 
             // if no panel state info is in session state, try cookie
-            if (BoardContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID] == null)
+            if (context.Request.Cookies[sessionPanelID] == null)
             {
                 return CollapsiblePanelState.None;
             }
@@ -57,47 +59,38 @@ public class PanelSessionState : IPanelSessionState
             try
             {
                 // we must convert string to int, better get is safe
-                if (BoardContext.Current.Get<HttpRequestBase>() != null)
-                {
-                    return (CollapsiblePanelState)int.Parse(
-                        BoardContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID].Value);
-                }
+                return (CollapsiblePanelState)int.Parse(
+                    context.Request.Cookies[sessionPanelID]);
             }
             catch
             {
                 // in case cookie has wrong value
-                if (BoardContext.Current.Get<HttpRequestBase>() != null)
-                {
-                    BoardContext.Current.Get<HttpRequestBase>().Cookies
-                        .Remove(sessionPanelID); // scrap wrong cookie
-                }
+                context.Request.Cookies.Keys
+                    .Remove(sessionPanelID); // scrap wrong cookie
 
                 return CollapsiblePanelState.None;
             }
-
-            return CollapsiblePanelState.None;
         }
 
         // Ederon : 7/14/2007
         set
         {
+            var context = BoardContext.Current.Get<IHttpContextAccessor>().HttpContext;
+
             var sessionPanelID = $"panelstate_{panelID}";
 
-            BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
+            context.Session.SetData(sessionPanelID, value);
 
             // create persistent cookie with visibility setting for panel
-            var c = new HttpCookie(sessionPanelID, ((int)value).ToString())
-                        {
-                            Expires = DateTime.UtcNow.AddYears(1), HttpOnly = true,
-                            Secure = BoardContext.Current.Get<HttpRequestBase>().IsSecureConnection
-                        };
-
-            BoardContext.Current.Get<HttpResponseBase>().SetCookie(c);
+            context.Response.Cookies.Append(
+                sessionPanelID,
+                ((int)value).ToString(),
+                new CookieOptions { Expires = DateTime.UtcNow.AddYears(1) });
         }
     }
 
     /// <summary>
-    /// The toggle panel state.
+    /// Toggle Panel State
     /// </summary>
     /// <param name="panelID">
     /// The panel id.

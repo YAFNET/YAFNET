@@ -21,12 +21,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BaseModules;
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The module scanner

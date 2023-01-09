@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -24,12 +24,10 @@
 namespace YAF.Core.Services;
 
 using System;
-using System.Collections.Generic;
 
 using YAF.Core.Model;
-using YAF.Types.Constants;
+using YAF.Types.Attributes;
 using YAF.Types.Models;
-using YAF.Types.Objects.Model;
 
 /// <summary>
 /// YAF Friends service
@@ -80,9 +78,9 @@ public class Friends : IFriends, IHaveServiceLocator
     /// </param>
     public void ApproveAllRequests(bool mutual)
     {
-        var dt = this.ListAll().Where(x => x.Approved && x.UserID == BoardContext.Current.PageUserID);
+        var users = this.GetRepository<Buddy>().GetReceivedRequests(BoardContext.Current.PageUserID);
 
-        dt.ForEach(drv => this.ApproveRequest(drv.FromUserID, mutual));
+        users.ForEach(user => this.ApproveRequest(user.UserID, mutual));
     }
 
     /// <summary>
@@ -108,20 +106,6 @@ public class Friends : IFriends, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Gets all the buddies of the current user.
-    /// </summary>
-    /// <returns>
-    /// A <see cref="List"/> of all buddies.
-    /// </returns>
-    public List<BuddyUser> ListAll()
-    {
-        return this.Get<IDataCache>().GetOrSet(
-            string.Format(Constants.Cache.UserBuddies, BoardContext.Current.PageUserID),
-            () => this.GetRepository<Buddy>().ListAll(BoardContext.Current.PageUserID),
-            TimeSpan.FromMinutes(10));
-    }
-
-    /// <summary>
     /// Clears the buddies cache for the current user.
     /// </summary>
     /// <param name="userId">The user identifier.</param>
@@ -136,18 +120,16 @@ public class Friends : IFriends, IHaveServiceLocator
     /// </summary>
     public void DenyAllRequests()
     {
-        var dt = this.ListAll()
-            .Where(x => x.Approved == false && x.UserID == BoardContext.Current.PageUserID);
+        var users = this.GetRepository<Buddy>().GetReceivedRequests(BoardContext.Current.PageUserID).Where(x => Convert.ToDateTime(x.Requested).AddDays(14) < DateTime.UtcNow);
 
-        dt.Where(x => Convert.ToDateTime(x.Requested).AddDays(14) < DateTime.UtcNow)
-            .ForEach(x => this.DenyRequest(x.FromUserID));
+        users.ForEach(user => this.DenyRequest(user.UserID));
     }
 
     /// <summary>
     /// Denies a buddy request.
     /// </summary>
     /// <param name="fromUserId">
-    /// The from User Id.
+    /// The from PageUser Id.
     /// </param>
     public void DenyRequest(int fromUserId)
     {
@@ -159,62 +141,26 @@ public class Friends : IFriends, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Gets all the buddies for the specified user.
-    /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
-    public List<BuddyUser> GetForUser(int userId)
-    {
-        return this.GetRepository<Buddy>().ListAll(userId);
-    }
-
-    /// <summary>
     /// determines if the "<paramref name="buddyUserId"/>" and current user are buddies.
     /// </summary>
     /// <param name="buddyUserId">
-    /// The Buddy User ID.
-    /// </param>
-    /// <param name="approved">
-    /// Just look into approved buddies?
+    /// The Buddy PageUser ID.
     /// </param>
     /// <returns>
     /// true if they are buddies, <see langword="false"/> if not.
     /// </returns>
-    public bool IsBuddy(int buddyUserId, bool approved)
+    public bool IsBuddy(int buddyUserId)
     {
         if (buddyUserId == BoardContext.Current.PageUserID)
         {
             return true;
         }
 
-        var userBuddyList = this.Get<IFriends>().ListAll();
+        var userBuddyList = this.GetRepository<Buddy>().Get(
+            x => x.ToUserID == BoardContext.Current.PageUserID && x.FromUserID == buddyUserId
+                 || x.ToUserID == buddyUserId && x.FromUserID == BoardContext.Current.PageUserID);
 
-        if (userBuddyList.NullOrEmpty())
-        {
-            return false;
-        }
-
-        // Filter
-        if (approved)
-        {
-            if (userBuddyList.Any(x => x.UserID == buddyUserId && x.Approved))
-            {
-                return true;
-            }
-        }
-        else
-        {
-            if (userBuddyList.Any(x => x.UserID == buddyUserId))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return !userBuddyList.NullOrEmpty();
     }
 
     /// <summary>

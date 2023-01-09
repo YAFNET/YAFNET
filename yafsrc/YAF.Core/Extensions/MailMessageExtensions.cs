@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,9 +24,9 @@
 
 namespace YAF.Core.Extensions;
 
-using System.Net.Mail;
-using System.Net.Mime;
-using System.Text;
+using MimeKit;
+
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The mail message extensions.
@@ -45,12 +45,12 @@ public static class MailMessageExtensions
     /// <param name="bodyHtml">The body html.</param>
     [NotNull]
     public static void Populate(
-        [NotNull] this MailMessage mailMessage,
-        [NotNull] MailAddress fromAddress,
-        [NotNull] MailAddress toAddress,
-        [NotNull] MailAddress senderAddress,
-        [CanBeNull] string subject,
-        [CanBeNull] string bodyText,
+        [NotNull] this MimeMessage mailMessage, 
+        [NotNull] MailboxAddress fromAddress, 
+        [NotNull] MailboxAddress toAddress, 
+        [NotNull] MailboxAddress senderAddress,
+        [CanBeNull] string subject, 
+        [CanBeNull] string bodyText, 
         [CanBeNull] string bodyHtml)
     {
         CodeContracts.VerifyNotNull(mailMessage);
@@ -58,25 +58,14 @@ public static class MailMessageExtensions
         CodeContracts.VerifyNotNull(toAddress);
 
         mailMessage.To.Add(toAddress);
-        mailMessage.From = fromAddress;
+        mailMessage.From.Add(fromAddress);
 
         mailMessage.Sender = senderAddress;
 
         mailMessage.Subject = subject;
 
-        mailMessage.HeadersEncoding = Encoding.UTF8;
-        mailMessage.BodyEncoding = Encoding.UTF8;
-        mailMessage.SubjectEncoding = Encoding.UTF8;
+        var builder = new BodyBuilder { TextBody = bodyText, HtmlBody = bodyHtml };
 
-        // add default text view
-        mailMessage.AlternateViews.Add(
-            AlternateView.CreateAlternateViewFromString(bodyText, Encoding.UTF8, MediaTypeNames.Text.Plain));
-
-        // see if html alternative is also desired...
-        if (bodyHtml.IsSet())
-        {
-            mailMessage.AlternateViews.Add(
-                AlternateView.CreateAlternateViewFromString(bodyHtml, Encoding.UTF8, MediaTypeNames.Text.Html));
-        }
+        mailMessage.Body = builder.ToMessageBody();
     }
 }

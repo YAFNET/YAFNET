@@ -25,6 +25,7 @@
 namespace YAF.Core.Context;
 
 using YAF.Configuration.Pattern;
+using YAF.Types.Attributes;
 
 /// <summary>
 /// Place to put helper properties for context variables inside.

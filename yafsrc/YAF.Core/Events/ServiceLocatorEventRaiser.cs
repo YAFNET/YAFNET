@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,10 +21,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Events;
 
 using System;
 using System.Collections.Generic;
+
+using Microsoft.Extensions.Logging;
+
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The service locator event raiser.
@@ -45,7 +50,7 @@ public class ServiceLocatorEventRaiser : IRaiseEvent
     /// <param name="logger">
     /// The logger.
     /// </param>
-    public ServiceLocatorEventRaiser([NotNull] IServiceLocator serviceLocator, ILoggerService logger)
+    public ServiceLocatorEventRaiser([NotNull] IServiceLocator serviceLocator, ILogger<ServiceLocatorEventRaiser> logger)
     {
         this.Logger = logger;
         this._serviceLocator = serviceLocator;
@@ -54,7 +59,7 @@ public class ServiceLocatorEventRaiser : IRaiseEvent
     /// <summary>
     ///     Gets or sets the logger.
     /// </summary>
-    public ILoggerService Logger { get; set; }
+    public ILogger Logger { get; set; }
 
     /// <summary>
     /// The event raiser.

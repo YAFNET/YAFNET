@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
+@using YAF.Types.Interfaces
+
+@inject ILocalization Localization;
+
+@model YAF.Types.Modals.InstallModal
+
+@{
+    Layout = "_LayoutInstall";
+
+    var requestCultureFeature = BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.Features.Get<IRequestCultureFeature>();
+    var requestCulture = requestCultureFeature.RequestCulture;
+
+    Localization.TransPage = "INSTALL";
+}
+
+<form method="post">
+    <div class="modal-body">
+        <h4>
+            @Localization.GetText("WelcomeInstall")
+        </h4>
+        <p class="text-muted">
+            @Localization.GetText("WelcomeInstallDesc")
+        </p>
+        <p>
+            @Localization.GetText("WelcomeInstallText")
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button Icon="arrow-alt-circle-right"
+                button-style="Primary"
+                asp-page-handler="InstallTestSettings"
+                asp-route-culture="@requestCulture.Culture.Name"
+                Text="@Localization.GetText("Next")"></button>
+    </div>
+</form>

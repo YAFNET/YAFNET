@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Models.Identity;
 
-using Microsoft.AspNet.Identity;
-
 using ServiceStack.Model;
 
 /// <summary>
@@ -72,7 +70,7 @@ public class AspNetRoles : AspNetRoles<string>
 /// </summary>
 /// <typeparam name="TKey">
 /// </typeparam>
-public class AspNetRoles<TKey> : IRole<TKey>, IEntity, IHasId<TKey>
+public class AspNetRoles<TKey> : IEntity, IHasId<TKey>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="AspNetRoles{TKey}"/> class. 

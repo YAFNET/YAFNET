@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,12 +21,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BBCode;
 
 using System.Collections.Generic;
-using System.Text;
-
-using YAF.Core.Utilities;
 
 /// <summary>
 /// Handles the collection of replacement tags and can also pull the HTML out of the text making a new replacement tag
@@ -46,7 +44,7 @@ public class ReplaceBlocksCollection : IReplaceBlocks
     /// <summary>
     ///  REPLACEMENT UNIQUE VALUE -- USED TO CREATE A UNIQUE VALUE TO REPLACE -- IT IS NOT SUPPOSED TO BE HUMAN READABLE.
     /// </summary>
-    private const string replaceFormat = "÷ñÒ{1}êÖ{0}õæ÷";
+    private const string ReplaceFormat = "÷ñÒ{1}êÖ{0}õæ÷";
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "ReplaceBlocksCollection" /> class.
@@ -88,7 +86,7 @@ public class ReplaceBlocksCollection : IReplaceBlocks
     /// </returns>
     public string Get(int index)
     {
-        return string.Format(replaceFormat, index, this.randomInstance);
+        return string.Format(ReplaceFormat, index, this.randomInstance);
     }
 
     /// <summary>

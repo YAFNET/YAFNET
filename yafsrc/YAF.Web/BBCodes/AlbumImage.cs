@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,7 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Web.BBCodes;
+
+using Microsoft.AspNetCore.Mvc;
+
+using YAF.Types.Attributes;
 
 /// <summary>
 /// The Album Image BB Code Module.
@@ -31,33 +36,33 @@ public class AlbumImage : BBCodeControl
     /// <summary>
     /// Render The Album Image as Link with Image
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
+    /// <param name="stringBuilder">
+    /// The string Builder.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    public override void Render([NotNull] StringBuilder stringBuilder)
     {
-        writer.Write(
+        stringBuilder.AppendFormat(
             @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
-            this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
+            this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
 
-        writer.Write(
-            @"<a href=""{0}resource.ashx?image={1}"" data-gallery=""#blueimp-gallery-{2}"" title=""{1}"">",
-            BoardInfo.ForumClientFileRoot,
+        stringBuilder.AppendFormat(
+            @"<a href=""{0}"" data-gallery=""#blueimp-gallery-{2}"" title=""{1}"">",
+            this.Get<IUrlHelper>().Action("GetImage", "Albums", new { imageId = this.Parameters["inner"] }),
             this.Parameters["inner"],
             this.MessageID.Value);
 
-        writer.Write(
-            @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted card-img-top"" style=""max-height:{2}px"" alt=""{1}"">",
-            BoardInfo.ForumClientFileRoot,
+        stringBuilder.AppendFormat(
+            @"<img src=""{0}"" class=""img-user-posted card-img-top"" style=""max-height:{2}px"" alt=""{1}"">",
+            this.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId = this.Parameters["inner"] }),
             this.Parameters["inner"],
-            this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight);
+            this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
 
-        writer.Write("</a>");
+        stringBuilder.Append("</a>");
 
-        writer.Write(@"<div class=""card-body py-1"">");
+        stringBuilder.Append(@"<div class=""card-body py-1"">");
 
-        writer.Write(@"<p class=""card-text text-center small"">{0}</p>", this.GetText("IMAGE_RESIZE_ENLARGE"));
+        stringBuilder.Append($@"<p class=""card-text text-center small"">{this.GetText("IMAGE_RESIZE_ENLARGE")}</p>");
 
-        writer.Write(@"</div></div>");
+        stringBuilder.Append(@"</div></div>");
     }
 }

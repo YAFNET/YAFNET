@@ -1,0 +1,55 @@
+@page "{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Web.HtmlHelpers
+@model PmModel
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("envelope-square","ADMIN_PM","HEADER")
+                </div>
+                <div class="card-body">
+                    <alert type="info" icon="info-circle">
+                        @Html.Icon("info-circle")
+                        @Html.LocalizedText("PM_NUMBER" )
+                        <span class="badge bg-info">@Model.Input.Count</span>
+                    </alert>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" asp-for="Input.Days1" localized-tag="DELETE_READ">
+                            </label>
+                            <div class="input-group">
+                                <input type="number" asp-for="Input.Days1"
+                                       class="form-control" data-min="1" min="1" />
+                                <div class="input-group-text">
+                                    @Html.LocalizedText("DAYS")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" asp-for="Input.Days2" localized-tag="DELETE_UNREAD">
+                            </label>
+                            <div class="input-group">
+                                <input type="number" asp-for="Input.Days2"
+                                       class="form-control" data-min="1" min="1" />
+                                <div class="input-group-text">
+                                    @Html.LocalizedText("DAYS")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button button-style="Primary"
+                            Icon="trash" text-localized-tag="DELETE" text-localized-page="COMMON"
+                            return-confirm-tag="CONFIRM_DELETE"
+                            asp-page-handler="Confirm">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,241 @@
+﻿@page "{handler?}"
+
+@using YAF.Core.Extensions
+@using YAF.Core.Model
+@using YAF.Core.Services
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Objects.Model
+@model TeamModel
+
+<div class="row">
+    <div class="col-xl-12">
+        <h1>
+            @Html.LocalizedText("TEAM", "TITLE")
+        </h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                @Html.IconHeader("user-shield", "TEAM", "ADMINS")
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    @foreach (var user in Model.Admins)
+                    {
+                        <li class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between mb-3">
+                                <h5 class="mb-1 text-break">
+                                    <img style="width: 40px;height:40px" class="rounded img-fluid" title="avatar"
+                                         src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(user))" />
+                                    @Html.UserLink(user)
+                                </h5>
+                                <small>
+                                    <span class="fw-bold">
+                                        @Html.LocalizedText("FORUMS"):
+                                    </span>
+                                    @Html.LocalizedText("TEAM", "FORUMS_ALL")
+                                </small>
+                            </div>
+                            <div class="small">
+                                <div class="btn-group" role="group">
+                                    <form method="post">
+                                        @if (user.ID != Model.PageBoardContext.PageUserID)
+                                        {
+                                            var isFriend = Model.Get<IFriends>().IsBuddy(user.ID);
+
+                                            @if (!Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.AllowPrivateMessages)
+                                            {
+                                                var showPm = !user.Block.BlockPMs || Model.PageBoardContext.IsAdmin || isFriend;
+
+                                                @if (showPm)
+                                                {
+                                                    <a role="button"
+                                                       button-style="Secondary"
+                                                       button-size="Small"
+                                                       icon="envelope"
+                                                       text-localized-page="POSTS"
+                                                       text-localized-tag="PM"
+                                                       title-localized-page="POSTS"
+                                                       title-localized-tag="PM_TITLE"
+                                                       title-param0="@user.DisplayOrUserName()"
+                                                       bs-toggle="tooltip"
+                                                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { u = user.ID }))">
+                                                    </a>
+                                                }
+                                            }
+
+                                            @if (!Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.AllowEmailSending)
+                                            {
+                                                var showEmail = !user.Block.BlockEmails || Model.PageBoardContext.IsAdmin || isFriend;
+
+                                                @if (showEmail)
+                                                {
+                                                    <a role="button"
+                                                       button-style="Secondary"
+                                                       button-size="Small"
+                                                       icon="at"
+                                                       text-localized-page="POSTS"
+                                                       text-localized-tag="EMAIL"
+                                                       title-localized-page="POSTS"
+                                                       title-localized-tag="EMAIL_TITLE"
+                                                       title-param0="@user.DisplayOrUserName()"
+                                                       bs-toggle="tooltip"
+                                                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = user.ID }))">
+                                                    </a>
+                                                }
+                                            }
+                                        }
+
+
+                                        @if (Model.PageBoardContext.IsAdmin)
+                                        {
+                                            <a role="button"
+                                               button-style="Danger"
+                                               button-size="Small"
+                                               icon="user-cog"
+                                               text-localized-page="PROFILE"
+                                               text-localized-tag="ADMIN_USER"
+                                               title-localized-page="PROFILE"
+                                               title-localized-tag="ADMIN_USER"
+                                               bs-toggle="tooltip"
+                                               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = user.ID }))"></a>
+                                        }
+
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    @if (!Model.CompleteMods.NullOrEmpty())
+    {
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("user-secret", "TEAM", "MODS")
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @for (var index = 0; index < Model.CompleteMods.Count; index++)
+                        {
+                            var mod = Model.CompleteMods[index];
+
+                            var forums = mod.ForumIDs.Select(forumsItem => forumsItem);
+
+                            var sortedForums = Model.GetRepository<Types.Models.Forum>().SortModeratorList(forums);
+
+                            var modForums = new SelectList(sortedForums, nameof(ForumSorted.ForumID), nameof(ForumSorted.Forum), null, nameof(ForumSorted.Category))
+                                .ToList();
+
+                            modForums.Insert(0, new SelectListItem());
+
+                            var placeHolder = Model.Get<ILocalization>().GetTextFormatted("VIEW_FORUMS", forums.Count());
+
+                            <li class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between mb-3">
+                                    <h5 class="mb-1 text-break">
+                                        <img style="width: 40px;height:40px" class="rounded img-fluid" title="avatar"
+                                             alt="avatar"
+                                             src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(mod.ModeratorID, mod.Avatar, mod.AvatarImage != null))" />
+                                        @Html.UserLink(mod.ModeratorID, Model.PageBoardContext.BoardSettings.EnableDisplayName ? mod.DisplayName : mod.Name, mod.Suspended, mod.Style)
+                                    </h5>
+                                </div>
+
+                                <span class="fw-bold">
+                                    @Html.LocalizedText("FORUMS"):
+                                </span>
+                                <form method="post">
+                                    <div class="input-group mb-3">
+                                        <select asp-for="@Model.CompleteMods[index].SelectedForumId" class="select2-image-select" asp-list="@modForums" 
+                                                icon-item="comments"
+                                                onchange="this.form.submit();"
+                                                placeholder="@placeHolder">
+                                        </select>
+                                    </div>
+                                </form>
+                                <div class="small">
+                                    <div class="btn-group" role="group">
+                                        <form method="post">
+                                            @if (mod.ModeratorID != Model.PageBoardContext.PageUserID)
+                                            {
+                                                var isFriend = Model.Get<IFriends>().IsBuddy(mod.ModeratorID);
+
+                                                @if (!Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.AllowPrivateMessages)
+                                                {
+                                                    var showPm = !mod.UserBlockFlags.BlockPMs || Model.PageBoardContext.IsAdmin || isFriend;
+
+                                                    @if (showPm)
+                                                    {
+                                                        <a role="button"
+                                                           button-style="Secondary"
+                                                           button-size="Small"
+                                                           icon="envelope"
+                                                           text-localized-page="POSTS"
+                                                           text-localized-tag="PM"
+                                                           title-localized-page="POSTS"
+                                                           title-localized-tag="PM_TITLE"
+                                                           title-param0="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? mod.DisplayName : mod.Name)"
+                                                           bs-toggle="tooltip"
+                                                           href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { u = mod.ModeratorID }))">
+                                                        </a>
+                                                    }
+                                                }
+
+                                                @if (!Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.AllowEmailSending)
+                                                {
+                                                    var showEmail = !mod.UserBlockFlags.BlockEmails || Model.PageBoardContext.IsAdmin || isFriend;
+
+                                                    @if (showEmail)
+                                                    {
+                                                        <a role="button"
+                                                           button-style="Secondary"
+                                                           button-size="Small"
+                                                           icon="at"
+                                                           text-localized-page="POSTS"
+                                                           text-localized-tag="EMAIL"
+                                                           title-localized-page="POSTS"
+                                                           title-localized-tag="EMAIL_TITLE"
+                                                           title-param0="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? mod.DisplayName : mod.Name)"
+                                                           bs-toggle="tooltip"
+                                                           href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = mod.ModeratorID }))">
+                                                        </a>
+                                                    }
+                                                }
+                                            }
+
+
+                                            @if (Model.PageBoardContext.IsAdmin)
+                                            {
+                                                <a role="button"
+                                                   button-style="Danger"
+                                                   button-size="Small"
+                                                   icon="user-cog"
+                                                   text-localized-page="PROFILE"
+                                                   text-localized-tag="ADMIN_USER"
+                                                   title-localized-page="PROFILE"
+                                                   title-localized-tag="ADMIN_USER"
+                                                   bs-toggle="tooltip"
+                                                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = mod.ModeratorID }))"></a>
+                                            }
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>

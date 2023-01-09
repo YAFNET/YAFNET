@@ -1,0 +1,181 @@
+﻿@page "{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Web.TagHelpers
+
+@model FriendsModel
+
+@{
+    var mode = Model.Mode.ToEnum<FriendMode>();
+}
+
+<div class="row">
+    <div class="col-sm-auto">
+        <profileMenu></profileMenu>
+    </div>
+    <div class="col">
+        <div class="row">
+            <form method="post">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                @Html.Icon("user-friends")
+                                @Html.Raw(Model.Header)
+                            </div>
+                            <div class="col">
+                                <select asp-for="Mode"
+                                        asp-items="@Model.FriendListModes"
+                                        aria-label="friend mode"
+                                        class="form-select w-25"
+                                        onchange="this.form.submit();"></select>
+                            </div>
+                            <div class="col-auto">
+                                <div class="input-group input-group-sm me-2" role="group">
+                                    <div class="input-group-text">
+                                        @Html.LocalizedText("SHOW"):
+                                    </div>
+                   
+                                    <select asp-for="@Model.Size"
+                                            asp-items="Model.PageSizeList"
+                                            title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                            aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                            class="form-select"
+                                            onchange="this.form.submit();"></select>
+                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Model.ListView.NullOrEmpty())
+                    {
+                        <div class="card-body">
+                            @if (mode == FriendMode.Friends)
+                            {
+                                <alert type="info" icon="info" localized-tag="INFO_NO"></alert>
+                            }
+                            else
+                            {
+                                <alert type="success" icon="check" localized-tag="INFO_PENDING"></alert>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card-body">
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-2">
+
+                                @foreach (var item in Model.ListView)
+                                {
+                                    <div class="col">
+                                        <div class="card shadow-sm">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <img class="img-thumbnail" src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(
+                                                                                            item.UserID,
+                                                                                            item.Avatar,
+                                                                                            item.AvatarImage != null))"
+                                                             alt="@Html.Raw(Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name)" />
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        @Html.UserLink(item.UserID,
+                                                            Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name,
+                                                            item.Suspended,
+                                                            item.UserStyle)
+
+                                                        @if (mode == FriendMode.SendRequests)
+                                                        {
+                                                            @Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(item.Requested))
+                                                        }
+
+                                                        <div class="btn-group" role="group">
+                                                            @if (mode == FriendMode.SendRequests)
+                                                            {
+                                                                <button text-localized-tag="REMOVE"
+                                                                        asp-page-handler="RemoveRequest"
+                                                                        asp-route-userId="@(item.UserID)"
+                                                                        button-size="Small"
+                                                                        button-style="Danger"
+                                                                        Icon="trash"></button>
+                                                            }
+
+                                                            @if (mode == FriendMode.Friends)
+                                                            {
+                                                                <button text-localized-tag="REMOVEBUDDY"
+                                                                        return-confirm-tag="NOTIFICATION_REMOVE"
+                                                                        asp-page-handler="Remove"
+                                                                        asp-route-userId="@(item.UserID)"
+                                                                        button-size="Small"
+                                                                        button-style="Danger"
+                                                                        Icon="trash"></button>
+                                                            }
+
+                                                            @if (mode == FriendMode.ReceivedRequests)
+                                                            {
+                                                                <button button-size="Small"
+                                                                        asp-page-handler="Approve"
+                                                                        asp-route-userId="@(item.UserID)"
+                                                                        text-localized-tag="APPROVE"
+                                                                        button-style="Success"
+                                                                        Icon="check"></button>
+                                                                <button button-size="Small"
+                                                                        asp-page-handler="ApproveAdd"
+                                                                        asp-route-userId="@(item.UserID)"
+                                                                        text-localized-tag="APPROVE_ADD"
+                                                                        button-style="Success"
+                                                                        Icon="check"></button>
+                                                                <button button-size="Small"
+                                                                        return-confirm-tag="NOTIFICATION_DENY"
+                                                                        asp-page-handler="Deny"
+                                                                        asp-route-userId="@(item.UserID)"
+                                                                        text-localized-tag="DENY"
+                                                                        button-style="Danger"
+                                                                        Icon="times-circle"></button>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                            <pager page-size="@Model.Size"
+                                   count="Model.ListCount">
+                            </pager>
+                            
+                        </div>
+
+                        @if (mode == FriendMode.ReceivedRequests)
+                        {
+                            <div class="card-footer">
+                                <button return-confirm-tag="NOTIFICATION_APPROVEALL"
+                                        asp-page-handler="ApproveAll"
+                                        text-localized-tag="APPROVE_ALL"
+                                        button-style="Secondary"
+                                        Icon="check-double"></button>
+                                <button return-confirm-tag="NOTIFICATION_APPROVEALLADD"
+                                        asp-page-handler="ApproveAddAll"
+                                        text-localized-tag="APPROVE_ADD_ALL"
+                                        button-style="Secondary"
+                                        Icon="check-double"></button>
+                                <button return-confirm-tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED"
+                                        asp-page-handler="DenyAll"
+                                        text-localized-tag="DENY_ALL"
+                                        button-style="Secondary"
+                                        Icon="times-circle"></button>
+                            </div>
+                        }
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

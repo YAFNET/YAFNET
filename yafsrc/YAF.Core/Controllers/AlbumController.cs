@@ -25,10 +25,8 @@
 namespace YAF.Core.Controllers;
 
 using System.Collections.Generic;
-using System.Web.Http;
 
-using Newtonsoft.Json.Linq;
-
+using YAF.Core.BasePages;
 using YAF.Core.Model;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -36,14 +34,11 @@ using YAF.Types.Objects;
 /// <summary>
 /// The YAF Album controller.
 /// </summary>
-[RoutePrefix("api")]
-public class AlbumController : ApiController, IHaveServiceLocator
+[Produces("application/json")]
+[Route("api/[controller]")]
+[ApiController]
+public class AlbumController : ForumBaseController
 {
-    /// <summary>
-    ///   Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-
     /// <summary>
     /// The change image caption.
     /// </summary>
@@ -53,13 +48,18 @@ public class AlbumController : ApiController, IHaveServiceLocator
     /// <returns>
     /// the return object.
     /// </returns>
-    [Route("Album/ChangeImageCaption")]
-    [HttpPost]
-    public IHttpActionResult ChangeImageCaption(JObject jsonData)
+    [ValidateAntiForgeryToken]
+    [HttpPost("ChangeImageCaption")]
+    public IActionResult ChangeImageCaption([FromBody] UserAlbumImage jsonData)
     {
-        dynamic json = jsonData;
+        var albumImage = this.GetRepository<UserAlbumImage>().GetImage(jsonData.ID);
 
-        return this.Ok(this.Get<IAlbum>().ChangeImageCaption((int)json.ImageId, (string)json.NewCaption));
+        if (albumImage.Item2.UserID != this.PageBoardContext.PageUserID)
+        {
+            return this.NotFound();
+        }
+
+        return this.Ok(this.Get<IAlbum>().ChangeImageCaption(jsonData.ID, jsonData.Caption));
     }
 
     /// <summary>
@@ -71,11 +71,11 @@ public class AlbumController : ApiController, IHaveServiceLocator
     /// <returns>
     /// Returns the Attachment List as Grid Data Set
     /// </returns>
-    [Route("Album/GetAlbumImages")]
-    [HttpPost]
-    public IHttpActionResult GetAlbumImages(PagedResults pagedResults)
+    [ValidateAntiForgeryToken]
+    [HttpPost("GetAlbumImages")]
+    public IActionResult GetAlbumImages([FromBody] PagedResults pagedResults)
     {
-        var userId = BoardContext.Current.PageUserID;
+        var userId = this.PageBoardContext.PageUserID;
         var pageSize = pagedResults.PageSize;
         var pageNumber = pagedResults.PageNumber;
 
@@ -88,8 +88,9 @@ public class AlbumController : ApiController, IHaveServiceLocator
 
         albumImages.ForEach(
             image =>
-                {
-                    var url = $"{BoardInfo.ForumClientFileRoot}resource.ashx?imgprv={image.ID}";
+            {
+                var url = this.Get<IUrlHelper>()
+                    .Action("GetImagePreview", "Albums", new {imageId = image.ID});
 
                     var attachment = new AttachmentItem
                                          {

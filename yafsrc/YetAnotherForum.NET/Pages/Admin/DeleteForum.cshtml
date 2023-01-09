@@ -1,0 +1,81 @@
+@page "{fa:int}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Utilities
+@using YAF.Core.Helpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+@model DeleteForumModel
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("comments")
+                    @Html.LocalizedText("HEADER1") <strong>@Model.Forum.Name</strong>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true" 
+                               asp-for="MoveTopics"
+                               localized-tag="MOVE_TOPICS" localized-page="ADMIN_DELETEFORUM"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="MoveTopics" role="switch"
+                                   class="form-check-label"/>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true" 
+                               localized-tag="NEW_FORUM" localized-page="ADMIN_DELETEFORUM"></label>
+                        <select id="ForumList" name="forumList"></select>
+                        <input type="hidden" asp-for="ForumListSelected" Value="@Model.ForumListSelected" />
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button button-style="Danger"
+                            Icon="trash"
+                            return-confirm-tag="CONFIRM_DELETE"
+                            data-ajax="true" data-ajax-method="post" data-ajax-complete="completed"
+                            asp-route-fa="@Model.Request.RouteValues["fa"]"
+                            text-localized-tag="DELETE_FORUM" text-localized-page="ADMIN_DELETEFORUM">
+                    </button>
+                    <a button-style="Secondary"
+                            Icon="times"
+                            text-localized-tag="CANCEL"
+                            asp-page="@ForumPages.Admin_Forums.GetPageName()"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="modal fade" id="DeleteForumMessage" aria-hidden="true" aria-labelledby="MessageToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <h5 class="modal-header justify-content-center">
+                @Html.LocalizedText("ADMIN_DELETEFORUM","DELETE_TITLE")
+            </h5>
+            <div class="modal-body text-center">
+                @Html.LocalizedText("ADMIN_DELETEFORUM","DELETE_MSG")
+                <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.SelectForumsLoadJs(
+                "ForumList", 
+                Model.GetText("ADMIN_DELETEFORUM", "NEW_FORUM"), 
+                false, 
+                false, 
+                "ForumListSelected")))
+            
+    </script>
+}

@@ -1,0 +1,120 @@
+@page "{handler?}"
+
+@using YAF.Core.Services
+@using YAF.Types.Constants
+@using YAF.Types.Flags
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
+@using YAF.Types.Models
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+@model PrivateMessageModel
+
+<form method="post">
+    <div class="row">
+        <div class="col-sm-auto">
+            <profileMenu></profileMenu>
+        </div>
+        <div class="col">
+            <div class="my-3 p-3 bg-body rounded shadow-sm">
+                <h5>
+                    @Html.Icon("envelope-open", "text-secondary")
+                    @Model.MessageTitle
+                </h5>
+                @foreach (var message in Model.Messages)
+                {
+                    var currentMessage = new Message { ID = message.UserPMessageID, MessageText = message.Body, UserID = message.FromUserID };
+
+                    <input type="hidden" name="id" value="@message.UserPMessageID" />
+
+                    <div class="@Html.Raw($" row rounded mb-3 {(message.FromUserID == Model.PageBoardContext.PageUserID ? "bg-light" : "border border-secondary")}")">
+                        <div class="row">
+                            <div class="col d-flex mt-1 p-0">
+                                @if (message.FromUserID != Model.PageBoardContext.PageUserID)
+                                {
+                                    <div class="mx-2">
+                                        <img ID="Avatar" class="img-avatar-sm" src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(
+                                                                                        message.FromUserID,
+                                                                                        message.FromAvatar,
+                                                                                        message.FromHasAvatarImage))"
+                                             alt="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? message.FromUserDisplayName : message.FromUser)" />
+                                    </div>
+                                    <div>
+                                        @Html.UserLink(message.FromUserID,
+                                            Model.PageBoardContext.BoardSettings.EnableDisplayName ? message.FromUserDisplayName : message.FromUser,
+                                            message.FromSuspended,
+                                            message.FromStyle)
+                                    </div>
+                                }
+
+                                <div class="@Html.Raw(message.FromUserID == Model.PageBoardContext.PageUserID ? " me-auto" : "ms-auto")">
+                                    @Html.IconBadge("calendar-day","clock","text-secondary")
+                                    @Html.DisplayDateTime(DateTimeFormat.Both, message.Created)
+                                </div>
+                                @if (message.FromUserID == Model.PageBoardContext.PageUserID)
+                                {
+                                    <div>
+                                        @Html.UserLink(message.FromUserID,
+                                            Model.PageBoardContext.BoardSettings.EnableDisplayName ? message.FromUserDisplayName : message.FromUser,
+                                            message.FromSuspended,
+                                            message.FromStyle)
+                                    </div>
+                                    <div class="ms-1">
+                                        <img ID="Image1" class="img-avatar-sm" src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(
+                                                                                        message.FromUserID,
+                                                                                        message.FromAvatar,
+                                                                                        message.FromHasAvatarImage))"
+                                             alt="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? message.FromUserDisplayName : message.FromUser)" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mt-3">
+                                <message message-flags="@(new MessageFlags(message.Flags))" current-message="currentMessage"></message>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto px-0">
+                                <a href="@(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { p = message.UserPMessageID, q = 1, report = 1 }))"
+                                   text-localized-tag="REPORTPOST"
+                                   title-localized-tag="REPORTPOST_TITLE"
+                                   bs-toggle="tooltip"
+                                   text-localized-page="POSTS"
+                                   button-style="Link"
+                                   icon="exclamation-triangle"
+                                   icon-color="text-danger"></a>
+                            </div>
+                            <div class="col-auto px-0 d-flex flex-wrap">
+                                @if (message.FromUserID != Model.PageBoardContext.PageUserID)
+                                {
+                                    <a href="@(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { p = message.UserPMessageID, q = 0 }))"
+                                       text-localized-tag="BUTTON_REPLY" title-localized-tag="BUTTON_REPLY_TT"
+                                       bs-toggle="tooltip"
+                                       button-style="Secondary"
+                                       icon="reply"
+                                       class="me-1 mb-1"></a>
+                                    <a href="@(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { p = message.UserPMessageID, q = 1 }))"
+                                       text-localized-tag="BUTTON_QUOTE_TT" title-localized-tag="BUTTON_QUOTE_TT"
+                                       bs-toggle="tooltip"
+                                       button-style="Secondary"
+                                       icon="reply"
+                                       class="me-1 mb-1"></a>
+                                }
+                                <button asp-page-handler="Delete"
+                                        bs-toggle="tooltip"
+                                        text-localized-tag="BUTTON_DELETE" title-localized-tag="BUTTON_DELETE_TT"
+                                        return-confirm-tag='@(Model.GetText("confirm_deletemessage"))'
+                                        class="mb-1"
+                                        button-style="Danger"
+                                        icon="trash"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</form>

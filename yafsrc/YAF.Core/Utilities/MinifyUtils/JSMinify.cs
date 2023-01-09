@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This code is an extender of JSMin project
  * http://www.crockford.com/javascript/jsmin.html
  * Please give credit to Douglas Crockford
@@ -10,7 +10,6 @@ namespace YAF.Core.Utilities.MinifyUtils;
 
 using System;
 using System.IO;
-using System.Text;
 
 /// <summary>
 /// JS Minify Class

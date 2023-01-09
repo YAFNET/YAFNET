@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Context
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+@model YAF.Types.Modals.MoveTopicModal
+
+@inject BoardContext Current
+
+<!-- Modal -->
+<div class="modal fade" id="MoveTopicDialog" tabindex="-1" role="dialog" aria-labelledby="Move Topic Dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    @Html.LocalizedText("BUTTON_MOVETOPIC")
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="PostsModal" asp-action="MoveTopic">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <!-- Modal Content START !-->
+                    <div class="mb-3">
+                        <label asp-for="ForumListSelected" class="form-label" localized-tag="SELECT_FORUM">
+                        </label>
+                        <select id="ForumList" name="forumList"></select>
+                        <input type="hidden" asp-for="ForumListSelected" Value="@Current.PageForumID" />
+                    </div>
+
+                    @if (Current.BoardSettings.ShowMoved)
+                    {
+                        <div class="form-check form-switch mb-3">
+                            <input asp-for="LeavePointer" class="form-check-input" type="checkbox" />
+                            <label asp-for="LeavePointer" class="form-check-label" localized-tag="LEAVE_POINTER"></label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="LinkDays" class="form-label" localized-tag="POINTER_DAYS"></label>
+                            <input asp-for="LinkDays" class="form-control" type="number" min="1" value="1"  />
+                        </div>
+                    }
+                    <!-- Modal Content END !-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button button-style="Primary" data-bs-save="modal"
+                        text-localized-tag="BUTTON_MOVETOPIC"
+                        Icon="arrows-alt">
+                </button>
+                <button type="button" button-style="Secondary" icon="times" data-bs-dismiss="modal" text-localized-tag="CANCEL"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+
+    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectForumsLoadJs(
+        "ForumList",
+        Current.Get<ILocalization>().GetText("SELECT_FORUM"),
+        false,
+        false,
+        "ForumListSelected")));
+
+</script>

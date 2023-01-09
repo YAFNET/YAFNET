@@ -1,5 +1,5 @@
-﻿/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bj�rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -25,12 +25,13 @@
 namespace YAF.Core.Services.CheckForSpam;
 
 using System;
-using System.IO;
-using System.Net;
-using System.Runtime.Serialization;
+using System.Net.Http;
+
+using Microsoft.Extensions.Logging;
 
 using ServiceStack.Text;
 
+using YAF.Types.Attributes;
 using YAF.Types.Interfaces.CheckForSpam;
 using YAF.Types.Objects;
 
@@ -75,13 +76,11 @@ public class StopForumSpam : ICheckForBot
             var url =
                 $"https://www.stopforumspam.com/api?{(ipAddress.IsSet() ? $"ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&email={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&username={userName}" : string.Empty)}&f=json";
 
-            var webRequest = (HttpWebRequest)WebRequest.Create(url);
+            var client = new System.Net.Http.HttpClient(new HttpClientHandler());
 
-            var response = (HttpWebResponse)webRequest.GetResponse();
+            var response = client.GetAsync(url).Result;
 
-            var streamReader = new StreamReader(response.GetResponseStream());
-
-            responseText = streamReader.ReadToEnd();
+            responseText = response.Content.ReadAsStringAsync().Result;
 
             var stopForumResponse = responseText.FromJson<StopForumSpamResponse>();
 
@@ -107,7 +106,7 @@ public class StopForumSpam : ICheckForBot
         }
         catch (Exception ex)
         {
-            BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot");
+            BoardContext.Current.Get<ILogger<StopForumSpam>>().Error(ex, "Error while Checking for Bot");
 
             return false;
         }
@@ -136,7 +135,7 @@ public class StopForumSpam : ICheckForBot
 
         if (!result.Contains("success"))
         {
-            BoardContext.Current.Get<ILoggerService>().Log(
+            BoardContext.Current.Get<ILogger<StopForumSpam>>().Log(
                 null,
                 " Report to StopForumSpam.com Failed",
                 result);

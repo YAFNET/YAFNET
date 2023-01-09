@@ -1,0 +1,70 @@
+@page "{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+
+@model RegisterUserModel
+
+<form method="post" class="needs-validation">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("user-plus","ADMIN_REGUSER","HEADER2")
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label asp-for="Input.UserName" class="form-label"
+                                   localized-page="REGISTER" localized-tag="USERNAME">
+                            </label>
+                            <input type="text" class="form-control" asp-for="Input.UserName" />
+                            <span asp-validation-for="Input.UserName" class="text-danger">User Name is required</span>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label asp-for="Input.Email" class="form-label"
+                                   localized-page="REGISTER" localized-tag="EMAIL">
+                            </label>
+                            <input type="email" asp-for="Input.Email" class="form-control" />
+                            <span asp-validation-for="Input.Email" class="text-danger">Email address is required.</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label asp-for="Input.Password" class="form-label"
+                                   localized-page="REGISTER" localized-tag="PASSWORD">
+                            </label>
+                            <input type="password" asp-for="Input.Password"
+                                   class="form-control" />
+                            <span asp-validation-for="Input.Password" class="text-danger">Password is required.</span>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label asp-for="Input.Password2" class="form-label"
+                                   localized-page="REGISTER" localized-tag="CONFIRM_PASSWORD">
+                            </label>
+                            <input type="password" asp-for="Input.Password2"
+                                   class="form-control" />
+                            <span asp-validation-for="Input.Password2" class="text-danger">Password is required.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button asp-page-handler="ForumRegister" 
+                            class="me-1"
+                            button-style="Primary"
+                            Icon="user-plus" 
+                            text-localized-tag="REGISTER" 
+                            text-localized-page="ADMIN_REGUSER">
+                    </button>
+                    <a asp-page="@ForumPages.Admin_Users.GetPageName()"
+                       button-style="Secondary"
+                       Icon="times" 
+                       text-localized-tag="CANCEL">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -31,7 +31,6 @@ public interface IPanelSessionState
     ///   Gets panel session state.
     /// </summary>
     /// <param name = "panelID">panelID</param>
-    /// <returns></returns>
     CollapsiblePanelState this[[NotNull] string panelID] { get; set; }
 
     /// <summary>

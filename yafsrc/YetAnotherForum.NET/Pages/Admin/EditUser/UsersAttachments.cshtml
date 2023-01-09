@@ -1,0 +1,87 @@
+﻿@page
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Extensions
+@using YAF.Types.Models
+@using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
+
+@model YAF.Pages.Admin.EditUser.UsersAttachmentsModel
+
+@{
+    Layout = "_EditUserLayout";
+}
+
+<h2>
+    @Html.LocalizedText("ATTACHMENTS", "TITLE")
+</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-auto">
+                    @Html.IconHeader("paperclip", "ATTACHMENTS", "TITLE")
+                </div>
+                <div class="col-auto">
+                <div class="input-group input-group-sm me-2" role="group">
+                            <div class="input-group-text">
+                                @Html.LocalizedText("SHOW"):
+                            </div>
+
+                            <select asp-for="@Model.Size"
+                                    asp-items="Model.PageSizeList"
+                                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                    class="form-select"
+                                    onchange="this.form.submit();"></select>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                    @for (var i = 0; i < Model.Attachments.Count; i++)
+                    {
+                        <li class="list-group-item d-inline-flex align-items-center">
+                            <input type="hidden" asp-for="@Model.Attachments[i].ID" />
+
+                            <div class="form-check">
+                                <input asp-for="@Model.Attachments[i].Selected" class="form-check-input" />
+                                <label class="form-check-label" asp-for="@Model.Attachments[i].Selected">
+                                    &nbsp;
+                                </label>
+                            </div>
+
+                            @Model.GetPreviewImage(Model.Attachments[i])
+                            <span class="text-truncate">
+                                @Model.Attachments[i].FileName <em>(@Model.Attachments[i].Bytes/1024kb)</em>
+                            </span>
+                        </li>
+                    }
+                </ul>
+                @if (Model.Attachments.Any())
+                {
+                    <button type="submit"
+                        asp-page-handler="DeleteSelected"
+                        class=" m-3"
+                        button-style="Danger"
+                        icon="trash"
+                        title-localized-page="COMMON"
+                        title-localized-tag="BUTTON_DELETEATTACHMENT_TT"
+                        text-localized-page="COMMON"
+                        text-localized-tag="BUTTON_DELETEATTACHMENT"
+                        return-confirm-tag="CONFIRM_DELETE"></button>
+                }
+            <pager page-size="@Model.Size"
+                   count="!Model.Attachments.NullOrEmpty() ?
+             Model.GetRepository<Attachment>().Count(a => a.UserID == Model.PageBoardContext.PageUserID).ToType<int>() : 0">
+            </pager>
+        </div>
+    </div>
+</form>

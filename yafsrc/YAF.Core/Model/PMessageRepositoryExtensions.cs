@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 
+using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;

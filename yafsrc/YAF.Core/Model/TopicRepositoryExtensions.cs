@@ -21,13 +21,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Core.Model;
 
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
+using Microsoft.Extensions.Logging;
+
+using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
@@ -527,7 +529,7 @@ public static class TopicRepositoryExtensions
     /// The page UserId id.
     /// </param>
     /// <returns>
-    /// The <see cref="List"/>.
+    /// Returns the Latest Topics for the RSS Feed.
     /// </returns>
     public static List<Tuple<Message, Topic, User>> RssLatest(
         this IRepository<Topic> repository,
@@ -567,7 +569,7 @@ public static class TopicRepositoryExtensions
     /// The topic limit.
     /// </param>
     /// <returns>
-    /// The <see cref="List"/>.
+    /// Returns all Topics for an RSS Feed of specified forum id.
     /// </returns>
     public static List<LatestTopic> RssList(
         this IRepository<Topic> repository,
@@ -662,20 +664,20 @@ public static class TopicRepositoryExtensions
                         .Join<User>(
                             (t, lastUser) => Sql.TableAlias(lastUser.ID, "lastUser") == t.LastUserID,
                             db.Connection.TableAlias("lastUser")).Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
-                        .Join<Forum, ActiveAccess>((f, x) => x.ForumID == f.ID);
+                        .Join<Forum, vaccess>((f, x) => x.ForumID == f.ID);
 
                     if (showNoCountPosts)
                     {
-                        expression.Where<Topic, Forum, ActiveAccess, Category>(
+                        expression.Where<Topic, Forum, vaccess, Category>(
                             (topic, f, x, c) => c.BoardID == boardId && (c.Flags & 1) == 1 && topic.TopicMovedID == null &&
-                                                x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
+                                                x.UserID == pageUserId && x.ReadAccess > 0 && (topic.Flags & 8) != 8 &&
                                                 topic.LastPosted != null);
                     }
                     else
                     {
-                        expression.Where<Topic, Forum, ActiveAccess, Category>(
+                        expression.Where<Topic, Forum, vaccess, Category>(
                             (topic, f, x, c) => c.BoardID == boardId && (c.Flags & 1) == 1 && topic.TopicMovedID == null &&
-                                                x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
+                                                x.UserID == pageUserId && x.ReadAccess > 0 && (topic.Flags & 8) != 8 &&
                                                 topic.LastPosted != null && (f.Flags & 4) != 4);
                     }
 
@@ -807,7 +809,7 @@ public static class TopicRepositoryExtensions
     /// Indicates if the list should contain the last Access Date
     /// </param>
     /// <returns>
-    /// The <see cref="List"/>.
+    /// Returns the paged Topic List
     /// </returns>
     public static List<PagedTopic> ListPaged(
         this IRepository<Topic> repository,
@@ -851,7 +853,7 @@ public static class TopicRepositoryExtensions
     /// The where Criteria.
     /// </param>
     /// <returns>
-    /// The <see cref="List"/>.
+    /// Returns the paged Topic List
     /// </returns>
     public static List<PagedTopic> ListPaged(
         this IRepository<Topic> repository,
@@ -1011,7 +1013,7 @@ public static class TopicRepositoryExtensions
     /// Indicates if the list should Contain the last Access Date
     /// </param>
     /// <returns>
-    /// The <see cref="List"/>.
+    /// Returns the Paged Announcements Topics
     /// </returns>
     public static List<PagedTopic> ListAnnouncementsPaged(
         this IRepository<Topic> repository,
@@ -1298,8 +1300,6 @@ public static class TopicRepositoryExtensions
                     return db.Connection.Select(expression);
                 });
 
-        topics.ForEach(x => repository.Delete(forumId, x.ID, permDelete));
-
         return topics.Count;
     }
 
@@ -1419,7 +1419,7 @@ public static class TopicRepositoryExtensions
 
         if (BoardContext.Current.CurrentForumPage != null)
         {
-            BoardContext.Current.Get<ILoggerService>().Log(
+            BoardContext.Current.Get<ILogger<IRepository<Topic>>>().Log(
                 BoardContext.Current.PageUserID,
                 "YAF",
                 BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_TOPIC", topicId),
@@ -1471,7 +1471,7 @@ public static class TopicRepositoryExtensions
 
         return repository.Get(
             t => t.LastPosted > currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
-                 (t.Flags & 8) != 8 && t.TopicMovedID == null).OrderBy(t => t.LastPosted).FirstOrDefault();
+                 (t.Flags & 8) != 8 && t.TopicMovedID == null).MinBy(t => t.LastPosted);
     }
 
     /// <summary>
@@ -1491,9 +1491,8 @@ public static class TopicRepositoryExtensions
         CodeContracts.VerifyNotNull(repository);
 
         return repository.Get(
-                t => t.LastPosted < currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
-                     (t.Flags & 8) != 8 && t.TopicMovedID == null).OrderByDescending(t => t.LastPosted)
-            .FirstOrDefault();
+            t => t.LastPosted < currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
+                 (t.Flags & 8) != 8 && t.TopicMovedID == null).MaxBy(t => t.LastPosted);
     }
 
     /// <summary>
@@ -1509,7 +1508,7 @@ public static class TopicRepositoryExtensions
     /// The limit.
     /// </param>
     /// <returns>
-    /// The <see cref="List"/>.
+    /// Returns Topic List
     /// </returns>
     public static List<Topic> SimpleList(
         this IRepository<Topic> repository,
@@ -1571,7 +1570,7 @@ public static class TopicRepositoryExtensions
     /// The filter.
     /// </param>
     /// <returns>
-    /// The <see cref="List"/>.
+    /// Returns the list of Deleted Topics
     /// </returns>
     public static List<Tuple<Forum, Topic>> GetDeletedTopics(
         this IRepository<Topic> repository,
@@ -1638,5 +1637,26 @@ public static class TopicRepositoryExtensions
                           LastMessageFlags = message.Flags
                       },
             t => t.ID == topicId);
+    }
+
+    /// <summary>
+    /// Get Topic with References
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    /// <returns>
+    /// Returns topic with references
+    /// </returns>
+    public static Topic GetTopic(
+        this IRepository<Topic> repository,
+        int topicId)
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        return repository.DbAccess.Execute(db => db.Connection.LoadSelect<Topic>(t => t.ID == topicId)).FirstOrDefault();
     }
 }

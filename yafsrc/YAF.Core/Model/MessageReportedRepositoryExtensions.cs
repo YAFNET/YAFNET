@@ -26,6 +26,7 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
+using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -114,7 +115,7 @@ public static class MessageReportedRepositoryExtensions
     /// </param>
     public static void Report(
         this IRepository<MessageReported> repository,
-        [NotNull] Tuple<Topic, Message, User, Forum> message,
+        [NotNull] Message message,
         [NotNull] int userId,
         [NotNull] DateTime reportedDateTime,
         [NotNull] string reportText)
@@ -123,20 +124,20 @@ public static class MessageReportedRepositoryExtensions
 
         reportText ??= string.Empty;
 
-        if (!repository.Exists(m => m.ID == message.Item2.ID))
+        if (!repository.Exists(m => m.ID == message.ID))
         {
-            repository.Insert(new MessageReported { ID = message.Item2.ID, Message = message.Item2.MessageText });
+            repository.Insert(new MessageReported { ID = message.ID, Message = message.MessageText });
         }
 
         var reportAudit = BoardContext.Current.GetRepository<MessageReportedAudit>()
-            .GetSingle(m => m.MessageID == message.Item2.ID && m.UserID == userId);
+            .GetSingle(m => m.MessageID == message.ID && m.UserID == userId);
 
         if (reportAudit == null)
         {
             BoardContext.Current.GetRepository<MessageReportedAudit>().Insert(
                 new MessageReportedAudit
                     {
-                        MessageID = message.Item2.ID,
+                        MessageID = message.ID,
                         UserID = userId,
                         Reported = reportedDateTime,
                         ReportText = $"{DateTime.UtcNow}??{reportText}"
@@ -151,14 +152,14 @@ public static class MessageReportedRepositoryExtensions
                               Reported = reportedDateTime,
                               ReportText = $"{reportAudit.ReportText}|{DateTime.UtcNow}??{reportText}"
                           },
-                m => m.MessageID == message.Item2.ID && m.UserID == userId);
+                m => m.MessageID == message.ID && m.UserID == userId);
         }
 
-        var flags = message.Item2.MessageFlags;
+        var flags = message.MessageFlags;
 
         flags.IsReported = true;
 
-        BoardContext.Current.GetRepository<Message>().UpdateFlags(message.Item2.ID, flags.BitValue);
+        BoardContext.Current.GetRepository<Message>().UpdateFlags(message.ID, flags.BitValue);
     }
 
     /// <summary>

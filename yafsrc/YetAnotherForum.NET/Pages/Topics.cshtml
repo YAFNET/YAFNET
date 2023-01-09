@@ -1,0 +1,308 @@
+﻿@page "{f:int}/{name}/{p:int=1}/{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Model
+@using YAF.Core.Services
+@using YAF.Core.Utilities
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Models
+@using YAF.Web.TagHelpers
+
+@model TopicsModel
+
+@if (Model.SubForums != null && Model.SubForums.Item2.Any())
+{
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-auto">
+                            @Html.IconHeader("comments", "TOPICS", "SUBFORUMS")
+                        </div>
+                        <div class="col-auto">
+                            <form method="post">
+                                <button button-style="Link"
+                                        asp-page-handler="ToggleCollapse"
+                                        asp-route-target="@Html.Raw($"forumPanel{Model.PageBoardContext.PageForumID}")"
+                                        type="submit"
+                                        class="btn px-0"
+                                        bs-toggle="collapse"
+                                        data-bs-target="@Html.Raw($"forumPanel{Model.PageBoardContext.PageForumID}")"
+                                        aria-label="collapse"
+                                        aria-expanded="false"
+                                        aria-controls="@Html.Raw($"forumPanel{Model.PageBoardContext.PageForumID}")">
+                                    @Html.Icon(
+                                        CollapsePanelHelper.GetCollapsiblePanelIcon($"forum{Model.PageBoardContext.PageForumID}", Model.PageBoardContext.BoardSettings.DefaultCollapsiblePanelState),
+                                        "text-primary")
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" id="body">
+                    @await Html.PartialAsync("_ForumList", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="row justify-content-end">
+    <div class="col-auto mb-1">
+        @if (Model.PageBoardContext.ForumModeratorAccess)
+        {
+            <a role="button" button-style="Secondary"
+               class="me-1"
+               icon="tasks"
+               text-localized-tag="BUTTON_MODERATE"
+               title-localized-tag="BUTTON_MODERATE_TT"
+               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Forums, new { f = Model.PageBoardContext.PageForumID }))"></a>
+        }
+
+        @if (Model.PageBoardContext.ForumPostAccess
+             || !Model.PageBoardContext.PageForum.ForumFlags.IsLocked && Model.PageBoardContext.ForumModeratorAccess)
+        {
+            <a role="button" button-style="Primary"
+               icon="plus"
+               text-localized-tag="BUTTON_NEWTOPIC"
+               title-localized-tag="BUTTON_NEWTOPIC_TT"
+               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"></a>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        @Html.Icon("comments", "text-secondary pe-1")
+                        @Html.Raw(Model.PageBoardContext.PageForum.Description.IsSet()
+                        ? $"{Html.HtmlEncode(Model.PageBoardContext.PageForum.Name)} - <em>{Html.HtmlEncode(Model.PageBoardContext.PageForum.Description)}</em>"
+                        : Html.HtmlEncode(Model.PageBoardContext.PageForum.Name))
+                    </div>
+                    <div class="col-auto">
+                        <button button-style="Secondary"
+                                button-size="Small"
+                                class="dropdown-toggle"
+                                bs-toggle="dropdown"
+                                icon="filter"
+                                text-localized-page="ADMIN_USERS"
+                                text-localized-tag="FILTER_DROPDOWN"></button>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                            <div class="px-3 py-1 dropdown-sm">
+                                <div class="mb-3">
+                                    <form method="post" asp-page-handler="PageSize" asp-route-f="@Model.PageBoardContext.PageForumID">
+                                        @Html.LocalizedText("SHOW"):
+                                        <select asp-for="@Model.Size"
+                                                asp-items="Model.PageSizeList"
+                                                title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                                aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                                class="form-select"
+                                                onchange="this.form.submit();"></select>
+                                    </form>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <form method="post" asp-page-handler="ShowList" asp-route-f="@Model.PageBoardContext.PageForumID">
+                                        @Html.LocalizedText("SHOWTOPICS"):
+                                        <select asp-for="@Model.ShowTopicListSelected"
+                                                asp-items="Model.ShowList"
+                                                class="select2-select"
+                                                onchange="this.form.submit();"></select>
+                                    </form>
+                                </div>
+                                
+                                @if (Model.PageBoardContext.BoardSettings.ShowForumJump)
+                                {
+                                    <div class="mb-3">
+                                        @Html.LocalizedText("FORUM_JUMP"):
+                                        <select id="ForumJump"></select>
+                                    </div>
+                                }
+
+                                @if (Model.Get<IPermissions>().Check(Model.PageBoardContext.BoardSettings.SearchPermissions))
+                                {
+                                    <div class="mb-3">
+                                        <form method="post" asp-page-handler="ForumSearch" asp-route-f="@Model.PageBoardContext.PageForumID">
+                                            <label for="forumSearch" localized-tag="SEARCH_FORUM"></label>:
+                                            <div class="input-group">
+                                                <input type="search" id="forumSearch" name="forumSearch" class="form-control"/>
+                                                <button type="submit" button-style="Primary"
+                                                        icon="search"
+                                                        text-localized-tag="OK"
+                                                        title-localized-tag="OK_TT"></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                @if (!Model.Announcements.Any() && !Model.Topics.Any())
+                {
+                    <alert type="info" localized-tag="NO_TOPICS"></alert>
+                }
+
+                @foreach (var topic in Model.Announcements)
+                {
+                    @Html.TopicContainer(topic, false)
+                }
+
+
+                @for (var index = 0; index < Model.Topics.Count; index++)
+                {
+                    var topic = Model.Topics[index];
+
+                    if (index + 1 == Model.Topics.Count)
+                    {
+                        @Html.TopicContainer(topic, true)
+                    }
+                    else
+                    {
+                        @Html.TopicContainer(topic, false)
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex flex-row-reverse mb-3">
+    <div>
+        <div class="btn-group" role="group" aria-label="Tools">
+            @if (!Model.PageBoardContext.IsGuest && Model.PageBoardContext.ForumReadAccess)
+            {
+                // check if this forum is being watched by this user
+                var watchForumId = Model.GetRepository<WatchForum>().Check(Model.PageBoardContext.PageUserID, Model.PageBoardContext.PageForumID);
+                string watchForumText;
+                string watchForumIcon;
+
+                if (watchForumId.HasValue)
+                {
+                    // subscribed to this forum
+                    watchForumText = "UNWATCHFORUM";
+                    watchForumIcon = "eye-slash";
+                }
+                else
+                {
+                    // not subscribed
+                    watchForumText = "WATCHFORUM";
+                    watchForumIcon = "eye";
+                }
+
+                <form method="post">
+                    <button asp-page-handler="WatchForum"
+                            asp-route-f="@RouteData.Values["f"]"
+                            button-style="Secondary"
+                            button-size="Small"
+                            icon="@watchForumIcon"
+                            text-localized-tag="@watchForumText">
+                    </button>
+
+                    <button asp-page-handler="MarkRead"
+                            asp-route-f="@RouteData.Values["f"]"
+                            button-style="Secondary"
+                            button-size="Small"
+                            icon="glasses"
+                            text-localized-page="COMMON"
+                            text-localized-tag="MARKREAD">
+                    </button>
+                </form>
+            }
+
+            @if (Model.Get<IPermissions>().Check(Model.PageBoardContext.BoardSettings.TopicsFeedAccess))
+            {
+                @Html.RssFeedLink(RssFeeds.Topics, true)
+            }
+        </div>
+    </div>
+</div>
+
+@if (Model.PageBoardContext.BoardSettings.ShowBrowsingUsers)
+{
+    <div class="row mb-3">
+        <div class="col">
+            @await Html.PartialAsync("_ForumPageUsers")
+        </div>
+    </div>
+}
+
+<div class="row justify-content-between">
+    <div class="col-auto mb-1">
+        <pager page-size="@Model.Size"
+               count="Model.Topics.NullOrEmpty() ? 0 : Model.Topics.FirstOrDefault().TotalRows">
+        </pager>
+    </div>
+    <div class="col-auto mb-1">
+        @if (Model.PageBoardContext.ForumModeratorAccess)
+        {
+            <a role="button" button-style="Secondary"
+               class="me-1"
+               icon="tasks"
+               text-localized-tag="BUTTON_MODERATE"
+               title-localized-tag="BUTTON_MODERATE_TT"
+               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Forums, new { f = Model.PageBoardContext.PageForumID }))"></a>
+        }
+
+        @if (Model.PageBoardContext.ForumPostAccess
+            || !Model.PageBoardContext.PageForum.ForumFlags.IsLocked && Model.PageBoardContext.ForumModeratorAccess)
+        {
+            <a role="button" button-style="Primary"
+               icon="plus"
+               text-localized-tag="BUTTON_NEWTOPIC"
+               title-localized-tag="BUTTON_NEWTOPIC_TT"
+               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"></a>
+        }
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
+                    $"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{Model.Get<ILocalization>().GetText("TOPIC_STARTER")}&nbsp;...",
+                    ".topic-starter-popover",
+                    "hover")))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+             JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...",
+                    ".topic-link-popover",
+                    "focus hover")))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.ForumIconLegendPopoverJs(
+                    (await Html.PartialAsync("_TopicIconLegend")).RenderToString().ToJsString(),
+                    "topic-icon-legend-popvover")))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.ForumIconLegendPopoverJs(
+                    (await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(),
+                    "forum-icon-legend-popvover")))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.SelectForumsLoadJs(
+                    "ForumJump",
+                    Model.Get<ILocalization>().GetText("FORUM_JUMP_PLACEHOLDER"),
+                    true,
+                    false)))
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.DropDownToggleJs()))
+    </script>
+}

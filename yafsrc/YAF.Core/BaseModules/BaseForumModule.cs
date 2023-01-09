@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BaseModules;
 
 using YAF.Types.Attributes;
@@ -41,20 +42,15 @@ public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, I
     public virtual string Description => this.GetType().GetAttribute<Module>().ModuleName;
 
     /// <summary>
-    ///   Gets or sets Forum Control Object.
-    /// </summary>
-    public virtual object ForumControlObj { get; set; }
-
-    /// <summary>
     ///   Gets ModuleId.
     /// </summary>
     [NotNull]
     public virtual string ModuleId => this.Description.GetHashCode().ToString();
 
     /// <summary>
-    /// Gets PageBoardContext.
+    /// Gets PageContext.
     /// </summary>
-    public BoardContext PageBoardContext => BoardContext.Current;
+    public BoardContext PageContext => BoardContext.Current;
 
     /// <summary>
     ///   Gets ServiceLocator.
