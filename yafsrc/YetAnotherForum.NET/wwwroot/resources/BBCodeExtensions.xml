@@ -78,7 +78,7 @@
   </YafBBCode>
   <YafBBCode>
     <Name>VIMEO</Name>
-    <Description>[VIMEO]http://www.vimeo.com/xxxxxxx[/VIMEO]</Description>
+    <Description>[VIMEO]https://www.vimeo.com/xxxxxxx[/VIMEO]</Description>
     <OnClickJS></OnClickJS>
     <DisplayJS></DisplayJS>
     <EditJS></EditJS>
