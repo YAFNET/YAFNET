@@ -1737,7 +1737,7 @@ public static class ViewUtils
             var dir = vfs.GetDirectory(virtualPath);
             if (dir != null)
             {
-                var files = dir.GetAllFiles();
+                var files = dir.GetAllFiles().OrderBy(x => x.VirtualPath);
                 foreach (var dirFile in files)
                 {
                     if (!assetExt.EqualsIgnoreCase(dirFile.Extension))
@@ -1897,7 +1897,7 @@ public static class ViewUtils
                         var outDir = webVfs.GetDirectory(outDirPath);
                         if (outDir != null)
                         {
-                            var outDirFiles = outDir.GetFiles();
+                            var outDirFiles = outDir.GetFiles().OrderBy(x => x.VirtualPath);
                             foreach (var file in outDirFiles)
                             {
                                 if (file.Name.Glob(outGlobFile))

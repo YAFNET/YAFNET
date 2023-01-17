@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services.Logger;
 
 using Newtonsoft.Json;
@@ -100,7 +101,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
             this.InitLookup();
         }
 
-        return this.eventLogTypeLookup.ContainsKey(type) && this.eventLogTypeLookup[type];
+        return this.eventLogTypeLookup!.ContainsKey(type) && this.eventLogTypeLookup[type];
     }
 
     /// <summary>
@@ -135,16 +136,15 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
 
         var userIp = HttpContext.Current != null ? HttpContext.Current.Request.GetUserRealIPAddress() : string.Empty;
 
-
-        var values = new JObject
-                     {
-                         ["Message"] = message,
-                         ["UserIP"] = userIp,
-                         ["Url"] = HttpContext.Current != null ? HttpContext.Current.Request.Url : "",
-                         ["ExceptionMessage"] = exception?.Message,
-                         ["ExceptionStackTrace"] = exception?.StackTrace,
-                         ["ExceptionSource"] = exception?.Source
-                     };
+        var values = new JObject {
+                                     ["Message"] = message,
+                                     ["UserIP"] = userIp,
+                                     ["Url"] = HttpContext.Current != null ? HttpContext.Current.Request.Url : "",
+                                     ["UserAgent"] = HttpContext.Current != null ? HttpContext.Current.Request.UserAgent : "",
+                                     ["ExceptionMessage"] = exception?.Message,
+                                     ["ExceptionStackTrace"] = exception?.StackTrace,
+                                     ["ExceptionSource"] = exception?.Source
+                                 };
 
         var formattedDescription = JsonConvert.SerializeObject(
             values,
@@ -159,7 +159,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
         {
             if (this.Type != null)
             {
-                source = this.Type.FullName.Length > 50 ? this.Type.FullName.Truncate(47) : this.Type.FullName;
+                source = this.Type.FullName!.Length > 50 ? this.Type.FullName.Truncate(47) : this.Type.FullName;
             }
             else
             {

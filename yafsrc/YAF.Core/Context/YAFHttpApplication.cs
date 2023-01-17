@@ -89,7 +89,6 @@ public abstract class YafHttpApplication : HttpApplication, IHaveServiceLocator
             {
                 this.Get<ILoggerService>().Log(
                     exception.Message,
-                    EventLogTypes.Error,
                     exception: exception,
                     userId: userId);
             }
@@ -101,12 +100,11 @@ public abstract class YafHttpApplication : HttpApplication, IHaveServiceLocator
                 && exception.TargetSite.Name != "CheckVirtualFileExists"
                 && exception.TargetSite.Name != "ValidateInputIfRequiredByConfig"
                 && exception.TargetSite.Name != "ValidateString"
-                && exception.Message != "This is an invalid webresource request"
-                && exception.Message != "This is an invalid script resource request")
+                && !exception.Message.Contains("This is an invalid webresource request")
+                && !exception.Message.Contains("This is an invalid script resource request"))
             {
                 this.Get<ILoggerService>().Log(
                     $"{exception.Message}",
-                    EventLogTypes.Error,
                     exception: exception,
                     userId: userId);
             }

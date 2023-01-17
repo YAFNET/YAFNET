@@ -129,7 +129,6 @@ public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
 
         Thread.CurrentThread.CurrentUICulture = info;
         Thread.CurrentThread.CurrentCulture = info;
-
     }
 
     protected string GetLanguageTags()

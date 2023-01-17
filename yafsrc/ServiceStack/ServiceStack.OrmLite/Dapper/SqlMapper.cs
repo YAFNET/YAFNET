@@ -5,7 +5,7 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 /*
- License: http://www.apache.org/licenses/LICENSE-2.0
+ License: https://www.apache.org/licenses/LICENSE-2.0
  Home page: https://github.com/StackExchange/dapper-dot-net
  */
 
