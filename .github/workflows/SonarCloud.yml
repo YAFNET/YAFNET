@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - netfx
 jobs:
   build:
     name: Build
