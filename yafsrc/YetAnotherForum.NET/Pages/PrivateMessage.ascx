@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Flags" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+<%@ Import Namespace="YAF.Core.Helpers" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -71,7 +72,7 @@
                             <div class="col mt-3">
                                 <YAF:MessagePost ID="Message" runat="server"
                                                  MessageFlags="<%# new MessageFlags((Container.DataItem as PagedPm).Flags) %>"
-                                                 Message="<%# (Container.DataItem as PagedPm).Body%>"
+                                                 Message="<%# HtmlHelper.StripHtml((Container.DataItem as PagedPm).Body)%>"
                                                  MessageID="<%# (Container.DataItem as PagedPm).UserPMessageID %>" />
                             </div>
                         </div>

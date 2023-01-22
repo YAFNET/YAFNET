@@ -145,8 +145,10 @@ public partial class PrivateMessage : ForumPageRegistered
                 this.PageBoardContext.PageLinks.AddLink(this.GetText("INBOX"), this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages));
             }
 
-            this.PageBoardContext.PageLinks.AddLink(message.Subject);
-            this.MessageTitle.Text = message.Subject;
+            var subject = HtmlHelper.StripHtml(message.Subject);
+
+            this.PageBoardContext.PageLinks.AddLink(subject);
+            this.MessageTitle.Text = subject;
 
             this.Inbox.DataSource = messages;
         }

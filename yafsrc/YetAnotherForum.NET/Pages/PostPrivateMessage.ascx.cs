@@ -305,7 +305,7 @@ public partial class PostPrivateMessage : ForumPage
             }
 
             // handle subject
-            var subject = this.ReplyMessage.Subject;
+            var subject = HtmlHelper.StripHtml(this.ReplyMessage.Subject);
             if (!subject.StartsWith("Re: "))
             {
                 subject = $"Re: {subject}";
@@ -566,7 +566,7 @@ public partial class PostPrivateMessage : ForumPage
             this.GetRepository<PMessage>().SendMessage(
                 this.PageBoardContext.PageUserID,
                 0,
-                this.PmSubjectTextBox.Text,
+                HtmlHelper.StripHtml(this.PmSubjectTextBox.Text),
                 body,
                 messageFlags.BitValue,
                 replyTo);
@@ -664,7 +664,7 @@ public partial class PostPrivateMessage : ForumPage
                 userId =>
 
                     {
-                        var body = this.editor.Text;
+                        var body = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.editor.Text));
 
                         var messageFlags = new MessageFlags
                                                {
@@ -675,7 +675,7 @@ public partial class PostPrivateMessage : ForumPage
                         this.GetRepository<PMessage>().SendMessage(
                             this.PageBoardContext.PageUserID,
                             userId,
-                            this.PmSubjectTextBox.Text,
+                            HtmlHelper.StripHtml(this.PmSubjectTextBox.Text),
                             body,
                             messageFlags.BitValue,
                             replyTo);
@@ -687,7 +687,7 @@ public partial class PostPrivateMessage : ForumPage
                         {
                             this.Get<ISendNotification>().ToPrivateMessageRecipient(
                                 userId,
-                                this.PmSubjectTextBox.Text.Trim());
+                                HtmlHelper.StripHtml(this.PmSubjectTextBox.Text.Trim()));
                         }
                     });
 
