@@ -151,4 +151,6 @@ public class BoardConfiguration
     /// Gets or sets a value indicating whether legacy membership hash hex.
     /// </summary>
     public bool LegacyMembershipHashHex { get; set; }
+
+    public bool UseHttpsRedirection { get; set; } = true;
 }

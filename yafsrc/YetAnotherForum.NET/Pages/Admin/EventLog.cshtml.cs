@@ -37,7 +37,6 @@ using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Utilities.StringUtils;
-using YAF.Types;
 using YAF.Types.Attributes;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
@@ -89,8 +88,25 @@ public class EventLogModel : AdminPage
 
             try
             {
-                return @$"<h6 class=""card-subtitle"">{json.Message}</h6><span class=""badge bg-info me-2""><i class=""fa-solid fa-desktop""></i> {json.UserIP}</span>
-                         <span class=""badge bg-secondary me-2""><i class=""fa-solid fa-globe""></i> {json.Url}</span><span class=""badge text-bg-light""><i class=""fa-solid fa-code""></i> {json.ExceptionSource}</span><div>{json.ExceptionMessage}</div>
+                var addressLink = string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, json.UserIP);
+
+                var exceptionSource = ((string)json.ExceptionSource).IsSet() ?
+                                          @$"<span class=""badge text-bg-light m-1""><i class=""fa-solid fa-code me-1""></i>{json.ExceptionSource}</span>"
+                                          : "";
+
+                var url = ((string)json.Url).IsSet()
+                              ? @$"<span class=""badge bg-secondary m-1""><i class=""fa-solid fa-globe me-1""></i>{json.Url}</span>"
+                              : "";
+
+                var userIp = ((string)json.UserIP).IsSet()
+                                 ? @$"<span class=""badge bg-info m-1""><i class=""fa-solid fa-desktop me-1""></i><a href=""{addressLink}"" target=""_blank"">{json.UserIP}</a></span>"
+                                 : "";
+
+                var userAgent = ((string)json.Url).IsSet()
+                                    ? @$"<span class=""badge bg-secondary m-1""><i class=""fa-solid fa-computer me-1""></i>{json.UserAgent}</span>"
+                                    : "";
+
+                return @$"<h6 class=""card-subtitle"">{json.Message}</h6><h5>{userIp}{url}{exceptionSource}{userAgent}</h5><div>{json.ExceptionMessage}</div>
                          <div>{this.beautify.Beautify(this.HtmlEncode(json.ExceptionStackTrace.ToString()))}</div>";
             }
             catch (Exception)

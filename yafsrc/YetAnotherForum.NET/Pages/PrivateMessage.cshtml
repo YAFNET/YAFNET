@@ -23,7 +23,7 @@
                 </h5>
                 @foreach (var message in Model.Messages)
                 {
-                    var currentMessage = new Message { ID = message.UserPMessageID, MessageText = message.Body, UserID = message.FromUserID };
+                    var currentMessage = new Message { ID = message.UserPMessageID, MessageText = Core.Helpers.HtmlHelper.StripHtml(message.Body), UserID = message.FromUserID };
 
                     <input type="hidden" name="id" value="@message.UserPMessageID" />
 
@@ -71,7 +71,7 @@
                         </div>
                         <div class="row">
                             <div class="col mt-3">
-                                <message message-flags="@(new MessageFlags(message.Flags))" current-message="currentMessage"></message>
+                                <message message-flags="@(new MessageFlags(message.Flags))" current-message="@currentMessage"></message>
                             </div>
                         </div>
 

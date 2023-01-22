@@ -273,7 +273,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var cardBody = new TagBuilder("div");
 
-        cardBody.AddCssClass("ccard-body py-0");
+        cardBody.AddCssClass("card-body py-0");
 
         // don't allow any HTML on signatures
         var signatureFlags = new MessageFlags { IsHtml = false };

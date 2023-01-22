@@ -195,11 +195,6 @@
             @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_IMAGE_ATTACH")
         </a>
     </li>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="cdn-tab" data-bs-toggle="tab" data-bs-target="#cdn" role="tab" aria-controls="cdn" aria-selected="false">
-            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_CDN")
-        </a>
-    </li>
 </ul>
 <div class="tab-content" id="setupTabContent">
 <div class="tab-pane fade show active" id="setup" role="tabpanel" aria-labelledby="setup-tab">
@@ -209,14 +204,6 @@
                localized-tag="SERVERTIME_CORRECT"></label>
         <input type="text" class="form-control serverTime-Input" asp-for="Input.ServerTimeCorrection" />
         <small class="form-text text-muted">@Html.Raw(DateTime.UtcNow)</small>
-    </div>
-    <div class="mb-3 col-md-6">
-        <label class="form-label" info-button="true" 
-               asp-for="Input.RequireSSL"
-               localized-tag="SSL_REQUIRE"></label>
-        <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-label" asp-for="Input.RequireSSL" />
-        </div>
     </div>
     <div class="row">
         <div class="mb-3 col-md-6">
@@ -574,18 +561,6 @@
                    asp-for="Input.ImageAttachmentResizeHeight"
                    localized-tag="IMAGE_RESIZE_HEIGHT"></label>
             <input type="number" class="form-control" asp-for="Input.ImageAttachmentResizeHeight" />
-        </div>
-    </div>
-</div>
-<div class="tab-pane fade" id="cdn" role="tabpanel" aria-labelledby="cdn-tab">
-    <div class="row">
-        <div class="mb-3 col-md-6">
-            <label class="form-label" info-button="true"
-                   asp-for="Input.ScriptManagerScriptsCDNHosted"
-                   localized-tag="CDN_SCRIPTMANAGER"></label>
-            <div class="form-check form-switch">
-                <input type="checkbox" class="form-check-label" asp-for="Input.ScriptManagerScriptsCDNHosted"  />
-            </div>
         </div>
     </div>
 </div>

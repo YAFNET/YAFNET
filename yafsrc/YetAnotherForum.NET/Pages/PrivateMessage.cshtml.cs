@@ -28,9 +28,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services;
-using YAF.Types;
 using YAF.Types.Attributes;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
@@ -133,7 +133,9 @@ public class PrivateMessageModel : ForumPageRegistered
 
             this.SetMessageView(message!.FromUserID, message.ToUserID, v, message.IsInOutbox);
 
-            this.MessageTitle = this.PageTitle = message.Subject;
+            var subject = HtmlHelper.StripHtml(message.Subject);
+
+            this.MessageTitle = this.PageTitle = subject;
             
             this.Messages = messages;
 
@@ -149,7 +151,7 @@ public class PrivateMessageModel : ForumPageRegistered
                 this.PageBoardContext.PageLinks.AddLink(this.GetText("INBOX"), this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages));
             }
 
-            this.PageBoardContext.PageLinks.AddLink(message.Subject);
+            this.PageBoardContext.PageLinks.AddLink(subject);
         }
         else
         {

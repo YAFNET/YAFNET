@@ -90,16 +90,6 @@ public class Startup : IHaveServiceLocator
     /// </param>
     public void ConfigureServices(IServiceCollection services)
     {
-        /*
-         *
-         *<!-- Advanced URL Rewriting Format -->
-  <rewrite url="^~/(.+?)?info?\?i=([0-9]+?)&amp;url\=(.+)$" to="~/$1Default.aspx?g=info&amp;i=$2&amp;url=$3" processing="stop" />
-  <rewrite url="^~/(.+)?category/([0-9]+)-((.+))?(\?(.+))?$" to="~/$1Default.aspx?g=forum&amp;c=$2&amp;$6" processing="stop" />
-  <rewrite url="^~/(.+)?posts/t([0-9]+)-((.+))?(/page([0-9]+))(\?(.+))?$" to="~/$1Default.aspx?g=posts&amp;t=$2&amp;p=$6&amp;$8" processing="stop" />
-  <rewrite url="^~/(.+)?posts/t([0-9]+)-((.+))?(\?(.+))?$" to="~/$1Default.aspx?g=posts&amp;t=$2&amp;$6" processing="stop" />
-  <rewrite url="^~/(.+)?posts/m([0-9]+)-((.+))?(\?(.+))?$" to="~/$1Default.aspx?g=posts&amp;m=$2&amp;$6" processing="stop" />
-         *
-         */
         services.AddRazorPages();
         services.AddControllers();
 
@@ -295,7 +285,6 @@ public class Startup : IHaveServiceLocator
 
         app.UseAntiXssMiddleware();
 
-        //app.UseHttpsRedirection();
         app.UseStaticFiles();
 
         app.UseSession();
@@ -307,6 +296,11 @@ public class Startup : IHaveServiceLocator
         GlobalContainer.AutoFacContainer.Resolve<IInjectServices>().Inject(this);
 
         ServiceLocatorAccess.CurrentServiceProvider = GlobalContainer.AutoFacContainer.Resolve<IServiceLocator>();
+
+        if (this.Get<BoardConfiguration>().UseHttpsRedirection)
+        {
+            app.UseHttpsRedirection();
+        }
 
         // Database Connection String
         Config.ConnectionString = this.Configuration.GetConnectionString("DefaultConnection");

@@ -149,7 +149,7 @@ public static class DataImport
         {
             var line = streamReader.ReadLine();
 
-            if (line.IsNotSet() || !line.Contains("@"))
+            if (line.IsNotSet() || !line.Contains('@'))
             {
                 continue;
             }

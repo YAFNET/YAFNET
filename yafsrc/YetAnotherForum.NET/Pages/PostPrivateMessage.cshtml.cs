@@ -301,7 +301,7 @@ public class PostPrivateMessageModel : ForumPageRegistered
             }
 
             // handle subject
-            var subject = this.ReplyMessage.Subject;
+            var subject = HtmlHelper.StripHtml(this.ReplyMessage.Subject);
             if (!subject.StartsWith("Re: "))
             {
                 subject = $"Re: {subject}";
@@ -511,6 +511,7 @@ public class PostPrivateMessageModel : ForumPageRegistered
         {
             // administrator is sending PMs to all users
             var body = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Editor));
+
             var messageFlags = new MessageFlags {
                                                     IsHtml = false,
                                                     IsBBCode = true
@@ -525,7 +526,7 @@ public class PostPrivateMessageModel : ForumPageRegistered
             this.GetRepository<PMessage>().SendMessage(
                 this.PageBoardContext.PageUserID,
                 0,
-                this.Subject,
+                HtmlHelper.StripHtml(this.Subject),
                 body,
                 messageFlags.BitValue,
                 replyTo);
@@ -621,7 +622,7 @@ public class PostPrivateMessageModel : ForumPageRegistered
             userId =>
 
             {
-                var body = this.Editor;
+                var body = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Editor));
 
                 var messageFlags = new MessageFlags {
                                                         IsHtml = false,
@@ -631,7 +632,7 @@ public class PostPrivateMessageModel : ForumPageRegistered
                 this.GetRepository<PMessage>().SendMessage(
                     this.PageBoardContext.PageUserID,
                     userId,
-                    this.Subject,
+                    HtmlHelper.StripHtml(this.Subject),
                     body,
                     messageFlags.BitValue,
                     replyTo);

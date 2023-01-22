@@ -11,7 +11,7 @@
     "grunt-contrib-sass": "*",
     "grunt-contrib-uglify": "^5.2.2",
     "grunt-dev-update": "^2.3.0",
-    "postcss": "^8.4.20",
+    "postcss": "^8.4.21",
     "sass": "^1.57.1"
   },
   "dependencies": {

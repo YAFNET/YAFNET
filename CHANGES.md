@@ -1,6 +1,11 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.11
+* [FIXED] Stored XSS in Inbox (Send a private message)
+* Updated Event log ui
+* bug fixes
+
 # YetAnotherForum.NET v3.1.10
 * [FIXED] Image Gallery close button 
 * [FIXED] Code block when quoting a post

@@ -522,10 +522,6 @@ public class HostSettingsModel : AdminPage
     {
         public bool LogBannedIP { get; set; }
 
-        public bool RequireSSL { get; set; }
-
-        public bool ScriptManagerScriptsCDNHosted { get; set; }
-
         public bool AllowPMEmailNotification { get; set; }
 
         public bool EnableIPInfoService { get; set; }

@@ -215,20 +215,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether to use the script manager scripts from a CDN or locally.
-    /// </summary>
-    /// <value>
-    /// <c>If true use CDN if not use locally</c>.
-    /// </value>
-    // TODO : ScriptManagerScriptsCDNHosted
-    public bool ScriptManagerScriptsCDNHosted
-    {
-        get => this.Registry.GetValue("ScriptManagerScriptsCDNHosted", true);
-
-        set => this.Registry.SetValue("ScriptManagerScriptsCDNHosted", value);
-    }
-
-    /// <summary>
     /// Gets or sets Theme.
     /// </summary>
     public string Theme
@@ -1180,20 +1166,6 @@ public class BoardSettings
         get => this.Registry.GetValue("AbadonSessionsForDontTrack", false);
 
         set => this.Registry.SetValue("AbadonSessionsForDontTrack", value);
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether [require SSL].
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if [require SSL]; otherwise, <c>false</c>.
-    /// </value>
-    // TODO : RequireSSL
-    public bool RequireSSL
-    {
-        get => this.Registry.GetValue("UseSSLToRegister", false);
-
-        set => this.Registry.SetValue("UseSSLToRegister", value);
     }
 
     /// <summary>
