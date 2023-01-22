@@ -24,7 +24,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.2" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.2" />
