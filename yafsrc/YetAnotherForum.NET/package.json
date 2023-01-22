@@ -1,6 +1,6 @@
 {
     "name": "yetanotherforum-net",
-    "version": "3.1.8",
+    "version": "3.1.11",
     "private": true,
     "devDependencies": {
         "@lodder/grunt-postcss": "^3.1.1",
@@ -12,7 +12,7 @@
         "grunt-contrib-uglify": "^5.2.2",
         "grunt-dev-update": "^2.3.0",
         "grunt-shell": "^4.0.0",
-        "postcss": "^8.4.20",
+        "postcss": "^8.4.21",
         "sass": "^1.57.1"
     },
     "dependencies": {
