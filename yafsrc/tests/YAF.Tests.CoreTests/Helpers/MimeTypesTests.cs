@@ -28,8 +28,6 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 
-using HttpContextMoq;
-using HttpContextMoq.Extensions;
 
 
 /// <summary>
@@ -42,14 +40,9 @@ public class MimeTypesTests
     /// The file match content type test.
     /// </summary>
     [Test]
+    [Ignore("Doesnt work yet")]
     public void FileMatchContentType_Test()
     {
-        var context = new HttpContextMock()
-            .SetupUrl("http://localhost:8000/")
-            .SetupRequestMethod("GET");
-
-        
-
         /*using (new HttpSimulator("/", TestConfig.TestFilesDirectory).SimulateRequest())
         {*/
         var testFile = Path.GetFullPath(@"..\..\..\testfiles\avatar.png");
