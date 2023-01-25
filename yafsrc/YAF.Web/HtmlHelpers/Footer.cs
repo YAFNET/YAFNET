@@ -109,7 +109,7 @@ public static class FooterHtmlHelper
             var currentDomainHash = HashHelper.Hash(
                 dnsSafeHost,
                 HashAlgorithmType.SHA1,
-                new SimpleURLParameterParser(string.Empty).GetType().GetSigningKey(),
+                content.GetType().GetSigningKey(),
                 false);
 
             if (domainKey.Equals(currentDomainHash))
