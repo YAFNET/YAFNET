@@ -23,7 +23,7 @@
     <PackageReference Include="Microsoft.SqlServer.SqlManagementObjects.SSMS" Version="161.47027.0" />
     <PackageReference Include="Microsoft.Web.Administration" Version="11.1.0" />
     <PackageReference Include="netDumbster" Version="3.0.1" />
-    <PackageReference Include="Selenium.Support" Version="4.7.0" />
+    <PackageReference Include="Selenium.Support" Version="4.8.0" />
     <PackageReference Include="SharpZipLib" Version="1.4.1" />
   </ItemGroup>
   <ItemGroup>
