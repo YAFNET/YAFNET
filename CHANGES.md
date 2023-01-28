@@ -1,6 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.12
+* [FIXED] Stored XSS in Signature
+
 # YetAnotherForum.NET v3.1.11
 * [FIXED] Stored XSS in Inbox (Send a private message)
 * Updated Event log ui

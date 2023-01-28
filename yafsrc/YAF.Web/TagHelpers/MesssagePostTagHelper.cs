@@ -103,7 +103,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <summary>
     /// Gets or sets the display user id.
     /// </summary>
-    public int? DisplayUserID { get; set; }
+    public int? DisplayUserId { get; set; }
 
     /// <summary>
     ///   Gets or sets the Words to highlight in this message
@@ -128,7 +128,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <summary>
     ///   Gets or sets MessageID.
     /// </summary>
-    public virtual int? MessageID
+    public virtual int? MessageId
     {
         get => this.messageId ?? 0;
         set => this.messageId = value;
@@ -198,7 +198,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
             if (this.ShowSignature && this.Get<BoardSettings>().AllowSignatures &&
                 this.Signature.IsSet() && this.Signature.ToLower() != "<p>&nbsp;</p>" &&
-                this.DisplayUserID.HasValue)
+                this.DisplayUserId.HasValue)
             {
                 this.RenderSignature(output);
             }
@@ -209,7 +209,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             {
                 if (!this.MessageFlags.IsDeleted && !this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
                 {
-                    this.DisplayUserID = this.CurrentMessage.UserID;
+                    this.DisplayUserId = this.CurrentMessage.UserID;
                 }
             }
 
@@ -223,7 +223,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
             if (this.ShowSignature && this.Get<BoardSettings>().AllowSignatures &&
                 this.CurrentMessage.Signature.IsSet() && this.CurrentMessage.Signature.ToLower() != "<p>&nbsp;</p>" &&
-                this.DisplayUserID.HasValue)
+                this.DisplayUserId.HasValue)
             {
                 this.RenderSignature(output);
             }
@@ -278,13 +278,15 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         // don't allow any HTML on signatures
         var signatureFlags = new MessageFlags { IsHtml = false };
 
+        this.Signature = HtmlHelper.StripHtml(this.Signature);
+
         var signatureRendered = this.Get<IFormatMessage>().Format(0, this.Signature, signatureFlags);
 
         cardBody.InnerHtml.AppendHtml(
             this.RenderModulesInBBCode(
                 signatureRendered,
                 signatureFlags,
-                this.DisplayUserID,
+                this.DisplayUserId,
                 this.CurrentMessage.ID));
 
         card.InnerHtml.AppendHtml(cardBody);
@@ -348,14 +350,14 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="editReason">
     /// The edit reason text.
     /// </param>
-    /// <param name="messageId">
+    /// <param name="msgId">
     /// The message id.
     /// </param>
     protected virtual void RenderEditedMessage(
         [NotNull] TagHelperOutput output,
         [NotNull] DateTime edited,
         [NotNull] string editReason,
-        int? messageId)
+        int? msgId)
     {
         if (!this.Get<BoardSettings>().ShowEditedMessage)
         {
@@ -416,7 +418,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
             link.MergeAttribute(
                 "href",
-                this.Get<LinkBuilder>().GetLink(ForumPages.MessageHistory, new { m = messageId.ToType<int>() }));
+                this.Get<LinkBuilder>().GetLink(ForumPages.MessageHistory, new { m = msgId.ToType<int>() }));
 
             var iconHistory = new TagBuilder("i");
 
@@ -501,7 +503,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             this.RenderModulesInBBCode(
                 formattedMessage,
                 this.MessageFlags,
-                this.DisplayUserID,
+                this.DisplayUserId,
                 0));
     }
 
@@ -556,7 +558,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 this.RenderModulesInBBCode(
                     formattedMessage,
                     this.MessageFlags,
-                    this.DisplayUserID,
+                    this.DisplayUserId,
                     this.CurrentMessage.ID));
 
             // Render Edit Message
@@ -589,7 +591,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 this.RenderModulesInBBCode(
                     formattedMessage,
                     this.MessageFlags,
-                    this.DisplayUserID,
+                    this.DisplayUserId,
                     this.CurrentMessage.ID));
 
             // Render Go to Answer Message
@@ -612,7 +614,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="displayUserId">
     /// The display user id.
     /// </param>
-    /// <param name="messageId">
+    /// <param name="msgId">
     /// The Message Id.
     /// </param>
     /// <returns>
@@ -622,7 +624,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         [NotNull] string message,
         [NotNull] MessageFlags theseFlags,
         int? displayUserId,
-        int? messageId)
+        int? msgId)
     {
         var workingMessage = message;
 
@@ -664,7 +666,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                         // assign parameters...
                         customModule.CurrentMessageFlags = theseFlags;
                         customModule.DisplayUserID = displayUserId;
-                        customModule.MessageID = messageId;
+                        customModule.MessageID = msgId;
                         customModule.Parameters = paramDic;
 
                         // render this control...

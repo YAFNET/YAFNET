@@ -27,6 +27,7 @@ namespace YAF.Pages.Profile;
 using Microsoft.Extensions.Logging;
 
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Types.EventProxies;
@@ -205,7 +206,7 @@ public class EditSignatureModel : ProfilePage
     {
         this.BindData(false);
 
-        var body = this.Signature;
+        var body = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Signature));
 
         // find forbidden BBCodes in signature
         var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.AllowedBbcodes, ',');

@@ -30,7 +30,7 @@ using YAF.Types.Attributes;
 /// The message post tag helper.
 /// </summary>
 [HtmlTargetElement("messagePostData")]
-public class MessagePostDataTagHelper : MessagePostTagHelper, IHaveServiceLocator
+public class MessagePostDataTagHelper : MessagePostTagHelper
 {
     /// <summary>
     /// Sets the data row.
@@ -46,7 +46,7 @@ public class MessagePostDataTagHelper : MessagePostTagHelper, IHaveServiceLocato
     /// <summary>
     ///   Gets Message Id.
     /// </summary>
-    public override int? MessageID => this.CurrentMessage.ID;
+    public override int? MessageId => this.CurrentMessage.ID;
 
     /// <summary>
     ///   Gets Signature.
@@ -106,7 +106,7 @@ public class MessagePostDataTagHelper : MessagePostTagHelper, IHaveServiceLocato
         
         if (!this.MessageFlags.IsDeleted && !this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
         {
-            this.DisplayUserID = this.CurrentMessage.UserID;
+            this.DisplayUserId = this.CurrentMessage.UserID;
         }
 
         if (this.MessageFlags.IsDeleted)
@@ -147,14 +147,14 @@ public class MessagePostDataTagHelper : MessagePostTagHelper, IHaveServiceLocato
             output.Content.AppendHtml(this.RenderModulesInBBCode(
                 formattedMessage,
                 this.MessageFlags,
-                this.DisplayUserID,
-                this.MessageID));
+                this.DisplayUserId,
+                this.MessageId));
 
             // Render Edit Message
             if (this.ShowEditMessage
                 && this.Edited > this.CurrentMessage.Posted.AddSeconds(this.Get<BoardSettings>().EditTimeOut))
             {
-                this.RenderEditedMessage(output, this.Edited, this.CurrentMessage.EditReason, this.MessageID);
+                this.RenderEditedMessage(output, this.Edited, this.CurrentMessage.EditReason, this.MessageId);
             }
 
             // Render Go to Answer Message
@@ -173,8 +173,8 @@ public class MessagePostDataTagHelper : MessagePostTagHelper, IHaveServiceLocato
             output.Content.AppendHtml(this.RenderModulesInBBCode(
                 formattedMessage,
                 this.MessageFlags,
-                this.DisplayUserID,
-                this.MessageID));
+                this.DisplayUserId,
+                this.MessageId));
 
             // Render Go to Answer Message
             if (this.CurrentMessage.AnswerMessageId.HasValue && this.CurrentMessage.Position.Equals(0))
