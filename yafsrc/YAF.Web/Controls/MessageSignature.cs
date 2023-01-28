@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -103,6 +103,8 @@ public class MessageSignature : MessageBase
 
         // don't allow any HTML on signatures
         var signatureFlags = new MessageFlags { IsHtml = false };
+
+        this.Signature = HtmlHelper.StripHtml(this.Signature);
 
         var signatureRendered = this.Get<IFormatMessage>().Format(0, this.Signature, signatureFlags);
 

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -235,7 +235,7 @@ public partial class EditUsersSignature : BaseUserControl
     /// </param>
     private void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        var body = this.signatureEditor.Text;
+        var body = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.signatureEditor.Text.Trim()));
 
         // find forbidden BBCodes in signature
         var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.AllowedBBCodes, ',');
