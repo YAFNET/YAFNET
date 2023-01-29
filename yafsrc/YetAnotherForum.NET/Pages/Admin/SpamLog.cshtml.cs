@@ -32,9 +32,12 @@ using FarsiLibrary.Utils;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+using Newtonsoft.Json;
+
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
+using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
@@ -53,12 +56,15 @@ public class SpamLogModel : AdminPage
     [BindProperty]
     public List<PagedEventLog> List { get; set; }
 
+    private readonly StackTraceBeautify beautify;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="SpamLogModel"/> class. 
     /// </summary>
     public SpamLogModel()
         : base("ADMIN_EVENTLOG", ForumPages.Admin_SpamLog)
     {
+        this.beautify = new StackTraceBeautify();
     }
 
     /// <summary>
@@ -70,6 +76,51 @@ public class SpamLogModel : AdminPage
         this.PageBoardContext.PageLinks.AddAdminIndex();
 
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_SPAMLOG", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// Formats the stack trace.
+    /// </summary>
+    /// <param name="input">The JSON input stack trace.</param>
+    /// <returns>System.String.</returns>
+    public string FormatStackTrace(string input)
+    {
+        try
+        {
+            dynamic json = JsonConvert.DeserializeObject(input);
+
+            try
+            {
+                var addressLink = string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, json.UserIP);
+
+                var exceptionSource = ((string)json.ExceptionSource).IsSet() ?
+                                          @$"<span class=""badge text-bg-light m-1""><i class=""fa-solid fa-code me-1""></i>{json.ExceptionSource}</span>"
+                                          : "";
+
+                var url = ((string)json.Url).IsSet()
+                              ? @$"<span class=""badge bg-secondary m-1""><i class=""fa-solid fa-globe me-1""></i>{json.Url}</span>"
+                              : "";
+
+                var userIp = ((string)json.UserIP).IsSet()
+                                 ? @$"<span class=""badge bg-info m-1""><i class=""fa-solid fa-desktop me-1""></i><a href=""{addressLink}"" target=""_blank"">{json.UserIP}</a></span>"
+                                 : "";
+
+                var userAgent = ((string)json.Url).IsSet()
+                                    ? @$"<span class=""badge bg-secondary m-1""><i class=""fa-solid fa-computer me-1""></i>{json.UserAgent}</span>"
+                                    : "";
+
+                return @$"<h6 class=""card-subtitle"">{json.Message}</h6><h5>{userIp}{url}{exceptionSource}{userAgent}</h5><div>{json.ExceptionMessage}</div>
+                         <div>{this.beautify.Beautify(this.HtmlEncode(json.ExceptionStackTrace.ToString()))}</div>";
+            }
+            catch (Exception)
+            {
+                return this.beautify.Beautify(this.HtmlEncode(input));
+            }
+        }
+        catch (JsonReaderException)
+        {
+            return this.beautify.Beautify(this.HtmlEncode(input));
+        }
     }
 
     /// <summary>

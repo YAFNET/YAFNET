@@ -80,6 +80,11 @@ public class EventLogModel : AdminPage
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EVENTLOG", "TITLE"), string.Empty);
     }
 
+    /// <summary>
+    /// Formats the stack trace.
+    /// </summary>
+    /// <param name="input">The JSON input stack trace.</param>
+    /// <returns>System.String.</returns>
     public string FormatStackTrace(string input)
     {
         try
