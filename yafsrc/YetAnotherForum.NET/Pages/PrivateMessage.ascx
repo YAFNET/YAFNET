@@ -72,7 +72,7 @@
                             <div class="col mt-3">
                                 <YAF:MessagePost ID="Message" runat="server"
                                                  MessageFlags="<%# new MessageFlags((Container.DataItem as PagedPm).Flags) %>"
-                                                 Message="<%# HtmlHelper.StripHtml((Container.DataItem as PagedPm).Body)%>"
+                                                 Message="<%# HtmlTagHelper.StripHtml((Container.DataItem as PagedPm).Body)%>"
                                                  MessageID="<%# (Container.DataItem as PagedPm).UserPMessageID %>" />
                             </div>
                         </div>
