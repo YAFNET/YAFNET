@@ -133,7 +133,7 @@ public class PrivateMessageModel : ForumPageRegistered
 
             this.SetMessageView(message!.FromUserID, message.ToUserID, v, message.IsInOutbox);
 
-            var subject = HtmlHelper.StripHtml(message.Subject);
+            var subject = HtmlTagHelper.StripHtml(message.Subject);
 
             this.MessageTitle = this.PageTitle = subject;
             

@@ -182,7 +182,7 @@ public static class TopicContainerHtmlHelper
 
         titleColumn.InnerHtml.AppendHtml(header);
 
-        var topicDescription = HtmlHelper.StripHtml(topic.Description);
+        var topicDescription = HtmlTagHelper.StripHtml(topic.Description);
 
         if (topicDescription.IsSet())
         {

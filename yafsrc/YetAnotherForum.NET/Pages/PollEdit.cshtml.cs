@@ -202,7 +202,7 @@ public class PollEditModel : ForumPage
             return this.PageBoardContext.Notify(this.GetText("POLLEDIT", "NEED_QUESTION"), MessageTypes.warning);
         }
 
-        this.Input.Question = HtmlHelper.StripHtml(this.Input.Question);
+        this.Input.Question = HtmlTagHelper.StripHtml(this.Input.Question);
 
         var count = this.Input.Choices.Count(choice => choice.ChoiceName.IsSet());
 

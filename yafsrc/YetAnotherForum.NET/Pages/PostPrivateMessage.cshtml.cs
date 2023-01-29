@@ -301,7 +301,7 @@ public class PostPrivateMessageModel : ForumPageRegistered
             }
 
             // handle subject
-            var subject = HtmlHelper.StripHtml(this.ReplyMessage.Subject);
+            var subject = HtmlTagHelper.StripHtml(this.ReplyMessage.Subject);
             if (!subject.StartsWith("Re: "))
             {
                 subject = $"Re: {subject}";
@@ -510,7 +510,7 @@ public class PostPrivateMessageModel : ForumPageRegistered
         if (this.ToListVisible && this.ToListValue is 0)
         {
             // administrator is sending PMs to all users
-            var body = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Editor));
+            var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Editor));
 
             var messageFlags = new MessageFlags {
                                                     IsHtml = false,
@@ -526,7 +526,7 @@ public class PostPrivateMessageModel : ForumPageRegistered
             this.GetRepository<PMessage>().SendMessage(
                 this.PageBoardContext.PageUserID,
                 0,
-                HtmlHelper.StripHtml(this.Subject),
+                HtmlTagHelper.StripHtml(this.Subject),
                 body,
                 messageFlags.BitValue,
                 replyTo);
@@ -622,7 +622,7 @@ public class PostPrivateMessageModel : ForumPageRegistered
             userId =>
 
             {
-                var body = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Editor));
+                var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Editor));
 
                 var messageFlags = new MessageFlags {
                                                         IsHtml = false,
@@ -632,7 +632,7 @@ public class PostPrivateMessageModel : ForumPageRegistered
                 this.GetRepository<PMessage>().SendMessage(
                     this.PageBoardContext.PageUserID,
                     userId,
-                    HtmlHelper.StripHtml(this.Subject),
+                    HtmlTagHelper.StripHtml(this.Subject),
                     body,
                     messageFlags.BitValue,
                     replyTo);

@@ -194,7 +194,7 @@ public class SettingsModel : AdminPage
 
         items.ForEach(
             x => this.DefaultNotificationSettings.Add(
-                new SelectListItem(HtmlHelper.StripHtml(this.GetText("SUBSCRIPTIONS", x.Value)), x.Key.ToString())));
+                new SelectListItem(HtmlTagHelper.StripHtml(this.GetText("SUBSCRIPTIONS", x.Value)), x.Key.ToString())));
 
         this.DefaultCollapsiblePanelStates = new List<SelectListItem> {
                                                                           new(

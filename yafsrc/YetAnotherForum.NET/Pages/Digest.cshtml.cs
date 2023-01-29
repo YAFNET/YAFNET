@@ -159,7 +159,7 @@ public class DigestModel : ForumPage
     /// </returns>
     public string GetMessageFormattedAndTruncated([NotNull] string lastMessage, int maxlength)
     {
-        return BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(lastMessage)))
+        return BBCodeHelper.StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(lastMessage)))
             .RemoveMultipleWhitespace().Truncate(maxlength);
     }
 }

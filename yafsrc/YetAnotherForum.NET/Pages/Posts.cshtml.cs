@@ -43,7 +43,7 @@ using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
 
-using HtmlHelper = YAF.Core.Helpers.HtmlHelper;
+using HtmlTagHelper = YAF.Core.Helpers.HtmlTagHelper;
 
 /// <summary>
 /// The Posts list page
@@ -361,7 +361,7 @@ public class PostsModel : ForumPage
 
         // process message... clean html, strip html, remove bbcode, etc...
         var twitterMsg = BBCodeHelper
-            .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.PageBoardContext.PageTopic.TopicName)))
+            .StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.PageBoardContext.PageTopic.TopicName)))
             .RemoveMultipleWhitespace();
 
         var topicUrl = this.Get<LinkBuilder>().GetLink(

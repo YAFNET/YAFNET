@@ -39,7 +39,7 @@ public class Attach : BBCodeControl
     /// </param>
     public override void Render(StringBuilder stringBuilder)
     {
-        var attachId = HtmlHelper.StripHtml(this.Parameters["inner"]);
+        var attachId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
 
         if (!ValidationHelper.IsNumeric(attachId))
         {

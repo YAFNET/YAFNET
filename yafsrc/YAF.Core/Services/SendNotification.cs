@@ -342,7 +342,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
 
         // cleaned body as text...
         var bodyText = this.Get<IBadWordReplace>()
-            .Replace(BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.MessageText))))
+            .Replace(BBCodeHelper.StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(message.MessageText))))
             .RemoveMultipleWhitespace();
 
         var watchUsers = this.GetRepository<User>().WatchMailList(message.TopicID, message.UserID);

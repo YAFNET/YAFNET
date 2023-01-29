@@ -136,7 +136,7 @@ public class PostMessageModel : ForumPage
     protected bool IsPostReplyVerified()
     {
         // To avoid posting whitespace(s) or empty messages
-        var postedMessage = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Input.Editor));
+        var postedMessage = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Input.Editor));
 
         if (postedMessage.IsNotSet())
         {
@@ -207,8 +207,8 @@ public class PostMessageModel : ForumPage
                 {
                     var quotedMessageText = HttpUtility.UrlDecode(text);
 
-                    this.quotedMessage.MessageText = HtmlHelper.StripHtml(
-                        BBCodeHelper.EncodeCodeBlocks(HtmlHelper.CleanHtmlString(quotedMessageText)));
+                    this.quotedMessage.MessageText = HtmlTagHelper.StripHtml(
+                        BBCodeHelper.EncodeCodeBlocks(HtmlTagHelper.CleanHtmlString(quotedMessageText)));
                 }
 
                 if (this.quotedMessage.TopicID != this.PageBoardContext.PageTopicID)
@@ -307,7 +307,7 @@ public class PostMessageModel : ForumPage
             this.PageBoardContext.PageForum,
             this.PageBoardContext.PageTopic,
             this.PageBoardContext.PageUser,
-            HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
+            HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
             this.AspNetUser != null ? null : this.Input.From,
             this.HttpContext.GetUserRealIPAddress(),
             DateTime.UtcNow,
@@ -338,7 +338,7 @@ public class PostMessageModel : ForumPage
 
         var isPossibleSpamMessage = false;
 
-        var message = HtmlHelper.StripHtml(this.Input.Editor);
+        var message = HtmlTagHelper.StripHtml(this.Input.Editor);
 
         // Check for SPAM
         if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
@@ -349,7 +349,7 @@ public class PostMessageModel : ForumPage
                         ? this.Input.From
                         : this.PageBoardContext.PageUser.DisplayOrUserName(),
                     this.HttpContext.GetUserRealIPAddress(),
-                    BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.Input.Editor)))
+                    BBCodeHelper.StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.Input.Editor)))
                         .RemoveMultipleWhitespace(),
                     this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
                     out var spamResult))

@@ -86,7 +86,7 @@ public class EditMessageModel : ForumPage
     private bool IsPostReplyVerified()
     {
         // To avoid posting whitespace(s) or empty messages
-        var postedMessage = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Input.Editor));
+        var postedMessage = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Input.Editor));
 
         if (postedMessage.IsNotSet())
         {
@@ -246,7 +246,7 @@ public class EditMessageModel : ForumPage
 
         this.GetRepository<Message>().Update(
             this.Input.Priority.ToType<short>(),
-            HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
+            HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
             descriptionSave,
             string.Empty,
             stylesSave,
@@ -296,7 +296,7 @@ public class EditMessageModel : ForumPage
                         ? this.Input.From
                         : this.PageBoardContext.PageUser.DisplayOrUserName(),
                     this.HttpContext.GetUserRealIPAddress(),
-                    BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.Input.Editor)))
+                    BBCodeHelper.StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.Input.Editor)))
                         .RemoveMultipleWhitespace(),
                     this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
                     out var spamResult))

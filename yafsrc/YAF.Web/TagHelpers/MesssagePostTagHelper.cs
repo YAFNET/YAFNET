@@ -278,7 +278,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         // don't allow any HTML on signatures
         var signatureFlags = new MessageFlags { IsHtml = false };
 
-        this.Signature = HtmlHelper.StripHtml(this.Signature);
+        this.Signature = Core.Helpers.HtmlTagHelper.StripHtml(this.Signature);
 
         var signatureRendered = this.Get<IFormatMessage>().Format(0, this.Signature, signatureFlags);
 

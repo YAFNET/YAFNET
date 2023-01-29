@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Helpers;
 
 using System;
@@ -30,9 +31,9 @@ using System.Text.RegularExpressions;
 using YAF.Types.Attributes;
 
 /// <summary>
-/// The html helper.
+/// The html tag helper.
 /// </summary>
-public static class HtmlHelper
+public static class HtmlTagHelper
 {
     /// <summary>
     /// Strip Html Tags from String
