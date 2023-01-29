@@ -220,7 +220,7 @@ public partial class Settings : AdminPage
         var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
         var notificationItems = items.Select(
-                x => new ListItem(HtmlHelper.StripHtml(this.GetText("SUBSCRIPTIONS", x.Value)), x.Key.ToString()))
+                x => new ListItem(HtmlTagHelper.StripHtml(this.GetText("SUBSCRIPTIONS", x.Value)), x.Key.ToString()))
             .ToArray();
 
         this.DefaultNotificationSetting.Items.AddRange(notificationItems);

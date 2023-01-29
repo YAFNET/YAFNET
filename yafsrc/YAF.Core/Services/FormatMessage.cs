@@ -531,7 +531,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
             text,
             (tag, index, len) =>
                 {
-                    if (!HtmlHelper.IsValidTag(tag, allowedTags))
+                    if (!HtmlTagHelper.IsValidTag(tag, allowedTags))
                     {
                         text = text.Remove(index, len);
                     }

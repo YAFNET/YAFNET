@@ -730,7 +730,7 @@ public partial class Posts : ForumPage
                 {
                     // process message... clean html, strip html, remove BBCode, etc...
                     var tumblrTopicName = BBCodeHelper
-                        .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.topic.TopicName)))
+                        .StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.topic.TopicName)))
                         .RemoveMultipleWhitespace();
 
                     var meta = this.Page.Header.FindControlType<HtmlMeta>().ToList();
@@ -761,7 +761,7 @@ public partial class Posts : ForumPage
 
                     // process message... clean html, strip html, remove bbcode, etc...
                     var twitterMsg = BBCodeHelper
-                        .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.topic.TopicName)))
+                        .StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.topic.TopicName)))
                         .RemoveMultipleWhitespace();
 
                     var tweetUrl =

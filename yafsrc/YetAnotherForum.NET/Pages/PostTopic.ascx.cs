@@ -102,7 +102,7 @@ public partial class PostTopic : ForumPage
     protected bool IsPostReplyVerified()
     {
         // To avoid posting whitespace(s) or empty messages
-        var postedMessage = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text.Trim()));
+        var postedMessage = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text.Trim()));
 
         if (postedMessage.IsNotSet())
         {
@@ -127,14 +127,14 @@ public partial class PostTopic : ForumPage
             return false;
         }
 
-        if (HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text).IsNotSet())
+        if (HtmlTagHelper.StripHtml(this.TopicSubjectTextBox.Text).IsNotSet())
         {
             this.PageBoardContext.Notify(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
             return false;
         }
 
         if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName)
-            && this.GetRepository<Topic>().CheckForDuplicate(HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text).Trim()))
+            && this.GetRepository<Topic>().CheckForDuplicate(HtmlTagHelper.StripHtml(this.TopicSubjectTextBox.Text).Trim()))
         {
             this.PageBoardContext.Notify(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
             return false;
@@ -346,11 +346,11 @@ public partial class PostTopic : ForumPage
         // Save to Db
         var newTopic = this.GetRepository<Topic>().SaveNew(
             this.PageBoardContext.PageForum,
-            HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text.Trim()),
+            HtmlTagHelper.StripHtml(this.TopicSubjectTextBox.Text.Trim()),
             string.Empty,
-            HtmlHelper.StripHtml(this.TopicStylesTextBox.Text.Trim()),
-            HtmlHelper.StripHtml(this.TopicDescriptionTextBox.Text.Trim()),
-            HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
+            HtmlTagHelper.StripHtml(this.TopicStylesTextBox.Text.Trim()),
+            HtmlTagHelper.StripHtml(this.TopicDescriptionTextBox.Text.Trim()),
+            HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
             this.PageBoardContext.PageUser,
             this.Priority.SelectedValue.ToType<short>(),
             this.PageBoardContext.IsGuest ? this.From.Text : this.PageBoardContext.PageUser.Name,
@@ -390,7 +390,7 @@ public partial class PostTopic : ForumPage
 
         var isPossibleSpamMessage = false;
 
-        var message = HtmlHelper.StripHtml(this.forumEditor.Text);
+        var message = HtmlTagHelper.StripHtml(this.forumEditor.Text);
 
         // Check for SPAM
         if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
@@ -401,7 +401,7 @@ public partial class PostTopic : ForumPage
                     this.PageBoardContext.IsGuest ? this.From.Text : this.PageBoardContext.PageUser.DisplayOrUserName(),
                     this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     BBCodeHelper.StripBBCode(
-                            HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.forumEditor.Text)))
+                            HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.forumEditor.Text)))
                         .RemoveMultipleWhitespace(),
                     this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
                     out var spamResult))
@@ -500,7 +500,7 @@ public partial class PostTopic : ForumPage
                     Config.IsDotNetNuke ? this.PageBoardContext.PageForumID : this.PageBoardContext.PageUserID,
                     newMessage.TopicID,
                     newMessage.ID,
-                    HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text),
+                    HtmlTagHelper.StripHtml(this.TopicSubjectTextBox.Text),
                     message);
 
                 // Add tags

@@ -305,7 +305,7 @@ public partial class PostPrivateMessage : ForumPage
             }
 
             // handle subject
-            var subject = HtmlHelper.StripHtml(this.ReplyMessage.Subject);
+            var subject = HtmlTagHelper.StripHtml(this.ReplyMessage.Subject);
             if (!subject.StartsWith("Re: "))
             {
                 subject = $"Re: {subject}";
@@ -550,7 +550,7 @@ public partial class PostPrivateMessage : ForumPage
         if (this.ToList.SelectedItem is { Value: "0" })
         {
             // administrator is sending PMs to all users
-            var body = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.editor.Text));
+            var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.editor.Text));
             var messageFlags = new MessageFlags
                                    {
                                        IsHtml = false,
@@ -566,7 +566,7 @@ public partial class PostPrivateMessage : ForumPage
             this.GetRepository<PMessage>().SendMessage(
                 this.PageBoardContext.PageUserID,
                 0,
-                HtmlHelper.StripHtml(this.PmSubjectTextBox.Text),
+                HtmlTagHelper.StripHtml(this.PmSubjectTextBox.Text),
                 body,
                 messageFlags.BitValue,
                 replyTo);
@@ -664,7 +664,7 @@ public partial class PostPrivateMessage : ForumPage
                 userId =>
 
                     {
-                        var body = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.editor.Text));
+                        var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.editor.Text));
 
                         var messageFlags = new MessageFlags
                                                {
@@ -675,7 +675,7 @@ public partial class PostPrivateMessage : ForumPage
                         this.GetRepository<PMessage>().SendMessage(
                             this.PageBoardContext.PageUserID,
                             userId,
-                            HtmlHelper.StripHtml(this.PmSubjectTextBox.Text),
+                            HtmlTagHelper.StripHtml(this.PmSubjectTextBox.Text),
                             body,
                             messageFlags.BitValue,
                             replyTo);
@@ -687,7 +687,7 @@ public partial class PostPrivateMessage : ForumPage
                         {
                             this.Get<ISendNotification>().ToPrivateMessageRecipient(
                                 userId,
-                                HtmlHelper.StripHtml(this.PmSubjectTextBox.Text.Trim()));
+                                HtmlTagHelper.StripHtml(this.PmSubjectTextBox.Text.Trim()));
                         }
                     });
 

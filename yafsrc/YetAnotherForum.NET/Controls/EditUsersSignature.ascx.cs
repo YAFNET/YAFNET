@@ -235,7 +235,7 @@ public partial class EditUsersSignature : BaseUserControl
     /// </param>
     private void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        var body = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.signatureEditor.Text.Trim()));
+        var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.signatureEditor.Text.Trim()));
 
         // find forbidden BBCodes in signature
         var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.AllowedBBCodes, ',');

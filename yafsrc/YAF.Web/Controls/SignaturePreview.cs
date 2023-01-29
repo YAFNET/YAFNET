@@ -79,7 +79,7 @@ public class SignaturePreview : MessageBase
         // don't allow any HTML on signatures
         var signatureFlags = new MessageFlags { IsHtml = false };
 
-        this.Signature = HtmlHelper.StripHtml(this.Signature);
+        this.Signature = HtmlTagHelper.StripHtml(this.Signature);
 
         var signatureRendered = this.Get<IFormatMessage>().Format(0, this.Signature, signatureFlags);
 

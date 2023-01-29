@@ -78,7 +78,7 @@ public partial class PollEdit : ForumPage
             return false;
         }
 
-        this.Question.Text = HtmlHelper.StripHtml(this.Question.Text);
+        this.Question.Text = HtmlTagHelper.StripHtml(this.Question.Text);
 
         var count =
             (from RepeaterItem ri in this.ChoiceRepeater.Items

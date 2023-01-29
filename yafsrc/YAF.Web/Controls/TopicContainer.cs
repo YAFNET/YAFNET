@@ -234,7 +234,7 @@ public class TopicContainer : BaseControl
 
         writer.WriteEndTag(HtmlTextWriterTag.H5.ToString());
 
-        var topicDescription = HtmlHelper.StripHtml(this.TopicItem.Description);
+        var topicDescription = HtmlTagHelper.StripHtml(this.TopicItem.Description);
 
         if (topicDescription.IsSet())
         {

@@ -36,7 +36,7 @@ public class Attach : BBCodeControl
     /// <param name="writer">The writer.</param>
     protected override void Render(HtmlTextWriter writer)
     {
-        var attachId = HtmlHelper.StripHtml(this.Parameters["inner"]);
+        var attachId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
 
         if (!ValidationHelper.IsNumeric(attachId))
         {
