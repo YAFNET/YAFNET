@@ -98,11 +98,6 @@ public class BoardConfiguration
     public string FacebookSecretKey { get; set; }
 
     /// <summary>
-    ///     Gets or sets MobileUserAgents.
-    /// </summary>
-    public string MobileUserAgents { get; set; }
-
-    /// <summary>
     ///     Gets or sets a value indicating whether Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot Example : true /false
     /// </summary>
     public bool MultiBoardFolders { get; set; }

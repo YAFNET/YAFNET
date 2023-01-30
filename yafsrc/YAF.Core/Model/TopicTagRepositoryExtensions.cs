@@ -83,6 +83,8 @@ public static class TopicTagRepositoryExtensions
         tags.ForEach(
             tag =>
                 {
+                    tag = HtmlTagHelper.StripHtml(tag);
+
                     var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
 
                     if (existTag != null)
