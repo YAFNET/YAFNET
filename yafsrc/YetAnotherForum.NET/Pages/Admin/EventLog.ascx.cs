@@ -162,6 +162,11 @@ public partial class EventLog : AdminPage
         return $@"<i class=""fas fa-{icon} text-{cssClass}""></i>";
     }
 
+    /// <summary>
+    /// Formats the stack trace.
+    /// </summary>
+    /// <param name="input">The json input stack trace string</param>
+    /// <returns>System.String.</returns>
     protected string FormatStackTrace(string input)
     {
         try

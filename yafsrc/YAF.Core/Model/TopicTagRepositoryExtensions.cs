@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -81,25 +81,25 @@ public static class TopicTagRepositoryExtensions
 
         tags.ForEach(
             tag =>
+            {
+                tag = HtmlTagHelper.StripHtml(tag);
+
+                var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
+
+                if (existTag != null)
                 {
-                    var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
+                    // add to topic
+                    repository.Add(existTag.ID, topicId);
+                }
+                else
+                {
+                    // save new Tag
+                    var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
 
-                    if (existTag != null)
-                    {
-                        // add to topic
-                        repository.Add(
-                            existTag.ID,
-                            topicId);
-                    }
-                    else
-                    {
-                        // save new Tag
-                        var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
-
-                        // add to topic
-                        repository.Add(newTagId, topicId);
-                    }
-                });
+                    // add to topic
+                    repository.Add(newTagId, topicId);
+                }
+            });
     }
 
     /// <summary>
