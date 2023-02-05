@@ -58,6 +58,8 @@ internal static class JsState
     [ThreadStatic]
     internal static bool IsCsv = false;
 
+    [ThreadStatic]
+    internal static Type DeclaringType;
 
     /// <summary>
     /// The in serializer FNS

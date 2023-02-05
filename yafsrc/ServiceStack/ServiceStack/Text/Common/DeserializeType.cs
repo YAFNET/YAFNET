@@ -463,27 +463,25 @@ internal class TypeAccessor
     internal static ParseStringSpanDelegate GetPropertyMethod(ITypeSerializer serializer, PropertyInfo propertyInfo)
     {
         var getPropertyFn = serializer.GetParseStringSpanFn(propertyInfo.PropertyType);
-        if (propertyInfo.PropertyType == typeof(object) ||
-            propertyInfo.PropertyType.HasInterface(typeof(IEnumerable<object>)))
+
+        if (propertyInfo.DeclaringType != null && JsConfig.AllowRuntimeTypeInTypes?.Count > 0 &&
+            (propertyInfo.PropertyType == typeof(object) ||
+             propertyInfo.PropertyType.HasInterface(typeof(IEnumerable<object>))))
         {
-            var declaringTypeNamespace = propertyInfo.DeclaringType?.Namespace;
-            if (declaringTypeNamespace == null || !JsConfig.AllowRuntimeTypeInTypesWithNamespaces.Contains(declaringTypeNamespace)
-                && !JsConfig.AllowRuntimeTypeInTypes.Contains(propertyInfo.DeclaringType.FullName))
+            return value =>
             {
-                return value =>
-                    {
-                        var hold = JsState.IsRuntimeType;
-                        try
-                        {
-                            JsState.IsRuntimeType = true;
-                            return getPropertyFn(value);
-                        }
-                        finally
-                        {
-                            JsState.IsRuntimeType = hold;
-                        }
-                    };
-            }
+                var hold = JsState.DeclaringType;
+                try
+                {
+                    JsState.DeclaringType = propertyInfo.DeclaringType;
+                    return getPropertyFn(value);
+                }
+                finally
+                {
+                    JsState.DeclaringType = hold;
+                }
+            };
+
         }
         return getPropertyFn;
     }
