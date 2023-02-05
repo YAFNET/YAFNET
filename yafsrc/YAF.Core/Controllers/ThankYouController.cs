@@ -97,11 +97,16 @@ public class ThankYouController : ApiController, IHaveServiceLocator
             return this.NotFound();
         }
 
-        var fromUserId = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(membershipUser.Id).ID;
+        var fromUserId = BoardContext.Current.PageUserID;
 
         var message = this.GetRepository<Message>().GetById(messageId);
 
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
+
+        if (this.GetRepository<Thanks>().Exists(x => x.MessageID == messageId && x.ThanksFromUserID == fromUserId))
+        {
+            return this.NotFound();
+        }
 
         this.GetRepository<Thanks>().AddMessageThanks(fromUserId, message.UserID, messageId);
 

@@ -243,7 +243,7 @@ public static class JsWriter
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public static bool ShouldAllowRuntimeType(Type type)
     {
-        if (!JsState.IsRuntimeType)
+        if (type.IsInterface && JsConfig.AllowRuntimeInterfaces)
             return true;
 
         if (JsConfig.AllowRuntimeType?.Invoke(type) == true)
@@ -255,7 +255,7 @@ public static class JsWriter
             var oAttrs = type.AllAttributes();
             foreach (var oAttr in oAttrs)
             {
-                if (!(oAttr is Attribute attr)) continue;
+                if (oAttr is not Attribute attr) continue;
                 if (allowAttributesNamed.Contains(attr.GetType().Name))
                     return true;
             }
@@ -266,6 +266,27 @@ public static class JsWriter
         {
             var interfaces = type.GetInterfaces();
             return interfaces.Any(interfaceType => allowInterfacesNamed.Contains(interfaceType.Name));
+        }
+
+        var allowTypesInNamespaces = JsConfig.AllowRuntimeTypeInTypesWithNamespaces;
+        if (allowTypesInNamespaces?.Count > 0)
+        {
+            foreach (var ns in allowTypesInNamespaces)
+            {
+                if (type.Namespace == ns)
+                    return true;
+            }
+        }
+
+        var allowRuntimeTypeInTypes = JsConfig.AllowRuntimeTypeInTypes;
+        var declaringTypeName = JsState.DeclaringType?.FullName;
+        if (allowRuntimeTypeInTypes?.Count > 0 && declaringTypeName != null)
+        {
+            foreach (var allowInType in allowRuntimeTypeInTypes)
+            {
+                if (declaringTypeName == allowInType)
+                    return true;
+            }
         }
 
         return false;
@@ -279,7 +300,8 @@ public static class JsWriter
     public static void AssertAllowedRuntimeType(Type type)
     {
         if (!ShouldAllowRuntimeType(type))
-            throw new NotSupportedException($"{type.Name} is not an allowed Runtime Type. Whitelist Type with [RuntimeSerializable] or IRuntimeSerializable.");
+            throw new NotSupportedException(
+                $"{type.Name} is not an allowed Runtime Type. Whitelist Type with [Serializable], [RuntimeSerializable], [DataContract] or IRuntimeSerializable, see: https://docs.servicestack.net/json-format#runtime-type-whitelist");
     }
 }
 

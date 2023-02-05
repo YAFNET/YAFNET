@@ -555,6 +555,12 @@ public static class JsConfig
     public static Func<Type, bool> AllowRuntimeType { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether [allow runtime interfaces].
+    /// </summary>
+    /// <value><c>true</c> if [allow runtime interfaces]; otherwise, <c>false</c>.</value>
+    public static bool AllowRuntimeInterfaces { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
     public static void Reset()
@@ -583,9 +589,11 @@ public static class JsConfig
         __uniqueTypes = new HashSet<Type>();
 
         // Called when writing each string, too expensive to maintain as scoped config
+        AllowRuntimeInterfaces = true;
         AllowRuntimeType = null;
         AllowRuntimeTypeWithAttributesNamed = new HashSet<string>
                                                   {
+                                                      nameof(SerializableAttribute),
                                                       nameof(DataContractAttribute),
                                                       nameof(RuntimeSerializableAttribute),
                                                   };
@@ -600,11 +608,13 @@ public static class JsConfig
                                                   };
         AllowRuntimeTypeInTypesWithNamespaces = new HashSet<string>
                                                     {
+                                                        "ServiceStack.Auth",
                                                         "ServiceStack.Messaging",
                                                     };
         AllowRuntimeTypeInTypes = new HashSet<string>
                                       {
-                                          "ServiceStack.RequestLogEntry"
+                                          "ServiceStack.Messaging.Message",
+                                          "ServiceStack.RequestLogEntry",
                                       };
         PlatformExtensions.ClearRuntimeAttributes();
         ReflectionExtensions.Reset();
