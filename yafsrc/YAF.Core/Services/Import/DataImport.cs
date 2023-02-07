@@ -279,11 +279,11 @@ public static class DataImport
 
         // import any extensions that don't exist...
         spamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
-            .Where(row => spamWordsList.Any(s => s.SpamWord == row["spamword"].ToString())).ForEach(
+            .Where(row => spamWordsList.All(s => s.SpamWord != row["SpamWord"].ToString())).ForEach(
                 row =>
                     {
                         // add this...
-                        repository.Save(null, row["spamword"].ToString());
+                        repository.Save(null, row["SpamWord"].ToString());
                         importedCount++;
                     });
 

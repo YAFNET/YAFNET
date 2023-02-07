@@ -92,11 +92,11 @@ public static class JsWriter
     /// <summary>
     /// The CSV chars
     /// </summary>
-    public static readonly char[] CsvChars = new[] { ItemSeperator, QuoteChar };
+    public static readonly char[] CsvChars = { ItemSeperator, QuoteChar };
     /// <summary>
     /// The escape chars
     /// </summary>
-    public static readonly char[] EscapeChars = new[] { QuoteChar, MapKeySeperator, ItemSeperator, MapStartChar, MapEndChar, ListStartChar, ListEndChar, ReturnChar, LineFeedChar };
+    public static readonly char[] EscapeChars = { QuoteChar, MapKeySeperator, ItemSeperator, MapStartChar, MapEndChar, ListStartChar, ListEndChar, ReturnChar, LineFeedChar };
 
     /// <summary>
     /// The length from largest character

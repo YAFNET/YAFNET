@@ -532,22 +532,22 @@ public static class JsConfig
     /// <summary>
     /// 
     /// </summary>
-    public static HashSet<string> AllowRuntimeTypeWithAttributesNamed { get; set; }
+    public static HashSet<string> AllowRuntimeTypeWithAttributesNamed { get; set; } = new();
 
     /// <summary>
     /// 
     /// </summary>
-    public static HashSet<string> AllowRuntimeTypeWithInterfacesNamed { get; set; }
+    public static HashSet<string> AllowRuntimeTypeWithInterfacesNamed { get; set; } = new();
 
     /// <summary>
     /// 
     /// </summary>
-    public static HashSet<string> AllowRuntimeTypeInTypes { get; set; }
+    public static HashSet<string> AllowRuntimeTypeInTypes { get; set; } = new();
 
     /// <summary>
     /// 
     /// </summary>
-    public static HashSet<string> AllowRuntimeTypeInTypesWithNamespaces { get; set; }
+    public static HashSet<string> AllowRuntimeTypeInTypesWithNamespaces { get; set; } = new();
 
     /// <summary>
     /// 
@@ -605,17 +605,17 @@ public static class JsConfig
                                                       "IMeta",
                                                       "IReturn`1",
                                                       "IReturnVoid",
+                                                      "IVerb",
+                                                      "ICrud",
+                                                      "IMeta",
+                                                      "IAuthTokens"
                                                   };
         AllowRuntimeTypeInTypesWithNamespaces = new HashSet<string>
                                                     {
                                                         "ServiceStack.Auth",
-                                                        "ServiceStack.Messaging",
+                                                        "ServiceStack.Messaging"
                                                     };
-        AllowRuntimeTypeInTypes = new HashSet<string>
-                                      {
-                                          "ServiceStack.Messaging.Message",
-                                          "ServiceStack.RequestLogEntry",
-                                      };
+        AllowRuntimeTypeInTypes = new();
         PlatformExtensions.ClearRuntimeAttributes();
         ReflectionExtensions.Reset();
         JsState.Reset();
