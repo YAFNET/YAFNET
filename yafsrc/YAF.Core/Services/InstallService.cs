@@ -40,12 +40,12 @@ public class InstallService : IHaveServiceLocator
     /// <summary>
     ///     The BBCode extensions import xml file.
     /// </summary>
-    private const string BbcodeImport = "Install/BBCodeExtensions.xml";
+    private const string BbcodeImport = "BBCodeExtensions.xml";
 
     /// <summary>
     ///     The Spam Words list import xml file.
     /// </summary>
-    private const string SpamWordsImport = "Install/SpamWords.xml";
+    private const string SpamWordsImport = "SpamWords.xml";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="InstallService"/> class.
