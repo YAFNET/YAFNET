@@ -460,7 +460,7 @@ public static class StaticDataHelper
     {
         var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
 
-        var dir = new DirectoryInfo(Path.Combine(webRootPath, "themes"));
+        var dir = new DirectoryInfo(Path.Combine(webRootPath, "css", "themes"));
 
         var list = new List<SelectListItem>();
 

@@ -181,7 +181,6 @@ public class BoardInfo : IHaveServiceLocator
             url.Append($":{serverPort}");
         }
 
-
         return url.ToString();
     }
 

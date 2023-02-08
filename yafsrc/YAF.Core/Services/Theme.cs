@@ -94,6 +94,6 @@ public class Theme : ITheme
 
         var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
 
-        return Path.Combine(webRootPath, "themes", theme.Trim());
+        return Path.Combine(webRootPath, "css","themes", theme.Trim());
     }
 }
