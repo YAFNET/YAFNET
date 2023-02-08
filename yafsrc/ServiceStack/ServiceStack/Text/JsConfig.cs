@@ -608,7 +608,9 @@ public static class JsConfig
                                                       "IVerb",
                                                       "ICrud",
                                                       "IMeta",
-                                                      "IAuthTokens"
+                                                      "IAuthTokens",
+                                                      "IHasResponseStatus",
+                                                      "IHasId`1"
                                                   };
         AllowRuntimeTypeInTypesWithNamespaces = new HashSet<string>
                                                     {
