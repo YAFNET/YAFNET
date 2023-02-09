@@ -1,19 +1,19 @@
 ﻿<YafBBCodeList>
-  <YafBBCode>
-    <Name>TWITTER</Name>
-    <Description>[TWITTER][localization=TWITTER_DESCRIPTION]Enter the Status URL of the Tweet you want to embed[/localization][/TWITTER]</Description>
-    <OnClickJS></OnClickJS>
-    <DisplayJS></DisplayJS>
-    <EditJS></EditJS>
-    <DisplayCSS></DisplayCSS>
-    <SearchRegex>\[twitter\](?&lt;statusID&gt;.+?)\[/twitter\]</SearchRegex>
-    <ReplaceRegex>&lt;div class="ratio w-50" style="--bs-aspect-ratio: 56%;" data-oembed-url="${statusID}"&gt;&lt;iframe src="https://twitframe.com/show?url=${statusID}"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
-    <Variables>statusID</Variables>
-    <UseModule>false</UseModule>
-    <UseToolbar>true</UseToolbar>
-    <ModuleClass></ModuleClass>
-    <ExecOrder>100</ExecOrder>
-  </YafBBCode>
+	<YafBBCode>
+        <Name>TWITTER</Name>
+        <Description>[TWITTER][localization=TWITTER_DESCRIPTION]Enter the Status URL of the Tweet you want to embed[/localization][/TWITTER]</Description>
+        <OnClickJS></OnClickJS>
+        <DisplayJS></DisplayJS>
+        <EditJS></EditJS>
+        <DisplayCSS></DisplayCSS>
+        <SearchRegex>\[twitter\](?&lt;statusID&gt;\d*)\[/twitter\]|\[twitter\]https://twitter.com/(.*?)/status/(?&lt;statusID&gt;\d*)(.*?)\[/twitter\]</SearchRegex>
+        <ReplaceRegex>&lt;div class="ratio w-50"  style="--bs-aspect-ratio: 56%;" data-oembed-url="https%3A%2F%2Ftwitter.com%2Fx%2Fstatus%2F${statusID}"&gt;&lt;iframe src="https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Fx%2Fstatus%2F${statusID}"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+        <Variables>statusID</Variables>
+        <UseModule>false</UseModule>
+        <UseToolbar>true</UseToolbar>
+        <ModuleClass></ModuleClass>
+        <ExecOrder>100</ExecOrder>
+    </YafBBCode>
   <YafBBCode>
     <Name>DAILYMOTION</Name>
     <Description>[dailymotion][localization=DAILYMOTION_DESCRIPTION]Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)[/localization][/dailymotion]</Description>
