@@ -102,6 +102,9 @@ public class SqliteNativeDateTimeConverter : DateTimeConverter
             if (values != null && values[columnIndex] == DBNull.Value)
                 return null;
 
+            if (reader.IsDBNull(columnIndex))
+                return null;
+
             return reader.GetDateTime(columnIndex);
         }
         catch (Exception ex)
