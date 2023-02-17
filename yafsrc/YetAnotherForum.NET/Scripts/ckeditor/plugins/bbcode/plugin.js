@@ -765,21 +765,6 @@
                         a: function (element) {
                             if (!element.attributes.href)
                                 element.attributes.href = element.children[0].value;
-                        },
-                        smiley: function (element) {
-                            element.name = 'img';
-
-                            var description = element.attributes.desc,
-                                image = config.smiley_images[CKEDITOR.tools.indexOf(config.smiley_descriptions,
-                                    description)],
-                                src = CKEDITOR.tools.htmlEncode(config.smiley_path + image);
-
-                            element.attributes = {
-                                src: src,
-                                'data-cke-saved-src': src,
-                                title: description,
-                                alt: description
-                            };
                         }
                     }
                 });
