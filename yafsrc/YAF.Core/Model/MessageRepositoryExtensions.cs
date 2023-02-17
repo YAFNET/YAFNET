@@ -1655,7 +1655,9 @@ public static class MessageRepositoryExtensions
         // -- Delete topic if there are no more messages
         if (repository.Count(x => x.TopicID == message.TopicID && (x.Flags & 8) != 8) == 0)
         {
-            BoardContext.Current.GetRepository<Topic>().Delete(message.Topic.ForumID, message.TopicID, true);
+            var forumId = BoardContext.Current.GetRepository<Topic>().GetById(message.TopicID).ForumID;
+
+            BoardContext.Current.GetRepository<Topic>().Delete(forumId, message.TopicID, true);
         }
 
         // -- update topic Post Count

@@ -84,20 +84,23 @@ public static class TopicTagRepositoryExtensions
             {
                 tag = HtmlTagHelper.StripHtml(tag);
 
-                var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
-
-                if (existTag != null)
+                if (tag.IsSet())
                 {
-                    // add to topic
-                    repository.Add(existTag.ID, topicId);
-                }
-                else
-                {
-                    // save new Tag
-                    var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
+                    var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
 
-                    // add to topic
-                    repository.Add(newTagId, topicId);
+                    if (existTag != null)
+                    {
+                        // add to topic
+                        repository.Add(existTag.ID, topicId);
+                    }
+                    else
+                    {
+                        // save new Tag
+                        var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
+
+                        // add to topic
+                        repository.Add(newTagId, topicId);
+                    }
                 }
             });
     }
