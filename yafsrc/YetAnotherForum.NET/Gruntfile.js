@@ -11,6 +11,13 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON("package.json"),
 
         copy: {
+            fontAwesome: {
+                files: [
+                    // includes files within path
+                    { expand: true, src: "**/*.scss", cwd: "node_modules/@fortawesome/fontawesome-free/scss", dest: "wwwroot/lib/fontawesome/" },
+                    { expand: true, src: "**/*.*", cwd: "node_modules/@fortawesome/fontawesome-free/webfonts", dest: "wwwroot/webfonts/" }
+                ],
+            },
             bootswatchThemes: {
                 files: [
                     // includes files within path
@@ -401,11 +408,6 @@ module.exports = function(grunt) {
     grunt.registerTask("default",
         [
            "devUpdate", "uglify", "sass", "postcss", "cssmin"
-        ]);
-
-    grunt.registerTask("updateBootswatchThemes",
-        [
-            "copy"
         ]);
 
     grunt.registerTask("emailTemplates",

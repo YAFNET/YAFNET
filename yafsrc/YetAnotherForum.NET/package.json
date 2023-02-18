@@ -12,10 +12,10 @@
     "grunt-contrib-uglify": "^5.2.2",
     "grunt-dev-update": "^2.3.0",
     "postcss": "^8.4.21",
-    "sass": "^1.58.0"
+    "sass": "^1.58.3"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.2.1",
+    "@fortawesome/fontawesome-free": "^6.3.0",
     "bootbox": "^6.0.0",
     "bootswatch": "^5.2.3",
     "flag-icons": "^6.6.6",
