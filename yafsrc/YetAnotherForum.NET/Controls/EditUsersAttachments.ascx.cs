@@ -142,7 +142,7 @@ public partial class EditUsersAttachments : BaseUserControl
             $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&editor=true";
 
         return isImage
-                   ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\"style=\"max-width:30px\" />"
+                   ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\" style=\"max-width:30px\" class=\"img-thumbnail attachments-preview\" />"
                    : "<i class=\"far fa-file-alt attachment-icon\"></i>";
     }
 

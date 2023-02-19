@@ -129,7 +129,7 @@ public partial class Attachments : ProfilePage
             $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&editor=true";
 
         return isImage
-                   ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\" style=\"max-width:30px\" class=\"me-2\" />"
+                   ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\" style=\"max-width:30px\" class=\"me-2 img-thumbnail attachments-preview\" />"
                    : "<i class=\"far fa-file-alt attachment-icon me-2\"></i>";
     }
 

@@ -10904,6 +10904,14 @@ $(document).ready(function() {
     $(".img-user-posted").on("error", function() {
         $(this).parent().parent().hide();
     });
+    $(".attachments-preview").popover({
+        html: true,
+        trigger: "hover",
+        placement: "bottom",
+        content: function() {
+            return '<img src="' + $(this).data("url") + '" class="img-fluid" />';
+        }
+    });
 });
 
 document.addEventListener("DOMContentLoaded", function() {
