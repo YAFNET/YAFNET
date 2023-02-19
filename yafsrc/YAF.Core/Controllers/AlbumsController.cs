@@ -163,7 +163,11 @@ public class Albums : ForumBaseController
 
                 if (!album.NullOrEmpty())
                 {
-                    var image = this.GetRepository<UserAlbumImage>().GetImage(album[random.Next(1, album.Count)].ID);
+                    var image = album.Count > 1
+                                    ? this.GetRepository<UserAlbumImage>()
+                                        .GetImage(album[random.Next(1, album.Count)].ID)
+                                    : this.GetRepository<UserAlbumImage>()
+                                        .GetImage(album.First().ID);
 
                     var uploadFolder = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
 
