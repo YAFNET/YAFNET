@@ -117,7 +117,7 @@ public partial class EditUsersSettings : BaseUserControl
 
             var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim());
 
-            if (userFromEmail != null && userFromEmail.Email != this.User.Name)
+            if (userFromEmail != null)
             {
                 this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                 return;

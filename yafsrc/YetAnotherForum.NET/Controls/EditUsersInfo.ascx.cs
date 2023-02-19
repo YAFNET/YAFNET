@@ -69,8 +69,9 @@ public partial class EditUsersInfo : BaseUserControl
         {
             var aspNetUser = this.Get<IAspNetUsersHelper>().GetUserByName(this.Name.Text.Trim());
 
-            var userName = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim()).UserName;
-            if (userName.IsSet() && userName != aspNetUser.UserName)
+            var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim());
+
+            if (userFromEmail != null)
             {
                 this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                 return;
