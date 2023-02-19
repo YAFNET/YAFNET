@@ -336,6 +336,8 @@ public partial class Users : AdminPage
     /// </param>
     protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
     {
+        this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
+
         this.BindData();
     }
 
