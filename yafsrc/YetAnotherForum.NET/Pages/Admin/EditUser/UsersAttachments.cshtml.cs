@@ -123,7 +123,7 @@ public class UsersAttachmentsModel : AdminPage
 
         var image = new TagBuilder("img") { TagRenderMode = TagRenderMode.SelfClosing };
 
-        image.AddCssClass("me-2");
+        image.AddCssClass("me-2 img-thumbnail attachments-preview");
 
         image.MergeAttribute("src", url);
         image.MergeAttribute("alt", fileName);

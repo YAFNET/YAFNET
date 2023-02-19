@@ -133,7 +133,7 @@ public class AttachmentsModel : ProfilePage
 
         var image = new TagBuilder("img") { TagRenderMode = TagRenderMode.SelfClosing };
 
-        image.AddCssClass("me-2");
+        image.AddCssClass("me-2 img-thumbnail attachments-preview");
 
         image.MergeAttribute("src", url);
         image.MergeAttribute("alt", fileName);
