@@ -617,6 +617,11 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>T.</returns>
     internal static T SingleById<T>(this IDbCommand dbCmd, object value)
     {
+        if (value == null)
+        {
+            throw new ArgumentNullException(nameof(value));
+        }
+
         SetFilter<T>(dbCmd, ModelDefinition<T>.PrimaryKeyName, value);
         return dbCmd.ConvertTo<T>();
     }
