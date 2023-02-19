@@ -33,7 +33,6 @@ using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Core.Services;
-using YAF.Types;
 using YAF.Types.Attributes;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
@@ -88,8 +87,9 @@ public class UsersInfoModel : AdminPage
         {
             var aspNetUser = this.Get<IAspNetUsersHelper>().GetUserByName(this.Input.Name);
 
-            var userName = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Input.Email).UserName;
-            if (userName.IsSet() && userName != aspNetUser.UserName)
+            var userName = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Input.Email);
+
+            if (userName != null)
             {
                 return this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
             }

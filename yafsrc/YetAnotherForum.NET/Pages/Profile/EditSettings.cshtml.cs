@@ -140,7 +140,7 @@ public class EditSettingsModel : ProfilePage
 
             var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Trim());
 
-            if (userFromEmail != null && userFromEmail.Email != this.PageBoardContext.PageUser.Name)
+            if (userFromEmail != null)
             {
                 return this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
             }

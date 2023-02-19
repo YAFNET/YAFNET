@@ -114,7 +114,7 @@ public class UsersSettingsModel : AdminPage
 
             var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Input.Email.Trim());
 
-            if (userFromEmail != null && userFromEmail.UserName != user.Item2.UserName)
+            if (userFromEmail != null)
             {
                 this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                 return this.Get<LinkBuilder>().Redirect(
