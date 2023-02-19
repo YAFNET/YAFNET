@@ -965,6 +965,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <param name="onlySuspended">if set to <c>true</c> [only suspended].</param>
     /// <param name="groupId">The group identifier.</param>
     /// <param name="rankId">The rank identifier.</param>
+    /// <param name="includeGuests">Include Guests ?!</param>
     /// <returns>
     /// Returns the board users.
     /// </returns>
@@ -995,8 +996,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     // -- count total
                     var countTotalExpression = db.Connection.From<User>();
 
-                    expression.Join<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
-                        .Join<Rank>((u, r) => r.ID == u.RankID);
+                    expression.Join<Rank>((u, r) => r.ID == u.RankID)
+                        .LeftJoin<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey);
 
                     countTotalExpression.Where(whereCriteria);
 
