@@ -272,7 +272,11 @@ public class Album : IAlbum, IHaveServiceLocator
 
                 if (album != null && album.Any())
                 {
-                    var image = this.GetRepository<UserAlbumImage>().GetImage(album[random.Next(1, album.Count)].ID);
+                    var image = album.Count > 1
+                                    ? this.GetRepository<UserAlbumImage>()
+                                        .GetImage(album[random.Next(1, album.Count)].ID)
+                                    : this.GetRepository<UserAlbumImage>()
+                                        .GetImage(album.First().ID);
 
                     var uploadFolder = Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads);
 
