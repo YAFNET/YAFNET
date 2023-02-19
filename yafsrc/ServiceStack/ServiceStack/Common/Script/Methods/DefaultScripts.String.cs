@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using ServiceStack.Text;
@@ -998,49 +998,6 @@ public partial class DefaultScripts
     /// <returns>List&lt;KeyValuePair&lt;System.String, System.String&gt;&gt;.</returns>
     public List<KeyValuePair<string, string>> parseKeyValues(string keyValuesText, string delimiter) =>
         keyValuesText.Trim().ParseAsKeyValues(delimiter);
-
-    /// <summary>
-    /// The invalid chars regex
-    /// </summary>
-    private static readonly Regex InvalidCharsRegex = new(@"[^a-z0-9\s-]", RegexOptions.Compiled);
-    /// <summary>
-    /// The spaces regex
-    /// </summary>
-    private static readonly Regex SpacesRegex = new(@"\s", RegexOptions.Compiled);
-    /// <summary>
-    /// The collapse hyphens regex
-    /// </summary>
-    private static readonly Regex CollapseHyphensRegex = new("-+", RegexOptions.Compiled);
-
-    /// <summary>
-    /// Generates the slug.
-    /// </summary>
-    /// <param name="phrase">The phrase.</param>
-    /// <returns>System.String.</returns>
-    public string generateSlug(string phrase)
-    {
-        var str = phrase.ToLower()
-            .Replace("#", "sharp")  // c#, f# => csharp, fsharp
-            .Replace("++", "pp");   // c++ => cpp
-
-        str = InvalidCharsRegex.Replace(str, "-");
-        //// convert multiple spaces into one space   
-        //str = CollapseSpacesRegex.Replace(str, " ").Trim();
-        // cut and trim 
-        str = str.Substring(0, str.Length <= 100 ? str.Length : 100).Trim();
-        str = SpacesRegex.Replace(str, "-");
-        str = CollapseHyphensRegex.Replace(str, "-");
-
-        if (string.IsNullOrEmpty(str))
-            return null;
-
-        if (str[0] == '-')
-            str = str.Substring(1);
-        if (str[str.Length - 1] == '-')
-            str = str.Substring(0, str.Length - 1);
-
-        return str;
-    }
 
     /// <summary>
     /// Determines whether the specified file or ext is binary.
