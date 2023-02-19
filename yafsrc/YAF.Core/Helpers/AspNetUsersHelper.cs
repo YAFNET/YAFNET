@@ -33,7 +33,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
 using System.Linq.Expressions;
-using System.Web.Http;
 
 using YAF.Core.Identity;
 using YAF.Core.Model;
@@ -43,9 +42,9 @@ using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 using YAF.Types.Objects.Model;
+using YAF.Core.Extensions;
 
 using Constants = YAF.Types.Constants.Constants;
-using YAF.Core.Extensions;
 
 /// <summary>
 /// This is a stop-gap class to help with syncing operations
@@ -91,31 +90,29 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </returns>
     public User GuestUser (int boardId)
     {
-            
         var guestUser = this.Get<IDataCache>().GetOrSet(
             Constants.Cache.GuestUser,
             () =>
+            {
+                var guest = this.GetRepository<User>().Get(u => u.BoardID == boardId && (u.Flags & 4) == 4);
+
+                var guestUser = guest.FirstOrDefault();
+
+                if (guest == null)
                 {
-                    var guest = this.GetRepository<User>().Get(u => u.BoardID == boardId && (u.Flags & 4) == 4);
+                    throw new ApplicationException($"No candidates for a guest were found for the board {boardId}.");
+                }
 
-                    var guestUser = guest.FirstOrDefault();
+                if (guest.Count > 1)
+                {
+                    throw new ApplicationException(
+                        $"Found {guest.Count} possible guest users. There should be one and only one user marked as guest.");
+                }
 
-                    if (guest == null)
-                    {
-                        throw new ApplicationException($"No candidates for a guest were found for the board {boardId}.");
-                    }
-
-                    if (guest.Count > 1)
-                    {
-                        throw new ApplicationException(
-                            $"Found {guest.Count} possible guest users. There should be one and only one user marked as guest.");
-                    }
-
-                    return guestUser;
-                });
+                return guestUser;
+            });
 
         return guestUser;
-        //}
     }
 
     /// <summary>
@@ -976,6 +973,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <param name="onlySuspended">if set to <c>true</c> [only suspended].</param>
     /// <param name="groupId">The group identifier.</param>
     /// <param name="rankId">The rank identifier.</param>
+    /// <param name="includeGuests">Include Guest Users?</param>
     /// <returns>
     /// Returns the board users.
     /// </returns>
@@ -1006,8 +1004,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     // -- count total
                     var countTotalExpression = db.Connection.From<User>();
 
-                    expression.Join<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
-                        .Join<Rank>((u, r) => r.ID == u.RankID);
+                    expression.Join<Rank>((u, r) => r.ID == u.RankID)
+                        .LeftJoin<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey);
 
                     countTotalExpression.Where(whereCriteria);
 

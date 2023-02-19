@@ -329,7 +329,7 @@ public class DataBroker : IHaveServiceLocator
 
             if (userId != guestUser.ID)
             {
-                // --ensure that guest access right are in place
+                // -- ensure that guest access right are in place
                 this.GetRepository<ActiveAccess>().InsertPageAccess(boardId, guestUser.ID, true);
             }
 
