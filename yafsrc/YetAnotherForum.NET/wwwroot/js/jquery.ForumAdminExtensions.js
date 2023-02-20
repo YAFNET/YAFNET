@@ -15511,9 +15511,9 @@ $(document).ready(function() {
 
 document.addEventListener("DOMContentLoaded", function() {
     Prism.highlightAll();
-    var popoverTriggerList = [].slice.call(document.querySelectorAll(".attachments-preview"));
-    popoverTriggerList.map(function(popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl, {
+    var attachmentsPreviewList = [].slice.call(document.querySelectorAll(".attachments-preview"));
+    attachmentsPreviewList.map(function(attachmentsPreviewTrigger) {
+        return new bootstrap.Popover(attachmentsPreviewTrigger, {
             html: true,
             trigger: "hover",
             placement: "bottom",
