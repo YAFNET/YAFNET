@@ -423,7 +423,15 @@
                                          Icon="check"
                                          TextLocalizedTag="ADMIN_APPROVE">
                         </YAF:ThemeButton>
-                        <YAF:ThemeButton runat="server"
+                            <YAF:ThemeButton runat="server"
+                                             CommandName="edit"
+                                             CommandArgument='<%# this.Eval("ID") %>'
+                                             Type="None"
+                                             CssClass="dropdown-item"
+                                             Icon="user-edit"
+                                             TextLocalizedTag="EDITUSER">
+                            </YAF:ThemeButton>
+                            <YAF:ThemeButton runat="server"
                                          CommandName="delete"
                                          CommandArgument='<%# this.Eval("ID") %>'
                                          Type="None"
