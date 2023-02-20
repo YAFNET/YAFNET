@@ -124,17 +124,21 @@ $(document).ready(function () {
         function() {
             $(this).parent().parent().hide();
         });
-
-    $('.attachments-preview').popover({
-        html: true,
-        trigger: 'hover',
-        placement: 'bottom',
-        content: function () { return '<img src="' + $(this).data('url') + '" class="img-fluid" />'; }
-    });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
     Prism.highlightAll();
+
+    var attachmentsPreviewList = [].slice.call(document.querySelectorAll(".attachments-preview"));
+    attachmentsPreviewList.map(function (attachmentsPreviewTrigger) {
+        return new bootstrap.Popover(attachmentsPreviewTrigger,
+            {
+                html: true,
+                trigger: 'hover',
+                placement: 'bottom',
+                content: function () { return '<img src="' + $(this).data('url') + '" class="img-fluid" />'; }
+            });
+    });
 
     var popoverTriggerList = [].slice.call(document.querySelectorAll(".thanks-popover"));
     popoverTriggerList.map(function (popoverTriggerEl) {
