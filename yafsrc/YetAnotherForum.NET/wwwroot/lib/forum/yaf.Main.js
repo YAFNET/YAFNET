@@ -114,12 +114,6 @@ $(document).ready(function () {
             getNotifyData(pageSize, pageNumber, false);
         });
 
-    $(".form-check > input").addClass("form-check-input");
-    $(".form-check li > input").addClass("form-check-input");
-
-    $(".form-check > label").addClass("form-check-label");
-    $(".form-check li > label").addClass("form-check-label");
-
     $(".img-user-posted").on("error",
         function () {
             $(this).parent().parent().hide();
@@ -135,6 +129,17 @@ $(document).ready(function () {
 
 document.addEventListener("DOMContentLoaded", function () {
     Prism.highlightAll();
+
+    var popoverTriggerList = [].slice.call(document.querySelectorAll(".attachments-preview"));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl,
+            {
+                html: true,
+                trigger: 'hover',
+                placement: 'bottom',
+                content: function () { return '<img src="' + $(this).data('url') + '" class="img-fluid" />'; }
+            });
+    });
 
     var popoverTriggerList = [].slice.call(document.querySelectorAll(".thanks-popover"));
     popoverTriggerList.map(function (popoverTriggerEl) {
