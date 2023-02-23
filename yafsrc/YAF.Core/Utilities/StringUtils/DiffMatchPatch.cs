@@ -1309,21 +1309,4 @@ public class DiffMatchPatch
 
         return html.ToString();
     }
-
-    /**
-         * Encodes a string with URI-style % escaping.
-         * Compatible with JavaScript's EncodeURI function.
-         *
-         * @param str The string to encode.
-         * @return The encoded string.
-         */
-    public static string EncodeUri(string str)
-    {
-        // C# is overzealous in the replacements.  Walk back on a few.
-        return new StringBuilder(HttpUtility.UrlEncode(str)).Replace('+', ' ').Replace("%20", " ")
-            .Replace("%21", "!").Replace("%2a", "*").Replace("%27", "'").Replace("%28", "(").Replace("%29", ")")
-            .Replace("%3b", ";").Replace("%2f", "/").Replace("%3f", "?").Replace("%3a", ":").Replace("%40", "@")
-            .Replace("%26", "&").Replace("%3d", "=").Replace("%2b", "+").Replace("%24", "$").Replace("%2c", ",")
-            .Replace("%23", "#").Replace("%7e", "~").ToString();
-    }
 }
