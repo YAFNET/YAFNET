@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ *   https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,8 +20,8 @@ namespace YAF.Core.Utilities.StringUtils;
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 
 /// <summary>
 /// The compatibility extensions.
@@ -457,7 +457,7 @@ public class DiffMatchPatch
                     {
                         continue;
                     }
-                    
+
                     // Mirror x2 onto top-left coordinate system.
                     var x2 = text1Length - v2[k2Offset];
                     if (x1 >= x2)
@@ -508,7 +508,7 @@ public class DiffMatchPatch
                     {
                         continue;
                     }
-                    
+
                     var x1 = v1[k1Offset];
                     var y1 = maxD + x1 - k1Offset;
                     // Mirror x2 onto top-left coordinate system.
@@ -750,7 +750,7 @@ public class DiffMatchPatch
             {
                 continue;
             }
-            
+
             best = length;
             length++;
         }
@@ -1085,7 +1085,7 @@ public class DiffMatchPatch
         // 'whitespace'.  Since this function's purpose is largely cosmetic,
         // the choice has been made to use each language's native features
         // rather than force total conformity.
-        var char1 = one[^1];
+        var char1 = one[one.Length - 1];
         var char2 = two[0];
         var nonAlphaNumeric1 = !char.IsLetterOrDigit(char1);
         var nonAlphaNumeric2 = !char.IsLetterOrDigit(char2);
@@ -1234,7 +1234,7 @@ public class DiffMatchPatch
                 }
             }
 
-            if (diffs[^1].Text.Length == 0)
+            if (diffs[diffs.Count - 1].Text.Length == 0)
             {
                 diffs.RemoveAt(diffs.Count - 1); // Remove the dummy entry at the end.
             }
@@ -1253,7 +1253,7 @@ public class DiffMatchPatch
                     if (diffs[pointer].Text.EndsWith(diffs[pointer - 1].Text, StringComparison.Ordinal))
                     {
                         // Shift the edit over the previous equality.
-                        diffs[pointer].Text = diffs[pointer - 1].Text + diffs[pointer].Text[..^diffs[pointer - 1].Text.Length];
+                        diffs[pointer].Text = diffs[pointer - 1].Text + diffs[pointer].Text[..(diffs[pointer].Text.Length - diffs[pointer - 1].Text.Length)];
                         diffs[pointer + 1].Text = diffs[pointer - 1].Text + diffs[pointer + 1].Text;
                         diffs.Splice(pointer - 1, 1);
                         changes = true;
@@ -1296,13 +1296,13 @@ public class DiffMatchPatch
             switch (aDiff.Operation)
             {
                 case Operation.Insert:
-                    html.Append("<span class=\"bg-success text-light\">").Append(text).Append("</span>");
+                    html.Append("<p class=\"bg-success text-light\">").Append(text).Append("</p>");
                     break;
                 case Operation.Delete:
-                    html.Append("<span class=\"bg-danger text-light\">").Append(text).Append("</span>");
+                    html.Append("<p class=\"bg-danger text-light\">").Append(text).Append("</p>");
                     break;
                 case Operation.Equal:
-                    html.Append("<span>").Append(text).Append("</span>");
+                    html.Append("<p>").Append(text).Append("</p>");
                     break;
             }
         }

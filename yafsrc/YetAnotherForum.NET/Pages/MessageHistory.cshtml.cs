@@ -178,6 +178,8 @@ public class MessageHistoryModel : ForumPageRegistered
 
         var diff = dmp.DiffMain(message1.Message, message2.Message, true);
 
+        dmp.CleanupSemantic(diff);
+
         this.DiffText = dmp.PrettyHtml(diff);
 
         return this.Page();

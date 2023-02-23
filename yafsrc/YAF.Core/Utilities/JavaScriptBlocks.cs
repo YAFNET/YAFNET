@@ -1940,9 +1940,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <summary>
     /// Renders the Load More on Scrolling JS.
     /// </summary>
-    /// <param name="buttonClientId">
-    /// The button Client Id.
-    /// </param>
+    /// <param name="url">The Current Url</param>
     /// <returns>
     /// Returns the JS String
     /// </returns>

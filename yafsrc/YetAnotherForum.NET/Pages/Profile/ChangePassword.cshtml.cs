@@ -57,22 +57,10 @@ public class ChangePasswordModel : ProfilePage
     /// </summary>
     public override void CreatePageLinks()
     {
-        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddLink(
+            this.PageBoardContext.PageUser.DisplayOrUserName(),
+            this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"));
-    }
-
-    /// <summary>
-    /// The on get.
-    /// </summary>
-    public IActionResult OnGet()
-    {
-        if (!(this.PageBoardContext.IsAdmin || this.PageBoardContext.IsForumModerator))
-        {
-            // Not accessible...
-            return this.Get<LinkBuilder>().AccessDenied();
-        }
-
-        return this.Page();
     }
 
     /// <summary>
