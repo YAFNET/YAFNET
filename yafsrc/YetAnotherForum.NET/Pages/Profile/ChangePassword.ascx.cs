@@ -71,6 +71,8 @@ public partial class ChangePassword : ProfilePage
         if (result.Succeeded)
         {
             this.PageBoardContext.Notify(this.GetText("CHANGE_SUCCESS"), MessageTypes.success);
+
+            this.ContentBody.CssClass = "card-body";
         }
         else
         {
