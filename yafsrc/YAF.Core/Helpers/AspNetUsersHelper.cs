@@ -897,7 +897,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         }
 
         // Display name login
-        var realUsername = this.GetRepository<User>().GetSingle(u => u.DisplayName == userName);
+        var realUsername = this.GetRepository<User>().GetSingle(u => u.DisplayName == userName && (u.Flags & 4) != 4);
 
         if (realUsername == null)
         {
