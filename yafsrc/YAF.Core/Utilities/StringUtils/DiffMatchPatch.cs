@@ -93,7 +93,6 @@ public enum Operation
     Equal
 }
 
-
 /**
      * Class representing one diff operation.
      */
@@ -159,7 +158,7 @@ public class DiffMatchPatch
         }
         else
         {
-            deadline = DateTime.Now + new TimeSpan(((long) (this.DiffTimeout * 1000)) * 10000);
+            deadline = DateTime.Now + new TimeSpan((long) (this.DiffTimeout * 1000) * 10000);
         }
 
         return this.DiffMain(text1, text2, checkLines, deadline);
@@ -213,7 +212,7 @@ public class DiffMatchPatch
         // Restore the prefix and suffix.
         if (commonPrefix.Length != 0)
         {
-            diffs.Insert(0, (new Diff(Operation.Equal, commonPrefix)));
+            diffs.Insert(0, new Diff(Operation.Equal, commonPrefix));
         }
 
         if (commonSuffix.Length != 0)
@@ -404,7 +403,7 @@ public class DiffMatchPatch
         var delta = text1Length - text2Length;
         // If the total number of characters is odd, then the front path will
         // collide with the reverse path.
-        var front = (delta % 2 != 0);
+        var front = delta % 2 != 0;
         // Offsets for start and end of k loop.
         // Prevents mapping of space beyond the grid.
         var k1Start = 0;
@@ -458,6 +457,7 @@ public class DiffMatchPatch
                     {
                         continue;
                     }
+
                     // Mirror x2 onto top-left coordinate system.
                     var x2 = text1Length - v2[k2Offset];
                     if (x1 >= x2)
@@ -508,6 +508,7 @@ public class DiffMatchPatch
                     {
                         continue;
                     }
+
                     var x1 = v1[k1Offset];
                     var y1 = maxD + x1 - k1Offset;
                     // Mirror x2 onto top-left coordinate system.
@@ -622,7 +623,7 @@ public class DiffMatchPatch
 
                 lineArray.Add(line);
                 lineHash.Add(line, lineArray.Count - 1);
-                chars.Append(((char) (lineArray.Count - 1)));
+                chars.Append((char) (lineArray.Count - 1));
             }
 
             lineStart = lineEnd + 1;
@@ -749,6 +750,7 @@ public class DiffMatchPatch
             {
                 continue;
             }
+
             best = length;
             length++;
         }
@@ -764,7 +766,6 @@ public class DiffMatchPatch
          *     suffix of text1, the prefix of text2, the suffix of text2 and the
          *     common middle.  Or null if there was no match.
          */
-
     protected string[] HalfMatch(string text1, string text2)
     {
         if (this.DiffTimeout <= 0)
@@ -834,6 +835,7 @@ public class DiffMatchPatch
             {
                 continue;
             }
+
             bestCommon = shortText.Substring(j - suffixLength, suffixLength)
                          + shortText.Substring(j, prefixLength);
             bestLongtextA = longtext.Substring(0, i - suffixLength);
@@ -890,10 +892,10 @@ public class DiffMatchPatch
 
                 // Eliminate an equality that is smaller or equal to the edits on both
                 // sides of it.
-                if (lastEquality != null && (lastEquality.Length <= Math.Max(lengthInsertions1, lengthDeletions1))
-                                         && (lastEquality.Length <= Math.Max(
-                                                 lengthInsertions2,
-                                                 length)))
+                if (lastEquality != null && lastEquality.Length <= Math.Max(lengthInsertions1, lengthDeletions1)
+                                         && lastEquality.Length <= Math.Max(
+                                             lengthInsertions2,
+                                             length))
                 {
                     // Duplicate record.
                     diffs.Insert(equalities.Peek(), new Diff(Operation.Delete, lastEquality));
@@ -1025,6 +1027,7 @@ public class DiffMatchPatch
                     {
                         continue;
                     }
+
                     bestScore = score;
                     bestEquality1 = equality1;
                     bestEdit = edit;
@@ -1171,7 +1174,7 @@ public class DiffMatchPatch
                                 var commonLength = this.CommonPrefix(textInsert, textDelete);
                                 if (commonLength != 0)
                                 {
-                                    if ((pointer - countDelete - countInsert) > 0 && diffs[pointer - countDelete - countInsert - 1].Operation == Operation.Equal)
+                                    if (pointer - countDelete - countInsert > 0 && diffs[pointer - countDelete - countInsert - 1].Operation == Operation.Equal)
                                     {
                                         diffs[pointer - countDelete - countInsert - 1].Text += textInsert.Substring(0, commonLength);
                                     }
@@ -1242,7 +1245,7 @@ public class DiffMatchPatch
             var changes = false;
             pointer = 1;
             // Intentionally ignore the first and last element (don't need checking).
-            while (pointer < (diffs.Count - 1))
+            while (pointer < diffs.Count - 1)
             {
                 if (diffs[pointer - 1].Operation == Operation.Equal && diffs[pointer + 1].Operation == Operation.Equal)
                 {
@@ -1293,13 +1296,13 @@ public class DiffMatchPatch
             switch (aDiff.Operation)
             {
                 case Operation.Insert:
-                    html.Append("<span class=\"bg-success text-light\">").Append(text).Append("</span>");
+                    html.Append("<p class=\"bg-success text-light\">").Append(text).Append("</p>");
                     break;
                 case Operation.Delete:
-                    html.Append("<span class=\"bg-danger text-light\">").Append(text).Append("</span>");
+                    html.Append("<p class=\"bg-danger text-light\">").Append(text).Append("</p>");
                     break;
                 case Operation.Equal:
-                    html.Append("<span>").Append(text).Append("</span>");
+                    html.Append("<p>").Append(text).Append("</p>");
                     break;
             }
         }

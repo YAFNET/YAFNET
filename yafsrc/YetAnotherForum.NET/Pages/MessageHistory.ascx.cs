@@ -214,7 +214,9 @@ public partial class MessageHistory : ForumPage
     {
         var dmp = new DiffMatchPatch();
 
-        var messages = this.RevisionsList.Items.Cast<RepeaterItem>().Where(item => item.FindControlAs<CheckBox>("Compare").Checked).Select(item => item.FindControlAs<HiddenField>("MessageField").Value);
+        var messages = this.RevisionsList.Items.Cast<RepeaterItem>()
+            .Where(item => item.FindControlAs<CheckBox>("Compare").Checked)
+            .Select(item => item.FindControlAs<HiddenField>("MessageField").Value);
 
         if (!messages.Any())
         {
@@ -232,6 +234,8 @@ public partial class MessageHistory : ForumPage
         var text2 = messages.ElementAt(1);
 
         var diff = dmp.DiffMain(text1, text2, true);
+
+        dmp.CleanupSemantic(diff);
 
         this.DiffView.Text = dmp.PrettyHtml(diff);
 
