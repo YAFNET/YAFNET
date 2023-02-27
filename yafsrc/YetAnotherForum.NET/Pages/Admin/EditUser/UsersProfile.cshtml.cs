@@ -556,7 +556,7 @@ public class UsersProfileModel : AdminPage
     /// </summary>
     private void SaveCustomProfile(int userId)
     {
-        if (!this.Input.CustomProfile.Any())
+        if (this.Input.CustomProfile.NullOrEmpty())
         {
             return;
         }

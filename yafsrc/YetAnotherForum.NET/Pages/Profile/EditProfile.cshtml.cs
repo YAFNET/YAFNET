@@ -595,7 +595,7 @@ public class EditProfileModel : ProfilePage
     /// </summary>
     private void SaveCustomProfile()
     {
-        if (!this.Input.CustomProfile.Any())
+        if (this.Input.CustomProfile.NullOrEmpty())
         {
             return;
         }

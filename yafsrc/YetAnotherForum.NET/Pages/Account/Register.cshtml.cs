@@ -351,7 +351,7 @@ public class RegisterModel : AccountPage
     private bool ValidateCustomProfile()
     {
         // Save Custom Profile
-        if (!this.Input.CustomProfile.Any())
+        if (this.Input.CustomProfile.NullOrEmpty())
         {
             return true;
         }
@@ -395,7 +395,7 @@ public class RegisterModel : AccountPage
     /// </param>
     private void SaveCustomProfile(int userId)
     {
-        if (!this.Input.CustomProfile.Any())
+        if (this.Input.CustomProfile.NullOrEmpty())
         {
             return;
         }

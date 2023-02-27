@@ -148,7 +148,7 @@ public class AlertTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
         {
             if (this.Message.IsSet())
             {
-                output.Content.Append(this.Message);
+                output.Content.AppendHtml(this.Message);
             }
             else
             {
