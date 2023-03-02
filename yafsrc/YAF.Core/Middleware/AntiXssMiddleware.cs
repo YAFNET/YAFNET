@@ -104,13 +104,13 @@ public class AntiXssMiddleware
         var originalBody = context.Request.Body;
         try
         {
-            var content = await ReadRequestBodyAsync(context);
+            /*var content = await ReadRequestBodyAsync(context);
 
             if (CrossSiteScriptingValidation.IsDangerousString(content, out _))
             {
                 await this.RespondWithAnErrorAsync(context).ConfigureAwait(false);
                 return;
-            }
+            }*/
 
             await this.next(context).ConfigureAwait(false);
         }

@@ -128,16 +128,15 @@ public class EditAvatarModel : ProfilePage
 
         try
         {
-            using (var image = Image.Load(this.Upload.OpenReadStream(), out var format))
-            {
-                if (image.Width > x || image.Height > y)
-                {
-                    this.PageBoardContext.Notify(
-                        $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", image.Width, image.Height)} {this.GetText("EDIT_AVATAR", "WARN_RESIZED")}",
-                        MessageTypes.warning);
+            using var image = Image.Load(this.Upload.OpenReadStream());
 
-                    resizedImage = ImageHelper.GetResizedImage(image, format, x, y);
-                }
+            if (image.Width > x || image.Height > y)
+            {
+                this.PageBoardContext.Notify(
+                    $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", image.Width, image.Height)} {this.GetText("EDIT_AVATAR", "WARN_RESIZED")}",
+                    MessageTypes.warning);
+
+                resizedImage = ImageHelper.GetResizedImage(image, image.Metadata.DecodedImageFormat, x, y);
             }
 
             // Delete old first...
@@ -258,11 +257,11 @@ public class EditAvatarModel : ProfilePage
     {
         if (resized == null)
         {
-            using var image = Image.Load(this.Upload.OpenReadStream(), out var format);
+            using var image = Image.Load(this.Upload.OpenReadStream());
 
             var memoryStream = new MemoryStream();
 
-            image.Save(memoryStream, format);
+            image.Save(memoryStream, image.Metadata.DecodedImageFormat);
 
             this.GetRepository<User>().SaveAvatar(
                 this.PageBoardContext.PageUserID,
@@ -311,12 +310,12 @@ public class EditAvatarModel : ProfilePage
 
         if (resized == null)
         {
-            using var avatarImage = Image.Load(this.Upload.OpenReadStream(), out var format);
+            using var avatarImage = Image.Load(this.Upload.OpenReadStream());
 
             using (var memory = new MemoryStream())
             {
                 using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
-                avatarImage.Save(memory, format);
+                avatarImage.Save(memory, avatarImage.Metadata.DecodedImageFormat);
                 var bytes = memory.ToArray();
                 fs.Write(bytes, 0, bytes.Length);
             }

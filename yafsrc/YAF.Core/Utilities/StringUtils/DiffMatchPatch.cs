@@ -128,9 +128,6 @@ public class DiffMatchPatch
     // Number of seconds to map a diff before giving up (0 for infinity).
     public float DiffTimeout = 1.0f;
 
-    // Cost of an empty edit operation in terms of edit characters.
-    public short DiffEditCost = 4;
-
     // How far to search for a match (0 = exact location, 1000+ = broad match).
     // A match this many characters away from the expected location will add
     // 1.0 to the score (0.0 is a perfect match).
@@ -1085,7 +1082,7 @@ public class DiffMatchPatch
         // 'whitespace'.  Since this function's purpose is largely cosmetic,
         // the choice has been made to use each language's native features
         // rather than force total conformity.
-        var char1 = one[one.Length - 1];
+        var char1 = one[^1];
         var char2 = two[0];
         var nonAlphaNumeric1 = !char.IsLetterOrDigit(char1);
         var nonAlphaNumeric2 = !char.IsLetterOrDigit(char2);
@@ -1234,7 +1231,7 @@ public class DiffMatchPatch
                 }
             }
 
-            if (diffs[diffs.Count - 1].Text.Length == 0)
+            if (diffs[^1].Text.Length == 0)
             {
                 diffs.RemoveAt(diffs.Count - 1); // Remove the dummy entry at the end.
             }
