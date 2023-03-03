@@ -87,19 +87,6 @@ public class UsersInfoModel : AdminPage
         {
             var aspNetUser = this.Get<IAspNetUsersHelper>().GetUserByName(this.Input.Name);
 
-            var userName = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Input.Email);
-
-            if (userName != null)
-            {
-                return this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
-            }
-
-            if (this.Input.Email != aspNetUser.Email)
-            {
-                // update the e-mail here too...
-                aspNetUser.Email = this.Input.Email;
-            }
-
             // Update IsApproved
             aspNetUser.IsApproved = this.Input.IsApproved;
 
@@ -130,7 +117,6 @@ public class UsersInfoModel : AdminPage
             u,
             this.Input.Name,
             this.Input.DisplayName,
-            this.Input.Email,
             userFlags.BitValue,
             this.Input.RankID);
 
@@ -157,6 +143,12 @@ public class UsersInfoModel : AdminPage
         this.EditUser =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
                 Tuple<User, AspNetUsers, Rank, vaccess>;
+
+        if (this.EditUser == null)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return;
+        }
 
         this.Ranks = new SelectList(this.GetRepository<Rank>().GetByBoardId(), nameof(Rank.ID), nameof(Rank.Name));
 
