@@ -44,9 +44,9 @@ public partial class EditUsersSettings : BaseUserControl
     /// </summary>
     protected bool UpdateEmailFlag
     {
-        get => this.ViewState["bUpdateEmail"] != null && this.ViewState["bUpdateEmail"].ToType<bool>();
+        get => this.ViewState["UpdateEmail"] != null && this.ViewState["UpdateEmail"].ToType<bool>();
 
-        set => this.ViewState["bUpdateEmail"] = value;
+        set => this.ViewState["UpdateEmail"] = value;
     }
 
     /// <summary>
@@ -67,7 +67,10 @@ public partial class EditUsersSettings : BaseUserControl
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void EmailTextChanged([NotNull] object sender, [NotNull] EventArgs e)
     {
-        this.UpdateEmailFlag = true;
+        if (this.User.Email != this.Email.Text)
+        {
+            this.UpdateEmailFlag = true;
+        }
     }
 
     /// <summary>

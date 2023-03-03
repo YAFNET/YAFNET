@@ -358,7 +358,7 @@ public static class UserRepositoryExtensions
     }
 
     /// <summary>
-    /// Update the Admin User
+    /// Update the User from the user info page
     /// </summary>
     /// <param name="repository">
     /// The repository.
@@ -375,9 +375,6 @@ public static class UserRepositoryExtensions
     /// <param name="displayName">
     /// The display Name.
     /// </param>
-    /// <param name="email">
-    /// The email.
-    /// </param>
     /// <param name="flags">
     /// The flags.
     /// </param>
@@ -390,7 +387,6 @@ public static class UserRepositoryExtensions
         [NotNull] int userId,
         [NotNull] string name,
         [NotNull] string displayName,
-        [NotNull] string email,
         [NotNull] int flags,
         [NotNull] int rankId)
     {
@@ -402,7 +398,6 @@ public static class UserRepositoryExtensions
                           BoardID = boardId,
                           Name = name,
                           DisplayName = displayName,
-                          Email = email,
                           Flags = flags,
                           RankID = rankId
                       },

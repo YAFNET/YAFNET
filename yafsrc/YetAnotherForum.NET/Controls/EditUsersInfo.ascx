@@ -26,6 +26,7 @@
                        LocalizedTag="EMAIL" LocalizedPage="PROFILE" />
         <asp:TextBox ID="Email" runat="server" 
                      TextMode="Email"
+                     Enabled="False"
                      CssClass="form-control" />
     </div>
 </div>

@@ -69,20 +69,6 @@ public partial class EditUsersInfo : BaseUserControl
         {
             var aspNetUser = this.Get<IAspNetUsersHelper>().GetUserByName(this.Name.Text.Trim());
 
-            var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim());
-
-            if (userFromEmail != null)
-            {
-                this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
-                return;
-            }
-
-            if (this.Email.Text.Trim() != aspNetUser.Email)
-            {
-                // update the e-mail here too...
-                aspNetUser.Email = this.Email.Text.Trim();
-            }
-
             // Update IsApproved
             aspNetUser.IsApproved = this.IsApproved.Checked;
 
@@ -114,7 +100,6 @@ public partial class EditUsersInfo : BaseUserControl
             this.User.Item1.ID,
             this.Name.Text.Trim(),
             this.DisplayName.Text.Trim(),
-            this.Email.Text.Trim(),
             userFlags.BitValue,
             this.RankID.SelectedValue.ToType<int>());
 
