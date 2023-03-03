@@ -23,7 +23,7 @@
     "jquery": "^3.6.3",
     "jquery-ajax-unobtrusive": "^3.2.6",
     "jquery-validation": "^1.19.5",
-    "long-press-event": "^2.4.4",
+    "long-press-event": "^2.4.6",
     "prismjs": "^1.29.0"
   }
 }
