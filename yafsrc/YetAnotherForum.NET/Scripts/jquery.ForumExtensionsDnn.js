@@ -10194,6 +10194,7 @@ Prism.languages.vba = Prism.languages["visual-basic"];
     var mouseDown = hasPointerEvents ? "pointerdown" : isTouch ? "touchstart" : "mousedown";
     var mouseUp = hasPointerEvents ? "pointerup" : isTouch ? "touchend" : "mouseup";
     var mouseMove = hasPointerEvents ? "pointermove" : isTouch ? "touchmove" : "mousemove";
+    var mouseLeave = hasPointerEvents ? "pointerleave" : isTouch ? "touchleave" : "mouseleave";
     var startX = 0;
     var startY = 0;
     var maxDiffX = 10;
@@ -10245,7 +10246,11 @@ Prism.languages.vba = Prism.languages["visual-basic"];
             cancelable: true,
             detail: {
                 clientX: originalEvent.clientX,
-                clientY: originalEvent.clientY
+                clientY: originalEvent.clientY,
+                offsetX: originalEvent.offsetX,
+                offsetY: originalEvent.offsetY,
+                pageX: originalEvent.pageX,
+                pageY: originalEvent.pageY
             },
             clientX: originalEvent.clientX,
             clientY: originalEvent.clientY,
@@ -10307,6 +10312,7 @@ Prism.languages.vba = Prism.languages["visual-basic"];
         return defaultValue;
     }
     document.addEventListener(mouseUp, clearLongPressTimer, true);
+    document.addEventListener(mouseLeave, clearLongPressTimer, true);
     document.addEventListener(mouseMove, mouseMoveHandler, true);
     document.addEventListener("wheel", clearLongPressTimer, true);
     document.addEventListener("scroll", clearLongPressTimer, true);
