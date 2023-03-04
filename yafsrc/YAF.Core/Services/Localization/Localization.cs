@@ -565,9 +565,21 @@ public class Localization : ILocalization
 
         if (this.TransPage.Equals("INSTALL"))
         {
-            var culture = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+            var currentCulture = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
-            fileName = StaticDataHelper.LanguageFiles().FirstOrDefault(x => x.CultureTag == culture).CultureFile;
+            var languageFiles = StaticDataHelper.LanguageFiles();
+
+            var languageFile = languageFiles.FirstOrDefault(x =>
+            {
+                if (x.CultureTag.Contains("-"))
+                {
+                    x.CultureTag = x.CultureTag.Remove(x.CultureTag.IndexOf("-", StringComparison.Ordinal));
+                }
+
+                return x.CultureTag == currentCulture;
+            });
+
+            fileName = languageFile != null ? languageFile.CultureFile : "english.json";
         }
         else
         {
