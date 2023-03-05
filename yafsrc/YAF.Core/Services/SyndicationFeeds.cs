@@ -64,8 +64,6 @@ public class SyndicationFeeds : IHaveServiceLocator
     {
         FeedItem feed = null;
 
-        var lastPostName = this.Get<ILocalization>().GetText("DEFAULT", "GO_LAST_POST");
-
         RssFeeds feedType;
 
         try
@@ -88,7 +86,7 @@ public class SyndicationFeeds : IHaveServiceLocator
                     this.Get<LinkBuilder>().AccessDenied();
                 }
 
-                feed = this.GetPostLatestFeed(feedType, lastPostName);
+                feed = this.GetPostLatestFeed(feedType);
                 break;
 
             // Posts Feed
@@ -120,7 +118,7 @@ public class SyndicationFeeds : IHaveServiceLocator
                 {
                     var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("f");
 
-                    feed = this.GetTopicsFeed(feedType, lastPostName, forumId.Value);
+                    feed = this.GetTopicsFeed(feedType, forumId.Value);
                 }
 
                 break;
@@ -159,56 +157,26 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <summary>
     /// The method to return latest topic content to display in a feed.
     /// </summary>
-    /// <param name="link">A link to an active topic.</param>
-    /// <param name="linkName">A latest topic displayed link name</param>
     /// <param name="text">An active topic first message content/partial content.</param>
+    /// <param name="messageId">The Message Id</param>
+    /// <param name="messageAuthorUserId">The Message Author User Id</param>
     /// <param name="flags">The flags.</param>
-    /// <param name="altItem">The alt Item.</param>
     /// <returns>
     /// An Html formatted first message content string.
     /// </returns>
     public string GetPostLatestContent(
-        [NotNull] string link,
-        [NotNull] string linkName,
         [NotNull] string text,
-        [NotNull] int flags,
-        [NotNull] bool altItem)
+        int messageId,
+        int messageAuthorUserId,
+        [NotNull] int flags)
     {
-        text = this.Get<IFormatMessage>().FormatSyndicationMessage(text, new MessageFlags(flags), altItem, 4000);
+        text = this.Get<IFormatMessage>().FormatSyndicationMessage(
+            text,
+            messageId,
+            messageAuthorUserId,
+            new MessageFlags(flags));
 
-        return $@"{text}<a href=""{link}"" >{linkName}</a>";
-    }
-
-    /// <summary>
-    /// The helper function gets media enclosure links for a post
-    /// </summary>
-    /// <param name="messageId">
-    /// The MessageId with attached files.
-    /// </param>
-    /// <returns>
-    /// The get media links.
-    /// </returns>
-    [NotNull]
-    public List<SyndicationLink> GetMediaLinks(int messageId)
-    {
-        var attachmentLinks = new List<SyndicationLink>();
-        var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == messageId);
-
-        if (attachments.Any())
-        {
-            attachmentLinks.AddRange(
-                from Attachment attachment in attachments
-                where attachment.FileName.IsSet()
-                select new SyndicationLink(
-                    new Uri(
-                        $"{BoardInfo.ForumBaseUrl}{BoardInfo.ForumClientFileRoot.TrimStart('/')}resource.ashx?a={attachment.ID}"),
-                    "enclosure",
-                    attachment.FileName,
-                    attachment.ContentType,
-                    attachment.Bytes.ToType<long>()));
-        }
-
-        return attachmentLinks;
+        return text;
     }
 
     /// <summary>
@@ -217,13 +185,10 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <param name="feedType">
     /// The FeedType.
     /// </param>
-    /// <param name="lastPostName">
-    /// The last post name.
-    /// </param>
     /// <returns>
     /// The <see cref="FeedItem"/>.
     /// </returns>
-    public FeedItem GetPostLatestFeed([NotNull] RssFeeds feedType, [NotNull] string lastPostName)
+    public FeedItem GetPostLatestFeed([NotNull] RssFeeds feedType)
     {
         var syndicationItems = new List<SyndicationItem>();
 
@@ -237,8 +202,6 @@ public class SyndicationFeeds : IHaveServiceLocator
                 ? BoardContext.Current.BoardSettings.ActiveDiscussionsCount
                 : 50,
             BoardContext.Current.PageUserID);
-
-        var altItem = false;
 
         topics.ForEach(
             topic =>
@@ -262,18 +225,13 @@ public class SyndicationFeeds : IHaveServiceLocator
                             topic.Item2.LastUserName,
                             topic.Item2.LastUserDisplayName));
 
-                    var messageLink = this.Get<LinkBuilder>().GetAbsoluteLink(
-                        ForumPages.Posts,
-                        new { m = topic.Item2.LastMessageID, name = topic.Item2.TopicName });
-
                     syndicationItems.AddSyndicationItem(
                         topic.Item2.TopicName,
                         this.GetPostLatestContent(
-                            messageLink,
-                            lastPostName,
                             topic.Item1.MessageText,
-                            topic.Item2.LastMessageFlags ?? 22,
-                            altItem),
+                            topic.Item1.ID,
+                            topic.Item1.UserID,
+                            topic.Item2.LastMessageFlags ?? 22),
                         null,
                         this.Get<LinkBuilder>().GetAbsoluteLink(
                             ForumPages.Posts,
@@ -282,8 +240,6 @@ public class SyndicationFeeds : IHaveServiceLocator
                             .Unidecode(),
                         lastPosted,
                         feed);
-
-                    altItem = !altItem;
 
                     feed.Items = syndicationItems;
                 });
@@ -320,8 +276,6 @@ public class SyndicationFeeds : IHaveServiceLocator
             BoardContext.Current.BoardSettings.PostsPerPage,
             -1);
 
-        var altItem = false;
-
         var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
         var feed = new FeedItem(
@@ -341,14 +295,6 @@ public class SyndicationFeeds : IHaveServiceLocator
                         feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
                     }
 
-                    List<SyndicationLink> attachmentLinks = null;
-
-                    // if the user doesn't have download access we simply don't show enclosure links.
-                    if (BoardContext.Current.DownloadAccess)
-                    {
-                        attachmentLinks = this.GetMediaLinks(row.MessageID);
-                    }
-
                     feed.Contributors.Add(
                         SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row.UserID, null, null));
 
@@ -356,21 +302,17 @@ public class SyndicationFeeds : IHaveServiceLocator
                         row.Topic,
                         this.Get<IFormatMessage>().FormatSyndicationMessage(
                             row.Message,
-                            new MessageFlags(row.Flags),
-                            altItem,
-                            4000),
+                            row.MessageID,
+                            row.UserID,
+                            new MessageFlags(row.Flags)),
                         null,
                         this.Get<LinkBuilder>().GetAbsoluteLink(
                             ForumPages.Posts,
-                            new { m = row.MessageID, name = row.Topic, find = "lastpost" }),
+                            new {m = row.MessageID, name = row.Topic, find = "lastpost"}),
                         $"urn:{urlAlphaNum}:ft{feedType}:meid{row.MessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
                         posted,
-                        feed,
-                        attachmentLinks);
-
-                    // used to format feeds
-                    altItem = !altItem;
+                        feed);
                 });
 
         feed.Items = syndicationItems;
@@ -384,16 +326,13 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <param name="feedType">
     /// The FeedType.
     /// </param>
-    /// <param name="lastPostName">
-    /// The last post name.
-    /// </param>
     /// <param name="forumId">
     /// The forum id.
     /// </param>
     /// <returns>
     /// The <see cref="FeedItem"/>.
     /// </returns>
-    public FeedItem GetTopicsFeed([NotNull] RssFeeds feedType, [NotNull] string lastPostName, [NotNull] int forumId)
+    public FeedItem GetTopicsFeed([NotNull] RssFeeds feedType, [NotNull] int forumId)
     {
         var syndicationItems = new List<SyndicationItem>();
 
@@ -437,11 +376,10 @@ public class SyndicationFeeds : IHaveServiceLocator
                         new { m = topic.LastMessageID.Value, name = topic.Topic });
 
                     var content = this.GetPostLatestContent(
-                        postLink,
-                        lastPostName,
                         topic.LastMessage,
-                        topic.LastMessageFlags.Value,
-                        false);
+                        topic.LastMessageID.Value,
+                        topic.LastUserID.Value,
+                        topic.LastMessageFlags.Value);
 
                     syndicationItems.AddSyndicationItem(
                         topic.Topic,

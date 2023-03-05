@@ -28,8 +28,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using YAF.Core.Utilities.StringUtils;
-using YAF.Types.Constants;
-using YAF.Types.Objects;
 
 /// <summary>
 /// YAF FormatMessage provides functions related to formatting the post messages.
@@ -231,33 +229,29 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     }
 
     /// <summary>
-    /// The format syndication message.
+    /// Format the Syndication Message
     /// </summary>
     /// <param name="message">
     /// The message.
     /// </param>
+    /// <param name="messageId">
+    /// The Message Id</param>
+    /// <param name="messageAuthorId">The Message Author User Id</param>
     /// <param name="messageFlags">
     /// The message flags.
-    /// </param>
-    /// <param name="altItem">
-    /// The alt Item.
-    /// </param>
-    /// <param name="charsToFetch">
-    /// The chars To Fetch.
     /// </param>
     /// <returns>
     /// The formatted message.
     /// </returns>
     [NotNull]
-    [Obsolete("Remove Table")]
     public string FormatSyndicationMessage(
         [NotNull] string message,
-        [NotNull] MessageFlags messageFlags,
-        bool altItem,
-        int charsToFetch)
+        int messageId,
+        int messageAuthorId,
+        [NotNull] MessageFlags messageFlags)
     {
         message =
-            $@"<table class=""{(altItem ? "content postContainer" : "content postContainer_Alt")}"" width=""100%""><tr><td>{this.Format(0, message, messageFlags, false)}</td></tr></table>";
+            $@"{this.Format(0, message, messageFlags, false)}";
 
         message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
 
@@ -266,7 +260,18 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         message = this.RemoveCustomBBCodes(message);
 
-        return message;
+        var formattedMessage = this.Get<IFormatMessage>().Format(
+            messageId,
+            message,
+            messageFlags);
+
+        formattedMessage = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
+            formattedMessage,
+            messageFlags,
+            messageAuthorId,
+            messageId);
+
+        return formattedMessage;
     }
 
     /// <summary>

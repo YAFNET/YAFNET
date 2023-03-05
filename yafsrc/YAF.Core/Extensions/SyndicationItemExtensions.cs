@@ -61,9 +61,6 @@ public static class SyndicationItemExtensions
     /// <param name="feed">
     /// The feed.
     /// </param>
-    /// <param name="links">
-    /// The links.
-    /// </param>
     public static void AddSyndicationItem(
         this List<SyndicationItem> currentList,
         string title,
@@ -72,8 +69,7 @@ public static class SyndicationItemExtensions
         string link,
         string id,
         DateTime posted,
-        FeedItem feed,
-        List<SyndicationLink> links)
+        FeedItem feed)
     {
         var si = new SyndicationItem(
                      BoardContext.Current.Get<IBadWordReplace>().Replace(title),
@@ -82,9 +78,8 @@ public static class SyndicationItemExtensions
                          TextSyndicationContentKind.Html),
                      new Uri(link),
                      id,
-                     new DateTimeOffset(posted)) { PublishDate = new DateTimeOffset(posted) };
-
-        links?.ForEach(syndicationLink => si.Links.Add(syndicationLink));
+                     new DateTimeOffset(posted))
+                 { PublishDate = new DateTimeOffset(posted) };
 
         si.Authors.Add(
             new SyndicationPerson(string.Empty, feed.Contributors[feed.Contributors.Count - 1].Name, string.Empty));
@@ -103,46 +98,6 @@ public static class SyndicationItemExtensions
         }
 
         currentList.Add(si);
-    }
-
-    /// <summary>
-    /// The add syndication item.
-    /// </summary>
-    /// <param name="currentList">
-    /// The current list.
-    /// </param>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    /// <param name="content">
-    /// The content.
-    /// </param>
-    /// <param name="summary">
-    /// The summary.
-    /// </param>
-    /// <param name="link">
-    /// The alternate link.
-    /// </param>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <param name="posted">
-    /// The posted.
-    /// </param>
-    /// <param name="feed">
-    /// The feed.
-    /// </param>
-    public static void AddSyndicationItem(
-        this List<SyndicationItem> currentList,
-        string title,
-        string content,
-        string summary,
-        string link,
-        string id,
-        DateTime posted,
-        FeedItem feed)
-    {
-        AddSyndicationItem(currentList, title, content, summary, link, id, posted, feed, null);
     }
 
     /// <summary>

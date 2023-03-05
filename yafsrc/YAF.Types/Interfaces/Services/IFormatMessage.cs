@@ -90,25 +90,26 @@ public interface IFormatMessage
     string Format([NotNull] int messageId, [NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited);
 
     /// <summary>
-    /// The format syndication message.
+    /// Format the Syndication Message
     /// </summary>
     /// <param name="message">
     /// The message.
     /// </param>
+    /// <param name="messageId">
+    /// The Message Id</param>
+    /// <param name="messageAuthorId">The Message Author User Id</param>
     /// <param name="messageFlags">
     /// The message flags.
-    /// </param>
-    /// <param name="altItem">
-    /// The alt Item.
-    /// </param>
-    /// <param name="charsToFetch">
-    /// The chars To Fetch.
     /// </param>
     /// <returns>
     /// The formatted message.
     /// </returns>
     [NotNull]
-    string FormatSyndicationMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool altItem, int charsToFetch);
+    public string FormatSyndicationMessage(
+        [NotNull] string message,
+        int messageId,
+        int messageAuthorId,
+        [NotNull] MessageFlags messageFlags);
 
     /// <summary>
     /// Removes nested quotes from the given message body.
