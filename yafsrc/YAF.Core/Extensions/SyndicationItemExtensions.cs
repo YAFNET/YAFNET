@@ -56,9 +56,6 @@ namespace YAF.Core.Extensions
         /// <param name="summary">
         /// The summary.
         /// </param>
-        /// <param name="link">
-        /// The alternate link.
-        /// </param>
         /// <param name="id">
         /// The id.
         /// </param>
@@ -79,8 +76,7 @@ namespace YAF.Core.Extensions
             string link,
             string id,
             DateTime posted,
-            FeedItem feed,
-            List<SyndicationLink> links)
+            FeedItem feed)
         {
             var si = new SyndicationItem(
                 BoardContext.Current.Get<IBadWordReplace>().Replace(title),
@@ -90,8 +86,6 @@ namespace YAF.Core.Extensions
                 new Uri(link),
                 id,
                 new DateTimeOffset(posted)) { PublishDate = new DateTimeOffset(posted) };
-
-            links?.ForEach(syndicationLink => si.Links.Add(syndicationLink));
 
             si.Authors.Add(
                 new SyndicationPerson(string.Empty, feed.Contributors[^1].Name, string.Empty));
@@ -110,46 +104,6 @@ namespace YAF.Core.Extensions
             }
 
             currentList.Add(si);
-        }
-
-        /// <summary>
-        /// The add syndication item.
-        /// </summary>
-        /// <param name="currentList">
-        /// The current list.
-        /// </param>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        /// <param name="content">
-        /// The content.
-        /// </param>
-        /// <param name="summary">
-        /// The summary.
-        /// </param>
-        /// <param name="link">
-        /// The alternate link.
-        /// </param>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <param name="posted">
-        /// The posted.
-        /// </param>
-        /// <param name="feed">
-        /// The feed.
-        /// </param>
-        public static void AddSyndicationItem(
-            this List<SyndicationItem> currentList,
-            string title,
-            string content,
-            string summary,
-            string link,
-            string id,
-            DateTime posted,
-            FeedItem feed)
-        {
-            AddSyndicationItem(currentList, title, content, summary, link, id, posted, feed, null);
         }
 
         /// <summary>

@@ -58,11 +58,9 @@ public class Feed : ForumBaseController
             return this.NotFound();
         }
 
-        var lastPostName = this.GetText("DEFAULT", "GO_LAST_POST");
-
         try
         {
-            var feed = this.Get<SyndicationFeeds>().GetPostLatestFeed(lastPostName);
+            var feed = this.Get<SyndicationFeeds>().GetPostLatestFeed();
 
             var settings = new XmlWriterSettings {Encoding = Encoding.UTF8};
 
@@ -104,11 +102,9 @@ public class Feed : ForumBaseController
             return this.NotFound();
         }
 
-        var lastPostName = this.GetText("DEFAULT", "GO_LAST_POST");
-
         try
         {
-            var feed = this.Get<SyndicationFeeds>().GetTopicsFeed(lastPostName, f);
+            var feed = this.Get<SyndicationFeeds>().GetTopicsFeed(f);
 
             var settings = new XmlWriterSettings { Encoding = Encoding.UTF8 };
 
