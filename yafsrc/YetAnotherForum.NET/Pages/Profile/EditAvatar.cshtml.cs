@@ -73,10 +73,16 @@ public class EditAvatarModel : ProfilePage
     /// </summary>
     public override void CreatePageLinks()
     {
-        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
-        this.PageBoardContext.PageLinks.AddLink(this.GetText("EDIT_AVATAR","TITLE"), string.Empty);
+        this.PageBoardContext.PageLinks.AddLink(
+            this.PageBoardContext.PageUser.DisplayOrUserName(),
+            this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("EDIT_AVATAR", "TITLE"), string.Empty);
     }
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet()
     {
         this.BindData();
@@ -84,35 +90,44 @@ public class EditAvatarModel : ProfilePage
         return this.Page();
     }
 
-    public void OnPostDeleteAvatar()
+    /// <summary>
+    /// Delete Current Avatar
+    /// </summary>
+    /// <returns>IActionResult.</returns>
+    public IActionResult OnPostDeleteAvatar()
     {
         this.GetRepository<User>().DeleteAvatar(this.PageBoardContext.PageUserID);
 
         // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
-        this.BindData();
+
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
     }
 
+    /// <summary>
+    /// Save selected Avatar from Gallery
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostGallery()
     {
-        if (this.AvatarGallery.IsSet())
+        if (this.AvatarGallery.IsNotSet())
         {
-            // save the avatar right now...
-            this.GetRepository<User>().SaveAvatar(
-                this.PageBoardContext.PageUserID,
-                this.AvatarGallery,
-                null,
-                null);
-
-            // clear the cache for this user...
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
-
-           return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
+            return this.Page();
         }
 
-        return this.Page();
+        // save the avatar right now...
+        this.GetRepository<User>().SaveAvatar(this.PageBoardContext.PageUserID, this.AvatarGallery, null, null);
+
+        // clear the cache for this user...
+        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
+
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
     }
 
+    /// <summary>
+    /// Upload selected avatar
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostUploadUpdate()
     {
         if (this.Upload.FileName.Trim().Length <= 0 || !this.Upload.FileName.Trim().IsImageName())
@@ -190,11 +205,10 @@ public class EditAvatarModel : ProfilePage
 
         if (!currentUser.AvatarImage.IsNullOrEmptyField())
         {
-            this.AvatarUrl =
-                this.Get<IUrlHelper>().Action(
-                    "GetResponseLocalAvatar",
-                    "Avatar",
-                    new { userId = this.PageBoardContext.PageUserID });
+            this.AvatarUrl = this.Get<IUrlHelper>().Action(
+                "GetResponseLocalAvatar",
+                "Avatar",
+                new {userId = this.PageBoardContext.PageUserID, v = DateTime.Now.Ticks.ToString()});
         }
         else if (currentUser.Avatar.IsSet() && currentUser.Avatar.StartsWith("/"))
         {
@@ -228,10 +242,14 @@ public class EditAvatarModel : ProfilePage
             this.AvatarUrl = this.Get<IUrlHelper>().Action(
                 "GetTextAvatar",
                 "Avatar",
-                new { userId = this.PageBoardContext.PageUserID });
+                new {userId = this.PageBoardContext.PageUserID, v = DateTime.Now.Ticks.ToString()});
         }
     }
 
+    /// <summary>
+    /// Loads the avatar gallery.
+    /// </summary>
+    /// <returns>List&lt;SelectListItem&gt;.</returns>
     private List<SelectListItem> LoadAvatarGallery()
     {
         var avatars = new List<SelectListItem>();
@@ -253,6 +271,10 @@ public class EditAvatarModel : ProfilePage
         return avatars;
     }
 
+    /// <summary>
+    /// Saves the avatar to DB table.
+    /// </summary>
+    /// <param name="resized">The resized.</param>
     private void SaveAvatarToTable(Stream resized)
     {
         if (resized == null)
@@ -279,13 +301,19 @@ public class EditAvatarModel : ProfilePage
         }
     }
 
+    /// <summary>
+    /// Saves the avatar to folder.
+    /// </summary>
+    /// <param name="resized">The resized.</param>
     private void SaveAvatarToFolder(MemoryStream resized)
     {
-        var uploadFolderPath = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
+        var uploadFolderPath = Path.Combine(
+            this.Get<IWebHostEnvironment>().WebRootPath,
+            this.Get<BoardFolders>().Uploads);
 
         var fileName = Path.Combine(uploadFolderPath, this.Upload.FileName);
 
-        var pos = fileName.LastIndexOfAny(new[] { '/', '\\' });
+        var pos = fileName.LastIndexOfAny(new[] {'/', '\\'});
 
         if (pos >= 0)
         {
@@ -312,13 +340,12 @@ public class EditAvatarModel : ProfilePage
         {
             using var avatarImage = Image.Load(this.Upload.OpenReadStream());
 
-            using (var memory = new MemoryStream())
-            {
-                using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
-                avatarImage.Save(memory, avatarImage.Metadata.DecodedImageFormat);
-                var bytes = memory.ToArray();
-                fs.Write(bytes, 0, bytes.Length);
-            }
+            using var memory = new MemoryStream();
+
+            using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
+            avatarImage.Save(memory, avatarImage.Metadata.DecodedImageFormat);
+            var bytes = memory.ToArray();
+            fs.Write(bytes, 0, bytes.Length);
 
             this.GetRepository<User>().SaveAvatar(
                 this.PageBoardContext.PageUserID,

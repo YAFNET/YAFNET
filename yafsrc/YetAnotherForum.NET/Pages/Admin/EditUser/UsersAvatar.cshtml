@@ -24,8 +24,10 @@
     </p>
     @if (!Model.AvatarUrl.Contains("avatar="))
     {
-        <form method="post" asp-page-handler="DeleteAvatar">
+        <form method="post">
             <button button-style="Danger"
+                    type="submit"
+                    asp-page-handler="DeleteAvatar"
                     icon="trash"
                     text-localized-page="EDIT_AVATAR"
                     text-localized-tag="AVATARDELETE"

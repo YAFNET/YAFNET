@@ -43,7 +43,6 @@ using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Pages.Profile;
-using YAF.Types;
 using YAF.Types.Attributes;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
@@ -81,6 +80,9 @@ public class UsersAvatarModel : AdminPage
     {
     }
 
+    /// <summary>Called when [get].</summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
@@ -98,6 +100,10 @@ public class UsersAvatarModel : AdminPage
         return this.Page();
     }
 
+    /// <summary>
+    /// Delete Current Avatar
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDeleteAvatar()
     {
         this.GetRepository<User>().DeleteAvatar(this.Input.UserId);
@@ -108,24 +114,36 @@ public class UsersAvatarModel : AdminPage
         return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
     }
 
+    /// <summary>
+    /// Save selected Avatar from Gallery
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostGallery()
     {
-        if (this.AvatarGallery.IsSet())
+        if (!this.AvatarGallery.IsNotSet())
         {
-            // save the avatar right now...
-            this.GetRepository<User>().SaveAvatar(
-                this.Input.UserId,
-                this.AvatarGallery,
-                null,
-                null);
-
-            // clear the cache for this user...
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
+            return this.Get<LinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new {u = this.Input.UserId, tab = "View4"});
         }
+
+        // save the avatar right now...
+        this.GetRepository<User>().SaveAvatar(
+            this.Input.UserId,
+            this.AvatarGallery,
+            null,
+            null);
+
+        // clear the cache for this user...
+        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
     }
 
+    /// <summary>
+    /// Upload selected avatar
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostUploadUpdate()
     {
         if (this.Upload.FileName.Trim().Length <= 0 || !this.Upload.FileName.Trim().IsImageName())
@@ -209,11 +227,10 @@ public class UsersAvatarModel : AdminPage
 
         if (!currentUser.AvatarImage.IsNullOrEmptyField())
         {
-            this.AvatarUrl =
-                this.Get<IUrlHelper>().Action(
-                    "GetResponseLocalAvatar",
-                    "Avatar",
-                    new {userId = this.Input.UserId });
+            this.AvatarUrl = this.Get<IUrlHelper>().Action(
+                "GetResponseLocalAvatar",
+                "Avatar",
+                new {userId = this.Input.UserId, v = DateTime.Now.Ticks.ToString()});
         }
         else if (currentUser.Avatar.IsSet() && currentUser.Avatar.StartsWith("/"))
         {
@@ -247,10 +264,14 @@ public class UsersAvatarModel : AdminPage
             this.AvatarUrl = this.Get<IUrlHelper>().Action(
                 "GetTextAvatar",
                 "Avatar",
-                new { userId = this.Input.UserId });
+                new {userId = this.Input.UserId, v = DateTime.Now.Ticks.ToString()});
         }
     }
 
+    /// <summary>
+    /// Loads the avatar gallery.
+    /// </summary>
+    /// <returns>List&lt;SelectListItem&gt;.</returns>
     private List<SelectListItem> LoadAvatarGallery()
     {
         var avatars = new List<SelectListItem>();
@@ -272,6 +293,10 @@ public class UsersAvatarModel : AdminPage
         return avatars;
     }
 
+    /// <summary>
+    /// Saves the avatar to DB table.
+    /// </summary>
+    /// <param name="resized">The resized.</param>
     private void SaveAvatarToTable(Stream resized)
     {
         if (resized == null)
@@ -298,6 +323,10 @@ public class UsersAvatarModel : AdminPage
         }
     }
 
+    /// <summary>
+    /// Saves the avatar to folder.
+    /// </summary>
+    /// <param name="resized">The resized.</param>
     private void SaveAvatarToFolder(MemoryStream resized)
     {
         var uploadFolderPath = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
@@ -331,13 +360,11 @@ public class UsersAvatarModel : AdminPage
         {
             using var avatarImage = Image.Load(this.Upload.OpenReadStream());
 
-            using (var memory = new MemoryStream())
-            {
-                using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
-                avatarImage.Save(memory, avatarImage.Metadata.DecodedImageFormat);
-                var bytes = memory.ToArray();
-                fs.Write(bytes, 0, bytes.Length);
-            }
+            using var memory = new MemoryStream();
+            using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
+            avatarImage.Save(memory, avatarImage.Metadata.DecodedImageFormat);
+            var bytes = memory.ToArray();
+            fs.Write(bytes, 0, bytes.Length);
 
             this.GetRepository<User>().SaveAvatar(
                 this.Input.UserId,

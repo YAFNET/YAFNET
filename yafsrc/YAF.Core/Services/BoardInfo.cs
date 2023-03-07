@@ -58,7 +58,7 @@ public class BoardInfo : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public DateTime AppVersionDate => new(2023, 03,05, 08, 09, 00);
+    public DateTime AppVersionDate => new(2023, 03,07, 11, 59, 00);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
