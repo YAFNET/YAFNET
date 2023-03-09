@@ -266,7 +266,7 @@ public static class Config
     /// The jQuery version.
     /// </summary>
     public static string JQueryVersion => GetConfigValueAsString("YAF.JQueryVersion")
-                                          ?? "3.6.3";
+                                          ?? "3.6.4";
 
     /// <summary>
     ///     Gets a value indicating whether Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot Example : true /false
