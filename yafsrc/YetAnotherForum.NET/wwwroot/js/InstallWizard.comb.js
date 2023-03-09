@@ -61,7 +61,7 @@
         }
         return typeof obj === "object" || typeof obj === "function" ? class2type[toString.call(obj)] || "object" : typeof obj;
     }
-    var version = "3.6.3", jQuery = function(selector, context) {
+    var version = "3.6.4", jQuery = function(selector, context) {
         return new jQuery.fn.init(selector, context);
     };
     jQuery.fn = jQuery.prototype = {
@@ -291,7 +291,7 @@
                 }
             }
             return -1;
-        }, booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|" + "ismap|loop|multiple|open|readonly|required|scoped", whitespace = "[\\x20\\t\\r\\n\\f]", identifier = "(?:\\\\[\\da-fA-F]{1,6}" + whitespace + "?|\\\\[^\\r\\n\\f]|[\\w-]|[^\0-\\x7f])+", attributes = "\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace + "*([*^$|!~]?=)" + whitespace + "*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" + whitespace + "*\\]", pseudos = ":(" + identifier + ")(?:\\((" + "('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|" + "((?:\\\\.|[^\\\\()[\\]]|" + attributes + ")*)|" + ".*" + ")\\)|)", rwhitespace = new RegExp(whitespace + "+", "g"), rtrim = new RegExp("^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g"), rcomma = new RegExp("^" + whitespace + "*," + whitespace + "*"), rcombinators = new RegExp("^" + whitespace + "*([>+~]|" + whitespace + ")" + whitespace + "*"), rdescend = new RegExp(whitespace + "|>"), rpseudo = new RegExp(pseudos), ridentifier = new RegExp("^" + identifier + "$"), matchExpr = {
+        }, booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|" + "ismap|loop|multiple|open|readonly|required|scoped", whitespace = "[\\x20\\t\\r\\n\\f]", identifier = "(?:\\\\[\\da-fA-F]{1,6}" + whitespace + "?|\\\\[^\\r\\n\\f]|[\\w-]|[^\0-\\x7f])+", attributes = "\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace + "*([*^$|!~]?=)" + whitespace + "*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" + whitespace + "*\\]", pseudos = ":(" + identifier + ")(?:\\((" + "('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|" + "((?:\\\\.|[^\\\\()[\\]]|" + attributes + ")*)|" + ".*" + ")\\)|)", rwhitespace = new RegExp(whitespace + "+", "g"), rtrim = new RegExp("^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g"), rcomma = new RegExp("^" + whitespace + "*," + whitespace + "*"), rleadingCombinator = new RegExp("^" + whitespace + "*([>+~]|" + whitespace + ")" + whitespace + "*"), rdescend = new RegExp(whitespace + "|>"), rpseudo = new RegExp(pseudos), ridentifier = new RegExp("^" + identifier + "$"), matchExpr = {
             ID: new RegExp("^#(" + identifier + ")"),
             CLASS: new RegExp("^\\.(" + identifier + ")"),
             TAG: new RegExp("^(" + identifier + "|[*])"),
@@ -371,7 +371,7 @@
                     if (support.qsa && !nonnativeSelectorCache[selector + " "] && (!rbuggyQSA || !rbuggyQSA.test(selector)) && (nodeType !== 1 || context.nodeName.toLowerCase() !== "object")) {
                         newSelector = selector;
                         newContext = context;
-                        if (nodeType === 1 && (rdescend.test(selector) || rcombinators.test(selector))) {
+                        if (nodeType === 1 && (rdescend.test(selector) || rleadingCombinator.test(selector))) {
                             newContext = rsibling.test(selector) && testContext(context.parentNode) || context;
                             if (newContext !== context || !support.scope) {
                                 if (nid = context.getAttribute("id")) {
@@ -388,9 +388,6 @@
                             newSelector = groups.join(",");
                         }
                         try {
-                            if (support.cssSupportsSelector && !CSS.supports("selector(:is(" + newSelector + "))")) {
-                                throw new Error();
-                            }
                             push.apply(results, newContext.querySelectorAll(newSelector));
                             return results;
                         } catch (qsaError) {
@@ -524,8 +521,13 @@
                 docElem.appendChild(el).appendChild(document.createElement("div"));
                 return typeof el.querySelectorAll !== "undefined" && !el.querySelectorAll(":scope fieldset div").length;
             });
-            support.cssSupportsSelector = assert(function() {
-                return CSS.supports("selector(*)") && document.querySelectorAll(":is(:jqfake)") && !CSS.supports("selector(:is(*,:jqfake))");
+            support.cssHas = assert(function() {
+                try {
+                    document.querySelector(":has(*,:jqfake)");
+                    return false;
+                } catch (e) {
+                    return true;
+                }
             });
             support.attributes = assert(function(el) {
                 el.className = "i";
@@ -661,7 +663,7 @@
                     rbuggyMatches.push("!=", pseudos);
                 });
             }
-            if (!support.cssSupportsSelector) {
+            if (!support.cssHas) {
                 rbuggyQSA.push(":has");
             }
             rbuggyQSA = rbuggyQSA.length && new RegExp(rbuggyQSA.join("|"));
@@ -1133,7 +1135,7 @@
                     groups.push(tokens = []);
                 }
                 matched = false;
-                if (match = rcombinators.exec(soFar)) {
+                if (match = rleadingCombinator.exec(soFar)) {
                     matched = match.shift();
                     tokens.push({
                         value: matched,

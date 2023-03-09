@@ -20,7 +20,7 @@
     "bootswatch": "^5.2.3",
     "flag-icons": "^6.6.6",
     "grunt-shell": "^4.0.0",
-    "jquery": "^3.6.3",
+    "jquery": "^3.6.4",
     "jquery-ajax-unobtrusive": "^3.2.6",
     "jquery-validation": "^1.19.5",
     "long-press-event": "^2.4.6",
