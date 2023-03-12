@@ -36,6 +36,10 @@ public class AdminAuthorizationAttribute : AuthorizeAttribute, IAuthorizationFil
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
+    /// <summary>
+    /// Called early in the filter pipeline to confirm request is authorized.
+    /// </summary>
+    /// <param name="context">The <see cref="T:Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext" />.</param>
     public void OnAuthorization(AuthorizationFilterContext context)
     {
         var user = context.HttpContext.User;

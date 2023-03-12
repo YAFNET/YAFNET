@@ -65,11 +65,6 @@ public class WatchTopic : IEntity, IHaveID
     public DateTime Created { get; set; }
 
     /// <summary>
-    /// Gets or sets the last mail.
-    /// </summary>
-    public DateTime? LastMail { get; set; }
-
-    /// <summary>
     /// Gets or sets a value indicating whether
     /// selected for editing.
     /// </summary>

@@ -358,7 +358,7 @@ public class UpgradeService : IHaveServiceLocator
         // attempt to run the migration code...
         var messages = this.GetRepository<Attachment>().GetMessageAttachments().DistinctBy(x => x.ID).ToList();
 
-        if (!messages.Any())
+        if (messages.NullOrEmpty())
         {
             return;
         }

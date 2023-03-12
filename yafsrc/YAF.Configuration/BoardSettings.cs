@@ -1241,12 +1241,7 @@ public class BoardSettings
     /// <summary>
     /// Gets or sets a value indicating whether Allow Single Sign On.
     /// </summary>
-    public bool AllowSingleSignOn
-    {
-        get => this.Registry.GetValue("AllowSingleSignOn", false);
-
-        set => this.Registry.SetValue("AllowSingleSignOn", value);
-    }
+    public bool AllowSingleSignOn = false;
 
     /// <summary>
     /// Gets or sets a value indicating whether AllowModeratorsViewIPs.
