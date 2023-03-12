@@ -218,7 +218,7 @@ public partial class MessageHistory : ForumPage
             .Where(item => item.FindControlAs<CheckBox>("Compare").Checked)
             .Select(item => item.FindControlAs<HiddenField>("MessageField").Value);
 
-        if (!messages.Any())
+        if (messages.NullOrEmpty())
         {
             this.PageBoardContext.Notify(this.GetText("MESSAGEHISTORY", "NOTHING_SELECTED"), MessageTypes.warning);
             return;

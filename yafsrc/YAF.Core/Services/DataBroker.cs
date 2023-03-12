@@ -359,10 +359,6 @@ public class DataBroker : IHaveServiceLocator
                     topicId = result.Item1.TopicID;
                     topic = result.Item2;
                 }
-                else
-                {
-                    messageId = null;
-                }
             }
 
             if (topicId.HasValue && (!categoryId.HasValue || !forumId.HasValue))

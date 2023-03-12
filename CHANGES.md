@@ -1,6 +1,14 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.13
+* bump to FontAwesome 6.3.0
+* Upgraded to jQuery 3.6.4
+* Upgraded to CKEditor 4.20.2
+* [FIXED] Changing user email
+* [FIXED] Cover Image for Albums
+* bug fixes
+
 # YetAnotherForum.NET v3.1.12
 * [FIXED] Stored XSS in Signature
 

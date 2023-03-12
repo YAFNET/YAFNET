@@ -494,22 +494,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="mb-3 col-md-6">
-                                    <YAF:HelpLabel ID="HelpLabel238" runat="server"
-                                                   AssociatedControlID="ShowConnectMessageInTopic"
-                                                   LocalizedTag="SHOW_CONNECT_MESSAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                    <div class="form-check form-switch">
-                                        <asp:CheckBox Text="&nbsp;" ID="ShowConnectMessageInTopic" runat="server"></asp:CheckBox>
-                                    </div>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <YAF:HelpLabel ID="HelpLabel191" runat="server"
-                                                   AssociatedControlID="AllowSingleSignOn"
-                                                   LocalizedTag="ENABLE_SSO" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                    <div class="form-check form-switch">
-                                        <asp:CheckBox Text="&nbsp;" ID="AllowSingleSignOn" runat="server" />
-                                    </div>
+                            <div class="mb-3">
+                                <YAF:HelpLabel ID="HelpLabel238" runat="server"
+                                               AssociatedControlID="ShowConnectMessageInTopic"
+                                               LocalizedTag="SHOW_CONNECT_MESSAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <div class="form-check form-switch">
+                                    <asp:CheckBox Text="&nbsp;" ID="ShowConnectMessageInTopic" runat="server"></asp:CheckBox>
                                 </div>
                             </div>
                             <div class="mb-3">
