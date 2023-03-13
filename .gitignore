@@ -111,3 +111,7 @@ yafsrc/YetAnotherForum.NET/themes/Yafmobile/Thumbs.db
 yafsrc/.vs/YetAnotherForum.NET/v15/Server/sqlite3/db.lock
 yafsrc/ServiceStack/.vs/ServiceStack.OrmLite/DesignTimeBuild/.dtbcache
 node_modules/
+/yafsrc/YetAnotherForum.NET/web.config
+/.vs/YAFNET/v17/.wsuo
+/.vs/VSWorkspaceState.json
+/yafsrc/YetAnotherForum.NET/YAF-SqlServer.csproj
