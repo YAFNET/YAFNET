@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "French",
     "@code": "fr",
@@ -8229,11 +8229,11 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "ré"
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "ré"
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
