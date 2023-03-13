@@ -144,7 +144,7 @@ public class Footer : BaseControl
         }
 
         writer.Write(
-            @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
+            @"<a title=""{1}"" href=""{0}"">{1}</a> | ",
             this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy),
             this.GetText("COMMON", "PRIVACY_POLICY"));
     }
@@ -184,7 +184,7 @@ public class Footer : BaseControl
             }
         }
 
-        writer.Write(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""https://www.yetanotherforum.net"">");
+        writer.Write(@"<a target=""_blank"" title=""YetAnotherForum.NET"" href=""https://www.yetanotherforum.net"">");
         writer.Write(this.GetText("COMMON", "POWERED_BY"));
         writer.Write(@" YAF.NET");
 
@@ -203,7 +203,7 @@ public class Footer : BaseControl
         }
 
         writer.Write(
-            @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF.NET &copy; 2003-{2} YetAnotherForum.NET</a>",
+            @"</a> | <a target=""_blank"" title=""{0}"" href=""{1}"">YAF.NET &copy; 2003-{2} YetAnotherForum.NET</a>",
             "YetAnotherForum.NET",
             "https://www.yetanotherforum.net",
             DateTime.UtcNow.Year);
