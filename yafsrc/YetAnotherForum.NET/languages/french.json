@@ -14672,7 +14672,7 @@
           },
           {
             "@tag": "PAST",
-            "#text": "il y a {0} ans"
+            "#text": "il y a {0}"
           },
           {
             "@tag": "S",
