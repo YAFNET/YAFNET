@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "Lithuanian",
     "@code": "lt",
@@ -8229,23 +8229,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "D "
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "d "
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "F "
+            "#text": "F"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "G "
+            "#text": "G"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T "
+            "#text": "T"
           },
           {
             "@tag": "FORUM_JUMP",

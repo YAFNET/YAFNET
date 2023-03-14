@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "French",
     "@code": "fr",
@@ -8007,638 +8007,638 @@
       {
         "@name": "COMMON",
         "Resource": [
-          {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "Insérer une image d'album..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "Autorisé"
-          },
-          {
-            "@tag": "ATTACH_BBCODE",
-            "#text": "Insérez une pièce jointe existante ou téléchargez un nouveau fichier..."
-          },
-          {
-            "@tag": "BACK",
-            "#text": "Retour"
-          },
-          {
-            "@tag": "BAD_CAPTCHA",
-            "#text": "Code de sécurité invalide."
-          },
-          {
-            "@tag": "BAD_RECAPTCHA",
-            "#text": "Veuillez entrer à nouveau le reCAPTCHA."
-          },
-          {
-            "@tag": "BAD_USERNAME",
-            "#text": "Username cannot contain semi-colons (;)."
-          },
-          {
-            "@tag": "BBCODE_CODE",
-            "#text": "Code :"
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "Cite:"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED",
-            "#text": "Posté à l'origine par : {0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "Aller au message cité"
-          },
-          {
-            "@tag": "BBCODE_QUOTEWROTE",
-            "#text": "{0} écrit:"
-          },
-          {
-            "@tag": "BROWSE",
-            "#text": "Parcourir"
-          },
-          {
-            "@tag": "CAL_JQ_TT",
-            "#text": "Cliquez ici pour choisir la date"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "Vous [b]pouvez[/b] effacer vos messages dans ce forum."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "Vous [b]pouvez[/b] éditer vos messages dans ce forum."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "Vous [b]pouvez[/b] créer des sondages dans ce forum."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "Vous [b]pouvez[/b] poster de nouveaux sujets dans ce forum."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "Vous [b]pouvez[/b] répondre aux sujets de ce forum."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "Vous [b]pouvez[/b] voter dans les sondages de ce forum."
-          },
-          {
-            "@tag": "CANCEL",
-            "#text": "Annuler"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "Vous [b]ne pouvez pas[/b] effacer vos messages dans ce forum."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "Vous [b]ne pouvez pas[/b] éditer vos messages dans ce forum."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "Vous [b]ne pouvez pas[/b] créer des sondages dans ce forum."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "Vous [b]ne pouvez pas[/b] poster de nouveaux sujets dans ce forum."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "Vous [b]ne pouvez pas[/b] répondre aux sujets de ce forum."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "Vous [b]ne pouvez pas[/b] voter dans les sondages de ce forum."
-          },
-          {
-            "@tag": "CAPTCHA_ENTER",
-            "#text": "Entrer les lettres de sécurité:"
-          },
-          {
-            "@tag": "CAPTCHA_IMAGE",
-            "#text": "Sécurité d'image:"
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "Changement d'adresse email"
-          },
-          {
-            "@tag": "COMMON_WORDS",
-            "#text": "out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,"
-          },
-          {
-            "@tag": "CONTINUE",
-            "#text": "Continuer"
-          },
-          {
-            "@tag": "COOKIE",
-            "#text": "Le {0} utilise des cookies. En continuant à naviguer sur ce site, vous acceptez que nous utilisions des cookies."
-          },
-          {
-            "@tag": "COOKIE_AGREE",
-            "#text": "Fermer"
-          },
-          {
-            "@tag": "COOKIE_DETAILS",
-            "#text": "Plus de détails"
-          },
-          {
-            "@tag": "COOKIE_HEADER",
-            "#text": "Information importante :"
-          },
-          {
-            "@tag": "COPY",
-            "#text": "Copie"
-          },
-          {
-            "@tag": "CUSTOM_BBCODE",
-            "#text": "Tags supplémentaires :"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Supprimer"
-          },
-          {
-            "@tag": "DELETED_MESSAGE",
-            "#text": "Message avec ID : {0} Supprimé"
-          },
-          {
-            "@tag": "DELETED_TOPIC",
-            "#text": "Sujet avec ID : {0} Supprimée"
-          },
-          {
-            "@tag": "DISALLOWED",
-            "#text": "Non autorisé"
-          },
-          {
-            "@tag": "DOWNLOAD",
-            "#text": "Télécharger"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Modifier"
-          },
-          {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "Vérification email {0}"
-          },
-          {
-            "@tag": "ENTRIES_10",
-            "#text": "10 Entrées"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 Entrées"
-          },
-          {
-            "@tag": "ENTRIES_20",
-            "#text": "20 entrées"
-          },
-          {
-            "@tag": "ENTRIES_25",
-            "#text": "25 Entrées"
-          },
-          {
-            "@tag": "ENTRIES_5",
-            "#text": "5 Entrées"
-          },
-          {
-            "@tag": "ENTRIES_50",
-            "#text": "50 entrées"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(Utilisateur externe)"
-          },
-          {
-            "@tag": "FONT_COLOR",
-            "#text": "Couleur de police :"
-          },
-          {
-            "@tag": "FONT_SIZE",
-            "#text": "Taille de police :"
-          },
-          {
-            "@tag": "FOR",
-            "#text": "Pour"
-          },
-          {
-            "@tag": "FORMAT_DATE_LONG",
-            "#text": "ré"
-          },
-          {
-            "@tag": "FORMAT_DATE_SHORT",
-            "#text": "ré"
-          },
-          {
-            "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "F"
-          },
-          {
-            "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "g"
-          },
-          {
-            "@tag": "FORMAT_TIME",
-            "#text": "J"
-          },
-          {
-            "@tag": "FORUM_JUMP",
-            "#text": "Aller au forum"
-          },
-          {
-            "@tag": "FORUM_JUMP_PLACEHOLDER",
-            "#text": "Sélectionnez un forum pour y accéder..."
-          },
-          {
-            "@tag": "FORUMS_SHOWN",
-            "#text": "{0} de {1} Forums montrés"
-          },
-          {
-            "@tag": "GENERATED",
-            "#text": "Cette page a été générée en {0:N3} secondes."
-          },
-          {
-            "@tag": "GO",
-            "#text": "ALLER"
-          },
-          {
-            "@tag": "GOTOFIRSTPAGE_TT",
-            "#text": "Première page"
-          },
-          {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "Aller à la dernière page"
-          },
-          {
-            "@tag": "GOTONEXTPAGE_TT",
-            "#text": "Page suivante"
-          },
-          {
-            "@tag": "GOTOPAGE_HEADER",
-            "#text": "Aller à la page..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "Aller au message"
-          },
-          {
-            "@tag": "GOTOPREVPAGE_TT",
-            "#text": "Page précédente"
-          },
-          {
-            "@tag": "HIDDEN",
-            "#text": "Masquer"
-          },
-          {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "Vos données d'entrée ne doivent pas contenir de balises HTML."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "Vos données d'entrée contiennent une balise HTML {0} interdite."
-          },
-          {
-            "@tag": "IN_FORUM",
-            "#text": "dans le Forum : {0}"
-          },
-          {
-            "@tag": "LOAD_MORE",
-            "#text": "Afficher plus de catégories et de forums..."
-          },
-          {
-            "@tag": "LOADING",
-            "#text": "Chargement..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "Gérer"
-          },
-          {
-            "@tag": "MAX_ONLINE",
-            "#text": "Le plus grand nombre d'utilisateurs en ligne a été {0:N0} on {1}."
-          },
-          {
-            "@tag": "MENU",
-            "#text": "Menu"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "Message"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "Voir le site complet"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "Voir le site mobile"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "Notification"
-          },
-          {
-            "@tag": "MODERATOR",
-            "#text": "Modérateur"
-          },
-          {
-            "@tag": "NAME",
-            "#text": "Nom"
-          },
-          {
-            "@tag": "NO",
-            "#text": "Non"
-          },
-          {
-            "@tag": "NONE",
-            "#text": "Aucun"
-          },
-          {
-            "@tag": "NOTE",
-            "#text": "Note :"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
-            "#text": "Nouvel utilisateur de SPAM BOT enregistré sur {0} Forum"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "vous avez été récompensé sur le Forum {0}."
-          },
-          {
-            "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
-            "#text": "Nouveau message sur le forum {0} doit être approuvé"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
-            "#text": "Un message sur le forum {0} a été signalé"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL",
-            "#text": "Un nouveau message de SPAM sur le forum {0} doit être vérifié"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT",
-            "#text": "Inscription au Forum {0} réussie"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
-            "#text": "Suspension de votre compte du forum {0}"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
-            "#text": "Nouvel utilisateur enregistré sur le forum {0}"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_WELCOME_USER_SUBJECT",
-            "#text": "Bienvenue sur le forum {0}."
-          },
-          {
-            "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
-            "#text": "{Mise à jour du compte du forum"
-          },
-          {
-            "@tag": "OK",
-            "#text": "D&#39;ACCORD"
-          },
-          {
-            "@tag": "OR",
-            "#text": "ou"
-          },
-          {
-            "@tag": "PAGE",
-            "#text": "Page"
-          },
-          {
-            "@tag": "PAGES",
-            "#text": "pages"
-          },
-          {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "Nouveau message privé de {0} à {1}"
-          },
-          {
-            "@tag": "POST",
-            "#text": "Poste"
-          },
-          {
-            "@tag": "POWERED_BY",
-            "#text": "Propulsé par"
-          },
-          {
-            "@tag": "PRIORITY",
-            "#text": "Priorité"
-          },
-          {
-            "@tag": "PRIVACY_POLICY",
-            "#text": "Politique de confidentialité"
-          },
-          {
-            "@tag": "READ",
-            "#text": "Lire"
-          },
-          {
-            "@tag": "REGMAIL_SENT",
-            "#text": "Un courriel a été expédié. Vérifiez votre boîte et cliquez sur le lien."
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "Un courriel sera expédié lors de vôtre enregistrement. Pour vous connecter, vous devrez vérifier votre boîte et cliquer sur le lien."
-          },
-          {
-            "@tag": "REPLY",
-            "#text": "Réponse"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Enregistrer"
-          },
-          {
-            "@tag": "SELECT_LOCALE_JS",
-            "#text": "language:  { errorLoading:function(){return\"Les résultats ne peuvent pas être chargés.\"},inputTooLong:function(e){var n=e.input.length-e.maximum;return\"Supprimez \"+n+\" caractère\"+(n>1?\"s\":\"\")},inputTooShort:function(e){var n=e.minimum-e.input.length;return\"Saisissez au moins \"+n+\" caractère\"+(n>1?\"s\":\"\")},loadingMore:function(){return\"Chargement de résultats supplémentaires…\"},maximumSelected:function(e){return\"Vous pouvez seulement sélectionner \"+e.maximum+\" élément\"+(e.maximum>1?\"s\":\"\")},noResults:function(){return\"Aucun résultat trouvé\"},searching:function(){return\"Recherche en cours…\"},removeAllItems:function(){return\"Supprimer tous les éléments\"},removeItem:function(){return\"Supprimer l'élément\"} }"
-          },
-          {
-            "@tag": "SELECTED_COPY",
-            "#text": "Copier le texte sélectionné"
-          },
-          {
-            "@tag": "SELECTED_QUOTE",
-            "#text": "Citer le texte sélectionné"
-          },
-          {
-            "@tag": "SELECTED_SEARCH",
-            "#text": "Recherchez sur Google pour ..."
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "Afficher/Masquer"
-          },
-          {
-            "@tag": "SUBMIT",
-            "#text": "Envoyer"
-          },
-          {
-            "@tag": "TOPIC_NOTIFICATION_SUBJECT",
-            "#text": "Souscription au sujet notification nouveaux messages (de {0})"
-          },
-          {
-            "@tag": "TT_ALIGNCENTER",
-            "#text": "Centrer"
-          },
-          {
-            "@tag": "TT_ALIGNLEFT",
-            "#text": "Gauche"
-          },
-          {
-            "@tag": "TT_ALIGNRIGHT",
-            "#text": "Droite"
-          },
-          {
-            "@tag": "TT_BOLD",
-            "#text": "Gras"
-          },
-          {
-            "@tag": "TT_CODE",
-            "#text": "Code"
-          },
-          {
-            "@tag": "TT_CODELANG",
-            "#text": "Choisir la langue pour la mise en évidence de la syntaxe"
-          },
-          {
-            "@tag": "TT_CREATELINK",
-            "#text": "Crée un lien"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "Plus de tags BBCode"
-          },
-          {
-            "@tag": "TT_HIGHLIGHT",
-            "#text": "Mettre en évidence"
-          },
-          {
-            "@tag": "TT_IMAGE",
-            "#text": "Insertion d'image"
-          },
-          {
-            "@tag": "TT_IPDETAILS",
-            "#text": "Afficher les détails de l'IP"
-          },
-          {
-            "@tag": "TT_ITALIC",
-            "#text": "Italique"
-          },
-          {
-            "@tag": "TT_LISTORDERED",
-            "#text": "Liste ordonnée"
-          },
-          {
-            "@tag": "TT_LISTUNORDERED",
-            "#text": "Liste non ordonnée"
-          },
-          {
-            "@tag": "TT_QUOTE",
-            "#text": "Citer"
-          },
-          {
-            "@tag": "TT_SAVE",
-            "#text": "Sauvegarder le brouillon du message"
-          },
-          {
-            "@tag": "TT_UNDERLINE",
-            "#text": "Souligné"
-          },
-          {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "Vous avez {0} mentions non lues, voulez-vous aller à la plus récente ?"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "Quelqu'un vous a mentionné dans un sujet"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "Vous avez {0} message(s) non-lu(s) dans votre boîte."
-          },
-          {
-            "@tag": "UNREAD_MSG_TITLE",
-            "#text": "Nouveau(x) message(s) privé(s)"
-          },
-          {
-            "@tag": "UNREAD_MSG2",
-            "#text": "Vous avez {0} message(s) non lu(s) dans votre boîte de réception. Voulez-vous accéder à votre boîte de réception maintenant ?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "Vous avez {0} messages cités non lus, voulez-vous aller au plus récent ?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "Quelqu'un vous a cité dans un sujet"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "Vous avez {0} reçus non lus Merci, voulez-vous passer au plus récent ?"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "Quelqu'un vous a remercié pour un message"
-          },
-          {
-            "@tag": "UPDATE",
-            "#text": "Mise à jour"
-          },
-          {
-            "@tag": "USERNAME_TOOLONG",
-            "#text": "Le nom d'utilisateur ou le nom d'utilisateur affiché ne peut pas comporter plus de {0} caractères."
-          },
-          {
-            "@tag": "USERNAME_TOOSMALL",
-            "#text": "Le nom d'utilisateur ou le nom d'utilisateur affiché doit comporter plus de {0} caractères."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "Voir la catégorie"
-          },
-          {
-            "@tag": "VIEW_FORUM",
-            "#text": "Voir le forum"
-          },
-          {
-            "@tag": "VIEW_FULLINFO",
-            "#text": "Voir l'information complète"
-          },
-          {
-            "@tag": "VIEW_TOPIC",
-            "#text": "Voir le sujet"
-          },
-          {
-            "@tag": "VIEW_TOPIC_STARTED_BY",
-            "#text": "Voir le sujet démarré par {0}"
-          },
-          {
-            "@tag": "VIEW_USRPROFILE",
-            "#text": "Voir le profil"
-          },
-          {
-            "@tag": "VOTE",
-            "#text": "Voter"
-          },
-          {
-            "@tag": "YES",
-            "#text": "Oui"
-          }
+            {
+                "@tag": "ALBUMIMG_BBCODE",
+                "#text": "Insérer une image d'album..."
+            },
+            {
+                "@tag": "ALLOWED",
+                "#text": "Autorisé"
+            },
+            {
+                "@tag": "ATTACH_BBCODE",
+                "#text": "Insérez une pièce jointe existante ou téléchargez un nouveau fichier..."
+            },
+            {
+                "@tag": "BACK",
+                "#text": "Retour"
+            },
+            {
+                "@tag": "BAD_CAPTCHA",
+                "#text": "Code de sécurité invalide."
+            },
+            {
+                "@tag": "BAD_RECAPTCHA",
+                "#text": "Veuillez entrer à nouveau le reCAPTCHA."
+            },
+            {
+                "@tag": "BAD_USERNAME",
+                "#text": "Username cannot contain semi-colons (;)."
+            },
+            {
+                "@tag": "BBCODE_CODE",
+                "#text": "Code :"
+            },
+            {
+                "@tag": "BBCODE_QUOTE",
+                "#text": "Cite:"
+            },
+            {
+                "@tag": "BBCODE_QUOTEPOSTED",
+                "#text": "Posté à l'origine par : {0}"
+            },
+            {
+                "@tag": "BBCODE_QUOTEPOSTED_TT",
+                "#text": "Aller au message cité"
+            },
+            {
+                "@tag": "BBCODE_QUOTEWROTE",
+                "#text": "{0} écrit:"
+            },
+            {
+                "@tag": "BROWSE",
+                "#text": "Parcourir"
+            },
+            {
+                "@tag": "CAL_JQ_TT",
+                "#text": "Cliquez ici pour choisir la date"
+            },
+            {
+                "@tag": "CAN_DELETE",
+                "#text": "Vous [b]pouvez[/b] effacer vos messages dans ce forum."
+            },
+            {
+                "@tag": "CAN_EDIT",
+                "#text": "Vous [b]pouvez[/b] éditer vos messages dans ce forum."
+            },
+            {
+                "@tag": "CAN_POLL",
+                "#text": "Vous [b]pouvez[/b] créer des sondages dans ce forum."
+            },
+            {
+                "@tag": "CAN_POST",
+                "#text": "Vous [b]pouvez[/b] poster de nouveaux sujets dans ce forum."
+            },
+            {
+                "@tag": "CAN_REPLY",
+                "#text": "Vous [b]pouvez[/b] répondre aux sujets de ce forum."
+            },
+            {
+                "@tag": "CAN_VOTE",
+                "#text": "Vous [b]pouvez[/b] voter dans les sondages de ce forum."
+            },
+            {
+                "@tag": "CANCEL",
+                "#text": "Annuler"
+            },
+            {
+                "@tag": "CANNOT_DELETE",
+                "#text": "Vous [b]ne pouvez pas[/b] effacer vos messages dans ce forum."
+            },
+            {
+                "@tag": "CANNOT_EDIT",
+                "#text": "Vous [b]ne pouvez pas[/b] éditer vos messages dans ce forum."
+            },
+            {
+                "@tag": "CANNOT_POLL",
+                "#text": "Vous [b]ne pouvez pas[/b] créer des sondages dans ce forum."
+            },
+            {
+                "@tag": "CANNOT_POST",
+                "#text": "Vous [b]ne pouvez pas[/b] poster de nouveaux sujets dans ce forum."
+            },
+            {
+                "@tag": "CANNOT_REPLY",
+                "#text": "Vous [b]ne pouvez pas[/b] répondre aux sujets de ce forum."
+            },
+            {
+                "@tag": "CANNOT_VOTE",
+                "#text": "Vous [b]ne pouvez pas[/b] voter dans les sondages de ce forum."
+            },
+            {
+                "@tag": "CAPTCHA_ENTER",
+                "#text": "Entrer les lettres de sécurité:"
+            },
+            {
+                "@tag": "CAPTCHA_IMAGE",
+                "#text": "Sécurité d'image:"
+            },
+            {
+                "@tag": "CHANGEEMAIL_SUBJECT",
+                "#text": "Changement d'adresse email"
+            },
+            {
+                "@tag": "COMMON_WORDS",
+                "#text": "out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,"
+            },
+            {
+                "@tag": "CONTINUE",
+                "#text": "Continuer"
+            },
+            {
+                "@tag": "COOKIE",
+                "#text": "Le {0} utilise des cookies. En continuant à naviguer sur ce site, vous acceptez que nous utilisions des cookies."
+            },
+            {
+                "@tag": "COOKIE_AGREE",
+                "#text": "Fermer"
+            },
+            {
+                "@tag": "COOKIE_DETAILS",
+                "#text": "Plus de détails"
+            },
+            {
+                "@tag": "COOKIE_HEADER",
+                "#text": "Information importante :"
+            },
+            {
+                "@tag": "COPY",
+                "#text": "Copie"
+            },
+            {
+                "@tag": "CUSTOM_BBCODE",
+                "#text": "Tags supplémentaires :"
+            },
+            {
+                "@tag": "DELETE",
+                "#text": "Supprimer"
+            },
+            {
+                "@tag": "DELETED_MESSAGE",
+                "#text": "Message avec ID : {0} Supprimé"
+            },
+            {
+                "@tag": "DELETED_TOPIC",
+                "#text": "Sujet avec ID : {0} Supprimée"
+            },
+            {
+                "@tag": "DISALLOWED",
+                "#text": "Non autorisé"
+            },
+            {
+                "@tag": "DOWNLOAD",
+                "#text": "Télécharger"
+            },
+            {
+                "@tag": "EDIT",
+                "#text": "Modifier"
+            },
+            {
+                "@tag": "EMAILVERIFICATION_SUBJECT",
+                "#text": "Vérification email {0}"
+            },
+            {
+                "@tag": "ENTRIES_10",
+                "#text": "10 Entrées"
+            },
+            {
+                "@tag": "ENTRIES_15",
+                "#text": "15 Entrées"
+            },
+            {
+                "@tag": "ENTRIES_20",
+                "#text": "20 entrées"
+            },
+            {
+                "@tag": "ENTRIES_25",
+                "#text": "25 Entrées"
+            },
+            {
+                "@tag": "ENTRIES_5",
+                "#text": "5 Entrées"
+            },
+            {
+                "@tag": "ENTRIES_50",
+                "#text": "50 entrées"
+            },
+            {
+                "@tag": "EXTERNALUSER",
+                "#text": "(Utilisateur externe)"
+            },
+            {
+                "@tag": "FONT_COLOR",
+                "#text": "Couleur de police :"
+            },
+            {
+                "@tag": "FONT_SIZE",
+                "#text": "Taille de police :"
+            },
+            {
+                "@tag": "FOR",
+                "#text": "Pour"
+            },
+            {
+                "@tag": "FORMAT_DATE_LONG",
+                "#text": "D"
+            },
+            {
+                "@tag": "FORMAT_DATE_SHORT",
+                "#text": "d"
+            },
+            {
+                "@tag": "FORMAT_DATE_TIME_LONG",
+                "#text": "F"
+            },
+            {
+                "@tag": "FORMAT_DATE_TIME_SHORT",
+                "#text": "G"
+            },
+            {
+                "@tag": "FORMAT_TIME",
+                "#text": "T"
+            },
+            {
+                "@tag": "FORUM_JUMP",
+                "#text": "Aller au forum"
+            },
+            {
+                "@tag": "FORUM_JUMP_PLACEHOLDER",
+                "#text": "Sélectionnez un forum pour y accéder..."
+            },
+            {
+                "@tag": "FORUMS_SHOWN",
+                "#text": "{0} de {1} Forums montrés"
+            },
+            {
+                "@tag": "GENERATED",
+                "#text": "Cette page a été générée en {0:N3} secondes."
+            },
+            {
+                "@tag": "GO",
+                "#text": "ALLER"
+            },
+            {
+                "@tag": "GOTOFIRSTPAGE_TT",
+                "#text": "Première page"
+            },
+            {
+                "@tag": "GOTOLASTPAGE_TT",
+                "#text": "Aller à la dernière page"
+            },
+            {
+                "@tag": "GOTONEXTPAGE_TT",
+                "#text": "Page suivante"
+            },
+            {
+                "@tag": "GOTOPAGE_HEADER",
+                "#text": "Aller à la page..."
+            },
+            {
+                "@tag": "GOTOPOST_ТТ",
+                "#text": "Aller au message"
+            },
+            {
+                "@tag": "GOTOPREVPAGE_TT",
+                "#text": "Page précédente"
+            },
+            {
+                "@tag": "HIDDEN",
+                "#text": "Masquer"
+            },
+            {
+                "@tag": "HTMLTAG_FORBIDDEN",
+                "#text": "Vos données d'entrée ne doivent pas contenir de balises HTML."
+            },
+            {
+                "@tag": "HTMLTAG_WRONG",
+                "#text": "Vos données d'entrée contiennent une balise HTML {0} interdite."
+            },
+            {
+                "@tag": "IN_FORUM",
+                "#text": "dans le Forum : {0}"
+            },
+            {
+                "@tag": "LOAD_MORE",
+                "#text": "Afficher plus de catégories et de forums..."
+            },
+            {
+                "@tag": "LOADING",
+                "#text": "Chargement..."
+            },
+            {
+                "@tag": "MANAGE",
+                "#text": "Gérer"
+            },
+            {
+                "@tag": "MAX_ONLINE",
+                "#text": "Le plus grand nombre d'utilisateurs en ligne a été {0:N0} on {1}."
+            },
+            {
+                "@tag": "MENU",
+                "#text": "Menu"
+            },
+            {
+                "@tag": "MESSAGE",
+                "#text": "Message"
+            },
+            {
+                "@tag": "MOBILE_FULLSITE",
+                "#text": "Voir le site complet"
+            },
+            {
+                "@tag": "MOBILE_VIEWSITE",
+                "#text": "Voir le site mobile"
+            },
+            {
+                "@tag": "MODAL_NOTIFICATION_HEADER",
+                "#text": "Notification"
+            },
+            {
+                "@tag": "MODERATOR",
+                "#text": "Modérateur"
+            },
+            {
+                "@tag": "NAME",
+                "#text": "Nom"
+            },
+            {
+                "@tag": "NO",
+                "#text": "Non"
+            },
+            {
+                "@tag": "NONE",
+                "#text": "Aucun"
+            },
+            {
+                "@tag": "NOTE",
+                "#text": "Note :"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
+                "#text": "Nouvel utilisateur de SPAM BOT enregistré sur {0} Forum"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
+                "#text": "vous avez été récompensé sur le Forum {0}."
+            },
+            {
+                "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
+                "#text": "Nouveau message sur le forum {0} doit être approuvé"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
+                "#text": "Un message sur le forum {0} a été signalé"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL",
+                "#text": "Un nouveau message de SPAM sur le forum {0} doit être vérifié"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT",
+                "#text": "Inscription au Forum {0} réussie"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
+                "#text": "Suspension de votre compte du forum {0}"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
+                "#text": "Nouvel utilisateur enregistré sur le forum {0}"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_WELCOME_USER_SUBJECT",
+                "#text": "Bienvenue sur le forum {0}."
+            },
+            {
+                "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
+                "#text": "{Mise à jour du compte du forum"
+            },
+            {
+                "@tag": "OK",
+                "#text": "D&#39;ACCORD"
+            },
+            {
+                "@tag": "OR",
+                "#text": "ou"
+            },
+            {
+                "@tag": "PAGE",
+                "#text": "Page"
+            },
+            {
+                "@tag": "PAGES",
+                "#text": "pages"
+            },
+            {
+                "@tag": "PM_NOTIFICATION_SUBJECT",
+                "#text": "Nouveau message privé de {0} à {1}"
+            },
+            {
+                "@tag": "POST",
+                "#text": "Poste"
+            },
+            {
+                "@tag": "POWERED_BY",
+                "#text": "Propulsé par"
+            },
+            {
+                "@tag": "PRIORITY",
+                "#text": "Priorité"
+            },
+            {
+                "@tag": "PRIVACY_POLICY",
+                "#text": "Politique de confidentialité"
+            },
+            {
+                "@tag": "READ",
+                "#text": "Lire"
+            },
+            {
+                "@tag": "REGMAIL_SENT",
+                "#text": "Un courriel a été expédié. Vérifiez votre boîte et cliquez sur le lien."
+            },
+            {
+                "@tag": "REGMAIL_WILL_BE_SEND",
+                "#text": "Un courriel sera expédié lors de vôtre enregistrement. Pour vous connecter, vous devrez vérifier votre boîte et cliquer sur le lien."
+            },
+            {
+                "@tag": "REPLY",
+                "#text": "Réponse"
+            },
+            {
+                "@tag": "SAVE",
+                "#text": "Enregistrer"
+            },
+            {
+                "@tag": "SELECT_LOCALE_JS",
+                "#text": "language:  { errorLoading:function(){return\"Les résultats ne peuvent pas être chargés.\"},inputTooLong:function(e){var n=e.input.length-e.maximum;return\"Supprimez \"+n+\" caractère\"+(n>1?\"s\":\"\")},inputTooShort:function(e){var n=e.minimum-e.input.length;return\"Saisissez au moins \"+n+\" caractère\"+(n>1?\"s\":\"\")},loadingMore:function(){return\"Chargement de résultats supplémentaires…\"},maximumSelected:function(e){return\"Vous pouvez seulement sélectionner \"+e.maximum+\" élément\"+(e.maximum>1?\"s\":\"\")},noResults:function(){return\"Aucun résultat trouvé\"},searching:function(){return\"Recherche en cours…\"},removeAllItems:function(){return\"Supprimer tous les éléments\"},removeItem:function(){return\"Supprimer l'élément\"} }"
+            },
+            {
+                "@tag": "SELECTED_COPY",
+                "#text": "Copier le texte sélectionné"
+            },
+            {
+                "@tag": "SELECTED_QUOTE",
+                "#text": "Citer le texte sélectionné"
+            },
+            {
+                "@tag": "SELECTED_SEARCH",
+                "#text": "Recherchez sur Google pour ..."
+            },
+            {
+                "@tag": "SHOW_TITLE",
+                "#text": "Page Size Selection"
+            },
+            {
+                "@tag": "SHOWHIDE",
+                "#text": "Afficher/Masquer"
+            },
+            {
+                "@tag": "SUBMIT",
+                "#text": "Envoyer"
+            },
+            {
+                "@tag": "TOPIC_NOTIFICATION_SUBJECT",
+                "#text": "Souscription au sujet notification nouveaux messages (de {0})"
+            },
+            {
+                "@tag": "TT_ALIGNCENTER",
+                "#text": "Centrer"
+            },
+            {
+                "@tag": "TT_ALIGNLEFT",
+                "#text": "Gauche"
+            },
+            {
+                "@tag": "TT_ALIGNRIGHT",
+                "#text": "Droite"
+            },
+            {
+                "@tag": "TT_BOLD",
+                "#text": "Gras"
+            },
+            {
+                "@tag": "TT_CODE",
+                "#text": "Code"
+            },
+            {
+                "@tag": "TT_CODELANG",
+                "#text": "Choisir la langue pour la mise en évidence de la syntaxe"
+            },
+            {
+                "@tag": "TT_CREATELINK",
+                "#text": "Crée un lien"
+            },
+            {
+                "@tag": "TT_CUSTOMBBCODE",
+                "#text": "Plus de tags BBCode"
+            },
+            {
+                "@tag": "TT_HIGHLIGHT",
+                "#text": "Mettre en évidence"
+            },
+            {
+                "@tag": "TT_IMAGE",
+                "#text": "Insertion d'image"
+            },
+            {
+                "@tag": "TT_IPDETAILS",
+                "#text": "Afficher les détails de l'IP"
+            },
+            {
+                "@tag": "TT_ITALIC",
+                "#text": "Italique"
+            },
+            {
+                "@tag": "TT_LISTORDERED",
+                "#text": "Liste ordonnée"
+            },
+            {
+                "@tag": "TT_LISTUNORDERED",
+                "#text": "Liste non ordonnée"
+            },
+            {
+                "@tag": "TT_QUOTE",
+                "#text": "Citer"
+            },
+            {
+                "@tag": "TT_SAVE",
+                "#text": "Sauvegarder le brouillon du message"
+            },
+            {
+                "@tag": "TT_UNDERLINE",
+                "#text": "Souligné"
+            },
+            {
+                "@tag": "UNREAD_MENTION_MSG",
+                "#text": "Vous avez {0} mentions non lues, voulez-vous aller à la plus récente ?"
+            },
+            {
+                "@tag": "UNREAD_MENTION_TITLE",
+                "#text": "Quelqu'un vous a mentionné dans un sujet"
+            },
+            {
+                "@tag": "UNREAD_MSG",
+                "#text": "Vous avez {0} message(s) non-lu(s) dans votre boîte."
+            },
+            {
+                "@tag": "UNREAD_MSG_TITLE",
+                "#text": "Nouveau(x) message(s) privé(s)"
+            },
+            {
+                "@tag": "UNREAD_MSG2",
+                "#text": "Vous avez {0} message(s) non lu(s) dans votre boîte de réception. Voulez-vous accéder à votre boîte de réception maintenant ?"
+            },
+            {
+                "@tag": "UNREAD_QUOTED_MSG",
+                "#text": "Vous avez {0} messages cités non lus, voulez-vous aller au plus récent ?"
+            },
+            {
+                "@tag": "UNREAD_QUOTED_TITLE",
+                "#text": "Quelqu'un vous a cité dans un sujet"
+            },
+            {
+                "@tag": "UNREAD_THANKS_MSG",
+                "#text": "Vous avez {0} reçus non lus Merci, voulez-vous passer au plus récent ?"
+            },
+            {
+                "@tag": "UNREAD_THANKS_TITLE",
+                "#text": "Quelqu'un vous a remercié pour un message"
+            },
+            {
+                "@tag": "UPDATE",
+                "#text": "Mise à jour"
+            },
+            {
+                "@tag": "USERNAME_TOOLONG",
+                "#text": "Le nom d'utilisateur ou le nom d'utilisateur affiché ne peut pas comporter plus de {0} caractères."
+            },
+            {
+                "@tag": "USERNAME_TOOSMALL",
+                "#text": "Le nom d'utilisateur ou le nom d'utilisateur affiché doit comporter plus de {0} caractères."
+            },
+            {
+                "@tag": "VIEW_CATEGORY",
+                "#text": "Voir la catégorie"
+            },
+            {
+                "@tag": "VIEW_FORUM",
+                "#text": "Voir le forum"
+            },
+            {
+                "@tag": "VIEW_FULLINFO",
+                "#text": "Voir l'information complète"
+            },
+            {
+                "@tag": "VIEW_TOPIC",
+                "#text": "Voir le sujet"
+            },
+            {
+                "@tag": "VIEW_TOPIC_STARTED_BY",
+                "#text": "Voir le sujet démarré par {0}"
+            },
+            {
+                "@tag": "VIEW_USRPROFILE",
+                "#text": "Voir le profil"
+            },
+            {
+                "@tag": "VOTE",
+                "#text": "Voter"
+            },
+            {
+                "@tag": "YES",
+                "#text": "Oui"
+            }
         ]
       },
       {
