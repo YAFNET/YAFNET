@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "Czech",
     "@code": "cs",
@@ -11625,10 +11625,10 @@
       {
         "@name": "LANGUAGE",
         "Resource": [
-          {
-            "@tag": "CHARSET",
-            "#text": null
-          }
+            {
+                "@tag": "CHARSET",
+                "#text": "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            }
         ]
       },
       {

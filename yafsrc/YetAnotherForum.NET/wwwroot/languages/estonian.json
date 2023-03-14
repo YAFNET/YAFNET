@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "Estonian",
     "@code": "et-EE",
@@ -13710,7 +13710,7 @@
         "Resource": [
           {
             "@tag": "ABOUT",
-            "#text": null
+            "#text": "Umbes"
           },
           {
             "@tag": "ADMIN_USER",

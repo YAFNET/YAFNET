@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "Chinese Simp",
     "@code": "zh-CN",
@@ -8245,7 +8245,7 @@
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "吨"
+            "#text": "T"
           },
           {
             "@tag": "FORUM_JUMP",

@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "Turkish",
     "@code": "tr",
@@ -13105,10 +13105,10 @@
       {
         "@name": "POSTS",
         "Resource": [
-          {
-            "@tag": "AD_SIGNATURE",
-            "#text": null
-          },
+            {
+                "@tag": "AD_SIGNATURE",
+                "#text": "Reklam"
+            },
           {
             "@tag": "AD_USERNAME",
             "#text": "Sponsor"

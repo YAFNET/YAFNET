@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "Arabic",
     "@code": "ar",
@@ -8217,11 +8217,11 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "د"
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "د"
+            "#text": "d"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
@@ -8229,11 +8229,11 @@
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "جي"
+            "#text": "G"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "تي"
+            "#text": "T"
           },
           {
             "@tag": "FORUM_JUMP",

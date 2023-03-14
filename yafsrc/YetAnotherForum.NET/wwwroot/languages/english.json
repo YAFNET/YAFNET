@@ -11237,6 +11237,10 @@
             "#text": "Enter the name of the new Board"
           },
           {
+            "@tag": "CONFIGPASSWORD",
+            "#text": "Config Password"
+          },
+          {
             "@tag": "CONNECTIONDETAILS",
             "#text": "Connection Details"
           },

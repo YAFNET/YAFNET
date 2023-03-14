@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "Hebrew",
     "@code": "he",
@@ -8011,638 +8011,638 @@
       {
         "@name": "COMMON",
         "Resource": [
-          {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "הוסף תמונת אלבום..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "מוּתָר"
-          },
-          {
-            "@tag": "ATTACH_BBCODE",
-            "#text": "הוסף קובץ מצורף קיים או העלה קובץ חדש..."
-          },
-          {
-            "@tag": "BACK",
-            "#text": "חזור"
-          },
-          {
-            "@tag": "BAD_CAPTCHA",
-            "#text": "הכיתוב שהוזן אינו תואם לכיתוב בתמונת האבטחה."
-          },
-          {
-            "@tag": "BAD_RECAPTCHA",
-            "#text": "נא להזין מחדש את ה-reCAPTCHA."
-          },
-          {
-            "@tag": "BAD_USERNAME",
-            "#text": "שם המשתמש אינו יכול להכיל נקודה-פסיק (;)."
-          },
-          {
-            "@tag": "BBCODE_CODE",
-            "#text": "קוד:"
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "ציטוט:"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED",
-            "#text": "פורסם במקור על ידי: {0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "עבור לפוסט מצוטט"
-          },
-          {
-            "@tag": "BBCODE_QUOTEWROTE",
-            "#text": "{0} כתב/ה:"
-          },
-          {
-            "@tag": "BROWSE",
-            "#text": "לְדַפדֵף"
-          },
-          {
-            "@tag": "CAL_JQ_TT",
-            "#text": "לחץ כאן לבחירת תאריך"
-          },
-          {
-            "@tag": "CAN_DELETE",
-            "#text": "את/ה [b]יכול/ה[/b] למחוק את הודעותיך בפורום זה."
-          },
-          {
-            "@tag": "CAN_EDIT",
-            "#text": "את/ה [b]יכול/ה[/b] לערוך את הודעותיך."
-          },
-          {
-            "@tag": "CAN_POLL",
-            "#text": "את/ה [b]יכול/ה[/b] ליצור סקרים בפורום זה."
-          },
-          {
-            "@tag": "CAN_POST",
-            "#text": "את/ה [b]יכול/ה[/b] לכתוב דיונים חדשים בפורום זה."
-          },
-          {
-            "@tag": "CAN_REPLY",
-            "#text": "את/ה [b]יכול/ה[/b] להגיב לדיונים בפורום זה."
-          },
-          {
-            "@tag": "CAN_VOTE",
-            "#text": "את/ה [b]יכול/ה[/b] להצביע לסקרים בפורום זה."
-          },
-          {
-            "@tag": "CANCEL",
-            "#text": "ביטול"
-          },
-          {
-            "@tag": "CANNOT_DELETE",
-            "#text": "[b]אינך[/b] יכול/ה למחוק את הודעותיך בפורום זה."
-          },
-          {
-            "@tag": "CANNOT_EDIT",
-            "#text": "[b]אינך[/b] יכול/ה לערוך את הודעותיך."
-          },
-          {
-            "@tag": "CANNOT_POLL",
-            "#text": "[b]אינך[/b] יכול/ה ליצור סקרים בפורום זה."
-          },
-          {
-            "@tag": "CANNOT_POST",
-            "#text": "[b]אינך[/b] יכול/ה לכתוב דיונים חדשים בפורום זה."
-          },
-          {
-            "@tag": "CANNOT_REPLY",
-            "#text": "[b]אינך[/b] יכול/ה להגיב לדיונים בפורום זה."
-          },
-          {
-            "@tag": "CANNOT_VOTE",
-            "#text": "[b]אינך[/b] יכול/ה להצביע לסקרים בפורום זה."
-          },
-          {
-            "@tag": "CAPTCHA_ENTER",
-            "#text": "הזן/י את האותיות מתמונת האבטחה:"
-          },
-          {
-            "@tag": "CAPTCHA_IMAGE",
-            "#text": "תמונת אבטחה:"
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "כתובת הדוא\"ל שונתה"
-          },
-          {
-            "@tag": "COMMON_WORDS",
-            "#text": "החוצה, בבקשה, מסוגל, בערך, מעבר, אחרי הכל, כמעט, גם, בין, וכל אחד, נמצא, כפי, נמצא, כי, היה, אבל, על ידי, יכול, לא יכול, יכול, יקירי, עשה, עושה, או, אחר, אי פעם, כל, עבור, מ, לקבל, קיבל, היה, יש, יש לו, הוא, שלה, שלה, שלו, שלו, איך, עם זאת, אני, אם, ב-into, האם, זה, רק, לפחות, תן, אוהב, סביר, עשוי, אני, עשוי, רוב, חייב, שלי, לא, לא, ולא, לא, של, כבוי, לעתים קרובות, מופעל, רק, או,אחר,שלנו,ליתר דיוק,אמר,אומר,אומרת,היא,צריכה,מאחר,ככה,כמה,מזה,שלהם,הם,אז,שם,אלה,הם,זה,זה,אל, גם אנחנו, רוצים, היינו, היינו, מה, מתי, איפה, איזה, בזמן, מי, מי, למה, יהיה, עם, עדיין, אתה, שלך"
-          },
-          {
-            "@tag": "CONTINUE",
-            "#text": "לְהַמשִׁיך"
-          },
-          {
-            "@tag": "COOKIE",
-            "#text": "ה-{0} משתמש בקובצי Cookie. על ידי המשך הגלישה באתר זה, אתה מסכים לשימוש שלנו בעוגיות."
-          },
-          {
-            "@tag": "COOKIE_AGREE",
-            "#text": "סגור"
-          },
-          {
-            "@tag": "COOKIE_DETAILS",
-            "#text": "פרטים נוספים"
-          },
-          {
-            "@tag": "COOKIE_HEADER",
-            "#text": "מידע חשוב:"
-          },
-          {
-            "@tag": "COPY",
-            "#text": "עותק"
-          },
-          {
-            "@tag": "CUSTOM_BBCODE",
-            "#text": "עוד תוויות"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "לִמְחוֹק"
-          },
-          {
-            "@tag": "DELETED_MESSAGE",
-            "#text": "הודעה עם מזהה: {0} נמחקה"
-          },
-          {
-            "@tag": "DELETED_TOPIC",
-            "#text": "נושא עם מזהה: {0} נמחק"
-          },
-          {
-            "@tag": "DISALLOWED",
-            "#text": "אסור"
-          },
-          {
-            "@tag": "DOWNLOAD",
-            "#text": "הורד"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "לַעֲרוֹך"
-          },
-          {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "{0} אימות כתובת דוא\"ל"
-          },
-          {
-            "@tag": "ENTRIES_10",
-            "#text": "10 ערכים"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 כניסות"
-          },
-          {
-            "@tag": "ENTRIES_20",
-            "#text": "20 כניסות"
-          },
-          {
-            "@tag": "ENTRIES_25",
-            "#text": "25 ערכים"
-          },
-          {
-            "@tag": "ENTRIES_5",
-            "#text": "5 ערכים"
-          },
-          {
-            "@tag": "ENTRIES_50",
-            "#text": "50 כניסות"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(משתמש חיצוני)"
-          },
-          {
-            "@tag": "FONT_COLOR",
-            "#text": "צבע גופן:"
-          },
-          {
-            "@tag": "FONT_SIZE",
-            "#text": "גודל גופן:"
-          },
-          {
-            "@tag": "FOR",
-            "#text": "ל"
-          },
-          {
-            "@tag": "FORMAT_DATE_LONG",
-            "#text": "ד"
-          },
-          {
-            "@tag": "FORMAT_DATE_SHORT",
-            "#text": "ד"
-          },
-          {
-            "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "ו"
-          },
-          {
-            "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "ג"
-          },
-          {
-            "@tag": "FORMAT_TIME",
-            "#text": "ט"
-          },
-          {
-            "@tag": "FORUM_JUMP",
-            "#text": "עבור לפורום"
-          },
-          {
-            "@tag": "FORUM_JUMP_PLACEHOLDER",
-            "#text": "בחר פורום ללכת אליו..."
-          },
-          {
-            "@tag": "FORUMS_SHOWN",
-            "#text": "{0} מתוך {1} פורומים מוצגים"
-          },
-          {
-            "@tag": "GENERATED",
-            "#text": "דף זה נוצר תוך {0:N3} שניות."
-          },
-          {
-            "@tag": "GO",
-            "#text": "אישור"
-          },
-          {
-            "@tag": "GOTOFIRSTPAGE_TT",
-            "#text": "עמוד ראשון"
-          },
-          {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "עבור לדף האחרון"
-          },
-          {
-            "@tag": "GOTONEXTPAGE_TT",
-            "#text": "עמוד הבא"
-          },
-          {
-            "@tag": "GOTOPAGE_HEADER",
-            "#text": "לך לעמוד..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "עבור להודעה"
-          },
-          {
-            "@tag": "GOTOPREVPAGE_TT",
-            "#text": "עמוד קודם"
-          },
-          {
-            "@tag": "HIDDEN",
-            "#text": "מוסתר"
-          },
-          {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "נתוני הקלט שלך לא צריכים להכיל תגי HTML."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "נתוני הקלט שלך מכילים תג HTML אסור {0}."
-          },
-          {
-            "@tag": "IN_FORUM",
-            "#text": "בפורום: {0}"
-          },
-          {
-            "@tag": "LOAD_MORE",
-            "#text": "הצג עוד קטגוריות ופורומים..."
-          },
-          {
-            "@tag": "LOADING",
-            "#text": "טוען..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "לנהל"
-          },
-          {
-            "@tag": "MAX_ONLINE",
-            "#text": "מספר המשתמשים המחוברים הגבוה ביותר אי פעם היה {0:N0} on {1}."
-          },
-          {
-            "@tag": "MENU",
-            "#text": "תַפרִיט"
-          },
-          {
-            "@tag": "MESSAGE",
-            "#text": "הוֹדָעָה"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "צפה באתר המלא"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "צפה באתר לנייד"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "הודעה"
-          },
-          {
-            "@tag": "MODERATOR",
-            "#text": "מַנחֶה"
-          },
-          {
-            "@tag": "NAME",
-            "#text": "שֵׁם"
-          },
-          {
-            "@tag": "NO",
-            "#text": "לא"
-          },
-          {
-            "@tag": "NONE",
-            "#text": "אף אחד"
-          },
-          {
-            "@tag": "NOTE",
-            "#text": "הערה:"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
-            "#text": "משתמש SPAM BOT חדש רשום בפורום {0}"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "קיבלת פרס בפורום {0}"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
-            "#text": "יש לאשר הודעה חדשה בפורום {0}"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
-            "#text": "דווח על הודעה בפורום {0}"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL",
-            "#text": "יש לבדוק הודעת דואר זבל חדשה בפורום {0}"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT",
-            "#text": "ההרשמה בפורום {0} בהצלחה"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
-            "#text": "השעיה של חשבון הפורום שלך ב-{0}"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
-            "#text": "משתמש חדש נרשם בפורום {0}"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_WELCOME_USER_SUBJECT",
-            "#text": "ברוך הבא לפורום {0}"
-          },
-          {
-            "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
-            "#text": "{0} עדכון חשבון הפורום"
-          },
-          {
-            "@tag": "OK",
-            "#text": "אישור"
-          },
-          {
-            "@tag": "OR",
-            "#text": "אוֹ"
-          },
-          {
-            "@tag": "PAGE",
-            "#text": "עמוד"
-          },
-          {
-            "@tag": "PAGES",
-            "#text": "עמודים"
-          },
-          {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "הודעה פרטית חדשה מאת {0} ב- {1}"
-          },
-          {
-            "@tag": "POST",
-            "#text": "הודעה"
-          },
-          {
-            "@tag": "POWERED_BY",
-            "#text": "ממונע ע\"י"
-          },
-          {
-            "@tag": "PRIORITY",
-            "#text": "עדיפות"
-          },
-          {
-            "@tag": "PRIVACY_POLICY",
-            "#text": "מדיניות פרטיות"
-          },
-          {
-            "@tag": "READ",
-            "#text": "לקרוא"
-          },
-          {
-            "@tag": "REGMAIL_SENT",
-            "#text": "הודעת דוא\"ל נשלחה. בדוק/י את תיבת הדואר הנכנס שלך, ולחץ/י על הקישור בהודעה."
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "הודעת דוא\"ל תישלח לאחר שתירשם. על מנת להתחבר, יש לבדוק את תיבת הדואר הנכנס וללחוץ על הקישור בהודעה."
-          },
-          {
-            "@tag": "REPLY",
-            "#text": "תשובה"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "שמור"
-          },
-          {
-            "@tag": "SELECT_LOCALE_JS",
-            "#text": "language:  { errorLoading:function(){return\"שגיאה בטעינת התוצאות\"},inputTooLong:function(n){var e=n.input.length-n.maximum,r=\"נא למחוק \";return r+=1===e?\"תו אחד\":e+\" תווים\"},inputTooShort:function(n){var e=n.minimum-n.input.length,r=\"נא להכניס \";return r+=1===e?\"תו אחד\":e+\" תווים\",r+=\" או יותר\"},loadingMore:function(){return\"טוען תוצאות נוספות…\"},maximumSelected:function(n){var e=\"באפשרותך לבחור עד \";return 1===n.maximum?e+=\"פריט אחד\":e+=n.maximum+\" פריטים\",e},noResults:function(){return\"לא נמצאו תוצאות\"},searching:function(){return\"מחפש…\"},removeAllItems:function(){return\"הסר את כל הפריטים\"}} }"
-          },
-          {
-            "@tag": "SELECTED_COPY",
-            "#text": "העתק טקסט נבחר"
-          },
-          {
-            "@tag": "SELECTED_QUOTE",
-            "#text": "ציטוט טקסט נבחר"
-          },
-          {
-            "@tag": "SELECTED_SEARCH",
-            "#text": "חפש בגוגל..."
-          },
-          {
-            "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "הצג הסתר"
-          },
-          {
-            "@tag": "SUBMIT",
-            "#text": "שלח"
-          },
-          {
-            "@tag": "TOPIC_NOTIFICATION_SUBJECT",
-            "#text": "הודעה על הודעה חדשה בדיון רשום (From {0})"
-          },
-          {
-            "@tag": "TT_ALIGNCENTER",
-            "#text": "הצמדה למרכז"
-          },
-          {
-            "@tag": "TT_ALIGNLEFT",
-            "#text": "הצמדה לשמאל"
-          },
-          {
-            "@tag": "TT_ALIGNRIGHT",
-            "#text": "הצמדה לימין"
-          },
-          {
-            "@tag": "TT_BOLD",
-            "#text": "מודגש"
-          },
-          {
-            "@tag": "TT_CODE",
-            "#text": "קוד"
-          },
-          {
-            "@tag": "TT_CODELANG",
-            "#text": "בחר שפה להדגשת תחביר"
-          },
-          {
-            "@tag": "TT_CREATELINK",
-            "#text": "יצירת קישור"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "עוד תוויות BBCode"
-          },
-          {
-            "@tag": "TT_HIGHLIGHT",
-            "#text": "שִׂיא"
-          },
-          {
-            "@tag": "TT_IMAGE",
-            "#text": "הוספת תמונה"
-          },
-          {
-            "@tag": "TT_IPDETAILS",
-            "#text": "הצג פרטי IP"
-          },
-          {
-            "@tag": "TT_ITALIC",
-            "#text": "נטוי"
-          },
-          {
-            "@tag": "TT_LISTORDERED",
-            "#text": "רשימה מסודרת"
-          },
-          {
-            "@tag": "TT_LISTUNORDERED",
-            "#text": "רשימה לא מסודרת"
-          },
-          {
-            "@tag": "TT_QUOTE",
-            "#text": "ציטוט"
-          },
-          {
-            "@tag": "TT_SAVE",
-            "#text": "שמור טיוטת הודעה"
-          },
-          {
-            "@tag": "TT_UNDERLINE",
-            "#text": "קו תחתון"
-          },
-          {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "יש לך {0} אזכורים שלא נקראו, האם תרצה לעבור לאזכורים החדשים ביותר?"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "מישהו הזכיר אותך בנושא"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "יש לך {0} הודעות שלא נקראו בתיבת הדואר הנכנס"
-          },
-          {
-            "@tag": "UNREAD_MSG_TITLE",
-            "#text": "הודעות פרטיות חדשות"
-          },
-          {
-            "@tag": "UNREAD_MSG2",
-            "#text": "יש לך {0} הודעות שלא נקראו בתיבת הדואר הנכנס שלך. האם תרצה לעבור לתיבת הדואר הנכנס שלך עכשיו?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "יש לך {0} פוסטים שצוטטו שלא נקראו, האם תרצה לעבור לפוסט החדש ביותר?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "מישהו ציטט אותך בנושא"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "קיבלת {0} שלא נקראו תודה, האם תרצה לעבור לחדש ביותר?"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "מישהו הודה לך על ההודעה"
-          },
-          {
-            "@tag": "UPDATE",
-            "#text": "עדכן"
-          },
-          {
-            "@tag": "USERNAME_TOOLONG",
-            "#text": "שם משתמש או שם משתמש לתצוגה אינם יכולים להיות יותר מ-{0} תווים."
-          },
-          {
-            "@tag": "USERNAME_TOOSMALL",
-            "#text": "שם משתמש או שם משתמש לתצוגה חייב להיות יותר מ-{0} תווים."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "הצג קטגוריה"
-          },
-          {
-            "@tag": "VIEW_FORUM",
-            "#text": "צפה בפורום"
-          },
-          {
-            "@tag": "VIEW_FULLINFO",
-            "#text": "צפה במידע המלא"
-          },
-          {
-            "@tag": "VIEW_TOPIC",
-            "#text": "צפה בנושא"
-          },
-          {
-            "@tag": "VIEW_TOPIC_STARTED_BY",
-            "#text": "הצג את הנושא שהתחיל על ידי {0}"
-          },
-          {
-            "@tag": "VIEW_USRPROFILE",
-            "#text": "צפה בפרופיל"
-          },
-          {
-            "@tag": "VOTE",
-            "#text": "הַצבָּעָה"
-          },
-          {
-            "@tag": "YES",
-            "#text": "כן"
-          }
+            {
+                "@tag": "ALBUMIMG_BBCODE",
+                "#text": "הוסף תמונת אלבום..."
+            },
+            {
+                "@tag": "ALLOWED",
+                "#text": "מוּתָר"
+            },
+            {
+                "@tag": "ATTACH_BBCODE",
+                "#text": "הוסף קובץ מצורף קיים או העלה קובץ חדש..."
+            },
+            {
+                "@tag": "BACK",
+                "#text": "חזור"
+            },
+            {
+                "@tag": "BAD_CAPTCHA",
+                "#text": "הכיתוב שהוזן אינו תואם לכיתוב בתמונת האבטחה."
+            },
+            {
+                "@tag": "BAD_RECAPTCHA",
+                "#text": "נא להזין מחדש את ה-reCAPTCHA."
+            },
+            {
+                "@tag": "BAD_USERNAME",
+                "#text": "שם המשתמש אינו יכול להכיל נקודה-פסיק (;)."
+            },
+            {
+                "@tag": "BBCODE_CODE",
+                "#text": "קוד:"
+            },
+            {
+                "@tag": "BBCODE_QUOTE",
+                "#text": "ציטוט:"
+            },
+            {
+                "@tag": "BBCODE_QUOTEPOSTED",
+                "#text": "פורסם במקור על ידי: {0}"
+            },
+            {
+                "@tag": "BBCODE_QUOTEPOSTED_TT",
+                "#text": "עבור לפוסט מצוטט"
+            },
+            {
+                "@tag": "BBCODE_QUOTEWROTE",
+                "#text": "{0} כתב/ה:"
+            },
+            {
+                "@tag": "BROWSE",
+                "#text": "לְדַפדֵף"
+            },
+            {
+                "@tag": "CAL_JQ_TT",
+                "#text": "לחץ כאן לבחירת תאריך"
+            },
+            {
+                "@tag": "CAN_DELETE",
+                "#text": "את/ה [b]יכול/ה[/b] למחוק את הודעותיך בפורום זה."
+            },
+            {
+                "@tag": "CAN_EDIT",
+                "#text": "את/ה [b]יכול/ה[/b] לערוך את הודעותיך."
+            },
+            {
+                "@tag": "CAN_POLL",
+                "#text": "את/ה [b]יכול/ה[/b] ליצור סקרים בפורום זה."
+            },
+            {
+                "@tag": "CAN_POST",
+                "#text": "את/ה [b]יכול/ה[/b] לכתוב דיונים חדשים בפורום זה."
+            },
+            {
+                "@tag": "CAN_REPLY",
+                "#text": "את/ה [b]יכול/ה[/b] להגיב לדיונים בפורום זה."
+            },
+            {
+                "@tag": "CAN_VOTE",
+                "#text": "את/ה [b]יכול/ה[/b] להצביע לסקרים בפורום זה."
+            },
+            {
+                "@tag": "CANCEL",
+                "#text": "ביטול"
+            },
+            {
+                "@tag": "CANNOT_DELETE",
+                "#text": "[b]אינך[/b] יכול/ה למחוק את הודעותיך בפורום זה."
+            },
+            {
+                "@tag": "CANNOT_EDIT",
+                "#text": "[b]אינך[/b] יכול/ה לערוך את הודעותיך."
+            },
+            {
+                "@tag": "CANNOT_POLL",
+                "#text": "[b]אינך[/b] יכול/ה ליצור סקרים בפורום זה."
+            },
+            {
+                "@tag": "CANNOT_POST",
+                "#text": "[b]אינך[/b] יכול/ה לכתוב דיונים חדשים בפורום זה."
+            },
+            {
+                "@tag": "CANNOT_REPLY",
+                "#text": "[b]אינך[/b] יכול/ה להגיב לדיונים בפורום זה."
+            },
+            {
+                "@tag": "CANNOT_VOTE",
+                "#text": "[b]אינך[/b] יכול/ה להצביע לסקרים בפורום זה."
+            },
+            {
+                "@tag": "CAPTCHA_ENTER",
+                "#text": "הזן/י את האותיות מתמונת האבטחה:"
+            },
+            {
+                "@tag": "CAPTCHA_IMAGE",
+                "#text": "תמונת אבטחה:"
+            },
+            {
+                "@tag": "CHANGEEMAIL_SUBJECT",
+                "#text": "כתובת הדוא\"ל שונתה"
+            },
+            {
+                "@tag": "COMMON_WORDS",
+                "#text": "החוצה, בבקשה, מסוגל, בערך, מעבר, אחרי הכל, כמעט, גם, בין, וכל אחד, נמצא, כפי, נמצא, כי, היה, אבל, על ידי, יכול, לא יכול, יכול, יקירי, עשה, עושה, או, אחר, אי פעם, כל, עבור, מ, לקבל, קיבל, היה, יש, יש לו, הוא, שלה, שלה, שלו, שלו, איך, עם זאת, אני, אם, ב-into, האם, זה, רק, לפחות, תן, אוהב, סביר, עשוי, אני, עשוי, רוב, חייב, שלי, לא, לא, ולא, לא, של, כבוי, לעתים קרובות, מופעל, רק, או,אחר,שלנו,ליתר דיוק,אמר,אומר,אומרת,היא,צריכה,מאחר,ככה,כמה,מזה,שלהם,הם,אז,שם,אלה,הם,זה,זה,אל, גם אנחנו, רוצים, היינו, היינו, מה, מתי, איפה, איזה, בזמן, מי, מי, למה, יהיה, עם, עדיין, אתה, שלך"
+            },
+            {
+                "@tag": "CONTINUE",
+                "#text": "לְהַמשִׁיך"
+            },
+            {
+                "@tag": "COOKIE",
+                "#text": "ה-{0} משתמש בקובצי Cookie. על ידי המשך הגלישה באתר זה, אתה מסכים לשימוש שלנו בעוגיות."
+            },
+            {
+                "@tag": "COOKIE_AGREE",
+                "#text": "סגור"
+            },
+            {
+                "@tag": "COOKIE_DETAILS",
+                "#text": "פרטים נוספים"
+            },
+            {
+                "@tag": "COOKIE_HEADER",
+                "#text": "מידע חשוב:"
+            },
+            {
+                "@tag": "COPY",
+                "#text": "עותק"
+            },
+            {
+                "@tag": "CUSTOM_BBCODE",
+                "#text": "עוד תוויות"
+            },
+            {
+                "@tag": "DELETE",
+                "#text": "לִמְחוֹק"
+            },
+            {
+                "@tag": "DELETED_MESSAGE",
+                "#text": "הודעה עם מזהה: {0} נמחקה"
+            },
+            {
+                "@tag": "DELETED_TOPIC",
+                "#text": "נושא עם מזהה: {0} נמחק"
+            },
+            {
+                "@tag": "DISALLOWED",
+                "#text": "אסור"
+            },
+            {
+                "@tag": "DOWNLOAD",
+                "#text": "הורד"
+            },
+            {
+                "@tag": "EDIT",
+                "#text": "לַעֲרוֹך"
+            },
+            {
+                "@tag": "EMAILVERIFICATION_SUBJECT",
+                "#text": "{0} אימות כתובת דוא\"ל"
+            },
+            {
+                "@tag": "ENTRIES_10",
+                "#text": "10 ערכים"
+            },
+            {
+                "@tag": "ENTRIES_15",
+                "#text": "15 כניסות"
+            },
+            {
+                "@tag": "ENTRIES_20",
+                "#text": "20 כניסות"
+            },
+            {
+                "@tag": "ENTRIES_25",
+                "#text": "25 ערכים"
+            },
+            {
+                "@tag": "ENTRIES_5",
+                "#text": "5 ערכים"
+            },
+            {
+                "@tag": "ENTRIES_50",
+                "#text": "50 כניסות"
+            },
+            {
+                "@tag": "EXTERNALUSER",
+                "#text": "(משתמש חיצוני)"
+            },
+            {
+                "@tag": "FONT_COLOR",
+                "#text": "צבע גופן:"
+            },
+            {
+                "@tag": "FONT_SIZE",
+                "#text": "גודל גופן:"
+            },
+            {
+                "@tag": "FOR",
+                "#text": "ל"
+            },
+            {
+                "@tag": "FORMAT_DATE_LONG",
+                "#text": "D"
+            },
+            {
+                "@tag": "FORMAT_DATE_SHORT",
+                "#text": "d"
+            },
+            {
+                "@tag": "FORMAT_DATE_TIME_LONG",
+                "#text": "F"
+            },
+            {
+                "@tag": "FORMAT_DATE_TIME_SHORT",
+                "#text": "G"
+            },
+            {
+                "@tag": "FORMAT_TIME",
+                "#text": "T"
+            },
+            {
+                "@tag": "FORUM_JUMP",
+                "#text": "עבור לפורום"
+            },
+            {
+                "@tag": "FORUM_JUMP_PLACEHOLDER",
+                "#text": "בחר פורום ללכת אליו..."
+            },
+            {
+                "@tag": "FORUMS_SHOWN",
+                "#text": "{0} מתוך {1} פורומים מוצגים"
+            },
+            {
+                "@tag": "GENERATED",
+                "#text": "דף זה נוצר תוך {0:N3} שניות."
+            },
+            {
+                "@tag": "GO",
+                "#text": "אישור"
+            },
+            {
+                "@tag": "GOTOFIRSTPAGE_TT",
+                "#text": "עמוד ראשון"
+            },
+            {
+                "@tag": "GOTOLASTPAGE_TT",
+                "#text": "עבור לדף האחרון"
+            },
+            {
+                "@tag": "GOTONEXTPAGE_TT",
+                "#text": "עמוד הבא"
+            },
+            {
+                "@tag": "GOTOPAGE_HEADER",
+                "#text": "לך לעמוד..."
+            },
+            {
+                "@tag": "GOTOPOST_ТТ",
+                "#text": "עבור להודעה"
+            },
+            {
+                "@tag": "GOTOPREVPAGE_TT",
+                "#text": "עמוד קודם"
+            },
+            {
+                "@tag": "HIDDEN",
+                "#text": "מוסתר"
+            },
+            {
+                "@tag": "HTMLTAG_FORBIDDEN",
+                "#text": "נתוני הקלט שלך לא צריכים להכיל תגי HTML."
+            },
+            {
+                "@tag": "HTMLTAG_WRONG",
+                "#text": "נתוני הקלט שלך מכילים תג HTML אסור {0}."
+            },
+            {
+                "@tag": "IN_FORUM",
+                "#text": "בפורום: {0}"
+            },
+            {
+                "@tag": "LOAD_MORE",
+                "#text": "הצג עוד קטגוריות ופורומים..."
+            },
+            {
+                "@tag": "LOADING",
+                "#text": "טוען..."
+            },
+            {
+                "@tag": "MANAGE",
+                "#text": "לנהל"
+            },
+            {
+                "@tag": "MAX_ONLINE",
+                "#text": "מספר המשתמשים המחוברים הגבוה ביותר אי פעם היה {0:N0} on {1}."
+            },
+            {
+                "@tag": "MENU",
+                "#text": "תַפרִיט"
+            },
+            {
+                "@tag": "MESSAGE",
+                "#text": "הוֹדָעָה"
+            },
+            {
+                "@tag": "MOBILE_FULLSITE",
+                "#text": "צפה באתר המלא"
+            },
+            {
+                "@tag": "MOBILE_VIEWSITE",
+                "#text": "צפה באתר לנייד"
+            },
+            {
+                "@tag": "MODAL_NOTIFICATION_HEADER",
+                "#text": "הודעה"
+            },
+            {
+                "@tag": "MODERATOR",
+                "#text": "מַנחֶה"
+            },
+            {
+                "@tag": "NAME",
+                "#text": "שֵׁם"
+            },
+            {
+                "@tag": "NO",
+                "#text": "לא"
+            },
+            {
+                "@tag": "NONE",
+                "#text": "אף אחד"
+            },
+            {
+                "@tag": "NOTE",
+                "#text": "הערה:"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
+                "#text": "משתמש SPAM BOT חדש רשום בפורום {0}"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
+                "#text": "קיבלת פרס בפורום {0}"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
+                "#text": "יש לאשר הודעה חדשה בפורום {0}"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
+                "#text": "דווח על הודעה בפורום {0}"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL",
+                "#text": "יש לבדוק הודעת דואר זבל חדשה בפורום {0}"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT",
+                "#text": "ההרשמה בפורום {0} בהצלחה"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
+                "#text": "השעיה של חשבון הפורום שלך ב-{0}"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
+                "#text": "משתמש חדש נרשם בפורום {0}"
+            },
+            {
+                "@tag": "NOTIFICATION_ON_WELCOME_USER_SUBJECT",
+                "#text": "ברוך הבא לפורום {0}"
+            },
+            {
+                "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
+                "#text": "{0} עדכון חשבון הפורום"
+            },
+            {
+                "@tag": "OK",
+                "#text": "אישור"
+            },
+            {
+                "@tag": "OR",
+                "#text": "אוֹ"
+            },
+            {
+                "@tag": "PAGE",
+                "#text": "עמוד"
+            },
+            {
+                "@tag": "PAGES",
+                "#text": "עמודים"
+            },
+            {
+                "@tag": "PM_NOTIFICATION_SUBJECT",
+                "#text": "הודעה פרטית חדשה מאת {0} ב- {1}"
+            },
+            {
+                "@tag": "POST",
+                "#text": "הודעה"
+            },
+            {
+                "@tag": "POWERED_BY",
+                "#text": "ממונע ע\"י"
+            },
+            {
+                "@tag": "PRIORITY",
+                "#text": "עדיפות"
+            },
+            {
+                "@tag": "PRIVACY_POLICY",
+                "#text": "מדיניות פרטיות"
+            },
+            {
+                "@tag": "READ",
+                "#text": "לקרוא"
+            },
+            {
+                "@tag": "REGMAIL_SENT",
+                "#text": "הודעת דוא\"ל נשלחה. בדוק/י את תיבת הדואר הנכנס שלך, ולחץ/י על הקישור בהודעה."
+            },
+            {
+                "@tag": "REGMAIL_WILL_BE_SEND",
+                "#text": "הודעת דוא\"ל תישלח לאחר שתירשם. על מנת להתחבר, יש לבדוק את תיבת הדואר הנכנס וללחוץ על הקישור בהודעה."
+            },
+            {
+                "@tag": "REPLY",
+                "#text": "תשובה"
+            },
+            {
+                "@tag": "SAVE",
+                "#text": "שמור"
+            },
+            {
+                "@tag": "SELECT_LOCALE_JS",
+                "#text": "language:  { errorLoading:function(){return\"שגיאה בטעינת התוצאות\"},inputTooLong:function(n){var e=n.input.length-n.maximum,r=\"נא למחוק \";return r+=1===e?\"תו אחד\":e+\" תווים\"},inputTooShort:function(n){var e=n.minimum-n.input.length,r=\"נא להכניס \";return r+=1===e?\"תו אחד\":e+\" תווים\",r+=\" או יותר\"},loadingMore:function(){return\"טוען תוצאות נוספות…\"},maximumSelected:function(n){var e=\"באפשרותך לבחור עד \";return 1===n.maximum?e+=\"פריט אחד\":e+=n.maximum+\" פריטים\",e},noResults:function(){return\"לא נמצאו תוצאות\"},searching:function(){return\"מחפש…\"},removeAllItems:function(){return\"הסר את כל הפריטים\"}} }"
+            },
+            {
+                "@tag": "SELECTED_COPY",
+                "#text": "העתק טקסט נבחר"
+            },
+            {
+                "@tag": "SELECTED_QUOTE",
+                "#text": "ציטוט טקסט נבחר"
+            },
+            {
+                "@tag": "SELECTED_SEARCH",
+                "#text": "חפש בגוגל..."
+            },
+            {
+                "@tag": "SHOW_TITLE",
+                "#text": "Page Size Selection"
+            },
+            {
+                "@tag": "SHOWHIDE",
+                "#text": "הצג הסתר"
+            },
+            {
+                "@tag": "SUBMIT",
+                "#text": "שלח"
+            },
+            {
+                "@tag": "TOPIC_NOTIFICATION_SUBJECT",
+                "#text": "הודעה על הודעה חדשה בדיון רשום (From {0})"
+            },
+            {
+                "@tag": "TT_ALIGNCENTER",
+                "#text": "הצמדה למרכז"
+            },
+            {
+                "@tag": "TT_ALIGNLEFT",
+                "#text": "הצמדה לשמאל"
+            },
+            {
+                "@tag": "TT_ALIGNRIGHT",
+                "#text": "הצמדה לימין"
+            },
+            {
+                "@tag": "TT_BOLD",
+                "#text": "מודגש"
+            },
+            {
+                "@tag": "TT_CODE",
+                "#text": "קוד"
+            },
+            {
+                "@tag": "TT_CODELANG",
+                "#text": "בחר שפה להדגשת תחביר"
+            },
+            {
+                "@tag": "TT_CREATELINK",
+                "#text": "יצירת קישור"
+            },
+            {
+                "@tag": "TT_CUSTOMBBCODE",
+                "#text": "עוד תוויות BBCode"
+            },
+            {
+                "@tag": "TT_HIGHLIGHT",
+                "#text": "שִׂיא"
+            },
+            {
+                "@tag": "TT_IMAGE",
+                "#text": "הוספת תמונה"
+            },
+            {
+                "@tag": "TT_IPDETAILS",
+                "#text": "הצג פרטי IP"
+            },
+            {
+                "@tag": "TT_ITALIC",
+                "#text": "נטוי"
+            },
+            {
+                "@tag": "TT_LISTORDERED",
+                "#text": "רשימה מסודרת"
+            },
+            {
+                "@tag": "TT_LISTUNORDERED",
+                "#text": "רשימה לא מסודרת"
+            },
+            {
+                "@tag": "TT_QUOTE",
+                "#text": "ציטוט"
+            },
+            {
+                "@tag": "TT_SAVE",
+                "#text": "שמור טיוטת הודעה"
+            },
+            {
+                "@tag": "TT_UNDERLINE",
+                "#text": "קו תחתון"
+            },
+            {
+                "@tag": "UNREAD_MENTION_MSG",
+                "#text": "יש לך {0} אזכורים שלא נקראו, האם תרצה לעבור לאזכורים החדשים ביותר?"
+            },
+            {
+                "@tag": "UNREAD_MENTION_TITLE",
+                "#text": "מישהו הזכיר אותך בנושא"
+            },
+            {
+                "@tag": "UNREAD_MSG",
+                "#text": "יש לך {0} הודעות שלא נקראו בתיבת הדואר הנכנס"
+            },
+            {
+                "@tag": "UNREAD_MSG_TITLE",
+                "#text": "הודעות פרטיות חדשות"
+            },
+            {
+                "@tag": "UNREAD_MSG2",
+                "#text": "יש לך {0} הודעות שלא נקראו בתיבת הדואר הנכנס שלך. האם תרצה לעבור לתיבת הדואר הנכנס שלך עכשיו?"
+            },
+            {
+                "@tag": "UNREAD_QUOTED_MSG",
+                "#text": "יש לך {0} פוסטים שצוטטו שלא נקראו, האם תרצה לעבור לפוסט החדש ביותר?"
+            },
+            {
+                "@tag": "UNREAD_QUOTED_TITLE",
+                "#text": "מישהו ציטט אותך בנושא"
+            },
+            {
+                "@tag": "UNREAD_THANKS_MSG",
+                "#text": "קיבלת {0} שלא נקראו תודה, האם תרצה לעבור לחדש ביותר?"
+            },
+            {
+                "@tag": "UNREAD_THANKS_TITLE",
+                "#text": "מישהו הודה לך על ההודעה"
+            },
+            {
+                "@tag": "UPDATE",
+                "#text": "עדכן"
+            },
+            {
+                "@tag": "USERNAME_TOOLONG",
+                "#text": "שם משתמש או שם משתמש לתצוגה אינם יכולים להיות יותר מ-{0} תווים."
+            },
+            {
+                "@tag": "USERNAME_TOOSMALL",
+                "#text": "שם משתמש או שם משתמש לתצוגה חייב להיות יותר מ-{0} תווים."
+            },
+            {
+                "@tag": "VIEW_CATEGORY",
+                "#text": "הצג קטגוריה"
+            },
+            {
+                "@tag": "VIEW_FORUM",
+                "#text": "צפה בפורום"
+            },
+            {
+                "@tag": "VIEW_FULLINFO",
+                "#text": "צפה במידע המלא"
+            },
+            {
+                "@tag": "VIEW_TOPIC",
+                "#text": "צפה בנושא"
+            },
+            {
+                "@tag": "VIEW_TOPIC_STARTED_BY",
+                "#text": "הצג את הנושא שהתחיל על ידי {0}"
+            },
+            {
+                "@tag": "VIEW_USRPROFILE",
+                "#text": "צפה בפרופיל"
+            },
+            {
+                "@tag": "VOTE",
+                "#text": "הַצבָּעָה"
+            },
+            {
+                "@tag": "YES",
+                "#text": "כן"
+            }
         ]
       },
       {
