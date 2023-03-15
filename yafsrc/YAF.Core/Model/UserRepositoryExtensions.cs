@@ -626,6 +626,11 @@ public static class UserRepositoryExtensions
 
         BoardContext.Current.GetRepository<Active>().Delete(x => x.UserID == userId);
 
+        BoardContext.Current.GetRepository<Activity>().Delete(x => x.UserID == userId);
+        BoardContext.Current.GetRepository<Activity>().UpdateOnly(
+            () => new Activity { FromUserID = guestUserId },
+            a => a.FromUserID == userId);
+
         BoardContext.Current.GetRepository<EventLog>().Delete(x => x.UserID == userId);
         BoardContext.Current.GetRepository<UserPMessage>().Delete(x => x.UserID == userId);
         BoardContext.Current.GetRepository<Thanks>().Delete(x => x.ThanksFromUserID == userId || x.ThanksToUserID == userId);
