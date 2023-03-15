@@ -105,14 +105,18 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             RegisterConverter<DateOnly>(new PostgreSqlDateOnlyConverter());
 #endif
 
+#if NET48
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+#endif
+
         this.Variables = new Dictionary<string, string>
-                         {
-                             { OrmLiteVariables.SystemUtc, "now() at time zone 'utc'" },
-                             { OrmLiteVariables.MaxText, "TEXT" },
-                             { OrmLiteVariables.MaxTextUnicode, "TEXT" },
-                             { OrmLiteVariables.True, SqlBool(true) },
-                             { OrmLiteVariables.False, SqlBool(false) }
-                         };
+                             {
+                                 { OrmLiteVariables.SystemUtc, "now() at time zone 'utc'" },
+                                 { OrmLiteVariables.MaxText, "TEXT" },
+                                 { OrmLiteVariables.MaxTextUnicode, "TEXT" },
+                                 { OrmLiteVariables.True, SqlBool(true) },
+                                 { OrmLiteVariables.False, SqlBool(false) }
+                             };
     }
 
     /// <summary>
@@ -1057,42 +1061,49 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// Gets the types map.
     /// </summary>
     /// <value>The types map.</value>
-    public Dictionary<Type,NpgsqlDbType> TypesMap { get; } = new() {
-                                                                           [typeof(bool)] = NpgsqlDbType.Boolean,
-                                                                           [typeof(short)] = NpgsqlDbType.Smallint,
-                                                                           [typeof(int)] = NpgsqlDbType.Integer,
-                                                                           [typeof(long)] = NpgsqlDbType.Bigint,
-                                                                           [typeof(float)] = NpgsqlDbType.Real,
-                                                                           [typeof(double)] = NpgsqlDbType.Double,
-                                                                           [typeof(decimal)] = NpgsqlDbType.Numeric,
-                                                                           [typeof(string)] = NpgsqlDbType.Text,
-                                                                           [typeof(char[])] = NpgsqlDbType.Varchar,
-                                                                           [typeof(char)] = NpgsqlDbType.Char,
-                                                                           [typeof(NpgsqlPoint)] = NpgsqlDbType.Point,
-                                                                           [typeof(NpgsqlLSeg)] = NpgsqlDbType.LSeg,
-                                                                           [typeof(NpgsqlPath)] = NpgsqlDbType.Path,
-                                                                           [typeof(NpgsqlPolygon)] = NpgsqlDbType.Polygon,
-                                                                           [typeof(NpgsqlLine)] = NpgsqlDbType.Line,
-                                                                           [typeof(NpgsqlCircle)] = NpgsqlDbType.Circle,
-                                                                           [typeof(NpgsqlBox)] = NpgsqlDbType.Box,
-                                                                           [typeof(BitArray)] = NpgsqlDbType.Varbit,
-                                                                           [typeof(IDictionary<string, string>)] = NpgsqlDbType.Hstore,
-                                                                           [typeof(Guid)] = NpgsqlDbType.Uuid,
-                                                                           [typeof(ValueTuple<IPAddress, int>)] = NpgsqlDbType.Cidr,
-                                                                           [typeof(ValueTuple<IPAddress,int>)] = NpgsqlDbType.Inet,
-                                                                           [typeof(IPAddress)] = NpgsqlDbType.Inet,
-                                                                           [typeof(PhysicalAddress)] = NpgsqlDbType.MacAddr,
-                                                                           [typeof(NpgsqlTsQuery)] = NpgsqlDbType.TsQuery,
-                                                                           [typeof(NpgsqlTsVector)] = NpgsqlDbType.TsVector,
-                                                                           //[typeof(NpgsqlDate)] = NpgsqlDbType.Date,
-                                                                           [typeof(DateTime)] = NpgsqlDbType.Timestamp,
-                                                                           [typeof(DateTimeOffset)] = NpgsqlDbType.TimestampTz,
-                                                                           [typeof(TimeSpan)] = NpgsqlDbType.Time,
-                                                                           //[typeof(NpgsqlTimeSpan)] = NpgsqlDbType.Time,
-                                                                           [typeof(byte[])] = NpgsqlDbType.Bytea,
-                                                                           [typeof(uint)] = NpgsqlDbType.Oid,
-                                                                           [typeof(uint[])] = NpgsqlDbType.Oidvector,
-                                                                       };
+    public Dictionary<Type, NpgsqlDbType> TypesMap { get; } = new()
+                                                                  {
+                                                                      [typeof(bool)] = NpgsqlDbType.Boolean,
+                                                                      [typeof(short)] = NpgsqlDbType.Smallint,
+                                                                      [typeof(int)] = NpgsqlDbType.Integer,
+                                                                      [typeof(long)] = NpgsqlDbType.Bigint,
+                                                                      [typeof(float)] = NpgsqlDbType.Real,
+                                                                      [typeof(double)] = NpgsqlDbType.Double,
+                                                                      [typeof(decimal)] = NpgsqlDbType.Numeric,
+                                                                      [typeof(string)] = NpgsqlDbType.Text,
+                                                                      [typeof(char[])] = NpgsqlDbType.Varchar,
+                                                                      [typeof(char)] = NpgsqlDbType.Char,
+                                                                      [typeof(NpgsqlPoint)] = NpgsqlDbType.Point,
+                                                                      [typeof(NpgsqlLSeg)] = NpgsqlDbType.LSeg,
+                                                                      [typeof(NpgsqlPath)] = NpgsqlDbType.Path,
+                                                                      [typeof(NpgsqlPolygon)] = NpgsqlDbType.Polygon,
+                                                                      [typeof(NpgsqlLine)] = NpgsqlDbType.Line,
+                                                                      [typeof(NpgsqlCircle)] = NpgsqlDbType.Circle,
+                                                                      [typeof(NpgsqlBox)] = NpgsqlDbType.Box,
+                                                                      [typeof(BitArray)] = NpgsqlDbType.Varbit,
+                                                                      [typeof(IDictionary<string, string>)] =
+                                                                          NpgsqlDbType.Hstore,
+                                                                      [typeof(Guid)] = NpgsqlDbType.Uuid,
+                                                                      [typeof(ValueTuple<IPAddress, int>)] =
+                                                                          NpgsqlDbType.Cidr,
+                                                                      [typeof(ValueTuple<IPAddress, int>)] =
+                                                                          NpgsqlDbType.Inet,
+                                                                      [typeof(IPAddress)] = NpgsqlDbType.Inet,
+                                                                      [typeof(PhysicalAddress)] = NpgsqlDbType.MacAddr,
+                                                                      [typeof(NpgsqlTsQuery)] = NpgsqlDbType.TsQuery,
+                                                                      [typeof(NpgsqlTsVector)] = NpgsqlDbType.TsVector,
+#if NET6_0_OR_GREATER
+                                                                      [typeof(DateOnly)] = NpgsqlDbType.Date,
+                                                                      [typeof(TimeOnly)] = NpgsqlDbType.Time,
+#endif
+                                                                      [typeof(DateTime)] = NpgsqlDbType.Timestamp,
+                                                                      [typeof(DateTimeOffset)] =
+                                                                          NpgsqlDbType.TimestampTz,
+                                                                      [typeof(TimeSpan)] = NpgsqlDbType.Time,
+                                                                      [typeof(byte[])] = NpgsqlDbType.Bytea,
+                                                                      [typeof(uint)] = NpgsqlDbType.Oid,
+                                                                      [typeof(uint[])] = NpgsqlDbType.Oidvector,
+                                                                  };
 
     /// <summary>
     /// Gets the type of the database.
