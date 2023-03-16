@@ -331,7 +331,7 @@ public static class BoardRepositoryExtensions
                                    IsHtml = false, IsBBCode = true, IsPersistent = true, IsApproved = true
                                };
 
-        var topic = BoardContext.Current.GetRepository<Topic>().SaveNew(
+        BoardContext.Current.GetRepository<Topic>().SaveNew(
             forum,
             "🎉 Hello from YAF.NET",
             string.Empty,
@@ -567,7 +567,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
         // --- Delete user(s)
         var users = BoardContext.Current.GetRepository<User>().Get(u => u.BoardID == boardId);
 
-        users.ForEach(u => BoardContext.Current.GetRepository<User>().Delete(u.ID));
+        users.ForEach(u => BoardContext.Current.GetRepository<User>().Delete(u));
 
         // --- Delete Group
         var groups = BoardContext.Current.GetRepository<Group>().Get(g => g.BoardID == boardId);

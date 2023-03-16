@@ -105,6 +105,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             RegisterConverter<DateOnly>(new PostgreSqlDateOnlyConverter());
 #endif
 
+#if NET472
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+#endif
+
         this.Variables = new Dictionary<string, string>
                          {
                              { OrmLiteVariables.SystemUtc, "now() at time zone 'utc'" },
@@ -1084,11 +1088,13 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                                                                            [typeof(PhysicalAddress)] = NpgsqlDbType.MacAddr,
                                                                            [typeof(NpgsqlTsQuery)] = NpgsqlDbType.TsQuery,
                                                                            [typeof(NpgsqlTsVector)] = NpgsqlDbType.TsVector,
-                                                                           //[typeof(NpgsqlDate)] = NpgsqlDbType.Date,
+#if NET6_0
+                                                                           [typeof(DateOnly)] = NpgsqlDbType.Dat4e,
+                                                                           [typeof(TimeOnly)] = NpgsqlDbType.Time,  
+#endif
                                                                            [typeof(DateTime)] = NpgsqlDbType.Timestamp,
                                                                            [typeof(DateTimeOffset)] = NpgsqlDbType.TimestampTz,
                                                                            [typeof(TimeSpan)] = NpgsqlDbType.Time,
-                                                                           //[typeof(NpgsqlTimeSpan)] = NpgsqlDbType.Time,
                                                                            [typeof(byte[])] = NpgsqlDbType.Bytea,
                                                                            [typeof(uint)] = NpgsqlDbType.Oid,
                                                                            [typeof(uint[])] = NpgsqlDbType.Oidvector,

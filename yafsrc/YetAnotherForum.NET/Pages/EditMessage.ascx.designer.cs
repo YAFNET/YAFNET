@@ -168,6 +168,15 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.TextBox TopicStylesTextBox;
 
         /// <summary>
+        /// TagsRow-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder TagsRow;
+
+        /// <summary>
         /// TagsValue-Steuerelement.
         /// </summary>
         /// <remarks>
@@ -256,15 +265,6 @@ namespace YAF.Pages
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Cancel;
-
-        /// <summary>
-        /// LastPosts1-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LastPosts LastPosts1;
 
         /// <summary>
         /// UploadDialog-Steuerelement.
