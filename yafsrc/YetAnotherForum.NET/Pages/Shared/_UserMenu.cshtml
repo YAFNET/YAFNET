@@ -32,11 +32,10 @@
         </a>
     <div class="dropdown-menu dropend" aria-labelledby="userDropdown">
 
-            <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyAccount ? "dropdown-item active" : "dropdown-item")"
+    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyAccount ? "dropdown-item active" : "dropdown-item")"
        bs-toggle="tooltip"
        asp-page="/MyAccount"
        role="button"
-       target="_top"
        text-localized-page="TOOLBAR"
        text-localized-tag="MYPROFILE"
        title-localized-page="TOOLBAR"
@@ -44,7 +43,7 @@
        icon="address-card">
     </a>
 
-            <a class="@Html.Raw(Current.CurrentForumPage.PageName is ForumPages.Profile_EditProfile or ForumPages.Profile_EditSettings or ForumPages.Profile_ChangePassword or ForumPages.Profile_Attachments or ForumPages.Profile_EditAvatar or ForumPages.Profile_EditSignature or ForumPages.Profile_Subscriptions or ForumPages.Profile_BlockOptions ? "dropdown-item dropdown-submenu dropdown-toggle active" : "dropdown-item dropdown-submenu dropdown-toggle")"
+    <a class="@Html.Raw(Current.CurrentForumPage.PageName is ForumPages.Profile_EditProfile or ForumPages.Profile_EditSettings or ForumPages.Profile_ChangePassword or ForumPages.Profile_Attachments or ForumPages.Profile_EditAvatar or ForumPages.Profile_EditSignature or ForumPages.Profile_Subscriptions or ForumPages.Profile_BlockOptions ? "dropdown-item dropdown-submenu dropdown-toggle active" : "dropdown-item dropdown-submenu dropdown-toggle")"
        href="#"
        bs-toggle="dropdown"
        role="button"
@@ -53,33 +52,30 @@
        icon="user-cog">
     </a>
     <div class="dropdown-menu">
-                <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_EditProfile ? "dropdown-item active" : "dropdown-item")"
+        <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_EditProfile ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
            asp-page="/Profile/EditProfile"
            role="button"
-           target="_top"
            text-localized-page="TOOLBAR"
            text-localized-tag="EDIT_PROFILE"
            title-localized-page="TOOLBAR"
            title-localized-tag="EDIT_PROFILE"
            icon="user-edit">
         </a>
-                <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_EditSettings ? "dropdown-item active" : "dropdown-item")"
+        <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_EditSettings ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
            asp-page="/Profile/EditSettings"
            role="button"
-           target="_top"
            text-localized-page="ACCOUNT"
            text-localized-tag="EDIT_SETTINGS"
            title-localized-page="ACCOUNT"
            title-localized-tag="EDIT_SETTINGS"
            icon="user-cog">
         </a>
-                <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_Attachments ? "dropdown-item active" : "dropdown-item")"
+        <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Profile_Attachments ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
            asp-page="/Profile/Attachments"
            role="button"
-           target="_top"
            text-localized-page="ATTACHMENTS"
            text-localized-tag="TITLE"
            title-localized-page="ATTACHMENTS"
@@ -93,7 +89,6 @@
                bs-toggle="tooltip"
                asp-page="/Profile/EditAvatar"
                role="button"
-               target="_top"
                text-localized-page="ACCOUNT"
                text-localized-tag="EDIT_AVATAR"
                title-localized-page="ACCOUNT"
@@ -108,7 +103,6 @@
                bs-toggle="tooltip"
                asp-page="/Profile/EditSignature"
                role="button"
-               target="_top"
                text-localized-page="ACCOUNT"
                text-localized-tag="SIGNATURE"
                title-localized-page="ACCOUNT"
@@ -121,7 +115,6 @@
            bs-toggle="tooltip"
            asp-page="/Profile/Subscriptions"
            role="button"
-           target="_top"
            text-localized-page="ACCOUNT"
            text-localized-tag="SUBSCRIPTIONS"
            title-localized-page="ACCOUNT"
@@ -133,7 +126,6 @@
            bs-toggle="tooltip"
            asp-page="/Profile/BlockOptions"
            role="button"
-           target="_top"
            text-localized-page="BLOCK_OPTIONS"
            text-localized-tag="TITLE"
            title-localized-page="BLOCK_OPTIONS"
@@ -145,7 +137,6 @@
            bs-toggle="tooltip"
            asp-page="/Profile/ChangePassword"
            role="button"
-           target="_top"
            text-localized-page="ACCOUNT"
            text-localized-tag="CHANGE_PASSWORD"
            title-localized-page="ACCOUNT"
@@ -159,7 +150,6 @@
                bs-toggle="tooltip"
                asp-page="/Profile/DeleteAccount"
                role="button"
-               target="_top"
                text-localized-page="ACCOUNT"
                text-localized-tag="DELETE_ACCOUNT"
                title-localized-page="ACCOUNT"
@@ -175,7 +165,6 @@
        bs-toggle="tooltip"
        asp-page="/MyMessages"
        role="button"
-       target="_top"
        title-localized-page="TOOLBAR"
        title-localized-tag="INBOX_TITLE">
         @Html.Icon("inbox")@Html.LocalizedText("TOOLBAR", "INBOX")
@@ -192,11 +181,10 @@
 
     @if (Current.BoardSettings.EnableBuddyList && Current.UserHasBuddies)
     {
-                <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Friends ? "dropdown-item active" : "dropdown-item")"
+        <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Friends ? "dropdown-item active" : "dropdown-item")"
            bs-toggle="tooltip"
            asp-page="/Friends"
            role="button"
-           target="_top"
            title-localized-page="TOOLBAR"6
            title-localized-tag="BUDDIES_TITLE">
             @Html.Icon("users")@Html.LocalizedText("TOOLBAR", "BUDDIES")
@@ -219,7 +207,6 @@
            asp-page="/Albums"
            asp-route-u="@Current.PageUserID"
            role="button"
-           target="_top"
            text-localized-page="TOOLBAR"
            text-localized-tag="MYALBUMS"
            title-localized-page="TOOLBAR"
@@ -232,7 +219,6 @@
        bs-toggle="tooltip"
        asp-page="/MyTopics"
        role="button"
-       target="_top"
        text-localized-page="TOOLBAR"
        text-localized-tag="MYTOPICS"
        title-localized-page="TOOLBAR"

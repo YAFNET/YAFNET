@@ -70,7 +70,6 @@ public static class FooterHtmlHelper
 
         var privacyText = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "PRIVACY_POLICY");
 
-        rulesTag.MergeAttribute("target", "_top");
         rulesTag.MergeAttribute("title", privacyText);
         rulesTag.MergeAttribute("href", "/Privacy");
 
@@ -120,7 +119,7 @@ public static class FooterHtmlHelper
 
         var yafUrlTag = new TagBuilder("a");
 
-        yafUrlTag.MergeAttribute("target", "_top");
+        yafUrlTag.MergeAttribute("target", "_blank");
         yafUrlTag.MergeAttribute("title", "YetAnotherForum.NET");
         yafUrlTag.MergeAttribute("href", "https://www.yetanotherforum.net");
 
@@ -140,7 +139,7 @@ public static class FooterHtmlHelper
 
         var yafCopyrightTag = new TagBuilder("a");
 
-        yafCopyrightTag.MergeAttribute("target", "_top");
+        yafCopyrightTag.MergeAttribute("target", "_blank");
         yafCopyrightTag.MergeAttribute("title", "YetAnotherForum.NET");
         yafCopyrightTag.MergeAttribute("href", "https://www.yetanotherforum.net");
 
