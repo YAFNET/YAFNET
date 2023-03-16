@@ -153,7 +153,6 @@ public partial class UserMenu : BaseUserControl
 
         var link = new HyperLink
                        {
-                           Target = "_top",
                            ToolTip = linkToolTip,
                            NavigateUrl = linkUrl,
                            Text = icon.IsSet() ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}" : linkText,
