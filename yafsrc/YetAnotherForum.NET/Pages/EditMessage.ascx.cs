@@ -26,6 +26,8 @@ using YAF.Types.Models;
 
 namespace YAF.Pages;
 
+using ServiceStack.Text;
+
 /// <summary>
 /// The Edit message Page.
 /// </summary>
@@ -148,11 +150,6 @@ public partial class EditMessage : ForumPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-        // setup jQuery and Jquery Ui Tabs.
-        this.PageBoardContext.PageElements.RegisterJsBlock(
-            nameof(JavaScriptBlocks.GetBoardTagsJs),
-            JavaScriptBlocks.GetBoardTagsJs("Tags", this.TagsValue.ClientID));
-
         base.OnPreRender(e);
     }
 
@@ -351,7 +348,10 @@ public partial class EditMessage : ForumPage
         // Update Topic Tags?!
         this.GetRepository<TopicTag>().Delete(x => x.TopicID == this.PageBoardContext.PageTopicID);
 
-        this.GetRepository<TopicTag>().AddTagsToTopic(this.TagsValue.Value, this.PageBoardContext.PageTopicID);
+        if (this.TagsRow.Visible)
+        {
+            this.GetRepository<TopicTag>().AddTagsToTopic(this.TagsValue.Value, this.PageBoardContext.PageTopicID);
+        }
 
         this.UpdateWatchTopic(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
     }
@@ -417,7 +417,7 @@ public partial class EditMessage : ForumPage
                             $"{description}, user was deleted and banned");
 
                         this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                            this.PageBoardContext.PageUserID,
+                            this.PageBoardContext.PageUser,
                             this.PageBoardContext.MembershipUser,
                             this.PageBoardContext.PageUser.IP);
 
@@ -567,6 +567,7 @@ public partial class EditMessage : ForumPage
         {
             this.TopicSubjectTextBox.Enabled = false;
             this.TopicDescriptionTextBox.Enabled = false;
+            this.TagsRow.Visible = false;
         }
 
         // Allow the Styling of Topic Titles only for Mods or Admins
@@ -589,12 +590,20 @@ public partial class EditMessage : ForumPage
         this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
         this.PostOptions1.PersistentChecked = currentMessage.MessageFlags.IsPersistent;
 
-        var topicsList = this.GetRepository<TopicTag>().List(this.PageBoardContext.PageTopicID);
+        var topicTags = this.GetRepository<TopicTag>().List(this.PageBoardContext.PageTopicID);
 
-        if (topicsList.Any())
+        if (topicTags.Any())
         {
-            this.TagsValue.Value = topicsList.Select(t => t.Item2.TagName).ToDelimitedString(",");
+            this.TagsValue.Value = topicTags.Select(t => t.Item2.TagName).ToDelimitedString(",");
         }
+
+        // setup jQuery and Jquery Ui Tabs.
+        this.PageBoardContext.PageElements.RegisterJsBlock(
+            nameof(JavaScriptBlocks.GetBoardTagsJs),
+            JavaScriptBlocks.GetBoardTagsJs(
+                "Tags",
+                this.TagsValue.ClientID,
+                topicTags.Any() ? topicTags.Select(t => t.Item2.TagName) : null));
 
         // Ederon : 9/9/2007 - moderators can reply in locked topics
         if (this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
