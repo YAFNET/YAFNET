@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Utilities;
 
+using System.Collections.Generic;
 using YAF.Types.Attributes;
 
 /// <summary>
@@ -122,12 +123,23 @@ public static class JavaScriptBlocks
     /// The input Id.
     /// </param>
     /// <param name="hiddenId"></param>
+    /// <param name="existingTags">
+    /// the existing topic tags id
+    /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
     [NotNull]
-    public static string GetBoardTagsJs(string inputId, string hiddenId) =>
-        $@"$(""#{inputId}"").select2({{
+    public static string GetBoardTagsJs(string inputId, string hiddenId, IEnumerable<string> existingTags = null)
+    {
+        var tags = new StringBuilder();
+
+        if (!existingTags.NullOrEmpty())
+        {
+            existingTags.ForEach(tag => tags.Append($"$('#{inputId}').append($('<option>', {{value:'{tag}', text:'{tag}', selected: true}}));"));
+        }
+
+        return $@"{tags}$(""#{inputId}"").select2({{
             tags: true,
             tokenSeparators: [',', ' '],
             ajax: {{
@@ -173,6 +185,7 @@ public static class JavaScriptBlocks
         }}).on(""select2:select"", function (e) {{
                   $(""#{hiddenId}"").val($(this).select2('data').map(x => x.text).join());
         }});";
+    }
 
     /// <summary>
     /// The cookie consent JS.

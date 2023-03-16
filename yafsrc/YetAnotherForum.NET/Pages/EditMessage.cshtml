@@ -91,13 +91,16 @@
                             <input asp-for="Input.TopicStyles" class="form-control" maxlength="100"/>
                         </div>
                     }
-
-                    <div class="mb-3">
-                        <label asp-for="Input.TagsValue" class="form-label" localized-page="POSTMESSAGE" localized-tag="TAGS">
-                        </label>
-                        <select id="Tags" multiple="multiple" class="form-control"></select>
-                        <input type="hidden" asp-for="Input.TagsValue" value="@Model.Input.TagsValue"/>
-                    </div>
+                    
+                    @if (Model.PageBoardContext.PageTopic.UserID == Model.PageBoardContext.PageMessage.UserID || Model.PageBoardContext.ForumModeratorAccess)
+                    {
+                        <div class="mb-3">
+                            <label asp-for="Input.TagsValue" class="form-label" localized-page="POSTMESSAGE" localized-tag="TAGS">
+                            </label>
+                            <select id="Tags" multiple="multiple" class="form-control"></select>
+                            <input type="hidden" asp-for="Input.TagsValue" value="@Model.Input.TagsValue"/>
+                        </div>
+                    }
 
                     <div class="mb-3">
                         <label asp-for="Input.Editor" class="form-label" localized-tag="MESSAGE"></label>
@@ -182,7 +185,7 @@
 
 @section Scripts {
     <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue")))
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue", Model.Input.Tags)))
     </script>
     
     @await Html.PartialAsync("_CKEditorScriptsPartial")

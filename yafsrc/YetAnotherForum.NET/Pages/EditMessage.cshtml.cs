@@ -329,7 +329,7 @@ public class EditMessageModel : ForumPage
                             $"{description}, user was deleted and banned");
 
                         this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                            this.PageBoardContext.PageUserID,
+                            this.PageBoardContext.PageUser,
                             this.PageBoardContext.MembershipUser,
                             this.PageBoardContext.PageUser.IP);
 
@@ -445,10 +445,13 @@ public class EditMessageModel : ForumPage
 
         var topicsList = this.GetRepository<TopicTag>().List(this.PageBoardContext.PageTopicID);
 
-        if (topicsList.Any())
+        if (!topicsList.Any())
         {
-            this.Input.TagsValue = topicsList.Select(t => t.Item2.TagName).ToDelimitedString(",");
+            return;
         }
+
+        this.Input.TagsValue = topicsList.Select(t => t.Item2.TagName).ToDelimitedString(",");
+        this.Input.Tags = topicsList.Select(t => t.Item2.TagName);
     }
 
     /// <summary>
@@ -489,6 +492,8 @@ public class EditMessageModel : ForumPage
         public string From { get; set; }
 
         public string TopicStyles { get; set; }
+
+        public IEnumerable<string> Tags { get; set; }
 
         public string TagsValue { get; set; }
 
