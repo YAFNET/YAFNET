@@ -292,7 +292,7 @@ public partial class EditUsersSignature : BaseUserControl
                                         var membershipUser = this.Get<IAspNetUsersHelper>()
                                             .GetMembershipUserById(this.user.ID);
                                         this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                            this.CurrentUserID,
+                                            this.user,
                                             membershipUser,
                                             this.user.IP);
                                     }

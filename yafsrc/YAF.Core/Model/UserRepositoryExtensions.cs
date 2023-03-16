@@ -595,57 +595,56 @@ public static class UserRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="userId">
-    /// The user id.
+    /// <param name="user">
+    /// The user that will be deleted
     /// </param>
-    public static void Delete(this IRepository<User> repository, [NotNull] int userId)
+    public static void Delete(this IRepository<User> repository, [NotNull] User user)
     {
         CodeContracts.VerifyNotNull(repository);
+        CodeContracts.VerifyNotNull(user);
 
         var guestUserId = BoardContext.Current.GuestUserID;
 
-        if (guestUserId == userId)
+        if (guestUserId == user.ID)
         {
             return;
         }
 
-        var user = repository.GetById(userId);
-
         BoardContext.Current.GetRepository<Message>().UpdateOnly(
             () => new Message { UserName = user.Name, UserDisplayName = user.DisplayName, UserID = guestUserId },
-            u => u.UserID == userId);
+            u => u.UserID == user.ID);
         BoardContext.Current.GetRepository<Topic>().UpdateOnly(
             () => new Topic { UserName = user.Name, UserDisplayName = user.DisplayName, UserID = guestUserId },
-            u => u.UserID == userId);
+            u => u.UserID == user.ID);
         BoardContext.Current.GetRepository<Topic>().UpdateOnly(
             () => new Topic { LastUserName = user.Name, LastUserDisplayName = user.DisplayName, LastUserID = guestUserId },
-            u => u.LastUserID == userId);
+            u => u.LastUserID == user.ID);
         BoardContext.Current.GetRepository<Forum>().UpdateOnly(
             () => new Forum { LastUserName = user.Name, LastUserDisplayName = user.DisplayName, LastUserID = guestUserId },
-            u => u.LastUserID == userId);
+            u => u.LastUserID == user.ID);
 
-        BoardContext.Current.GetRepository<Active>().Delete(x => x.UserID == userId);
-
-        BoardContext.Current.GetRepository<EventLog>().Delete(x => x.UserID == userId);
-        BoardContext.Current.GetRepository<UserPMessage>().Delete(x => x.UserID == userId);
-        BoardContext.Current.GetRepository<Thanks>().Delete(x => x.ThanksFromUserID == userId || x.ThanksToUserID == userId);
-        BoardContext.Current.GetRepository<Buddy>().Delete(x => x.FromUserID == userId);
-        BoardContext.Current.GetRepository<Buddy>().Delete(x => x.ToUserID == userId);
+        BoardContext.Current.GetRepository<Active>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<Activity>().Delete(x => x.FromUserID == user.ID || x.UserID == user.ID);
+        BoardContext.Current.GetRepository<EventLog>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<UserPMessage>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<Thanks>().Delete(x => x.ThanksFromUserID == user.ID || x.ThanksToUserID == user.ID);
+        BoardContext.Current.GetRepository<Buddy>().Delete(x => x.FromUserID == user.ID);
+        BoardContext.Current.GetRepository<Buddy>().Delete(x => x.ToUserID == user.ID);
 
         // -- set messages as from guest so the User can be deleted
         BoardContext.Current.GetRepository<PMessage>().UpdateOnly(
             () => new PMessage { FromUserID = guestUserId },
-            u => u.FromUserID == userId);
+            u => u.FromUserID == user.ID);
 
-        BoardContext.Current.GetRepository<Attachment>().Delete(x => x.UserID == userId);
-        BoardContext.Current.GetRepository<CheckEmail>().Delete(x => x.UserID == userId);
-        BoardContext.Current.GetRepository<WatchTopic>().Delete(x => x.UserID == userId);
-        BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.UserID == userId);
-        BoardContext.Current.GetRepository<TopicReadTracking>().Delete(x => x.UserID == userId);
-        BoardContext.Current.GetRepository<ForumReadTracking>().Delete(x => x.UserID == userId);
+        BoardContext.Current.GetRepository<Attachment>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<CheckEmail>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<WatchTopic>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<TopicReadTracking>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<ForumReadTracking>().Delete(x => x.UserID == user.ID);
 
         // -- Delete user albums
-        var albums = BoardContext.Current.GetRepository<UserAlbum>().ListByUser(userId);
+        var albums = BoardContext.Current.GetRepository<UserAlbum>().ListByUser(user.ID);
 
         albums.ForEach(
             album =>
@@ -653,21 +652,21 @@ public static class UserRepositoryExtensions
                 BoardContext.Current.GetRepository<UserAlbumImage>().Delete(x => x.AlbumID == album.ID);
             });
 
-        BoardContext.Current.GetRepository<UserAlbum>().Delete(x => x.UserID == userId);
+        BoardContext.Current.GetRepository<UserAlbum>().Delete(x => x.UserID == user.ID);
 
-        BoardContext.Current.GetRepository<ReputationVote>().Delete(x => x.ReputationFromUserID == userId);
-        BoardContext.Current.GetRepository<ReputationVote>().Delete(x => x.ReputationToUserID == userId);
-        BoardContext.Current.GetRepository<UserGroup>().Delete(x => x.UserID == userId);
+        BoardContext.Current.GetRepository<ReputationVote>().Delete(x => x.ReputationFromUserID == user.ID);
+        BoardContext.Current.GetRepository<ReputationVote>().Delete(x => x.ReputationToUserID == user.ID);
+        BoardContext.Current.GetRepository<UserGroup>().Delete(x => x.UserID == user.ID);
 
-        BoardContext.Current.GetRepository<UserForum>().Delete(x => x.UserID == userId);
-        BoardContext.Current.GetRepository<IgnoreUser>().Delete(x => x.UserID == userId);
-        BoardContext.Current.GetRepository<AdminPageUserAccess>().Delete(x => x.UserID == userId);
+        BoardContext.Current.GetRepository<UserForum>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<IgnoreUser>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<AdminPageUserAccess>().Delete(x => x.UserID == user.ID);
 
-        BoardContext.Current.GetRepository<ProfileCustom>().Delete(x => x.UserID == userId);
+        BoardContext.Current.GetRepository<ProfileCustom>().Delete(x => x.UserID == user.ID);
 
-        repository.DeleteById(userId);
+        repository.DeleteById(user.ID);
 
-        repository.FireDeleted(userId);
+        repository.FireDeleted(user.ID);
     }
 
     /// <summary>

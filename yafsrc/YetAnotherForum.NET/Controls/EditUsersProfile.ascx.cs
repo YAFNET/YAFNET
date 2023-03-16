@@ -278,7 +278,7 @@ public partial class EditUsersProfile : BaseUserControl
                                 if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)
                                 {
                                     this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                        this.User.Item1.ID,
+                                        this.User.Item1,
                                         this.User.Item2,
                                         this.User.Item1.IP);
                                 }

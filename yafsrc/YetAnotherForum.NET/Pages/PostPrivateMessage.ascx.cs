@@ -747,7 +747,7 @@ public partial class PostPrivateMessage : ForumPage
                             $"{description}, user was deleted and bannded");
 
                         this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                            this.PageBoardContext.PageUserID,
+                            this.PageBoardContext.PageUser,
                             this.PageBoardContext.MembershipUser,
                             this.PageBoardContext.PageUser.IP);
 
