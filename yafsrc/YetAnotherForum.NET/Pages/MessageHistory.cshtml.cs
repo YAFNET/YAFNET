@@ -161,7 +161,7 @@ public class MessageHistoryModel : ForumPageRegistered
 
         var messages = this.RevisionsList.Where(item => item.Selected).ToList();
 
-        if (!messages.Any())
+        if (messages.NullOrEmpty())
         {
             return this.PageBoardContext.Notify(
                 this.GetText("MESSAGEHISTORY", "NOTHING_SELECTED"),

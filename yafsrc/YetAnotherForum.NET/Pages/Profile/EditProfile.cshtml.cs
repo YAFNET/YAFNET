@@ -39,7 +39,6 @@ using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services;
-using YAF.Types;
 using YAF.Types.Attributes;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
@@ -203,7 +202,7 @@ public class EditProfileModel : ProfilePage
 
                             // Kill user
                             this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                this.PageBoardContext.PageUserID,
+                                this.PageBoardContext.PageUser,
                                 this.CurrentUser.Item2,
                                 this.CurrentUser.Item1.IP);
 

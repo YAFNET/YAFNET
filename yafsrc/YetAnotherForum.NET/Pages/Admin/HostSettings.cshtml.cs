@@ -30,7 +30,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using YAF.Configuration;
 using YAF.Core.Extensions;
 using YAF.Core.Services;
-using YAF.Types;
 using YAF.Types.Attributes;
 using YAF.Types.Extensions;
 using YAF.Types.Extensions.Data;
@@ -583,8 +582,6 @@ public class HostSettingsModel : AdminPage
         public bool RequireLogin { get; set; }
 
         public bool ShowConnectMessageInTopic { get; set; }
-
-        public bool AllowSingleSignOn { get; set; }
 
         public bool ShowRulesForRegistration { get; set; }
 

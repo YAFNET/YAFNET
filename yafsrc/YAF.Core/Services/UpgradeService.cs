@@ -103,13 +103,13 @@ public class UpgradeService : IHaveServiceLocator
         var prevVersion = this.GetRepository<Registry>().GetDbVersion();
 
         // initialize search index
-        if (this.Get<BoardSettings>().LastSearchIndexUpdated.IsNotSet())
+        if (this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "lastsearchindexupdated").Value.IsNotSet())
         {
             this.GetRepository<Registry>().Save("forceupdatesearchindex", "1");
         }
 
         // Check if BaseUrlMask is set and if not automatically write it
-        if (this.Get<BoardSettings>().BaseUrlMask.IsNotSet())
+        if (this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "BaseUrlMask").Value.IsNotSet())
         {
             this.GetRepository<Registry>().Save("baseurlmask", this.Get<BoardInfo>().GetBaseUrlFromVariables());
         }
@@ -201,7 +201,9 @@ public class UpgradeService : IHaveServiceLocator
 
         this.AddOrUpdateExtensions();
 
-        this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
+        var cdvVersion = this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "cdvversion").Value.ToType<int>();
+
+        this.GetRepository<Registry>().Save("cdvversion", cdvVersion + 1);
 
         this.Get<IDataCache>().Remove(Constants.Cache.Version);
 
@@ -209,13 +211,6 @@ public class UpgradeService : IHaveServiceLocator
         this.GetRepository<Registry>().Save("versionname", this.Get<BoardInfo>().AppVersionName);
 
         this.Get<ILogger<UpgradeService>>().Info($"YAF.NET Upgraded to Version {this.Get<BoardInfo>().AppVersionName}");
-
-        if (BoardContext.Current.IsAdmin)
-        {
-            BoardContext.Current.SessionNotify(
-                $"YAF.NET Upgraded to Version {this.Get<BoardInfo>().AppVersionName}",
-                MessageTypes.success);
-        }
 
         return true;
     }
@@ -257,8 +252,6 @@ public class UpgradeService : IHaveServiceLocator
                     loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
                 });
     }
-
-
 
     /// <summary>
     /// The execute script.

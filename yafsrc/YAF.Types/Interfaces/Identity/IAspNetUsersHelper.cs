@@ -107,13 +107,13 @@ public interface IAspNetUsersHelper
     /// <summary>
     /// Deletes and ban's the user.
     /// </summary>
-    /// <param name="userID">The user id.</param>
-    /// <param name="user">The MemberShip User.</param>
+    /// <param name="user">The board user.</param>
+    /// <param name="aspNetUser">The MemberShip User.</param>
     /// <param name="userIpAddress">The user's IP address.</param>
     /// <returns>
     /// Returns if Deleting was successfully
     /// </returns>
-    bool DeleteAndBanUser(int userID, AspNetUsers user, string userIpAddress);
+    bool DeleteAndBanUser(User user, AspNetUsers aspNetUser, string userIpAddress);
 
     /// <summary>
     /// The find users by email.

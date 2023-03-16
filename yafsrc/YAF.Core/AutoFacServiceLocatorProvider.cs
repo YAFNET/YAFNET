@@ -215,7 +215,8 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// <param name="instance">
     /// the object to inject
     /// </param>
-    public void InjectMarked<TAttribute>(object instance) where TAttribute : Attribute
+    public void InjectMarked<TAttribute>(object instance)
+        where TAttribute : Attribute
     {
         CodeContracts.VerifyNotNull(instance);
 
@@ -228,20 +229,24 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
         if (!InjectionCache.TryGetValue(keyPair, out var properties))
         {
             // find them...
-            properties =
-                type.GetProperties(DefaultFlags)
-                    .Where(p => p.GetSetMethod(false) != null && !p.GetIndexParameters().Any() && p.IsDefined(attributeType, true))
-                    .Select(p => Tuple.Create(p.PropertyType, p.DeclaringType, new Action<object, object>((i, v) => p.SetValue(i, v, null))))
-                    .ToList();
+            properties = type.GetProperties(DefaultFlags)
+                .Where(
+                    p => p.GetSetMethod(false) != null && !p.GetIndexParameters().Any()
+                                                       && p.IsDefined(attributeType, true)).Select(
+                    p => Tuple.Create(
+                        p.PropertyType,
+                        p.DeclaringType,
+                        new Action<object, object>((i, v) => p.SetValue(i, v, null)))).ToList();
 
-            InjectionCache.AddOrUpdate(keyPair, k => properties, (k, v) => properties);
+            InjectionCache.AddOrUpdate(keyPair, _ => properties, (k, v) => properties);
         }
 
         properties.ForEach(
             injectProp =>
                 {
                     var serviceInstance = injectProp.Item1 == typeof(ILogger)
-                                              ? this.Container.Resolve<ILoggerProvider>().CreateLogger(injectProp.Item2.Name)
+                                              ? this.Container.Resolve<ILoggerProvider>()
+                                                  .CreateLogger(injectProp.Item2.Name)
                                               : this.Container.Resolve(injectProp.Item1);
 
                     // set value is super slow... best not to use it very much.
@@ -292,7 +297,7 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     }
 
     /// <summary>
-    /// The convert to autofac parameters.
+    /// Convert To AutoFac Parameters
     /// </summary>
     /// <param name="parameters">
     /// The parameters.

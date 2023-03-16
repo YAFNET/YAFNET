@@ -32,6 +32,7 @@ using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Types;
 using YAF.Types.Attributes;
+using YAF.Types.Extensions;
 using YAF.Types.Models;
 
 /// <summary>
@@ -168,7 +169,7 @@ public class UnapprovedPostsModel : ModerateForumPage
         // get reported posts for this forum
         var messages = this.GetRepository<Message>().Unapproved(f);
 
-        if (!messages.Any())
+        if (messages.NullOrEmpty())
         {
             // nope -- redirect back to the moderate main...
             return this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Moderate);

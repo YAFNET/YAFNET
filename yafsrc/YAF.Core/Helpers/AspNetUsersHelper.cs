@@ -204,7 +204,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     if (yafUser != null)
                     {
                         // delete this user...
-                        this.GetRepository<User>().Delete(yafUser.ID);
+                        this.GetRepository<User>().Delete(yafUser);
                     }
 
                     this.Get<AspNetUsersManager>().Delete(user);
@@ -296,7 +296,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             this.Get<AspNetUsersManager>().Delete(aspNetUser);
         }
 
-        this.GetRepository<User>().Delete(userID);
+        this.GetRepository<User>().Delete(user);
 
         if (this.Get<BoardSettings>().LogUserDeleted)
         {
@@ -311,13 +311,13 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <summary>
     /// Deletes and ban's the user.
     /// </summary>
-    /// <param name="userID">The user id.</param>
-    /// <param name="user">The MemberShip PageUser.</param>
+    /// <param name="user">The board user.</param>
+    /// <param name="aspNetUser">The MemberShip User.</param>
     /// <param name="userIpAddress">The user's IP address.</param>
     /// <returns>
     /// Returns if Deleting was successfully
     /// </returns>
-    public bool DeleteAndBanUser(int userID, AspNetUsers user, string userIpAddress)
+    public bool DeleteAndBanUser([NotNull] User user, [NotNull] AspNetUsers aspNetUser, [NotNull] string userIpAddress)
     {
         // Update Anti SPAM Stats
         this.GetRepository<Registry>().IncrementBannedUsers();
@@ -325,7 +325,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         // Ban IP ?
         if (this.Get<BoardSettings>().BanBotIpOnDetection)
         {
-            this.Get<IRaiseEvent>().Raise(new BanUserEvent(userID, user.UserName, user.Email, userIpAddress));
+            this.Get<IRaiseEvent>().Raise(new BanUserEvent(user.ID, aspNetUser.UserName, user.Email, userIpAddress));
         }
 
         var webRootPath = this.Get<IWebHostEnvironment>().WebRootPath;
@@ -333,12 +333,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         // Delete the images/albums both from database and physically.
         var uploadDir = Path.Combine(webRootPath, this.Get<BoardFolders>().Uploads);
 
-        var dt = this.GetRepository<UserAlbum>().ListByUser(userID);
+        var dt = this.GetRepository<UserAlbum>().ListByUser(user.ID);
 
-        dt.ForEach(dr => this.Get<IAlbum>().AlbumImageDelete(uploadDir, dr.ID, userID, null));
+        dt.ForEach(dr => this.Get<IAlbum>().AlbumImageDelete(uploadDir, dr.ID, user.ID, null));
 
         // delete posts...
-        var messages = this.GetRepository<Message>().GetAllUserMessages(userID).Distinct()
+        var messages = this.GetRepository<Message>().GetAllUserMessages(user.ID).Distinct()
             .ToList();
 
         messages.ForEach(
@@ -351,14 +351,14 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                 true,
                 true));
 
-        this.Get<AspNetUsersManager>().Delete(user);
-        this.GetRepository<User>().Delete(userID);
+        this.Get<AspNetUsersManager>().Delete(aspNetUser);
+        this.GetRepository<User>().Delete(user);
 
         if (this.Get<BoardSettings>().LogUserDeleted)
         {
             this.Get<ILogger<AspNetUsersHelper>>().UserDeleted(
                 BoardContext.Current.PageUser.ID,
-                $"PageUser {user.UserName} was deleted by the automatic spam check system.");
+                $"PageUser {aspNetUser.UserName} was deleted by the automatic spam check system.");
         }
 
         return true;
@@ -871,7 +871,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </returns>
     public AspNetUsers ValidateUser(string userName)
     {
-        if (userName.Contains("@"))
+        if (userName.Contains('@'))
         {
             // attempt Email Login
             var realUser = BoardContext.Current.Get<IAspNetUsersHelper>().GetUserByEmail(userName);

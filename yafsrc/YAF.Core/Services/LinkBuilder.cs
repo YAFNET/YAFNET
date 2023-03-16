@@ -23,6 +23,7 @@
  */
 namespace YAF.Core.Services;
 
+using Microsoft.AspNetCore.Routing;
 using System.Collections.Generic;
 using System.Reflection;
 

@@ -180,7 +180,7 @@ public class PostsModalController : ForumBaseController
                                 $"{description}, user was deleted and banned");
 
                             this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                this.PageBoardContext.PageUserID,
+                                this.PageBoardContext.PageUser,
                                 this.PageBoardContext.MembershipUser,
                                 this.PageBoardContext.PageUser.IP);
                             return this.Ok();

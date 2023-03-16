@@ -136,11 +136,18 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
 
                 if (pageRow is not null && pageRow.Item1 == null)
                 {
-                    pageRow = null;
-                }
+                    if (pageRow.Item2 != null)
+                    {
+                        // FIX user roles ?!
+                        this.Get<IAspNetRolesHelper>().SetupUserRoles(
+                            BoardContext.Current.PageBoardID,
+                            BoardContext.Current.MembershipUser);
 
-                if (pageRow is not null && pageRow.Item1 == null)
-                {
+                        this.Get<IAspNetRolesHelper>().DidCreateForumUser(
+                            BoardContext.Current.MembershipUser,
+                            BoardContext.Current.PageBoardID);
+                    }
+
                     pageRow = null;
                 }
 

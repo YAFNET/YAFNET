@@ -140,7 +140,7 @@ public class EditSignatureModel : ProfilePage
                                                  after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.");
 
                                 this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                    this.PageBoardContext.PageUserID,
+                                    this.PageBoardContext.PageUser,
                                     this.PageBoardContext.MembershipUser,
                                     this.PageBoardContext.PageUser.IP);
 
