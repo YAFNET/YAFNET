@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "@lodder/grunt-postcss": "^3.1.1",
-    "autoprefixer": "^10.4.13",
+    "autoprefixer": "^10.4.14",
     "grunt": "^1.6.1",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "*",
@@ -12,10 +12,11 @@
     "grunt-contrib-uglify": "^5.2.2",
     "grunt-dev-update": "^2.3.0",
     "postcss": "^8.4.21",
-    "sass": "^1.58.3"
+    "sass": "^1.59.3"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.3.0",
+    "@microsoft/signalr": "^7.0.4",
     "bootbox": "^6.0.0",
     "bootswatch": "^5.2.3",
     "flag-icons": "^6.6.6",
