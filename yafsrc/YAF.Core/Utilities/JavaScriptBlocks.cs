@@ -696,7 +696,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
         return $@"$(document).ready(function() {{
                       var yafCKEditor = $(""#{editorId}"").ckeditor({{
-                          extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,{(uploadAllowed ? "attachments," : "")}quote,codemirror,textselection"",
+                          extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,{(uploadAllowed ? "attachments," : "")}quote,codemirror"",
                           removePlugins: 'bidi,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,templates{contextMenuRemove}',
                           toolbar: [{toolbar}],
 		                  entities_greek: false,
