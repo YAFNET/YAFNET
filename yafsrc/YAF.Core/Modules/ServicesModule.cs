@@ -35,7 +35,6 @@ using YAF.Core.Identity;
 using YAF.Core.Services;
 using YAF.Core.Services.Cache;
 using YAF.Core.Services.Migrations;
-using YAF.signalr;
 
 /// <summary>
 /// Registers all Service Modules
@@ -51,7 +50,6 @@ public class ServicesModule : BaseModule
         RegisterServices(builder);
         RegisterIdentityServices(builder);
         RegisterBoardContextServices(builder);
-        RegisterHubs(builder);
     }
 
     /// <summary>
@@ -192,14 +190,5 @@ public class ServicesModule : BaseModule
         builder.RegisterType<StopWatch>().As<IStopWatch>().InstancePerLifetimeScope().PreserveExistingDefaults();
         builder.RegisterType<ThankYou>().As<IThankYou>().InstancePerBoardContext();
         builder.RegisterType<SpamCheck>().As<ISpamCheck>().InstancePerBoardContext();
-    }
-
-    /// <summary>
-    /// Registers all the SignalR Hubs.
-    /// </summary>
-    /// <param name="builder">The builder.</param>
-    private static void RegisterHubs(ContainerBuilder builder)
-    {
-        builder.RegisterType<UiNotificationClient>().ExternallyOwned();
     }
 }
