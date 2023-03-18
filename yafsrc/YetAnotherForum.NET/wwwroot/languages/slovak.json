@@ -1,4 +1,4 @@
-﻿{
+{
   "Resources": {
     "@language": "Slovak",
     "@code": "sk",
@@ -1014,6 +1014,14 @@
             "#text": "Pridať nový e-mail"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Email Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Importovať e-mail(y)"
           },
@@ -1040,14 +1048,6 @@
           {
             "@tag": "TITLE",
             "#text": "Zakázané e-mailové adresy"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
           }
         ]
       },
@@ -1137,6 +1137,14 @@
             "#text": "Zakázané"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned IP Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Export do textového súboru"
           },
@@ -1171,14 +1179,6 @@
           {
             "@tag": "TITLE",
             "#text": "Zakázané IP adresy"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
           }
         ]
       },
@@ -1280,6 +1280,14 @@
             "#text": "Pridať nové meno používateľa"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Names"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Názov(-y) dovozu"
           },
@@ -1306,14 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Zakázané názvy"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
           }
         ]
       },
@@ -3590,14 +3590,6 @@
             "#text": "Používateľ sa nezobrazuje v zoznamoch aktívnych používateľov."
           },
           {
-            "@tag": "USERINFO_EX_CAPTCHA",
-            "#text": "Vylúčiť z CAPTCHA:"
-          },
-          {
-            "@tag": "USERINFO_EX_CAPTCHA_HELP",
-            "#text": "CAPTCHA je zakázaná konkrétne pre tohto používateľa."
-          },
-          {
             "@tag": "USERINFO_GUEST",
             "#text": "Je hosťom:"
           },
@@ -4226,30 +4218,6 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
-            "@tag": "CAPTCHA_FOR_REGISTER",
-            "#text": "Povolenie CAPTCHA/reCAPTCHA pre Registrovať:"
-          },
-          {
-            "@tag": "CAPTCHA_FOR_REGISTER_HELP",
-            "#text": "Pri registrácii na fóre vyžadujte od používateľov zadanie CAPTCHA."
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING",
-            "#text": "Povolenie CAPTCHA pre hosťovské príspevky:"
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING_HELP",
-            "#text": "Vyžadujte od hosťujúcich používateľov, aby pri odosielaní príspevku alebo odpovede na správu fóra (vrátane rýchlej odpovede) zadali CAPTCHA."
-          },
-          {
-            "@tag": "CAPTCHA_SIZE",
-            "#text": "Veľkosť CAPTCHA:"
-          },
-          {
-            "@tag": "CAPTCHA_SIZE_HELP",
-            "#text": "Veľkosť (dĺžka) náhodného alfanumerického reťazca CAPTCHA."
-          },
-          {
             "@tag": "CDN_JQUERY",
             "#text": "Používanie súboru jQuery Script Hosted CDN od spoločnosti Google?"
           },
@@ -4406,14 +4374,6 @@
             "#text": "Povolenie/zákaz kalendára v profile, ak spôsobuje problémy na serveroch/pre používateľov s rôznymi kultúrami."
           },
           {
-            "@tag": "ENABLE_CAPTCHA_FORPOST",
-            "#text": "Povolenie CAPTCHA pre príspevok správy:"
-          },
-          {
-            "@tag": "ENABLE_CAPTCHA_FORPOST_HELP",
-            "#text": "Vyžadovať od používateľov zadanie CAPTCHA pri odosielaní príspevku alebo odpovede na správu fóra (vrátane rýchlej odpovede)."
-          },
-          {
             "@tag": "ENABLE_DISPLAY_NAME",
             "#text": "Povolenie zobrazenia názvu:"
           },
@@ -4560,10 +4520,6 @@
           {
             "@tag": "HEADER_CACHE",
             "#text": "Nastavenia vyrovnávacej pamäte"
-          },
-          {
-            "@tag": "HEADER_CAPTCHA",
-            "#text": "Nastavenia CAPTCHA"
           },
           {
             "@tag": "HEADER_CDN",
@@ -5160,22 +5116,6 @@
           {
             "@tag": "QUICK_SEARCH_HELP",
             "#text": "Zobrazenie poľa a tlačidla Rýchle vyhľadávanie na paneli nástrojov."
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY",
-            "#text": "Tajný kľúč reCAPTCHA:"
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY_HELP",
-            "#text": "Zadajte tajný kľúč reCAPTCHA"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "Kľúč webu reCAPTCHA:"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
-            "#text": "Zadajte kľúč stránky reCAPTCHA."
           },
           {
             "@tag": "REG_USERS",
@@ -5957,6 +5897,14 @@
             "#text": "Obrázok lišty Ribbon tak, ako sa bude zobrazovať v okne používateľa."
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Medals"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+          },
+          {
             "@tag": "MOVE_DOWN",
             "#text": "Presunúť sa nadol"
           },
@@ -5971,14 +5919,6 @@
           {
             "@tag": "TITLE",
             "#text": "Medaily"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
           }
         ]
       },
@@ -6000,6 +5940,14 @@
           {
             "@tag": "EDIT",
             "#text": "Upraviť"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Forums"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           },
           {
             "@tag": "FORUM",
@@ -6024,14 +5972,6 @@
           {
             "@tag": "TITLE",
             "#text": "Fóra NNTP"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           }
         ]
       },
@@ -6096,6 +6036,14 @@
             "#text": "Vymazať tento server?"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Servers"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
+          },
+          {
             "@tag": "NAME",
             "#text": "Názov"
           },
@@ -6114,14 +6062,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Meno používateľa"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
           }
         ]
       },
@@ -6228,20 +6168,20 @@
             "#text": "Vymazať definíciu?"
           },
           {
-            "@tag": "NEW_DEF",
-            "#text": "Pridanie novej definície"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Vlastné definície profilu"
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "No Custom Profile Definitions"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+          },
+          {
+            "@tag": "NEW_DEF",
+            "#text": "Pridanie novej definície"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Vlastné definície profilu"
           }
         ]
       },
@@ -6502,6 +6442,14 @@
             "#text": "\"Zlý\" (Find) výraz"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Replace Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Export do XML"
           },
@@ -6520,14 +6468,6 @@
           {
             "@tag": "TITLE",
             "#text": "Nahradiť slová"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
           }
         ]
       },
@@ -6713,6 +6653,14 @@
             "#text": "Add"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Spam Check Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Export do XML"
           },
@@ -6739,14 +6687,6 @@
           {
             "@tag": "TITLE",
             "#text": "Slová na kontrolu spamu"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
           }
         ]
       },
@@ -8024,14 +7964,6 @@
             "#text": "Späť"
           },
           {
-            "@tag": "BAD_CAPTCHA",
-            "#text": "Zadaný text sa nezhoduje s textom na bezpečnostnom obrázku."
-          },
-          {
-            "@tag": "BAD_RECAPTCHA",
-            "#text": "Znovu zadajte reCAPTCHA."
-          },
-          {
             "@tag": "BAD_USERNAME",
             "#text": "Username cannot contain semi-colons (;)."
           },
@@ -8114,14 +8046,6 @@
           {
             "@tag": "CANNOT_VOTE",
             "#text": "V tomto fóre [b]nemôžete[/b] hlasovať v prieskumoch mienky."
-          },
-          {
-            "@tag": "CAPTCHA_ENTER",
-            "#text": "Enter Letters From Security Image:"
-          },
-          {
-            "@tag": "CAPTCHA_IMAGE",
-            "#text": "Bezpečnostný obrázok:"
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -11621,10 +11545,10 @@
       {
         "@name": "LANGUAGE",
         "Resource": [
-            {
-                "@tag": "CHARSET",
-                "#text": "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            }
+          {
+            "@tag": "CHARSET",
+            "#text": "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+          }
         ]
       },
       {
@@ -14474,10 +14398,6 @@
             "#text": "E-mailová adresa"
           },
           {
-            "@tag": "GENERATE_CAPTCHA",
-            "#text": "Generovanie nového obrázka"
-          },
-          {
             "@tag": "HOMEPAGE",
             "#text": "Domovská stránka"
           },
@@ -14564,10 +14484,6 @@
           {
             "@tag": "PROFILE",
             "#text": "Osobný profil"
-          },
-          {
-            "@tag": "RECAPTCHA_BADSETTING",
-            "#text": "Nastavenia opätovného zachytenia sú zlé. Nahláste to administrácii."
           },
           {
             "@tag": "RECATCHA_BADWORDS",

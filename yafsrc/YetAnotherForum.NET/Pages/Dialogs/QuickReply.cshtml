@@ -33,19 +33,7 @@
                       users-can-upload="false"
                       maxlength="@Current.BoardSettings.MaxPostSize"
                       max-characters="@Current.BoardSettings.MaxPostSize"></textarea>
-                    
-                    @if ((Current.IsGuest && Current.BoardSettings.EnableCaptchaForGuests) || (Current.BoardSettings.EnableCaptchaForPost && !Current.PageUser.UserFlags.IsCaptchaExcluded))
-                    {
-                        <div class="mb-3">
-                            <label asp-for="Captcha" class="form-control" localized-tag="Captcha_Image"></label>
-                            <img alt="captcha" src="@(CaptchaHelper.GetCaptcha())" />
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="Captcha" class="form-control" localized-tag="Captcha_Enter"></label>
-                            <input asp-for="Captcha" class="form-control" />
-                        </div>
-                    }
-                    
+
                     @if (!Current.IsGuest)
                     {
                         <div class="form-check form-switch mt-3">

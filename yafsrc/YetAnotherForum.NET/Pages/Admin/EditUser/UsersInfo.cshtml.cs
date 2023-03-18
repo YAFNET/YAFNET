@@ -106,7 +106,6 @@ public class UsersInfoModel : AdminPage
         {
             IsHostAdmin = this.Input.IsHostAdminX,
             IsGuest = this.Input.IsGuestX,
-            IsCaptchaExcluded = this.Input.IsCaptchaExcluded,
             IsActiveExcluded = this.Input.IsExcludedFromActiveUsers,
             IsApproved = this.Input.IsApproved,
             Moderated = this.Input.Moderated
@@ -158,7 +157,6 @@ public class UsersInfoModel : AdminPage
         this.Input.IsHostAdminX = this.EditUser.Item1.UserFlags.IsHostAdmin;
         this.Input.IsApproved = this.EditUser.Item1.UserFlags.IsApproved;
         this.Input.IsGuestX = this.EditUser.Item1.UserFlags.IsGuest;
-        this.Input.IsCaptchaExcluded = this.EditUser.Item1.UserFlags.IsCaptchaExcluded;
         this.Input.IsExcludedFromActiveUsers = this.EditUser.Item1.UserFlags.IsActiveExcluded;
         this.Input.Moderated = this.EditUser.Item1.UserFlags.Moderated;
         this.Input.Joined = this.EditUser.Item1.Joined.ToString(CultureInfo.InvariantCulture);
@@ -187,8 +185,6 @@ public class UsersInfoModel : AdminPage
         public bool IsApproved { get; set; }
 
         public bool IsGuestX { get; set; }
-
-        public bool IsCaptchaExcluded { get; set; }
 
         public bool IsExcludedFromActiveUsers { get; set; }
 

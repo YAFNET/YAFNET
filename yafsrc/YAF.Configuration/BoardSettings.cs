@@ -796,16 +796,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets CaptchaTypeRegister.
-    /// </summary>
-    public int CaptchaTypeRegister
-    {
-        get => this.Registry.GetValue("CaptchaTypeRegister", 1);
-
-        set => this.Registry.SetValue("CaptchaTypeRegister", value);
-    }
-
-    /// <summary>
     /// Gets or sets EditTimeOut.
     /// </summary>
     public int EditTimeOut
@@ -823,16 +813,6 @@ public class BoardSettings
         get => this.Registry.GetValue("ReportPostPermissions", (int)ViewPermissions.RegisteredUsers);
 
         set => this.Registry.SetValue("ReportPostPermissions", value);
-    }
-
-    /// <summary>
-    /// Gets or sets CaptchaSize.
-    /// </summary>
-    public int CaptchaSize
-    {
-        get => this.Registry.GetValue("CaptchaSize", 8);
-
-        set => this.Registry.SetValue("CaptchaSize", value);
     }
 
     /// <summary>
@@ -1548,26 +1528,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether EnableCaptchaForPost.
-    /// </summary>
-    public bool EnableCaptchaForPost
-    {
-        get => this.Registry.GetValue("EnableCaptchaForPost", false);
-
-        set => this.Registry.SetValue("EnableCaptchaForPost", value);
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether EnableCaptchaForGuests.
-    /// </summary>
-    public bool EnableCaptchaForGuests
-    {
-        get => this.Registry.GetValue("EnableCaptchaForGuests", true);
-
-        set => this.Registry.SetValue("EnableCaptchaForGuests", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether UseNoFollowLinks.
     /// </summary>
     public bool UseNoFollowLinks
@@ -1925,26 +1885,6 @@ public class BoardSettings
         get => this.Registry.GetValue("ReputationMinDownVoting", 100);
 
         set => this.Registry.SetValue("ReputationMinDownVoting", value);
-    }
-
-    /// <summary>
-    /// Gets or sets reCAPTCHA Site Key.
-    /// </summary>
-    public string RecaptchaPublicKey
-    {
-        get => this.Registry.GetValue("RecaptchaPublicKey", string.Empty);
-
-        set => this.Registry.SetValue("RecaptchaPublicKey", value);
-    }
-
-    /// <summary>
-    /// Gets or sets reCAPTCHA Secret Key.
-    /// </summary>
-    public string RecaptchaPrivateKey
-    {
-        get => this.Registry.GetValue("RecaptchaPrivateKey", string.Empty);
-
-        set => this.Registry.SetValue("RecaptchaPrivateKey", value);
     }
 
     /// <summary>

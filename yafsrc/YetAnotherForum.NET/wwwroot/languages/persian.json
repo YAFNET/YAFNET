@@ -1014,6 +1014,14 @@
             "#text": "افزون ایمیل جدید"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Email Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "درون‌ریزی ایمیل (ها)"
           },
@@ -1040,14 +1048,6 @@
           {
             "@tag": "TITLE",
             "#text": "ایمیل‌های مسدود شده"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
           }
         ]
       },
@@ -1137,6 +1137,14 @@
             "#text": "ممنوع شده بوسیله"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned IP Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "برون‌بری به فایل متنی"
           },
@@ -1171,14 +1179,6 @@
           {
             "@tag": "TITLE",
             "#text": "آدرس IP های مسدود"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
           }
         ]
       },
@@ -1280,6 +1280,14 @@
             "#text": "افزودن نام کاربری جدید"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Names"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "درون‌ریزی نام (ها)"
           },
@@ -1306,14 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "نام‌های مسدود شده"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
           }
         ]
       },
@@ -3582,14 +3582,6 @@
             "#text": "کاربر در فهرست کاربران فعال نمایش داده نمی شود."
           },
           {
-            "@tag": "USERINFO_EX_CAPTCHA",
-            "#text": "مستثنی کردن از CAPTCHA"
-          },
-          {
-            "@tag": "USERINFO_EX_CAPTCHA_HELP",
-            "#text": "CAPTCHA برای این کاربر حذف می شود."
-          },
-          {
             "@tag": "USERINFO_GUEST",
             "#text": "میهمان است:"
           },
@@ -4218,30 +4210,6 @@
             "#text": "برای استفاده از BotScout به یک  API Key نیاز دارید <a href=\"http://botscout.com/getkey.htm\">از اینجا ثبت نام کنید<a>."
           },
           {
-            "@tag": "CAPTCHA_FOR_REGISTER",
-            "#text": "فعال سازی CAPTCHA/reCAPTCHA برای ثبت نام :"
-          },
-          {
-            "@tag": "CAPTCHA_FOR_REGISTER_HELP",
-            "#text": "برای ثبت نام کاربران را ملزم به ورود CAPTCHA می کند."
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING",
-            "#text": "فعال سازی CAPTCHA برای ارسال‌های میهمان‌ها."
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING_HELP",
-            "#text": "الزام کاربر میهمان به وارد کردن CAPTCHA برای ارسال یا پاسخ."
-          },
-          {
-            "@tag": "CAPTCHA_SIZE",
-            "#text": "اندازه CAPTCHA :"
-          },
-          {
-            "@tag": "CAPTCHA_SIZE_HELP",
-            "#text": "اندازه (طول) CAPTCHA متنی با الفبای تصادفی"
-          },
-          {
             "@tag": "CDN_JQUERY",
             "#text": "استفاه از فایل اسکریپت Jquery موجود در سایت گوگل؟"
           },
@@ -4398,14 +4366,6 @@
             "#text": "فعال/غیرفعال کردن تقویم در نمایه، اگر برای کاربران با زبانهای مختلف ایجاد مشکل کند"
           },
           {
-            "@tag": "ENABLE_CAPTCHA_FORPOST",
-            "#text": "فعال کردن CAPTCHA برای ارسال یک پیام:"
-          },
-          {
-            "@tag": "ENABLE_CAPTCHA_FORPOST_HELP",
-            "#text": "الزام کاربران به ورود CAPTCHA قبل از ارسال یا پاسخ در انجمن. (شامل بخش پاسخ سریع نیز می باشد)"
-          },
-          {
             "@tag": "ENABLE_DISPLAY_NAME",
             "#text": "فعال کردن نام نمایشی:"
           },
@@ -4552,10 +4512,6 @@
           {
             "@tag": "HEADER_CACHE",
             "#text": "تنظیمات Cache"
-          },
-          {
-            "@tag": "HEADER_CAPTCHA",
-            "#text": "تنظیمات CAPTCHA"
           },
           {
             "@tag": "HEADER_CDN",
@@ -5152,22 +5108,6 @@
           {
             "@tag": "QUICK_SEARCH_HELP",
             "#text": "نمایش جعبه جستجو و دکمه جستجوی سریع در نوار ابزار."
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY",
-            "#text": "کلید خصوصی reCAPTCHA :"
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY_HELP",
-            "#text": "کلید خصوصی reCAPTCHA را وارد کنید."
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "کلید سراسری reCAPTCHA :"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
-            "#text": "کلید سراسری reCAPTCHA را وراد کنید."
           },
           {
             "@tag": "REG_USERS",
@@ -5949,6 +5889,14 @@
             "#text": "تصویر نوار روبان  در کادر کاربر نمایش داده خواهد شد."
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Medals"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+          },
+          {
             "@tag": "MOVE_DOWN",
             "#text": "حرکت به پایین"
           },
@@ -5963,14 +5911,6 @@
           {
             "@tag": "TITLE",
             "#text": "نشان‌ها"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
           }
         ]
       },
@@ -5992,6 +5932,14 @@
           {
             "@tag": "EDIT",
             "#text": "ویرایش"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Forums"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           },
           {
             "@tag": "FORUM",
@@ -6016,14 +5964,6 @@
           {
             "@tag": "TITLE",
             "#text": "انجمن های NNTP"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           }
         ]
       },
@@ -6088,6 +6028,14 @@
             "#text": "حذف این سرور؟"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Servers"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
+          },
+          {
             "@tag": "NAME",
             "#text": "نام"
           },
@@ -6106,14 +6054,6 @@
           {
             "@tag": "USERNAME",
             "#text": "نام کاربری"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
           }
         ]
       },
@@ -6220,20 +6160,20 @@
             "#text": "تعریف حذف شود؟"
           },
           {
-            "@tag": "NEW_DEF",
-            "#text": "تعریف جدید اضافه کنید"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "تعاریف نمایه سفارشی"
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "No Custom Profile Definitions"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+          },
+          {
+            "@tag": "NEW_DEF",
+            "#text": "تعریف جدید اضافه کنید"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "تعاریف نمایه سفارشی"
           }
         ]
       },
@@ -6494,6 +6434,14 @@
             "#text": "عبارات بد"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Replace Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "برون‌بری به XML"
           },
@@ -6512,14 +6460,6 @@
           {
             "@tag": "TITLE",
             "#text": "جایگزین کلمات"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
           }
         ]
       },
@@ -6705,6 +6645,14 @@
             "#text": "افزودن کلمه جدید"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Spam Check Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "صدور به XML"
           },
@@ -6731,14 +6679,6 @@
           {
             "@tag": "TITLE",
             "#text": "کلمات چک هرزنامه"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
           }
         ]
       },
@@ -8012,14 +7952,6 @@
             "#text": "برگشت"
           },
           {
-            "@tag": "BAD_CAPTCHA",
-            "#text": "متن وارد شده با متن در تصویر امنیتی مطابقت نداشت."
-          },
-          {
-            "@tag": "BAD_RECAPTCHA",
-            "#text": "لطفا reCAPTCHA را مجدد وارد کنید."
-          },
-          {
             "@tag": "BAD_USERNAME",
             "#text": "نام کاربری نمی تواند حاوی نیم دونقطه (;) یا برخی کلمات خاص باشد."
           },
@@ -8102,14 +8034,6 @@
           {
             "@tag": "CANNOT_VOTE",
             "#text": "شما [b]نمی توانید[/b] در این انجمن نظر دهید."
-          },
-          {
-            "@tag": "CAPTCHA_ENTER",
-            "#text": "حروف تصویر امنیتی وارد کنید:"
-          },
-          {
-            "@tag": "CAPTCHA_IMAGE",
-            "#text": "تصویر امنیتی"
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -14446,10 +14370,6 @@
             "#text": "آدرس ایمیل"
           },
           {
-            "@tag": "GENERATE_CAPTCHA",
-            "#text": "ایجاد تصویر جدید"
-          },
-          {
             "@tag": "HOMEPAGE",
             "#text": "صفحه خانگی"
           },
@@ -14536,10 +14456,6 @@
           {
             "@tag": "PROFILE",
             "#text": "اطلاعات نمایه"
-          },
-          {
-            "@tag": "RECAPTCHA_BADSETTING",
-            "#text": "تنظیمات Recapture اشکال دارد.لطفاً آن را به مدیریت گزارش دهید."
           },
           {
             "@tag": "RECATCHA_BADWORDS",

@@ -126,16 +126,7 @@ public class EditMessageModel : ForumPage
             return false;
         }
 
-        if ((!this.PageBoardContext.IsGuest || !this.PageBoardContext.BoardSettings.EnableCaptchaForGuests)
-            && (!this.PageBoardContext.BoardSettings.EnableCaptchaForPost
-                || this.PageBoardContext.PageUser.UserFlags.IsCaptchaExcluded)
-            || CaptchaHelper.IsValid(this.Input.Captcha))
-        {
-            return true;
-        }
-
-        this.PageBoardContext.Notify(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
-        return false;
+        return true;
     }
 
     /// <summary>
@@ -502,8 +493,6 @@ public class EditMessageModel : ForumPage
         public string PreviewMessage { get; set; }
 
         public string ReasonEditor { get; set; }
-
-        public string Captcha { get; set; }
 
         public int Priority { get; set; }
 

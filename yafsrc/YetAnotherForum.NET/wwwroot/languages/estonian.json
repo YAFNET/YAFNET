@@ -1,4 +1,4 @@
-﻿{
+{
   "Resources": {
     "@language": "Estonian",
     "@code": "et-EE",
@@ -1014,6 +1014,14 @@
             "#text": "Lisa uus e-kiri"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Email Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Impordi meilid"
           },
@@ -1040,14 +1048,6 @@
           {
             "@tag": "TITLE",
             "#text": "Keelatud meiliaadressid"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
           }
         ]
       },
@@ -1137,6 +1137,14 @@
             "#text": "Keelatud"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned IP Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Ekspordi tekstifaili"
           },
@@ -1171,14 +1179,6 @@
           {
             "@tag": "TITLE",
             "#text": "Keelatud IP-aadressid"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
           }
         ]
       },
@@ -1280,6 +1280,14 @@
             "#text": "Lisa uus kasutajanimi"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Names"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Impordi nimi/nimed"
           },
@@ -1306,14 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Keelatud nimed"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
           }
         ]
       },
@@ -3590,14 +3590,6 @@
             "#text": "Kasutajat aktiivsete kasutajate loendites ei kuvata."
           },
           {
-            "@tag": "USERINFO_EX_CAPTCHA",
-            "#text": "Välista CAPTCHA-st:"
-          },
-          {
-            "@tag": "USERINFO_EX_CAPTCHA_HELP",
-            "#text": "CAPTCHA on selle kasutaja jaoks keelatud."
-          },
-          {
             "@tag": "USERINFO_GUEST",
             "#text": "On külaline:"
           },
@@ -4226,30 +4218,6 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
-            "@tag": "CAPTCHA_FOR_REGISTER",
-            "#text": "Luba registreerimiseks CAPTCHA/reCAPTCHA:"
-          },
-          {
-            "@tag": "CAPTCHA_FOR_REGISTER_HELP",
-            "#text": "Nõua kasutajatelt foorumis registreerumisel CAPTCHA sisestamist."
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING",
-            "#text": "Luba CAPTCHA külaliste postitamiseks:"
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING_HELP",
-            "#text": "Nõua, et külaliskasutajad sisestaksid CAPTCHA, kui nad postitavad või vastavad foorumi sõnumile (sh kiirvastus)."
-          },
-          {
-            "@tag": "CAPTCHA_SIZE",
-            "#text": "CAPTCHA suurus:"
-          },
-          {
-            "@tag": "CAPTCHA_SIZE_HELP",
-            "#text": "CAPTCHA juhusliku tähtnumbrilise stringi suurus (pikkus)."
-          },
-          {
             "@tag": "CDN_JQUERY",
             "#text": "Kas kasutada Google'i hostitud CDN-i jQuery skriptifaili?"
           },
@@ -4406,14 +4374,6 @@
             "#text": "Lubab/keelab kalendri profiilis, kui see tekitab probleeme serverites/erineva kultuuriga kasutajatele."
           },
           {
-            "@tag": "ENABLE_CAPTCHA_FORPOST",
-            "#text": "Luba CAPTCHA sõnumi postitamiseks:"
-          },
-          {
-            "@tag": "ENABLE_CAPTCHA_FORPOST_HELP",
-            "#text": "Nõua, et kasutajad sisestaksid CAPTCHA, kui nad postitavad foorumiteateid või vastavad sellele (sh kiirvastus)."
-          },
-          {
             "@tag": "ENABLE_DISPLAY_NAME",
             "#text": "Kuvatava nime lubamine:"
           },
@@ -4560,10 +4520,6 @@
           {
             "@tag": "HEADER_CACHE",
             "#text": "Vahemälu sätted"
-          },
-          {
-            "@tag": "HEADER_CAPTCHA",
-            "#text": "CAPTCHA seaded"
           },
           {
             "@tag": "HEADER_CDN",
@@ -5160,22 +5116,6 @@
           {
             "@tag": "QUICK_SEARCH_HELP",
             "#text": "Kuva tööriistaribal kiirotsingu väli ja nupp."
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY",
-            "#text": "reCAPTCHA salajane võti:"
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY_HELP",
-            "#text": "Sisestage reCAPTCHA salajane võti"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "reCAPTCHA saidi võti:"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
-            "#text": "Sisestage reCAPTCHA saidi võti."
           },
           {
             "@tag": "REG_USERS",
@@ -5957,6 +5897,14 @@
             "#text": "Lindiriba pilt, nagu see kuvatakse kasutajakastis."
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Medals"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+          },
+          {
             "@tag": "MOVE_DOWN",
             "#text": "Liigu alla"
           },
@@ -5971,14 +5919,6 @@
           {
             "@tag": "TITLE",
             "#text": "Medalid"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
           }
         ]
       },
@@ -6000,6 +5940,14 @@
           {
             "@tag": "EDIT",
             "#text": "Muuda"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Forums"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           },
           {
             "@tag": "FORUM",
@@ -6024,14 +5972,6 @@
           {
             "@tag": "TITLE",
             "#text": "NNTP foorumid"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           }
         ]
       },
@@ -6096,6 +6036,14 @@
             "#text": "Kas kustutada see server?"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Servers"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nimi"
           },
@@ -6114,14 +6062,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Kasutajanimi"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
           }
         ]
       },
@@ -6228,20 +6168,20 @@
             "#text": "Kas kustutada definitsioon?"
           },
           {
-            "@tag": "NEW_DEF",
-            "#text": "Lisa uus definitsioon"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Kohandatud profiili määratlused"
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "No Custom Profile Definitions"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+          },
+          {
+            "@tag": "NEW_DEF",
+            "#text": "Lisa uus definitsioon"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Kohandatud profiili määratlused"
           }
         ]
       },
@@ -6502,6 +6442,14 @@
             "#text": "\"Halb\" (leida) väljend"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Replace Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Ekspordi XML-i"
           },
@@ -6520,14 +6468,6 @@
           {
             "@tag": "TITLE",
             "#text": "Asenda sõnad"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
           }
         ]
       },
@@ -6713,6 +6653,14 @@
             "#text": "Add"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Spam Check Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Ekspordi XML-i"
           },
@@ -6739,14 +6687,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rämpsposti kontrollimise sõnad"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
           }
         ]
       },
@@ -8024,14 +7964,6 @@
             "#text": "Tagasi"
           },
           {
-            "@tag": "BAD_CAPTCHA",
-            "#text": "Sisestatud tekst ei vasta turvapildile."
-          },
-          {
-            "@tag": "BAD_RECAPTCHA",
-            "#text": "Sisestage reCAPTCHA uuesti."
-          },
-          {
             "@tag": "BAD_USERNAME",
             "#text": "Kasutajanimi ei tohi sisaldada semikoolonit(;) või erimärke."
           },
@@ -8114,14 +8046,6 @@
           {
             "@tag": "CANNOT_VOTE",
             "#text": "Te [b]ei saa[/b] hääletada küsitlustes selles foorumis."
-          },
-          {
-            "@tag": "CAPTCHA_ENTER",
-            "#text": "Sisestage turvapildil olevad sümbolid:"
-          },
-          {
-            "@tag": "CAPTCHA_IMAGE",
-            "#text": "Turvapilt:"
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -14470,10 +14394,6 @@
             "#text": "E-posti aadress"
           },
           {
-            "@tag": "GENERATE_CAPTCHA",
-            "#text": "Loo uus pilt"
-          },
-          {
             "@tag": "HOMEPAGE",
             "#text": "Kodulehekülg"
           },
@@ -14560,10 +14480,6 @@
           {
             "@tag": "PROFILE",
             "#text": "Profiili info"
-          },
-          {
-            "@tag": "RECAPTCHA_BADSETTING",
-            "#text": "Recapture seaded on valed. Teatage sellest administratsioonile."
           },
           {
             "@tag": "RECATCHA_BADWORDS",

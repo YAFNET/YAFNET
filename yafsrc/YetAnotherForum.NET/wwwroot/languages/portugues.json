@@ -1014,6 +1014,14 @@
             "#text": "Adicionar novo e-mail"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Email Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Importar e-mail(s)"
           },
@@ -1040,14 +1048,6 @@
           {
             "@tag": "TITLE",
             "#text": "Endereços de e-mail proibidos"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
           }
         ]
       },
@@ -1137,6 +1137,14 @@
             "#text": "Proibido por"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned IP Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Exportar para ficheiro de texto"
           },
@@ -1171,14 +1179,6 @@
           {
             "@tag": "TITLE",
             "#text": "Endereços IP proibidos"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
           }
         ]
       },
@@ -1280,6 +1280,14 @@
             "#text": "Adicionar novo nome de utilizador"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Names"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Nome(s) de importação"
           },
@@ -1306,14 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Nomes proibidos"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
           }
         ]
       },
@@ -3590,14 +3590,6 @@
             "#text": "O utilizador não é mostrado nas listas de Utilizadores Activos."
           },
           {
-            "@tag": "USERINFO_EX_CAPTCHA",
-            "#text": "Excluir do CAPTCHA:"
-          },
-          {
-            "@tag": "USERINFO_EX_CAPTCHA_HELP",
-            "#text": "O CAPTCHA está desactivado especificamente para este utilizador."
-          },
-          {
             "@tag": "USERINFO_GUEST",
             "#text": "É Convidado:"
           },
@@ -4226,30 +4218,6 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
-            "@tag": "CAPTCHA_FOR_REGISTER",
-            "#text": "Habilitar CAPTCHA/reCAPTCHA para registo:"
-          },
-          {
-            "@tag": "CAPTCHA_FOR_REGISTER_HELP",
-            "#text": "Exigir aos utilizadores que entrem no CAPTCHA quando se registam no fórum."
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING",
-            "#text": "Habilitar CAPTCHA para Publicação de Convidados:"
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING_HELP",
-            "#text": "Exigir aos utilizadores convidados que entrem no CAPTCHA quando postam ou respondem a uma mensagem do fórum (incluindo Resposta Rápida)."
-          },
-          {
-            "@tag": "CAPTCHA_SIZE",
-            "#text": "Tamanho CAPTCHA:"
-          },
-          {
-            "@tag": "CAPTCHA_SIZE_HELP",
-            "#text": "Tamanho (comprimento) da cadeia alfanumérica aleatória CAPTCHA."
-          },
-          {
             "@tag": "CDN_JQUERY",
             "#text": "Usar o Google Hosted CDN jQuery Script File?"
           },
@@ -4406,14 +4374,6 @@
             "#text": "Habilita/desabilita calendário em perfil, se causar problemas em servidores/ para utilizadores com culturas diferentes."
           },
           {
-            "@tag": "ENABLE_CAPTCHA_FORPOST",
-            "#text": "Habilitar CAPTCHA para afixar uma mensagem:"
-          },
-          {
-            "@tag": "ENABLE_CAPTCHA_FORPOST_HELP",
-            "#text": "Exigir aos utilizadores que entrem no CAPTCHA quando postam ou respondem a uma mensagem do fórum (incluindo Resposta Rápida)."
-          },
-          {
             "@tag": "ENABLE_DISPLAY_NAME",
             "#text": "Habilitar nome de exibição:"
           },
@@ -4560,10 +4520,6 @@
           {
             "@tag": "HEADER_CACHE",
             "#text": "Configurações de cache"
-          },
-          {
-            "@tag": "HEADER_CAPTCHA",
-            "#text": "Definições CAPTCHA"
           },
           {
             "@tag": "HEADER_CDN",
@@ -5160,22 +5116,6 @@
           {
             "@tag": "QUICK_SEARCH_HELP",
             "#text": "Mostrar campo de pesquisa rápida e botão na barra de ferramentas."
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY",
-            "#text": "reCAPTCHA Chave Secreta:"
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY_HELP",
-            "#text": "Introduza uma chave secreta reCAPTCHA"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "reCAPTCHA Chave do Site:"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
-            "#text": "Introduza uma chave de sítio reCAPTCHA."
           },
           {
             "@tag": "REG_USERS",
@@ -5957,6 +5897,14 @@
             "#text": "Imagem da barra de fita como será exibida na caixa do utilizador."
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Medals"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+          },
+          {
             "@tag": "MOVE_DOWN",
             "#text": "Descer"
           },
@@ -5971,14 +5919,6 @@
           {
             "@tag": "TITLE",
             "#text": "Medalhas"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
           }
         ]
       },
@@ -6000,6 +5940,14 @@
           {
             "@tag": "EDIT",
             "#text": "Editar"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Forums"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           },
           {
             "@tag": "FORUM",
@@ -6024,14 +5972,6 @@
           {
             "@tag": "TITLE",
             "#text": "Fóruns NNTP"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           }
         ]
       },
@@ -6096,6 +6036,14 @@
             "#text": "Eliminar este servidor?"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Servers"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nome"
           },
@@ -6114,14 +6062,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Nome do Utilizador"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
           }
         ]
       },
@@ -6228,20 +6168,20 @@
             "#text": "Eliminar Definição?"
           },
           {
-            "@tag": "NEW_DEF",
-            "#text": "Adicionar Nova Definição"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Definições de perfil personalizadas"
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "No Custom Profile Definitions"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+          },
+          {
+            "@tag": "NEW_DEF",
+            "#text": "Adicionar Nova Definição"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Definições de perfil personalizadas"
           }
         ]
       },
@@ -6502,6 +6442,14 @@
             "#text": "Expressão \"má\" (Procurar)"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Replace Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Exportar para XML"
           },
@@ -6520,14 +6468,6 @@
           {
             "@tag": "TITLE",
             "#text": "Substituir Palavras"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
           }
         ]
       },
@@ -6713,6 +6653,14 @@
             "#text": "Add"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Spam Check Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Exportar para XML"
           },
@@ -6739,14 +6687,6 @@
           {
             "@tag": "TITLE",
             "#text": "Palavras de verificação de spam"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
           }
         ]
       },
@@ -8024,14 +7964,6 @@
             "#text": "Voltar"
           },
           {
-            "@tag": "BAD_CAPTCHA",
-            "#text": "O Texto Introduzido Não Correspondeu ao Texto na Imagem de Segurança."
-          },
-          {
-            "@tag": "BAD_RECAPTCHA",
-            "#text": "Por favor, volte a entrar no reCAPTCHA."
-          },
-          {
             "@tag": "BAD_USERNAME",
             "#text": "Username cannot contain semi-colons (;)."
           },
@@ -8114,14 +8046,6 @@
           {
             "@tag": "CANNOT_VOTE",
             "#text": "Você [b]não pode[/b] votar em enquetes neste fórum."
-          },
-          {
-            "@tag": "CAPTCHA_ENTER",
-            "#text": "Enter Letters From Security Image:"
-          },
-          {
-            "@tag": "CAPTCHA_IMAGE",
-            "#text": "Imagem de segurança:"
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -14474,10 +14398,6 @@
             "#text": "Endereço de Email"
           },
           {
-            "@tag": "GENERATE_CAPTCHA",
-            "#text": "Gerar Nova Imagem"
-          },
-          {
             "@tag": "HOMEPAGE",
             "#text": "Página inicial"
           },
@@ -14564,10 +14484,6 @@
           {
             "@tag": "PROFILE",
             "#text": "Informação de Perfil"
-          },
-          {
-            "@tag": "RECAPTCHA_BADSETTING",
-            "#text": "Os ajustes de recaptura são maus. Relate-o à administração."
           },
           {
             "@tag": "RECATCHA_BADWORDS",

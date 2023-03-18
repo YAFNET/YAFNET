@@ -104,11 +104,6 @@ public class PostsModalController : ForumBaseController
                 return this.Ok(new MessageModalNotification(this.GetText("ISEXCEEDED"), MessageTypes.warning));
             }
 
-            if (this.EnableCaptcha() && !CaptchaHelper.IsValid(model.Captcha))
-            {
-                return this.Ok(new MessageModalNotification(this.GetText("BAD_CAPTCHA"), MessageTypes.warning));
-            }
-
             if (!(this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess)
                 && this.PageBoardContext.BoardSettings.PostFloodDelay > 0)
             {
@@ -283,20 +278,6 @@ public class PostsModalController : ForumBaseController
 
             return this.Ok();
         }
-    }
-
-    /// <summary>
-    /// Enables the captcha.
-    /// </summary>
-    /// <returns>Returns if Captcha is enabled or not</returns>
-    private bool EnableCaptcha()
-    {
-        if (this.PageBoardContext.IsGuest && this.PageBoardContext.BoardSettings.EnableCaptchaForGuests)
-        {
-            return true;
-        }
-
-        return this.PageBoardContext.BoardSettings.EnableCaptchaForPost && !this.PageBoardContext.PageUser.UserFlags.IsCaptchaExcluded;
     }
 
     /// <summary>

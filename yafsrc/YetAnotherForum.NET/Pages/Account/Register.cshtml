@@ -86,32 +86,6 @@
                             </div>
                         </div>
 
-                        @if (Model.PageBoardContext.BoardSettings.CaptchaTypeRegister == 1)
-                        {
-                            <div class="mb-3">
-                                @Html.LocalizedText("REGISTER", "CAPTCHA_IMAGE")
-
-                                <img class="form-control w-25" src="@Model.CaptchaImage" alt="captcha" />
-
-                                <button type="submit"
-                                asp-page-handler="RefreshCaptcha"
-                                button-style="Secondary"
-                                button-size="Small"
-                                text-localized-page="REGISTER"
-                                text-localized-tag="GENERATE_CAPTCHA"></button>
-                            </div>
-                            <div class="mb-3">
-                                <label asp-for="Input.Captcha" class="form-label"
-                               localized-page="REGISTER" localized-tag="CAPTCHA_ENTER">
-                                </label>
-                                <input asp-for="Input.Captcha" class="form-control" required />
-                            </div>
-                        }
-                        else if (Model.PageBoardContext.BoardSettings.CaptchaTypeRegister == 2)
-                        {
-                            <recaptcha />
-                        }
-
                         @if (Model.Input.CustomProfile.Any())
                         {
                             <hr/>

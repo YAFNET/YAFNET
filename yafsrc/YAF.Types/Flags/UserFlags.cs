@@ -174,6 +174,7 @@ public class UserFlags : FlagsBase
     /// <summary>
     /// Gets or sets a value indicating whether user is guest, i.e. not registered and logged in.
     /// </summary>
+    [Obsolete]
     public bool IsCaptchaExcluded
     {
         // int value 8

@@ -31,7 +31,5 @@ public class QuickReplyModal
     [Required]
     public string QuickReplyEditor { get; set; }
 
-    public string Captcha { get; set; }
-
     public bool TopicWatch { get; set; }
 }

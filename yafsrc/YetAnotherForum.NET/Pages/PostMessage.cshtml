@@ -84,20 +84,8 @@
                             </div>
                         </div>
                     }
-
-                    @if (Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.EnableCaptchaForGuests ||
-                    Model.PageBoardContext.BoardSettings.EnableCaptchaForPost && !Model.PageBoardContext.PageUser.UserFlags.IsCaptchaExcluded)
-                    {
-                        <div class="mb-3">
-                            <label class="form-label" localized-tag="Captcha_Image"></label>
-                            <img src="@(CaptchaHelper.GetCaptcha())" alt="captcha" title="@(Model.Get<ILocalization>().GetText("Captcha_Image"))" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" localized-tag="Captcha_Enter" asp-for="Input.Captcha"></label>
-                            <input asp-for="Input.Captcha" class="form-control" type="text" />
-                        </div>
-                    }
-                </div>
+                    
+                    </div>
                 <div class="card-footer text-center">
                     <button class="mt-1"
                             asp-page-handler="Preview"

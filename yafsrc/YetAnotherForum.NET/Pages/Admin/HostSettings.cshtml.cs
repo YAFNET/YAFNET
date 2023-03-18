@@ -47,9 +47,6 @@ public class HostSettingsModel : AdminPage
     public InputModel Input { get; set; }
 
     [BindProperty]
-    public List<SelectListItem> CaptchaTypeRegisterList { get; set; }
-
-    [BindProperty]
     public List<SelectListItem> SpamServiceTypeList { get; set; }
 
     [BindProperty]
@@ -306,12 +303,6 @@ public class HostSettingsModel : AdminPage
         this.ShowHelpToList = dropDownLists;
         this.ShowTeamToList = dropDownLists;
         this.ShowShareTopicToList = dropDownLists;
-
-        this.CaptchaTypeRegisterList = new List<SelectListItem> {
-                                                                    new(this.GetText("ADMIN_COMMON", "DISABLED"), "0"),
-                                                                    new("YafCaptcha", "1"),
-                                                                    new("ReCaptcha", "2")
-                                                                };
 
         this.SpamServiceTypeList = new List<SelectListItem> {
                                                                 new(this.GetText("ADMIN_COMMON", "DISABLED"), "0"),
@@ -645,10 +636,6 @@ public class HostSettingsModel : AdminPage
 
         public bool ReputationAllowNegative { get; set; }
 
-        public bool EnableCaptchaForGuests { get; set; }
-
-        public bool EnableCaptchaForPost { get; set; }
-
         public bool ShowGuestsInDetailedActiveList { get; set; }
 
         public bool ShowCrawlersInActiveList { get; set; }
@@ -829,15 +816,7 @@ public class HostSettingsModel : AdminPage
 
         public int ReputationMinDownVoting { get; set; }
 
-        public int CaptchaTypeRegister { get; set; }
-
-        public int CaptchaSize { get; set; }
-
         public int MessageNotifcationDuration { get; set; }
-
-        public string RecaptchaPublicKey { get; set; }
-
-        public string RecaptchaPrivateKey { get; set; }
 
         public int ActiveListTime { get; set; }
 

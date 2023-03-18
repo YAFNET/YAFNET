@@ -71,12 +71,6 @@ public class RegisterModel : AccountPage
     public string ErrorMessage { get; set; }
 
     /// <summary>
-    /// Gets or sets the captcha image Url.
-    /// </summary>
-    [BindProperty]
-    public string CaptchaImage { get; set; }
-
-    /// <summary>
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
@@ -109,8 +103,6 @@ public class RegisterModel : AccountPage
         {
             this.ModelState.AddModelError(string.Empty, this.ErrorMessage);
         }
-
-        this.CaptchaImage = CaptchaHelper.GetCaptcha();
 
         this.LoadCustomProfile();
 
@@ -314,37 +306,6 @@ public class RegisterModel : AccountPage
             }
         }
 
-        switch (this.PageBoardContext.BoardSettings.CaptchaTypeRegister)
-        {
-            case 1:
-            {
-                // Check YAF Captcha
-                if (!CaptchaHelper.IsValid(this.Input.Captcha.Trim()))
-                {
-                    this.PageBoardContext.Notify(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
-
-                    return false;
-                }
-            }
-
-                break;
-            case 2:
-            {
-                // Check reCAPTCHA
-                this.Request.HttpContext.Request.Form.TryGetValue(
-                    "g-recaptcha-response",
-                    out var reCaptchaResponse);
-                var isValid = await this.Get<IReCaptchaService>().VerifyAsync(reCaptchaResponse);
-                if (!isValid)
-                {
-                    this.PageBoardContext.Notify(this.GetText("BAD_RECAPTCHA"), MessageTypes.danger);
-                    return false;
-                }
-            }
-
-                break;
-        }
-
         return true;
     }
 
@@ -491,16 +452,6 @@ public class RegisterModel : AccountPage
         [Required]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
-
-        /// <summary>
-        /// Gets or sets the captcha.
-        /// </summary>
-        public string Captcha { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether remember me.
-        /// </summary>
-        public bool RememberMe { get; set; }
 
         /// <summary>
         /// Gets or sets the custom profile.

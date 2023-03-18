@@ -1,4 +1,4 @@
-﻿{
+{
   "Resources": {
     "@language": "Chinese Simp",
     "@code": "zh-CN",
@@ -1014,6 +1014,14 @@
             "#text": "添加新电子邮件"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Email Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "导入电子邮件"
           },
@@ -1040,14 +1048,6 @@
           {
             "@tag": "TITLE",
             "#text": "禁止的电子邮件地址"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
           }
         ]
       },
@@ -1137,6 +1137,14 @@
             "#text": "操作人"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned IP Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "导出到文本文件"
           },
@@ -1171,14 +1179,6 @@
           {
             "@tag": "TITLE",
             "#text": "禁止的 IP 地址"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
           }
         ]
       },
@@ -1280,6 +1280,14 @@
             "#text": "添加新用户名"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Names"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "导入名称"
           },
@@ -1306,14 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "禁止名称"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
           }
         ]
       },
@@ -3590,14 +3590,6 @@
             "#text": "用户未显示在活动用户列表中。"
           },
           {
-            "@tag": "USERINFO_EX_CAPTCHA",
-            "#text": "从验证码中排除："
-          },
-          {
-            "@tag": "USERINFO_EX_CAPTCHA_HELP",
-            "#text": "专门为此用户禁用了 CAPTCHA。"
-          },
-          {
             "@tag": "USERINFO_GUEST",
             "#text": "是客人："
           },
@@ -4226,30 +4218,6 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
-            "@tag": "CAPTCHA_FOR_REGISTER",
-            "#text": "为注册启用 CAPTCHA/reCAPTCHA："
-          },
-          {
-            "@tag": "CAPTCHA_FOR_REGISTER_HELP",
-            "#text": "要求用户在注册论坛时输入验证码。"
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING",
-            "#text": "为访客发帖启用验证码："
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING_HELP",
-            "#text": "要求访客用户在发布或回复论坛消息（包括快速回复）时输入验证码。"
-          },
-          {
-            "@tag": "CAPTCHA_SIZE",
-            "#text": "验证码尺寸："
-          },
-          {
-            "@tag": "CAPTCHA_SIZE_HELP",
-            "#text": "CAPTCHA 随机字母数字字符串的大小（长度）。"
-          },
-          {
             "@tag": "CDN_JQUERY",
             "#text": "使用 Google 托管的 CDN jQuery 脚本文件？"
           },
@@ -4406,14 +4374,6 @@
             "#text": "启用/禁用配置文件中的日历，如果它在服务器上引起问题/对于具有不同文化的用户。"
           },
           {
-            "@tag": "ENABLE_CAPTCHA_FORPOST",
-            "#text": "启用验证码以发布消息："
-          },
-          {
-            "@tag": "ENABLE_CAPTCHA_FORPOST_HELP",
-            "#text": "要求用户在发布或回复论坛消息（包括快速回复）时输入验证码。"
-          },
-          {
             "@tag": "ENABLE_DISPLAY_NAME",
             "#text": "启用显示名称："
           },
@@ -4560,10 +4520,6 @@
           {
             "@tag": "HEADER_CACHE",
             "#text": "缓存设置"
-          },
-          {
-            "@tag": "HEADER_CAPTCHA",
-            "#text": "验证码设置"
           },
           {
             "@tag": "HEADER_CDN",
@@ -5160,22 +5116,6 @@
           {
             "@tag": "QUICK_SEARCH_HELP",
             "#text": "在工具栏中显示快速搜索字段和按钮。"
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY",
-            "#text": "reCAPTCHA 密钥："
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY_HELP",
-            "#text": "输入 reCAPTCHA 密钥"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "reCAPTCHA 网站密钥："
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
-            "#text": "输入 reCAPTCHA 站点密钥。"
           },
           {
             "@tag": "REG_USERS",
@@ -5957,6 +5897,14 @@
             "#text": "功能区条图像，因为它将显示在用户框中。"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Medals"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+          },
+          {
             "@tag": "MOVE_DOWN",
             "#text": "下移"
           },
@@ -5971,14 +5919,6 @@
           {
             "@tag": "TITLE",
             "#text": "奖牌"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
           }
         ]
       },
@@ -6000,6 +5940,14 @@
           {
             "@tag": "EDIT",
             "#text": "编辑"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Forums"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           },
           {
             "@tag": "FORUM",
@@ -6024,14 +5972,6 @@
           {
             "@tag": "TITLE",
             "#text": "NNTP 论坛"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           }
         ]
       },
@@ -6096,6 +6036,14 @@
             "#text": "删除此服务器？"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Servers"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
+          },
+          {
             "@tag": "NAME",
             "#text": "姓名"
           },
@@ -6114,14 +6062,6 @@
           {
             "@tag": "USERNAME",
             "#text": "用户名"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
           }
         ]
       },
@@ -6228,20 +6168,20 @@
             "#text": "删除定义？"
           },
           {
-            "@tag": "NEW_DEF",
-            "#text": "添加新定义"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "自定义配置文件定义"
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "No Custom Profile Definitions"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+          },
+          {
+            "@tag": "NEW_DEF",
+            "#text": "添加新定义"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "自定义配置文件定义"
           }
         ]
       },
@@ -6502,6 +6442,14 @@
             "#text": "“坏”（查找）表达式"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Replace Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "导出为 XML"
           },
@@ -6520,14 +6468,6 @@
           {
             "@tag": "TITLE",
             "#text": "替换单词"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
           }
         ]
       },
@@ -6713,6 +6653,14 @@
             "#text": "Add"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Spam Check Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "导出为 XML"
           },
@@ -6739,14 +6687,6 @@
           {
             "@tag": "TITLE",
             "#text": "垃圾邮件检查词"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
           }
         ]
       },
@@ -8024,14 +7964,6 @@
             "#text": "返回"
           },
           {
-            "@tag": "BAD_CAPTCHA",
-            "#text": "输入的文本与安全图像中的文本不匹配。"
-          },
-          {
-            "@tag": "BAD_RECAPTCHA",
-            "#text": "请重新输入验证码。"
-          },
-          {
             "@tag": "BAD_USERNAME",
             "#text": "用户名不允许包含分号 (;)."
           },
@@ -8114,14 +8046,6 @@
           {
             "@tag": "CANNOT_VOTE",
             "#text": "您 [b]不可以[/b] 投票."
-          },
-          {
-            "@tag": "CAPTCHA_ENTER",
-            "#text": "请输入验证码图片中的字符:"
-          },
-          {
-            "@tag": "CAPTCHA_IMAGE",
-            "#text": "验证码:"
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -14474,10 +14398,6 @@
             "#text": "电子邮件地址"
           },
           {
-            "@tag": "GENERATE_CAPTCHA",
-            "#text": "换一个验证码"
-          },
-          {
             "@tag": "HOMEPAGE",
             "#text": "个人主页"
           },
@@ -14564,10 +14484,6 @@
           {
             "@tag": "PROFILE",
             "#text": "个人信息"
-          },
-          {
-            "@tag": "RECAPTCHA_BADSETTING",
-            "#text": "重新捕获设置不好。"
           },
           {
             "@tag": "RECATCHA_BADWORDS",

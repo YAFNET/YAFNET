@@ -614,11 +614,6 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="captcha-tab" data-bs-toggle="tab" data-bs-target="#captcha" role="tab" aria-controls="captcha" aria-selected="false">
-            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_CAPTCHA")
-        </a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link" id="notification-tab" data-bs-toggle="tab" data-bs-target="#notification" role="tab" aria-controls="notification" aria-selected="false">
             @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_MESSAGE_NOTIFICATION")
         </a>
@@ -1010,53 +1005,6 @@
                    asp-for="Input.ReputationMinDownVoting"
                    localized-tag="REPUTATION_MINDOWN"></label>
             <input type="number" class="form-control" asp-for="Input.ReputationMinDownVoting" />
-        </div>
-    </div>
-</div>
-<div class="tab-pane fade" id="captcha" role="tabpanel" aria-labelledby="captcha-tab">
-    <div class="mb-3">
-        <label class="form-label" info-button="true"
-               asp-for="Input.CaptchaTypeRegister"
-               localized-tag="CAPTCHA_FOR_REGISTER"></label>
-        <select class="form-select" asp-for="Input.CaptchaTypeRegister" asp-items="Model.CaptchaTypeRegisterList">
-        </select>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <label class="form-label" info-button="true" 
-                   asp-for="Input.EnableCaptchaForGuests"
-                   localized-tag="CAPTCHA_GUEST_POSTING"></label>
-            <div class="form-check form-switch">
-                <input type="checkbox" class="form-check-label" asp-for="Input.EnableCaptchaForGuests"/>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <label class="form-label" info-button="true"
-                   asp-for="Input.EnableCaptchaForPost"
-                   localized-tag="ENABLE_CAPTCHA_FORPOST"></label>
-            <div class="form-check form-switch">
-                <input type="checkbox" class="form-check-label" asp-for="Input.EnableCaptchaForPost"/>
-            </div>
-        </div>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" info-button="true"
-               asp-for="Input.CaptchaSize"
-               localized-tag="CAPTCHA_SIZE"></label>
-        <input type="number" class="form-control" asp-for="Input.CaptchaSize" />
-    </div>
-    <div class="row">
-        <div class="mb-3 col-md-6">
-            <label class="form-label" info-button="true"
-                   asp-for="Input.RecaptchaPublicKey"
-                   localized-tag="RECAPTCHA_PUBLIC_KEY"></label>
-            <input type="text" class="form-control" asp-for="Input.RecaptchaPublicKey" />
-        </div>
-        <div class="mb-3 col-md-6">
-            <label class="form-label" info-button="true"
-                   asp-for="Input.RecaptchaPrivateKey"
-                   localized-tag="RECAPTCHA_PRIVATE_KEY"></label>
-            <input type="text" class="form-control" asp-for="Input.RecaptchaPrivateKey" />
         </div>
     </div>
 </div>
