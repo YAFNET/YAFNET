@@ -47,7 +47,6 @@ using YAF.Core;
 using YAF.Core.Context;
 using YAF.Core.Middleware;
 using YAF.Core.Modules;
-using YAF.signalr;
 using YAF.Types;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
