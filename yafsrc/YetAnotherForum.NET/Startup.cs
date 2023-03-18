@@ -47,14 +47,13 @@ using YAF.Core;
 using YAF.Core.Context;
 using YAF.Core.Middleware;
 using YAF.Core.Modules;
-using YAF.Core.Utilities.Captcha;
+using YAF.signalr;
 using YAF.Types;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models.Identity;
 using YAF.Types.Objects;
-using YAF.Web.ReCaptcha;
 
 /// <summary>
 /// The startup.
@@ -91,7 +90,7 @@ public class Startup : IHaveServiceLocator
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddRazorPages();
-        services.AddControllers();
+        services.AddControllers
 
         services.AddMemoryCache();
 
@@ -197,17 +196,12 @@ public class Startup : IHaveServiceLocator
                 });
         }
 
-        services.AddReCaptcha();
-
-        services.AddSingleton<ISixLaborsCaptchaModule>(new SixLaborsCaptchaModule());
-
         services.Configure<RequestLocalizationOptions>(options =>
         {
             var supportedCultures = new[] {
                                               new CultureInfo("ar"),
                                               new CultureInfo("zh-CN"),
                                               new CultureInfo("zh-TW"),
-                                              new CultureInfo("hr"),
                                               new CultureInfo("cs"),
                                               new CultureInfo("da"),
                                               new CultureInfo("nl"),
@@ -236,10 +230,10 @@ public class Startup : IHaveServiceLocator
             options.SupportedCultures = supportedCultures;
             options.SupportedUICultures = supportedCultures;
         });
-
+        
         services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
-            x => x.GetRequiredService<IUrlHelperFactory>()
-                .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext)); 
+              x => x.GetRequiredService<IUrlHelperFactory>()
+                  .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
 
         services.AddOptions();
     }
