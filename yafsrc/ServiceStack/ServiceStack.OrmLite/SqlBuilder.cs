@@ -16,7 +16,6 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text.RegularExpressions;
-using System.Threading;
 
 using PropertyAttributes = System.Reflection.PropertyAttributes;
 

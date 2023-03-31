@@ -4,17 +4,15 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using System.Runtime.Serialization;
+
 using ServiceStack.DataAnnotations;
-#if NETCORE
-using System.Globalization;
-#endif
 
 namespace ServiceStack.OrmLite.Converters
 {
@@ -29,14 +27,17 @@ namespace ServiceStack.OrmLite.Converters
         /// The string
         /// </summary>
         String,
+
         /// <summary>
         /// The int
         /// </summary>
         Int,
+
         /// <summary>
         /// The character
         /// </summary>
         Char,
+
         /// <summary>
         /// The enum member
         /// </summary>

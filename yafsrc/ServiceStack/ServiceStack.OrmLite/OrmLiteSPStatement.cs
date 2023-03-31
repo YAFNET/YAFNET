@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using ServiceStack.OrmLite.Dapper;
 
 namespace ServiceStack.OrmLite;
 
@@ -22,10 +21,12 @@ public class OrmLiteSPStatement : IDisposable
     /// The database
     /// </summary>
     private readonly IDbConnection db;
+
     /// <summary>
     /// The database command
     /// </summary>
     private readonly IDbCommand dbCmd;
+
     /// <summary>
     /// The dialect provider
     /// </summary>
