@@ -825,7 +825,10 @@ public static class OrmLiteUtils
         {
             if (sb.Length > 0)
                 sb.Append(",");
-            sb.Append(dialect.GetQuotedValue(value, value.GetType()));
+
+            sb.Append(value is null
+                          ? "NULL"
+                          : dialect.GetQuotedValue(value, value.GetType()));
         }
 
         return StringBuilderCache.ReturnAndFree(sb);

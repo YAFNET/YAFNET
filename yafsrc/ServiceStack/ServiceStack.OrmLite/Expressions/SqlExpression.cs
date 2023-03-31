@@ -1193,6 +1193,16 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
     public virtual SqlExpression<T> Or(Expression<Func<T, bool>> predicate, params object[] filterParams) => this.AppendToWhere("OR", predicate, filterParams);
 
+    public virtual SqlExpression<T> WhereExists(ISqlExpression subSelect)
+    {
+        return AppendToWhere("AND", FormatFilter($"EXISTS ({subSelect.ToSelectStatement()})"));
+    }
+
+    public virtual SqlExpression<T> WhereNotExists(ISqlExpression subSelect)
+    {
+        return AppendToWhere("AND", FormatFilter($"NOT EXISTS ({subSelect.ToSelectStatement()})"));
+    }
+
     /// <summary>
     /// The original lambda
     /// </summary>
@@ -2811,7 +2821,6 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
                 return $"{r}={this.GetQuotedTrueValue()}";
             }
-
         }
         else if (lambda.Body.NodeType == ExpressionType.Conditional && this.Sep == " ")
         {
