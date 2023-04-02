@@ -20,6 +20,12 @@ module.exports = function(grunt) {
                 files: [
                     { expand: true, src: ["**/jquery.js", "**/jquery.min.js", "**/jquery.min.map"], cwd: "node_modules/jquery/dist", dest: "Scripts/" }
                 ]
+            },
+            fontAwesome: {
+                files: [
+                    { expand: true, src: "**/*.scss", cwd: "node_modules/@fortawesome/fontawesome-free/scss", dest: "Content/fontawesome/" },
+                    { expand: true, src: "**/*.*", cwd: "node_modules/@fortawesome/fontawesome-free/webfonts", dest: "Content/webfonts/" }
+                ]
             }
         },
 
