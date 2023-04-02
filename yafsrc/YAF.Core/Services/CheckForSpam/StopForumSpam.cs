@@ -25,7 +25,9 @@
 namespace YAF.Core.Services.CheckForSpam;
 
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Mime;
 
 using Microsoft.Extensions.Logging;
 
@@ -76,7 +78,7 @@ public class StopForumSpam : ICheckForBot
             var url =
                 $"https://www.stopforumspam.com/api?{(ipAddress.IsSet() ? $"ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&email={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&username={userName}" : string.Empty)}&f=json";
 
-            var client = new System.Net.Http.HttpClient(new HttpClientHandler());
+            var client = new HttpClient(new HttpClientHandler());
 
             var response = client.GetAsync(url).Result;
 
@@ -89,20 +91,17 @@ public class StopForumSpam : ICheckForBot
                 return false;
             }
 
-            // Match name + email address
-            if (stopForumResponse.UserName.Appears && stopForumResponse.Email.Appears)
+            switch (stopForumResponse.UserName.Appears)
             {
-                return true;
+                // Match name + email address
+                case true when stopForumResponse.Email.Appears:
+                // Match name + IP address
+                case true when stopForumResponse.IPAddress.Appears:
+                    return true;
+                default:
+                    // Match IP + email address
+                    return stopForumResponse.IPAddress.Appears && stopForumResponse.Email.Appears;
             }
-
-            // Match name + IP address
-            if (stopForumResponse.UserName.Appears && stopForumResponse.IPAddress.Appears)
-            {
-                return true;
-            }
-
-            // Match IP + email address
-            return stopForumResponse.IPAddress.Appears && stopForumResponse.Email.Appears;
         }
         catch (Exception ex)
         {
@@ -127,11 +126,11 @@ public class StopForumSpam : ICheckForBot
         var parameters =
             $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={BoardContext.Current.BoardSettings.StopForumSpamApiKey}";
 
-        var result = new HttpClient().PostRequest(
-            new Uri("https://www.stopforumspam.com/add.php"),
-            null,
-            60 * 1000,
-            parameters);
+
+        var client = new HttpClient(new HttpClientHandler());
+        var response = client.GetAsync($"https://www.stopforumspam.com/add.php?{parameters}").Result;
+
+        var result = response.Content.ReadAsStringAsync().Result;
 
         if (!result.Contains("success"))
         {

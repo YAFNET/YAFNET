@@ -25,7 +25,6 @@ namespace YAF.Types.Interfaces.Services;
 
 using System.Collections.Generic;
 
-using YAF.Types;
 using YAF.Types.Models;
 
 /// <summary>

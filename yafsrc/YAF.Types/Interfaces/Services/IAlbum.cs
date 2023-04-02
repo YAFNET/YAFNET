@@ -23,10 +23,6 @@
  */
 namespace YAF.Types.Interfaces.Services;
 
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Http;
-
 using Objects;
 
 /// <summary>

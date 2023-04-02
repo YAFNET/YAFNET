@@ -24,7 +24,7 @@
 
 namespace YAF.Tests.CoreTests;
 
-using System;
+using System.Net.Http;
 
 using YAF.Core.Services.CheckForSpam;
 
@@ -85,14 +85,13 @@ public class SpamClientTests
     public void Report_User_As_Bot_Test()
     {
         var parameters =
-            "username=someone&ip_addr=84.16.230.111&email=krasnhello@mail.ru&api_key=XXXXXXXXXXX";
+            "username=someone&ip_addr=84.16.230.111&email=krasnhello@mail.ru&api_key=XXXXXXXXX";
 
-        var result = new HttpClient().PostRequest(
-            new Uri("https://www.stopforumspam.com/add.php"),
-            null,
-            5000,
-            parameters);
+        var client = new HttpClient(new HttpClientHandler());
+        var response = client.GetAsync($"https://www.stopforumspam.com/add.php?{parameters}").Result;
 
-        Assert.IsTrue(result.Equals("success"), result);
+        var result = response.Content.ReadAsStringAsync().Result;
+
+        Assert.IsTrue(result.Contains("success"), result);
     }
 }

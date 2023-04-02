@@ -1,7 +1,5 @@
 namespace YAF.Types.Interfaces;
 
-using YAF.Types;
-
 /// <summary>
 /// The i newsgroup.
 /// </summary>

@@ -75,7 +75,7 @@ public class BotScout : ICheckForBot
                 $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(BoardContext.Current.BoardSettings.BotScoutApiKey.IsSet() ? $"&key={BoardContext.Current.BoardSettings.BotScoutApiKey}" : string.Empty)}";
 
 
-            var client = new System.Net.Http.HttpClient(new HttpClientHandler());
+            var client = new HttpClient(new HttpClientHandler());
 
             var response = client.GetAsync(url).Result;
 

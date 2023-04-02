@@ -25,7 +25,6 @@ namespace YAF.Types.Extensions;
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -142,35 +141,6 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Returns a "random" alpha-numeric string of specified length and characters.
-    /// </summary>
-    /// <param name="length">
-    /// the length of the random string
-    /// </param>
-    /// <returns>
-    /// The generate random string.
-    /// </returns>
-    public static string GenerateRandomString(int length)
-    {
-        var chars = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVXYZW23456789".ToCharArray();
-
-        var data = new byte[4 * length];
-        using (var crypto = new RNGCryptoServiceProvider())
-        {
-            crypto.GetBytes(data);
-        }
-        var result = new StringBuilder(length);
-        for (var i = 0; i < length; i++)
-        {
-            var rnd = BitConverter.ToUInt32(data, i * 4);
-            var idx = rnd % chars.Length;
-            result.Append(chars[idx]);
-        }
-
-        return result.ToString();
-    }
-
-    /// <summary>
     /// When the string is trimmed, is it <see langword="null" /> or empty?
     /// </summary>
     /// <param name="inputString">The input string.</param>
@@ -272,7 +242,7 @@ public static class StringExtensions
                 {
                     if (!char.IsWhiteSpace(c) && !char.IsLetterOrDigit(c) && c != '_')
                     {
-                        sb.Append("\\");
+                        sb.Append('\\');
                     }
 
                     sb.Append(c);

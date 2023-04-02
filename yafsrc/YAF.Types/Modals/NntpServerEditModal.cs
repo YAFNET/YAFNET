@@ -24,9 +24,7 @@
 
 namespace YAF.Types.Modals;
 
-using System;
 using System.ComponentModel.DataAnnotations;
-using YAF.Types.Objects;
 
 public class NntpServerEditModal
 {
