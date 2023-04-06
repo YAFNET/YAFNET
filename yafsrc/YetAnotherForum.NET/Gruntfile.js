@@ -29,6 +29,25 @@ module.exports = function(grunt) {
             }
         },
 
+        replace: {
+            fontAwesome: {
+                options: {
+                    usePrefix: false,
+                    patterns: [
+                        {
+                            match: '../webfonts',
+                            replacement: '../Content/webfonts'
+                        }
+                    ]
+                },
+                files: [
+                    {
+                        expand: true, flatten: true, src: ["Content/fontawesome/_variables.scss"], dest: "Content/fontawesome/"
+                    }
+                ]
+            }
+        },
+
         shell: {
             emailTemplates: {
                 command: [
@@ -112,7 +131,7 @@ module.exports = function(grunt) {
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/zephyr/EmailTemplate.html -c Content/Themes/zephyr/bootstrap_email.config",
 
                     "rmdir .sass-cache /s /q"
-                ].join('&&')
+                ].join("&&")
 
             }
         },
@@ -446,15 +465,21 @@ module.exports = function(grunt) {
     // PLUGINS
     grunt.loadNpmTasks("grunt-contrib-sass");
     grunt.loadNpmTasks("@lodder/grunt-postcss");
-    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-dev-update");
     grunt.loadNpmTasks("grunt-shell");
+    grunt.loadNpmTasks("grunt-replace");
 
     grunt.registerTask("default",
         [
             "devUpdate", "uglify", "sass", "postcss", "cssmin"
+        ]);
+
+    grunt.registerTask("updateFontAwesome",
+        [
+            "copy:fontAwesome","replace:fontAwesome"
         ]);
 
     grunt.registerTask("updateBootswatchThemes",
