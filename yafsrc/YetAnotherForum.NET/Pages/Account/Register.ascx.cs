@@ -117,11 +117,6 @@ public partial class Register : AccountPage
 
         this.EmailValid.ErrorMessage = this.GetText("PROFILE", "BAD_EMAIL");
 
-        if (this.PageBoardContext.BoardSettings.CaptchaTypeRegister == 2)
-        {
-            this.SetupRecaptchaControl();
-        }
-
         if (!this.ProfileDefinitions.Any())
         {
             return;
@@ -321,64 +316,15 @@ public partial class Register : AccountPage
     }
 
     /// <summary>
-    /// Handles the Click event of the RefreshCaptcha control.
-    /// </summary>
-    /// <param name="sender">
-    /// The source of the event.
-    /// </param>
-    /// <param name="e">
-    /// The <see cref="EventArgs"/> instance containing the event data.
-    /// </param>
-    protected void RefreshCaptchaClick(object sender, EventArgs e)
-    {
-        this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
-    }
-
-    /// <summary>
     /// The setup create user step.
     /// </summary>
     private void SetupCreateUserStep()
     {
-        var captchaPlaceHolder = this.YafCaptchaHolder;
-        var recaptchaPlaceHolder = this.RecaptchaPlaceHolder;
-
-        if (this.PageBoardContext.BoardSettings.CaptchaTypeRegister == 1)
-        {
-            this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
-
-            this.RefreshCaptcha.Text = this.GetText("GENERATE_CAPTCHA");
-
-            captchaPlaceHolder.Visible = true;
-        }
-        else
-        {
-            captchaPlaceHolder.Visible = false;
-        }
-
-        recaptchaPlaceHolder.Visible = this.PageBoardContext.BoardSettings.CaptchaTypeRegister == 2;
-
         this.DisplayNamePlaceHolder.Visible = this.PageBoardContext.BoardSettings.EnableDisplayName;
     }
 
     /// <summary>
-    /// The setup reCAPTCHA control.
-    /// </summary>
-    private void SetupRecaptchaControl()
-    {
-        this.RecaptchaPlaceHolder.Visible = true;
-
-        if (this.PageBoardContext.BoardSettings.RecaptchaPrivateKey.IsSet() &&
-            this.PageBoardContext.BoardSettings.RecaptchaPublicKey.IsSet())
-        {
-            return;
-        }
-
-        this.Logger.Log(this.PageBoardContext.PageUserID, this, "secret or site key is required for reCAPTCHA!");
-        this.Get<LinkBuilder>().AccessDenied();
-    }
-
-    /// <summary>
-    /// Validate user for user name and or display name, captcha and spam
+    /// Validate user for user name and or display name and spam
     /// </summary>
     /// <returns>
     /// The <see cref="bool"/>.
@@ -482,40 +428,14 @@ public partial class Register : AccountPage
                     new BanUserEvent(this.PageBoardContext.PageUserID, userName, this.Email.Text, userIpAddress));
             }
 
-            if (this.PageBoardContext.BoardSettings.BotHandlingOnRegister.Equals(2))
+            if (!this.PageBoardContext.BoardSettings.BotHandlingOnRegister.Equals(2))
             {
-                this.GetRepository<Registry>().IncrementBannedUsers();
-
-                return false;
+                return true;
             }
-        }
 
-        switch (this.PageBoardContext.BoardSettings.CaptchaTypeRegister)
-        {
-            case 1:
-                {
-                    // Check YAF Captcha
-                    if (!CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
-                    {
-                        this.PageBoardContext.Notify(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
+            this.GetRepository<Registry>().IncrementBannedUsers();
 
-                        return false;
-                    }
-                }
-
-                break;
-            case 2:
-                {
-                    // Check reCAPTCHA
-                    if (!this.Recaptcha1.IsValid)
-                    {
-                        this.PageBoardContext.Notify(this.GetText("BAD_RECAPTCHA"), MessageTypes.danger);
-
-                        return false;
-                    }
-                }
-
-                break;
+            return false;
         }
 
         return true;

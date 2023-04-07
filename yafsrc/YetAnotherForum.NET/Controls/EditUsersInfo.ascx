@@ -61,15 +61,6 @@
     </div>
     </asp:PlaceHolder>
     <div class="row">
-    <div class="mb-3 col-md-6">
-            <YAF:HelpLabel ID="HelpLabel6" runat="server" 
-                           AssociatedControlID="IsCaptchaExcluded"
-                           LocalizedTag="USERINFO_EX_CAPTCHA" LocalizedPage="ADMIN_EDITUSER" />
-         
-        <div class="form-check form-switch">
-            <asp:CheckBox Text="&nbsp;" runat="server" ID="IsCaptchaExcluded" />
-        </div>
-    </div>
         <div class="mb-3 col-md-6">
             <YAF:HelpLabel ID="HelpLabel7" runat="server" 
                            AssociatedControlID="IsExcludedFromActiveUsers"

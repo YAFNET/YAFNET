@@ -33,75 +33,6 @@ using YAF.Types.Exceptions;
 public class HttpClient
 {
     /// <summary>
-    /// Gets the content of a web page.
-    /// </summary>
-    /// <param name="url">
-    /// The URL.
-    /// </param>
-    /// <param name="userAgent">
-    /// The user agent.
-    /// </param>
-    /// <param name="timeout">
-    /// The timeout in milliseconds.
-    /// </param>
-    /// <param name="proxy">
-    /// The proxy.
-    /// </param>
-    /// <returns>
-    /// The string value of requested web page.
-    /// </returns>
-    /// <exception cref="InvalidResponseException"><c>InvalidResponseException</c>.</exception>
-    [NotNull]
-    public virtual string GetRequest(
-        [NotNull] Uri url,
-        [NotNull] string userAgent,
-        int timeout,
-        [NotNull] IWebProxy proxy)
-    {
-        CodeContracts.VerifyNotNull(url);
-        CodeContracts.VerifyNotNull(userAgent);
-        CodeContracts.VerifyNotNull(proxy);
-
-        ServicePointManager.Expect100Continue = false;
-        var request = WebRequest.Create(url) as HttpWebRequest;
-
-        Debug.Assert(
-            request != null,
-            "HttpWebRequest should not be null",
-            $"Calling WebRequest.Create(url) produced a null HttpWebRequest instance for the URL '{url}'");
-
-        if (proxy != null)
-        {
-            request.Proxy = proxy;
-        }
-
-        request.UserAgent = userAgent;
-        request.Timeout = timeout;
-        request.Method = "GET";
-        request.ContentType = "application/x-www-form-urlencoded; charset=utf-8";
-        request.KeepAlive = true;
-
-        var response = (HttpWebResponse)request.GetResponse();
-
-        if (response.StatusCode < HttpStatusCode.OK && response.StatusCode >= HttpStatusCode.Ambiguous)
-        {
-            throw new InvalidResponseException(
-                string.Format(
-                    CultureInfo.InvariantCulture,
-                    "The service was not able to handle our request. Http Status '{0}'.",
-                    response.StatusCode),
-                response.StatusCode);
-        }
-
-        using var reader = new StreamReader(response.GetResponseStream(), Encoding.ASCII);
-
-        // They only return "true" or "false"
-        var responseText = reader.ReadToEnd();
-
-        return responseText;
-    }
-
-    /// <summary>
     /// Posts the request and returns a text response.
     /// </summary>
     /// <param name="url">
@@ -119,44 +50,12 @@ public class HttpClient
     /// <returns>
     /// The post request.
     /// </returns>
-    public virtual string PostRequest(
-        [NotNull] Uri url,
-        [NotNull] string userAgent,
-        int timeout,
-        [NotNull] string formParameters)
-    {
-        return this.PostRequest(url, userAgent, timeout, formParameters, null);
-    }
-
-    /// <summary>
-    /// Posts the request.
-    /// </summary>
-    /// <param name="url">
-    /// The URL.
-    /// </param>
-    /// <param name="userAgent">
-    /// The user agent.
-    /// </param>
-    /// <param name="timeout">
-    /// The timeout in milliseconds.
-    /// </param>
-    /// <param name="formParameters">
-    /// The form parameters.
-    /// </param>
-    /// <param name="proxy">
-    /// The proxy.
-    /// </param>
-    /// <returns>
-    /// The post request.
-    /// </returns>
-    /// <exception cref="InvalidResponseException"><c>InvalidResponseException</c>.</exception>
     [NotNull]
     public virtual string PostRequest(
         [NotNull] Uri url,
         [CanBeNull] string userAgent,
         int timeout,
-        [NotNull] string formParameters,
-        [CanBeNull] IWebProxy proxy)
+        [NotNull] string formParameters)
     {
         CodeContracts.VerifyNotNull(url);
         CodeContracts.VerifyNotNull(formParameters);
@@ -168,11 +67,6 @@ public class HttpClient
             request != null,
             "HttpWebRequest should not be null",
             $"Calling WebRequest.Create(url) produced a null HttpWebRequest instance for the URL '{url}'");
-
-        if (proxy != null)
-        {
-            request.Proxy = proxy;
-        }
 
         if (userAgent.IsSet())
         {

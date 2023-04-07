@@ -141,24 +141,6 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.CheckBox IsHostAdminX;
 
         /// <summary>
-        /// HelpLabel6-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel6;
-
-        /// <summary>
-        /// IsCaptchaExcluded-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsCaptchaExcluded;
-
-        /// <summary>
         /// HelpLabel7-Steuerelement.
         /// </summary>
         /// <remarks>

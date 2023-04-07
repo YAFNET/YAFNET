@@ -333,10 +333,6 @@ public partial class HostSettings : AdminPage
                 localizations.Select((t, i) => new ListItem(this.GetText("ADMIN_HOSTSETTINGS", t), i.ToString()))
                     .ToArray()));
 
-        this.CaptchaTypeRegister.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));
-        this.CaptchaTypeRegister.Items.Add(new ListItem("YafCaptcha", "1"));
-        this.CaptchaTypeRegister.Items.Add(new ListItem("ReCaptcha", "2"));
-
         this.SpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));
         this.SpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_SERVICE_TYP_3"), "3"));
 

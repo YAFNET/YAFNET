@@ -1419,15 +1419,6 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel9;
 
         /// <summary>
-        /// LocalizedLabel10-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel10;
-
-        /// <summary>
         /// LocalizedLabel11-Steuerelement.
         /// </summary>
         /// <remarks>
@@ -2281,114 +2272,6 @@ namespace YAF.Pages.Admin
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ReputationMinDownVoting;
-
-        /// <summary>
-        /// HelpLabel148-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel148;
-
-        /// <summary>
-        /// CaptchaTypeRegister-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList CaptchaTypeRegister;
-
-        /// <summary>
-        /// HelpLabel146-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel146;
-
-        /// <summary>
-        /// EnableCaptchaForGuests-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EnableCaptchaForGuests;
-
-        /// <summary>
-        /// HelpLabel147-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel147;
-
-        /// <summary>
-        /// EnableCaptchaForPost-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EnableCaptchaForPost;
-
-        /// <summary>
-        /// HelpLabel143-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel143;
-
-        /// <summary>
-        /// CaptchaSize-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox CaptchaSize;
-
-        /// <summary>
-        /// HelpLabel144-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel144;
-
-        /// <summary>
-        /// RecaptchaPublicKey-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox RecaptchaPublicKey;
-
-        /// <summary>
-        /// HelpLabel145-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel145;
-
-        /// <summary>
-        /// RecaptchaPrivateKey-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox RecaptchaPrivateKey;
 
         /// <summary>
         /// HelpLabel255-Steuerelement.

@@ -636,6 +636,15 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.Literal Interests;
 
         /// <summary>
+        /// LastPostsHolder-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder LastPostsHolder;
+
+        /// <summary>
         /// LocalizedLabel43-Steuerelement.
         /// </summary>
         /// <remarks>

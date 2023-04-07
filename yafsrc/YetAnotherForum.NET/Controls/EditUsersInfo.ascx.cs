@@ -89,7 +89,6 @@ public partial class EditUsersInfo : BaseUserControl
                             {
                                 IsHostAdmin = this.IsHostAdminX.Checked,
                                 IsGuest = this.IsGuestX.Checked,
-                                IsCaptchaExcluded = this.IsCaptchaExcluded.Checked,
                                 IsActiveExcluded = this.IsExcludedFromActiveUsers.Checked,
                                 IsApproved = this.IsApproved.Checked,
                                 Moderated = this.Moderated.Checked
@@ -140,7 +139,6 @@ public partial class EditUsersInfo : BaseUserControl
         this.IsHostAdminX.Checked = this.User.Item1.UserFlags.IsHostAdmin;
         this.IsApproved.Checked = this.User.Item1.UserFlags.IsApproved;
         this.IsGuestX.Checked = this.User.Item1.UserFlags.IsGuest;
-        this.IsCaptchaExcluded.Checked = this.User.Item1.UserFlags.IsCaptchaExcluded;
         this.IsExcludedFromActiveUsers.Checked = this.User.Item1.UserFlags.IsActiveExcluded;
         this.Moderated.Checked = this.User.Item1.UserFlags.Moderated;
         this.Joined.Text = this.User.Item1.Joined.ToString(CultureInfo.InvariantCulture);

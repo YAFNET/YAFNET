@@ -128,34 +128,6 @@
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
-
-                <asp:PlaceHolder runat="server" ID="YafCaptchaHolder" Visible="false">
-                            <div class="mb-3">
-                                <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server"
-                                                    LocalizedTag="Captcha_Image" />
-
-                                <asp:Image ID="imgCaptcha" runat="server" CssClass="form-control w-25" ToolTip="captcha" />
-
-                                <YAF:ThemeButton id="RefreshCaptcha" runat="server" CausesValidation="False"
-                                                 OnClick="RefreshCaptchaClick"
-                                                 CssClass="mt-1"
-                                                 Icon="rotate"
-                                                 Type="Secondary"></YAF:ThemeButton>
-                            </div>
-                            <div class="mb-3">
-                                <asp:Label runat="server" AssociatedControlID="tbCaptcha">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server"
-                                                        LocalizedTag="Captcha_Enter" />
-                                </asp:Label>
-                                <asp:TextBox CssClass="form-control" ID="tbCaptcha" runat="server"
-                                             required="required" />
-                            </div>
-                        </asp:PlaceHolder>
-                        <asp:PlaceHolder runat="server" ID="RecaptchaPlaceHolder" Visible="false">
-                            <div class="mb-3">
-                                <YAF:ReCaptchaControl runat="server" ID="Recaptcha1" />
-                            </div>
-                        </asp:PlaceHolder>
             </asp:Panel>
             <asp:Panel runat="server" ID="Footer"
                        CssClass="card-footer text-center">

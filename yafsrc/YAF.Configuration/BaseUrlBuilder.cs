@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -88,7 +88,6 @@ public abstract class BaseUrlBuilder : IUrlBuilder
     /// <summary>
     /// Gets BaseUrl.
     /// </summary>
-    /// <exception cref="BaseUrlMaskRequiredException">Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config.</exception>
     public static string BaseUrl
     {
         get

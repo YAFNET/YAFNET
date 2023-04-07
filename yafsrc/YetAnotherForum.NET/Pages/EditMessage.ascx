@@ -95,21 +95,6 @@
                 </div>
                 <YAF:PostOptions ID="PostOptions1" runat="server"></YAF:PostOptions>
 
-                <asp:PlaceHolder ID="tr_captcha1" runat="server" Visible="false">
-                    <div class="mb-3">
-                        <asp:Label runat="server">
-                <YAF:LocalizedLabel runat="server" LocalizedTag="Captcha_Image" />
-                        </asp:Label>
-                        <asp:Image ID="imgCaptcha" runat="server" />
-                    </div>
-                    <div class="mb-3">
-                        <asp:Label runat="server" AssociatedControlID="tbCaptcha">
-                            <YAF:LocalizedLabel runat="server"
-                                                LocalizedTag="Captcha_Enter" />
-                        </asp:Label>
-                        <asp:TextBox ID="tbCaptcha" runat="server" CssClass="form-control" />
-                    </div>
-                </asp:PlaceHolder>
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="ReasonEditor">
                         <YAF:LocalizedLabel runat="server"

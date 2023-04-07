@@ -24,7 +24,6 @@
 namespace YAF.Types.Extensions;
 
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -136,35 +135,6 @@ public static class StringExtensions
         CodeContracts.VerifyNotNull(forEachAction);
 
         input.ForEach(forEachAction);
-    }
-
-    /// <summary>
-    /// Returns a "random" alpha-numeric string of specified length and characters.
-    /// </summary>
-    /// <param name="length">
-    /// the length of the random string
-    /// </param>
-    /// <param name="pickFrom">
-    /// the string of characters to pick randomly from
-    /// </param>
-    /// <returns>
-    /// The generate random string.
-    /// </returns>
-    public static string GenerateRandomString(int length, [NotNull] string pickFrom)
-    {
-        CodeContracts.VerifyNotNull(pickFrom);
-
-        var r = new Random();
-        var result = new StringBuilder();
-        var pickFromLength = pickFrom.Length - 1;
-
-        for (var i = 0; i < length; i++)
-        {
-            var index = r.Next(pickFromLength);
-            result.Append(pickFrom.Substring(index, 1));
-        }
-
-        return result.ToString();
     }
 
     /// <summary>
@@ -351,12 +321,6 @@ public static class StringExtensions
                || inputString.EndsWith("jpeg", StringComparison.InvariantCultureIgnoreCase)
                || inputString.EndsWith("jpg", StringComparison.InvariantCultureIgnoreCase)
                || inputString.EndsWith("bmp", StringComparison.InvariantCultureIgnoreCase);
-    }
-
-    public static bool IsTextName(this string inputString)
-    {
-        return inputString.EndsWith("txt", StringComparison.InvariantCultureIgnoreCase)
-               || inputString.EndsWith("config", StringComparison.InvariantCultureIgnoreCase);
     }
 
     /// <summary>

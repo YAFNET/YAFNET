@@ -148,15 +148,7 @@ public partial class PostMessage : ForumPage
             return false;
         }
 
-        if ((!this.PageBoardContext.IsGuest || !this.PageBoardContext.BoardSettings.EnableCaptchaForGuests)
-            && (!this.PageBoardContext.BoardSettings.EnableCaptchaForPost || this.PageBoardContext.PageUser.UserFlags.IsCaptchaExcluded)
-            || CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
-        {
-            return true;
-        }
-
-        this.PageBoardContext.Notify(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
-        return false;
+        return true;
     }
 
     /// <summary>
@@ -252,14 +244,6 @@ public partial class PostMessage : ForumPage
                 this.PostOptions1.WatchChecked = this.PageBoardContext.PageTopicID > 0
                                                      ? this.GetRepository<WatchTopic>().Check(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID).HasValue
                                                      : this.PageBoardContext.PageUser.AutoWatchTopics;
-            }
-
-            if (this.PageBoardContext.IsGuest && this.PageBoardContext.BoardSettings.EnableCaptchaForGuests
-                || this.PageBoardContext.BoardSettings.EnableCaptchaForPost && !this.PageBoardContext.PageUser.UserFlags.IsCaptchaExcluded)
-            {
-                this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
-                this.tr_captcha1.Visible = true;
-                this.tr_captcha2.Visible = true;
             }
 
             this.PageBoardContext.PageLinks.AddRoot();

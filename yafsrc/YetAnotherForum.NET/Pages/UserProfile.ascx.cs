@@ -204,11 +204,18 @@ public partial class UserProfile : ForumPage
 
         this.AdminUserButton.Visible = this.PageBoardContext.IsAdmin;
 
-        this.LastPosts.DataSource = this.GetRepository<Message>().GetAllUserMessagesWithAccess(
+        var userPosts = this.GetRepository<Message>().GetAllUserMessagesWithAccess(
             this.PageBoardContext.PageBoardID,
             this.UserId,
             this.PageBoardContext.PageUserID,
             10);
+
+        this.LastPosts.DataSource = userPosts;
+
+        if (userPosts.NullOrEmpty())
+        {
+            this.LastPostsHolder.Visible = false;
+        }
 
         this.SearchUser.NavigateUrl = this.Get<LinkBuilder>().GetLink(
             ForumPages.Search,

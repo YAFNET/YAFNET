@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -174,6 +174,7 @@ public class UserFlags : FlagsBase
     /// <summary>
     /// Gets or sets a value indicating whether user is guest, i.e. not registered and logged in.
     /// </summary>
+    [Obsolete]
     public bool IsCaptchaExcluded
     {
         // int value 8

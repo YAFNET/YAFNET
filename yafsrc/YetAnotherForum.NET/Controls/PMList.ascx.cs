@@ -118,15 +118,15 @@ public partial class PMList : BaseUserControl
     /// </param>
     protected void DeleteSelected_Click([NotNull] object source, [NotNull] EventArgs e)
     {
-        long itemCount = 0;
-
         var selectedMessages = this.Messages.Items.Cast<RepeaterItem>()
             .Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked);
+
+        long itemCount = selectedMessages.Count();
 
         selectedMessages.ForEach(
             item =>
                 {
-                    itemCount = this.GetRepository<UserPMessage>().Delete(
+                    this.GetRepository<UserPMessage>().Delete(
                         item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>(), this.View == PmView.Outbox);
                 });
 

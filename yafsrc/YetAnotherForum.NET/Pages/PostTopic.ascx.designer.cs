@@ -186,42 +186,6 @@ namespace YAF.Pages
         protected global::YAF.Controls.PostOptions PostOptions1;
 
         /// <summary>
-        /// tr_captcha1-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder tr_captcha1;
-
-        /// <summary>
-        /// imgCaptcha-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgCaptcha;
-
-        /// <summary>
-        /// tr_captcha2-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder tr_captcha2;
-
-        /// <summary>
-        /// tbCaptcha-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbCaptcha;
-
-        /// <summary>
         /// Preview-Steuerelement.
         /// </summary>
         /// <remarks>

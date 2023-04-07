@@ -724,13 +724,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="captcha-tab" data-bs-toggle="tab" href="#captcha" role="tab" aria-controls="captcha" aria-selected="false">
-                                <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server"
-                                                    LocalizedTag="HEADER_CAPTCHA"
-                                                    LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" id="notification-tab" data-bs-toggle="tab" href="#notification" role="tab" aria-controls="notification" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server"
                                                     LocalizedTag="HEADER_MESSAGE_NOTIFICATION"
@@ -1126,53 +1119,6 @@
                                                AssociatedControlID="ReputationMinDownVoting"
                                                LocalizedTag="REPUTATION_MINDOWN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                 <asp:TextBox CssClass="form-control" ID="ReputationMinDownVoting" runat="server"></asp:TextBox>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="captcha" role="tabpanel" aria-labelledby="captcha-tab">
-                        <div class="mb-3">
-                            <YAF:HelpLabel ID="HelpLabel148" runat="server"
-                                           AssociatedControlID="CaptchaTypeRegister"
-                                           LocalizedTag="CAPTCHA_FOR_REGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <asp:DropDownList CssClass="form-select" ID="CaptchaTypeRegister" runat="server">
-                            </asp:DropDownList>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel146" runat="server"
-                                               AssociatedControlID="EnableCaptchaForGuests"
-                                               LocalizedTag="CAPTCHA_GUEST_POSTING" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="form-check form-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="EnableCaptchaForGuests" runat="server"></asp:CheckBox>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel147" runat="server"
-                                               AssociatedControlID="EnableCaptchaForPost"
-                                               LocalizedTag="ENABLE_CAPTCHA_FORPOST" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="form-check form-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="EnableCaptchaForPost" runat="server"></asp:CheckBox>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <YAF:HelpLabel ID="HelpLabel143" runat="server"
-                                           AssociatedControlID="CaptchaSize"
-                                           LocalizedTag="CAPTCHA_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <asp:TextBox CssClass="form-control" ID="CaptchaSize" runat="server"></asp:TextBox>
-                        </div>
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel144" runat="server"
-                                               AssociatedControlID="RecaptchaPublicKey"
-                                               LocalizedTag="RECAPTCHA_PUBLIC_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:TextBox CssClass="form-control" ID="RecaptchaPublicKey" runat="server"></asp:TextBox>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel145" runat="server"
-                                               AssociatedControlID="RecaptchaPrivateKey"
-                                               LocalizedTag="RECAPTCHA_PRIVATE_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:TextBox CssClass="form-control" ID="RecaptchaPrivateKey" runat="server"></asp:TextBox>
                             </div>
                         </div>
                     </div>
