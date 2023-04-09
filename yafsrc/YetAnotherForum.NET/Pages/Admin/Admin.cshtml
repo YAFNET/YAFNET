@@ -1,4 +1,4 @@
-@page "{p:int=1}/{p2:int=1}/{handler?}"
+@page "{p:int=0}/{p2:int=0}/{handler?}"
 @model AdminModel
 
 @using Microsoft.AspNetCore.Mvc.TagHelpers
@@ -413,7 +413,6 @@
                                                     asp-route-p2="@Model.Request.RouteValues["p2"]"
                                                     button-style="None"
                                                     class="dropdown-item"
-                                                    return-confirm-tag="CONFIRM_APPROVE"
                                                     Icon="check"
                                                     text-localized-tag="ADMIN_APPROVE">
                                             </button>
