@@ -1014,6 +1014,14 @@
             "#text": "Tilføj ny e-mail"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Email Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Importer e-mail(s)"
           },
@@ -1040,14 +1048,6 @@
           {
             "@tag": "TITLE",
             "#text": "Forbudte e-mail-adresser"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
           }
         ]
       },
@@ -1137,6 +1137,14 @@
             "#text": "Udelukket af"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned IP Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Eksporter til tekstfil"
           },
@@ -1171,14 +1179,6 @@
           {
             "@tag": "TITLE",
             "#text": "Forbudte IP-adresser"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
           }
         ]
       },
@@ -1280,6 +1280,14 @@
             "#text": "Tilføj nyt brugernavn"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Names"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Importer navn(e)"
           },
@@ -1306,14 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Forbudte navne"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
           }
         ]
       },
@@ -3590,14 +3590,6 @@
             "#text": "Bruger vises ikke i lister over aktive brugere."
           },
           {
-            "@tag": "USERINFO_EX_CAPTCHA",
-            "#text": "Ekskluder fra CAPTCHA:"
-          },
-          {
-            "@tag": "USERINFO_EX_CAPTCHA_HELP",
-            "#text": "CAPTCHA er deaktiveret specifikt for denne bruger."
-          },
-          {
             "@tag": "USERINFO_GUEST",
             "#text": "Er gæst:"
           },
@@ -4226,30 +4218,6 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
-            "@tag": "CAPTCHA_FOR_REGISTER",
-            "#text": "Aktiver CAPTCHA/reCAPTCHA for Register:"
-          },
-          {
-            "@tag": "CAPTCHA_FOR_REGISTER_HELP",
-            "#text": "Kræv, at brugere indtaster CAPTCHA, når de tilmelder sig forummet."
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING",
-            "#text": "Aktiver CAPTCHA for gæstepostering:"
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING_HELP",
-            "#text": "Kræv, at gæstebrugere indtaster CAPTCHA, når de sender eller svarer på en forumbesked (inklusive hurtigt svar)."
-          },
-          {
-            "@tag": "CAPTCHA_SIZE",
-            "#text": "CAPTCHA Størrelse:"
-          },
-          {
-            "@tag": "CAPTCHA_SIZE_HELP",
-            "#text": "Størrelse (længde) af den CAPTCHA tilfældige alfanumeriske streng."
-          },
-          {
             "@tag": "CDN_JQUERY",
             "#text": "Brug Google Hosted CDN jQuery Script File?"
           },
@@ -4406,14 +4374,6 @@
             "#text": "Aktiverer/deaktiverer kalender i profil, hvis det forårsager problemer på servere/for brugere med forskellige kulturer."
           },
           {
-            "@tag": "ENABLE_CAPTCHA_FORPOST",
-            "#text": "Aktiver CAPTCHA for Post a Message:"
-          },
-          {
-            "@tag": "ENABLE_CAPTCHA_FORPOST_HELP",
-            "#text": "Kræv, at brugere indtaster CAPTCHA, når de sender eller svarer på en forumbesked (inklusive hurtigt svar)."
-          },
-          {
             "@tag": "ENABLE_DISPLAY_NAME",
             "#text": "Aktiver vist navn:"
           },
@@ -4560,10 +4520,6 @@
           {
             "@tag": "HEADER_CACHE",
             "#text": "Cacheindstillinger"
-          },
-          {
-            "@tag": "HEADER_CAPTCHA",
-            "#text": "CAPTCHA-indstillinger"
           },
           {
             "@tag": "HEADER_CDN",
@@ -5160,22 +5116,6 @@
           {
             "@tag": "QUICK_SEARCH_HELP",
             "#text": "Vis Hurtigt søgefelt og knap i værktøjslinjen."
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY",
-            "#text": "reCAPTCHA hemmelig nøgle:"
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY_HELP",
-            "#text": "Indtast en reCAPTCHA hemmelig nøgle"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "reCAPTCHA webstedsnøgle:"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
-            "#text": "Indtast en reCAPTCHA-webstedsnøgle."
           },
           {
             "@tag": "REG_USERS",
@@ -5957,6 +5897,14 @@
             "#text": "Båndbjælkebillede, som det vil blive vist i brugerboksen."
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Medals"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+          },
+          {
             "@tag": "MOVE_DOWN",
             "#text": "Flyt ned"
           },
@@ -5971,14 +5919,6 @@
           {
             "@tag": "TITLE",
             "#text": "Medaljer"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
           }
         ]
       },
@@ -6000,6 +5940,14 @@
           {
             "@tag": "EDIT",
             "#text": "Redigere"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Forums"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           },
           {
             "@tag": "FORUM",
@@ -6024,14 +5972,6 @@
           {
             "@tag": "TITLE",
             "#text": "NNTP-fora"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           }
         ]
       },
@@ -6096,6 +6036,14 @@
             "#text": "Vil du slette denne server?"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Servers"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
+          },
+          {
             "@tag": "NAME",
             "#text": "Navn"
           },
@@ -6114,14 +6062,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Brugernavn"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
           }
         ]
       },
@@ -6228,20 +6168,20 @@
             "#text": "Vil du slette definitionen?"
           },
           {
-            "@tag": "NEW_DEF",
-            "#text": "Tilføj ny definition"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Brugerdefinerede profildefinitioner"
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "No Custom Profile Definitions"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+          },
+          {
+            "@tag": "NEW_DEF",
+            "#text": "Tilføj ny definition"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Brugerdefinerede profildefinitioner"
           }
         ]
       },
@@ -6502,6 +6442,14 @@
             "#text": "\"Dårligt\" (Find) udtryk"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Replace Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Eksporter til XML"
           },
@@ -6520,14 +6468,6 @@
           {
             "@tag": "TITLE",
             "#text": "Erstat ord"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
           }
         ]
       },
@@ -6713,6 +6653,14 @@
             "#text": "Add"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Spam Check Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Eksporter til XML"
           },
@@ -6739,14 +6687,6 @@
           {
             "@tag": "TITLE",
             "#text": "Spam-tjek ord"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
           }
         ]
       },
@@ -8024,14 +7964,6 @@
             "#text": "Tilbage"
           },
           {
-            "@tag": "BAD_CAPTCHA",
-            "#text": "Teksten du skrev stemmer ikke overend med sikkerhedsbilledet."
-          },
-          {
-            "@tag": "BAD_RECAPTCHA",
-            "#text": "Indtast venligst reCAPTCHA igen."
-          },
-          {
             "@tag": "BAD_USERNAME",
             "#text": "Brugernavnet må ikke indholde et semi kolon (;)."
           },
@@ -8114,14 +8046,6 @@
           {
             "@tag": "CANNOT_VOTE",
             "#text": "Du [b]kan ikke[/b] stemme i dette forum."
-          },
-          {
-            "@tag": "CAPTCHA_ENTER",
-            "#text": "Skriv bogstaver fra sikkerhedsbillede:"
-          },
-          {
-            "@tag": "CAPTCHA_IMAGE",
-            "#text": "Sikkerhedsbillede:"
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -14474,10 +14398,6 @@
             "#text": "Email"
           },
           {
-            "@tag": "GENERATE_CAPTCHA",
-            "#text": "Generer nyt billede"
-          },
-          {
             "@tag": "HOMEPAGE",
             "#text": "Hjemmeside"
           },
@@ -14564,10 +14484,6 @@
           {
             "@tag": "PROFILE",
             "#text": "Profil Information"
-          },
-          {
-            "@tag": "RECAPTCHA_BADSETTING",
-            "#text": "Fejl i indstillingerne. Rapporter det til en administrator."
           },
           {
             "@tag": "RECATCHA_BADWORDS",

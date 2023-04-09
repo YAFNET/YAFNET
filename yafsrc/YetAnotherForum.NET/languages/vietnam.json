@@ -1014,6 +1014,14 @@
             "#text": "Thêm email mới"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Email Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Nhập (các) Email"
           },
@@ -1040,14 +1048,6 @@
           {
             "@tag": "TITLE",
             "#text": "Địa chỉ Email bị Cấm"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
           }
         ]
       },
@@ -1137,6 +1137,14 @@
             "#text": "Bị cấm bởi"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned IP Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Xuất sang tệp văn bản"
           },
@@ -1171,14 +1179,6 @@
           {
             "@tag": "TITLE",
             "#text": "Địa chỉ IP bị cấm"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
           }
         ]
       },
@@ -1280,6 +1280,14 @@
             "#text": "Thêm tên người dùng mới"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Names"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Nhập (các) Tên"
           },
@@ -1306,14 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Tên bị cấm"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
           }
         ]
       },
@@ -3590,14 +3590,6 @@
             "#text": "Người dùng không được hiển thị trong danh sách Người dùng đang hoạt động."
           },
           {
-            "@tag": "USERINFO_EX_CAPTCHA",
-            "#text": "Loại trừ khỏi CAPTCHA:"
-          },
-          {
-            "@tag": "USERINFO_EX_CAPTCHA_HELP",
-            "#text": "CAPTCHA bị vô hiệu hóa cụ thể cho người dùng này."
-          },
-          {
             "@tag": "USERINFO_GUEST",
             "#text": "Là khách:"
           },
@@ -4226,30 +4218,6 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
-            "@tag": "CAPTCHA_FOR_REGISTER",
-            "#text": "Bật CAPTCHA / reCAPTCHA để Đăng ký:"
-          },
-          {
-            "@tag": "CAPTCHA_FOR_REGISTER_HELP",
-            "#text": "Yêu cầu người dùng nhập CAPTCHA khi họ đăng ký diễn đàn."
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING",
-            "#text": "Bật CAPTCHA cho tính năng Đăng bài của Khách:"
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING_HELP",
-            "#text": "Yêu cầu người dùng khách nhập CAPTCHA khi họ đăng hoặc trả lời tin nhắn trên diễn đàn (bao gồm Trả lời nhanh)."
-          },
-          {
-            "@tag": "CAPTCHA_SIZE",
-            "#text": "Kích thước CAPTCHA:"
-          },
-          {
-            "@tag": "CAPTCHA_SIZE_HELP",
-            "#text": "Kích thước (độ dài) của chuỗi chữ và số ngẫu nhiên CAPTCHA."
-          },
-          {
             "@tag": "CDN_JQUERY",
             "#text": "Sử dụng tệp tập lệnh jQuery CDN được lưu trữ trên Google?"
           },
@@ -4406,14 +4374,6 @@
             "#text": "Bật / tắt lịch trong hồ sơ, nếu lịch đó gây ra sự cố trên máy chủ / cho người dùng có nền văn hóa khác nhau."
           },
           {
-            "@tag": "ENABLE_CAPTCHA_FORPOST",
-            "#text": "Bật CAPTCHA để Đăng tin nhắn:"
-          },
-          {
-            "@tag": "ENABLE_CAPTCHA_FORPOST_HELP",
-            "#text": "Yêu cầu người dùng nhập CAPTCHA khi họ đăng hoặc trả lời tin nhắn trên diễn đàn (bao gồm Trả lời nhanh)."
-          },
-          {
             "@tag": "ENABLE_DISPLAY_NAME",
             "#text": "Bật tên hiển thị:"
           },
@@ -4560,10 +4520,6 @@
           {
             "@tag": "HEADER_CACHE",
             "#text": "Cài đặt bộ nhớ đệm"
-          },
-          {
-            "@tag": "HEADER_CAPTCHA",
-            "#text": "Cài đặt CAPTCHA"
           },
           {
             "@tag": "HEADER_CDN",
@@ -5160,22 +5116,6 @@
           {
             "@tag": "QUICK_SEARCH_HELP",
             "#text": "Hiển thị trường và nút Tìm kiếm nhanh trên thanh công cụ."
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY",
-            "#text": "Khóa bí mật reCAPTCHA:"
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY_HELP",
-            "#text": "Nhập Khóa bí mật reCAPTCHA"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "Khóa trang web reCAPTCHA:"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
-            "#text": "Nhập Khóa trang reCAPTCHA."
           },
           {
             "@tag": "REG_USERS",
@@ -5957,6 +5897,14 @@
             "#text": "Hình ảnh thanh ruy-băng vì nó sẽ được hiển thị trong hộp người dùng."
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Medals"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+          },
+          {
             "@tag": "MOVE_DOWN",
             "#text": "Đi xuống"
           },
@@ -5971,14 +5919,6 @@
           {
             "@tag": "TITLE",
             "#text": "Huy chương"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
           }
         ]
       },
@@ -6000,6 +5940,14 @@
           {
             "@tag": "EDIT",
             "#text": "Chỉnh sửa"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Forums"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           },
           {
             "@tag": "FORUM",
@@ -6024,14 +5972,6 @@
           {
             "@tag": "TITLE",
             "#text": "Diễn đàn NNTP"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           }
         ]
       },
@@ -6096,6 +6036,14 @@
             "#text": "Xóa máy chủ này?"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Servers"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
+          },
+          {
             "@tag": "NAME",
             "#text": "Tên"
           },
@@ -6114,14 +6062,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Tên tài khoản"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
           }
         ]
       },
@@ -6228,20 +6168,20 @@
             "#text": "Xóa định nghĩa?"
           },
           {
-            "@tag": "NEW_DEF",
-            "#text": "Thêm định nghĩa mới"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Định nghĩa cấu hình tùy chỉnh"
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "No Custom Profile Definitions"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+          },
+          {
+            "@tag": "NEW_DEF",
+            "#text": "Thêm định nghĩa mới"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Định nghĩa cấu hình tùy chỉnh"
           }
         ]
       },
@@ -6502,6 +6442,14 @@
             "#text": "Biểu thức &quot;Xấu&quot; (Tìm)"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Replace Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Xuất sang XML"
           },
@@ -6520,14 +6468,6 @@
           {
             "@tag": "TITLE",
             "#text": "Thay thế các từ"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
           }
         ]
       },
@@ -6713,6 +6653,14 @@
             "#text": "Add"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Spam Check Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Xuất sang XML"
           },
@@ -6739,14 +6687,6 @@
           {
             "@tag": "TITLE",
             "#text": "Kiểm tra từ thư rác"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
           }
         ]
       },
@@ -8024,14 +7964,6 @@
             "#text": "Quay lại"
           },
           {
-            "@tag": "BAD_CAPTCHA",
-            "#text": "Văn bản đã nhập Không khớp với Văn bản trong Hình ảnh Bảo mật."
-          },
-          {
-            "@tag": "BAD_RECAPTCHA",
-            "#text": "Vui lòng nhập lại reCAPTCHA."
-          },
-          {
             "@tag": "BAD_USERNAME",
             "#text": "Tên đăng nhập không được mang dấu chấm phẩy (;)."
           },
@@ -8114,14 +8046,6 @@
           {
             "@tag": "CANNOT_VOTE",
             "#text": "Bạn [b]không thể[/b] bỏ phiếu bình chọn trong diễn đàn này."
-          },
-          {
-            "@tag": "CAPTCHA_ENTER",
-            "#text": "Nhập mã an ninh:"
-          },
-          {
-            "@tag": "CAPTCHA_IMAGE",
-            "#text": "Mã an ninh:"
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -14474,10 +14398,6 @@
             "#text": "Email"
           },
           {
-            "@tag": "GENERATE_CAPTCHA",
-            "#text": "Tạo hình ảnh mới"
-          },
-          {
             "@tag": "HOMEPAGE",
             "#text": "Trang web"
           },
@@ -14564,10 +14484,6 @@
           {
             "@tag": "PROFILE",
             "#text": "Thông tin cá nhân"
-          },
-          {
-            "@tag": "RECAPTCHA_BADSETTING",
-            "#text": "Cài đặt ghi lại không tốt. Báo cáo nó cho quản lý."
           },
           {
             "@tag": "RECATCHA_BADWORDS",

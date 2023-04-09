@@ -1,4 +1,4 @@
-﻿{
+{
   "Resources": {
     "@language": "Russian",
     "@code": "ru",
@@ -1014,6 +1014,14 @@
             "#text": "Добавить новую электронную почту"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Email Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Импортировать электронную почту(и)"
           },
@@ -1040,14 +1048,6 @@
           {
             "@tag": "TITLE",
             "#text": "Запрещенные адреса электронной почты"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
           }
         ]
       },
@@ -1137,6 +1137,14 @@
             "#text": "Забанил: "
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned IP Addresses"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Экспорт в текстовый файл"
           },
@@ -1171,14 +1179,6 @@
           {
             "@tag": "TITLE",
             "#text": "Запрещённые адреса IP"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
           }
         ]
       },
@@ -1280,6 +1280,14 @@
             "#text": "Добавить новое имя пользователя"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Banned Names"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
+          },
+          {
             "@tag": "IMPORT_IPS",
             "#text": "Наименование(я) импорта"
           },
@@ -1306,14 +1314,6 @@
           {
             "@tag": "TITLE",
             "#text": "Запрещенные имена"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
           }
         ]
       },
@@ -3582,14 +3582,6 @@
             "#text": "Пользователь не отображается в списках активных пользователей."
           },
           {
-            "@tag": "USERINFO_EX_CAPTCHA",
-            "#text": "Исключить из CAPTCHA:"
-          },
-          {
-            "@tag": "USERINFO_EX_CAPTCHA_HELP",
-            "#text": "CAPTCHA выключена для этого пользователя."
-          },
-          {
             "@tag": "USERINFO_GUEST",
             "#text": "Гость:"
           },
@@ -4218,30 +4210,6 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
-            "@tag": "CAPTCHA_FOR_REGISTER",
-            "#text": "Включить CAPTCHA/reCAPTCHA при регистрации:"
-          },
-          {
-            "@tag": "CAPTCHA_FOR_REGISTER_HELP",
-            "#text": "Требовать от пользователей ввести данные CAPTCHA при регистрации на форуме."
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING",
-            "#text": "Включить CAPTCHA при постах гостей:"
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING_HELP",
-            "#text": "Требовать от гостей ввести CAPTCHA, когда они оставляют сообщение на форуме, включая быстрый ответ."
-          },
-          {
-            "@tag": "CAPTCHA_SIZE",
-            "#text": "Размер CAPTCHA:"
-          },
-          {
-            "@tag": "CAPTCHA_SIZE_HELP",
-            "#text": "Длина(символы) генерируемой случайной строки CAPTCHA."
-          },
-          {
             "@tag": "CDN_JQUERY",
             "#text": "Использовать файл сценария jQuery CDN на хостинге Google?"
           },
@@ -4398,14 +4366,6 @@
             "#text": "Включить/Отключить календарь в профиле. Требуется только если вы испытываете проблемы с локализацией"
           },
           {
-            "@tag": "ENABLE_CAPTCHA_FORPOST",
-            "#text": "Включить CAPTCHA при добавлении сообщения"
-          },
-          {
-            "@tag": "ENABLE_CAPTCHA_FORPOST_HELP",
-            "#text": "Требовать от пользователей ввести CAPTCHA когда они оставляют новое сообщение или отвечают на форуме(включая быстрый ответ)."
-          },
-          {
             "@tag": "ENABLE_DISPLAY_NAME",
             "#text": "Включить отображаемое имя:"
           },
@@ -4552,10 +4512,6 @@
           {
             "@tag": "HEADER_CACHE",
             "#text": "Настройки кэша"
-          },
-          {
-            "@tag": "HEADER_CAPTCHA",
-            "#text": "Настройки CAPTCHA"
           },
           {
             "@tag": "HEADER_CDN",
@@ -5152,22 +5108,6 @@
           {
             "@tag": "QUICK_SEARCH_HELP",
             "#text": "Показывать поле и кнопку быстрого пользователя в меню форума."
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY",
-            "#text": "Частный ключ reCAPTCHA:"
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY_HELP",
-            "#text": "Введите частный ключ reCAPTCHA"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "Публичный ключ reCAPTCHA:"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
-            "#text": "Введите публичный ключ reCAPTCHA."
           },
           {
             "@tag": "REG_USERS",
@@ -5949,6 +5889,14 @@
             "#text": "Орденская планка, как она будет отображаться в блоке пользователя в постах."
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Medals"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+          },
+          {
             "@tag": "MOVE_DOWN",
             "#text": "Двигаться вниз"
           },
@@ -5963,14 +5911,6 @@
           {
             "@tag": "TITLE",
             "#text": "Медали"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
           }
         ]
       },
@@ -5992,6 +5932,14 @@
           {
             "@tag": "EDIT",
             "#text": "Редактировать"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Forums"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           },
           {
             "@tag": "FORUM",
@@ -6016,14 +5964,6 @@
           {
             "@tag": "TITLE",
             "#text": "Форумы NNTP"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
           }
         ]
       },
@@ -6088,6 +6028,14 @@
             "#text": "Удалить этот сервер?"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No NNTP Servers"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
+          },
+          {
             "@tag": "NAME",
             "#text": "Название"
           },
@@ -6106,14 +6054,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Имя пользователя"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
           }
         ]
       },
@@ -6220,20 +6160,20 @@
             "#text": "Удалить определение?"
           },
           {
-            "@tag": "NEW_DEF",
-            "#text": "Добавить новое определение"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Пользовательские определения профиля"
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "No Custom Profile Definitions"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+          },
+          {
+            "@tag": "NEW_DEF",
+            "#text": "Добавить новое определение"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Пользовательские определения профиля"
           }
         ]
       },
@@ -6494,6 +6434,14 @@
             "#text": "«Плохое» выражение"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Replace Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Экспортировать в формат XML"
           },
@@ -6512,14 +6460,6 @@
           {
             "@tag": "TITLE",
             "#text": "Замена слов"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
           }
         ]
       },
@@ -6705,6 +6645,14 @@
             "#text": "Add"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No Spam Check Words"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Экспорт в XML"
           },
@@ -6731,14 +6679,6 @@
           {
             "@tag": "TITLE",
             "#text": "Слова для проверки спама"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
           }
         ]
       },
@@ -7999,638 +7939,622 @@
       {
         "@name": "COMMON",
         "Resource": [
-            {
-                "@tag": "ALBUMIMG_BBCODE",
-                "#text": "Вставить изображение из альбома..."
-            },
-            {
-                "@tag": "ALLOWED",
-                "#text": "Разрешено"
-            },
-            {
-                "@tag": "ATTACH_BBCODE",
-                "#text": "Вставьте существующее вложение или загрузите новый файл..."
-            },
-            {
-                "@tag": "BACK",
-                "#text": "Назад"
-            },
-            {
-                "@tag": "BAD_CAPTCHA",
-                "#text": "Введённый текст отличается от текста на изображении."
-            },
-            {
-                "@tag": "BAD_RECAPTCHA",
-                "#text": "Пожалуйста, повторно введите reCAPTCHA."
-            },
-            {
-                "@tag": "BAD_USERNAME",
-                "#text": "Имя пользователя не может содержать некоторые знаки препинания(;) или некоторые слова."
-            },
-            {
-                "@tag": "BBCODE_CODE",
-                "#text": "Код:"
-            },
-            {
-                "@tag": "BBCODE_QUOTE",
-                "#text": "Цитата:"
-            },
-            {
-                "@tag": "BBCODE_QUOTEPOSTED",
-                "#text": "Автор: {0}"
-            },
-            {
-                "@tag": "BBCODE_QUOTEPOSTED_TT",
-                "#text": "Перейти к цитате"
-            },
-            {
-                "@tag": "BBCODE_QUOTEWROTE",
-                "#text": "{0} написал:"
-            },
-            {
-                "@tag": "BROWSE",
-                "#text": "Просмотреть"
-            },
-            {
-                "@tag": "CAL_JQ_TT",
-                "#text": "Нажмите, чтобы выбрать дату "
-            },
-            {
-                "@tag": "CAN_DELETE",
-                "#text": "Вы [b]можете[/b] удалять Ваши сообщения в этом форуме."
-            },
-            {
-                "@tag": "CAN_EDIT",
-                "#text": "Вы [b]можете[/b] редактировать Ваши сообщения в этом форуме."
-            },
-            {
-                "@tag": "CAN_POLL",
-                "#text": "Вы [b]можете[/b] создавать опросы в этом форуме."
-            },
-            {
-                "@tag": "CAN_POST",
-                "#text": "Вы [b]можете[/b] создавать новые темы в этом форуме."
-            },
-            {
-                "@tag": "CAN_REPLY",
-                "#text": "Вы [b]можете[/b] отвечать в этом форуме."
-            },
-            {
-                "@tag": "CAN_VOTE",
-                "#text": "Вы [b]можете[/b] голосовать в этом форуме."
-            },
-            {
-                "@tag": "CANCEL",
-                "#text": "Отменить"
-            },
-            {
-                "@tag": "CANNOT_DELETE",
-                "#text": "Вы [b]не можете[/b] удалять Ваши сообщения в этом форуме."
-            },
-            {
-                "@tag": "CANNOT_EDIT",
-                "#text": "Вы [b]не можете[/b] редактировать Ваши сообщения в этом форуме."
-            },
-            {
-                "@tag": "CANNOT_POLL",
-                "#text": "Вы [b]не можете[/b] создавать опросы в этом форуме."
-            },
-            {
-                "@tag": "CANNOT_POST",
-                "#text": "Вы [b]не можете[/b] создавать новые темы в этом форуме."
-            },
-            {
-                "@tag": "CANNOT_REPLY",
-                "#text": "Вы [b]не можете[/b] отвечать в этом форуме."
-            },
-            {
-                "@tag": "CANNOT_VOTE",
-                "#text": "Вы [b]не можете[/b] голосовать в этом форуме."
-            },
-            {
-                "@tag": "CAPTCHA_ENTER",
-                "#text": "Введите символы на этом изображении:"
-            },
-            {
-                "@tag": "CAPTCHA_IMAGE",
-                "#text": "Изображение для проверки:"
-            },
-            {
-                "@tag": "CHANGEEMAIL_SUBJECT",
-                "#text": "E-mail изменён"
-            },
-            {
-                "@tag": "COMMON_WORDS",
-                "#text": "а,о,или,к,за,у,out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your"
-            },
-            {
-                "@tag": "CONTINUE",
-                "#text": "Продолжить"
-            },
-            {
-                "@tag": "COOKIE",
-                "#text": "{0} использует файлы cookie. Продолжая просматривать этот сайт, вы соглашаетесь с использованием нами файлов cookie."
-            },
-            {
-                "@tag": "COOKIE_AGREE",
-                "#text": "Закрыть"
-            },
-            {
-                "@tag": "COOKIE_DETAILS",
-                "#text": "Подробнее"
-            },
-            {
-                "@tag": "COOKIE_HEADER",
-                "#text": "Важная информация:"
-            },
-            {
-                "@tag": "COPY",
-                "#text": "Клонировать"
-            },
-            {
-                "@tag": "CUSTOM_BBCODE",
-                "#text": "Больше BBCode"
-            },
-            {
-                "@tag": "DELETE",
-                "#text": "Удалить"
-            },
-            {
-                "@tag": "DELETED_MESSAGE",
-                "#text": "Сообщение с идентификатором: {0} Удалено"
-            },
-            {
-                "@tag": "DELETED_TOPIC",
-                "#text": "Тема с ID: {0} Удалена"
-            },
-            {
-                "@tag": "DISALLOWED",
-                "#text": "Запрещено"
-            },
-            {
-                "@tag": "DOWNLOAD",
-                "#text": "Загрузка"
-            },
-            {
-                "@tag": "EDIT",
-                "#text": "Редактировать"
-            },
-            {
-                "@tag": "EMAILVERIFICATION_SUBJECT",
-                "#text": "Проверка Email {0}  "
-            },
-            {
-                "@tag": "ENTRIES_10",
-                "#text": "10 Записи"
-            },
-            {
-                "@tag": "ENTRIES_15",
-                "#text": "15 Записи"
-            },
-            {
-                "@tag": "ENTRIES_20",
-                "#text": "20 Записи"
-            },
-            {
-                "@tag": "ENTRIES_25",
-                "#text": "25 Записи"
-            },
-            {
-                "@tag": "ENTRIES_5",
-                "#text": "5 Записи"
-            },
-            {
-                "@tag": "ENTRIES_50",
-                "#text": "50 записей"
-            },
-            {
-                "@tag": "EXTERNALUSER",
-                "#text": "(Внешний пользователь)"
-            },
-            {
-                "@tag": "FONT_COLOR",
-                "#text": "Цвет шрифта:"
-            },
-            {
-                "@tag": "FONT_SIZE",
-                "#text": "Размер шрифта:"
-            },
-            {
-                "@tag": "FOR",
-                "#text": "Для"
-            },
-            {
-                "@tag": "FORMAT_DATE_LONG",
-                "#text": "D"
-            },
-            {
-                "@tag": "FORMAT_DATE_SHORT",
-                "#text": "d"
-            },
-            {
-                "@tag": "FORMAT_DATE_TIME_LONG",
-                "#text": "F"
-            },
-            {
-                "@tag": "FORMAT_DATE_TIME_SHORT",
-                "#text": "G"
-            },
-            {
-                "@tag": "FORMAT_TIME",
-                "#text": "T"
-            },
-            {
-                "@tag": "FORUM_JUMP",
-                "#text": "Перейти"
-            },
-            {
-                "@tag": "FORUM_JUMP_PLACEHOLDER",
-                "#text": "Выберите форум, чтобы перейти..."
-            },
-            {
-                "@tag": "FORUMS_SHOWN",
-                "#text": "{0} из {1} Показаны форумы"
-            },
-            {
-                "@tag": "GENERATED",
-                "#text": "Страница сгенерирована за {0:N3} секунды."
-            },
-            {
-                "@tag": "GO",
-                "#text": "Перейти"
-            },
-            {
-                "@tag": "GOTOFIRSTPAGE_TT",
-                "#text": "Первая страница"
-            },
-            {
-                "@tag": "GOTOLASTPAGE_TT",
-                "#text": "Перейти на последнюю страницу"
-            },
-            {
-                "@tag": "GOTONEXTPAGE_TT",
-                "#text": "Следующая страница"
-            },
-            {
-                "@tag": "GOTOPAGE_HEADER",
-                "#text": "Перейти на страницу..."
-            },
-            {
-                "@tag": "GOTOPOST_ТТ",
-                "#text": "Перейти к сообщению"
-            },
-            {
-                "@tag": "GOTOPREVPAGE_TT",
-                "#text": "Предыдущая страница"
-            },
-            {
-                "@tag": "HIDDEN",
-                "#text": "Скрыт"
-            },
-            {
-                "@tag": "HTMLTAG_FORBIDDEN",
-                "#text": "Вам не разрешены HTML тэги."
-            },
-            {
-                "@tag": "HTMLTAG_WRONG",
-                "#text": "Введённые данные содержат запрещённый HTML тег {0}."
-            },
-            {
-                "@tag": "IN_FORUM",
-                "#text": "в форуме: {0}"
-            },
-            {
-                "@tag": "LOAD_MORE",
-                "#text": "Показать больше категорий и форумов..."
-            },
-            {
-                "@tag": "LOADING",
-                "#text": "Загрузка..."
-            },
-            {
-                "@tag": "MANAGE",
-                "#text": "Управляйте"
-            },
-            {
-                "@tag": "MAX_ONLINE",
-                "#text": "{1} было больше всего пользователей - {0}."
-            },
-            {
-                "@tag": "MENU",
-                "#text": "Меню"
-            },
-            {
-                "@tag": "MESSAGE",
-                "#text": "Сообщение"
-            },
-            {
-                "@tag": "MOBILE_FULLSITE",
-                "#text": "Просмотр всего сайта"
-            },
-            {
-                "@tag": "MOBILE_VIEWSITE",
-                "#text": "Мобильная версия"
-            },
-            {
-                "@tag": "MODAL_NOTIFICATION_HEADER",
-                "#text": "Уведомление"
-            },
-            {
-                "@tag": "MODERATOR",
-                "#text": "Модератор"
-            },
-            {
-                "@tag": "NAME",
-                "#text": "Имя"
-            },
-            {
-                "@tag": "NO",
-                "#text": "Нет"
-            },
-            {
-                "@tag": "NONE",
-                "#text": "Ничего"
-            },
-            {
-                "@tag": "NOTE",
-                "#text": "Примечание:"
-            },
-            {
-                "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
-                "#text": "Новый пользователь SPAM BOT зарегистрирован на {0} форуме"
-            },
-            {
-                "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-                "#text": "вы были награждены на форуме {0}"
-            },
-            {
-                "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
-                "#text": "Новое сообщение на форуме {0} должно быть Вами одобрено"
-            },
-            {
-                "@tag": "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
-                "#text": "Пожаловались на сообщение в форуме {0}"
-            },
-            {
-                "@tag": "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL",
-                "#text": "Новое СПАМ-сообщение на {0} форуме нуждается в проверке"
-            },
-            {
-                "@tag": "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT",
-                "#text": "Успешная регистрация на форуме {0}"
-            },
-            {
-                "@tag": "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
-                "#text": "Приостановка вашего {0} аккаунта на форуме"
-            },
-            {
-                "@tag": "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
-                "#text": "На форуме {0} зарегистрирован новый пользователь."
-            },
-            {
-                "@tag": "NOTIFICATION_ON_WELCOME_USER_SUBJECT",
-                "#text": "Добро пожаловать на форум {0}"
-            },
-            {
-                "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
-                "#text": "{0} Обновление учетной записи форума"
-            },
-            {
-                "@tag": "OK",
-                "#text": "ОК"
-            },
-            {
-                "@tag": "OR",
-                "#text": "или"
-            },
-            {
-                "@tag": "PAGE",
-                "#text": "Страница"
-            },
-            {
-                "@tag": "PAGES",
-                "#text": "Страницы"
-            },
-            {
-                "@tag": "PM_NOTIFICATION_SUBJECT",
-                "#text": "Новое личное сообщение от {0} на {1}"
-            },
-            {
-                "@tag": "POST",
-                "#text": "Пост"
-            },
-            {
-                "@tag": "POWERED_BY",
-                "#text": "Форум "
-            },
-            {
-                "@tag": "PRIORITY",
-                "#text": "Приоритет"
-            },
-            {
-                "@tag": "PRIVACY_POLICY",
-                "#text": "Политика конфиденциальности"
-            },
-            {
-                "@tag": "READ",
-                "#text": "Чтение"
-            },
-            {
-                "@tag": "REGMAIL_SENT",
-                "#text": "Сообщение по электронной почте отправлено. Проверьте свою почту и перейдите по ссылке в полученном сообщении."
-            },
-            {
-                "@tag": "REGMAIL_WILL_BE_SEND",
-                "#text": "Сообщение по электронной почте будет отправлено Вам после регистрации. Для входа на сайт Вы должны проверить Ваш почтовый ящик и перейти по ссылке в сообщении."
-            },
-            {
-                "@tag": "REPLY",
-                "#text": "Ответить"
-            },
-            {
-                "@tag": "SAVE",
-                "#text": "Сохранить"
-            },
-            {
-                "@tag": "SELECT_LOCALE_JS",
-                "#text": "language:  { function n(n,e,r,u){return n%10<5&&n%10>0&&n%100<5||n%100>20?n%10>1?r:e:u}return{errorLoading:function(){return\"Невозможно загрузить результаты\"},inputTooLong:function(e){var r=e.input.length-e.maximum,u=\"Пожалуйста, введите на \"+r+\" символ\";return u+=n(r,\"\",\"a\",\"ов\"),u+=\" меньше\"},inputTooShort:function(e){var r=e.minimum-e.input.length,u=\"Пожалуйста, введите ещё хотя бы \"+r+\" символ\";return u+=n(r,\"\",\"a\",\"ов\")},loadingMore:function(){return\"Загрузка данных…\"},maximumSelected:function(e){var r=\"Вы можете выбрать не более \"+e.maximum+\" элемент\";return r+=n(e.maximum,\"\",\"a\",\"ов\")},noResults:function(){return\"Совпадений не найдено\"},searching:function(){return\"Поиск…\"},removeAllItems:function(){return\"Удалить все элементы\"} }"
-            },
-            {
-                "@tag": "SELECTED_COPY",
-                "#text": "Копирование выделенного текста"
-            },
-            {
-                "@tag": "SELECTED_QUOTE",
-                "#text": "Цитировать выделенный текст"
-            },
-            {
-                "@tag": "SELECTED_SEARCH",
-                "#text": "Поиск Google для ..."
-            },
-            {
-                "@tag": "SHOW_TITLE",
-                "#text": "Page Size Selection"
-            },
-            {
-                "@tag": "SHOWHIDE",
-                "#text": "Показать/Скрыть"
-            },
-            {
-                "@tag": "SUBMIT",
-                "#text": "Отправить"
-            },
-            {
-                "@tag": "TOPIC_NOTIFICATION_SUBJECT",
-                "#text": "Уведомление о новом сообщении в теме по подписке(От {0})"
-            },
-            {
-                "@tag": "TT_ALIGNCENTER",
-                "#text": "Выровнять по центру"
-            },
-            {
-                "@tag": "TT_ALIGNLEFT",
-                "#text": "Выровнять по левому краю"
-            },
-            {
-                "@tag": "TT_ALIGNRIGHT",
-                "#text": "Выровнять по правому краю"
-            },
-            {
-                "@tag": "TT_BOLD",
-                "#text": "Жирный"
-            },
-            {
-                "@tag": "TT_CODE",
-                "#text": "Код"
-            },
-            {
-                "@tag": "TT_CODELANG",
-                "#text": "Выберите тип подсветки кода"
-            },
-            {
-                "@tag": "TT_CREATELINK",
-                "#text": "Создать ссылку"
-            },
-            {
-                "@tag": "TT_CUSTOMBBCODE",
-                "#text": "Больше кодов BBCode"
-            },
-            {
-                "@tag": "TT_HIGHLIGHT",
-                "#text": "Подсветка"
-            },
-            {
-                "@tag": "TT_IMAGE",
-                "#text": "Вставить изображение"
-            },
-            {
-                "@tag": "TT_IPDETAILS",
-                "#text": "Показать информацию об этом IP"
-            },
-            {
-                "@tag": "TT_ITALIC",
-                "#text": "Курсив"
-            },
-            {
-                "@tag": "TT_LISTORDERED",
-                "#text": "Упорядоченный список"
-            },
-            {
-                "@tag": "TT_LISTUNORDERED",
-                "#text": "Неупорядоченный список"
-            },
-            {
-                "@tag": "TT_QUOTE",
-                "#text": "Цитата"
-            },
-            {
-                "@tag": "TT_SAVE",
-                "#text": "Сохранить черновик сообщения"
-            },
-            {
-                "@tag": "TT_UNDERLINE",
-                "#text": "Подчеркнуть"
-            },
-            {
-                "@tag": "UNREAD_MENTION_MSG",
-                "#text": "У вас {0} непрочитанных сообщений, хотите перейти к самому новому?"
-            },
-            {
-                "@tag": "UNREAD_MENTION_TITLE",
-                "#text": "Кто-то упомянул вас в теме"
-            },
-            {
-                "@tag": "UNREAD_MSG",
-                "#text": "У Вас {0} непрочитанных личных сообщений"
-            },
-            {
-                "@tag": "UNREAD_MSG_TITLE",
-                "#text": "Новые личные сообщения"
-            },
-            {
-                "@tag": "UNREAD_MSG2",
-                "#text": "У вас {0} непрочтённых сообщений в ваших Входящих. Вы желаете прочитать их прямо сейчас?"
-            },
-            {
-                "@tag": "UNREAD_QUOTED_MSG",
-                "#text": "У вас {0} непрочитанных цитируемых сообщений, хотите перейти к самому новому?"
-            },
-            {
-                "@tag": "UNREAD_QUOTED_TITLE",
-                "#text": "Кто-то процитировал вас в теме"
-            },
-            {
-                "@tag": "UNREAD_THANKS_MSG",
-                "#text": "У вас {0} непрочитанных полученных Спасибо, хотите перейти к самому новому?"
-            },
-            {
-                "@tag": "UNREAD_THANKS_TITLE",
-                "#text": "Кто-то поблагодарил вас за сообщение"
-            },
-            {
-                "@tag": "UPDATE",
-                "#text": "Обновить"
-            },
-            {
-                "@tag": "USERNAME_TOOLONG",
-                "#text": "Имя пользователя и отображаемое имя пользователя не могут превышать {0} символов."
-            },
-            {
-                "@tag": "USERNAME_TOOSMALL",
-                "#text": "Имя пользователя или отображаемое имя пользователя должно содержать более {0} символов."
-            },
-            {
-                "@tag": "VIEW_CATEGORY",
-                "#text": "Просмотреть раздел"
-            },
-            {
-                "@tag": "VIEW_FORUM",
-                "#text": "Просмотреть форум"
-            },
-            {
-                "@tag": "VIEW_FULLINFO",
-                "#text": "Показать подробности"
-            },
-            {
-                "@tag": "VIEW_TOPIC",
-                "#text": "Просмотреть тему"
-            },
-            {
-                "@tag": "VIEW_TOPIC_STARTED_BY",
-                "#text": "Просмотр темы начат {0}"
-            },
-            {
-                "@tag": "VIEW_USRPROFILE",
-                "#text": "Просмотреть профиль"
-            },
-            {
-                "@tag": "VOTE",
-                "#text": "Голос"
-            },
-            {
-                "@tag": "YES",
-                "#text": "Да"
-            }
+          {
+            "@tag": "ALBUMIMG_BBCODE",
+            "#text": "Вставить изображение из альбома..."
+          },
+          {
+            "@tag": "ALLOWED",
+            "#text": "Разрешено"
+          },
+          {
+            "@tag": "ATTACH_BBCODE",
+            "#text": "Вставьте существующее вложение или загрузите новый файл..."
+          },
+          {
+            "@tag": "BACK",
+            "#text": "Назад"
+          },
+          {
+            "@tag": "BAD_USERNAME",
+            "#text": "Имя пользователя не может содержать некоторые знаки препинания(;) или некоторые слова."
+          },
+          {
+            "@tag": "BBCODE_CODE",
+            "#text": "Код:"
+          },
+          {
+            "@tag": "BBCODE_QUOTE",
+            "#text": "Цитата:"
+          },
+          {
+            "@tag": "BBCODE_QUOTEPOSTED",
+            "#text": "Автор: {0}"
+          },
+          {
+            "@tag": "BBCODE_QUOTEPOSTED_TT",
+            "#text": "Перейти к цитате"
+          },
+          {
+            "@tag": "BBCODE_QUOTEWROTE",
+            "#text": "{0} написал:"
+          },
+          {
+            "@tag": "BROWSE",
+            "#text": "Просмотреть"
+          },
+          {
+            "@tag": "CAL_JQ_TT",
+            "#text": "Нажмите, чтобы выбрать дату "
+          },
+          {
+            "@tag": "CAN_DELETE",
+            "#text": "Вы [b]можете[/b] удалять Ваши сообщения в этом форуме."
+          },
+          {
+            "@tag": "CAN_EDIT",
+            "#text": "Вы [b]можете[/b] редактировать Ваши сообщения в этом форуме."
+          },
+          {
+            "@tag": "CAN_POLL",
+            "#text": "Вы [b]можете[/b] создавать опросы в этом форуме."
+          },
+          {
+            "@tag": "CAN_POST",
+            "#text": "Вы [b]можете[/b] создавать новые темы в этом форуме."
+          },
+          {
+            "@tag": "CAN_REPLY",
+            "#text": "Вы [b]можете[/b] отвечать в этом форуме."
+          },
+          {
+            "@tag": "CAN_VOTE",
+            "#text": "Вы [b]можете[/b] голосовать в этом форуме."
+          },
+          {
+            "@tag": "CANCEL",
+            "#text": "Отменить"
+          },
+          {
+            "@tag": "CANNOT_DELETE",
+            "#text": "Вы [b]не можете[/b] удалять Ваши сообщения в этом форуме."
+          },
+          {
+            "@tag": "CANNOT_EDIT",
+            "#text": "Вы [b]не можете[/b] редактировать Ваши сообщения в этом форуме."
+          },
+          {
+            "@tag": "CANNOT_POLL",
+            "#text": "Вы [b]не можете[/b] создавать опросы в этом форуме."
+          },
+          {
+            "@tag": "CANNOT_POST",
+            "#text": "Вы [b]не можете[/b] создавать новые темы в этом форуме."
+          },
+          {
+            "@tag": "CANNOT_REPLY",
+            "#text": "Вы [b]не можете[/b] отвечать в этом форуме."
+          },
+          {
+            "@tag": "CANNOT_VOTE",
+            "#text": "Вы [b]не можете[/b] голосовать в этом форуме."
+          },
+          {
+            "@tag": "CHANGEEMAIL_SUBJECT",
+            "#text": "E-mail изменён"
+          },
+          {
+            "@tag": "COMMON_WORDS",
+            "#text": "а,о,или,к,за,у,out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your"
+          },
+          {
+            "@tag": "CONTINUE",
+            "#text": "Продолжить"
+          },
+          {
+            "@tag": "COOKIE",
+            "#text": "{0} использует файлы cookie. Продолжая просматривать этот сайт, вы соглашаетесь с использованием нами файлов cookie."
+          },
+          {
+            "@tag": "COOKIE_AGREE",
+            "#text": "Закрыть"
+          },
+          {
+            "@tag": "COOKIE_DETAILS",
+            "#text": "Подробнее"
+          },
+          {
+            "@tag": "COOKIE_HEADER",
+            "#text": "Важная информация:"
+          },
+          {
+            "@tag": "COPY",
+            "#text": "Клонировать"
+          },
+          {
+            "@tag": "CUSTOM_BBCODE",
+            "#text": "Больше BBCode"
+          },
+          {
+            "@tag": "DELETE",
+            "#text": "Удалить"
+          },
+          {
+            "@tag": "DELETED_MESSAGE",
+            "#text": "Сообщение с идентификатором: {0} Удалено"
+          },
+          {
+            "@tag": "DELETED_TOPIC",
+            "#text": "Тема с ID: {0} Удалена"
+          },
+          {
+            "@tag": "DISALLOWED",
+            "#text": "Запрещено"
+          },
+          {
+            "@tag": "DOWNLOAD",
+            "#text": "Загрузка"
+          },
+          {
+            "@tag": "EDIT",
+            "#text": "Редактировать"
+          },
+          {
+            "@tag": "EMAILVERIFICATION_SUBJECT",
+            "#text": "Проверка Email {0}  "
+          },
+          {
+            "@tag": "ENTRIES_10",
+            "#text": "10 Записи"
+          },
+          {
+            "@tag": "ENTRIES_15",
+            "#text": "15 Записи"
+          },
+          {
+            "@tag": "ENTRIES_20",
+            "#text": "20 Записи"
+          },
+          {
+            "@tag": "ENTRIES_25",
+            "#text": "25 Записи"
+          },
+          {
+            "@tag": "ENTRIES_5",
+            "#text": "5 Записи"
+          },
+          {
+            "@tag": "ENTRIES_50",
+            "#text": "50 записей"
+          },
+          {
+            "@tag": "EXTERNALUSER",
+            "#text": "(Внешний пользователь)"
+          },
+          {
+            "@tag": "FONT_COLOR",
+            "#text": "Цвет шрифта:"
+          },
+          {
+            "@tag": "FONT_SIZE",
+            "#text": "Размер шрифта:"
+          },
+          {
+            "@tag": "FOR",
+            "#text": "Для"
+          },
+          {
+            "@tag": "FORMAT_DATE_LONG",
+            "#text": "D"
+          },
+          {
+            "@tag": "FORMAT_DATE_SHORT",
+            "#text": "d"
+          },
+          {
+            "@tag": "FORMAT_DATE_TIME_LONG",
+            "#text": "F"
+          },
+          {
+            "@tag": "FORMAT_DATE_TIME_SHORT",
+            "#text": "G"
+          },
+          {
+            "@tag": "FORMAT_TIME",
+            "#text": "T"
+          },
+          {
+            "@tag": "FORUM_JUMP",
+            "#text": "Перейти"
+          },
+          {
+            "@tag": "FORUM_JUMP_PLACEHOLDER",
+            "#text": "Выберите форум, чтобы перейти..."
+          },
+          {
+            "@tag": "FORUMS_SHOWN",
+            "#text": "{0} из {1} Показаны форумы"
+          },
+          {
+            "@tag": "GENERATED",
+            "#text": "Страница сгенерирована за {0:N3} секунды."
+          },
+          {
+            "@tag": "GO",
+            "#text": "Перейти"
+          },
+          {
+            "@tag": "GOTOFIRSTPAGE_TT",
+            "#text": "Первая страница"
+          },
+          {
+            "@tag": "GOTOLASTPAGE_TT",
+            "#text": "Перейти на последнюю страницу"
+          },
+          {
+            "@tag": "GOTONEXTPAGE_TT",
+            "#text": "Следующая страница"
+          },
+          {
+            "@tag": "GOTOPAGE_HEADER",
+            "#text": "Перейти на страницу..."
+          },
+          {
+            "@tag": "GOTOPOST_ТТ",
+            "#text": "Перейти к сообщению"
+          },
+          {
+            "@tag": "GOTOPREVPAGE_TT",
+            "#text": "Предыдущая страница"
+          },
+          {
+            "@tag": "HIDDEN",
+            "#text": "Скрыт"
+          },
+          {
+            "@tag": "HTMLTAG_FORBIDDEN",
+            "#text": "Вам не разрешены HTML тэги."
+          },
+          {
+            "@tag": "HTMLTAG_WRONG",
+            "#text": "Введённые данные содержат запрещённый HTML тег {0}."
+          },
+          {
+            "@tag": "IN_FORUM",
+            "#text": "в форуме: {0}"
+          },
+          {
+            "@tag": "LOAD_MORE",
+            "#text": "Показать больше категорий и форумов..."
+          },
+          {
+            "@tag": "LOADING",
+            "#text": "Загрузка..."
+          },
+          {
+            "@tag": "MANAGE",
+            "#text": "Управляйте"
+          },
+          {
+            "@tag": "MAX_ONLINE",
+            "#text": "{1} было больше всего пользователей - {0}."
+          },
+          {
+            "@tag": "MENU",
+            "#text": "Меню"
+          },
+          {
+            "@tag": "MESSAGE",
+            "#text": "Сообщение"
+          },
+          {
+            "@tag": "MOBILE_FULLSITE",
+            "#text": "Просмотр всего сайта"
+          },
+          {
+            "@tag": "MOBILE_VIEWSITE",
+            "#text": "Мобильная версия"
+          },
+          {
+            "@tag": "MODAL_NOTIFICATION_HEADER",
+            "#text": "Уведомление"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Модератор"
+          },
+          {
+            "@tag": "NAME",
+            "#text": "Имя"
+          },
+          {
+            "@tag": "NO",
+            "#text": "Нет"
+          },
+          {
+            "@tag": "NONE",
+            "#text": "Ничего"
+          },
+          {
+            "@tag": "NOTE",
+            "#text": "Примечание:"
+          },
+          {
+            "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
+            "#text": "Новый пользователь SPAM BOT зарегистрирован на {0} форуме"
+          },
+          {
+            "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
+            "#text": "вы были награждены на форуме {0}"
+          },
+          {
+            "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
+            "#text": "Новое сообщение на форуме {0} должно быть Вами одобрено"
+          },
+          {
+            "@tag": "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
+            "#text": "Пожаловались на сообщение в форуме {0}"
+          },
+          {
+            "@tag": "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL",
+            "#text": "Новое СПАМ-сообщение на {0} форуме нуждается в проверке"
+          },
+          {
+            "@tag": "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT",
+            "#text": "Успешная регистрация на форуме {0}"
+          },
+          {
+            "@tag": "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
+            "#text": "Приостановка вашего {0} аккаунта на форуме"
+          },
+          {
+            "@tag": "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
+            "#text": "На форуме {0} зарегистрирован новый пользователь."
+          },
+          {
+            "@tag": "NOTIFICATION_ON_WELCOME_USER_SUBJECT",
+            "#text": "Добро пожаловать на форум {0}"
+          },
+          {
+            "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
+            "#text": "{0} Обновление учетной записи форума"
+          },
+          {
+            "@tag": "OK",
+            "#text": "ОК"
+          },
+          {
+            "@tag": "OR",
+            "#text": "или"
+          },
+          {
+            "@tag": "PAGE",
+            "#text": "Страница"
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "Страницы"
+          },
+          {
+            "@tag": "PM_NOTIFICATION_SUBJECT",
+            "#text": "Новое личное сообщение от {0} на {1}"
+          },
+          {
+            "@tag": "POST",
+            "#text": "Пост"
+          },
+          {
+            "@tag": "POWERED_BY",
+            "#text": "Форум "
+          },
+          {
+            "@tag": "PRIORITY",
+            "#text": "Приоритет"
+          },
+          {
+            "@tag": "PRIVACY_POLICY",
+            "#text": "Политика конфиденциальности"
+          },
+          {
+            "@tag": "READ",
+            "#text": "Чтение"
+          },
+          {
+            "@tag": "REGMAIL_SENT",
+            "#text": "Сообщение по электронной почте отправлено. Проверьте свою почту и перейдите по ссылке в полученном сообщении."
+          },
+          {
+            "@tag": "REGMAIL_WILL_BE_SEND",
+            "#text": "Сообщение по электронной почте будет отправлено Вам после регистрации. Для входа на сайт Вы должны проверить Ваш почтовый ящик и перейти по ссылке в сообщении."
+          },
+          {
+            "@tag": "REPLY",
+            "#text": "Ответить"
+          },
+          {
+            "@tag": "SAVE",
+            "#text": "Сохранить"
+          },
+          {
+            "@tag": "SELECT_LOCALE_JS",
+            "#text": "language:  { function n(n,e,r,u){return n%10<5&&n%10>0&&n%100<5||n%100>20?n%10>1?r:e:u}return{errorLoading:function(){return\"Невозможно загрузить результаты\"},inputTooLong:function(e){var r=e.input.length-e.maximum,u=\"Пожалуйста, введите на \"+r+\" символ\";return u+=n(r,\"\",\"a\",\"ов\"),u+=\" меньше\"},inputTooShort:function(e){var r=e.minimum-e.input.length,u=\"Пожалуйста, введите ещё хотя бы \"+r+\" символ\";return u+=n(r,\"\",\"a\",\"ов\")},loadingMore:function(){return\"Загрузка данных…\"},maximumSelected:function(e){var r=\"Вы можете выбрать не более \"+e.maximum+\" элемент\";return r+=n(e.maximum,\"\",\"a\",\"ов\")},noResults:function(){return\"Совпадений не найдено\"},searching:function(){return\"Поиск…\"},removeAllItems:function(){return\"Удалить все элементы\"} }"
+          },
+          {
+            "@tag": "SELECTED_COPY",
+            "#text": "Копирование выделенного текста"
+          },
+          {
+            "@tag": "SELECTED_QUOTE",
+            "#text": "Цитировать выделенный текст"
+          },
+          {
+            "@tag": "SELECTED_SEARCH",
+            "#text": "Поиск Google для ..."
+          },
+          {
+            "@tag": "SHOW_TITLE",
+            "#text": "Page Size Selection"
+          },
+          {
+            "@tag": "SHOWHIDE",
+            "#text": "Показать/Скрыть"
+          },
+          {
+            "@tag": "SUBMIT",
+            "#text": "Отправить"
+          },
+          {
+            "@tag": "TOPIC_NOTIFICATION_SUBJECT",
+            "#text": "Уведомление о новом сообщении в теме по подписке(От {0})"
+          },
+          {
+            "@tag": "TT_ALIGNCENTER",
+            "#text": "Выровнять по центру"
+          },
+          {
+            "@tag": "TT_ALIGNLEFT",
+            "#text": "Выровнять по левому краю"
+          },
+          {
+            "@tag": "TT_ALIGNRIGHT",
+            "#text": "Выровнять по правому краю"
+          },
+          {
+            "@tag": "TT_BOLD",
+            "#text": "Жирный"
+          },
+          {
+            "@tag": "TT_CODE",
+            "#text": "Код"
+          },
+          {
+            "@tag": "TT_CODELANG",
+            "#text": "Выберите тип подсветки кода"
+          },
+          {
+            "@tag": "TT_CREATELINK",
+            "#text": "Создать ссылку"
+          },
+          {
+            "@tag": "TT_CUSTOMBBCODE",
+            "#text": "Больше кодов BBCode"
+          },
+          {
+            "@tag": "TT_HIGHLIGHT",
+            "#text": "Подсветка"
+          },
+          {
+            "@tag": "TT_IMAGE",
+            "#text": "Вставить изображение"
+          },
+          {
+            "@tag": "TT_IPDETAILS",
+            "#text": "Показать информацию об этом IP"
+          },
+          {
+            "@tag": "TT_ITALIC",
+            "#text": "Курсив"
+          },
+          {
+            "@tag": "TT_LISTORDERED",
+            "#text": "Упорядоченный список"
+          },
+          {
+            "@tag": "TT_LISTUNORDERED",
+            "#text": "Неупорядоченный список"
+          },
+          {
+            "@tag": "TT_QUOTE",
+            "#text": "Цитата"
+          },
+          {
+            "@tag": "TT_SAVE",
+            "#text": "Сохранить черновик сообщения"
+          },
+          {
+            "@tag": "TT_UNDERLINE",
+            "#text": "Подчеркнуть"
+          },
+          {
+            "@tag": "UNREAD_MENTION_MSG",
+            "#text": "У вас {0} непрочитанных сообщений, хотите перейти к самому новому?"
+          },
+          {
+            "@tag": "UNREAD_MENTION_TITLE",
+            "#text": "Кто-то упомянул вас в теме"
+          },
+          {
+            "@tag": "UNREAD_MSG",
+            "#text": "У Вас {0} непрочитанных личных сообщений"
+          },
+          {
+            "@tag": "UNREAD_MSG_TITLE",
+            "#text": "Новые личные сообщения"
+          },
+          {
+            "@tag": "UNREAD_MSG2",
+            "#text": "У вас {0} непрочтённых сообщений в ваших Входящих. Вы желаете прочитать их прямо сейчас?"
+          },
+          {
+            "@tag": "UNREAD_QUOTED_MSG",
+            "#text": "У вас {0} непрочитанных цитируемых сообщений, хотите перейти к самому новому?"
+          },
+          {
+            "@tag": "UNREAD_QUOTED_TITLE",
+            "#text": "Кто-то процитировал вас в теме"
+          },
+          {
+            "@tag": "UNREAD_THANKS_MSG",
+            "#text": "У вас {0} непрочитанных полученных Спасибо, хотите перейти к самому новому?"
+          },
+          {
+            "@tag": "UNREAD_THANKS_TITLE",
+            "#text": "Кто-то поблагодарил вас за сообщение"
+          },
+          {
+            "@tag": "UPDATE",
+            "#text": "Обновить"
+          },
+          {
+            "@tag": "USERNAME_TOOLONG",
+            "#text": "Имя пользователя и отображаемое имя пользователя не могут превышать {0} символов."
+          },
+          {
+            "@tag": "USERNAME_TOOSMALL",
+            "#text": "Имя пользователя или отображаемое имя пользователя должно содержать более {0} символов."
+          },
+          {
+            "@tag": "VIEW_CATEGORY",
+            "#text": "Просмотреть раздел"
+          },
+          {
+            "@tag": "VIEW_FORUM",
+            "#text": "Просмотреть форум"
+          },
+          {
+            "@tag": "VIEW_FULLINFO",
+            "#text": "Показать подробности"
+          },
+          {
+            "@tag": "VIEW_TOPIC",
+            "#text": "Просмотреть тему"
+          },
+          {
+            "@tag": "VIEW_TOPIC_STARTED_BY",
+            "#text": "Просмотр темы начат {0}"
+          },
+          {
+            "@tag": "VIEW_USRPROFILE",
+            "#text": "Просмотреть профиль"
+          },
+          {
+            "@tag": "VOTE",
+            "#text": "Голос"
+          },
+          {
+            "@tag": "YES",
+            "#text": "Да"
+          }
         ]
       },
       {
@@ -14450,10 +14374,6 @@
             "#text": "Адрес Email"
           },
           {
-            "@tag": "GENERATE_CAPTCHA",
-            "#text": "Сменить картинку"
-          },
-          {
             "@tag": "HOMEPAGE",
             "#text": "Домашняя страница"
           },
@@ -14540,10 +14460,6 @@
           {
             "@tag": "PROFILE",
             "#text": "Информация в профиле"
-          },
-          {
-            "@tag": "RECAPTCHA_BADSETTING",
-            "#text": "Настройки ReCAPTURE неверны. Сообщите это администрации форума."
           },
           {
             "@tag": "RECATCHA_BADWORDS",

@@ -3586,14 +3586,6 @@
             "#text": "User is not shown in Active User lists."
           },
           {
-            "@tag": "USERINFO_EX_CAPTCHA",
-            "#text": "Exclude from CAPTCHA:"
-          },
-          {
-            "@tag": "USERINFO_EX_CAPTCHA_HELP",
-            "#text": "CAPTCHA is disabled for this user specifically."
-          },
-          {
             "@tag": "USERINFO_GUEST",
             "#text": "Is Guest:"
           },
@@ -4222,30 +4214,6 @@
             "#text": "To Use the BotScout Bot Service you need an API Key"
           },
           {
-            "@tag": "CAPTCHA_FOR_REGISTER",
-            "#text": "Enable CAPTCHA/reCAPTCHA for Register:"
-          },
-          {
-            "@tag": "CAPTCHA_FOR_REGISTER_HELP",
-            "#text": "Require users to enter the CAPTCHA when they register for the forum."
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING",
-            "#text": "Enable CAPTCHA for Guest Posting:"
-          },
-          {
-            "@tag": "CAPTCHA_GUEST_POSTING_HELP",
-            "#text": "Require guest users to enter the CAPTCHA when they post or reply to a forum message (including Quick Reply)."
-          },
-          {
-            "@tag": "CAPTCHA_SIZE",
-            "#text": "CAPTCHA Size:"
-          },
-          {
-            "@tag": "CAPTCHA_SIZE_HELP",
-            "#text": "Size (length) of the CAPTCHA random alphanumeric string."
-          },
-          {
             "@tag": "CDN_JQUERY",
             "#text": "Use Google Hosted CDN jQuery Script File?"
           },
@@ -4402,14 +4370,6 @@
             "#text": "Enables/disables calendar in profile, if it causes troubles on servers/for users with different cultures."
           },
           {
-            "@tag": "ENABLE_CAPTCHA_FORPOST",
-            "#text": "Enable CAPTCHA for Post a Message:"
-          },
-          {
-            "@tag": "ENABLE_CAPTCHA_FORPOST_HELP",
-            "#text": "Require users to enter the CAPTCHA when they post or reply to a forum message (including Quick Reply)."
-          },
-          {
             "@tag": "ENABLE_DISPLAY_NAME",
             "#text": "Enable Display Name:"
           },
@@ -4556,10 +4516,6 @@
           {
             "@tag": "HEADER_CACHE",
             "#text": "Cache Settings"
-          },
-          {
-            "@tag": "HEADER_CAPTCHA",
-            "#text": "CAPTCHA Settings"
           },
           {
             "@tag": "HEADER_CDN",
@@ -5156,22 +5112,6 @@
           {
             "@tag": "QUICK_SEARCH_HELP",
             "#text": "Show Quick Search field and button in toolbar."
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY",
-            "#text": "reCAPTCHA Secret Key:"
-          },
-          {
-            "@tag": "RECAPTCHA_PRIVATE_KEY_HELP",
-            "#text": "Enter a reCAPTCHA Secret Key"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY",
-            "#text": "reCAPTCHA Site Key:"
-          },
-          {
-            "@tag": "RECAPTCHA_PUBLIC_KEY_HELP",
-            "#text": "Enter a reCAPTCHA Site Key."
           },
           {
             "@tag": "REG_USERS",
@@ -8020,14 +7960,6 @@
             "#text": "Back"
           },
           {
-            "@tag": "BAD_CAPTCHA",
-            "#text": "Text Entered Did Not Match Text In Security Image."
-          },
-          {
-            "@tag": "BAD_RECAPTCHA",
-            "#text": "Please re-enter the reCAPTCHA."
-          },
-          {
             "@tag": "BAD_USERNAME",
             "#text": "Username cannot contain semi-colons (;) or some special words."
           },
@@ -8110,14 +8042,6 @@
           {
             "@tag": "CANNOT_VOTE",
             "#text": "You [b]cannot[/b] vote in polls in this forum."
-          },
-          {
-            "@tag": "CAPTCHA_ENTER",
-            "#text": "Enter The Letters From The Security Image:"
-          },
-          {
-            "@tag": "CAPTCHA_IMAGE",
-            "#text": "Security Image:"
           },
           {
             "@tag": "CHANGEEMAIL_SUBJECT",
@@ -14454,10 +14378,6 @@
             "#text": "Email Address"
           },
           {
-            "@tag": "GENERATE_CAPTCHA",
-            "#text": "Generate New Image"
-          },
-          {
             "@tag": "HOMEPAGE",
             "#text": "Home Page"
           },
@@ -14544,10 +14464,6 @@
           {
             "@tag": "PROFILE",
             "#text": "Profile Information"
-          },
-          {
-            "@tag": "RECAPTCHA_BADSETTING",
-            "#text": "Recapture settings are bad. Report it to administration."
           },
           {
             "@tag": "RECATCHA_BADWORDS",
