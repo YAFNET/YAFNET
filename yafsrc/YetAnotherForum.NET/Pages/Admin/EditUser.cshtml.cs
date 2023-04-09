@@ -83,7 +83,7 @@ public class EditUserModel : AdminPage
 
         if (tab.IsSet())
         {
-            LastTab = tab;
+            this.LastTab = tab;
         }
 
         var currentUserId = u.Value;

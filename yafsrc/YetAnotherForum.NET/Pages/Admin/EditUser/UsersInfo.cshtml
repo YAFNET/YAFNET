@@ -79,11 +79,13 @@
                        localized-tag="USERINFO_EX_ACTIVE" localized-page="ADMIN_EDITUSER"></label>
             </div>
         </div>
-        <div class="form-check form-switch">
-            <input type="checkbox" asp-for="Input.IsApproved" disabled="disabled" class="form-check-input" />
-            <label info-button="true" class="form-check-label"
-                   asp-for="Input.IsApproved"
-                   localized-tag="USERINFO_APPROVED" localized-page="ADMIN_EDITUSER"></label>
+        <div class="mb-3 col-md-6">
+            <div class="form-check form-switch">
+                <input type="checkbox" asp-for="Input.IsApproved" disabled="disabled" class="form-check-input" />
+                <label info-button="true" class="form-check-label"
+                       asp-for="Input.IsApproved"
+                       localized-tag="USERINFO_APPROVED" localized-page="ADMIN_EDITUSER"></label>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -163,7 +165,7 @@
                 Icon="save" 
                 text-localized-tag="SAVE"
                 asp-page-handler="Save"
-                asp-route-u="@Model.EditUser.Item1.ID"></button>
+                asp-route-userId="@Model.EditUser.Item1.ID"></button>
         <a button-style="Secondary"
                 Icon="times"
                 text-localized-tag="CANCEL"

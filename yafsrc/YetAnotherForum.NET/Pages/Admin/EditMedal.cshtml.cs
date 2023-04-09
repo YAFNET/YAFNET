@@ -31,7 +31,6 @@ using System.Linq;
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Core.Services;
-using YAF.Types;
 using YAF.Types.Flags;
 using YAF.Types.Models;
 

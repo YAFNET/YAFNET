@@ -29,7 +29,6 @@ using Microsoft.AspNetCore.Mvc;
 using YAF.Core.Context;
 using YAF.Core.Model;
 using YAF.Core.Services;
-using YAF.Types;
 using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;

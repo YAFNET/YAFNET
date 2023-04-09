@@ -80,7 +80,7 @@ public class UsersInfoModel : AdminPage
     /// <summary>
     /// Updates the User Info
     /// </summary>
-    public IActionResult OnPostSave(int u)
+    public IActionResult OnPostSave(int userId)
     {
         // Update the Membership
         if (!this.Input.IsGuestX)
@@ -113,15 +113,15 @@ public class UsersInfoModel : AdminPage
 
         this.GetRepository<User>().AdminSave(
             this.PageBoardContext.PageBoardID,
-            u,
+            userId,
             this.Input.Name,
             this.Input.DisplayName,
             userFlags.BitValue,
             this.Input.RankID);
 
-        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(u));
+        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u, tab = "View1" });
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { userId, tab = "View1" });
     }
 
     /// <summary>
