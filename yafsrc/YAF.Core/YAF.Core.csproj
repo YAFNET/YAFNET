@@ -13,7 +13,7 @@
     <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00016" />
     <PackageReference Include="Lucene.Net.Highlighter" Version="4.8.0-beta00016" />
     <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00016" />
-    <PackageReference Include="MailKit" Version="3.6.0" />
+    <PackageReference Include="MailKit" Version="4.0.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.5" />
@@ -51,7 +51,7 @@
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="7.0.0" />
+    <PackageReference Include="Autofac" Version="7.0.1" />
     <PackageReference Include="Shyjus.BrowserDetector" Version="2.0.0" />
     <PackageReference Include="System.Runtime.Caching" Version="7.0.0" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="7.0.0" />

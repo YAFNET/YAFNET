@@ -8,7 +8,7 @@
 
 	<ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="MailKit" Version="3.6.0" />
+    <PackageReference Include="MailKit" Version="4.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="7.0.5" />
