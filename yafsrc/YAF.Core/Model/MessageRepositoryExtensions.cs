@@ -1007,7 +1007,15 @@ public static class MessageRepositoryExtensions
                                        Description = string.Empty
                                    };
 
-        BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newSearchMessage);
+        try
+        {
+            BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newSearchMessage);
+        }
+        catch (Exception ex)
+        {
+            BoardContext.Current.Get<ILoggerService>().Error(ex, ex.Message);
+        }
+
 
         if (flags.IsApproved)
         {
