@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>8.0.30703</ProductVersion>
     <TargetFrameworks>net7.0</TargetFrameworks>
@@ -28,7 +28,7 @@
     <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="7.0.0" />
+    <PackageReference Include="Autofac" Version="7.0.1" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
   </ItemGroup>
 </Project>
