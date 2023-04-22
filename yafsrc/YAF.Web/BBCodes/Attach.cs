@@ -80,9 +80,8 @@ public class Attach : BBCodeControl
             // user has rights to download, show him image
             if (this.PageContext.BoardSettings.EnableImageAttachmentResize)
             {
-                stringBuilder.AppendFormat(
-                    @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
-                    this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
+                stringBuilder.Append(
+                    $@"<div class=""card bg-dark text-white"" style=""max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px"">");
 
                 stringBuilder.AppendFormat(
                     @"<a href=""{0}"" title=""{1}""  data-gallery=""#blueimp-gallery-{2}"">",
@@ -91,20 +90,18 @@ public class Attach : BBCodeControl
                     this.MessageID.Value);
 
                 stringBuilder.AppendFormat(
-                    @"<img src=""{0}"" alt=""{1}"" class=""img-user-posted card-img-top"" style=""max-height:{2}px"">",
+                    @"<img src=""{0}"" alt=""{1}"" class=""img-user-posted card-img-top;object-fit:contain"" style=""max-height:{2}px"">",
                     this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
                     this.HtmlEncode(attachment.FileName),
                     this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
 
                 stringBuilder.Append(@"</a>");
 
-                stringBuilder.AppendFormat(
-                    @"<div class=""card-body py-1""><p class=""card-text small"">{0}",
-                    this.GetText("IMAGE_RESIZE_ENLARGE"));
+                stringBuilder.Append(
+                    $@"<div class=""card-body py-1""><p class=""card-text small"">{this.GetText("IMAGE_RESIZE_ENLARGE")}");
 
-                stringBuilder.AppendFormat(
-                    @"<span class=""text-muted float-end"">{0}</span></p>",
-                    this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads));
+                stringBuilder.Append(
+                    $@"<span class=""text-muted float-end"">{this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads)}</span></p>");
 
                 stringBuilder.Append(@"</div></div>");
             }

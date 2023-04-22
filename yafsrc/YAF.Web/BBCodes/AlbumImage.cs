@@ -41,9 +41,8 @@ public class AlbumImage : BBCodeControl
     /// </param>
     public override void Render([NotNull] StringBuilder stringBuilder)
     {
-        stringBuilder.AppendFormat(
-            @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
-            this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
+        stringBuilder.Append(
+            $@"<div class=""card bg-dark text-white"" style=""max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px"">");
 
         stringBuilder.AppendFormat(
             @"<a href=""{0}"" data-gallery=""#blueimp-gallery-{2}"" title=""{1}"">",
@@ -52,7 +51,7 @@ public class AlbumImage : BBCodeControl
             this.MessageID.Value);
 
         stringBuilder.AppendFormat(
-            @"<img src=""{0}"" class=""img-user-posted card-img-top"" style=""max-height:{2}px"" alt=""{1}"">",
+            @"<img src=""{0}"" class=""img-user-posted card-img-top;object-fit:contain"" style=""max-height:{2}px"" alt=""{1}"">",
             this.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId = this.Parameters["inner"] }),
             this.Parameters["inner"],
             this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
