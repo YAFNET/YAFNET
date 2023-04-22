@@ -77,7 +77,7 @@ public class Attach : BBCodeControl
             if (this.PageBoardContext.BoardSettings.EnableImageAttachmentResize)
             {
                 writer.Write(
-                    @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
+                    @"<div class=""card bg-dark text-white"" style=""max-width:{0}px;"">",
                     this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
 
                 writer.Write(
@@ -89,7 +89,7 @@ public class Attach : BBCodeControl
                     this.MessageID.Value);
 
                 writer.Write(
-                    @"<img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" class=""img-user-posted card-img-top"" style=""max-height:{4}px"">",
+                    @"<img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" class=""img-user-posted card-img-top"" style=""max-height:{4}px;object-fit:contain"">",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     this.HtmlEncode(attachment.FileName),
@@ -111,7 +111,7 @@ public class Attach : BBCodeControl
             else
             {
                 writer.Write(
-                    @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-height:{4}px"">",
+                    @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-height:{4}px;object-fit:contain"">",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     this.HtmlEncode(attachment.FileName),
