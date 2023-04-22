@@ -1,4 +1,4 @@
-{
+﻿{
   "Resources": {
     "@language": "Estonian",
     "@code": "et-EE",
@@ -5980,7 +5980,7 @@
         "Resource": [
           {
             "@tag": "BETA_WARNING",
-            "#text": "<p class=\"text-danger\">\r\n      "
+            "#text": "<p>\r\n      "
           },
           {
             "@tag": "GROUPS",
