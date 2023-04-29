@@ -71,12 +71,12 @@ public class InternalCheck : ICheckForBot
         try
         {
             var bannedEmailRepository = BoardContext.Current.GetRepository<BannedEmail>();
-            var bannedIPRepository = BoardContext.Current.GetRepository<BannedIP>();
+            var bannedIpRepository = BoardContext.Current.GetRepository<BannedIP>();
 
             var bannedIpList = BoardContext.Current.Get<IDataCache>().GetOrSet(
                 Constants.Cache.BannedIP,
-                () => bannedIPRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
-                    .Select(x => x.Mask.Trim()).ToList());
+                () => bannedIpRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID))
+                    .Select(x => x.Mask.Trim()).ToList();
 
             var bannedNameRepository = BoardContext.Current.GetRepository<BannedName>();
 

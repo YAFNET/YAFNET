@@ -139,7 +139,6 @@ public partial class EditUsersAvatar : BaseUserControl
             return;
         }
 
-
         long x = this.PageBoardContext.BoardSettings.AvatarWidth;
         long y = this.PageBoardContext.BoardSettings.AvatarHeight;
         var avatarSize = this.PageBoardContext.BoardSettings.AvatarSize;

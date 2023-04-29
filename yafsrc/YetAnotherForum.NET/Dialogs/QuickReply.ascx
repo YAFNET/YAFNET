@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Dialogs.QuickReply" CodeBehind="QuickReply.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Dialogs.QuickReply" CodeBehind="QuickReply.ascx.cs" %>
 
 <div class="modal fade" id="QuickReplyDialog" tabindex="-1" role="dialog" aria-labelledby="quickReplyLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -12,24 +12,6 @@
       </div>
       <div class="modal-body">
           <div id="QuickReplyLine" runat="server">
-          </div>
-          <div id="CaptchaDiv" visible="false" runat="server">
-              <div class="mb-3">
-                  <asp:Label runat="server" AssociatedControlID="imgCaptcha">
-                      <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" 
-                                          LocalizedTag="Captcha_Image" />
-                  </asp:Label>
-                  <asp:Image ID="imgCaptcha" runat="server" 
-                             AlternateText="Captcha" 
-                             CssClass="form-control" />
-              </div>
-              <div class="mb-3">
-                  <asp:Label runat="server" AssociatedControlID="tbCaptcha">
-                      <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" 
-                                          LocalizedTag="Captcha_Enter" />
-                  </asp:Label>
-                  <asp:TextBox ID="tbCaptcha" runat="server" CssClass="form-control" />
-              </div>
           </div>
           <div>
               <asp:PlaceHolder runat="server" ID="QuickReplyWatchTopic">

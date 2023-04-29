@@ -64,12 +64,6 @@ public partial class QuickReply : BaseUserControl
             // return;
         }
 
-        if (this.EnableCaptcha())
-        {
-            this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
-            this.CaptchaDiv.Visible = true;
-        }
-
         this.QuickReplyWatchTopic.Visible = !this.PageBoardContext.IsGuest;
 
         if (!this.PageBoardContext.IsGuest)
@@ -113,17 +107,6 @@ public partial class QuickReply : BaseUserControl
                     JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
                 this.PageBoardContext.Notify(this.GetText("ISEXCEEDED"), MessageTypes.warning);
-
-                return;
-            }
-
-            if (this.EnableCaptcha() && !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
-            {
-                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                    "openModalJs",
-                    JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
-
-                this.PageBoardContext.Notify(this.GetText("BAD_CAPTCHA"), MessageTypes.warning);
 
                 return;
             }
@@ -373,19 +356,5 @@ public partial class QuickReply : BaseUserControl
         var moderatedPostCount = forumInfo.ModeratedPostCount.Value;
 
         return !(this.PageBoardContext.PageUser.NumPosts >= moderatedPostCount);
-    }
-
-    /// <summary>
-    /// Enables the captcha.
-    /// </summary>
-    /// <returns>Returns if Captcha is enabled or not</returns>
-    private bool EnableCaptcha()
-    {
-        if (this.PageBoardContext.IsGuest && this.PageBoardContext.BoardSettings.EnableCaptchaForGuests)
-        {
-            return true;
-        }
-
-        return this.PageBoardContext.BoardSettings.EnableCaptchaForPost && !this.PageBoardContext.PageUser.UserFlags.IsCaptchaExcluded;
     }
 }

@@ -317,7 +317,6 @@
                                         <asp:ListItem Text="Arabic" Value="ar"/>
                                         <asp:ListItem Text="Chinese (Simplified)" Value="zh-CN"/>
                                         <asp:ListItem Text="Chinese (Traditional)" Value="zh-TW"/>
-                                        <asp:ListItem Text="Croatian" Value="hr" />
                                         <asp:ListItem Text="Czech" Value="cs" />
                                         <asp:ListItem Text="Danish" Value="da" />
                                         <asp:ListItem Text="Dutch" Value="nl" />
