@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -43,6 +43,11 @@ namespace YAF.Lucene.Net.Util
     /// <para/>
     /// NOTE: This was SentinelIntSet in Lucene
     /// <para/>
+    ///
+    /// If you need to extend this class and subclass it, keep in mind that constructor
+    /// calls a private "ClearInternal" method and not virtual Clear. So if you need
+    /// to do some specific initialization in subclass constructor, call your own private
+    /// method with whatever custom initialization you need.
     /// @lucene.internal
     /// </summary>
     public class SentinelInt32Set
@@ -84,12 +89,22 @@ namespace YAF.Lucene.Net.Util
             keys = new int[tsize];
             if (emptyVal != 0)
             {
-                Clear();
+                ClearInternal(); // LUCENENET specific - calling private and not virtual method
             }
         }
 
+        /// <summary>
+        ///
+        /// NOTE: When overriding this method, be aware that the constructor of this class calls 
+        /// a private method and not this virtual method. So if you need to override
+        /// the behavior during the initialization, call your own private method from the constructor
+        /// with whatever custom behavior you need.
+        /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public virtual void Clear()
+        public virtual void Clear() => ClearInternal();
+        // LUCENENET specific - S1699 - non-virtual method that can be
+        // called from the constructor
+        private void ClearInternal()
         {
             Arrays.Fill(keys, EmptyVal);
             Count = 0;

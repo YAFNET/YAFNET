@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Codecs
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,7 +29,7 @@ namespace YAF.Lucene.Net.Codecs
 
     /// <summary>
     /// The core terms dictionaries (BlockTermsReader,
-    /// <see cref="BlockTreeTermsReader"/>) interact with a single instance
+    /// <see cref="BlockTreeTermsReader{TSubclassState}"/>) interact with a single instance
     /// of this class to manage creation of <see cref="DocsEnum"/> and
     /// <see cref="DocsAndPositionsEnum"/> instances.  It provides an
     /// <see cref="IndexInput"/> (termsIn) where this class may read any

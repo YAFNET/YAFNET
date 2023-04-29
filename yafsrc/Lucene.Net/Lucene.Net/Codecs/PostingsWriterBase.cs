@@ -10,7 +10,7 @@ namespace YAF.Lucene.Net.Codecs
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Codecs
     /// Extension of <see cref="PostingsConsumer"/> to support pluggable term dictionaries.
     /// <para/>
     /// This class contains additional hooks to interact with the provided
-    /// term dictionaries such as <see cref="BlockTreeTermsWriter"/>. If you want
+    /// term dictionaries such as <see cref="BlockTreeTermsWriter{TSubclassState}"/>. If you want
     /// to re-use an existing implementation and are only interested in
     /// customizing the format of the postings list, extend this class
     /// instead.

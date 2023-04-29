@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -1170,7 +1170,13 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             m_input_stream = stream;
         }
 
-        /// <summary>Constructor. </summary>
+        /// <summary>Constructor. 
+        /// <para>Note that this constructor calls a virtual method <see cref="SwitchTo(int)" />. If you
+        /// are subclassing this class, use <see cref="QueryParserTokenManager(ICharStream)" /> constructor and
+        /// call SwitchTo if needed.</para>
+        /// </summary>
+        [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
+        [SuppressMessage("CodeQuality", "S1699:Constructors should only call non-overridable methods", Justification = "Required for continuity with Lucene's design")]
         public QueryParserTokenManager(ICharStream stream, int lexState):this(stream)
         {
             SwitchTo(lexState);

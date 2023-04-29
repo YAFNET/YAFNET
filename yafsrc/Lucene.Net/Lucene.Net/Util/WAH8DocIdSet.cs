@@ -3,7 +3,6 @@ using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -17,7 +16,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -106,6 +105,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Same as <see cref="Intersect(ICollection{WAH8DocIdSet}, int)"/> with the default index interval. </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="docIdSets"/> is <c>null</c>.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static WAH8DocIdSet Intersect(ICollection<WAH8DocIdSet> docIdSets)
         {
@@ -116,6 +116,7 @@ namespace YAF.Lucene.Net.Util
         /// Compute the intersection of the provided sets. This method is much faster than
         /// computing the intersection manually since it operates directly at the byte level.
         /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="docIdSets"/> is <c>null</c>.</exception>
         public static WAH8DocIdSet Intersect(ICollection<WAH8DocIdSet> docIdSets, int indexInterval)
         {
             // LUCENENET: Added guard clause for null
@@ -183,6 +184,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Same as <see cref="Union(ICollection{WAH8DocIdSet}, int)"/> with the default index interval. </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="docIdSets"/> is <c>null</c>.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static WAH8DocIdSet Union(ICollection<WAH8DocIdSet> docIdSets)
         {
@@ -193,8 +195,13 @@ namespace YAF.Lucene.Net.Util
         /// Compute the union of the provided sets. This method is much faster than
         /// computing the union manually since it operates directly at the byte level.
         /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="docIdSets"/> is <c>null</c>.</exception>
         public static WAH8DocIdSet Union(ICollection<WAH8DocIdSet> docIdSets, int indexInterval)
         {
+            // LUCENENET: Added guard clause for null
+            if (docIdSets is null)
+                throw new ArgumentNullException(nameof(docIdSets));
+
             switch (docIdSets.Count)
             {
                 case 0:
@@ -246,14 +253,22 @@ namespace YAF.Lucene.Net.Util
 
         private sealed class PriorityQueueAnonymousClass : PriorityQueue<WAH8DocIdSet.Iterator>
         {
+#nullable enable
             public PriorityQueueAnonymousClass(int numSets)
                 : base(numSets)
             {
             }
+#nullable restore
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             protected internal override bool LessThan(Iterator a, Iterator b)
             {
+                // LUCENENET specific - added guard clauses
+                if (a is null)
+                    throw new ArgumentException(nameof(a));
+                if (b is null)
+                    throw new ArgumentException(nameof(b));
+
                 return a.wordNum < b.wordNum;
             }
         }

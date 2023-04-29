@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Index.Memory
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -102,7 +102,7 @@ namespace YAF.Lucene.Net.Index.Memory
     /// 
     /// <code>
     /// (: An XQuery that finds all books authored by James that have something to do with "salmon fishing manuals", sorted by relevance :)
-    /// declare namespace YAF.Lucene = "java:nux.xom.pool.FullTextUtil";
+    /// declare namespace lucene = "java:nux.xom.pool.FullTextUtil";
     /// declare variable $query := "+salmon~ +fish* manual~"; (: any arbitrary Lucene query can go here :)
     /// 
     /// for $book in /books/book[author="James" and lucene:match(abstract, $query) > 0.0]

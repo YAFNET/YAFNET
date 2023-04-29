@@ -13,7 +13,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,9 +27,9 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
     /// </summary>
     public abstract class SimpleTerm : SrndQuery, IDistanceSubQuery, IComparable<SimpleTerm>
     {
-        protected SimpleTerm(bool q) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
+        protected SimpleTerm(bool quoted) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         { 
-            quoted = q; 
+            this.quoted = quoted; 
         }
 
         private readonly bool quoted; // LUCENENET: marked readonly

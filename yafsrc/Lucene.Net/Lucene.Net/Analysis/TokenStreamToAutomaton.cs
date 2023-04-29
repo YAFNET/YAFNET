@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Analysis
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -70,7 +70,7 @@ namespace YAF.Lucene.Net.Analysis
             set => this.unicodeArcs = value;
         }
 
-        private class Position : RollingBuffer.IResettable
+        private class Position : IResettable
         {
             // Any tokens that ended at our position arrive to this state:
             internal State arriving;
@@ -87,18 +87,9 @@ namespace YAF.Lucene.Net.Analysis
 
         private class Positions : RollingBuffer<Position>
         {
+            // LUCENENET specific - removed NewInstance override and using PositionsFactory to create instances
             public Positions()
-                : base(NewPosition) { }
-
-            protected override Position NewInstance()
-            {
-                return NewPosition();
-            }
-
-            private static Position NewPosition()
-            {
-                return new Position();
-            }
+                : base(RollingBufferItemFactory<Position>.Default) { }
         }
 
         /// <summary>

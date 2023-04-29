@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Analysis.Shingle
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -638,7 +638,8 @@ namespace YAF.Lucene.Net.Analysis.Shingle
             /// <see cref="outputUnigrams"/> = true.
             /// </para>
             /// </summary>
-            public virtual void Reset()
+            // LUCENENET specific - S1699 - marked non-virtual because calling virtual members from the constructor is not a safe operation in .NET
+            public void Reset()
             {
                 previousValue = value = minValue;
             }

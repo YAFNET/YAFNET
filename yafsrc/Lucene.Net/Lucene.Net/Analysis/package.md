@@ -11,7 +11,7 @@ summary: *content
  (the "License"); you may not use this file except in compliance with
  the License.  You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+     https://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +30,7 @@ Lucene.NET, an indexing and search library, accepts only plain text input.
 
 Applications that build their search capabilities upon Lucene.NET may support documents in various formats – HTML, XML, PDF, Word – just to name a few.
 Lucene.NET does not care about the _Parsing_ of these and other document formats, and it is the responsibility of the 
-application using YAF.Lucene.Net to use an appropriate _Parser_ to convert the original format into plain text before passing that plain text to Lucene.NET.
+application using Lucene.NET to use an appropriate _Parser_ to convert the original format into plain text before passing that plain text to Lucene.NET.
 
 ## Tokenization
 

@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -86,7 +86,7 @@ namespace YAF.Lucene.Net.Search
         public DisjunctionMaxQuery(ICollection<Query> disjuncts, float tieBreakerMultiplier)
         {
             this.tieBreakerMultiplier = tieBreakerMultiplier;
-            Add(disjuncts);
+            AddInternal(disjuncts); // LUCENENET specific - calling private instead of virtual
         }
 
         /// <summary>
@@ -99,12 +99,21 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// Add a collection of disjuncts to this disjunction
-        /// via <see cref="T:IEnumerable{Query}"/> </summary>
+        /// via <see cref="T:IEnumerable{Query}"/> 
+        ///
+        /// NOTE: When overriding this method, be aware that the constructor of this class calls 
+        /// a private method and not this virtual method. So if you need to override
+        /// the behavior during the initialization, call your own private method from the constructor
+        /// with whatever custom behavior you need.
+        /// </summary>
         /// <param name="disjuncts"> A collection of queries to add as disjuncts. </param>
-        public virtual void Add(ICollection<Query> disjuncts)
-        {
+        public virtual void Add(ICollection<Query> disjuncts) =>
+            AddInternal(disjuncts);
+
+        // LUCENENET specific - S1699 - introduced private AddInternal that
+        // is called from virtual Add and constructor
+        private void AddInternal(ICollection<Query> disjuncts) =>
             this.disjuncts.AddRange(disjuncts);
-        }
 
         /// <returns> An <see cref="T:IEnumerator{Query}"/> over the disjuncts </returns>
         public virtual IEnumerator<Query> GetEnumerator()

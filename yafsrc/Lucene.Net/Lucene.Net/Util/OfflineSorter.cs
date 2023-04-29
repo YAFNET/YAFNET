@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -547,6 +547,12 @@ namespace YAF.Lucene.Net.Util
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             protected internal override bool LessThan(FileAndTop a, FileAndTop b)
             {
+                // LUCENENET: Added guard clauses
+                if (a is null)
+                    throw new ArgumentNullException(nameof(a));
+                if (b is null)
+                    throw new ArgumentNullException(nameof(b));
+
                 return outerInstance.comparer.Compare(a.Current, b.Current) < 0;
             }
         }

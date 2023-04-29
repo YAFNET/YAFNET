@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index.Memory
@@ -11,7 +11,7 @@ namespace YAF.Lucene.Net.Index.Memory
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Index.Memory
         {
             /// <summary>
             /// Sorts term entries into ascending order; also works for
-            /// <see cref="Array.BinarySearch{T}(T[], T, IComparer{T})"/> and
+            /// <see cref="Array.BinarySearch{T}(T[], T, IComparer{T})"/> and 
             /// <see cref="Array.Sort{T}(T[], IComparer{T})"/>.
             /// </summary>
             public static int KeyComparer<TKey, TValue>(KeyValuePair<TKey, TValue> x, KeyValuePair<TKey, TValue> y)

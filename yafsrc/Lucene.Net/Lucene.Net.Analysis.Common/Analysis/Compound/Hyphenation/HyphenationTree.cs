@@ -18,7 +18,7 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      * 
-     *      http://www.apache.org/licenses/LICENSE-2.0
+     *      https://www.apache.org/licenses/LICENSE-2.0
      * 
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,6 +32,15 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
     /// fast lookup. It provides the provides the method to hyphenate a word.
     /// <para/>
     /// This class has been taken from the Apache FOP project (http://xmlgraphics.apache.org/fop/). They have been slightly modified. 
+    ///
+    /// Lucene.NET specific note:
+    /// If you are going to extend this class by inheriting from it, you should be aware that the
+    /// base class TernaryTree initializes its state in the constructor by calling its protected Init() method.
+    /// If your subclass needs to initialize its own state, you add your own "Initialize()" method
+    /// and call it both from the inside of your constructor and you will need to override the Balance() method
+    /// and call "Initialize()" before the call to base.Balance().
+    /// Your class can use the data that is initialized in the base class after the call to base.Balance().
+    ///
     /// </summary>
     public class HyphenationTree : TernaryTree, IPatternConsumer
     {

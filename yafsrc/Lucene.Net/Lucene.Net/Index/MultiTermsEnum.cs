@@ -14,7 +14,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -79,11 +79,15 @@ namespace YAF.Lucene.Net.Index
         public TermsEnumWithSlice[] MatchArray => top;
 
         /// <summary>
-        /// Sole constructor. </summary>
-        /// <param name="slices"> Which sub-reader slices we should
-        /// merge.</param>
+        /// Initializes a new instance of <see cref="MultiTermsEnum"/> with the specified <paramref name="slices"/>. </summary>
+        /// <param name="slices"> Which sub-reader slices we should merge.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="slices"/> is <c>null</c>.</exception>
         public MultiTermsEnum(ReaderSlice[] slices)
         {
+            // LUCENENET: Added guard clause
+            if (slices is null)
+                throw new ArgumentNullException(nameof(slices));
+
             queue = new TermMergeQueue(slices.Length);
             top = new TermsEnumWithSlice[slices.Length];
             subs = new TermsEnumWithSlice[slices.Length];

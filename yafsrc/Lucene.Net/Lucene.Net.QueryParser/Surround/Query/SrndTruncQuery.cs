@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -14,7 +15,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     http://www.apache.org/licenses/LICENSE-2.0
+     *     https://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,13 +29,23 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
     /// </summary>
     public class SrndTruncQuery : SimpleTerm
     {
+        [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
+        [SuppressMessage("CodeQuality", "S1699:Constructors should only call non-overridable methods", Justification = "Required for continuity with Lucene's design")]
         public SrndTruncQuery(string truncated, char unlimited, char mask)
-            : base(false) /* not quoted */
+            : this(truncated, unlimited, mask, quoted: false) /* not quoted */
+        {
+            TruncatedToPrefixAndPattern();
+        }
+
+        // LUCENENET specific - this is for provided for subclasses to use and avoid
+        // the virtual call to TruncatedToPrefixAndPattern(), which they can do
+        // in their own constructor.
+        protected SrndTruncQuery(string truncated, char unlimited, char mask, bool quoted)
+            : base(quoted)
         {
             this.truncated = truncated;
             this.unlimited = unlimited;
             this.mask = mask;
-            TruncatedToPrefixAndPattern();
         }
 
         private readonly string truncated;
