@@ -120,7 +120,7 @@ public class EditCategoryModel : AdminPage
            categoryImage = this.Input.CategoryImage;
         }
 
-        var category = this.GetRepository<Category>().GetSingle(c => c.Name == this.Input.Name);
+        var category = this.GetRepository<Category>().GetSingle(check => check.Name == this.Input.Name);
 
         // Check Name duplicate only if new Category
         if (category != null && this.PageBoardContext.PageCategoryID == 0)
