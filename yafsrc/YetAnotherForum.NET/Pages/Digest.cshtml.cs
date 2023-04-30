@@ -35,7 +35,6 @@ using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Services;
 using YAF.Core.Services.Localization;
-using YAF.Types;
 using YAF.Types.Attributes;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces;

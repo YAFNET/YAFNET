@@ -431,7 +431,7 @@ public class PostMessageModel : ForumPage
                     });
 
                 this.Get<IActivityStream>().AddReplyToStream(
-                    this.PageBoardContext.PageUserID,
+                    this.PageBoardContext.PageUser,
                     this.PageBoardContext.PageTopicID,
                     newMessage.ID,
                     this.PageBoardContext.PageTopic.TopicName,

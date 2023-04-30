@@ -86,7 +86,7 @@
                             </div>
                         </div>
 
-                        @if (Model.Input.CustomProfile.Any())
+                        @if (!Model.Input.CustomProfile.NullOrEmpty())
                         {
                             <hr/>
                             <h4>

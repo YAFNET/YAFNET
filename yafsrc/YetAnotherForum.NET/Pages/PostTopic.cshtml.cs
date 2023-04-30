@@ -234,7 +234,7 @@ public class PostTopicModel : ForumPage
         var messageFlags = new MessageFlags {
                                                 IsHtml = false,
                                                 IsBBCode = true,
-                                                IsPersistent = Input.Persistent,
+                                                IsPersistent = this.Input.Persistent,
                                                 IsApproved = this.spamApproved
                                             };
 
@@ -386,7 +386,7 @@ public class PostTopicModel : ForumPage
                     });
 
                 this.Get<IActivityStream>().AddTopicToStream(
-                    this.PageBoardContext.PageUserID,
+                    this.PageBoardContext.PageUser,
                     newMessage.TopicID,
                     newMessage.ID,
                     HtmlTagHelper.StripHtml(this.Input.TopicSubject),

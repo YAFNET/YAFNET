@@ -38,7 +38,6 @@ using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services;
-using YAF.Types;
 using YAF.Types.Attributes;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
@@ -198,14 +197,14 @@ public class MyMessagesModel : ForumPageRegistered
     /// </summary>
     public IActionResult OnPostDeleteSelected()
     {
-        long itemCount = 0;
-
         var selectedMessages = this.Messages.Where(x => x.Selected).ToList();
+
+        long itemCount = selectedMessages.Count;
 
         selectedMessages.ForEach(
             item =>
             {
-                itemCount = this.GetRepository<UserPMessage>().Delete(
+                this.GetRepository<UserPMessage>().Delete(
                     item.UserPMessageID, this.View == PmView.Outbox);
             });
 

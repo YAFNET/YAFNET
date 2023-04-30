@@ -39,6 +39,7 @@ using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Extensions.Data;
+using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;

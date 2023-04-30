@@ -31,7 +31,6 @@ using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services;
-using YAF.Types;
 using YAF.Types.Attributes;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
@@ -110,7 +109,7 @@ public class IndexModel : ForumPage
 
         this.BindData(true);
 
-        return Partial("_CategoryList", this.Categories);
+        return this.Partial("_CategoryList", this.Categories);
     }
 
     /// <summary>

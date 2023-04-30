@@ -136,7 +136,7 @@
                                localized-tag="HIDE_NOACESS" localized-page="ADMIN_EDITFORUM"></label>
 
                         <div class="form-check form-switch">
-                            <input type="checkbox" asp-for="Input.HideNoAccess" class="form-check-label"/>
+                            <input type="checkbox" asp-for="Input.HideNoAccess" class="form-check-input"/>
                         </div>
                     </div>
                     <div class="mb-3 col-md-4">
@@ -144,7 +144,7 @@
                                asp-for="Input.Locked"
                                localized-tag="LOCKED" localized-page="ADMIN_EDITFORUM"></label>
                         <div class="form-check form-switch">
-                            <input type="checkbox" asp-for="Input.Locked" class="form-check-label"/>
+                                <input type="checkbox" asp-for="Input.Locked" class="form-check-input" />
                         </div>
                     </div>
                     <div class="mb-3 col-md-4">
@@ -152,7 +152,7 @@
                                asp-for="Input.IsTest"
                                localized-tag="NO_POSTSCOUNT" localized-page="ADMIN_EDITFORUM"></label>
                         <div class="form-check form-switch">
-                            <input type="checkbox" asp-for="Input.IsTest" class="form-check-label"/>
+                                <input type="checkbox" asp-for="Input.IsTest" class="form-check-input" />
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                     <div class="form-check form-switch">
                         <input type="checkbox" asp-for="Input.Moderated"
                                onchange="this.form.submit();"
-                               class="form-check-label"/>
+                                   class="form-check-input" />
                     </div>
                 </div>
                     
@@ -175,7 +175,7 @@
                                localized-tag="MODERATED_NEWTOPIC_ONLY" localized-page="ADMIN_EDITFORUM"></label>
 
                         <div class="form-check form-switch">
-                            <input type="checkbox" asp-for="Input.ModerateNewTopicOnly" class="form-check-label"/>
+                                <input type="checkbox" asp-for="Input.ModerateNewTopicOnly" class="form-check-input" />
                         </div>
                     </div>
                     <div class="mb-3">
@@ -185,7 +185,7 @@
                         <div class="form-check form-switch">
                             <input type="checkbox" asp-for="Input.ModerateAllPosts" role="switch" AutoPostBack="true"
                                    onchange="this.form.submit();"
-                                   class="form-check-label"/>
+                                       class="form-check-input" />
                             <label class="form-check-label" asp-for="Input.ModerateAllPosts" localized-tag="MODERATE_ALL_POSTS"></label>
 
                         </div>

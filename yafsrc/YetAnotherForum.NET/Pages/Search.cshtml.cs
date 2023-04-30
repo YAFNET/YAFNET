@@ -28,7 +28,6 @@ using System.Collections.Generic;
 using System.Web;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
 
 using YAF.Core.Extensions;
 using YAF.Types.Extensions;

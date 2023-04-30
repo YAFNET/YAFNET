@@ -210,7 +210,7 @@ public class RegisterModel : AccountPage
 
         guestUserName = guestUserName.IsSet() ? guestUserName.ToLower() : string.Empty;
 
-        if (userName.Contains(";") || badWord || userName.ToLower().Equals(guestUserName))
+        if (userName.Contains(';') || badWord || userName.ToLower().Equals(guestUserName))
         {
             this.PageBoardContext.Notify(this.GetText("BAD_USERNAME"), MessageTypes.warning);
 
