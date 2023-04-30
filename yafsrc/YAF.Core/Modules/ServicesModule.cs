@@ -26,11 +26,11 @@ namespace YAF.Core.Modules;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 using YAF.Core.BaseModules;
 using YAF.Core.BBCode;
 using YAF.Core.Handlers;
+using YAF.Core.Hubs;
 using YAF.Core.Identity;
 using YAF.Core.Services;
 using YAF.Core.Services.Cache;
@@ -50,6 +50,7 @@ public class ServicesModule : BaseModule
         RegisterServices(builder);
         RegisterIdentityServices(builder);
         RegisterBoardContextServices(builder);
+        RegisterHubs(builder);
     }
 
     /// <summary>
@@ -153,8 +154,8 @@ public class ServicesModule : BaseModule
         builder.RegisterInstance(new ControlSettings()).AsSelf().SingleInstance();
 
         builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
-
-        builder.RegisterType<ActionContextAccessor>().As<IActionContextAccessor>().SingleInstance();
+        builder.RegisterType<ActionContextAccessor>().As<IActionContextAccessor>().SingleInstance(); 
+        builder.RegisterType<NotificationClient>().AsSelf().SingleInstance();
     }
 
     /// <summary>
@@ -190,5 +191,14 @@ public class ServicesModule : BaseModule
         builder.RegisterType<StopWatch>().As<IStopWatch>().InstancePerLifetimeScope().PreserveExistingDefaults();
         builder.RegisterType<ThankYou>().As<IThankYou>().InstancePerBoardContext();
         builder.RegisterType<SpamCheck>().As<ISpamCheck>().InstancePerBoardContext();
+    }
+
+    /// <summary>
+    /// Registers all the SignalR Hubs.
+    /// </summary>
+    /// <param name="builder">The builder.</param>
+    private static void RegisterHubs(ContainerBuilder builder)
+    {
+        builder.RegisterType<NotificationHub>().ExternallyOwned();
     }
 }

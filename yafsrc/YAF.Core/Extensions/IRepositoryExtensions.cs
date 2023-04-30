@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Extensions;
 
 using System;
@@ -276,9 +277,6 @@ public static class IRepositoryExtensions
     /// <param name="entity">
     /// The entity.
     /// </param>
-    /// <param name="transaction">
-    /// The transaction.
-    /// </param>
     /// <typeparam name="T">
     /// The type parameter.
     /// </typeparam>
@@ -287,8 +285,7 @@ public static class IRepositoryExtensions
     /// </returns>
     public static bool Update<T>(
         [NotNull] this IRepository<T> repository,
-        [NotNull] T entity,
-        IDbTransaction transaction = null)
+        [NotNull] T entity)
         where T : class, IEntity, new()
     {
         CodeContracts.VerifyNotNull(entity);

@@ -365,7 +365,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                      }
                              };
 
-
         watchUsers.AsParallel().ForAll(
             user =>
                 {
@@ -375,7 +374,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                         if (newTopic)
                         {
                             this.Get<IActivityStream>().AddWatchTopicToStream(
-                                user.ID,
+                                user,
                                 message.TopicID,
                                 message.ID,
                                 message.Topic.TopicName,
@@ -385,7 +384,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                         else
                         {
                             this.Get<IActivityStream>().AddWatchReplyToStream(
-                                user.ID,
+                                user,
                                 message.TopicID,
                                 message.ID,
                                 message.Topic.TopicName,

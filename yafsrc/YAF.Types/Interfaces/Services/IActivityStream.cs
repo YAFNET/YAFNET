@@ -24,6 +24,8 @@
 
 namespace YAF.Types.Interfaces;
 
+using YAF.Types.Models;
+
 /// <summary>
 /// Activity Stream Interface
 /// </summary>
@@ -34,8 +36,8 @@ public interface IActivityStream
     /// <summary>
     /// Adds the New Topic to the User's ActivityStream
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="topicId">
     /// The topic unique identifier.
@@ -49,13 +51,13 @@ public interface IActivityStream
     /// <param name="message">
     /// The message.
     /// </param>
-    void AddTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message);
+    void AddTopicToStream(User user, int topicId, int messageId, string topicTitle, string message);
 
     /// <summary>
     /// Adds the Watch Reply to the User's ActivityStream
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="topicId">
     /// The topic unique identifier.
@@ -72,13 +74,13 @@ public interface IActivityStream
     /// <param name="fromUserId">
     /// The from User Id.
     /// </param>
-    void AddWatchReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId);
+    void AddWatchReplyToStream(User user, int topicId, int messageId, string topicTitle, string message, int fromUserId);
 
     /// <summary>
     /// Adds the New Topic to the User's ActivityStream
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="topicId">
     /// The topic unique identifier.
@@ -95,13 +97,13 @@ public interface IActivityStream
     /// <param name="fromUserId">
     /// The from User Id.
     /// </param>
-    void AddWatchTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId);
+    void AddWatchTopicToStream(User user, int topicId, int messageId, string topicTitle, string message, int fromUserId);
 
     /// <summary>
     /// Adds the Reply to the User's ActivityStream
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="topicId">
     /// The topic unique identifier.
@@ -115,7 +117,7 @@ public interface IActivityStream
     /// <param name="message">
     /// The message.
     /// </param>
-    void AddReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message);
+    void AddReplyToStream(User user, int topicId, int messageId, string topicTitle, string message);
 
     /// <summary>
     /// Add Mention to Users Stream

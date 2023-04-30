@@ -50,6 +50,10 @@ public class SessionService : ISessionService
         this.SessionState = contextAccessor.HttpContext.Session;
     }
 
+    /// <summary>
+    /// Gets or sets the index of the board forums.
+    /// </summary>
+    /// <value>The index of the board forums.</value>
     public int BoardForumsIndex
     {
         get => this.SessionState.GetData<int>("BoardForumsIndex");
@@ -57,6 +61,10 @@ public class SessionService : ISessionService
         set => this.SessionState.SetData("BoardForumsIndex", value);
     }
 
+    /// <summary>
+    /// Gets or sets the mods.
+    /// </summary>
+    /// <value>The mods.</value>
     public List<SimpleModerator> Mods
     {
         get => this.SessionState.GetData<List<SimpleModerator>>("Mods"); 
@@ -64,6 +72,10 @@ public class SessionService : ISessionService
         set => this.SessionState.SetData("Mods", value);
     }
 
+    /// <summary>
+    /// Gets or sets the forums.
+    /// </summary>
+    /// <value>The forums.</value>
     public List<ForumRead> Forums
     {
         get => this.SessionState.GetData<List<ForumRead>>("Forums");
@@ -165,11 +177,21 @@ public class SessionService : ISessionService
     /// </summary>
     public ISession SessionState { get; set; }
 
+    /// <summary>
+    /// Gets the page data.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns>T.</returns>
     public T GetPageData<T>()
     {
         return this.SessionState.GetData<T>($"PageData_{BoardContext.Current.PageUserID}");
     }
 
+    /// <summary>
+    /// Sets the page data.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="newData">The new data.</param>
     public void SetPageData<T>(T newData)
     {
         this.SessionState.SetData($"PageData_{BoardContext.Current.PageUserID}", newData);

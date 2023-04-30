@@ -11,6 +11,7 @@
         <div class="text-break alert alert-light float-end d-none d-md-block py-0">
             @Html.Icon("clock")
             @Model.TimeNow
+
             @if (Model.LastVisit.IsSet())
             {
                 <span class="mx-1"></span>
@@ -88,24 +89,20 @@
 @section Scripts
 {
     <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.TopicLinkPopoverJs($"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...", ".topic-link-popover", "focus hover")))
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.TopicLinkPopoverJs($"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...", ".topic-link-popover", "focus hover")))
 
         @if (Model.PageBoardContext.BoardSettings.ShowModeratorList)
         {
-            @Html.Raw(
-                JsAndCssHelper.CompressJavaScript(
-                JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
+            @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
         }
 
         @Html.Raw(
             JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.ForumIconLegendPopoverJs((await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(), "forum-icon-legend-popvover")))
+            JavaScriptBlocks.ForumIconLegendPopoverJs((await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(), 
+                "forum-icon-legend-popvover")))
 
 
-        @Html.Raw(
-            JsAndCssHelper.CompressJavaScript(
-                JavaScriptBlocks.LoadMoreOnScrolling(Url.Page("", "ShowMore"))))
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.LoadMoreOnScrolling(Url.Page("", "ShowMore"))))
     
     </script>
 }

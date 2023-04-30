@@ -37,6 +37,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -45,6 +46,7 @@ using Microsoft.Extensions.Options;
 using YAF.Configuration;
 using YAF.Core;
 using YAF.Core.Context;
+using YAF.Core.Hubs;
 using YAF.Core.Middleware;
 using YAF.Core.Modules;
 using YAF.Types;
@@ -90,6 +92,7 @@ public class Startup : IHaveServiceLocator
     {
         services.AddRazorPages();
         services.AddControllers();
+        services.AddSignalR();
 
         services.AddMemoryCache();
 
@@ -234,6 +237,8 @@ public class Startup : IHaveServiceLocator
               x => x.GetRequiredService<IUrlHelperFactory>()
                   .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
 
+        services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
+
         services.AddOptions();
     }
 
@@ -346,6 +351,7 @@ public class Startup : IHaveServiceLocator
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             endpoints.MapControllers();
+            endpoints.MapHub<NotificationHub>("/NotificationHub");
         });
     }
 }

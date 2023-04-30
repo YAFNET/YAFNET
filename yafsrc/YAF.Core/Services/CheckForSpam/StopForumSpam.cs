@@ -25,9 +25,7 @@
 namespace YAF.Core.Services.CheckForSpam;
 
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Mime;
 
 using Microsoft.Extensions.Logging;
 
@@ -125,7 +123,6 @@ public class StopForumSpam : ICheckForBot
     {
         var parameters =
             $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={BoardContext.Current.BoardSettings.StopForumSpamApiKey}";
-
 
         var client = new HttpClient(new HttpClientHandler());
         var response = client.GetAsync($"https://www.stopforumspam.com/add.php?{parameters}").Result;

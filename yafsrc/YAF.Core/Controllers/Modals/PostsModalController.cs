@@ -243,7 +243,7 @@ public class PostsModalController : ForumBaseController
                 if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
                 {
                     this.Get<IActivityStream>().AddReplyToStream(
-                        this.PageBoardContext.PageUserID,
+                        this.PageBoardContext.PageUser,
                         this.PageBoardContext.PageTopicID,
                         newMessage.ID,
                         this.PageBoardContext.PageTopic.TopicName,

@@ -53,8 +53,8 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
     /// <summary>
     /// Adds the New Topic to the PageUser's ActivityStream
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="topicId">
     /// The topic unique identifier.
@@ -68,7 +68,7 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
     /// <param name="message">
     /// The message.
     /// </param>
-    public void AddTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message)
+    public void AddTopicToStream(User user, int topicId, int messageId, string topicTitle, string message)
     {
         var flags = new ActivityFlags { CreatedTopic = true };
 
@@ -77,19 +77,21 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
                                Flags = flags.BitValue,
                                TopicID = topicId,
                                MessageID = messageId,
-                               UserID = userId,
+                               UserID = user.ID,
                                Notification = false,
                                Created = DateTime.UtcNow
                            };
 
         this.GetRepository<Activity>().Insert(activity);
+
+        this.Get<IRaiseEvent>().Raise(new ActivityNotificationEvent(user.Name));
     }
 
     /// <summary>
     /// Adds the Reply to the PageUser's ActivityStream
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="topicId">
     /// The topic unique identifier.
@@ -103,7 +105,7 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
     /// <param name="message">
     /// The message.
     /// </param>
-    public void AddReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message)
+    public void AddReplyToStream(User user, int topicId, int messageId, string topicTitle, string message)
     {
         var flags = new ActivityFlags { CreatedReply = true };
 
@@ -112,19 +114,21 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
                                Flags = flags.BitValue,
                                TopicID = topicId,
                                MessageID = messageId,
-                               UserID = userId,
+                               UserID = user.ID,
                                Notification = false,
                                Created = DateTime.UtcNow
                            };
 
         this.GetRepository<Activity>().Insert(activity);
+
+        this.Get<IRaiseEvent>().Raise(new ActivityNotificationEvent(user.Name));
     }
 
     /// <summary>
     /// Adds the New Watch Topic to the PageUser's ActivityStream
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="topicId">
     /// The topic unique identifier.
@@ -141,7 +145,7 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
     /// <param name="fromUserId">
     /// The from PageUser Id.
     /// </param>
-    public void AddWatchTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId)
+    public void AddWatchTopicToStream(User user, int topicId, int messageId, string topicTitle, string message, int fromUserId)
     {
         var flags = new ActivityFlags { WatchForumReply = true };
 
@@ -151,19 +155,21 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
                                FromUserID = fromUserId,
                                TopicID = topicId,
                                MessageID = messageId,
-                               UserID = userId,
+                               UserID = user.ID,
                                Notification = true,
                                Created = DateTime.UtcNow
                            };
 
         this.GetRepository<Activity>().Insert(activity);
+
+        this.Get<IRaiseEvent>().Raise(new ActivityNotificationEvent(user.Name));
     }
 
     /// <summary>
     /// Adds the Watch Reply to the PageUser's ActivityStream
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
+    /// <param name="user">
+    /// The user.
     /// </param>
     /// <param name="topicId">
     /// The topic unique identifier.
@@ -180,7 +186,7 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
     /// <param name="fromUserId">
     /// The from PageUser Id.
     /// </param>
-    public void AddWatchReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId)
+    public void AddWatchReplyToStream(User user, int topicId, int messageId, string topicTitle, string message, int fromUserId)
     {
         var flags = new ActivityFlags { WatchTopicReply = true };
 
@@ -190,12 +196,14 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
                                FromUserID = fromUserId,
                                TopicID = topicId,
                                MessageID = messageId,
-                               UserID = userId,
+                               UserID = user.ID,
                                Notification = true,
                                Created = DateTime.UtcNow
                            };
 
         this.GetRepository<Activity>().Insert(activity);
+
+        this.Get<IRaiseEvent>().Raise(new ActivityNotificationEvent(user.Name));
     }
 
     /// <summary>
@@ -229,6 +237,10 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
                            };
 
         this.GetRepository<Activity>().Insert(activity);
+
+        var user = this.GetRepository<User>().GetById(userId);
+
+        this.Get<IRaiseEvent>().Raise(new ActivityNotificationEvent(user.Name));
 
         this.Get<IDataCache>().Remove(
             string.Format(Constants.Cache.ActiveUserLazyData, userId));
@@ -266,6 +278,10 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
 
         this.GetRepository<Activity>().Insert(activity);
 
+        var user = this.GetRepository<User>().GetById(userId);
+
+        this.Get<IRaiseEvent>().Raise(new ActivityNotificationEvent(user.Name));
+
         this.Get<IDataCache>().Remove(
             string.Format(Constants.Cache.ActiveUserLazyData, userId));
     }
@@ -301,6 +317,10 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
                            };
 
         this.GetRepository<Activity>().Insert(activity);
+
+        var user = this.GetRepository<User>().GetById(userId);
+
+        this.Get<IRaiseEvent>().Raise(new ActivityNotificationEvent(user.Name));
 
         this.Get<IDataCache>().Remove(
             string.Format(Constants.Cache.ActiveUserLazyData, userId));

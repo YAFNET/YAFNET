@@ -124,6 +124,7 @@ public class ThankYouController : ForumBaseController
             message.TopicID,
             messageId,
             fromUserId);
+
         this.Get<IActivityStream>().AddThanksGivenToStream(fromUserId, message.TopicID, messageId, message.UserID);
 
         // if the user is empty, return a null object...

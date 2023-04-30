@@ -32,8 +32,6 @@ using MimeKit;
 using YAF.Types.Attributes;
 using YAF.Types.Models;
 
-using BoardSettings = YAF.Configuration.BoardSettings;
-
 /// <summary>
 /// The YAF digest.
 /// </summary>

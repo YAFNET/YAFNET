@@ -10,7 +10,7 @@
 @{
     var unreadCount = Current.UnreadPrivate + Current.PendingBuddies;
 
-    var unreadNotify = Current.Mention + Current.Quoted + Current.ReceivedThanks+ Current.WatchTopic;
+    var unreadNotify = Current.Mention + Current.Quoted + Current.ReceivedThanks + Current.WatchTopic;
 }
 
 @if (!Current.IsGuest)
@@ -23,6 +23,7 @@
                      src="@Html.Raw(Current.Get<IAvatars>().GetAvatarUrlForCurrentUser())">
             </span>
             @Html.HtmlEncode(Current.PageUser.DisplayOrUserName())
+
             @if (unreadCount > 0)
             {
                 <span class="ms-1 badge bg-danger">
@@ -244,20 +245,18 @@
     {
         <li class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Notification ? "nav-item dropdown dropdown-notify active" : "nav-item dropdown dropdown-notify")">
 
-            @if (unreadNotify == 0)
-            {
-                <a button-style="None"
-                   class="nav-link"
-                   bs-toggle="tooltip"
-                   role="button"
-                   asp-page="/Notification"
-                   title-localized-page="TOOLBAR"
-                   title-localized-tag="MYNOTIFY_TITLE">
-                    @Html.Icon("bell")
-                </a>
-            }
-            else
-            {
+            <a button-style="None"
+               id="notificationLink"
+               class="nav-link"
+               bs-toggle="tooltip"
+               role="button"
+               asp-page="/Notification"
+               title-localized-page="TOOLBAR"
+               title-localized-tag="MYNOTIFY_TITLE">
+                @Html.Icon("bell")
+            </a>
+            
+            <div id="notificationAlert" data-alerts="@unreadNotify" class="d-none">
                 <a button-style="None"
                    class="nav-link dropdown-toggle notify-toggle"
                    bs-toggle="dropdown"
@@ -267,9 +266,8 @@
                     @Html.Icon("dot-circle", "fa-xs text-primary unread")
                     @Html.Icon("bell")
                 </a>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu" id="notificationDrop">
                     <div class="dropdown-item px-0">
-                        <div id="AttachmentsListPager"></div>
                         <div id="Loader" class="px-2 mx-2">
                             <p class="text-center">
                                 <span>@Html.LocalizedText("COMMON", "LOADING")</span>
@@ -281,7 +279,6 @@
                         </div>
                         <div id="NotifyListPlaceholder" class="clearfix">
                             <ul class="list-group list-group-flush">
-
                             </ul>
                         </div>
                     </div>
@@ -299,7 +296,9 @@
                         </form>
                     </div>
                 </div>
-            }
+            </div>
+
+            
 
         </li>
     }

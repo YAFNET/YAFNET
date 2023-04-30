@@ -880,6 +880,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         var formatter = new SimpleHTMLFormatter("<mark>", "</mark>");
         var fragmenter = new SimpleFragmenter(hitsLimit);
+
         QueryScorer scorer;
 
         // search by single field

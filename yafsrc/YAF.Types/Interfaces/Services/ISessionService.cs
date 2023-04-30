@@ -79,8 +79,18 @@ public interface ISessionService
     [NotNull]
     IPanelSessionState PanelState { get; }
 
+    /// <summary>
+    /// Gets the page data.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns>T.</returns>
     public T GetPageData<T>();
 
+    /// <summary>
+    /// Sets the page data.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="newData">The new data.</param>
     public void SetPageData<T>(T newData);
 
     /// <summary>
