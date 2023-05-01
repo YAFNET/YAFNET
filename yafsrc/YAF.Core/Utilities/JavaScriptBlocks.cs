@@ -25,6 +25,7 @@
 namespace YAF.Core.Utilities;
 
 using System.Collections.Generic;
+
 using YAF.Types.Attributes;
 
 /// <summary>
@@ -1049,7 +1050,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 dataType: 'json',
                 {(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}
                 done: function (e, data) {{
-                    var ckEditor = CKEDITOR.instances.{editorId}; 
+                    var ckEditor = CKEDITOR.instances.{editorId.Replace('.','_')}; 
                     ckEditor.insertHtml( '[attach]' + data.result[0].fileID + '[/attach]' );
                 }},
                 formData: {{
