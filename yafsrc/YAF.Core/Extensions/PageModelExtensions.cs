@@ -24,12 +24,9 @@
 
 namespace YAF.Core.Extensions;
 
-using System;
-
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using YAF.Types.Attributes;
-using YAF.Types.Objects;
 
 /// <summary>
 /// The page model extensions.
@@ -72,15 +69,6 @@ public static class PageModelExtensions
 
         tempData["_alert.type"] = type;
         tempData["_alert.body"] = body;
-
-        return pageModel;
-    }
-
-    public static PageModel SessionToastMessage(this PageModel pageModel, [NotNull] MessageTypes type, [NotNull] string body)
-    {
-        var message = new MessageNotification {Message = body, MessageType = type};
-
-        BoardContext.Current.Get<IDataCache>().Set("ToastMessageSession", message, TimeSpan.FromMinutes(2));
 
         return pageModel;
     }

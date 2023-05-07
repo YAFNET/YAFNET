@@ -116,7 +116,6 @@ public class MailModel : AdminPage
     {
         try
         {
-            // TODO : Handle Validation for multiple forms on page
             this.Get<IMailService>().Send(
                 this.Input.TestFromEmail,
                 this.Input.TestToEmail,

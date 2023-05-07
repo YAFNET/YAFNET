@@ -89,7 +89,6 @@ public class SiteMapMiddleware : IHaveServiceLocator
 
         context.Response.ContentType = "text/xml";
 
-
         xs.Serialize(context.Response.Body, siteMap);
 
         await this.requestDelegate(context);

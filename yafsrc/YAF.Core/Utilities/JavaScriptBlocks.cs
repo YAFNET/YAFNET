@@ -1594,13 +1594,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     public static string FormValidatorJs()
     {
         return @"$(document).ready( function () {
-                    $("".needs-validation"").validate({
+               $("".needs-validation"").each(function() {
+                    $(this).validate({
                 errorElement: ""div"",
                 errorPlacement: function (error, element) {
                     $(element).closest(""form"").addClass(""was-validated"");
                     return true;
                 },
-            });
+            });});
                   });";
     }
 
