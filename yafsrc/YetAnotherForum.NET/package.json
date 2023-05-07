@@ -7,7 +7,7 @@
         "autoprefixer": "^10.4.14",
         "grunt": "^1.6.1",
         "grunt-contrib-copy": "^1.0.0",
-        "grunt-contrib-cssmin": "*",
+        "grunt-contrib-cssmin": "^5.0.0",
         "grunt-contrib-sass": "*",
         "grunt-contrib-uglify": "^5.2.2",
         "grunt-dev-update": "^2.3.0",
