@@ -790,11 +790,12 @@ namespace ServiceStack.OrmLite.SqlServer
 
             return StringBuilderCache.ReturnAndFree(sb);
         }
+
         public override string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
-            $"ALTER TABLE {GetQuotedTableName(table, schema)} ADD {GetColumnDefinition(fieldDef)};";
+            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ADD {GetColumnDefinition(fieldDef)};";
 
         public override string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
-            $"ALTER TABLE {GetQuotedTableName(table, schema)} ALTER COLUMN {GetColumnDefinition(fieldDef)};";
+            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ALTER COLUMN {GetColumnDefinition(fieldDef)};";
 
         /// <summary>
         /// Converts to changecolumnnamestatement.
@@ -1656,6 +1657,12 @@ namespace ServiceStack.OrmLite.SqlServer
         {
             if (dbConn is OrmLiteConnection ormLiteConn && dbConn.ToDbConnection() is SqlConnection sqlConn)
                 ormLiteConn.ConnectionId = sqlConn.ClientConnectionId;
+
+            foreach (var command in ConnectionCommands)
+            {
+                using var cmd = dbConn.CreateCommand();
+                cmd.ExecNonQuery(command);
+            }
 
             OnOpenConnection?.Invoke(dbConn);
         }

@@ -73,6 +73,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
                              };
     }
 
+    public override bool SupportsSchema => false;
+
     /// <summary>
     /// The row version trigger format
     /// </summary>

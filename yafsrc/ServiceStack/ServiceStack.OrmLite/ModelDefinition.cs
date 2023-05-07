@@ -90,7 +90,7 @@ public class ModelDefinition
     /// Gets a value indicating whether this instance has automatic increment identifier.
     /// </summary>
     /// <value><c>true</c> if this instance has automatic increment identifier; otherwise, <c>false</c>.</value>
-    public bool HasAutoIncrementId => PrimaryKey != null && PrimaryKey.AutoIncrement;
+    public bool HasAutoIncrementId => this.PrimaryKey is { AutoIncrement: true };
 
     /// <summary>
     /// Gets a value indicating whether this instance has sequence attribute.

@@ -132,6 +132,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public bool WhereStatementWithoutWhereString { get; set; }
 
     public ISet<string> Tags { get; } = new HashSet<string>();
+    public bool AllowEscapeWildcards { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the custom select.
@@ -4473,8 +4474,19 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         string statement;
 
         var arg = args.Count > 0 ? args[0] : null;
-        var wildcardArg = arg != null ? this.DialectProvider.EscapeWildcards(arg.ToString()) : string.Empty;
-        var escapeSuffix = wildcardArg.IndexOf('^') >= 0 ? " escape '^'" : string.Empty;
+
+        string wildcardArg, escapeSuffix = string.Empty;
+
+        if (AllowEscapeWildcards)
+        {
+            wildcardArg = arg != null ? DialectProvider.EscapeWildcards(arg.ToString()) : string.Empty;
+            escapeSuffix = wildcardArg.IndexOf('^') >= 0 ? " escape '^'" : string.Empty;
+        }
+        else
+        {
+            wildcardArg = arg != null ? arg.ToString() : string.Empty;
+        }
+
         switch (m.Method.Name)
         {
             case "Trim":
