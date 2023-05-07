@@ -225,6 +225,8 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <value>The on open connection.</value>
     public Action<IDbConnection> OnOpenConnection { get; set; }
 
+    public List<string> ConnectionCommands { get; } = new();
+
     /// <summary>
     /// Gets or sets the parameter string.
     /// </summary>
@@ -257,6 +259,8 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         get => this.paramNameFilter ?? OrmLiteConfig.ParamNameFilter;
         set => this.paramNameFilter = value;
     }
+
+    public virtual bool SupportsSchema => true;
 
     /// <summary>
     /// The default value format
@@ -950,6 +954,12 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     {
         if (dbConn is OrmLiteConnection ormLiteConn)
             ormLiteConn.ConnectionId = Guid.NewGuid();
+
+        foreach (var command in ConnectionCommands)
+        {
+            using var cmd = dbConn.CreateCommand();
+            cmd.ExecNonQuery(command);
+        }
 
         OnOpenConnection?.Invoke(dbConn);
     }

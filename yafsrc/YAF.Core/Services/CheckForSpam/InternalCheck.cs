@@ -75,8 +75,8 @@ public class InternalCheck : ICheckForBot
 
             var bannedIpList = BoardContext.Current.Get<IDataCache>().GetOrSet(
                 Constants.Cache.BannedIP,
-                () => bannedIpRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID))
-                    .Select(x => x.Mask.Trim()).ToList();
+                () => bannedIpRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
+                    .Select(x => x.Mask.Trim()).ToList());
 
             var bannedNameRepository = BoardContext.Current.GetRepository<BannedName>();
 

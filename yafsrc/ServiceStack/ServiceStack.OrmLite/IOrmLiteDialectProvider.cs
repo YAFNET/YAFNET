@@ -101,6 +101,8 @@ public interface IOrmLiteDialectProvider
     /// <value>The variables.</value>
     Dictionary<string, string> Variables { get; }
 
+    bool SupportsSchema { get; }
+
     /// <summary>
     /// Quote the string so that it can be used inside an SQL-expression
     /// Escape quotes inside the string
