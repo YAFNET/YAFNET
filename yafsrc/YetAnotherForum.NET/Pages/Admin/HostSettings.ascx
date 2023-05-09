@@ -4,7 +4,7 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
-    <div class="col flex-grow-1 ms-lg-3 d-lg-none">
+    <div class="col flex-grow-1 ms-md-3 d-md-none">
         <div class="nav d-grid gap-2" id="v-pills-tab-dropdown" role="tablist" aria-orientation="vertical">
              <div class="dropdown d-grid gap-2">
             <YAF:ThemeButton runat="server"
@@ -62,7 +62,7 @@
         </div>
        
     </div>
-    <div class="col-md-3 d-none d-lg-block mt-3">
+    <div class="col-md-3 d-none d-md-block mt-3">
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a href="#View0" class="nav-link" data-bs-toggle="pill" role="tab">
                             <YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedTag="HEADER_SERVER_INFO" LocalizedPage="ADMIN_HOSTSETTINGS" />

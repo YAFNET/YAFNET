@@ -38,7 +38,7 @@ public class ProfileMenu : BaseControl
         var html = new StringBuilder();
         var htmlDropDown = new StringBuilder();
 
-        htmlDropDown.Append(@"<div class=""dropdown d-lg-none d-grid gap-2 mb-3"">");
+        htmlDropDown.Append(@"<div class=""dropdown d-md-none d-grid gap-2 mb-3"">");
 
         htmlDropDown.Append(
             @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
