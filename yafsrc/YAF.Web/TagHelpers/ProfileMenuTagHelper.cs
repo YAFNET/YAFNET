@@ -64,7 +64,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         var html = new TagBuilder("div");
         var htmlDropDown = new TagBuilder("div");
 
-        htmlDropDown.AddCssClass("dropdown d-lg-none d-grid gap-2 mb-3");
+        htmlDropDown.AddCssClass("dropdown d-md-none d-grid gap-2 mb-3");
 
         var dropDownButton = new TagBuilder("button");
 
