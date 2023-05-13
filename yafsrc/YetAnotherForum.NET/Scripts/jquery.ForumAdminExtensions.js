@@ -6132,7 +6132,7 @@
             mousewheel: true,
             buttondown_class: "btn btn-secondary",
             buttonup_class: "btn btn-secondary",
-            buttondown_txt: "-",
+            buttondown_txt: "&minus;",
             buttonup_txt: "+",
             callback_before_calculation: function(value) {
                 return value;
@@ -6187,7 +6187,9 @@
                 _checkValue();
                 _buildHtml();
                 _initElements();
+                _updateButtonDisabledState();
                 _hideEmptyPrefixPostfix();
+                _setupMutationObservers();
                 _bindEvents();
                 _bindEventsInterface();
             }
@@ -6201,12 +6203,23 @@
                 _checkValue();
                 var value = elements.input.val();
                 if (value !== "") {
-                    value = Number(settings.callback_before_calculation(elements.input.val()));
-                    elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
+                    value = parseFloat(settings.callback_before_calculation(elements.input.val()));
+                    elements.input.val(settings.callback_after_calculation(parseFloat(value).toFixed(settings.decimals)));
                 }
             }
             function _initSettings() {
                 settings = $.extend({}, defaults, originalinput_data, _parseAttributes(), options);
+                if (parseFloat(settings.step) !== 1) {
+                    let remainder;
+                    remainder = settings.max % settings.step;
+                    if (remainder !== 0) {
+                        settings.max = parseFloat(settings.max) - remainder;
+                    }
+                    remainder = settings.min % settings.step;
+                    if (remainder !== 0) {
+                        settings.min = parseFloat(settings.min) + (parseFloat(settings.step) - remainder);
+                    }
+                }
             }
             function _parseAttributes() {
                 var data = {};
@@ -6214,6 +6227,14 @@
                     var attrName = "bts-" + value + "";
                     if (originalinput.is("[data-" + attrName + "]")) {
                         data[key] = originalinput.data(attrName);
+                    }
+                });
+                $.each([ "min", "max", "step" ], function(i, key) {
+                    if (originalinput.is("[" + key + "]")) {
+                        if (data[key] !== undefined) {
+                            console.warn('Both the "data-bts-' + key + '" data attribute and the "' + key + '" individual attribute were specified, the individual attribute will take precedence on: ', originalinput);
+                        }
+                        data[key] = originalinput.attr(key);
                     }
                 });
                 return data;
@@ -6252,7 +6273,8 @@
             function _buildHtml() {
                 var initval = originalinput.val(), parentelement = originalinput.parent();
                 if (initval !== "") {
-                    initval = settings.callback_after_calculation(Number(initval).toFixed(settings.decimals));
+                    initval = settings.callback_before_calculation(initval);
+                    initval = settings.callback_after_calculation(parseFloat(initval).toFixed(settings.decimals));
                 }
                 originalinput.data("initvalue", initval).val(initval);
                 originalinput.addClass("form-control");
@@ -6265,7 +6287,7 @@
             function _advanceInputGroup(parentelement) {
                 parentelement.addClass("bootstrap-touchspin");
                 var prev = originalinput.prev(), next = originalinput.next();
-                var downhtml, uphtml, prefixhtml = '<span class="input-group-text">' + settings.prefix + "</span>", postfixhtml = '<span class="input-group-text">' + settings.postfix + "</span>";
+                var downhtml, uphtml, prefixhtml = '<span class="input-group-addon input-group-prepend bootstrap-touchspin-prefix input-group-prepend bootstrap-touchspin-injected"><span class="input-group-text">' + settings.prefix + "</span></span>", postfixhtml = '<span class="input-group-addon input-group-append bootstrap-touchspin-postfix input-group-append bootstrap-touchspin-injected"><span class="input-group-text">' + settings.postfix + "</span></span>";
                 if (prev.hasClass("input-group-btn") || prev.hasClass("input-group-prepend")) {
                     downhtml = '<button class="' + settings.buttondown_class + ' bootstrap-touchspin-down bootstrap-touchspin-injected" type="button">' + settings.buttondown_txt + "</button>";
                     prev.append(downhtml);
@@ -6285,10 +6307,9 @@
             function _buildInputGroup() {
                 var html;
                 var inputGroupSize = "";
-                if (originalinput.hasClass("input-sm")) {
+                if (originalinput.hasClass("input-sm") || originalinput.hasClass("form-control-sm")) {
                     inputGroupSize = "input-group-sm";
-                }
-                if (originalinput.hasClass("input-lg")) {
+                } else if (originalinput.hasClass("input-lg") || originalinput.hasClass("form-control-lg")) {
                     inputGroupSize = "input-group-lg";
                 }
                 if (settings.verticalbuttons) {
@@ -6298,9 +6319,9 @@
                 }
                 container = $(html).insertBefore(originalinput);
                 $(".bootstrap-touchspin-prefix", container).after(originalinput);
-                if (originalinput.hasClass("input-sm")) {
+                if (originalinput.hasClass("input-sm") || originalinput.hasClass("form-control-sm")) {
                     container.addClass("input-group-sm");
-                } else if (originalinput.hasClass("input-lg")) {
+                } else if (originalinput.hasClass("input-lg") || originalinput.hasClass("form-control-lg")) {
                     container.addClass("input-group-lg");
                 }
             }
@@ -6336,6 +6357,8 @@
                             startDownSpin();
                         }
                         ev.preventDefault();
+                    } else if (code === 9 || code === 13) {
+                        _checkValue();
                     }
                 });
                 originalinput.on("keyup.touchspin", function(ev) {
@@ -6346,9 +6369,14 @@
                         stopSpin();
                     }
                 });
+                $(document).on("mousedown touchstart", function(event) {
+                    if ($(event.target).is(originalinput)) {
+                        return;
+                    }
+                    _checkValue();
+                });
                 originalinput.on("blur.touchspin", function() {
                     _checkValue();
-                    originalinput.val(settings.callback_after_calculation(originalinput.val()));
                 });
                 elements.down.on("keydown", function(ev) {
                     var code = ev.keyCode || ev.which;
@@ -6384,7 +6412,7 @@
                 });
                 elements.down.on("mousedown.touchspin", function(ev) {
                     elements.down.off("touchstart.touchspin");
-                    if (originalinput.is(":disabled")) {
+                    if (originalinput.is(":disabled,[readonly]")) {
                         return;
                     }
                     downOnce();
@@ -6394,7 +6422,7 @@
                 });
                 elements.down.on("touchstart.touchspin", function(ev) {
                     elements.down.off("mousedown.touchspin");
-                    if (originalinput.is(":disabled")) {
+                    if (originalinput.is(":disabled,[readonly]")) {
                         return;
                     }
                     downOnce();
@@ -6404,7 +6432,7 @@
                 });
                 elements.up.on("mousedown.touchspin", function(ev) {
                     elements.up.off("touchstart.touchspin");
-                    if (originalinput.is(":disabled")) {
+                    if (originalinput.is(":disabled,[readonly]")) {
                         return;
                     }
                     upOnce();
@@ -6414,7 +6442,7 @@
                 });
                 elements.up.on("touchstart.touchspin", function(ev) {
                     elements.up.off("mousedown.touchspin");
-                    if (originalinput.is(":disabled")) {
+                    if (originalinput.is(":disabled,[readonly]")) {
                         return;
                     }
                     upOnce();
@@ -6489,6 +6517,20 @@
                     changeSettings(newsettings);
                 });
             }
+            function _setupMutationObservers() {
+                if (typeof MutationObserver !== "undefined") {
+                    const observer = new MutationObserver(mutations => {
+                        mutations.forEach(mutation => {
+                            if (mutation.type === "attributes" && (mutation.attributeName === "disabled" || mutation.attributeName === "readonly")) {
+                                _updateButtonDisabledState();
+                            }
+                        });
+                    });
+                    observer.observe(originalinput[0], {
+                        attributes: true
+                    });
+                }
+            }
             function _forcestepdivisibility(value) {
                 switch (settings.forcestepdivisibility) {
                   case "round":
@@ -6529,17 +6571,17 @@
                 if (parsedval.toString() !== val) {
                     returnval = parsedval;
                 }
+                returnval = _forcestepdivisibility(parsedval);
                 if (settings.min !== null && parsedval < settings.min) {
                     returnval = settings.min;
                 }
                 if (settings.max !== null && parsedval > settings.max) {
                     returnval = settings.max;
                 }
-                returnval = _forcestepdivisibility(returnval);
-                if (Number(val).toString() !== returnval.toString()) {
+                if (parseFloat(parsedval).toString() !== parseFloat(returnval).toString()) {
                     originalinput.val(returnval);
-                    originalinput.trigger("change");
                 }
+                originalinput.val(settings.callback_after_calculation(parseFloat(returnval).toFixed(settings.decimals)));
             }
             function _getBoostedStep() {
                 if (!settings.booster) {
@@ -6562,7 +6604,18 @@
                     return (settings.min + settings.max) / 2;
                 }
             }
+            function _updateButtonDisabledState() {
+                const isDisabled = originalinput.is(":disabled,[readonly]");
+                elements.up.prop("disabled", isDisabled);
+                elements.down.prop("disabled", isDisabled);
+                if (isDisabled) {
+                    stopSpin();
+                }
+            }
             function upOnce() {
+                if (originalinput.is(":disabled,[readonly]")) {
+                    return;
+                }
                 _checkValue();
                 value = parseFloat(settings.callback_before_calculation(elements.input.val()));
                 var initvalue = value;
@@ -6578,12 +6631,15 @@
                     originalinput.trigger("touchspin.on.max");
                     stopSpin();
                 }
-                elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
+                elements.input.val(settings.callback_after_calculation(parseFloat(value).toFixed(settings.decimals)));
                 if (initvalue !== value) {
                     originalinput.trigger("change");
                 }
             }
             function downOnce() {
+                if (originalinput.is(":disabled,[readonly]")) {
+                    return;
+                }
                 _checkValue();
                 value = parseFloat(settings.callback_before_calculation(elements.input.val()));
                 var initvalue = value;
@@ -6599,12 +6655,15 @@
                     originalinput.trigger("touchspin.on.min");
                     stopSpin();
                 }
-                elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
+                elements.input.val(settings.callback_after_calculation(parseFloat(value).toFixed(settings.decimals)));
                 if (initvalue !== value) {
                     originalinput.trigger("change");
                 }
             }
             function startDownSpin() {
+                if (originalinput.is(":disabled,[readonly]")) {
+                    return;
+                }
                 stopSpin();
                 spincount = 0;
                 spinning = "down";
@@ -6618,6 +6677,9 @@
                 }, settings.stepintervaldelay);
             }
             function startUpSpin() {
+                if (originalinput.is(":disabled,[readonly]")) {
+                    return;
+                }
                 stopSpin();
                 spincount = 0;
                 spinning = "up";

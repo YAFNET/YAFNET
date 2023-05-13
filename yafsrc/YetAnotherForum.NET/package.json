@@ -22,7 +22,7 @@
         "bootstrap-touchspin": "^4.6.2",
         "bootswatch": "^5.2.3",
         "flag-icons": "^6.6.6",
-        "jquery": "^3.6.4",
+        "jquery": "^3.7.0",
         "long-press-event": "^2.4.6",
         "prismjs": "^1.29.0"
     }

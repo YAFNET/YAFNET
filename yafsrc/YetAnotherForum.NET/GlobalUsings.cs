@@ -1,4 +1,4 @@
-// Global using directives
+﻿// Global using directives
 
 global using System;
 global using System.Collections.Generic;
@@ -6,6 +6,7 @@ global using System.Globalization;
 global using System.Linq;
 global using System.Web;
 global using System.Web.UI.WebControls;
+
 global using YAF.Configuration;
 global using YAF.Core.BaseControls;
 global using YAF.Core.BaseModules;
