@@ -182,7 +182,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     //{
     //    _conn.EnlistTransaction(transaction);
     //}
-#if !NETCORE
+#if !NET7_0_OR_GREATER
     /// <summary>
     /// Returns schema information for the data source of this <see cref="T:System.Data.Common.DbConnection" />.
     /// </summary>

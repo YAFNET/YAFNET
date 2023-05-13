@@ -245,7 +245,7 @@ public interface ITypeSerializer
     /// <param name="enumValue">The enum value.</param>
     void WriteEnum(TextWriter writer, object enumValue);
 
-#if NET6_0_OR_GREATER
+#if NET7_0_OR_GREATER
         void WriteDateOnly(TextWriter writer, object oDateOnly);
         void WriteNullableDateOnly(TextWriter writer, object oDateOnly);
         void WriteTimeOnly(TextWriter writer, object oTimeOnly);

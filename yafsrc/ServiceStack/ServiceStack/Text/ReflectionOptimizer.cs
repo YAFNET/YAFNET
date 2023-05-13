@@ -20,7 +20,7 @@ public abstract class ReflectionOptimizer
     /// The instance
     /// </summary>
     public static ReflectionOptimizer Instance =
-#if NETFX || NETCORE
+#if NETFX || NET7_0_OR_GREATER
             EmitReflectionOptimizer.Provider
 #else
             ExpressionReflectionOptimizer.Provider

@@ -4,7 +4,7 @@
     <PackageId>ServiceStack.OrmLite.SqlServer.Core</PackageId>
     <AssemblyName>ServiceStack.OrmLite.SqlServer</AssemblyName>
     <RootNamespace>ServiceStack.OrmLite.SqlServer</RootNamespace>
-    <TargetFrameworks>net7.0</TargetFrameworks>
+    <TargetFramework>net7.0</TargetFramework>
     <Title>ServiceStack.OrmLite.SqlServer</Title>
     <PackageDescription>
       ServiceStack.OrmLite.SqlServer

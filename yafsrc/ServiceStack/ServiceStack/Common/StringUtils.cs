@@ -799,7 +799,7 @@ public static class StringUtils
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void AppendLine(this StringBuilder sb, ReadOnlyMemory<char> line)
     {
-#if NET6_0_OR_GREATER
+#if NET7_0_OR_GREATER
             sb.Append(line).Append(NewLineMemory);
 #else
         sb.AppendLine(line.ToString());

@@ -1108,7 +1108,7 @@ public static class ScriptContextUtils
                     if (pageResult.LastFilterError != null)
                         throw new ScriptException(pageResult);
 
-#if NETCORE
+#if NET7_0_OR_GREATER
                         stream.WriteAsync(MemoryProvider.Instance.ToUtf8Bytes(pageResult.ResultOutput.AsSpan()));
 #else
                     stream.WriteAsync(MemoryProvider.Instance.ToUtf8Bytes(pageResult.ResultOutput.AsSpan())).Wait();

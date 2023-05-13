@@ -292,7 +292,7 @@ public class ProfiledDbDataReader : DbDataReader
         return reader.GetOrdinal(name);
     }
 
-#if !NETCORE
+#if !NET7_0_OR_GREATER
     /// <summary>
     /// Returns a <see cref="T:System.Data.DataTable" /> that describes the column metadata of the <see cref="T:System.Data.Common.DbDataReader" />.
     /// </summary>

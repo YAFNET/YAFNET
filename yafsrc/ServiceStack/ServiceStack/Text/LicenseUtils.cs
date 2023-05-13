@@ -674,11 +674,11 @@ public static class LicenseUtils
             var rsa = System.Security.Cryptography.RSA.Create();
             rsa.FromXml(LicensePublicKey);
 
-#if !NETCORE
+#if !NET7_0_OR_GREATER
             var verified = ((System.Security.Cryptography.RSACryptoServiceProvider)rsa)
                 .VerifyData(keyText.ToUtf8Bytes(), "SHA256", Convert.FromBase64String(keySign));
 #else
-                var verified = rsa.VerifyData(keyText.ToUtf8Bytes(), 
+            var verified = rsa.VerifyData(keyText.ToUtf8Bytes(), 
                     Convert.FromBase64String(keySign), 
                     System.Security.Cryptography.HashAlgorithmName.SHA256, 
                     System.Security.Cryptography.RSASignaturePadding.Pkcs1);
@@ -721,11 +721,11 @@ public static class LicenseUtils
             var rsa = System.Security.Cryptography.RSA.Create();
             rsa.FromXml(LicensePublicKey);
 
-#if !NETCORE
+#if !NET7_0_OR_GREATER
             var verified = ((System.Security.Cryptography.RSACryptoServiceProvider)rsa)
                 .VerifyData(keyText.ToUtf8Bytes(), "SHA256", Convert.FromBase64String(keySign));
 #else
-                var verified = rsa.VerifyData(keyText.ToUtf8Bytes(), 
+            var verified = rsa.VerifyData(keyText.ToUtf8Bytes(), 
                     Convert.FromBase64String(keySign), 
                     System.Security.Cryptography.HashAlgorithmName.SHA256, 
                     System.Security.Cryptography.RSASignaturePadding.Pkcs1);
@@ -1040,7 +1040,7 @@ public static class LicenseUtils
     /// <exception cref="System.ArgumentException">licenseKeyText</exception>
     public static LicenseKey VerifyLicenseKeyText(string licenseKeyText)
     {
-#if NETFX || NETCORE
+#if NETFX || NET7_0_OR_GREATER
         LicenseKey key;
         try
         {

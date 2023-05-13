@@ -172,13 +172,13 @@ public static class CompressionTypes
 {
     public static readonly string[] AllCompressionTypes =
         {
-#if NET6_0_OR_GREATER
+#if NET7_0_OR_GREATER
                 Brotli,
 #endif
             Deflate, GZip,
         };
 
-#if NET6_0_OR_GREATER
+#if NET7_0_OR_GREATER
         public const string Default = Brotli;
 #else
     public const string Default = Deflate;
@@ -192,7 +192,7 @@ public static class CompressionTypes
 
     public static bool IsValid(string compressionType)
     {
-#if NET6_0_OR_GREATER
+#if NET7_0_OR_GREATER
             return compressionType is Deflate or GZip or Brotli;
 #else
         return compressionType is Deflate or GZip;

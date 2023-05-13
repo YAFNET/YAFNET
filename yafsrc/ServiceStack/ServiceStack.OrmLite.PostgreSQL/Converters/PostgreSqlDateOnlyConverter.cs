@@ -5,7 +5,7 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-#if NET6_0
+#if NET7_0
 namespace ServiceStack.OrmLite.PostgreSQL.Converters
 {
     using System;

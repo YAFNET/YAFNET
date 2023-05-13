@@ -208,7 +208,7 @@ public class SqlBuilder
 
             ctorIL.Emit(OpCodes.Ret);
 
-#if NETCORE
+#if NET7_0_OR_GREATER
                 var generetedType = typeBuilder.CreateTypeInfo().AsType();
 #else
             var generetedType = typeBuilder.CreateType();

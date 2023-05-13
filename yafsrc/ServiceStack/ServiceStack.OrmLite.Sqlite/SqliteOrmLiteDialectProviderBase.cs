@@ -46,7 +46,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         base.RegisterConverter<Guid>(new SqliteGuidConverter());
         base.RegisterConverter<bool>(new SqliteBoolConverter());
         base.RegisterConverter<byte[]>(new SqliteByteArrayConverter());
-#if NETCORE
+#if NET7_0_OR_GREATER
             base.RegisterConverter<char>(new SqliteCharConverter());
 #endif
         this.Variables = new Dictionary<string, string>
@@ -222,7 +222,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
                     Directory.CreateDirectory(existingDir);
                 }
             }
-#if NETCORE
+#if NET7_0_OR_GREATER
                 connString.AppendFormat(@"Data Source={0};", connectionString.Trim());
 #else
             connString.AppendFormat(@"Data Source={0};Version=3;New=True;Compress=True;", connectionString.Trim());

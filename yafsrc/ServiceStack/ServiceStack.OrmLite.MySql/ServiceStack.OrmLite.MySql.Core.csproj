@@ -4,7 +4,7 @@
     <PackageId>ServiceStack.OrmLite.MySql.Core</PackageId>
     <AssemblyName>ServiceStack.OrmLite.MySql</AssemblyName>
     <RootNamespace>ServiceStack.OrmLite.MySql</RootNamespace>
-    <TargetFrameworks>net7.0</TargetFrameworks>
+    <TargetFramework>net7.0</TargetFramework>
     <Title>ServiceStack.OrmLite.MySql</Title>
     <PackageDescription>
       ServiceStack.OrmLite.MySql

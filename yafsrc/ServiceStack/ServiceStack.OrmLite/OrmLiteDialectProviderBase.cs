@@ -131,7 +131,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         this.RegisterConverter<DateTime>(new DateTimeConverter());
         this.RegisterConverter<DateTimeOffset>(new DateTimeOffsetConverter());
 
-#if NET6_0
+#if NET7_0
             RegisterConverter<DateOnly>(new DateOnlyConverter());
             RegisterConverter<TimeOnly>(new TimeOnlyConverter());
 #endif

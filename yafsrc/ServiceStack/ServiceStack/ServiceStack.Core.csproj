@@ -3,7 +3,7 @@
     <PackageId>ServiceStack.Core</PackageId>
     <AssemblyName>ServiceStack</AssemblyName>
     <RootNamespace>ServiceStack</RootNamespace>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFramework>net7.0</TargetFramework>
     <Title>ServiceStack.Text .NET Standard 2.0</Title>
     <PackageDescription>
       .NET's fastest JSON, JSV and CSV Text Serializers. Fast, Light, Resilient.
@@ -12,8 +12,8 @@
     </PackageDescription>
     <PackageTags>JSON;Text;Serializer;CSV;JSV;HTTP;Auto Mapping;Dump;Reflection;JS;Utils;Fast</PackageTags>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'NET6_0' ">
-    <DefineConstants>$(DefineConstants);NET6_0</DefineConstants>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'NET7_0' ">
+    <DefineConstants>$(DefineConstants);NET7_0</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
 	  <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="7.0.2" />

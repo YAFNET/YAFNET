@@ -38,7 +38,7 @@ public abstract class PclExport
         /// <summary>
         /// The net core
         /// </summary>
-        public const string Net6 = "NET6";
+        public const string Net7 = "NET7";
         /// <summary>
         /// The net48
         /// </summary>
@@ -53,8 +53,8 @@ public abstract class PclExport
             = new NetFxPclExport()
 #elif NETSTANDARD2_0
           = new NetStandardPclExport()
-#elif NETCORE || NET6_0_OR_GREATER
-          = new Net6PclExport()
+#elif NET7_0_OR_GREATER
+          = new Net7PclExport()
 #endif
         ;
 

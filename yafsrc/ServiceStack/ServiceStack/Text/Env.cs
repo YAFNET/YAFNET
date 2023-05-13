@@ -28,7 +28,7 @@ public static class Env
         if (PclExport.Instance == null)
             throw new ArgumentException("PclExport.Instance needs to be initialized");
 
-#if NETCORE
+#if NET7_0_OR_GREATER
             IsNetStandard = true;
             try
             {
@@ -77,14 +77,14 @@ public static class Env
         SupportsDynamic = true;
 #endif
 
-#if NETCORE
+#if NET7_0_OR_GREATER
             IsNetStandard = false;
             IsNetCore = true;
             SupportsDynamic = true;
 #endif
 
-#if NET6_0
-            IsNet6 = true;
+#if NET7_0
+            IsNet7 = true;
 #endif
 
         if (!IsUWP)
@@ -122,7 +122,7 @@ public static class Env
     internal static void UpdateServerUserAgent()
     {
         ServerUserAgent =
-            $"ServiceStack/{VersionString} {PclExport.Instance.PlatformName}{(IsLinux ? "/Linux" : IsOSX ? "/OSX" : IsUnix ? "/Unix" : IsWindows ? "/Windows" : "/UnknownOS")}{(IsIOS ? "/iOS" : IsAndroid ? "/Android" : IsUWP ? "/UWP" : "")}{(IsNet6 ? "/net6" : IsNetFramework ? "netfx" : "")}/{LicenseUtils.Info}";
+            $"ServiceStack/{VersionString} {PclExport.Instance.PlatformName}{(IsLinux ? "/Linux" : IsOSX ? "/OSX" : IsUnix ? "/Unix" : IsWindows ? "/Windows" : "/UnknownOS")}{(IsIOS ? "/iOS" : IsAndroid ? "/Android" : IsUWP ? "/UWP" : "")}{(IsNet7 ? "/net6" : IsNetFramework ? "netfx" : "")}/{LicenseUtils.Info}";
     }
 
     /// <summary>
@@ -208,7 +208,7 @@ public static class Env
     /// <value><c>true</c> if this instance is net core; otherwise, <c>false</c>.</value>
     public static bool IsNetCore { get; set; }
 
-    public static bool IsNet6 { get; set; }
+    public static bool IsNet7 { get; set; }
 
     /// <summary>
     /// Gets a value indicating whether [supports expressions].
@@ -263,7 +263,7 @@ public static class Env
     /// </returns>
     public static DateTime GetReleaseDate() => new(2001, 01, 01);
 
-#if NETCORE
+#if NET7_0_OR_GREATER
         private static bool IsRunningAsUwp()
         {
             try
@@ -378,7 +378,7 @@ public static class Env
     /// Only .ConfigAwait(false) in .NET Core as loses HttpContext.Current in NETFX/ASP.NET
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#if NETCORE
+#if NET7_0_OR_GREATER
     public static ConfiguredTaskAwaitable ConfigAwaitNetCore(this Task task) => task.ConfigureAwait(false);
 #else
     public static Task ConfigAwaitNetCore(this Task task) => task;
@@ -388,13 +388,13 @@ public static class Env
     /// Only .ConfigAwait(false) in .NET Core as loses HttpContext.Current in NETFX/ASP.NET
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#if NETCORE
+#if NET7_0_OR_GREATER
     public static ConfiguredTaskAwaitable<T> ConfigAwaitNetCore<T>(this Task<T> task) => task.ConfigureAwait(false);
 #else
     public static Task<T> ConfigAwaitNetCore<T>(this Task<T> task) => task;
 #endif
 
-#if NETCORE
+#if NET7_0_OR_GREATER
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task) => 
             task.ConfigureAwait(ContinueOnCapturedContext);

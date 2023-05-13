@@ -404,7 +404,7 @@ public class JsWriter<TSerializer>
                     if (type == typeof(Guid?))
                         return Serializer.WriteNullableGuid;
                     break;
-#if NET6_0
+#if NET7_0
                 if (type == typeof(DateOnly))
                     if (isNullable)
                         return Serializer.WriteNullableDateOnly;

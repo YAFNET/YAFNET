@@ -264,7 +264,7 @@ public struct JsonTypeSerializer
         WriteTimeSpan(writer, ((TimeSpan?)oTimeSpan).Value);
     }
 
-#if NET6_0
+#if NET7_0
         public void WriteDateOnly(TextWriter writer, object oDateOnly)
         {
             var dateOnly = (DateOnly)oDateOnly;

@@ -19,7 +19,7 @@ namespace ServiceStack;
 public static partial class HttpUtils
 {
     public static string UserAgent = "ServiceStack.Text" +
-#if NET6_0_OR_GREATER
+#if NET7_0_OR_GREATER
         "/net6"
 #elif NETSTANDARD2_0
         "/std2.0"
@@ -278,7 +278,7 @@ public static partial class HttpUtils
 
     public static HttpStatusCode? GetStatus(this Exception ex)
     {
-#if NET6_0_OR_GREATER
+#if NET7_0_OR_GREATER
         if (ex is System.Net.Http.HttpRequestException httpEx)
             return GetStatus(httpEx);
 #endif
@@ -292,7 +292,7 @@ public static partial class HttpUtils
         return null;
     }
 
-#if NET6_0_OR_GREATER
+#if NET7_0_OR_GREATER
     public static HttpStatusCode? GetStatus(this System.Net.Http.HttpRequestException ex) => ex.StatusCode;
 #endif
 

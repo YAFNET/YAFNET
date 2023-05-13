@@ -4,7 +4,7 @@
     <PackageId>ServiceStack.OrmLite.Sqlite.Core</PackageId>
     <AssemblyName>ServiceStack.OrmLite.Sqlite</AssemblyName>
     <RootNamespace>ServiceStack.OrmLite.Sqlite</RootNamespace>
-    <TargetFrameworks>net7.0</TargetFrameworks>
+    <TargetFramework>net7.0</TargetFramework>
     <Title>ServiceStack.OrmLite.Sqlite</Title>
     <PackageDescription>
       ServiceStack.OrmLite.Sqlite

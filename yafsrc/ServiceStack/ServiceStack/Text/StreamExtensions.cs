@@ -387,7 +387,7 @@ public static class StreamExtensions
     /// <returns>string.</returns>
     public static byte[] ToMd5Bytes(this Stream stream)
     {
-#if NET6_0_OR_GREATER
+#if NET7_0_OR_GREATER
             if (stream is MemoryStream ms)
                 return System.Security.Cryptography.MD5.HashData(ms.GetBufferAsSpan());
 #endif
@@ -428,7 +428,7 @@ public static class StreamExtensions
     {
         ms.Position = 0;
 
-#if NETCORE
+#if NET7_0_OR_GREATER
             if (ms.TryGetBuffer(out var buffer))
             {
                 return encoding.GetString(buffer.Array, buffer.Offset, buffer.Count);
@@ -451,7 +451,7 @@ public static class StreamExtensions
 
     public static ReadOnlySpan<byte> GetBufferAsSpan(this MemoryStream ms)
     {
-#if NETCORE
+#if NET7_0_OR_GREATER
             if (ms.TryGetBuffer(out var buffer))
             {
                 return new ReadOnlySpan<byte>(buffer.Array, buffer.Offset, buffer.Count);
@@ -477,7 +477,7 @@ public static class StreamExtensions
     /// <returns>System.ReadOnlyMemory&lt;byte&gt;.</returns>
     public static ReadOnlyMemory<byte> GetBufferAsMemory(this MemoryStream ms)
     {
-#if NETCORE
+#if NET7_0_OR_GREATER
             if (ms.TryGetBuffer(out var buffer))
             {
                 return new ReadOnlyMemory<byte>(buffer.Array, buffer.Offset, buffer.Count);
@@ -503,7 +503,7 @@ public static class StreamExtensions
     /// <returns>byte[].</returns>
     public static byte[] GetBufferAsBytes(this MemoryStream ms)
     {
-#if NETCORE
+#if NET7_0_OR_GREATER
             if (ms.TryGetBuffer(out var buffer))
             {
                 return buffer.Array;
@@ -538,7 +538,7 @@ public static class StreamExtensions
     {
         ms.Position = 0;
 
-#if NETCORE
+#if NET7_0_OR_GREATER
             if (ms.TryGetBuffer(out var buffer))
             {
                 return encoding.GetString(buffer.Array, buffer.Offset, buffer.Count).InTask();
@@ -631,7 +631,7 @@ public static class StreamExtensions
     /// <returns>A Task representing the asynchronous operation.</returns>
     public static async Task WriteToAsync(this MemoryStream stream, Stream output, Encoding encoding, CancellationToken token)
     {
-#if NETCORE
+#if NET7_0_OR_GREATER
             if (stream.TryGetBuffer(out var buffer))
             {
                 await output.WriteAsync(buffer.Array, buffer.Offset, buffer.Count, token).ConfigAwait();

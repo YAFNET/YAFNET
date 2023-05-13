@@ -25,7 +25,7 @@ public abstract class MemoryProvider
     /// The instance
     /// </summary>
     public static MemoryProvider Instance =
-#if NETCORE
+#if NET7_0_OR_GREATER
             NetCoreMemory.Provider;
 #else
         DefaultMemory.Provider;

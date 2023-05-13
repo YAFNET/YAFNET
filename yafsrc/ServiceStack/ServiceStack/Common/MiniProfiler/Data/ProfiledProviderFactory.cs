@@ -57,7 +57,7 @@ public class ProfiledProviderFactory : DbProviderFactory
         WrappedFactory = wrappedFactory;
     }
 
-#if !NETCORE
+#if !NET7_0_OR_GREATER
     /// <summary>
     /// proxy
     /// </summary>
@@ -100,7 +100,7 @@ public class ProfiledProviderFactory : DbProviderFactory
     public override DbConnectionStringBuilder CreateConnectionStringBuilder() =>
         WrappedFactory.CreateConnectionStringBuilder();
 
-#if !NETCORE
+#if !NET7_0_OR_GREATER
     /// <summary>
     /// proxy
     /// </summary>

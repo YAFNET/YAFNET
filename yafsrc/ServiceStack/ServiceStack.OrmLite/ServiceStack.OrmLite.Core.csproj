@@ -4,7 +4,7 @@
     <PackageId>ServiceStack.OrmLite.Core</PackageId>
     <AssemblyName>ServiceStack.OrmLite</AssemblyName>
     <RootNamespace>ServiceStack.OrmLite</RootNamespace>
-    <TargetFrameworks>net7.0</TargetFrameworks>
+    <TargetFramework>net7.0</TargetFramework>
     <Title>ServiceStack.OrmLite</Title>
     <PackageDescription>
       ServiceStack.OrmLite

@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
-#if !NET6_0_OR_GREATER
+#if !NET7_0_OR_GREATER
 using System.Runtime.Remoting.Messaging;
 #endif
 using System.Threading;

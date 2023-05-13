@@ -4,7 +4,7 @@
     <PackageId>ServiceStack.OrmLite.PostgreSQL.Core</PackageId>
     <AssemblyName>ServiceStack.OrmLite.PostgreSQL</AssemblyName>
     <RootNamespace>ServiceStack.OrmLite.PostgreSQL</RootNamespace>
-    <TargetFrameworks>net7.0</TargetFrameworks>
+    <TargetFramework>net7.0</TargetFramework>
     <Title>ServiceStack.OrmLite.PostgreSQL</Title>
     <PackageDescription>
      ServiceStack.OrmLite.PostgreSQL

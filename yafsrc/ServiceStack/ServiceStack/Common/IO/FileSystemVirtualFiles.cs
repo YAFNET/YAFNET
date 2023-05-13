@@ -244,7 +244,7 @@ public class FileSystemVirtualFiles
     public void DeleteFolder(string dirPath)
     {
         var realPath = RootDir.RealPath.CombineWith(dirPath);
-#if NETCORE
+#if NET7_0_OR_GREATER
             // Doesn't properly recursively delete nested dirs/files on .NET Core (win at least)
             if (Directory.Exists(realPath))
                 DeleteDirectoryRecursive(realPath);

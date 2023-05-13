@@ -176,7 +176,7 @@ public class SqliteCoreDateTimeConverter : SqliteNativeDateTimeConverter
         switch (DateStyle)
         {
             case DateTimeKind.Utc:
-#if NETCORE
+#if NET7_0_OR_GREATER
                 //.NET Core returns correct Local time but as Unspecified so change to Local and Convert to UTC
                 dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Local).ToUniversalTime();
 #else

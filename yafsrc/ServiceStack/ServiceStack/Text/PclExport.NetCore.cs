@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-#if (NETCORE || NET6_0_OR_GREATER) && !NETSTANDARD2_0
+#if NET7_0_OR_GREATER && !NETSTANDARD2_0
 
 using System;
 using ServiceStack.Text;
@@ -12,11 +12,11 @@ using ServiceStack.Text.Common;
 
 namespace ServiceStack 
 {
-    public class Net6PclExport : NetStandardPclExport
+    public class Net7PclExport : NetStandardPclExport
     {
-        public Net6PclExport()
+        public Net7PclExport()
         {
-            this.PlatformName = Platforms.Net6;
+            this.PlatformName = Platforms.Net7;
             ReflectionOptimizer.Instance = EmitReflectionOptimizer.Provider;            
         }
 

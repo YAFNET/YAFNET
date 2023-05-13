@@ -101,7 +101,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         AppContext.SetSwitch("Npgsql.EnableLegacyCaseInsensitiveDbParameters", true);
 
-#if NET6_0
+#if NET7_0
             RegisterConverter<DateOnly>(new PostgreSqlDateOnlyConverter());
 #endif
 
@@ -1092,7 +1092,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                                                                       [typeof(PhysicalAddress)] = NpgsqlDbType.MacAddr,
                                                                       [typeof(NpgsqlTsQuery)] = NpgsqlDbType.TsQuery,
                                                                       [typeof(NpgsqlTsVector)] = NpgsqlDbType.TsVector,
-#if NET6_0_OR_GREATER
+#if NET7_0_OR_GREATER
                                                                       [typeof(DateOnly)] = NpgsqlDbType.Date,
                                                                       [typeof(TimeOnly)] = NpgsqlDbType.Time,
 #endif

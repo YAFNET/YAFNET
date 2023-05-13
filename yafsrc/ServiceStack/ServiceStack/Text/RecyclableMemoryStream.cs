@@ -85,7 +85,7 @@ public static class MemoryStreamFactory
     }
 }
 
-#if !NETCORE
+#if !NET7_0_OR_GREATER
 /// <summary>
 /// Enum EventLevel
 /// </summary>
@@ -1144,7 +1144,7 @@ public partial class RecyclableMemoryStreamManager
         return GetStream(Guid.NewGuid(), tag, buffer, offset, count);
     }
 
-#if NETCORE && !NETSTANDARD2_0
+#if NET7_0_OR_GREATER && !NETSTANDARD2_0
         /// <summary>
         /// Retrieve a new MemoryStream object with the given tag and with contents copied from the provided
         /// buffer. The provided buffer is not wrapped or used after construction.
@@ -1763,14 +1763,14 @@ public sealed class RecyclableMemoryStream : MemoryStream
         return amountRead;
     }
 
-#if !NETSTANDARD2_0 && NETCORE
-        /// <summary>
-        /// Reads from the current position into the provided buffer
-        /// </summary>
-        /// <param name="buffer">Destination buffer</param>
-        /// <returns>The number of bytes read</returns>
-        /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
-        public override int Read(Span<byte> buffer)
+#if !NETSTANDARD2_0 && NET7_0_OR_GREATER
+    /// <summary>
+    /// Reads from the current position into the provided buffer
+    /// </summary>
+    /// <param name="buffer">Destination buffer</param>
+    /// <returns>The number of bytes read</returns>
+    /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
+    public override int Read(Span<byte> buffer)
         {
             return this.SafeRead(buffer, ref this.position);
         }
@@ -1870,14 +1870,14 @@ public sealed class RecyclableMemoryStream : MemoryStream
         this.length = Math.Max(this.position, this.length);
     }
 
-#if !NETSTANDARD2_0 && NETCORE
-        /// <summary>
-        /// Writes the buffer to the stream
-        /// </summary>
-        /// <param name="source">Source buffer</param>
-        /// <exception cref="ArgumentNullException">buffer is null</exception>
-        /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
-        public override void Write(ReadOnlySpan<byte> source)
+#if !NETSTANDARD2_0 && NET7_0_OR_GREATER
+    /// <summary>
+    /// Writes the buffer to the stream
+    /// </summary>
+    /// <param name="source">Source buffer</param>
+    /// <exception cref="ArgumentNullException">buffer is null</exception>
+    /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
+    public override void Write(ReadOnlySpan<byte> source)
         {
             this.CheckDisposed();
 
@@ -2201,7 +2201,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
         return amountToCopy;
     }
 
-#if NETCORE
+#if NET7_0_OR_GREATER
         private int InternalRead(Span<byte> buffer, int fromPosition)
         {
             if (this.length - fromPosition <= 0)

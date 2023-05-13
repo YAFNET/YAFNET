@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-#if NETCORE
+#if NET7_0_OR_GREATER
 
 using System;
 using System.Buffers.Text;

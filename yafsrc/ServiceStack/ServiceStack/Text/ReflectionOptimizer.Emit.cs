@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-#if NETFX || NETCORE
+#if NETFX || NET7_0_OR_GREATER
 
 using System;
 using System.Linq;
@@ -433,7 +433,7 @@ namespace ServiceStack.Text
         static DynamicProxy()
         {
             var assemblyName = new AssemblyName("DynImpl");
-#if NETCORE
+#if NET7_0_OR_GREATER
             DynamicAssembly = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
 #else
             DynamicAssembly = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
@@ -462,7 +462,7 @@ namespace ServiceStack.Text
             foreach (var face in targetType.GetInterfaces())
                 IncludeType(face, typeBuilder);
 
-#if NETCORE
+#if NET7_0_OR_GREATER
             return typeBuilder.CreateTypeInfo().AsType();
 #else
             return typeBuilder.CreateType();
