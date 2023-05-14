@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -14,16 +14,31 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.5" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\YAF.Core\YAF.Core.csproj" />
-    <ProjectReference Include="..\YAF.Data\YAF.Data.SqlServer\YAF.Data.SqlServer.csproj" />
+    <ProjectReference Include="..\YAF.Data\YAF.Data.MySql\YAF.Data.MySql.csproj" />
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
     <ProjectReference Include="..\YAF.Web\YAF.Web.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+	  <Content Remove="wwwroot\lib\**" />
+	  <Content Remove="wwwroot\Search_Data\**" />
+	  <Content Remove="wwwroot\uploads\*.yafalbum" />
+	  <Content Remove="wwwroot\uploads\*.yafupload" />
+	  <Content Remove="node_modules\**" />
+	  <Content Remove="package-lock.json" />
+	  <Content Remove="appsettings.Development.json" />
+	  <Content Remove="project.json" />
+  </ItemGroup>
+   
+	<PropertyGroup>
+		<ActiveDebugProfile>Debug</ActiveDebugProfile>
+		<AssemblyName>YetAnotherForum.NET</AssemblyName>
+	</PropertyGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties mimetypes_1json__JsonSchema="" wwwroot_4languages_4english_1json__JsonSchema="https://gitlab.com/appsemble/appsemble/-/raw/HEAD/packages/cli/assets/appsemblerc.schema.json" /></VisualStudio></ProjectExtensions>
 
