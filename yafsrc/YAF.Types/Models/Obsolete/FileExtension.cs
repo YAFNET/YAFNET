@@ -23,31 +23,24 @@
  */
 namespace YAF.Types.Models;
 
-
-using ServiceStack.DataAnnotations;
-
 /// <summary>
-/// A class which represents the yaf_PollGroupCluster table.
+/// A class which represents the Extension table. Only used for Migration
 /// </summary>
 [Serializable]
-[Obsolete("Only used for Droping")]
-public partial class PollGroupCluster : IEntity, IHaveID
+[Alias("Extension")]
+public class FileExtension : IEntity, IHaveID
 {
-    partial void OnCreated();
-
-    public PollGroupCluster()
-    {
-        this.OnCreated();
-    }
-
-    [Alias("PollGroupID")]
     [AutoIncrement]
+    [Alias("ExtensionID")]
     public int ID { get; set; }
+
+    [References(typeof(Board))]
     [Required]
-    public int UserID { get; set; }
+
+    [Default(1)]
+    public int BoardId { get; set; }
+
     [Required]
-    [Default(0)]
-    public int Flags { get; set; }
-    [Compute]
-    public bool? IsBound { get; set; }
+    [StringLength(10)]
+    public string Extension { get; set; }
 }

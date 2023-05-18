@@ -21,27 +21,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Models;
 
+using ServiceStack.DataAnnotations;
+
 /// <summary>
-/// A class which represents the Extension table.
+/// A class which represents the yaf_PollGroupCluster table. Only used for Dropping
 /// </summary>
 [Serializable]
-[Alias("Extension")]
-[Obsolete("Only used for Migration")]
-public partial class FileExtension : IEntity, IHaveID
+public partial class PollGroupCluster : IEntity, IHaveID
 {
+    [Alias("PollGroupID")]
     [AutoIncrement]
-    [Alias("ExtensionID")]
+
     public int ID { get; set; }
 
-    [References(typeof(Board))]
     [Required]
-
-    [Default(1)]
-    public int BoardId { get; set; }
+    public int UserID { get; set; }
 
     [Required]
-    [StringLength(10)]
-    public string Extension { get; set; }
+    [Default(0)]
+    public int Flags { get; set; }
+
+    [Compute]
+    public bool? IsBound { get; set; }
 }

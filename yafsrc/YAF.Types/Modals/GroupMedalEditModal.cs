@@ -22,9 +22,9 @@
  * under the License.
  */
 
-namespace YAF.Types.Modals;
-
 using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace YAF.Types.Modals;
 
 public class GroupMedalEditModal
 {
@@ -34,7 +34,9 @@ public class GroupMedalEditModal
 
     public int MedalId { get; set; }
     public string GroupMessage { get; set; }
+
     public int GroupSortOrder { get; set; }
+
     public bool GroupHide { get; set; }
 
     public SelectList GroupList { get; set; }
