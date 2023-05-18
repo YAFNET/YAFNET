@@ -14800,10 +14800,6 @@
             "#text": "Etsi"
           },
           {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "Etsi {0}"
-          },
-          {
             "@tag": "BY",
             "#text": "kirjoittaja"
           },

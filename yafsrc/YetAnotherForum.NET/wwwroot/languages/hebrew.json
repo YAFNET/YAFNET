@@ -14816,10 +14816,6 @@
             "#text": "חפש"
           },
           {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "חפש {0}"
-          },
-          {
             "@tag": "BY",
             "#text": "ע\"י"
           },

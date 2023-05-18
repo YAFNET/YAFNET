@@ -14800,10 +14800,6 @@
             "#text": "Ieškoti "
           },
           {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "Paieška {0}"
-          },
-          {
             "@tag": "BY",
             "#text": "prie "
           },

@@ -1,4 +1,4 @@
-﻿{
+{
   "Resources": {
     "@language": "Arabic",
     "@code": "ar",
@@ -28,7 +28,7 @@
           },
           {
             "@tag": "CREATED_REPLY_MSG",
-            "#text": "{تمت إضافة رد على الموضوع {0}"
+            "#text": "{تمت إضافة رد على الموضوع {0"
           },
           {
             "@tag": "CREATED_TOPIC",
@@ -36,7 +36,7 @@
           },
           {
             "@tag": "CREATED_TOPIC_MSG",
-            "#text": "{إنشاء موضوع جديد {0}"
+            "#text": "{إنشاء موضوع جديد {0"
           },
           {
             "@tag": "DELETE_ACCOUNT",
@@ -64,7 +64,7 @@
           },
           {
             "@tag": "GIVEN_THANKS_MSG",
-            "#text": "الشكر لـ {0} في الموضوع {1}"
+            "#text": "Given Thanks to {0} in the Topic {1}"
           },
           {
             "@tag": "GROUPS",
@@ -104,7 +104,7 @@
           },
           {
             "@tag": "RECEIVED_THANKS_MSG",
-            "#text": "تلقى شكرًا من {0} في الموضوع {1}"
+            "#text": "Has Received a Thanks from {0} in the Topic {1}"
           },
           {
             "@tag": "SENTITEMS",
@@ -132,7 +132,7 @@
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
-            "#text": "تمت الإشارة إليه بواسطة {0} في الموضوع {1}"
+            "#text": "Was Mentioned by {0} in the Topic {1}"
           },
           {
             "@tag": "WAS_QUOTED",
@@ -140,11 +140,11 @@
           },
           {
             "@tag": "WAS_QUOTED_MSG",
-            "#text": "تم الاقتباس بواسطة {0} في الموضوع {1}"
+            "#text": "Was Quoted by {0} in the Topic {1}"
           },
           {
             "@tag": "WATCH_FORUM_MSG",
-            "#text": "{0} إنشاء الموضوع الجديد {1}"
+            "#text": "{0} Created the new topic {1}"
           },
           {
             "@tag": "WATCH_FORUM_REPLY",
@@ -152,7 +152,7 @@
           },
           {
             "@tag": "WATCH_TOPIC_MSG",
-            "#text": "رد {0} على الموضوع {1}"
+            "#text": "{0} replied to the topic {1}"
           },
           {
             "@tag": "WATCH_TOPIC_REPLY",
@@ -1578,7 +1578,7 @@
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "فشل الاستيراد: {0}"
+            "#text": "Failed to import: {0}"
           },
           {
             "@tag": "IMPORT_NOTHING",
@@ -1983,7 +1983,7 @@
           },
           {
             "@tag": "MSG_SEND_ERR",
-            "#text": "استثناء الحصول على الملخص: {0}"
+            "#text": "Exception Getting Digest: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
@@ -5970,10 +5970,10 @@
       {
         "@name": "ADMIN_NNTPRETRIEVE",
         "Resource": [
-            {
-                "@tag": "BETA_WARNING",
-                "#text": "<p>\r\n      The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n      Bugs you should look for is character set conversion, and incorrect time on posts.\r\n      Usenet articles will be posted to the forum with the date from the article header,\r\n      meaning that you well could get future dates. Please let me know of any unknown\r\n      time zones that are encountered.\r\n   </p>\r\n   <p>\r\n      The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n      be posted back to the usenet. For speed purposes usenet articles are automatically\r\n      approved, meaning that if the forum is moderated, the posts will be automatically\r\n      approved.\r\n   </p>\r\n   <p>\r\n      To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n   </p>"
-            },
+          {
+            "@tag": "BETA_WARNING",
+            "#text": "<p>\r\n      The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n      Bugs you should look for is character set conversion, and incorrect time on posts.\r\n      Usenet articles will be posted to the forum with the date from the article header,\r\n      meaning that you well could get future dates. Please let me know of any unknown\r\n      time zones that are encountered.\r\n   </p>\r\n   <p>\r\n      The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n      be posted back to the usenet. For speed purposes usenet articles are automatically\r\n      approved, meaning that if the forum is moderated, the posts will be automatically\r\n      approved.\r\n   </p>\r\n   <p>\r\n      To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n   </p>"
+          },
           {
             "@tag": "GROUPS",
             "#text": "مجموعات جاهزة للاسترجاع"
@@ -6317,7 +6317,7 @@
           },
           {
             "@tag": "MSG_ERROR_CREATE",
-            "#text": "خطأ عضوية في إنشاء المستخدم: {0}"
+            "#text": "Membership Error Creating User: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6362,7 +6362,7 @@
           },
           {
             "@tag": "INDEX_STATS",
-            "#text": "تم ضبط وضع استرداد قاعدة البيانات بنجاح على {0}"
+            "#text": "Database recovery mode was successfully set to {0}"
           },
           {
             "@tag": "INDEX_STATS_FAIL",
@@ -6513,7 +6513,7 @@
           },
           {
             "@tag": "MSG_IMPORTED_FAILEDX",
-            "#text": "فشل الاستيراد: {0}"
+            "#text": "Failed to import: {0}"
           },
           {
             "@tag": "MSG_NOTHING",
@@ -6728,7 +6728,7 @@
           },
           {
             "@tag": "MSG_IMPORTED_FAILEDX",
-            "#text": "فشل الاستيراد: {0}"
+            "#text": "Failed to import: {0}"
           },
           {
             "@tag": "MSG_NOTHING",
@@ -6944,7 +6944,7 @@
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "فشل الاستيراد: {0}"
+            "#text": "Failed to import: {0}"
           },
           {
             "@tag": "IMPORT_FAILED_FORMAT",
@@ -7235,7 +7235,7 @@
           },
           {
             "@tag": "ALBUMS_TITLE",
-            "#text": "{0} البوم رقم : {1}"
+            "#text": "{0} Album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
@@ -7928,7 +7928,7 @@
           },
           {
             "@tag": "MAXNUMBEROF",
-            "#text": "الحد القصى  المسموح به من الحروف  : {0}"
+            "#text": "Maximum number of characters in each post is: {0}"
           }
         ]
       },
@@ -7965,7 +7965,7 @@
           },
           {
             "@tag": "BBCODE_QUOTEPOSTED",
-            "#text": "نشرها في الأصل: {0}"
+            "#text": "Originally Posted by: {0}"
           },
           {
             "@tag": "BBCODE_QUOTEPOSTED_TT",
@@ -8217,7 +8217,7 @@
           },
           {
             "@tag": "IN_FORUM",
-            "#text": "في المنتدى: {0}"
+            "#text": "in Forum: {0}"
           },
           {
             "@tag": "LOAD_MORE",
@@ -8277,43 +8277,43 @@
           },
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
-            "#text": "مستخدم جديد للبريد المزعج تم تسجيله في منتدى {0}"
+            "#text": "New SPAM BOT User Registered on {0} Forum"
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "لقد تم تكريمك في منتدى {0}"
+            "#text": "you have been awarded on the {0} Forum"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
-            "#text": "يوجد رسالة  جديدة في  {0} المنتدى  تحتاج الى التثبيت"
+            "#text": "New Message on {0} Forum needs to be approved"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
-            "#text": "تم الإبلاغ عن رسالة في منتدى {0}"
+            "#text": "A Message on {0} Forum was reported"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL",
-            "#text": "رسالة جديدة غير مرغوب فيها على منتدى {0} بحاجة إلى الفحص"
+            "#text": "New SPAM Message on {0} Forum needs to be checked"
           },
           {
             "@tag": "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT",
-            "#text": "تم التسجيل في منتدى {0} بنجاح"
+            "#text": "Registration on {0} Forum successfully"
           },
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
-            "#text": "تعليق حساب المنتدى {0} الخاص بك"
+            "#text": "Suspension of your {0} Forum Account"
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
-            "#text": "تم  تسجيل  عضو  جديد في {0} المنتدى "
+            "#text": "New User Registered on {0} Forum"
           },
           {
             "@tag": "NOTIFICATION_ON_WELCOME_USER_SUBJECT",
-            "#text": "مرحبًا بك في منتدى {0}"
+            "#text": "Welcome to the {0} Forum"
           },
           {
             "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
-            "#text": "{0} تحديث حساب المنتدى"
+            "#text": "{0} Forum Account Update"
           },
           {
             "@tag": "OK",
@@ -8333,7 +8333,7 @@
           },
           {
             "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "يوجد رسالة  خاصة {0} في{1}"
+            "#text": "New Private Message From {0} at {1}"
           },
           {
             "@tag": "POST",
@@ -8537,7 +8537,7 @@
           },
           {
             "@tag": "VIEW_TOPIC_STARTED_BY",
-            "#text": "عرض الموضوع الذي بدأ بواسطة {0}"
+            "#text": "View topic started by {0}"
           },
           {
             "@tag": "VIEW_USRPROFILE",
@@ -9620,7 +9620,7 @@
           },
           {
             "@tag": "IN",
-            "#text": "في {0}"
+            "#text": "in {0}"
           },
           {
             "@tag": "INFORMATION",
@@ -9915,7 +9915,7 @@
           },
           {
             "@tag": "STARTEDBY",
-            "#text": "كتب  بواسطة  {0}"
+            "#text": "Started by {0}"
           },
           {
             "@tag": "SUBJECT",
@@ -10972,7 +10972,7 @@
           },
           {
             "@tag": "TITLE2",
-            "#text": "إرسال بريد إلكتروني إلى {0}"
+            "#text": "Send E-mail to {0}"
           }
         ]
       },
@@ -11540,7 +11540,7 @@
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "تسجيل الدخول أو التسجيل مع {0}"
+            "#text": "Login or Register with {0}"
           },
           {
             "@tag": "AUTH_CONNECT_ACCOUNT",
@@ -12310,7 +12310,7 @@
           },
           {
             "@tag": "LAST_VISIT",
-            "#text": "آخر زيارة في {0}"
+            "#text": "last visit at {0}"
           },
           {
             "@tag": "LAST_WEEK",
@@ -12604,7 +12604,7 @@
           },
           {
             "@tag": "REPORT_SUBJECT",
-            "#text": "الإبلاغ عن رسالة خاصة من المستخدم: {0}"
+            "#text": "Report a Private Message from User: {0}"
           },
           {
             "@tag": "REPORTED_SUBJECT",
@@ -13043,7 +13043,7 @@
           },
           {
             "@tag": "BLOG_TITLE",
-            "#text": "قم بزيارة مدونة {0}"
+            "#text": "Visit {0}'s Blog"
           },
           {
             "@tag": "CANT_DOWNLOAD",
@@ -13147,7 +13147,7 @@
           },
           {
             "@tag": "HOME_TITLE",
-            "#text": "قم بزيارة الصفحة الرئيسية لـ {0}"
+            "#text": "Visit {0}'s Homepage"
           },
           {
             "@tag": "IMAGE_ATTACHMENT_TEXT",
@@ -13519,7 +13519,7 @@
           },
           {
             "@tag": "USERSUSPENDED",
-            "#text": "المستخدم معلق حتى {0}"
+            "#text": "User is suspended until {0}"
           },
           {
             "@tag": "VIEW",
@@ -14467,11 +14467,11 @@
           },
           {
             "@tag": "REGISTER_AUTH",
-            "#text": "التسجيل مع {0}"
+            "#text": "Register with {0}"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
-            "#text": "إعادة تعيين كلمة المرور لمنتدى {0}"
+            "#text": "Reset Password for {0} Forum"
           },
           {
             "@tag": "RETYPE_PASSWORD",
@@ -14528,7 +14528,7 @@
           },
           {
             "@tag": "FUTURE",
-            "#text": "في {0}"
+            "#text": "in {0}"
           },
           {
             "@tag": "H",
@@ -14560,7 +14560,7 @@
           },
           {
             "@tag": "PAST",
-            "#text": "قبل {0}"
+            "#text": "{0} ago"
           },
           {
             "@tag": "S",
@@ -14772,10 +14772,6 @@
             "#text": "البحث "
           },
           {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "البحث {0}"
-          },
-          {
             "@tag": "BY",
             "#text": "بواسطة "
           },
@@ -14902,7 +14898,7 @@
           },
           {
             "@tag": "LASTPOSTLINK",
-            "#text": "{0} بواسطة  {1}"
+            "#text": "{0} by {1}"
           },
           {
             "@tag": "NONOTIFICATION",
@@ -15161,7 +15157,7 @@
           },
           {
             "@tag": "LOGGED_IN_AS",
-            "#text": "مرحبا بك يا: {0}"
+            "#text": "Logged in as: {0}"
           },
           {
             "@tag": "LOGIN",
@@ -15318,7 +15314,7 @@
           },
           {
             "@tag": "BY",
-            "#text": "بواسطة  {0}"
+            "#text": "by {0}"
           },
           {
             "@tag": "CREATED",
@@ -15426,7 +15422,7 @@
           },
           {
             "@tag": "TODAYAT",
-            "#text": "[b]اليوم [/b] في {0:T}"
+            "#text": "[b]Today[/b] at {0:T}"
           },
           {
             "@tag": "TOPIC_STARTER",
@@ -15462,7 +15458,7 @@
           },
           {
             "@tag": "YESTERDAYAT",
-            "#text": "[b]الامس[/b] في {0:T}"
+            "#text": "[b]Yesterday[/b] at {0:T}"
           }
         ]
       },
@@ -15483,7 +15479,7 @@
           },
           {
             "@tag": "THANKSTOUSER",
-            "#text": "تم شكر {0}"
+            "#text": "{0} was thanked"
           },
           {
             "@tag": "TITLE",

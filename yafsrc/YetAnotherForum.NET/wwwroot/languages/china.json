@@ -14800,10 +14800,6 @@
             "#text": "搜索"
           },
           {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "搜索{0}"
-          },
-          {
             "@tag": "BY",
             "#text": "由"
           },

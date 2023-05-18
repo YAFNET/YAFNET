@@ -14776,10 +14776,6 @@
             "#text": "Cerca"
           },
           {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "Cerca su {0}"
-          },
-          {
             "@tag": "BY",
             "#text": "di"
           },

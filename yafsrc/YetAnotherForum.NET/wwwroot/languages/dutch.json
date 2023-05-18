@@ -14776,10 +14776,6 @@
             "#text": "Zoeken"
           },
           {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "Zoek met {0}"
-          },
-          {
             "@tag": "BY",
             "#text": "door"
           },
