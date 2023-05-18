@@ -50,10 +50,7 @@ public static class HashHelper
     /// Salted Password as Byte Array
     /// </returns>
     [NotNull]
-    public static byte[] GeneratePasswordBuffer(
-        [NotNull] string salt,
-        [NotNull] string clearString,
-        bool standardComp)
+    public static byte[] GeneratePasswordBuffer([NotNull] string salt, [NotNull] string clearString, bool standardComp)
     {
         var unencodedBytes = Encoding.Unicode.GetBytes(clearString);
         var saltBytes = Convert.FromBase64String(salt);
@@ -167,6 +164,13 @@ public static class HashHelper
     {
         CodeContracts.VerifyNotNull(clearBytes);
 
-        return HashAlgorithm.Create(hashAlgorithmType.GetStringValue()).ComputeHash(clearBytes);
+        return hashAlgorithmType switch {
+            HashAlgorithmType.SHA1 => SHA1.Create().ComputeHash(clearBytes),
+            HashAlgorithmType.MD5 => MD5.Create().ComputeHash(clearBytes),
+            HashAlgorithmType.SHA256 => SHA256.Create().ComputeHash(clearBytes),
+            HashAlgorithmType.SHA384 => SHA384.Create().ComputeHash(clearBytes),
+            HashAlgorithmType.SHA512 => SHA512.Create().ComputeHash(clearBytes),
+            _ => throw new ArgumentOutOfRangeException(nameof(hashAlgorithmType), hashAlgorithmType, null)
+        };
     }
 }
