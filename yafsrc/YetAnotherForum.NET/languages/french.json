@@ -14800,10 +14800,6 @@
             "#text": "Chercher"
           },
           {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "Recherche {0}"
-          },
-          {
             "@tag": "BY",
             "#text": "par"
           },

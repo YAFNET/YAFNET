@@ -14800,10 +14800,6 @@
             "#text": "Hledat"
           },
           {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "Hledat {0}"
-          },
-          {
             "@tag": "BY",
             "#text": "od"
           },

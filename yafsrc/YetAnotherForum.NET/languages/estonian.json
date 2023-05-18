@@ -1,4 +1,4 @@
-﻿{
+{
   "Resources": {
     "@language": "Estonian",
     "@code": "et-EE",
@@ -14794,10 +14794,6 @@
           {
             "@tag": "BTNSEARCH",
             "#text": "Otsi"
-          },
-          {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "Otsi {0}"
           },
           {
             "@tag": "BY",

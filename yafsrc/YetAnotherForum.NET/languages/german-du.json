@@ -14776,10 +14776,6 @@
             "#text": "Suchen"
           },
           {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "{0} Suche"
-          },
-          {
             "@tag": "BY",
             "#text": "von"
           },

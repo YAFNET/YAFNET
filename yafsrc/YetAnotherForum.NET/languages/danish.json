@@ -14800,10 +14800,6 @@
             "#text": "Søg"
           },
           {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "Søg {0}"
-          },
-          {
             "@tag": "BY",
             "#text": "af"
           },

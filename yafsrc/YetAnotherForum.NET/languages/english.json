@@ -14780,10 +14780,6 @@
             "#text": "Search"
           },
           {
-            "@tag": "BTNSEARCH_EXTERNAL",
-            "#text": "Search {0}"
-          },
-          {
             "@tag": "BY",
             "#text": "by"
           },
