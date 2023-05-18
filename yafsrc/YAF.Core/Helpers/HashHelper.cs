@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Helpers;
 
 using System;
@@ -166,6 +167,14 @@ public static class HashHelper
     {
         CodeContracts.VerifyNotNull(clearBytes);
 
-        return HashAlgorithm.Create(hashAlgorithmType.GetStringValue()).ComputeHash(clearBytes);
+        return hashAlgorithmType switch
+            {
+                HashAlgorithmType.SHA1 => SHA1.HashData(clearBytes),
+                HashAlgorithmType.MD5 => MD5.HashData(clearBytes),
+                HashAlgorithmType.SHA256 => SHA256.HashData(clearBytes),
+                HashAlgorithmType.SHA384 => SHA384.HashData(clearBytes),
+                HashAlgorithmType.SHA512 => SHA512.HashData(clearBytes),
+                _ => throw new ArgumentOutOfRangeException(nameof(hashAlgorithmType), hashAlgorithmType, null)
+            };
     }
 }
