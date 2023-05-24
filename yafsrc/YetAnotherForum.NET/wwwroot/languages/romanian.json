@@ -15495,4 +15495,26 @@
         "Resource": [
           {
             "@tag": "NO_THANKS",
-            "#text": "[b]Nu s
+            "#text": "[b]Nu sau gasit multumiri.[/b]"
+          },
+          {
+            "@tag": "THANKSFROMUSER",
+            "#text": "{0} multumiri"
+          },
+          {
+            "@tag": "THANKSNUMBER",
+            "#text": "A fost multumit de: [b]{0}[/b] ori"
+          },
+          {
+            "@tag": "THANKSTOUSER",
+            "#text": "{0} multumiri"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Vezi multumirile"
+          }
+        ]
+      }
+    ]
+  }
+}

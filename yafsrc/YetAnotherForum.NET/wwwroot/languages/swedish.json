@@ -15385,4 +15385,136 @@
             "#text": "från de senaste 6 månaderna"
           },
           {
-            "@tag": "LAST
+            "@tag": "LAST_TWO_DAYS",
+            "#text": "från den senaste 2 dagarna"
+          },
+          {
+            "@tag": "LAST_TWO_MONTHS",
+            "#text": "från de sensate 2 månaderna"
+          },
+          {
+            "@tag": "LAST_TWO_WEEKS",
+            "#text": "från de senaste 2 veckorna"
+          },
+          {
+            "@tag": "LAST_WEEK",
+            "#text": "från senaste veckan"
+          },
+          {
+            "@tag": "LAST_YEAR",
+            "#text": "från senaste året"
+          },
+          {
+            "@tag": "LASTPOST",
+            "#text": "Senaste meddelande"
+          },
+          {
+            "@tag": "MARKREAD",
+            "#text": "Markera detta forum som läst"
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Inga meddelanden"
+          },
+          {
+            "@tag": "NO_TOPICS",
+            "#text": "Forumet har för närvarande inga ämnen"
+          },
+          {
+            "@tag": "OK_TT",
+            "#text": "Sök i detta forum"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Inlägg"
+          },
+          {
+            "@tag": "REPLIES",
+            "#text": "Svar"
+          },
+          {
+            "@tag": "RSSFEED",
+            "#text": "Rsskanal"
+          },
+          {
+            "@tag": "SEARCH_FORUM",
+            "#text": "Sök i forumet"
+          },
+          {
+            "@tag": "SHOWTOPICS",
+            "#text": "Visa konversationer"
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Underforum"
+          },
+          {
+            "@tag": "TODAYAT",
+            "#text": "[b]idag[/b] kl {0:T}"
+          },
+          {
+            "@tag": "TOPIC_STARTER",
+            "#text": "Konversationen startades av"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Konversationer"
+          },
+          {
+            "@tag": "UNWATCHFORUM",
+            "#text": "Avbryt prenumeration på detta forum"
+          },
+          {
+            "@tag": "USER_AVATAR",
+            "#text": "{0}s Avatar"
+          },
+          {
+            "@tag": "VIEWS",
+            "#text": "Visningar"
+          },
+          {
+            "@tag": "WARN_FORUM_LOCKED",
+            "#text": "Forumet är stängt."
+          },
+          {
+            "@tag": "WARN_LOGIN_FORUMWATCH",
+            "#text": "Du måste registrera dig för att prenumerera på ett forum."
+          },
+          {
+            "@tag": "WATCHFORUM",
+            "#text": "Prenumerera på detta forum"
+          },
+          {
+            "@tag": "YESTERDAYAT",
+            "#text": "[b]igår[/b] kl {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "VIEWTHANKS",
+        "Resource": [
+          {
+            "@tag": "NO_THANKS",
+            "#text": "[b]Inga tack hittades.[/b]"
+          },
+          {
+            "@tag": "THANKSFROMUSER",
+            "#text": "{0} tackade"
+          },
+          {
+            "@tag": "THANKSNUMBER",
+            "#text": "Tackades: [b]{0}[/b] gång(er)"
+          },
+          {
+            "@tag": "THANKSTOUSER",
+            "#text": "{0} tackades"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Visa tack"
+          }
+        ]
+      }
+    ]
+  }
+}
