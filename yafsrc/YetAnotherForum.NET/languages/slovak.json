@@ -15503,4 +15503,18 @@
           },
           {
             "@tag": "THANKSNUMBER",
-            "#text": "Bo
+            "#text": "Bolo poďakované: [b]{0}[/b] čas(y)"
+          },
+          {
+            "@tag": "THANKSTOUSER",
+            "#text": "{0} bolo poďakované"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Zobraziť poďakovanie"
+          }
+        ]
+      }
+    ]
+  }
+}

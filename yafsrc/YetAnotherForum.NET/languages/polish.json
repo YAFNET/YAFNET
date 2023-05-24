@@ -15487,4 +15487,14 @@
           },
           {
             "@tag": "THANKSTOUSER",
-            "#text
+            "#text": "{0} otrzymał podziękowania"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Pokaż podziękowania"
+          }
+        ]
+      }
+    ]
+  }
+}

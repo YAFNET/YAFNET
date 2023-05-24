@@ -15430,3 +15430,87 @@
           },
           {
             "@tag": "RSSFEED",
+            "#text": "Rss Yayını"
+          },
+          {
+            "@tag": "SEARCH_FORUM",
+            "#text": "Arama Forumu"
+          },
+          {
+            "@tag": "SHOWTOPICS",
+            "#text": "Konuları Göster"
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Alt Forumlar"
+          },
+          {
+            "@tag": "TODAYAT",
+            "#text": "[b]Bugün[/b] : {0:T}"
+          },
+          {
+            "@tag": "TOPIC_STARTER",
+            "#text": "Konuyu Başlatan Üye Adı"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Konular"
+          },
+          {
+            "@tag": "UNWATCHFORUM",
+            "#text": "Takip İptali"
+          },
+          {
+            "@tag": "USER_AVATAR",
+            "#text": "{0}'ın Avatarı"
+          },
+          {
+            "@tag": "VIEWS",
+            "#text": "İzlenme"
+          },
+          {
+            "@tag": "WARN_FORUM_LOCKED",
+            "#text": "Korum Kapalı."
+          },
+          {
+            "@tag": "WARN_LOGIN_FORUMWATCH",
+            "#text": "Forumu izlemek için kayıt olmalısınız."
+          },
+          {
+            "@tag": "WATCHFORUM",
+            "#text": "Forum Takibi"
+          },
+          {
+            "@tag": "YESTERDAYAT",
+            "#text": "[b]Dün[/b] : {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "VIEWTHANKS",
+        "Resource": [
+          {
+            "@tag": "NO_THANKS",
+            "#text": "[b]Teşekkür Bulunamadı.[/b]"
+          },
+          {
+            "@tag": "THANKSFROMUSER",
+            "#text": "{0} kere teşekkür etmiş."
+          },
+          {
+            "@tag": "THANKSNUMBER",
+            "#text": "Teşekkür edildi: [b]{0}[/b] zaman(lar)"
+          },
+          {
+            "@tag": "THANKSTOUSER",
+            "#text": "{0} kere teşekkür edilmiş."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Teşekkür Detayları"
+          }
+        ]
+      }
+    ]
+  }
+}

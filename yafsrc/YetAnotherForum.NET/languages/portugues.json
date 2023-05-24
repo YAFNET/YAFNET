@@ -15485,4 +15485,36 @@
             "#text": "Fórum Visitado"
           },
           {
-            "@tag": "YES
+            "@tag": "YESTERDAYAT",
+            "#text": "[b]Ontem[/b] às {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "VIEWTHANKS",
+        "Resource": [
+          {
+            "@tag": "NO_THANKS",
+            "#text": "[b]Não foram encontrados agradecimentos [/b]."
+          },
+          {
+            "@tag": "THANKSFROMUSER",
+            "#text": "{0} agradecido"
+          },
+          {
+            "@tag": "THANKSNUMBER",
+            "#text": "Foi agradecido: [b]{0}[/b] tempo(s)"
+          },
+          {
+            "@tag": "THANKSTOUSER",
+            "#text": "{0} foi agradecido"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Ver Obrigado"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -15431,4 +15431,90 @@
           {
             "@tag": "REPLIES",
             "#text": "Trả Lời"
-          
+          },
+          {
+            "@tag": "RSSFEED",
+            "#text": "RSS"
+          },
+          {
+            "@tag": "SEARCH_FORUM",
+            "#text": "Diễn đàn tìm kiếm"
+          },
+          {
+            "@tag": "SHOWTOPICS",
+            "#text": "Xem chủ đề"
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Diễn đàn con"
+          },
+          {
+            "@tag": "TODAYAT",
+            "#text": "[b]Hôm nay[/b] lúc {0:T}"
+          },
+          {
+            "@tag": "TOPIC_STARTER",
+            "#text": "Tác giả"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Chủ đề"
+          },
+          {
+            "@tag": "UNWATCHFORUM",
+            "#text": "Hủy theo dõi diễn đàn này"
+          },
+          {
+            "@tag": "USER_AVATAR",
+            "#text": "Hình đại diện của {0}"
+          },
+          {
+            "@tag": "VIEWS",
+            "#text": "Xem"
+          },
+          {
+            "@tag": "WARN_FORUM_LOCKED",
+            "#text": "Diễn đàn đã khóa."
+          },
+          {
+            "@tag": "WARN_LOGIN_FORUMWATCH",
+            "#text": "Bạn cần đăng nhập để xem diễn đàn."
+          },
+          {
+            "@tag": "WATCHFORUM",
+            "#text": "Theo dõi diễn đàn này"
+          },
+          {
+            "@tag": "YESTERDAYAT",
+            "#text": "[b]Hôm qua[/b] vào lúc {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "VIEWTHANKS",
+        "Resource": [
+          {
+            "@tag": "NO_THANKS",
+            "#text": "[b] Không tìm thấy lời cảm ơn nào. [/ b]"
+          },
+          {
+            "@tag": "THANKSFROMUSER",
+            "#text": "{0} cảm ơn"
+          },
+          {
+            "@tag": "THANKSNUMBER",
+            "#text": "Đã được cảm ơn: [b] {0} [/ b] thời gian"
+          },
+          {
+            "@tag": "THANKSTOUSER",
+            "#text": "{0} đã được cảm ơn"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Xem Cảm ơn"
+          }
+        ]
+      }
+    ]
+  }
+}

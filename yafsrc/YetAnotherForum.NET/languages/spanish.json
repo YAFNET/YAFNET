@@ -15465,4 +15465,32 @@
             "#text": "[b]Ayer[/b] a las {0:T}"
           }
         ]
-   
+      },
+      {
+        "@name": "VIEWTHANKS",
+        "Resource": [
+          {
+            "@tag": "NO_THANKS",
+            "#text": "[b]No hay agradecimientos.[/b]"
+          },
+          {
+            "@tag": "THANKSFROMUSER",
+            "#text": "{0} agradecido"
+          },
+          {
+            "@tag": "THANKSNUMBER",
+            "#text": "Fue agradecido: [b]{0}[/b] vez/veces."
+          },
+          {
+            "@tag": "THANKSTOUSER",
+            "#text": "{0} fue agradecido"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Ver agradecimientos"
+          }
+        ]
+      }
+    ]
+  }
+}
