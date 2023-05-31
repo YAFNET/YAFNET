@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Helpers;
 
 using System;
@@ -28,6 +29,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Text.RegularExpressions;
 
 using Microsoft.Extensions.Logging;
 
@@ -186,44 +188,21 @@ public static class IPHelper
         CodeContracts.VerifyNotNull(ban);
         CodeContracts.VerifyNotNull(chk);
 
-        var bannedIP = ban.Trim();
+        var bannedIp = ban.Trim();
 
         if (chk == "::1")
         {
             chk = "127.0.0.1";
         }
 
-        if (bannedIP == "::1")
+        if (bannedIp == "::1")
         {
-            bannedIP = "127.0.0.1";
+            bannedIp = "127.0.0.1";
         }
 
-        if (bannedIP.Contains("*"))
-        {
-            bannedIP = bannedIP.Replace("*", "0");
-        }
+        var check = Regex.Match(chk, bannedIp);
 
-        var ipCheck = StringToIP(chk);
-
-        var banCheck = StringToIP(bannedIP);
-
-        return banCheck.Equals(ipCheck);
-    }
-
-    /// <summary>
-    /// Converts an array of strings into a ulong representing a 4 byte IP address
-    /// </summary>
-    /// <param name="ip">
-    /// string array of numbers
-    /// </param>
-    /// <returns>
-    /// ulong representing an encoding IP address
-    /// </returns>
-    public static IPAddress StringToIP([NotNull] string ip)
-    {
-        CodeContracts.VerifyNotNull(ip);
-
-        return IPAddress.Parse(ip);
+        return check.Success;
     }
 
     /// <summary>
