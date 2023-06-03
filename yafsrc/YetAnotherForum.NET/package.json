@@ -5,6 +5,7 @@
     "devDependencies": {
         "@lodder/grunt-postcss": "^3.1.1",
         "autoprefixer": "^10.4.14",
+        "eslint": "^8.42.0",
         "grunt": "^1.6.1",
         "grunt-contrib-copy": "^1.0.0",
         "grunt-contrib-cssmin": "^5.0.0",
@@ -13,15 +14,17 @@
         "grunt-dev-update": "^2.3.0",
         "grunt-replace": "^2.0.2",
         "grunt-shell": "^4.0.0",
-        "postcss": "^8.4.23",
+        "postcss": "^8.4.24",
         "sass": "^1.62.1"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.4.0",
         "bootbox": "^6.0.0",
-        "bootstrap-touchspin": "^4.6.2",
-        "bootswatch": "^5.2.3",
-        "flag-icons": "^6.6.6",
+        "bootstrap": "^5.3.0",
+        "bootstrap-touchspin": "^4.7.3",
+        "bootswatch": "^5.3.0",
+        "flag-icons": "^6.7.0",
+        "grunt-file-append": "^0.0.7",
         "jquery": "^3.7.0",
         "long-press-event": "^2.4.6",
         "prismjs": "^1.29.0"

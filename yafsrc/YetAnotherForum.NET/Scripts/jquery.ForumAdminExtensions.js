@@ -3,9 +3,45 @@
     global.bootstrap = factory());
 })(this, function() {
     "use strict";
+    const elementMap = new Map();
+    const Data = {
+        set(element, key, instance) {
+            if (!elementMap.has(element)) {
+                elementMap.set(element, new Map());
+            }
+            const instanceMap = elementMap.get(element);
+            if (!instanceMap.has(key) && instanceMap.size !== 0) {
+                console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(instanceMap.keys())[0]}.`);
+                return;
+            }
+            instanceMap.set(key, instance);
+        },
+        get(element, key) {
+            if (elementMap.has(element)) {
+                return elementMap.get(element).get(key) || null;
+            }
+            return null;
+        },
+        remove(element, key) {
+            if (!elementMap.has(element)) {
+                return;
+            }
+            const instanceMap = elementMap.get(element);
+            instanceMap.delete(key);
+            if (instanceMap.size === 0) {
+                elementMap.delete(element);
+            }
+        }
+    };
     const MAX_UID = 1e6;
     const MILLISECONDS_MULTIPLIER = 1e3;
     const TRANSITION_END = "transitionend";
+    const parseSelector = selector => {
+        if (selector && window.CSS && window.CSS.escape) {
+            selector = selector.replace(/#([^\s"#']+)/g, (match, id) => `#${CSS.escape(id)}`);
+        }
+        return selector;
+    };
     const toType = object => {
         if (object === null || object === undefined) {
             return `${object}`;
@@ -17,31 +53,6 @@
             prefix += Math.floor(Math.random() * MAX_UID);
         } while (document.getElementById(prefix));
         return prefix;
-    };
-    const getSelector = element => {
-        let selector = element.getAttribute("data-bs-target");
-        if (!selector || selector === "#") {
-            let hrefAttribute = element.getAttribute("href");
-            if (!hrefAttribute || !hrefAttribute.includes("#") && !hrefAttribute.startsWith(".")) {
-                return null;
-            }
-            if (hrefAttribute.includes("#") && !hrefAttribute.startsWith("#")) {
-                hrefAttribute = `#${hrefAttribute.split("#")[1]}`;
-            }
-            selector = hrefAttribute && hrefAttribute !== "#" ? hrefAttribute.trim() : null;
-        }
-        return selector;
-    };
-    const getSelectorFromElement = element => {
-        const selector = getSelector(element);
-        if (selector) {
-            return document.querySelector(selector) ? selector : null;
-        }
-        return null;
-    };
-    const getElementFromSelector = element => {
-        const selector = getSelector(element);
-        return selector ? document.querySelector(selector) : null;
     };
     const getTransitionDurationFromElement = element => {
         if (!element) {
@@ -77,7 +88,7 @@
             return object.jquery ? object[0] : object;
         }
         if (typeof object === "string" && object.length > 0) {
-            return document.querySelector(object);
+            return document.querySelector(parseSelector(object));
         }
         return null;
     };
@@ -170,10 +181,8 @@
             }
         });
     };
-    const execute = callback => {
-        if (typeof callback === "function") {
-            callback();
-        }
+    const execute = (possibleCallback, args = [], defaultValue = possibleCallback) => {
+        return typeof possibleCallback === "function" ? possibleCallback(...args) : defaultValue;
     };
     const executeAfterTransition = (callback, transitionElement, waitForTransition = true) => {
         if (!waitForTransition) {
@@ -316,9 +325,8 @@
     }
     function removeNamespacedHandlers(element, events, typeEvent, namespace) {
         const storeElementEvent = events[typeEvent] || {};
-        for (const handlerKey of Object.keys(storeElementEvent)) {
+        for (const [ handlerKey, event ] of Object.entries(storeElementEvent)) {
             if (handlerKey.includes(namespace)) {
-                const event = storeElementEvent[handlerKey];
                 removeHandler(element, events, typeEvent, event.callable, event.delegationSelector);
             }
         }
@@ -355,10 +363,9 @@
                     removeNamespacedHandlers(element, events, elementEvent, originalTypeEvent.slice(1));
                 }
             }
-            for (const keyHandlers of Object.keys(storeElementEvent)) {
+            for (const [ keyHandlers, event ] of Object.entries(storeElementEvent)) {
                 const handlerKey = keyHandlers.replace(stripUidRegex, "");
                 if (!inNamespace || originalTypeEvent.includes(handlerKey)) {
-                    const event = storeElementEvent[keyHandlers];
                     removeHandler(element, events, typeEvent, event.callable, event.delegationSelector);
                 }
             }
@@ -381,11 +388,10 @@
                 nativeDispatch = !jQueryEvent.isImmediatePropagationStopped();
                 defaultPrevented = jQueryEvent.isDefaultPrevented();
             }
-            let evt = new Event(event, {
+            const evt = hydrateObj(new Event(event, {
                 bubbles: bubbles,
                 cancelable: true
-            });
-            evt = hydrateObj(evt, args);
+            }), args);
             if (defaultPrevented) {
                 evt.preventDefault();
             }
@@ -398,8 +404,8 @@
             return evt;
         }
     };
-    function hydrateObj(obj, meta) {
-        for (const [ key, value ] of Object.entries(meta || {})) {
+    function hydrateObj(obj, meta = {}) {
+        for (const [ key, value ] of Object.entries(meta)) {
             try {
                 obj[key] = value;
             } catch (_unused) {
@@ -413,36 +419,6 @@
         }
         return obj;
     }
-    const elementMap = new Map();
-    const Data = {
-        set(element, key, instance) {
-            if (!elementMap.has(element)) {
-                elementMap.set(element, new Map());
-            }
-            const instanceMap = elementMap.get(element);
-            if (!instanceMap.has(key) && instanceMap.size !== 0) {
-                console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(instanceMap.keys())[0]}.`);
-                return;
-            }
-            instanceMap.set(key, instance);
-        },
-        get(element, key) {
-            if (elementMap.has(element)) {
-                return elementMap.get(element).get(key) || null;
-            }
-            return null;
-        },
-        remove(element, key) {
-            if (!elementMap.has(element)) {
-                return;
-            }
-            const instanceMap = elementMap.get(element);
-            instanceMap.delete(key);
-            if (instanceMap.size === 0) {
-                elementMap.delete(element);
-            }
-        }
-    };
     function normalizeData(value) {
         if (value === "true") {
             return true;
@@ -521,8 +497,7 @@
             };
         }
         _typeCheckConfig(config, configTypes = this.constructor.DefaultType) {
-            for (const property of Object.keys(configTypes)) {
-                const expectedTypes = configTypes[property];
+            for (const [ property, expectedTypes ] of Object.entries(configTypes)) {
                 const value = config[property];
                 const valueType = isElement$1(value) ? "element" : toType(value);
                 if (!new RegExp(expectedTypes).test(valueType)) {
@@ -531,7 +506,7 @@
             }
         }
     }
-    const VERSION = "5.2.3";
+    const VERSION = "5.3.0";
     class BaseComponent extends Config {
         constructor(element, config) {
             super();
@@ -578,6 +553,79 @@
             return `${name}${this.EVENT_KEY}`;
         }
     }
+    const getSelector = element => {
+        let selector = element.getAttribute("data-bs-target");
+        if (!selector || selector === "#") {
+            let hrefAttribute = element.getAttribute("href");
+            if (!hrefAttribute || !hrefAttribute.includes("#") && !hrefAttribute.startsWith(".")) {
+                return null;
+            }
+            if (hrefAttribute.includes("#") && !hrefAttribute.startsWith("#")) {
+                hrefAttribute = `#${hrefAttribute.split("#")[1]}`;
+            }
+            selector = hrefAttribute && hrefAttribute !== "#" ? hrefAttribute.trim() : null;
+        }
+        return parseSelector(selector);
+    };
+    const SelectorEngine = {
+        find(selector, element = document.documentElement) {
+            return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
+        },
+        findOne(selector, element = document.documentElement) {
+            return Element.prototype.querySelector.call(element, selector);
+        },
+        children(element, selector) {
+            return [].concat(...element.children).filter(child => child.matches(selector));
+        },
+        parents(element, selector) {
+            const parents = [];
+            let ancestor = element.parentNode.closest(selector);
+            while (ancestor) {
+                parents.push(ancestor);
+                ancestor = ancestor.parentNode.closest(selector);
+            }
+            return parents;
+        },
+        prev(element, selector) {
+            let previous = element.previousElementSibling;
+            while (previous) {
+                if (previous.matches(selector)) {
+                    return [ previous ];
+                }
+                previous = previous.previousElementSibling;
+            }
+            return [];
+        },
+        next(element, selector) {
+            let next = element.nextElementSibling;
+            while (next) {
+                if (next.matches(selector)) {
+                    return [ next ];
+                }
+                next = next.nextElementSibling;
+            }
+            return [];
+        },
+        focusableChildren(element) {
+            const focusables = [ "a", "button", "input", "textarea", "select", "details", "[tabindex]", '[contenteditable="true"]' ].map(selector => `${selector}:not([tabindex^="-"])`).join(",");
+            return this.find(focusables, element).filter(el => !isDisabled(el) && isVisible(el));
+        },
+        getSelectorFromElement(element) {
+            const selector = getSelector(element);
+            if (selector) {
+                return SelectorEngine.findOne(selector) ? selector : null;
+            }
+            return null;
+        },
+        getElementFromSelector(element) {
+            const selector = getSelector(element);
+            return selector ? SelectorEngine.findOne(selector) : null;
+        },
+        getMultipleElementsFromSelector(element) {
+            const selector = getSelector(element);
+            return selector ? SelectorEngine.find(selector) : [];
+        }
+    };
     const enableDismissTrigger = (component, method = "hide") => {
         const clickEvent = `click.dismiss${component.EVENT_KEY}`;
         const name = component.NAME;
@@ -588,7 +636,7 @@
             if (isDisabled(this)) {
                 return;
             }
-            const target = getElementFromSelector(this) || this.closest(`.${name}`);
+            const target = SelectorEngine.getElementFromSelector(this) || this.closest(`.${name}`);
             const instance = component.getOrCreateInstance(target);
             instance[method]();
         });
@@ -663,50 +711,6 @@
         data.toggle();
     });
     defineJQueryPlugin(Button);
-    const SelectorEngine = {
-        find(selector, element = document.documentElement) {
-            return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
-        },
-        findOne(selector, element = document.documentElement) {
-            return Element.prototype.querySelector.call(element, selector);
-        },
-        children(element, selector) {
-            return [].concat(...element.children).filter(child => child.matches(selector));
-        },
-        parents(element, selector) {
-            const parents = [];
-            let ancestor = element.parentNode.closest(selector);
-            while (ancestor) {
-                parents.push(ancestor);
-                ancestor = ancestor.parentNode.closest(selector);
-            }
-            return parents;
-        },
-        prev(element, selector) {
-            let previous = element.previousElementSibling;
-            while (previous) {
-                if (previous.matches(selector)) {
-                    return [ previous ];
-                }
-                previous = previous.previousElementSibling;
-            }
-            return [];
-        },
-        next(element, selector) {
-            let next = element.nextElementSibling;
-            while (next) {
-                if (next.matches(selector)) {
-                    return [ next ];
-                }
-                next = next.nextElementSibling;
-            }
-            return [];
-        },
-        focusableChildren(element) {
-            const focusables = [ "a", "button", "input", "textarea", "select", "details", "[tabindex]", '[contenteditable="true"]' ].map(selector => `${selector}:not([tabindex^="-"])`).join(",");
-            return this.find(focusables, element).filter(el => !isDisabled(el) && isVisible(el));
-        }
-    };
     const NAME$d = "swipe";
     const EVENT_KEY$9 = ".bs.swipe";
     const EVENT_TOUCHSTART = `touchstart${EVENT_KEY$9}`;
@@ -1095,7 +1099,7 @@
         }
     }
     EventHandler.on(document, EVENT_CLICK_DATA_API$5, SELECTOR_DATA_SLIDE, function(event) {
-        const target = getElementFromSelector(this);
+        const target = SelectorEngine.getElementFromSelector(this);
         if (!target || !target.classList.contains(CLASS_NAME_CAROUSEL)) {
             return;
         }
@@ -1156,7 +1160,7 @@
             this._triggerArray = [];
             const toggleList = SelectorEngine.find(SELECTOR_DATA_TOGGLE$4);
             for (const elem of toggleList) {
-                const selector = getSelectorFromElement(elem);
+                const selector = SelectorEngine.getSelectorFromElement(elem);
                 const filterElement = SelectorEngine.find(selector).filter(foundElement => foundElement === this._element);
                 if (selector !== null && filterElement.length) {
                     this._triggerArray.push(elem);
@@ -1238,7 +1242,7 @@
             this._element.classList.add(CLASS_NAME_COLLAPSING);
             this._element.classList.remove(CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW$7);
             for (const trigger of this._triggerArray) {
-                const element = getElementFromSelector(trigger);
+                const element = SelectorEngine.getElementFromSelector(trigger);
                 if (element && !this._isShown(element)) {
                     this._addAriaAndCollapsedClass([ trigger ], false);
                 }
@@ -1270,7 +1274,7 @@
             }
             const children = this._getFirstLevelChildren(SELECTOR_DATA_TOGGLE$4);
             for (const element of children) {
-                const selected = getElementFromSelector(element);
+                const selected = SelectorEngine.getElementFromSelector(element);
                 if (selected) {
                     this._addAriaAndCollapsedClass([ element ], this._isShown(selected));
                 }
@@ -1309,9 +1313,7 @@
         if (event.target.tagName === "A" || event.delegateTarget && event.delegateTarget.tagName === "A") {
             event.preventDefault();
         }
-        const selector = getSelectorFromElement(this);
-        const selectorElements = SelectorEngine.find(selector);
-        for (const element of selectorElements) {
+        for (const element of SelectorEngine.getMultipleElementsFromSelector(this)) {
             Collapse.getOrCreateInstance(element, {
                 toggle: false
             }).toggle();
@@ -1448,7 +1450,7 @@
     var round = Math.round;
     function getUAString() {
         var uaData = navigator.userAgentData;
-        if (uaData != null && uaData.brands) {
+        if (uaData != null && uaData.brands && Array.isArray(uaData.brands)) {
             return uaData.brands.map(function(item) {
                 return item.brand + "/" + item.version;
             }).join(" ");
@@ -1673,9 +1675,8 @@
         bottom: "auto",
         left: "auto"
     };
-    function roundOffsetsByDPR(_ref) {
+    function roundOffsetsByDPR(_ref, win) {
         var x = _ref.x, y = _ref.y;
-        var win = window;
         var dpr = win.devicePixelRatio || 1;
         return {
             x: round(x * dpr) / dpr || 0,
@@ -1731,7 +1732,7 @@
         var _ref4 = roundOffsets === true ? roundOffsetsByDPR({
             x: x,
             y: y
-        }) : {
+        }, getWindow(popper)) : {
             x: x,
             y: y
         };
@@ -2618,8 +2619,8 @@
                 }
             });
             function runModifierEffects() {
-                state.orderedModifiers.forEach(function(_ref3) {
-                    var name = _ref3.name, _ref3$options = _ref3.options, options = _ref3$options === void 0 ? {} : _ref3$options, effect = _ref3.effect;
+                state.orderedModifiers.forEach(function(_ref) {
+                    var name = _ref.name, _ref$options = _ref.options, options = _ref$options === void 0 ? {} : _ref$options, effect = _ref.effect;
                     if (typeof effect === "function") {
                         var cleanupFn = effect({
                             state: state,
@@ -2652,44 +2653,44 @@
     });
     const Popper = Object.freeze(Object.defineProperty({
         __proto__: null,
-        popperGenerator: popperGenerator,
-        detectOverflow: detectOverflow,
-        createPopperBase: createPopper$2,
-        createPopper: createPopper,
-        createPopperLite: createPopper$1,
-        top: top,
-        bottom: bottom,
-        right: right,
-        left: left,
-        auto: auto,
-        basePlacements: basePlacements,
-        start: start,
-        end: end,
-        clippingParents: clippingParents,
-        viewport: viewport,
-        popper: popper,
-        reference: reference,
-        variationPlacements: variationPlacements,
-        placements: placements,
-        beforeRead: beforeRead,
-        read: read,
-        afterRead: afterRead,
-        beforeMain: beforeMain,
-        main: main,
         afterMain: afterMain,
-        beforeWrite: beforeWrite,
-        write: write,
+        afterRead: afterRead,
         afterWrite: afterWrite,
-        modifierPhases: modifierPhases,
         applyStyles: applyStyles$1,
         arrow: arrow$1,
+        auto: auto,
+        basePlacements: basePlacements,
+        beforeMain: beforeMain,
+        beforeRead: beforeRead,
+        beforeWrite: beforeWrite,
+        bottom: bottom,
+        clippingParents: clippingParents,
         computeStyles: computeStyles$1,
+        createPopper: createPopper,
+        createPopperBase: createPopper$2,
+        createPopperLite: createPopper$1,
+        detectOverflow: detectOverflow,
+        end: end,
         eventListeners: eventListeners,
         flip: flip$1,
         hide: hide$1,
+        left: left,
+        main: main,
+        modifierPhases: modifierPhases,
         offset: offset$1,
+        placements: placements,
+        popper: popper,
+        popperGenerator: popperGenerator,
         popperOffsets: popperOffsets$1,
-        preventOverflow: preventOverflow$1
+        preventOverflow: preventOverflow$1,
+        read: read,
+        reference: reference,
+        right: right,
+        start: start,
+        top: top,
+        variationPlacements: variationPlacements,
+        viewport: viewport,
+        write: write
     }, Symbol.toStringTag, {
         value: "Module"
     }));
@@ -2912,7 +2913,7 @@
             }
             return {
                 ...defaultBsPopperConfig,
-                ...typeof this._config.popperConfig === "function" ? this._config.popperConfig(defaultBsPopperConfig) : this._config.popperConfig
+                ...execute(this._config.popperConfig, [ defaultBsPopperConfig ])
             };
         }
         _selectMenuItem({
@@ -2999,78 +3000,6 @@
         Dropdown.getOrCreateInstance(this).toggle();
     });
     defineJQueryPlugin(Dropdown);
-    const SELECTOR_FIXED_CONTENT = ".fixed-top, .fixed-bottom, .is-fixed, .sticky-top";
-    const SELECTOR_STICKY_CONTENT = ".sticky-top";
-    const PROPERTY_PADDING = "padding-right";
-    const PROPERTY_MARGIN = "margin-right";
-    class ScrollBarHelper {
-        constructor() {
-            this._element = document.body;
-        }
-        getWidth() {
-            const documentWidth = document.documentElement.clientWidth;
-            return Math.abs(window.innerWidth - documentWidth);
-        }
-        hide() {
-            const width = this.getWidth();
-            this._disableOverFlow();
-            this._setElementAttributes(this._element, PROPERTY_PADDING, calculatedValue => calculatedValue + width);
-            this._setElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING, calculatedValue => calculatedValue + width);
-            this._setElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN, calculatedValue => calculatedValue - width);
-        }
-        reset() {
-            this._resetElementAttributes(this._element, "overflow");
-            this._resetElementAttributes(this._element, PROPERTY_PADDING);
-            this._resetElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING);
-            this._resetElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN);
-        }
-        isOverflowing() {
-            return this.getWidth() > 0;
-        }
-        _disableOverFlow() {
-            this._saveInitialAttribute(this._element, "overflow");
-            this._element.style.overflow = "hidden";
-        }
-        _setElementAttributes(selector, styleProperty, callback) {
-            const scrollbarWidth = this.getWidth();
-            const manipulationCallBack = element => {
-                if (element !== this._element && window.innerWidth > element.clientWidth + scrollbarWidth) {
-                    return;
-                }
-                this._saveInitialAttribute(element, styleProperty);
-                const calculatedValue = window.getComputedStyle(element).getPropertyValue(styleProperty);
-                element.style.setProperty(styleProperty, `${callback(Number.parseFloat(calculatedValue))}px`);
-            };
-            this._applyManipulationCallback(selector, manipulationCallBack);
-        }
-        _saveInitialAttribute(element, styleProperty) {
-            const actualValue = element.style.getPropertyValue(styleProperty);
-            if (actualValue) {
-                Manipulator.setDataAttribute(element, styleProperty, actualValue);
-            }
-        }
-        _resetElementAttributes(selector, styleProperty) {
-            const manipulationCallBack = element => {
-                const value = Manipulator.getDataAttribute(element, styleProperty);
-                if (value === null) {
-                    element.style.removeProperty(styleProperty);
-                    return;
-                }
-                Manipulator.removeDataAttribute(element, styleProperty);
-                element.style.setProperty(styleProperty, value);
-            };
-            this._applyManipulationCallback(selector, manipulationCallBack);
-        }
-        _applyManipulationCallback(selector, callBack) {
-            if (isElement$1(selector)) {
-                callBack(selector);
-                return;
-            }
-            for (const sel of SelectorEngine.find(selector, this._element)) {
-                callBack(sel);
-            }
-        }
-    }
     const NAME$9 = "backdrop";
     const CLASS_NAME_FADE$4 = "fade";
     const CLASS_NAME_SHOW$5 = "show";
@@ -3243,6 +3172,78 @@
             this._lastTabNavDirection = event.shiftKey ? TAB_NAV_BACKWARD : TAB_NAV_FORWARD;
         }
     }
+    const SELECTOR_FIXED_CONTENT = ".fixed-top, .fixed-bottom, .is-fixed, .sticky-top";
+    const SELECTOR_STICKY_CONTENT = ".sticky-top";
+    const PROPERTY_PADDING = "padding-right";
+    const PROPERTY_MARGIN = "margin-right";
+    class ScrollBarHelper {
+        constructor() {
+            this._element = document.body;
+        }
+        getWidth() {
+            const documentWidth = document.documentElement.clientWidth;
+            return Math.abs(window.innerWidth - documentWidth);
+        }
+        hide() {
+            const width = this.getWidth();
+            this._disableOverFlow();
+            this._setElementAttributes(this._element, PROPERTY_PADDING, calculatedValue => calculatedValue + width);
+            this._setElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING, calculatedValue => calculatedValue + width);
+            this._setElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN, calculatedValue => calculatedValue - width);
+        }
+        reset() {
+            this._resetElementAttributes(this._element, "overflow");
+            this._resetElementAttributes(this._element, PROPERTY_PADDING);
+            this._resetElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING);
+            this._resetElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN);
+        }
+        isOverflowing() {
+            return this.getWidth() > 0;
+        }
+        _disableOverFlow() {
+            this._saveInitialAttribute(this._element, "overflow");
+            this._element.style.overflow = "hidden";
+        }
+        _setElementAttributes(selector, styleProperty, callback) {
+            const scrollbarWidth = this.getWidth();
+            const manipulationCallBack = element => {
+                if (element !== this._element && window.innerWidth > element.clientWidth + scrollbarWidth) {
+                    return;
+                }
+                this._saveInitialAttribute(element, styleProperty);
+                const calculatedValue = window.getComputedStyle(element).getPropertyValue(styleProperty);
+                element.style.setProperty(styleProperty, `${callback(Number.parseFloat(calculatedValue))}px`);
+            };
+            this._applyManipulationCallback(selector, manipulationCallBack);
+        }
+        _saveInitialAttribute(element, styleProperty) {
+            const actualValue = element.style.getPropertyValue(styleProperty);
+            if (actualValue) {
+                Manipulator.setDataAttribute(element, styleProperty, actualValue);
+            }
+        }
+        _resetElementAttributes(selector, styleProperty) {
+            const manipulationCallBack = element => {
+                const value = Manipulator.getDataAttribute(element, styleProperty);
+                if (value === null) {
+                    element.style.removeProperty(styleProperty);
+                    return;
+                }
+                Manipulator.removeDataAttribute(element, styleProperty);
+                element.style.setProperty(styleProperty, value);
+            };
+            this._applyManipulationCallback(selector, manipulationCallBack);
+        }
+        _applyManipulationCallback(selector, callBack) {
+            if (isElement$1(selector)) {
+                callBack(selector);
+                return;
+            }
+            for (const sel of SelectorEngine.find(selector, this._element)) {
+                callBack(sel);
+            }
+        }
+    }
     const NAME$7 = "modal";
     const DATA_KEY$4 = "bs.modal";
     const EVENT_KEY$4 = `.${DATA_KEY$4}`;
@@ -3331,9 +3332,8 @@
             this._queueCallback(() => this._hideModal(), this._element, this._isAnimated());
         }
         dispose() {
-            for (const htmlElement of [ window, this._dialog ]) {
-                EventHandler.off(htmlElement, EVENT_KEY$4);
-            }
+            EventHandler.off(window, EVENT_KEY$4);
+            EventHandler.off(this._dialog, EVENT_KEY$4);
             this._backdrop.dispose();
             this._focustrap.deactivate();
             super.dispose();
@@ -3384,7 +3384,6 @@
                     return;
                 }
                 if (this._config.keyboard) {
-                    event.preventDefault();
                     this.hide();
                     return;
                 }
@@ -3479,7 +3478,7 @@
         }
     }
     EventHandler.on(document, EVENT_CLICK_DATA_API$2, SELECTOR_DATA_TOGGLE$2, function(event) {
-        const target = getElementFromSelector(this);
+        const target = SelectorEngine.getElementFromSelector(this);
         if ([ "A", "AREA" ].includes(this.tagName)) {
             event.preventDefault();
         }
@@ -3638,11 +3637,11 @@
                 if (event.key !== ESCAPE_KEY) {
                     return;
                 }
-                if (!this._config.keyboard) {
-                    EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
+                if (this._config.keyboard) {
+                    this.hide();
                     return;
                 }
-                this.hide();
+                EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
             });
         }
         static jQueryInterface(config) {
@@ -3659,7 +3658,7 @@
         }
     }
     EventHandler.on(document, EVENT_CLICK_DATA_API$1, SELECTOR_DATA_TOGGLE$1, function(event) {
-        const target = getElementFromSelector(this);
+        const target = SelectorEngine.getElementFromSelector(this);
         if ([ "A", "AREA" ].includes(this.tagName)) {
             event.preventDefault();
         }
@@ -3692,20 +3691,7 @@
     });
     enableDismissTrigger(Offcanvas);
     defineJQueryPlugin(Offcanvas);
-    const uriAttributes = new Set([ "background", "cite", "href", "itemtype", "longdesc", "poster", "src", "xlink:href" ]);
     const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
-    const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i;
-    const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i;
-    const allowedAttribute = (attribute, allowedAttributeList) => {
-        const attributeName = attribute.nodeName.toLowerCase();
-        if (allowedAttributeList.includes(attributeName)) {
-            if (uriAttributes.has(attributeName)) {
-                return Boolean(SAFE_URL_PATTERN.test(attribute.nodeValue) || DATA_URL_PATTERN.test(attribute.nodeValue));
-            }
-            return true;
-        }
-        return allowedAttributeList.filter(attributeRegex => attributeRegex instanceof RegExp).some(regex => regex.test(attributeName));
-    };
     const DefaultAllowlist = {
         "*": [ "class", "dir", "id", "lang", "role", ARIA_ATTRIBUTE_PATTERN ],
         a: [ "target", "href", "title", "rel" ],
@@ -3737,6 +3723,18 @@
         strong: [],
         u: [],
         ul: []
+    };
+    const uriAttributes = new Set([ "background", "cite", "href", "itemtype", "longdesc", "poster", "src", "xlink:href" ]);
+    const SAFE_URL_PATTERN = /^(?!javascript:)(?:[a-z0-9+.-]+:|[^&:/?#]*(?:[/?#]|$))/i;
+    const allowedAttribute = (attribute, allowedAttributeList) => {
+        const attributeName = attribute.nodeName.toLowerCase();
+        if (allowedAttributeList.includes(attributeName)) {
+            if (uriAttributes.has(attributeName)) {
+                return Boolean(SAFE_URL_PATTERN.test(attribute.nodeValue));
+            }
+            return true;
+        }
+        return allowedAttributeList.filter(attributeRegex => attributeRegex instanceof RegExp).some(regex => regex.test(attributeName));
     };
     function sanitizeHtml(unsafeHtml, allowList, sanitizeFunction) {
         if (!unsafeHtml.length) {
@@ -3864,7 +3862,7 @@
             return this._config.sanitize ? sanitizeHtml(arg, this._config.allowList, this._config.sanitizeFn) : arg;
         }
         _resolvePossibleFunction(arg) {
-            return typeof arg === "function" ? arg(this) : arg;
+            return execute(arg, [ this ]);
         }
         _putElementInTemplate(element, templateElement) {
             if (this._config.html) {
@@ -3913,7 +3911,7 @@
         delay: 0,
         fallbackPlacements: [ "top", "right", "bottom", "left" ],
         html: false,
-        offset: [ 0, 0 ],
+        offset: [ 0, 6 ],
         placement: "top",
         popperConfig: null,
         sanitize: true,
@@ -4134,7 +4132,7 @@
             return this.tip && this.tip.classList.contains(CLASS_NAME_SHOW$2);
         }
         _createPopper(tip) {
-            const placement = typeof this._config.placement === "function" ? this._config.placement.call(this, tip, this._element) : this._config.placement;
+            const placement = execute(this._config.placement, [ this, tip, this._element ]);
             const attachment = AttachmentMap[placement.toUpperCase()];
             return createPopper(this._element, tip, this._getPopperConfig(attachment));
         }
@@ -4151,7 +4149,7 @@
             return offset;
         }
         _resolvePossibleFunction(arg) {
-            return typeof arg === "function" ? arg.call(this._element) : arg;
+            return execute(arg, [ this._element ]);
         }
         _getPopperConfig(attachment) {
             const defaultBsPopperConfig = {
@@ -4187,7 +4185,7 @@
             };
             return {
                 ...defaultBsPopperConfig,
-                ...typeof this._config.popperConfig === "function" ? this._config.popperConfig(defaultBsPopperConfig) : this._config.popperConfig
+                ...execute(this._config.popperConfig, [ defaultBsPopperConfig ])
             };
         }
         _setListeners() {
@@ -4295,9 +4293,9 @@
         }
         _getDelegateConfig() {
             const config = {};
-            for (const key in this._config) {
-                if (this.constructor.Default[key] !== this._config[key]) {
-                    config[key] = this._config[key];
+            for (const [ key, value ] of Object.entries(this._config)) {
+                if (this.constructor.Default[key] !== value) {
+                    config[key] = value;
                 }
             }
             config.selector = false;
@@ -4524,9 +4522,9 @@
                 if (!anchor.hash || isDisabled(anchor)) {
                     continue;
                 }
-                const observableSection = SelectorEngine.findOne(anchor.hash, this._element);
+                const observableSection = SelectorEngine.findOne(decodeURI(anchor.hash), this._element);
                 if (isVisible(observableSection)) {
-                    this._targetLinks.set(anchor.hash, anchor);
+                    this._targetLinks.set(decodeURI(anchor.hash), anchor);
                     this._observableSections.set(anchor.hash, observableSection);
                 }
             }
@@ -4643,7 +4641,7 @@
                 return;
             }
             element.classList.add(CLASS_NAME_ACTIVE);
-            this._activate(getElementFromSelector(element));
+            this._activate(SelectorEngine.getElementFromSelector(element));
             const complete = () => {
                 if (element.getAttribute("role") !== "tab") {
                     element.classList.add(CLASS_NAME_SHOW$1);
@@ -4664,7 +4662,7 @@
             }
             element.classList.remove(CLASS_NAME_ACTIVE);
             element.blur();
-            this._deactivate(getElementFromSelector(element));
+            this._deactivate(SelectorEngine.getElementFromSelector(element));
             const complete = () => {
                 if (element.getAttribute("role") !== "tab") {
                     element.classList.remove(CLASS_NAME_SHOW$1);
@@ -4721,13 +4719,13 @@
             this._setInitialAttributesOnTargetPanel(child);
         }
         _setInitialAttributesOnTargetPanel(child) {
-            const target = getElementFromSelector(child);
+            const target = SelectorEngine.getElementFromSelector(child);
             if (!target) {
                 return;
             }
             this._setAttributeIfNotExists(target, "role", "tabpanel");
             if (child.id) {
-                this._setAttributeIfNotExists(target, "aria-labelledby", `#${child.id}`);
+                this._setAttributeIfNotExists(target, "aria-labelledby", `${child.id}`);
             }
         }
         _toggleDropDown(element, open) {

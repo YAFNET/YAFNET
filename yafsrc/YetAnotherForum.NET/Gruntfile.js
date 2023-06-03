@@ -4,6 +4,8 @@
  * Don't know where to start?
  * Try: http://24ways.org/2013/grunt-is-not-weird-and-hard/
  */
+
+
 module.exports = function(grunt) {
 
     // CONFIGURATION
@@ -11,6 +13,23 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON("package.json"),
 
         copy: {
+            bootstrap: {
+                files: [
+                    { expand: true, src: "**/*.scss", cwd: "node_modules/bootstrap/scss", dest: "Content/bootstrap/" },
+                    {
+                        expand: true,
+                        src: "**/bootstrap.bundle.js",
+                        cwd: "node_modules/bootstrap/dist/js/",
+                        dest: "Scripts/"
+                    },
+                    {
+                        expand: true,
+                        src: "**/bootstrap.bundle.min.js",
+                        cwd: "node_modules/bootstrap/dist/js/",
+                        dest: "Scripts/"
+                    }
+                ]
+            },
             bootswatchThemes: {
                 files: [
                     { expand: true, src: "**/*.scss", cwd: "node_modules/bootswatch/dist", dest: "Content/Themes/" }
@@ -18,31 +37,68 @@ module.exports = function(grunt) {
             },
             jQuery: {
                 files: [
-                    { expand: true, src: ["**/jquery.js", "**/jquery.min.js", "**/jquery.min.map"], cwd: "node_modules/jquery/dist", dest: "Scripts/" }
+                    {
+                        expand: true,
+                        src: ["**/jquery.js", "**/jquery.min.js", "**/jquery.min.map"],
+                        cwd: "node_modules/jquery/dist",
+                        dest: "Scripts/"
+                    }
                 ]
             },
             fontAwesome: {
                 files: [
-                    { expand: true, src: "**/*.scss", cwd: "node_modules/@fortawesome/fontawesome-free/scss", dest: "Content/fontawesome/" },
-                    { expand: true, src: "**/*.*", cwd: "node_modules/@fortawesome/fontawesome-free/webfonts", dest: "Content/webfonts/" }
+                    {
+                        expand: true,
+                        src: "**/*.scss",
+                        cwd: "node_modules/@fortawesome/fontawesome-free/scss",
+                        dest: "Content/fontawesome/"
+                    },
+                    {
+                        expand: true,
+                        src: "**/*.*",
+                        cwd: "node_modules/@fortawesome/fontawesome-free/webfonts",
+                        dest: "Content/webfonts/"
+                    }
                 ]
             }
         },
 
         replace: {
-            fontAwesome: {
+            bootswatch: {
                 options: {
                     usePrefix: false,
                     patterns: [
                         {
-                            match: '../webfonts',
-                            replacement: '../Content/webfonts'
+                            match: "box-shadow: 0 0 2px rgba($color, .9), 0 0 4px rgba($color, .4), 0 0 1rem rgba($color, .3), 0 0 4rem rgba($color, .1);",
+                            replacement: "box-shadow: 0 0 2px RGBA($color, .9), 0 0 4px RGBA($color, .4), 0 0 1rem RGBA($color, .3), 0 0 4rem RGBA($color, .1);"
                         }
                     ]
                 },
                 files: [
                     {
-                        expand: true, flatten: true, src: ["Content/fontawesome/_variables.scss"], dest: "Content/fontawesome/"
+                        expand: true,
+                        flatten: true,
+                        src: ["Content/Themes/vapor/_bootswatch.scss"],
+                        dest: "Content/Themes/vapor/"
+                    }
+                ]
+            },
+            fontAwesome: {
+                options: {
+                    usePrefix: false,
+                    patterns: [
+                        {
+                            match: "../webfonts",
+                            replacement: "../Content/webfonts"
+                        }
+                    ]
+                },
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ["Content/fontawesome/_variables.scss"],
+                        dest: "Content/fontawesome/"
                     }
                 ]
             }
@@ -54,82 +110,56 @@ module.exports = function(grunt) {
                     "@echo off",
                     "echo Build cerulean theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/cerulean/EmailTemplate.html  -c Content/Themes/cerulean/bootstrap_email.config",
-
                     "echo Build cosmo theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/cosmo/EmailTemplate.html -c Content/Themes/cosmo/bootstrap_email.config",
-
                     "echo Build cyborg theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/cyborg/EmailTemplate.html -c Content/Themes/cyborg/bootstrap_email.config",
-
                     "echo Build darkly theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/darkly/EmailTemplate.html -c Content/Themes/darkly/bootstrap_email.config",
-
                     "echo Build flatly theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/flatly/EmailTemplate.html -c Content/Themes/flatly/bootstrap_email.config",
-
                     "echo Build journal theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/journal/EmailTemplate.html -c Content/Themes/journal/bootstrap_email.config",
-
                     "echo Build litera theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/litera/EmailTemplate.html -c Content/Themes/litera/bootstrap_email.config",
-
                     "echo Build lumen theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/lumen/EmailTemplate.html -c Content/Themes/lumen/bootstrap_email.config",
-
                     "echo Build lux theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/lux/EmailTemplate.html -c Content/Themes/lux/bootstrap_email.config",
-
                     "echo Build materia theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/materia/EmailTemplate.html -c Content/Themes/materia/bootstrap_email.config",
-
                     "echo Build minty theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/minty/EmailTemplate.html -c Content/Themes/minty/bootstrap_email.config",
-
                     "echo Build morph theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/morph/EmailTemplate.html -c Content/Themes/morph/bootstrap_email.config",
-
                     "echo Build pulse theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/pulse/EmailTemplate.html -c Content/Themes/pulse/bootstrap_email.config",
-
                     "echo Build quartz theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/quartz/EmailTemplate.html -c Content/Themes/quartz/bootstrap_email.config",
-
                     "echo Build sandstone theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/sandstone/EmailTemplate.html -c Content/Themes/sandstone/bootstrap_email.config",
-
                     "echo Build simplex theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/simplex/EmailTemplate.html -c Content/Themes/simplex/bootstrap_email.config",
-
                     "echo Build sketchy theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/sketchy/EmailTemplate.html -c Content/Themes/sketchy/bootstrap_email.config",
-
                     "echo Build slate theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/slate/EmailTemplate.html -c Content/Themes/slate/bootstrap_email.config",
-
                     "echo Build solar theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/solar/EmailTemplate.html -c Content/Themes/solar/bootstrap_email.config",
-
                     "echo Build spacelab theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/spacelab/EmailTemplate.html -c Content/Themes/spacelab/bootstrap_email.config",
-
                     "echo Build superhero theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/superhero/EmailTemplate.html -c Content/Themes/superhero/bootstrap_email.config",
-
                     "echo Build united theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/united/EmailTemplate.html -c Content/Themes/united/bootstrap_email.config",
-
                     "echo Build vapor theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/vapor/EmailTemplate.html -c Content/Themes/vapor/bootstrap_email.config",
-
                     "echo Build yaf theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/yaf/EmailTemplate.html -c Content/Themes/yaf/bootstrap_email.config",
-
                     "echo Build yeti theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/yeti/EmailTemplate.html -c Content/Themes/yeti/bootstrap_email.config",
-
                     "echo Build zephyr theme email template",
                     "call bootstrap-email Resources/EmailTemplate.html > Content/Themes/zephyr/EmailTemplate.html -c Content/Themes/zephyr/bootstrap_email.config",
-
                     "rmdir .sass-cache /s /q"
                 ].join("&&")
 
@@ -459,6 +489,17 @@ module.exports = function(grunt) {
                     }
                 }
             }
+        },
+        file_append: {
+            bootstrap: {
+                files: [
+                    {
+                        append: "\n\n.form-check-custom input {\n    @extend .form-check-input;\n}\n\n.form-check-custom label {\n    @extend .form-check-label\n}\n\n.aspNetDisabled input {\n    @extend .form-check-input;\n}\n\n.aspNetDisabled label {\n    @extend .form-check-label\n}\n\n.form-check-inline li {\n    @extend .form-check-inline;\n    margin-right: 2rem;\n}",
+                        input: "Content/bootstrap/bootstrap.scss",
+                        output: "Content/bootstrap/bootstrap.scss"
+                    }
+                ]
+            }
         }
     });
 
@@ -471,10 +512,16 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-dev-update");
     grunt.loadNpmTasks("grunt-shell");
     grunt.loadNpmTasks("grunt-replace");
+    grunt.loadNpmTasks("grunt-file-append");
 
     grunt.registerTask("default",
         [
             "devUpdate", "uglify", "sass", "postcss", "cssmin"
+        ]);
+
+    grunt.registerTask("updateBootstrap",
+        [
+            "copy:bootstrap", "file_append:bootstrap"
         ]);
 
     grunt.registerTask("updateFontAwesome",
@@ -484,7 +531,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask("updateBootswatchThemes",
         [
-            "copy"
+            "copy:bootswatchThemes", "replace:bootswatch"
         ]);
 
     grunt.registerTask("emailTemplates",
