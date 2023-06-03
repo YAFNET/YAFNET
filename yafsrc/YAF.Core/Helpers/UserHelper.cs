@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Helpers;
 
 using System;
@@ -68,33 +69,5 @@ public static class UserHelper
             row => row.CultureTag.Equals(CultureInfo.CurrentCulture.TwoLetterISOLanguageName));
 
         return languageRow != null ? languageRow.CultureFile : BoardContext.Current.BoardSettings.Language;
-    }
-
-    /// <summary>
-    /// Gets the user theme file.
-    /// </summary>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <param name="allowUserTheme">
-    /// if set to <c>true</c> [allow user theme].
-    /// </param>
-    /// <param name="theme">
-    /// The theme.
-    /// </param>
-    /// <returns>
-    /// Returns User theme
-    /// </returns>
-    public static string GetUserThemeFile([CanBeNull] User user, [NotNull] bool allowUserTheme, [NotNull] string theme)
-    {
-        // get the user information...
-        var themeFile = user != null && user.ThemeFile.IsSet() && allowUserTheme ? user.ThemeFile : theme;
-
-        if (!Theme.IsValidTheme(themeFile))
-        {
-            themeFile = "yaf";
-        }
-
-        return themeFile;
     }
 }

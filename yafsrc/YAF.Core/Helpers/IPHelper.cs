@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
-using YAF.Types.Models;
 
 /// <summary>
 ///     The IP Helper Class.
@@ -212,7 +211,7 @@ public static class IPHelper
             bannedIp = "127.0.0.1";
         }
 
-        var check = Regex.Match(chk, bannedIp);
+        var check = Regex.Match(chk, bannedIp, RegexOptions.None, TimeSpan.FromMilliseconds(100));
 
         return check.Success;
     }

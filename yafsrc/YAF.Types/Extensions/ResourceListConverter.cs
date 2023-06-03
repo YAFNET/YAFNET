@@ -38,8 +38,6 @@ internal class ResourceListConverter : JsonConverter
         var token = JToken.Load(reader);
         var list = new List<Resource>();
 
-        //var itemType = objectType.GenericTypeArguments[0];
-
         if (token.Type == JTokenType.Array)
         {
             var array = (JArray)token;
