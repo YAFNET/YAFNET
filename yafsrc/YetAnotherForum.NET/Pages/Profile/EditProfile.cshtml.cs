@@ -29,6 +29,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 using FarsiLibrary.Utils;
 
@@ -292,9 +293,9 @@ public class EditProfileModel : ProfilePage
     /// <summary>
     /// Get Location via IP Address
     /// </summary>
-    public void OnPostGetLocation()
+    public async Task OnPostGetLocationAsync()
     {
-        var userIpLocator = this.Get<IIpInfoService>().GetUserIpLocator(this.Request.GetUserRealIPAddress());
+        var userIpLocator = await this.Get<IIpInfoService>().GetUserIpLocatorAsync(this.Request.GetUserRealIPAddress());
 
         this.LoadCountriesAndRegions(userIpLocator.CountryCode);
 

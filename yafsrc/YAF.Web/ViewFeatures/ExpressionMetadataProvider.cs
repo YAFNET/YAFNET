@@ -26,7 +26,7 @@ namespace YAF.Web.ViewFeatures;
 
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-internal static class CultureSwitcherViewcomponent
+internal static class CultureSwitcherViewComponent
 {
     /// <summary>
     /// Gets <see cref="ModelExplorer"/> for named <paramref name="expression"/> in given
@@ -89,7 +89,8 @@ internal static class CultureSwitcherViewcomponent
                 Func<object, object> modelAccessor = (ignore) => viewDataInfo.Value;
                 return containerExplorer.GetExplorerForExpression(propertyMetadata, modelAccessor);
             }
-            else if (viewDataInfo.Value != null)
+
+            if (viewDataInfo.Value != null)
             {
                 // We have a value, even though we may not know where it came from.
                 var valueMetadata = metadataProvider.GetMetadataForType(viewDataInfo.Value.GetType());
@@ -111,15 +112,13 @@ internal static class CultureSwitcherViewcomponent
             throw new ArgumentNullException(nameof(viewData));
         }
 
-        if (viewData.ModelMetadata.ModelType == typeof(object))
-        {
-            // Use common simple type rather than object so e.g. Editor() at least generates a TextBox.
-            var model = viewData.Model == null ? null : Convert.ToString(viewData.Model, CultureInfo.CurrentCulture);
-            return metadataProvider.GetModelExplorerForType(typeof(string), model);
-        }
-        else
+        if (viewData.ModelMetadata.ModelType != typeof(object))
         {
             return viewData.ModelExplorer;
         }
+
+        // Use common simple type rather than object so e.g. Editor() at least generates a TextBox.
+        var model = viewData.Model == null ? null : Convert.ToString(viewData.Model, CultureInfo.CurrentCulture);
+        return metadataProvider.GetModelExplorerForType(typeof(string), model);
     }
 }

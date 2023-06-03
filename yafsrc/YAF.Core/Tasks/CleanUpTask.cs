@@ -23,6 +23,8 @@
  */
 namespace YAF.Core.Tasks;
 
+using System.Threading.Tasks;
+
 /// <summary>
 /// Automatically cleans up the tasks if they are no longer running...
 /// </summary>
@@ -46,12 +48,12 @@ public class CleanUpTask : IntermittentBackgroundTask, ICriticalBackgroundTask
     /// <summary>
     /// The run once.
     /// </summary>
-    public override void RunOnce()
+    public override Task RunOnceAsync()
     {
         // look for tasks to clean up...
         if (this.TaskManager == null)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         // make collection local...
@@ -75,5 +77,7 @@ public class CleanUpTask : IntermittentBackgroundTask, ICriticalBackgroundTask
                         this.TaskManager.TryRemoveTask(instanceName);
                     }
                 });
+
+        return Task.CompletedTask;
     }
 }

@@ -26,6 +26,7 @@ namespace YAF.Core.Services;
 
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
@@ -58,32 +59,20 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
     /// <summary>
     /// Get the PageUser IP Locator
     /// </summary>
-    /// <returns>
-    /// The <see cref="IpLocator"/>.
-    /// </returns>
-    public IpLocator GetUserIpLocator()
-    {
-        return this.GetUserIpLocator(this.Get<IHttpContextAccessor>().HttpContext.GetUserRealIPAddress());
-    }
-
-    /// <summary>
-    /// Get the PageUser IP Locator
-    /// </summary>
     /// <param name="ipAddress">
-    /// The IP Address.
+    ///     The IP Address.
     /// </param>
     /// <returns>
     /// The <see cref="IpLocator"/>.
     /// </returns>
-    public IpLocator GetUserIpLocator(string ipAddress)
+    public async Task<IpLocator> GetUserIpLocatorAsync(string ipAddress)
     {
         if (ipAddress.IsNotSet())
         {
             return null;
         }
 
-        var userIpLocator = this.GetData(
-            ipAddress);
+        var userIpLocator = await this.GetDataAsync(ipAddress);
 
         if (userIpLocator == null)
         {
@@ -113,7 +102,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
     /// <returns>
     /// The <see cref="IpLocator"/>.
     /// </returns>
-    private IpLocator GetData([CanBeNull] string ip)
+    private async Task<IpLocator> GetDataAsync([CanBeNull] string ip)
     {
         CodeContracts.VerifyNotNull(ip);
 
@@ -135,9 +124,9 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
 
             var client = new HttpClient(new HttpClientHandler());
 
-            var response = client.GetAsync(path).Result;
+            var response = await client.GetAsync(path);
 
-            var responseText = response.Content.ReadAsStringAsync().Result;
+            var responseText = await response.Content.ReadAsStringAsync();
 
             return responseText.FromJson<IpLocator>();
         }

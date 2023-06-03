@@ -303,43 +303,39 @@ public class LoginModel : AccountPage
     {
         var loginAuth = auth.ToEnum<AuthService>();
 
-        var message = string.Empty;
-
-        AspNetUsers user = null;
+        (string Message, AspNetUsers User) user = (string.Empty, null);
 
         switch (loginAuth)
         {
             case AuthService.twitter:
             {
                 var twitterAuth = new Twitter();
-                user = twitterAuth.LoginOrCreateUser(out message);
+                user = await twitterAuth.LoginOrCreateUserAsync();
             }
 
                 break;
             case AuthService.facebook:
             {
                 var facebookAuth = new Facebook();
-                user = facebookAuth.LoginOrCreateUser(out message);
+                user = await facebookAuth.LoginOrCreateUserAsync();
             }
 
                 break;
             case AuthService.google:
             {
                 var googleAuth = new Google();
-                user = googleAuth.LoginOrCreateUser(out message);
+                user = await googleAuth.LoginOrCreateUserAsync();
             }
 
                 break;
         }
 
-        if (message.IsSet() && user != null)
+        if (user.Message.IsSet() && user.User != null)
         {
-            return this.PageBoardContext.Notify(message, MessageTypes.warning);
+            return this.PageBoardContext.Notify(user.Message, MessageTypes.warning);
         }
-        else
-        {
-            return await this.Get<IAspNetUsersHelper>().SignInExternalAsync(user);
-        }
+
+        return await this.Get<IAspNetUsersHelper>().SignInExternalAsync(user.User);
     }
 
     /// <summary>

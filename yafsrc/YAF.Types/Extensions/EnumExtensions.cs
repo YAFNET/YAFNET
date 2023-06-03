@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Extensions;
 
 using System.Collections.Generic;

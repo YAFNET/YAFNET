@@ -24,6 +24,7 @@
 namespace YAF.Core.Tasks;
 
 using System;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
@@ -121,7 +122,7 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     {
         this.IsRunning = true;
 
-        this.RunOnce();
+        this.RunOnceAsync();
 
         this.IsRunning = false;
     }
@@ -137,5 +138,5 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// <summary>
     /// The run once.
     /// </summary>
-    public abstract void RunOnce();
+    public abstract Task RunOnceAsync();
 }

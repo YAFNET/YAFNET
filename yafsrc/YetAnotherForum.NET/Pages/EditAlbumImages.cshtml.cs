@@ -336,7 +336,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
             if (allStats >= usrAlbumsAllowed)
             {
                 this.PageBoardContext.Notify(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
-                return albumId;
+                return null;
             }
 
             albumId = this.GetRepository<UserAlbum>().Save(

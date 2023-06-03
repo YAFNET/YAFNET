@@ -23,6 +23,8 @@
  */
 namespace YAF.Types.Interfaces;
 
+using System.Threading.Tasks;
+
 /// <summary>
 /// Spam Check Interface
 /// </summary>
@@ -52,15 +54,13 @@ public interface ISpamCheck
     /// <param name="userName">Name of the user.</param>
     /// <param name="emailAddress">The email address.</param>
     /// <param name="ipAddress">The IP address.</param>
-    /// <param name="result">The result.</param>
     /// <returns>
     /// Returns if Post is SPAM or not
     /// </returns>
-    bool CheckUserForSpamBot(
+    Task<(string Result, bool IsBot)> CheckUserForSpamBotAsync(
         [NotNull] string userName,
         [CanBeNull] string emailAddress,
-        [NotNull] string ipAddress,
-        out string result);
+        [NotNull] string ipAddress);
 
     /// <summary>
     /// Check Content for Spam URLs (Count URLs inside Messages)

@@ -70,32 +70,4 @@ public static class UserHelper
 
         return languageRow != null ? languageRow.CultureFile : BoardContext.Current.BoardSettings.Language;
     }
-
-    /// <summary>
-    /// Gets the user theme file.
-    /// </summary>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <param name="allowUserTheme">
-    /// if set to <c>true</c> [allow user theme].
-    /// </param>
-    /// <param name="theme">
-    /// The theme.
-    /// </param>
-    /// <returns>
-    /// Returns PageUser theme
-    /// </returns>
-    public static string GetUserThemeFile([CanBeNull] User user, [NotNull] bool allowUserTheme, [NotNull] string theme)
-    {
-        // get the user information...
-        var themeFile = user != null && user.ThemeFile.IsSet() && allowUserTheme ? user.ThemeFile : theme;
-
-        if (!Theme.IsValidTheme(themeFile))
-        {
-            themeFile = "yaf";
-        }
-
-        return themeFile;
-    }
 }

@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Services;
 
+using System.Threading.Tasks;
+
 using YAF.Core.Services.CheckForSpam;
 using YAF.Types.Attributes;
 
@@ -97,25 +99,30 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
     /// <param name="userName">Name of the user.</param>
     /// <param name="emailAddress">The email address.</param>
     /// <param name="ipAddress">The IP address.</param>
-    /// <param name="result">The result.</param>
     /// <returns>
     /// Returns if Post is SPAM or not
     /// </returns>
-    public bool CheckUserForSpamBot([NotNull]string userName, [CanBeNull]string emailAddress, [NotNull]string ipAddress, out string result)
+    public async Task<(string Result, bool IsBot)> CheckUserForSpamBotAsync(
+        [NotNull] string userName,
+        [CanBeNull] string emailAddress,
+        [NotNull] string ipAddress)
     {
         // Check internal
         var internalCheck = new InternalCheck();
 
-        var isInternalFoundBot = internalCheck.IsBot(ipAddress, emailAddress, userName, out result);
+        var botResult = await internalCheck.IsBotAsync(ipAddress, emailAddress, userName);
+
+        var isInternalFoundBot = botResult.IsBot;
+        var result = botResult.ResponseText;
 
         if (isInternalFoundBot)
         {
-            return true;
+            return (result, true);
         }
 
         if (this.Get<BoardSettings>().BotSpamService == BotSpamService.NoService)
         {
-            return false;
+            return (result, false);
         }
 
         switch (this.Get<BoardSettings>().BotSpamService)
@@ -124,7 +131,7 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
                 {
                     var stopForumSpam = new StopForumSpam();
 
-                    return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
+                    return await stopForumSpam.IsBotAsync(ipAddress, emailAddress, userName);
                 }
 
             case BotSpamService.BotScout:
@@ -133,48 +140,52 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
                     {
                         var botScout = new BotScout();
 
-                        return botScout.IsBot(ipAddress, emailAddress, userName, out result);
+                        return await botScout.IsBotAsync(ipAddress, emailAddress, userName);
                     }
 
                     // use StopForumSpam instead
                     var stopForumSpam = new StopForumSpam();
 
-                    return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
+                    return await stopForumSpam.IsBotAsync(ipAddress, emailAddress, userName);
                 }
 
             case BotSpamService.BothServiceMatch:
                 {
                     var stopForumSpam = new StopForumSpam();
+                    var botScout = new BotScout();
 
                     if (!this.Get<BoardSettings>().BotScoutApiKey.IsSet())
                     {
-                        return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
+                        return await stopForumSpam.IsBotAsync(ipAddress, emailAddress, userName);
                     }
 
-                    var botScout = new BotScout();
+                    var stopForumSpamCheck = await stopForumSpam.IsBotAsync(ipAddress, emailAddress, userName);
+                    var botScoutCheck = await botScout.IsBotAsync(ipAddress, emailAddress, userName);
 
-                    return botScout.IsBot(ipAddress, emailAddress, userName)
-                           && stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
+                    return ($"{stopForumSpamCheck.ResponseText} {botScoutCheck.ResponseText}",
+                               stopForumSpamCheck.IsBot && botScoutCheck.IsBot);
                 }
 
             case BotSpamService.OneServiceMatch:
                 {
                     // use StopForumSpam instead
                     var stopForumSpam = new StopForumSpam();
+                    var botScout = new BotScout();
 
                     if (!this.Get<BoardSettings>().BotScoutApiKey.IsSet())
                     {
-                        return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
+                        return await stopForumSpam.IsBotAsync(ipAddress, emailAddress, userName);
                     }
 
-                    var botScout = new BotScout();
+                    var stopForumSpamCheck = await stopForumSpam.IsBotAsync(ipAddress, emailAddress, userName);
+                    var botScoutCheck = await botScout.IsBotAsync(ipAddress, emailAddress, userName);
 
-                    return botScout.IsBot(ipAddress, emailAddress, userName)
-                           || stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
+                    return ($"{stopForumSpamCheck.ResponseText} {botScoutCheck.ResponseText}",
+                               stopForumSpamCheck.IsBot || botScoutCheck.IsBot);
                 }
         }
 
-        return false;
+        return (result, false);
     }
 
     /// <summary>
@@ -194,8 +205,8 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
         result = string.Empty;
 
         // Check posts for urls if the user has only x posts
-        if (BoardContext.Current.PageUser.NumPosts > this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount ||
-            BoardContext.Current.IsAdmin || BoardContext.Current.ForumModeratorAccess)
+        if (BoardContext.Current.PageUser.NumPosts > this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount
+            || BoardContext.Current.IsAdmin || BoardContext.Current.ForumModeratorAccess)
         {
             return false;
         }
@@ -207,8 +218,7 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
             return false;
         }
 
-        result =
-            $"The user posted {urlCount} urls but allowed only {this.Get<BoardSettings>().AllowedNumberOfUrls}";
+        result = $"The user posted {urlCount} urls but allowed only {this.Get<BoardSettings>().AllowedNumberOfUrls}";
 
         return true;
     }

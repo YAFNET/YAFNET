@@ -23,6 +23,8 @@
  */
 namespace YAF.Types.Interfaces;
 
+using System.Threading.Tasks;
+
 using YAF.Types.Objects;
 
 /// <summary>
@@ -33,19 +35,11 @@ public interface IIpInfoService
     /// <summary>
     /// Get the User IP Locator
     /// </summary>
-    /// <returns>
-    /// The <see cref="IpLocator"/>.
-    /// </returns>
-    IpLocator GetUserIpLocator();
-
-    /// <summary>
-    /// Get the User IP Locator
-    /// </summary>
     /// <param name="ipAddress">
-    /// The IP Address.
+    ///     The IP Address.
     /// </param>
     /// <returns>
     /// The <see cref="IpLocator"/>.
     /// </returns>
-    IpLocator GetUserIpLocator(string ipAddress);
+    Task<IpLocator> GetUserIpLocatorAsync(string ipAddress);
 }

@@ -122,7 +122,7 @@ public class RegisterModel : AccountPage
             return this.Page();
         }
 
-        if (!await this.ValidateUser())
+        if (!await this.ValidateUserAsync().ConfigureAwait(false))
         {
             return this.Page();
         }
@@ -198,7 +198,7 @@ public class RegisterModel : AccountPage
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    private async Task<bool> ValidateUser()
+    private async Task<bool> ValidateUserAsync()
     {
         var userName = this.Input.UserName.Trim();
 
@@ -277,8 +277,10 @@ public class RegisterModel : AccountPage
         // Check user for bot
         var userIpAddress = this.HttpContext.GetUserRealIPAddress();
 
+        var check = await this.Get<ISpamCheck>().CheckUserForSpamBotAsync(userName, this.Input.Email, userIpAddress);
+
         // Check content for spam
-        if (this.Get<ISpamCheck>().CheckUserForSpamBot(userName, this.Input.Email, userIpAddress, out var result))
+        if (check.IsBot)
         {
             // Flag user as spam bot
             this.IsPossibleSpamBot = true;
@@ -289,7 +291,7 @@ public class RegisterModel : AccountPage
                 null,
                 "Bot Detected",
                 $@"Bot Check detected a possible SPAM BOT: (user name : '{userName}', 
-                                  email : '{this.Input.Email}', ip: '{userIpAddress}', reason : {result}), user was rejected.",
+                                  email : '{this.Input.Email}', ip: '{userIpAddress}', reason : {check.Result}), user was rejected.",
                 EventLogTypes.SpamBotDetected);
 
             if (this.PageBoardContext.BoardSettings.BanBotIpOnDetection)

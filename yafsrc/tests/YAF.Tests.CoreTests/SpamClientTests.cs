@@ -25,6 +25,7 @@
 namespace YAF.Tests.CoreTests;
 
 using System.Net.Http;
+using System.Threading.Tasks;
 
 using YAF.Core.Services.CheckForSpam;
 
@@ -39,12 +40,11 @@ public class SpamClientTests
     /// </summary>
     [Test]
     [Description("A Test to Check for Bot via StopForumSpam.com API")]
-    public void Check_For_Bot_Test_via_StopForumSpam()
+    public async Task Check_For_Bot_Test_via_StopForumSpam()
     {
-        Assert.IsTrue(
-            new StopForumSpam().IsBot("84.16.230.111", "uuruznfdxw@gmail.com", "someone", out var responseText),
-            "This should be a Bot{0}",
-            responseText);
+        var check = await new StopForumSpam().IsBotAsync("84.16.230.111", "uuruznfdxw@gmail.com", "someone");
+
+        Assert.IsTrue(check.IsBot, "This should be a Bot{0}", check.ResponseText);
     }
 
     /// <summary>
@@ -52,12 +52,11 @@ public class SpamClientTests
     /// </summary>
     [Test]
     [Description("A Test to Check for Bot via BotScout.com API")]
-    public void Check_For_Bot_Test_via_BotScout()
+    public async Task Check_For_Bot_Test_via_BotScout()
     {
-        Assert.IsTrue(
-            new BotScout().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out var responseText),
-            "This should be a Bot{0}",
-            responseText);
+        var check = await new BotScout().IsBotAsync("84.16.230.111", "krasnhello@mail.ru", "someone");
+
+        Assert.IsTrue(check.IsBot, "This should be a Bot{0}", check.ResponseText);
     }
 
     /// <summary>
@@ -65,16 +64,12 @@ public class SpamClientTests
     /// </summary>
     [Test]
     [Description("A Test to Check for Bot via BotScout.com API or StopForumSpam.com API")]
-    public void Check_For_Bot_Test()
+    public async Task Check_For_Bot_Test()
     {
-        var botScoutCheck = new BotScout().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out _);
-        var stopForumSpamCheck = new StopForumSpam().IsBot(
-            "84.16.230.111",
-            "krasnhello@mail.ru",
-            "someone",
-            out _);
+        var botScoutCheck = await new BotScout().IsBotAsync("84.16.230.111", "krasnhello@mail.ru", "someone");
+        var stopForumSpamCheck = await new StopForumSpam().IsBotAsync("84.16.230.111", "krasnhello@mail.ru", "someone");
 
-        Assert.IsTrue(botScoutCheck | stopForumSpamCheck, "This should be a Bot");
+        Assert.IsTrue(botScoutCheck.IsBot | stopForumSpamCheck.IsBot, "This should be a Bot");
     }
 
     /// <summary>
@@ -82,15 +77,15 @@ public class SpamClientTests
     /// </summary>
     [Test]
     [Ignore("Ignore until api key is set")]
-    public void Report_User_As_Bot_Test()
+    public async Task Report_User_As_Bot_Test()
     {
         var parameters =
             "username=someone&ip_addr=84.16.230.111&email=krasnhello@mail.ru&api_key=XXXXXXXXX";
 
         var client = new HttpClient(new HttpClientHandler());
-        var response = client.GetAsync($"https://www.stopforumspam.com/add.php?{parameters}").Result;
+        var response = await client.GetAsync($"https://www.stopforumspam.com/add.php?{parameters}");
 
-        var result = response.Content.ReadAsStringAsync().Result;
+        var result = await response.Content.ReadAsStringAsync();
 
         Assert.IsTrue(result.Contains("success"), result);
     }

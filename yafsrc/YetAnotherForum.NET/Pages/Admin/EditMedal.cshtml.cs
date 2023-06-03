@@ -36,12 +36,10 @@ using YAF.Types.Models;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 using YAF.Core.Helpers;
 using YAF.Types.Extensions;
-
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-
 using YAF.Types.Attributes;
 using YAF.Types.Modals;
 

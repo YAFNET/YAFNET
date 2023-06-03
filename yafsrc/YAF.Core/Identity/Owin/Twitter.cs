@@ -26,6 +26,7 @@ namespace YAF.Core.Identity.Owin;
 
 using System;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Identity;
 
@@ -46,29 +47,27 @@ public class Twitter : IAuthBase, IHaveServiceLocator
     /// <summary>
     /// Logins the or create user.
     /// </summary>
-    /// <param name="message">
-    /// The message.
-    /// </param>
     /// <returns>
     /// The <see cref="AspNetUsers"/>.
     /// </returns>
-    public AspNetUsers LoginOrCreateUser(out string message)
+    public async Task<(string Message, AspNetUsers User)> LoginOrCreateUserAsync()
     {
-        message = string.Empty;
-
         if (!this.Get<BoardSettings>().AllowSingleSignOn)
         {
-            message = this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
-
-            return null;
+            return (this.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED"), null);
         }
 
-        var loginInfo = this.Get<SignInManager<AspNetUsers>>().GetExternalLoginInfoAsync();
+        var loginInfo = await this.Get<SignInManager<AspNetUsers>>().GetExternalLoginInfoAsync();
+
+        if (loginInfo == null)
+        {
+            return (this.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED3"), null);
+        }
 
         // Get Values
-        var name = loginInfo.Result.Principal.FindFirst(ClaimTypes.Name).Value;
+        var name = loginInfo.Principal.FindFirst(ClaimTypes.Name).Value;
         var email = $"{name}@twitter.com";
-        var twitterUserId = loginInfo.Result.Principal.FindFirst(ClaimTypes.NameIdentifier).Value;
+        var twitterUserId = loginInfo.Principal.FindFirst(ClaimTypes.NameIdentifier).Value;
 
         // Check if user exists
         var existingUser = this.Get<IAspNetUsersHelper>().GetUserByName(name);
@@ -76,18 +75,17 @@ public class Twitter : IAuthBase, IHaveServiceLocator
         if (existingUser == null)
         {
             // Create new PageUser
-            return this.CreateTwitterUser(name, email, twitterUserId, out message);
+            var user = this.CreateTwitterUser(name, email, twitterUserId, out var message);
+
+            return (message, user);
         }
 
         if (existingUser.Profile_TwitterId == twitterUserId)
         {
-            message = string.Empty;
-            return existingUser;
+            return (string.Empty, existingUser);
         }
 
-        message = this.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED3");
-
-        return null;
+        return (this.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED3"), null);
     }
 
     /// <summary>
@@ -151,9 +149,9 @@ public class Twitter : IAuthBase, IHaveServiceLocator
         this.Get<IAspNetRolesHelper>().SetupUserRoles(BoardContext.Current.PageBoardID, user);
 
         // create the user in the YAF DB as well as sync roles...
-        var userID = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
+        var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
 
-        if (userID == null)
+        if (userId == null)
         {
             // something is seriously wrong here -- redirect to failure...
             message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
@@ -161,12 +159,12 @@ public class Twitter : IAuthBase, IHaveServiceLocator
         }
 
         // send user register notification to the user...
-        this.SendRegistrationMessageToTwitterUser(user, pass, userID.Value);
+        this.SendRegistrationMessageToTwitterUser(user, pass, userId.Value);
 
         if (this.Get<BoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
         {
             // send user register notification to the following admin users...
-            this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
+            this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userId.Value);
         }
 
         var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
@@ -174,13 +172,13 @@ public class Twitter : IAuthBase, IHaveServiceLocator
 
         // save the settings...
         this.GetRepository<User>().SaveNotification(
-            userID.Value,
+            userId.Value,
             true,
             autoWatchTopicsEnabled,
             this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
             this.Get<BoardSettings>().DefaultSendDigestEmail);
 
-        this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userID.Value));
+        this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId.Value));
 
         message = string.Empty;
 

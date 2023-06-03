@@ -26,6 +26,7 @@ namespace YAF.Core.Services.CheckForSpam;
 
 using System;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
@@ -44,31 +45,13 @@ public class InternalCheck : ICheckForBot
     /// <param name="ipAddress">The IP Address.</param>
     /// <param name="emailAddress">The email Address.</param>
     /// <param name="userName">Name of the user.</param>
-    /// <returns>
-    /// Returns if user is a possible Bot or not
-    /// </returns>
-    public bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName)
-    {
-        return this.IsBot(ipAddress, emailAddress, userName, out _);
-    }
-
-    /// <summary>
-    /// Checks if user is a Bot.
-    /// </summary>
-    /// <param name="ipAddress">The IP Address.</param>
-    /// <param name="emailAddress">The email Address.</param>
-    /// <param name="userName">Name of the user.</param>
-    /// <param name="responseText">The response text.</param>
-    /// <returns>
-    /// Returns if user is a possible Bot or not
-    /// </returns>
-    public bool IsBot(
+    /// <returns>Returns Response Text and if User is Bot or Not</returns>
+    public Task<(string ResponseText, bool IsBot)> IsBotAsync(
         [CanBeNull] string ipAddress,
         [CanBeNull] string emailAddress,
-        [CanBeNull] string userName,
-        out string responseText)
+        [CanBeNull] string userName)
     {
-        responseText = string.Empty;
+        var responseText = string.Empty;
 
         try
         {
@@ -128,13 +111,13 @@ public class InternalCheck : ICheckForBot
                 }
             }
 
-            return isBot;
+            return Task.FromResult((responseText, isBot));
         }
         catch (Exception ex)
         {
             BoardContext.Current.Get<ILogger<InternalCheck>>().Error(ex, "Error while Checking for Bot");
 
-            return false;
+            return Task.FromResult((responseText, false));
         }
     }
 }

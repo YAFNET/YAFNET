@@ -181,7 +181,7 @@
                         {
                             <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required" />
                             <div class="invalid-feedback">
-                                @Html.LocalizedTextFormatted("NEED_USERNAME", @Model.Input.CustomProfile[i].Name)
+                                @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
                             </div>
                         }
                         else
@@ -199,7 +199,7 @@
                         {
                             <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="Input.CustomProfile[i].Length" required="required" type="number"  />
                             <div class="invalid-feedback">
-                                @Html.LocalizedTextFormatted("NEED_USERNAME", @Model.Input.CustomProfile[i].Name)
+                                @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
                             </div>
                         }
                         else
@@ -218,7 +218,7 @@
                                 <label class="form-check-label" asp-for="Input.CustomProfile[i].Value">@Model.Input.CustomProfile[i].Name</label>
                             </div>
                             <div class="invalid-feedback">
-                                @Html.LocalizedTextFormatted("NEED_USERNAME", @Model.Input.CustomProfile[i].Name)
+                                @Html.LocalizedTextFormatted("NEED_USERNAME", Model.Input.CustomProfile[i].Name)
                             </div>
                                                 
                         }

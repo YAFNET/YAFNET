@@ -21,9 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Tasks;
 
 using System;
+using System.Threading.Tasks;
 
 using YAF.Core.Model;
 using YAF.Types.Models;
@@ -46,12 +48,12 @@ public class UserCleanUpTask : IntermittentBackgroundTask
     /// <summary>
     /// Gets TaskName.
     /// </summary>
-    public static string TaskName { get; } = "UserCleanUpTask";
+    public static string TaskName => "UserCleanUpTask";
 
     /// <summary>
     /// The run once.
     /// </summary>
-    public override void RunOnce()
+    public override async Task RunOnceAsync()
     {
         try
         {
@@ -59,20 +61,26 @@ public class UserCleanUpTask : IntermittentBackgroundTask
             var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
 
             // go through each board...
-            boardIds.ForEach(
-                id =>
-                    {
-                        // Check for users ...
-                        var users = this.GetRepository<User>().Get(
-                            u => u.BoardID == id && u.Suspended.HasValue && u.Suspended < DateTime.UtcNow);
-
-                        // un-suspend these users...
-                        users.ForEach(user => this.GetRepository<User>().Suspend(user.ID));
-                    });
+            foreach (var i in boardIds)
+            {
+                await Task.Run(() => this.CleanUpUsersAsync(i));
+            }
         }
         catch (Exception x)
         {
             this.Logger.Error(x, $"Error In {TaskName} Task");
         }
+    }
+
+    private Task CleanUpUsersAsync(int id)
+    {
+        // Check for users ...
+        var users = this.GetRepository<User>().Get(
+                        u => u.BoardID == id && u.Suspended.HasValue && u.Suspended < DateTime.UtcNow);
+
+        // un-suspend these users...
+        users.ForEach(user => this.GetRepository<User>().Suspend(user.ID));
+
+        return Task.CompletedTask;
     }
 }

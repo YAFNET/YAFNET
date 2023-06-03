@@ -85,7 +85,6 @@ public class Migrator
     {
         var completedMigrations = new List<Type>();
 
-        Type? nextRun = null;
         var q = db.From<Migration>()
             .OrderByDescending(x => x.Name).Limit(1);
         var lastRun = db.Single(q);
@@ -272,7 +271,6 @@ public class Migrator
 
     Type? GetNextMigrationRevertToRun(IDbConnection db, List<Type> migrationTypes)
     {
-        Type? nextRun = null;
         var q = db.From<Migration>()
             .OrderByDescending(x => x.Name).Limit(1);
         Migration? lastRun = null;

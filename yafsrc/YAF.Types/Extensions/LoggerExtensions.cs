@@ -66,7 +66,7 @@ public static class LoggerExtensions
     /// </param>
     public static void Error(this ILogger logger, Exception ex, [NotNull] string message)
     {
-        var logEntry = new EventLog { Type = EventLogTypes.Error.ToInt(), Description = ex.ToString()};
+        var logEntry = new EventLog { Type = EventLogTypes.Error.ToInt(), Description = ex.ToString(), Exception = ex};
 
         using (logger.BeginScope(logEntry))
         {

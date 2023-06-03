@@ -68,7 +68,7 @@
                                                     
                                                     @foreach (var item in Model.Types)
                                                     {
-                                                        <option value="@item.Value" item="@item" icon-name="@Model.GetIconName(@item)">
+                                                        <option value="@item.Value" item="@item" icon-name="@Model.GetIconName(item)">
                                                             @item.Text
                                                         </option>
                                                     }

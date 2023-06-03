@@ -26,6 +26,7 @@ namespace YAF.Core.Services.CheckForSpam;
 
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
@@ -46,31 +47,14 @@ public class StopForumSpam : ICheckForBot
     /// <param name="ipAddress">The IP Address.</param>
     /// <param name="emailAddress">The email Address.</param>
     /// <param name="userName">Name of the user.</param>
-    /// <returns>
-    /// Returns if user is a possible Bot or not
-    /// </returns>
-    public bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName)
-    {
-        return this.IsBot(ipAddress, emailAddress, userName, out _);
-    }
-
-    /// <summary>
-    /// Checks if user is a Bot.
-    /// </summary>
-    /// <param name="ipAddress">The IP Address.</param>
-    /// <param name="emailAddress">The email Address.</param>
-    /// <param name="userName">Name of the user.</param>
-    /// <param name="responseText">The response text.</param>
-    /// <returns>
-    /// Returns if user is a possible Bot or not
-    /// </returns>
-    public bool IsBot(
+    /// <returns>Returns if User is Bot or Not</returns>
+    public async Task<(string ResponseText, bool IsBot)> IsBotAsync(
         [CanBeNull] string ipAddress,
         [CanBeNull] string emailAddress,
-        [CanBeNull] string userName,
-        out string responseText)
+        [CanBeNull] string userName)
     {
-        responseText = string.Empty;
+        var responseText = string.Empty;
+
         try
         {
             var url =
@@ -78,15 +62,15 @@ public class StopForumSpam : ICheckForBot
 
             var client = new HttpClient(new HttpClientHandler());
 
-            var response = client.GetAsync(url).Result;
+            var response = await client.GetAsync(url);
 
-            responseText = response.Content.ReadAsStringAsync().Result;
+            responseText = await response.Content.ReadAsStringAsync();
 
             var stopForumResponse = responseText.FromJson<StopForumSpamResponse>();
 
             if (!stopForumResponse.Success)
             {
-                return false;
+                return (responseText, false);
             }
 
             switch (stopForumResponse.UserName.Appears)
@@ -95,17 +79,17 @@ public class StopForumSpam : ICheckForBot
                 case true when stopForumResponse.Email.Appears:
                 // Match name + IP address
                 case true when stopForumResponse.IPAddress.Appears:
-                    return true;
+                    return (responseText, true);
                 default:
                     // Match IP + email address
-                    return stopForumResponse.IPAddress.Appears && stopForumResponse.Email.Appears;
+                    return (responseText, stopForumResponse.IPAddress.Appears && stopForumResponse.Email.Appears);
             }
         }
         catch (Exception ex)
         {
             BoardContext.Current.Get<ILogger<StopForumSpam>>().Error(ex, "Error while Checking for Bot");
 
-            return false;
+            return (responseText, false);
         }
     }
 
@@ -116,7 +100,7 @@ public class StopForumSpam : ICheckForBot
     /// <param name="emailAddress">The email address.</param>
     /// <param name="userName">Name of the user.</param>
     /// <returns>Returns If the report was successful or not</returns>
-    public bool ReportUserAsBot(
+    public async Task<bool> ReportUserAsBotAsync(
         [CanBeNull] string ipAddress,
         [CanBeNull] string emailAddress,
         [CanBeNull] string userName)
@@ -125,9 +109,9 @@ public class StopForumSpam : ICheckForBot
             $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={BoardContext.Current.BoardSettings.StopForumSpamApiKey}";
 
         var client = new HttpClient(new HttpClientHandler());
-        var response = client.GetAsync($"https://www.stopforumspam.com/add.php?{parameters}").Result;
+        var response = await client.GetAsync($"https://www.stopforumspam.com/add.php?{parameters}");
 
-        var result = response.Content.ReadAsStringAsync().Result;
+        var result = await response.Content.ReadAsStringAsync();
 
         if (!result.Contains("success"))
         {

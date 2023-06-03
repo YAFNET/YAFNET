@@ -31,7 +31,7 @@
                                     onchange="this.form.submit();">
                                 @foreach (var item in Model.NotificationTypes)
                                 {
-                                    <option value="@item.Value">@Html.Raw(@item.Text)</option>
+                                    <option value="@item.Value">@Html.Raw(item.Text)</option>
                                 }
 
                             </select>

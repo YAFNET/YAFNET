@@ -107,7 +107,7 @@ public enum ProfileSource
 
 public abstract class DiagnosticEvent
 {
-    public virtual string Source => GetType().Name.Replace(nameof(DiagnosticEvent), "");
+    public virtual string Source => this.GetType().Name.Replace(nameof(DiagnosticEvent), "");
     public string EventType { get; set; }
     public Guid OperationId { get; set; }
     public string Operation { get; set; }

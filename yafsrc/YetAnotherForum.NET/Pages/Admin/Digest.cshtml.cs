@@ -87,7 +87,7 @@ public class DigestModel : AdminPage
     /// <summary>
     /// Send Test Digest
     /// </summary>
-    public async Task<IActionResult> OnPostTestSend()
+    public async Task<IActionResult> OnPostTestSendAsync()
     {
         if (!this.TextSendEmail.IsSet())
         {

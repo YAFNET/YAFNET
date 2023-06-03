@@ -24,6 +24,7 @@
 namespace YAF.Core.Tasks;
 
 using System;
+using System.Threading.Tasks;
 
 using YAF.Core.Model;
 using YAF.Types.Models;
@@ -51,7 +52,7 @@ public class LinkedTopicCleanUpTask : IntermittentBackgroundTask
     /// <summary>
     /// The run once.
     /// </summary>
-    public override void RunOnce()
+    public override Task RunOnceAsync()
     {
         try
         {
@@ -66,5 +67,7 @@ public class LinkedTopicCleanUpTask : IntermittentBackgroundTask
         {
             this.Logger.Error(x, $"Error In {TaskName} Task");
         }
+
+        return Task.CompletedTask;
     }
 }

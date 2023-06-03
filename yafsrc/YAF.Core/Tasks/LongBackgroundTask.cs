@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Tasks;
 
 using System.Threading;
@@ -58,7 +59,7 @@ public class LongBackgroundTask : IntermittentBackgroundTask
             this.intermittentTimer.Dispose();
 
             // run this item once...
-            this.RunOnce();
+            this.RunOnceAsync();
 
             // no longer running when we get here...
             this.IsRunning = false;

@@ -183,7 +183,7 @@ public class EditGroupModel : AdminPage
                                             };
 
         // save role and get its ID if it's new (if it's old role, we get it anyway)
-        roleId = this.GetRepository<Group>().Save(
+        this.GetRepository<Group>().Save(
             roleId,
             this.PageBoardContext.PageBoardID,
             roleName,

@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Identity.Owin;
 
+using System.Threading.Tasks;
+
 /// <summary>
 /// Interface For oAUTH
 /// </summary>
@@ -32,11 +34,6 @@ public interface IAuthBase
     /// <summary>
     /// The login or create user.
     /// </summary>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <returns>
-    /// The <see cref="AspNetUsers"/>.
-    /// </returns>
-    AspNetUsers LoginOrCreateUser(out string message);
+    /// <returns>Task&lt;System.ValueTuple&lt;System.String, AspNetUsers&gt;&gt;.</returns>
+    Task<(string Message, AspNetUsers User)> LoginOrCreateUserAsync();
 }

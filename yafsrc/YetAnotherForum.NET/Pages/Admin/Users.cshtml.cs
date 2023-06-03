@@ -307,7 +307,7 @@ public class UsersModel : AdminPage
              sinceDate = sinceValue switch {
                  > 0 => DateTime.UtcNow - TimeSpan.FromDays(sinceValue),
                  < 0 => DateTime.UtcNow + TimeSpan.FromHours(sinceValue),
-                 _ => sinceDate
+                 _ => null
              };
          }
 

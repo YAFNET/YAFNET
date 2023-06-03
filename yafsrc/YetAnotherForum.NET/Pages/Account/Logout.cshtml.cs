@@ -74,7 +74,7 @@ public class LogoutModel : AccountPage
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<IActionResult> OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         await this.signInManager.SignOutAsync();
 

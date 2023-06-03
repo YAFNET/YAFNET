@@ -287,8 +287,6 @@ public class Startup : IHaveServiceLocator
 
         app.UseSession();
 
-        // If, for some reason, you need a reference to the built container, you
-        // can use the convenience extension method GetAutofacRoot.
         GlobalContainer.AutoFacContainer = app.ApplicationServices.GetAutofacRoot();
 
         GlobalContainer.AutoFacContainer.Resolve<IInjectServices>().Inject(this);

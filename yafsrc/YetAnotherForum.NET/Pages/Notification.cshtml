@@ -134,7 +134,7 @@
 
                                     var link = BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Posts, new {m = activity.Item1.MessageID.Value, name = activity.Item3.TopicName});
 
-                                    var userLink = @Html.UserLink(activity.Item1.FromUserID.Value, activity.Item2.DisplayOrUserName(), activity.Item2.Suspended, activity.Item2.UserStyle);
+                                    var userLink = Html.UserLink(activity.Item1.FromUserID.Value, activity.Item2.DisplayOrUserName(), activity.Item2.Suspended, activity.Item2.UserStyle);
 
                                     var topicLink = $@"<a href=""{link}"" role=""button""><i class=""far fa-comment fa-fw  me-1""></i><span class=""ms-1"">{activity.Item3.TopicName}</span></a>";
 

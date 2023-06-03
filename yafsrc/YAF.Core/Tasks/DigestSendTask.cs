@@ -27,6 +27,7 @@ namespace YAF.Core.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
@@ -52,14 +53,14 @@ public class DigestSendTask : LongBackgroundTask
     /// <summary>
     ///   Gets TaskName.
     /// </summary>
-    public static string TaskName { get; } = "DigestSendTask";
+    public static string TaskName => "DigestSendTask";
 
     /// <summary>
     /// The run once.
     /// </summary>
-    public override void RunOnce()
+    public override Task RunOnceAsync()
     {
-        this.SendDigest();
+        return this.SendDigestAsync();
     }
 
     /// <summary>
@@ -119,37 +120,36 @@ public class DigestSendTask : LongBackgroundTask
     /// <summary>
     /// The send digest.
     /// </summary>
-    private void SendDigest()
+    private async Task SendDigestAsync()
     {
         try
         {
             var boards = this.GetRepository<Board>().GetAll();
 
-            boards.ForEach(
-                board =>
-                    {
-                        var boardSettings = this.Get<BoardSettingsService>().LoadBoardSettings(board.ID, board);
+            foreach (var board in boards)
+            {
+                var boardSettings = this.Get<BoardSettingsService>().LoadBoardSettings(board.ID, board);
 
-                        if (!IsTimeToSendDigestForBoard(boardSettings))
-                        {
-                            return;
-                        }
+                if (!IsTimeToSendDigestForBoard(boardSettings))
+                {
+                    return;
+                }
 
-                        // get users with digest enabled...
-                        var usersWithDigest = this.GetRepository<User>().Get(
-                            u => u.BoardID == board.ID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4
-                                 && (u.Flags & 32) != 32 && u.DailyDigest);
+                // get users with digest enabled...
+                var usersWithDigest = this.GetRepository<User>().Get(
+                    u => u.BoardID == board.ID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4
+                         && (u.Flags & 32) != 32 && u.DailyDigest);
 
-                        if (usersWithDigest.Any())
-                        {
-                            // start sending...
-                            this.SendDigestToUsers(usersWithDigest, boardSettings);
-                        }
-                        else
-                        {
-                            this.Get<ILogger<DigestSendTask>>().Info("no user found");
-                        }
-                    });
+                if (usersWithDigest.Any())
+                {
+                    // start sending...
+                    await this.SendDigestToUsersAsync(usersWithDigest, boardSettings);
+                }
+                else
+                {
+                    this.Get<ILogger<DigestSendTask>>().Info("no user found");
+                }
+            }
         }
         catch (Exception ex)
         {
@@ -162,47 +162,46 @@ public class DigestSendTask : LongBackgroundTask
     /// </summary>
     /// <param name="usersWithDigest">The users with digest.</param>
     /// <param name="boardSettings">The board settings.</param>
-    private void SendDigestToUsers(IEnumerable<User> usersWithDigest, BoardSettings boardSettings)
+    private async Task SendDigestToUsersAsync(IEnumerable<User> usersWithDigest, BoardSettings boardSettings)
     {
         var mailMessages = new List<MimeMessage>();
 
         var boardEmail = new MailboxAddress(boardSettings.Name, boardSettings.ForumEmail);
 
-        usersWithDigest.AsParallel().ForAll(
-            user =>
+        foreach (var user in usersWithDigest)
+        {
+            try
+            {
+                var url = this.Get<IDigestService>().GetDigestUrl(user.ID, boardSettings, false);
+
+                var digestHtml = await this.Get<IDigestService>().GetDigestHtmlAsync(url);
+
+                if (digestHtml.IsNotSet())
                 {
-                    try
-                    {
-                        var url = this.Get<IDigestService>().GetDigestUrl(user.ID, boardSettings, false);
+                    return;
+                }
 
-                        var digestHtml = this.Get<IDigestService>().GetDigestHtmlAsync(url).Result;
+                if (user.ProviderUserKey == null)
+                {
+                    return;
+                }
 
-                        if (digestHtml.IsNotSet())
-                        {
-                            return;
-                        }
+                var subject = Regex.Match(digestHtml, "<title>(.*?)</title>", RegexOptions.Singleline)
+                    .Groups[1].Value.Trim();
 
-                        if (user.ProviderUserKey == null)
-                        {
-                            return;
-                        }
-
-                        var subject = Regex.Match(digestHtml, "<title>(.*?)</title>", RegexOptions.Singleline)
-                            .Groups[1].Value.Trim();
-
-                        // send the digest...
-                        mailMessages.Add(this.Get<IDigestService>().CreateDigestMessage(
-                            subject.Trim(),
-                            digestHtml,
-                            boardEmail,
-                            user.Email,
-                            user.DisplayOrUserName()));
-                    }
-                    catch (Exception e)
-                    {
-                        this.Get<ILogger<DigestSendTask>>().Error(e, $"Error In Creating Digest for PageUser {user.ID}");
-                    }
-                });
+                // send the digest...
+                mailMessages.Add(this.Get<IDigestService>().CreateDigestMessage(
+                    subject.Trim(),
+                    digestHtml,
+                    boardEmail,
+                    user.Email,
+                    user.DisplayOrUserName()));
+            }
+            catch (Exception e)
+            {
+                this.Get<ILogger<DigestSendTask>>().Error(e, $"Error In Creating Digest for PageUser {user.ID}");
+            }
+        }
 
         this.Get<IMailService>().SendAll(mailMessages);
 

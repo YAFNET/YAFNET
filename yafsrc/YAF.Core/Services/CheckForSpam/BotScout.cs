@@ -26,6 +26,7 @@ namespace YAF.Core.Services.CheckForSpam;
 
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
@@ -43,30 +44,14 @@ public class BotScout : ICheckForBot
     /// <param name="ipAddress">The IP Address.</param>
     /// <param name="emailAddress">The email Address.</param>
     /// <param name="userName">Name of the user.</param>
-    /// <returns>
-    /// Returns if user is a possible Bot or not
-    /// </returns>
-    public bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName)
-    {
-        return this.IsBot(ipAddress, emailAddress, userName, out _);
-    }
-
-    /// <summary>
-    /// Checks if user is a Bot.
-    /// </summary>
-    /// <param name="ipAddress">The IP Address.</param>
-    /// <param name="emailAddress">The email Address.</param>
-    /// <param name="userName">Name of the user.</param>
-    /// <param name="responseText">The response text.</param>
-    /// <returns>
-    /// Returns if user is a possible Bot or not
-    /// </returns>
-    public bool IsBot(
+    /// <returns>Returns Response Text and if User is Bot or Not</returns>
+    public async Task<(string ResponseText, bool IsBot)> IsBotAsync(
         [CanBeNull] string ipAddress,
         [CanBeNull] string emailAddress,
-        [CanBeNull] string userName,
-        out string responseText)
+        [CanBeNull] string userName)
     {
+        string responseText;
+
         try
         {
             const string BotScoutUrl = "https://www.botscout.com/test/?multi";
@@ -74,32 +59,31 @@ public class BotScout : ICheckForBot
             var url =
                 $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(BoardContext.Current.BoardSettings.BotScoutApiKey.IsSet() ? $"&key={BoardContext.Current.BoardSettings.BotScoutApiKey}" : string.Empty)}";
 
-
             var client = new HttpClient(new HttpClientHandler());
 
-            var response = client.GetAsync(url).Result;
+            var response = await client.GetAsync(url);
 
-            responseText = response.Content.ReadAsStringAsync().Result;
+            responseText = await response.Content.ReadAsStringAsync();
 
             if (!responseText.StartsWith("Y|"))
             {
-                return false;
+                return (responseText, false);
             }
 
             // Match name + email address
             if (!responseText.Contains("NAME|0") && !responseText.Contains("MAIL|0"))
             {
-                return true;
+                return (responseText, true);
             }
 
             // Match name + IP address
             if (!responseText.Contains("NAME|0") && !responseText.Contains("IP|0"))
             {
-                return true;
+                return (responseText, true);
             }
 
             // Match IP + email address
-            return !responseText.Contains("IP|0") && !responseText.Contains("MAIL|0");
+            return (responseText, !responseText.Contains("IP|0") && !responseText.Contains("MAIL|0"));
         }
         catch (Exception ex)
         {
@@ -107,7 +91,7 @@ public class BotScout : ICheckForBot
 
             responseText = ex.Message;
 
-            return false;
+            return (responseText, false);
         }
     }
 }

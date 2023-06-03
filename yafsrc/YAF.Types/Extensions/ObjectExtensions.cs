@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Extensions;
 
 using System.ComponentModel;
@@ -98,22 +99,6 @@ public static class ObjectExtensions
         CodeContracts.VerifyNotNull(list);
 
         return list.Contains(source);
-    }
-
-    /// <summary>
-    /// Converts the object to the class (T) or returns null if it's not an instance of that class or instance is null.
-    /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <param name="instance">
-    /// </param>
-    /// <returns>
-    /// The <see cref="T"/>.
-    /// </returns>
-    [CanBeNull]
-    public static T ToClass<T>([CanBeNull] this object instance) where T : class
-    {
-        return instance as T;
     }
 
     /// <summary>

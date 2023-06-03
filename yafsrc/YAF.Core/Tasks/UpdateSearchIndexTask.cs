@@ -25,6 +25,7 @@ namespace YAF.Core.Tasks;
 
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
@@ -48,12 +49,12 @@ public class UpdateSearchIndexTask : LongBackgroundTask
     /// <summary>
     ///   Gets TaskName.
     /// </summary>
-    public static string TaskName { get; } = "UpdateSearchIndexTask";
+    public static string TaskName => "UpdateSearchIndexTask";
 
     /// <summary>
     /// The run once.
     /// </summary>
-    public override void RunOnce()
+    public override async Task RunOnceAsync()
     {
         try
         {
@@ -71,15 +72,11 @@ public class UpdateSearchIndexTask : LongBackgroundTask
 
             var forums = this.GetRepository<Forum>().ListAll(BoardContext.Current.PageBoardID);
 
-            forums.ForEach(
-                forum =>
-                    {
-                        var messages = this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.Item2.ID);
-
-                        this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
-                    });
-
-
+            foreach (var messages in forums.Select(
+                         forum => this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.Item2.ID)))
+            {
+                await this.Get<ISearch>().AddSearchIndexAsync(messages);
+            }
 
             this.Get<ILogger<UpdateSearchIndexTask>>().Info("search index updated");
         }

@@ -71,30 +71,11 @@ public class GroupHide : BBCodeControl
 
             descriptionGuest = this.LocalizedString(
                 "HIDDENMOD_GROUP",
-                "You dont´t have the right to see the Hidden Content.");
+                "You don´t have the right to see the Hidden Content.");
 
             shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
             var groups = groupString.Split(';');
-
-            /*List<string> groups = new List<string>();
-            List<string> ranks = new List<string>();
-
-            foreach (string group in groupsAndRanks)
-            {
-                if (group.StartsWith("group."))
-                {
-                    groups.Add(group.Substring(group.IndexOf(".") + 1));
-                }
-                else if (group.StartsWith("rank."))
-                {
-                    ranks.Add(group.Substring(group.IndexOf(".") + 1));
-                }
-                else
-                {
-                    groups.Add(group);
-                }
-            }*/
 
             // Check For Role Hiding
             if (this.Get<IAspNetRolesHelper>().GetRolesForUser(
@@ -102,17 +83,6 @@ public class GroupHide : BBCodeControl
             {
                 shownContentGuest = hiddenContent;
             }
-
-            // TODO : Check for Rank Hiding 
-            /*if (ranks.Any())
-            {
-                var yafUserData = new CombinedUserDataHelper(BoardContext.Current.UserData.PageUserID);
-
-                if (!ranks.Where(rank => yafUserData.RankName.Equals(rank)).Any())
-                {
-                    shownContentGuest = hiddenContent;
-                }
-            }*/
         }
 
         // Override Admin, or PageUser is Post Author

@@ -24,6 +24,8 @@
 
 namespace YAF.Types.Interfaces.CheckForSpam;
 
+using System.Threading.Tasks;
+
 /// <summary>
 /// Bot Check Interface
 /// </summary>
@@ -35,24 +37,9 @@ public interface ICheckForBot
     /// <param name="ipAddress">The IP Address.</param>
     /// <param name="emailAddress">The email Address.</param>
     /// <param name="userName">Name of the user.</param>
-    /// <returns>
-    /// Returns if user is a possible Bot or not
-    /// </returns>
-    bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName);
-
-    /// <summary>
-    /// Checks if user is a Bot.
-    /// </summary>
-    /// <param name="ipAddress">The IP Address.</param>
-    /// <param name="emailAddress">The email Address.</param>
-    /// <param name="userName">Name of the user.</param>
-    /// <param name="responseText">The response text.</param>
-    /// <returns>
-    /// Returns if user is a possible Bot or not
-    /// </returns>
-    bool IsBot(
+    /// <returns>Returns Response Text and if User is Bot or Not</returns>
+    Task<(string ResponseText, bool IsBot)> IsBotAsync(
         [CanBeNull] string ipAddress,
         [CanBeNull] string emailAddress,
-        [CanBeNull] string userName,
-        out string responseText);
+        [CanBeNull] string userName);
 }

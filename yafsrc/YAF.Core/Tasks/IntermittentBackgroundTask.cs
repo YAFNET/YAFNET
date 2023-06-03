@@ -24,6 +24,7 @@
 namespace YAF.Core.Tasks;
 
 using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// The intermittent background task.
@@ -48,8 +49,9 @@ public class IntermittentBackgroundTask : BaseBackgroundTask
     /// <summary>
     /// The run once.
     /// </summary>
-    public override void RunOnce()
+    public override Task RunOnceAsync()
     {
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -84,7 +86,7 @@ public class IntermittentBackgroundTask : BaseBackgroundTask
 
         try
         {
-            this.RunOnce();
+            this.RunOnceAsync();
         }
         finally
         {

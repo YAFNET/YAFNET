@@ -164,7 +164,7 @@
 
                                             @if (forum.ReadAccess && forum.LastPosted.HasValue)
                                             {
-                                                var topicLinkText = Current.Get<IBadWordReplace>().Replace(@Html.HtmlEncode(forum.LastTopicName)).Truncate(50);
+                                                var topicLinkText = Current.Get<IBadWordReplace>().Replace(Html.HtmlEncode(forum.LastTopicName)).Truncate(50);
 
                                                 var styles = Current.BoardSettings.UseStyledTopicTitles ? Current.Get<IStyleTransform>().Decode(forum.LastTopicStyles) : string.Empty;
 

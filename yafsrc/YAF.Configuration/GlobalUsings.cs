@@ -6,6 +6,5 @@ global using System.Globalization;
 global using System.Linq;
 
 global using YAF.Configuration.Pattern;
-global using YAF.Types;
 global using YAF.Types.Constants;
 global using YAF.Types.Extensions;

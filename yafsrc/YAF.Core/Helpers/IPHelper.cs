@@ -200,7 +200,7 @@ public static class IPHelper
             bannedIp = "127.0.0.1";
         }
 
-        var check = Regex.Match(chk, bannedIp);
+        var check = Regex.Match(chk, bannedIp, RegexOptions.None, TimeSpan.FromMilliseconds(100));
 
         return check.Success;
     }

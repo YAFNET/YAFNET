@@ -48,7 +48,7 @@ public class Program
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async static Task Main(string[] args)
+    public static Task Main(string[] args)
     {
         var host = Host.CreateDefaultBuilder(args).UseServiceProviderFactory(new AutofacServiceProviderFactory())
             .ConfigureAppConfiguration(config => config.AddJsonFile(
@@ -59,6 +59,6 @@ public class Program
                        })
             .ConfigureWebHostDefaults(webHostBuilder => webHostBuilder.UseStartup<Startup>()).Build();
 
-        await host.RunAsync();
+        return host.RunAsync();
     }
 }

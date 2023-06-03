@@ -21,9 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Tasks;
 
 using System;
+using System.Threading.Tasks;
 
 using YAF.Core.Model;
 using YAF.Types.Models;
@@ -36,7 +38,7 @@ public class PruneTopicTask : LongBackgroundTask
     /// <summary>
     /// Gets TaskName.
     /// </summary>
-    public static string TaskName { get; } = "PruneTopicTask";
+    public static string TaskName => "PruneTopicTask";
 
     /// <summary>
     /// Gets or sets ForumId.
@@ -88,7 +90,7 @@ public class PruneTopicTask : LongBackgroundTask
     /// <summary>
     /// The run once.
     /// </summary>
-    public override void RunOnce()
+    public override Task RunOnceAsync()
     {
         try
         {
@@ -103,5 +105,7 @@ public class PruneTopicTask : LongBackgroundTask
         {
             this.Logger.Error(x, $"Error In Prune Topic Task: {x.Message}");
         }
+
+        return Task.CompletedTask;
     }
 }

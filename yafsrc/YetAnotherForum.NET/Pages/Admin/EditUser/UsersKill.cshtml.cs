@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin.EditUser;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -111,7 +112,7 @@ public class UsersKillModel : AdminPage
     /// <summary>
     /// Kills the User
     /// </summary>
-    public IActionResult OnPostKill()
+    public async Task<IActionResult> OnPostKillAsync()
     {
         var user =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
@@ -150,7 +151,7 @@ public class UsersKillModel : AdminPage
             {
                 var stopForumSpam = new StopForumSpam();
 
-                if (stopForumSpam.ReportUserAsBot(this.IpAddresses.FirstOrDefault(), user.Item1.Email, user.Item1.Name))
+                if (await stopForumSpam.ReportUserAsBotAsync(this.IpAddresses.FirstOrDefault(), user.Item1.Email, user.Item1.Name).ConfigureAwait(false))
                 {
                     this.GetRepository<Registry>().IncrementReportedSpammers();
 

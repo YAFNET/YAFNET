@@ -25,6 +25,7 @@
 namespace YAF.Core.Tasks;
 
 using System;
+using System.Threading.Tasks;
 
 using YAF.Core.Model;
 using YAF.Types.Models;
@@ -42,7 +43,7 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     /// <summary>
     /// Gets TaskName.
     /// </summary>
-    public static string TaskName { get; } = "ForumDeleteTask";
+    public static string TaskName => "ForumDeleteTask";
 
     /// <summary>
     /// Gets or sets ForumId.
@@ -129,7 +130,7 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     /// <summary>
     /// The run once.
     /// </summary>
-    public override void RunOnce()
+    public override Task RunOnceAsync()
     {
         try
         {
@@ -150,5 +151,7 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
         {
             this.Logger.Error(x, $"Error In (ID: {this.ForumId}) Delete Task");
         }
+
+        return Task.CompletedTask;
     }
 }

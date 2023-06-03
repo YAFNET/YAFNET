@@ -105,9 +105,9 @@ public class ApproveModel : AccountPage
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task OnPostAsync()
+    public Task OnPostAsync()
     {
-        await this.ValidateKeyAsync();
+        return this.ValidateKeyAsync();
     }
 
     /// <summary>

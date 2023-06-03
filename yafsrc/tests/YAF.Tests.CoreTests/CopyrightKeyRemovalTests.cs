@@ -61,6 +61,6 @@ public class CopyrightKeyRemovalTests
             this.GetType().GetSigningKey(),
             false);
 
-        Assert.AreEqual(currentDomainHash, "QLZDULM1U21NB2SISMH4TSRRBA0=");
+        Assert.AreEqual("DWR9GG6I2EZVDPZLYPCCVOCOJCQ=", currentDomainHash);
     }
 }
