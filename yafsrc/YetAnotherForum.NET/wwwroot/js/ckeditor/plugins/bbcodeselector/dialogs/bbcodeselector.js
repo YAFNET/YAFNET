@@ -23,7 +23,7 @@
  */
 CKEDITOR.dialog.add("bbcodeselector",
     function(editor) {
-        var getDefaultOptions = function(options) {
+        var getDefaultOptions = function() {
             var options = new Object();
             options.bbcodeName = null;
             options.code = "";
@@ -87,7 +87,7 @@ CKEDITOR.dialog.add("bbcodeselector",
                                     commit: function(data) {
                                         data.bbcodeName = this.getValue();
                                     },
-                                    onChange: function(data) {
+                                    onChange: function() {
                                         var dialog = this.getDialog(),
                                             bbCodeType = this.getValue(),
                                             contentBox = dialog.getContentElement("source", "CodeBox");

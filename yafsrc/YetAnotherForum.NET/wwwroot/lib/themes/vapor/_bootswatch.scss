@@ -1,4 +1,4 @@
-// Vapor 5.2.2
+// Vapor 5.3.0
 // Bootswatch
 
 
@@ -26,6 +26,7 @@ $outrun: false !default;
 }
 
 @mixin box-shadow($color) {
+  box-shadow: 0 0 2px RGBA($color, .9), 0 0 4px RGBA($color, .4), 0 0 1rem RGBA($color, .3), 0 0 4rem RGBA($color, .1);
 }
 
 @mixin box-shadow-lg($color) {
@@ -180,11 +181,11 @@ table,
 .navbar-light {
   &,
   a {
-    @include text-shadow-sm($navbar-light-color);
+    @include text-shadow-sm($black);
   }
 
   .navbar-brand {
-    @include text-shadow($navbar-light-color);
+    @include text-shadow($black);
   }
 }
 

@@ -1,4 +1,4 @@
-// Height
+﻿// Height
 $s2bs5-height:                   $input-height !default;
 $s2bs5-height-inner:             $input-line-height * 1rem !default;
 
@@ -75,7 +75,7 @@ $s2bs5-clear-width:              .6rem !default;
 $s2bs5-clear-height:             .6rem !default;
 $s2bs5-clear-padding-y:          $btn-close-padding-y !default;
 $s2bs5-clear-padding-x:          $btn-close-padding-x !default;
-$s2bs5-clear-icon:               str-replace($btn-close-bg, #{$btn-close-color}, #{shade-color($s2bs5-border-color, 50%)}) !default;
+$s2bs5-clear-icon:               str-replace($btn-close-bg, #{$btn-close-color}, #{shade-color(red, 50%)}) !default;
 $s2bs5-clear-bg:                 transparent escape-svg($s2bs5-clear-icon) center / $s2bs5-clear-height auto no-repeat !default;
 $s2bs5-clear-hover-bg:           transparent escape-svg($btn-close-bg) center / $s2bs5-clear-height auto no-repeat !default;
 

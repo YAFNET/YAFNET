@@ -11,6 +11,23 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
         copy: {
+            bootstrap: {
+                files: [
+                    { expand: true, src: "**/*.scss", cwd: "node_modules/bootstrap/scss", dest: "wwwroot/lib/bootstrap/" },
+                    {
+                        expand: true,
+                        src: "**/bootstrap.bundle.js",
+                        cwd: "node_modules/bootstrap/dist/js/",
+                        dest: "wwwroot/lib/"
+                    },
+                    {
+                        expand: true,
+                        src: "**/bootstrap.bundle.min.js",
+                        cwd: "node_modules/bootstrap/dist/js/",
+                        dest: "wwwroot/lib/"
+                    }
+                ]
+            },
             fontAwesome: {
                 files: [
                     // includes files within path
@@ -38,6 +55,28 @@ module.exports = function(grunt) {
                 files: [
                     // includes files within path
                     { expand: true, src: "**/jquery.min.js", cwd: "node_modules/jquery/dist", dest: "wwwroot/js/" }
+                ]
+            }
+        },
+
+        replace: {
+            bootswatch: {
+                options: {
+                    usePrefix: false,
+                    patterns: [
+                        {
+                            match: "box-shadow: 0 0 2px rgba($color, .9), 0 0 4px rgba($color, .4), 0 0 1rem rgba($color, .3), 0 0 4rem rgba($color, .1);",
+                            replacement: "box-shadow: 0 0 2px RGBA($color, .9), 0 0 4px RGBA($color, .4), 0 0 1rem RGBA($color, .3), 0 0 4rem RGBA($color, .1);"
+                        }
+                    ]
+                },
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ["wwwroot/lib/themes/vapor/_bootswatch.scss"],
+                        dest: "wwwroot/lib/themes/vapor/"
+                    }
                 ]
             }
         },
@@ -241,7 +280,7 @@ module.exports = function(grunt) {
                     "wwwroot/js/InstallWizard.comb.min.js": "wwwroot/js/InstallWizard.comb.js",
                     "wwwroot/js/jquery.fileupload.comb.min.js": "wwwroot/js/jquery.fileupload.comb.js",
                     "wwwroot/js/jquery.ForumExtensions.min.js": "wwwroot/js/jquery.ForumExtensions.js",
-                    "wwwroot/js/jquery.ForumAdminExtensions.min.js": "wwwroot/js/jquery.ForumAdminExtensions.js",
+                    "wwwroot/js/jquery.ForumAdminExtensions.min.js": "wwwroot/js/jquery.ForumAdminExtensions.js"
 
                 }
             }
@@ -428,6 +467,18 @@ module.exports = function(grunt) {
                 }
             }
         },
+        file_append: {
+            bootstrap: {
+                files: [
+                    {
+                        append:
+                            "\n\n.form-check-custom input {\n    @extend .form-check-input;\n}\n\n.form-check-custom label {\n    @extend .form-check-label\n}\n\n.aspNetDisabled input {\n    @extend .form-check-input;\n}\n\n.aspNetDisabled label {\n    @extend .form-check-label\n}\n\n.form-check-inline li {\n    @extend .form-check-inline;\n    margin-right: 2rem;\n}",
+                        input: "wwwroot/lib/bootstrap/bootstrap.scss",
+                        output: "wwwroot/lib/bootstrap/bootstrap.scss"
+                    }
+                ]
+            }
+        },
         zip: {
             "YAF-SqlServer-Deploy": {
                 cwd: "bin/Release/net7.0/publish/",
@@ -460,16 +511,33 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-dev-update");
     grunt.loadNpmTasks("grunt-shell");
+    grunt.loadNpmTasks("grunt-replace");
     grunt.loadNpmTasks("grunt-zip");
+    grunt.loadNpmTasks("grunt-file-append");
 
     grunt.registerTask("default",
         [
             "devUpdate", "uglify", "sass", "postcss", "cssmin"
         ]);
 
+    grunt.registerTask("updateBootstrap",
+        [
+            "copy:bootstrap", "file_append:bootstrap"
+        ]);
+
+    grunt.registerTask("updateFontAwesome",
+        [
+            "copy:fontAwesome"
+        ]);
+
+    grunt.registerTask("updateBootswatchThemes",
+        [
+            "copy:bootswatchThemes", "replace:bootswatch"
+        ]);
+
     grunt.registerTask("emailTemplates",
         [
-            "shell"
+            "shell:emailTemplates"
         ]);
 
     grunt.registerTask("js",
