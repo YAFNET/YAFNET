@@ -125,6 +125,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <value>The use select properties as aliases.</value>
     public bool UseSelectPropertiesAsAliases { get; set; }
+
+    public bool UseJoinTypeAsAliases { get; set; }
+
     /// <summary>
     /// Gets or sets the where statement without where string.
     /// </summary>
@@ -3261,7 +3264,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         var tableDef = modelType.GetModelDefinition();
 
-        var tableAlias = this.GetTableAlias(m);
+        var tableAlias = GetTableAlias(m, tableDef);
         var columnName = tableAlias == null
                              ? this.GetQuotedColumnName(tableDef, m.Member.Name)
                              : this.GetQuotedColumnName(tableDef, tableAlias, m.Member.Name);
@@ -3277,7 +3280,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="m">The m.</param>
     /// <returns>string.</returns>
-    protected virtual string GetTableAlias(MemberExpression m)
+    protected virtual string GetTableAlias(MemberExpression m, ModelDefinition tableDef)
     {
         if (this.originalLambda == null)
             return null;
@@ -3298,6 +3301,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
             if (pe.Type == joinType && pe.Name == joinParamName)
                 return this.joinAlias.Alias;
+        }
+
+        if (UseJoinTypeAsAliases && joinAliases != null && joinAliases.TryGetValue(tableDef, out var tableOptions))
+        {
+            return tableOptions.Alias;
         }
 
         return null;

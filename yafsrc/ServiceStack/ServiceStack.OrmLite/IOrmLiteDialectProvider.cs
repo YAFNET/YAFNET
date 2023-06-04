@@ -207,6 +207,13 @@ public interface IOrmLiteDialectProvider
     /// <summary>
     /// Gets the name of the table.
     /// </summary>
+    /// <param name="modelType">Type of the model.</param>
+    /// <returns>System.String.</returns>
+    string GetTableName(Type modelType);
+
+    /// <summary>
+    /// Gets the name of the table.
+    /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
     string GetTableName(ModelDefinition modelDef);
