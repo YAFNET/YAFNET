@@ -480,7 +480,7 @@ public interface IAspNetUsersHelper
     /// <returns>
     /// The <see cref="Tuple"/>.
     /// </returns>
-    public Tuple<User, AspNetUsers, Rank, vaccess> GetBoardUser(
+    public Tuple<User, AspNetUsers, Rank, VAccess> GetBoardUser(
         [NotNull] int userId,
         [CanBeNull] int? boardId = null,
         bool includeNonApproved = false);

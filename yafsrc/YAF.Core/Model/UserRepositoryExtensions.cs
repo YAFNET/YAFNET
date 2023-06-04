@@ -1378,7 +1378,7 @@ public static class UserRepositoryExtensions
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-        expression.Join<vaccess>((u, v) => v.UserID == u.ID).Where<vaccess, User>(
+        expression.Join<VAccess>((u, v) => v.UserID == u.ID).Where<VAccess, User>(
             (v, u) => u.BoardID == (boardId ?? repository.BoardID) && (u.Flags & 4) != 4 && v.IsAdmin > 0 &&
                       v.ForumID == 0).OrderBy<User>(u => u.DisplayName);
 

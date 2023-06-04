@@ -184,7 +184,7 @@ public partial class EditUsersSuspend : BaseUserControl
     /// </param>
     protected void Suspend_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        var access = this.GetRepository<vaccess>().GetSingle(v => v.UserID == this.CurrentUserID);
+        var access = this.GetRepository<VAccess>().GetSingle(v => v.UserID == this.CurrentUserID);
 
         // is user to be suspended admin?
         if (access.IsAdmin > 0)

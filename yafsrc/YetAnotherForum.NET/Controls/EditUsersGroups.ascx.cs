@@ -38,7 +38,7 @@ public partial class EditUsersGroups : BaseUserControl
     /// Gets or sets the User Data.
     /// </summary>
     [NotNull]
-    public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
+    public Tuple<User, AspNetUsers, Rank, VAccess> User { get; set; }
 	
     /// <summary>
     /// Handles page load event.

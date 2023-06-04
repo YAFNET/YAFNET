@@ -535,7 +535,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     private List<SearchMessage> MapSearchToDataList(
         IndexSearcher searcher,
         IEnumerable<ScoreDoc> hits,
-        List<vaccess> userAccessList)
+        List<VAccess> userAccessList)
     {
         var results = hits.Select(hit => this.MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList))
             .ToList();
@@ -553,7 +553,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <returns>
     /// Returns the Search Message
     /// </returns>
-    private SearchMessage MapSearchDocumentToData(Document doc, List<vaccess> userAccessList)
+    private SearchMessage MapSearchDocumentToData(Document doc, List<VAccess> userAccessList)
     {
         var forumId = doc.Get("ForumId").ToType<int>();
 
@@ -685,7 +685,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         Highlighter highlighter,
         Analyzer analyzer,
         Document doc,
-        List<vaccess> userAccessList)
+        List<VAccess> userAccessList)
     {
         var forumId = doc.Get("ForumId").ToType<int>();
 
@@ -810,7 +810,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         IEnumerable<ScoreDoc> hits,
         int pageIndex,
         int pageSize,
-        List<vaccess> userAccessList)
+        List<VAccess> userAccessList)
     {
         var skip = pageSize * pageIndex;
 
@@ -847,7 +847,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         }
 
         // Insert forum access here
-        var userAccessList = this.GetRepository<vaccess>().Get(v => v.UserID == BoardContext.Current.PageUserID);
+        var userAccessList = this.GetRepository<VAccess>().Get(v => v.UserID == BoardContext.Current.PageUserID);
 
         // filter forum
         if (forumId > 0)
@@ -985,7 +985,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         }
 
         // Insert forum access here
-        var userAccessList = this.GetRepository<vaccess>().Get(v => v.UserID == BoardContext.Current.PageUserID);
+        var userAccessList = this.GetRepository<VAccess>().Get(v => v.UserID == BoardContext.Current.PageUserID);
 
         var searcher = this.GetSearcher();
 

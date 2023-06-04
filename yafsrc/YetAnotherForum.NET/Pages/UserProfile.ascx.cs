@@ -246,7 +246,7 @@ public partial class UserProfile : ForumPage
     /// <param name="user">
     /// The user.
     /// </param>
-    private void SetupBuddyList(int userID, [NotNull] Tuple<User, AspNetUsers, Rank, vaccess> user)
+    private void SetupBuddyList(int userID, [NotNull] Tuple<User, AspNetUsers, Rank, VAccess> user)
     {
         if (userID == this.PageBoardContext.PageUserID)
         {
@@ -299,7 +299,7 @@ public partial class UserProfile : ForumPage
     /// <param name="userName">
     /// Name of the user.
     /// </param>
-    private void SetupUserLinks([NotNull] Tuple<User, AspNetUsers, Rank, vaccess> user, string userName)
+    private void SetupUserLinks([NotNull] Tuple<User, AspNetUsers, Rank, VAccess> user, string userName)
     {
         // homepage link
         this.HomePlaceHolder.Visible = user.Item2.Profile_Homepage.IsSet();
@@ -402,7 +402,7 @@ public partial class UserProfile : ForumPage
     /// <param name="user">
     /// The user.
     /// </param>
-    private void SetupUserProfileInfo([NotNull] Tuple<User, AspNetUsers, Rank, vaccess> user)
+    private void SetupUserProfileInfo([NotNull] Tuple<User, AspNetUsers, Rank, VAccess> user)
     {
         this.UserLabel1.UserID = user.Item1.ID;
         this.UserLabel1.ReplaceName = user.Item1.DisplayOrUserName();
@@ -580,7 +580,7 @@ public partial class UserProfile : ForumPage
     /// <param name="user">
     /// The user.
     /// </param>
-    private void SetupUserStatistics([NotNull] Tuple<User, AspNetUsers, Rank, vaccess> user)
+    private void SetupUserStatistics([NotNull] Tuple<User, AspNetUsers, Rank, VAccess> user)
     {
         var allPosts = 0.0;
 

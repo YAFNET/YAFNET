@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -44,9 +44,9 @@ public partial class EditUser : AdminPage
     /// Gets or sets the current edit user.
     /// </summary>
     /// <value>The user.</value>
-    public Tuple<User, AspNetUsers, Rank, vaccess> EditBoardUser
+    public Tuple<User, AspNetUsers, Rank, VAccess> EditBoardUser
     {
-        get => this.ViewState["EditBoardUser"].ToType<Tuple<User, AspNetUsers, Rank, vaccess>>();
+        get => this.ViewState["EditBoardUser"].ToType<Tuple<User, AspNetUsers, Rank, VAccess>>();
 
         set => this.ViewState["EditBoardUser"] = value;
     }

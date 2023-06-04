@@ -1529,7 +1529,7 @@ namespace YAF.Core.Services.Migrations
         /// <param name="dbCommand">The database command.</param>
         private void DropViews(IDbCommand dbCommand)
         {
-            dbCommand.Connection.DropView<vaccess>();
+            dbCommand.Connection.DropView<VAccess>();
             dbCommand.Connection.DropView<vaccessfull>();
             dbCommand.Connection.DropView<vaccess_group>();
             dbCommand.Connection.DropView<vaccess_null>();

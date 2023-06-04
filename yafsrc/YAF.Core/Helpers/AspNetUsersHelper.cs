@@ -934,30 +934,30 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <returns>
     /// The <see cref="Tuple"/>.
     /// </returns>
-    public Tuple<User, AspNetUsers, Rank, vaccess> GetBoardUser(
+    public Tuple<User, AspNetUsers, Rank, VAccess> GetBoardUser(
         [NotNull] int userId,
         [CanBeNull] int? boardId = null,
         bool includeNonApproved = false)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-        expression.LeftJoin<vaccess>((u, v) => v.UserID == u.ID).LeftJoin<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
+        expression.LeftJoin<VAccess>((u, v) => v.UserID == u.ID).LeftJoin<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
             .Join<Rank>((u, r) => r.ID == u.RankID);
 
         if (includeNonApproved)
         {
-            expression.Where<vaccess, User>(
+            expression.Where<VAccess, User>(
                 (v, u) => u.ID == userId && u.BoardID == (boardId ?? this.GetRepository<User>().BoardID));
         }
         else
         {
-            expression.Where<vaccess, User>(
+            expression.Where<VAccess, User>(
                 (v, u) => u.ID == userId && u.BoardID == (boardId ?? this.GetRepository<User>().BoardID) &&
                           (u.Flags & 2) == 2);
         }
 
         return this.GetRepository<User>().DbAccess
-            .Execute(db => db.Connection.SelectMulti<User, AspNetUsers, Rank, vaccess>(expression))
+            .Execute(db => db.Connection.SelectMulti<User, AspNetUsers, Rank, VAccess>(expression))
             .FirstOrDefault();
     }
 

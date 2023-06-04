@@ -74,7 +74,7 @@ public partial class EditUsersProfile : BaseUserControl
     /// Gets the User Data.
     /// </summary>
     [NotNull]
-    public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
+    public Tuple<User, AspNetUsers, Rank, VAccess> User { get; set; }
 
     private IEnumerable<ProfileCustom> UserProfileCustom =>
         this.userProfileCustom ??= this.GetRepository<ProfileCustom>().Get(p => p.UserID == this.User.Item1.ID);

@@ -44,9 +44,9 @@ public partial class EditProfile : ProfilePage
     /// Gets or sets the current edit user.
     /// </summary>
     /// <value>The user.</value>
-    public Tuple<User, AspNetUsers, Rank, vaccess> EditBoardUser
+    public Tuple<User, AspNetUsers, Rank, VAccess> EditBoardUser
     {
-        get => this.ViewState["EditBoardUser"].ToType<Tuple<User, AspNetUsers, Rank, vaccess>>();
+        get => this.ViewState["EditBoardUser"].ToType<Tuple<User, AspNetUsers, Rank, VAccess>>();
 
         set => this.ViewState["EditBoardUser"] = value;
     }
