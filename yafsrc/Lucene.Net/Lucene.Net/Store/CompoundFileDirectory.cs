@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,10 +26,10 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
+    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
+    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Class for accessing a compound stream.
@@ -286,17 +286,15 @@ namespace YAF.Lucene.Net.Store
 
         protected override void Dispose(bool disposing)
         {
+            // allow double close - usually to be consistent with other closeables
+            if (!CompareAndSetIsOpen(expect: true, update: false)) return; // already closed
+
             UninterruptableMonitor.Enter(this);
             try
             {
                 if (disposing)
                 {
-                    if (!IsOpen)
-                    {
-                        // allow double close - usually to be consistent with other closeables
-                        return; // already closed
-                    }
-                    IsOpen = false;
+                    // LUCENENET: Moved double-dispose logic outside of lock.
                     if (writer != null)
                     {
                         if (Debugging.AssertsEnabled) Debugging.Assert(openForWrite);
@@ -455,6 +453,7 @@ namespace YAF.Lucene.Net.Store
 
             protected override void Dispose(bool disposing)
             {
+                // LUCENENET: Intentionally blank
             }
 
             public override IndexInput OpenSlice(string sliceDescription, long offset, long length)

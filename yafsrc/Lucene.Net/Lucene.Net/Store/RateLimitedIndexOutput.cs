@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -11,7 +12,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,6 +31,7 @@ namespace YAF.Lucene.Net.Store
         private readonly IndexOutput @delegate;
         private readonly BufferedIndexOutput bufferedDelegate;
         private readonly RateLimiter rateLimiter;
+        private int disposed = 0; // LUCENENET specific - allow double-dispose
 
         internal RateLimitedIndexOutput(RateLimiter rateLimiter, IndexOutput @delegate)
         {
@@ -62,15 +64,21 @@ namespace YAF.Lucene.Net.Store
 
         public override long Length
         {
-            get => @delegate.Length;
+            get
+            {
+                EnsureOpen(); // LUCENENET specific - ensure we can't be abused after dispose
+                return @delegate.Length;
+            }
             set
             {
+                // LUCENENET: Intentionally blank
             }
         }
 
         [Obsolete("(4.1) this method will be removed in Lucene 5.0")]
         public override void Seek(long pos)
         {
+            EnsureOpen(); // LUCENENET specific - ensure we can't be abused after dispose
             Flush();
             @delegate.Seek(pos);
         }
@@ -90,6 +98,8 @@ namespace YAF.Lucene.Net.Store
 
         protected override void Dispose(bool disposing)
         {
+            if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
+
             if (disposing)
             {
                 try
@@ -100,6 +110,18 @@ namespace YAF.Lucene.Net.Store
                 {
                     @delegate.Dispose();
                 }
+            }
+        }
+
+        // LUCENENET specific - ensure we can't be abused after dispose
+        private bool IsOpen => Interlocked.CompareExchange(ref this.disposed, 0, 0) == 0 ? true : false;
+
+        // LUCENENET specific - ensure we can't be abused after dispose
+        private void EnsureOpen()
+        {
+            if (!IsOpen)
+            {
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this IndexOutput is disposed.");
             }
         }
     }

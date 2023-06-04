@@ -3,6 +3,7 @@ using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support.IO;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -14,7 +15,7 @@ namespace YAF.Lucene.Net.Store
      * "License"); you may not use this file except in compliance with the License.
      * You may obtain a copy of the License at
      *
-     * https://www.apache.org/licenses/LICENSE-2.0
+     * http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
@@ -119,6 +120,7 @@ namespace YAF.Lucene.Net.Store
             private readonly IOContext context;
             private readonly FileInfo path;
             private readonly FileStream descriptor;
+            private int disposed = 0; // LUCENENET specific - allow double-dispose
 
             public IndexInputSlicerAnonymousClass(IOContext context, FileInfo path, FileStream descriptor)
             {
@@ -129,6 +131,8 @@ namespace YAF.Lucene.Net.Store
 
             protected override void Dispose(bool disposing)
             {
+                if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
+
                 if (disposing)
                 {
                     descriptor.Dispose();
@@ -184,6 +188,8 @@ namespace YAF.Lucene.Net.Store
 
             private ByteBuffer byteBuf; // wraps the buffer for NIO
 
+            private int disposed = 0; // LUCENENET specific - allow double-dispose
+
             public NIOFSIndexInput(string resourceDesc, FileStream fc, IOContext context)
                 : base(resourceDesc, context)
             {
@@ -203,6 +209,8 @@ namespace YAF.Lucene.Net.Store
 
             protected override void Dispose(bool disposing)
             {
+                if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
+
                 if (disposing && !isClone)
                 {
                     m_channel.Dispose();

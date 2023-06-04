@@ -1462,7 +1462,12 @@ internal static class TypeConverter
         }
         else if (underlyingToType.IsValueType)
         {
-            return fromValue => AutoMappingUtils.ChangeValueType(fromValue, underlyingToType);
+            return fromValue =>
+            {
+                if (fromValue == null && toType.IsNullableType())
+                    return null;
+                return AutoMappingUtils.ChangeValueType(fromValue, underlyingToType);
+            };
         }
         else
         {

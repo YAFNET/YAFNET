@@ -16,7 +16,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -217,9 +217,11 @@ namespace YAF.Lucene.Net.Store
         /// Closes the store to future operations, releasing associated memory. </summary>
         protected override void Dispose(bool disposing)
         {
+            if (!CompareAndSetIsOpen(expect: true, update: false)) return; // LUCENENET: allow dispose more than once as per https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/dispose-pattern
+
             if (disposing)
             {
-                IsOpen = false;
+                // LUCENENET: Removed setter for isOpen and put it above in the if check so it is atomic
                 m_fileMap.Clear();
             }
         }

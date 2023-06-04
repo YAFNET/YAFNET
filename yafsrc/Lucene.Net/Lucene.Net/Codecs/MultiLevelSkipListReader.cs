@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
+using System.Data.Common;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs
@@ -13,7 +14,7 @@ namespace YAF.Lucene.Net.Codecs
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,9 +23,9 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using BufferedIndexInput = YAF.Lucene.Net.Store.BufferedIndexInput;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
+    using BufferedIndexInput = Lucene.Net.Store.BufferedIndexInput;
+    using IndexInput = Lucene.Net.Store.IndexInput;
+    using MathUtil = Lucene.Net.Util.MathUtil;
 
     /// <summary>
     /// This abstract class reads skip lists with multiple levels.
@@ -361,17 +362,26 @@ namespace YAF.Lucene.Net.Codecs
 
             public override long Position => pointer + pos; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
-            public override long Length => data.Length;
+            public override long Length
+            {
+                get
+                {
+                    EnsureOpen(); // LUCENENET: Guard against disposed IndexInput
+                    return data.Length;
+                }
+            }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override byte ReadByte()
             {
+                EnsureOpen(); // LUCENENET: Guard against disposed IndexInput
                 return data[pos++];
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void ReadBytes(byte[] b, int offset, int len)
             {
+                EnsureOpen(); // LUCENENET: Guard against disposed IndexInput
                 Arrays.Copy(data, pos, b, offset, len);
                 pos += len;
             }
@@ -379,7 +389,16 @@ namespace YAF.Lucene.Net.Codecs
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void Seek(long pos)
             {
+                EnsureOpen(); // LUCENENET: Guard against disposed IndexInput
                 this.pos = (int)(pos - pointer);
+            }
+
+            private void EnsureOpen() // LUCENENET: Guard against disposed IndexInput
+            {
+                if (data is null)
+                {
+                    throw AlreadyClosedException.Create(this.GetType().FullName, "this IndexInput is disposed.");
+                }
             }
         }
     }

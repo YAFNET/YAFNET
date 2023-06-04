@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,8 +29,8 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using Constants = YAF.Lucene.Net.Util.Constants;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Constants = Lucene.Net.Util.Constants;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Base class for <see cref="Directory"/> implementations that store index
@@ -423,10 +423,7 @@ namespace YAF.Lucene.Net.Store
         /// Closes the store to future operations. </summary>
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                IsOpen = false;
-            }
+            IsOpen = false; // LUCENENET: Since there is nothing else to do here, we can safely call this. If we have other stuff to dispose, change to if (!CompareAndSetIsOpen(expect: true, update: false)) return;
         }
 
         /// <summary> the underlying filesystem directory </summary>

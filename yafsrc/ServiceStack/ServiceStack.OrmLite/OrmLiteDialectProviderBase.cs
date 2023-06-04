@@ -550,6 +550,13 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <summary>
     /// Gets the name of the table.
     /// </summary>
+    /// <param name="modelType">Type of the model.</param>
+    /// <returns>System.String.</returns>
+    public virtual string GetTableName(Type modelType) => this.GetTableName(modelType.GetModelDefinition());
+
+    /// <summary>
+    /// Gets the name of the table.
+    /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
     public virtual string GetTableName(ModelDefinition modelDef) =>
@@ -593,6 +600,13 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                    ? $"{this.QuoteIfRequired(schema)}.{this.QuoteIfRequired(table)}"
                    : this.QuoteIfRequired(table);
     }
+
+    /// <summary>
+    /// Gets the name of the quoted table.
+    /// </summary>
+    /// <param name="modelType">Type of the model.</param>
+    /// <returns>System.String.</returns>
+    public virtual string GetQuotedTableName(Type modelType) => this.GetQuotedTableName(modelType.GetModelDefinition());
 
     /// <summary>
     /// Gets the table name with brackets.

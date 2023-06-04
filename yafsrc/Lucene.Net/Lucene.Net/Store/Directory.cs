@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -13,7 +14,7 @@ namespace YAF.Lucene.Net.Store
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,7 +23,7 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// A <see cref="Directory"/> is a flat list of files.  Files may be written once, when they
@@ -253,6 +254,7 @@ namespace YAF.Lucene.Net.Store
         private sealed class IndexInputSlicerAnonymousClass : IndexInputSlicer
         {
             private readonly IndexInput @base;
+            private int disposed = 0; // LUCENENET specific - allow double-dispose
 
             public IndexInputSlicerAnonymousClass(IndexInput @base)
             {
@@ -266,6 +268,8 @@ namespace YAF.Lucene.Net.Store
 
             protected override void Dispose(bool disposing)
             {
+                if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
+
                 if (disposing)
                 {
                     @base.Dispose();
@@ -323,6 +327,7 @@ namespace YAF.Lucene.Net.Store
             private IndexInput @base;
             private long fileOffset;
             private long length;
+            private int disposed = 0; // LUCENENET specific - allow double-dispose
 
             internal SlicedIndexInput(string sliceDescription, IndexInput @base, long fileOffset, long length)
                 : this(sliceDescription, @base, fileOffset, length, BufferedIndexInput.BUFFER_SIZE)
@@ -377,6 +382,8 @@ namespace YAF.Lucene.Net.Store
             /// </summary>
             protected override void Dispose(bool disposing)
             {
+                if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
+
                 if (disposing)
                 {
                     @base.Dispose();

@@ -30,7 +30,7 @@ Lucene.NET, an indexing and search library, accepts only plain text input.
 
 Applications that build their search capabilities upon Lucene.NET may support documents in various formats – HTML, XML, PDF, Word – just to name a few.
 Lucene.NET does not care about the _Parsing_ of these and other document formats, and it is the responsibility of the 
-application using Lucene.NET to use an appropriate _Parser_ to convert the original format into plain text before passing that plain text to Lucene.NET.
+application using YAF.Lucene.Net to use an appropriate _Parser_ to convert the original format into plain text before passing that plain text to Lucene.NET.
 
 ## Tokenization
 

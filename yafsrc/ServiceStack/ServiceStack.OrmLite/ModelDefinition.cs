@@ -486,6 +486,8 @@ public class ModelDefinition
         }
         return false;
     }
+
+    public static ModelDefinition For(Type modelType) => modelType.GetModelDefinition();
 }
 
 
