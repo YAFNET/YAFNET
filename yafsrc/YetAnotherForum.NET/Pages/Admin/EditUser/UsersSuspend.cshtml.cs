@@ -46,7 +46,7 @@ public class UsersSuspendModel : AdminPage
     /// Gets or sets the User Data.
     /// </summary>
     [BindProperty]
-    public Tuple<User, AspNetUsers, Rank, vaccess> EditUser { get; set; }
+    public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     [BindProperty]
     public List<SelectListItem> SuspendUnits { get; set; }
@@ -86,7 +86,7 @@ public class UsersSuspendModel : AdminPage
     {
         this.EditUser =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
-                Tuple<User, AspNetUsers, Rank, vaccess>;
+                Tuple<User, AspNetUsers, Rank, VAccess>;
 
         // un-suspend user
         this.GetRepository<User>().Suspend(this.Input.UserId);
@@ -120,7 +120,7 @@ public class UsersSuspendModel : AdminPage
     {
         this.EditUser =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
-                Tuple<User, AspNetUsers, Rank, vaccess>;
+                Tuple<User, AspNetUsers, Rank, VAccess>;
 
         // is user to be suspended admin?
         if (this.EditUser.Item4.IsAdmin > 0)
@@ -218,7 +218,7 @@ public class UsersSuspendModel : AdminPage
 
         this.EditUser =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, vaccess>;
+                Tuple<User, AspNetUsers, Rank, VAccess>;
     }
 
     /// <summary>

@@ -62,7 +62,7 @@ public static class ActiveAccessRepositoryExtensions
             return;
         }
 
-        var accessList = BoardContext.Current.GetRepository<vaccess>().Get(x => x.UserID == userId)
+        var accessList = BoardContext.Current.GetRepository<VAccess>().Get(x => x.UserID == userId)
             .DistinctBy(a => new {a.UserID, a.ForumID});
 
         var activeList = new List<ActiveAccess>();

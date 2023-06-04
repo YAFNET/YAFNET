@@ -309,7 +309,7 @@ public class SqlServerDbInformation : IDbInformation
 
         vaccessSelect.Append(" GROUP BY a.UserID,x.ForumID");
 
-        dbCommand.Connection.CreateView<vaccess>(vaccessSelect);
+        dbCommand.Connection.CreateView<VAccess>(vaccessSelect);
 
         return true;
     }

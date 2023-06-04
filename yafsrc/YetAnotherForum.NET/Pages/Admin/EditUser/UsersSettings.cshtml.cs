@@ -98,7 +98,7 @@ public class UsersSettingsModel : AdminPage
     {
         var user =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
-                Tuple<User, AspNetUsers, Rank, vaccess>;
+                Tuple<User, AspNetUsers, Rank, VAccess>;
 
         if (this.Input.Email != user.Item1.Email)
         {
@@ -196,7 +196,7 @@ public class UsersSettingsModel : AdminPage
     {
         var user =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, vaccess>;
+                Tuple<User, AspNetUsers, Rank, VAccess>;
 
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 

@@ -664,18 +664,18 @@ public static class TopicRepositoryExtensions
                         .Join<User>(
                             (t, lastUser) => Sql.TableAlias(lastUser.ID, "lastUser") == t.LastUserID,
                             db.Connection.TableAlias("lastUser")).Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
-                        .Join<Forum, vaccess>((f, x) => x.ForumID == f.ID);
+                        .Join<Forum, VAccess>((f, x) => x.ForumID == f.ID);
 
                     if (showNoCountPosts)
                     {
-                        expression.Where<Topic, Forum, vaccess, Category>(
+                        expression.Where<Topic, Forum, VAccess, Category>(
                             (topic, f, x, c) => c.BoardID == boardId && (c.Flags & 1) == 1 && topic.TopicMovedID == null &&
                                                 x.UserID == pageUserId && x.ReadAccess > 0 && (topic.Flags & 8) != 8 &&
                                                 topic.LastPosted != null);
                     }
                     else
                     {
-                        expression.Where<Topic, Forum, vaccess, Category>(
+                        expression.Where<Topic, Forum, VAccess, Category>(
                             (topic, f, x, c) => c.BoardID == boardId && (c.Flags & 1) == 1 && topic.TopicMovedID == null &&
                                                 x.UserID == pageUserId && x.ReadAccess > 0 && (topic.Flags & 8) != 8 &&
                                                 topic.LastPosted != null && (f.Flags & 4) != 4);

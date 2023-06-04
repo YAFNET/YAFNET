@@ -56,7 +56,7 @@ public class UsersAvatarModel : AdminPage
     /// Gets or sets the User Data.
     /// </summary>
     [NotNull]
-    public Tuple<User, AspNetUsers, Rank, vaccess> EditUser { get; set; }
+    public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     public List<SelectListItem> Gallery { get; set; }
 
@@ -212,7 +212,7 @@ public class UsersAvatarModel : AdminPage
     {
         this.EditUser =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, vaccess>;
+                Tuple<User, AspNetUsers, Rank, VAccess>;
 
         var currentUser = this.EditUser.Item1;
 

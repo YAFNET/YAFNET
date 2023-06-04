@@ -50,7 +50,7 @@ public class UsersInfoModel : AdminPage
     /// Gets or sets the User Data.
     /// </summary>
     [NotNull]
-    public Tuple<User, AspNetUsers, Rank, vaccess> EditUser { get; set; }
+    public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     /// <summary>
     /// Gets or sets the input.
@@ -141,7 +141,7 @@ public class UsersInfoModel : AdminPage
     {
         this.EditUser =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, vaccess>;
+                Tuple<User, AspNetUsers, Rank, VAccess>;
 
         if (this.EditUser == null)
         {

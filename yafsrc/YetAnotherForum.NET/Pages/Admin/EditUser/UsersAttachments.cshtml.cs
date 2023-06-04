@@ -47,7 +47,7 @@ public class UsersAttachmentsModel : AdminPage
     /// Gets or sets the User Data.
     /// </summary>
     [NotNull]
-    public Tuple<User, AspNetUsers, Rank, vaccess> EditUser { get; set; }
+    public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     /// <summary>
     /// Gets or sets the attachments.

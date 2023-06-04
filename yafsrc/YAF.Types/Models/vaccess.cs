@@ -21,13 +21,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Models;
 
 /// <summary>
 ///     A class which represents the yaf_vaccess views.
 /// </summary>
 [Serializable]
-public class vaccess : IEntity
+[Alias("vaccess")]
+public class VAccess : IEntity
 {
     /// <summary>
     /// Gets or sets the user id.

@@ -106,7 +106,7 @@ public class UsersPointsModel : AdminPage
     {
         var user =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, vaccess>;
+                Tuple<User, AspNetUsers, Rank, VAccess>;
 
         this.EditUser = user.Item1;
 

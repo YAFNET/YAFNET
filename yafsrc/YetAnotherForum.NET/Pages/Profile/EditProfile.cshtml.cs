@@ -120,7 +120,7 @@ public class EditProfileModel : ProfilePage
     /// Gets the User Data.
     /// </summary>
     [NotNull]
-    private Tuple<User, AspNetUsers, Rank, vaccess> CurrentUser =>
+    private Tuple<User, AspNetUsers, Rank, VAccess> CurrentUser =>
         this.Get<IAspNetUsersHelper>().GetBoardUser(this.PageBoardContext.PageUserID);
 
     /// <summary>

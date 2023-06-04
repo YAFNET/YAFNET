@@ -116,7 +116,7 @@ public class UsersKillModel : AdminPage
     {
         var user =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
-                Tuple<User, AspNetUsers, Rank, vaccess>;
+                Tuple<User, AspNetUsers, Rank, VAccess>;
 
         // Ban User Email?
         if (this.Input.BanEmail)
@@ -254,7 +254,7 @@ public class UsersKillModel : AdminPage
     {
         var user =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                Tuple<User, AspNetUsers, Rank, vaccess>;
+                Tuple<User, AspNetUsers, Rank, VAccess>;
 
         this.EditUser = user.Item1;
 

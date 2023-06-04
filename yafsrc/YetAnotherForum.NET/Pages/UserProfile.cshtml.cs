@@ -59,7 +59,7 @@ public class UserProfileModel : ForumPage
     }
 
     [BindProperty]
-    public Tuple<User, AspNetUsers, Rank, vaccess> CombinedUser { get; set; }
+    public Tuple<User, AspNetUsers, Rank, VAccess> CombinedUser { get; set; }
 
     [BindProperty]
     public List<Tuple<ProfileCustom, ProfileDefinition>> CustomProfile { get; set; }
@@ -205,7 +205,7 @@ public class UserProfileModel : ForumPage
     {
         this.BindData(u);
 
-        var access = this.GetRepository<vaccess>().GetSingle(v => v.UserID == u);
+        var access = this.GetRepository<VAccess>().GetSingle(v => v.UserID == u);
 
         // is user to be suspended admin?
         if (access.IsAdmin > 0)

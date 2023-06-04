@@ -75,7 +75,7 @@ public class UsersGroupsModel : AdminPage
         var addedRoles = new List<string>();
         var removedRoles = new List<string>();
 
-        var user = this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as Tuple<User, AspNetUsers, Rank, vaccess>;
+        var user = this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as Tuple<User, AspNetUsers, Rank, VAccess>;
 
         // go through all roles displayed on page
         foreach (var item in this.UserGroups)

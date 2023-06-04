@@ -313,7 +313,7 @@ public class SqliteDbInformation : IDbInformation
 
         vaccessSelect.Append(" GROUP BY a.UserID, x_1.ForumID");
 
-        dbCommand.Connection.CreateView<vaccess>(vaccessSelect);
+        dbCommand.Connection.CreateView<VAccess>(vaccessSelect);
 
         return true;
     }

@@ -101,7 +101,7 @@ public class UsersSignatureModel : AdminPage
     public IActionResult OnPostSave()
     {
         var user = this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
-                       Tuple<User, AspNetUsers, Rank, vaccess>;
+                       Tuple<User, AspNetUsers, Rank, VAccess>;
 
         if (this.Signature.Length > 0)
         {
@@ -176,7 +176,7 @@ public class UsersSignatureModel : AdminPage
     private void BindData(int userId, bool loadSignature)
     {
         var user = this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
-                       Tuple<User, AspNetUsers, Rank, vaccess>;
+                       Tuple<User, AspNetUsers, Rank, VAccess>;
 
         if (loadSignature)
         {

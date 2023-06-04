@@ -48,7 +48,7 @@ public class EditUserModel : AdminPage
     public string LastTab { get; set; } = "View1";
 
     [BindProperty]
-    public Tuple<User, AspNetUsers, Rank, vaccess> EditUser { get; set; }
+    public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     [BindProperty]
     public AspNetUsers EditUserAspNetUsers { get; set; }
@@ -57,7 +57,7 @@ public class EditUserModel : AdminPage
     public Rank EditUserRank { get; set; }
 
     [BindProperty]
-    public vaccess EditUserVaccess { get; set; }
+    public VAccess EditUserVaccess { get; set; }
 
     /// <summary>
     /// Creates page links for this page.
