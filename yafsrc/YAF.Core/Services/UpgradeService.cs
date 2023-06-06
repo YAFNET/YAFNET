@@ -212,6 +212,11 @@ public class UpgradeService : IHaveServiceLocator
             this.Get<V87_Migration>().MigrateDatabase(this.DbAccess);
         }
 
+        if (prevVersion < 89)
+        {
+            this.Get<V89_Migration>().MigrateDatabase(this.DbAccess);
+        }
+
         this.AddOrUpdateExtensions();
 
         this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);

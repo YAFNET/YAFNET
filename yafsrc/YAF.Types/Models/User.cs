@@ -329,4 +329,11 @@ public class User : IEntity, IHaveBoardID, IHaveID
     [Required]
     [Default(5)]
     public int PageSize { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether use Dark Mode or not.
+    /// </summary>
+    [Required]
+    [Default(typeof(bool), "0")]
+    public bool DarkMode { get; set; }
 }

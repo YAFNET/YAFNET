@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
 
+using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
@@ -1155,6 +1156,9 @@ public static class UserRepositoryExtensions
     /// <param name="themeFile">
     /// The theme File.
     /// </param>
+    /// <param name="themeMode">
+    /// The Theme Mode.
+    /// </param>
     /// <param name="hideUser">
     /// The hide User.
     /// </param>
@@ -1171,6 +1175,7 @@ public static class UserRepositoryExtensions
         [CanBeNull] string languageFile,
         [CanBeNull] string culture,
         [CanBeNull] string themeFile,
+        ThemeMode themeMode,
         [NotNull] bool hideUser,
         [NotNull] bool activity,
         [NotNull] int pageSize)
@@ -1192,6 +1197,7 @@ public static class UserRepositoryExtensions
                           TimeZone = timeZone,
                           LanguageFile = languageFile,
                           ThemeFile = themeFile,
+                          DarkMode = themeMode == ThemeMode.Dark,
                           Culture = culture,
                           Flags = flags.BitValue,
                           PageSize = pageSize

@@ -39,11 +39,20 @@ using YAF.Types.Objects.Language;
 /// </summary>
 public static class StaticDataHelper
 {
+    /// <summary>
+    /// Get Topic List Modes
+    /// </summary>
+    /// <returns>IReadOnlyCollection&lt;ListItem&gt;.</returns>
     public static IReadOnlyCollection<ListItem> TopicListModes()
     {
         return TopicListModes(BoardContext.Current.Get<ILocalization>());
     }
 
+    /// <summary>
+    /// Get Topic List Modes
+    /// </summary>
+    /// <param name="localization">The localization.</param>
+    /// <returns>IReadOnlyCollection&lt;ListItem&gt;.</returns>
     public static IReadOnlyCollection<ListItem> TopicListModes([NotNull] ILocalization localization)
     {
         var modesList = new List<ListItem>();
@@ -61,20 +70,20 @@ public static class StaticDataHelper
         return modesList;
     }
 
+    /// <summary>
+    /// Gets the gender list
+    /// </summary>
+    /// <returns>IReadOnlyCollection&lt;ListItem&gt;.</returns>
     public static IReadOnlyCollection<ListItem> Gender()
     {
         return Gender(BoardContext.Current.Get<ILocalization>());
     }
 
     /// <summary>
-    /// The country.
+    /// Gets the gender list
     /// </summary>
-    /// <param name="localization">
-    /// The localization.
-    /// </param>
-    /// <returns>
-    /// Returns a Data Table with all country names (localized).
-    /// </returns>
+    /// <param name="localization">The localization.</param>
+    /// <returns>IReadOnlyCollection&lt;ListItem&gt;.</returns>
     public static IReadOnlyCollection<ListItem> Gender([NotNull] ILocalization localization)
     {
         var genderList = new List<ListItem>();

@@ -68,4 +68,41 @@ public static class DropDownListExtensions
                     dropDownList.Items.Add(item);
                 });
     }
+
+    /// <summary>
+    /// Get All Themes
+    /// </summary>
+    /// <returns>
+    /// Returns a List with all Themes
+    /// </returns>
+    public static List<ListItem> AddThemeModes(this DropDownList dropDownList)
+    {
+        var modesList = new List<ListItem>();
+
+        var modes = EnumExtensions.GetAllItems<ThemeMode>();
+
+        var localization = BoardContext.Current.Get<ILocalization>();
+
+        string[] textArray =
+        {
+            "sun", "moon"
+        };
+
+        modes.ForEach(
+            mode =>
+            {
+                var text = localization.GetText("THEME_MODE", mode.ToString());
+                var value = mode.ToInt();
+
+                var item = new ListItem { Value = value.ToString(), Text = text };
+
+                item.Attributes.Add(
+                    "data-content",
+                    $"<span class=\"select2-image-select-icon\"><i class=\"far fa-{textArray[value]} fa-fw text-secondary me-1\"></i>{text}</span>");
+
+                dropDownList.Items.Add(item);
+            });
+
+        return modesList;
+    }
 }

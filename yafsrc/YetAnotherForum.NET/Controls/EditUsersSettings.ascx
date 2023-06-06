@@ -38,21 +38,23 @@
                       CssClass="select2-select" />
 </div>
     <asp:PlaceHolder runat="server" id="UserThemeRow">
-        <div class="mb-3 col-md-4">
-            <asp:Label runat="server" AssociatedControlID="Theme">
-                <YAF:LocalizedLabel ID="LocalizedLabel22" runat="server"
-                                    LocalizedPage="EDIT_PROFILE"
-                                    LocalizedTag="SELECT_THEME" />
-            </asp:Label>
-            <asp:DropDownList runat="server" ID="Theme" CssClass="select2-select" />
-        </div>
-        <div class="mb-3 col-md-4">
-            <asp:Label runat="server" AssociatedControlID="Theme">
-                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
-                                    LocalizedPage="EDIT_PROFILE"
-                                    LocalizedTag="SELECT_THEME" />
-            </asp:Label>
-            <asp:DropDownList runat="server" ID="DropDownList1" CssClass="select2-select" />
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <asp:Label runat="server" AssociatedControlID="Theme">
+                    <YAF:LocalizedLabel ID="LocalizedLabel22" runat="server"
+                                        LocalizedPage="EDIT_PROFILE"
+                                        LocalizedTag="SELECT_THEME" />
+                </asp:Label>
+                <asp:DropDownList runat="server" ID="Theme" CssClass="select2-select" />
+            </div>
+            <div class="mb-3 col-md-4">
+                <asp:Label runat="server" AssociatedControlID="Theme">
+                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
+                                        LocalizedPage="EDIT_PROFILE"
+                                        LocalizedTag="SELECT_THEME_MODE" />
+                </asp:Label>
+                <asp:DropDownList ID="ThemeMode" runat="server" CssClass="select2-image-select" /> 
+            </div>
         </div>
     </asp:PlaceHolder>
     <asp:PlaceHolder runat="server" id="UserLanguageRow">
