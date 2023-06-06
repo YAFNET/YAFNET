@@ -157,14 +157,8 @@ public class ServicesModule : BaseModule
         builder.RegisterInstance(new ControlSettings()).AsSelf().SingleInstance();
 
         // Migrations
-        builder.RegisterType<V30_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V80_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V81_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V82_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V84_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V85_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V86_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V87_Migration>().AsSelf().PreserveExistingDefaults();
+        builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AssignableTo<IRepositoryMigration>().AsSelf()
+            .PreserveExistingDefaults();
 
         // Caching
         //builder.RegisterType<MemoryCache>().As<IMemoryCache>().SingleInstance();
