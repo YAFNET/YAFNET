@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Modules;
 
+using System.Reflection;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
@@ -48,6 +50,7 @@ public class ServicesModule : BaseModule
     protected override void Load(ContainerBuilder builder)
     {
         RegisterServices(builder);
+        RegisterMigrationServices(builder);
         RegisterIdentityServices(builder);
         RegisterBoardContextServices(builder);
         RegisterHubs(builder);
@@ -140,22 +143,24 @@ public class ServicesModule : BaseModule
         builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentBoardSettings>().Instance)
             .ExternallyOwned().PreserveExistingDefaults();
 
-        // Migrations
-        builder.RegisterType<V30_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V80_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V81_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V82_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V84_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V85_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V86_Migration>().AsSelf().PreserveExistingDefaults();
-        builder.RegisterType<V87_Migration>().AsSelf().PreserveExistingDefaults();
-
         builder.RegisterInstance(new BoardFolders()).AsSelf().SingleInstance();
         builder.RegisterInstance(new ControlSettings()).AsSelf().SingleInstance();
 
         builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
         builder.RegisterType<ActionContextAccessor>().As<IActionContextAccessor>().SingleInstance(); 
         builder.RegisterType<NotificationClient>().AsSelf().SingleInstance();
+    }
+
+    /// <summary>
+    /// Register Migration Services
+    /// </summary>
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    private static void RegisterMigrationServices(ContainerBuilder builder)
+    {
+        builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AssignableTo<IRepositoryMigration>().AsSelf()
+            .PreserveExistingDefaults();
     }
 
     /// <summary>
