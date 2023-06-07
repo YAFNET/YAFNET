@@ -1,9 +1,11 @@
 ﻿@page "{handler?}"
 
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Core.Model
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
+@using YAF.Types.Objects.Model
 @using YAF.Web.TagHelpers
 @using OptionTagHelper = YAF.Web.TagHelpers.OptionTagHelper
 
@@ -69,23 +71,43 @@
 
                     @if (Model.PageBoardContext.BoardSettings.AllowUserTheme)
                     {
-                        <div class="mb-3">
-                            <label asp-for="Theme" localized-page="EDIT_PROFILE" localized-tag="SELECT_THEME" class="form-label">
-                            </label>
-                            <select asp-for="Theme" class="select2-select">
-                                @foreach (var item in Model.Themes)
-                                {
-                                    if (item.Selected)
+                        <div class="row">
+                            <div class="mb-3 col-md-4">
+                                <label asp-for="Theme" localized-page="EDIT_PROFILE" localized-tag="SELECT_THEME" class="form-label">
+                                </label>
+                                <select asp-for="Theme" class="select2-select">
+                                    @foreach (var item in Model.Themes)
                                     {
-                                        <option value="@item.Value" selected="selected">@item.Text</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.Value">@item.Text</option>
-                                    }
+                                        if (item.Selected)
+                                        {
+                                            <option value="@item.Value" selected="selected">@item.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
 
-                                }
-                            </select>
+                                    }
+                                </select>
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label asp-for="ThemeMode" localized-page="EDIT_PROFILE" localized-tag="SELECT_THEME_MODE" class="form-label">
+                                </label>
+                                <select asp-for="ThemeMode" class="select2-image-select">
+                                    @foreach (var item in Model.ThemeModes)
+                                    {
+                                        if (item.Selected)
+                                        {
+                                            <option value="@item.Value" selected="selected" data-content="@($"<span class=\"select2-image-select-icon\"><i class=\"far fa-{item.Group.Name} fa-fw text-secondary me-1\"></i>{item.Text}</span>")">@item.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Value" data-content="@($"<span class=\"select2-image-select-icon\"><i class=\"far fa-{item.Group.Name} fa-fw text-secondary me-1\"></i>{item.Text}</span>")">@item.Text</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
                         </div>
                     }
 

@@ -79,6 +79,12 @@ public class EditSettingsModel : ProfilePage
     public string Theme { get; set; }
 
     /// <summary>
+    /// Gets or sets the theme.
+    /// </summary>
+    [BindProperty]
+    public int ThemeMode { get; set; }
+
+    /// <summary>
     /// Gets or sets the language.
     /// </summary>
     [BindProperty]
@@ -99,6 +105,11 @@ public class EditSettingsModel : ProfilePage
     /// Gets or sets the themes.
     /// </summary>
     public IReadOnlyCollection<SelectListItem> Themes { get; set; }
+
+    /// <summary>
+    /// Gets or sets the theme modes.
+    /// </summary>
+    public IReadOnlyCollection<SelectListItem> ThemeModes { get; set; }
 
     /// <summary>
     /// Gets or sets the languages.
@@ -166,6 +177,7 @@ public class EditSettingsModel : ProfilePage
         string language = null;
         var culture = this.Language;
         var theme = this.Theme;
+        var themeMode = this.ThemeMode.ToEnum<ThemeMode>();
 
         if (this.Theme.IsNotSet())
         {
@@ -190,6 +202,7 @@ public class EditSettingsModel : ProfilePage
             language,
             culture,
             theme,
+            themeMode,
             this.HideMe,
             this.Activity,
             this.Size
@@ -223,6 +236,7 @@ public class EditSettingsModel : ProfilePage
         if (this.PageBoardContext.BoardSettings.AllowUserTheme)
         {
             this.Themes = StaticDataHelper.Themes();
+            this.ThemeModes = StaticDataHelper.ThemeModes();
         }
 
         if (this.PageBoardContext.BoardSettings.AllowUserLanguage)
@@ -258,6 +272,11 @@ public class EditSettingsModel : ProfilePage
                 {
                     this.Theme = themeFile;
                 }
+            }
+
+            if (this.ThemeModes.Any(x => x.Value == this.PageBoardContext.PageUser.DarkMode.ToType<int>().ToString()))
+            {
+                this.ThemeMode = this.PageBoardContext.PageUser.DarkMode.ToType<int>();
             }
         }
 

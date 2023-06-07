@@ -34,6 +34,7 @@ using YAF.Core.Context;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services;
+using YAF.Types.Constants;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
@@ -63,6 +64,11 @@ public class UsersSettingsModel : AdminPage
     /// Gets or sets the themes.
     /// </summary>
     public IReadOnlyCollection<SelectListItem> Themes { get; set; }
+
+    /// <summary>
+    /// Gets or sets the theme modes.
+    /// </summary>
+    public IReadOnlyCollection<SelectListItem> ThemeModes { get; set; }
 
     /// <summary>
     /// Gets or sets the languages.
@@ -142,6 +148,7 @@ public class UsersSettingsModel : AdminPage
         string language = null;
         var culture = this.Input.Language;
         var theme = this.Input.Theme;
+        var themeMode = this.Input.ThemeMode.ToEnum<ThemeMode>();
 
         if (this.Input.Theme.IsNotSet())
         {
@@ -165,7 +172,8 @@ public class UsersSettingsModel : AdminPage
             this.Input.TimeZone,
             language,
             culture,
-            theme,
+            theme, 
+            themeMode,
             this.Input.HideMe,
             this.Input.Activity,
             this.Input.Size
@@ -205,6 +213,7 @@ public class UsersSettingsModel : AdminPage
         if (this.PageBoardContext.BoardSettings.AllowUserTheme)
         {
             this.Themes = StaticDataHelper.Themes();
+            this.ThemeModes = StaticDataHelper.ThemeModes();
         }
 
         if (this.PageBoardContext.BoardSettings.AllowUserLanguage)
@@ -242,6 +251,11 @@ public class UsersSettingsModel : AdminPage
                 {
                     this.Input.Theme = themeFile;
                 }
+            }
+
+            if (this.ThemeModes.Any(x => x.Value == user.Item1.DarkMode.ToType<int>().ToString()))
+            {
+                this.Input.ThemeMode = this.PageBoardContext.PageUser.DarkMode.ToType<int>();
             }
         }
 
@@ -314,6 +328,11 @@ public class UsersSettingsModel : AdminPage
         /// Gets or sets the theme.
         /// </summary>
         public string Theme { get; set; }
+
+        /// <summary>
+        /// Gets or sets the theme.
+        /// </summary>
+        public int ThemeMode { get; set; }
 
         /// <summary>
         /// Gets or sets the language.
