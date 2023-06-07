@@ -4070,14 +4070,6 @@
             "#text": "Kui see on lubatud, saavad kasutajad lisada pilte küsitlusvalikutena."
           },
           {
-            "@tag": "ALLOW_USERTEXTEDITOR",
-            "#text": "Luba kasutajatel valida tekstiredaktorit"
-          },
-          {
-            "@tag": "ALLOW_USERTEXTEDITOR_HELP",
-            "#text": "Lubage kasutajatel valida oma profiilidel tekstiredaktor."
-          },
-          {
             "@tag": "ALLOWED_EXTENSIONS",
             "#text": "Lubatud faililaiendid:"
           },
@@ -10233,12 +10225,12 @@
             "#text": "Standardne lehe suurus:"
           },
           {
-            "@tag": "SELECT_TEXTEDITOR",
-            "#text": "Valige oma tekstiredaktor:"
-          },
-          {
             "@tag": "SELECT_THEME",
             "#text": "Valige eelistatud kujundus:"
+          },
+          {
+            "@tag": "SELECT_THEME_MODE",
+            "#text": "Select the theme mode:"
           },
           {
             "@tag": "SKYPE",
@@ -15125,6 +15117,19 @@
           {
             "@tag": "VERIFYEMAIL_TEXT",
             "#text": "Te taotlesite {forumname} foorumiga liitumist, kuid kõigepealt on vaja kontrollida Teie e-posti aadressi.\r\n\r\nKontrollimiseks vajutage lingile või kopeerige link oma veebilehitsejasse:\r\n\r\n{link}\r\n\r\nTeie võti on:\r\n\r\n{key}\r\n\r\nKülastage {forumname} aadressil {forumlink}\r\n"
+          }
+        ]
+      },
+      {
+        "@name": "THEME_MODE",
+        "Resource": [
+          {
+            "@tag": "DARK",
+            "#text": "Dark"
+          },
+          {
+            "@tag": "LIGHT",
+            "#text": "Light"
           }
         ]
       },

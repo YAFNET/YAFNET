@@ -4062,14 +4062,6 @@
             "#text": "Jeśli opcja ta jest włączona, użytkownicy mogą dodawać obrazy jako opcje ankiety."
           },
           {
-            "@tag": "ALLOW_USERTEXTEDITOR",
-            "#text": "Umożliwienie użytkownikom wyboru edytora tekstu"
-          },
-          {
-            "@tag": "ALLOW_USERTEXTEDITOR_HELP",
-            "#text": "Umożliwienie użytkownikom wyboru edytora tekstu w ich profilach."
-          },
-          {
             "@tag": "ALLOWED_EXTENSIONS",
             "#text": "Dozwolone rozszerzenia plików:"
           },
@@ -10229,12 +10221,12 @@
             "#text": "Standardowy rozmiar strony:"
           },
           {
-            "@tag": "SELECT_TEXTEDITOR",
-            "#text": "Wybierz swój edytor tekstu:"
-          },
-          {
             "@tag": "SELECT_THEME",
             "#text": "Wybierz Twój preferowany wygląd:"
+          },
+          {
+            "@tag": "SELECT_THEME_MODE",
+            "#text": "Select the theme mode:"
           },
           {
             "@tag": "SKYPE",
@@ -15097,6 +15089,19 @@
           {
             "@tag": "VERIFYEMAIL_TEXT",
             "#text": "\r\nYou have requested to join {forumname}, but before you can join your email address must be verified.\r\n\r\nTo verify your email address open the following link in your web browser:\r\n\r\n{link}\r\n\r\nYour approval key is:\r\n\r\n{key}\r\n\r\nVisit {forumname} at {forumlink}\r\n"
+          }
+        ]
+      },
+      {
+        "@name": "THEME_MODE",
+        "Resource": [
+          {
+            "@tag": "DARK",
+            "#text": "Dark"
+          },
+          {
+            "@tag": "LIGHT",
+            "#text": "Light"
           }
         ]
       },

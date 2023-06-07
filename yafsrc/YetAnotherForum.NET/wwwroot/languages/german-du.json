@@ -4062,14 +4062,6 @@
             "#text": "Wen aktiviert können Benutzer Bilder als Umfrage Optionen verwenden"
           },
           {
-            "@tag": "ALLOW_USERTEXTEDITOR",
-            "#text": "Benutzern erlauben, Text-Editor auszuwählen"
-          },
-          {
-            "@tag": "ALLOW_USERTEXTEDITOR_HELP",
-            "#text": "Benutzern erlauben, Text-Editor in den Profileinstellungen auszuwählen"
-          },
-          {
             "@tag": "ALLOWED_EXTENSIONS",
             "#text": "Erlaubte Dateierweiterungen:"
           },
@@ -10225,12 +10217,12 @@
             "#text": "Standard-Seitengröße:"
           },
           {
-            "@tag": "SELECT_TEXTEDITOR",
-            "#text": "Wählen Sie einen Texteditor:"
-          },
-          {
             "@tag": "SELECT_THEME",
             "#text": "Wähle dein bevorzugtes Design:"
+          },
+          {
+            "@tag": "SELECT_THEME_MODE",
+            "#text": "Select the theme mode:"
           },
           {
             "@tag": "SKYPE",
@@ -15093,6 +15085,19 @@
           {
             "@tag": "VERIFYEMAIL_TEXT",
             "#text": "\r\nDu möchtest {forumname} beitreten, zur Freischaltung muss aber zuerst Deine E-Mail-Adresse überprüft werden.\r\n\r\nUm Deine angegebene Adresse zu bestätigen, öffne diesen Link mit Deinem Browser:\r\n\r\n{link}\r\n\r\nDer Bestätigungscode lautet\r\n\r\n{key}\r\n\r\n{forumname} auf {forumlink}\r\n    "
+          }
+        ]
+      },
+      {
+        "@name": "THEME_MODE",
+        "Resource": [
+          {
+            "@tag": "DARK",
+            "#text": "Dark"
+          },
+          {
+            "@tag": "LIGHT",
+            "#text": "Light"
           }
         ]
       },

@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v7.0": {
-      "YAF.LanguageManager/1.0.2": {
+      "YAF.LanguageManager/1.0.3": {
         "dependencies": {
           "DeepL.net": "1.7.1",
           "Google.Cloud.Translate.V3": "3.2.0",
@@ -409,7 +409,7 @@
     }
   },
   "libraries": {
-    "YAF.LanguageManager/1.0.2": {
+    "YAF.LanguageManager/1.0.3": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
