@@ -47,39 +47,6 @@ public static class EnumExtensions
     }
 
     /// <summary>
-    /// Will get the string value for a given Enumerator value, this will
-    ///   only work if you assign the StringValue attribute to
-    ///   the items in your Enumerator.
-    /// </summary>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string GetStringValue(this Enum value)
-    {
-        // Get the type
-        var type = value.GetType();
-
-        // Get field info for this type
-        var fieldInfo = type.GetField(value.ToString());
-
-        if (fieldInfo == null)
-        {
-            return Enum.GetName(type, value);
-        }
-
-        // Return the first if there was a match.
-        if (fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) is StringValueAttribute[] attribs)
-        {
-            return attribs.Length > 0 ? attribs[0].StringValue : Enum.GetName(type, value);
-        }
-
-        return Enum.GetName(type, value);
-    }
-
-    /// <summary>
     /// Converts A Integer to an Enumerator.
     /// </summary>
     /// <param name="value">

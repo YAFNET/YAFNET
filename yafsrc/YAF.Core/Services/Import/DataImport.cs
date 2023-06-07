@@ -543,6 +543,7 @@ public static class DataImport
             row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"].ToString() : null,
             row.Table.Columns.Contains("Culture") ? row["Culture"].ToString() : null,
             row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"].ToString() : null,
+            row.Table.Columns.Contains("DarkMode") ? row["DarkMode"].ToType<ThemeMode>() : ThemeMode.Light,
             false,
             true,
             5);

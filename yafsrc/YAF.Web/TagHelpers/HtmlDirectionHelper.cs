@@ -40,14 +40,14 @@ public class HtmlDirectionHelper : TagHelper, IHaveServiceLocator
     {
         this.ServiceLocator = serviceLocator;
     }
-        
+
     /// <summary>
     ///   Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>
-    /// The process.
+    /// Sets the direction, language and bs theme tag for the root html tag
     /// </summary>
     /// <param name="context">
     /// The context.
@@ -68,5 +68,10 @@ public class HtmlDirectionHelper : TagHelper, IHaveServiceLocator
         }
 
         output.Attributes.SetAttribute("lang", this.Get<ILocalization>().Culture.TwoLetterISOLanguageName);
+
+        if (BoardContext.Current.PageUser.DarkMode)
+        {
+            output.Attributes.SetAttribute("data-bs-theme", "dark");
+        }
     }
 }

@@ -42,7 +42,7 @@ using YAF.Types.Objects.Language;
 public static class StaticDataHelper
 {
     /// <summary>
-    /// Gets the Friend  list modes.
+    /// Gets the Friend list modes.
     /// </summary>
     /// <returns>IReadOnlyCollection&lt;SelectListItem&gt;.</returns>
     public static IReadOnlyCollection<SelectListItem> FriendListModes()
@@ -466,6 +466,45 @@ public static class StaticDataHelper
 
         dir.GetDirectories().Select(folder => folder.Name)
             .ForEach(theme => list.Add(new SelectListItem(theme, theme)));
+
+        return list;
+    }
+
+    /// <summary>
+    /// Get All Themes
+    /// </summary>
+    /// <returns>
+    /// Returns a List with all Themes
+    /// </returns>
+    public static IReadOnlyCollection<SelectListItem> ThemeModes()
+    {
+        var list = new List<SelectListItem>();
+
+        var localization = BoardContext.Current.Get<ILocalization>();
+
+        var modes = EnumExtensions.GetAllItems<ThemeMode>();
+        
+        var optionGroupLight = new SelectListGroup { Name = "sun" };
+        var optionGroupDark = new SelectListGroup { Name = "moon" };
+
+        modes.ForEach(
+            mode =>
+                {
+                    var text = localization.GetText("THEME_MODE", mode.ToString());
+                    var value = mode.ToInt();
+
+                    switch (mode)
+                    {
+                        case ThemeMode.Dark:
+                            list.Add(new SelectListItem { Value = value.ToString(), Text = text, Group = optionGroupDark });
+                            break;
+                        case ThemeMode.Light:
+                            list.Add(new SelectListItem { Value = value.ToString(), Text = text, Group = optionGroupLight });
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
+                    }
+                });
 
         return list;
     }
