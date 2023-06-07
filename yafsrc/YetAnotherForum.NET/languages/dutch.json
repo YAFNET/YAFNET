@@ -4062,14 +4062,6 @@
             "#text": "Als deze is aangevinkt, kunnen gebruikers plaatjes als keuzes gebruiken."
           },
           {
-            "@tag": "ALLOW_USERTEXTEDITOR",
-            "#text": "Gebruikers mogen tekstverwerker kiezen"
-          },
-          {
-            "@tag": "ALLOW_USERTEXTEDITOR_HELP",
-            "#text": "Gebruikers kunnen kiezen tussen verschillende tekstverwerkers in hun profiel."
-          },
-          {
             "@tag": "ALLOWED_EXTENSIONS",
             "#text": "Toegestane bestandsextensies:"
           },
@@ -10225,12 +10217,12 @@
             "#text": "Standaard paginaformaat:"
           },
           {
-            "@tag": "SELECT_TEXTEDITOR",
-            "#text": "Kies je texteditor:"
-          },
-          {
             "@tag": "SELECT_THEME",
             "#text": "Selecteer je gewenste forum-thema:"
+          },
+          {
+            "@tag": "SELECT_THEME_MODE",
+            "#text": "Select the theme mode:"
           },
           {
             "@tag": "SKYPE",
@@ -15093,6 +15085,19 @@
           {
             "@tag": "VERIFYEMAIL_TEXT",
             "#text": "\r\nYou have requested to join {forumname}, but before you can join your email address must be verified.\r\n\r\nTo verify your email address open the following link in your web browser:\r\n\r\n{link}\r\n\r\nYour approval key is:\r\n\r\n{key}\r\n\r\nVisit {forumname} at {forumlink}\r\n"
+          }
+        ]
+      },
+      {
+        "@name": "THEME_MODE",
+        "Resource": [
+          {
+            "@tag": "DARK",
+            "#text": "Dark"
+          },
+          {
+            "@tag": "LIGHT",
+            "#text": "Light"
           }
         ]
       },

@@ -4070,14 +4070,6 @@
             "#text": "Nếu được bật Người dùng có thể thêm hình ảnh làm tùy chọn thăm dò."
           },
           {
-            "@tag": "ALLOW_USERTEXTEDITOR",
-            "#text": "Cho phép người dùng chọn trình soạn thảo văn bản"
-          },
-          {
-            "@tag": "ALLOW_USERTEXTEDITOR_HELP",
-            "#text": "Cho phép người dùng chọn trình soạn thảo văn bản trong hồ sơ của họ."
-          },
-          {
             "@tag": "ALLOWED_EXTENSIONS",
             "#text": "Phần mở rộng tệp được phép:"
           },
@@ -10233,12 +10225,12 @@
             "#text": "Kích thước trang chuẩn:"
           },
           {
-            "@tag": "SELECT_TEXTEDITOR",
-            "#text": "Chọn trình soạn thảo văn bản của bạn:"
-          },
-          {
             "@tag": "SELECT_THEME",
             "#text": "Chọn giao diện:"
+          },
+          {
+            "@tag": "SELECT_THEME_MODE",
+            "#text": "Select the theme mode:"
           },
           {
             "@tag": "SKYPE",
@@ -15117,6 +15109,19 @@
           {
             "@tag": "VERIFYEMAIL_TEXT",
             "#text": "\r\n      You have requested to join {forumname}, but before you can join your email address must be verified.\r\n\r\n      To verify your email address open the following link in your web browser:\r\n\r\n      {link}\r\n\r\n      Your approval key is:\r\n\r\n      {key}\r\n\r\n      Visit {forumname} at {forumlink}\r\n    "
+          }
+        ]
+      },
+      {
+        "@name": "THEME_MODE",
+        "Resource": [
+          {
+            "@tag": "DARK",
+            "#text": "Dark"
+          },
+          {
+            "@tag": "LIGHT",
+            "#text": "Light"
           }
         ]
       },

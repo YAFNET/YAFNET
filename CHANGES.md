@@ -1,6 +1,13 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.14
+* [NEW] Added user setting for switching theme to light/dark mode
+* [FIXED] Wildcards in Banned IP
+* Upgraded to jQuery 3.7.0
+* Upgraded to CKEditor 4.21.0
+
+
 # YetAnotherForum.NET v3.1.13
 * bump to FontAwesome 6.3.0
 * Upgraded to jQuery 3.6.4

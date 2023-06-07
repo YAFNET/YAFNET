@@ -4070,14 +4070,6 @@
             "#text": "Dacă este activată, utilizatorii pot adăuga imagini ca opțiuni de sondaj."
           },
           {
-            "@tag": "ALLOW_USERTEXTEDITOR",
-            "#text": "Permiteți utilizatorilor să aleagă editorul de text"
-          },
-          {
-            "@tag": "ALLOW_USERTEXTEDITOR_HELP",
-            "#text": "Permiteți utilizatorilor să aleagă un editor de text în profilurile lor."
-          },
-          {
             "@tag": "ALLOWED_EXTENSIONS",
             "#text": "Extensii de fișiere permise:"
           },
@@ -10233,12 +10225,12 @@
             "#text": "Dimensiunea standard a paginii:"
           },
           {
-            "@tag": "SELECT_TEXTEDITOR",
-            "#text": "Selectați editorul de text:"
-          },
-          {
             "@tag": "SELECT_THEME",
             "#text": "Selectati tema preferata:"
+          },
+          {
+            "@tag": "SELECT_THEME_MODE",
+            "#text": "Select the theme mode:"
           },
           {
             "@tag": "SKYPE",
@@ -15117,6 +15109,19 @@
           {
             "@tag": "VERIFYEMAIL_TEXT",
             "#text": "\r\nAti cerut inregistrarea pe forum {forumname}. Inainte de a putea fi inregistrat, adresa de mail trebuie verificata.\r\n\r\nPentru a va verifica adresa de mail, deschideti urmatorul link in browserul dumneavoastra:\r\n\r\n\r\n{link}\r\n\r\nCheia dumneavoastra de aprobare este:\r\n\r\n\r\n{key}\r\n\r\nVizitati forumul {forumname} la adresa {forumlink}\r\n"
+          }
+        ]
+      },
+      {
+        "@name": "THEME_MODE",
+        "Resource": [
+          {
+            "@tag": "DARK",
+            "#text": "Dark"
+          },
+          {
+            "@tag": "LIGHT",
+            "#text": "Light"
           }
         ]
       },

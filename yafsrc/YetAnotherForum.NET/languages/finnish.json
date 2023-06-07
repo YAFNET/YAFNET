@@ -4070,14 +4070,6 @@
             "#text": "Jos tämä on käytössä, käyttäjät voivat lisätä kuvia kyselyvaihtoehtoina."
           },
           {
-            "@tag": "ALLOW_USERTEXTEDITOR",
-            "#text": "Salli käyttäjien valita tekstieditori"
-          },
-          {
-            "@tag": "ALLOW_USERTEXTEDITOR_HELP",
-            "#text": "Salli käyttäjien valita tekstieditori profiileihinsa."
-          },
-          {
             "@tag": "ALLOWED_EXTENSIONS",
             "#text": "Sallitut tiedostopäätteet:"
           },
@@ -10233,12 +10225,12 @@
             "#text": "Vakiosivukoko:"
           },
           {
-            "@tag": "SELECT_TEXTEDITOR",
-            "#text": "Valitse tekstieditori:"
-          },
-          {
             "@tag": "SELECT_THEME",
             "#text": "Valitse haluamasi teema:"
+          },
+          {
+            "@tag": "SELECT_THEME_MODE",
+            "#text": "Select the theme mode:"
           },
           {
             "@tag": "SKYPE",
@@ -15117,6 +15109,19 @@
           {
             "@tag": "VERIFYEMAIL_TEXT",
             "#text": "\r\nYou have requested to join {forumname}, but before you can join your email address must be verified.\r\n\r\nTo verify your email address open the following link in your web browser:\r\n\r\n{link}\r\n\r\nYour approval key is:\r\n\r\n{key}\r\n\r\nVisit {forumname} at {forumlink}\r\n"
+          }
+        ]
+      },
+      {
+        "@name": "THEME_MODE",
+        "Resource": [
+          {
+            "@tag": "DARK",
+            "#text": "Dark"
+          },
+          {
+            "@tag": "LIGHT",
+            "#text": "Light"
           }
         ]
       },

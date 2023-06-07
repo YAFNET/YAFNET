@@ -4070,14 +4070,6 @@
             "#text": "Si cette option est activée, les utilisateurs peuvent ajouter des images comme options de sondage."
           },
           {
-            "@tag": "ALLOW_USERTEXTEDITOR",
-            "#text": "Permettre aux utilisateurs de choisir un éditeur de texte"
-          },
-          {
-            "@tag": "ALLOW_USERTEXTEDITOR_HELP",
-            "#text": "Permettre aux utilisateurs de choisir un éditeur de texte dans leurs profils."
-          },
-          {
             "@tag": "ALLOWED_EXTENSIONS",
             "#text": "Extensions de fichiers autorisées :"
           },
@@ -10233,12 +10225,12 @@
             "#text": "Taille de page standard :"
           },
           {
-            "@tag": "SELECT_TEXTEDITOR",
-            "#text": "Sélectionnez votre éditeur de texte :"
-          },
-          {
             "@tag": "SELECT_THEME",
             "#text": "Choisissez un thème&nbsp;:"
+          },
+          {
+            "@tag": "SELECT_THEME_MODE",
+            "#text": "Select the theme mode:"
           },
           {
             "@tag": "SKYPE",
@@ -15117,6 +15109,19 @@
           {
             "@tag": "VERIFYEMAIL_TEXT",
             "#text": "\r\nVous avez demandé à rejoindre {forumname}, mais avant de pouvoir vous connecter votre adresse email doit être vérifiée.\r\n\r\nPour vérifier votre adresse email ouvrez le lien suivant dans votre navigateur :\r\n\r\n{link}\r\n\r\nVotre clé de contrôle est :\r\n\r\n{key}\r\n\r\nVisitez {forumname} à l'adresse {forumlink}\r\n    "
+          }
+        ]
+      },
+      {
+        "@name": "THEME_MODE",
+        "Resource": [
+          {
+            "@tag": "DARK",
+            "#text": "Dark"
+          },
+          {
+            "@tag": "LIGHT",
+            "#text": "Light"
           }
         ]
       },
