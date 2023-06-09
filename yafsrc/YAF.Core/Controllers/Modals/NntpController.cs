@@ -74,6 +74,11 @@ public class NntpController : ForumBaseController
     [HttpPost("EditForum")]
     public IActionResult EditForum([FromBody] NntpForumEditModal model)
     {
+        if (model.Id is 0)
+        {
+            model.Id = null;
+        }
+        
         if (model.ForumID <= 0)
         {
             return this.Ok(

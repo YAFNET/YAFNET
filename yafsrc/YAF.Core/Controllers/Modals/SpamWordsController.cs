@@ -99,6 +99,11 @@ public class SpamWordsController : ForumBaseController
     [HttpPost("Edit")]
     public IActionResult Edit([FromBody] SpamWordsEditModal model)
     {
+        if (model.Id is 0)
+        {
+            model.Id = null;
+        }
+        
         if (!ValidationHelper.IsValidRegex(model.SpamWord.Trim()))
         {
             this.Ok(

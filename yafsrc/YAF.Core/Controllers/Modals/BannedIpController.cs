@@ -100,6 +100,11 @@ public class BannedIpController : ForumBaseController
     [HttpPost("Edit")]
     public IActionResult Edit([FromBody] BannedEmailEditModal model)
     {
+        if (model.Id is 0)
+        {
+            model.Id = null;
+        }
+
         var ipParts = model.Mask.Trim().Split('.');
 
         // do some validation...

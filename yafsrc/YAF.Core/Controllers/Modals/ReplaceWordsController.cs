@@ -131,6 +131,11 @@ public class ReplaceWordsController : ForumBaseController
     [HttpPost("Edit")]
     public IActionResult Edit([FromBody] ReplaceWordsEditModal model)
     {
+        if (model.Id is 0)
+        {
+            model.Id = null;
+        }
+        
         if (!ValidationHelper.IsValidRegex(model.BadWord.Trim()))
         {
             return this.Ok(

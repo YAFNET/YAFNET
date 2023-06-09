@@ -97,13 +97,12 @@ public class BannedEmailsModel : AdminPage
 
     public PartialViewResult OnGetAdd()
     {
-        return new PartialViewResult
-               {
-                   ViewName = "Dialogs/BannedEmailEdit",
-                   ViewData = new ViewDataDictionary<BannedEmailEditModal>(
-                       this.ViewData,
-                       new BannedEmailEditModal())
-               };
+        return new PartialViewResult {
+                                         ViewName = "Dialogs/BannedEmailEdit",
+                                         ViewData = new ViewDataDictionary<BannedEmailEditModal>(
+                                             this.ViewData,
+                                             new BannedEmailEditModal { Id = 0 })
+                                     };
     }
 
     public PartialViewResult OnGetEdit(int id)

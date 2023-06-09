@@ -49,6 +49,11 @@ public class ProfileDefinitionController : ForumBaseController
     [HttpPost("Edit")]
     public IActionResult Edit([FromBody] EditProfileDefinitionModal model)
     {
+        if (model.Id is 0)
+        {
+            model.Id = null;
+        }
+        
         this.GetRepository<ProfileDefinition>().Upsert(
             new ProfileDefinition
                 {

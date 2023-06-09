@@ -111,15 +111,18 @@ public class ReplaceWordsModel : AdminPage
                };
     }
 
+    /// <summary>
+    /// Open Add ReplaceWords Dialog.
+    /// </summary>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetAdd()
     {
-        return new PartialViewResult
-               {
-                   ViewName = "Dialogs/ReplaceWordsEdit",
-                   ViewData = new ViewDataDictionary<ReplaceWordsEditModal>(
-                       this.ViewData,
-                       new ReplaceWordsEditModal())
-               };
+        return new PartialViewResult {
+                                         ViewName = "Dialogs/ReplaceWordsEdit",
+                                         ViewData = new ViewDataDictionary<ReplaceWordsEditModal>(
+                                             this.ViewData,
+                                             new ReplaceWordsEditModal { Id = 0 })
+                                     };
     }
 
     public PartialViewResult OnGetEdit(int id)

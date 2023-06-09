@@ -73,13 +73,12 @@ public class NntpForumsModel : AdminPage
 
     public PartialViewResult OnGetAdd()
     {
-        return new PartialViewResult
-               {
-                   ViewName = "Dialogs/NntpForumEdit",
-                   ViewData = new ViewDataDictionary<NntpForumEditModal>(
-                       this.ViewData,
-                       new NntpForumEditModal())
-               };
+        return new PartialViewResult {
+                                         ViewName = "Dialogs/NntpForumEdit",
+                                         ViewData = new ViewDataDictionary<NntpForumEditModal>(
+                                             this.ViewData,
+                                             new NntpForumEditModal { Id = 0 })
+                                     };
     }
 
     public PartialViewResult OnGetEdit(int id)

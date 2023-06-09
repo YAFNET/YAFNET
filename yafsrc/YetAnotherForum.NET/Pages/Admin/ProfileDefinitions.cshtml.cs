@@ -70,6 +70,7 @@ public class ProfileDefinitionsModel : AdminPage
                                          ViewData = new ViewDataDictionary<EditProfileDefinitionModal>(
                                              this.ViewData,
                                              new EditProfileDefinitionModal {
+                                                                                Id = 0,
                                                                                 Length = 1
                                                                             })
                                      };

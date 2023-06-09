@@ -127,13 +127,12 @@ public class SpamWordsModel : AdminPage
 
     public PartialViewResult OnGetAdd()
     {
-        return new PartialViewResult
-               {
-                   ViewName = "Dialogs/SpamWordsEdit",
-                   ViewData = new ViewDataDictionary<SpamWordsEditModal>(
-                       this.ViewData,
-                       new SpamWordsEditModal())
-               };
+        return new PartialViewResult {
+                                         ViewName = "Dialogs/SpamWordsEdit",
+                                         ViewData = new ViewDataDictionary<SpamWordsEditModal>(
+                                             this.ViewData,
+                                             new SpamWordsEditModal { Id = 0 })
+                                     };
     }
 
     public PartialViewResult OnGetEdit(int id)

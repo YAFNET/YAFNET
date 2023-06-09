@@ -149,13 +149,12 @@ public class BannedIpsModel : AdminPage
 
     public PartialViewResult OnGetAdd()
     {
-        return new PartialViewResult
-               {
-                   ViewName = "Dialogs/BannedIpEdit",
-                   ViewData = new ViewDataDictionary<BannedEmailEditModal>(
-                       this.ViewData,
-                       new BannedEmailEditModal())
-               };
+        return new PartialViewResult {
+                                         ViewName = "Dialogs/BannedIpEdit",
+                                         ViewData = new ViewDataDictionary<BannedEmailEditModal>(
+                                             this.ViewData,
+                                             new BannedEmailEditModal { Id = 0 })
+                                     };
     }
 
     public PartialViewResult OnGetEdit(int id)

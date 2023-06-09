@@ -100,6 +100,11 @@ public class BannedNameController : ForumBaseController
     [HttpPost("Edit")]
     public IActionResult Edit([FromBody] BannedEmailEditModal model)
     {
+        if (model.Id is 0)
+        {
+            model.Id = null;
+        }
+
         if (!this.GetRepository<BannedName>().Save(
                 model.Id,
                 model.Mask.Trim(),
