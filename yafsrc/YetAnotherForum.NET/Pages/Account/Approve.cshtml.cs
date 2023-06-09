@@ -88,6 +88,8 @@ public class ApproveModel : AccountPage
     /// </returns>
     public async Task OnGetAsync(string code = null)
     {
+        this.Input = new InputModel();
+
         if (code.IsSet())
         {
             this.Input.Key = code;

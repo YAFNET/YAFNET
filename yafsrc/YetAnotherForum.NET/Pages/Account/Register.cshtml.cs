@@ -304,6 +304,10 @@ public class RegisterModel : AccountPage
             {
                 this.GetRepository<Registry>().IncrementBannedUsers();
 
+                this.PageBoardContext.Notify(
+                    this.GetText("BOT_MESSAGE"),
+                    MessageTypes.danger);
+
                 return false;
             }
         }
