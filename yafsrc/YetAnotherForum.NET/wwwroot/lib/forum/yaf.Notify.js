@@ -35,7 +35,7 @@
                     });
 
                 if (isPageChange) {
-                    jQuery(".notify-toggle").dropdown("toggle");
+                    $(".notify-toggle").dropdown("toggle");
                 }
             }
         },
