@@ -261,15 +261,28 @@ public class HostSettingsModel : AdminPage
             {
                 var propertyInfo = this.Input.GetType().GetProperty(name);
 
-                if (propertyInfo == null || propertyInfo.PropertyType.Name != "Int32"
-                                         || !settingCollection.SettingsInt[name].CanWrite)
+                if (propertyInfo == null || !settingCollection.SettingsInt[name].CanWrite)
                 {
                     return;
                 }
 
-                var value = propertyInfo.GetValue(this.Input, null);
+                switch (propertyInfo.PropertyType.Name)
+                {
+                    case "Int32":
+                    {
+                        var value = propertyInfo.GetValue(this.Input, null);
 
-                settingCollection.SettingsInt[name].SetValue(this.PageBoardContext.BoardSettings, value, null);
+                        settingCollection.SettingsInt[name].SetValue(this.PageBoardContext.BoardSettings, value, null);
+                        break;
+                    }
+                    case "String":
+                    {
+                        var value = propertyInfo.GetValue(this.Input, null);
+
+                        settingCollection.SettingsInt[name].SetValue(this.PageBoardContext.BoardSettings, value.ToType<int>(), null);
+                        break;
+                    }
+                }
             });
 
         // save the settings to the database
@@ -446,18 +459,29 @@ public class HostSettingsModel : AdminPage
             {
                 var propertyInfo = this.Input.GetType().GetProperty(name);
 
-                if (propertyInfo == null || propertyInfo.PropertyType.Name != "Int32"
-                                         || !settingCollection.SettingsInt[name].CanRead)
+                if (propertyInfo == null || !settingCollection.SettingsInt[name].CanRead)
                 {
                     return;
                 }
 
-                // get the value from the property...
-                var value = (string)Convert.ChangeType(
-                    settingCollection.SettingsInt[name].GetValue(this.PageBoardContext.BoardSettings, null),
-                    typeof(string));
+                if (propertyInfo.PropertyType.Name == "Int32")
+                {
+                    // get the value from the property...
+                    var value = (string)Convert.ChangeType(
+                        settingCollection.SettingsInt[name].GetValue(this.PageBoardContext.BoardSettings, null),
+                        typeof(string));
 
-                propertyInfo.SetValue(this.Input, Convert.ChangeType(value, propertyInfo.PropertyType), null);
+                    propertyInfo.SetValue(this.Input, Convert.ChangeType(value, propertyInfo.PropertyType), null);
+                }
+                else if (propertyInfo.PropertyType.Name == "String")
+                {
+                    // get the value from the property...
+                    var value = (string)Convert.ChangeType(
+                        settingCollection.SettingsInt[name].GetValue(this.PageBoardContext.BoardSettings, null),
+                        typeof(string));
+
+                    propertyInfo.SetValue(this.Input, Convert.ChangeType(value, TypeCode.String), null);
+                }
             });
 
         // special field handling...
