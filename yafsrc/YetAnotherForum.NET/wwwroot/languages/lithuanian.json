@@ -12656,22 +12656,6 @@
             "#text": "Ar tikrai norite pašalinti apklausą?"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "Ar tikrai norite visiškai pašalinti apklausą?"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "Ar tikrai norite atskirti apklausos grupę?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "Ar tikrai norite visiškai pašalinti apklausos grupę?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "Ar tikrai norite atskirti apklausos grupę nuo kiekvienos vietos?"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Pasirinkimas {0}:"
           },
@@ -12680,24 +12664,8 @@
             "#text": "Sukurti apklausą"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "Atjungti grupę visur"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "Atskirti apklausą"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "Atskirti grupę"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "Redaguoti apklausą"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "Neteisingas galiojimo laikas"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12776,42 +12744,6 @@
             "#text": "Pridėti apklausą"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "Negalima pridėti grupės. Grupė jau yra prijungta."
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "Turėtumėte balsuoti visose apklausose, kad pamatytumėte rezultatus."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Susietas balsavimas"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Don't show results if group is open"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results if the poll didn't expire"
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "Pasirinkite esamą apklausų grupę:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "Valdybos apklausa:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "Pasirinkite esamą apklausą kaip lentos apklausą"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "Your vote will be counted when you'll vote in all the polls."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "Sukurti arba redaguoti apklausą"
           },
@@ -12848,12 +12780,8 @@
             "#text": "Pašalinti apklausą"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "Visiškai pašalinti apklausą"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "Visiškai pašalinti grupę"
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },

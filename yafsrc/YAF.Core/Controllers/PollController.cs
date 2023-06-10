@@ -44,20 +44,24 @@ public class PollController : ForumBaseController
     {
         var poll = this.GetRepository<Poll>().GetById(pollId);
 
-        if (this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess
-                                          || this.PageBoardContext.PageUserID == poll.UserID)
+        if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess
+                                           && this.PageBoardContext.PageUserID != poll.UserID)
         {
-            this.GetRepository<Poll>().Remove(poll.ID);
-        }
-        else
-        {
-            this.RedirectToPage(
+            return this.RedirectToPage(
                 ForumPages.Info.GetPageName(),
                 null,
-                new {info = InfoMessage.Invalid.ToType<int>()});
+                new { info = InfoMessage.Invalid.ToType<int>() });
         }
 
-        return this.RedirectToPage(ForumPages.Index.GetPageName());
+        var topic = this.GetRepository<Topic>().GetSingle(t => t.PollID == pollId);
+
+        this.GetRepository<Poll>().Remove(poll.ID);
+
+        this.PageBoardContext.SessionNotify(this.GetText("REMOVEPOLL_MSG"), MessageTypes.success);
+
+        return this.RedirectToPage(
+            ForumPages.Posts.GetPageName(),
+            new { t = topic.ID, name = topic.TopicName });
     }
 
     /// <summary>

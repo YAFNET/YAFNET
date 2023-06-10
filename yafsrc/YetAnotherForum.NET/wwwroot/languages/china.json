@@ -12656,22 +12656,6 @@
             "#text": "您真的要删除投票吗？"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "您真的要完全删除投票吗？"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "您真的要分离投票组吗？"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "您真的要完全删除投票组吗？"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "您真的想将投票组从各个地方分离出来吗？"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "选择 {0}："
           },
@@ -12680,24 +12664,8 @@
             "#text": "创建投票"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "随处分离组"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "分离投票"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "分离组"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "编辑投票"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "失效日期不正确"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12776,42 +12744,6 @@
             "#text": "添加投票"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "无法附加组。"
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "您应该在所有民意调查中投票以查看结果。"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "绑定投票"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Don't show results if group is open"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results if the poll didn't expire"
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "选择一个现有的投票组："
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "董事会投票："
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "选择一个现有的民意调查作为董事会民意调查"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "Your vote will be counted when you'll vote in all the polls."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "创建或编辑投票"
           },
@@ -12848,12 +12780,8 @@
             "#text": "删除投票"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "完全删除投票"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "完全删除组"
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },

@@ -12644,22 +12644,6 @@
             "#text": "Na pewno chcesz usunąć ankietę?"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "Na pewno chcesz usunąć ankietę kompletnie?"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "Na pewno chcesz odłączyć ankiety?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "Na pewno chcesz usunąć grupy?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "Czy na pewno chcesz odłączyć grupy ze wszystkich ankiet?"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Wybór {0}:"
           },
@@ -12668,24 +12652,8 @@
             "#text": "Stwórz ankietę"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "Odłącz grupy wszędzie"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "Odłącz ankietę"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "Odłącz grupę"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "Edytuj ankietę"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "Błędna data zakonczenia"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12764,38 +12732,6 @@
             "#text": "Dodaj ankietę"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "Nie można załączyć grupy, ponieważ już jest załączona."
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "Powinieneś zagłosować we wszystkich ankietach, aby zobaczyć rezultaty."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Zamknięte rezultaty"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Nie pokazuje rezultatów ankiety, dopóki ankieta nie wygaśnie"
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "Wybierz istniejącą grupę ankiet:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "Plebiscyt Zarządu:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "Wybierz istniejącą ankietę jako ankietę Board Poll"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "Twój głos zostanie policzony, jeżeli zagłosujesz we wszystkich ankietach."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "Dodaj lub edytuj ankietę"
           },
@@ -12832,12 +12768,8 @@
             "#text": "Usuń ankietę"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "Usuń ankietę całkowicie"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "Usuń grupę całkowicie"
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },

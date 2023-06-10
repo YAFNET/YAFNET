@@ -12660,22 +12660,6 @@
             "#text": "האם אתה באמת רוצה להסיר את הסקר?"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "האם אתה באמת רוצה להסיר את הסקר לחלוטין?"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "האם אתה באמת רוצה לנתק את קבוצת הסקר?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "האם אתה באמת רוצה להסיר את קבוצת הסקר לחלוטין?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "האם אתה באמת רוצה לנתק את קבוצת הסקר מכל מקום?"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "בחירה {0}:"
           },
@@ -12684,24 +12668,8 @@
             "#text": "צור סקר"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "נתק קבוצה בכל מקום"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "נתק סקר"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "לנתק קבוצה"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "ערוך סקר"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "תאריך תפוגה שגוי"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12780,46 +12748,6 @@
             "#text": "הוסף סקר"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "לא ניתן לצרף את הקבוצה. קבוצה כבר מצורפת."
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "כדאי להצביע בכל הסקרים כדי לראות תוצאות."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "הצבעה כבולה"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "The questions are dependent"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Don't show results if group is open"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results if the poll didn't expire"
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "בחר קבוצת סקר קיימת:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "סקר לוח:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "בחר סקר קיים כמשאל לוח"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "Your vote will be counted when you'll vote in all the polls."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "צור או ערוך סקר"
           },
@@ -12864,12 +12792,8 @@
             "#text": "הסר את הסקר"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "הסר את הסקר לחלוטין"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "הסר את הקבוצה לחלוטין"
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },

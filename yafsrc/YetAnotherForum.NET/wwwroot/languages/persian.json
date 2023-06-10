@@ -12636,22 +12636,6 @@
             "#text": "آیا واقعاً می خواهید نظرسنجی را حذف کنید؟"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "آیا واقعاً می خواهید نظرسنجی را کاملاً حذف کنید؟"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "آیا واقعا می خواهید گروه نظرسنجی را جدا کنید؟"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "آیا واقعا می خواهید گروه نظرسنجی را کاملاً حذف کنید؟"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "آیا واقعا می خواهید گروه نظرسنجی را از همه جا جدا کنید؟"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "انتخاب {0} :"
           },
@@ -12660,24 +12644,8 @@
             "#text": "ایجاد نظرسنجی"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "گروه را از همه جا حذف کن"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "جداکردن نظرسنجی"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "جداکردن گروه"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "ویرایش نظرسنجی"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "تاریخ انقضا معتبر نمی باشد"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12756,38 +12724,6 @@
             "#text": "افزودن نظرسنجی"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "نمی توان گروه را پیوست کرد. یک گروه قبلاً پیوست شده است."
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "برای دیدن نتایج باید تمام نظرسنجی ها را شرکت کنید."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "محدودیت رای"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "اگر نظرسنجی منقضی نشد، نتایج را نشان ندهید."
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "گروه نظرسنجی را انتخاب کنید:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "نظرسنجی انجمن:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "یک نظرسنجی موجود را به عنوان نظرسنجی انجمن انتخاب کنید"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "رای شما زمانی شمارش خواهد شد که در تمام نظر سنجی ها رای داده باشید."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "ایجاد یا ویرایش نظرسنجی"
           },
@@ -12824,12 +12760,8 @@
             "#text": "حذف نظر سنجی"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "حذف کامل نظرسنجی"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "حذف کامل گروه"
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },

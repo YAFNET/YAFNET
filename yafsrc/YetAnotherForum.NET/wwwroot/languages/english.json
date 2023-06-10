@@ -12651,224 +12651,156 @@
         },
         {
             "@name": "POLLEDIT",
-            "Resource": [
-                {
-                    "@tag": "ASK_POLL_DELETE",
-                    "#text": "Do you really want to remove the poll?"
-                },
-                {
-                    "@tag": "ASK_POLL_DELETE_ALL",
-                    "#text": "Do you really want to remove the poll completely?"
-                },
-                {
-                    "@tag": "ASK_POLLGROUP_DETACH",
-                    "#text": "Do you really want to detach the poll group?"
-                },
-                {
-                    "@tag": "ASK_POLLROUP_DELETE_ALL",
-                    "#text": "Do you really want to remove the poll group completely?"
-                },
-                {
-                    "@tag": "ASK_POLLROUP_DETACH_EVR",
-                    "#text": "Do you really want to detach the poll group from every place?"
-                },
-                {
-                    "@tag": "CHOICE",
-                    "#text": "Choice {0}:"
-                },
-                {
-                    "@tag": "CREATEPOLL",
-                    "#text": "Create Poll"
-                },
-                {
-                    "@tag": "DETACHGROUP_EVERYWHERE",
-                    "#text": "Detach Group Everywhere"
-                },
-                {
-                    "@tag": "DETACHPOLL",
-                    "#text": "Detach Poll"
-                },
-                {
-                    "@tag": "DETACHPOLLGROUP",
-                    "#text": "Detach Group"
-                },
-                {
-                    "@tag": "EDITPOLL",
-                    "#text": "Edit Poll"
-                },
-                {
-                    "@tag": "EXPIRE_BAD",
-                    "#text": "Incorrect expiration date"
-                },
-                {
-                    "@tag": "NEED_CHOICES",
-                    "#text": "A poll needs at least two choices."
-                },
-                {
-                    "@tag": "NEED_QUESTION",
-                    "#text": "You must enter a poll question."
-                },
-                {
-                    "@tag": "POLL_ALLOWSKIPVOTE",
-                    "#text": "Allow to not vote and see results."
-                },
-                {
-                    "@tag": "POLL_ALLOWSKIPVOTE_INFO",
-                    "#text": "You can skip voting and results."
-                },
-                {
-                    "@tag": "POLL_CLOSEDBOUND",
-                    "#text": "You can't see results before the poll expires."
-                },
-                {
-                    "@tag": "POLL_EXPIRE",
-                    "#text": "Run Poll For:"
-                },
-                {
-                    "@tag": "POLL_EXPIRE_EXPLAIN",
-                    "#text": "[b]Days[/b] [ Leave blank to never expire ]"
-                },
-                {
-                    "@tag": "POLL_EXPIRED",
-                    "#text": "The poll has expired."
-                },
-                {
-                    "@tag": "POLL_IMGWIDTH",
-                    "#text": "Image width in px:"
-                },
-                {
-                    "@tag": "POLL_MULTIPLECHOICES",
-                    "#text": "Allow to vote for many choices"
-                },
-                {
-                    "@tag": "POLL_MULTIPLECHOICES_INFO",
-                    "#text": "You can vote for many choices."
-                },
-                {
-                    "@tag": "POLL_NOPERM_GUEST",
-                    "#text": "Guests can't vote. Try login or register."
-                },
-                {
-                    "@tag": "POLL_PLEASEVOTE",
-                    "#text": "Click to vote"
-                },
-                {
-                    "@tag": "POLL_SHOWVOTERS",
-                    "#text": "Show who voted"
-                },
-                {
-                    "@tag": "POLL_SHOWVOTERS_INFO",
-                    "#text": "Show who has voted."
-                },
-                {
-                    "@tag": "POLL_VOTED",
-                    "#text": "You already voted."
-                },
-                {
-                    "@tag": "POLL_WILLEXPIRE",
-                    "#text": "The poll will be closed in {0} days."
-                },
-                {
-                    "@tag": "POLL_WILLEXPIRE_HOURS",
-                    "#text": "Last hours to vote!"
-                },
-                {
-                    "@tag": "POLLADD",
-                    "#text": "Add Poll"
-                },
-                {
-                    "@tag": "POLLGROUP_ATTACHED",
-                    "#text": "Can't attach the group. A group is already attached."
-                },
-                {
-                    "@tag": "POLLGROUP_BOUNDWARN",
-                    "#text": "You should vote in all polls to see results."
-                },
-                {
-                    "@tag": "POLLGROUP_CLOSEDBOUND",
-                    "#text": "Bound voting"
-                },
-                {
-                    "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-                    "#text": "Don't show results, if the poll didn't expire."
-                },
-                {
-                    "@tag": "POLLGROUP_LIST",
-                    "#text": "Choose an existing poll group:"
-                },
-                {
-                    "@tag": "POLLGROUP_LIST_BOARD",
-                    "#text": "Board Poll:"
-                },
-                {
-                    "@tag": "POLLGROUP_LIST_BOARD_HELP",
-                    "#text": "Choose an existing poll as board Poll"
-                },
-                {
-                    "@tag": "POLLGROUPISBOUND",
-                    "#text": "Your vote will be counted when you've voted in all the polls."
-                },
-                {
-                    "@tag": "POLLHEADER",
-                    "#text": "Create Or Edit Poll"
-                },
-                {
-                    "@tag": "POLLIMAGE_TEXT",
-                    "#text": "Image Url:"
-                },
-                {
-                    "@tag": "POLLOPTIONSHIDDEN_GUEST",
-                    "#text": "Guests can't see poll choices and poll results. Try login or register."
-                },
-                {
-                    "@tag": "POLLQUESTION",
-                    "#text": "Poll Question:"
-                },
-                {
-                    "@tag": "POLLRESULTSHIDDEN",
-                    "#text": "You can't see poll results before voting."
-                },
-                {
-                    "@tag": "POLLRESULTSHIDDEN_GUEST",
-                    "#text": "Guests can't see poll results before voting. Try login or register."
-                },
-                {
-                    "@tag": "POLLRESULTSHIDDEN_SHORT",
-                    "#text": "Results hidden"
-                },
-                {
-                    "@tag": "POLLSAVE",
-                    "#text": "Save Poll"
-                },
-                {
-                    "@tag": "REMOVEPOLL",
-                    "#text": "Remove Poll"
-                },
-                {
-                    "@tag": "REMOVEPOLL_ALL",
-                    "#text": "Remove Poll Completely"
-                },
-                {
-                    "@tag": "REMOVEPOLLGROUP_ALL",
-                    "#text": "Remove Group Completely"
-                }
+          "Resource": [
+            {
+              "@tag": "ASK_POLL_DELETE",
+              "#text": "Do you really want to remove the poll?"
+            },
+            {
+              "@tag": "CHOICE",
+              "#text": "Choice {0}:"
+            },
+            {
+              "@tag": "CREATEPOLL",
+              "#text": "Create Poll"
+            },
+            {
+              "@tag": "EDITPOLL",
+              "#text": "Edit Poll"
+            },
+            {
+              "@tag": "NEED_CHOICES",
+              "#text": "A poll needs at least two choices."
+            },
+            {
+              "@tag": "NEED_QUESTION",
+              "#text": "You must enter a poll question."
+            },
+            {
+              "@tag": "POLL_ALLOWSKIPVOTE",
+              "#text": "Allow to not vote and see results."
+            },
+            {
+              "@tag": "POLL_ALLOWSKIPVOTE_INFO",
+              "#text": "You can skip voting and results."
+            },
+            {
+              "@tag": "POLL_CLOSEDBOUND",
+              "#text": "You can't see results before the poll expires."
+            },
+            {
+              "@tag": "POLL_EXPIRE",
+              "#text": "Run Poll For:"
+            },
+            {
+              "@tag": "POLL_EXPIRE_EXPLAIN",
+              "#text": "[b]Days[/b] [ Leave blank to never expire ]"
+            },
+            {
+              "@tag": "POLL_EXPIRED",
+              "#text": "The poll has expired."
+            },
+            {
+              "@tag": "POLL_IMGWIDTH",
+              "#text": "Image width in px:"
+            },
+            {
+              "@tag": "POLL_MULTIPLECHOICES",
+              "#text": "Allow to vote for many choices"
+            },
+            {
+              "@tag": "POLL_MULTIPLECHOICES_INFO",
+              "#text": "You can vote for many choices."
+            },
+            {
+              "@tag": "POLL_NOPERM_GUEST",
+              "#text": "Guests can't vote. Try login or register."
+            },
+            {
+              "@tag": "POLL_PLEASEVOTE",
+              "#text": "Click to vote"
+            },
+            {
+              "@tag": "POLL_SHOWVOTERS",
+              "#text": "Show who voted"
+            },
+            {
+              "@tag": "POLL_SHOWVOTERS_INFO",
+              "#text": "Show who has voted."
+            },
+            {
+              "@tag": "POLL_VOTED",
+              "#text": "You already voted."
+            },
+            {
+              "@tag": "POLL_WILLEXPIRE",
+              "#text": "The poll will be closed in {0} days."
+            },
+            {
+              "@tag": "POLL_WILLEXPIRE_HOURS",
+              "#text": "Last hours to vote!"
+            },
+            {
+              "@tag": "POLLADD",
+              "#text": "Add Poll"
+            },
+            {
+              "@tag": "POLLHEADER",
+              "#text": "Create Or Edit Poll"
+            },
+            {
+              "@tag": "POLLIMAGE_TEXT",
+              "#text": "Image Url:"
+            },
+            {
+              "@tag": "POLLOPTIONSHIDDEN_GUEST",
+              "#text": "Guests can't see poll choices and poll results. Try login or register."
+            },
+            {
+              "@tag": "POLLQUESTION",
+              "#text": "Poll Question:"
+            },
+            {
+              "@tag": "POLLRESULTSHIDDEN",
+              "#text": "You can't see poll results before voting."
+            },
+            {
+              "@tag": "POLLRESULTSHIDDEN_GUEST",
+              "#text": "Guests can't see poll results before voting. Try login or register."
+            },
+            {
+              "@tag": "POLLRESULTSHIDDEN_SHORT",
+              "#text": "Results hidden"
+            },
+            {
+              "@tag": "POLLSAVE",
+              "#text": "Save Poll"
+            },
+            {
+              "@tag": "REMOVEPOLL",
+              "#text": "Remove Poll"
+            },
+            {
+              "@tag": "REMOVEPOLL_MSG",
+              "#text": "Poll was removed!"
+            }
             ]
         },
         {
-            "@name": "POSTMESSAGE",
-            "Resource": [
-                {
-                    "@tag": "ANNOUNCEMENT",
-                    "#text": "Announcement"
-                },
-                {
-                    "@tag": "ASK_POLL_DELETE",
-                    "#text": "Do you really want to remove poll from this topic?"
-                },
-                {
-                    "@tag": "BLOG_PASSWORD",
-                    "#text": "Blog Password:"
-                },
+          "@name": "POSTMESSAGE",
+          "Resource": [
+            {
+              "@tag": "ANNOUNCEMENT",
+              "#text": "Announcement"
+            },
+            {
+              "@tag": "ASK_POLL_DELETE",
+              "#text": "Do you really want to remove poll from this topic?"
+            },
+            {
+              "@tag": "BLOG_PASSWORD",
+              "#text": "Blog Password:"
+},
                 {
                     "@tag": "BLOG_POST",
                     "#text": "Post to blog?"
