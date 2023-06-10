@@ -57,7 +57,7 @@ public static class PollVoteRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
-        return repository.Get(p => p.UserID == userId);
+        return repository.Get(p => p.UserID == userId && p.PollID == pollId);
     }
 
     /// <summary>
