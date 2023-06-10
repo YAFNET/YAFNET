@@ -12656,22 +12656,6 @@
             "#text": "Anketi gerçekten kaldırmak istiyor musunuz?"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "Gerçekten anketi tamamen kaldırmak istiyor musunuz?"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "Anket grubunu gerçekten ayırmak istiyor musunuz?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "Anket grubunu gerçekten tamamen kaldırmak istiyor musunuz?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "Gerçekten anket grubunu her yerden ayırmak mı istiyorsunuz?"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Seçenek {0}:"
           },
@@ -12680,24 +12664,8 @@
             "#text": "Anket Yarat"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "Grubu Her Yerden Ayır"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "Anketi Ayır"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "Ayrılma Grubu"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "Anketi Güncelle"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "Hatalı bitiş süresi"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12776,38 +12744,6 @@
             "#text": "Anket Ekle"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "Grubu ekleyemiyorum. Bir grup zaten ekli."
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "Sonuçları görmek için tüm anketlerde oy kullanmalısınız."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bağlı oylama"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results if group is open for voting"
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "Geçerli bir anket grubu seçiniz:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "Kurul Anketi:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "Mevcut bir anketi pano anketi olarak seçin"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "Your vote will be counted when you'll vote in all the polls."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "Anket Oluştur veya Güncelle"
           },
@@ -12844,12 +12780,8 @@
             "#text": "Anketi Sil"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "Anketi tamamen sil."
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "Grubu tamamen sil."
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },

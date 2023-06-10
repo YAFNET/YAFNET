@@ -12656,22 +12656,6 @@
             "#text": "Kas te olete kindel, et soovite küsitluse eemaldada?"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "Kas olete kindel, et soovite küsitluse täielikult eemaldada?"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "Kas soovite tõesti küsitlusrühma eraldada?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "Kas olete kindel, et soovite küsitluste grupi täielikult eemaldada?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "Kas soovite tõesti küsitlusrühma igast kohast eraldada?"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Valik {0}:"
           },
@@ -12680,24 +12664,8 @@
             "#text": "Lisa küsitlus"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "Eraldage rühm kõikjal"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "Eraldage Poll"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "Eraldage rühm"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "Muuda küsitlust"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "Vale kehtivuse kuupäev"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12776,38 +12744,6 @@
             "#text": "Lisa küsitlus"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "Grupi lisamine ebaõnnestus. Grupp on juba lisatud."
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "Te peate hääletama kõikides küsitlustes, et näha tulemusi."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Seotud hääletamine"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Ära näita tulemusi, kui grupp on avatud hääletamiseks"
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "Valige olemasolev küsitlusegrupp:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "Lauaküsitlus:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "Valige tahvliküsitluseks olemasolev küsitlus"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "Teie häält arvestatakse, kui olete hääletanud kõikides küsitlustes."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "Lisa või muuda küsitlust"
           },
@@ -12844,12 +12780,8 @@
             "#text": "Eemalda küsitlus"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "Eemalda küsitlus täielikult"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "Eemalda grupp täielikult"
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },

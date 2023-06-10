@@ -12640,22 +12640,6 @@
             "#text": "Wollen Sie diese Umfrage wirklich löschen?"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "Wollen Sie diese Umfrage endgültig löschen?"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "Wollen Sie wirklich die Umfragegruppe trennen?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "Wollen Sie wirklich die Umfragegruppe Komplett Löschen?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "Wollen Sie Wirklich diese Umfragegruppe überall entfernen?"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Wahl {0}:"
           },
@@ -12664,24 +12648,8 @@
             "#text": "Umfrage Erstellen"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "Gruppe überall trennen"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "Umfrage nehmen"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "Gruppe nehmen"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "Umfrage bearbeiten"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "Falsches Ablaufdatum"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12760,38 +12728,6 @@
             "#text": "Umfrage hinzufügen"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "Kann die Gruppe nicht anhängen. Da eine Gruppe bereits Angehangen ist."
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "Sie müssen in allen Umfragen abstimmen um die Ergebnisse zu sehen."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Keine Resultate zeigen wenn die Gruppe offen ist."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Keine Resultate zeigen wenn die Gruppe offen zum Abstimmen ist"
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "Wählen Sie eine Gruppe:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "Vorstandsumfrage:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "Wählen Sie eine bestehende Umfrage als Vorstandsumfrage"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "Ihre Stimme wird gezählt, wenn Sie an allen Umfragen teilgenommen haben."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "Erstellen oder Umfrage bearbeiten"
           },
@@ -12828,12 +12764,8 @@
             "#text": "Umfrage löschen"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "Gruppe Komplett entfernen"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "Gruppe komplett entfernen"
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },

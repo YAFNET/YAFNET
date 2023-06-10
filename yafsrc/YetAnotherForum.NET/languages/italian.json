@@ -12640,22 +12640,6 @@
             "#text": "Vuoi davvero eliminare il sondaggio?"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "Vuoi davvero eliminare il sondaggio definitivamente?"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "Vuoi davvero staccare il gruppo di sondaggio?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "Vuoi davvero eliminare il gruppo di sondaggi definitivamente?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "Volete davvero staccare il gruppo di sondaggio da ogni luogo?"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Scelta {0}:"
           },
@@ -12664,24 +12648,8 @@
             "#text": "Crea sondaggio"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "Staccare il gruppo dappertutto"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "Staccare il sondaggio"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "Gruppo di distacco"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "Modifica sondaggio"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "Data di scadenza errata"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12760,38 +12728,6 @@
             "#text": "Crea sondaggio"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "Impossibile aggiungere il gruppo. Ne e' gia' stato aggiunto uno."
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "Devi votare in tutti i sondaggi per vedere i risultati."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Voto di gruppo"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Non mostrare i risultati se il gruppo è ancora aperto al voto."
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "Scegli un gruppo di sondaggi:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "Sondaggio del consiglio di amministrazione:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "Scegliere un sondaggio esistente come sondaggio di bordo"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "Il tuo voto sarà aggiunto ai risultati quando avrai votato in tutti i sondaggi."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "Crea o modifica sondaggio"
           },
@@ -12828,12 +12764,8 @@
             "#text": "Elimina sondaggio"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "Elimina sondaggio definitivamente"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "Elimina gruppo definitivamente"
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },

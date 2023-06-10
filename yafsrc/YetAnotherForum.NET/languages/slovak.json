@@ -12656,22 +12656,6 @@
             "#text": "Naozaj chcete odstrániť anketu?"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "Naozaj chcete úplne odstrániť anketu?"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "Naozaj chcete oddeliť anketovú skupinu?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "Naozaj chcete úplne odstrániť anketovú skupinu?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "Naozaj chcete oddeliť anketovú skupinu od každého miesta?"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Možnosť {0}:"
           },
@@ -12680,24 +12664,8 @@
             "#text": "Vytvoriť prieskum verejnej mienky"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "Odpojiť skupinu všade"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "Odpojenie ankety"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "Odpojiť skupinu"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "Úprava ankety"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "Nesprávny dátum skončenia platnosti"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12776,42 +12744,6 @@
             "#text": "Pridať prieskum verejnej mienky"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "Nemôžete pripojiť skupinu. Skupina je už pripojená."
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "Aby ste videli výsledky, mali by ste hlasovať vo všetkých anketách."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Viazané hlasovanie"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Don't show results if group is open"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results if the poll didn't expire"
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "Vyberte existujúcu skupinu ankiet:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "Prieskum v správnej rade:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "Vyberte existujúcu anketu ako anketu na nástenke"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "Your vote will be counted when you'll vote in all the polls."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "Vytvorenie alebo úprava ankety"
           },
@@ -12848,12 +12780,8 @@
             "#text": "Odstránenie ankety"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "Úplné odstránenie ankety"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "Úplné odstránenie skupiny"
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },

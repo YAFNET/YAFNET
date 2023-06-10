@@ -12640,22 +12640,6 @@
             "#text": "Wil je de poll echt verwijderen?"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "Wil je de poll echt volledig verwijderen?"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "Wil je echt de poll groep ontkoppelen?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "Wil je echt de poll groep definitief verwijderen?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "Wil je echt de poll groep overal loskoppelen?"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Keuze {0}:"
           },
@@ -12664,24 +12648,8 @@
             "#text": "Poll aanmaken"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "Ontkoppel Groep Overal"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "Ontkoppel Poll"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "Ontkoppel Groep"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "Poll bewerken"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "Ongeldige einddatum"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12760,38 +12728,6 @@
             "#text": "Poll toevoegen"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "Groep kan niet worden toegevoegd. Een groep is al gekoppeld."
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "Je moet in alle polls stemmen om de uitslagen te zien."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Gekoppelde stemming"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Geen resultaten laten zien als de Poll nog open is"
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "Kies een bestaande Poll groep"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "Raadspeiling:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "Kies een bestaande poll als board Poll"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "Je stem wordt geteld als je in alle polls hebt gestemd."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "Maak of bewerk poll"
           },
@@ -12828,12 +12764,8 @@
             "#text": "Verwijder Poll"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "Verwijder poll definitief"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "Verwijder Group Definitief"
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },

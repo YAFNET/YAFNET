@@ -12636,22 +12636,6 @@
             "#text": "هل تريد  ازلة  الاستفتاء?"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "هل تريد إزلة الاستفتاء كليا?"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "هل تريد حقًا فصل مجموعة الاستطلاع؟"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "هل  تريد حذف مجموعة الاستفتاء كليا?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "هل تريد حقًا فصل مجموعة الاستطلاع عن كل مكان؟"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "إختيار {0}:"
           },
@@ -12660,24 +12644,8 @@
             "#text": "إنشاء  إستفتاء"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "فصل المجموعة في كل مكان"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "فصل الاستطلاع"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "مجموعة منفصلة"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "تعديل  إستفتاء"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "تاريخ الانتهاء غير صحيح"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12756,38 +12724,6 @@
             "#text": "إضافة إستفتاء"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "لا يمكن إرفاق المجموعة. "
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "يجب عليك التصويت في جميع الاستطلاعات لرؤية النتائج."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "تصويت  اجباري"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results if group is open for voting"
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "إختيار  مجموعةالمستهدفة بالإستفتاء:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "استطلاع المجلس:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "اختر استطلاعًا موجودًا كاقتراع متنقل"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "Your vote will be counted when you'll vote in all the polls."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "إنشاء  او تعديل  إستفتاء"
           },
@@ -12824,12 +12760,8 @@
             "#text": "حدف  الاستفتاء"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "حذف  الاستفتاء  كليا"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "حذف  المجموعة  كليا "
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },

@@ -12640,22 +12640,6 @@
             "#text": "¿Deseas realmente eliminar la encuesta?"
           },
           {
-            "@tag": "ASK_POLL_DELETE_ALL",
-            "#text": "¿Deseas realmente eliminar la encuesta por completo?"
-          },
-          {
-            "@tag": "ASK_POLLGROUP_DETACH",
-            "#text": "¿Deseas realmente desvincular el grupo de la encuesta?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DELETE_ALL",
-            "#text": "¿Deseas realmente eliminar el grupo de la encuesta completamente?"
-          },
-          {
-            "@tag": "ASK_POLLROUP_DETACH_EVR",
-            "#text": "¿Deseas realmente desvincular el grupo de la encuesta de todas partes?"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Elección {0}:"
           },
@@ -12664,24 +12648,8 @@
             "#text": "Crear encuesta"
           },
           {
-            "@tag": "DETACHGROUP_EVERYWHERE",
-            "#text": "Desvincular el grupo de todas partes"
-          },
-          {
-            "@tag": "DETACHPOLL",
-            "#text": "Desvincular encuesta"
-          },
-          {
-            "@tag": "DETACHPOLLGROUP",
-            "#text": "Desvincular grupo"
-          },
-          {
             "@tag": "EDITPOLL",
             "#text": "Editar encuesta"
-          },
-          {
-            "@tag": "EXPIRE_BAD",
-            "#text": "Fecha de fin inválida"
           },
           {
             "@tag": "NEED_CHOICES",
@@ -12760,38 +12728,6 @@
             "#text": "Añadir encuesta"
           },
           {
-            "@tag": "POLLGROUP_ATTACHED",
-            "#text": "No puedes vincular el grupo, ya está vinculado."
-          },
-          {
-            "@tag": "POLLGROUP_BOUNDWARN",
-            "#text": "Debes votar en todas las encuestas para ver los resultados."
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Es obligatorio votar"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "No mostrar resultados si la encuesta no ha finalizado."
-          },
-          {
-            "@tag": "POLLGROUP_LIST",
-            "#text": "Seleccionar un grupo de encuesta existente:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD",
-            "#text": "Encuesta de la Junta:"
-          },
-          {
-            "@tag": "POLLGROUP_LIST_BOARD_HELP",
-            "#text": "Elija una encuesta existente como encuesta del tablero"
-          },
-          {
-            "@tag": "POLLGROUPISBOUND",
-            "#text": "Tu voto será contabilizado cuando hayas votado en todas las encuestas."
-          },
-          {
             "@tag": "POLLHEADER",
             "#text": "Crear o editar encuesta"
           },
@@ -12828,12 +12764,8 @@
             "#text": "Eliminar encuesta"
           },
           {
-            "@tag": "REMOVEPOLL_ALL",
-            "#text": "Eliminar encuesta por completo"
-          },
-          {
-            "@tag": "REMOVEPOLLGROUP_ALL",
-            "#text": "Eliminar grupo por completo"
+            "@tag": "REMOVEPOLL_MSG",
+            "#text": "Poll was removed!"
           }
         ]
       },
