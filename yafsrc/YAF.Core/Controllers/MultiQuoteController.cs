@@ -30,7 +30,7 @@ using YAF.Core.BasePages;
 using YAF.Types.Objects;
 
 /// <summary>
-/// The YAF MultiQuote Button controller.
+/// The MultiQuote Button controller.
 /// </summary>
 [Produces("application/json")]
 [Route("api/[controller]")]
@@ -58,34 +58,30 @@ public class MultiQuoteController : ForumBaseController
 
         var yafSession = this.Get<ISessionService>();
 
+        var multiQuoteIds = yafSession.MultiQuoteIds ?? new List<MultiQuote>();
+
         var multiQuote = new MultiQuote { MessageID = messageId, TopicID = topicId };
 
         if (isMultiQuoteButton)
         {
-            if (yafSession.MultiQuoteIds != null)
+            if (!multiQuoteIds.Any(m => m.MessageID.Equals(messageId)))
             {
-                if (!yafSession.MultiQuoteIds.Any(m => m.MessageID.Equals(messageId)))
-                {
-                    yafSession.MultiQuoteIds.Add(multiQuote);
-                }
-            }
-            else
-            {
-                yafSession.MultiQuoteIds = new List<MultiQuote> { multiQuote };
+                multiQuoteIds.Add(multiQuote);
             }
 
             buttonCssClass += " Checked";
         }
         else
         {
-            if (yafSession.MultiQuoteIds != null
-                && yafSession.MultiQuoteIds.Any(m => m.MessageID.Equals(messageId)))
+            if (multiQuoteIds.Any(m => m.MessageID.Equals(messageId)))
             {
-                yafSession.MultiQuoteIds.Remove(multiQuote);
+                multiQuoteIds.Remove(multiQuote);
             }
 
             buttonCssClass = "btn-multiquote form-check btn btn-link";
         }
+
+        yafSession.MultiQuoteIds = multiQuoteIds;
 
         return this.Ok(new ReturnClass { Id = buttonId, NewTitle = buttonCssClass });
     }
