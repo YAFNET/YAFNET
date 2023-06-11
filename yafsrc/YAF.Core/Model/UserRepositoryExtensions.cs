@@ -29,6 +29,8 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
 
+using Microsoft.AspNetCore.Hosting;
+
 using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -667,6 +669,20 @@ public static class UserRepositoryExtensions
     public static void DeleteAvatar(this IRepository<User> repository, [NotNull] int userId)
     {
         CodeContracts.VerifyNotNull(repository);
+
+        var user = repository.GetById(userId);
+
+        // Delete File if Avatar was uploaded
+        if (user.Avatar.IsSet() && user.Avatar.StartsWith("/"))
+        {
+            var filePath =
+                $"{BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath}{user.Avatar.Replace("/", "\\")}";
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+        }
 
         repository.UpdateOnly(
             () => new User { AvatarImage = null, Avatar = null, AvatarImageType = null },
