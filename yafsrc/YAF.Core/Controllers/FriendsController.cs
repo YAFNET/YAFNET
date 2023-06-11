@@ -31,6 +31,7 @@ using Microsoft.AspNetCore.Authorization;
 
 using YAF.Core.BasePages;
 using YAF.Types.Constants;
+using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
 /// <summary>
@@ -80,6 +81,48 @@ public class FriendsController : ForumBaseController
     }
 
     /// <summary>
+    /// Adds the friend.
+    /// </summary>
+    /// <param name="u">The user id.</param>
+    /// <returns>IActionResult.</returns>
+    [HttpGet]
+    [Route("AddFriendRequest/{u:int}")]
+    public IActionResult AddFriendRequest(int u)
+    {
+        try
+        {
+            var user = this.GetRepository<User>().GetById(u);
+
+            if (user == null)
+            {
+                return this.RedirectToPage(
+                    ForumPages.Info.GetPageName(),
+                    null,
+                    new { info = InfoMessage.Invalid.ToType<int>() });
+            }
+
+            this.PageBoardContext.SessionNotify(
+                this.Get<IFriends>().AddRequest(user.ID)
+                    ? this.GetTextFormatted(
+                        "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
+                        user.DisplayOrUserName())
+                    : this.GetText("NOTIFICATION_BUDDYREQUEST"),
+                MessageTypes.success);
+
+            return this.RedirectToPage(
+                ForumPages.UserProfile.GetPageName(),
+                new { u, name = user.DisplayOrUserName() });
+        }
+        catch (Exception)
+        {
+            return this.RedirectToPage(
+                ForumPages.Info.GetPageName(),
+                null,
+                new { info = InfoMessage.Invalid.ToType<int>() });
+        }
+    }
+
+    /// <summary>
     /// Removes the friend.
     /// </summary>
     /// <param name="m">The message id.</param>
@@ -114,6 +157,48 @@ public class FriendsController : ForumBaseController
         catch (Exception)
         {
             return this.RedirectToPage(ForumPages.Posts.GetPageName(), new {m});
+        }
+    }
+
+    /// <summary>
+    /// Removes the friend.
+    /// </summary>
+    /// <param name="u">The user id.</param>
+    /// <returns>IActionResult.</returns>
+    [HttpGet]
+    [Route("RemoveBuddy/{u:int}")]
+    public IActionResult RemoveBuddy(int u)
+    {
+        try
+        {
+            var user = this.GetRepository<User>().GetById(u);
+
+            if (user == null)
+            {
+                return this.RedirectToPage(
+                    ForumPages.Info.GetPageName(),
+                    null,
+                    new { info = InfoMessage.Invalid.ToType<int>() });
+            }
+
+            this.Get<IFriends>().Remove(user.ID);
+
+            this.PageBoardContext.SessionNotify(
+                this.GetTextFormatted(
+                    "REMOVEBUDDY_NOTIFICATION",
+                    this.Get<IFriends>().Remove(user.ID)),
+                MessageTypes.success);
+
+            return this.RedirectToPage(
+                ForumPages.UserProfile.GetPageName(),
+                new { u, name = user.DisplayOrUserName() });
+        }
+        catch (Exception)
+        {
+            return this.RedirectToPage(
+                ForumPages.Info.GetPageName(),
+                null,
+                new { info = InfoMessage.Invalid.ToType<int>() });
         }
     }
 }

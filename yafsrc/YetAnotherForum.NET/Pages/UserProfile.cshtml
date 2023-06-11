@@ -28,25 +28,27 @@
             
             @if (Model.ShowAddBuddyLink)
             {
-                <button type="submit"
-                        asp-page-handler="AddBuddy"
-                        button-style="Success"
-                        icon="user-plus"
-                        text-localized-page="PAGE"
-                        text-localized-tag="ADDBUDDY"
-                        class=" mb-1"></button>
+                <a asp-controller="Friends"
+                   asp-action="AddFriendRequest"
+                   asp-route-u="@Model.CombinedUser.Item1.ID"
+                   button-style="Success"
+                   icon="user-plus"
+                   text-localized-page="PAGE"
+                   text-localized-tag="ADDBUDDY"
+                   class=" mb-1"></a>
             }
 
             @if (Model.ShowRemoveBuddyLink)
             {
-                <button type="submit"
-                        asp-page-handler="RemoveBuddy"
-                        button-style="Danger"
-                        icon="user-minus"
-                        text-localized-page="PAGE"
-                        text-localized-tag="REMOVEBUDDY"
-                        return-confirm-tag="NOTIFICATION_REMOVE"
-                        class=" mb-1"></button>
+                <a asp-controller="Friends"
+                   asp-action="RemoveBuddy"
+                   asp-route-u="@Model.CombinedUser.Item1.ID"
+                   button-style="Danger"
+                   icon="user-minus"
+                   text-localized-page="PAGE"
+                   text-localized-tag="REMOVEBUDDY"
+                   return-confirm-tag="NOTIFICATION_REMOVE"
+                   class=" mb-1"></a>
             }
 
             @if (Model.ShowPmLink)

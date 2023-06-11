@@ -156,28 +156,6 @@ public class UserProfileModel : ForumPage
                    : this.BindData(u);
     }
 
-    public IActionResult OnPostAddBuddy(int u)
-    {
-        this.BindData(u);
-
-        return this.PageBoardContext.Notify(
-            this.Get<IFriends>().AddRequest(u)
-                ? this.GetTextFormatted(
-                    "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
-                    this.Get<IUserDisplayName>().GetNameById(u))
-                : this.GetText("NOTIFICATION_BUDDYREQUEST"),
-            MessageTypes.success);
-    }
-
-    public IActionResult OnPostRemoveBuddy(int u)
-    {
-        this.BindData(u);
-
-        return this.PageBoardContext.Notify(
-            this.GetTextFormatted("REMOVEBUDDY_NOTIFICATION", this.Get<IFriends>().Remove(u)),
-            MessageTypes.success);
-    }
-
     public void OnPostRemoveSuspension(int u)
     {
         this.BindData(u);
