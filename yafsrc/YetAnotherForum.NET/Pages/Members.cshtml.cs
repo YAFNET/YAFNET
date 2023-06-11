@@ -85,13 +85,15 @@ public class MembersModel : ForumPage
         get {
             var currentLetter = char.MinValue;
 
-            if (!this.Request.RouteValues.ContainsKey("letter"))
+            var value = this.Request.GetQueryOrRouteValue<string>("letter");
+
+            if (value is null)
             {
                 return currentLetter;
             }
 
             // try to convert to char
-            char.TryParse(this.Request.RouteValues["letter"].ToString(), out currentLetter);
+            char.TryParse(value, out currentLetter);
 
             // since we cannot use '#' in URL, we use '_' instead, this is to give it the right meaning
             if (currentLetter == '_')

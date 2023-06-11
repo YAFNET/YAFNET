@@ -42,7 +42,7 @@ public class ReputationController : ForumBaseController
     /// <summary>
     /// Adds the user reputation.
     /// </summary>
-    [ValidateAntiForgeryToken]
+    //[ValidateAntiForgeryToken]
     [HttpGet]
     [Route("AddReputation/{m:int}")]
     public IActionResult AddReputation(int m)
@@ -83,7 +83,7 @@ public class ReputationController : ForumBaseController
     /// <summary>
     /// Removes the user reputation.
     /// </summary>
-    [ValidateAntiForgeryToken]
+    //[ValidateAntiForgeryToken]
     [HttpGet]
     [Route("RemoveReputation/{m:int}")]
     public IActionResult RemoveReputation(int m)

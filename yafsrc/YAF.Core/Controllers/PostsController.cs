@@ -41,7 +41,7 @@ public class PostsController : ForumBaseController
     /// <summary>
     /// Remove or Mark Post as Answer
     /// </summary>
-    [ValidateAntiForgeryToken]
+    //[ValidateAntiForgeryToken]
     [HttpGet]
     [Route("MarkAsAnswer/{m:int}")]
     public IActionResult MarkAsAnswer(int m)

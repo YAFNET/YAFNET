@@ -266,7 +266,7 @@
                                         </div>
                                         @if (voteEnabled)
                                         {
-                                            <button ID="VoteButton"
+                                            <button ID="@Html.Raw($"VoteButton{choice.Item2.ID}")"
                                                     class="mb-2"
                                                     button-style="Success"
                                                     button-size="Small"
