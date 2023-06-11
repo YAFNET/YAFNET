@@ -293,7 +293,7 @@ public class UserProfileModel : ForumPage
 
         // populate user information controls...
         // Is BuddyList feature enabled?
-        if (this.PageBoardContext.BoardSettings.EnableBuddyList)
+        if (this.PageBoardContext.BoardSettings.EnableBuddyList && !this.PageBoardContext.IsGuest)
         {
             this.SetupBuddyList();
         }
@@ -339,25 +339,20 @@ public class UserProfileModel : ForumPage
             this.ShowAddBuddyLink = false;
             this.ShowRemoveBuddyLink = false;
         }
-        else if (!this.PageBoardContext.IsGuest)
+        else
         {
             if (this.Get<IFriends>().IsBuddy(this.CombinedUser.Item1.ID))
             {
+                this.ShowAddBuddyLink = false;
                 this.ShowRemoveBuddyLink = true;
             }
             else
             {
-                this.ShowAddBuddyLink = false;
+                this.ShowAddBuddyLink = true;
                 this.ShowRemoveBuddyLink = false;
             }
-        }
-        else
-        {
-            if (!this.PageBoardContext.IsGuest && !this.CombinedUser.Item1.Block.BlockFriendRequests)
-            {
-                this.ShowRemoveBuddyLink = true;
-            }
-            else
+
+            if (this.CombinedUser.Item1.Block.BlockFriendRequests)
             {
                 this.ShowAddBuddyLink = false;
                 this.ShowRemoveBuddyLink = false;

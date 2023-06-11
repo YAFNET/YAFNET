@@ -24,22 +24,21 @@
             @Html.UserLabel(Model.CombinedUser.Item1)
         </h1>
 
-        @if (Model.ShowAddBuddyLink)
+        <form method="post" class="d-inline-block">
+            
+            @if (Model.ShowAddBuddyLink)
             {
-                <form method="post">
-                    <button type="submit"
-                            asp-page-handler="AddBuddy"
-                            button-style="Success"
-                            icon="user-plus"
-                            text-localized-page="PAGE"
-                            text-localized-tag="ADDBUDDY"
-                            class=" mb-1"></button>
-                </form>
+                <button type="submit"
+                        asp-page-handler="AddBuddy"
+                        button-style="Success"
+                        icon="user-plus"
+                        text-localized-page="PAGE"
+                        text-localized-tag="ADDBUDDY"
+                        class=" mb-1"></button>
             }
 
-        @if (Model.ShowRemoveBuddyLink)
-        {
-            <form method="post" class="d-inline-block">
+            @if (Model.ShowRemoveBuddyLink)
+            {
                 <button type="submit"
                         asp-page-handler="RemoveBuddy"
                         button-style="Danger"
@@ -48,52 +47,50 @@
                         text-localized-tag="REMOVEBUDDY"
                         return-confirm-tag="NOTIFICATION_REMOVE"
                         class=" mb-1"></button>
-            </form>
-        }
+            }
 
-    <form method="post" class="d-inline-block">
-        @if (Model.ShowPmLink)
-        {
-            <a role="button"
-               button-style="Info"
-               class=" mb-1"
-               icon="envelope-open-text"
-               text-localized-page="POSTS"
-               text-localized-tag="PM"
-               title-param0="@Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName())"
-               title-localized-page="POSTS"
-               title-localized-tag="PM_TITLE"
-               bs-toggle="tooltip"
-               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { u = Model.CombinedUser.Item1.ID }))"></a>
-        }
+            @if (Model.ShowPmLink)
+            {
+                <a role="button"
+                   button-style="Info"
+                   class=" mb-1"
+                   icon="envelope-open-text"
+                   text-localized-page="POSTS"
+                   text-localized-tag="PM"
+                   title-param0="@Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName())"
+                   title-localized-page="POSTS"
+                   title-localized-tag="PM_TITLE"
+                   bs-toggle="tooltip"
+                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { u = Model.CombinedUser.Item1.ID }))"></a>
+            }
 
-        @if (Model.ShowEmailLink)
-        {
-            <a role="button"
-               button-style="Info"
-               class=" mb-1"
-               icon="at"
-               text-localized-page="POSTS"
-               text-localized-tag="EMAIL"
-               title-param0="@Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName())"
-               title-localized-page="POSTS"
-               title-localized-tag="EMAIL_TITLE"
-               bs-toggle="tooltip"
-               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = Model.CombinedUser.Item1.ID }))"></a>
-        }
+            @if (Model.ShowEmailLink)
+            {
+                <a role="button"
+                   button-style="Info"
+                   class=" mb-1"
+                   icon="at"
+                   text-localized-page="POSTS"
+                   text-localized-tag="EMAIL"
+                   title-param0="@Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName())"
+                   title-localized-page="POSTS"
+                   title-localized-tag="EMAIL_TITLE"
+                   bs-toggle="tooltip"
+                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = Model.CombinedUser.Item1.ID }))"></a>
+            }
 
             @if (Model.PageBoardContext.IsAdmin)
-        {
-            <a role="button"
-               button-style="Danger"
-               class=" mb-1"
-               icon="user-cog"
-               text-localized-page="PROFILE"
-               text-localized-tag="ADMIN_USER"
-               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = Model.CombinedUser.Item1.ID }))"></a>
-        }
+            {
+                <a role="button"
+                   button-style="Danger"
+                   class=" mb-1"
+                   icon="user-cog"
+                   text-localized-page="PROFILE"
+                   text-localized-tag="ADMIN_USER"
+                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = Model.CombinedUser.Item1.ID }))"></a>
+            }
 
-    </form>
+        </form>
 
     </div>
     <div class="col-auto">
