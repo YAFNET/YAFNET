@@ -683,6 +683,19 @@ public static class UserRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
+        var user = repository.GetById(userId);
+
+        // Delete File if Avatar was uploaded
+        if (user.Avatar.IsSet() && user.Avatar.StartsWith("/"))
+        {
+            var filePath = BoardContext.Current.Get<HttpRequestBase>().MapPath(user.Avatar);
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+        }
+
         repository.UpdateOnly(
             () => new User { AvatarImage = null, Avatar = null, AvatarImageType = null },
             u => u.ID == userId);

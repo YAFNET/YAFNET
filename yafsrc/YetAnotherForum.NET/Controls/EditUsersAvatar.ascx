@@ -72,13 +72,15 @@
                         <YAF:Icon runat="server" IconName="info-circle"></YAF:Icon>
                         <asp:Label ID="noteLocal" runat="server"></asp:Label>
                     </YAF:Alert>
-                </asp:PlaceHolder>
-                <div class="text-lg-center">
+                    
                     <YAF:ThemeButton ID="UpdateUpload" runat="server"
                                      OnClick="UploadUpdate_Click"
                                      Type="Primary"
-                                     TextLocalizedTag="SAVE"
+                                     TextLocalizedTag="UPLOAD"
                                      Icon="save" />
+                </asp:PlaceHolder>
+                <hr/>
+                <div class="text-lg-center">
                     <YAF:ThemeButton ID="Back"
                                      Type="Secondary" runat="server"
                                      OnClick="Back_Click"
