@@ -26,24 +26,26 @@
     {
         <div class="mb-3">
             <div class="form-check form-switch">
-                <input asp-for="Input.Activity" class="form-check-input" role="switch"/>
-                <label asp-for="Input.Activity" class="form-check-label"
+                <input asp-for="Input.HideMe" class="form-check-input" role="switch"/>
+                <label asp-for="Input.HideMe" class="form-check-label"
                        localized-page="EDIT_PROFILE"
-                       localized-tag="ACTIVITY">
+                       localized-tag="HIDEME">
                 </label>
             </div>
         </div>
     }
-
+    
+    
     <div class="mb-3">
         <div class="form-check form-switch">
-            <input asp-for="Input.HideMe" class="form-check-input" role="switch"/>
-            <label asp-for="Input.HideMe" class="form-check-label"
+            <input asp-for="Input.Activity" class="form-check-input" role="switch"/>
+            <label asp-for="Input.Activity" class="form-check-label"
                    localized-page="EDIT_PROFILE"
-                   localized-tag="HIDEME">
+                   localized-tag="ACTIVITY">
             </label>
         </div>
     </div>
+
 
     <div class="mb-3">
         <label asp-for="Input.TimeZone" localized-page="EDIT_PROFILE" localized-tag="TIMEZONE2" class="form-label">
