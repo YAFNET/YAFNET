@@ -24,9 +24,6 @@
 
 namespace YAF.Web.TagHelpers;
 
-using Lucene.Net.Search;
-
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 

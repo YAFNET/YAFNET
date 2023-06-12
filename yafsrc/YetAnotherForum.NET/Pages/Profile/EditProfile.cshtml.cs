@@ -261,14 +261,14 @@ public class EditProfileModel : ProfilePage
             }
         }
 
-        if (this.Input.Interests.Trim().Length > 400)
+        if (this.Input.Interests.IsSet() && this.Input.Interests.Trim().Length > 400)
         {
             return this.PageBoardContext.Notify(
                 this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 400),
                 MessageTypes.warning);
         }
 
-        if (this.Input.Occupation.Trim().Length > 400)
+        if (this.Input.Occupation.IsSet() && this.Input.Occupation.Trim().Length > 400)
         {
             return this.PageBoardContext.Notify(
                 this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400),
@@ -513,28 +513,28 @@ public class EditProfileModel : ProfilePage
     {
         var userProfile = new ProfileInfo {
                                               Country = this.Input.Country,
-                                              Region = this.Input.Region.IsSet() && this.Input.Country.IsSet()
+                                              Region = this.Input.Region.IsSet() && this.Input.Region.IsSet()
                                                            ? this.Input.Region
                                                            : string.Empty,
                                               City = this.Input.City.IsSet() ? this.Input.City.Trim() : null,
                                               Location =
-                                                  this.Input.Location.IsSet() ? this.Input.City.Trim() : null,
+                                                  this.Input.Location.IsSet() ? this.Input.Location.Trim() : null,
                                               Homepage =
-                                                  this.Input.HomePage.IsSet() ? this.Input.City.Trim() : null,
+                                                  this.Input.HomePage.IsSet() ? this.Input.HomePage.Trim() : null,
                                               Facebook =
-                                                  this.Input.Facebook.IsSet() ? this.Input.City.Trim() : null,
-                                              Twitter = this.Input.Twitter.IsSet() ? this.Input.City.Trim() : null,
-                                              XMPP = this.Input.Xmpp.IsSet() ? this.Input.City.Trim() : null,
-                                              Skype = this.Input.Skype.IsSet() ? this.Input.City.Trim() : null,
+                                                  this.Input.Facebook.IsSet() ? this.Input.Facebook.Trim() : null,
+                                              Twitter = this.Input.Twitter.IsSet() ? this.Input.Twitter.Trim() : null,
+                                              XMPP = this.Input.Xmpp.IsSet() ? this.Input.Xmpp.Trim() : null,
+                                              Skype = this.Input.Skype.IsSet() ? this.Input.Skype.Trim() : null,
                                               RealName =
-                                                  this.Input.RealName.IsSet() ? this.Input.City.Trim() : null,
+                                                  this.Input.RealName.IsSet() ? this.Input.RealName.Trim() : null,
                                               Occupation =
-                                                  this.Input.Occupation.IsSet() ? this.Input.City.Trim() : null,
+                                                  this.Input.Occupation.IsSet() ? this.Input.Occupation.Trim() : null,
                                               Interests = this.Input.Interests.IsSet()
-                                                              ? this.Input.City.Trim()
+                                                              ? this.Input.Interests.Trim()
                                                               : null,
                                               Gender = this.Genders.FindIndex(g => g.Value == this.Input.Gender),
-                                              Blog = this.Input.Blog.IsSet() ? this.Input.City.Trim() : null
+                                              Blog = this.Input.Blog.IsSet() ? this.Input.Blog.Trim() : null
                                           };
 
         DateTime userBirthdate;
@@ -568,26 +568,28 @@ public class EditProfileModel : ProfilePage
             }
         }
 
-        this.CurrentUser.Item2.Profile_Birthday = userProfile.Birthday;
-        this.CurrentUser.Item2.Profile_Blog = userProfile.Blog;
-        this.CurrentUser.Item2.Profile_Gender = userProfile.Gender;
-        this.CurrentUser.Item2.Profile_GoogleId = userProfile.GoogleId;
-        this.CurrentUser.Item2.Profile_Homepage = userProfile.Homepage;
-        this.CurrentUser.Item2.Profile_Facebook = userProfile.Facebook;
-        this.CurrentUser.Item2.Profile_FacebookId = userProfile.FacebookId;
-        this.CurrentUser.Item2.Profile_Twitter = userProfile.Twitter;
-        this.CurrentUser.Item2.Profile_TwitterId = userProfile.TwitterId;
-        this.CurrentUser.Item2.Profile_Interests = userProfile.Interests;
-        this.CurrentUser.Item2.Profile_Location = userProfile.Location;
-        this.CurrentUser.Item2.Profile_Country = userProfile.Country;
-        this.CurrentUser.Item2.Profile_Region = userProfile.Region;
-        this.CurrentUser.Item2.Profile_City = userProfile.City;
-        this.CurrentUser.Item2.Profile_Occupation = userProfile.Occupation;
-        this.CurrentUser.Item2.Profile_RealName = userProfile.RealName;
-        this.CurrentUser.Item2.Profile_Skype = userProfile.Skype;
-        this.CurrentUser.Item2.Profile_XMPP = userProfile.XMPP;
+        var user = this.CurrentUser.Item2;
 
-        this.Get<IAspNetUsersHelper>().Update(this.CurrentUser.Item2);
+        user.Profile_Birthday = userProfile.Birthday;
+        user.Profile_Blog = userProfile.Blog;
+        user.Profile_Gender = userProfile.Gender;
+        user.Profile_GoogleId = userProfile.GoogleId;
+        user.Profile_Homepage = userProfile.Homepage;
+        user.Profile_Facebook = userProfile.Facebook;
+        user.Profile_FacebookId = userProfile.FacebookId;
+        user.Profile_Twitter = userProfile.Twitter;
+        user.Profile_TwitterId = userProfile.TwitterId;
+        user.Profile_Interests = userProfile.Interests;
+        user.Profile_Location = userProfile.Location;
+        user.Profile_Country = userProfile.Country;
+        user.Profile_Region = userProfile.Region;
+        user.Profile_City = userProfile.City;
+        user.Profile_Occupation = userProfile.Occupation;
+        user.Profile_RealName = userProfile.RealName;
+        user.Profile_Skype = userProfile.Skype;
+        user.Profile_XMPP = userProfile.XMPP;
+
+        this.Get<IAspNetUsersHelper>().Update(user);
     }
 
     /// <summary>

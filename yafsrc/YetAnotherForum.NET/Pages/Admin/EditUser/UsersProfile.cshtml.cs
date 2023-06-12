@@ -245,7 +245,7 @@ public class UsersProfileModel : AdminPage
             }
         }
 
-        if (this.Input.Interests.Trim().Length > 400)
+        if (this.Input.Interests.IsSet() && this.Input.Interests.Trim().Length > 400)
         {
             this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 400),
@@ -253,7 +253,7 @@ public class UsersProfileModel : AdminPage
             return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
-        if (this.Input.Occupation.Trim().Length > 400)
+        if (this.Input.Occupation.IsSet() && this.Input.Occupation.Trim().Length > 400)
         {
             this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400),
@@ -470,32 +470,31 @@ public class UsersProfileModel : AdminPage
     /// </summary>
     private void UpdateUserProfile()
     {
-        var userProfile = new ProfileInfo
-        {
-            Country = this.Input.Country,
-            Region = this.Input.Region.IsSet() && this.Input.Country.IsSet()
+        var userProfile = new ProfileInfo {
+                                              Country = this.Input.Country,
+                                              Region = this.Input.Region.IsSet() && this.Input.Region.IsSet()
                                                            ? this.Input.Region
                                                            : string.Empty,
-            City = this.Input.City.IsSet() ? this.Input.City.Trim() : null,
-            Location =
-                                                  this.Input.Location.IsSet() ? this.Input.City.Trim() : null,
-            Homepage =
-                                                  this.Input.HomePage.IsSet() ? this.Input.City.Trim() : null,
-            Facebook =
-                                                  this.Input.Facebook.IsSet() ? this.Input.City.Trim() : null,
-            Twitter = this.Input.Twitter.IsSet() ? this.Input.City.Trim() : null,
-            XMPP = this.Input.Xmpp.IsSet() ? this.Input.City.Trim() : null,
-            Skype = this.Input.Skype.IsSet() ? this.Input.City.Trim() : null,
-            RealName =
-                                                  this.Input.RealName.IsSet() ? this.Input.City.Trim() : null,
-            Occupation =
-                                                  this.Input.Occupation.IsSet() ? this.Input.City.Trim() : null,
-            Interests = this.Input.Interests.IsSet()
-                                                              ? this.Input.City.Trim()
+                                              City = this.Input.City.IsSet() ? this.Input.City.Trim() : null,
+                                              Location =
+                                                  this.Input.Location.IsSet() ? this.Input.Location.Trim() : null,
+                                              Homepage =
+                                                  this.Input.HomePage.IsSet() ? this.Input.HomePage.Trim() : null,
+                                              Facebook =
+                                                  this.Input.Facebook.IsSet() ? this.Input.Facebook.Trim() : null,
+                                              Twitter = this.Input.Twitter.IsSet() ? this.Input.Twitter.Trim() : null,
+                                              XMPP = this.Input.Xmpp.IsSet() ? this.Input.Xmpp.Trim() : null,
+                                              Skype = this.Input.Skype.IsSet() ? this.Input.Skype.Trim() : null,
+                                              RealName =
+                                                  this.Input.RealName.IsSet() ? this.Input.RealName.Trim() : null,
+                                              Occupation =
+                                                  this.Input.Occupation.IsSet() ? this.Input.Occupation.Trim() : null,
+                                              Interests = this.Input.Interests.IsSet()
+                                                              ? this.Input.Interests.Trim()
                                                               : null,
-            Gender = this.Genders.FindIndex(g => g.Value == this.Input.Gender),
-            Blog = this.Input.Blog.IsSet() ? this.Input.City.Trim() : null
-        };
+                                              Gender = this.Genders.FindIndex(g => g.Value == this.Input.Gender),
+                                              Blog = this.Input.Blog.IsSet() ? this.Input.Blog.Trim() : null
+                                          };
 
         DateTime userBirthdate;
 
