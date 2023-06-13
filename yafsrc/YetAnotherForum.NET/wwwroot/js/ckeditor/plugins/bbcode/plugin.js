@@ -63,7 +63,7 @@
         right: 'div',
         center: 'div',
         justify: 'div',
-        indend: 'div',
+        indent: 'div',
         url: 'a',
         email: 'span',
         img: 'span',
@@ -99,7 +99,7 @@
             center: 'text-align',
             right: 'text-align',
             justify: 'text-align',
-            indend: 'margin-left'
+            indent: 'margin-left'
         },
         attributesMap = { url: 'href', email: 'mailhref', list: 'listType', img: 'href', /*code: 'language'*/ };
 
@@ -220,7 +220,7 @@
                         optionPart = part;
                     }
 
-                    if (part == 'indend') {
+                    if (part == 'indent') {
                         optionPart = "40px;";
                     }
 
@@ -884,7 +884,7 @@
                                 '';
 
                             if (marginleft) {
-                                element.name = "indend";
+                                element.name = "indent";
                                 return null;
                             }
                         },
