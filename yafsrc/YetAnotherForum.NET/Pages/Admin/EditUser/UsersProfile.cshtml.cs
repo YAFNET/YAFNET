@@ -472,8 +472,7 @@ public class UsersProfileModel : AdminPage
     {
         var userProfile = new ProfileInfo {
                                               Country = this.Input.Country,
-                                              Region = this.Input.Region.IsSet() && this.Input.Region.IsSet()
-                                                           ? this.Input.Region
+                                              Region = this.Input.Region.IsSet() ? this.Input.Region.Trim()
                                                            : string.Empty,
                                               City = this.Input.City.IsSet() ? this.Input.City.Trim() : null,
                                               Location =

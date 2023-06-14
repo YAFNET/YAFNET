@@ -16,10 +16,9 @@
     <div class="row">
         <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-light">
-                @Html.Raw(Model.Get<ILocalization>().GetTextFormatted(
-                    "ALBUMTITLE",
-                    Html.HtmlEncode(Model.AlbumUser.DisplayOrUserName()),
-                    Html.HtmlEncode(Model.Album.Title)))
+                @Model.GetTextFormatted("ALBUMS_TITLE", 
+                    Html.HtmlEncode(Model.AlbumUser.DisplayOrUserName()), 
+                    Html.HtmlEncode(Model.Album.Title))
             </h1>
             <p>
                 @if (Model.PageBoardContext.PageUserID == Model.AlbumUser.ID)

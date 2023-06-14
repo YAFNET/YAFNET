@@ -133,6 +133,11 @@ public class EditAlbumImagesModel : ForumPageRegistered
         return this.DeleteAlbum(albumId);
     }
 
+    /// <summary>
+    /// Delete an Image form the Album
+    /// </summary>
+    /// <param name="albumId">The album identifier.</param>
+    /// <param name="imageId">The image identifier.</param>
     public void OnPostDeleteImage(int? albumId, int imageId)
     {
         var path = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);

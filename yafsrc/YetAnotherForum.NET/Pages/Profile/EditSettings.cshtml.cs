@@ -168,12 +168,8 @@ public class EditSettingsModel : ProfilePage
 
                 this.BindData(); 
             }
-
-            return this.Page();
         }
 
-        // vzrus: We should do it as we need to write null value to db, else it will be empty.
-        // Localizer currently treats only nulls.
         string language = null;
         var culture = this.Language;
         var theme = this.Theme;
