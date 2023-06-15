@@ -51,6 +51,9 @@ public class UsersGroupsModel : AdminPage
     [BindProperty]
     public InputModel Input { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UsersGroupsModel"/> class.
+    /// </summary>
     public UsersGroupsModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
     {
@@ -87,7 +90,7 @@ public class UsersGroupsModel : AdminPage
             var roleName = this.GetRepository<Group>().GetById(roleId).Name;
 
             // is user supposed to be in that role?
-            var isChecked = item.IsMember;
+            var isChecked = item.Selected;
 
             // save user in role
             this.GetRepository<UserGroup>().AddOrRemove(this.Input.UserId, roleId, isChecked);
@@ -145,7 +148,14 @@ public class UsersGroupsModel : AdminPage
                                     };
 
         // get user roles
-        this.UserGroups = this.GetRepository<Group>().Member(this.PageBoardContext.PageBoardID, userId);
+        var roles = this.GetRepository<Group>().Member(this.PageBoardContext.PageBoardID, userId);
+        
+        foreach (var role in roles.Where(role => role.IsMember))
+        {
+            role.Selected = true;
+        }
+
+        this.UserGroups = roles;
     }
 
     /// <summary>

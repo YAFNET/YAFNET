@@ -95,10 +95,8 @@
                                     <p>
                                         @if (role.Description.IsSet())
                                         {
-                                            <label class="form-label me-3"
-                                                   localized-tag="DESCRIPTION" localized-page="ADMIN_EDITGROUP">
-                                            </label>
-                                            @Html.Raw(role.Description)
+                                            <label class="form-label me-3" localized-tag="DESCRIPTION" localized-page="ADMIN_EDITGROUP">
+                                            </label>@Html.Raw(role.Description)
                                         }
 
                                         <ul class="list-inline">

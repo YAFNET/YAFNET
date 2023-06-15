@@ -34,4 +34,7 @@ public class GroupMember
 
     [Ignore]
     public bool IsMember => this.UserID.HasValue;
+
+    [Ignore]
+    public bool Selected { get; set; }
 }
