@@ -83,6 +83,15 @@ public class BannedNamesModel : AdminPage
     }
 
     /// <summary>
+    /// Clear Search
+    /// </summary>
+    public void OnPostClear()
+    {
+        this.SearchInput = string.Empty;
+        this.BindData();
+    }
+
+    /// <summary>
     /// Handles the Click event of the Search control.
     /// </summary>
     public void OnPost()
@@ -119,6 +128,8 @@ public class BannedNamesModel : AdminPage
     public IActionResult OnPostDelete(int id)
     {
         this.GetRepository<BannedName>().DeleteById(id);
+
+        this.SearchInput = string.Empty;
 
         this.BindData();
 

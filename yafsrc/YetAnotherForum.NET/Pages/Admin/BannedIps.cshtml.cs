@@ -84,6 +84,15 @@ public class BannedIpsModel : AdminPage
     }
 
     /// <summary>
+    /// Clear Search
+    /// </summary>
+    public void OnPostClear()
+    {
+        this.SearchInput = string.Empty;
+        this.BindData();
+    }
+
+    /// <summary>
     /// The page size on selected index changed.
     /// </summary>
     public void OnPost()
@@ -121,6 +130,8 @@ public class BannedIpsModel : AdminPage
         var ipAddress = this.GetIpFromId(id);
 
         this.GetRepository<BannedIP>().DeleteById(id);
+
+        this.SearchInput = string.Empty;
 
         this.BindData();
 

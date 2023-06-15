@@ -78,6 +78,8 @@ public class BannedEmailsModel : AdminPage
     {
         this.GetRepository<BannedEmail>().DeleteById(id);
 
+        this.SearchInput = string.Empty;
+
         this.BindData();
 
         return this.PageBoardContext.Notify(
@@ -126,6 +128,15 @@ public class BannedEmailsModel : AdminPage
     /// </summary>
     public void OnPostSearch()
     {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Clear Search
+    /// </summary>
+    public void OnPostClear()
+    {
+        this.SearchInput = string.Empty;
         this.BindData();
     }
 
