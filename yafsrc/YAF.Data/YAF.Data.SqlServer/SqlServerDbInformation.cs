@@ -258,7 +258,7 @@ public class SqlServerDbInformation : IDbInformation
 
         vaccessFullSelect.Append(" ) access GROUP BY UserID,ForumID");
 
-        dbCommand.Connection.CreateView<vaccessfull>(vaccessFullSelect);
+        dbCommand.Connection.CreateView<VAccessFull>(vaccessFullSelect);
 
         var vaccessSelect = new StringBuilder();
 
@@ -297,7 +297,7 @@ public class SqlServerDbInformation : IDbInformation
         vaccessSelect.AppendFormat(
             " [{0}].[{1}] as x WITH(NOLOCK)",
             Config.DatabaseOwner,
-            dbCommand.Connection.GetTableName<vaccessfull>());
+            dbCommand.Connection.GetTableName<VAccessFull>());
         vaccessSelect.AppendFormat(
             " INNER JOIN [{0}].[{1}] a WITH(NOLOCK) on a.UserID=x.UserID",
             Config.DatabaseOwner,

@@ -276,7 +276,7 @@ public class MySqlDbInformation : IDbInformation
             dbCommand.Connection.Database,
             dbCommand.Connection.GetTableName<User>());
 
-        dbCommand.Connection.CreateView<vaccessfull>(vaccessFullSelect);
+        dbCommand.Connection.CreateView<VAccessFull>(vaccessFullSelect);
 
         var vaccessSelect = new StringBuilder();
 
@@ -321,7 +321,7 @@ public class MySqlDbInformation : IDbInformation
 
         vaccessSelect.AppendFormat(" FROM {0}.{1} x_1 ",
             dbCommand.Connection.Database,
-            dbCommand.Connection.GetTableName<vaccessfull>());
+            dbCommand.Connection.GetTableName<VAccessFull>());
 
         vaccessSelect.AppendFormat(" INNER JOIN  {0}.{1} AS a ON a.UserID = x_1.UserID ",
             dbCommand.Connection.Database,

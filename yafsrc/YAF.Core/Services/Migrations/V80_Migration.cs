@@ -1530,7 +1530,7 @@ namespace YAF.Core.Services.Migrations
         private void DropViews(IDbCommand dbCommand)
         {
             dbCommand.Connection.DropView<VAccess>();
-            dbCommand.Connection.DropView<vaccessfull>();
+            dbCommand.Connection.DropView<VAccessFull>();
             dbCommand.Connection.DropView<vaccess_group>();
             dbCommand.Connection.DropView<vaccess_null>();
             dbCommand.Connection.DropView<vaccess_user>();

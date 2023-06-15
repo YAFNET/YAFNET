@@ -32,7 +32,7 @@ public class SqliteDbInformation : IDbInformation
     /// <summary>
     /// The YAF Provider Upgrade script list
     /// </summary>
-    private static readonly string[] IdentityUpgradeScriptList = { };
+    private static readonly string[] IdentityUpgradeScriptList = Array.Empty<string>();
 
     /// <summary>
     /// The DB parameters
@@ -123,18 +123,13 @@ public class SqliteDbInformation : IDbInformation
 
         vaccessGroupSelect.Append(" from");
 
-        vaccessGroupSelect.AppendFormat(
-            " {0} AS b",
-            dbCommand.Connection.GetTableName<UserGroup>());
-        vaccessGroupSelect.AppendFormat(
-            " INNER JOIN {0} AS c on c.GroupID=b.GroupID",
-            dbCommand.Connection.GetTableName<ForumAccess>());
-        vaccessGroupSelect.AppendFormat(
-            " INNER JOIN {0} AS d on d.AccessMaskID=c.AccessMaskID",
-            dbCommand.Connection.GetTableName<AccessMask>());
-        vaccessGroupSelect.AppendFormat(
-            " INNER JOIN {0} AS e on e.GroupID=b.GroupID",
-            dbCommand.Connection.GetTableName<Group>());
+        vaccessGroupSelect.Append($" {dbCommand.Connection.GetTableName<UserGroup>()} AS b");
+        vaccessGroupSelect.Append(
+            $" INNER JOIN {dbCommand.Connection.GetTableName<ForumAccess>()} AS c on c.GroupID=b.GroupID");
+        vaccessGroupSelect.Append(
+            $" INNER JOIN {dbCommand.Connection.GetTableName<AccessMask>()} AS d on d.AccessMaskID=c.AccessMaskID");
+        vaccessGroupSelect.Append(
+            $" INNER JOIN {dbCommand.Connection.GetTableName<Group>()} AS e on e.GroupID=b.GroupID");
 
         dbCommand.Connection.CreateView<vaccess_group>(vaccessGroupSelect);
 
@@ -157,7 +152,7 @@ public class SqliteDbInformation : IDbInformation
 
         vaccessNullSelect.Append(" from");
 
-        vaccessNullSelect.AppendFormat(" {0} AS a", dbCommand.Connection.GetTableName<User>());
+        vaccessNullSelect.Append($" {dbCommand.Connection.GetTableName<User>()} AS a");
 
         dbCommand.Connection.CreateView<vaccess_null>(vaccessNullSelect);
 
@@ -180,12 +175,9 @@ public class SqliteDbInformation : IDbInformation
         vaccessUserSelect.Append("c.Flags & 256 AS DeleteAccess");
 
         vaccessUserSelect.Append(" from");
-        vaccessUserSelect.AppendFormat(
-            " {0} AS b",
-            dbCommand.Connection.GetTableName<UserForum>());
-        vaccessUserSelect.AppendFormat(
-            " INNER JOIN {0} AS c on c.AccessMaskID=b.AccessMaskID",
-            dbCommand.Connection.GetTableName<AccessMask>());
+        vaccessUserSelect.Append($" {dbCommand.Connection.GetTableName<UserForum>()} AS b");
+        vaccessUserSelect.Append(
+            $" INNER JOIN {dbCommand.Connection.GetTableName<AccessMask>()} AS c on c.AccessMaskID=b.AccessMaskID");
 
         dbCommand.Connection.CreateView<vaccess_user>(vaccessUserSelect);
 
@@ -208,11 +200,9 @@ public class SqliteDbInformation : IDbInformation
         vaccessFullSelect.Append("c.Flags & 256 AS DeleteAccess,");
         vaccessFullSelect.Append("0 AS AdminGroup ");
 
-        vaccessFullSelect.AppendFormat("FROM {0} AS b ",
-            dbCommand.Connection.GetTableName<UserForum>());
+        vaccessFullSelect.Append($"FROM {dbCommand.Connection.GetTableName<UserForum>()} AS b ");
 
-        vaccessFullSelect.AppendFormat("INNER JOIN {0} AS c ",
-            dbCommand.Connection.GetTableName<AccessMask>());
+        vaccessFullSelect.Append($"INNER JOIN {dbCommand.Connection.GetTableName<AccessMask>()} AS c ");
 
         vaccessFullSelect.Append("ON c.AccessMaskID = b.AccessMaskID ");
 
@@ -232,17 +222,16 @@ public class SqliteDbInformation : IDbInformation
         vaccessFullSelect.Append("d.Flags & 256 AS DeleteAccess,");
         vaccessFullSelect.Append("e.Flags & 1 AS AdminGroup");
 
-        vaccessFullSelect.AppendFormat(" FROM {0} AS b",
-            dbCommand.Connection.GetTableName<UserGroup>());
+        vaccessFullSelect.Append($" FROM {dbCommand.Connection.GetTableName<UserGroup>()} AS b");
 
-        vaccessFullSelect.AppendFormat(" INNER JOIN {0} AS c ON c.GroupID = b.GroupID ",
-            dbCommand.Connection.GetTableName<ForumAccess>());
+        vaccessFullSelect.Append(
+            $" INNER JOIN {dbCommand.Connection.GetTableName<ForumAccess>()} AS c ON c.GroupID = b.GroupID ");
 
-        vaccessFullSelect.AppendFormat(" INNER JOIN {0} AS d ON d.AccessMaskID = c.AccessMaskID ",
-            dbCommand.Connection.GetTableName<AccessMask>());
+        vaccessFullSelect.Append(
+            $" INNER JOIN {dbCommand.Connection.GetTableName<AccessMask>()} AS d ON d.AccessMaskID = c.AccessMaskID ");
 
-        vaccessFullSelect.AppendFormat(" INNER JOIN {0} e ON e.GroupID = b.GroupID ",
-            dbCommand.Connection.GetTableName<Group>());
+        vaccessFullSelect.Append(
+            $" INNER JOIN {dbCommand.Connection.GetTableName<Group>()} e ON e.GroupID = b.GroupID ");
 
         vaccessFullSelect.Append(" UNION ALL ");
         vaccessFullSelect.Append(" SELECT ");
@@ -260,10 +249,9 @@ public class SqliteDbInformation : IDbInformation
         vaccessFullSelect.Append("0 AS DeleteAccess,");
         vaccessFullSelect.Append("0 AS AdminGroup ");
 
-        vaccessFullSelect.AppendFormat("FROM {0} AS a",
-            dbCommand.Connection.GetTableName<User>());
+        vaccessFullSelect.Append($"FROM {dbCommand.Connection.GetTableName<User>()} AS a");
 
-        dbCommand.Connection.CreateView<vaccessfull>(vaccessFullSelect);
+        dbCommand.Connection.CreateView<VAccessFull>(vaccessFullSelect);
 
         var vaccessSelect = new StringBuilder();
 
@@ -276,16 +264,12 @@ public class SqliteDbInformation : IDbInformation
         vaccessSelect.Append("MAX(b.Flags & 8) AS IsForumModerator,");
         vaccessSelect.Append("(SELECT COUNT(1) AS Expr1 ");
 
-        vaccessSelect.AppendFormat("FROM {0} AS v",
-            dbCommand.Connection.GetTableName<UserGroup>());
-        vaccessSelect.AppendFormat(" INNER JOIN {0} AS w ON v.GroupID = w.GroupID",
-            dbCommand.Connection.GetTableName<Group>());
+        vaccessSelect.Append($"FROM {dbCommand.Connection.GetTableName<UserGroup>()} AS v");
+        vaccessSelect.Append($" INNER JOIN {dbCommand.Connection.GetTableName<Group>()} AS w ON v.GroupID = w.GroupID");
 
-        vaccessSelect.AppendFormat(" CROSS JOIN {0} AS x",
-            dbCommand.Connection.GetTableName<ForumAccess>());
+        vaccessSelect.Append($" CROSS JOIN {dbCommand.Connection.GetTableName<ForumAccess>()} AS x");
 
-        vaccessSelect.AppendFormat(" CROSS JOIN {0} AS y",
-            dbCommand.Connection.GetTableName<AccessMask>());
+        vaccessSelect.Append($" CROSS JOIN {dbCommand.Connection.GetTableName<AccessMask>()} AS y");
 
         vaccessSelect.Append(" WHERE(v.UserID = a.UserID)");
         vaccessSelect.Append(" AND(x.GroupID = w.GroupID)");
@@ -302,14 +286,13 @@ public class SqliteDbInformation : IDbInformation
         vaccessSelect.Append("MAX(x_1.EditAccess) AS EditAccess,");
         vaccessSelect.Append("MAX(x_1.DeleteAccess) AS DeleteAccess");
 
-        vaccessSelect.AppendFormat(" FROM {0} x_1 ",
-            dbCommand.Connection.GetTableName<vaccessfull>());
+        vaccessSelect.Append($" FROM {dbCommand.Connection.GetTableName<VAccessFull>()} x_1 ");
 
-        vaccessSelect.AppendFormat(" INNER JOIN {0} AS a ON a.UserID = x_1.UserID ",
-            dbCommand.Connection.GetTableName<UserGroup>());
+        vaccessSelect.Append(
+            $" INNER JOIN {dbCommand.Connection.GetTableName<UserGroup>()} AS a ON a.UserID = x_1.UserID ");
 
-        vaccessSelect.AppendFormat(" INNER JOIN {0} AS b ON b.GroupID = a.GroupID ",
-            dbCommand.Connection.GetTableName<Group>());
+        vaccessSelect.Append(
+            $" INNER JOIN {dbCommand.Connection.GetTableName<Group>()} AS b ON b.GroupID = a.GroupID ");
 
         vaccessSelect.Append(" GROUP BY a.UserID, x_1.ForumID");
 

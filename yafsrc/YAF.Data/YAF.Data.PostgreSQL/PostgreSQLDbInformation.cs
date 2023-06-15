@@ -32,7 +32,7 @@ public class PostgreSQLDbInformation : IDbInformation
     /// <summary>
     /// The YAF Provider Upgrade script list
     /// </summary>
-    private static readonly string[] IdentityUpgradeScriptList = {  };
+    private static readonly string[] IdentityUpgradeScriptList = Array.Empty<string>();
 
     /// <summary>
     /// The DB parameters
@@ -278,7 +278,7 @@ public class PostgreSQLDbInformation : IDbInformation
             "FROM {0} AS a",
             OrmLiteConfig.DialectProvider.GetQuotedTableName("User", Config.DatabaseSchema));
 
-        dbCommand.Connection.CreateView<vaccessfull>(vaccessFullSelect);
+        dbCommand.Connection.CreateView<VAccessFull>(vaccessFullSelect);
 
         var vaccessSelect = new StringBuilder();
 
