@@ -144,7 +144,7 @@
         });
 
         $(this).find(".context-menu a").on("click", function (e) {
-            if ($(this).data("toggle") !== undefined && $(this).data("toggle") == "confirm") {
+            if ($(this).data("bs-toggle") !== undefined && $(this).data("bs-toggle") == "confirm") {
                 e.preventDefault();
 
                 var link = $(this).attr("href");

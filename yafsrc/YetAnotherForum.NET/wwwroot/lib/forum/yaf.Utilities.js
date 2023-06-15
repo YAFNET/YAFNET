@@ -40,6 +40,30 @@ $(document).on("click",
     }
 );
 
+$(".dropdown-menu button").on("click", function (e, confirmed) {
+    if (!confirmed) {
+
+        var button = $(e.currentTarget);
+        if (button.data("bs-toggle") !== undefined && button.data("bs-toggle") == "confirm") {
+
+
+            e.preventDefault();
+
+            var text = button.data("title");
+            var title = button.html();
+            var yes = button.data("yes");
+            var no = button.data("no");
+
+            bootboxConfirm(button, title, text, yes, no, function (r) {
+                if (r) {
+                    button.trigger("click", true);
+                }
+            });
+        }
+    }
+
+});
+
 var bootboxConfirm = function (button, title, message, yes, no, callback) {
     var options = {
         message: message,
