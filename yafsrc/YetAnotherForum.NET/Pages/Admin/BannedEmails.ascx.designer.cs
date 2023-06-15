@@ -69,6 +69,15 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.ThemeButton search;
 
         /// <summary>
+        /// Clear-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton Clear;
+
+        /// <summary>
         /// EmptyState-Steuerelement.
         /// </summary>
         /// <remarks>

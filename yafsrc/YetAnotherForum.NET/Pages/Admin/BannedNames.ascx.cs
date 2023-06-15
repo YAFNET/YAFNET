@@ -137,6 +137,8 @@ public partial class BannedNames : AdminPage
                         this.GetText("ADMIN_BANNEDNAME", "MSG_REMOVEBAN_NAME"),
                         MessageTypes.success);
 
+                    this.SearchInput.Text = string.Empty;
+
                     this.BindData();
                 }
 
@@ -162,6 +164,18 @@ public partial class BannedNames : AdminPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Search_Click(object sender, EventArgs e)
     {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Clear Search
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void ClearClick(object sender, EventArgs e)
+    {
+        this.SearchInput.Text = string.Empty;
+
         this.BindData();
     }
 

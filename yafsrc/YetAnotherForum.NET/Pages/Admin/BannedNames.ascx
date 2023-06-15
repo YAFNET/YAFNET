@@ -57,6 +57,12 @@
                                                      Icon="search"
                                                      OnClick="Search_Click">
                                     </YAF:ThemeButton>
+                                    <YAF:ThemeButton ID="Clear" runat="server"
+                                                     Type="Secondary"
+                                                     TextLocalizedTag="CLEAR"
+                                                     Icon="trash"
+                                                     OnClick="ClearClick">
+                                    </YAF:ThemeButton>
                                 </div>
                             </div>
                         </div>

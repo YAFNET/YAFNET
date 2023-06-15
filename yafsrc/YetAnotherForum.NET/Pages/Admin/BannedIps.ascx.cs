@@ -141,6 +141,8 @@ public partial class BannedIps : AdminPage
                     this.PageBoardContext.Notify(
                         this.GetTextFormatted("MSG_REMOVEBAN_IP", ipAddress), MessageTypes.success);
 
+                    this.SearchInput.Text = string.Empty;
+
                     this.BindData();
 
                     if (this.PageBoardContext.BoardSettings.LogBannedIP)
@@ -176,6 +178,18 @@ public partial class BannedIps : AdminPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Search_Click(object sender, EventArgs e)
     {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// Clear Search
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    protected void ClearClick(object sender, EventArgs e)
+    {
+        this.SearchInput.Text = string.Empty;
+
         this.BindData();
     }
 
