@@ -36,6 +36,7 @@ using YAF.Core.Hubs;
 using YAF.Core.Identity;
 using YAF.Core.Services;
 using YAF.Core.Services.Cache;
+using YAF.Core.Services.Import;
 using YAF.Core.Services.Migrations;
 
 /// <summary>
@@ -115,6 +116,8 @@ public class ServicesModule : BaseModule
 
         builder.RegisterType<InstallService>().AsSelf().PreserveExistingDefaults();
         builder.RegisterType<UpgradeService>().AsSelf().PreserveExistingDefaults();
+
+        builder.RegisterType<DataImporter>().As<IDataImporter>().PreserveExistingDefaults();
 
         // localization registration...
         builder.RegisterType<LocalizationProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();

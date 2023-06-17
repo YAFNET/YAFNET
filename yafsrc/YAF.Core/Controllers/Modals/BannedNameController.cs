@@ -66,9 +66,8 @@ public class BannedNameController : ForumBaseController
 
         try
         {
-            var importedCount = DataImport.BannedNamesImport(
+            var importedCount = this.Get<IDataImporter>().BannedNamesImport(
                 this.PageBoardContext.PageBoardID,
-                this.PageBoardContext.PageUserID,
                 model.Import.OpenReadStream());
 
             return this.Ok(

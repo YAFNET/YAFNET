@@ -63,7 +63,7 @@ public class UsersImportController : ForumBaseController
             {
                 case "text/xml":
                     {
-                        importedCount = DataImport.ImportingUsers(model.Import.OpenReadStream(), true);
+                        importedCount = this.Get<IDataImporter>().ImportingUsers(model.Import.OpenReadStream(), true);
                     }
 
                     break;
@@ -73,7 +73,7 @@ public class UsersImportController : ForumBaseController
                 case "application/csv":
                 case "text/comma-separated-values":
                     {
-                        importedCount = DataImport.ImportingUsers(model.Import.OpenReadStream(), false);
+                        importedCount = this.Get<IDataImporter>().ImportingUsers(model.Import.OpenReadStream(), false);
                     }
 
                     break;

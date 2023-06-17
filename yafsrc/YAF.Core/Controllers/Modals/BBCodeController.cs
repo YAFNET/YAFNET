@@ -64,7 +64,7 @@ public class BBCodeController : ForumBaseController
 
         try
         {
-            var importedCount = DataImport.BBCodeExtensionImport(
+            var importedCount = this.Get<IDataImporter>().BBCodeExtensionImport(
                 this.PageBoardContext.PageBoardID,
                 model.Import.OpenReadStream());
 

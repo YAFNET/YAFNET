@@ -52,7 +52,7 @@ public class UserInfo : ForumBaseController
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    [ValidateAntiForgeryToken]
+    //[ValidateAntiForgeryToken]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ForumUserInfo))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

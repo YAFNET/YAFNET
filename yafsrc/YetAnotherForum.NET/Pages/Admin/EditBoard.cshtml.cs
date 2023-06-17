@@ -322,10 +322,10 @@ public class EditBoardModel : AdminPage
             });
 
         // load default bbcode if available...
-        loadWrapper("bbCodeExtensions.xml", s => DataImport.BBCodeExtensionImport(newBoardId, s));
+        loadWrapper("bbCodeExtensions.xml", s => this.Get<IDataImporter>().BBCodeExtensionImport(newBoardId, s));
 
         // load default spam word if available...
-        loadWrapper("SpamWords.xml", s => DataImport.SpamWordsImport(newBoardId, s));
+        loadWrapper("SpamWords.xml", s => this.Get<IDataImporter>().SpamWordsImport(newBoardId, s));
 
         return newBoardId;
     }

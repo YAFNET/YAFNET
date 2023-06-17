@@ -66,7 +66,7 @@ public class SpamWordsController : ForumBaseController
 
         try
         {
-            var importedCount = DataImport.SpamWordsImport(
+            var importedCount = this.Get<IDataImporter>().SpamWordsImport(
                 this.PageBoardContext.PageBoardID,
                 model.Import.OpenReadStream());
 
