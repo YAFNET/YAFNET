@@ -1429,7 +1429,6 @@ public static class TopicRepositoryExtensions
         repository.FireDeleted(topicId);
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
     }
 
     /// <summary>
