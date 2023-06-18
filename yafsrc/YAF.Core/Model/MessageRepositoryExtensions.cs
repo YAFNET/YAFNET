@@ -615,8 +615,10 @@ public static class MessageRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
+        var forum = BoardContext.Current.GetRepository<Forum>().GetById(forumId);
+
         repository.DeleteRecursively(
-            forumId,
+            forum,
             topicId,
             message,
             isModeratorChanged,
@@ -1223,8 +1225,8 @@ public static class MessageRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="forumId">
-    /// The forum Id.
+    /// <param name="forum">
+    /// The forum.
     /// </param>
     /// <param name="topicId">
     /// The topic Id.
@@ -1249,7 +1251,7 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void DeleteRecursively(
         this IRepository<Message> repository,
-        [NotNull] int forumId,
+        [NotNull] Forum forum,
         [NotNull] int topicId,
         [NotNull] Message message,
         [NotNull] bool isModeratorChanged,
@@ -1269,7 +1271,7 @@ public static class MessageRepositoryExtensions
             {
                 replies.ForEach(
                     reply => repository.DeleteRecursively(
-                        forumId,
+                        forum,
                         topicId,
                         reply,
                         isModeratorChanged,
@@ -1294,7 +1296,7 @@ public static class MessageRepositoryExtensions
         }
 
         repository.DeleteInternal(
-            forumId,
+            forum,
             topicId,
             message,
             isModeratorChanged,
@@ -1374,7 +1376,7 @@ public static class MessageRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="forumId">
+    /// <param name="forum">
     /// The forum Id.
     /// </param>
     /// <param name="topicId">
@@ -1397,7 +1399,7 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void DeleteInternal(
         this IRepository<Message> repository,
-        [NotNull] int forumId,
+        [NotNull] Forum forum,
         [NotNull] int topicId,
         [NotNull] Message message,
         [NotNull] bool isModeratorChanged,
@@ -1479,7 +1481,7 @@ public static class MessageRepositoryExtensions
             if (repository.Count(x => x.TopicID == topicId && (x.Flags & 8) != 8) == 0)
             {
                BoardContext.Current.GetRepository<Topic>().Delete(
-                    forumId,
+                    forum.ID,
                     topicId,
                     true);
             }
@@ -1500,11 +1502,18 @@ public static class MessageRepositoryExtensions
         }
 
         // -- update user post count
-        if (!BoardContext.Current.GetRepository<Forum>()
-                .Exists(f => f.ID == forumId && (f.Flags & 4) != 4))
+        if (!forum.ForumFlags.IsTest)
         {
-            var postCount = repository.Count(
-                x => x.UserID == message.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16).ToType<int>();
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            expression.Join<Topic>((m, t) => t.ID == m.TopicID);
+            expression.Join<Topic, Forum>((t, f) => f.ID == t.ForumID);
+
+            expression.Where<Message, Topic, Forum>(
+                (m, t, f) => m.UserID == message.UserID && (m.Flags & 8) != 8 && (m.Flags & 16) == 16
+                             && (f.Flags & 4) != 4);
+
+           var postCount = repository.DbAccess.Execute(db => db.Connection.Count(expression)).ToType<int>();
 
             BoardContext.Current.GetRepository<User>().UpdateOnly(
                 () => new User { NumPosts = postCount },
