@@ -497,6 +497,9 @@ public interface IAspNetUsersHelper
     /// <param name="onlySuspended">if set to <c>true</c> [only suspended].</param>
     /// <param name="groupId">The group identifier.</param>
     /// <param name="rankId">The rank identifier.</param>
+    /// <param name="includeGuests">
+    /// Include Guests ?
+    /// </param>
     /// <returns>
     /// Returns the board users.
     /// </returns>
