@@ -15,7 +15,7 @@
     <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00016" />
     <PackageReference Include="MailKit" Version="4.1.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="7.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.8" />
