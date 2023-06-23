@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -31,6 +32,47 @@ public static partial class HttpUtils
         ;
 
     public static Encoding UseEncoding { get; set; } = new UTF8Encoding(false);
+
+
+    public static string AddQueryParams(this string url, Dictionary<string, string> args)
+    {
+        var sb = StringBuilderCache.Allocate()
+            .Append(url);
+
+        var i = 0;
+        foreach (var entry in args)
+        {
+            if (entry.Value == null)
+                continue;
+
+            sb.Append(i++ == 0 && url.IndexOf('?') == -1 ? '?' : '&');
+            sb.Append($"{entry.Key.UrlEncode()}={entry.Value.UrlEncode()}");
+        }
+
+        return StringBuilderCache.ReturnAndFree(sb);
+    }
+
+    public static string AddQueryParams(this string url, NameValueCollection queryParams)
+    {
+        var sb = StringBuilderCache.Allocate()
+            .Append(url);
+
+        foreach (string key in queryParams.AllKeys)
+        {
+            var values = queryParams.GetValues(key);
+            if (values == null)
+                continue;
+
+            var i = 0;
+            foreach (var value in values)
+            {
+                sb.Append(i++ == 0 && url.IndexOf('?') == -1 ? '?' : '&');
+                sb.Append($"{key.UrlEncode()}={value.UrlEncode()}");
+            }
+        }
+
+        return StringBuilderCache.ReturnAndFree(sb);
+    }
 
     public static string AddQueryParam(this string url, string key, object val, bool encode = true)
     {
