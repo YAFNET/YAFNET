@@ -108,7 +108,7 @@ namespace ServiceStack.OrmLite
         /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
         public static Task<List<T>> ConvertToListAsync<T>(this IDbCommand dbCmd)
         {
-            return dbCmd.ConvertToListAsync<T>(null, default(CancellationToken));
+            return dbCmd.ConvertToListAsync<T>(null, default);
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace ServiceStack.OrmLite
         /// <returns>Task&lt;IList&gt;.</returns>
         public static Task<IList> ConvertToListAsync(this IDbCommand dbCmd, Type refType)
         {
-            return dbCmd.ConvertToListAsync(refType, null, default(CancellationToken));
+            return dbCmd.ConvertToListAsync(refType, null, default);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace ServiceStack.OrmLite
         /// <returns>Task&lt;T&gt;.</returns>
         public static Task<T> ConvertToAsync<T>(this IDbCommand dbCmd)
         {
-            return dbCmd.ConvertToAsync<T>(null, default(CancellationToken));
+            return dbCmd.ConvertToAsync<T>(null, default);
         }
 
         /// <summary>
@@ -298,7 +298,7 @@ namespace ServiceStack.OrmLite
         /// <returns>Task&lt;System.Object&gt;.</returns>
         public static Task<object> ScalarAsync(this IDbCommand dbCmd)
         {
-            return dbCmd.ScalarAsync((string)null, default(CancellationToken));
+            return dbCmd.ScalarAsync((string)null, default);
         }
 
         /// <summary>

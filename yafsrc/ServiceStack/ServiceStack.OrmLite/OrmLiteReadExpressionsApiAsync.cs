@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 
 namespace ServiceStack.OrmLite
 {
+    using ServiceStack.OrmLite.Dapper;
+
     /// <summary>
     /// Class OrmLiteReadExpressionsApiAsync.
     /// </summary>

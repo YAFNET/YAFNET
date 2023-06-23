@@ -134,7 +134,7 @@ public static class Env
     /// <summary>
     /// The service stack version
     /// </summary>
-    public static decimal ServiceStackVersion = 6.81m;
+    public static decimal ServiceStackVersion = 6.90m;
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is linux.

@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 #if ASYNC
 // Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
@@ -14,6 +15,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ServiceStack.Logging;
 using ServiceStack.OrmLite.Support;
 using ServiceStack.Text;
@@ -760,7 +762,7 @@ namespace ServiceStack.OrmLite
         {
             var modelType = typeof(TOutputModel);
 
-            string sql = dbCmd.GetDialectProvider().ToSelectFromProcedureStatement(
+            var sql = dbCmd.GetDialectProvider().ToSelectFromProcedureStatement(
                 fromObjWithProperties, modelType, sqlFilter, filterParams);
 
             return dbCmd.ConvertToListAsync<TOutputModel>(sql, token);
@@ -779,7 +781,7 @@ namespace ServiceStack.OrmLite
         {
             var row = await dbCmd.SingleByIdAsync<T>(value, token).ConfigAwait();
             if (row == null)
-                return default(T);
+                return default;
 
             await dbCmd.LoadReferencesAsync(row, include, token).ConfigAwait();
 
