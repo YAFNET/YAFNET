@@ -209,108 +209,111 @@
                             <alert type="info" icon="info-circle" message="@pollWarningNotification"></alert>
                         }
 
-                        @if (poll.ObjectPath.IsSet())
+                        @if (!Current.IsGuest)
                         {
-                            <img data-bs-toggle="tooltip" class="img-thumbnail mb-1" style="max-height: 80px" title="@Html.HtmlEncode(poll.Question)" alt="@Html.Encode(poll.Question)"
-                                 href="@Html.HtmlEncode(poll.ObjectPath)" />
-                        }
+                            @if (poll.ObjectPath.IsSet())
+                            {
+                                <img data-bs-toggle="tooltip" class="img-thumbnail mb-1" style="max-height: 80px" title="@Html.HtmlEncode(poll.Question)" alt="@Html.Encode(poll.Question)"
+                                     href="@Html.HtmlEncode(poll.ObjectPath)" />
+                            }
 
-                        @if (!(!hasVoteAccess && userPollVotes.Any() && Current.IsGuest))
-                        {
-                            <ul class="list-group">
-                                @foreach (var choice in pollAndChoices)
-                                {
-                                    var voterNames = new StringBuilder();
-
-                                    var voteEnabled = hasVoteAccess && isNotVoted && userPollVotes.All(v => choice.Item2.ID != v.ChoiceID) ||
-                                    choice.Item1.PollFlags.AllowMultipleChoice && hasVoteAccess && userPollVotes.All(v => choice.Item2.ID != v.ChoiceID);
-
-                                    if (!voters.NullOrEmpty())
+                            @if (!(!hasVoteAccess && userPollVotes.Any()))
+                            {
+                                <ul class="list-group">
+                                    @foreach (var choice in pollAndChoices)
                                     {
-                                        var votersByChoice = voters.Where(i => i.Item1.ChoiceID == choice.Item2.ID).ToList();
+                                        var voterNames = new StringBuilder();
 
-                                        if (votersByChoice.Any())
+                                        var voteEnabled = hasVoteAccess && isNotVoted && userPollVotes.All(v => choice.Item2.ID != v.ChoiceID) ||
+                                        choice.Item1.PollFlags.AllowMultipleChoice && hasVoteAccess && userPollVotes.All(v => choice.Item2.ID != v.ChoiceID);
+
+                                        if (!voters.NullOrEmpty())
                                         {
-                                            voterNames.Append("(");
+                                            var votersByChoice = voters.Where(i => i.Item1.ChoiceID == choice.Item2.ID).ToList();
 
-                                            votersByChoice.ForEach(itemTuple => voterNames.AppendFormat("{0}, ", itemTuple.Item2.DisplayOrUserName()));
+                                            if (votersByChoice.Any())
+                                            {
+                                                voterNames.Append("(");
 
-                                            voterNames.Remove(voterNames.Length - 2, 2);
+                                                votersByChoice.ForEach(itemTuple => voterNames.AppendFormat("{0}, ", itemTuple.Item2.DisplayOrUserName()));
 
-                                            voterNames.Append(")");
+                                                voterNames.Remove(voterNames.Length - 2, 2);
+
+                                                voterNames.Append(")");
+                                            }
                                         }
-                                    }
 
-                                    <li class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5>
-                                                @if (choice.Item2.ObjectPath.IsSet())
+                                        <li class="list-group-item list-group-item-action">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5>
+                                                    @if (choice.Item2.ObjectPath.IsSet())
+                                                    {
+                                                        <img src="@(choice.Item2.ObjectPath)" class="img-fluid me-1" data-bs-toggle="tooltip"
+                                                             title="@(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))" alt="@(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))"
+                                                             style="max-height: 80px" />
+                                                    }
+
+                                                    @(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))
+                                                </h5>
+
+                                                @if (userPollVotes.Any(v => choice.Item2.ID == v.ChoiceID))
                                                 {
-                                                    <img src="@(choice.Item2.ObjectPath)" class="img-fluid me-1" data-bs-toggle="tooltip"
-                                                         title="@(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))" alt="@(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))"
-                                                         style="max-height: 80px" />
+                                                    <small>
+                                                        <span class="badge bg-success" title="@Html.LocalizedText("POLLEDIT", "POLL_VOTED")">
+                                                            <i class="fa fa-check-circle fa-fw"></i>&nbsp;@Html.LocalizedText("POLLEDIT", "POLL_VOTED")
+                                                        </span>
+                                                    </small>
                                                 }
 
-                                                @(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))
-                                            </h5>
-
-                                            @if (userPollVotes.Any(v => choice.Item2.ID == v.ChoiceID))
-                                            {
-                                                <small>
-                                                    <span class="badge bg-success" title="@Html.LocalizedText("POLLEDIT", "POLL_VOTED")">
-                                                        <i class="fa fa-check-circle fa-fw"></i>&nbsp;@Html.LocalizedText("POLLEDIT", "POLL_VOTED")
-                                                    </span>
-                                                </small>
-                                            }
-
-                                        </div>
-                                        @if (voteEnabled)
-                                        {
-                                            <button ID="@Html.Raw($"VoteButton{choice.Item2.ID}")"
-                                                    class="mb-2"
-                                                    button-style="Success"
-                                                    button-size="Small"
-                                                    asp-controller="Poll"
-                                                    asp-action="Vote"
-                                                    asp-route-choiceId="@choice.Item2.ID"
-                                                    asp-route-pollId="@choice.Item1.ID"
-                                                    asp-route-topicId="@Current.PageTopicID"
-                                                    asp-route-forumId="@Current.PageTopicID"
-                                                    icon="vote-yea"
-                                                    title-localized-page="POLLEDIT"
-                                                    title-localized-tag="POLL_PLEASEVOTE">
-                                                @Html.HtmlEncode(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))
-                                            </button>
-
-                                        }
-
-                                        @if (showResults)
-                                        {
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-striped" role="progressbar"
-                                                     style="width: @(Current.Get<PollService>().VoteWidth(pollAndChoices, choice))%"
-                                                     aria-valuenow="@(Current.Get<PollService>().VoteWidth(pollAndChoices, choice))" aria-valuemin="0" aria-valuemax="100">
-                                                    @(Current.Get<PollService>().VoteWidth(pollAndChoices, choice))
-                                                </div>
                                             </div>
-
-                                            @(choice.Item2.Votes)
-
-                                            <span class="ms-1">@Html.LocalizedText("VOTES")</span>
-
-                                            @if (voterNames.Length > 0)
+                                            @if (voteEnabled)
                                             {
-                                                <span class="ms-1 text-muted">@(voterNames.ToString())</span>
-                                            }
-                                        }
-                                    </li>
-                                }
-                            </ul>
-                        }
+                                                <button ID="@Html.Raw($"VoteButton{choice.Item2.ID}")"
+                                                        class="mb-2"
+                                                        button-style="Success"
+                                                        button-size="Small"
+                                                        asp-controller="Poll"
+                                                        asp-action="Vote"
+                                                        asp-route-choiceId="@choice.Item2.ID"
+                                                        asp-route-pollId="@choice.Item1.ID"
+                                                        asp-route-topicId="@Current.PageTopicID"
+                                                        asp-route-forumId="@Current.PageTopicID"
+                                                        icon="vote-yea"
+                                                        title-localized-page="POLLEDIT"
+                                                        title-localized-tag="POLL_PLEASEVOTE">
+                                                    @Html.HtmlEncode(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))
+                                                </button>
 
-                        <p class="card-text">
-                            @Html.LocalizedText("total"): @Html.Raw(pollAndChoices.Sum(x => x.Item2.Votes).ToString())
-                        </p>
+                                            }
+
+                                            @if (showResults)
+                                            {
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped" role="progressbar"
+                                                         style="width: @(Current.Get<PollService>().VoteWidth(pollAndChoices, choice))%"
+                                                         aria-valuenow="@(Current.Get<PollService>().VoteWidth(pollAndChoices, choice))" aria-valuemin="0" aria-valuemax="100">
+                                                        @(Current.Get<PollService>().VoteWidth(pollAndChoices, choice))
+                                                    </div>
+                                                </div>
+
+                                                @(choice.Item2.Votes)
+
+                                                <span class="ms-1">@Html.LocalizedText("VOTES")</span>
+
+                                                @if (voterNames.Length > 0)
+                                                {
+                                                    <span class="ms-1 text-muted">@(voterNames.ToString())</span>
+                                                }
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            }
+
+                            <p class="card-text">
+                                @Html.LocalizedText("total"): @Html.Raw(pollAndChoices.Sum(x => x.Item2.Votes).ToString())
+                            </p>
+                        }
                     </div>
 
                     @if (hasOwnerExistingGroupAccess)
