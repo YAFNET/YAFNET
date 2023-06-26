@@ -41,13 +41,13 @@ public class Registry : IEntity, IHaveID
     /// </summary>
     [Required]
     [Index]
-    [StringLength(4000)]
+    [StringLength(100)]
     public string Name { get; set; }
 
     /// <summary>
     /// Gets or sets the value.
     /// </summary>
-    [StringLength(4000)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string Value { get; set; }
 
     /// <summary>
