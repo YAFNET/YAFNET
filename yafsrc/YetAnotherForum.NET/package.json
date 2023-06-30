@@ -15,7 +15,7 @@
         "grunt-replace": "^2.0.2",
         "grunt-shell": "^4.0.0",
         "postcss": "^8.4.24",
-        "sass": "^1.63.4"
+        "sass": "^1.63.6"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.4.0",
