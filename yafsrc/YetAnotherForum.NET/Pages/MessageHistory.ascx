@@ -131,7 +131,7 @@
                                 LocalizedTag="COMPARE_TITLE"/>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">
+                <h6 class="card-subtitle mb-2 text-body-secondary">
                     <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
                                         LocalizedTag="TEXT_CHANGES" />
                 </h6>

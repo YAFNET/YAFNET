@@ -53,7 +53,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h6 class="card-subtitle mb-2 text-muted">
+                                <h6 class="card-subtitle mb-2 text-body-secondary">
                                     <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ORIGINALMESSAGE" />
                                 </h6>
                                 <div class="card bg-light mb-3">

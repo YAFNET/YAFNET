@@ -297,7 +297,7 @@
                                                      CurrentMessage='<%# this.Eval("Item1") %>' />
                             </div>
                             <div class="card-footer">
-                                <small class="text-muted">
+                                <small class="text-body-secondary">
                                     <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server"
                                                         LocalizedTag="posted" />
                                     &nbsp;

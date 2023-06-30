@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="PollChoiceList.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="PollChoiceList.ascx.cs"
     Inherits="YAF.Controls.PollChoiceList" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
@@ -51,7 +51,7 @@
                 <asp:Label ID="VoteSpan" Visible="false" runat="server">
                     <%# this.Eval("Item2.Votes") %>&nbsp; <%# this.GetText("VOTES") %>
                     <asp:Label runat="server" ID="Voters" 
-                               CssClass="ms-1 text-muted"></asp:Label>
+                               CssClass="ms-1 text-body-secondary"></asp:Label>
                 </asp:Label>
         </li>
     </ItemTemplate>

@@ -33,7 +33,7 @@
                                       Suspended="<%# ((Tuple<Message, User>)Container.DataItem).Item2.Suspended %>"
                                       Style="<%# ((Tuple<Message, User>)Container.DataItem).Item2.UserStyle %>"
                                       BlankTarget="true" />
-                        <small class="text-muted">
+                        <small class="text-body-secondary">
                             <YAF:Icon runat="server" 
                                       IconName="calendar-day"
                                       IconNameBadge="clock"></YAF:Icon>

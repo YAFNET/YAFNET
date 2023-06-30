@@ -103,7 +103,7 @@ public class Attach : BBCodeControl
                     this.GetText("IMAGE_RESIZE_ENLARGE"));
 
                 writer.Write(
-                    @"<span class=""text-muted float-end"">{0}</span></p>",
+                    @"<span class=""text-body-secondary float-end"">{0}</span></p>",
                     this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads));
 
                 writer.Write(@"</div></div>");

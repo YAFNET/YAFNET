@@ -24,7 +24,7 @@
                     <h4>
                         <%# Localization.GetText("WelcomeInstall") %>
                     </h4>
-                    <p class="text-muted">
+                    <p class="text-body-secondary">
                         <%# Localization.GetText("WelcomeInstallDesc") %>
                     </p>
                     <p>
@@ -38,7 +38,7 @@
                     <p>
                     <%# Localization.GetText("ValidatePermissionDesc") %>
 					</p>
-                    <p class="text-muted">
+                    <p class="text-body-secondary">
                         <%# Localization.GetText("ValidatePermissionText") %>
                     </p>
                     <ul class="standardList">
@@ -69,7 +69,7 @@
                     <h4>
                         <%# Localization.GetText("DBConnection") %>
                     </h4>
-                    <p class="text-muted">
+                    <p class="text-body-secondary">
                         <%# Localization.GetText("ConnectionExist") %>
                     </p>
                     <%# Localization.GetText("ConnectionExistDesc") %>&nbsp;
@@ -120,7 +120,7 @@
                         </p>
                         <code>&lt;add name="<asp:Label runat="server" ID="lblDBConnStringName" />" connectionString="<asp:Label runat="server" ID="lblDBConnStringValue" />" /&gt;</code>
                     </asp:PlaceHolder>
-                    <p class="text-muted">
+                    <p class="text-body-secondary">
                         <%# Localization.GetText("NextReady") %>
                     </p>
                 </asp:WizardStep>
@@ -128,7 +128,7 @@
                     <h4>
                         <%# Localization.GetText("TestSettings") %>
                     </h4>
-                    <p class="text-muted">
+                    <p class="text-body-secondary">
                         <%# Localization.GetText("TestSettingsDesc") %>
                     </p>
                     <p>
@@ -149,7 +149,7 @@
                     <h4>
                         <%# Localization.GetText("MailTest") %>
                     </h4>
-                    <p class="text-muted">
+                    <p class="text-body-secondary">
                         <%# Localization.GetText("MailTestDesc") %>
                     </p>
                     <div class="mb-3">
@@ -181,7 +181,7 @@
                     <h4>
                             <%# Localization.GetText("Initialize") %> <%# Localization.GetText("Database") %>
                     </h4>
-                    <p class="text-muted">
+                    <p class="text-body-secondary">
                         <%# Localization.GetText("NextInitDb")%>
                     </p>
                 </asp:WizardStep>
@@ -268,7 +268,7 @@
                     <h4>
                         <%# Localization.GetText("Setup")%> <%# Localization.GetText("Finished") %>
                     </h4>
-                    <p class="text-muted"><%# Localization.GetText("FinishDesc") %></p>
+                    <p class="text-body-secondary"><%# Localization.GetText("FinishDesc") %></p>
                     <p><%# Localization.GetText("InitFinish")%></p>
                 </asp:WizardStep>
             </WizardSteps>

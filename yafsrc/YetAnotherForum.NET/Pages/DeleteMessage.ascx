@@ -126,7 +126,7 @@
                                   UserID="<%# ((Message)Container.DataItem).UserID %>"
                                   ReplaceName="<%# ((Message)Container.DataItem).User.DisplayOrUserName() %>"
                                   BlankTarget="true" />
-                    <small class="text-muted">
+                    <small class="text-body-secondary">
                         <YAF:Icon runat="server" 
                                   IconName="calendar-day"
                                   IconNameBadge="clock"></YAF:Icon>

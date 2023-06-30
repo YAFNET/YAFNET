@@ -238,7 +238,7 @@ public class TopicContainer : BaseControl
 
         if (topicDescription.IsSet())
         {
-            writer.Write($"<h6 class=\"card-subtitle text-muted\">{topicDescription}</h6>");
+            writer.Write($"<h6 class=\"card-subtitle text-body-secondary\">{topicDescription}</h6>");
         }
 
         writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());

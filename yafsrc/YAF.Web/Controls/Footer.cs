@@ -90,7 +90,7 @@ public class Footer : BaseControl
     {
         if (this.PageBoardContext.BoardSettings.ShowPageGenerationTime)
         {
-            writer.Write(@"<br /><span class=""text-muted small"">");
+            writer.Write(@"<br /><span class=""text-body-secondary small"">");
             writer.Write(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
             writer.Write("</span>");
         }

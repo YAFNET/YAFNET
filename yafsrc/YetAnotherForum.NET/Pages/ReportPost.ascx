@@ -23,7 +23,7 @@
                                      ShowSignature="false" />
             </div>
             <div class="card-footer">
-                <small class="text-muted">
+                <small class="text-body-secondary">
                     <YAF:LocalizedLabel ID="PostedByLabel" runat="server"
                                         LocalizedTag="POSTEDBY" />
                     <YAF:UserLink ID="UserLink1" runat="server"/>
@@ -47,7 +47,7 @@
             </div>
             <div class="card-body">
                 <div class="mb-3">
-                    <h6 class="card-subtitle mb-2 text-muted">
+                    <h6 class="card-subtitle mb-2 text-body-secondary">
                         <YAF:LocalizedLabel ID="EnterReportTextLabel" runat="server"
                                             LocalizedTag="ENTER_TEXT" />
                     </h6>

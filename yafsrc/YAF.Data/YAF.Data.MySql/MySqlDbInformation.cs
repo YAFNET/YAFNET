@@ -197,8 +197,6 @@ public class MySqlDbInformation : IDbInformation
 
         var vaccessFullSelect = new StringBuilder();
 
-
-
         vaccessFullSelect.Append(" select ");
 
         vaccessFullSelect.Append("b.UserID,");

@@ -249,7 +249,7 @@
                                                AssociatedControlID="ServerTimeCorrection"
                                                LocalizedTag="SERVERTIME_CORRECT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                 <asp:TextBox CssClass="form-control serverTime-Input" ID="ServerTimeCorrection" runat="server"></asp:TextBox>
-                                <small class="form-text text-muted"><%# DateTime.UtcNow %></small>
+                                <small class="form-text text-body-secondary"><%# DateTime.UtcNow %></small>
                             </div>
                             <asp:PlaceHolder runat="server" ID="SSLSettings">
                                 <div class="mb-3 col-md-6">

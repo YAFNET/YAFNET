@@ -30,7 +30,7 @@
                     <h5 class="mb-1 text-break">
                         <%# Container.DataItem %>
                     </h5>
-                     <small class="text-muted">
+                     <small class="text-body-secondary">
                          <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedPage="ADMIN_GROUPS" LocalizedTag="UNLINKED" />
                      </small>
                  </div>
@@ -95,7 +95,7 @@
                     <h5 class="mb-1 text-break">
                         <i class="fa fa-users fa-fw"></i>&nbsp;<%# this.Eval( "Name" ) %>
                     </h5>
-                    <small class="text-muted">
+                    <small class="text-body-secondary">
                         <%# this.GetLinkedStatus((YAF.Types.Models.Group)Container.DataItem )%>
                     </small>
                 </div>

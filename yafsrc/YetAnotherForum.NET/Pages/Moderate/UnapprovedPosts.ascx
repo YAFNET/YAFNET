@@ -30,7 +30,7 @@
                                     runat="server" 
                                     Visible="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item1.NumPosts == 0 %>" 
                                     Text="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item1.TopicName %>"></asp:Label>
-                        <div class="float-end text-muted">
+                        <div class="float-end text-body-secondary">
                             <span class="fw-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                             </span>

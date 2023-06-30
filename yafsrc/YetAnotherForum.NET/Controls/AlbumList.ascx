@@ -16,7 +16,7 @@
                                     LocalizedTag="ALBUMS_HEADER_TEXT"
                 />
             </h1>
-            <p class="lead text-muted">
+            <p class="lead text-body-secondary">
                 <asp:Label ID="albumsInfo" Visible="false" runat="server"></asp:Label>
             </p>
             <p>

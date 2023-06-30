@@ -87,7 +87,7 @@ public class HelpMenu : BasePanel
         }
 
         html.AppendFormat(
-            @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted""><span class=""text-uppercase fw-bold""><a class=""text-secondary text-bold"" href=""{2}"" {3}>{0} / {1}</a></span></h6>",
+            @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary""><span class=""text-uppercase fw-bold""><a class=""text-secondary text-bold"" href=""{2}"" {3}>{0} / {1}</a></span></h6>",
             this.GetText("HELP_INDEX", "INDEX"),
             this.GetText("BTNSEARCH"),
             this.Get<LinkBuilder>().GetLink(ForumPages.Help, new { faq = "index" }),

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile.BlockOptions" CodeBehind="BlockOptions.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile.BlockOptions" CodeBehind="BlockOptions.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Models" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 
@@ -86,7 +86,7 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
-            <div class="card-footer text-muted">
+            <div class="card-footer text-body-secondary">
                 <YAF:LocalizedLabel runat="server" LocalizedTag="NOTE_USERS" />
             </div>
         </div>

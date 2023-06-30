@@ -55,13 +55,13 @@
                       <li class="list-group-item list-group-item-action template-upload fade-ui">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1"><span class="preview"></span></h5>
-      <small class="text-muted size">Processing...</small>
+      <small class="text-body-secondary size">Processing...</small>
     </div>
     <div class="mb-1"> <p class="name">{%=file.name%}</p>
                                   <strong class="error text-danger"></strong>
                                   <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
    </div>
-    <small class="text-muted"><div class="btn-group" role="group">
+    <small class="text-body-secondary"><div class="btn-group" role="group">
                       {% if (!i && !o.options.autoUpload) { %}
                 <button class="btn btn-success btn-sm start" disabled>Start</button>
             {% } %}

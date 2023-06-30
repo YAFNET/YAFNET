@@ -59,7 +59,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                                    <h5 class="card-title text-uppercase text-body-secondary mb-0">
                                                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
                                                                             LocalizedTag="NUM_CATEGORIES"
                                                                             LocalizedPage="ADMIN_ADMIN" />
@@ -83,7 +83,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                                    <h5 class="card-title text-uppercase text-body-secondary mb-0">
                                                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                                                                             LocalizedTag="NUM_FORUMS"
                                                                             LocalizedPage="ADMIN_ADMIN" />
@@ -107,7 +107,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                                    <h5 class="card-title text-uppercase text-body-secondary mb-0">
                                                         <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server"
                                                                             LocalizedTag="NUM_TOPICS"
                                                                             LocalizedPage="ADMIN_ADMIN" />
@@ -123,7 +123,7 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <p class="mt-3 mb-0 text-muted small">
+                                            <p class="mt-3 mb-0 text-body-secondary small">
                                                 <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server"
                                                                     LocalizedTag="TOPICS_DAY"
                                                                     LocalizedPage="ADMIN_ADMIN" />
@@ -139,7 +139,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                                    <h5 class="card-title text-uppercase text-body-secondary mb-0">
                                                         <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server"
                                                                             LocalizedTag="NUM_POSTS"
                                                                             LocalizedPage="ADMIN_ADMIN" />
@@ -155,7 +155,7 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <p class="mt-3 mb-0 text-muted small">
+                                            <p class="mt-3 mb-0 text-body-secondary small">
                                                 <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server"
                                                                     LocalizedTag="POSTS_DAY"
                                                                     LocalizedPage="ADMIN_ADMIN" />
@@ -171,7 +171,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                                    <h5 class="card-title text-uppercase text-body-secondary mb-0">
                                                         <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server"
                                                                             LocalizedTag="NUM_USERS"
                                                                             LocalizedPage="ADMIN_ADMIN" />
@@ -187,7 +187,7 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <p class="mt-3 mb-0 text-muted small">
+                                            <p class="mt-3 mb-0 text-body-secondary small">
                                                 <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server"
                                                                     LocalizedTag="USERS_DAY"
                                                                     LocalizedPage="ADMIN_ADMIN" />
@@ -203,7 +203,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="card-title text-uppercase text-muted mb-0">
+                                            <h5 class="card-title text-uppercase text-body-secondary mb-0">
                                                 <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server"
                                                                     LocalizedTag="BOARD_STARTED"
                                                                     LocalizedPage="ADMIN_ADMIN" />
@@ -219,7 +219,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <p class="mt-3 mb-0 text-muted small">
+                                    <p class="mt-3 mb-0 text-body-secondary small">
                                         <span class="text-nowrap">
                                             <asp:Label ID="BoardStart" runat="server"></asp:Label>
                                         </span>
@@ -232,7 +232,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                                    <h5 class="card-title text-uppercase text-body-secondary mb-0">
                                                         <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server"
                                                                             LocalizedTag="SIZE_DATABASE"
                                                                             LocalizedPage="ADMIN_ADMIN" />
@@ -253,7 +253,7 @@
                                 </div>
                             </div>
                             </div>
-                        <div class="card-footer text-muted">
+                        <div class="card-footer text-body-secondary">
                             <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server"
                                                 LocalizedTag="STATS_DONTCOUNT"
                                                 LocalizedPage="ADMIN_ADMIN" />

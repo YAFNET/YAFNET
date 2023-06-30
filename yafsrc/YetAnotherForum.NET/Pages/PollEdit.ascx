@@ -79,7 +79,7 @@
                                      CssClass="form-control"
                                      TextMode="Number"
                                      MaxLength="10" />
-                        <small class="form-text text-muted">
+                        <small class="form-text text-body-secondary">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
                                                 LocalizedTag="poll_expire_explain" />
                         </small>
@@ -89,7 +89,7 @@
                     <div class="mb-3">
                         <asp:CheckBox ID="IsClosedBoundCheckBox"  runat="server"
                                       CssClass="form-check" />
-                        <small class="form-text text-muted">
+                        <small class="form-text text-body-secondary">
                             <YAF:LocalizedLabel ID="IsClosedBoundExplainLabel" runat="server"
                                                 LocalizedTag="POLLGROUP_CLOSEDBOUND_WARN" />
                         </small>

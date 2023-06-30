@@ -16,7 +16,7 @@
                             </YAF:ActiveUsers>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">
+                            <small class="text-body-secondary">
                                 <asp:Label runat="server" ID="MostUsersCount" />
                             </small>
                         </div>
@@ -34,7 +34,7 @@
                                 </YAF:ActiveUsers>
                             </div>
                             <div class="card-footer">
-                                <small class="text-muted">
+                                <small class="text-body-secondary">
                                     <asp:Label runat="server" ID="RecentUsersCount" />
                                 </small>
                             </div>

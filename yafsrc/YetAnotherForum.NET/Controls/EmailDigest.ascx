@@ -23,7 +23,7 @@
             <h1 class="display-4 fw-normal">
                 <YAF:LocalizedLabel runat="server" LocalizedTag="ACTIVETOPICS"></YAF:LocalizedLabel>
             </h1>
-            <p class="fs-5 text-muted">
+            <p class="fs-5 text-body-secondary">
                 <%= this.Get<IDateTimeService>().FormatDateLong(DateTime.UtcNow) %>
             </p>
         </div>
@@ -46,7 +46,7 @@
                                     <%# string.Format(this.GetText("COMMENTS"), ((SimpleTopic)Container.DataItem).Replies) %>
                                 </span>
                             </h6>
-                            <p class="text-muted small">
+                            <p class="text-body-secondary small">
                                 <%# string.Format(this.GetText("STARTEDBY"), ((SimpleTopic)Container.DataItem).StartedUserName) %>
                             </p>
                             <p class="card-text">
@@ -80,7 +80,7 @@
                                     <%# string.Format(this.GetText("COMMENTS"), ((SimpleTopic)Container.DataItem).Replies) %>
                                 </span>
                             </h6>
-                            <p class="text-muted small">
+                            <p class="text-body-secondary small">
                                 <%# string.Format(this.GetText("STARTEDBY"), ((SimpleTopic)Container.DataItem).StartedUserName) %>
                             </p> 
                             <p class="card-text">
@@ -98,7 +98,7 @@
         </ItemTemplate>
     </asp:Repeater>
 
-<div class="text-center text-muted small">
+<div class="text-center text-body-secondary small">
     <YAF:LocalizedLabel runat="server" LocalizedTag="REMOVALTEXT"></YAF:LocalizedLabel>&nbsp;
     <a href="<%= this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Profile_Subscriptions) %>">
         <YAF:LocalizedLabel runat="server" LocalizedTag="REMOVALLINK"></YAF:LocalizedLabel>

@@ -50,7 +50,7 @@
                     <YAF:ForumModeratorList ID="ForumModeratorListMob" runat="server"
                                             Visible="false" />
                 </h5>
-                <h6 class="card-subtitle text-muted mb-1" runat="server" Visible="<%# ((ForumRead)Container.DataItem).Description.IsSet()  %>">
+                <h6 class="card-subtitle text-body-secondary mb-1" runat="server" Visible="<%# ((ForumRead)Container.DataItem).Description.IsSet()  %>">
                     <%# ((ForumRead)Container.DataItem).Description  %>
                 </h6>
             </div>

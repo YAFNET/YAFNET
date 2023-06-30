@@ -34,7 +34,7 @@
                     </p>
                 </div>
                 <asp:PlaceHolder id="PollCommandRow" runat="server">
-                    <div class="card-footer text-muted">
+                    <div class="card-footer text-body-secondary">
                         <div class="row">
                             <div class="col">
                             </div>

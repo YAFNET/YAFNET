@@ -38,7 +38,7 @@
                         <YAF:PMList runat="server" ID="InboxPMList"
                                     View="Inbox" />
                         <div class="card-footer">
-                            <small class="text-muted">
+                            <small class="text-body-secondary">
                                 <asp:Label ID="InfoInbox" runat="server"/>
                             </small>
                         </div>
@@ -49,7 +49,7 @@
                         <YAF:PMList runat="server" ID="OutboxPMList"
                                     View="Outbox" />
                         <div class="card-footer">
-                            <small class="text-muted">
+                            <small class="text-body-secondary">
                                 <asp:Label ID="InfoOutbox" runat="server"/>
                             </small>
                         </div>
