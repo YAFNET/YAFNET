@@ -6271,10 +6271,6 @@
             "#text": "رتبه جدید"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "محدودیت پیام شخصی"
-          },
-          {
             "@tag": "POSTS",
             "#text": "ارسال ها"
           },
@@ -8324,10 +8320,6 @@
             "#text": "صفحه"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "پیام شخصی جدید از طرف {0} در {1}"
-          },
-          {
             "@tag": "POST",
             "#text": "ارسال"
           },
@@ -10191,10 +10183,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "انتخاب قالب مختلف:"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "آیا مایل به دریافت ایمیل یادآوری در زمان دریافت پیام خصوصی می‌باشید؟"
           },
           {
             "@tag": "REALNAME2",
@@ -12370,152 +12358,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "آرشیو"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "آرشیو همه"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "آرشیو کردن موارد انتخابی"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "تمام پیام‌ها آرشیو شوند؟"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "تمامی پیام‌های انتخاب شده حذف شود؟"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "همه پیام‌ها حذف شوند؟"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "تاریخ"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "تاریخ صعودی"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "تاریخ نزولی"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "حذف همه"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "حذف موارد انتخابی"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "برون‌بری همه"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "قالب فایل برای برون‌بری :"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "برون‌بری موارد انتخاب شده"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "از"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "از (نزولی)"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "از (صعودی)"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "صندوق ورودی"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "همه را به عنوان خوانده شده علامت بزن"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "به عنوان خوانده شده علامت بزن"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "پیام آرشیو شد."
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "{0} پیام آرشیو شد."
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "پیام حذف شد."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "هیچ پیامی انتخاب نشد، چیزی صادر نشد."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "یک پیام حذف شد."
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "{0} پیام حذف شد."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "پیام جدید"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "پیامی پیدا نشد."
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "ارسال شده:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "موارد ارسال شده"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "عنوان"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "موضوع (الف تا ی)"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "موضوع (ی تا الف)"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "پیام‌های شخصی"
-          },
-          {
-            "@tag": "TO",
-            "#text": "به"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "به (الف تا ی)"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "به (ی تا الف)"
           }
         ]
       },
@@ -12724,6 +12572,14 @@
             "#text": "افزودن نظرسنجی"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "ایجاد یا ویرایش نظرسنجی"
           },
@@ -12762,14 +12618,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15005,10 +14853,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "سلام {username}،\r\n\r\nشما یا شخصی (با آدرس IP: {ipaddress}) درخواست بازنشانی رمز عبور خود را به دلیل فراموشی داده است.\r\nیک رمز عبور جدید برای شما در {forumname} در {forumlink} ایجاد شده است.\r\n\r\nلطفا به سایت بازگردید و با استفاده از اطلاعات زیر وارد شوید:\r\n\r\nنام کاربری: {username}\r\nرمز عبور: {password}"
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "یک پیام خصوصی جدید از {fromuser} درباره {subject} در {forumname} برای شما ارسال شد.\r\n\r\nبرای خواندن پیام، لینک زیر را در مرورگر خود باز کنید:\r\n\r\n{link}"
           },
           {
             "@tag": "RESET_PASS_TEXT",

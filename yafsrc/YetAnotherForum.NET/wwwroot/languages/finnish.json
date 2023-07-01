@@ -6279,10 +6279,6 @@
             "#text": "Uusi sijoitus"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "PM-raja"
-          },
-          {
             "@tag": "POSTS",
             "#text": "virat"
           },
@@ -8336,10 +8332,6 @@
             "#text": "Sivut"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "Uusi yksityisviesti {0} osoitteesta {1}"
-          },
-          {
             "@tag": "POST",
             "#text": "Lähetä"
           },
@@ -10203,10 +10195,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "Valitse eri foorumiteema:"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "Saat sähköposti-ilmoituksen, kun saat uuden yksityisviestin?"
           },
           {
             "@tag": "REALNAME2",
@@ -12390,152 +12378,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "Arkisto"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "Arkisto Kaikki"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "Arkisto Valittu"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "Arkistoida kaikki viestit?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Poista kaikki valitut viestit?"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "Poista kaikki viestit?"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "Päivämäärä"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "Päivämäärä asc"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "Päivämäärä"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "Poista kaikki"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "Poista valittu"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "Vie kaikki"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "Vientimuoto:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "Vienti Valittu"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "Osoitteesta"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "A-Z"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "Z-A:sta"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "Saapuneet tiedot"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Merkitse kaikki luetuiksi"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Merkitse luettuna"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "Viesti arkistoitiin."
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "{0} viestejä arkistoitiin."
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "Viesti poistettiin."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "No Message Selected, nothing Exported."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "1 viesti poistettiin."
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "{0} viestejä poistettiin."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "Uusi viesti"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "Viestejä ei löytynyt."
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "Lähetetty:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Lähetetyt kohteet"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Aihe"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "Aihe A-Z"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "Aihe Z-A"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "Yksityisviestit"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Osoitteeseen"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "A-Z"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "Z-A:lle"
           }
         ]
       },
@@ -12744,6 +12592,14 @@
             "#text": "Lisää kysely"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Luo tai muokkaa kyselyä"
           },
@@ -12782,14 +12638,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15029,10 +14877,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\n      Hello {username},\r\n\r\n      You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\n      A new password has been generated for you on {forumname} at {forumlink}.\r\n\r\n      Please return to the site and login using the following information:\r\n\r\n      User Name: {username}\r\n      Password: {password}\r\n    "
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\nA new Private Message from {fromuser} about {subject} was send to you at {forumname}.\r\n\r\nTo read the message, open the following link in your browser:\r\n\r\n{link}\r\n"
           },
           {
             "@tag": "RESET_PASS_TEXT",

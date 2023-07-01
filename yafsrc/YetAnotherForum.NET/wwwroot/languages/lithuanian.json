@@ -6279,10 +6279,6 @@
             "#text": "Naujas rangas"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "PM riba"
-          },
-          {
             "@tag": "POSTS",
             "#text": "pranešimai"
           },
@@ -8336,10 +8332,6 @@
             "#text": "Puslapiai"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "\r\n      Naujas Asmeninis pranešimas iš {0} į\r\n\r\n      {1}\r\n    "
-          },
-          {
             "@tag": "POST",
             "#text": "Rašyti"
           },
@@ -10203,10 +10195,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "Pasirinkite kitą forumo temą:"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "\r\n      Gauti pranešimą elektroniniu paštu, kai gausite\r\n\r\n      naują privačią žinutę?\r\n    "
           },
           {
             "@tag": "REALNAME2",
@@ -12390,152 +12378,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "Archyvas"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "Archyvas Visi"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "Pasirinktas archyvas"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "Ar archyvuoti visus pranešimus?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Ištrinti visus pasirinktus pranešimus?"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "Ištrinti visus pranešimus?"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "Data"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "Data asc"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "Data desc"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "Ištrinti viską"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "Ištrinti pasirinktą"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "Eksportuoti viską"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "Eksporto formatas:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "Pasirinktas eksportas"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "Iš"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "Nuo A iki Z"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "Nuo Z-A"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "Gauto pašto dėžutė"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Pažymėti visus kaip perskaitytus"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Pažymėti kaip perskaitytą"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "Pranešimas buvo archyvuotas."
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "{0} pranešimai buvo archyvuoti."
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "Pranešimas buvo ištrintas."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "No Message Selected, nothing Exported."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "1 pranešimas buvo ištrintas."
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "{0} pranešimai buvo ištrinti."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "Nauja žinutė"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "Pranešimų nerasta."
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "Paskelbta:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Išsiųsti daiktai"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Tema"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "Tema nuo A iki Z"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "Z-A objektas"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "Privačios žinutės"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Į"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "Į A-Z"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "Į Z-A"
           }
         ]
       },
@@ -12744,6 +12592,14 @@
             "#text": "Pridėti apklausą"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Sukurti arba redaguoti apklausą"
           },
@@ -12782,14 +12638,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15029,10 +14877,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\n      Hello {username},\r\n\r\n      You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\n      A new password has been generated for you on {forumname} at {forumlink}.\r\n\r\n      Please return to the site and login using the following information:\r\n\r\n      User Name: {username}\r\n      Password: {password}\r\n    "
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\nA new Private Message from {fromuser} about {subject} was send to you at {forumname}.\r\n\r\nTo read the message, open the following link in your browser:\r\n\r\n{link}\r\n"
           },
           {
             "@tag": "RESET_PASS_TEXT",

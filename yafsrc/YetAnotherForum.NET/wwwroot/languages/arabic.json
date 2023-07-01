@@ -6271,10 +6271,6 @@
             "#text": "رتبة جديدة"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "حد PM"
-          },
-          {
             "@tag": "POSTS",
             "#text": "المشاركات"
           },
@@ -8324,10 +8320,6 @@
             "#text": "صفحات"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "New Private Message From {0} at {1}"
-          },
-          {
             "@tag": "POST",
             "#text": "بريد"
           },
@@ -10191,10 +10183,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": ":اختيار تطبيق مختلف للمنتدى "
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "تلقى إشعارا بالبريد الالكتروني عندما تحصل على رسالة خاصة جديدة؟"
           },
           {
             "@tag": "REALNAME2",
@@ -12370,152 +12358,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "الأرشيف"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "أرشفة كافة"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "اختيار الأرشيف"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "أرشفة كافة الرسائل؟ "
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "حذف كل الرسائل المختارة؟"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "ازالة كل الرسائل؟"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "التاريخ"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "تاريخ تصاعدي"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "تاريخ وصف"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "ازالة الكل"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "ازالة المختار"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "تصدير الكل"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "تنسيق التصدير:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "تصدير مُحدد"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "من "
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "من الألف إلى الياء"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "من Z-A"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "الوارد"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "إجعل الكل  مقروء"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "ضع إشارة مقروء"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "تم ارشفة الرسائل"
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "رسائل/رسالة{0} تم ارشفة ."
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "تم حذف الرسالة"
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "لم يتم تحديد أي رسالة (رسائل) ، لم يتم تصدير أي شيء."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "تم  حذف رسالة  من  صندوق الوارد"
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "رسائل{0} لقد  قمت بحذف  ."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "رسالة جديدة"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "لم يتم ايجاد أي رسالة"
-          },
-          {
-            "@tag": "POSTED",
-            "#text": ":تم المشاركة"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "العناصر المرسلة"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "الموضوع"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "الموضوع من الألف إلى الياء"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "الموضوع Z-A"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "الرسائل الخاصة"
-          },
-          {
-            "@tag": "TO",
-            "#text": "الى"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "إلى الألف إلى الياء"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "إلى Z-A"
           }
         ]
       },
@@ -12724,6 +12572,14 @@
             "#text": "إضافة إستفتاء"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "إنشاء  او تعديل  إستفتاء"
           },
@@ -12762,14 +12618,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15005,10 +14853,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\nHello {username},\r\n\r\nYou or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\nA new password has been generated for you on {forumname} at {forumlink}.\r\n\r\nPlease return to the site and login using the following information:\r\n\r\nUser Name: {username}\r\nPassword: {password}\r\n"
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\nA new Private Message from {fromuser} about {subject} was send to you at {forumname}.\r\n\r\nTo read the message, open the following link in your browser:\r\n\r\n{link}\r\n"
           },
           {
             "@tag": "RESET_PASS_TEXT",

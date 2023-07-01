@@ -6271,10 +6271,6 @@
             "#text": "Nowa ranga"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "Limit PM"
-          },
-          {
             "@tag": "POSTS",
             "#text": "stanowiska"
           },
@@ -8328,10 +8324,6 @@
             "#text": "Strony"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "Nowa prywatna wiadomość od {0} o {0}"
-          },
-          {
             "@tag": "POST",
             "#text": "Poczta"
           },
@@ -10199,10 +10191,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "Wybierz inny styl forum:"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "Wysłać powiadomienie e-mail, gdy dostaniesz prywatną wiadomość na forum?"
           },
           {
             "@tag": "REALNAME2",
@@ -12378,152 +12366,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "Archiwum"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "Archiwizuj wszystkie"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "Archiwizuj wybrane"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "Zarchiwizować wszystkie wiadomości?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Usunąć wszystkie wybrane wiadomości?"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "Usunąć wszystkie wiadomości?"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "Data"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "Data asc"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "Data zejścia"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "Usuń wszystkie"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "Usuń wybrane"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "Eksportuj wybrane"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "Format eksportu:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "Eksportuj wybrane"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "Od"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "Od A-Z"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "Od Z-A"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "Skrzynka odbiorcza"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Oznacz wszystkie jako przeczytane"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Oznacz jako przeczytane"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "Wiadomość zarchiwizowana."
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "{0} wiadomości zostało zarchiwizowanych"
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "Wiadomość usunięta."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "Nie zaznaczono żadnych wiadomości, nic nie wyeksportowano."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "1 wiadomość usunięta."
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "{0} wiadomości usuniętych."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "Nowa wiadomość"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "Nie znaleziono wiadomości"
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "Wysłana:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Skrzynka nadawcza"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Tytuł"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "Temat A-Z"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "Przedmiot Z-A"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "Prywatne wiadomości"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Do"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "Do A-Z"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "Do Z-A"
           }
         ]
       },
@@ -12732,6 +12580,14 @@
             "#text": "Dodaj ankietę"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Dodaj lub edytuj ankietę"
           },
@@ -12770,14 +12626,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15013,10 +14861,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\n      Hello {username},\r\n\r\n      You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\n      A new password has been generated for you on {forumname} at {forumlink}.\r\n\r\n      Please return to the site and login using the following information:\r\n\r\n      User Name: {username}\r\n      Password: {password}\r\n    "
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\nA new Private Message from {fromuser} about {subject} was send to you at {forumname}.\r\n\r\nTo read the message, open the following link in your browser:\r\n\r\n{link}\r\n"
           },
           {
             "@tag": "RESET_PASS_TEXT",

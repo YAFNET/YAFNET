@@ -6279,10 +6279,6 @@
             "#text": "דרגה חדשה"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "מגבלת PM"
-          },
-          {
             "@tag": "POSTS",
             "#text": "פוסטים"
           },
@@ -8340,10 +8336,6 @@
             "#text": "עמודים"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "הודעה פרטית חדשה מאת {0} ב- {1}"
-          },
-          {
             "@tag": "POST",
             "#text": "הודעה"
           },
@@ -10207,10 +10199,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "עקוף את ערכת הנושא ברירת המחדל"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "האם ברצונך לקבל הודעה בדוא\"ל כשמתקבלת הודעה פרטית חדשה?"
           },
           {
             "@tag": "REALNAME2",
@@ -12394,152 +12382,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "ארכיון"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "ארכיון הכל"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "העבר לארכיון"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "להעביר את כל ההודעות לארכיון?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "האם למחוק את כל ההודעות המסומנות?"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "למחוק את כל ההודעות?"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "תאריך"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "תאריך עלייה"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "תאריך תיאור"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "מחק הכל"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "מחק מסומנים"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "ייצא הכל"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "פורמט ייצוא:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "ייצא נבחרים"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "מאת"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "מ-AZ"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "מ-ZA"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "תיבת דואר נכנס"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "סמן הכל כנקרא"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "סמן כנקרא"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "ההודעה נגנזה בארכיון."
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "{0} הודעות נגנזו בארכיון."
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "ההודעה נמחקה."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "No Message Selected, nothing Exported."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "הודעה אחת נמחקה."
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "{0} הודעות נמחקו."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "הודעה חדשה"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "לא נמצאו הודעות."
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "נשלח:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "פריטים שנשלחו"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "נושא"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "נושא א.ז"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "נושא ז&quot;א"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "הודעות פרטיות"
-          },
-          {
-            "@tag": "TO",
-            "#text": "אל"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "ל-AZ"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "לז&quot;א"
           }
         ]
       },
@@ -12748,6 +12596,14 @@
             "#text": "הוסף סקר"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "צור או ערוך סקר"
           },
@@ -12794,14 +12650,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15041,10 +14889,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\n      Hello {username},\r\n\r\n      You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\n      A new password has been generated for you on {forumname} at {forumlink}.\r\n\r\n      Please return to the site and login using the following information:\r\n\r\n      User Name: {username}\r\n      Password: {password}\r\n    "
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\nהודעה פרטית חדשה מ- {fromuser} בנושא {subject} נשלחה אליך/אלייך בפורום: {forumname}.\r\n\r\nעל מנת לקרוא את ההודעה, לחץ על פתח את הקישור הבא:\r\n\r\n{link}\r\n"
           },
           {
             "@tag": "RESET_PASS_TEXT",

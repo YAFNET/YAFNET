@@ -18,13 +18,10 @@
     <div class="col-sm-auto">
         <profileMenu></profileMenu>
         
-        <div class="card mt-2">
+        <div class="card mt-2 mb-2">
 
             <div class="card-header">
-                Your Conversations
-                <h6 class="card-title">Online Users 
-                </h6>
-
+                @Html.LocalizedText("CONVERSATION_TITLE")
             </div>
 
             <input id="UserId" type="hidden" value="@BoardContext.Current.PageUserID" />

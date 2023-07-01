@@ -6279,10 +6279,6 @@
             "#text": "Yeni Sıralama"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "Başbakanlık sınırı"
-          },
-          {
             "@tag": "POSTS",
             "#text": "gönderiler"
           },
@@ -8336,10 +8332,6 @@
             "#text": "Sayfalar"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": " {0} tarafından size kişisel mesaj gönderildi. at {1}"
-          },
-          {
             "@tag": "POST",
             "#text": "Posta"
           },
@@ -10203,10 +10195,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "Seçilen temayı etkinleştirmek istiyor musunuz?"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "Yeni bir özel mesaj aldığınızda E-Posta ile haber almak ister misiniz?"
           },
           {
             "@tag": "REALNAME2",
@@ -12390,152 +12378,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "Arşiv"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "Hepsini Arşivle"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "Arşiv seçildi"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "Tüm mesajları arşivlemek istiyor musunuz?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Seçilenleri silmek istiyor musunuz?"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "Hepsini silmek istiyor musunuz?"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "Tarih"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "Tarih asc"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "Tarih tanımı"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "Hepsini sil"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "Seçileni sil"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "Tümünü Dışarı Aktar"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "Formatı Dışarı Aktar:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "Seçiliyi Dışarı Aktar"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "Kimden"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "A'dan Z'ye"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "Z-A'dan"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "Gelen Kutusu"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Hepsini Okundu Olarak İşaretle"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Okundu Olarak İşaretle"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "Mesaj arşivlendi"
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "{0} mesaj arşivlendi"
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "Mesaj silindi."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "No Message Selected, nothing Exported."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "1 Mesaj silindi"
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "{0} Mesaj silindi"
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "Yeni Mesaj"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "Hiç mesaj bulunamadı"
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "Gönderildi:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Giden Kutusu"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Konu"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "Konu A-Z"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "Konu Z-A"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "Özel Mesajlar"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Kime"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "A'dan Z'ye"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "Z-A'ya"
           }
         ]
       },
@@ -12744,6 +12592,14 @@
             "#text": "Anket Ekle"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Anket Oluştur veya Güncelle"
           },
@@ -12782,14 +12638,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15029,10 +14877,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\nHello {username},\r\n\r\nYou or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\nA new password has been generated for you on {forumname} at {forumlink}.\r\n\r\nPlease return to the site and login using the following information:\r\n\r\nUser Name: {username}\r\nPassword: {password}\r\n"
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\n{forumname} forumunda  {fromuser} isimli kullanıcıdan, {subject} hakkında bir mesaj aldınız.\r\n\r\nMesajı okumak için tarayıcınızda bu linki açın\r\n\r\n{link}\r\n    "
           },
           {
             "@tag": "RESET_PASS_TEXT",

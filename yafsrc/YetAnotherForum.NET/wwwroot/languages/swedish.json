@@ -6279,10 +6279,6 @@
             "#text": "Ny rangordning"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "PM-gränsvärde"
-          },
-          {
             "@tag": "POSTS",
             "#text": "inlägg"
           },
@@ -8336,10 +8332,6 @@
             "#text": "Sidor"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "Nytt privat meddelande från {0} på {1}"
-          },
-          {
             "@tag": "POST",
             "#text": "Inlägg"
           },
@@ -10203,10 +10195,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "Välj ett annat forumtema:"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "Få ett e-postmeddelande när du får ett nytt privat meddelande?"
           },
           {
             "@tag": "REALNAME2",
@@ -12390,152 +12378,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "Arkiv"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "Arkiv Alla"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "Arkiv valts ut"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "Arkivera alla meddelanden?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Ta bort alla markerade meddelanden?"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "Radera alla meddelanden?"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "Datum"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "Datum uppåt"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "Datum avrundning"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "Radera alla"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "Ta bort markerade"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "Exportera alla"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "Exportformat:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "Exportera valt"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "Från"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "Från A-Z"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "Från Z-A"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "Inkorg"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Markera alla som lästa"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Markera som läst"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "Meddelandet arkiverades."
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "{0} meddelanden arkiverades."
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "Meddelandet raderades."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "No Message Selected, nothing Exported."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "1 meddelande har tagits bort."
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "{0} meddelanden raderades."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "Nytt meddelande"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "Inga meddelanden hittades."
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "Postat:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Skickade objekt"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Ämne"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "Ämne A-Z"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "Ämne Z-A"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "Privata meddelanden"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Till"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "Till A-Z"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "Till Z-A"
           }
         ]
       },
@@ -12744,6 +12592,14 @@
             "#text": "Lägg till en omröstning"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Skapa eller redigera en omröstning"
           },
@@ -12782,14 +12638,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15029,10 +14877,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\n      Hello {username},\r\n\r\n      You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\n      A new password has been generated for you on {forumname} at {forumlink}.\r\n\r\n      Please return to the site and login using the following information:\r\n\r\n      User Name: {username}\r\n      Password: {password}\r\n    "
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\nA new Private Message from {fromuser} about {subject} was send to you at {forumname}.\r\n\r\nTo read the message, open the following link in your browser:\r\n\r\n{link}\r\n"
           },
           {
             "@tag": "RESET_PASS_TEXT",

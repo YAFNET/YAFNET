@@ -6271,10 +6271,6 @@
             "#text": "Новый статус"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "Кол-во ЛС"
-          },
-          {
             "@tag": "POSTS",
             "#text": "сообщений"
           },
@@ -8328,10 +8324,6 @@
             "#text": "Страницы"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "Новое личное сообщение от {0} на {1}"
-          },
-          {
             "@tag": "POST",
             "#text": "Пост"
           },
@@ -10195,10 +10187,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "Выберите другую тему форума:"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "Желаете ли Вы получать уведомление по электронной почте при получении нового личного сообщения?"
           },
           {
             "@tag": "REALNAME2",
@@ -12374,152 +12362,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "Архив"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "Всё в Архив"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "Поместить выбранное в архив"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "Поместить все сообщения в Архив?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Вы действительно желаете удалить все выбранные сообщения?"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "Вы действительно желаете удалить все сообщения?"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "Дата"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "Дата asc"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "Дата спуска"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "Удалить всё"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "Удалить выбранное"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "Экспортировать всё"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "Формат экспорта:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "Экспортировать выбранное"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "От"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "От А до Я"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "От З-А"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "Входящие"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Отметить все как прочитанные"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Отметить как прочитанное"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "Сообщение отправлено в архив."
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "Было отправлено в архив {0} сообщений."
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "Сообщение было удалено."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "Не было выбрано сообщений и экспортировать нечего."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "Было удалено одно сообщение."
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "Было удалено {0} сообщений(ие)."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "Новое сообщение"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "Сообщений не найдено."
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "Отправлено:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Отправленные"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Тема"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "Тема A-Z"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "Тема Z-A"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "Личные сообщения"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Кому"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "От А до Я"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "К З А"
           }
         ]
       },
@@ -12728,6 +12576,14 @@
             "#text": "Добавить опрос"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Создание и редактирование опроса"
           },
@@ -12766,14 +12622,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15009,10 +14857,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\nHello {username},\r\n\r\nYou or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\nA new password has been generated for you on {forumname} at {forumlink}.\r\n\r\nPlease return to the site and login using the following information:\r\n\r\nUser Name: {username}\r\nPassword: {password}\r\n"
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\n      Вам было послано новое личное сообщение от пользователя {fromuser} на тему {subject} на форуме {forumname}.\r\n\r\n      Чтобы прочитать сообщение перейдите по этой ссылке в браузере:\r\n\r\n      {link}\r\n    "
           },
           {
             "@tag": "RESET_PASS_TEXT",

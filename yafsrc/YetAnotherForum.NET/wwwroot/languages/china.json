@@ -6279,10 +6279,6 @@
             "#text": "新排名"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "颗粒物限制"
-          },
-          {
             "@tag": "POSTS",
             "#text": "帖子"
           },
@@ -8336,10 +8332,6 @@
             "#text": "页面"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": " {0} 于 {1} 给您发了个私信 "
-          },
-          {
             "@tag": "POST",
             "#text": "帖子"
           },
@@ -10203,10 +10195,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "选择不同的论坛主题:"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "当您收到新的私人消息时收到电子邮件通知？"
           },
           {
             "@tag": "REALNAME2",
@@ -12390,152 +12378,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "存档"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "全部存档"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "存档已经选中"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "存档所有信息?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "删除所有选中的信息?"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "删除所有信息?"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "日期"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "日期升序"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "日期说明"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "删除全部"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "删除选择"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "导出全部"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "导出格式:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "导出选中部分"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "发信人"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "从 A 到 Z"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "从 Z-A"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "收件箱"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "标记所有为已读"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "标记为已读"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "信息已经激活."
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "{0} 信息已经存档."
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "信息已经删除."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "没选择斜体信息，什么也没导出。"
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "已经删除一个信息."
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "已经删除 {0} 个信息."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "新信息"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "没有任何信息。"
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "发表："
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "发送的邮件"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "主题"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "主题 A-Z"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "主题 Z-A"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "私信"
-          },
-          {
-            "@tag": "TO",
-            "#text": "至"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "到 A-Z"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "到 Z-A"
           }
         ]
       },
@@ -12744,6 +12592,14 @@
             "#text": "添加投票"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "创建或编辑投票"
           },
@@ -12782,14 +12638,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15029,10 +14877,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\nHello {username},\r\n\r\nYou or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\nA new password has been generated for you on {forumname} at {forumlink}.\r\n\r\nPlease return to the site and login using the following information:\r\n\r\nUser Name: {username}\r\nPassword: {password}\r\n"
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\nA new Private Message from {fromuser} about {subject} was send to you at {forumname}.\r\n\r\nTo read the message, open the following link in your browser:\r\n\r\n{link}\r\n"
           },
           {
             "@tag": "RESET_PASS_TEXT",

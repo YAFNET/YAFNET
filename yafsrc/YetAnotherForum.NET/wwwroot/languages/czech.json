@@ -6279,10 +6279,6 @@
             "#text": "Nová hodnost"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "Limit PM"
-          },
-          {
             "@tag": "POSTS",
             "#text": "příspěvky"
           },
@@ -8336,10 +8332,6 @@
             "#text": "stránky"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "Nová soukromá zpráva od {0} o {1}"
-          },
-          {
             "@tag": "POST",
             "#text": "Pošta"
           },
@@ -10207,10 +10199,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "Vyberte jiné téma fóra:"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "Zaslat e-mailovou notifikaci když dostaneš novou soukromou zprávu?"
           },
           {
             "@tag": "REALNAME2",
@@ -12394,152 +12382,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "Archiv"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "Archivovat vše"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "Archivuj výběr"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "Archivovat všechny zprávy?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Smazat všechny vybrané zprávy?"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "Smazat všechny zprávy?"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "Datum"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "Datum asc"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "Datum popis"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "Smazat všechny"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "Smaž výběr"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "Exportovat vše"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "Formát exportu:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "Exportovat vybrané"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "Od"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "Od A-Z"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "Od Z-A"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "Doručené zprávy"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Označit vše jako přečtené"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Označit jako přečtené"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "Zpráva byla zaarchivována."
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "{0} zpráv bylo zaarchivováno."
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "Zpráva byla smazána."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "No Message Selected, nothing Exported."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "1 zpráva byla smazaná."
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "{0} zpráv bylo smazaných."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "Nová zpráva"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "Nebyli nalezené žádné zprávy."
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "Odesláno:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Odeslané"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Předmět"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "Předmět A-Z"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "Předmět Z-A"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "Soukromé zprávy"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Komu"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "Do A-Z"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "Do Z-A"
           }
         ]
       },
@@ -12748,6 +12596,14 @@
             "#text": "Přidat anketu"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Vytvořit nebo upravit anketu"
           },
@@ -12786,14 +12642,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15033,10 +14881,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\nHello {username},\r\n\r\nYou or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\nA new password has been generated for you on {forumname} at {forumlink}.\r\n\r\nPlease return to the site and login using the following information:\r\n\r\nUser Name: {username}\r\nPassword: {password}\r\n"
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\nA new Private Message from {fromuser} about {subject} was send to you at {forumname}.\r\n\r\nTo read the message, open the following link in your browser:\r\n\r\n{link}\r\n"
           },
           {
             "@tag": "RESET_PASS_TEXT",

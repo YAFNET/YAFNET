@@ -6279,10 +6279,6 @@
             "#text": "Xếp hạng mới"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "Giới hạn PM"
-          },
-          {
             "@tag": "POSTS",
             "#text": "bài viết"
           },
@@ -8336,10 +8332,6 @@
             "#text": "Trang"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "Tin nhắn mới từ {0} vào lúc {1}"
-          },
-          {
             "@tag": "POST",
             "#text": "Bưu kiện"
           },
@@ -10203,10 +10195,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "Chọn chủ đề diễn đàn khác nhau:"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "Nhận email thông báo khi có tin nhắn mới?"
           },
           {
             "@tag": "REALNAME2",
@@ -12390,152 +12378,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "Lưu trữ"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "Lưu trữ tất cả"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "Lưu tin đã chọn"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "Lưu trữ tất cả tin nhắn?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Xoá tất cả các tin nhắn được chọn?"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "Xóa tất cả tin nhắn?"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "Ngày"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "Ngày asc"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "Ngày mô tả"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "Xóa hết"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "Xoá tin đã chọn"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "Xuất tất cả"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "Định dạng xuất khẩu:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "Xuất khẩu đã chọn"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "Người gửi"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "Từ AZ"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "Từ ZA"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "Tin nhắn"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Đánh dấu tất cả như đã đọc"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Đánh dấu là đã đọc"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "Tin nhắn đã được lưu trữ thành công."
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "{0} Tin nhắn đã được lưu trữ thành công."
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "Tin nhắn đã được xoá."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "No Message Selected, nothing Exported."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "1 Tin nhắn đã được xoá."
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "{0} Tin nhắn đã được xoá."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "Gửi tin nhắn"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "Không tìm thấy tin nhắn nào."
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "Đã đăng:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Đã gửi"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Tiêu đề"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "Chủ đề AZ"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "Chủ đề ZA"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "Tin nhắn"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Người nhận"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "Tới AZ"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "Tới ZA"
           }
         ]
       },
@@ -12744,6 +12592,14 @@
             "#text": "Thêm cuộc thăm dò"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Tạo hoặc chỉnh sửa cuộc thăm dò ý kiến"
           },
@@ -12782,14 +12638,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15029,10 +14877,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\nHello {username},\r\n\r\nYou or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\nA new password has been generated for you on {forumname} at {forumlink}.\r\n\r\nPlease return to the site and login using the following information:\r\n\r\nUser Name: {username}\r\nPassword: {password}\r\n"
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\n      A new Private Message from {fromuser} about {subject} was send to you at {forumname}.\r\n\r\n      To read the message, open the following link in your browser:\r\n\r\n      {link}\r\n    "
           },
           {
             "@tag": "RESET_PASS_TEXT",

@@ -6279,10 +6279,6 @@
             "#text": "Ny rangering"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "PM-grense"
-          },
-          {
             "@tag": "POSTS",
             "#text": "innlegg"
           },
@@ -8336,10 +8332,6 @@
             "#text": "Sider"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "Ny privat melding fra {0} kl. {1}"
-          },
-          {
             "@tag": "POST",
             "#text": "Post"
           },
@@ -10203,10 +10195,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "Velg et annet forumtema:"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "Vil du motta et e-postvarsel når du får en ny privat melding?"
           },
           {
             "@tag": "REALNAME2",
@@ -12390,152 +12378,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "Arkiv"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "Arkiver alt"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "Arkiv valgt"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "Vil du arkivere alle meldinger?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Vil du slette alle valgte meldinger?"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "Vil du slette alle meldinger?"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "Dato"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "Dato asc"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "Dato desk"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "Slette alle"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "Slett valgte"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "Eksporter alle"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "Eksportformat:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "Eksporter valgt"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "Fra"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "Fra AZ"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "Fra ZA"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "Innboks"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Marker alle som lest"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Merk som lest"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "Meldingen ble arkivert."
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "{0} meldinger ble arkivert."
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "Meldingen ble slettet."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "No Message Selected, nothing Exported."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "1 melding ble slettet."
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "{0} meldinger ble slettet."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "Ny melding"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "Ingen meldinger ble funnet."
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "Lagt ut:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Sendte elementer"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Emne"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "Emne A-Å"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "Emne ZA"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "Private meldinger"
-          },
-          {
-            "@tag": "TO",
-            "#text": "Til"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "Til AZ"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "Til ZA"
           }
         ]
       },
@@ -12744,6 +12592,14 @@
             "#text": "Legg til avstemning"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Opprett eller rediger avstemning"
           },
@@ -12782,14 +12638,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15029,10 +14877,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\n      Hello {username},\r\n\r\n      You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\n      A new password has been generated for you on {forumname} at {forumlink}.\r\n\r\n      Please return to the site and login using the following information:\r\n\r\n      User Name: {username}\r\n      Password: {password}\r\n    "
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\nA new Private Message from {fromuser} about {subject} was send to you at {forumname}.\r\n\r\nTo read the message, open the following link in your browser:\r\n\r\n{link}\r\n"
           },
           {
             "@tag": "RESET_PASS_TEXT",

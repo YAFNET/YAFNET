@@ -6279,10 +6279,6 @@
             "#text": "Noul rang"
           },
           {
-            "@tag": "PM_LIMIT",
-            "#text": "Limita PM"
-          },
-          {
             "@tag": "POSTS",
             "#text": "posturi"
           },
@@ -8336,10 +8332,6 @@
             "#text": "Pagini"
           },
           {
-            "@tag": "PM_NOTIFICATION_SUBJECT",
-            "#text": "Mesaj nou PM de la {0} la {1}"
-          },
-          {
             "@tag": "POST",
             "#text": "Posta"
           },
@@ -10203,10 +10195,6 @@
           {
             "@tag": "OVERRIDE_DEFAULT_THEMES",
             "#text": "Selecteaza o tema diferita:"
-          },
-          {
-            "@tag": "PM_EMAIL_NOTIFICATION",
-            "#text": "Dorest notificare mail in cazul unui messaj privat nou?"
           },
           {
             "@tag": "REALNAME2",
@@ -12390,152 +12378,12 @@
         "@name": "PM",
         "Resource": [
           {
-            "@tag": "ARCHIVE",
-            "#text": "Arhiva"
-          },
-          {
-            "@tag": "ARCHIVEALL",
-            "#text": "Arhiva Toate"
-          },
-          {
-            "@tag": "ARCHIVESELECTED",
-            "#text": "Arhiva selectată"
-          },
-          {
-            "@tag": "CONFIRM_ARCHIVEALL",
-            "#text": "Arhivați toate mesajele?"
-          },
-          {
-            "@tag": "CONFIRM_DELETE",
-            "#text": "Ștergeți toate mesajele selectate?"
-          },
-          {
-            "@tag": "CONFIRM_DELETEALL",
-            "#text": "Ștergeți toate mesajele?"
-          },
-          {
-            "@tag": "DATE",
-            "#text": "Data"
-          },
-          {
-            "@tag": "DATE_ASC",
-            "#text": "Data asc"
-          },
-          {
-            "@tag": "DATE_DESC",
-            "#text": "Data desc"
-          },
-          {
-            "@tag": "DELETEALL",
-            "#text": "Ștergeți toate"
-          },
-          {
-            "@tag": "DELETESELECTED",
-            "#text": "Ștergeți selectat"
-          },
-          {
-            "@tag": "EXPORTALL",
-            "#text": "Exportați toate"
-          },
-          {
-            "@tag": "EXPORTFORMAT",
-            "#text": "Format de export:"
-          },
-          {
-            "@tag": "EXPORTSELECTED",
-            "#text": "Export selectat"
-          },
-          {
-            "@tag": "FROM",
-            "#text": "De la"
-          },
-          {
-            "@tag": "FROM_ASC",
-            "#text": "De la A-Z"
-          },
-          {
-            "@tag": "FROM_DESC",
-            "#text": "De la Z-A"
-          },
-          {
-            "@tag": "INBOX",
-            "#text": "Inbox"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Marcați toate ca fiind citite"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Marcați ca fiind citit"
-          },
-          {
-            "@tag": "MSG_ARCHIVED",
-            "#text": "Mesajul a fost arhivat."
-          },
-          {
-            "@tag": "MSG_ARCHIVED+",
-            "#text": "{0} mesaje au fost arhivate."
-          },
-          {
-            "@tag": "MSG_DELETED",
-            "#text": "Messajul a fost sters."
-          },
-          {
-            "@tag": "MSG_NOSELECTED",
-            "#text": "No Message Selected, nothing Exported."
-          },
-          {
-            "@tag": "MSGDELETED1",
-            "#text": "1 mesaj a fost sters."
-          },
-          {
-            "@tag": "MSGDELETED2",
-            "#text": "{0} messaje au fost sterse."
-          },
-          {
-            "@tag": "NEW_MESSAGE",
-            "#text": "Mesaj nou"
-          },
-          {
-            "@tag": "NO_MESSAGES",
-            "#text": "Nici un mesaj."
-          },
-          {
-            "@tag": "POSTED",
-            "#text": "Postat:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Element trimis"
-          },
-          {
-            "@tag": "SUBJECT",
-            "#text": "Subiect"
-          },
-          {
-            "@tag": "SUBJECT_ASC",
-            "#text": "Subiect A-Z"
-          },
-          {
-            "@tag": "SUBJECT_DESC",
-            "#text": "Subiect Z-A"
+            "@tag": "CONVERSATION_TITLE",
+            "#text": "Your Conversations"
           },
           {
             "@tag": "TITLE",
             "#text": "Messaj Privat"
-          },
-          {
-            "@tag": "TO",
-            "#text": "La"
-          },
-          {
-            "@tag": "TO_ASC",
-            "#text": "Către A-Z"
-          },
-          {
-            "@tag": "TO_DESC",
-            "#text": "Până la Z-A"
           }
         ]
       },
@@ -12744,6 +12592,14 @@
             "#text": "Adaugă sondaj"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Crearea sau editarea sondajului"
           },
@@ -12782,14 +12638,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },
@@ -15029,10 +14877,6 @@
           {
             "@tag": "PASSWORDRETRIEVAL_TEXT",
             "#text": "\r\n      Hello {username},\r\n\r\n      You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.\r\n\r\n      A new password has been generated for you on {forumname} at {forumlink}.\r\n\r\n      Please return to the site and login using the following information:\r\n\r\n      User Name: {username}\r\n      Password: {password}\r\n    "
-          },
-          {
-            "@tag": "PMNOTIFICATION_TEXT",
-            "#text": "\r\nAveti un mesaj privat nou de la {fromuser} ,cu subiectul {subject} pe forumul {forumname}.\r\n\r\nPentru a va putea citi mesajul, deschideti urmatorul link in browserul dumneavoastra:\r\n\r\n\r\n{link}\r\n"
           },
           {
             "@tag": "RESET_PASS_TEXT",
