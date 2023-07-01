@@ -29,6 +29,7 @@ using System.Data;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 using YAF.Core.Model;
 using YAF.Types.Models;
@@ -42,6 +43,17 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     ///     Gets or sets the service locator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpgradeService"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public DataImporter(IServiceLocator serviceLocator)
+    {
+        this.ServiceLocator = serviceLocator;
+    }
 
     /// <summary>
     /// The bb code extension import.
@@ -61,7 +73,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     {
         var importedCount = 0;
 
-        var repository = BoardContext.Current.GetRepository<BBCode>();
+        var repository = this.GetRepository<BBCode>();
 
         // import extensions...
         var dsBBCode = new DataSet();
@@ -146,7 +158,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     {
         var importedCount = 0;
 
-        var repository = BoardContext.Current.GetRepository<BannedEmail>();
+        var repository = this.GetRepository<BannedEmail>();
         var existingBannedEmailList = repository.Get(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
@@ -189,7 +201,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     {
         var importedCount = 0;
 
-        var repository = BoardContext.Current.GetRepository<BannedIP>();
+        var repository = this.GetRepository<BannedIP>();
         var existingBannedIpList = repository.Get(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
@@ -231,7 +243,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     {
         var importedCount = 0;
 
-        var repository = BoardContext.Current.GetRepository<BannedName>();
+        var repository = this.GetRepository<BannedName>();
         var existingBannedNameList = repository.Get(x => x.BoardID == boardId);
 
         using var streamReader = new StreamReader(inputStream);
@@ -268,7 +280,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     {
         var importedCount = 0;
 
-        var repository = BoardContext.Current.GetRepository<Spam_Words>();
+        var repository = this.GetRepository<Spam_Words>();
 
         // import spam words...
         var spamWords = new DataSet();
@@ -298,10 +310,10 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// Import Users from the InputStream
     /// </summary>
     /// <param name="inputStream">
-    /// The input stream.
+    ///     The input stream.
     /// </param>
     /// <param name="isXml">
-    /// Indicates if input Stream is Xml file
+    ///     Indicates if input Stream is Xml file
     /// </param>
     /// <returns>
     /// Returns How Many Users where imported.
@@ -309,7 +321,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// <exception cref="Exception">
     /// Import stream is not expected format.
     /// </exception>
-    public int ImportingUsers(Stream inputStream, bool isXml)
+    public async Task<int> ImportingUsersAsync(Stream inputStream, bool isXml)
     {
         var importedCount = 0;
 
@@ -320,11 +332,13 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
             if (usersDataSet.Tables["User"] != null)
             {
-                importedCount =
-                    usersDataSet.Tables["User"].Rows.Cast<DataRow>().Where(
-                            row => BoardContext.Current.Get<IAspNetUsersHelper>().GetUserByName((string)row["Name"]) == null)
-                        .Aggregate(
-                            importedCount, (current, row) => ImportUser(row, current));
+                foreach (DataRow row in usersDataSet.Tables["User"].Rows)
+                {
+                    if (await this.Get<IAspNetUsersHelper>().GetUserByNameAsync((string)row["Name"]) == null)
+                    {
+                        importedCount = await this.ImportUserAsync(row, importedCount);
+                    }
+                }
             }
             else
             {
@@ -337,7 +351,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
             var streamReader = new StreamReader(inputStream);
 
-            var headers = streamReader.ReadLine()?.Split(',');
+            var headers = (await streamReader.ReadLineAsync())?.Split(',');
 
             headers.ForEach(header => usersTable.Columns.Add(header));
 
@@ -352,10 +366,13 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
             streamReader.Close();
 
-            importedCount =
-                usersTable.Rows.Cast<DataRow>().Where(
-                    row => BoardContext.Current.Get<IAspNetUsersHelper>().GetUserByName((string)row["Name"]) == null).Aggregate(
-                    importedCount, (current, row) => ImportUser(row, current));
+            foreach (DataRow row in usersTable.Rows)
+            {
+                if (await this.Get<IAspNetUsersHelper>().GetUserByNameAsync((string)row["Name"]) == null)
+                {
+                    importedCount = await ImportUserAsync(row, importedCount);
+                }
+            }
         }
 
         return importedCount;
@@ -373,10 +390,10 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// <returns>
     /// Returns the Imported User Count.
     /// </returns>
-    private static int ImportUser(DataRow row, int importCount)
+    private async Task<int> ImportUserAsync(DataRow row, int importCount)
     {
         // Also Check if the Email is unique and exists
-        if (BoardContext.Current.Get<IAspNetUsersHelper>().GetUserByEmail((string)row["Email"]) != null)
+        if (await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync((string)row["Email"]) != null)
         {
             return importCount;
         }
@@ -513,13 +530,13 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             Profile_XMPP = userProfile.XMPP
         };
 
-        BoardContext.Current.Get<IAspNetUsersHelper>().Create(user, pass);
+        await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, pass);
 
         // setup initial roles (if any) for this user
-        BoardContext.Current.Get<IAspNetRolesHelper>().SetupUserRoles(BoardContext.Current.PageBoardID, user);
+        await this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(BoardContext.Current.PageBoardID, user);
 
         // create the user in the YAF DB as well as sync roles...
-        var userId = BoardContext.Current.Get<IAspNetRolesHelper>().CreateForumUser(user, BoardContext.Current.PageBoardID);
+        var userId = await this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, BoardContext.Current.PageBoardID);
 
         if (userId == null)
         {
@@ -528,7 +545,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         }
 
         // send user register notification to the new users
-        BoardContext.Current.Get<ISendNotification>().SendRegistrationNotificationToUser(
+        await this.Get<ISendNotification>().SendRegistrationNotificationToUserAsync(
             user, pass, "NOTIFICATION_ON_REGISTER");
 
         var timeZone = 0;
@@ -541,7 +558,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         var autoWatchTopicsEnabled = BoardContext.Current.BoardSettings.DefaultNotificationSetting
                                      == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
-        BoardContext.Current.GetRepository<User>().Save(
+        this.GetRepository<User>().Save(
             userId.Value,
             timeZone.ToString(),
             row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"].ToString() : null,
@@ -553,9 +570,8 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             5);
 
         // save the settings...
-        BoardContext.Current.GetRepository<User>().SaveNotification(
+        this.GetRepository<User>().SaveNotification(
             userId.Value,
-            true,
             autoWatchTopicsEnabled,
             BoardContext.Current.BoardSettings.DefaultNotificationSetting.ToInt(),
             BoardContext.Current.BoardSettings.DefaultSendDigestEmail);

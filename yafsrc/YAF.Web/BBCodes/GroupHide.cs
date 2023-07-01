@@ -78,8 +78,8 @@ public class GroupHide : BBCodeControl
             var groups = groupString.Split(';');
 
             // Check For Role Hiding
-            if (this.Get<IAspNetRolesHelper>().GetRolesForUser(
-                    BoardContext.Current.MembershipUser).Any(role => !groups.Any(role.Equals)))
+            if (this.Get<IAspNetRolesHelper>().GetRolesForUserAsync(
+                    BoardContext.Current.MembershipUser).Result.Any(role => !groups.Any(role.Equals)))
             {
                 shownContentGuest = hiddenContent;
             }

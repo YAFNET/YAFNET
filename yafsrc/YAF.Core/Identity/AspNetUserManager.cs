@@ -108,11 +108,11 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// The role.
     /// </param>
     /// <returns>
-    /// The <see cref="Microsoft.AspNetCore.Identity.IdentityResult"/>.
+    /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult RemoveFromRole(AspNetUsers user, string role)
+    public Task<IdentityResult> RemoveUserFromRoleAsync(AspNetUsers user, string role)
     {
-        return this.RemoveFromRoleAsync(user, role).Result;
+        return this.RemoveFromRoleAsync(user, role);
     }
 
     /// <summary>
@@ -124,9 +124,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult Delete(AspNetUsers user)
+    public Task<IdentityResult> DeleteUserAsync(AspNetUsers user)
     {
-        return this.DeleteAsync(user).Result;
+        return this.DeleteAsync(user);
     }
 
     /// <summary>
@@ -138,9 +138,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="AspNetUsers"/>.
     /// </returns>
-    public AspNetUsers FindById(string userId)
+    public Task<AspNetUsers> FindUserByIdAsync(string userId)
     {
-        return this.FindByIdAsync(userId).Result;
+        return this.FindByIdAsync(userId);
     }
 
     /// <summary>
@@ -150,11 +150,11 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// The user.
     /// </param>
     /// <returns>
-    /// The <see cref="IList"/>.
+    /// Returns the roles for the user
     /// </returns>
-    public IList<string> GetRoles(AspNetUsers user)
+    public Task<IList<string>> GetUserRolesAsync(AspNetUsers user)
     {
-        return this.GetRolesAsync(user).Result;
+        return this.GetRolesAsync(user);
     }
 
     /// <summary>
@@ -169,9 +169,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public bool IsInRole(AspNetUsers user, string role)
+    public Task<bool> IsUserInRoleAsync(AspNetUsers user, string role)
     {
-        return this.IsInRoleAsync(user, role).Result;
+        return this.IsInRoleAsync(user, role);
     }
 
     /// <summary>
@@ -200,9 +200,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult Create(AspNetUsers user, string password)
+    public Task<IdentityResult> CreateUserAsync(AspNetUsers user, string password)
     {
-        return this.CreateAsync(user, password).Result;
+        return this.CreateAsync(user, password);
     }
 
     /// <summary>
@@ -214,9 +214,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult Update(AspNetUsers user)
+    public Task<IdentityResult> UpdateUsrAsync(AspNetUsers user)
     {
-        return this.UpdateAsync(user).Result;
+        return this.UpdateAsync(user);
     }
 
     /// <summary>
@@ -231,9 +231,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult ConfirmEmail(AspNetUsers user, string token)
+    public Task<IdentityResult> ConfirmUserEmailAsync(AspNetUsers user, string token)
     {
-        return this.ConfirmEmailAsync(user, token).Result;
+        return this.ConfirmEmailAsync(user, token);
     }
 
     /// <summary>
@@ -245,9 +245,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="AspNetUsers"/>.
     /// </returns>
-    public AspNetUsers FindByName(string userName)
+    public Task<AspNetUsers> FindUserByNameAsync(string userName)
     {
-        return this.FindByNameAsync(userName).Result;
+        return this.FindByNameAsync(userName);
     }
 
     /// <summary>
@@ -259,9 +259,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="AspNetUsers"/>.
     /// </returns>
-    public AspNetUsers FindByEmail(string email)
+    public Task<AspNetUsers> FindUserByEmailAsync(string email)
     {
-        return this.FindByEmailAsync(email).Result;
+        return this.FindByEmailAsync(email);
     }
 
     /// <summary>
@@ -273,9 +273,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public string GeneratePasswordResetToken(AspNetUsers user)
+    public Task<string> GeneratePasswordResTokenAsync(AspNetUsers user)
     {
-        return this.GeneratePasswordResetTokenAsync(user).Result;
+        return this.GeneratePasswordResetTokenAsync(user);
     }
 
     /// <summary>
@@ -293,9 +293,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult ResetPassword(AspNetUsers user, string token, string newPassword)
+    public Task<IdentityResult> ResetUserPasswordAsync(AspNetUsers user, string token, string newPassword)
     {
-        return this.ResetPasswordAsync(user, token, newPassword).Result;
+        return this.ResetPasswordAsync(user, token, newPassword);
     }
 
     /// <summary>
@@ -307,9 +307,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public string GenerateEmailConfirmationResetToken(AspNetUsers user)
+    public Task<string> GenerateEmailConfirmationResTokenAsync(AspNetUsers user)
     {
-        return this.GenerateEmailConfirmationTokenAsync(user).Result;
+        return this.GenerateEmailConfirmationTokenAsync(user);
     }
 
     /// <summary>
@@ -327,9 +327,9 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult ChangePassword(AspNetUsers user, string currentPassword, string newPassword)
+    public Task<IdentityResult> ChangeUserPasswordAsync(AspNetUsers user, string currentPassword, string newPassword)
     {
-        return this.ChangePasswordAsync(user, currentPassword, newPassword).Result;
+        return this.ChangePasswordAsync(user, currentPassword, newPassword);
     }
 
     /// <summary>
@@ -344,8 +344,8 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult AddLogin(AspNetUsers user, UserLoginInfo login)
+    public Task<IdentityResult> AddUserLoginAsync(AspNetUsers user, UserLoginInfo login)
     {
-        return this.AddLoginAsync(user, login).Result;
+        return this.AddLoginAsync(user, login);
     }
 }

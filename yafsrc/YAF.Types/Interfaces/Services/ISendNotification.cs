@@ -24,6 +24,7 @@
 namespace YAF.Types.Interfaces;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
@@ -39,117 +40,99 @@ public interface ISendNotification
     /// <param name="forumId">The forum id.</param>
     /// <param name="newMessageId">The new message id.</param>
     /// <param name="isSpamMessage">if set to <c>true</c> [is spam message].</param>
-    void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId, bool isSpamMessage);
+    Task ToModeratorsThatMessageNeedsApprovalAsync(int forumId, int newMessageId, bool isSpamMessage);
 
     /// <summary>
     /// Sends Notifications to Moderators that a Message was Reported
     /// </summary>
-    /// <param name="pageForumID">
-    /// The page Forum ID.
+    /// <param name="pageForumId">
+    ///     The page Forum ID.
     /// </param>
     /// <param name="reportedMessageId">
-    /// The reported message id.
+    ///     The reported message id.
     /// </param>
     /// <param name="reporter">
-    /// The reporter.
+    ///     The reporter.
     /// </param>
     /// <param name="reportText">
-    /// The report Text.
+    ///     The report Text.
     /// </param>
-    void ToModeratorsThatMessageWasReported(
-        int pageForumID,
-        int reportedMessageId,
-        int reporter,
-        string reportText);
-
-    /// <summary>
-    /// Sends notification about new PM in user's inbox.
-    /// </summary>
-    /// <param name="toUserId">
-    /// User supposed to receive notification about new PM.
-    /// </param>
-    /// <param name="subject">
-    /// Subject of PM user is notified about.
-    /// </param>
-    void ToPrivateMessageRecipient(int toUserId, [NotNull] string subject);
+    Task ToModeratorsThatMessageWasReportedAsync(int pageForumId, int reportedMessageId, int reporter, string reportText);
 
     /// <summary>
     /// The to watching users.
     /// </summary>
     /// <param name="messageId">
-    /// The message Id.
+    ///     The message Id.
     /// </param>
-    void ToWatchingUsers(int messageId);
+    Task ToWatchingUsersAsync(int messageId);
 
     /// <summary>
     /// The to watching users.
     /// </summary>
     /// <param name="message">
-    /// The new message.
+    ///     The new message.
     /// </param>
     /// <param name="newTopic">
-    /// Indicates if Post is New Topic or reply
+    ///     Indicates if Post is New Topic or reply
     /// </param>
-    void ToWatchingUsers(Message message, bool newTopic = false);
+    Task ToWatchingUsersAsync(Message message, bool newTopic = false);
 
     /// <summary>
     /// Send an Email to the Newly Created User with
     /// his Account Info (Pass, Security Question and Answer)
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="pass">
-    /// The pass.
+    ///     The pass.
     /// </param>
     /// <param name="templateName">
-    /// The template Name.
+    ///     The template Name.
     /// </param>
-    void SendRegistrationNotificationToUser(
-        [NotNull] AspNetUsers user,
-        [NotNull] string pass,
-        string templateName);
+    Task SendRegistrationNotificationToUserAsync([NotNull] AspNetUsers user, [NotNull] string pass, string templateName);
 
     /// <summary>
     /// Sends notification that the User was awarded with a Medal
     /// </summary>
     /// <param name="toUserId">To user id.</param>
     /// <param name="medalName">Name of the medal.</param>
-    void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName);
+    Task ToUserWithNewMedalAsync([NotNull] int toUserId, [NotNull] string medalName);
 
     /// <summary>
     /// Sends the role assignment notification.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="addedRoles">The added roles.</param>
-    void SendRoleAssignmentNotification([NotNull] AspNetUsers user, List<string> addedRoles);
+    Task SendRoleAssignmentNotificationAsync([NotNull] AspNetUsers user, List<string> addedRoles);
 
     /// <summary>
     /// Sends the role un assignment notification.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="removedRoles">The removed roles.</param>
-    void SendRoleUnAssignmentNotification([NotNull] AspNetUsers user, List<string> removedRoles);
+    Task SendRoleUnAssignmentNotificationAsync([NotNull] AspNetUsers user, List<string> removedRoles);
 
     /// <summary>
     /// The send registration notification email.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="userId">The user id.</param>
-    void SendRegistrationNotificationEmail([NotNull] AspNetUsers user, int userId);
+    Task SendRegistrationNotificationEmailAsync([NotNull] AspNetUsers user, int userId);
 
     /// <summary>
     /// Sends a spam bot notification to admins.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="userId">The user id.</param>
-    void SendSpamBotNotificationToAdmins([NotNull] AspNetUsers user, int userId);
+    Task SendSpamBotNotificationToAdminsAsync([NotNull] AspNetUsers user, int userId);
 
     /// <summary>
     /// Sends the user welcome notification.
     /// </summary>
     /// <param name="user">The user.</param>
-    void SendUserWelcomeNotification([NotNull] User user);
+    Task SendUserWelcomeNotificationAsync([NotNull] User user);
 
     /// <summary>
     /// Sends the verification email.
@@ -158,7 +141,7 @@ public interface ISendNotification
     /// <param name="email">The email.</param>
     /// <param name="userId">The user identifier.</param>
     /// <param name="newUsername">The new username.</param>
-    void SendVerificationEmail(
+    Task SendVerificationEmailAsync(
         [NotNull] AspNetUsers user,
         [NotNull] string email,
         int? userId,
@@ -171,7 +154,7 @@ public interface ISendNotification
     /// <param name="suspendReason">The suspend reason.</param>
     /// <param name="email">The email.</param>
     /// <param name="userName">Name of the user.</param>
-    void SendUserSuspensionNotification(
+    Task SendUserSuspensionNotificationAsync(
         [NotNull] DateTime suspendedUntil,
         [NotNull] string suspendReason,
         [NotNull] string email,
@@ -182,16 +165,16 @@ public interface ISendNotification
     /// </summary>
     /// <param name="email">The email.</param>
     /// <param name="userName">Name of the user.</param>
-    void SendUserSuspensionEndedNotification([NotNull] string email, [NotNull] string userName);
+    Task SendUserSuspensionEndedNotificationAsync([NotNull] string email, [NotNull] string userName);
 
     /// <summary>
     /// The send password reset.
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="token">
-    /// The token.
+    ///     The token.
     /// </param>
-    void SendPasswordReset([NotNull] AspNetUsers user, [NotNull] string token);
+    Task SendPasswordResetAsync([NotNull] AspNetUsers user, [NotNull] string token);
 }

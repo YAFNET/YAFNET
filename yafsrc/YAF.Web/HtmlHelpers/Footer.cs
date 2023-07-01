@@ -162,7 +162,7 @@ public static class FooterHtmlHelper
         {
             var generatedTag = new TagBuilder("p");
 
-            generatedTag.AddCssClass("text-muted small");
+            generatedTag.AddCssClass("text-body-secondary small");
 
             generatedTag.InnerHtml.Append(
                 BoardContext.Current.Get<ILocalization>().GetText("COMMON", "GENERATED")

@@ -25,6 +25,7 @@
 namespace YAF.Core.Services.Migrations
 {
     using System.Data;
+    using System.Threading.Tasks;
 
     using YAF.Core.Context;
     using YAF.Types.Interfaces;
@@ -40,29 +41,76 @@ namespace YAF.Core.Services.Migrations
         /// Migrate Repositories (Database).
         /// </summary>
         /// <param name="dbAccess">
-        /// The Database access.
+        ///     The Database access.
         /// </param>
-        public void MigrateDatabase(IDbAccess dbAccess)
+        public Task MigrateDatabaseAsync(IDbAccess dbAccess)
         {
             dbAccess.Execute(
                 dbCommand =>
                     {
-                        UpgradeTable(dbCommand);
+                        UpgradeTable(this.GetRepository<User>(), dbCommand);
+                        UpgradeTable(this.GetRepository<Rank>(), dbCommand);
+                        UpgradeTable(this.GetRepository<Group>(), dbCommand);
+                        UpgradeTable(this.GetRepository<PrivateMessage>(), dbAccess, dbCommand);
 
                         ///////////////////////////////////////////////////////////
 
                         return true;
                     });
+
+            return Task.CompletedTask;
         }
 
-        /// <summary>Upgrades the Registry table.</summary>
+        /// <summary>Upgrades the User table.</summary>
+        /// <param name="repository">The repository.</param>
         /// <param name="dbCommand">The db command.</param>
-        private static void UpgradeTable(IDbCommand dbCommand)
+        private static void UpgradeTable(IRepository<User> repository, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<User>(x => x.DarkMode))
             {
                 dbCommand.Connection.AddColumn<User>(x => x.DarkMode);
             }
+
+            if (dbCommand.Connection.ColumnExists<User>("PMNotification"))
+            {
+                dbCommand.Connection.DropColumn<User>("PMNotification");
+            }
+        }
+
+        /// <summary>Upgrades the Rank table.</summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="dbCommand">The db command.</param>
+        private static void UpgradeTable(IRepository<Rank> repository, IDbCommand dbCommand)
+        {
+            if (dbCommand.Connection.ColumnExists<Rank>("PMLimit"))
+            {
+                dbCommand.Connection.DropColumn<Rank>("PMLimit");
+            }
+        }
+
+        /// <summary>Upgrades the Group table.</summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="dbCommand">The db command.</param>
+        private static void UpgradeTable(IRepository<Group> repository, IDbCommand dbCommand)
+        {
+            if (dbCommand.Connection.ColumnExists<Group>("PMLimit"))
+            {
+                dbCommand.Connection.DropColumn<Group>("PMLimit");
+            }
+        }
+
+        /// <summary>Upgrades the PrivateMessage table.</summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="dbAccess">
+        /// The Database access.
+        /// </param>
+        /// <param name="dbCommand">The db command.</param>
+        private static void UpgradeTable(
+            IRepository<PrivateMessage> repository,
+            IDbAccess dbAccess,
+            IDbCommand dbCommand)
+        {
+            dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PrivateMessage>());
         }
 
         /// <summary>

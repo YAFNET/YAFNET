@@ -21,7 +21,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces.Data;
+
+using System.Threading.Tasks;
 
 /// <summary>
 /// The Database Migration interface.
@@ -32,7 +35,7 @@ public interface IRepositoryMigration
     /// Migrate Repositories (Database).
     /// </summary>
     /// <param name="dbAccess">
-    /// The Database access.
+    ///     The Database access.
     /// </param>
-    public void MigrateDatabase(IDbAccess dbAccess);
+    public Task MigrateDatabaseAsync(IDbAccess dbAccess);
 }

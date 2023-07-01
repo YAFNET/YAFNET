@@ -36,6 +36,7 @@ using YAF.Types.Objects;
 using YAF.Types.Models;
 
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 using Microsoft.Extensions.Logging;
@@ -315,7 +316,7 @@ public class PostMessageModel : ForumPage
     /// <summary>
     /// Handles the PostReply click including: Replying, Editing and New post.
     /// </summary>
-    public IActionResult OnPostPostReply(int? q = null)
+    public async Task<IActionResult> OnPostPostReplyAsync(int? q = null)
     {
         if (!this.IsPostReplyVerified())
         {
@@ -394,7 +395,7 @@ public class PostMessageModel : ForumPage
         // Create notification emails
         if (isApproved)
         {
-            this.Get<ISendNotification>().ToWatchingUsers(newMessage);
+            await this.Get<ISendNotification>().ToWatchingUsersAsync(newMessage);
 
             if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
             {
@@ -448,7 +449,7 @@ public class PostMessageModel : ForumPage
         if (this.PageBoardContext.BoardSettings.EmailModeratorsOnModeratedPost)
         {
             // not approved, notify moderators
-            this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
+            await this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApprovalAsync(
                 this.PageBoardContext.PageForumID,
                 newMessage.ID,
                 isPossibleSpamMessage);

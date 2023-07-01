@@ -63,7 +63,7 @@
                    title-localized-page="POSTS"
                    title-localized-tag="PM_TITLE"
                    bs-toggle="tooltip"
-                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { u = Model.CombinedUser.Item1.ID }))"></a>
+                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { u = Model.CombinedUser.Item1.ID }))"></a>
             }
 
             @if (Model.ShowEmailLink)
@@ -463,7 +463,7 @@
                                          current-message="@message.Item1"></message>
                             </div>
                             <div class="card-footer">
-                                <small class="text-muted">
+                                <small class="text-body-secondary">
                                     @Html.LocalizedText("POSTED")
                                     &nbsp;
                                     @Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(message.Item1.Posted))

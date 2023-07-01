@@ -139,7 +139,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                     if (pageRow.Item2 != null)
                     {
                         // FIX user roles ?!
-                        this.Get<IAspNetRolesHelper>().SetupUserRoles(
+                        this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(
                             BoardContext.Current.PageBoardID,
                             BoardContext.Current.MembershipUser);
 

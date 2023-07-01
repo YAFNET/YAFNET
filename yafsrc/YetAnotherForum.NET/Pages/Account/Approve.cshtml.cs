@@ -129,9 +129,9 @@ public class ApproveModel : AccountPage
             return this.Page();
         }
 
-        var user = this.Get<IAspNetUsersHelper>().GetUserByEmail(userEmail.Email);
+        var user = await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(userEmail.Email);
 
-        var result = this.Get<IAspNetUsersHelper>().ConfirmEmail(user, HttpUtility.UrlDecode(this.Input.Key, Encoding.UTF8));
+        var result = await this.Get<IAspNetUsersHelper>().ConfirmUserEmailAsync(user, HttpUtility.UrlDecode(this.Input.Key, Encoding.UTF8));
 
         if (result.Succeeded)
         {
@@ -139,7 +139,7 @@ public class ApproveModel : AccountPage
             user.EmailConfirmed = true;
 
             // tell the provider to update...
-            this.Get<IAspNetUsersHelper>().Update(user);
+            await this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
 
             this.GetRepository<User>().Approve(userEmail.UserID);
 

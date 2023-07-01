@@ -448,7 +448,7 @@ public static class UserRepositoryExtensions
         repository.UpdateOnly(() => new User { Flags = userFlags.BitValue }, u => u.ID == user.ID);
 
         // Send welcome mail/pm to user
-        BoardContext.Current.Get<ISendNotification>().SendUserWelcomeNotification(user);
+        BoardContext.Current.Get<ISendNotification>().SendUserWelcomeNotificationAsync(user);
     }
 
     /// <summary>
@@ -614,16 +614,11 @@ public static class UserRepositoryExtensions
         BoardContext.Current.GetRepository<Active>().Delete(x => x.UserID == user.ID);
         BoardContext.Current.GetRepository<Activity>().Delete(x => x.FromUserID == user.ID || x.UserID == user.ID);
         BoardContext.Current.GetRepository<EventLog>().Delete(x => x.UserID == user.ID);
-        BoardContext.Current.GetRepository<UserPMessage>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<PrivateMessage>().Delete(x => x.FromUserId == user.ID);
+        BoardContext.Current.GetRepository<PrivateMessage>().Delete(x => x.ToUserId == user.ID);
         BoardContext.Current.GetRepository<Thanks>().Delete(x => x.ThanksFromUserID == user.ID || x.ThanksToUserID == user.ID);
         BoardContext.Current.GetRepository<Buddy>().Delete(x => x.FromUserID == user.ID);
         BoardContext.Current.GetRepository<Buddy>().Delete(x => x.ToUserID == user.ID);
-
-        // -- set messages as from guest so the User can be deleted
-        BoardContext.Current.GetRepository<PMessage>().UpdateOnly(
-            () => new PMessage { FromUserID = guestUserId },
-            u => u.FromUserID == user.ID);
-
         BoardContext.Current.GetRepository<Attachment>().Delete(x => x.UserID == user.ID);
         BoardContext.Current.GetRepository<CheckEmail>().Delete(x => x.UserID == user.ID);
         BoardContext.Current.GetRepository<WatchTopic>().Delete(x => x.UserID == user.ID);
@@ -1019,31 +1014,16 @@ public static class UserRepositoryExtensions
                             .ToMergedParamsSelectStatement();
 
                         var countUnreadSql = "0";
-                        var lastUnreadSql = "null";
 
                         if (showUnreadPMs)
                         {
                             // -- count Unread
-                            var countUnreadExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
+                            var countUnreadExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
                             countUnreadExpression.Where(
-                                x => x.UserID == userId && (x.Flags & 1) != 1 && (x.Flags & 8) != 8 &&
-                                     (x.Flags & 4) != 4);
+                                x => x.ToUserId == userId && (x.Flags & 1) != 1);
 
                             countUnreadSql = countUnreadExpression.Select(Sql.Count("1"))
-                                .ToMergedParamsSelectStatement();
-
-                            // -- last Unread
-                            var lastUnreadExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>()
-                                .Join<PMessage>((a, b) => b.ID == a.PMessageID)
-                                .OrderByDescending<PMessage>(x => x.Created).Limit(1);
-
-                            lastUnreadExpression.Where(
-                                x => x.UserID == userId && (x.Flags & 1) != 1 && (x.Flags & 8) != 8 &&
-                                     (x.Flags & 4) != 4);
-
-                            lastUnreadSql = lastUnreadExpression
-                                .Select(lastUnreadExpression.Column<PMessage>(x => x.Created))
                                 .ToMergedParamsSelectStatement();
                         }
 
@@ -1078,6 +1058,13 @@ public static class UserRepositoryExtensions
 
                         var hasBuddiesSql = hasBuddiesExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
+                        // -- has Private Messages
+                        var hasPmsExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
+
+                        hasPmsExpression.Where(x => x.FromUserId == userId && (x.Flags & 2) != 2 || x.ToUserId == userId && (x.Flags & 4) != 4).Limit(1);
+
+                        var hasPmsSql = hasPmsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+
                         expression.Take(1).Select<User>(
                             a => new
                                      {
@@ -1094,12 +1081,14 @@ public static class UserRepositoryExtensions
                                          Mention = Sql.Custom($"({countMentionSql})"),
                                          Quoted = Sql.Custom($"({countQuotedSql})"),
                                          UnreadPrivate = Sql.Custom($"({countUnreadSql})"),
-                                         LastUnreadPm = Sql.Custom($"({lastUnreadSql})"),
                                          PendingBuddies = Sql.Custom($"({countBuddiesSql})"),
                                          LastPendingBuddies = Sql.Custom($"({lastBuddySql})"),
                                          NumAlbums = Sql.Custom($"({countAlbumsSql})"),
-                                         UserHasBuddies = Sql.Custom(
-                                             $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(hasBuddiesSql, 0)})")
+                                         UserHasBuddies =
+                                             Sql.Custom(
+                                                 $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(hasBuddiesSql, 0)})"),
+                                         UserHasPrivateConversations = Sql.Custom(
+                                             $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(hasPmsSql, 0)})")
                                      });
 
                         return db.Connection.Single<UserLazyData>(expression);
@@ -1332,9 +1321,6 @@ public static class UserRepositoryExtensions
     /// <param name="userId">
     /// The user id.
     /// </param>
-    /// <param name="privateNotification">
-    /// The pm Notification.
-    /// </param>
     /// <param name="autoWatchTopics">
     /// The auto Watch Topics.
     /// </param>
@@ -1347,7 +1333,6 @@ public static class UserRepositoryExtensions
     public static void SaveNotification(
         this IRepository<User> repository,
         [NotNull] int userId,
-        [NotNull] bool privateNotification,
         [NotNull] bool autoWatchTopics,
         [CanBeNull] int? notificationType,
         [NotNull] bool dailyDigest)
@@ -1357,7 +1342,6 @@ public static class UserRepositoryExtensions
         repository.UpdateOnly(
             () => new User
                       {
-                          PMNotification = privateNotification,
                           AutoWatchTopics = autoWatchTopics,
                           NotificationType = notificationType,
                           DailyDigest = dailyDigest

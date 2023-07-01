@@ -100,7 +100,6 @@ public static class BoardRepositoryExtensions
                     Name = "Administration",
                     Flags = 0,
                     MinPosts = 0,
-                    PMLimit = 2147483647,
                     Style = "color: #811334",
                     SortOrder = 0
                 });
@@ -112,7 +111,6 @@ public static class BoardRepositoryExtensions
                     Name = "Guest",
                     Flags = 0,
                     MinPosts = 0,
-                    PMLimit = 0,
                     SortOrder = 100
                 });
 
@@ -123,7 +121,6 @@ public static class BoardRepositoryExtensions
                     Name = "Newbie",
                     Flags = 1,
                     MinPosts = 3,
-                    PMLimit = 0,
                     SortOrder = 3
                 });
 
@@ -134,7 +131,6 @@ public static class BoardRepositoryExtensions
                     Name = "Member",
                     Flags = 2,
                     MinPosts = 10,
-                    PMLimit = 30,
                     SortOrder = 2
                 });
 
@@ -145,7 +141,6 @@ public static class BoardRepositoryExtensions
                     Name = "Advanced Member",
                     Flags = 2,
                     MinPosts = 30,
-                    PMLimit = 100,
                     SortOrder = 1
                 });
 
@@ -192,7 +187,6 @@ public static class BoardRepositoryExtensions
                     BoardID = newBoardId,
                     Name = $"{rolePrefix}Administrators",
                     Flags = adminGroupFlag.BitValue,
-                    PMLimit = 2147483647,
                     Style = "color: red",
                     SortOrder = 0,
                     UsrSigChars = 256,
@@ -212,7 +206,6 @@ public static class BoardRepositoryExtensions
                     BoardID = newBoardId,
                     Name = "Guests",
                     Flags = guestGroupFlag.BitValue,
-                    PMLimit = 0,
                     Style = "font-style: italic; font-weight: bold; color: #0c7333",
                     SortOrder = 1,
                     UsrSigChars = 0,
@@ -233,7 +226,6 @@ public static class BoardRepositoryExtensions
                     BoardID = newBoardId,
                     Name = $"{rolePrefix}Registered Users",
                     Flags = memberGroupFlag.BitValue,
-                    PMLimit = 100,
                     SortOrder = 2,
                     UsrSigChars = 128,
                     UsrSigBBCodes = "URL,IMG,SPOILER,QUOTE",

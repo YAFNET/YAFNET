@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Models;
 
 /// <summary>
@@ -29,34 +30,34 @@ namespace YAF.Types.Models;
 [Serializable]
 public partial class vaccess_null : IEntity
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="vaccess_user"/> class.
-    /// </summary>
-    public vaccess_null()
-    {
-        this.OnCreated();
-    }
-
     [Required]
     public int UserID { get; set; }
+
     [Required]
     public int ForumID { get; set; }
+
     [Required]
     public int AccessMaskID { get; set; }
-    public int? GroupID { get; set; }
-    public int? ReadAccess { get; set; }
-    public int? PostAccess { get; set; }
-    public int? ReplyAccess { get; set; }
-    public int? PriorityAccess { get; set; }
-    public int? PollAccess { get; set; }
-    public int? VoteAccess { get; set; }
-    public int? ModeratorAccess { get; set; }
-    public int? EditAccess { get; set; }
-    public int? DeleteAccess { get; set; }
-    public int? AdminGroup { get; set; }
 
-    /// <summary>
-    /// The on created.
-    /// </summary>
-    partial void OnCreated();
+    public int? GroupID { get; set; }
+
+    public int? ReadAccess { get; set; }
+
+    public int? PostAccess { get; set; }
+
+    public int? ReplyAccess { get; set; }
+
+    public int? PriorityAccess { get; set; }
+
+    public int? PollAccess { get; set; }
+
+    public int? VoteAccess { get; set; }
+
+    public int? ModeratorAccess { get; set; }
+
+    public int? EditAccess { get; set; }
+
+    public int? DeleteAccess { get; set; }
+
+    public int? AdminGroup { get; set; }
 }

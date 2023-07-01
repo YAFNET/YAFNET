@@ -25,6 +25,7 @@
 namespace YAF.Core.Services.Migrations
 {
     using System.Data;
+    using System.Threading.Tasks;
 
     using YAF.Core.Context;
     using YAF.Types.Interfaces;
@@ -40,9 +41,9 @@ namespace YAF.Core.Services.Migrations
         /// Migrate Repositories (Database).
         /// </summary>
         /// <param name="dbAccess">
-        /// The Database access.
+        ///     The Database access.
         /// </param>
-        public void MigrateDatabase(IDbAccess dbAccess)
+        public Task MigrateDatabaseAsync(IDbAccess dbAccess)
         {
             dbAccess.Execute(
                 dbCommand =>
@@ -55,6 +56,8 @@ namespace YAF.Core.Services.Migrations
 
                     return true;
                 });
+
+            return Task.CompletedTask;
         }
 
         /// <summary>Upgrades the Forum table.</summary>

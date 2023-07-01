@@ -24,6 +24,8 @@
 
 namespace YAF.Pages;
 
+using System.Threading.Tasks;
+
 using YAF.Core.Extensions;
 using YAF.Core.Services;
 using YAF.Types.Interfaces.Identity;
@@ -66,7 +68,7 @@ public class JabberModel : ForumPage
     /// <param name="u">
     /// The u.
     /// </param>
-    public IActionResult OnGet(int? u = null)
+    public async Task<IActionResult> OnGetAsync(int? u = null)
     {
         if (!u.HasValue)
         {
@@ -106,7 +108,7 @@ public class JabberModel : ForumPage
         else
         {
             // get full user data...
-            var userDataHe = this.Get<IAspNetUsersHelper>().GetUser(this.CurrentUser.ProviderUserKey);
+            var userDataHe = await this.Get<IAspNetUsersHelper>().GetUserAsync(this.CurrentUser.ProviderUserKey);
 
             var serverHe = userDataHe.Profile_XMPP[(userDataHe.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1)..].Trim();
 

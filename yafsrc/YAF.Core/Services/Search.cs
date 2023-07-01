@@ -245,7 +245,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            messageList.ForEach(message => this.UpdateSearchIndexItemAsync(message).Wait());
+            messageList.ForEach(message => this.UpdateSearchIndexItemAsync(message));
         }
         finally
         {
@@ -589,15 +589,15 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// The update search index item async.
     /// </summary>
     /// <param name="message">
-    /// The message.
+    ///     The message.
     /// </param>
     /// <param name="dispose">
-    /// The dispose.
+    ///     The dispose.
     /// </param>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    private Task UpdateSearchIndexItemAsync(SearchMessage message, bool dispose = false)
+    private void UpdateSearchIndexItemAsync(SearchMessage message, bool dispose = false)
     {
         try
         {
@@ -651,8 +651,6 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 this.Optimize();
             }
         }
-
-        return Task.CompletedTask;
     }
 
     /// <summary>

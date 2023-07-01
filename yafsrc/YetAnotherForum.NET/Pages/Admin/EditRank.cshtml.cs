@@ -88,7 +88,6 @@ public class EditRankModel : AdminPage
         this.Input.IsStart = rank.RankFlags.IsStart;
         this.Input.IsLadder = rank.RankFlags.IsLadder;
         this.Input.MinPosts = rank.MinPosts ?? 0;
-        this.Input.PMLimit = rank.PMLimit;
         this.Input.Style = rank.Style;
         this.Input.RankPriority = rank.SortOrder;
         this.Input.UsrAlbums = rank.UsrAlbums;
@@ -117,7 +116,6 @@ public class EditRankModel : AdminPage
             this.Input.Name,
             new RankFlags { IsStart = this.Input.IsStart, IsLadder = this.Input.IsLadder },
             this.Input.MinPosts,
-            this.Input.PMLimit,
             this.Input.Style,
             this.Input.RankPriority,
             this.Input.Description,
@@ -149,8 +147,6 @@ public class EditRankModel : AdminPage
         public int MinPosts { get; set; }
 
         public int Priority { get; set; }
-
-        public int PMLimit { get; set; }
 
         public int UsrSigChars { get; set; } = 128;
 

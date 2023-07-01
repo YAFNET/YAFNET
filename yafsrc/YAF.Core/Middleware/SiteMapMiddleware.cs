@@ -60,7 +60,7 @@ public class SiteMapMiddleware : IHaveServiceLocator
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task Invoke(HttpContext context)
+    public Task InvokeAsync(HttpContext context)
     {
         var siteMap = new SiteMap();
 
@@ -91,6 +91,6 @@ public class SiteMapMiddleware : IHaveServiceLocator
 
         xs.Serialize(context.Response.Body, siteMap);
 
-        await this.requestDelegate(context);
+        return this.requestDelegate(context);
     }
 }

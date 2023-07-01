@@ -40,7 +40,6 @@ public class InitPageLoadEvent : IAmEvent
     public InitPageLoadEvent()
     {
         this.UserRequestData = new UserRequestData();
-        //this.PageLoadData = new Tuple<PageLoad, User, Category, Forum, Topic, Message>();
         this.UserLazyData = new UserLazyData();
         this.PageQueryData = new PageQueryData();
     }

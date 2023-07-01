@@ -26,6 +26,7 @@ namespace YAF.Pages;
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using System.Web;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -267,7 +268,7 @@ public class PostTopicModel : ForumPage
     /// <summary>
     /// Handles the PostReply click including: Replying, Editing and New post.
     /// </summary>
-    public IActionResult OnPostPostReply()
+    public async Task<IActionResult> OnPostPostReplyAsync()
     {
         if (!this.IsPostReplyVerified())
         {
@@ -349,7 +350,7 @@ public class PostTopicModel : ForumPage
         // Create notification emails
         if (isApproved)
         {
-            this.Get<ISendNotification>().ToWatchingUsers(newMessage, true);
+            await this.Get<ISendNotification>().ToWatchingUsersAsync(newMessage, true);
 
             if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
             {
@@ -415,7 +416,7 @@ public class PostTopicModel : ForumPage
         if (this.PageBoardContext.BoardSettings.EmailModeratorsOnModeratedPost)
         {
             // not approved, notify moderators
-            this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
+            await this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApprovalAsync(
                 this.PageBoardContext.PageForumID,
                 newMessage.ID,
                 isPossibleSpamMessage);

@@ -223,7 +223,7 @@ public class UsersKillModel : AdminPage
                     }
 
                     // all is good, user can be deleted
-                    this.Get<IAspNetUsersHelper>().DeleteUser(this.Input.UserId);
+                    await this.Get<IAspNetUsersHelper>().DeleteUserAsync(this.Input.UserId);
 
                     this.PageBoardContext.SessionNotify(
                         this.GetTextFormatted("MSG_USER_KILLED", user.Item1.Name),

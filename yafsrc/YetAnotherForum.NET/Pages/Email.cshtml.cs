@@ -25,6 +25,7 @@
 namespace YAF.Pages;
 
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
@@ -99,15 +100,15 @@ public class EmailModel : ForumPage
     /// <param name="u">
     /// The u.
     /// </param>
-    public IActionResult OnPost(int u)
+    public async Task<IActionResult> OnPostAsync(int u)
     {
         try
         {
             // get "to" user...
-            var toUser = this.Get<IAspNetUsersHelper>().GetMembershipUserById(u);
+            var toUser = await this.Get<IAspNetUsersHelper>().GetMembershipUserByIdAsync(u);
 
             // send it...
-            this.Get<IMailService>().Send(
+            await this.Get<IMailService>().SendAsync(
                 new MailboxAddress(
                     this.PageBoardContext.MembershipUser.UserName,
                     this.PageBoardContext.MembershipUser.Email),

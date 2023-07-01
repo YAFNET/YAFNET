@@ -24,12 +24,7 @@
 
 namespace YAF.Core.Extensions;
 
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-
 using YAF.Types.Attributes;
-using static Lucene.Net.Documents.Field;
 
 /// <summary>
 ///     The HttpRequest extensions.

@@ -61,7 +61,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h6 class="card-subtitle mb-2 text-muted">
+                                <h6 class="card-subtitle mb-2 text-body-secondary">
                                     @Html.LocalizedText("ORIGINALMESSAGE")
                                 </h6>
                                 <div class="card bg-light mb-3">
@@ -129,7 +129,7 @@
 
                                         <a class="btn btn-secondary btn-sm ms-2"
                                    href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(
-                                                     ForumPages.PostPrivateMessage,
+                                                     ForumPages.MyMessages,
                                                      new { u = reporter.Item2.ID, r = report.MessageID }))">
                                             <i class="fa fa-envelope fa-fw me-1"></i>
                                             @Html.LocalizedText("REPLYTO")

@@ -24,6 +24,8 @@
 
 namespace YAF.Pages.Profile;
 
+using System.Threading.Tasks;
+
 using Microsoft.Extensions.Logging;
 
 using YAF.Core.Extensions;
@@ -82,7 +84,7 @@ public class DeleteAccountModel : ProfilePage
     /// <summary>
     /// Delete or Suspend User
     /// </summary>
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         switch (this.Option)
         {
@@ -125,7 +127,7 @@ public class DeleteAccountModel : ProfilePage
                 // Update IsApproved
                 user.IsApproved = false;
 
-                this.Get<IAspNetUsersHelper>().Update(user);
+                await this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
 
                 var userFlags = this.PageBoardContext.PageUser.UserFlags;
 

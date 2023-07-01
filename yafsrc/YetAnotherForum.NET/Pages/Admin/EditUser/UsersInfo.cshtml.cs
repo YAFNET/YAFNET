@@ -25,6 +25,7 @@
 namespace YAF.Pages.Admin.EditUser;
 
 using System.Globalization;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -80,17 +81,17 @@ public class UsersInfoModel : AdminPage
     /// <summary>
     /// Updates the User Info
     /// </summary>
-    public IActionResult OnPostSave(int userId)
+    public async Task<IActionResult> OnPostSaveAsync(int userId)
     {
         // Update the Membership
         if (!this.Input.IsGuestX)
         {
-            var aspNetUser = this.Get<IAspNetUsersHelper>().GetUserByName(this.Input.Name);
+            var aspNetUser = await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(this.Input.Name);
 
             // Update IsApproved
             aspNetUser.IsApproved = this.Input.IsApproved;
 
-            this.Get<IAspNetUsersHelper>().Update(aspNetUser);
+            await this.Get<IAspNetUsersHelper>().UpdateUserAsync(aspNetUser);
         }
         else
         {
@@ -127,9 +128,9 @@ public class UsersInfoModel : AdminPage
     /// <summary>
     /// Approve the User
     /// </summary>
-    public void OnPostApproveUser(int id)
+    public async Task OnPostApproveUserAsync(int id)
     {
-        this.Get<IAspNetUsersHelper>().ApproveUser(id);
+        await this.Get<IAspNetUsersHelper>().ApproveUserAsync(id);
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
     }

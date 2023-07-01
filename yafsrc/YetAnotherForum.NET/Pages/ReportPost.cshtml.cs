@@ -24,6 +24,8 @@
 
 namespace YAF.Pages;
 
+using System.Threading.Tasks;
+
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Core.Services;
@@ -56,7 +58,7 @@ public class ReportPostModel : ForumPage
     /// <summary>
     /// Report Message.
     /// </summary>
-    public IActionResult OnPostReport(int? m = null)
+    public async Task<IActionResult> OnPostReportAsync(int? m = null)
     {
         if (this.Report.Length > this.PageBoardContext.BoardSettings.MaxReportPostChars)
         {
@@ -76,7 +78,7 @@ public class ReportPostModel : ForumPage
         if (this.PageBoardContext.BoardSettings.EmailModeratorsOnReportedPost)
         {
             // not approved, notify moderators
-            this.Get<ISendNotification>().ToModeratorsThatMessageWasReported(
+            await this.Get<ISendNotification>().ToModeratorsThatMessageWasReportedAsync(
                 this.PageBoardContext.PageForumID,
                 this.PageBoardContext.PageMessage.ID,
                 this.PageBoardContext.PageUserID,

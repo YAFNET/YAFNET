@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces.Services;
 
 using System.Collections;
@@ -57,11 +58,6 @@ public interface ISessionService
     ///   Gets or sets LastPm.
     /// </summary>
     DateTime LastPendingBuddies { get; set; }
-
-    /// <summary>
-    ///   Gets or sets LastPm.
-    /// </summary>
-    DateTime LastPm { get; set; }
 
     /// <summary>
     ///   Gets or sets LastPost.

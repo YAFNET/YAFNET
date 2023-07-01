@@ -168,7 +168,6 @@ public class SubscriptionsModel : ProfilePage
         // save the settings...
         this.GetRepository<User>().SaveNotification(
             this.PageBoardContext.PageUserID,
-            this.Input.PmNotificationEnabled,
             autoWatchTopicsEnabled,
             this.Input.NotificationType.ToType<int>(),
             this.Input.DailyDigestEnabled);
@@ -329,11 +328,6 @@ public class SubscriptionsModel : ProfilePage
         /// Gets or sets a value indicating whether daily digest enabled.
         /// </summary>
         public bool DailyDigestEnabled { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether pm notification enabled.
-        /// </summary>
-        public bool PmNotificationEnabled { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether show subscribe list.

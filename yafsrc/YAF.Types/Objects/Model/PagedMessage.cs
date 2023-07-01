@@ -146,11 +146,6 @@ public class PagedMessage
     public string ExternalMessageId { get; set; }
 
     /// <summary>
-    /// Gets or sets the reference message id.
-    /// </summary>
-    public string ReferenceMessageId { get; set; }
-
-    /// <summary>
     /// Gets or sets the answer message id.
     /// </summary>
     public int? AnswerMessageId { get; set; }

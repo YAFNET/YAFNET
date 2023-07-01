@@ -144,7 +144,7 @@ public class LoginModel : AccountPage
             return this.Page();
         }
 
-        var user = this.Get<IAspNetUsersHelper>().ValidateUser(this.Input.UserName.Trim());
+        var user = await this.Get<IAspNetUsersHelper>().ValidateUserAsync(this.Input.UserName.Trim());
 
         if (user == null)
         {
@@ -168,7 +168,7 @@ public class LoginModel : AccountPage
         }
 
         // Valid user, verify password
-        var result = this.Get<IAspNetUsersHelper>().IPasswordHasher
+        var result = this.Get<IAspNetUsersHelper>().PasswordHasher
             .VerifyHashedPassword(user, user.PasswordHash, this.Input.Password);
 
         switch (result)
@@ -179,7 +179,7 @@ public class LoginModel : AccountPage
                return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
 
             case PasswordVerificationResult.SuccessRehashNeeded:
-                user.PasswordHash = this.Get<IAspNetUsersHelper>().IPasswordHasher
+                user.PasswordHash = this.Get<IAspNetUsersHelper>().PasswordHasher
                     .HashPassword(user, this.Input.Password);
 
                 await this.Get<IAspNetUsersHelper>().SignInAsync(user, this.Input.RememberMe);
@@ -200,7 +200,7 @@ public class LoginModel : AccountPage
                     return this.PageBoardContext.Notify(this.GetText("LOGIN", "ERROR_LOCKEDOUT"), MessageTypes.danger);
                 }
 
-                this.Get<IAspNetUsersHelper>().Update(user);
+                await this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
 
                 this.Get<ILogger<LoginModel>>().Log(
                     null,
@@ -251,14 +251,14 @@ public class LoginModel : AccountPage
     /// <summary>
     /// Handles the OnClick event of the ResendConfirm control.
     /// </summary>
-    protected Task<ActionResult> OnPostResendConfirmAsync()
+    async protected Task<ActionResult> OnPostResendConfirmAsync()
     {
         if (this.Email == null)
         {
             this.ShowNotApproved = false;
             this.Email = null;
 
-            return Task.FromResult<ActionResult>(this.Page());
+            return this.Page();
         }
 
         var checkMail = this.GetRepository<CheckEmail>().ListTyped(this.Email).FirstOrDefault();
@@ -268,7 +268,7 @@ public class LoginModel : AccountPage
             this.ShowNotApproved = false;
             this.Email = null;
 
-            return Task.FromResult<ActionResult>(this.Page());
+            return this.Page();
         }
 
         var verifyEmail = new TemplateEmail("VERIFYEMAIL");
@@ -283,11 +283,11 @@ public class LoginModel : AccountPage
         verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
         verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
 
-        verifyEmail.SendEmail(new MailboxAddress(this.Input.UserName, checkMail.Email), subject);
+        await verifyEmail.SendEmailAsync(new MailboxAddress(this.Input.UserName, checkMail.Email), subject);
 
-        return Task.FromResult<ActionResult>(this.PageBoardContext.Notify(
+        return this.PageBoardContext.Notify(
             this.GetText("LOGIN", "MSG_MESSAGE_SEND"),
-            MessageTypes.success));
+            MessageTypes.success);
     }
 
     /// <summary>

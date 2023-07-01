@@ -161,7 +161,7 @@ public class EditProfileModel : ProfilePage
     /// <summary>
     /// Save the Profile
     /// </summary>
-    public IActionResult OnPostUpdateProfile()
+    public async Task<IActionResult> OnPostUpdateProfileAsync()
     {
         var userName = this.CurrentUser.Item1.DisplayOrUserName();
 
@@ -275,7 +275,7 @@ public class EditProfileModel : ProfilePage
                 MessageTypes.warning);
         }
 
-        this.UpdateUserProfile();
+        await this.UpdateUserProfileAsync();
 
         // save display name
         this.GetRepository<User>().UpdateDisplayName(this.CurrentUser.Item1, displayName);
@@ -509,7 +509,7 @@ public class EditProfileModel : ProfilePage
     /// <summary>
     /// Update user Profile Info.
     /// </summary>
-    private void UpdateUserProfile()
+    private Task UpdateUserProfileAsync()
     {
         var userProfile = new ProfileInfo {
                                               Country = this.Input.Country,
@@ -589,7 +589,7 @@ public class EditProfileModel : ProfilePage
         user.Profile_Skype = userProfile.Skype;
         user.Profile_XMPP = userProfile.XMPP;
 
-        this.Get<IAspNetUsersHelper>().Update(user);
+        return this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
     }
 
     /// <summary>

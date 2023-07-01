@@ -25,6 +25,7 @@
 namespace YAF.Types.Interfaces.Identity;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using YAF.Types.Models.Identity;
 using YAF.Types.Objects;
@@ -50,59 +51,59 @@ public interface IAspNetRolesHelper
     ///   Also copies the Roles as groups into YAF DB for the current user
     /// </summary>
     /// <param name="user">
-    /// Current Membership User
+    ///     Current Membership User
     /// </param>
-    /// <param name="pageBoardID">
-    /// Current BoardID
+    /// <param name="pageBoardId">
+    ///     Current BoardID
     /// </param>
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    int? CreateForumUser([NotNull] AspNetUsers user, int pageBoardID);
+    Task<int?> CreateForumUserAsync([NotNull] AspNetUsers user, int pageBoardId);
 
     /// <summary>
     /// Creates the user in the YAF DB from the ASP.NET Membership user information.
     ///   Also copies the Roles as groups into YAF DB for the current user
     /// </summary>
     /// <param name="user">
-    /// Current Membership User
+    ///     Current Membership User
     /// </param>
     /// <param name="displayName">
-    /// The display Name.
+    ///     The display Name.
     /// </param>
-    /// <param name="pageBoardID">
-    /// Current BoardID
+    /// <param name="pageBoardId">
+    ///     Current BoardID
     /// </param>
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    int? CreateForumUser([NotNull] AspNetUsers user, [NotNull] string displayName, int pageBoardID);
+    Task<int?> CreateForumUserAsync([NotNull] AspNetUsers user, [NotNull] string displayName, int pageBoardId);
 
     /// <summary>
     /// The create role.
     /// </summary>
     /// <param name="roleName">
-    /// The role name.
+    ///     The role name.
     /// </param>
-    void CreateRole([NotNull] string roleName);
+    Task CreateRoleAsync([NotNull] string roleName);
 
     /// <summary>
     /// The delete role.
     /// </summary>
     /// <param name="roleName">
-    /// The role name.
+    ///     The role name.
     /// </param>
-    void DeleteRole([NotNull] string roleName);
+    Task DeleteRoleAsync([NotNull] string roleName);
 
     /// <summary>
     /// Check if the forum user was created.
     /// </summary>
     /// <param name="user">The user.</param>
-    /// <param name="pageBoardID">The page board ID.</param>
+    /// <param name="pageBoardId">The page board ID.</param>
     /// <returns>
     /// The did create forum user.
     /// </returns>
-    bool DidCreateForumUser([NotNull] AspNetUsers user, int pageBoardID);
+    bool DidCreateForumUser([NotNull] AspNetUsers user, int pageBoardId);
 
     /// <summary>
     /// Gets all roles.
@@ -116,23 +117,23 @@ public interface IAspNetRolesHelper
     /// Gets the roles for the user.
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <returns>
     /// Returns all Roles
     /// </returns>
-    IList<string> GetRolesForUser([NotNull] AspNetUsers user);
+    Task<IList<string>> GetRolesForUserAsync([NotNull] AspNetUsers user);
 
     /// <summary>
     /// The get users in role.
     /// </summary>
     /// <param name="roleName">
-    /// The role name.
+    ///     The role name.
     /// </param>
     /// <returns>
     /// The <see cref="List{T}"/>.
     /// </returns>
-    List<AspNetUsers> GetUsersInRole(string roleName);
+    Task<List<AspNetUsers>> GetUsersInRoleAsync(string roleName);
 
     /// <summary>
     /// Is Member of Group.
@@ -149,53 +150,28 @@ public interface IAspNetRolesHelper
     bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<GroupMember> groups);
 
     /// <summary>
-    /// Determines whether [is user in role] [the specified username].
-    /// </summary>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <param name="role">
-    /// The role.
-    /// </param>
-    /// <returns>
-    /// The is user in role.
-    /// </returns>
-    bool IsUserInRole([NotNull] AspNetUsers user, [NotNull] string role);
-
-    /// <summary>
-    /// The remove user from role.
-    /// </summary>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <param name="role">
-    /// The role.
-    /// </param>
-    void RemoveUserFromRole([NotNull] AspNetUsers user, [NotNull] string role);
-
-    /// <summary>
     /// Roles the exists.
     /// </summary>
     /// <param name="roleName">The role name.</param>
     /// <returns>
     /// The role exists.
     /// </returns>
-    bool RoleExists([NotNull] string roleName);
+    Task<bool> RoleNameExistsAsync([NotNull] string roleName);
 
     /// <summary>
     /// Sets up the user roles from the "start" settings for a given group/role
     /// </summary>
-    /// <param name="pageBoardID">
-    /// Current BoardID
+    /// <param name="pageBoardId">
+    ///     Current BoardID
     /// </param>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
-    void SetupUserRoles(int pageBoardID, [NotNull] AspNetUsers user);
+    Task SetupUserRolesAsync(int pageBoardId, [NotNull] AspNetUsers user);
 
     /// <summary>
     /// Syncs the ASP.NET roles with YAF group based on YAF (not bi-directional)
     /// </summary>
-    /// <param name="pageBoardID">The page board ID.</param>
-    void SyncRoles(int pageBoardID);
+    /// <param name="pageBoardId">The page board ID.</param>
+    Task SyncRolesAsync(int pageBoardId);
 }

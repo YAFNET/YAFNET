@@ -69,7 +69,7 @@
                         <label asp-for="Input.PollExpire" localized-page="EDIT_PROFILE" localized-tag="poll_expire" class="form-label">
                         </label>
                         <input asp-for="Input.PollExpire" class="form-control" type="number" />
-                        <small class="form-text text-muted">
+                        <small class="form-text text-body-secondary">
                             @Html.LocalizedText("poll_expire_explain")
                         </small>
                     </div>
@@ -78,10 +78,10 @@
                     {
                         <div class="mb-3">
                             <div class="form-check form-switch">
-                                <input asp-for="Input.IsClosedBoundCheckBox" class="form-check-input" type="checkbox" />
+                                <input asp-for="Input.IsClosedBoundCheckBox" class="form-check-input" type="checkbox" role="switch" />
                                 <label class="form-check-label" asp-for="Input.IsClosedBoundCheckBox" localized-tag="pollgroup_closedbound"></label>
                             </div>
-                            <small class="form-text text-muted">
+                            <small class="form-text text-body-secondary">
                                 @Html.LocalizedText("POLLGROUP_CLOSEDBOUND_WARN")
                             </small>
                         </div>

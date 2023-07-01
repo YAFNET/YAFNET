@@ -25,6 +25,7 @@
 namespace YAF.Types.Interfaces.Services;
 
 using System.IO;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Interface DataImporter
@@ -91,10 +92,10 @@ public interface IDataImporter
     /// Import Users from the InputStream
     /// </summary>
     /// <param name="inputStream">
-    /// The input stream.
+    ///     The input stream.
     /// </param>
     /// <param name="isXml">
-    /// Indicates if input Stream is Xml file
+    ///     Indicates if input Stream is Xml file
     /// </param>
     /// <returns>
     /// Returns How Many Users where imported.
@@ -102,7 +103,7 @@ public interface IDataImporter
     /// <exception cref="Exception">
     /// Import stream is not expected format.
     /// </exception>
-    int ImportingUsers(Stream inputStream, bool isXml);
+    Task<int> ImportingUsersAsync(Stream inputStream, bool isXml);
 
     /// <summary>
     /// Import List of Spam Words

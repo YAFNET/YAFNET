@@ -39,7 +39,7 @@
             setPageNumberAlbums(pageSize, pageNumber, data.totalRecords);
 
             if (isPageChange) {
-                jQuery(".albums-toggle").dropdown("toggle");
+                $(".albums-toggle").dropdown("toggle");
             }
 
             var tooltipAlbumsTriggerList = [].slice.call(document.querySelectorAll("#PostAlbumsListPlaceholder ul li"));

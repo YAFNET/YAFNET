@@ -329,7 +329,6 @@ public static class MessageRepositoryExtensions
                                                       m.Position,
                                                       m.DeleteReason,
                                                       m.ExternalMessageId,
-                                                      m.ReferenceMessageId,
                                                       UserName = m.UserName != null ? m.UserName : b.Name,
                                                       DisplayName = m.UserDisplayName != null ? m.UserDisplayName : b.DisplayName,
                                                       b.BlockFlags,
@@ -989,8 +988,7 @@ public static class MessageRepositoryExtensions
                                  Position = position,
                                  Indent = 0,
                                  Flags = flags.BitValue,
-                                 ExternalMessageId = null,
-                                 ReferenceMessageId = null
+                                 ExternalMessageId = null
                              };
 
         var newMessageId = repository.Insert(

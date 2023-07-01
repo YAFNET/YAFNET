@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -125,8 +126,6 @@ public class EditGroupModel : AdminPage
 
         this.Input.DownloadAccess = flags.AllowDownload;
 
-        this.Input.PMLimit = this.Group.PMLimit;
-
         this.Input.Style = this.Group.Style;
 
         this.Input.Priority = this.Group.SortOrder;
@@ -149,7 +148,7 @@ public class EditGroupModel : AdminPage
     /// <summary>
     /// Saves the click.
     /// </summary>
-    public IActionResult OnPostSave()
+    public async Task<IActionResult> OnPostSaveAsync()
     {
         // Role
         int? roleId = null;
@@ -189,7 +188,6 @@ public class EditGroupModel : AdminPage
             roleName,
             groupFlags,
             this.Input.NewAccessMaskID,
-            this.Input.PMLimit,
             this.Input.Style,
             this.Input.Priority,
             this.Input.Description,
@@ -200,17 +198,17 @@ public class EditGroupModel : AdminPage
 
         // see if need to rename an existing role...
         if (oldRoleName.IsSet() && roleName != oldRoleName &&
-            this.Get<IAspNetRolesHelper>().RoleExists(oldRoleName) &&
-            !this.Get<IAspNetRolesHelper>().RoleExists(roleName) && !this.Input.IsGuestX)
+            await this.Get<IAspNetRolesHelper>().RoleNameExistsAsync(oldRoleName) &&
+            !await this.Get<IAspNetRolesHelper>().RoleNameExistsAsync(roleName) && !this.Input.IsGuestX)
         {
             // transfer users in addition to changing the name of the role...
-            var users = this.Get<IAspNetRolesHelper>().GetUsersInRole(oldRoleName);
+            var users = await this.Get<IAspNetRolesHelper>().GetUsersInRoleAsync(oldRoleName);
 
             // delete the old role...
-            this.Get<IAspNetRolesHelper>().DeleteRole(oldRoleName);
+            await this.Get<IAspNetRolesHelper>().DeleteRoleAsync(oldRoleName);
 
             // create new role...
-            this.Get<IAspNetRolesHelper>().CreateRole(roleName);
+            await this.Get<IAspNetRolesHelper>().CreateRoleAsync(roleName);
 
             if (users.Any())
             {
@@ -218,12 +216,12 @@ public class EditGroupModel : AdminPage
                 users.ForEach(user => this.Get<IAspNetRolesHelper>().AddUserToRole(user, roleName));
             }
         }
-        else if (!this.Get<IAspNetRolesHelper>().RoleExists(roleName) && !this.Input.IsGuestX)
+        else if (!await this.Get<IAspNetRolesHelper>().RoleNameExistsAsync(roleName) && !this.Input.IsGuestX)
         {
             // if role doesn't exist in provider's data source, create it
 
             // simply create it
-            this.Get<IAspNetRolesHelper>().CreateRole(roleName);
+            await this.Get<IAspNetRolesHelper>().CreateRoleAsync(roleName);
         }
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Groups);
@@ -272,8 +270,6 @@ public class EditGroupModel : AdminPage
         public bool DownloadAccess { get; set; }
 
         public short Priority { get; set; }
-
-        public int PMLimit { get; set; }
 
         public int UsrSigChars { get; set; } = 128;
 

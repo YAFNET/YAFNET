@@ -85,7 +85,7 @@ public static partial class EmojiOne
         // check if the emoji exists in our dictionaries
         var ascii = match.Value;
 
-        return ASCII_TO_CODEPOINT.ContainsKey(ascii) ? ToUnicode(ASCII_TO_CODEPOINT[ascii]) : match.Value;
+        return ASCII_TO_CODEPOINT.TryGetValue(ascii, out var value) ? ToUnicode(value) : match.Value;
 
         // we didn't find a replacement so just return the entire match
     }
@@ -100,8 +100,8 @@ public static partial class EmojiOne
         // check if the emoji exists in our dictionaries
         var shortName = match.Value;
 
-        return SHORTNAME_TO_CODEPOINT.ContainsKey(shortName)
-                   ? ToUnicode(SHORTNAME_TO_CODEPOINT[shortName])
+        return SHORTNAME_TO_CODEPOINT.TryGetValue(shortName, out var value)
+                   ? ToUnicode(value)
                    : match.Value;
 
         // we didn't find a replacement so just return the entire match

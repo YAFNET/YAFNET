@@ -54,9 +54,6 @@ public static class RankRepositoryExtensions
     /// <param name="minPosts">
     /// The min posts.
     /// </param>
-    /// <param name="messagesLimit">
-    /// The private message limit.
-    /// </param>
     /// <param name="style">
     /// The style.
     /// </param>
@@ -85,7 +82,6 @@ public static class RankRepositoryExtensions
         [NotNull] string name,
         [NotNull] RankFlags flags,
         [CanBeNull] int? minPosts,
-        [NotNull] int messagesLimit,
         [CanBeNull] string style,
         [NotNull] short sortOrder,
         [CanBeNull] string description,
@@ -114,7 +110,6 @@ public static class RankRepositoryExtensions
                               Name = name,
                               Flags = flags.BitValue,
                               MinPosts = minPosts,
-                              PMLimit = messagesLimit,
                               Style = style,
                               SortOrder = sortOrder,
                               Description = description,
@@ -136,7 +131,6 @@ public static class RankRepositoryExtensions
                         BoardID = boardId,
                         Flags = flags.BitValue,
                         MinPosts = minPosts,
-                        PMLimit = messagesLimit,
                         Style = style,
                         SortOrder = sortOrder,
                         Description = description,

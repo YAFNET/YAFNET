@@ -25,6 +25,8 @@
 
 namespace YAF.Types.Extensions.Data;
 
+using ServiceStack.Text;
+
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -32,6 +34,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+
+using YAF.Types.Interfaces.Data;
 
 /// <summary>
 ///     The DBAccess extensions.
@@ -103,6 +109,29 @@ public static class IDbAccessExtensions
     }
 
     /// <summary>
+    /// Get an open DB connection.
+    /// </summary>
+    /// <param name="dbAccess">
+    /// The Database access.
+    /// </param>
+    /// <returns>
+    /// The <see cref="DbConnection"/> .
+    /// </returns>
+    [NotNull]
+    public static async Task<IDbConnection> CreateConnectionOpenAsync([NotNull] this IDbAccess dbAccess)
+    {
+        CodeContracts.VerifyNotNull(dbAccess);
+
+       var factory =  new OrmLiteConnectionFactory(
+            dbAccess.Information.ConnectionString(),
+            OrmLiteConfig.DialectProvider);
+
+        var connection = await factory.OpenDbConnectionAsync().ConfigAwait();
+
+        return connection;
+    }
+
+    /// <summary>
     /// Runs the update command.
     /// </summary>
     /// <typeparam name="T">
@@ -123,6 +152,32 @@ public static class IDbAccessExtensions
         CodeContracts.VerifyNotNull(dbAccess);
 
         return dbAccess.Execute(db => db.Connection.Update(update));
+    }
+
+    /// <summary>
+    /// Runs the update command.
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type Parameter
+    /// </typeparam>
+    /// <param name="dbAccess">
+    /// The Database access.
+    /// </param>
+    /// <param name="update">
+    /// The update.
+    /// </param>
+    /// <param name="token">
+    /// The cancellation token
+    /// </param>
+    /// <returns>
+    /// The <see cref="int"/>.
+    /// </returns>
+    public static Task<int> UpdateAsync<T>([NotNull] this IDbAccess dbAccess, [NotNull] T update, CancellationToken token = default)
+        where T : IEntity
+    {
+        CodeContracts.VerifyNotNull(dbAccess);
+
+        return dbAccess.ExecuteAsync(db => db.UpdateAsync(update, token: token));
     }
 
     /// <summary>

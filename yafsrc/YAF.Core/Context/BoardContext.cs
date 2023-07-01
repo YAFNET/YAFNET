@@ -46,11 +46,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     private readonly ILifetimeScope contextLifetimeContainer;
 
     /// <summary>
-    /// The user.
-    /// </summary>
-    private AspNetUsers membershipUser;
-
-    /// <summary>
     /// The load message.
     /// </summary>
     private SessionMessageService loadMessage;
@@ -140,7 +135,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <summary>
     /// Gets or sets the Current Membership User
     /// </summary>
-    public AspNetUsers MembershipUser => this.membershipUser ??= this.Get<IAspNetUsersHelper>().GetUser();
+    public AspNetUsers MembershipUser { get; set; }
 
     /// <summary>
     ///   Gets the current YAF PageUser.
@@ -232,10 +227,11 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
         {
             return;
         }
-        
-        this.PageLinks = new List<PageLink>();
-        this.PageLinks.AddRoot();
 
+        this.MembershipUser = this.Get<IAspNetUsersHelper>().GetUserAsync().Result;
+
+        this.PageLinks = new List<PageLink>();
+        
         this.BeforeInit?.Invoke(this, EventArgs.Empty);
 
         var pageLoadEvent = new InitPageLoadEvent();

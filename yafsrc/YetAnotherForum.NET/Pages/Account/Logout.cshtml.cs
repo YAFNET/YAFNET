@@ -78,7 +78,7 @@ public class LogoutModel : AccountPage
     {
         await this.signInManager.SignOutAsync();
 
-        this.Get<IAspNetUsersHelper>().SignOut();
+        await this.Get<IAspNetUsersHelper>().SignOutAsync();
 
         this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageBoardContext.PageUserID));
 

@@ -605,9 +605,9 @@ public class DiffMatchPatch
 
             var line = text.JavaSubstring(lineStart, lineEnd + 1);
 
-            if (lineHash.ContainsKey(line))
+            if (lineHash.TryGetValue(line, out var value))
             {
-                chars.Append((char) lineHash[line]);
+                chars.Append((char) value);
             }
             else
             {

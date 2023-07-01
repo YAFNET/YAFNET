@@ -27,8 +27,10 @@ namespace YAF.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 
 using YAF.Types.Attributes;
+using YAF.Types.Interfaces.Data;
 
 /// <summary>
 ///     The DB access base.
@@ -107,6 +109,28 @@ public abstract class DbAccessBase : IDbAccess
 
             result = execFunc(command);
         }
+
+        return result;
+    }
+
+    /// <summary>
+    /// The execute.
+    /// </summary>
+    /// <param name="execFunc">
+    /// The exec func.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="T"/>.
+    /// </returns>
+    public virtual async Task<T> ExecuteAsync<T>(Func<IDbConnection, Task<T>> execFunc)
+    {
+        using var connection = await this.CreateConnectionOpenAsync();
+
+        var result = await execFunc(connection);
+
+        connection.Close();
 
         return result;
     }

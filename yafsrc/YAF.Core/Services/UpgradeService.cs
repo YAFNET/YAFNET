@@ -26,6 +26,7 @@ namespace YAF.Core.Services;
 
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Web;
 
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +34,6 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Core.Data;
 using YAF.Core.Model;
-using YAF.Core.Services.Import;
 using YAF.Core.Services.Migrations;
 using YAF.Types.Attributes;
 using YAF.Types.Models;
@@ -96,7 +96,7 @@ public class UpgradeService : IHaveServiceLocator
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public bool Upgrade()
+    public async Task<bool> UpgradeAsync()
     {
         this.CreateTablesIfNotExists();
 
@@ -116,7 +116,7 @@ public class UpgradeService : IHaveServiceLocator
 
         if (prevVersion < 80)
         {
-            this.Get<V80_Migration>().MigrateDatabase(this.DbAccess);
+            await this.Get<V80_Migration>().MigrateDatabaseAsync(this.DbAccess);
 
             // Upgrade to ASPNET Identity
             this.DbAccess.Information.IdentityUpgradeScripts.ForEach(this.ExecuteScript);
@@ -132,7 +132,7 @@ public class UpgradeService : IHaveServiceLocator
 
         if (prevVersion < 30)
         {
-            this.Get<V30_Migration>().MigrateDatabase(this.DbAccess);
+            await this.Get<V30_Migration>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         if (prevVersion < 42)
@@ -143,12 +143,12 @@ public class UpgradeService : IHaveServiceLocator
 
         if (prevVersion < 81)
         {
-            this.Get<V81_Migration>().MigrateDatabase(this.DbAccess);
+            await this.Get<V81_Migration>().MigrateDatabaseAsync(this.DbAccess);
         }
             
         if (prevVersion < 82)
         {
-            this.Get<V82_Migration>().MigrateDatabase(this.DbAccess);
+            await this.Get<V82_Migration>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         if (prevVersion is 80 or 81 or 82 or 84)
@@ -164,44 +164,43 @@ public class UpgradeService : IHaveServiceLocator
 
             var users = this.Get<IAspNetUsersHelper>().GetAllUsers();
 
-            users.ForEach(
-                user =>
-                    {
-                        var roles = this.Get<IAspNetRolesHelper>().GetRolesForUser(user);
+            foreach (var user in users)
+            {
+                var roles = await this.Get<IAspNetRolesHelper>().GetRolesForUserAsync(user);
 
-                        var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+                var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
 
-                        if (roles.NullOrEmpty())
-                        {
-                            // FIX initial roles (if any) for this user
-                            this.Get<IAspNetRolesHelper>().SetupUserRoles(yafUser.BoardID, user);
-                        }
-                    });
+                if (roles.NullOrEmpty())
+                {
+                    // FIX initial roles (if any) for this user
+                    await this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(yafUser.BoardID, user);
+                }
+            }
         }
 
         if (prevVersion < 84)
         {
-            this.Get<V84_Migration>().MigrateDatabase(this.DbAccess);
+            await this.Get<V84_Migration>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         if (prevVersion < 85)
         {
-            this.Get<V85_Migration>().MigrateDatabase(this.DbAccess);
+            await this.Get<V85_Migration>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         if (prevVersion < 86)
         {
-            this.Get<V86_Migration>().MigrateDatabase(this.DbAccess);
+            await this.Get<V86_Migration>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         if (prevVersion < 87)
         {
-            this.Get<V87_Migration>().MigrateDatabase(this.DbAccess);
+            await this.Get<V87_Migration>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         if (prevVersion < 89)
         {
-            this.Get<V89_Migration>().MigrateDatabase(this.DbAccess);
+            await this.Get<V89_Migration>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         this.AddOrUpdateExtensions();
@@ -322,7 +321,7 @@ public class UpgradeService : IHaveServiceLocator
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageHistory>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageReported>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageReportedAudit>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PMessage>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PrivateMessage>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<WatchForum>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<WatchTopic>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Attachment>());
@@ -331,7 +330,6 @@ public class UpgradeService : IHaveServiceLocator
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpServer>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpForum>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpTopic>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PMessage>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Replace_Words>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Spam_Words>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Registry>());
@@ -342,7 +340,6 @@ public class UpgradeService : IHaveServiceLocator
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserMedal>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<IgnoreUser>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicReadTracking>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserPMessage>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ForumReadTracking>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ReputationVote>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Tag>());

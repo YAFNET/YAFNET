@@ -31,6 +31,7 @@ namespace YAF.Core.Services.Migrations
 
     using System.Data;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using YAF.Configuration;
     using YAF.Core.Context;
@@ -61,9 +62,9 @@ namespace YAF.Core.Services.Migrations
         /// Migrate Repositories (Database).
         /// </summary>
         /// <param name="dbAccess">
-        /// The Database access.
+        ///     The Database access.
         /// </param>
-        public void MigrateDatabase(IDbAccess dbAccess)
+        public async Task MigrateDatabaseAsync(IDbAccess dbAccess)
         {
             // Install Membership Scripts
             dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
@@ -72,14 +73,14 @@ namespace YAF.Core.Services.Migrations
             dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
             dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
 
-            this.MigrateLegacyUsers(dbAccess);
+            await this.MigrateLegacyUsersAsync(dbAccess);
         }
 
         /// <summary>
         /// Migrate old Users to Identity.
         /// </summary>
         /// <param name="dbAccess">The database access.</param>
-        private void MigrateLegacyUsers(IDbAccess dbAccess)
+        private async Task MigrateLegacyUsersAsync(IDbAccess dbAccess)
         {
             var guests = this.GetRepository<User>().Get(u => (u.Flags & 4) == 4);
 
@@ -108,135 +109,133 @@ namespace YAF.Core.Services.Migrations
 
             var boards = this.GetRepository<Board>().GetAll();
 
-            boards.ForEach(
-                board =>
-                    {
-                        // Sync Roles
-                        this.Get<IAspNetRolesHelper>().SyncRoles(board.ID);
+            foreach (var board in boards)
+            {
+                // Sync Roles
+                await this.Get<IAspNetRolesHelper>().SyncRolesAsync(board.ID);
 
-                        var users = this.GetRepository<User>().GetByBoardId(board.ID);
+                var users = this.GetRepository<User>().GetByBoardId(board.ID);
 
-                        // sync users...
-                        MigrateUsersFromTable(users);
-                    });
+                // sync users...
+                await MigrateUsersFromTableAsync(users);
+            }
         }
 
         /// <summary>
         /// Migrates the users from table PageUser table and import them in to Idenitity
         /// </summary>
         /// <param name="users">The users.</param>
-        private void MigrateUsersFromTable(IList<User> users)
+        private async Task MigrateUsersFromTableAsync(IList<User> users)
         {
-            users.ForEach(
-                row =>
+            foreach (var row in users)
+            {
+                // validate that name and email are available...
+                if (row.Name.IsNotSet() || row.Email.IsNotSet())
+                {
+                    continue;
+                }
+
+                var name = row.Name.Trim();
+                var email = row.Email.ToLower().Trim();
+
+                // clean up the name by removing commas...
+                name = name.Replace(",", string.Empty);
+
+                // verify this user & email are not empty
+                if (!name.IsSet() || !email.IsSet())
+                {
+                    continue;
+                }
+
+                // skip the guest user
+                if (!row.UserFlags.IsGuest)
+                {
+                    var userExist = await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(row.Email);
+
+                    var legacyUserProfile = this.GetRepository<LegacyUser>().GetById(row.ID);
+
+                    if (userExist == null)
                     {
-                        // validate that name and email are available...
-                        if (row.Name.IsNotSet() || row.Email.IsNotSet())
+                        var result = await this.MigrateCreateUserAsync(
+                                         name,
+                                         email,
+                                         row.UserFlags.IsApproved);
+
+                        var aspNetUser = result.User;
+
+                        if (!result.Result.Succeeded)
                         {
-                            return;
+                            this.Get<ILogger<V30_Migration>>().Log(
+                                userId: null,
+                                source: "MigrateUsers",
+                                description: $"Failed to create user {name}: {result.Result.Errors.FirstOrDefault()}");
                         }
-
-                        var name = row.Name.Trim();
-                        var email = row.Email.ToLower().Trim();
-
-                        // clean up the name by removing commas...
-                        name = name.Replace(",", string.Empty);
-
-                        // verify this user & email are not empty
-                        if (!name.IsSet() || !email.IsSet())
+                        else
                         {
-                            return;
-                        }
+                            // update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
+                            this.GetRepository<User>().UpdateOnly(
+                                () => new User { ProviderUserKey = aspNetUser.Id },
+                                u => u.ID == row.ID);
 
-                        // skip the guest user
-                        if (!row.UserFlags.IsGuest)
-                        {
-                            var userExist = this.Get<IAspNetUsersHelper>().GetUserByEmail(row.Email);
-
-                            var legacyUserProfile = this.GetRepository<LegacyUser>().GetById(row.ID);
-
-                            if (userExist == null)
+                            if (legacyUserProfile != null)
                             {
-                                var status = MigrateCreateUser(
-                                    name,
-                                    email,
-                                    row.UserFlags.IsApproved,
-                                    out var aspNetUser);
-
-                                if (!status.Succeeded)
+                                if (legacyUserProfile.RealName.IsSet())
                                 {
-                                    this.Get<ILogger<V30_Migration>>().Log(
-                                        userId: null,
-                                        source: "MigrateUsers",
-                                        description: $"Failed to create user {name}: {status.Errors.FirstOrDefault()}");
+                                    aspNetUser.Profile_RealName = legacyUserProfile.RealName;
                                 }
-                                else
+
+                                if (legacyUserProfile.Occupation.IsSet())
                                 {
-                                    // update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
-                                    this.GetRepository<User>().UpdateOnly(
-                                        () => new User {ProviderUserKey = aspNetUser.Id},
-                                        u => u.ID == row.ID);
-
-                                    if (legacyUserProfile != null)
-                                    {
-                                        if (legacyUserProfile.RealName.IsSet())
-                                        {
-                                            aspNetUser.Profile_RealName = legacyUserProfile.RealName;
-                                        }
-
-                                        if (legacyUserProfile.Occupation.IsSet())
-                                        {
-                                            aspNetUser.Profile_Occupation = legacyUserProfile.Occupation;
-                                        }
-
-                                        if (legacyUserProfile.Location.IsSet())
-                                        {
-                                            aspNetUser.Profile_Location = legacyUserProfile.Location;
-                                        }
-
-                                        if (legacyUserProfile.Homepage.IsSet())
-                                        {
-                                            aspNetUser.Profile_Homepage = legacyUserProfile.Homepage;
-                                        }
-
-                                        if (legacyUserProfile.Interests.IsSet())
-                                        {
-                                            aspNetUser.Profile_Interests = legacyUserProfile.Interests;
-                                        }
-
-                                        if (legacyUserProfile.Weblog.IsSet())
-                                        {
-                                            aspNetUser.Profile_Blog = legacyUserProfile.Weblog;
-                                        }
-
-                                        aspNetUser.Profile_Gender = legacyUserProfile.Gender;
-
-                                        this.Get<IAspNetUsersHelper>().Update(aspNetUser);
-                                    }
-
-                                    // setup roles for this user...
-                                    var groups = this.GetRepository<UserGroup>().List(row.ID);
-
-                                    groups.ForEach(
-                                        group => this.Get<IAspNetRolesHelper>().AddUserToRole(aspNetUser, group.Name));
+                                    aspNetUser.Profile_Occupation = legacyUserProfile.Occupation;
                                 }
-                            }
-                            else
-                            {
-                                // update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
-                                this.GetRepository<User>().UpdateOnly(
-                                    () => new User {ProviderUserKey = userExist.Id},
-                                    u => u.ID == row.ID);
 
-                                // setup roles for this user...
-                                var groups = this.GetRepository<UserGroup>().List(row.ID);
+                                if (legacyUserProfile.Location.IsSet())
+                                {
+                                    aspNetUser.Profile_Location = legacyUserProfile.Location;
+                                }
 
-                                groups.ForEach(
-                                    group => this.Get<IAspNetRolesHelper>().AddUserToRole(userExist, group.Name));
+                                if (legacyUserProfile.Homepage.IsSet())
+                                {
+                                    aspNetUser.Profile_Homepage = legacyUserProfile.Homepage;
+                                }
+
+                                if (legacyUserProfile.Interests.IsSet())
+                                {
+                                    aspNetUser.Profile_Interests = legacyUserProfile.Interests;
+                                }
+
+                                if (legacyUserProfile.Weblog.IsSet())
+                                {
+                                    aspNetUser.Profile_Blog = legacyUserProfile.Weblog;
+                                }
+
+                                aspNetUser.Profile_Gender = legacyUserProfile.Gender;
+
+                                await this.Get<IAspNetUsersHelper>().UpdateUserAsync(aspNetUser);
                             }
+
+                            // setup roles for this user...
+                            var groups = this.GetRepository<UserGroup>().List(row.ID);
+
+                            groups.ForEach(
+                                group => this.Get<IAspNetRolesHelper>().AddUserToRole(aspNetUser, group.Name));
                         }
+                    }
+                    else
+                    {
+                        // update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
+                        this.GetRepository<User>().UpdateOnly(
+                            () => new User { ProviderUserKey = userExist.Id },
+                            u => u.ID == row.ID);
 
-                    });
+                        // setup roles for this user...
+                        var groups = this.GetRepository<UserGroup>().List(row.ID);
+
+                        groups.ForEach(
+                            group => this.Get<IAspNetRolesHelper>().AddUserToRole(userExist, group.Name));
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -245,19 +244,17 @@ namespace YAF.Core.Services.Migrations
         /// <param name="name">The name.</param>
         /// <param name="email">The email.</param>
         /// <param name="approved">The approved.</param>
-        /// <param name="user">The user.</param>
         /// <returns>
         /// The migrate create user.
         /// </returns>
-        private IdentityResult MigrateCreateUser(
+        private async Task<(IdentityResult Result, AspNetUsers User)> MigrateCreateUserAsync(
             [NotNull] string name,
             [NotNull] string email,
-            bool approved,
-            out AspNetUsers user)
+            bool approved)
         {
             var password = PasswordGenerator.GeneratePassword(true, true, true, true, false, 16);
 
-            user = new AspNetUsers
+            var user = new AspNetUsers
                        {
                            Id = Guid.NewGuid().ToString(),
                            ApplicationId = this.Get<BoardSettings>().ApplicationId,
@@ -269,7 +266,7 @@ namespace YAF.Core.Services.Migrations
                            Profile_Birthday = null
                        };
 
-            return this.Get<IAspNetUsersHelper>().Create(user, password);
+            return (await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, password), user);
         }
 
         public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;

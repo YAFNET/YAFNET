@@ -25,6 +25,7 @@
 namespace YAF.Pages;
 
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
@@ -119,7 +120,7 @@ public class EmailTopicModel : ForumPage
     /// <summary>
     /// Send the Email
     /// </summary>
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         try
         {
@@ -129,7 +130,7 @@ public class EmailTopicModel : ForumPage
                              };
 
             // send a change email message...
-            emailTopic.SendEmail(MailboxAddress.Parse(this.Input.Email.Trim()), this.Input.Subject.Trim());
+            await emailTopic.SendEmailAsync(MailboxAddress.Parse(this.Input.Email.Trim()), this.Input.Subject.Trim());
 
             return this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,

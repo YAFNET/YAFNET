@@ -26,6 +26,7 @@ namespace YAF.Pages.Profile;
 
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Core.Services;
@@ -66,17 +67,17 @@ public class ChangePasswordModel : ProfilePage
     /// <summary>
     /// Change Password
     /// </summary>
-    public void OnPost()
+    public async Task OnPostAsync()
     {
         if (!this.ModelState.IsValid)
         {
             return;
         }
 
-        var result = this.Get<IAspNetUsersHelper>().ChangePassword(
-            this.PageBoardContext.MembershipUser,
-            this.Input.Password,
-            this.Input.NewPassword);
+        var result = await this.Get<IAspNetUsersHelper>().ChangePasswordAsync(
+                         this.PageBoardContext.MembershipUser,
+                         this.Input.Password,
+                         this.Input.NewPassword);
 
         if (result.Succeeded)
         {

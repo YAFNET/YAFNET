@@ -61,7 +61,7 @@ public class LoginBox : ForumBaseController
     [HttpPost("SignIn")]
     public async Task<IActionResult> SignInAsync(LoginModal model)
     {
-        var user = this.Get<IAspNetUsersHelper>().ValidateUser(model.UserName);
+        var user = await this.Get<IAspNetUsersHelper>().ValidateUserAsync(model.UserName);
 
         if (user == null)
         {
@@ -85,7 +85,7 @@ public class LoginBox : ForumBaseController
         }
 
         // Valid user, verify password
-        var result = this.Get<IAspNetUsersHelper>().IPasswordHasher
+        var result = this.Get<IAspNetUsersHelper>().PasswordHasher
             .VerifyHashedPassword(user, user.PasswordHash, model.Password);
 
         switch (result)
@@ -96,7 +96,7 @@ public class LoginBox : ForumBaseController
                 return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
 
             case PasswordVerificationResult.SuccessRehashNeeded:
-                user.PasswordHash = this.Get<IAspNetUsersHelper>().IPasswordHasher
+                user.PasswordHash = this.Get<IAspNetUsersHelper>().PasswordHasher
                     .HashPassword(user, model.Password);
 
                 await this.Get<IAspNetUsersHelper>().SignInAsync(user, model.RememberMe);
@@ -117,7 +117,7 @@ public class LoginBox : ForumBaseController
                         this.PageBoardContext.SessionNotify(this.GetText("LOGIN", "ERROR_LOCKEDOUT"), MessageTypes.danger);
                     }
 
-                    this.Get<IAspNetUsersHelper>().Update(user);
+                    await this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
 
                     this.Get<ILogger<LoginBox>>().Log(
                         null,

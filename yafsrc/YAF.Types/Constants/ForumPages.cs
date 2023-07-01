@@ -95,11 +95,6 @@ public enum ForumPages
     MessageHistory,
 
     /// <summary>
-    /// The PostMessage.
-    /// </summary>
-    PostPrivateMessage,
-
-    /// <summary>
     /// The EmailTopic page.
     /// </summary>
     EmailTopic,
@@ -138,11 +133,6 @@ public enum ForumPages
     /// The EditAlbumImages.
     /// </summary>
     EditAlbumImages,
-
-    /// <summary>
-    /// The Message.
-    /// </summary>
-    PrivateMessage,
 
     /// <summary>
     /// The Info page.

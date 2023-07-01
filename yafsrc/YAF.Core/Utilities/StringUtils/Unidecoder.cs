@@ -60,7 +60,7 @@ public static partial class Unidecoder
             var h = c >> 8;
             var l = c & 0xff;
 
-            output.Append(characters.ContainsKey(h) ? characters[h][l] : string.Empty);
+            output.Append(characters.TryGetValue(h, out var character) ? character[l] : string.Empty);
         }
 
         return output.ToString();

@@ -22,6 +22,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Identity.Owin;
 
 using System;
@@ -70,14 +71,12 @@ public class Twitter : IAuthBase, IHaveServiceLocator
         var twitterUserId = loginInfo.Principal.FindFirst(ClaimTypes.NameIdentifier).Value;
 
         // Check if user exists
-        var existingUser = this.Get<IAspNetUsersHelper>().GetUserByName(name);
+        var existingUser = await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(name);
 
         if (existingUser == null)
         {
             // Create new PageUser
-            var user = this.CreateTwitterUser(name, email, twitterUserId, out var message);
-
-            return (message, user);
+            return await this.CreateTwitterUserAsync(name, email, twitterUserId);
         }
 
         if (existingUser.Profile_TwitterId == twitterUserId)
@@ -100,18 +99,14 @@ public class Twitter : IAuthBase, IHaveServiceLocator
     /// <param name="twitterUserId">
     /// The twitter PageUser Id.
     /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
     /// <returns>
     /// Returns if the login was successfully or not
     /// </returns>
-    private AspNetUsers CreateTwitterUser(string name, string email, string twitterUserId, out string message)
+    private async Task<(string Message, AspNetUsers User)> CreateTwitterUserAsync(string name, string email, string twitterUserId)
     {
         if (this.Get<BoardSettings>().DisableRegistrations)
         {
-            message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-            return null;
+            return (this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED"), null);
         }
 
         // Check if user name is null
@@ -136,26 +131,24 @@ public class Twitter : IAuthBase, IHaveServiceLocator
                            Profile_TwitterId = twitterUserId,
                        };
 
-        var result = this.Get<IAspNetUsersHelper>().Create(user, pass);
+        var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, pass);
 
         if (!result.Succeeded)
         {
             // error of some kind
-            message = result.Errors.FirstOrDefault()?.Description;
-            return null;
+            return (result.Errors.FirstOrDefault()?.Description, null);
         }
 
         // setup initial roles (if any) for this user
-        this.Get<IAspNetRolesHelper>().SetupUserRoles(BoardContext.Current.PageBoardID, user);
+        await this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(BoardContext.Current.PageBoardID, user);
 
         // create the user in the YAF DB as well as sync roles...
-        var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
+        var userId = await this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, displayName, BoardContext.Current.PageBoardID);
 
         if (userId == null)
         {
             // something is seriously wrong here -- redirect to failure...
-            message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-            return null;
+            return (this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED"), null);
         }
 
         // send user register notification to the user...
@@ -164,7 +157,7 @@ public class Twitter : IAuthBase, IHaveServiceLocator
         if (this.Get<BoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
         {
             // send user register notification to the following admin users...
-            this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userId.Value);
+            await this.Get<ISendNotification>().SendRegistrationNotificationEmailAsync(user, userId.Value);
         }
 
         var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
@@ -173,16 +166,13 @@ public class Twitter : IAuthBase, IHaveServiceLocator
         // save the settings...
         this.GetRepository<User>().SaveNotification(
             userId.Value,
-            true,
             autoWatchTopicsEnabled,
             this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
             this.Get<BoardSettings>().DefaultSendDigestEmail);
 
         this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId.Value));
 
-        message = string.Empty;
-
-        return user;
+        return (string.Empty, user);
     }
 
     /// <summary>
@@ -220,13 +210,19 @@ public class Twitter : IAuthBase, IHaveServiceLocator
 
         var emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_TWITTER_REGISTER");
 
-        var messageFlags = new MessageFlags { IsHtml = false, IsBBCode = true };
-
         var hostUser = this.GetRepository<User>()
             .Get(u => u.BoardID == BoardContext.Current.PageBoardID && (u.Flags & 1) == 1)
             .FirstOrDefault();
 
         // Send Message also as DM to Twitter.
-        this.GetRepository<PMessage>().SendMessage(hostUser.ID, userId, subject, emailBody, messageFlags.BitValue, -1);
+        this.GetRepository<PrivateMessage>().Insert(
+            new PrivateMessage
+                {
+                    Created = DateTime.UtcNow,
+                    Flags = 0,
+                    FromUserId = hostUser.ID,
+                    ToUserId = userId,
+                    Body = emailBody
+                });
     }
 }

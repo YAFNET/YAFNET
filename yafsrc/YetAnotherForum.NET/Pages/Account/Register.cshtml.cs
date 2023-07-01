@@ -139,7 +139,7 @@ public class RegisterModel : AccountPage
                        Profile_Birthday = null
                    };
 
-        var result = this.Get<IAspNetUsersHelper>().Create(user, this.Input.Password.Trim());
+        var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, this.Input.Password.Trim());
 
         if (!result.Succeeded)
         {
@@ -148,12 +148,12 @@ public class RegisterModel : AccountPage
         }
 
         // setup initial roles (if any) for this user
-        this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageBoardContext.PageBoardID, user);
+        await this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(this.PageBoardContext.PageBoardID, user);
 
         var displayName = this.Input.DisplayName;
 
         // create the user in the YAF DB as well as sync roles...
-        var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, this.PageBoardContext.PageBoardID);
+        var userId = await this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, displayName, this.PageBoardContext.PageBoardID);
 
         if (userId == null)
         {
@@ -167,7 +167,7 @@ public class RegisterModel : AccountPage
         {
             if (this.PageBoardContext.BoardSettings.BotHandlingOnRegister.Equals(1))
             {
-                this.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userId.Value);
+                await this.Get<ISendNotification>().SendSpamBotNotificationToAdminsAsync(user, userId.Value);
             }
         }
         else
@@ -175,12 +175,12 @@ public class RegisterModel : AccountPage
             // handle e-mail verification
             var email = this.Input.Email.Trim();
 
-            this.Get<ISendNotification>().SendVerificationEmail(user, email, userId);
+            await this.Get<ISendNotification>().SendVerificationEmailAsync(user, email, userId);
 
             if (this.PageBoardContext.BoardSettings.NotificationOnUserRegisterEmailList.IsSet())
             {
                 // send user register notification to the following admin users...
-                this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userId.Value);
+                await this.Get<ISendNotification>().SendRegistrationNotificationEmailAsync(user, userId.Value);
             }
         }
 

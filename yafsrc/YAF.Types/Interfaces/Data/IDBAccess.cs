@@ -21,11 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces.Data;
 
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Threading.Tasks;
 
 /// <summary>
 ///     DBAccess Interface
@@ -61,6 +63,19 @@ public interface IDbAccess
     /// The <see cref="T"/>.
     /// </returns>
     T Execute<T>(Func<IDbCommand, T> execFunc, IDbCommand cmd = null, [CanBeNull] IDbTransaction dbTransaction = null);
+
+    /// <summary>
+    /// The execute.
+    /// </summary>
+    /// <param name="execFunc">
+    /// The exec func.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="T"/>.
+    /// </returns>
+    Task<T> ExecuteAsync<T>(Func<IDbConnection, Task<T>> execFunc);
 
     /// <summary>
     /// The get command.

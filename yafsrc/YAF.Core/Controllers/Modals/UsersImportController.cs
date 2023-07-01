@@ -25,12 +25,12 @@
 namespace YAF.Core.Controllers.Modals;
 
 using System;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
 using YAF.Core.BasePages;
 using YAF.Core.Filters;
-using YAF.Core.Services.Import;
 using YAF.Types.Modals;
 using YAF.Types.Objects;
 
@@ -52,7 +52,7 @@ public class UsersImportController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Import")]
-    public IActionResult Import([FromForm] ImportModal model)
+    public async Task<IActionResult> ImportAsync([FromForm] ImportModal model)
     {
         try
         {
@@ -63,7 +63,7 @@ public class UsersImportController : ForumBaseController
             {
                 case "text/xml":
                     {
-                        importedCount = this.Get<IDataImporter>().ImportingUsers(model.Import.OpenReadStream(), true);
+                        importedCount = await this.Get<IDataImporter>().ImportingUsersAsync(model.Import.OpenReadStream(), true);
                     }
 
                     break;
@@ -73,7 +73,7 @@ public class UsersImportController : ForumBaseController
                 case "application/csv":
                 case "text/comma-separated-values":
                     {
-                        importedCount = this.Get<IDataImporter>().ImportingUsers(model.Import.OpenReadStream(), false);
+                        importedCount = await this.Get<IDataImporter>().ImportingUsersAsync(model.Import.OpenReadStream(), false);
                     }
 
                     break;

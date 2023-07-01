@@ -46,15 +46,6 @@
                                 </div>
                             }
 
-                            @if (Model.PageBoardContext.BoardSettings.AllowPMEmailNotification)
-                            {
-                                <div class="form-check">
-                                    <input asp-for="Input.PmNotificationEnabled" class="form-check-input"/>
-                                    <label asp-for="Input.PmNotificationEnabled" class="form-check-label" localized-page="EDIT_PROFILE" localized-tag="PM_EMAIL_NOTIFICATION">
-                                    </label>
-                                </div>
-                            }
-
                             <div class="text-lg-center mt-3">
                                 <button type="submit" asp-page-handler="Save"
                                         button-style="Primary"

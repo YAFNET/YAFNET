@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Controllers.Modals;
 
+using System.Threading.Tasks;
+
 using YAF.Core.BasePages;
 using YAF.Core.Filters;
 using YAF.Core.Model;
@@ -47,7 +49,7 @@ public class MedalController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("EditUserMedal")]
-    public IActionResult EditUserMedal([FromBody] UserMedalEditModal model)
+    public async Task<IActionResult> EditUserMedalAsync([FromBody] UserMedalEditModal model)
     {
         if (model.UserID == 0)
         {
@@ -78,7 +80,7 @@ public class MedalController : ForumBaseController
 
             if (this.PageBoardContext.BoardSettings.EmailUserOnMedalAward)
             {
-                this.Get<ISendNotification>().ToUserWithNewMedal(model.UserID, model.MedalName);
+                await this.Get<ISendNotification>().ToUserWithNewMedalAsync(model.UserID, model.MedalName);
             }
         }
 

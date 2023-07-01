@@ -73,7 +73,7 @@ public class CheckBannedIps : IHaveServiceLocator
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task Invoke(HttpContext context)
+    public async Task InvokeAsync(HttpContext context)
     {
         List<string> bannedIPs;
 

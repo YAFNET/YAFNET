@@ -26,8 +26,7 @@ namespace YAF.Pages.Admin;
 
 using System.IO;
 using System.Linq;
-
-using Core.Services.Import;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -87,15 +86,13 @@ public class EditBoardModel : AdminPage
     /// <param name="adminEmail">The admin email.</param>
     /// <param name="boardName">The board name.</param>
     /// <param name="createUserAndRoles">The create user and roles.</param>
-    /// <param name="error"></param>
     /// <returns>Returns if the board was created or not</returns>
-    protected bool CreateBoard(
+    private async Task<(bool Result, IdentityError Error)> CreateBoardAsync(
         [NotNull] string adminName,
         [NotNull] string adminPassword,
         [NotNull] string adminEmail,
         [NotNull] string boardName,
-        bool createUserAndRoles, 
-        out IdentityError error)
+        bool createUserAndRoles)
     {
         int newBoardId;
         var cult = StaticDataHelper.Cultures();
@@ -115,18 +112,16 @@ public class EditBoardModel : AdminPage
                                        };
 
             // Create new admin users
-            var result = this.Get<IAspNetUsersHelper>().Create(user, adminPassword);
+            var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, adminPassword);
 
             if (!result.Succeeded)
             {
-                error = result.Errors.FirstOrDefault();
-
-                return false;
+                return (false, result.Errors.FirstOrDefault());
             }
 
             // Create groups required for the new board
-            this.Get<IAspNetRolesHelper>().CreateRole("Administrators");
-            this.Get<IAspNetRolesHelper>().CreateRole("Registered");
+            await this.Get<IAspNetRolesHelper>().CreateRoleAsync("Administrators");
+            await this.Get<IAspNetRolesHelper>().CreateRoleAsync("Registered");
 
             // Add new admin users to group
             this.Get<IAspNetRolesHelper>().AddUserToRole(user, "Administrators");
@@ -145,8 +140,7 @@ public class EditBoardModel : AdminPage
 
         if (newBoardId <= 0 || !this.Get<BoardConfiguration>().MultiBoardFolders)
         {
-            error = null;
-            return true;
+            return (true, null);
         }
 
         // Successfully created the new board
@@ -173,9 +167,7 @@ public class EditBoardModel : AdminPage
             Directory.CreateDirectory(Path.Combine(boardFolder, "Uploads"));
         }
 
-        error = null;
-
-        return true;
+        return (true, null);
     }
 
     /// <summary>
@@ -216,7 +208,7 @@ public class EditBoardModel : AdminPage
     /// <summary>
     /// Save Current board / Create new Board
     /// </summary>
-    public IActionResult OnPostSave()
+    public async Task<IActionResult> OnPostSaveAsync()
     {
         int? b = this.Input.Id == 0 ? null : this.Input.Id;
 
@@ -248,18 +240,23 @@ public class EditBoardModel : AdminPage
             // Create board
             if (this.Input.CreateAdminUser)
             {
-                boardCreated = this.CreateBoard(
+                var result = await this.CreateBoardAsync(
                     this.Input.UserName.Trim(),
                     this.Input.UserPass1,
                     this.Input.UserEmail.Trim(),
                     this.Input.Name.Trim(),
-                    true,
-                    out error);
+                    true);
+
+                boardCreated = result.Result;
+                error = result.Error;
             }
             else
             {
                 // create admin user from logged in user...
-                boardCreated = this.CreateBoard(null, null, null, this.Input.Name.Trim(), false, out error);
+                var result = await this.CreateBoardAsync(null, null, null, this.Input.Name.Trim(), false);
+
+                boardCreated = result.Result;
+                error = result.Error;
             }
 
             if (!boardCreated)

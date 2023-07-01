@@ -118,9 +118,6 @@ public static class GroupRepositoryExtensions
     /// <param name="accessMaskId">
     /// The access mask id.
     /// </param>
-    /// <param name="messagesLimit">
-    /// The messages Limit.
-    /// </param>
     /// <param name="style">
     /// The style.
     /// </param>
@@ -152,7 +149,6 @@ public static class GroupRepositoryExtensions
         [NotNull] string name,
         [NotNull] GroupFlags flags,
         [NotNull] int accessMaskId,
-        [NotNull] int messagesLimit,
         [CanBeNull] string style,
         [NotNull] short sortOrder,
         [CanBeNull] string description,
@@ -170,7 +166,6 @@ public static class GroupRepositoryExtensions
                           {
                               Name = name,
                               Flags = flags.BitValue,
-                              PMLimit = messagesLimit,
                               Style = style,
                               SortOrder = sortOrder,
                               Description = description,
@@ -191,7 +186,6 @@ public static class GroupRepositoryExtensions
                         Name = name,
                         BoardID = boardId,
                         Flags = flags.BitValue,
-                        PMLimit = messagesLimit,
                         Style = style,
                         SortOrder = sortOrder,
                         Description = description,

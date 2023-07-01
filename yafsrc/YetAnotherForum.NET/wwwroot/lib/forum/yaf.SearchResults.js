@@ -1,18 +1,18 @@
 ﻿function getSearchResultsData(pageNumber) {
-    var searchInput = jQuery(".searchInput").val();
-    var searchInputUser = jQuery(".searchUserInput").val();
-    var searchInputTag = jQuery(".searchTagInput").val();
-    var useDisplayName = jQuery(".searchUserInput").data("display") === "True";
+    var searchInput = $(".searchInput").val();
+    var searchInputUser = $(".searchUserInput").val();
+    var searchInputTag = $(".searchTagInput").val();
+    var useDisplayName = $(".searchUserInput").data("display") === "True";
 
     // filter options
-    var pageSize = jQuery(".resultsPage").val();
-    var titleOnly = jQuery(".titleOnly").val();
-    var searchWhat = jQuery(".searchWhat").val();
+    var pageSize = $(".resultsPage").val();
+    var titleOnly = $(".titleOnly").val();
+    var searchWhat = $(".searchWhat").val();
 
-    var minimumLength = jQuery("#SearchResultsPlaceholder").data("minimum");
+    var minimumLength = $("#SearchResultsPlaceholder").data("minimum");
 
     // Forum Filter
-    var searchForum = parseInt(jQuery("#Input_ForumListSelected").val());
+    var searchForum = parseInt($("#Input_ForumListSelected").val());
 
     var searchText = "";
 
@@ -148,14 +148,14 @@
                                 '" href="' +
                                 data.messageUrl +
                                 '"><i class="fas fa-external-link-alt"></i></a>' +
-                                ' <small class="text-muted">(<a href="' +
+                                ' <small class="text-body-secondary">(<a href="' +
                                 data.forumUrl +
                                 '">' +
                                 data.forumName +
                                 "</a>)</small>" +
                                 "</h5></div>" +
                                 '<div class="card-body px-0">' +
-                                '<h6 class="card-subtitle mb-2 text-muted">' +
+                                '<h6 class="card-subtitle mb-2 text-body-secondary">' +
                                 data.description +
                                 "</h6>" +
                                 '<p class="card-text messageContent">' +
@@ -163,7 +163,7 @@
                                 "</p>" +
                                 "</div>" +
                                 '<div class="card-footer bg-transparent border-top-0 px-0 py-2"> ' +
-                                '<small class="text-muted">' +
+                                '<small class="text-body-secondary">' +
                                 '<span class="fa-stack">' +
                                 '<i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>' +
                                 '<i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i> ' +

@@ -74,7 +74,7 @@ public class AntiXssMiddleware
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task Invoke(HttpContext context)
+    public async Task InvokeAsync(HttpContext context)
     {
         // Check XSS in URL
         if (!string.IsNullOrWhiteSpace(context.Request.Path.Value))
@@ -153,7 +153,7 @@ public class AntiXssMiddleware
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    private async Task RespondWithAnErrorAsync(HttpContext context)
+    private Task RespondWithAnErrorAsync(HttpContext context)
     {
         context.Response.Clear();
         context.Response.Headers.AddHeaders();
@@ -162,7 +162,7 @@ public class AntiXssMiddleware
 
         this.error ??= new ErrorResponse { Description = "Error from AntiXssMiddleware", ErrorCode = 500 };
 
-        await context.Response.WriteAsync(this.error.ToJson());
+        return context.Response.WriteAsync(this.error.ToJson());
     }
 }
 

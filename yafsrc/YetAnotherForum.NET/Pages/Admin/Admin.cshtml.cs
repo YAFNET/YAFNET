@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using FarsiLibrary.Utils;
 
@@ -89,7 +90,7 @@ public class AdminModel : AdminPage
         this.PageBoardContext.PageLinks.AddAdminIndex();
     }
 
-    public IActionResult OnPostResendEmail(int id, int p, int p2)
+    public async Task<IActionResult> OnPostResendEmailAsync(int id, int p, int p2)
     {
         var unApprovedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageBoardContext.PageBoardID);
 
@@ -112,7 +113,7 @@ public class AdminModel : AdminPage
             verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
             verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
 
-            verifyEmail.SendEmail(new MailboxAddress(userUnApproved.DisplayOrUserName(), checkMail.Email), subject);
+            await verifyEmail.SendEmailAsync(new MailboxAddress(userUnApproved.DisplayOrUserName(), checkMail.Email), subject);
 
             this.BindData(p, p2);
 
@@ -121,41 +122,41 @@ public class AdminModel : AdminPage
 
         var userFound = this.Get<IUserDisplayName>().FindUserContainsName(userUnApproved.Name).FirstOrDefault();
 
-        var user = this.Get<IAspNetUsersHelper>().GetUserByName(userFound!.Name);
+        var user = await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userFound!.Name);
 
-        this.Get<ISendNotification>().SendVerificationEmail(user, userUnApproved.Email, userFound.ID);
+        await this.Get<ISendNotification>().SendVerificationEmailAsync(user, userUnApproved.Email, userFound.ID);
 
         this.BindData(p, p2);
 
         return this.Page();
     }
 
-    public void OnPostDelete(int id, int p, int p2)
+    public async Task OnPostDeleteAsync(int id, int p, int p2)
     {
-        this.Get<IAspNetUsersHelper>().DeleteUser(id);
+        await this.Get<IAspNetUsersHelper>().DeleteUserAsync(id);
 
         this.BindData(p, p2);
     }
 
-    public void OnPostApprove(int id, int p, int p2)
+    public async Task OnPostApproveAsync(int id, int p, int p2)
     {
-        this.Get<IAspNetUsersHelper>().ApproveUser(id);
+        await this.Get<IAspNetUsersHelper>().ApproveUserAsync(id);
 
         this.BindData(p, p2);
     }
 
-    public void OnPostDeleteAll(int p, int p2)
+    public async Task OnPostDeleteAllAsync(int p, int p2)
     {
         var daysValueAll = this.Input.DaysOld;
 
-        this.Get<IAspNetUsersHelper>().DeleteAllUnapproved(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
+        await this.Get<IAspNetUsersHelper>().DeleteAllUnapprovedAsync(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
 
         this.BindData(p, p2);
     }
 
-    public void OnPostApproveAll(int p, int p2)
+    public async Task OnPostApproveAllAsync(int p, int p2)
     {
-        this.Get<IAspNetUsersHelper>().ApproveAll();
+        await this.Get<IAspNetUsersHelper>().ApproveAllAsync();
 
         this.BindData(p, p2);
     }

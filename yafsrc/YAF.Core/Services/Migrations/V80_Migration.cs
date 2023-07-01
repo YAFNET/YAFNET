@@ -29,6 +29,7 @@ namespace YAF.Core.Services.Migrations
     using System.Data;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
 
     using YAF.Configuration;
     using YAF.Core.Context;
@@ -50,9 +51,9 @@ namespace YAF.Core.Services.Migrations
         /// Migrate Repositories (Database).
         /// </summary>
         /// <param name="dbAccess">
-        /// The Database access.
+        ///     The Database access.
         /// </param>
-        public void MigrateDatabase(IDbAccess dbAccess)
+        public Task MigrateDatabaseAsync(IDbAccess dbAccess)
         {
             dbAccess.Execute(
                 dbCommand =>
@@ -72,8 +73,6 @@ namespace YAF.Core.Services.Migrations
                         this.UpgradeTable(this.GetRepository<EventLog>(), dbAccess, dbCommand);
 
                         this.UpgradeTable(this.GetRepository<ForumReadTracking>(), dbAccess, dbCommand);
-
-                        this.UpgradeTable(this.GetRepository<UserPMessage>(), dbAccess, dbCommand);
 
                         this.UpgradeTable(this.GetRepository<Topic>(), dbAccess, dbCommand);
 
@@ -110,8 +109,6 @@ namespace YAF.Core.Services.Migrations
                         this.UpgradeTable(this.GetRepository<MessageReported>(), dbAccess, dbCommand);
 
                         this.UpgradeTable(this.GetRepository<MessageReportedAudit>(), dbAccess, dbCommand);
-
-                        this.UpgradeTable(this.GetRepository<PMessage>(), dbAccess, dbCommand);
 
                         this.UpgradeTable(this.GetRepository<Rank>(), dbAccess, dbCommand);
 
@@ -222,6 +219,8 @@ namespace YAF.Core.Services.Migrations
 
                         return true;
                     });
+
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -598,10 +597,7 @@ namespace YAF.Core.Services.Migrations
 
         private void UpgradeTable(IRepository<Rank> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
-            if (!dbCommand.Connection.ColumnExists<Rank>(x => x.PMLimit))
-            {
-                dbCommand.Connection.AddColumn<Rank>(x => x.PMLimit);
-            }
+            
 
             if (!dbCommand.Connection.ColumnExists<Rank>(x => x.Flags))
             {
@@ -929,19 +925,6 @@ namespace YAF.Core.Services.Migrations
                 $"{Config.DatabaseObjectQualifier}ForumReadTracking");
         }
 
-        private void UpgradeTable(IRepository<UserPMessage> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            if (!dbCommand.Connection.ColumnExists<UserPMessage>(x => x.Flags))
-            {
-                dbCommand.Connection.AddColumn<UserPMessage>(x => x.Flags);
-            }
-
-            if (!dbCommand.Connection.ColumnExists<UserPMessage>(x => x.IsReply))
-            {
-                dbCommand.Connection.AddColumn<UserPMessage>(x => x.IsReply);
-            }
-        }
-
         private void UpgradeTable(IRepository<Group> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnMaxLength<Group>(x => x.Name) < 255)
@@ -994,11 +977,6 @@ namespace YAF.Core.Services.Migrations
                     $@" update {expression.Table<Group>()} set Flags = Flags | 8 where IsModerator<>0");
 
                 dbCommand.Connection.DropColumn<Group>("IsModerator");
-            }
-
-            if (!dbCommand.Connection.ColumnExists<Group>(x => x.PMLimit))
-            {
-                dbCommand.Connection.AddColumn<Group>(x => x.PMLimit);
             }
 
             if (!dbCommand.Connection.ColumnExists<Group>(x => x.Style))
@@ -1148,11 +1126,6 @@ namespace YAF.Core.Services.Migrations
                 }
             }
 
-            if (!dbCommand.Connection.ColumnExists<Message>(x => x.ReferenceMessageId))
-            {
-                dbCommand.Connection.AddColumn<Message>(x => x.ReferenceMessageId);
-            }
-
             if (dbCommand.Connection.ColumnMaxLength<Message>(x => x.IP) < 39)
             {
                 dbCommand.Connection.AlterColumn<Message>(x => x.IP);
@@ -1263,24 +1236,6 @@ namespace YAF.Core.Services.Migrations
             if (!dbCommand.Connection.ColumnExists<NntpTopic>(x => x.Thread))
             {
                 dbCommand.Connection.AddColumn<NntpTopic>(x => x.Thread);
-            }
-        }
-
-        private void UpgradeTable(IRepository<PMessage> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            if (dbCommand.Connection.ColumnDataType<PMessage>(x => x.Body) == "ntext")
-            {
-                dbCommand.Connection.AlterColumn<PMessage>(x => x.Body);
-            }
-
-            if (!dbCommand.Connection.ColumnExists<PMessage>(x => x.Flags))
-            {
-                dbCommand.Connection.AddColumn<PMessage>(x => x.Flags);
-            }
-
-            if (!dbCommand.Connection.ColumnExists<PMessage>(x => x.ReplyTo))
-            {
-                dbCommand.Connection.AddColumn<PMessage>(x => x.ReplyTo);
             }
         }
 

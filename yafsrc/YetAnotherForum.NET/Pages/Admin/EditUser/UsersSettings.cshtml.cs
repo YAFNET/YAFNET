@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin.EditUser;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -100,7 +101,7 @@ public class UsersSettingsModel : AdminPage
     /// <summary>
     /// Updates the User Info
     /// </summary>
-    public IActionResult OnPostSave()
+    public async Task<IActionResult> OnPostSaveAsync()
     {
         var user =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
@@ -118,7 +119,7 @@ public class UsersSettingsModel : AdminPage
                     new { u = this.Input.UserId, tab = "View10" });
             }
 
-            var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Input.Email.Trim());
+            var userFromEmail = await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(this.Input.Email.Trim());
 
             if (userFromEmail != null)
             {
@@ -130,7 +131,7 @@ public class UsersSettingsModel : AdminPage
 
             try
             {
-                this.Get<IAspNetUsersHelper>().UpdateEmail(this.PageBoardContext.MembershipUser, this.Input.Email.Trim());
+                await this.Get<IAspNetUsersHelper>().UpdateEmailAsync(this.PageBoardContext.MembershipUser, this.Input.Email.Trim());
             }
             catch (ApplicationException)
             {

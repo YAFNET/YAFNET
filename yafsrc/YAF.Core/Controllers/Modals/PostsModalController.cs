@@ -26,6 +26,7 @@ namespace YAF.Core.Controllers.Modals;
 
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 
 using Microsoft.Extensions.Logging;
@@ -88,7 +89,7 @@ public class PostsModalController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Reply")]
-    public IActionResult Reply([FromBody] QuickReplyModal model)
+    public async Task<IActionResult> ReplyAsync([FromBody] QuickReplyModal model)
     {
         try
         {
@@ -238,7 +239,7 @@ public class PostsModalController : ForumBaseController
             if (messageFlags.IsApproved)
             {
                 // send new post notification to users watching this topic/forum
-                this.Get<ISendNotification>().ToWatchingUsers(newMessage);
+                await this.Get<ISendNotification>().ToWatchingUsersAsync(newMessage);
 
                 if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
                 {
@@ -259,7 +260,7 @@ public class PostsModalController : ForumBaseController
             if (this.PageBoardContext.BoardSettings.EmailModeratorsOnModeratedPost)
             {
                 // not approved, notify moderators
-                this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
+                await this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApprovalAsync(
                     this.PageBoardContext.PageForumID,
                     newMessage.ID,
                     isPossibleSpamMessage);

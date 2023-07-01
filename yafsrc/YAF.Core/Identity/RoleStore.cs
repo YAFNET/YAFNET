@@ -64,6 +64,7 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <param name="role">
     /// The role.
     /// </param>
+    /// <param name="cancellationToken"></param>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
@@ -73,7 +74,7 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        await Task.FromResult(this.GetRepository<AspNetRoles>().Insert(role, false));
+        await this.GetRepository<AspNetRoles>().InsertAsync(role, false, token: cancellationToken);
 
         return IdentityResult.Success;
     }
@@ -84,6 +85,7 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <param name="role">
     /// The role.
     /// </param>
+    /// <param name="cancellationToken"></param>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
@@ -93,29 +95,26 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        await Task.FromResult(this.GetRepository<AspNetRoles>().Update(role));
-
-        return IdentityResult.Success;
+        return await this.GetRepository<AspNetRoles>().UpdateAsync(role, cancellationToken) > 0
+                   ? IdentityResult.Success
+                   : IdentityResult.Failed();
     }
 
     /// <summary>
-    /// The delete async.
+    /// Deletes a role from the store as an asynchronous operation.
     /// </summary>
-    /// <param name="role">
-    /// The role.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    public Task<IdentityResult> DeleteAsync([NotNull]AspNetRoles role, CancellationToken cancellationToken)
+    /// <param name="role">The role to delete from the store.</param>
+    /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
+    /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> that represents the <see cref="T:Microsoft.AspNetCore.Identity.IdentityResult" /> of the asynchronous query.</returns>
+    public async Task<IdentityResult> DeleteAsync([NotNull]AspNetRoles role, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(role);
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        this.GetRepository<AspNetRoles>().Delete(r => r.Id == role.Id);
-
-        return Task.FromResult(IdentityResult.Success);
+        return await this.GetRepository<AspNetRoles>().DeleteAsync(r => r.Id == role.Id, cancellationToken) > 0
+                   ? IdentityResult.Success
+                   : IdentityResult.Failed();
     }
 
     /// <summary>
@@ -124,14 +123,15 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <param name="roleId">
     /// The role id.
     /// </param>
+    /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<AspNetRoles> FindByIdAsync([NotNull]string roleId, CancellationToken cancellationToken)
+    public Task<AspNetRoles> FindByIdAsync([NotNull]string roleId, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        return await Task.FromResult(this.GetRepository<AspNetRoles>().GetSingle(r => r.Id == roleId));
+        return this.GetRepository<AspNetRoles>().GetSingleAsync(r => r.Id == roleId, cancellationToken);
     }
 
     /// <summary>
@@ -140,14 +140,15 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <param name="roleName">
     /// The role name.
     /// </param>
+    /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<AspNetRoles> FindByNameAsync([NotNull]string roleName, CancellationToken cancellationToken)
+    public Task<AspNetRoles> FindByNameAsync([NotNull]string roleName, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        return await Task.FromResult(this.GetRepository<AspNetRoles>().GetSingle(r => r.Name == roleName));
+        return this.GetRepository<AspNetRoles>().GetSingleAsync(r => r.Name == roleName, cancellationToken);
     }
 
     public Task<string> GetRoleIdAsync(AspNetRoles role, CancellationToken cancellationToken)

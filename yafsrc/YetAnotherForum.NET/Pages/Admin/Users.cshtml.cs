@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -85,7 +86,7 @@ public class UsersModel : AdminPage
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), string.Empty);
     }
 
-    public IActionResult OnPostDelete(int id)
+    public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
         // we are deleting user
         if (this.PageBoardContext.PageUserID == id)
@@ -118,7 +119,7 @@ public class UsersModel : AdminPage
         }
 
         // all is good, user can be deleted
-        this.Get<IAspNetUsersHelper>().DeleteUser(id);
+        await this.Get<IAspNetUsersHelper>().DeleteUserAsync(id);
 
         // rebind data
         this.BindData();

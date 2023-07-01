@@ -112,7 +112,7 @@ public class DigestModel : AdminPage
                 this.TextSendEmail.Trim(),
                 "Digest Send Test");
 
-            this.Get<IMailService>().SendAll(new List<MimeMessage> { message });
+            await this.Get<IMailService>().SendAllAsync(new List<MimeMessage> { message });
 
             return this.PageBoardContext.Notify(
                 this.GetTextFormatted("MSG_SEND_SUC", "Direct"),

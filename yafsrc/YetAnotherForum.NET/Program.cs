@@ -62,3 +62,10 @@ public class Program
         return host.RunAsync();
     }
 }
+
+/// <summary>
+/// Helper Class for testing
+/// </summary>
+public class AssemblyClassLocator
+{
+}

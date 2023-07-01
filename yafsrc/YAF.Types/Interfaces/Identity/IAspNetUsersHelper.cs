@@ -47,7 +47,7 @@ public interface IAspNetUsersHelper
     IQueryable<AspNetUsers> Users { get; }
 
     /// <summary>Gets the hash/verify passwords</summary>
-    IPasswordHasher<AspNetUsers> IPasswordHasher { get; }
+    IPasswordHasher<AspNetUsers> PasswordHasher { get; }
 
     /// <summary>
     /// Gets the guest user for the current board.
@@ -67,24 +67,24 @@ public interface IAspNetUsersHelper
     /// For the admin function: approve all users. Approves all
     /// users waiting for approval
     /// </summary>
-    void ApproveAll();
+    Task ApproveAllAsync();
 
     /// <summary>
     /// Approves the user.
     /// </summary>
-    /// <param name="userID">The user id.</param>
+    /// <param name="userId">The user id.</param>
     /// <returns>
     /// The approve user.
     /// </returns>
-    bool ApproveUser(int userID);
+    Task<bool> ApproveUserAsync(int userId);
 
     /// <summary>
     /// Deletes all Unapproved Users older then Cut Off DateTime
     /// </summary>
     /// <param name="createdCutoff">
-    /// The created cutoff.
+    ///     The created cutoff.
     /// </param>
-    void DeleteAllUnapproved(DateTime createdCutoff);
+    Task DeleteAllUnapprovedAsync(DateTime createdCutoff);
 
     /// <summary>
     /// De-active all User accounts which are not active for x years
@@ -97,12 +97,12 @@ public interface IAspNetUsersHelper
     /// <summary>
     /// Deletes the user.
     /// </summary>
-    /// <param name="userID">The user id.</param>
+    /// <param name="userId">The user id.</param>
     /// <param name="isBotAutoDelete">if set to <c>true</c> [is bot automatic delete].</param>
     /// <returns>
     /// Returns if Deleting was successfully
     /// </returns>
-    bool DeleteUser(int userID, bool isBotAutoDelete = false);
+    Task<bool> DeleteUserAsync(int userId, bool isBotAutoDelete = false);
 
     /// <summary>
     /// Deletes and ban's the user.
@@ -148,13 +148,13 @@ public interface IAspNetUsersHelper
     /// <summary>
     /// get the membership user from the userID
     /// </summary>
-    /// <param name="userID">
-    /// The user identifier.
+    /// <param name="userId">
+    ///     The user identifier.
     /// </param>
     /// <returns>
     /// The get membership user by id.
     /// </returns>
-    AspNetUsers GetMembershipUserById(int userID);
+    Task<AspNetUsers> GetMembershipUserByIdAsync(int userId);
 
     /// <summary>
     /// Method returns MembershipUser
@@ -162,7 +162,7 @@ public interface IAspNetUsersHelper
     /// <returns>
     /// Returns MembershipUser
     /// </returns>
-    AspNetUsers GetUser();
+    Task<AspNetUsers> GetUserAsync();
 
     /// <summary>
     /// Method returns MembershipUser
@@ -171,18 +171,18 @@ public interface IAspNetUsersHelper
     /// <returns>
     /// Returns MembershipUser
     /// </returns>
-    AspNetUsers GetUserByName(string username);
+    Task<AspNetUsers> GetUserByNameAsync(string username);
 
     /// <summary>
     /// Method returns MembershipUser
     /// </summary>
     /// <param name="email">
-    /// The email.
+    ///     The email.
     /// </param>
     /// <returns>
     /// The <see cref="AspNetUsers"/>.
     /// </returns>
-    AspNetUsers GetUserByEmail(string email);
+    Task<AspNetUsers> GetUserByEmailAsync(string email);
 
     /// <summary>
     /// Method returns MembershipUser
@@ -191,7 +191,7 @@ public interface IAspNetUsersHelper
     /// <returns>
     /// Returns MembershipUser
     /// </returns>
-    AspNetUsers GetUser(object providerKey);
+    Task<AspNetUsers> GetUserAsync(object providerKey);
 
     /// <summary>
     /// Get the UserID from the ProviderUserKey
@@ -214,34 +214,34 @@ public interface IAspNetUsersHelper
     /// <returns>
     /// The get user row for id.
     /// </returns>
-    string GetUserProviderKeyFromUserID(int userId);
+    string GetUserProviderKeyFromUserId(int userId);
 
     /// <summary>
     /// Simply tells you if the user ID passed is the Guest user
     /// for the current board
     /// </summary>
-    /// <param name="userID">
+    /// <param name="userId">
     /// ID of user to lookup
     /// </param>
     /// <returns>
     /// true if the user id is a guest user
     /// </returns>
-    bool IsGuestUser(int userID);
+    bool IsGuestUser(int userId);
 
     /// <summary>
     /// Helper function to update a user's email address.
     /// Syncs with both the YAF DB and Membership Provider.
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="newEmail">
-    /// The new email.
+    ///     The new email.
     /// </param>
     /// <returns>
     /// The update email.
     /// </returns>
-    bool UpdateEmail(AspNetUsers user, string newEmail);
+    Task<bool> UpdateEmailAsync(AspNetUsers user, string newEmail);
 
     /// <summary>
     /// Checks Membership Provider to see if a user
@@ -257,7 +257,7 @@ public interface IAspNetUsersHelper
     /// <summary>
     /// The sign out.
     /// </summary>
-    void SignOut();
+    Task SignOutAsync();
 
     /// <summary>
     /// The sign in.
@@ -285,40 +285,29 @@ public interface IAspNetUsersHelper
     Task<IActionResult> SignInExternalAsync(AspNetUsers user);
 
     /// <summary>
-    /// Delete a user
-    /// </summary>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IdentityResult"/>.
-    /// </returns>
-    IdentityResult Delete(AspNetUsers user);
-
-    /// <summary>
     /// Returns the roles for the user
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <returns>
-    /// The <see cref="IList"/>.
+    /// Returns the roles for the user
     /// </returns>
-    IList<string> GetRoles(AspNetUsers user);
+    Task<IList<string>> GetUserRolesAsync(AspNetUsers user);
 
     /// <summary>
     /// Returns true if the user is in the specified role
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="role">
-    /// The role.
+    ///     The role.
     /// </param>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    bool IsInRole(AspNetUsers user, string role);
+    Task<bool> IsUserInRoleAsync(AspNetUsers user, string role);
 
     /// <summary>
     /// Add a user to a role
@@ -335,110 +324,110 @@ public interface IAspNetUsersHelper
     /// The remove from role.
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="role">
-    /// The role.
+    ///     The role.
     /// </param>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    IdentityResult RemoveFromRole(AspNetUsers user, string role);
+    Task<IdentityResult> RemoveUserFromRoleAsync(AspNetUsers user, string role);
 
     /// <summary>
     /// Create a user with the given password
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="password">
-    /// The password.
+    ///     The password.
     /// </param>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    IdentityResult Create(AspNetUsers user, string password);
+    Task<IdentityResult> CreateUserAsync(AspNetUsers user, string password);
 
     /// <summary>
     /// Update a user
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    IdentityResult Update(AspNetUsers user);
+    Task<IdentityResult> UpdateUserAsync(AspNetUsers user);
 
     /// <summary>
     /// Confirm the user's email with confirmation token
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="token">
-    /// The token.
+    ///     The token.
     /// </param>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    IdentityResult ConfirmEmail(AspNetUsers user, string token);
+    Task<IdentityResult> ConfirmUserEmailAsync(AspNetUsers user, string token);
 
     /// <summary>
     /// Generate a password reset token for the user using the UserTokenProvider
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    string GeneratePasswordResetToken(AspNetUsers user);
+    Task<string> GeneratePasswordResetTokenAsync(AspNetUsers user);
 
     /// <summary>
     /// Reset a user's password using a reset password token
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="token">
-    /// The token.
+    ///     The token.
     /// </param>
     /// <param name="newPassword">
-    /// The new Password.
+    ///     The new Password.
     /// </param>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    IdentityResult ResetPassword(AspNetUsers user, string token, string newPassword);
+    Task<IdentityResult> ResetPasswordAsync(AspNetUsers user, string token, string newPassword);
 
     /// <summary>
     /// Get the email confirmation token for the user
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    string GenerateEmailConfirmationResetToken(AspNetUsers user);
+    Task<string> GenerateEmailConfirmationResetTokenAsync(AspNetUsers user);
 
     /// <summary>
     /// Change a user password
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="currentPassword">
-    /// The current Password.
+    ///     The current Password.
     /// </param>
     /// <param name="newPassword">
-    /// The new Password.
+    ///     The new Password.
     /// </param>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    IdentityResult ChangePassword(AspNetUsers user, string currentPassword, string newPassword);
+    Task<IdentityResult> ChangePasswordAsync(AspNetUsers user, string currentPassword, string newPassword);
 
     /// <summary>
     /// The add login.
@@ -460,7 +449,7 @@ public interface IAspNetUsersHelper
     /// <returns>
     /// The <see cref="AspNetUsers"/>.
     /// </returns>
-    AspNetUsers ValidateUser(string userName);
+    Task<AspNetUsers> ValidateUserAsync(string userName);
 
     /// <summary>
     /// Gets the board user by Id.
@@ -491,6 +480,7 @@ public interface IAspNetUsersHelper
     /// <param name="onlySuspended">if set to <c>true</c> [only suspended].</param>
     /// <param name="groupId">The group identifier.</param>
     /// <param name="rankId">The rank identifier.</param>
+    /// <param name="includeGuests">Include Guests ?!</param>
     /// <returns>
     /// Returns the board users.
     /// </returns>

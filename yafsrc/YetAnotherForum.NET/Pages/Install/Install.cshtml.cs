@@ -36,6 +36,7 @@ using YAF.Types.Modals;
 using YAF.Core.Context;
 
 using System.Linq;
+using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Types.Interfaces.Identity;
@@ -105,14 +106,14 @@ public class InstallModel : InstallPage
     /// </summary>
     /// <param name="fromEmail"></param>
     /// <param name="toEmail"></param>
-    public IActionResult OnPostTestSmtp(string fromEmail, string toEmail)
+    public async Task<IActionResult> OnPostTestSmtpAsync(string fromEmail, string toEmail)
     {
         bool testEmailSuccess;
         string testEmailInfo;
 
         try
         {
-            this.Get<IMailService>().Send(
+            await this.Get<IMailService>().SendAsync(
                 fromEmail.Trim(),
                 toEmail.Trim(),
                 fromEmail.Trim(),
@@ -171,7 +172,7 @@ public class InstallModel : InstallPage
                                      };
     }
 
-    public IActionResult OnPostInstallFinished(
+    public async Task<IActionResult> OnPostInstallFinishedAsync(
         string forumName,
         string cultures,
         string forumEmailAddress,
@@ -181,23 +182,19 @@ public class InstallModel : InstallPage
         string password1,
         string password2)
     {
-        if (!this.CreateForum(
-                forumName,
-                cultures,
-                forumEmailAddress,
-                forumBaseUrlMask,
-                userName,
-                adminEmail,
-                password1,
-                out var message))
+        var result =
+            await
+                this.CreateForumAsync(forumName, cultures, forumEmailAddress, forumBaseUrlMask, userName, adminEmail, password1);
+
+        if (!result.Result)
         {
             return new PartialViewResult {
                                              ViewName = "Install/InstallCreateForum",
                                              ViewData = new ViewDataDictionary<InstallModal>(
                                                  this.ViewData,
                                                  new InstallModal {
-                                                                      Message = message
-                                                                  })
+                                                                      Message = result.Message
+                                                 })
                                          };
         }
 
@@ -219,20 +216,24 @@ public class InstallModel : InstallPage
     }
 
     /// <summary>
-    ///     Creates the forum.
+    /// Create forum as an asynchronous operation.
     /// </summary>
-    /// <returns>
-    ///     The create forum.
-    /// </returns>
-    private bool CreateForum(
+    /// <param name="forumName">Name of the forum.</param>
+    /// <param name="cultures">The cultures.</param>
+    /// <param name="forumEmailAddress">The forum email address.</param>
+    /// <param name="forumBaseUrlMask">The forum base URL mask.</param>
+    /// <param name="userName">Name of the user.</param>
+    /// <param name="adminEmail">The admin email.</param>
+    /// <param name="password">The password.</param>
+    /// <returns>A Task&lt;Tuple`2&gt; representing the asynchronous operation.</returns>
+    private async Task<(bool Result, string Message)> CreateForumAsync(
         string forumName,
         string cultures,
         string forumEmailAddress,
         string forumBaseUrlMask,
         string userName,
         string adminEmail,
-        string password1,
-        out string message)
+        string password)
     {
         var applicationId = Guid.NewGuid();
 
@@ -249,13 +250,11 @@ public class InstallModel : InstallPage
                                      IsApproved = true
                                  };
 
-        var result = this.Get<IAspNetUsersHelper>().Create(user, password1);
+        var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, password);
 
         if (!result.Succeeded)
         {
-            message = result.Errors.FirstOrDefault()?.Description;
-
-            return false;
+            return (false, result.Errors.FirstOrDefault()?.Description);
         }
 
         try
@@ -263,23 +262,23 @@ public class InstallModel : InstallPage
             var prefix = string.Empty;
 
             // add administrators and registered if they don't already exist...
-            if (!this.Get<IAspNetRolesHelper>().RoleExists($"{prefix}Administrators"))
+            if (!await this.Get<IAspNetRolesHelper>().RoleNameExistsAsync($"{prefix}Administrators"))
             {
-                this.Get<IAspNetRolesHelper>().CreateRole($"{prefix}Administrators");
+                await this.Get<IAspNetRolesHelper>().CreateRoleAsync($"{prefix}Administrators");
             }
 
-            if (!this.Get<IAspNetRolesHelper>().RoleExists($"{prefix}Registered Users"))
+            if (!await this.Get<IAspNetRolesHelper>().RoleNameExistsAsync($"{prefix}Registered Users"))
             {
-                this.Get<IAspNetRolesHelper>().CreateRole($"{prefix}Registered Users");
+                await this.Get<IAspNetRolesHelper>().CreateRoleAsync($"{prefix}Registered Users");
             }
 
-            if (!this.Get<IAspNetRolesHelper>().IsUserInRole(user, $"{prefix}Administrators"))
+            if (!await this.Get<IAspNetUsersHelper>().IsUserInRoleAsync(user, $"{prefix}Administrators"))
             {
                 this.Get<IAspNetRolesHelper>().AddUserToRole(user, $"{prefix}Administrators");
             }
 
             // logout administrator...
-            this.Get<IAspNetUsersHelper>().SignOut();
+            await this.Get<IAspNetUsersHelper>().SignOutAsync();
 
             // init forum...
             this.InstallService.InitializeForum(
@@ -295,13 +294,9 @@ public class InstallModel : InstallPage
         }
         catch (Exception x)
         {
-            message = x.Message;
-
-            return false;
+            return (false, x.Message);
         }
 
-        message = string.Empty;
-
-        return true;
+        return (true, string.Empty);
     }
 }

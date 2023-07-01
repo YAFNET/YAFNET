@@ -38,7 +38,7 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// <summary>
     /// The board id.
     /// </summary>
-    protected int boardId = BoardContext.Current.Get<ControlSettings>().BoardID;
+    protected int BoardId = BoardContext.Current.Get<ControlSettings>().BoardID;
 
     /// <summary>
     /// The is running.
@@ -48,7 +48,7 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// <summary>
     /// The lock object.
     /// </summary>
-    protected object lockObject = new ();
+    protected object LockObject = new ();
 
     /// <summary>
     /// The _started.
@@ -72,15 +72,9 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// </summary>
     public virtual object Data
     {
-        protected get
-        {
-            return this.boardId;
-        }
+        protected get => this.BoardId;
 
-        set
-        {
-            this.boardId = (int)value;
-        }
+        set => this.BoardId = (int)value;
     }
 
     /// <summary>
@@ -90,7 +84,7 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     {
         get
         {
-            lock (this.lockObject)
+            lock (this.LockObject)
             {
                 return this.isRunning;
             }
@@ -98,7 +92,7 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
 
         protected set
         {
-            lock (this.lockObject)
+            lock (this.LockObject)
             {
                 if (!this.isRunning && value)
                 {

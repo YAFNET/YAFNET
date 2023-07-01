@@ -38,9 +38,11 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
     /// <summary>
     /// Initializes a new instance of the <see cref="AspNetRoleManager"/> class.
     /// </summary>
-    /// <param name="store">
-    /// The store.
-    /// </param>
+    /// <param name="store">The persistence store the manager will operate over.</param>
+    /// <param name="roleValidators">A collection of validators for roles.</param>
+    /// <param name="keyNormalizer">The normalizer to use when normalizing role names to keys.</param>
+    /// <param name="errors">The <see cref="T:Microsoft.AspNetCore.Identity.IdentityErrorDescriber" /> used to provider error messages.</param>
+    /// <param name="logger">The logger used to log messages, warnings and errors.</param>
     public AspNetRoleManager(IRoleStore<AspNetRoles> store,
                              IEnumerable<IRoleValidator<AspNetRoles>> roleValidators,
                              ILookupNormalizer keyNormalizer,
@@ -59,78 +61,76 @@ public class AspNetRoleManager : RoleManager<AspNetRoles>, IAspNetRoleManager
     /// The get roles.
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <returns>
-    /// The <see cref="IList"/>.
+    /// Returns List of Role names
     /// </returns>
-    public IList<string> GetRoles(AspNetUsers user)
+    public async Task<IList<string>> GetRolesAsync(AspNetUsers user)
     {
-        var roles = BoardContext.Current.GetRepository<AspNetUserRoles>().Get(r => r.UserId == user.Id)
-            .Select(r => r.RoleId).ToArray();
+        var roles = await BoardContext.Current.GetRepository<AspNetUserRoles>().GetAsync(r => r.UserId == user.Id);
 
-        var roleNames = BoardContext.Current.GetRepository<AspNetRoles>().Get(r => roles.Contains(r.Id))
-            .Select(r => r.Name).ToList();
+        var rolesSelected = roles.Select(r => r.RoleId).ToArray();
 
-        return Task.FromResult<IList<string>>(roleNames).Result;
+        var roleNames = await BoardContext.Current.GetRepository<AspNetRoles>()
+                            .GetAsync(r => rolesSelected.Contains(r.Id));
+
+        return roleNames.Select(r => r.Name).ToList();
     }
 
     /// <summary>
     /// The find by name.
     /// </summary>
     /// <param name="roleName">
-    /// The role name.
+    ///     The role name.
     /// </param>
     /// <returns>
     /// The <see cref="AspNetRoles"/>.
     /// </returns>
-    public AspNetRoles FindByName(string roleName)
+    public Task<AspNetRoles> FindByRoleNameAsync(string roleName)
     {
-        return this.FindByNameAsync(roleName).Result;
+        return this.FindByNameAsync(roleName);
     }
 
     /// <summary>
     /// Create a role
     /// </summary>
     /// <param name="role">
-    /// The role.
+    ///     The role.
     /// </param>
     /// <returns>
-    /// The <see cref="Microsoft.AspNetCore.Identity.IdentityResult"/>.
+    /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult Create(
-        AspNetRoles role)
+    public Task<IdentityResult> CreateRoleAsync(AspNetRoles role)
     {
-        return this.CreateAsync(role).Result;
+        return this.CreateAsync(role);
     }
 
     /// <summary>
     /// Delete a role
     /// </summary>
     /// <param name="role">
-    /// The role.
+    ///     The role.
     /// </param>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    public IdentityResult Delete(
-        AspNetRoles role)
+    public Task<IdentityResult> DeleteRoleAsync(AspNetRoles role)
     {
-        return this.DeleteAsync(role).Result;
+        return this.DeleteAsync(role);
     }
 
     /// <summary>
     /// Returns true if the role exists
     /// </summary>
     /// <param name="roleName">
-    /// The role Name.
+    ///     The role Name.
     /// </param>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public bool RoleExists(
-        string roleName)
+    public Task<bool> RoleNameExistsAsync(string roleName)
     {
-        return this.RoleExistsAsync(roleName).Result;
+        return this.RoleExistsAsync(roleName);
     }
 }

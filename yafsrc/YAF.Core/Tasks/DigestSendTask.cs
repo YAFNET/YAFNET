@@ -203,7 +203,7 @@ public class DigestSendTask : LongBackgroundTask
             }
         }
 
-        this.Get<IMailService>().SendAll(mailMessages);
+        await this.Get<IMailService>().SendAllAsync(mailMessages);
 
         this.Get<ILogger<DigestSendTask>>().Info($"Digest send to {mailMessages.Count} user(s)");
     }

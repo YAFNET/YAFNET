@@ -85,9 +85,10 @@ public class UserLazyData
     public int UnreadPrivate { get; set; }
 
     /// <summary>
-    /// Gets or sets the last unread pm.
+    /// Gets or sets a value indicating whether this instance has private conversations.
     /// </summary>
-    public DateTime? LastUnreadPm { get; set; }
+    /// <value><c>true</c> if this instance has private conversations; otherwise, <c>false</c>.</value>
+    public bool UserHasPrivateConversations { get; set; }
 
     /// <summary>
     /// Gets or sets the pending buddies.

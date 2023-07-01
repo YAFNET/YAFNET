@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin.EditUser;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -73,7 +74,7 @@ public class UsersGroupsModel : AdminPage
         return this.Page();
     }
 
-    public IActionResult OnPostSave()
+    public async Task<IActionResult> OnPostSaveAsync()
     {
         var addedRoles = new List<string>();
         var removedRoles = new List<string>();
@@ -102,15 +103,15 @@ public class UsersGroupsModel : AdminPage
             }
 
             // add/remove user from roles in membership provider
-            if (isChecked && !this.Get<IAspNetRolesHelper>().IsUserInRole(user.Item2, roleName))
+            if (isChecked && !await this.Get<IAspNetUsersHelper>().IsUserInRoleAsync(user.Item2, roleName))
             {
                 this.Get<IAspNetRolesHelper>().AddUserToRole(user.Item2, roleName);
 
                 addedRoles.Add(roleName);
             }
-            else if (!isChecked && this.Get<IAspNetRolesHelper>().IsUserInRole(user.Item2, roleName))
+            else if (!isChecked && await this.Get<IAspNetUsersHelper>().IsUserInRoleAsync(user.Item2, roleName))
             {
-                this.Get<IAspNetRolesHelper>().RemoveUserFromRole(user.Item2, roleName);
+                await this.Get<IAspNetUsersHelper>().RemoveUserFromRoleAsync(user.Item2, roleName);
 
                 removedRoles.Add(roleName);
             }
@@ -123,12 +124,12 @@ public class UsersGroupsModel : AdminPage
             // send notification to user
             if (addedRoles.Any())
             {
-                this.Get<ISendNotification>().SendRoleAssignmentNotification(user.Item2, addedRoles);
+                await this.Get<ISendNotification>().SendRoleAssignmentNotificationAsync(user.Item2, addedRoles);
             }
 
             if (removedRoles.Any())
             {
-                this.Get<ISendNotification>().SendRoleUnAssignmentNotification(user.Item2, removedRoles);
+                await this.Get<ISendNotification>().SendRoleUnAssignmentNotificationAsync(user.Item2, removedRoles);
             }
         }
 

@@ -139,11 +139,6 @@ public abstract class UserPageBase
     public DateTime LastPendingBuddies => this.PageData.Item3.LastPendingBuddies;
 
     /// <summary>
-    ///   Gets LastUnreadPm.
-    /// </summary>
-    public DateTime LastUnreadPm => this.PageData.Item3.LastUnreadPm ?? DateTimeHelper.SqlDbMinTime();
-
-    /// <summary>
     ///   Gets the number of albums which a user already has
     /// </summary>
     public int NumAlbums => this.PageData.Item3.NumAlbums;
@@ -309,6 +304,12 @@ public abstract class UserPageBase
     ///   Gets a value indicating whether a user has buddies
     /// </summary>
     public bool UserHasBuddies => this.PageData.Item3.UserHasBuddies;
+
+    /// <summary>
+    /// Gets a value indicating whether [user has private conversations].
+    /// </summary>
+    /// <value><c>true</c> if [user has private conversations]; otherwise, <c>false</c>.</value>
+    public bool UserHasPrivateConversations => this.PageData.Item3.UserHasPrivateConversations;
 
     /// <summary>
     /// Gets the index of the page from the Pager.

@@ -29,7 +29,7 @@
                                         <h5 class="mb-1 text-break">
                                             @Html.Raw(role)
                                         </h5>
-                                        <small class="text-muted">
+                                        <small class="text-body-secondary">
                                             @Html.LocalizedText( "ADMIN_GROUPS","UNLINKED")
                                         </small>
                                     </div>
@@ -88,7 +88,7 @@
                                         <h5 class="mb-1 text-break">
                                             <i class="fa fa-users fa-fw"></i>&nbsp;@Html.Raw(role.Name)
                                         </h5>
-                                        <small class="text-muted">
+                                        <small class="text-body-secondary">
                                             @Html.Raw(Model.GetLinkedStatus(role))
                                         </small>
                                     </div>
@@ -128,12 +128,6 @@
                                                 @Html.LocalizedText("ADMIN_GROUPS","IS_ADMIN"):&nbsp;
                                                 <span class="@Html.Raw(Model.GetItemColor(role.GroupFlags.IsAdmin))">
                                                     @Html.Raw(Model.GetItemName(role.GroupFlags.IsAdmin) )
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_GROUPS","PMS"):&nbsp;
-                                                <span class="@Html.Raw(Model.GetItemColorString(role.PMLimit == int.MaxValue ? "\u221E" : role.PMLimit.ToString()))">
-                                                    @Html.Raw(role.PMLimit == int.MaxValue ? "\u221E" : role.PMLimit.ToString())
                                                 </span>
                                             </li>
                                             <li class="list-inline-item">

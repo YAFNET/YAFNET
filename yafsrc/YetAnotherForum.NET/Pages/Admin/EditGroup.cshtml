@@ -114,21 +114,12 @@
                            class="form-control"
                            maxlength="5" />
                 </div>
-                <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.PMLimit"
-                               localized-tag="PMMESSAGES" localized-page="ADMIN_EDITGROUP"></label>
-                        <input type="number" asp-for="Input.PMLimit" 
-                               class="form-control"/>
-                    </div>
-                    <div class="mb-3 col-md-4">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.UsrSigChars"
-                               localized-tag="SIGNATURE_LENGTH" localized-page="ADMIN_EDITGROUP"></label>
-                        <input type="number" asp-for="Input.UsrSigChars" 
-                               class="form-control" />
-                    </div>
+                <div class="mb-3">
+                    <label class="form-label" info-button="true" 
+                           asp-for="Input.UsrSigChars"
+                           localized-tag="SIGNATURE_LENGTH" localized-page="ADMIN_EDITGROUP"></label>
+                    <input type="number" asp-for="Input.UsrSigChars" 
+                           class="form-control" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label" info-button="true" 

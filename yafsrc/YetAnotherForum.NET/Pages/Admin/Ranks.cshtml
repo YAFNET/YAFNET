@@ -56,12 +56,6 @@
                                                 </span>
                                             </li>
                                             <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_RANKS", "PM_LIMIT")
-                                                <span class="@Html.Raw(Model.GetItemColorString(rank.PMLimit == int.MaxValue ? "\u221E" : rank.PMLimit.ToString()))">
-                                                    @Html.Raw(rank.PMLimit == int.MaxValue ? "\u221E" : rank.PMLimit.ToString())
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
                                                 @Html.LocalizedText("ADMIN_EDITGROUP", "ALBUM_NUMBER")
                                                 <span class="@Html.Raw(Model.GetItemColorString(rank.UsrAlbums.ToString()))">
                                                     @Html.Raw(rank.UsrAlbums.ToString())

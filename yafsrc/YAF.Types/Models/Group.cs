@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Models;
 
 /// <summary>
@@ -69,13 +70,6 @@ public class Group : IEntity, IHaveID, IHaveBoardID
     [Required]
     [Default(0)]
     public int Flags { get; set; }
-
-    /// <summary>
-    /// Gets or sets the pm limit.
-    /// </summary>
-    [Required]
-    [Default(30)]
-    public int PMLimit { get; set; }
 
     /// <summary>
     /// Gets or sets the style.

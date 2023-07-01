@@ -1,4 +1,4 @@
-﻿jQuery(document).ready(function () {
+﻿$(document).ready(function () {
     $(".list-group-item-menu, .message").each(function () {
 
         var isMessageContext = !!$(this).hasClass("message");

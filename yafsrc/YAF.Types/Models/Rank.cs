@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Models;
 
 /// <summary>
@@ -74,12 +75,6 @@ public class Rank : IEntity, IHaveID, IHaveBoardID
 
         set => this.Flags = value.BitValue;
     }
-
-    /// <summary>
-    /// Gets or sets the pm limit.
-    /// </summary>
-    [Default(0)]
-    public int PMLimit { get; set; }
 
     /// <summary>
     /// Gets or sets the style.

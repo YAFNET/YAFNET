@@ -49,7 +49,7 @@ public class UserLinkBBCodeModule : BBCodeControl
             return;
         }
 
-        var user = this.Get<IAspNetUsersHelper>().GetUserByName(userName.Trim());
+        var user = this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userName.Trim()).Result;
 
         if (user != null)
         {

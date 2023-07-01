@@ -26,6 +26,7 @@ namespace YAF.Pages.Profile;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -138,7 +139,7 @@ public class EditSettingsModel : ProfilePage
     /// <summary>
     /// Saves the Updated Profile
     /// </summary>
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         if (this.Email != this.PageBoardContext.PageUser.Email)
         {
@@ -149,7 +150,7 @@ public class EditSettingsModel : ProfilePage
                 return this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
             }
 
-            var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Trim());
+            var userFromEmail = await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(this.Email.Trim());
 
             if (userFromEmail != null)
             {
@@ -158,7 +159,7 @@ public class EditSettingsModel : ProfilePage
 
             try
             {
-                this.Get<IAspNetUsersHelper>().UpdateEmail(this.PageBoardContext.MembershipUser, this.Email.Trim());
+                await this.Get<IAspNetUsersHelper>().UpdateEmailAsync(this.PageBoardContext.MembershipUser, this.Email.Trim());
             }
             catch (ApplicationException)
             {

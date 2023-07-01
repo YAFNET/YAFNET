@@ -29,6 +29,7 @@ namespace YAF.Pages;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -264,7 +265,7 @@ public class EditMessageModel : ForumPage
     /// <summary>
     /// Handles the PostReply click including: Replying, Editing and New post.
     /// </summary>
-    public IActionResult OnPostPostReply()
+    public async Task<IActionResult> OnPostPostReplyAsync()
     {
         if (!this.IsPostReplyVerified())
         {
@@ -352,7 +353,7 @@ public class EditMessageModel : ForumPage
         if (this.PageBoardContext.BoardSettings.EmailModeratorsOnModeratedPost)
         {
             // not approved, notify moderators
-            this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
+            await this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApprovalAsync(
                 this.PageBoardContext.PageForumID,
                 messageId.ToType<int>(),
                 isPossibleSpamMessage);

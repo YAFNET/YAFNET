@@ -69,7 +69,7 @@ public class InitializeDb : IHaveServiceLocator
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task Invoke(HttpContext context)
+    public async Task InvokeAsync(HttpContext context)
     {
         // init the modules and run them immediately...
         var baseModules = this.Get<IModuleManager<IBaseForumModule>>();
@@ -111,9 +111,11 @@ public class InitializeDb : IHaveServiceLocator
             {
                 case DbVersionType.Upgrade:
                     // Run Auto Upgrade
-                    this.Get<UpgradeService>().Upgrade();
+                    await this.Get<UpgradeService>().UpgradeAsync();
                     break;
                 case DbVersionType.NewInstall:
+                    this.Get<InstallService>().InitializeIdentity();
+
                     // fake the board settings
                     BoardContext.Current.BoardSettings = new BoardSettings();
                     response.Redirect("/Install/Install");

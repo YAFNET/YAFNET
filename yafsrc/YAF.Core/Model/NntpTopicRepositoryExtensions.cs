@@ -60,8 +60,8 @@ public static class NntpTopicRepositoryExtensions
     /// <param name="posted">
     /// The posted.
     /// </param>
-    /// <param name="referenceMessageId">
-    /// The reference message id.
+    /// <param name="externalMessageId">
+    /// The external message id.
     /// </param>
     public static void SaveMessage(
         this IRepository<NntpTopic> repository,
@@ -72,14 +72,14 @@ public static class NntpTopicRepositoryExtensions
         [NotNull] string userName,
         [NotNull] string ip,
         [NotNull] DateTime posted,
-        [NotNull] string referenceMessageId)
+        [NotNull] string externalMessageId)
     {
         CodeContracts.VerifyNotNull(repository);
 
         int? replyTo = null;
 
         var externalMessage = BoardContext.Current.GetRepository<Message>()
-            .GetSingle(m => m.ExternalMessageId == referenceMessageId);
+            .GetSingle(m => m.ExternalMessageId == externalMessageId);
 
         var forum = BoardContext.Current.GetRepository<Forum>().GetById(nntpForum.ForumID);
 

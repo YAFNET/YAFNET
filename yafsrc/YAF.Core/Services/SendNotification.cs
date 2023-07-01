@@ -27,6 +27,7 @@ namespace YAF.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Web;
 
 using Microsoft.AspNetCore.Hosting;
@@ -73,30 +74,30 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="forumId">The forum id.</param>
     /// <param name="newMessageId">The new message id.</param>
     /// <param name="isSpamMessage">if set to <c>true</c> [is spam message].</param>
-    public void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId, bool isSpamMessage)
+    public async Task ToModeratorsThatMessageNeedsApprovalAsync(int forumId, int newMessageId, bool isSpamMessage)
     {
         var moderatorsFiltered = this.Get<DataBroker>().GetModerators().Where(f => f.ForumID.Equals(forumId));
-        var moderatorUserNames = new List<string>();
+        var moderatorUserNames = new List<string>(); 
 
-        moderatorsFiltered.ForEach(
-            moderator =>
-                {
-                    if (moderator.IsGroup)
-                    {
-                        moderatorUserNames.AddRange(
-                            this.Get<IAspNetRolesHelper>().GetUsersInRole(moderator.Name).Select(u => u.UserName));
-                    }
-                    else
-                    {
-                        moderatorUserNames.Add(moderator.Name);
-                    }
-                });
+        foreach (var moderator in moderatorsFiltered)
+        {
+            if (moderator.IsGroup)
+            {
+                var users = await this.Get<IAspNetRolesHelper>().GetUsersInRoleAsync(moderator.Name);
+
+                moderatorUserNames.AddRange(users.Select(u => u.UserName));
+            }
+            else
+            {
+                moderatorUserNames.Add(moderator.Name);
+            }
+        }
 
         var cssPath = Path.Combine(
             this.Get<IWebHostEnvironment>().WebRootPath,
             this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"));
 
-        var inlineCss = File.ReadAllText(cssPath);
+        var inlineCss = await File.ReadAllTextAsync(cssPath);
 
         var forumLink = this.Get<LinkBuilder>().ForumUrl;
 
@@ -141,72 +142,74 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                     }
                             };
 
-                    notifyModerators.SendEmail(new MailboxAddress(user.DisplayOrUserName(), user.Email), subject);
+                    notifyModerators.SendEmailAsync(new MailboxAddress(user.DisplayOrUserName(), user.Email), subject);
                 });
     }
 
     /// <summary>
     /// Sends Notifications to Moderators that a Message was Reported
     /// </summary>
-    /// <param name="pageForumID">
-    /// The page Forum ID.
+    /// <param name="pageForumId">
+    ///     The page Forum ID.
     /// </param>
     /// <param name="reportedMessageId">
-    /// The reported message id.
+    ///     The reported message id.
     /// </param>
     /// <param name="reporter">
-    /// The reporter.
+    ///     The reporter.
     /// </param>
     /// <param name="reportText">
-    /// The report Text.
+    ///     The report Text.
     /// </param>
-    public void ToModeratorsThatMessageWasReported(
-        int pageForumID,
+    public async Task ToModeratorsThatMessageWasReportedAsync(
+        int pageForumId,
         int reportedMessageId,
         int reporter,
         string reportText)
     {
         try
         {
-            var moderatorsFiltered = this.Get<DataBroker>().GetModerators().Where(f => f.ForumID.Equals(pageForumID));
+            var moderatorsFiltered = this.Get<DataBroker>().GetModerators().Where(f => f.ForumID.Equals(pageForumId));
             var moderatorUserNames = new List<string>();
 
-            moderatorsFiltered.ForEach(
-                moderator =>
-                    {
-                        if (moderator.IsGroup)
-                        {
-                            moderatorUserNames.AddRange(
-                                this.Get<IAspNetRolesHelper>().GetUsersInRole(moderator.Name).Select(u => u.UserName));
-                        }
-                        else
-                        {
-                            moderatorUserNames.Add(moderator.Name);
-                        }
-                    });
+            foreach (var moderator in moderatorsFiltered)
+            {
+                if (moderator.IsGroup)
+                {
+                    var users = await this.Get<IAspNetRolesHelper>().GetUsersInRoleAsync(moderator.Name);
+
+                    moderatorUserNames.AddRange(
+                        users.Select(u => u.UserName));
+                }
+                else
+                {
+                    moderatorUserNames.Add(moderator.Name);
+                }
+            }
 
             // send each message...
-            moderatorUserNames.Distinct().AsParallel().ForAll(
-                userName =>
-                    {
-                        // add each member of the group
-                        var membershipUser = this.Get<IAspNetUsersHelper>().GetUserByName(userName);
-                        var user = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(membershipUser.Id);
+            var moderators = moderatorUserNames.Distinct();
 
-                        var languageFile = UserHelper.GetUserLanguageFile(user);
+            foreach (var userName in moderators.ToList())
+            {
+                // add each member of the group
+                var membershipUser = await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userName).ConfigureAwait(false);
+                var user = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(membershipUser.Id);
 
-                        var subject = string.Format(
-                            this.Get<ILocalization>().GetText(
-                                "COMMON",
-                                "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
-                                languageFile),
-                            this.BoardSettings.Name);
+                var languageFile = UserHelper.GetUserLanguageFile(user);
 
-                        var notifyModerators = new TemplateEmail("NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE")
-                                                   {
-                                                       // get the user localization...
-                                                       TemplateLanguageFile = languageFile,
-                                                       TemplateParams =
+                var subject = string.Format(
+                    this.Get<ILocalization>().GetText(
+                        "COMMON",
+                        "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
+                        languageFile),
+                    this.BoardSettings.Name);
+
+                var notifyModerators = new TemplateEmail("NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE")
+                {
+                    // get the user localization...
+                    TemplateLanguageFile = languageFile,
+                    TemplateParams =
                                                            {
                                                                ["{user}"] = userName,
                                                                ["{reason}"] = reportText,
@@ -215,14 +218,14 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                                                ["{adminlink}"] = this.Get<LinkBuilder>()
                                                                    .GetAbsoluteLink(
                                                                        ForumPages.Moderate_ReportedPosts,
-                                                                       new {f = pageForumID})
+                                                                       new {f = pageForumId})
                                                            }
-                                                   };
+                };
 
-                        notifyModerators.SendEmail(
-                            new MailboxAddress(membershipUser.UserName, membershipUser.Email),
-                            subject);
-                    });
+                await notifyModerators.SendEmailAsync(
+                    new MailboxAddress(membershipUser.UserName, membershipUser.Email),
+                    subject);
+            }
         }
         catch (Exception x)
         {
@@ -234,107 +237,29 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Sends notification about new PM in user's inbox.
-    /// </summary>
-    /// <param name="toUserId">
-    /// PageUser supposed to receive notification about new PM.
-    /// </param>
-    /// <param name="subject">
-    /// Subject of PM user is notified about.
-    /// </param>
-    public void ToPrivateMessageRecipient(int toUserId, [NotNull] string subject)
-    {
-        try
-        {
-            // user's PM notification setting
-            var privateMessageNotificationEnabled = false;
-
-            // user's email
-            var toEMail = string.Empty;
-
-            var toUser = this.GetRepository<User>().GetById(toUserId);
-
-            if (toUser != null)
-            {
-                privateMessageNotificationEnabled = toUser.PMNotification;
-                toEMail = toUser.Email;
-            }
-
-            if (!privateMessageNotificationEnabled)
-            {
-                return;
-            }
-
-            // get the PM ID
-            var userPMessageId = this.GetRepository<UserPMessage>().Get(p => p.UserID == toUserId)
-                .OrderByDescending(p => p.ID).FirstOrDefault().ID;
-
-            var languageFile = UserHelper.GetUserLanguageFile(toUser);
-
-            var displayName = BoardContext.Current.PageUser.DisplayOrUserName();
-
-            // send this user a PM notification e-mail
-            var notificationTemplate = new TemplateEmail("PMNOTIFICATION")
-                                           {
-                                               TemplateLanguageFile = languageFile,
-                                               TemplateParams =
-                                                   {
-                                                       ["{fromuser}"] = displayName,
-                                                       ["{link}"] =
-                                                           $"{this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.PrivateMessage, new {pm = userPMessageId})}\r\n\r\n",
-                                                       ["{subject}"] = subject,
-                                                       ["{username}"] = toUser.DisplayOrUserName()
-                                                   }
-                                           };
-
-            // create notification email subject
-            var emailSubject = string.Format(
-                this.Get<ILocalization>().GetText("COMMON", "PM_NOTIFICATION_SUBJECT", languageFile),
-                displayName,
-                this.BoardSettings.Name,
-                subject);
-
-            // send email
-            notificationTemplate.SendEmail(MailboxAddress.Parse(toEMail), emailSubject);
-        }
-        catch (Exception x)
-        {
-            // report exception to the forum's event log
-            this.Get<ILogger<SendNotification>>().Error(
-                x,
-                $"Send PM Notification Error for UserID {BoardContext.Current.PageUserID}");
-
-            // tell user about failure
-            BoardContext.Current.SessionNotify(
-                this.Get<ILocalization>().GetTextFormatted("Failed", x.Message),
-                MessageTypes.danger);
-        }
-    }
-
-    /// <summary>
     /// The to watching users.
     /// </summary>
     /// <param name="messageId">
-    /// The message Id.
+    ///     The message Id.
     /// </param>
-    public void ToWatchingUsers([NotNull] int messageId)
+    public Task ToWatchingUsersAsync([NotNull] int messageId)
     {
         var message = this.GetRepository<Message>().GetMessage(messageId);
 
-        this.Get<ISendNotification>().ToWatchingUsers(message);
+        return this.Get<ISendNotification>().ToWatchingUsersAsync(message);
     }
 
     /// <summary>
     /// The to watching users.
     /// </summary>
     /// <param name="message">
-    /// The new message.
+    ///     The new message.
+    /// </param>
+    /// <param name="newTopic">
+    ///     Indicates if Post is New Topic or reply
     /// </param>
     /// The to watching users.
-    /// <param name="newTopic">
-    /// Indicates if Post is New Topic or reply
-    /// </param>
-    public void ToWatchingUsers([NotNull] Message message, bool newTopic = false)
+    public async Task ToWatchingUsersAsync([NotNull] Message message, bool newTopic = false)
     {
         var mailMessages = new List<MimeMessage>();
         var boardName = this.BoardSettings.Name;
@@ -415,7 +340,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         if (mailMessages.Any())
         {
             // Now send all mails..
-            this.Get<IMailService>().SendAll(mailMessages);
+            await this.Get<IMailService>().SendAllAsync(mailMessages);
         }
     }
 
@@ -424,15 +349,15 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// his Account Info (Pass)
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="pass">
-    /// The pass.
+    ///     The pass.
     /// </param>
     /// <param name="templateName">
-    /// The template Name.
+    ///     The template Name.
     /// </param>
-    public void SendRegistrationNotificationToUser(
+    public Task SendRegistrationNotificationToUserAsync(
         [NotNull] AspNetUsers user,
         [NotNull] string pass,
         string templateName)
@@ -449,7 +374,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                      }
                              };
 
-        notifyUser.SendEmail(new MailboxAddress(user.UserName, user.Email), subject);
+        return notifyUser.SendEmailAsync(new MailboxAddress(user.UserName, user.Email), subject);
     }
 
     /// <summary>
@@ -457,7 +382,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="toUserId">To user id.</param>
     /// <param name="medalName">Name of the medal.</param>
-    public void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName)
+    public async Task ToUserWithNewMedalAsync([NotNull] int toUserId, [NotNull] string medalName)
     {
         var toUser = this.GetRepository<User>().GetById(toUserId);
 
@@ -478,7 +403,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                  TemplateParams = {["{user}"] = toUser.DisplayOrUserName(), ["{medalname}"] = medalName}
                              };
 
-        notifyUser.SendEmail(new MailboxAddress(toUser.DisplayOrUserName(), toUser.Email), subject);
+        await notifyUser.SendEmailAsync(new MailboxAddress(toUser.DisplayOrUserName(), toUser.Email), subject);
     }
 
     /// <summary>
@@ -486,7 +411,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="removedRoles">The removed roles.</param>
-    public void SendRoleUnAssignmentNotification([NotNull] AspNetUsers user, List<string> removedRoles)
+    public Task SendRoleUnAssignmentNotificationAsync([NotNull] AspNetUsers user, List<string> removedRoles)
     {
         var subject = this.Get<ILocalization>().GetTextFormatted(
             "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
@@ -502,7 +427,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                         }
                                 };
 
-        templateEmail.SendEmail(new MailboxAddress(user.UserName, user.Email), subject);
+        return templateEmail.SendEmailAsync(new MailboxAddress(user.UserName, user.Email), subject);
     }
 
     /// <summary>
@@ -510,7 +435,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="addedRoles">The added roles.</param>
-    public void SendRoleAssignmentNotification([NotNull] AspNetUsers user, List<string> addedRoles)
+    public Task SendRoleAssignmentNotificationAsync([NotNull] AspNetUsers user, List<string> addedRoles)
     {
         var subject = this.Get<ILocalization>().GetTextFormatted(
             "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
@@ -526,7 +451,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                         }
                                 };
 
-        templateEmail.SendEmail(new MailboxAddress(user.UserName, user.Email), subject);
+        return templateEmail.SendEmailAsync(new MailboxAddress(user.UserName, user.Email), subject);
     }
 
     /// <summary>
@@ -535,7 +460,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="userId">The user id.</param>
-    public void SendRegistrationNotificationEmail([NotNull] AspNetUsers user, int userId)
+    public async Task SendRegistrationNotificationEmailAsync([NotNull] AspNetUsers user, int userId)
     {
         if (this.BoardSettings.NotificationOnUserRegisterEmailList.IsNotSet())
         {
@@ -564,8 +489,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                       }
                               };
 
-        emails.Where(email => email.Trim().IsSet())
-            .ForEach(email => notifyAdmin.SendEmail(MailboxAddress.Parse(email.Trim()), subject));
+        foreach (var email in emails.Where(email => email.Trim().IsSet()))
+        {
+            await notifyAdmin.SendEmailAsync(MailboxAddress.Parse(email.Trim()), subject);
+        }
     }
 
     /// <summary>
@@ -573,7 +500,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="userId">The user id.</param>
-    public void SendSpamBotNotificationToAdmins([NotNull] AspNetUsers user, int userId)
+    public async Task SendSpamBotNotificationToAdminsAsync([NotNull] AspNetUsers user, int userId)
     {
         // Get Admin Group ID
         var adminGroupId = this.GetRepository<Group>().List(boardId: BoardContext.Current.PageBoardID)
@@ -586,42 +513,41 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
 
         var emails = this.GetRepository<User>().GroupEmails(adminGroupId);
 
-        emails.ForEach(
-            email =>
-                {
-                    var emailAddress = email;
+        foreach (var email in emails)
+        {
+            var emailAddress = email;
 
-                    if (emailAddress.IsNotSet())
-                    {
-                        return;
-                    }
+            if (emailAddress.IsNotSet())
+            {
+                continue;
+            }
 
-                    var subject = this.Get<ILocalization>().GetTextFormatted(
-                        "COMMON",
-                        "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
-                        this.BoardSettings.Name);
+            var subject = this.Get<ILocalization>().GetTextFormatted(
+                "COMMON",
+                "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
+                this.BoardSettings.Name);
 
-                    var notifyAdmin = new TemplateEmail("NOTIFICATION_ON_BOT_USER_REGISTER")
+            var notifyAdmin = new TemplateEmail("NOTIFICATION_ON_BOT_USER_REGISTER")
+                                  {
+                                      TemplateParams =
                                           {
-                                              TemplateParams =
-                                                  {
-                                                      ["{adminlink}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
-                                                          ForumPages.Admin_EditUser,
-                                                          new {u = userId}),
-                                                      ["{user}"] = user.UserName,
-                                                      ["{email}"] = user.Email
-                                                  }
-                                          };
+                                              ["{adminlink}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                                  ForumPages.Admin_EditUser,
+                                                  new {u = userId}),
+                                              ["{user}"] = user.UserName,
+                                              ["{email}"] = user.Email
+                                          }
+                                  };
 
-                    notifyAdmin.SendEmail(MailboxAddress.Parse(emailAddress), subject);
-                });
+            await notifyAdmin.SendEmailAsync(MailboxAddress.Parse(emailAddress), subject);
+        }
     }
 
     /// <summary>
     /// Sends the user welcome notification.
     /// </summary>
     /// <param name="user">The user.</param>
-    public void SendUserWelcomeNotification([NotNull] User user)
+    public async Task SendUserWelcomeNotificationAsync([NotNull] User user)
     {
         if (this.BoardSettings.SendWelcomeNotificationAfterRegister.Equals(0))
         {
@@ -639,25 +565,30 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
 
         var emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_WELCOME_USER_TEXT");
 
-        var messageFlags = new MessageFlags {IsHtml = false, IsBBCode = true};
-
         if (this.BoardSettings.AllowPrivateMessages
             && this.BoardSettings.SendWelcomeNotificationAfterRegister.Equals(2))
         {
-            var hostUser = this.GetRepository<User>()
-                .Get(u => u.BoardID == BoardContext.Current.PageBoardID && (u.Flags & 1) == 1).FirstOrDefault();
+            var hostUsers = await this.GetRepository<User>()
+                .GetAsync(u => u.BoardID == BoardContext.Current.PageBoardID && (u.Flags & 1) == 1);
+                
+                var hostUser = hostUsers.FirstOrDefault();
 
-            this.GetRepository<PMessage>().SendMessage(
-                hostUser.ID,
-                user.ID,
-                subject,
-                emailBody,
-                messageFlags.BitValue,
-                -1);
+                if (hostUser != null)
+                {
+                    this.GetRepository<PrivateMessage>().Insert(
+                        new PrivateMessage
+                            {
+                                Created = DateTime.UtcNow,
+                                Flags = 0,
+                                FromUserId = hostUser.ID,
+                                ToUserId = user.ID,
+                                Body = emailBody
+                            });
+                }
         }
         else
         {
-            notifyUser.SendEmail(new MailboxAddress(user.DisplayOrUserName(), user.Email), subject);
+            await notifyUser.SendEmailAsync(new MailboxAddress(user.DisplayOrUserName(), user.Email), subject);
         }
     }
 
@@ -668,7 +599,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="email">The email.</param>
     /// <param name="userId">The user identifier.</param>
     /// <param name="newUsername">The new username.</param>
-    public void SendVerificationEmail(
+    public async Task SendVerificationEmailAsync(
         [NotNull] AspNetUsers user,
         [NotNull] string email,
         int? userId,
@@ -678,7 +609,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         CodeContracts.VerifyNotNull(user);
 
         var token = HttpUtility.UrlEncode(
-            this.Get<IAspNetUsersHelper>().GenerateEmailConfirmationResetToken(user),
+            await this.Get<IAspNetUsersHelper>().GenerateEmailConfirmationResetTokenAsync(user),
             Encoding.UTF8);
 
         // save verification record...
@@ -699,7 +630,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                       }
                               };
 
-        verifyEmail.SendEmail(new MailboxAddress(newUsername ?? user.UserName, email), subject);
+        await verifyEmail.SendEmailAsync(new MailboxAddress(newUsername ?? user.UserName, email), subject);
     }
 
     /// <summary>
@@ -709,7 +640,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="suspendReason">The suspend reason.</param>
     /// <param name="email">The email.</param>
     /// <param name="userName">Name of the user.</param>
-    public void SendUserSuspensionNotification(
+    public Task SendUserSuspensionNotificationAsync(
         [NotNull] DateTime suspendedUntil,
         [NotNull] string suspendReason,
         [NotNull] string email,
@@ -730,7 +661,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                      }
                              };
 
-        notifyUser.SendEmail(new MailboxAddress(userName, email), subject);
+        return notifyUser.SendEmailAsync(new MailboxAddress(userName, email), subject);
     }
 
     /// <summary>
@@ -738,7 +669,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="email">The email.</param>
     /// <param name="userName">Name of the user.</param>
-    public void SendUserSuspensionEndedNotification([NotNull] string email, [NotNull] string userName)
+    public Task SendUserSuspensionEndedNotificationAsync([NotNull] string email, [NotNull] string userName)
     {
         var subject = this.Get<ILocalization>().GetTextFormatted(
             "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
@@ -749,19 +680,19 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                  TemplateParams = {["{user}"] = userName, ["{forumname}"] = this.BoardSettings.Name}
                              };
 
-        notifyUser.SendEmail(new MailboxAddress(userName, email), subject);
+        return notifyUser.SendEmailAsync(new MailboxAddress(userName, email), subject);
     }
 
     /// <summary>
     /// The send password reset.
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="token">
-    /// The token.
+    ///     The token.
     /// </param>
-    public void SendPasswordReset([NotNull] AspNetUsers user, [NotNull] string token)
+    public Task SendPasswordResetAsync([NotNull] AspNetUsers user, [NotNull] string token)
     {
         // re-send verification email instead of lost password...
         var verifyEmail = new TemplateEmail("RESET_PASS");
@@ -777,6 +708,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
         verifyEmail.TemplateParams["{forumlink}"] = $"{this.Get<LinkBuilder>().ForumUrl}";
 
-        verifyEmail.SendEmail(new MailboxAddress(user.UserName, user.Email), subject);
+        return verifyEmail.SendEmailAsync(new MailboxAddress(user.UserName, user.Email), subject);
     }
 }

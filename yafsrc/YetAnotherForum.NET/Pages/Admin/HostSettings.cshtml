@@ -203,7 +203,7 @@
                asp-for="Input.ServerTimeCorrection"
                localized-tag="SERVERTIME_CORRECT"></label>
         <input type="text" class="form-control serverTime-Input" asp-for="Input.ServerTimeCorrection" />
-        <small class="form-text text-muted">@Html.Raw(DateTime.UtcNow)</small>
+                                        <small class="form-text text-body-secondary">@Html.Raw(DateTime.UtcNow)</small>
     </div>
     <div class="row">
         <div class="mb-3 col-md-6">

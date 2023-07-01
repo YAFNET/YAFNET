@@ -4,104 +4,104 @@
  */
 
 (function () {
-    CKEDITOR.on('dialogDefinition',
+    CKEDITOR.on("dialogDefinition",
         function (ev) {
 
             var tab,
                 name = ev.data.name,
                 definition = ev.data.definition;
 
-            if (name == 'link') {
-                definition.removeContents('target');
-                definition.removeContents('upload');
-                definition.removeContents('advanced');
-                tab = definition.getContents('info');
-                tab.remove('emailSubject');
-                tab.remove('emailBody');
-            } else if (name == 'image') {
-                definition.removeContents('advanced');
-                tab = definition.getContents('Link');
-                tab.remove('cmbTarget');
-                tab = definition.getContents('info');
+            if (name == "link") {
+                definition.removeContents("target");
+                definition.removeContents("upload");
+                definition.removeContents("advanced");
+                tab = definition.getContents("info");
+                tab.remove("emailSubject");
+                tab.remove("emailBody");
+            } else if (name == "image") {
+                definition.removeContents("advanced");
+                tab = definition.getContents("Link");
+                tab.remove("cmbTarget");
+                tab = definition.getContents("info");
                 //tab.remove( 'txtAlt' );
-                tab.remove('basic');
-            } else if (name == 'table' || name == 'tableProperties') {
-                var advTab = definition.getContents('advanced');
+                tab.remove("basic");
+            } else if (name == "table" || name == "tableProperties") {
+                var advTab = definition.getContents("advanced");
 
-                var stylesField = advTab.get('advCSSClasses');
-                stylesField['default'] = 'table table-striped';
+                var stylesField = advTab.get("advCSSClasses");
+                stylesField["default"] = "table table-striped";
 
-                advTab.remove('advId');
-                advTab.remove('advLangDir');
-                advTab.remove('advStyles');
+                advTab.remove("advId");
+                advTab.remove("advLangDir");
+                advTab.remove("advStyles");
 
                 definition.onShow = function () {
-                    this.getContentElement("advanced", "advCSSClasses").disable()
+                    this.getContentElement("advanced", "advCSSClasses").disable();
                 }
                
-                tab = definition.getContents('info');
-                tab.remove('selHeaders');
-                tab.remove('txtBorder');
-                tab.remove('cmbAlign');
-                tab.remove('txtCellSpace');
-                tab.remove('txtCellPad');
-                tab.remove('txtWidth');
-                tab.remove('txtHeight');
-                tab.remove('txtCaption');
-                tab.remove('txtSummary');
+                tab = definition.getContents("info");
+                tab.remove("selHeaders");
+                tab.remove("txtBorder");
+                tab.remove("cmbAlign");
+                tab.remove("txtCellSpace");
+                tab.remove("txtCellPad");
+                tab.remove("txtWidth");
+                tab.remove("txtHeight");
+                tab.remove("txtCaption");
+                tab.remove("txtSummary");
             }
         });
 
     var bbcodeMap = {
-        b: 'strong',
-        u: 'u',
-        i: 'em',
-        s: 's',
-        color: 'span',
-        size: 'span',
-        left: 'div',
-        right: 'div',
-        center: 'div',
-        justify: 'div',
-        indent: 'div',
-        url: 'a',
-        email: 'span',
-        img: 'span',
-        '*': 'li',
-        list: 'ol',
-        h: 'mark',
-        table: 'table',
-        td: 'td',
-        tr: 'tr'
+        b: "strong",
+        u: "u",
+        i: "em",
+        s: "s",
+        color: "span",
+        size: "span",
+        left: "div",
+        right: "div",
+        center: "div",
+        justify: "div",
+        indent: "div",
+        url: "a",
+        email: "span",
+        img: "span",
+        '*': "li",
+        list: "ol",
+        h: "mark",
+        table: "table",
+        td: "td",
+        tr: "tr"
        // code: 'code'
     },
-        convertMap = { strong: 'b', b: 'b', u: 'u', em: 'i', i: 'i', s: 's', li: '*', mark: 'h', table: 'table', td: 'td', tr: 'tr' /*code: 'code'*/ },
+        convertMap = { strong: "b", b: "b", u: "u", em: "i", i: "i", s: "s", li: "*", mark: "h", table: "table", td: "td", tr: "tr" /*code: 'code'*/ },
         tagnameMap = {
-            strong: 'b',
-            em: 'i',
-            u: 'u',
-            s: 's',
-            li: '*',
-            ul: 'list',
-            ol: 'list',
-            a: 'link',
-            img: 'img',
-            mark: 'h',
-            table: 'table',
-            td: 'td',
-            tr: 'tr'
+            strong: "b",
+            em: "i",
+            u: "u",
+            s: "s",
+            li: "*",
+            ul: "list",
+            ol: "list",
+            a: "link",
+            img: "img",
+            mark: "h",
+            table: "table",
+            td: "td",
+            tr: "tr"
             //code: 'code'
         },
         stylesMap = {
-            color: 'color',
-            size: 'font-size',
-            left: 'text-align',
-            center: 'text-align',
-            right: 'text-align',
-            justify: 'text-align',
-            indent: 'margin-left'
+            color: "color",
+            size: "font-size",
+            left: "text-align",
+            center: "text-align",
+            right: "text-align",
+            justify: "text-align",
+            indent: "margin-left"
         },
-        attributesMap = { url: 'href', email: 'mailhref', list: 'listType', img: 'href', /*code: 'language'*/ };
+        attributesMap = { url: "href", email: "mailhref", list: "listType", img: "href", /*code: 'language'*/ };
 
     // List of block-like tags.
     var dtd = CKEDITOR.dtd,
@@ -110,10 +110,10 @@
     var semicolonFixRegex = /\s*(?:;\s*|$)/;
 
     function serializeStyleText(stylesObject) {
-        var styleText = '';
+        var styleText = "";
         for (var style in stylesObject) {
             var styleVal = stylesObject[style],
-                text = (style + ':' + styleVal).replace(semicolonFixRegex, ';');
+                text = (style + ":" + styleVal).replace(semicolonFixRegex, ";");
 
             styleText += text;
         }
@@ -123,20 +123,20 @@
     // Maintain the map of smiley-to-description.
     // jscs:disable maximumLineLength
     var smileyMap = {
-        smiley: ':)',
-        sad: ':(',
-        wink: ';)',
-        laugh: ':D',
-        cheeky: ':P',
-        blush: ':*)',
-        surprise: ':-o',
-        indecision: ':|',
-        angry: '>:(',
-        angel: 'o:)',
-        cool: '8-)',
-        devil: '>:-)',
-        crying: ';(',
-        kiss: ':-*'
+        smiley: ":)",
+        sad: ":(",
+        wink: ";)",
+        laugh: ":D",
+        cheeky: ":P",
+        blush: ":*)",
+        surprise: ":-o",
+        indecision: ":|",
+        angry: ">:(",
+        angel: "o:)",
+        cool: "8-)",
+        devil: ">:-)",
+        crying: ";(",
+        kiss: ":-*"
     },
         // jscs:enable maximumLineLength
         smileyReverseMap = {},
@@ -147,23 +147,23 @@
         smileyReverseMap[smileyMap[i]] = i;
         smileyRegExp.push(smileyMap[i].replace(/\(|\)|\:|\/|\*|\-|\|/g,
             function (match) {
-                return '\\' + match;
+                return "\\" + match;
             }));
     }
 
-    smileyRegExp = new RegExp(smileyRegExp.join('|'), 'g');
+    smileyRegExp = new RegExp(smileyRegExp.join("|"), "g");
 
     var decodeHtml = (function () {
         var regex = [],
             entities = {
-                nbsp: '\u00A0', // IE | FF
-                shy: '\u00AD' // IE
+                nbsp: "\u00A0", // IE | FF
+                shy: "\u00AD" // IE
             };
 
         for (var entity in entities)
             regex.push(entity);
 
-        regex = new RegExp('&(' + regex.join('|') + ');', 'g');
+        regex = new RegExp("&(" + regex.join("|") + ");", "g");
 
         return function (html) {
             return html.replace(regex,
@@ -201,7 +201,7 @@
                 // 3 : tag option;
                 // 4 : close of tag;
 
-                part = (parts[1] || parts[3] || '').toLowerCase();
+                part = (parts[1] || parts[3] || "").toLowerCase();
                 // Unrecognized tags should be delivered as a simple text (https://dev.ckeditor.com/ticket/7860).
                 if (part && !bbcodeMap[part]) {
                     this.onText(parts[0]);
@@ -216,28 +216,28 @@
                         optionPart = parts[2];
 
                     // Special handling of justify tags, these provide the alignment as a tag name (#2248).
-                    if (part == 'left' || part == 'right' || part == 'center' || part == 'justify') {
+                    if (part == "left" || part == "right" || part == "center" || part == "justify") {
                         optionPart = part;
                     }
 
-                    if (part == 'indent') {
+                    if (part == "indent") {
                         optionPart = "40px;";
                     }
 
                     if (optionPart) {
-                        if (part == 'list') {
+                        if (part == "list") {
                             if (!isNaN(optionPart))
-                                optionPart = 'decimal';
+                                optionPart = "decimal";
                             else if (/^[a-z]+$/.test(optionPart))
-                                optionPart = 'lower-alpha';
+                                optionPart = "lower-alpha";
                             else if (/^[A-Z]+$/.test(optionPart))
-                                optionPart = 'upper-alpha';
+                                optionPart = "upper-alpha";
                         }
 
                         if (stylesMap[part]) {
                             // Font size represents percentage.
-                            if (part == 'size') {
-                                optionPart += '%';
+                            if (part == "size") {
+                                optionPart += "%";
                             }
 
                             styles[stylesMap[part]] = optionPart;
@@ -254,7 +254,7 @@
 
                     // Two special handling - image and email, protect them
                     // as "span" with an attribute marker.
-                    if (part == 'email' || part == 'img')
+                    if (part == "email" || part == "img")
                         attribs.bbcode = part;
 
 
@@ -321,12 +321,12 @@
         function checkPendingBrs(tagName, closing) {
             var len = currentNode.children.length,
                 previous = len > 0 && currentNode.children[len - 1],
-                lineBreakParent = !previous && writer.getRule(tagnameMap[currentNode.name], 'breakAfterOpen'),
+                lineBreakParent = !previous && writer.getRule(tagnameMap[currentNode.name], "breakAfterOpen"),
                 lineBreakPrevious = previous &&
                     previous.type == CKEDITOR.NODE_ELEMENT &&
-                    writer.getRule(tagnameMap[previous.name], 'breakAfterClose'),
+                    writer.getRule(tagnameMap[previous.name], "breakAfterClose"),
                 lineBreakCurrent = tagName &&
-                    writer.getRule(tagnameMap[tagName], closing ? 'breakBeforeClose' : 'breakBeforeOpen');
+                    writer.getRule(tagnameMap[tagName], closing ? "breakBeforeClose" : "breakBeforeOpen");
 
             if (pendingBrs && (lineBreakParent || lineBreakPrevious || lineBreakCurrent))
                 pendingBrs--;
@@ -339,7 +339,7 @@
                 pendingBrs++;
 
             while (pendingBrs && pendingBrs--)
-                currentNode.children.push(previous = new CKEDITOR.htmlParser.element('br'));
+                currentNode.children.push(previous = new CKEDITOR.htmlParser.element("br"));
         }
 
         function addElement(node, target) {
@@ -387,7 +387,7 @@
                 if (tagName == currentName)
                     addElement(currentNode, currentNode.parent);
                 else if (tagName in CKEDITOR.dtd.$listItem) {
-                    parser.onTagOpen('ul', {});
+                    parser.onTagOpen("ul", {});
                     addPoint = currentNode;
                     reApply = true;
                 } else {
@@ -477,7 +477,7 @@
 
         parser.onText = function (text) {
             var currentDtd = CKEDITOR.dtd[currentNode.name];
-            if (!currentDtd || currentDtd['#']) {
+            if (!currentDtd || currentDtd["#"]) {
                 checkPendingBrs();
                 checkPending();
 
@@ -493,7 +493,7 @@
                                 function (match, index) {
                                     addElement(new CKEDITOR.htmlParser.text(piece.substring(lastIndex, index)),
                                         currentNode);
-                                    addElement(new CKEDITOR.htmlParser.element('smiley',
+                                    addElement(new CKEDITOR.htmlParser.element("smiley",
                                         { desc: smileyReverseMap[match] }),
                                         currentNode);
                                     lastIndex = index + match.length;
@@ -530,9 +530,9 @@
             };
 
             // List and list item.
-            this.setRules('list', { breakBeforeOpen: 1, breakAfterOpen: 1, breakBeforeClose: 1, breakAfterClose: 1 });
+            this.setRules("list", { breakBeforeOpen: 1, breakAfterOpen: 1, breakBeforeClose: 1, breakAfterClose: 1 });
 
-            this.setRules('*',
+            this.setRules("*",
                 {
                     breakBeforeOpen: 1,
                     breakAfterOpen: 0,
@@ -585,37 +585,37 @@
 
             openTag: function (tag) {
                 if (tag in bbcodeMap) {
-                    if (this.getRule(tag, 'breakBeforeOpen'))
+                    if (this.getRule(tag, "breakBeforeOpen"))
                         this.lineBreak(1);
 
-                    this.write('[', tag);
+                    this.write("[", tag);
                 }
             },
 
             openTagClose: function (tag) {
-                if (tag == 'br')
-                    this._.output.push('\n');
+                if (tag == "br")
+                    this._.output.push("\n");
                 else if (tag in bbcodeMap) {
-                    this.write(']');
-                    if (this.getRule(tag, 'breakAfterOpen'))
+                    this.write("]");
+                    if (this.getRule(tag, "breakAfterOpen"))
                         this.lineBreak(1);
                 }
             },
 
             attribute: function (name, val) {
-                if (name == 'option') {
-                    this.write('=', val);
+                if (name == "option") {
+                    this.write("=", val);
                 }
             },
 
             closeTag: function (tag) {
                 if (tag in bbcodeMap) {
-                    if (this.getRule(tag, 'breakBeforeClose'))
+                    if (this.getRule(tag, "breakBeforeClose"))
                         this.lineBreak(1);
 
-                    tag != '*' && this.write('[/', tag, ']');
+                    tag != "*" && this.write("[/", tag, "]");
 
-                    if (this.getRule(tag, 'breakAfterClose'))
+                    if (this.getRule(tag, "breakAfterClose"))
                         this.lineBreak(1);
                 }
             },
@@ -632,14 +632,14 @@
                 // 1) Previous tag already put one.
                 // 2) We're at output start.
                 if (!this._.hasLineBreak && this._.output.length) {
-                    this.write('\n');
+                    this.write("\n");
                     this._.hasLineBreak = 1;
                 }
             },
 
             write: function () {
                 this._.hasLineBreak = 0;
-                var data = Array.prototype.join.call(arguments, '');
+                var data = Array.prototype.join.call(arguments, "");
                 this._.output.push(data);
             },
 
@@ -649,7 +649,7 @@
             },
 
             getHtml: function (reset) {
-                var bbcode = this._.output.join('');
+                var bbcode = this._.output.join("");
 
                 if (reset)
                     this.reset();
@@ -661,9 +661,9 @@
 
     var writer = new BBCodeWriter();
 
-    CKEDITOR.plugins.add('bbcode',
+    CKEDITOR.plugins.add("bbcode",
         {
-            requires: 'entities',
+            requires: "entities",
 
             // Adapt some critical editor configuration for better support
             // of BBCode environment.
@@ -731,8 +731,8 @@
                         span: function (element) {
                             var bbcode;
                             if ((bbcode = element.attributes.bbcode)) {
-                                if (bbcode == 'img') {
-                                    element.name = 'img';
+                                if (bbcode == "img") {
+                                    element.name = "img";
 
                                     if (element.attributes.href) {
                                         element.attributes.src = element.attributes.href;
@@ -744,9 +744,9 @@
 
 
                                     element.children = [];
-                                } else if (bbcode == 'email') {
-                                    element.name = 'a';
-                                    element.attributes.href = 'mailto:' + element.children[0].value;
+                                } else if (bbcode == "email") {
+                                    element.name = "a";
+                                    element.attributes.href = "mailto:" + element.children[0].value;
                                 }
 
                                 delete element.attributes.bbcode;
@@ -754,10 +754,10 @@
                         },
                         ol: function (element) {
                             if (element.attributes.listType) {
-                                if (element.attributes.listType != 'decimal')
-                                    element.attributes.style = 'list-style-type:' + element.attributes.listType;
+                                if (element.attributes.listType != "decimal")
+                                    element.attributes.style = "list-style-type:" + element.attributes.listType;
                             } else {
-                                element.name = 'ul';
+                                element.name = "ul";
                             }
 
                             delete element.attributes.listType;
@@ -779,32 +779,32 @@
                             var tagName = element.name;
                             if (tagName in convertMap)
                                 tagName = convertMap[tagName];
-                            else if (tagName == 'span') {
+                            else if (tagName == "span") {
                                 if ((value = style.color)) {
-                                    tagName = 'color';
+                                    tagName = "color";
                                     value = CKEDITOR.tools.convertRgbToHex(value);
-                                } else if ((value = style['font-size'])) {
+                                } else if ((value = style["font-size"])) {
                                     var percentValue = value.match(/(\d+)%$/);
                                     if (percentValue) {
                                         value = percentValue[1];
-                                        tagName = 'size';
+                                        tagName = "size";
                                     }
                                 }
-                            } else if (tagName == 'ol' || tagName == 'ul') {
-                                if ((value = style['list-style-type'])) {
+                            } else if (tagName == "ol" || tagName == "ul") {
+                                if ((value = style["list-style-type"])) {
                                     switch (value) {
-                                        case 'lower-alpha':
-                                            value = 'a';
+                                        case "lower-alpha":
+                                            value = "a";
                                             break;
-                                        case 'upper-alpha':
-                                            value = 'A';
+                                        case "upper-alpha":
+                                            value = "A";
                                             break;
                                     }
-                                } else if (tagName == 'ol') {
+                                } else if (tagName == "ol") {
                                     value = 1;
                                 }
 
-                                tagName = 'list';
+                                tagName = "list";
                             } /* else if ( tagName == 'blockquote' ) {
                             try {
                                 var cite = element.children[ 0 ],
@@ -819,30 +819,30 @@
                             } catch ( er ) {}
 
                             tagName = 'quote';
-                        } */else if (tagName == 'a') {
+                        } */else if (tagName == "a") {
                                 if ((value = attributes.href)) {
-                                    if (value.indexOf('mailto:') !== -1) {
-                                        tagName = 'email';
+                                    if (value.indexOf("mailto:") !== -1) {
+                                        tagName = "email";
                                         // [email] should have a single text child with email address.
                                         element.children = [
-                                            new CKEDITOR.htmlParser.text(value.replace('mailto:', ''))
+                                            new CKEDITOR.htmlParser.text(value.replace("mailto:", ""))
                                         ];
-                                        value = '';
+                                        value = "";
                                     } else {
                                         var singleton = element.children.length == 1 && element.children[0];
                                         if (singleton &&
                                             singleton.type == CKEDITOR.NODE_TEXT &&
                                             singleton.value == value)
-                                            value = '';
+                                            value = "";
 
-                                        tagName = 'url';
+                                        tagName = "url";
                                     }
                                 }
-                            } else if (tagName == 'img') {
+                            } else if (tagName == "img") {
                                 element.isEmpty = 0;
 
                                 // Translate smiley (image) to text emotion.
-                                var src = attributes['data-cke-saved-src'] || attributes.src,
+                                var src = attributes["data-cke-saved-src"] || attributes.src,
                                     alt = attributes.alt;
 
                                 if (src && src.indexOf(editor.config.smiley_path) != -1 && alt) {
@@ -871,8 +871,8 @@
 
                         div: function (element) {
                             var alignment =
-                                CKEDITOR.tools.parseCssText(element.attributes.style, 1)['text-align'] ||
-                                '';
+                                CKEDITOR.tools.parseCssText(element.attributes.style, 1)["text-align"] ||
+                                "";
 
                             if (alignment) {
                                 element.name = alignment;
@@ -880,8 +880,8 @@
                             }
 
                             var marginleft =
-                                CKEDITOR.tools.parseCssText(element.attributes.style, 1)['margin-left'] ||
-                                '';
+                                CKEDITOR.tools.parseCssText(element.attributes.style, 1)["margin-left"] ||
+                                "";
 
                             if (marginleft) {
                                 element.name = "indent";
@@ -910,12 +910,12 @@
                 // Skip the first "setData" call from inline creator, to allow content of
                 // HTML to be loaded from the page element.
                 if (editor.elementMode == CKEDITOR.ELEMENT_MODE_INLINE)
-                    editor.once('contentDom',
+                    editor.once("contentDom",
                         function () {
-                            editor.on('setData', onSetData);
+                            editor.on("setData", onSetData);
                         });
                 else
-                    editor.on('setData', onSetData);
+                    editor.on("setData", onSetData);
 
             },
 
@@ -929,21 +929,21 @@
                                 name = tagnameMap[htmlName] || false;
 
                             // Specialized anchor presents as email.
-                            if (name == 'link' && element.getAttribute('href').indexOf('mailto:') === 0)
-                                name = 'email';
+                            if (name == "link" && element.getAttribute("href").indexOf("mailto:") === 0)
+                                name = "email";
                             // Styled span could be either size or color.
-                            else if (htmlName == 'span') {
-                                if (element.getStyle('font-size'))
-                                    name = 'size';
-                                else if (element.getStyle('color'))
-                                    name = 'color';
+                            else if (htmlName == "span") {
+                                if (element.getStyle("font-size"))
+                                    name = "size";
+                                else if (element.getStyle("color"))
+                                    name = "color";
                                 // Styled div could be align
-                            } else if (htmlName == 'div' && element.getStyle('text-align')) {
-                                name = element.getStyle('text-align');
-                            } else if (name == 'img') {
-                                var src = element.data('cke-saved-src') || element.getAttribute('src');
+                            } else if (htmlName == "div" && element.getStyle("text-align")) {
+                                name = element.getStyle("text-align");
+                            } else if (name == "img") {
+                                var src = element.data("cke-saved-src") || element.getAttribute("src");
                                 if (src && src.indexOf(editor.config.smiley_path) === 0)
-                                    name = 'smiley';
+                                    name = "smiley";
                             }
 
                             return name;

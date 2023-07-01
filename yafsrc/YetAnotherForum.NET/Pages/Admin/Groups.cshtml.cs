@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
@@ -137,10 +138,10 @@ public class GroupsModel : AdminPage
     /// <summary>
     /// Handles page load event.
     /// </summary>
-    public void OnGet()
+    public async Task OnGetAsync()
     {
         // sync roles just in case...
-        this.Get<IAspNetRolesHelper>().SyncRoles(this.PageBoardContext.PageBoardID);
+        await this.Get<IAspNetRolesHelper>().SyncRolesAsync(this.PageBoardContext.PageBoardID);
 
         // bind data
         this.BindData();
@@ -149,8 +150,6 @@ public class GroupsModel : AdminPage
     public IActionResult OnPostAddNet(string role)
     {
         // save role and get its ID
-        const int InitialPMessages = 0;
-
         var groupFlags = new GroupFlags();
 
         var groupId = this.GetRepository<Group>().Save(
@@ -159,7 +158,6 @@ public class GroupsModel : AdminPage
             role,
             groupFlags,
             1,
-            InitialPMessages,
             null,
             100,
             null,
@@ -175,7 +173,7 @@ public class GroupsModel : AdminPage
     public void OnPostDeleteNet(string role)
     {
         // delete role from provider data
-        this.Get<IAspNetRolesHelper>().DeleteRole(role);
+        this.Get<IAspNetRolesHelper>().DeleteRoleAsync(role);
 
         // re-bind data
         this.BindData();
@@ -184,8 +182,6 @@ public class GroupsModel : AdminPage
     public IActionResult OnPostAdd(string role)
     {
         // save role and get its ID
-        const int InitialPMessages = 0;
-
         var groupFlags = new GroupFlags();
 
         var groupId = this.GetRepository<Group>().Save(
@@ -194,7 +190,6 @@ public class GroupsModel : AdminPage
             role,
             groupFlags,
             1,
-            InitialPMessages,
             null,
             100,
             null,

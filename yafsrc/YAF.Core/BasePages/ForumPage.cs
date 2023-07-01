@@ -80,6 +80,8 @@ public abstract class ForumPage : PageModel,
 
         this.unicodeEncoder = new UnicodeEncoder();
 
+        this.PageBoardContext.PageLinks.AddRoot();
+
         this.CreatePageLinks();
     }
 

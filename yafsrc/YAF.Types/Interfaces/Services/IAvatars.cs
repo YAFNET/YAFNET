@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces.Services;
 
 using YAF.Types.Models;
@@ -60,9 +61,6 @@ public interface IAvatars
     /// </param>
     /// <param name="hasAvatarImage">
     /// The hasAvatarImage.
-    /// </param>
-    /// <param name="email">
-    /// The email.
     /// </param>
     /// <returns>
     /// Returns the Avatar Url

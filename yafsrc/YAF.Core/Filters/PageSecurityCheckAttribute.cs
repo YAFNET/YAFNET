@@ -50,7 +50,7 @@ public class PageSecurityCheckAttribute : ResultFilterAttribute, IHaveServiceLoc
     /// <param name="next">The next.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
     /// <inheritdoc />
-    public override async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
+    public override Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
     {
         // no security features for login/logout pages
         if (!BoardContext.Current.CurrentForumPage.IsAccountPage)
@@ -109,6 +109,6 @@ public class PageSecurityCheckAttribute : ResultFilterAttribute, IHaveServiceLoc
             }
         }
 
-        await next.Invoke();
+        return next.Invoke();
     }
 }

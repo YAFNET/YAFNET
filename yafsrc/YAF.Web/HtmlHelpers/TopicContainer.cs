@@ -188,7 +188,7 @@ public static class TopicContainerHtmlHelper
         {
             var descriptionHeader = new TagBuilder("h6");
 
-            descriptionHeader.AddCssClass("card-subtitle text-muted");
+            descriptionHeader.AddCssClass("card-subtitle text-body-secondary");
 
             descriptionHeader.InnerHtml.Append(topicDescription);
 

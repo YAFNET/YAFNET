@@ -27,6 +27,7 @@ namespace YAF.Core.Services.Migrations
     using ServiceStack.OrmLite;
 
     using System.Data;
+    using System.Threading.Tasks;
 
     using YAF.Core.Context;
     using YAF.Types.Interfaces;
@@ -42,9 +43,9 @@ namespace YAF.Core.Services.Migrations
         /// Migrate Repositories (Database).
         /// </summary>
         /// <param name="dbAccess">
-        /// The Database access.
+        ///     The Database access.
         /// </param>
-        public void MigrateDatabase(IDbAccess dbAccess)
+        public Task MigrateDatabaseAsync(IDbAccess dbAccess)
         {
             dbAccess.Execute(
                 dbCommand =>
@@ -57,6 +58,8 @@ namespace YAF.Core.Services.Migrations
 
                         return true;
                     });
+
+            return Task.CompletedTask;
         }
 
         private void UpgradeTable(IRepository<User> repository, IDbAccess dbAccess, IDbCommand dbCommand)

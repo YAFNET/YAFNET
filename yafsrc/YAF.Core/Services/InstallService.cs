@@ -25,11 +25,11 @@
 namespace YAF.Core.Services;
 
 using Microsoft.AspNetCore.Hosting;
+
 using System;
 using System.IO;
 
 using YAF.Core.Model;
-using YAF.Core.Services.Import;
 using YAF.Types.Attributes;
 using YAF.Types.Models;
 
@@ -225,6 +225,18 @@ public class InstallService : IHaveServiceLocator
     }
 
     /// <summary>
+    /// Initializes the identity tables.
+    /// </summary>
+    public void InitializeIdentity()
+    {
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetRoles>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserClaims>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
+    }
+
+    /// <summary>
     /// Executes the install scripts.
     /// </summary>
     private void ExecuteInstallScripts()
@@ -275,7 +287,6 @@ public class InstallService : IHaveServiceLocator
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageHistory>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageReported>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageReportedAudit>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PMessage>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<WatchForum>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<WatchTopic>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Attachment>());
@@ -284,7 +295,7 @@ public class InstallService : IHaveServiceLocator
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpServer>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpForum>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpTopic>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PMessage>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PrivateMessage>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Replace_Words>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Spam_Words>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Registry>());
@@ -295,7 +306,6 @@ public class InstallService : IHaveServiceLocator
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserMedal>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<IgnoreUser>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicReadTracking>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserPMessage>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ForumReadTracking>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ReputationVote>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Tag>());

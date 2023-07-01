@@ -81,36 +81,6 @@ public class MessageFlags : FlagsBase
     {
     }
 
-    // #region Operators
-
-    ///// <summary>
-    ///// The op_ implicit.
-    ///// </summary>
-    ///// <param name="newBitValue">
-    ///// The new bit value.
-    ///// </param>
-    ///// <returns>
-    ///// </returns>
-    // public static implicit operator MessageFlags(int newBitValue)
-    // {
-    // return new MessageFlags(newBitValue);
-    // }
-
-    ///// <summary>
-    ///// The op_ implicit.
-    ///// </summary>
-    ///// <param name="flags">
-    ///// The flags.
-    ///// </param>
-    ///// <returns>
-    ///// </returns>
-    // public static implicit operator MessageFlags(Flags flags)
-    // {
-    // return new MessageFlags(flags);
-    // }
-
-    // #endregion
-
     /// <summary>
     /// Use for bit comparisons
     /// </summary>

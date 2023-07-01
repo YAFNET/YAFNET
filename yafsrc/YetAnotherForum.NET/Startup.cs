@@ -24,6 +24,7 @@
 
 namespace YAF;
 
+using System;
 using System.Globalization;
 using System.IO;
 
@@ -33,6 +34,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -123,7 +125,15 @@ public class Startup : IHaveServiceLocator
         services.AddDefaultIdentity<AspNetUsers>(o => o.SignIn.RequireConfirmedAccount = true)
             .AddUserManager<AspNetUserManager<AspNetUsers>>().AddRoles<AspNetRoles>().AddDefaultTokenProviders();
 
-        services.AddSession();
+        services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromHours(4);
+            options.Cookie.Name = ".YAFNET.Session";
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            options.Cookie.SameSite = SameSiteMode.Strict;
+            options.Cookie.HttpOnly = true;
+        });
+
         services.AddHttpContextAccessor();
 
         // Mail Configuration
@@ -350,6 +360,7 @@ public class Startup : IHaveServiceLocator
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             endpoints.MapControllers();
             endpoints.MapHub<NotificationHub>("/NotificationHub");
+            endpoints.MapHub<ChatHub>("/ChatHub");
         });
     }
 }

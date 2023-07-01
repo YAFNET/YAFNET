@@ -101,7 +101,7 @@ public class Attach : BBCodeControl
                     $@"<div class=""card-body py-1""><p class=""card-text small"">{this.GetText("IMAGE_RESIZE_ENLARGE")}");
 
                 stringBuilder.Append(
-                    $@"<span class=""text-muted float-end"">{this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads)}</span></p>");
+                    $@"<span class=""text-body-secondary float-end"">{this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads)}</span></p>");
 
                 stringBuilder.Append(@"</div></div>");
             }

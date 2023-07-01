@@ -1,12 +1,12 @@
 ﻿// Generic Functions
-jQuery(document).ready(function () {
-    if (jQuery(".searchSimilarTopics").length) {
+$(document).ready(function () {
+    if ($(".searchSimilarTopics").length) {
 
-        jQuery(".searchSimilarTopics").keyup(function () {
+        $(".searchSimilarTopics").keyup(function () {
 
-            var input = jQuery(".searchSimilarTopics"),
+            var input = $(".searchSimilarTopics"),
                 searchText = input.val(),
-                searchPlaceHolder = jQuery("#SearchResultsPlaceholder");
+                searchPlaceHolder = $("#SearchResultsPlaceholder");
 
             if (searchText.length && searchText.length >= 4) {
 

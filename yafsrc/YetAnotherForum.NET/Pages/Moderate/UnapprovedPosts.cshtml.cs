@@ -25,6 +25,7 @@
 namespace YAF.Pages.Moderate;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
@@ -112,7 +113,7 @@ public class UnapprovedPostsModel : ModerateForumPage
     /// <param name="messageId">
     /// The message id.
     /// </param>
-    public IActionResult OnPostApprove(int messageId)
+    public async Task<IActionResult> OnPostApproveAsync(int messageId)
     {
         this.GetRepository<Message>().Approve(
             messageId,
@@ -125,7 +126,7 @@ public class UnapprovedPostsModel : ModerateForumPage
         this.PageBoardContext.SessionNotify(this.GetText("APPROVED"), MessageTypes.success);
 
         // send notification to watching users...
-        this.Get<ISendNotification>().ToWatchingUsers(messageId);
+        await this.Get<ISendNotification>().ToWatchingUsersAsync(messageId);
 
         // bind data
         return this.BindData(this.PageBoardContext.PageForumID);

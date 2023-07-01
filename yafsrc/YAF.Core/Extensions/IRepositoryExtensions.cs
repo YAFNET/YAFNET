@@ -29,8 +29,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 using YAF.Types.Attributes;
+using YAF.Types.Interfaces.Data;
 
 /// <summary>
 ///     The repository extensions.
@@ -85,6 +88,33 @@ public static class IRepositoryExtensions
         CodeContracts.VerifyNotNull(repository);
 
         return repository.DbAccess.Execute(db => db.Connection.Delete(criteria));
+    }
+
+    /// <summary>
+    /// The delete.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="criteria">
+    /// The criteria.
+    /// </param>
+    /// <param name="token">
+    /// The cancellation token
+    /// </param>
+    /// <typeparam name="T">
+    /// The type parameter.
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="int"/>.
+    /// </returns>
+    public static Task<int> DeleteAsync<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria,
+                                           CancellationToken token = default)
+        where T : class, IEntity, new()
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        return repository.DbAccess.ExecuteAsync(db => db.DeleteAsync(criteria, token: token));
     }
 
     /// <summary>
@@ -199,6 +229,38 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
+    /// Inserts the entity. Updates the entity with the id if successful.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="entity">
+    /// The entity.
+    /// </param>
+    /// <param name="selectIdentity">
+    /// if set to <c>true</c> [select identity].
+    /// </param>
+    /// <param name="token"></param>
+    /// <typeparam name="T">
+    /// The type parameter.
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="bool"/> .
+    /// </returns>
+    public static Task<long> InsertAsync<T>(
+        [NotNull] this IRepository<T> repository,
+        [NotNull] T entity,
+        bool selectIdentity = true,
+        CancellationToken token = default)
+        where T : class, IEntity, new()
+    {
+        CodeContracts.VerifyNotNull(entity);
+        CodeContracts.VerifyNotNull(repository);
+
+        return repository.DbAccess.ExecuteAsync(db => db.InsertAsync(entity, selectIdentity, token: token));
+    }
+
+    /// <summary>
     /// Insert a collection of POCOs in a transaction. E.g:
     /// <para>
     /// db.InsertAll(new[] { new Person { Id = 9, FirstName = "Biggie", LastName = "Smalls", Age = 24 } })
@@ -294,6 +356,36 @@ public static class IRepositoryExtensions
         var success = repository.DbAccess.Update(entity) > 0;
 
         return success;
+    }
+
+    /// <summary>
+    /// The update.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="entity">
+    /// The entity.
+    /// </param>
+    /// <param name="token">
+    /// The cancellation token
+    /// </param>
+    /// <typeparam name="T">
+    /// The type parameter.
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="bool"/> .
+    /// </returns>
+    public static Task<int> UpdateAsync<T>(
+        [NotNull] this IRepository<T> repository,
+        [NotNull] T entity,
+        CancellationToken token = default)
+        where T : class, IEntity, new()
+    {
+        CodeContracts.VerifyNotNull(entity);
+        CodeContracts.VerifyNotNull(repository);
+
+        return repository.DbAccess.UpdateAsync(entity, token);
     }
 
     /// <summary>
@@ -477,6 +569,24 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
+    /// Gets a single entity by its ID.
+    /// </summary>
+    /// <typeparam name="T">The type parameter.</typeparam>
+    /// <param name="repository">The repository.</param>
+    /// <param name="criteria">The criteria.</param>
+    /// <param name="cancellationToken">The Cancellation token</param>
+    /// <returns>
+    /// The <see cref="T" /> .
+    /// </returns>
+    public static Task<T> GetSingleAsync<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria, CancellationToken cancellationToken = default)
+        where T : IEntity, new()
+    {
+        CodeContracts.VerifyNotNull(repository);
+
+        return repository.DbAccess.ExecuteAsync(db => db.SingleAsync(criteria, token: cancellationToken));
+    }
+
+    /// <summary>
     /// Gets the list of entities by the criteria.
     /// </summary>
     /// <typeparam name="T">The type parameter.</typeparam>
@@ -490,6 +600,23 @@ public static class IRepositoryExtensions
         CodeContracts.VerifyNotNull(criteria);
 
         return repository.DbAccess.Execute(db => db.Connection.Select(criteria));
+    }
+
+    /// <summary>
+    /// Gets the list of entities by the criteria.
+    /// </summary>
+    /// <typeparam name="T">The type parameter.</typeparam>
+    /// <param name="repository">The repository.</param>
+    /// <param name="criteria">The criteria.</param>
+    /// <param name="cancellationToken">The Cancellation token</param>
+    /// <returns>Returns the list of entities</returns>
+    public static Task<List<T>> GetAsync<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria, CancellationToken cancellationToken = default)
+        where T : class, IEntity, new()
+    {
+        CodeContracts.VerifyNotNull(repository);
+        CodeContracts.VerifyNotNull(criteria);
+
+        return repository.DbAccess.ExecuteAsync(db => db.SelectAsync(criteria, token: cancellationToken));
     }
 
     /// <summary>

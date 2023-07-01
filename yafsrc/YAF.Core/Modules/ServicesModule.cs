@@ -37,7 +37,6 @@ using YAF.Core.Identity;
 using YAF.Core.Services;
 using YAF.Core.Services.Cache;
 using YAF.Core.Services.Import;
-using YAF.Core.Services.Migrations;
 
 /// <summary>
 /// Registers all Service Modules
@@ -142,7 +141,7 @@ public class ServicesModule : BaseModule
 
         // board settings...
         builder.RegisterType<BoardSettingsService>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-        builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerBoardContext().PreserveExistingDefaults();
+        builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
         builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentBoardSettings>().Instance)
             .ExternallyOwned().PreserveExistingDefaults();
 
@@ -208,5 +207,6 @@ public class ServicesModule : BaseModule
     private static void RegisterHubs(ContainerBuilder builder)
     {
         builder.RegisterType<NotificationHub>().ExternallyOwned();
+        builder.RegisterType<ChatHub>().ExternallyOwned();
     }
 }

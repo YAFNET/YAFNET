@@ -1234,16 +1234,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether AllowPMEmailNotification.
-    /// </summary>
-    public bool AllowPMEmailNotification
-    {
-        get => this.Registry.GetValue("AllowPMEmailNotification", true);
-
-        set => this.Registry.SetValue("AllowPMEmailNotification", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether AllowPollChangesAfterFirstVote.
     /// A poll creator can't change choices after the first vote.
     /// </summary>

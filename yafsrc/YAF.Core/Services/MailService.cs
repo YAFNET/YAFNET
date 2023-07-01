@@ -26,6 +26,7 @@ namespace YAF.Core.Services;
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -68,10 +69,9 @@ public class MailService : IMailService, IHaveServiceLocator
     /// Sends all MailMessages via the SMTP Client. Doesn't handle any exceptions.
     /// </summary>
     /// <param name="messages">
-    /// The messages.
+    ///     The messages.
     /// </param>
-    public void SendAll(
-        [NotNull] IEnumerable<MimeMessage> messages)
+    public async Task SendAllAsync([NotNull] IEnumerable<MimeMessage> messages)
     {
         var mailMessages = messages.ToList();
 
@@ -79,31 +79,30 @@ public class MailService : IMailService, IHaveServiceLocator
 
         var smtpClient = new SmtpClient();
 
-        smtpClient.Connect(this.mailConfig.Host, this.mailConfig.Port, SecureSocketOptions.StartTlsWhenAvailable);
+        await smtpClient.ConnectAsync(this.mailConfig.Host, this.mailConfig.Port, SecureSocketOptions.StartTlsWhenAvailable);
 
         if (this.mailConfig.Password.IsSet() && this.mailConfig.Mail.IsSet())
         {
-            smtpClient.Authenticate(this.mailConfig.Mail, this.mailConfig.Password);
+            await smtpClient.AuthenticateAsync(this.mailConfig.Mail, this.mailConfig.Password);
         }
 
         // send the message...
-        mailMessages.ToList().ForEach(
-            m =>
+        foreach (var m in mailMessages.ToList())
+        {
+            try
+            {
+                if (m != null)
                 {
-                    try
-                    {
-                        if (m != null)
-                        {
-                            // send the message...
-                            smtpClient.Send(m);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        this.Get<ILogger<MailService>>().Error(ex, "Mail Error");
-                    }
-                });
+                    // send the message...
+                    await smtpClient.SendAsync(m);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Get<ILogger<MailService>>().Error(ex, "Mail Error");
+            }
+        }
 
-        smtpClient.Disconnect(true);
+        await smtpClient.DisconnectAsync(true);
     }
 }

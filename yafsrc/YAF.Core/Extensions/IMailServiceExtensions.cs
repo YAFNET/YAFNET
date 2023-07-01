@@ -25,6 +25,7 @@
 namespace YAF.Core.Extensions;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using MimeKit;
 
@@ -44,7 +45,7 @@ public static class IMailServiceExtensions
     /// <param name="senderEmail">The sender email.</param>
     /// <param name="subject">The subject.</param>
     /// <param name="body">The body.</param>
-    public static void Send(
+    public static Task SendAsync(
         [NotNull] this IMailService sendMail,
         [NotNull] string fromEmail,
         [NotNull] string toEmail,
@@ -55,7 +56,7 @@ public static class IMailServiceExtensions
         CodeContracts.VerifyNotNull(fromEmail);
         CodeContracts.VerifyNotNull(toEmail);
 
-        sendMail.Send(
+        return sendMail.SendAsync(
             MailboxAddress.Parse(fromEmail),
             MailboxAddress.Parse(toEmail),
             MailboxAddress.Parse(senderEmail),
@@ -76,7 +77,7 @@ public static class IMailServiceExtensions
     /// <param name="subject">The subject.</param>
     /// <param name="bodyText">The body text.</param>
     /// <param name="bodyHtml">The body html.</param>
-    public static void Send(
+    public static Task SendAsync(
         [NotNull] this IMailService sendMail,
         [NotNull] string fromEmail,
         [CanBeNull] string fromName,
@@ -97,7 +98,7 @@ public static class IMailServiceExtensions
         var senderAddress = MailboxAddress.Parse(senderEmail);
         senderAddress.Name = senderName;
 
-        sendMail.Send(
+        return sendMail.SendAsync(
             fromAddress,
             toAddress,
             senderAddress,
@@ -115,7 +116,7 @@ public static class IMailServiceExtensions
     /// <param name="senderAddress">The sender address.</param>
     /// <param name="subject">The subject.</param>
     /// <param name="bodyText">The body text.</param>
-    public static void Send(
+    public static Task SendAsync(
         [NotNull] this IMailService sendMail,
         [NotNull] MailboxAddress fromAddress,
         [NotNull] MailboxAddress toAddress,
@@ -123,7 +124,7 @@ public static class IMailServiceExtensions
         [CanBeNull] string subject,
         [CanBeNull] string bodyText)
     {
-        sendMail.Send(fromAddress, toAddress, senderAddress, subject, bodyText, null);
+        return sendMail.SendAsync(fromAddress, toAddress, senderAddress, subject, bodyText, null);
     }
 
     /// <summary>
@@ -136,7 +137,7 @@ public static class IMailServiceExtensions
     /// <param name="subject">The subject.</param>
     /// <param name="bodyText">The body text.</param>
     /// <param name="bodyHtml">The body html.</param>
-    public static void Send(
+    public static Task SendAsync(
         [NotNull] this IMailService sendMail,
         [NotNull] MailboxAddress fromAddress,
         [NotNull] MailboxAddress toAddress,
@@ -153,7 +154,7 @@ public static class IMailServiceExtensions
             
         mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
 
-        sendMail.SendAll(new List<MimeMessage> { mailMessage });
+        return sendMail.SendAllAsync(new List<MimeMessage> { mailMessage });
     }
 
     /// <summary>

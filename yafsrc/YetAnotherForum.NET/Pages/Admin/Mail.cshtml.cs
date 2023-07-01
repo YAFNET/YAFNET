@@ -80,28 +80,26 @@ public class MailModel : AdminPage
     /// <summary>
     /// Handles the Click event of the Send control.
     /// </summary>
-    public IActionResult OnPostSend()
+    public async Task<IActionResult> OnPostSendAsync()
     {
         var emails = this.GetRepository<User>().GroupEmails(this.Input.ToListItem);
 
-        Parallel.ForEach(
-            emails,
-            email =>
-            {
-                var from = new MailboxAddress(
-                    this.PageBoardContext.BoardSettings.Name,
-                    this.PageBoardContext.BoardSettings.ForumEmail);
+        foreach (var email in emails)
+        {
+            var from = new MailboxAddress(
+                this.PageBoardContext.BoardSettings.Name,
+                this.PageBoardContext.BoardSettings.ForumEmail);
 
-                    var to = new MailboxAddress(email, email);
+            var to = new MailboxAddress(email, email);
 
-                    this.Get<IMailService>().Send(
-                        from,
-                        to,
-                        from,
-                        this.Input.Subject,
-                        this.Input.Body,
-                        null);
-                });
+            await this.Get<IMailService>().SendAsync(
+                from,
+                to,
+                from,
+                this.Input.Subject,
+                this.Input.Body,
+                null);
+        }
 
         this.Input.Subject = string.Empty;
         this.Input.Body = string.Empty;
@@ -112,11 +110,11 @@ public class MailModel : AdminPage
     /// <summary>
     /// Send a test email
     /// </summary>
-    public IActionResult OnPostTestSmtp()
+    public async Task<IActionResult> OnPostTestSmtpAsync()
     {
         try
         {
-            this.Get<IMailService>().Send(
+            await this.Get<IMailService>().SendAsync(
                 this.Input.TestFromEmail,
                 this.Input.TestToEmail,
                 this.Input.TestFromEmail,

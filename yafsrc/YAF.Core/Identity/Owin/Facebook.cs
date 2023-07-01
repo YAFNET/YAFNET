@@ -22,6 +22,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Identity.Owin;
 
 using System;
@@ -74,14 +75,12 @@ public class Facebook : IAuthBase, IHaveServiceLocator
         }
 
         // Check if user exists
-        var existingUser = this.Get<IAspNetUsersHelper>().GetUserByEmail(email);
+        var existingUser = await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(email);
 
         if (existingUser == null)
         {
             // Create new PageUser
-            var user = this.CreateFacebookUser(name, email, facebookUserId, out var message);
-
-            return (message, user);
+            return await this.CreateFacebookUserAsync(name, email, facebookUserId);
         }
 
         if (existingUser.Profile_FacebookId == facebookUserId)
@@ -104,18 +103,14 @@ public class Facebook : IAuthBase, IHaveServiceLocator
     /// <param name="facebookUserId">
     /// The facebook PageUser Id.
     /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
     /// <returns>
     /// Returns if the login was successfully or not
     /// </returns>
-    private AspNetUsers CreateFacebookUser(string name, string email, string facebookUserId, out string message)
+    private async Task<(string Message, AspNetUsers User)> CreateFacebookUserAsync(string name, string email, string facebookUserId)
     {
         if (this.Get<BoardSettings>().DisableRegistrations)
         {
-            message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-            return null;
+            return (this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED"), null);
         }
 
         // Check if user name is null
@@ -140,30 +135,28 @@ public class Facebook : IAuthBase, IHaveServiceLocator
                            Profile_Facebook = $"https://www.facebook.com/profile.php?id={facebookUserId}"
                        };
 
-        var result = this.Get<IAspNetUsersHelper>().Create(user, pass);
+        var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, pass);
 
         if (!result.Succeeded)
         {
             // error of some kind
-            message = result.Errors.FirstOrDefault()?.Description;
-            return null;
+            return (result.Errors.FirstOrDefault()?.Description, null);
         }
 
         // setup initial roles (if any) for this user
-        this.Get<IAspNetRolesHelper>().SetupUserRoles(BoardContext.Current.PageBoardID, user);
+        await this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(BoardContext.Current.PageBoardID, user);
 
         // create the user in the YAF DB as well as sync roles...
-        var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
+        var userId = await this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, displayName, BoardContext.Current.PageBoardID);
 
         if (userId == null)
         {
             // something is seriously wrong here -- redirect to failure...
-            message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-            return null;
+            return (this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED"), null);
         }
 
         // send user register notification to the user...
-        this.Get<ISendNotification>().SendRegistrationNotificationToUser(
+        await this.Get<ISendNotification>().SendRegistrationNotificationToUserAsync(
             user,
             pass,
             "NOTIFICATION_ON_FACEBOOK_REGISTER");
@@ -171,7 +164,7 @@ public class Facebook : IAuthBase, IHaveServiceLocator
         if (this.Get<BoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
         {
             // send user register notification to the following admin users...
-            this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userId.Value);
+            await this.Get<ISendNotification>().SendRegistrationNotificationEmailAsync(user, userId.Value);
         }
 
         var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
@@ -180,7 +173,6 @@ public class Facebook : IAuthBase, IHaveServiceLocator
         // save the settings...
         this.GetRepository<User>().SaveNotification(
             userId.Value,
-            true,
             autoWatchTopicsEnabled,
             this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
             this.Get<BoardSettings>().DefaultSendDigestEmail);
@@ -194,8 +186,6 @@ public class Facebook : IAuthBase, IHaveServiceLocator
 
         this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId.Value));
 
-        message = string.Empty;
-
-        return user;
+        return (string.Empty, user);
     }
 }

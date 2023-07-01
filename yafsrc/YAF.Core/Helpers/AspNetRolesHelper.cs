@@ -26,6 +26,7 @@ namespace YAF.Core.Helpers;
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
@@ -80,17 +81,17 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     ///   Also copies the Roles as groups into YAF DB for the current user
     /// </summary>
     /// <param name="user">
-    /// Current Membership User
+    ///     Current Membership User
     /// </param>
-    /// <param name="pageBoardID">
-    /// Current BoardID
+    /// <param name="pageBoardId">
+    ///     Current BoardID
     /// </param>
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    public int? CreateForumUser([NotNull] AspNetUsers user, int pageBoardID)
+    public Task<int?> CreateForumUserAsync([NotNull] AspNetUsers user, int pageBoardId)
     {
-        return this.Get<IAspNetRolesHelper>().CreateForumUser(user, user.UserName, pageBoardID);
+        return this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, user.UserName, pageBoardId);
     }
 
     /// <summary>
@@ -98,33 +99,37 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     ///   Also copies the Roles as groups into YAF DB for the current user
     /// </summary>
     /// <param name="user">
-    /// Current Membership User
+    ///     Current Membership User
     /// </param>
     /// <param name="displayName">
-    /// The display Name.
+    ///     The display Name.
     /// </param>
-    /// <param name="pageBoardID">
-    /// Current BoardID
+    /// <param name="pageBoardId">
+    ///     Current BoardID
     /// </param>
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    public int? CreateForumUser([NotNull] AspNetUsers user, [NotNull] string displayName, int pageBoardID)
+    public async Task<int?> CreateForumUserAsync([NotNull] AspNetUsers user, [NotNull] string displayName, int pageBoardId)
     {
         int? userId = null;
 
         try
         {
             userId = this.GetRepository<User>().AspNet(
-                pageBoardID,
+                pageBoardId,
                 user.UserName,
                 displayName,
                 user.Email,
                 user.Id,
                 user.IsApproved);
 
-            this.Get<IAspNetRolesHelper>().GetRolesForUser(user).ForEach(
-                role => this.GetRepository<UserGroup>().SetRole(pageBoardID, userId.Value, role));
+            var roles = await this.Get<IAspNetRolesHelper>().GetRolesForUserAsync(user);
+
+            foreach (var role in roles)
+            {
+                this.GetRepository<UserGroup>().SetRole(pageBoardId, userId.Value, role);
+            }
 
             if (this.Get<BoardSettings>().UseStyledNicks)
             {
@@ -143,40 +148,40 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// The create role.
     /// </summary>
     /// <param name="roleName">
-    /// The role name.
+    ///     The role name.
     /// </param>
-    public void CreateRole([NotNull] string roleName)
+    public Task CreateRoleAsync([NotNull] string roleName)
     {
         var role = new AspNetRoles { Name = roleName };
 
-        this.Get<IAspNetRoleManager>().Create(role);
+        return this.Get<IAspNetRoleManager>().CreateRoleAsync(role);
     }
 
     /// <summary>
     /// The delete role.
     /// </summary>
     /// <param name="roleName">
-    /// The role name.
+    ///     The role name.
     /// </param>
-    public void DeleteRole([NotNull] string roleName)
+    public async Task DeleteRoleAsync([NotNull] string roleName)
     {
-        var role = this.Get<IAspNetRoleManager>().FindByName(roleName);
+        var role = await this.Get<IAspNetRoleManager>().FindByRoleNameAsync(roleName);
 
-        this.Get<IAspNetRoleManager>().Delete(role);
+        await this.Get<IAspNetRoleManager>().DeleteRoleAsync(role);
     }
 
     /// <summary>
     /// Check if the forum user was created.
     /// </summary>
     /// <param name="user">The user.</param>
-    /// <param name="pageBoardID">The page board ID.</param>
+    /// <param name="pageBoardId">The page board ID.</param>
     /// <returns>
     /// The did create forum user.
     /// </returns>
-    public bool DidCreateForumUser([NotNull] AspNetUsers user, int pageBoardID)
+    public bool DidCreateForumUser([NotNull] AspNetUsers user, int pageBoardId)
     {
-        var userID = this.Get<IAspNetRolesHelper>().CreateForumUser(user, pageBoardID);
-        return userID != null;
+        var userId = this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, pageBoardId);
+        return userId != null;
     }
 
     /// <summary>
@@ -194,30 +199,30 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// Gets the roles for the user.
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <returns>
     /// Returns all Roles
     /// </returns>
-    public IList<string> GetRolesForUser([NotNull] AspNetUsers user)
+    public Task<IList<string>> GetRolesForUserAsync([NotNull] AspNetUsers user)
     {
-        return this.Get<IAspNetRoleManager>().GetRoles(user);
+        return this.Get<IAspNetRoleManager>().GetRolesAsync(user);
     }
 
     /// <summary>
     /// The get users in role.
     /// </summary>
     /// <param name="roleName">
-    /// The role name.
+    ///     The role name.
     /// </param>
     /// <returns>
-    /// The <see cref="List"/>.
+    /// Returns all users in that Role
     /// </returns>
-    public List<AspNetUsers> GetUsersInRole(string roleName)
+    public async Task<List<AspNetUsers>> GetUsersInRoleAsync(string roleName)
     {
-        var role = this.Get<IAspNetRoleManager>().FindByName(roleName);
+        var role = await this.Get<IAspNetRoleManager>().FindByRoleNameAsync(roleName);
 
-        var users = this.GetRepository<AspNetUserRoles>().Get(r => r.RoleId == role.Id);
+        var users = await this.GetRepository<AspNetUserRoles>().GetAsync(r => r.RoleId == role.Id);
 
         var userList = new List<AspNetUsers>();
 
@@ -252,83 +257,56 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Determines whether [is user in role] [the specified username].
-    /// </summary>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <param name="role">
-    /// The role.
-    /// </param>
-    /// <returns>
-    /// The is user in role.
-    /// </returns>
-    public bool IsUserInRole([NotNull] AspNetUsers user, [NotNull] string role)
-    {
-        return this.Get<IAspNetUsersHelper>().IsInRole(user, role);
-    }
-
-    /// <summary>
-    /// The remove user from role.
-    /// </summary>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <param name="role">
-    /// The role.
-    /// </param>
-    public void RemoveUserFromRole([NotNull] AspNetUsers user, [NotNull] string role)
-    {
-        this.Get<IAspNetUsersHelper>().RemoveFromRole(user, role);
-    }
-
-    /// <summary>
     /// Roles the exists.
     /// </summary>
     /// <param name="roleName">The role name.</param>
     /// <returns>
     /// The role exists.
     /// </returns>
-    public bool RoleExists([NotNull] string roleName)
+    public Task<bool> RoleNameExistsAsync([NotNull] string roleName)
     {
-        return this.Get<IAspNetRoleManager>().RoleExists(roleName);
+        return this.Get<IAspNetRoleManager>().RoleNameExistsAsync(roleName);
     }
 
     /// <summary>
     /// Sets up the user roles from the "start" settings for a given group/role
     /// </summary>
-    /// <param name="pageBoardID">
-    /// Current BoardID
+    /// <param name="pageBoardId">
+    ///     Current BoardID
     /// </param>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
-    public void SetupUserRoles(int pageBoardID, [NotNull] AspNetUsers user)
+    public async Task SetupUserRolesAsync(int pageBoardId, [NotNull] AspNetUsers user)
     {
-        var groups = this.GetRepository<Group>()
-            .Get(g => g.BoardID == pageBoardID && (g.Flags & 2) != 2 && (g.Flags & 4) == 4);
+        var groups = await this.GetRepository<Group>()
+            .GetAsync(g => g.BoardID == pageBoardId && (g.Flags & 2) != 2 && (g.Flags & 4) == 4);
 
-        (from @group in groups
-         select @group.Name
-         into roleName
-         where roleName.IsSet()
-         where !this.Get<IAspNetRolesHelper>().IsUserInRole(user, roleName)
-         select roleName).ForEach(roleName => this.Get<IAspNetRolesHelper>().AddUserToRole(user, roleName));
+        foreach (var group in groups)
+        {
+            if (group.Name.IsSet() && !await this.Get<IAspNetUsersHelper>().IsUserInRoleAsync(user, group.Name))
+            {
+                this.Get<IAspNetRolesHelper>().AddUserToRole(user, group.Name);
+            }
+        }
     }
 
     /// <summary>
     /// Syncs the ASP.NET roles with YAF group based on YAF (not bi-directional)
     /// </summary>
-    /// <param name="pageBoardID">The page board ID.</param>
-    public void SyncRoles(int pageBoardID)
+    /// <param name="pageBoardId">The page board ID.</param>
+    public async Task SyncRolesAsync(int pageBoardId)
     {
-        var groupsNames = this.GetRepository<Group>().Get(g => g.BoardID == pageBoardID && (g.Flags & 2) != 2)
+        var groupsNames = this.GetRepository<Group>().Get(g => g.BoardID == pageBoardId && (g.Flags & 2) != 2)
             .Select(g => g.Name);
 
         // get all the groups in YAF DB and create them if they do not exist as a role in membership
-        (from @group in groupsNames
-         let name = @group
-         where !this.Get<IAspNetRolesHelper>().RoleExists(name)
-         select name).ForEach(this.Get<IAspNetRolesHelper>().CreateRole);
+        foreach (var roleName in groupsNames.ToList())
+        {
+            if (!await this.Get<IAspNetRolesHelper>().RoleNameExistsAsync(roleName))
+            {
+                await this.Get<IAspNetRolesHelper>().CreateRoleAsync(roleName);
+            }
+        }
     }
 }

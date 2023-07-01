@@ -238,6 +238,7 @@ module.exports = function(grunt) {
                     "wwwroot/lib/forum/yaf.Main.js",
                     "wwwroot/lib/forum/yaf.signalR.js",
                     "wwwroot/lib/forum/yaf.contextMenu.js",
+                    "wwwroot/lib/forum/yaf.chatHub.js",
                     "node_modules/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js",
                     "node_modules/jquery-validation/dist/jquery.validate.js",
                     "wwwroot/lib/jquery.serializejson.js"
@@ -269,6 +270,7 @@ module.exports = function(grunt) {
                     "wwwroot/lib/forum/yaf.Main.js",
                     "wwwroot/lib/forum/yaf.signalR.js",
                     "wwwroot/lib/forum/yaf.contextMenu.js",
+                    "wwwroot/lib/forum/yaf.chatHub.js",
                     "node_modules/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js",
                     "node_modules/jquery-validation/dist/jquery.validate.js",
                     "wwwroot/lib/jquery.serializejson.js"
@@ -360,34 +362,7 @@ module.exports = function(grunt) {
                 src: "wwwroot/css/forum-admin.css"
             },
             themes: {
-                src: [
-                    "wwwroot/lib/themes/zephyr/bootstrap-forum.css",
-                    "wwwroot/lib/themes/yaf/bootstrap-forum.css",
-                    "wwwroot/lib/themes/yeti/bootstrap-forum.css",
-                    "wwwroot/lib/themes/vapor/bootstrap-forum.css",
-                    "wwwroot/lib/themes/united/bootstrap-forum.css",
-                    "wwwroot/lib/themes/superhero/bootstrap-forum.css",
-                    "wwwroot/lib/themes/spacelab/bootstrap-forum.css",
-                    "wwwroot/lib/themes/solar/bootstrap-forum.css",
-                    "wwwroot/lib/themes/slate/bootstrap-forum.css",
-                    "wwwroot/lib/themes/sketchy/bootstrap-forum.css",
-                    "wwwroot/lib/themes/simplex/bootstrap-forum.css",
-                    "wwwroot/lib/themes/sandstone/bootstrap-forum.css",
-                    "wwwroot/lib/themes/quartz/bootstrap-forum.css",
-                    "wwwroot/lib/themes/pulse/bootstrap-forum.css",
-                    "wwwroot/lib/themes/morph/bootstrap-forum.css",
-                    "wwwroot/lib/themes/minty/bootstrap-forum.css",
-                    "wwwroot/lib/themes/materia/bootstrap-forum.css",
-                    "wwwroot/lib/themes/lux/bootstrap-forum.css",
-                    "wwwroot/lib/themes/lumen/bootstrap-forum.css",
-                    "wwwroot/lib/themes/litera/bootstrap-forum.css",
-                    "wwwroot/lib/themes/journal/bootstrap-forum.css",
-                    "wwwroot/lib/themes/flatly/bootstrap-forum.css",
-                    "wwwroot/lib/themes/darkly/bootstrap-forum.css",
-                    "wwwroot/lib/themes/cyborg/bootstrap-forum.css",
-                    "wwwroot/lib/themes/cosmo/bootstrap-forum.css",
-                    "wwwroot/lib/themes/cerulean/bootstrap-forum.css"
-                ]
+                src: "wwwroot/css/themes/**/*.css"
             }
         },
 

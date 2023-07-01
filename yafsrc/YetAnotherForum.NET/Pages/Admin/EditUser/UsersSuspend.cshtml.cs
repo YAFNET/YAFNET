@@ -25,6 +25,7 @@
 namespace YAF.Pages.Admin.EditUser;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -82,7 +83,7 @@ public class UsersSuspendModel : AdminPage
     /// <summary>
     /// Removes suspension from a user.
     /// </summary>
-    public IActionResult OnPostRemoveSuspension()
+    public async Task<IActionResult> OnPostRemoveSuspensionAsync()
     {
         this.EditUser =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
@@ -102,7 +103,7 @@ public class UsersSuspendModel : AdminPage
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
 
-        this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
+        await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(
             this.EditUser.Item1.Email,
             this.EditUser.Item1.DisplayOrUserName());
 
@@ -116,7 +117,7 @@ public class UsersSuspendModel : AdminPage
     /// <summary>
     /// Suspends a user when clicked.
     /// </summary>
-    public IActionResult OnPostSuspend()
+    public async Task<IActionResult> OnPostSuspendAsync()
     {
         this.EditUser =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
@@ -187,7 +188,7 @@ public class UsersSuspendModel : AdminPage
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
 
-        this.Get<ISendNotification>().SendUserSuspensionNotification(
+        await this.Get<ISendNotification>().SendUserSuspensionNotificationAsync(
             suspend,
             this.Input.SuspendedReason,
             this.EditUser.Item1.Email,

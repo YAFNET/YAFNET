@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Models;
 
 using YAF.Types.Objects.Model;
@@ -108,15 +109,6 @@ public class Message : IEntity, IHaveID
 
         try
         {
-            this.ReferenceMessageId = row.ReferenceMessageId;
-        }
-        catch (Exception)
-        {
-            this.ReferenceMessageId = string.Empty;
-        }
-
-        try
-        {
             this.AnswerMessageId = row.AnswerMessageId;
         }
         catch (Exception)
@@ -138,7 +130,7 @@ public class Message : IEntity, IHaveID
     /// Gets or sets the id.
     /// </summary>
     [AutoIncrement]
-    [AliasAttribute("MessageID")]
+    [Alias("MessageID")]
     public int ID { get; set; }
 
     /// <summary>
@@ -273,12 +265,6 @@ public class Message : IEntity, IHaveID
     /// </summary>
     [StringLength(255)]
     public string ExternalMessageId { get; set; }
-
-    /// <summary>
-    /// Gets or sets the reference message id.
-    /// </summary>
-    [StringLength(255)]
-    public string ReferenceMessageId { get; set; }
 
     /// <summary>
     /// Gets or sets the user display name.

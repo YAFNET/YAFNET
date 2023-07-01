@@ -22,6 +22,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Identity.Owin;
 
 using System;
@@ -74,14 +75,12 @@ public class Google : IAuthBase, IHaveServiceLocator
         }
 
         // Check if user exists
-        var existingUser = this.Get<IAspNetUsersHelper>().GetUserByEmail(email);
+        var existingUser = await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(email);
 
         if (existingUser == null)
         {
             // Create new PageUser
-            var user = this.CreateGoogleUser(name, email, googleUserId, out var message);
-
-            return (message, user);
+            return await this.CreateGoogleUserAsync(name, email, googleUserId);
         }
 
         if (existingUser.Profile_GoogleId == googleUserId)
@@ -104,18 +103,14 @@ public class Google : IAuthBase, IHaveServiceLocator
     /// <param name="googleUserId">
     /// The google PageUser Id.
     /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
     /// <returns>
     /// Returns if the login was successfully or not
     /// </returns>
-    private AspNetUsers CreateGoogleUser(string name, string email, string googleUserId, out string message)
+    private async Task<(string Message, AspNetUsers User)> CreateGoogleUserAsync(string name, string email, string googleUserId)
     {
         if (this.Get<BoardSettings>().DisableRegistrations)
         {
-            message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-            return null;
+            return (this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED"), null);
         }
 
         // Check if user name is null
@@ -139,30 +134,28 @@ public class Google : IAuthBase, IHaveServiceLocator
                            Profile_GoogleId = googleUserId
                        };
 
-        var result = this.Get<IAspNetUsersHelper>().Create(user, pass);
+        var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, pass);
 
         if (!result.Succeeded)
         {
             // error of some kind
-            message = result.Errors.FirstOrDefault()?.Description;
-            return null;
+            return (result.Errors.FirstOrDefault()?.Description, null);
         }
 
         // setup initial roles (if any) for this user
-        this.Get<IAspNetRolesHelper>().SetupUserRoles(BoardContext.Current.PageBoardID, user);
+        await this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(BoardContext.Current.PageBoardID, user);
 
         // create the user in the YAF DB as well as sync roles...
-        var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
+        var userId = await this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, displayName, BoardContext.Current.PageBoardID);
 
         if (userId == null)
         {
             // something is seriously wrong here -- redirect to failure...
-            message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
-            return null;
+            return (this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED"), null);
         }
 
         // send user register notification to the user...
-        this.Get<ISendNotification>().SendRegistrationNotificationToUser(
+        await this.Get<ISendNotification>().SendRegistrationNotificationToUserAsync(
             user,
             pass,
             "NOTIFICATION_ON_GOOGLE_REGISTER");
@@ -170,7 +163,7 @@ public class Google : IAuthBase, IHaveServiceLocator
         if (this.Get<BoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
         {
             // send user register notification to the following admin users...
-            this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userId.Value);
+            await this.Get<ISendNotification>().SendRegistrationNotificationEmailAsync(user, userId.Value);
         }
 
         var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
@@ -179,7 +172,6 @@ public class Google : IAuthBase, IHaveServiceLocator
         // save the settings...
         this.GetRepository<User>().SaveNotification(
             userId.Value,
-            true,
             autoWatchTopicsEnabled,
             this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
             this.Get<BoardSettings>().DefaultSendDigestEmail);
@@ -195,8 +187,6 @@ public class Google : IAuthBase, IHaveServiceLocator
 
         this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId.Value));
 
-        message = string.Empty;
-
-        return user;
+        return (string.Empty, user);
     }
 }

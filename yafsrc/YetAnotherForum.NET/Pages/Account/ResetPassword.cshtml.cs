@@ -112,19 +112,19 @@ public class ResetPasswordModel : AccountPage
             return this.Page();
         }
 
-        var user = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Input.Email);
+        var user = await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(this.Input.Email);
 
         if (user == null)
         {
             return this.PageBoardContext.Notify(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
         }
 
-        var result = this.Get<IAspNetUsersHelper>().ResetPassword(user, HttpUtility.UrlDecode(code, Encoding.UTF8), this.Input.Password);
+        var result = await this.Get<IAspNetUsersHelper>().ResetPasswordAsync(user, HttpUtility.UrlDecode(code, Encoding.UTF8), this.Input.Password);
 
         if (result.Succeeded)
         {
             // Get User again to get updated Password Hash
-            user = this.Get<IAspNetUsersHelper>().GetUser(user.Id);
+            user = await this.Get<IAspNetUsersHelper>().GetUserAsync(user.Id);
 
             await this.Get<IAspNetUsersHelper>().SignInAsync(user);
 

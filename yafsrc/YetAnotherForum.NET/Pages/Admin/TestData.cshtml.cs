@@ -27,11 +27,15 @@ namespace YAF.Pages.Admin;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
+using ServiceStack.OrmLite;
+
 using YAF.Configuration;
+using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
@@ -116,7 +120,7 @@ public class TestDataModel : AdminPage
     /// <summary>
     /// The create test data click.
     /// </summary>
-    public IActionResult OnPostCreateTestData()
+    public async Task<IActionResult> OnPostCreateTestDataAsync()
     {
         var sb = new StringBuilder();
 
@@ -124,8 +128,8 @@ public class TestDataModel : AdminPage
 
         sb.AppendLine("Created:");
 
-        sb.Append(this.CreateUsers());
-        sb.Append(this.CreateBoards());
+        sb.Append(await this.CreateUsersAsync());
+        sb.Append(await this.CreateBoardsAsync());
         sb.Append(this.CreateCategories());
         sb.Append("; ");
 
@@ -144,7 +148,7 @@ public class TestDataModel : AdminPage
             "{0} Messages, ",
             this.CreatePosts(this.Input.PostsForum, topic, this.Input.PostsNumber));
 
-        sb.AppendFormat("{0} Private Messages, ", this.CreatePMessages());
+        sb.AppendFormat("{0} Private Messages, ", await this.CreatePMessagesAsync());
 
         var mesRetStr = sb.ToString();
 
@@ -247,7 +251,7 @@ public class TestDataModel : AdminPage
     /// <returns>
     /// The number of created boards.
     /// </returns>
-    private string CreateBoards()
+    private async Task<string> CreateBoardsAsync()
     {
         var boardNumber = this.Input.BoardNumber;
         var usersNumber = this.Input.BoardsUsersNumber;
@@ -284,7 +288,7 @@ public class TestDataModel : AdminPage
                 this.PageBoardContext.PageUser.UserFlags.IsHostAdmin,
                 string.Empty);
 
-            this.CreateUsers(newBoardId, usersNumber);
+            await this.CreateUsersAsync(newBoardId, usersNumber);
         }
 
         return $"{i} Boards, {usersNumber} Users in each Board; ";
@@ -506,7 +510,7 @@ public class TestDataModel : AdminPage
     /// <returns>
     /// The number of created p messages.
     /// </returns>
-    private int CreatePMessages()
+    private async Task<int> CreatePMessagesAsync()
     {
         var numPMessages = this.Input.PMessagesNumber;
 
@@ -542,15 +546,15 @@ public class TestDataModel : AdminPage
         {
             this.randomGuid = Guid.NewGuid().ToString();
 
-            var messageFlags = new MessageFlags {IsHtml = false, IsBBCode = true};
-
-            this.GetRepository<PMessage>().SendMessage(
-                fromUser.ID,
-                toUser.ID,
-                this.Input.TopicPrefixTB + this.randomGuid,
-                $"{PMessagePrefix}{this.randomGuid}   {this.Input.PMessageText}",
-                messageFlags.BitValue,
-                -1);
+            var messageId = this.GetRepository<PrivateMessage>().Insert(
+                new PrivateMessage
+                {
+                    Created = DateTime.UtcNow,
+                    Flags = 0,
+                    FromUserId = fromUser.ID,
+                    ToUserId = toUser.ID,
+                    Body = $"{PMessagePrefix}{this.randomGuid}   {this.Input.PMessageText}"
+                });
         }
 
         if (!this.Input.MarkRead)
@@ -558,8 +562,14 @@ public class TestDataModel : AdminPage
             return i;
         }
 
-        this.GetRepository<UserPMessage>().Get(m => m.UserID == toUser.ID).ForEach(
-            x => this.GetRepository<UserPMessage>().MarkAsRead(x.PMessageID, new PMessageFlags(x.Flags)));
+        await BoardContext.Current.GetRepository<PrivateMessage>().DbAccess.ExecuteAsync(
+            db =>
+            {
+                var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
+
+                return db.ExecuteSqlAsync(
+                    $@" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 1 where ToUserId = {toUser.ID}");
+            });
 
         // Clearing cache with old permissions data...
         this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, toUser.ID));
@@ -713,13 +723,13 @@ public class TestDataModel : AdminPage
     /// <returns>
     /// The create users.
     /// </returns>
-    private string CreateUsers()
+    private async Task<string> CreateUsersAsync()
     {
         var usersNumber = this.Input.UsersNumber;
 
         return usersNumber <= 0
                    ? null
-                   : this.CreateUsers(this.Input.UsersBoardsList, usersNumber);
+                   : await this.CreateUsersAsync(this.Input.UsersBoardsList, usersNumber);
     }
 
     /// <summary>
@@ -734,7 +744,7 @@ public class TestDataModel : AdminPage
     /// <returns>
     /// The string with number of created users.
     /// </returns>
-    private string CreateUsers(int boardId, int countLimit)
+    private async Task<string> CreateUsersAsync(int boardId, int countLimit)
     {
         var outCounter = 0;
 
@@ -759,7 +769,7 @@ public class TestDataModel : AdminPage
                                            EmailConfirmed = true
                                        };
 
-            var result = this.Get<IAspNetUsersHelper>().Create(user, this.Input.Password);
+            var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, this.Input.Password);
 
             if (!result.Succeeded)
             {
@@ -769,10 +779,10 @@ public class TestDataModel : AdminPage
             }
 
             // setup initial roles (if any) for this user
-            this.Get<IAspNetRolesHelper>().SetupUserRoles(boardId, user);
+            await this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(boardId, user);
 
             // create the user in the YAF DB as well as sync roles...
-            this.Get<IAspNetRolesHelper>().CreateForumUser(user, newUsername, boardId);
+            await this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, newUsername, boardId);
 
             outCounter++;
         }

@@ -31,7 +31,6 @@ using YAF.Types.Extensions;
 /// A class which represents the User table.
 /// </summary>
 [Serializable]
-
 [UniqueConstraint(nameof(BoardID), nameof(Name))]
 public class User : IEntity, IHaveBoardID, IHaveID
 {
@@ -208,13 +207,6 @@ public class User : IEntity, IHaveBoardID, IHaveID
     public string ThemeFile { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether pm notification.
-    /// </summary>
-    [Required]
-    [Default(typeof(bool), "1")]
-    public bool PMNotification { get; set; }
-
-    /// <summary>
     /// Gets or sets a value indicating whether auto watch topics.
     /// </summary>
     [Required]
@@ -337,4 +329,11 @@ public class User : IEntity, IHaveBoardID, IHaveID
     [Required]
     [Default(typeof(bool), "0")]
     public bool DarkMode { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="User"/> is selected.
+    /// </summary>
+    /// <value><c>true</c> if selected; otherwise, <c>false</c>.</value>
+    [Ignore]
+    public bool Selected { get; set; }
 }

@@ -89,11 +89,11 @@ public class ForgotPasswordModel : AccountPage
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         var user = this.Input.UserName.Contains("@")
-                       ? this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Input.UserName)
-                       : this.Get<IAspNetUsersHelper>().GetUserByName(this.Input.UserName);
+                       ? await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(this.Input.UserName)
+                       : await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(this.Input.UserName);
 
         if (user == null)
         {
@@ -108,10 +108,10 @@ public class ForgotPasswordModel : AccountPage
         }
 
         var code = HttpUtility.UrlEncode(
-            this.Get<IAspNetUsersHelper>().GeneratePasswordResetToken(user),
+            await this.Get<IAspNetUsersHelper>().GeneratePasswordResetTokenAsync(user),
             Encoding.UTF8);
 
-        this.Get<ISendNotification>().SendPasswordReset(user, code);
+        await this.Get<ISendNotification>().SendPasswordResetAsync(user, code);
 
         this.PageBoardContext.SessionNotify(this.GetText("SUCCESS"), MessageTypes.success);
 

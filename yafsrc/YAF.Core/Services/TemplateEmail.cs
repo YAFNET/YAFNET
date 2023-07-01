@@ -25,6 +25,7 @@ namespace YAF.Core.Services;
 
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Hosting;
 
@@ -91,9 +92,9 @@ public class TemplateEmail : IHaveServiceLocator
     /// <param name="subject">
     /// The subject.
     /// </param>
-    public void SendEmail(MailboxAddress toAddress, string subject)
+    public Task SendEmailAsync(MailboxAddress toAddress, string subject)
     {
-        this.SendEmail(
+        return this.SendEmailAsync(
             new MailboxAddress(this.Get<BoardSettings>().Name, this.Get<BoardSettings>().ForumEmail),
             toAddress,
             subject);
@@ -111,12 +112,12 @@ public class TemplateEmail : IHaveServiceLocator
     /// <param name="subject">
     /// The subject.
     /// </param>
-    public void SendEmail(MailboxAddress fromAddress, MailboxAddress toAddress, string subject)
+    public Task SendEmailAsync(MailboxAddress fromAddress, MailboxAddress toAddress, string subject)
     {
         var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
 
         // just send directly
-        this.Get<IMailService>().Send(
+        return this.Get<IMailService>().SendAsync(
             fromAddress,
             toAddress,
             fromAddress,

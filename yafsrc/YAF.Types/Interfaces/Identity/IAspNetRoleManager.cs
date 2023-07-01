@@ -26,6 +26,7 @@ namespace YAF.Types.Interfaces.Identity;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Identity;
 
@@ -45,54 +46,54 @@ public interface IAspNetRoleManager
     /// The get roles.
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <returns>
-    /// The <see cref="IList"/>.
+    /// Returns List of Role names
     /// </returns>
-    IList<string> GetRoles(AspNetUsers user);
+    Task<IList<string>> GetRolesAsync(AspNetUsers user);
 
     /// <summary>
     /// The find by name.
     /// </summary>
     /// <param name="roleName">
-    /// The role name.
+    ///     The role name.
     /// </param>
     /// <returns>
     /// The <see cref="AspNetRoles"/>.
     /// </returns>
-    AspNetRoles FindByName(string roleName);
+    Task<AspNetRoles> FindByRoleNameAsync(string roleName);
 
     /// <summary>
     /// Create a role
     /// </summary>
     /// <param name="role">
-    /// The role.
+    ///     The role.
     /// </param>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    IdentityResult Create(AspNetRoles role);
+    Task<IdentityResult> CreateRoleAsync(AspNetRoles role);
 
     /// <summary>
     /// Delete a role
     /// </summary>
     /// <param name="role">
-    /// The role.
+    ///     The role.
     /// </param>
     /// <returns>
     /// The <see cref="IdentityResult"/>.
     /// </returns>
-    IdentityResult Delete(AspNetRoles role);
+    Task<IdentityResult> DeleteRoleAsync(AspNetRoles role);
 
     /// <summary>
     /// Returns true if the role exists
     /// </summary>
     /// <param name="roleName">
-    /// The role Name.
+    ///     The role Name.
     /// </param>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    bool RoleExists(string roleName);
+    Task<bool> RoleNameExistsAsync(string roleName);
 }

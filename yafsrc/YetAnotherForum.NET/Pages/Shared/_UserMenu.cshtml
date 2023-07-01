@@ -161,24 +161,27 @@
     </div>
 
     <div class="dropdown-divider"></div>
-
-    <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyMessages ? "dropdown-item active" : "dropdown-item")"
-       bs-toggle="tooltip"
-       asp-page="/MyMessages"
-       role="button"
-       title-localized-page="TOOLBAR"
-       title-localized-tag="INBOX_TITLE">
-        @Html.Icon("inbox")@Html.LocalizedText("TOOLBAR", "INBOX")
-        @if (Current.UnreadPrivate > 0)
-        {
-            <span class="badge bg-danger" title="@Html.LocalizedTextFormatted("NEWPM", Current.UnreadPrivate.ToString())">
-                @Current.UnreadPrivate
-                <span class="visually-hidden">
-                            @Html.LocalizedTextFormatted("NEWPM", Current.UnreadPrivate.ToString())
+    
+    @if (Current.BoardSettings.AllowPrivateMessages && Current.UserHasPrivateConversations)
+    {
+        <a class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.MyMessages ? "dropdown-item active" : "dropdown-item")"
+           bs-toggle="tooltip"
+           asp-page="/MyMessages"
+           role="button"
+           title-localized-page="TOOLBAR"
+           title-localized-tag="INBOX_TITLE">
+            @Html.Icon("inbox")@Html.LocalizedText("TOOLBAR", "INBOX")
+            @if (Current.UnreadPrivate > 0)
+            {
+                <span class="badge bg-danger" title="@Html.LocalizedTextFormatted("NEWPM", Current.UnreadPrivate.ToString())">
+                    @Current.UnreadPrivate
+                    <span class="visually-hidden">
+                        @Html.LocalizedTextFormatted("NEWPM", Current.UnreadPrivate.ToString())
+                    </span>
                 </span>
-            </span>
-        }
-    </a>
+            }
+        </a>
+    }
 
     @if (Current.BoardSettings.EnableBuddyList && Current.UserHasBuddies)
     {

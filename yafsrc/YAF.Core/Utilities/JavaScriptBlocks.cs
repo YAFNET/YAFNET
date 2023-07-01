@@ -2058,4 +2058,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
         });";
     }
+
+    /// <summary>
+    /// Starts the chat js.
+    /// </summary>
+    /// <returns>System.String.</returns>
+    [NotNull]
+    public static string StartChatJs()
+    {
+        return "startChat();";
+    }
 }

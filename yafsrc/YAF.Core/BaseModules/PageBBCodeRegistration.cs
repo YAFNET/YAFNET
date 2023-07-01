@@ -47,7 +47,7 @@ public class PageBBCodeRegistration : BaseForumModule, IHandleEvent<ForumPagePos
     {
         switch (this.PageContext.CurrentForumPage.PageName)
                     {
-                        case ForumPages.PrivateMessage:
+                        case ForumPages.MyMessages:
                         case ForumPages.Search:
                         case ForumPages.Posts:
                         case ForumPages.UserProfile:

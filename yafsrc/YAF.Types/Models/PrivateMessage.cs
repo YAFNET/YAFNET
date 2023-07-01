@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,58 +21,61 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Models;
 
 /// <summary>
-/// A class which represents the UserPMessage table.
+/// A class which represents the Private Message Table.
 /// </summary>
 [Serializable]
-public class UserPMessage : IEntity, IHaveID
+public class PrivateMessage : IEntity, IHaveID
 {
     /// <summary>
     /// Gets or sets the id.
     /// </summary>
-    [Alias("UserPMessageID")]
+    [Alias("PMessageID")]
     [AutoIncrement]
     public int ID { get; set; }
 
     /// <summary>
-    /// Gets or sets the user id.
+    /// Gets or sets the from user id.
     /// </summary>
     [References(typeof(User))]
     [Required]
-    [Index]
-    public int UserID { get; set; }
+    public int FromUserId { get; set; }
 
     /// <summary>
-    /// Gets or sets the p message id.
+    /// Gets or sets the to user id.
     /// </summary>
-    [References(typeof(PMessage))]
+    [References(typeof(User))]
     [Required]
-    public int PMessageID { get; set; }
+    public int ToUserId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the created.
+    /// </summary>
+    [Required]
+    public DateTime Created { get; set; }
+
+    /// <summary>
+    /// Gets or sets the message body.
+    /// </summary>
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
+    public string Body { get; set; }
 
     /// <summary>
     /// Gets or sets the flags.
     /// </summary>
     [Required]
-    [Default(0)]
+    [Default(23)]
     public int Flags { get; set; }
 
     /// <summary>
-    /// Gets or sets the user flags.
+    /// Gets or sets the Private Message flags.
     /// </summary>
     [Ignore]
-    public PMessageFlags PMessageFlags
-    {
-        get => new(this.Flags);
+    public PrivateMessageFlags PrivateMessageFlags => new(this.Flags);
 
-        set => this.Flags = value.BitValue;
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether is reply.
-    /// </summary>
-    [Required]
-    [Default(0)]
-    public bool IsReply { get; set; }
+    [Ignore]
+    public string DateTime { get; set; }
 }

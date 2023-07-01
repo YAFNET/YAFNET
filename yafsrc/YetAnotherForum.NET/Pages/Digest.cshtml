@@ -35,7 +35,7 @@
             <h1 class="display-4 fw-normal">
                 @Model.GetText("ACTIVETOPICS")
             </h1>
-            <p class="fs-5 text-muted">
+            <p class="fs-5 text-body-secondary">
                 @Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(DateTime.UtcNow))
             </p>
         </div>
@@ -62,7 +62,7 @@
                                 @string.Format(Model.GetText("COMMENTS"), topic.Replies)
                             </span>
                         </h6>
-                        <p class="text-muted small">
+                        <p class="text-body-secondary small">
                             @string.Format(Model.GetText("STARTEDBY"), topic.StartedUserName)
                         </p>
                         <p class="card-text">
@@ -101,7 +101,7 @@
                                 @string.Format(Model.GetText("COMMENTS"), topic.Replies)
                             </span>
                         </h6>
-                        <p class="text-muted small">
+                        <p class="text-body-secondary small">
                             @string.Format(Model.GetText("STARTEDBY"), topic.StartedUserName)
                         </p>
                         <p class="card-text">
@@ -126,7 +126,7 @@
 
    
 
-    <div class="text-center text-muted small">
+    <div class="text-center text-body-secondary small">
         @Model.GetText("REMOVALTEXT")
         <a asp-page="@ForumPages.Profile_Subscriptions.GetPageName()"
            button-style="None">

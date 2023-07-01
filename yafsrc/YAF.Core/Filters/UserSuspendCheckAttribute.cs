@@ -61,7 +61,7 @@ public class UserSuspendCheckAttribute : ResultFilterAttribute, IHaveServiceLoca
             {
                 this.GetRepository<User>().Suspend(BoardContext.Current.PageUserID);
 
-                this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
+                await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(
                     BoardContext.Current.PageUser.Email,
                     BoardContext.Current.PageUser.DisplayOrUserName());
 

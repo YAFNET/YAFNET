@@ -65,7 +65,7 @@
                                                        title-localized-tag="PM_TITLE"
                                                        title-param0="@user.DisplayOrUserName()"
                                                        bs-toggle="tooltip"
-                                                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { u = user.ID }))">
+                                                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { u = user.ID }))">
                                                     </a>
                                                 }
                                             }
@@ -186,7 +186,7 @@
                                                            title-localized-tag="PM_TITLE"
                                                            title-param0="@Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? mod.DisplayName : mod.Name)"
                                                            bs-toggle="tooltip"
-                                                           href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { u = mod.ModeratorID }))">
+                                                           href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { u = mod.ModeratorID }))">
                                                         </a>
                                                     }
                                                 }

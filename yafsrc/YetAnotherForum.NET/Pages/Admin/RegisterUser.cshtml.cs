@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin;
 
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
@@ -73,7 +74,7 @@ public class RegisterUserModel : AdminPage
     /// <summary>
     /// Handles the Click event of the ForumRegister control.
     /// </summary>
-    public IActionResult OnPostForumRegister()
+    public async Task<IActionResult> OnPostForumRegisterAsync()
     {
         if (!ModelState.IsValid)
         {
@@ -104,7 +105,7 @@ public class RegisterUserModel : AdminPage
                            EmailConfirmed = false
                        };
 
-        var result = this.Get<IAspNetUsersHelper>().Create(user, this.Input.Password);
+        var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, this.Input.Password);
 
         if (!result.Succeeded)
         {
@@ -113,19 +114,18 @@ public class RegisterUserModel : AdminPage
         }
 
         // setup initial roles (if any) for this user
-        this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageBoardContext.PageBoardID, user);
+        await this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(this.PageBoardContext.PageBoardID, user);
 
         // create the user in the YAF DB as well as sync roles...
-        var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, this.PageBoardContext.PageBoardID);
+        var userId = await this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, this.PageBoardContext.PageBoardID);
 
         var autoWatchTopicsEnabled = this.PageBoardContext.BoardSettings.DefaultNotificationSetting
             .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
-        this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
+        await this.Get<ISendNotification>().SendVerificationEmailAsync(user, newEmail, userId, newUsername);
 
         this.GetRepository<User>().SaveNotification(
             this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id).ID,
-            true,
             autoWatchTopicsEnabled,
             this.PageBoardContext.BoardSettings.DefaultNotificationSetting.ToInt(),
             this.PageBoardContext.BoardSettings.DefaultSendDigestEmail);

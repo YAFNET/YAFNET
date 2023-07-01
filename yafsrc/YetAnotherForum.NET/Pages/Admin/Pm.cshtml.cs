@@ -24,6 +24,8 @@
 
 namespace YAF.Pages.Admin;
 
+using System.Threading.Tasks;
+
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Types.Models;
@@ -71,18 +73,17 @@ public class PmModel : AdminPage
     /// </summary>
     private void BindData()
     {
-        this.Input.Days1 = 60;
         this.Input.Days2 = 180;
 
-        this.Input.Count = this.GetRepository<UserPMessage>().Count(m => (m.Flags & 8) != 8).ToString();
+        this.Input.Count = this.GetRepository<PrivateMessage>().Count(m => (m.Flags & 2) != 2 || (m.Flags & 4) != 4).ToString();
     }
 
     /// <summary>
     /// Commits the click.
     /// </summary>
-    public void OnPostCommit()
+    public async Task OnPostCommitAsync()
     {
-        this.GetRepository<PMessage>().PruneAll(this.Input.Days1, this.Input.Days2);
+        await this.GetRepository<PrivateMessage>().PruneAllAsync(this.Input.Days2);
 
         this.BindData();
     }
@@ -92,8 +93,6 @@ public class PmModel : AdminPage
     /// </summary>
     public class InputModel
     {
-        public int Days1 { get; set; }
-
         public int Days2 { get; set; }
 
         public string Count { get; set; }

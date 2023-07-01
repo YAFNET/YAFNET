@@ -29,6 +29,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 using FarsiLibrary.Utils;
 
@@ -139,7 +140,7 @@ public class UsersProfileModel : AdminPage
     /// <summary>
     /// Updates the User Info
     /// </summary>
-    public IActionResult OnPostSave(int userId)
+    public async Task<IActionResult> OnPostSaveAsync(int userId)
     {
         this.EditUser =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
@@ -261,7 +262,7 @@ public class UsersProfileModel : AdminPage
             return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
-        this.UpdateUserProfile();
+        await this.UpdateUserProfileAsync();
 
         // save display name
         this.GetRepository<User>().UpdateDisplayName(this.EditUser.Item1, displayName);
@@ -468,7 +469,7 @@ public class UsersProfileModel : AdminPage
     /// <summary>
     /// Update user Profile Info.
     /// </summary>
-    private void UpdateUserProfile()
+    private Task UpdateUserProfileAsync()
     {
         var userProfile = new ProfileInfo {
                                               Country = this.Input.Country,
@@ -545,7 +546,7 @@ public class UsersProfileModel : AdminPage
         this.EditUser.Item2.Profile_Skype = userProfile.Skype;
         this.EditUser.Item2.Profile_XMPP = userProfile.XMPP;
 
-        this.Get<IAspNetUsersHelper>().Update(this.EditUser.Item2);
+        return this.Get<IAspNetUsersHelper>().UpdateUserAsync(this.EditUser.Item2);
     }
 
     /// <summary>

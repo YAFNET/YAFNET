@@ -27,6 +27,7 @@ namespace YAF.Pages;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
@@ -156,7 +157,7 @@ public class UserProfileModel : ForumPage
                    : this.BindData(u);
     }
 
-    public void OnPostRemoveSuspension(int u)
+    public Task OnPostRemoveSuspensionAsync(int u)
     {
         this.BindData(u);
 
@@ -174,12 +175,12 @@ public class UserProfileModel : ForumPage
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(u));
 
-        this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
+        return this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(
             this.CombinedUser.Item1.Email,
             this.CombinedUser.Item1.DisplayOrUserName());
     }
 
-    public void OnPostSuspend(int u)
+    public async Task OnPostSuspendAsync(int u)
     {
         this.BindData(u);
 
@@ -245,7 +246,7 @@ public class UserProfileModel : ForumPage
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(u));
 
-        this.Get<ISendNotification>().SendUserSuspensionNotification(
+        await this.Get<ISendNotification>().SendUserSuspensionNotificationAsync(
             suspend,
             this.SuspendReason.Trim(),
             this.CombinedUser.Item1.Email,

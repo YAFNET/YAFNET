@@ -25,6 +25,7 @@
 namespace YAF.Types.Interfaces.Services;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using MimeKit;
 
@@ -37,8 +38,7 @@ public interface IMailService
     /// Sends all MailMessages via MimiKit Doesn't handle any exceptions.
     /// </summary>
     /// <param name="messages">
-    /// The messages.
+    ///     The messages.
     /// </param>
-    void SendAll(
-        [NotNull] IEnumerable<MimeMessage> messages);
+    Task SendAllAsync([NotNull] IEnumerable<MimeMessage> messages);
 }

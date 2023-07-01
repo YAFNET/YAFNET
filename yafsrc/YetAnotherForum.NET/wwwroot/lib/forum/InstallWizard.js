@@ -1,22 +1,16 @@
-﻿(function ($) {
-    $(document).ready(function() {
-        $(".yafWizard").modal("show",
-            {
-                backdrop: "static",
-                keyboard: false
-            });
+﻿document.addEventListener('DOMContentLoaded', function () {
 
-        $(".form-check > input").addClass("form-check-input");
-        $(".form-check li > input").addClass("form-check-input");
+    const myModal = new bootstrap.Modal('.yafWizard', {
+        backdrop: "static",
+        keyboard: false
+    })
 
-        $(".form-check > label").addClass("form-check-label");
-        $(".form-check li > label").addClass("form-check-label");
+    myModal.show();
 
-        $(".btn-primary,.btn-info").click(function () {
-            // add spinner to button
-            $(this).html(
-                "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading..."
-            );
+    [].forEach.call(document.querySelectorAll('.btn-primary,.btn-info'), function (e) {
+        e.addEventListener('click', function () {
+            // code…
+            e.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading..."
         });
-    });
-})(jQuery);
+    })
+})
