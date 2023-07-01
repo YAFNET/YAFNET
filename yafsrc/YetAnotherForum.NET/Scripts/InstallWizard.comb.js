@@ -15055,18 +15055,15 @@
     return index_umd;
 });
 
-(function($) {
-    $(document).ready(function() {
-        $(".yafWizard").modal("show", {
-            backdrop: "static",
-            keyboard: false
-        });
-        $(".form-check > input").addClass("form-check-input");
-        $(".form-check li > input").addClass("form-check-input");
-        $(".form-check > label").addClass("form-check-label");
-        $(".form-check li > label").addClass("form-check-label");
-        $(".btn-primary,.btn-info").click(function() {
-            $(this).html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...");
+document.addEventListener("DOMContentLoaded", function() {
+    const myModal = new bootstrap.Modal(".yafWizard", {
+        backdrop: "static",
+        keyboard: false
+    });
+    myModal.show();
+    [].forEach.call(document.querySelectorAll(".btn-primary,.btn-info"), function(e) {
+        e.addEventListener("click", function() {
+            e.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
         });
     });
-})(jQuery);
+});

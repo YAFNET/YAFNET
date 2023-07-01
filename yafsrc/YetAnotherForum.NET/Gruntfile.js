@@ -398,34 +398,7 @@ module.exports = function(grunt) {
                 src: "Content/forum-admin.css"
             },
             themes: {
-                src: [
-                    "Content/Themes/zephyr/bootstrap-forum.css",
-                    "Content/Themes/yaf/bootstrap-forum.css",
-                    "Content/Themes/yeti/bootstrap-forum.css",
-                    "Content/Themes/vapor/bootstrap-forum.css",
-                    "Content/Themes/united/bootstrap-forum.css",
-                    "Content/Themes/superhero/bootstrap-forum.css",
-                    "Content/Themes/spacelab/bootstrap-forum.css",
-                    "Content/Themes/solar/bootstrap-forum.css",
-                    "Content/Themes/slate/bootstrap-forum.css",
-                    "Content/Themes/sketchy/bootstrap-forum.css",
-                    "Content/Themes/simplex/bootstrap-forum.css",
-                    "Content/Themes/sandstone/bootstrap-forum.css",
-                    "Content/Themes/quartz/bootstrap-forum.css",
-                    "Content/Themes/pulse/bootstrap-forum.css",
-                    "Content/Themes/morph/bootstrap-forum.css",
-                    "Content/Themes/minty/bootstrap-forum.css",
-                    "Content/Themes/materia/bootstrap-forum.css",
-                    "Content/Themes/lux/bootstrap-forum.css",
-                    "Content/Themes/lumen/bootstrap-forum.css",
-                    "Content/Themes/litera/bootstrap-forum.css",
-                    "Content/Themes/journal/bootstrap-forum.css",
-                    "Content/Themes/flatly/bootstrap-forum.css",
-                    "Content/Themes/darkly/bootstrap-forum.css",
-                    "Content/Themes/cyborg/bootstrap-forum.css",
-                    "Content/Themes/cosmo/bootstrap-forum.css",
-                    "Content/Themes/cerulean/bootstrap-forum.css"
-                ]
+                src: "Content/Themes/**/*.css"
             }
         },
 
