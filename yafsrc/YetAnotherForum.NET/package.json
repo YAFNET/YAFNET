@@ -5,7 +5,7 @@
   "devDependencies": {
     "@lodder/grunt-postcss": "^3.1.1",
     "autoprefixer": "^10.4.14",
-    "eslint": "^8.42.0",
+    "eslint": "^8.44.0",
     "grunt": "^1.6.1",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "^5.0.0",
@@ -16,15 +16,16 @@
     "grunt-shell": "^4.0.0",
     "grunt-zip": "^0.20.0",
     "postcss": "^8.4.24",
-    "sass": "^1.62.1"
+    "sass": "^1.63.6"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
-    "@microsoft/signalr": "^7.0.5",
+    "@microsoft/signalr": "^7.0.7",
     "bootbox": "^6.0.0",
     "bootstrap": "^5.3.0",
     "bootstrap-touchspin": "^4.7.3",
     "bootswatch": "^5.3.0",
+    "ckeditor4": "^4.22.1",
     "flag-icons": "^6.7.0",
     "grunt-file-append": "^0.0.7",
     "jquery": "^3.7.0",
