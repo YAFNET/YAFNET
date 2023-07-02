@@ -24,27 +24,21 @@ public interface IMutId<T>
 
 /// <summary>
 /// Interface IMutLongId
-/// Implements the <see cref="ServiceStack.Model.IMutId{System.Int64}" />
 /// </summary>
-/// <seealso cref="ServiceStack.Model.IMutId{System.Int64}" />
 public interface IMutLongId : IMutId<long>
 {
 }
 
 /// <summary>
 /// Interface IMutIntId
-/// Implements the <see cref="ServiceStack.Model.IMutId{System.Int32}" />
 /// </summary>
-/// <seealso cref="ServiceStack.Model.IMutId{System.Int32}" />
 public interface IMutIntId : IMutId<int>
 {
 }
 
 /// <summary>
 /// Interface IMutStringId
-/// Implements the <see cref="ServiceStack.Model.IMutId{System.String}" />
 /// </summary>
-/// <seealso cref="ServiceStack.Model.IMutId{System.String}" />
 public interface IMutStringId : IMutId<string>
 {
 }

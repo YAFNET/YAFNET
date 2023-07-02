@@ -10,20 +10,42 @@ using System;
 #if NET7_0_OR_GREATER
 namespace ServiceStack.OrmLite.Converters;
 
+/// <summary>
+/// Class DateOnlyConverter.
+/// Implements the <see cref="ServiceStack.OrmLite.Converters.DateTimeConverter" />
+/// </summary>
+/// <seealso cref="ServiceStack.OrmLite.Converters.DateTimeConverter" />
 public class DateOnlyConverter : DateTimeConverter
 {
+    /// <summary>
+    /// Quoted Value in SQL Statement
+    /// </summary>
+    /// <param name="fieldType">Type of the field.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>System.String.</returns>
     public override string ToQuotedString(Type fieldType, object value)
     {
         var dateOnly = (DateOnly)value;
         return DateTimeFmt(dateOnly.ToDateTime(default, DateTimeKind.Local), "yyyy-MM-dd HH:mm:ss.fff");
     }
 
+    /// <summary>
+    /// Parameterized value in parameterized queries
+    /// </summary>
+    /// <param name="fieldType">Type of the field.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>System.Object.</returns>
     public override object ToDbValue(Type fieldType, object value)
     {
         var dateOnly = (DateOnly)value;
         return base.ToDbValue(typeof(DateTime), dateOnly.ToDateTime(default, DateTimeKind.Local));
     }
 
+    /// <summary>
+    /// From the database value.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>System.Object.</returns>
     public override object FromDbValue(object value)
     {
         var dateTime = (DateTime)base.FromDbValue(value);

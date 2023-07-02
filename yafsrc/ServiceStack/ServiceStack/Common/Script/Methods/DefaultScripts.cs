@@ -3328,7 +3328,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <returns>System.String.</returns>
     public string dirPath(string filePath)
     {
-        if (string.IsNullOrEmpty(filePath) || filePath[filePath.Length - 1] == '/')
+        if (string.IsNullOrEmpty(filePath) || filePath[^1] == '/')
             return null;
 
         var lastDirPos = filePath.LastIndexOf('/');

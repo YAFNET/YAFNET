@@ -10,19 +10,30 @@
 using System.Data.Common;
 using System.Net.Sockets;
 
-namespace ServiceStack
-{
-    public static class NetCoreExtensions
-    {
-        public static void Close(this Socket socket)
-        {
-            socket.Dispose();
-        }
+namespace ServiceStack;
 
-        public static void Close(this DbDataReader reader)
-        {
-            reader.Dispose();
-        }
+/// <summary>
+/// Class NetCoreExtensions.
+/// </summary>
+public static class NetCoreExtensions
+{
+    /// <summary>
+    /// Closes the specified socket.
+    /// </summary>
+    /// <param name="socket">The socket.</param>
+    public static void Close(this Socket socket)
+    {
+        socket.Dispose();
+    }
+
+    /// <summary>
+    /// Closes the specified reader.
+    /// </summary>
+    /// <param name="reader">The reader.</param>
+    public static void Close(this DbDataReader reader)
+    {
+        reader.Dispose();
+    }
 }
-}
+
 #endif

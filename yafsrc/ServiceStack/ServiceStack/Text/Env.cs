@@ -394,7 +394,7 @@ public static class Env
     /// <summary>
     /// Only .ConfigAwait(false) in .NET Core as loses HttpContext.Current in NETFX/ASP.NET
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type parameter</typeparam>
     /// <param name="task">The task.</param>
     /// <returns>Task&lt;T&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -405,8 +405,13 @@ public static class Env
 #endif
 
 #if NET7_0_OR_GREATER
+    /// <summary>
+    /// Config Await
+    /// </summary>
+    /// <param name="task">The task.</param>
+    /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task) => 
+    public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task) => 
             task.ConfigureAwait(ContinueOnCapturedContext);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

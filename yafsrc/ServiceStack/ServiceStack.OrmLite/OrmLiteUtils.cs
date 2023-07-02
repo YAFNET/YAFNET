@@ -1382,9 +1382,6 @@ public static class OrmLiteUtils
     /// Asserts the type of the not anon.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <exception cref="System.ArgumentException">T generic argument should be a Table but was typeof(object)</exception>
-    /// <exception cref="System.ArgumentException">T generic argument should be a Table but was typeof(Dictionary<string,object>)</exception>
-    /// <exception cref="System.ArgumentException">T generic argument should be a Table but was an ISqlExpression</exception>
     public static void AssertNotAnonType<T>()
     {
         if (typeof(T) == typeof(object))

@@ -14,6 +14,7 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -282,8 +283,8 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         var uniqueExpr = this.Dump(includeParams);
 
         // fastest up to 500 chars https://wintermute79.wordpress.com/2014/10/10/c-sha-1-benchmark/
-        using var sha1 = new System.Security.Cryptography.SHA1Managed();
-        var hash = sha1.ComputeHash(Encoding.ASCII.GetBytes(uniqueExpr));
+        var hash = SHA1.HashData(Encoding.ASCII.GetBytes(uniqueExpr));
+        //var hash = sha1.ComputeHash(Encoding.ASCII.GetBytes(uniqueExpr));
         var hexFormat = hash.ToHex();
 
         return hexFormat;
@@ -3235,7 +3236,6 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="m">The m.</param>
     /// <returns>object.</returns>
-    /// <exception cref="ArgumentException">$"Expression '{m}' accesses unsupported property '{m.Member}' of Nullable<T></exception>
     protected virtual object VisitMemberAccess(MemberExpression m)
     {
         if (m.Expression != null)

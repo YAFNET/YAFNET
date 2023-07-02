@@ -94,6 +94,7 @@ internal sealed class DisposedReader : DbDataReader
     /// Obtains a lifetime service object to control the lifetime policy for this instance.
     /// </summary>
     /// <returns>An object of type <see cref="T:System.Runtime.Remoting.Lifetime.ILease" /> used to control the lifetime policy for this instance. This is the current lifetime service object for this instance if one exists; otherwise, a new lifetime service object initialized to the value of the <see cref="P:System.Runtime.Remoting.Lifetime.LifetimeServices.LeaseManagerPollTime" /> property.</returns>
+    [Obsolete]
     public override object InitializeLifetimeService() => ThrowDisposed<object>();
     /// <summary>
     /// Releases the managed resources used by the <see cref="T:System.Data.Common.DbDataReader" /> and optionally releases the unmanaged resources.
@@ -437,6 +438,7 @@ internal sealed class DbWrappedReader : DbDataReader, IWrappedDataReader
     /// Obtains a lifetime service object to control the lifetime policy for this instance.
     /// </summary>
     /// <returns>An object of type <see cref="T:System.Runtime.Remoting.Lifetime.ILease" /> used to control the lifetime policy for this instance. This is the current lifetime service object for this instance if one exists; otherwise, a new lifetime service object initialized to the value of the <see cref="P:System.Runtime.Remoting.Lifetime.LifetimeServices.LeaseManagerPollTime" /> property.</returns>
+    [Obsolete] 
     public override object InitializeLifetimeService() => _reader.InitializeLifetimeService();
 
     /// <summary>

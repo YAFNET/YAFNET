@@ -13,6 +13,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ServiceStack.Text;
 
 namespace ServiceStack;
@@ -27,7 +28,7 @@ public static partial class HttpUtils
     /// </summary>
     public static string UserAgent = "ServiceStack.Text" +
 #if NET7_0_OR_GREATER
-        "/net6"
+        "/net7"
 #elif NETSTANDARD2_0
         "/std2.0"
 #elif NETFX
@@ -491,6 +492,11 @@ public static partial class HttpUtils
     }
 
 #if NET7_0_OR_GREATER
+    /// <summary>
+    /// Gets the status.
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <returns>System.Nullable&lt;HttpStatusCode&gt;.</returns>
     public static HttpStatusCode? GetStatus(this System.Net.Http.HttpRequestException ex) => ex.StatusCode;
 #endif
 

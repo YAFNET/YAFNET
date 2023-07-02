@@ -24,15 +24,19 @@ public class Diagnostics
     /// The instance
     /// </summary>
     private static readonly Diagnostics Instance = new();
+
     /// <summary>
     /// Prevents a default instance of the <see cref="Diagnostics"/> class from being created.
     /// </summary>
-    private Diagnostics() { }
+    private Diagnostics()
+    {
+    }
 
     /// <summary>
     /// The include stack trace
     /// </summary>
     private bool includeStackTrace;
+
     /// <summary>
     /// Gets or sets a value indicating whether [include stack trace].
     /// </summary>
@@ -52,10 +56,12 @@ public class Diagnostics
         /// The service stack
         /// </summary>
         public const string ServiceStack = "ServiceStack";
+
         /// <summary>
         /// The orm lite
         /// </summary>
         public const string OrmLite = "ServiceStack.OrmLite";
+
         /// <summary>
         /// The redis
         /// </summary>
@@ -81,10 +87,12 @@ public class Diagnostics
             /// The write request before
             /// </summary>
             public const string WriteRequestBefore = Prefix + nameof(WriteRequestBefore);
+
             /// <summary>
             /// The write request after
             /// </summary>
             public const string WriteRequestAfter = Prefix + nameof(WriteRequestAfter);
+
             /// <summary>
             /// The write request error
             /// </summary>
@@ -94,10 +102,12 @@ public class Diagnostics
             /// The write gateway before
             /// </summary>
             public const string WriteGatewayBefore = Prefix + nameof(WriteGatewayBefore);
+
             /// <summary>
             /// The write gateway after
             /// </summary>
             public const string WriteGatewayAfter = Prefix + nameof(WriteGatewayAfter);
+
             /// <summary>
             /// The write gateway error
             /// </summary>
@@ -118,10 +128,12 @@ public class Diagnostics
             /// The write command before
             /// </summary>
             public const string WriteCommandBefore = Prefix + nameof(WriteCommandBefore);
+
             /// <summary>
             /// The write command after
             /// </summary>
             public const string WriteCommandAfter = Prefix + nameof(WriteCommandAfter);
+
             /// <summary>
             /// The write command error
             /// </summary>
@@ -131,10 +143,12 @@ public class Diagnostics
             /// The write connection open before
             /// </summary>
             public const string WriteConnectionOpenBefore = Prefix + nameof(WriteConnectionOpenBefore);
+
             /// <summary>
             /// The write connection open after
             /// </summary>
             public const string WriteConnectionOpenAfter = Prefix + nameof(WriteConnectionOpenAfter);
+
             /// <summary>
             /// The write connection open error
             /// </summary>
@@ -144,10 +158,12 @@ public class Diagnostics
             /// The write connection close before
             /// </summary>
             public const string WriteConnectionCloseBefore = Prefix + nameof(WriteConnectionCloseBefore);
+
             /// <summary>
             /// The write connection close after
             /// </summary>
             public const string WriteConnectionCloseAfter = Prefix + nameof(WriteConnectionCloseAfter);
+
             /// <summary>
             /// The write connection close error
             /// </summary>
@@ -162,10 +178,12 @@ public class Diagnostics
             /// The write transaction commit before
             /// </summary>
             public const string WriteTransactionCommitBefore = Prefix + nameof(WriteTransactionCommitBefore);
+
             /// <summary>
             /// The write transaction commit after
             /// </summary>
             public const string WriteTransactionCommitAfter = Prefix + nameof(WriteTransactionCommitAfter);
+
             /// <summary>
             /// The write transaction commit error
             /// </summary>
@@ -175,10 +193,12 @@ public class Diagnostics
             /// The write transaction rollback before
             /// </summary>
             public const string WriteTransactionRollbackBefore = Prefix + nameof(WriteTransactionRollbackBefore);
+
             /// <summary>
             /// The write transaction rollback after
             /// </summary>
             public const string WriteTransactionRollbackAfter = Prefix + nameof(WriteTransactionRollbackAfter);
+
             /// <summary>
             /// The write transaction rollback error
             /// </summary>
@@ -195,18 +215,22 @@ public class Diagnostics
         /// The HTTP begin
         /// </summary>
         public const string HttpBegin = nameof(HttpBegin);
+
         /// <summary>
         /// The HTTP end
         /// </summary>
         public const string HttpEnd = nameof(HttpEnd);
+
         /// <summary>
         /// The operation identifier
         /// </summary>
         public const string OperationId = nameof(OperationId);
+
         /// <summary>
         /// The user identifier
         /// </summary>
         public const string UserId = nameof(UserId);
+
         /// <summary>
         /// The tag
         /// </summary>
@@ -218,11 +242,13 @@ public class Diagnostics
     /// </summary>
     /// <value>The servicestack.</value>
     private DiagnosticListener servicestack { get; set; } = new(Listeners.ServiceStack);
+
     /// <summary>
     /// Gets or sets the ormlite.
     /// </summary>
     /// <value>The ormlite.</value>
     private DiagnosticListener ormlite { get; set; } = new(Listeners.OrmLite);
+
     /// <summary>
     /// Gets or sets the redis.
     /// </summary>
@@ -234,11 +260,13 @@ public class Diagnostics
     /// </summary>
     /// <value>The service stack.</value>
     public static DiagnosticListener ServiceStack => Instance.servicestack;
+
     /// <summary>
     /// Gets the orm lite.
     /// </summary>
     /// <value>The orm lite.</value>
     public static DiagnosticListener OrmLite => Instance.ormlite;
+
     /// <summary>
     /// Gets the redis.
     /// </summary>
@@ -256,18 +284,22 @@ public enum ProfileSource
     /// The none
     /// </summary>
     None = 0,
+
     /// <summary>
     /// The service stack
     /// </summary>
     ServiceStack = 1 << 0,
+
     /// <summary>
     /// The redis
     /// </summary>
     Redis = 1 << 1,
+
     /// <summary>
     /// The orm lite
     /// </summary>
     OrmLite = 1 << 2,
+
     /// <summary>
     /// All
     /// </summary>
@@ -284,61 +316,72 @@ public abstract class DiagnosticEvent
     /// </summary>
     /// <value>The source.</value>
     public virtual string Source => this.GetType().Name.Replace(nameof(DiagnosticEvent), "");
+
     /// <summary>
     /// Gets or sets the type of the event.
     /// </summary>
     /// <value>The type of the event.</value>
-    public string EventType { get; set; }
+    public string? EventType { get; set; }
+
     /// <summary>
     /// Gets or sets the operation identifier.
     /// </summary>
     /// <value>The operation identifier.</value>
     public Guid OperationId { get; set; }
+
     /// <summary>
     /// Gets or sets the operation.
     /// </summary>
     /// <value>The operation.</value>
-    public string Operation { get; set; }
+    public string? Operation { get; set; }
+
     /// <summary>
     /// Gets or sets the trace identifier.
     /// </summary>
     /// <value>The trace identifier.</value>
     public string? TraceId { get; set; }
+
     /// <summary>
     /// Gets or sets the user authentication identifier.
     /// </summary>
     /// <value>The user authentication identifier.</value>
     public string? UserAuthId { get; set; }
+
     /// <summary>
     /// Gets or sets the exception.
     /// </summary>
     /// <value>The exception.</value>
     public Exception? Exception { get; set; }
+
     /// <summary>
     /// Gets or sets the timestamp.
     /// </summary>
     /// <value>The timestamp.</value>
     public long Timestamp { get; set; }
+
     /// <summary>
     /// Gets or sets the diagnostic entry.
     /// </summary>
     /// <value>The diagnostic entry.</value>
-    public object DiagnosticEntry { get; set; }
+    public object? DiagnosticEntry { get; set; }
+
     /// <summary>
     /// Gets or sets the tag.
     /// </summary>
     /// <value>The tag.</value>
     public string? Tag { get; set; }
+
     /// <summary>
     /// Gets or sets the stack trace.
     /// </summary>
     /// <value>The stack trace.</value>
     public string? StackTrace { get; set; }
+
     /// <summary>
     /// Gets or sets the meta.
     /// </summary>
     /// <value>The meta.</value>
-    public Dictionary<string, string> Meta { get; set; }
+    public Dictionary<string, string>? Meta { get; set; }
 }
 
 /// <summary>
@@ -353,26 +396,31 @@ public class OrmLiteDiagnosticEvent : DiagnosticEvent
     /// </summary>
     /// <value>The source.</value>
     public override string Source => "OrmLite";
+
     /// <summary>
     /// Gets or sets the connection identifier.
     /// </summary>
     /// <value>The connection identifier.</value>
     public Guid? ConnectionId { get; set; }
+
     /// <summary>
     /// Gets or sets the connection.
     /// </summary>
     /// <value>The connection.</value>
     public IDbConnection? Connection { get; set; }
+
     /// <summary>
     /// Gets or sets the command.
     /// </summary>
     /// <value>The command.</value>
     public IDbCommand? Command { get; set; }
+
     /// <summary>
     /// Gets or sets the isolation level.
     /// </summary>
     /// <value>The isolation level.</value>
     public IsolationLevel? IsolationLevel { get; set; }
+
     /// <summary>
     /// Gets or sets the name of the transaction.
     /// </summary>
@@ -398,6 +446,7 @@ public static class DiagnosticsUtils
         {
             activity = activity.Parent;
         }
+
         return activity;
     }
 
@@ -407,6 +456,7 @@ public static class DiagnosticsUtils
     /// <param name="activity">The activity.</param>
     /// <returns>System.Nullable&lt;System.String&gt;.</returns>
     public static string? GetTraceId(this Activity? activity) => GetRoot(activity)?.ParentId;
+
     /// <summary>
     /// Gets the user identifier.
     /// </summary>
@@ -414,6 +464,7 @@ public static class DiagnosticsUtils
     /// <returns>System.Nullable&lt;System.String&gt;.</returns>
     public static string? GetUserId(this Activity? activity) =>
         GetRoot(activity)?.GetTagItem(Diagnostics.Activity.UserId) as string;
+
     /// <summary>
     /// Gets the tag.
     /// </summary>
@@ -439,6 +490,7 @@ public static class DiagnosticsUtils
             evt.UserAuthId ??= rootActivity.GetUserId();
             evt.Tag ??= rootActivity.GetTag();
         }
+
         evt.Timestamp = Stopwatch.GetTimestamp();
         return evt;
     }

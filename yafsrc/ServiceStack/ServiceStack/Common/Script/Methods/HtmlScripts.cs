@@ -24,7 +24,6 @@ namespace ServiceStack.Script;
 /// <seealso cref="ServiceStack.Script.IConfigureScriptContext" />
 public class HtmlScripts : ScriptMethods, IConfigureScriptContext
 {
-
     /// <summary>
     /// The evaluate when skipping filter execution
     /// </summary>
@@ -739,7 +738,7 @@ public class HtmlScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="values">The values.</param>
     /// <param name="options">The options.</param>
     /// <returns>IRawString.</returns>
-    /// <exception cref="NotSupportedException">$"Could not convert '{values.GetType().Name}' values into List<string></exception>
+    /// <exception cref="NotSupportedException">$"Could not convert '{values.GetType().Name}' values into List</exception>
     public IRawString htmlOptions(object values, object options)
     {
         if (values == null)
