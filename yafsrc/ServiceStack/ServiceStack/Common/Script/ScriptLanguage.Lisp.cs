@@ -2199,17 +2199,6 @@ public static class Lisp
         /// <summary>
         /// Initializes the globals.
         /// </summary>
-        /// <exception cref="LispEvalException">F requires a string Function Reference, args[0]</exception>
-        /// <exception cref="LispEvalException">C requires a string Constructor Reference, args[0]</exception>
-        /// <exception cref="LispEvalException">new requires Type Name or Type, a[0]</exception>
-        /// <exception cref="LispEvalException">not applicable, f</exception>
-        /// <exception cref="LispEvalException">not integer, a[1]</exception>
-        /// <exception cref="LispEvalException">not IEnumerator, a[0]</exception>
-        /// <exception cref="LispEvalException">not IComparable, varArgs[1]</exception>
-        /// <exception cref="LispEvalException">syntax: (group-by keyFn list) (group-by keyFn { :map mapFn :comparer comparer } list), varArgs.Last()</exception>
-        /// <exception cref="LispEvalException">not IEnumerable, a[1]</exception>
-        /// <exception cref="LispEvalException">syntax: (glob <search> <list>), a[0]</exception>
-        /// <exception cref="Exception">not an IEnumerable</exception>
         public void InitGlobals()
         {
             Globals[TRUE] = Globals[BOOL_TRUE] = TRUE;

@@ -4,33 +4,44 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-#if NET7_0_OR_GREATER && !NETSTANDARD2_0
 
 using System;
+
 using ServiceStack.Text;
 using ServiceStack.Text.Common;
 
-namespace ServiceStack 
-{
-    public class Net7PclExport : NetStandardPclExport
-    {
-        public Net7PclExport()
-        {
-            this.PlatformName = Platforms.Net7;
-            ReflectionOptimizer.Instance = EmitReflectionOptimizer.Provider;            
-        }
+namespace ServiceStack;
 
-        public override ParseStringSpanDelegate GetJsReaderParseStringSpanMethod<TSerializer>(Type type)
+/// <summary>
+/// Class Net7PclExport.
+/// Implements the <see cref="ServiceStack.NetStandardPclExport" />
+/// </summary>
+/// <seealso cref="ServiceStack.NetStandardPclExport" />
+public class Net7PclExport : NetStandardPclExport
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Net7PclExport"/> class.
+    /// </summary>
+    public Net7PclExport()
+    {
+        this.PlatformName = Platforms.Net7;
+        ReflectionOptimizer.Instance = EmitReflectionOptimizer.Provider;            
+    }
+
+    /// <summary>
+    /// Gets the js reader parse string span method.
+    /// </summary>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
+    /// <param name="type">The type.</param>
+    /// <returns>ParseStringSpanDelegate.</returns>
+    public override ParseStringSpanDelegate GetJsReaderParseStringSpanMethod<TSerializer>(Type type)
+    {
+        if (type.IsAssignableFrom(typeof(System.Dynamic.IDynamicMetaObjectProvider)) ||
+            type.HasInterface(typeof(System.Dynamic.IDynamicMetaObjectProvider)))
         {
-            if (type.IsAssignableFrom(typeof(System.Dynamic.IDynamicMetaObjectProvider)) ||
-                type.HasInterface(typeof(System.Dynamic.IDynamicMetaObjectProvider)))
-            {
-                return DeserializeDynamic<TSerializer>.ParseStringSpan;
-            }
-            
-            return null;
+            return DeserializeDynamic<TSerializer>.ParseStringSpan;
         }
+            
+        return null;
     }
 }
-
-#endif

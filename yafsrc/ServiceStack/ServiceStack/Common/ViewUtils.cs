@@ -1412,8 +1412,6 @@ public static class ViewUtils
     /// <param name="tagName">Name of the tag.</param>
     /// <param name="inputOptions">The input options.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.NotSupportedException">input type=radio requires 'values' inputOption containing a collection of Key/Value Pairs</exception>
-    /// <exception cref="System.NotSupportedException"><select> requires either 'values' inputOption containing a collection of Key/Value Pairs or 'html' argument containing innerHTML <option>'s</exception>
     public static string FormControl(IRequest req, Dictionary<string, object> args, string tagName, InputOptions inputOptions)
     {
         tagName ??= "input";

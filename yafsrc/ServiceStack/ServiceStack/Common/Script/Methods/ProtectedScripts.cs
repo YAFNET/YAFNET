@@ -40,7 +40,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="scope">The scope.</param>
     /// <param name="type">The type.</param>
     /// <returns>System.Object.</returns>
-    /// <exception cref="System.NotSupportedException"></exception>
     public object resolve(ScriptScopeContext scope, object type)
     {
         if (type == null)
@@ -178,8 +177,6 @@ public class ProtectedScripts : ScriptMethods
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>Type.</returns>
-    /// <exception cref="System.ArgumentNullException">type</exception>
-    /// <exception cref="System.NotSupportedException">Can only create instances of non public Types when AllowScriptingOfAllTypes=true</exception>
     private Type AssertCanCreateType(Type type)
     {
         if (type == null)
@@ -197,8 +194,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="type">The type.</param>
     /// <param name="argTypes">The argument types.</param>
     /// <returns>ConstructorInfo.</returns>
-    /// <exception cref="System.NotSupportedException">Constructor {typeQualifiedName(type)}({argTypesList}) does not exist</exception>
-    /// <exception cref="System.NotSupportedException">Could not resolve ambiguous constructor {typeQualifiedName(type)}({argTypesList})</exception>
     private ConstructorInfo ResolveConstructor(Type type, Type[] argTypes)
     {
         var argsCount = argTypes.Length;
@@ -266,7 +261,6 @@ public class ProtectedScripts : ScriptMethods
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.ArgumentNullException">type</exception>
     public string typeQualifiedName(Type type)
     {
         if (type == null)
@@ -311,7 +305,6 @@ public class ProtectedScripts : ScriptMethods
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>Type.</returns>
-    /// <exception cref="System.NotSupportedException"></exception>
     public Type assertTypeOf(string name)
     {
         var type = @typeof(name);
@@ -580,9 +573,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="name">The name.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>System.Object.</returns>
-    /// <exception cref="System.ArgumentNullException">instance</exception>
-    /// <exception cref="System.ArgumentNullException">name</exception>
-    /// <exception cref="System.NotSupportedException">Cannot call {invoker.GetType().Name} methods</exception>
     public object call(object instance, string name, List<object> args)
     {
         if (instance == null)
@@ -627,10 +617,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="argsCount">The arguments count.</param>
     /// <param name="invokerDelegate">The invoker delegate.</param>
     /// <returns>MethodInfo.</returns>
-    /// <exception cref="System.NotSupportedException">Property {typeQualifiedName(type)}.{name} does not have a getter</exception>
-    /// <exception cref="System.NotSupportedException">Method {typeQualifiedName(type)}.{name} does not exist</exception>
-    /// <exception cref="System.NotSupportedException">Could not resolve ambiguous method {typeQualifiedName(type)}.{name}({argTypesList})</exception>
-    /// <exception cref="System.NotSupportedException"></exception>
     private MethodInfo ResolveMethod(Type type, string methodName, Type[] argTypes, int? argsCount, out Delegate invokerDelegate)
     {
         invokerDelegate = null;
@@ -754,8 +740,6 @@ public class ProtectedScripts : ScriptMethods
     /// </summary>
     /// <param name="qualifiedConstructorName">Name of the qualified constructor.</param>
     /// <returns>ObjectActivator.</returns>
-    /// <exception cref="System.NotSupportedException">Invalid Constructor Name '{qualifiedConstructorName}', " +
-    ///                                             "format: <type>(<arg-types>), e.g. Uri(String), see: https://sharpscript.net/docs/script-net</exception>
     public ObjectActivator Constructor(string qualifiedConstructorName)
     {
         if (qualifiedConstructorName.IndexOf('(') == -1)
@@ -815,8 +799,6 @@ public class ProtectedScripts : ScriptMethods
     /// </summary>
     /// <param name="qualifiedMethodName">Name of the qualified method.</param>
     /// <returns>Delegate.</returns>
-    /// <exception cref="System.NotSupportedException">Invalid Function Name '{qualifiedMethodName}', " +
-    ///                                             "format: <type>.<method>(<arg-types>), e.g. Console.WriteLine(string), see: https://sharpscript.net/docs/script-net</exception>
     public Delegate Function(string qualifiedMethodName)
     {
         if (qualifiedMethodName.IndexOf('.') == -1)
@@ -842,8 +824,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="qualifiedMethodName">Name of the qualified method.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>Delegate.</returns>
-    /// <exception cref="System.NotSupportedException">Invalid Function Name '{qualifiedMethodName}', " +
-    ///                                             "format: <type>.<method>(<arg-types>), e.g. Console.WriteLine(string), see: https://sharpscript.net/docs/script-net</exception>
     public Delegate Function(string qualifiedMethodName, List<object> args)
     {
         if (qualifiedMethodName.IndexOf('.') == -1)
@@ -863,9 +843,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="name">The name.</param>
     /// <param name="argTypes">The argument types.</param>
     /// <returns>Delegate.</returns>
-    /// <exception cref="System.NotSupportedException">Could not parse Function Name '{name}', " +
-    ///                                             "format: <type>.<method>(<arg-types>), e.g. Console.WriteLine(string)</exception>
-    /// <exception cref="System.NotSupportedException">Could not resolve Argument Type '{splitArgs[i]}' for '{name}'</exception>
     private Delegate ResolveFunction(string name, Type[] argTypes = null)
     {
         var hasArgsList = name.IndexOf('(') >= 0;
@@ -965,7 +942,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="scope">The scope.</param>
     /// <param name="virtualPath">The virtual path.</param>
     /// <returns>IVirtualFile.</returns>
-    /// <exception cref="System.IO.FileNotFoundException"></exception>
     public IVirtualFile ResolveFile(string filterName, ScriptScopeContext scope, string virtualPath)
     {
         var file = ResolveFile(scope.Context.VirtualFiles, scope.PageResult.VirtualPath, virtualPath);
@@ -1494,7 +1470,6 @@ public class ProtectedScripts : ScriptMethods
     /// </summary>
     /// <param name="file">The file.</param>
     /// <returns>System.Object.</returns>
-    /// <exception cref="System.NotSupportedException">fileContents</exception>
     public object fileContents(object file) => file is null
                                                    ? null
                                                    : file is string path
@@ -1566,7 +1541,6 @@ public class ProtectedScripts : ScriptMethods
     /// </summary>
     /// <param name="dataType">Type of the data.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.NotSupportedException">Unknown dataType '{dataType}'</exception>
     private static string ConvertDataTypeToContentType(string dataType)
     {
         switch (dataType)
@@ -1594,7 +1568,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="data">The data.</param>
     /// <param name="contentType">Type of the content.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.NotSupportedException">Can not serialize to unknown Content-Type '{contentType}'</exception>
     private static string ConvertDataToString(object data, string contentType)
     {
         if (data is string s)
@@ -1819,7 +1792,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="scope">The scope.</param>
     /// <param name="cacheNames">The cache names.</param>
     /// <returns>System.Object.</returns>
-    /// <exception cref="System.NotSupportedException">cacheClear</exception>
     public object cacheClear(ScriptScopeContext scope, object cacheNames)
     {
         IEnumerable<string> caches = cacheNames switch {
@@ -1902,9 +1874,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="fileName">Name of the file.</param>
     /// <param name="options">The options.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">`{fileName} {process.StartInfo.Arguments}` command failed: " + error</exception>
-    /// <exception cref="ServiceStack.Script.StopFilterExecutionException"></exception>
-    /// <exception cref="System.Exception">`{fileName} {process.StartInfo.Arguments}` command failed: " + error</exception>
     public string proc(ScriptScopeContext scope, string fileName, Dictionary<string, object> options)
     {
         var process = new Process
@@ -2040,8 +2009,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="from">From.</param>
     /// <param name="to">To.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.ArgumentNullException">from</exception>
-    /// <exception cref="System.ArgumentNullException">to</exception>
     public string mv(ScriptScopeContext scope, string from, string to)
     {
         _ = check(from) ?? throw new ArgumentNullException(nameof(from));
@@ -2057,8 +2024,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="from">From.</param>
     /// <param name="to">To.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.ArgumentNullException">from</exception>
-    /// <exception cref="System.ArgumentNullException">to</exception>
     public string cp(ScriptScopeContext scope, string from, string to)
     {
         _ = check(from) ?? throw new ArgumentNullException(nameof(from));
@@ -2074,8 +2039,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="from">From.</param>
     /// <param name="to">To.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.ArgumentNullException">from</exception>
-    /// <exception cref="System.ArgumentNullException">to</exception>
     public string xcopy(ScriptScopeContext scope, string from, string to)
     {
         _ = check(from) ?? throw new ArgumentNullException(nameof(from));
@@ -2091,8 +2054,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="from">From.</param>
     /// <param name="to">To.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.ArgumentNullException">from</exception>
-    /// <exception cref="System.ArgumentNullException">to</exception>
     public string rm(ScriptScopeContext scope, string from, string to)
     {
         _ = check(from) ?? throw new ArgumentNullException(nameof(from));
@@ -2107,7 +2068,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="scope">The scope.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.ArgumentNullException">target</exception>
     public string rmdir(ScriptScopeContext scope, string target)
     {
         _ = check(target) ?? throw new ArgumentNullException(nameof(target));
@@ -2121,7 +2081,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="scope">The scope.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.ArgumentNullException">target</exception>
     public string mkdir(ScriptScopeContext scope, string target)
     {
         _ = check(target) ?? throw new ArgumentNullException(nameof(target));
@@ -2135,7 +2094,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="scope">The scope.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.ArgumentNullException">target</exception>
     public string cat(ScriptScopeContext scope, string target)
     {
         _ = check(target) ?? throw new ArgumentNullException(nameof(target));
@@ -2149,7 +2107,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="scope">The scope.</param>
     /// <param name="target">The target.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.ArgumentNullException">target</exception>
     public string touch(ScriptScopeContext scope, string target)
     {
         _ = check(target) ?? throw new ArgumentNullException(nameof(target));
@@ -2193,7 +2150,6 @@ public class ProtectedScripts : ScriptMethods
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.NotSupportedException"></exception>
     public string sha256(object target) => target is string s
                                                ? HexHash(SHA256.Create(), s)
                                                : target is byte[] b
@@ -2204,7 +2160,6 @@ public class ProtectedScripts : ScriptMethods
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.NotSupportedException"></exception>
     public string sha512(object target) => target is string s
                                                ? HexHash(SHA512.Create(), s)
                                                : target is byte[] b

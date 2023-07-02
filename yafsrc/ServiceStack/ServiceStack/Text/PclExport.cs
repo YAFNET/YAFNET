@@ -35,23 +35,18 @@ public abstract class PclExport
         /// The net standard
         /// </summary>
         public const string NetStandard = "NETStd";
+
         /// <summary>
         /// The net core
         /// </summary>
         public const string Net7 = "NET7";
-        /// <summary>
-        /// The net48
-        /// </summary>
-        public const string NetFx = "NETFX";
     }
 
     /// <summary>
     /// The instance
     /// </summary>
     public static PclExport Instance
-#if NETFX
-            = new NetFxPclExport()
-#elif NETSTANDARD2_0
+#if NETSTANDARD2_0
           = new NetStandardPclExport()
 #elif NET7_0_OR_GREATER
           = new Net7PclExport()

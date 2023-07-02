@@ -498,5 +498,4 @@ public sealed class NetCoreMemory : MemoryProvider
         ms.Write(source);
         return ms;
     }
-    ´
 }
