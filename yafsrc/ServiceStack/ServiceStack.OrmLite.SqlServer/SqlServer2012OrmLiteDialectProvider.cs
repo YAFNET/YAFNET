@@ -144,6 +144,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// <param name="orderByExpression">The order by expression.</param>
     /// <param name="offset">The offset.</param>
     /// <param name="rows">The rows.</param>
+    /// <param name="tags">The tags.</param>
     /// <returns>System.String.</returns>
     public override string ToSelectStatement(QueryType queryType, ModelDefinition modelDef,
                                              string selectExpression,

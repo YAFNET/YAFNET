@@ -40,6 +40,7 @@ public class Select2TagHelper : TagHelper
     /// Creates a new <see cref="Select2TagHelper"/>.
     /// </summary>
     /// <param name="generator">The <see cref="IHtmlGenerator"/>.</param>
+    /// <param name="metadataProvider">The metadata Provider</param>
     public Select2TagHelper(IHtmlGenerator generator, IModelMetadataProvider metadataProvider)
     {
         this.Generator = generator;

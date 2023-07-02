@@ -57,14 +57,7 @@ public static class CollectionExtensions
     {
         CodeContracts.VerifyNotNull(dictionary);
 
-        if (dictionary.ContainsKey(key))
-        {
-            dictionary[key] = value;
-        }
-        else
-        {
-            dictionary.Add(key, value);
-        }
+        dictionary[key] = value;
     }
 
     /// <summary>

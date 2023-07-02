@@ -96,6 +96,7 @@ public static class OrmLiteWriteApi
     /// <param name="dbConn">The database connection.</param>
     /// <param name="obj">The object.</param>
     /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
+    /// <param name="enableIdentityInsert">Enable Identity Insert</param>
     /// <returns>System.Int64.</returns>
     public static long Insert<T>(this IDbConnection dbConn, T obj, bool selectIdentity = false, bool enableIdentityInsert = false)
     {

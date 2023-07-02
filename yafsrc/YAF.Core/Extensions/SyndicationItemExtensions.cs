@@ -56,6 +56,9 @@ namespace YAF.Core.Extensions
         /// <param name="summary">
         /// The summary.
         /// </param>
+        /// <param name="link">
+        /// The link.
+        /// </param>
         /// <param name="id">
         /// The id.
         /// </param>
@@ -64,9 +67,6 @@ namespace YAF.Core.Extensions
         /// </param>
         /// <param name="feed">
         /// The feed.
-        /// </param>
-        /// <param name="links">
-        /// The links.
         /// </param>
         public static void AddSyndicationItem(
             this List<SyndicationItem> currentList,

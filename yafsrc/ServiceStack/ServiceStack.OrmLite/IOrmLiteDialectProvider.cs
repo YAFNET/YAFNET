@@ -364,6 +364,7 @@ public interface IOrmLiteDialectProvider
     /// <param name="orderByExpression">The order by expression.</param>
     /// <param name="offset">The offset.</param>
     /// <param name="rows">The rows.</param>
+    /// <param name="tags">The tags.</param>
     /// <returns>System.String.</returns>
     string ToSelectStatement(
         QueryType queryType,

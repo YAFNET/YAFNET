@@ -916,16 +916,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets PrivateMessageMaxRecipients.
-    /// </summary>
-    public int PrivateMessageMaxRecipients
-    {
-        get => this.Registry.GetValue("PrivateMessageMaxRecipients", 1);
-
-        set => this.Registry.SetValue("PrivateMessageMaxRecipients", value);
-    }
-
-    /// <summary>
     /// Gets or sets DisableNoFollowLinksAfterDay.
     /// </summary>
     public int DisableNoFollowLinksAfterDay
@@ -1136,16 +1126,6 @@ public class BoardSettings
         get => this.Registry.GetValue("EnableIPInfoService", false);
 
         set => this.Registry.SetValue("EnableIPInfoService", value);
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether EmailVerification.
-    /// </summary>
-    public bool AbandonSessionsForDontTrack
-    {
-        get => this.Registry.GetValue("AbadonSessionsForDontTrack", false);
-
-        set => this.Registry.SetValue("AbadonSessionsForDontTrack", value);
     }
 
     /// <summary>
@@ -1385,19 +1365,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [allow private message attachments].
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if [allow private message attachments]; otherwise, <c>false</c>.
-    /// </value>
-    public bool AllowPrivateMessageAttachments
-    {
-        get => this.Registry.GetValue("AllowPrivateMessageAttachments", true);
-
-        set => this.Registry.SetValue("AllowPrivateMessageeAttachments", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether AllowEmailSending.
     /// </summary>
     public bool AllowEmailSending
@@ -1535,16 +1502,6 @@ public class BoardSettings
         get => this.Registry.GetValue("EnableImageAttachmentResize", true);
 
         set => this.Registry.SetValue("EnableImageAttachmentResize", value);
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether Resize Posted Images.
-    /// </summary>
-    public bool ResizePostedImages
-    {
-        get => this.Registry.GetValue("ResizePostedImages", true);
-
-        set => this.Registry.SetValue("ResizePostedImages", value);
     }
 
     /// <summary>
@@ -1709,16 +1666,6 @@ public class BoardSettings
         get => this.RegistryBoard.GetValue("TopicsFeedItemsCount", 20);
 
         set => this.RegistryBoard.SetValue("TopicsFeedItemsCount", value);
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether to AddDynamicPageMetaTags.
-    /// </summary>
-    public bool AddDynamicPageMetaTags
-    {
-        get => this.Registry.GetValue("AddDynamicPageMetaTags", true);
-
-        set => this.Registry.SetValue("AddDynamicPageMetaTags", value);
     }
 
     /// <summary>

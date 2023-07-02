@@ -130,17 +130,18 @@ public interface ITypeSerializer
     /// <param name="writer">The writer.</param>
     /// <param name="dateTimeOffset">The date time offset.</param>
     void WriteNullableDateTimeOffset(TextWriter writer, object dateTimeOffset);
+
     /// <summary>
     /// Writes the time span.
     /// </summary>
     /// <param name="writer">The writer.</param>
-    /// <param name="dateTimeOffset">The date time offset.</param>
+    /// <param name="timeSpan">The date time offset.</param>
     void WriteTimeSpan(TextWriter writer, object timeSpan);
     /// <summary>
     /// Writes the nullable time span.
     /// </summary>
     /// <param name="writer">The writer.</param>
-    /// <param name="dateTimeOffset">The date time offset.</param>
+    /// <param name="timeSpan">The date time offset.</param>
     void WriteNullableTimeSpan(TextWriter writer, object timeSpan);
     /// <summary>
     /// Writes the unique identifier.

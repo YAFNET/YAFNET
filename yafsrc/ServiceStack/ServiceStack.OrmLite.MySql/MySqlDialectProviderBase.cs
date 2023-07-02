@@ -1086,6 +1086,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <summary>
     /// Gets the drop primary key constraint.
     /// </summary>
+    /// <param name="database">the database name.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>

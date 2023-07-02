@@ -1096,11 +1096,20 @@ public static class MessageRepositoryExtensions
     /// <param name="overrideApproval">
     /// The override approval.
     /// </param>
+    /// <param name="topic">
+    /// The Topic
+    /// </param>
     /// <param name="originalMessage">
     /// The original Message.
     /// </param>
+    /// <param name="originalMessageUser">
+    /// The Original Message User.
+    /// </param>
     /// <param name="editedBy">
     /// UserId of who edited the message.
+    /// </param>
+    /// <param name="forum">
+    /// The Forum.
     /// </param>
     public static void Update(
         this IRepository<Message> repository,

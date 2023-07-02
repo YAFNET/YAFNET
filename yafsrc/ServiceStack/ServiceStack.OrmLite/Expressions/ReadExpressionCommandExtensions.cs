@@ -162,6 +162,7 @@ internal static class ReadExpressionCommandExtensions
     /// <typeparam name="T5">The type of the t5.</typeparam>
     /// <typeparam name="T6">The type of the t6.</typeparam>
     /// <typeparam name="T7">The type of the t7.</typeparam>
+    /// <typeparam name="T8">The type of the t8.</typeparam>
     /// <param name="q">The q.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>System.String.</returns>

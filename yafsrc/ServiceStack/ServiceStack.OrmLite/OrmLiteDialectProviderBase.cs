@@ -927,6 +927,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="orderByExpression">The order by expression.</param>
     /// <param name="offset">The offset.</param>
     /// <param name="rows">The rows.</param>
+    /// <param name="tags">The tags.</param>
     /// <returns>System.String.</returns>
     public virtual string ToSelectStatement(
         QueryType queryType,
@@ -2795,7 +2796,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     /// <summary>Gets the add composite primary key sql command.</summary>
-    /// <param name="database">The database.</param>
+    /// <param name="database">The database name.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="fieldNameA">The field name a.</param>
     /// <param name="fieldNameB">The field name b.</param>
@@ -2816,6 +2817,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <summary>
     /// Gets the drop primary key constraint.
     /// </summary>
+    /// <param name="database">The database name.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>

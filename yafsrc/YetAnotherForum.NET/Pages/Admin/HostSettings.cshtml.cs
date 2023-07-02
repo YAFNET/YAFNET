@@ -600,13 +600,9 @@ public class HostSettingsModel : AdminPage
 
         public bool ShowRulesForRegistration { get; set; }
 
-        public bool AllowPrivateMessageAttachments { get; set; }
-
         public bool EnableAlbum { get; set; }
 
         public bool EnableImageAttachmentResize { get; set; }
-
-        public bool ResizePostedImages { get; set; }
 
         public bool UseReadTrackingByDatabase { get; set; }
 
@@ -815,8 +811,6 @@ public class HostSettingsModel : AdminPage
         public string TwitterUserName { get; set; }
 
         public int PollImageMaxFileSize { get; set; }
-
-        public int PrivateMessageMaxRecipients { get; set; }
 
         public int PopularTopicViews { get; set; }
 

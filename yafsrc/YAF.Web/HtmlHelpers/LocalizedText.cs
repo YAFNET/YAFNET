@@ -75,6 +75,9 @@ public static class LocalizedTextHtmlHelper
     /// <param name="tag">
     /// The tag.
     /// </param>
+    /// <param name="args">
+    /// The parameters
+    /// </param>
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>

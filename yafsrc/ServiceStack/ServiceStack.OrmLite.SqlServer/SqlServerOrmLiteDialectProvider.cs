@@ -800,9 +800,10 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <summary>
         /// Converts to changecolumnnamestatement.
         /// </summary>
-        /// <param name="modelType">Type of the model.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="table">The table.</param>
         /// <param name="fieldDef">The field definition.</param>
-        /// <param name="oldColumnName">Old name of the column.</param>
+        /// <param name="oldColumn">The old column.</param>
         /// <returns>System.String.</returns>
         public override string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn)
         {
@@ -1278,6 +1279,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="orderByExpression">The order by expression.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="rows">The rows.</param>
+        /// <param name="tags">The tags.</param>
         /// <returns>System.String.</returns>
         /// <exception cref="System.ArgumentException">Skip value:'{offset.Value}' must be>=0</exception>
         /// <exception cref="System.ArgumentException">Rows value:'{rows.Value}' must be>=0</exception>

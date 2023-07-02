@@ -202,6 +202,9 @@ public static class CategoryListHelpers
     /// <summary>
     /// Get moderators.
     /// </summary>
+    /// <param name="htmlHelper">
+    /// The html helper.
+    /// </param>
     /// <param name="item">
     /// The item.
     /// </param>
@@ -254,6 +257,9 @@ public static class CategoryListHelpers
     ///   Automatically disables the link if the current user doesn't
     ///   have proper permissions.
     /// </summary>
+    /// <param name="htmlHelper">
+    /// The html helper.
+    /// </param>
     /// <param name="item">
     /// The item.
     /// </param>

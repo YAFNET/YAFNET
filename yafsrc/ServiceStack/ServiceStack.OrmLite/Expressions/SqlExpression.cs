@@ -3279,6 +3279,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// Gets the table alias.
     /// </summary>
     /// <param name="m">The m.</param>
+    /// <param name="tableDef">the table definition.</param>
     /// <returns>string.</returns>
     protected virtual string GetTableAlias(MemberExpression m, ModelDefinition tableDef)
     {

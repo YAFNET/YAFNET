@@ -30,14 +30,10 @@ internal class EOT { }
 public static class OrmLiteUtils
 {
     /// <summary>
-    /// The asynchronous requires net45 error
-    /// </summary>
-    internal const string AsyncRequiresNet45Error = "Async support is only available in .NET 4.5 builds";
-
-    /// <summary>
     /// The maximum cached index fields
     /// </summary>
     private const int maxCachedIndexFields = 10000;
+
     /// <summary>
     /// The index fields cache
     /// </summary>
@@ -54,6 +50,7 @@ public static class OrmLiteUtils
     /// </summary>
     /// <param name="ex">The ex.</param>
     /// <param name="message">The message.</param>
+    /// <param name="args">The arguments.</param>
     public static void HandleException(Exception ex, string message = null, params object[] args)
     {
         if (OrmLiteConfig.ThrowOnError)

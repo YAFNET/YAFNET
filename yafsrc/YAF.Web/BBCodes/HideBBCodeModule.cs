@@ -41,16 +41,16 @@ public class HideBBCodeModule : BBCodeControl
 
         var postsCount = -1;
 
-        if (this.Parameters.ContainsKey("posts"))
+        if (this.Parameters.TryGetValue("posts", out var parameter))
         {
-            postsCount = int.Parse(this.Parameters["posts"]);
+            postsCount = int.Parse(parameter);
         }
 
         var thanksCount = -1;
 
-        if (this.Parameters.ContainsKey("thanks"))
+        if (this.Parameters.TryGetValue("thanks", out var parameter1))
         {
-            thanksCount = int.Parse(this.Parameters["thanks"]);
+            thanksCount = int.Parse(parameter1);
         }
 
         var messageId = this.MessageID;

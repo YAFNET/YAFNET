@@ -295,8 +295,9 @@ public abstract class AbstractVirtualPathProviderBase : IVirtualPathProvider
     /// Appends the file.
     /// </summary>
     /// <param name="path">The path.</param>
-    /// <exception cref="System.NotSupportedException"></exception>
-    // Can implement all async APIs here
+    /// <param name="contents">The contents.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>Task.</returns>
     public virtual Task WriteFileAsync(string path, object contents, CancellationToken token = default)
     {
         WriteFile(path, contents);
@@ -307,9 +308,14 @@ public abstract class AbstractVirtualPathProviderBase : IVirtualPathProvider
     /// Appends the file.
     /// </summary>
     /// <param name="path">The path.</param>
-    /// <exception cref="System.NotSupportedException"></exception>
+    /// <param name="text">The text.</param>
     public virtual void AppendFile(string path, ReadOnlyMemory<char> text) => AssertVirtualFiles().AppendFile(path, text.ToString());
 
+    /// <summary>
+    /// Appends the file.
+    /// </summary>
+    /// <param name="path">The path.</param>
+    /// <param name="bytes">The bytes.</param>
     public virtual void AppendFile(string path, ReadOnlyMemory<byte> bytes) => AssertVirtualFiles().AppendFile(path, ToMemoryStream(bytes));
 
     /// <summary>

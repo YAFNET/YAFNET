@@ -62,6 +62,7 @@ public class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
     /// <param name="injectServices">
     /// The inject Services.
     /// </param>
+    /// <param name="httpContextAccessor">the HttpContext Accessor</param>
     public BoardContextPageProvider(ILifetimeScope lifetimeScope, IInjectServices injectServices, IHttpContextAccessor httpContextAccessor)
     {
         this.lifetimeScope = lifetimeScope;

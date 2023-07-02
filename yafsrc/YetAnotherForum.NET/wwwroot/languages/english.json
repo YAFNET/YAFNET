@@ -4866,14 +4866,6 @@
                     "#text": "Maximum size of image in bytes a user can upload."
                 },
                 {
-                    "@tag": "MAX_PM_RECIPIENTS",
-                    "#text": "Max no. of PM Recipients:"
-                },
-                {
-                    "@tag": "MAX_PM_RECIPIENTS_HELP",
-                    "#text": "Maximum allowed recipients per on PM sent (0 = unlimited)"
-                },
-                {
                     "@tag": "MAX_POST_CHARS",
                     "#text": "Max Report Post Length:"
                 },

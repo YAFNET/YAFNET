@@ -449,15 +449,6 @@
 <div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachments-tab">
     <div class="mb-3">
         <label class="form-label" info-button="true"
-               asp-for="Input.AllowPrivateMessageAttachments"
-               localized-tag="PM_ATTACHMENTS"></label>
-        <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input" asp-for="Input.AllowPrivateMessageAttachments" />
-
-        </div>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" info-button="true"
                asp-for="Input.MaxFileSize"
                localized-tag="MAX_FILESIZE"></label>
         <input type="text" class="form-control" asp-for="Input.MaxFileSize" />
@@ -507,22 +498,12 @@
                localized-tag="DISPLAY_TRESHOLD_IMGATTACH"></label>
         <input type="number" class="form-control" asp-for="Input.PictureAttachmentDisplayTreshold" />
     </div>
-    <div class="row">
-        <div class="mb-3 col-md-6">
-            <label class="form-label" info-button="true"
-                   asp-for="Input.EnableImageAttachmentResize"
-                   localized-tag="IMAGE_ATTACH_RESIZE"></label>
-            <div class="form-check form-switch">
-                <input type="checkbox" class="form-check-input" asp-for="Input.EnableImageAttachmentResize"  />
-            </div>
-        </div>
-        <div class="mb-3 col-md-6">
-            <label class="form-label" info-button="true"
-                   asp-for="Input.ResizePostedImages"
-                   localized-tag="POSTED_IMAGE_RESIZE"></label>
-            <div class="form-check form-switch">
-                <input type="checkbox" class="form-check-input" asp-for="Input.ResizePostedImages"  />
-            </div>
+    <div class="mb-3">
+        <label class="form-label" info-button="true"
+               asp-for="Input.EnableImageAttachmentResize"
+               localized-tag="IMAGE_ATTACH_RESIZE"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-input" asp-for="Input.EnableImageAttachmentResize"  />
         </div>
     </div>
     <div class="row">
@@ -861,12 +842,6 @@
                 <input type="checkbox" class="form-check-input" asp-for="Input.AllowPMEmailNotification"/>
             </div>
         </div>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" info-button="true"
-               asp-for="Input.PrivateMessageMaxRecipients"
-               localized-tag="MAX_PM_RECIPIENTS"></label>
-        <input type="number" class="form-control" asp-for="Input.PrivateMessageMaxRecipients" />
     </div>
 </div>
 <div class="tab-pane fade" id="hot" role="tabpanel" aria-labelledby="hot-tab">
