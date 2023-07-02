@@ -32,6 +32,7 @@ public class TableOptions
     /// </summary>
     /// <value>The expression.</value>
     public string Expression { get; set; }
+
     /// <summary>
     /// Gets or sets the alias.
     /// </summary>
@@ -42,10 +43,12 @@ public class TableOptions
     /// The join format
     /// </summary>
     internal JoinFormatDelegate JoinFormat;
+
     /// <summary>
     /// The model definition
     /// </summary>
     internal ModelDefinition ModelDef;
+
     /// <summary>
     /// The parameter name
     /// </summary>
@@ -58,7 +61,6 @@ public class TableOptions
 /// Implements the <see cref="ServiceStack.OrmLite.IHasUntypedSqlExpression" />
 /// Implements the <see cref="ServiceStack.OrmLite.IHasDialectProvider" />
 /// </summary>
-/// <typeparam name="T">The Typed Parameter</typeparam>
 /// <seealso cref="ServiceStack.OrmLite.ISqlExpression" />
 /// <seealso cref="ServiceStack.OrmLite.IHasUntypedSqlExpression" />
 /// <seealso cref="ServiceStack.OrmLite.IHasDialectProvider" />

@@ -17,13 +17,7 @@ internal class FeatureSupport
     /// <summary>
     /// The default
     /// </summary>
-    private static readonly FeatureSupport
-        Default = new(false),
-
-        /// <summary>
-        /// The postgres
-        /// </summary>
-        Postgres = new(true);
+    private static readonly FeatureSupport Default = new(false), Postgres = new(true);
 
     /// <summary>
     /// Gets the feature set based on the passed connection

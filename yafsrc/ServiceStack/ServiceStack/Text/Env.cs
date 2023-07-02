@@ -29,21 +29,24 @@ public static class Env
             throw new ArgumentException("PclExport.Instance needs to be initialized");
 
 #if NET7_0_OR_GREATER
-            IsNetStandard = true;
-            try
-            {
-                IsLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
-                IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-                IsOSX  = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+        IsNetStandard = true;
+        try
+        {
+            IsLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+            IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+            IsOSX = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 
-                var fxDesc = RuntimeInformation.FrameworkDescription;
-                IsMono = fxDesc.Contains("Mono");
-                IsNetCore = fxDesc.StartsWith(".NET Core", StringComparison.OrdinalIgnoreCase);
-            }
-            catch (Exception) {} //throws PlatformNotSupportedException in AWS lambda
-            IsUnix = IsOSX || IsLinux;
-            HasMultiplePlatformTargets = true;
-            IsUWP = IsRunningAsUwp();
+            var fxDesc = RuntimeInformation.FrameworkDescription;
+            IsMono = fxDesc.Contains("Mono");
+            IsNetCore = fxDesc.StartsWith(".NET Core", StringComparison.OrdinalIgnoreCase);
+        }
+        catch (Exception)
+        {
+        } //throws PlatformNotSupportedException in AWS lambda
+
+        IsUnix = IsOSX || IsLinux;
+        HasMultiplePlatformTargets = true;
+        IsUWP = IsRunningAsUwp();
 #elif NETFX
         IsNetFramework = true;
         switch (Environment.OSVersion.Platform)
@@ -78,13 +81,13 @@ public static class Env
 #endif
 
 #if NET7_0_OR_GREATER
-            IsNetStandard = false;
-            IsNetCore = true;
-            SupportsDynamic = true;
+        IsNetStandard = false;
+        IsNetCore = true;
+        SupportsDynamic = true;
 #endif
 
 #if NET7_0
-            IsNet7 = true;
+        IsNet7 = true;
 #endif
 
         if (!IsUWP)
@@ -269,90 +272,98 @@ public static class Env
     public static DateTime GetReleaseDate() => new(2001, 01, 01);
 
 #if NET7_0_OR_GREATER
-        private static bool IsRunningAsUwp()
+    private static bool IsRunningAsUwp()
+    {
+        try
         {
+            IsNetNative = RuntimeInformation.FrameworkDescription.StartsWith(
+                ".NET Native",
+                StringComparison.OrdinalIgnoreCase);
+            return IsInAppContainer || IsNetNative;
+        }
+        catch (Exception)
+        {
+        }
+
+        return false;
+    }
+
+    private static bool IsWindows7OrLower
+    {
+        get
+        {
+            int versionMajor = Environment.OSVersion.Version.Major;
+            int versionMinor = Environment.OSVersion.Version.Minor;
+            double version = versionMajor + (double)versionMinor / 10;
+            return version <= 6.1;
+        }
+    }
+
+    // From: https://github.com/dotnet/corefx/blob/master/src/CoreFx.Private.TestUtilities/src/System/PlatformDetection.Windows.cs
+    private static int s_isInAppContainer = -1;
+
+    private static bool IsInAppContainer
+    {
+        // This actually checks whether code is running in a modern app.
+        // Currently this is the only situation where we run in app container.
+        // If we want to distinguish the two cases in future,
+        // EnvironmentHelpers.IsAppContainerProcess in desktop code shows how to check for the AC token.
+        get
+        {
+            if (s_isInAppContainer != -1)
+                return s_isInAppContainer == 1;
+
+            if (!IsWindows || IsWindows7OrLower)
+            {
+                s_isInAppContainer = 0;
+                return false;
+            }
+
+            byte[] buffer = TypeConstants.EmptyByteArray;
+            uint bufferSize = 0;
             try
             {
-                IsNetNative = RuntimeInformation.FrameworkDescription.StartsWith(".NET Native", StringComparison.OrdinalIgnoreCase);
-                return IsInAppContainer || IsNetNative;
-            }
-            catch (Exception) {}
-            return false;
-        }
-
-        private static bool IsWindows7OrLower
-        {
-            get
-            {
-                int versionMajor = Environment.OSVersion.Version.Major;
-                int versionMinor = Environment.OSVersion.Version.Minor;
-                double version = versionMajor + (double)versionMinor / 10;
-                return version <= 6.1;
-            }
-        }
-
-        // From: https://github.com/dotnet/corefx/blob/master/src/CoreFx.Private.TestUtilities/src/System/PlatformDetection.Windows.cs
-        private static int s_isInAppContainer = -1;
-        private static bool IsInAppContainer
-        {
-            // This actually checks whether code is running in a modern app.
-            // Currently this is the only situation where we run in app container.
-            // If we want to distinguish the two cases in future,
-            // EnvironmentHelpers.IsAppContainerProcess in desktop code shows how to check for the AC token.
-            get
-            {
-                if (s_isInAppContainer != -1)
-                    return s_isInAppContainer == 1;
-
-                if (!IsWindows || IsWindows7OrLower)
+                int result = GetCurrentApplicationUserModelId(ref bufferSize, buffer);
+                switch (result)
                 {
-                    s_isInAppContainer = 0;
-                    return false;
-                }
-
-                byte[] buffer = TypeConstants.EmptyByteArray;
-                uint bufferSize = 0;
-                try
-                {
-                    int result = GetCurrentApplicationUserModelId(ref bufferSize, buffer);
-                    switch (result)
-                    {
-                        case 15703: // APPMODEL_ERROR_NO_APPLICATION
-                            s_isInAppContainer = 0;
-                            break;
-                        case 0:     // ERROR_SUCCESS
-                        case 122:   // ERROR_INSUFFICIENT_BUFFER
-                                    // Success is actually insufficient buffer as we're really only looking for
-                                    // not NO_APPLICATION and we're not actually giving a buffer here. The
-                                    // API will always return NO_APPLICATION if we're not running under a
-                                    // WinRT process, no matter what size the buffer is.
-                            s_isInAppContainer = 1;
-                            break;
-                        default:
-                            throw new InvalidOperationException($"Failed to get AppId, result was {result}.");
-                    }
-                }
-                catch (Exception e)
-                {
-                    // We could catch this here, being friendly with older portable surface area should we
-                    // desire to use this method elsewhere.
-                    if (e.GetType().FullName.Equals("System.EntryPointNotFoundException", StringComparison.Ordinal))
-                    {
-                        // API doesn't exist, likely pre Win8
+                    case 15703: // APPMODEL_ERROR_NO_APPLICATION
                         s_isInAppContainer = 0;
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                        break;
+                    case 0: // ERROR_SUCCESS
+                    case 122: // ERROR_INSUFFICIENT_BUFFER
+                        // Success is actually insufficient buffer as we're really only looking for
+                        // not NO_APPLICATION and we're not actually giving a buffer here. The
+                        // API will always return NO_APPLICATION if we're not running under a
+                        // WinRT process, no matter what size the buffer is.
+                        s_isInAppContainer = 1;
+                        break;
+                    default:
+                        throw new InvalidOperationException($"Failed to get AppId, result was {result}.");
                 }
-
-                return s_isInAppContainer == 1;
             }
-        }
+            catch (Exception e)
+            {
+                // We could catch this here, being friendly with older portable surface area should we
+                // desire to use this method elsewhere.
+                if (e.GetType().FullName.Equals("System.EntryPointNotFoundException", StringComparison.Ordinal))
+                {
+                    // API doesn't exist, likely pre Win8
+                    s_isInAppContainer = 0;
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-        [DllImport("kernel32.dll", ExactSpelling = true)]
-        private static extern int GetCurrentApplicationUserModelId(ref uint applicationUserModelIdLength, byte[] applicationUserModelId);
+            return s_isInAppContainer == 1;
+        }
+    }
+
+    [DllImport("kernel32.dll", ExactSpelling = true)]
+    private static extern int GetCurrentApplicationUserModelId(
+        ref uint applicationUserModelIdLength,
+        byte[] applicationUserModelId);
 #endif
 
     /// <summary>
@@ -366,8 +377,7 @@ public static class Env
     /// <param name="task">The task.</param>
     /// <returns>ConfiguredTaskAwaitable.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ConfiguredTaskAwaitable ConfigAwait(this Task task) =>
-        task.ConfigureAwait(ContinueOnCapturedContext);
+    public static ConfiguredTaskAwaitable ConfigAwait(this Task task) => task.ConfigureAwait(ContinueOnCapturedContext);
 
     /// <summary>
     /// Configurations the await.
@@ -404,18 +414,22 @@ public static class Env
     public static Task<T> ConfigAwaitNetCore<T>(this Task<T> task) => task;
 #endif
 
-#if NET7_0_OR_GREATER
     /// <summary>
-    /// Config Await
+    /// Configurations the await.
     /// </summary>
     /// <param name="task">The task.</param>
-    /// <returns></returns>
+    /// <returns>ConfiguredValueTaskAwaitable.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task) => 
-            task.ConfigureAwait(ContinueOnCapturedContext);
+    public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task) =>
+        task.ConfigureAwait(ContinueOnCapturedContext);
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ConfiguredValueTaskAwaitable<T> ConfigAwait<T>(this ValueTask<T> task) => 
-            task.ConfigureAwait(ContinueOnCapturedContext);
-#endif
+    /// <summary>
+    /// Configurations the await.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="task">The task.</param>
+    /// <returns>ConfiguredValueTaskAwaitable&lt;T&gt;.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ConfiguredValueTaskAwaitable<T> ConfigAwait<T>(this ValueTask<T> task) =>
+        task.ConfigureAwait(ContinueOnCapturedContext);
 }

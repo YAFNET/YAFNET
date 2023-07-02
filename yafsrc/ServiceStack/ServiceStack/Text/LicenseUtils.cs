@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -1069,16 +1070,16 @@ public static class LicenseUtils
     /// <param name="SignedData">The signed data.</param>
     /// <param name="Key">The key.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool VerifySignedHash(byte[] DataToVerify, byte[] SignedData, System.Security.Cryptography.RSAParameters Key)
+    public static bool VerifySignedHash(byte[] DataToVerify, byte[] SignedData, RSAParameters Key)
     {
         try
         {
-            var RSAalg = new System.Security.Cryptography.RSACryptoServiceProvider(2048);
+            var RSAalg = new RSACryptoServiceProvider(2048);
             RSAalg.ImportParameters(Key);
             return RSAalg.VerifySha1Data(DataToVerify, SignedData);
 
         }
-        catch (System.Security.Cryptography.CryptographicException ex)
+        catch (CryptographicException ex)
         {
             Tracer.Instance.WriteError(ex);
             return false;
@@ -1283,13 +1284,12 @@ public static class LicenseUtils
     /// <summary>
     /// Verifies the sha1 data.
     /// </summary>
-    /// <param name="RSAalg">The rs aalg.</param>
+    /// <param name="rsAalg">The rs aalg.</param>
     /// <param name="unsignedData">The unsigned data.</param>
     /// <param name="encryptedData">The encrypted data.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool VerifySha1Data(this System.Security.Cryptography.RSACryptoServiceProvider RSAalg, byte[] unsignedData, byte[] encryptedData)
+    public static bool VerifySha1Data(this RSACryptoServiceProvider rsAalg, byte[] unsignedData, byte[] encryptedData)
     {
-        using var sha = new System.Security.Cryptography.SHA1CryptoServiceProvider();
-        return RSAalg.VerifyData(unsignedData, sha, encryptedData);
+        return rsAalg.VerifyData(unsignedData, CryptoConfig.MapNameToOID("SHA1")!, encryptedData);
     }
 }
